@@ -9,12 +9,12 @@ export const Config = {
     // -------------------------------------------------------------
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.0.0",
+        version: "2.1.0",
         adminTag: "admin", // 拥有此 tag 或 op 的玩家拥有管理员权限
         menuItem: "minecraft:compass", // 右键唤起主菜单的物品 ID
         menuItemName: "§r§l§6快捷导航菜单 §7(右键使用)",
         giveMenuItemOnJoin: true, // 新玩家加入时是否赠送菜单罗盘
-        chatPrefixes: ["!menu", "!cd", "!caidan", "！菜单", "!shop", "!land", "!lottery", "!pay", "!money"],
+        chatPrefixes: ["!menu", "!cd", "!caidan", "！菜单", "!shop", "!land", "!lottery", "!market", "!ah", "!pay", "!money"],
     },
 
     // -------------------------------------------------------------
@@ -27,6 +27,16 @@ export const Config = {
         initialBalance: 1000, // 新玩家初始金币
         minTransferAmount: 1, // 最低转账金额
         maxTransferAmount: 10000000, // 单次最高转账金额
+    },
+
+    // -------------------------------------------------------------
+    // 玩家寄卖行
+    // -------------------------------------------------------------
+    market: {
+        feeRate: 0.10,
+        maxListings: 200,
+        maxListingsPerPlayer: 10,
+        maxUnitPrice: 100000000,
     },
 
     // -------------------------------------------------------------

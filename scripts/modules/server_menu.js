@@ -6,6 +6,7 @@ import { EconomyManager } from "./economy.js";
 import { ShopManager } from "./shop.js";
 import { LandManager } from "./land.js";
 import { LotteryManager } from "./lottery.js";
+import { MarketManager } from "./market.js";
 import { Integration } from "./integration.js";
 
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
@@ -34,6 +35,7 @@ export class ServerMenuManager {
         add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/ui/MCStore_Gold_large", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
         add("§l§d🎁 幸运抽奖\n§r§8按已安装内容动态生成奖池", "textures/ui/gift_square", () => LotteryManager.openLotteryMainUI(player, () => this.openMainMenu(player)));
+        add("§l§6🏪 玩家寄卖行\n§r§8自由定价交易，成交收取10%费率", "textures/ui/MCStore_Gold_large", () => MarketManager.openMainUI(player, () => this.openMainMenu(player)));
         if (lotmReady) {
             add("§l§5🔮 诡秘非凡秘典\n§r§8查看途径、序列与能力", "textures/items/potion_seer", () => Integration.send(player, "lotm:open"));
         }
@@ -57,6 +59,7 @@ export class ServerMenuManager {
         add("§l§4🗑️ 强制删除当前地皮", "textures/ui/trash", () => this.forceDeleteCurrentPlot(player, onBack));
         add("§l§e📢 发布全服公告", "textures/ui/accessibility_glyph_color", () => this.openBroadcastModal(player, onBack));
         add("§l§a🎁 全服发放福利金币", "textures/ui/gift_square", () => this.openGiftAllModal(player, onBack));
+        add("§l§d🎰 自定义奖池与保底", "textures/ui/gift_square", () => LotteryManager.openAdminPoolManager(player, () => this.openAdminPanel(player, onBack)));
         if (Integration.isLotmAvailable()) {
             add("§l§5🔮 LOTM 调试控制台", "textures/items/potion_magician", () => Integration.send(player, "lotm:admin"));
         }

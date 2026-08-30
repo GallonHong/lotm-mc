@@ -27,7 +27,7 @@ cp "${repo_root}/pack_icon.png" "${server_bp}/pack_icon.png"
 cp "${repo_root}/scripts/server_main.js" "${server_bp}/scripts/main.js"
 cp "${repo_root}/scripts/config.js" "${server_bp}/scripts/config.js"
 cp "${repo_root}/scripts/utils.js" "${server_bp}/scripts/utils.js"
-for module in economy shop land lottery server_menu integration; do
+for module in economy shop land lottery market server_menu integration; do
   cp "${repo_root}/scripts/modules/${module}.js" "${server_bp}/scripts/modules/${module}.js"
 done
 

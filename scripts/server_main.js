@@ -5,15 +5,16 @@ import { EconomyManager } from "./modules/economy.js";
 import { ShopManager } from "./modules/shop.js";
 import { LandManager } from "./modules/land.js";
 import { LotteryManager } from "./modules/lottery.js";
+import { MarketManager } from "./modules/market.js";
 import { ServerMenuManager } from "./modules/server_menu.js";
 import { Integration } from "./modules/integration.js";
 
 function initServerSystem() {
-    console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Economy v2.0.0...`);
+    console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Economy v2.1.0...`);
     try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
     LandManager.registerProtectionEvents();
     Integration.startServerHeartbeat();
-    console.warn("[SAPI Server] Economy, Shop, Land, Lottery and integration bridge initialized.");
+    console.warn("[SAPI Server] Economy, Shop, Land, Lottery, Market and integration bridge initialized.");
 }
 
 system.run(initServerSystem);
@@ -21,6 +22,7 @@ system.run(initServerSystem);
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     if (!Utils.isValid(player)) return;
     EconomyManager.getBalance(player);
+    MarketManager.claimPendingPayout(player, initialSpawn);
     if (!initialSpawn) return;
     Utils.tell(player, `§a欢迎来到 ${Config.system.serverName} §a服务器！`);
     Utils.tell(player, "§7手持罗盘右键可打开服务器菜单。");
@@ -54,6 +56,9 @@ function handleChat(event) {
         "!shop": () => ShopManager.openShopCategoryUI(player),
         "!land": () => LandManager.openPlotMainUI(player),
         "!lottery": () => LotteryManager.openLotteryMainUI(player),
+        "!market": () => MarketManager.openMainUI(player),
+        "!ah": () => MarketManager.openMainUI(player),
+        "!寄卖": () => MarketManager.openMainUI(player),
         "!pay": () => EconomyManager.openTransferUI(player),
         "!money": () => EconomyManager.openBankUI(player),
         "!admin": () => ServerMenuManager.openAdminPanel(player),
@@ -78,6 +83,7 @@ if (scriptEvents?.subscribe) {
         else if (["system:shop", "gui:shop", "shop:open"].includes(id)) ShopManager.openShopCategoryUI(player);
         else if (["system:land", "gui:land", "land:open"].includes(id)) LandManager.openPlotMainUI(player);
         else if (["system:lottery", "gui:lottery", "lottery:open"].includes(id)) LotteryManager.openLotteryMainUI(player);
+        else if (["system:market", "gui:market", "market:open"].includes(id)) MarketManager.openMainUI(player);
         else if (["system:bank", "gui:bank", "bank:open"].includes(id)) EconomyManager.openBankUI(player);
     });
 }
