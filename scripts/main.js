@@ -181,6 +181,23 @@ world.afterEvents.entityHurt.subscribe((event) => {
     const player = /** @type {import("@minecraft/server").Player} */ (hurtEntity);
     if (!Utils.isValid(player)) return;
 
+    // 纵火家火焰铠甲：原版近战和非凡攻击都通过受击事件统一触发一次反击。
+    const fireArmorUntil = Utils.getProp(player, "lotm:hunter_fire_armor_until", 0);
+    if (
+        fireArmorUntil > system.currentTick &&
+        attacker && Utils.isValid(attacker) &&
+        damageSource?.cause !== "fire"
+    ) {
+        const distance = Math.hypot(
+            attacker.location.x - player.location.x,
+            attacker.location.z - player.location.z
+        );
+        if (distance <= 4) {
+            try { attacker.applyDamage(4, { damagingEntity: player, cause: "fire" }); } catch {}
+            try { attacker.setOnFire(2, true); } catch {}
+        }
+    }
+
     // 记录进入战斗 tick
     LotmManager.playerInCombat.set(player.id, system.currentTick);
 
@@ -308,6 +325,13 @@ function handleChatCommand(event) {
             女巫: "assassin",
             刺客: "assassin",
             教唆者: "assassin",
+            tyrant: "tyrant",
+            sailor: "tyrant",
+            seafarer: "tyrant",
+            暴君: "tyrant",
+            水手: "tyrant",
+            暴怒之民: "tyrant",
+            航海家: "tyrant",
             none: "none",
             "0": "none",
             普通人: "none",
@@ -324,7 +348,7 @@ function handleChatCommand(event) {
                 Utils.sound.success(player);
             });
         } else {
-            Utils.tell(player, "§c管理员用法：!seq <seer|hunter|warrior|darkness|sun|moon|assassin|none> <9|8|7>");
+            Utils.tell(player, "§c管理员用法：!seq <seer|hunter|warrior|darkness|sun|moon|assassin|tyrant|none> <9|8|7>");
         }
         return;
     }

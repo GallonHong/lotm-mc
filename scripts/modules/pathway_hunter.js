@@ -9,11 +9,29 @@ import { StatusEffectManager } from "./lotm_status_manager.js";
  * PRD 5.1 节实现：赤焰手套、火焰长枪、焰潮领域、炼金燃烧瓶
  */
 export class PathwayHunter {
+    static cooldowns = new Map();
+
+    static beginCooldown(player, abilityId, ticks) {
+        const key = `${player.id}:${abilityId}`;
+        const now = system.currentTick;
+        const expires = this.cooldowns.get(key) || 0;
+        if (expires > now) {
+            Utils.actionbar(player, `§c能力冷却中：${Math.ceil((expires - now) / 20)} 秒`);
+            return false;
+        }
+        this.cooldowns.set(key, now + ticks);
+        return true;
+    }
+
     /**
      * 主技能：【火焰长枪 (Flame Spear)】 (普通右键)
      */
     static fireFlameSpear(player, lotmManager) {
-        if (!lotmManager.modifySpirituality(player, -35)) return;
+        if (!this.beginCooldown(player, "flame_spear", 50)) return;
+        if (!lotmManager.modifySpirituality(player, -35)) {
+            this.cooldowns.delete(`${player.id}:flame_spear`);
+            return;
+        }
 
         const dim = player.dimension;
         const headLoc = player.getHeadLocation();
@@ -28,8 +46,8 @@ export class PathwayHunter {
 
         if (entity) {
             DamageResolver.applyDamage(player, entity, {
-                pveDamage: 26,
-                pvpDamage: 13,
+                pveDamage: 30,
+                pvpDamage: 14,
                 isFireDamage: true,
                 cause: "entityAttack",
             });
@@ -57,6 +75,21 @@ export class PathwayHunter {
         }
 
         Utils.actionbar(player, "§c🔱 [火焰长枪] 烈焰长矛贯穿破空！");
+    }
+
+    /** 新版22途径设计：潜行右键开启8秒火焰铠甲。 */
+    static triggerFlameArmor(player, lotmManager) {
+        if (!this.beginCooldown(player, "flame_armor", 320)) return;
+        if (!lotmManager.modifySpirituality(player, -65)) {
+            this.cooldowns.delete(`${player.id}:flame_armor`);
+            return;
+        }
+        Utils.setProp(player, "lotm:hunter_fire_armor_until", system.currentTick + 160);
+        player.addEffect("fire_resistance", 160, { amplifier: 0, showParticles: false });
+        player.addEffect("resistance", 160, { amplifier: 0, showParticles: false });
+        lotmManager.addDigestion(player, 3);
+        Utils.playSound(player, "fire.ignite", 0.8, 1.2);
+        Utils.actionbar(player, "§c🔥 [火焰铠甲] 8秒减伤，近身攻击者受到火焰反击");
     }
 
     /**

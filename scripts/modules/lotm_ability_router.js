@@ -8,6 +8,7 @@ import { PathwayDarkness } from "./pathway_darkness.js";
 import { PathwaySun } from "./pathway_sun.js";
 import { PathwayMoon } from "./pathway_moon.js";
 import { PathwayAssassin } from "./pathway_assassin.js";
+import { PathwayTyrant } from "./pathway_tyrant.js";
 
 /**
  * 《诡秘之主》统一能力路由器 (AbilityRouter)
@@ -47,6 +48,7 @@ export class AbilityRouter {
         const isSunFocus = (itemId === "lotm:sun_emblem");
         const isMoonFocus = (itemId === "lotm:vampire_ring");
         const isAssassinFocus = (itemId === "lotm:witch_mirror_wand");
+        const isTyrantFocus = (itemId === "lotm:storm_cutlass");
 
         const sequence7Consumables = [
             "lotm:tarot_card", "lotm:paper_figurine", "lotm:alchemical_molotov",
@@ -55,14 +57,14 @@ export class AbilityRouter {
         ];
         if (sequence !== 7 && (
             isSeerFocus || isHunterFocus || isWarriorFocus || isDarknessFocus ||
-            isSunFocus || isMoonFocus || isAssassinFocus || sequence7Consumables.includes(itemId)
+            isSunFocus || isMoonFocus || isAssassinFocus || isTyrantFocus || sequence7Consumables.includes(itemId)
         )) {
             Utils.tell(player, "§c§l[阶位不足] §7该媒介需要序列 7 才能稳定驱动。低序列请空手普通/潜行右键使用能力。");
             Utils.sound.warn(player);
             return true;
         }
 
-        if (isSeerFocus || isHunterFocus || isWarriorFocus || isDarknessFocus || isSunFocus || isMoonFocus || isAssassinFocus) {
+        if (isSeerFocus || isHunterFocus || isWarriorFocus || isDarknessFocus || isSunFocus || isMoonFocus || isAssassinFocus || isTyrantFocus) {
             // 1. 占卜家 (魔术师)
             if (pathway === "seer" && isSeerFocus) {
                 if (isSneaking) PathwaySeer.performFlameJump(player, lotmManager);
@@ -71,7 +73,7 @@ export class AbilityRouter {
             }
             // 2. 猎人 (纵火家)
             else if (pathway === "hunter" && isHunterFocus) {
-                if (isSneaking) PathwayHunter.triggerFlameTide(player, lotmManager);
+                if (isSneaking) PathwayHunter.triggerFlameArmor(player, lotmManager);
                 else PathwayHunter.fireFlameSpear(player, lotmManager);
                 return true;
             }
@@ -102,6 +104,12 @@ export class AbilityRouter {
             else if (pathway === "assassin" && isAssassinFocus) {
                 if (isSneaking) PathwayAssassin.performMirrorSubstitute(player, lotmManager);
                 else PathwayAssassin.castBlackFlame(player, lotmManager);
+                return true;
+            }
+            // 8. 暴君 (航海家)
+            else if (pathway === "tyrant" && isTyrantFocus) {
+                if (isSneaking) PathwayTyrant.tidalImpact(player, lotmManager);
+                else PathwayTyrant.waterSpear(player, lotmManager);
                 return true;
             }
             // 途径不匹配：触发非凡排斥

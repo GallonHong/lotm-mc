@@ -38,7 +38,7 @@ const SEQUENCE_7_GUIDES = {
     },
     hunter: {
         primary: ["火焰长枪", "手持赤焰手套普通右键", "发射直线火焰并灼烧目标。"],
-        secondary: ["焰潮领域", "手持赤焰手套潜行右键", "在准星落点展开持续火场。"],
+        secondary: ["火焰铠甲", "手持赤焰手套潜行右键", "8秒减伤，并以火焰反击近身攻击者。"],
         consumable: ["炼金燃烧瓶", "手持燃烧瓶右键", "投掷并形成范围火区。"],
     },
     warrior: {
@@ -66,10 +66,60 @@ const SEQUENCE_7_GUIDES = {
         secondary: ["镜面替身", "手持黑曜镜杖潜行右键", "制造替身并隐形脱离危险。"],
         consumable: ["诅咒草人", "手持诅咒草人右键", "锁定准星目标并施加诅咒。"],
     },
+    tyrant: {
+        primary: ["水之长矛", "手持风暴弯刀普通右键", "发射28格水矛；水中消耗降低。"],
+        secondary: ["潮汐冲击", "手持风暴弯刀潜行右键", "巨浪横扫前方敌人并强力击退。"],
+        consumable: ["水域共鸣", "进入水中自动生效", "脱战与战斗回灵提高25%。"],
+    },
+};
+
+const BATCH_A_STAGE_GUIDES = {
+    hunter: {
+        9: {
+            primary: ["猎物标记", "空手普通右键", "标记准星目标25秒并获得追踪提示。"],
+            secondary: ["环境勘察", "空手潜行右键", "感知20格内的活动与战斗迹象。"],
+        },
+        8: {
+            primary: ["挑衅", "空手普通右键", "激怒准星目标并使其暴露破绽。"],
+            secondary: ["群体挑衅", "空手潜行右键", "扰乱前方多个目标并降低其攻击。"],
+        },
+    },
+    warrior: {
+        9: {
+            primary: ["沉重打击", "空手普通右键", "强化近身一击。"],
+            secondary: ["稳固架势", "空手潜行右键", "4秒减伤并提高击退抗性，移动变慢。"],
+        },
+        8: {
+            primary: ["突进拳", "空手普通右键", "对近距离目标造成格斗重击。"],
+            secondary: ["钢铁身躯", "空手潜行右键", "6秒强化物理防御与抗控制。"],
+        },
+    },
+    sun: {
+        9: {
+            primary: ["力量赞歌", "空手普通右键", "为6格友军提供8秒力量增益。"],
+            secondary: ["高声合唱", "空手潜行右键", "将较弱的赞歌扩展至10格。"],
+        },
+        8: {
+            primary: ["阳光", "空手普通右键", "圣光打击准星目标，对亡灵伤害强化。"],
+            secondary: ["祝福", "空手潜行右键", "为6格友军提供元素与邪异抗性。"],
+        },
+    },
+    tyrant: {
+        9: {
+            primary: ["破浪斩", "空手普通右键", "近身弯刀斩击，在水中威力提高。"],
+            secondary: ["潜水突进", "空手潜行右键", "水中突进8格，陆地短冲3格。"],
+        },
+        8: {
+            primary: ["怒击", "空手普通右键", "重击目标；低生命时击退增强。"],
+            secondary: ["暴怒", "空手潜行右键", "6秒提高攻击与移速，但受到伤害增加10%。"],
+        },
+    },
 };
 
 export function getAbilityGuide(pathway, sequence) {
     if (sequence === 7) return SEQUENCE_7_GUIDES[pathway] || null;
+    const batchAGuide = BATCH_A_STAGE_GUIDES[pathway]?.[sequence];
+    if (batchAGuide) return batchAGuide;
     if (sequence === 8 || sequence === 9) {
         const guide = LOW_SEQUENCE_GUIDES[pathway];
         if (!guide) return null;

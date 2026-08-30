@@ -9,13 +9,30 @@ import { StatusEffectManager } from "./lotm_status_manager.js";
  * PRD 5.4 节实现：太阳圣徽、神圣之光、太阳光环、圣水瓶制作与投掷
  */
 export class PathwaySun {
+    static cooldowns = new Map();
+
+    static beginCooldown(player, abilityId, ticks) {
+        const key = `${player.id}:${abilityId}`;
+        const expires = this.cooldowns.get(key) || 0;
+        if (expires > system.currentTick) {
+            Utils.actionbar(player, `§c能力冷却中：${Math.ceil((expires - system.currentTick) / 20)} 秒`);
+            return false;
+        }
+        this.cooldowns.set(key, system.currentTick + ticks);
+        return true;
+    }
+
     /**
      * 主技能：【神圣之光 (Holy Light)】 (普通右键)
      */
     static castHolyLight(player, lotmManager) {
+        if (!this.beginCooldown(player, "holy_light", 70)) return;
         const { entity } = TargetingService.getRayTarget(player, 24);
 
-        if (!lotmManager.modifySpirituality(player, -35)) return;
+        if (!lotmManager.modifySpirituality(player, -40)) {
+            this.cooldowns.delete(`${player.id}:holy_light`);
+            return;
+        }
 
         const dim = player.dimension;
         const headLoc = player.getHeadLocation();
@@ -53,9 +70,10 @@ export class PathwaySun {
             } else {
                 // 伤害敌方 / 亡灵重创
                 DamageResolver.applyDamage(player, entity, {
-                    pveDamage: 34,
-                    pvpDamage: 16,
+                    pveDamage: 24,
+                    pvpDamage: 11,
                     isUndeadBonus: true,
+                    undeadMultiplier: 1.6,
                     cause: "magic",
                 });
                 Utils.playSound(player, "random.explode", 1.5, 1.0);
@@ -69,14 +87,18 @@ export class PathwaySun {
      * 副技能：【太阳光环 (Sun Halo)】 (潜行右键)
      */
     static triggerSunHalo(player, lotmManager) {
-        if (!lotmManager.modifySpirituality(player, -70)) return;
+        if (!this.beginCooldown(player, "sun_halo", 400)) return;
+        if (!lotmManager.modifySpirituality(player, -70)) {
+            this.cooldowns.delete(`${player.id}:sun_halo`);
+            return;
+        }
 
         const dim = player.dimension;
         Utils.playSound(player, "beacon.power", 1.2, 1.0);
         lotmManager.addDigestion(player, 3);
 
         let elapsed = 0;
-        const maxTicks = 160; // 8 秒持续
+        const maxTicks = 200; // 10 秒持续
 
         const intervalId = system.runInterval(() => {
             elapsed += 20;
@@ -87,7 +109,7 @@ export class PathwaySun {
 
             const pLoc = player.location;
             // 范围友军治疗 2 HP，亡灵每秒 4 伤害
-            const entities = TargetingService.getAreaTargets(player, pLoc, 6.0, 8);
+            const entities = TargetingService.getAreaTargets(player, pLoc, 7.0, 8);
             for (const ent of entities) {
                 if (ent.typeId === "minecraft:player") {
                     try {
@@ -98,7 +120,7 @@ export class PathwaySun {
                     } catch {}
                 } else {
                     DamageResolver.applyDamage(player, ent, {
-                        pveDamage: 4,
+                    pveDamage: 4,
                         pvpDamage: 2,
                         isUndeadBonus: true,
                     });
@@ -109,9 +131,9 @@ export class PathwaySun {
             for (let a = 0; a < Math.PI * 2; a += Math.PI / 4) {
                 try {
                     dim.spawnParticle("minecraft:crit", {
-                        x: pLoc.x + Math.cos(a) * 6,
+                    x: pLoc.x + Math.cos(a) * 7,
                         y: pLoc.y + 0.2,
-                        z: pLoc.z + Math.sin(a) * 6,
+                    z: pLoc.z + Math.sin(a) * 7,
                     });
                 } catch {}
             }

@@ -1,4 +1,4 @@
-import { world } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 import { Utils } from "../utils.js";
 import { StatusEffectManager } from "./lotm_status_manager.js";
 import { LandManager } from "./land.js";
@@ -58,6 +58,11 @@ export class DamageResolver {
             const targetStance = Utils.getProp(target, "lotm:stance", "balanced");
             if (targetStance === "defense") baseDmg *= 0.92;
             else if (targetStance === "attack") baseDmg *= 1.05;
+
+            // 暴怒之民：以更高承伤换取短时攻击与移动增益。
+            const rageUntil = Utils.getProp(target, "lotm:tyrant_rage_until", 0);
+            if (rageUntil > system.currentTick) baseDmg *= 1.1;
+
         }
 
         // (2) 猎人被动：对燃烧目标增伤 +10%
@@ -72,7 +77,7 @@ export class DamageResolver {
             target.matches({ families: ["skeleton"] })
         );
         if (isUndead && options.isUndeadBonus) {
-            baseDmg *= 1.25;
+            baseDmg *= options.undeadMultiplier || 1.25;
         }
 
         // (3) 破甲状态 (armor_break): 承伤提高 15%~20%

@@ -9,6 +9,18 @@ import { StatusEffectManager } from "./lotm_status_manager.js";
  * PRD 5.2 节实现：四大战术武器专精、大师格挡、磨刃油、三姿态
  */
 export class PathwayWarrior {
+    static cooldowns = new Map();
+
+    static beginCooldown(player, abilityId, ticks) {
+        const key = `${player.id}:${abilityId}`;
+        const expires = this.cooldowns.get(key) || 0;
+        if (expires > system.currentTick) {
+            Utils.actionbar(player, `§c能力冷却中：${Math.ceil((expires - system.currentTick) / 20)} 秒`);
+            return false;
+        }
+        this.cooldowns.set(key, system.currentTick + ticks);
+        return true;
+    }
     /**
      * 武器大师姿态管理 (PRD 5.2: 进攻/守御/远射/均衡)
      */
@@ -54,7 +66,8 @@ export class PathwayWarrior {
      * 1. 长剑·穿刺突进 (Sword Thrust)
      */
     static swordThrust(player, lotmManager) {
-        if (!lotmManager.modifySpirituality(player, -25)) return;
+        if (!this.beginCooldown(player, "sword_thrust", 60)) return;
+        if (!lotmManager.modifySpirituality(player, -25)) { this.cooldowns.delete(`${player.id}:sword_thrust`); return; }
 
         const dim = player.dimension;
         const viewDir = player.getViewDirection();
@@ -74,8 +87,8 @@ export class PathwayWarrior {
         const { entity } = TargetingService.getRayTarget(player, 3.5);
         if (entity) {
             DamageResolver.applyDamage(player, entity, {
-                pveDamage: 24,
-                pvpDamage: 12,
+                pveDamage: 26,
+                pvpDamage: 13,
                 ignoreArmor: true,
                 armorPierceRatio: 0.25,
             });
@@ -90,7 +103,8 @@ export class PathwayWarrior {
      * 2. 战斧·横扫处决 (Axe Cleave)
      */
     static axeCleave(player, lotmManager) {
-        if (!lotmManager.modifySpirituality(player, -30)) return;
+        if (!this.beginCooldown(player, "axe_cleave", 60)) return;
+        if (!lotmManager.modifySpirituality(player, -30)) { this.cooldowns.delete(`${player.id}:axe_cleave`); return; }
 
         const dim = player.dimension;
         Utils.playSound(player, "item.trident.throw", 1.2, 1.0);
@@ -100,14 +114,14 @@ export class PathwayWarrior {
         // 120° 扇形 3.5 格横扫 (最多 5 目标)
         const targets = TargetingService.getConeTargets(player, 3.5, 120, 5);
         for (const target of targets) {
-            let dmg = 28;
+            let dmg = 30;
             const healthComp = target.getComponent && target.getComponent("health");
             if (healthComp && healthComp.currentValue / healthComp.effectiveMax < 0.3) {
                 dmg *= 1.25; // 斩杀低血量
             }
             DamageResolver.applyDamage(player, target, {
                 pveDamage: dmg,
-                pvpDamage: 14,
+                pvpDamage: 15,
             });
         }
 
@@ -118,7 +132,8 @@ export class PathwayWarrior {
      * 3. 长枪·贯线刺击 (Spear Pierce)
      */
     static spearPierce(player, lotmManager) {
-        if (!lotmManager.modifySpirituality(player, -25)) return;
+        if (!this.beginCooldown(player, "spear_pierce", 60)) return;
+        if (!lotmManager.modifySpirituality(player, -25)) { this.cooldowns.delete(`${player.id}:spear_pierce`); return; }
 
         const dim = player.dimension;
         const headLoc = player.getHeadLocation();
@@ -130,8 +145,8 @@ export class PathwayWarrior {
         const { entity } = TargetingService.getRayTarget(player, 6);
         if (entity) {
             DamageResolver.applyDamage(player, entity, {
-                pveDamage: 26,
-                pvpDamage: 13,
+                pveDamage: 28,
+                pvpDamage: 14,
             });
             Utils.playSound(player, "random.break", 1.5, 1.0);
         }
@@ -153,7 +168,8 @@ export class PathwayWarrior {
      * 4. 战弓·专注射击 (Bow Focus)
      */
     static bowFocus(player, lotmManager) {
-        if (!lotmManager.modifySpirituality(player, -30)) return;
+        if (!this.beginCooldown(player, "bow_focus", 140)) return;
+        if (!lotmManager.modifySpirituality(player, -30)) { this.cooldowns.delete(`${player.id}:bow_focus`); return; }
 
         Utils.playSound(player, "random.orb", 1.5, 1.0);
         lotmManager.addDigestion(player, 2);
@@ -169,7 +185,8 @@ export class PathwayWarrior {
      * 副技能：【大师格挡 (Master Guard)】 (潜行右键)
      */
     static performMasterGuard(player, lotmManager) {
-        if (!lotmManager.modifySpirituality(player, -45)) return;
+        if (!this.beginCooldown(player, "master_guard", 140)) return;
+        if (!lotmManager.modifySpirituality(player, -35)) { this.cooldowns.delete(`${player.id}:master_guard`); return; }
 
         Utils.playSound(player, "item.shield.block", 1.5, 1.0);
         lotmManager.addDigestion(player, 3);

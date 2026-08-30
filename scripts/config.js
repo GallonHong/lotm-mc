@@ -9,7 +9,7 @@ export const Config = {
     // -------------------------------------------------------------
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "1.2.1",
+        version: "1.3.0",
         adminTag: "admin", // 拥有此 tag 或 op 的玩家拥有管理员权限
         menuItem: "minecraft:compass", // 右键唤起主菜单的物品 ID
         menuItemName: "§r§l§6快捷导航菜单 §7(右键使用)",
@@ -163,6 +163,9 @@ export const Config = {
                     { id: "lotm:potion_assassin", name: "§8【魔药】序列9: 刺客", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_assassin" },
                     { id: "lotm:potion_instigator", name: "§5【魔药】序列8: 教唆者", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_instigator" },
                     { id: "lotm:potion_witch", name: "§d【魔药】序列7: 女巫", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_witch" },
+                    { id: "lotm:potion_sailor", name: "§3【魔药】序列9: 水手", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_sleepless" },
+                    { id: "lotm:potion_folk_of_rage", name: "§9【魔药】序列8: 暴怒之民", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_midnight_poet" },
+                    { id: "lotm:potion_seafarer", name: "§b【魔药】序列7: 航海家", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_nightmare" },
                     { id: "lotm:spirit_cane", name: "§e【非凡武器】魔术师手杖", buyPrice: 1200, sellPrice: 400, icon: "textures/items/spirit_cane" },
                     { id: "lotm:paper_figurine", name: "§f【符咒媒介】符咒纸人替身", buyPrice: 200, sellPrice: 60, icon: "textures/items/paper_figurine" },
                     { id: "lotm:tarot_card", name: "§e【飞掷道具】魔术纸牌", buyPrice: 30, sellPrice: 8, icon: "textures/items/tarot_card" },
@@ -176,6 +179,7 @@ export const Config = {
                     { id: "lotm:sealed_blood_bottle", name: "§c【消耗品】封存血液瓶", buyPrice: 80, sellPrice: 25, icon: "textures/items/sealed_blood_bottle" },
                     { id: "lotm:witch_mirror_wand", name: "§d【非凡媒介】替身魔镜手杖", buyPrice: 4500, sellPrice: 1400, icon: "textures/items/witch_mirror_wand" },
                     { id: "lotm:curse_doll", name: "§8【消耗品】诅咒替身草人", buyPrice: 250, sellPrice: 75, icon: "textures/items/curse_doll" },
+                    { id: "lotm:storm_cutlass", name: "§b【非凡媒介】风暴弯刀", buyPrice: 3800, sellPrice: 1100, icon: "textures/items/tactical_sword" },
                 ]
             },
             {

@@ -1,5 +1,5 @@
 /**
- * 七条途径的低序列（9 -> 8 -> 7）晋升、名称与魔药注册表。
+ * 已实现途径的低序列（9 -> 8 -> 7）晋升、名称与魔药注册表。
  * 数值以现有序列 7 PRD 为上限，低序列按各途径定位逐级成长。
  */
 export const PATHWAY_PROGRESSION = {
@@ -12,7 +12,7 @@ export const PATHWAY_PROGRESSION = {
         },
     },
     hunter: {
-        name: "猎人途径",
+        name: "红祭司途径",
         sequences: {
             9: { name: "猎人", potionId: "lotm:potion_hunter" },
             8: { name: "挑衅者", potionId: "lotm:potion_provoker" },
@@ -20,7 +20,7 @@ export const PATHWAY_PROGRESSION = {
         },
     },
     warrior: {
-        name: "战士途径",
+        name: "黄昏巨人途径",
         sequences: {
             9: { name: "战士", potionId: "lotm:potion_warrior" },
             8: { name: "格斗家", potionId: "lotm:potion_pugilist" },
@@ -57,6 +57,14 @@ export const PATHWAY_PROGRESSION = {
             9: { name: "刺客", potionId: "lotm:potion_assassin" },
             8: { name: "教唆者", potionId: "lotm:potion_instigator" },
             7: { name: "女巫", potionId: "lotm:potion_witch" },
+        },
+    },
+    tyrant: {
+        name: "暴君途径",
+        sequences: {
+            9: { name: "水手", potionId: "lotm:potion_sailor" },
+            8: { name: "暴怒之民", potionId: "lotm:potion_folk_of_rage" },
+            7: { name: "航海家", potionId: "lotm:potion_seafarer" },
         },
     },
 };

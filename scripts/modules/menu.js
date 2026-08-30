@@ -112,7 +112,7 @@ export class MenuManager {
             .button("§l§a🎁 全服发放福利金币\n§r§8为所有在线玩家发放金币", "textures/ui/gift_square")
             .button("§l§6⚔️ 7大高阶封印物神兵库\n§r§8一键领取原著全部2级/3级封印物", "textures/items/death_knell")
             .button("§l§5🔮 开发者·非凡阶位调试\n§r§8一键升序/满消化/回满灵性", "textures/items/potion_magician")
-            .button("§l§e🧪 获取全途径测试礼包\n§r§8获取21瓶魔药及全部序列7媒介", "textures/items/potion_seer")
+            .button("§l§e🧪 获取已实现途径测试礼包\n§r§8获取全部魔药及序列7媒介", "textures/items/potion_seer")
             .button("§l§7⬅ 返回上一级", "textures/ui/undo");
 
         Utils.showForm(player, form, (res) => {
@@ -137,12 +137,12 @@ export class MenuManager {
                     break;
                 case 6:
                     // 发放全部 7 途径非凡物资
-                    const allPathways = ["seer", "hunter", "warrior", "darkness", "sun", "moon", "assassin"];
+                    const allPathways = ["seer", "hunter", "warrior", "darkness", "sun", "moon", "assassin", "tyrant"];
                     for (const p of allPathways) {
                         LotmManager.giveFocusKitForPathway(player, p);
                     }
                     LotmManager.giveAllPotionKit(player);
-                    Utils.tell(player, "§5§l[物资发放] §a已成功发放 21 瓶晋升魔药及全部序列 7 专属媒介与消耗品！");
+                    Utils.tell(player, "§5§l[物资发放] §a已成功发放当前全部晋升魔药及序列 7 专属媒介与消耗品！");
                     Utils.sound.success(player);
                     if (onBack) onBack();
                     break;

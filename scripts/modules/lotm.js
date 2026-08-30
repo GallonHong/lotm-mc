@@ -15,6 +15,7 @@ import { PathwayDarkness } from "./pathway_darkness.js";
 import { PathwaySun } from "./pathway_sun.js";
 import { PathwayMoon } from "./pathway_moon.js";
 import { PathwayAssassin } from "./pathway_assassin.js";
+import { PathwayTyrant } from "./pathway_tyrant.js";
 import { PathwayLowSequence } from "./pathway_low_sequence.js";
 import { getPotionData, getAllPotionIds } from "./lotm_progression_registry.js";
 import { getAbilityGuide } from "./lotm_ability_guide.js";
@@ -40,6 +41,7 @@ export class LotmManager {
     static PathwaySun = PathwaySun;
     static PathwayMoon = PathwayMoon;
     static PathwayAssassin = PathwayAssassin;
+    static PathwayTyrant = PathwayTyrant;
     static PathwayLowSequence = PathwayLowSequence;
 
     /**
@@ -297,6 +299,10 @@ export class LotmManager {
                 case "assassin":
                     player.addEffect("speed", 140, { amplifier: sequence <= 7 ? 1 : 0, showParticles: false });
                     break;
+                case "tyrant":
+                    player.addEffect("water_breathing", 140, { amplifier: 0, showParticles: false });
+                    if (sequence <= 8) player.addEffect("strength", 140, { amplifier: 0, showParticles: false });
+                    break;
             }
         } catch {}
     }
@@ -331,6 +337,8 @@ export class LotmManager {
             regen = Math.round(regen * 1.25);
         } else if (pathway === "sun" && !isNight) {
             regen = Math.round(regen * 1.2);
+        } else if (pathway === "tyrant" && PathwayTyrant.isWet(player)) {
+            regen = Math.round(regen * 1.25);
         }
 
         if (curSP < maxSP) {
@@ -381,7 +389,7 @@ export class LotmManager {
         if (sequence !== 7) return false;
         switch (pathway) {
             case "seer": player.isSneaking ? PathwaySeer.performFlameJump(player, this) : PathwaySeer.fireAirBullet(player, this); return true;
-            case "hunter": player.isSneaking ? PathwayHunter.triggerFlameTide(player, this) : PathwayHunter.fireFlameSpear(player, this); return true;
+            case "hunter": player.isSneaking ? PathwayHunter.triggerFlameArmor(player, this) : PathwayHunter.fireFlameSpear(player, this); return true;
             case "sun": player.isSneaking ? PathwaySun.triggerSunHalo(player, this) : PathwaySun.castHolyLight(player, this); return true;
             case "moon": player.isSneaking ? PathwayMoon.triggerDarkWings(player, this) : PathwayMoon.corrosiveClaws(player, this); return true;
             case "assassin": player.isSneaking ? PathwayAssassin.performMirrorSubstitute(player, this) : PathwayAssassin.castBlackFlame(player, this); return true;
@@ -397,6 +405,7 @@ export class LotmManager {
         const pathway = this.getPathway(player);
         const sequence = this.getSequence(player);
         const profile = PathwayProfileRegistry.getProfile(pathway, sequence);
+        const currentGuide = getAbilityGuide(pathway, sequence);
         const sp = this.getSpirituality(player);
         const digestion = this.getDigestion(player);
 
@@ -419,13 +428,15 @@ export class LotmManager {
         if (sequence < 7 || sequence > 9) {
             form.button("§l§7普通人暂无非凡能力", "textures/items/book_normal");
         } else if (sequence > 7) {
-            form.button(sequence === 9 ? "§l§b普通右键：序列9基础能力\n§r§8潜行能力于序列8解锁" : "§l§d空手普通/潜行右键\n§r§8使用序列9与序列8能力", "textures/items/experience_bottle");
+            form.button(currentGuide?.secondary ? "§l§d空手普通/潜行右键\n§r§8使用当前序列主、副能力" : "§l§b普通右键：当前基础能力\n§r§8潜行能力尚未解锁", "textures/items/experience_bottle");
         } else if (pathway === "warrior") {
             form.button("§l§6⚔️ 切换战术战斗姿态", "textures/items/iron_sword");
         } else if (pathway === "sun") {
             form.button("§l§e💧 凝聚制作【圣水瓶】", "textures/items/gold_ingot");
         } else if (pathway === "hunter") {
             form.button("§l§c🔥 调配【炼金燃烧瓶】", "textures/items/blaze_powder");
+        } else if (pathway === "tyrant") {
+            form.button("§l§b🌊 查看水域共鸣状态", "textures/items/trident");
         } else {
             form.button("§l§9👁️ 开启以太灵视", "textures/items/ender_eye");
         }
@@ -443,13 +454,17 @@ export class LotmManager {
                     break;
                 case 2:
                     if (sequence > 7) {
-                        Utils.tell(player, sequence === 9 ? "§b空手普通右键使用序列9能力；完全消化后服用序列8魔药。" : "§d空手普通右键使用基础能力，潜行右键使用序列8能力。");
+                        Utils.tell(player, currentGuide?.secondary
+                            ? `§b空手普通右键使用【${currentGuide.primary[0]}】，潜行右键使用【${currentGuide.secondary[0]}】。`
+                            : "§b空手普通右键使用当前能力；完全消化魔药后可沿当前途径晋升。");
                     } else if (pathway === "warrior") {
                         this.openWarriorStanceMenu(player);
                     } else if (pathway === "sun") {
                         this.craftHolyWater(player);
                     } else if (pathway === "hunter") {
                         this.craftMolotov(player);
+                    } else if (pathway === "tyrant") {
+                        Utils.tell(player, PathwayTyrant.isWet(player) ? "§b[水域共鸣] 当前处于水中，航海家回灵提高25%，水之长矛消耗降低。" : "§7[水域共鸣] 当前处于干燥环境，进入水中可提高回灵并降低水之长矛消耗。");
                     } else {
                         Utils.tell(player, "§9[灵视] 以太体灵性视野已激活！");
                     }
@@ -477,7 +492,7 @@ export class LotmManager {
             for (const [name, input, effect] of rows) {
                 body += `§l§6【${name}】§r\n§e操作：§f${input}\n§7${effect}\n\n`;
             }
-            if (sequence === 9) body += "§8潜行能力将在晋升序列 8 后解锁。\n";
+            if (sequence === 9 && !guide.secondary) body += "§8潜行能力将在后续开发或晋升序列 8 后解锁。\n";
             if (sequence > 7) body += "§8序列 7 专属媒介与消耗品尚未解锁。\n";
         }
         body += "§7施法失败时请检查灵性、冷却、目标与阶位。\n§7══════════════════════════════";
@@ -549,7 +564,7 @@ export class LotmManager {
         for (const potionId of getAllPotionIds()) {
             Utils.giveItem(player, potionId, 1);
         }
-        Utils.tell(player, "§a已发放七条途径序列 9、8、7 的全部魔药（共 21 瓶）。晋升仍会严格校验当前途径、序列与消化度。");
+        Utils.tell(player, `§a已发放当前已实现途径序列 9、8、7 的全部魔药（共 ${getAllPotionIds().length} 瓶）。晋升仍会严格校验当前途径、序列与消化度。`);
     }
 
     /**
@@ -563,7 +578,7 @@ export class LotmManager {
                 Utils.giveItem(player, "lotm:paper_figurine", 16, "§l§f【非凡媒介】§c符咒纸人替身", ["§7背包携带，致命伤自动替死"]);
                 break;
             case "hunter":
-                Utils.giveItem(player, "lotm:pyro_gauntlet", 1, "§l§c【非凡媒介】§6赤焰手套", ["§7右键释放火焰长枪，潜行右键焰潮领域"]);
+                Utils.giveItem(player, "lotm:pyro_gauntlet", 1, "§l§c【非凡媒介】§6赤焰手套", ["§7右键释放火焰长枪，潜行右键开启火焰铠甲"]);
                 Utils.giveItem(player, "lotm:alchemical_molotov", 16, "§l§c【非凡消耗品】§e炼金燃烧瓶", ["§7投掷产生 3 格烈焰火区"]);
                 break;
             case "warrior":
@@ -588,6 +603,9 @@ export class LotmManager {
             case "assassin":
                 Utils.giveItem(player, "lotm:witch_mirror_wand", 1, "§l§d【非凡媒介】§5黑曜镜杖", ["§7右键黑焰禁疗，潜行右键镜面替身隐形"]);
                 Utils.giveItem(player, "lotm:curse_doll", 16, "§l§d【非凡消耗品】§4诅咒娃娃", ["§7右键锁定施加沉重诅咒"]);
+                break;
+            case "tyrant":
+                Utils.giveItem(player, "lotm:storm_cutlass", 1, "§l§b【非凡媒介】§3风暴弯刀", ["§7普通右键释放水之长矛", "§7潜行右键释放潮汐冲击", "§b水中回灵提高且主技能消耗降低"]);
                 break;
         }
         Utils.tell(player, `§a已发放【${PathwayProfileRegistry.getProfile(pathway).name}】全套专属媒介与物资！`);

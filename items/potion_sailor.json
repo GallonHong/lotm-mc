@@ -1,0 +1,1 @@
+{"format_version":"1.20.30","minecraft:item":{"description":{"identifier":"lotm:potion_sailor","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:hand_equipped":true,"minecraft:icon":{"texture":"lotm_potion_sleepless"},"minecraft:display_name":{"value":"§l§3【魔药】§b序列9: 水手"},"minecraft:glint":true}}}

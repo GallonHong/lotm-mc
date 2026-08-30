@@ -42,10 +42,10 @@ export const PATHWAY_PROFILES = {
     },
     hunter: {
         id: "hunter",
-        name: "猎人途径",
+        name: "红祭司途径",
         sequence: 7,
         sequenceName: "纵火家",
-        title: "§c【猎人途径】序列7: 纵火家",
+        title: "§c【红祭司途径】序列7: 纵火家",
         maxHealth: 32, // 16 颗红心
         maxSpirituality: 460,
         regenOutOfCombat: 12,
@@ -61,13 +61,13 @@ export const PATHWAY_PROFILES = {
     },
     warrior: {
         id: "warrior",
-        name: "战士途径",
+        name: "黄昏巨人途径",
         sequence: 7,
         sequenceName: "武器大师",
-        title: "§6【战士途径】序列7: 武器大师",
+        title: "§6【黄昏巨人途径】序列7: 武器大师",
         maxHealth: 44, // 22 颗红心 (正面坦克)
-        maxSpirituality: 360,
-        regenOutOfCombat: 8,
+        maxSpirituality: 320,
+        regenOutOfCombat: 7,
         regenInCombat: 3,
         focusItemIds: [
             "lotm:tactical_sword",
@@ -162,6 +162,21 @@ export const PATHWAY_PROFILES = {
             "invis_first_strike_15"   // 隐形后首次攻击 +15% (PvP +8%)
         ],
         profileVersion: 1,
+    },
+    tyrant: {
+        id: "tyrant",
+        name: "暴君途径",
+        sequence: 7,
+        sequenceName: "航海家",
+        title: "§b【暴君途径】序列7: 航海家",
+        maxHealth: 36,
+        maxSpirituality: 500,
+        regenOutOfCombat: 13,
+        regenInCombat: 5,
+        focusItemIds: ["lotm:storm_cutlass"],
+        consumableItemIds: [],
+        passives: ["water_breathing", "water_spirit_boost", "swim_speed", "storm_affinity"],
+        profileVersion: 1,
     }
 };
 
@@ -172,20 +187,20 @@ const LOW_SEQUENCE_OVERRIDES = {
         8: { sequenceName: "小丑", maxHealth: 24, maxSpirituality: 260, regenOutOfCombat: 9, regenInCombat: 3, passives: ["speed_1", "jump_boost_1", "clown_dodge"] },
     },
     hunter: {
-        9: { sequenceName: "猎人", maxHealth: 22, maxSpirituality: 130, regenOutOfCombat: 5, regenInCombat: 1, passives: ["tracking"] },
-        8: { sequenceName: "挑衅者", maxHealth: 26, maxSpirituality: 270, regenOutOfCombat: 8, regenInCombat: 3, passives: ["tracking", "provocation_resistance"] },
+        9: { sequenceName: "猎人", maxHealth: 24, maxSpirituality: 110, regenOutOfCombat: 3, regenInCombat: 1, passives: ["tracking"] },
+        8: { sequenceName: "挑衅者", maxHealth: 28, maxSpirituality: 200, regenOutOfCombat: 6, regenInCombat: 2, passives: ["tracking", "provocation_resistance"] },
     },
     warrior: {
-        9: { sequenceName: "战士", maxHealth: 28, maxSpirituality: 100, regenOutOfCombat: 4, regenInCombat: 1, passives: ["weapon_damage_5"] },
-        8: { sequenceName: "格斗家", maxHealth: 34, maxSpirituality: 220, regenOutOfCombat: 6, regenInCombat: 2, passives: ["weapon_damage_10", "knockback_resistance_15"] },
+        9: { sequenceName: "战士", maxHealth: 30, maxSpirituality: 80, regenOutOfCombat: 2, regenInCombat: 1, passives: ["weapon_damage_5"] },
+        8: { sequenceName: "格斗家", maxHealth: 36, maxSpirituality: 150, regenOutOfCombat: 4, regenInCombat: 2, passives: ["weapon_damage_10", "knockback_resistance_15"] },
     },
     darkness: {
         9: { sequenceName: "不眠者", maxHealth: 22, maxSpirituality: 150, regenOutOfCombat: 6, regenInCombat: 2, passives: ["night_vision"] },
         8: { sequenceName: "午夜诗人", maxHealth: 26, maxSpirituality: 310, regenOutOfCombat: 10, regenInCombat: 3, passives: ["night_vision", "night_spirit_boost"] },
     },
     sun: {
-        9: { sequenceName: "歌颂者", maxHealth: 24, maxSpirituality: 140, regenOutOfCombat: 6, regenInCombat: 2, passives: ["courage"] },
-        8: { sequenceName: "祈光人", maxHealth: 30, maxSpirituality: 290, regenOutOfCombat: 9, regenInCombat: 3, passives: ["courage", "undead_damage_10"] },
+        9: { sequenceName: "歌颂者", maxHealth: 24, maxSpirituality: 160, regenOutOfCombat: 4, regenInCombat: 2, passives: ["courage"] },
+        8: { sequenceName: "祈光人", maxHealth: 30, maxSpirituality: 310, regenOutOfCombat: 8, regenInCombat: 3, passives: ["courage", "undead_damage_10"] },
     },
     moon: {
         9: { sequenceName: "药师", maxHealth: 22, maxSpirituality: 130, regenOutOfCombat: 5, regenInCombat: 1, passives: ["medicine_affinity"] },
@@ -194,6 +209,10 @@ const LOW_SEQUENCE_OVERRIDES = {
     assassin: {
         9: { sequenceName: "刺客", maxHealth: 22, maxSpirituality: 150, regenOutOfCombat: 6, regenInCombat: 2, passives: ["speed_boost_4", "backstab"] },
         8: { sequenceName: "教唆者", maxHealth: 24, maxSpirituality: 320, regenOutOfCombat: 10, regenInCombat: 3, passives: ["speed_boost_6", "backstab", "instigation"] },
+    },
+    tyrant: {
+        9: { sequenceName: "水手", maxHealth: 28, maxSpirituality: 140, regenOutOfCombat: 4, regenInCombat: 2, passives: ["water_breathing", "swim_speed"] },
+        8: { sequenceName: "暴怒之民", maxHealth: 32, maxSpirituality: 260, regenOutOfCombat: 7, regenInCombat: 3, passives: ["water_breathing", "swim_speed", "rage"] },
     },
 };
 
