@@ -9,7 +9,7 @@ export const Config = {
     // -------------------------------------------------------------
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "1.3.0",
+        version: "2.0.0",
         adminTag: "admin", // 拥有此 tag 或 op 的玩家拥有管理员权限
         menuItem: "minecraft:compass", // 右键唤起主菜单的物品 ID
         menuItemName: "§r§l§6快捷导航菜单 §7(右键使用)",

@@ -3,6 +3,7 @@ import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
 import { Utils } from "../utils.js";
 import { EconomyManager } from "./economy.js";
+import { Integration } from "./integration.js";
 
 /**
  * 商店系统管理器
@@ -25,7 +26,10 @@ export class ShopManager {
                 `§7请选择你要浏览的商品分类：`
             );
 
-        const categories = Config.shop.categories;
+        // 非凡商品由服务器经济包定价，但只有 LOTM 包在线时才展示，避免无效物品标识符。
+        const categories = Config.shop.categories.filter(category =>
+            !["lotm", "sealed_artifacts"].includes(category.id) || Integration.isLotmAvailable()
+        );
         for (const cat of categories) {
             form.button(`${cat.name}\n§r§8${cat.description}`, cat.icon);
         }
@@ -89,6 +93,11 @@ export class ShopManager {
      * @param {Function} [onBack] 
      */
     static openItemTradeUI(player, item, onBack = null) {
+        if (item.id.startsWith("lotm:") && !Integration.isLotmAvailable()) {
+            Utils.tell(player, "§cLOTM Pathways 当前未连接，非凡商品交易已暂停。");
+            if (onBack) onBack();
+            return;
+        }
         const balance = EconomyManager.getBalance(player);
         const bagCount = Utils.countItem(player, item.id);
 

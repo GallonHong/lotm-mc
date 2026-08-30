@@ -1,6 +1,11 @@
-# 🌟 Minecraft 基岩版 SAPI 综合管理系统 Add-on
+# 🌟 Minecraft 基岩版 SAPI Server + LOTM Pathways
 
-本行为包 (Behavior Pack) 基于 Minecraft 基岩版最新的 **Script API (SAPI)** 开发，集成 **经济系统**、**分类商店**、**地皮领地保护** 与 **幸运抽奖** 四大核心功能，拥有原生 GUI 视窗交互与高性能数据持久化支持。
+项目已拆分为两个可独立启用、同时安装时自动联动的 Add-on：
+
+- **SAPI Server Economy 2.0.0**：经济、商店、地皮、抽奖、罗盘导航与服务器管理。
+- **LOTM Pathways 1.4.0**：途径、序列、魔药、能力、非凡媒介、封印物及全部对应资源。
+
+两个包之间只通过心跳动态属性与 `scriptevent` 公共接口通讯，不互相导入脚本文件，因此任一包缺失时仍可独立启动。联合启用时，服务器菜单会自动出现“诡秘非凡秘典”，商店和抽奖也会自动加入 LOTM 商品；LOTM 的非凡伤害会继续遵守服务器领地权限。
 
 ---
 
@@ -91,10 +96,16 @@
 
 ## 🛠️ 安装与使用指南
 
-1. 下载并双击运行 `SAPI_System_Addon.mcaddon`，Minecraft 基岩版将自动导入行为包与资源包。
-2. 创建或编辑世界，在 **行为包** 和 **资源包** 中同时激活 `SAPI_System`。
+1. 下载并双击导入 `SAPI_Server_Addon.mcaddon` 与 `LOTM_Pathways_Addon.mcaddon`。
+2. 创建或编辑世界，在行为包中启用 `SAPI Server Economy` 与 `LOTM Pathways`；LOTM 资源包会由依赖自动启用。
 3. 确保世界设置中的 **Beta API（测试版 API）** 选项已开启。
-4. 进入世界后，手持罗盘右键或输入 `!menu` 即可畅享全部系统！
+4. 进入世界后手持罗盘右键打开服务器菜单；只安装 LOTM 时，罗盘会直接打开非凡秘典。
+
+也可以按需求单独安装：
+
+- 纯生存经济服务器：只安装 `SAPI_Server_Addon.mcaddon`。
+- 纯诡秘玩法世界：只安装 `LOTM_Pathways_Addon.mcaddon`。
+- 完整联动服务器：两个 `.mcaddon` 都安装并启用。
 
 > Script API 1.19.0 稳定版没有公开 `chatSend` 事件，因此该版本请使用罗盘或
 > `/scriptevent system:menu` 打开菜单；聊天快捷指令只会在运行时提供聊天事件时启用。
@@ -125,4 +136,9 @@
 bash scripts/build-packages.sh
 ```
 
-脚本会生成并校验 `SAPI_System_BP.mcpack`、`SAPI_System_RP.mcpack` 与 `SAPI_System_Addon.mcaddon`。Minecraft 安装包必须使用 ZIP 容器，不能仅把 TAR 文件改成 `.mcpack` 或 `.mcaddon` 后缀。
+脚本会生成并校验：
+
+- `SAPI_Server_BP.mcpack`、`SAPI_Server_Addon.mcaddon`
+- `LOTM_Pathways_BP.mcpack`、`LOTM_Pathways_RP.mcpack`、`LOTM_Pathways_Addon.mcaddon`
+
+旧的单体 `SAPI_System_Addon.mcaddon` 会在构建时删除，避免玩家同时启用新旧入口导致事件重复订阅。

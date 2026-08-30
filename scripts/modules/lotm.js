@@ -1,7 +1,6 @@
 import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Utils } from "../utils.js";
-import { Config } from "../config.js";
 import { PathwayProfileRegistry, PATHWAY_PROFILES } from "./lotm_profile_registry.js";
 import { StatusEffectManager } from "./lotm_status_manager.js";
 import { DamageResolver } from "./lotm_damage_resolver.js";
@@ -19,6 +18,7 @@ import { PathwayTyrant } from "./pathway_tyrant.js";
 import { PathwayLowSequence } from "./pathway_low_sequence.js";
 import { getPotionData, getAllPotionIds } from "./lotm_progression_registry.js";
 import { getAbilityGuide } from "./lotm_ability_guide.js";
+import { Integration } from "./integration.js";
 
 /**
  * 《诡秘之主》多途径非凡核心调度器 (LotmManager)
@@ -442,6 +442,9 @@ export class LotmManager {
         }
 
         form.button("§l§b💎 灵摆占卜探针", "textures/items/compass_item");
+        if (Integration.isServerAvailable()) {
+            form.button("§l§7⬅ 返回服务器菜单", "textures/ui/undo");
+        }
 
         Utils.showForm(player, form, (res) => {
             switch (res.selection) {
@@ -471,6 +474,9 @@ export class LotmManager {
                     break;
                 case 3:
                     Utils.tell(player, "§b[灵摆] 灵摆轻旋，已感应方圆矿脉与危机！");
+                    break;
+                case 4:
+                    if (Integration.isServerAvailable()) Integration.send(player, "sapi:open");
                     break;
             }
         });

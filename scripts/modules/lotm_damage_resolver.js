@@ -1,7 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { Utils } from "../utils.js";
 import { StatusEffectManager } from "./lotm_status_manager.js";
-import { LandManager } from "./land.js";
+import { Integration } from "./integration.js";
 
 /**
  * 《诡秘之主》统一伤害与控制结算器 (DamageResolver)
@@ -30,12 +30,21 @@ export class DamageResolver {
         let baseDmg = isPvP ? (options.pvpDamage ?? (options.pveDamage ? options.pveDamage * 0.5 : 10)) : (options.pveDamage ?? 15);
 
         // 1. 领地权限检测 (若在他人保护领地内且未开启相应权限，阻止伤害)
-        if (attacker && attacker.typeId === "minecraft:player") {
+        if (attacker && attacker.typeId === "minecraft:player" && Integration.isServerAvailable()) {
             const { chunkX, chunkZ } = Utils.getChunkCoords(target.location);
-            const plot = LandManager.getPlot(target.dimension.id, chunkX, chunkZ);
-            if (plot && plot.ownerId !== attacker.id && !plot.members.includes(attacker.id)) {
-                if (isPvP && !plot.flags.allowPvp) return 0;
-                if (!isPvP && !plot.flags.allowAttackEntity) return 0;
+            let plot = null;
+            try {
+                const rawPlot = world.getDynamicProperty(Utils.getPlotKey(target.dimension.id, chunkX, chunkZ));
+                if (typeof rawPlot === "string") plot = JSON.parse(rawPlot);
+            } catch {}
+            const isTrusted = plot && (
+                plot.ownerId === attacker.id ||
+                plot.ownerName === attacker.name ||
+                plot.members?.includes(attacker.name)
+            );
+            if (plot && !isTrusted) {
+                if (isPvP && plot.flags?.allowPvp !== true) return 0;
+                if (!isPvP && plot.flags?.allowAttackEntity !== true) return 0;
             }
         }
 

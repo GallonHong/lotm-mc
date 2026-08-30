@@ -3,13 +3,17 @@ import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
 import { Utils } from "../utils.js";
 import { EconomyManager } from "./economy.js";
-import { WeaponManager } from "./weapon.js";
+import { Integration } from "./integration.js";
 
 /**
  * 抽奖系统管理器
  * 支持权重抽取、单抽/十连抽、欧皇广播与奖池预览
  */
 export class LotteryManager {
+    static getEligibleItems(pool) {
+        return pool.items.filter(item => !item.id.startsWith("lotm:") || Integration.isLotmAvailable());
+    }
+
     /**
      * 打开抽奖大厅（奖池列表）
      * @param {import("@minecraft/server").Player} player 
@@ -101,12 +105,17 @@ export class LotteryManager {
             return;
         }
 
-        // 扣款
-        EconomyManager.removeBalance(player, cost);
-
         // 计算奖品
-        const items = pool.items;
+        const items = this.getEligibleItems(pool);
+        if (items.length === 0) {
+            Utils.tell(player, "§c当前奖池没有可用奖品，未扣除金币。");
+            if (onComplete) onComplete();
+            return;
+        }
         const totalWeight = items.reduce((sum, it) => sum + it.weight, 0);
+
+        // 确认存在可用奖品后再扣款。
+        EconomyManager.removeBalance(player, cost);
 
         const results = [];
         let hasRareOrAbove = false;
@@ -126,11 +135,7 @@ export class LotteryManager {
             results.push(chosen);
 
             // 发放物品
-            if (chosen.isWeapon) {
-                WeaponManager.giveGun(player);
-            } else {
-                Utils.giveItem(player, chosen.id, chosen.amount);
-            }
+            Utils.giveItem(player, chosen.id, chosen.amount);
 
             // 稀有度判断与全服广播
             const rarityInfo = Config.lottery.rarities[chosen.rarity] || { name: "普通", broadcast: false };
@@ -183,10 +188,11 @@ export class LotteryManager {
      * @param {Function} [onBack] 
      */
     static openPoolPrizesPreviewUI(player, pool, onBack = null) {
-        const totalWeight = pool.items.reduce((sum, it) => sum + it.weight, 0);
+        const eligibleItems = this.getEligibleItems(pool);
+        const totalWeight = eligibleItems.reduce((sum, it) => sum + it.weight, 0);
 
         let content = `§7═════════ 奖池概率公示 ═════════\n\n`;
-        for (const it of pool.items) {
+        for (const it of eligibleItems) {
             const rarityInfo = Config.lottery.rarities[it.rarity] || { name: "普通", color: "§7" };
             const chance = ((it.weight / totalWeight) * 100).toFixed(1);
             content += `[${rarityInfo.color}${rarityInfo.name}§r] ${it.name} §7- 概率: §e${chance}%\n`;
