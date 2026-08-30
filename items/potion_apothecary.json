@@ -1,0 +1,1 @@
+{"format_version":"1.20.30","minecraft:item":{"description":{"identifier":"lotm:potion_apothecary","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:hand_equipped":true,"minecraft:icon":{"texture":"lotm_potion_apothecary"},"minecraft:display_name":{"value":"§l§a【魔药】§2序列9: 药师"},"minecraft:glint":true}}}

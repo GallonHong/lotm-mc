@@ -1,0 +1,1 @@
+{"format_version":"1.20.30","minecraft:item":{"description":{"identifier":"lotm:potion_instigator","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:hand_equipped":true,"minecraft:icon":{"texture":"lotm_potion_instigator"},"minecraft:display_name":{"value":"§l§5【魔药】§d序列8: 教唆者"},"minecraft:glint":true}}}

@@ -1,0 +1,1 @@
+{"format_version":"1.20.30","minecraft:item":{"description":{"identifier":"lotm:potion_witch","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:hand_equipped":true,"minecraft:icon":{"texture":"lotm_potion_witch"},"minecraft:display_name":{"value":"§l§d【魔药】§5序列7: 女巫"},"minecraft:glint":true}}}

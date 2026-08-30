@@ -1,0 +1,1 @@
+{"format_version":"1.20.30","minecraft:item":{"description":{"identifier":"lotm:potion_warrior","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:hand_equipped":true,"minecraft:icon":{"texture":"lotm_potion_warrior"},"minecraft:display_name":{"value":"§l§7【魔药】§f序列9: 战士"},"minecraft:glint":true}}}

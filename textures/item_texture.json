@@ -17,6 +17,24 @@
     "lotm_potion_magician": {
       "textures": "textures/items/potion_magician"
     },
+    "lotm_potion_hunter": { "textures": "textures/items/potion_hunter" },
+    "lotm_potion_provoker": { "textures": "textures/items/potion_provoker" },
+    "lotm_potion_pyromaniac": { "textures": "textures/items/potion_pyromaniac" },
+    "lotm_potion_warrior": { "textures": "textures/items/potion_warrior" },
+    "lotm_potion_pugilist": { "textures": "textures/items/potion_pugilist" },
+    "lotm_potion_weapon_master": { "textures": "textures/items/potion_weapon_master" },
+    "lotm_potion_sleepless": { "textures": "textures/items/potion_sleepless" },
+    "lotm_potion_midnight_poet": { "textures": "textures/items/potion_midnight_poet" },
+    "lotm_potion_nightmare": { "textures": "textures/items/potion_nightmare" },
+    "lotm_potion_bard": { "textures": "textures/items/potion_bard" },
+    "lotm_potion_light_supplicant": { "textures": "textures/items/potion_light_supplicant" },
+    "lotm_potion_solar_priest": { "textures": "textures/items/potion_solar_priest" },
+    "lotm_potion_apothecary": { "textures": "textures/items/potion_apothecary" },
+    "lotm_potion_beast_tamer": { "textures": "textures/items/potion_beast_tamer" },
+    "lotm_potion_vampire": { "textures": "textures/items/potion_vampire" },
+    "lotm_potion_assassin": { "textures": "textures/items/potion_assassin" },
+    "lotm_potion_instigator": { "textures": "textures/items/potion_instigator" },
+    "lotm_potion_witch": { "textures": "textures/items/potion_witch" },
     "lotm_tarot_card": {
       "textures": "textures/items/tarot_card"
     },

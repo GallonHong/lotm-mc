@@ -1,0 +1,1 @@
+{"format_version":"1.20.30","minecraft:item":{"description":{"identifier":"lotm:potion_bard","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:hand_equipped":true,"minecraft:icon":{"texture":"lotm_potion_bard"},"minecraft:display_name":{"value":"§l§e【魔药】§f序列9: 歌颂者"},"minecraft:glint":true}}}

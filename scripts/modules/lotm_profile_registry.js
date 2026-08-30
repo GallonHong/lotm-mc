@@ -165,6 +165,38 @@ export const PATHWAY_PROFILES = {
     }
 };
 
+// 低序列档案只覆盖会随晋升变化的字段；序列 7 继续以 PRD v1.0 数值为准。
+const LOW_SEQUENCE_OVERRIDES = {
+    seer: {
+        9: { sequenceName: "占卜家", maxHealth: 20, maxSpirituality: 120, regenOutOfCombat: 5, regenInCombat: 1, passives: ["spirit_vision"] },
+        8: { sequenceName: "小丑", maxHealth: 24, maxSpirituality: 260, regenOutOfCombat: 9, regenInCombat: 3, passives: ["speed_1", "jump_boost_1", "clown_dodge"] },
+    },
+    hunter: {
+        9: { sequenceName: "猎人", maxHealth: 22, maxSpirituality: 130, regenOutOfCombat: 5, regenInCombat: 1, passives: ["tracking"] },
+        8: { sequenceName: "挑衅者", maxHealth: 26, maxSpirituality: 270, regenOutOfCombat: 8, regenInCombat: 3, passives: ["tracking", "provocation_resistance"] },
+    },
+    warrior: {
+        9: { sequenceName: "战士", maxHealth: 28, maxSpirituality: 100, regenOutOfCombat: 4, regenInCombat: 1, passives: ["weapon_damage_5"] },
+        8: { sequenceName: "格斗家", maxHealth: 34, maxSpirituality: 220, regenOutOfCombat: 6, regenInCombat: 2, passives: ["weapon_damage_10", "knockback_resistance_15"] },
+    },
+    darkness: {
+        9: { sequenceName: "不眠者", maxHealth: 22, maxSpirituality: 150, regenOutOfCombat: 6, regenInCombat: 2, passives: ["night_vision"] },
+        8: { sequenceName: "午夜诗人", maxHealth: 26, maxSpirituality: 310, regenOutOfCombat: 10, regenInCombat: 3, passives: ["night_vision", "night_spirit_boost"] },
+    },
+    sun: {
+        9: { sequenceName: "歌颂者", maxHealth: 24, maxSpirituality: 140, regenOutOfCombat: 6, regenInCombat: 2, passives: ["courage"] },
+        8: { sequenceName: "祈光人", maxHealth: 30, maxSpirituality: 290, regenOutOfCombat: 9, regenInCombat: 3, passives: ["courage", "undead_damage_10"] },
+    },
+    moon: {
+        9: { sequenceName: "药师", maxHealth: 22, maxSpirituality: 130, regenOutOfCombat: 5, regenInCombat: 1, passives: ["medicine_affinity"] },
+        8: { sequenceName: "驯兽师", maxHealth: 28, maxSpirituality: 280, regenOutOfCombat: 9, regenInCombat: 3, passives: ["medicine_affinity", "beast_affinity"] },
+    },
+    assassin: {
+        9: { sequenceName: "刺客", maxHealth: 22, maxSpirituality: 150, regenOutOfCombat: 6, regenInCombat: 2, passives: ["speed_boost_4", "backstab"] },
+        8: { sequenceName: "教唆者", maxHealth: 24, maxSpirituality: 320, regenOutOfCombat: 10, regenInCombat: 3, passives: ["speed_boost_6", "backstab", "instigation"] },
+    },
+};
+
 /**
  * 途径配置管理器
  */
@@ -174,8 +206,22 @@ export class PathwayProfileRegistry {
      * @param {string} pathwayId 
      * @returns {object}
      */
-    static getProfile(pathwayId) {
-        return PATHWAY_PROFILES[pathwayId] || PATHWAY_PROFILES.none;
+    static getProfile(pathwayId, sequence = 7) {
+        const base = PATHWAY_PROFILES[pathwayId] || PATHWAY_PROFILES.none;
+        if (pathwayId === "none") return base;
+        const normalizedSequence = [7, 8, 9].includes(Number(sequence)) ? Number(sequence) : 7;
+        const override = LOW_SEQUENCE_OVERRIDES[pathwayId]?.[normalizedSequence];
+        if (!override) return base;
+        return {
+            ...base,
+            ...override,
+            sequence: normalizedSequence,
+            title: `§${normalizedSequence === 9 ? "9" : normalizedSequence === 8 ? "c" : "6"}【${base.name}】序列${normalizedSequence}: ${override.sequenceName}`,
+            // 序列 7 媒介和消耗品不能被低序列提前驱动。
+            focusItemIds: [],
+            consumableItemIds: [],
+            profileVersion: 10 + normalizedSequence,
+        };
     }
 
     /**
@@ -184,8 +230,8 @@ export class PathwayProfileRegistry {
      * @param {string} itemId 
      * @returns {boolean}
      */
-    static isFocusItem(pathwayId, itemId) {
-        const profile = this.getProfile(pathwayId);
+    static isFocusItem(pathwayId, itemId, sequence = 7) {
+        const profile = this.getProfile(pathwayId, sequence);
         return profile.focusItemIds && profile.focusItemIds.includes(itemId);
     }
 
@@ -195,8 +241,8 @@ export class PathwayProfileRegistry {
      * @param {string} itemId 
      * @returns {boolean}
      */
-    static isConsumableItem(pathwayId, itemId) {
-        const profile = this.getProfile(pathwayId);
+    static isConsumableItem(pathwayId, itemId, sequence = 7) {
+        const profile = this.getProfile(pathwayId, sequence);
         return profile.consumableItemIds && profile.consumableItemIds.includes(itemId);
     }
 }

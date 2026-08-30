@@ -15,6 +15,8 @@ import { PathwayDarkness } from "./pathway_darkness.js";
 import { PathwaySun } from "./pathway_sun.js";
 import { PathwayMoon } from "./pathway_moon.js";
 import { PathwayAssassin } from "./pathway_assassin.js";
+import { PathwayLowSequence } from "./pathway_low_sequence.js";
+import { getPotionData, getAllPotionIds } from "./lotm_progression_registry.js";
 
 /**
  * 《诡秘之主》多途径非凡核心调度器 (LotmManager)
@@ -22,6 +24,7 @@ import { PathwayAssassin } from "./pathway_assassin.js";
  */
 export class LotmManager {
     static playerInCombat = new Map(); // playerId -> lastCombatTick
+    static potionUseTicks = new Map();
 
     // 静态挂载子系统以便外界统一调用
     static PathwayProfileRegistry = PathwayProfileRegistry;
@@ -36,6 +39,7 @@ export class LotmManager {
     static PathwaySun = PathwaySun;
     static PathwayMoon = PathwayMoon;
     static PathwayAssassin = PathwayAssassin;
+    static PathwayLowSequence = PathwayLowSequence;
 
     /**
      * 系统初始化
@@ -125,28 +129,28 @@ export class LotmManager {
         return pathway;
     }
 
-    static setPathway(player, pathwayId) {
+    static setPathway(player, pathwayId, sequence = 7) {
+        this.setProgression(player, pathwayId, sequence, 100);
+    }
+
+    static setProgression(player, pathwayId, sequence, digestion = 0) {
         Utils.setProp(player, "lotm:pathway", pathwayId);
-        const profile = PathwayProfileRegistry.getProfile(pathwayId);
-        Utils.setProp(player, "lotm:sequence", profile.sequence);
+        const normalizedSequence = pathwayId === "none" ? 0 : Number(sequence);
+        const profile = PathwayProfileRegistry.getProfile(pathwayId, normalizedSequence);
+        Utils.setProp(player, "lotm:sequence", normalizedSequence);
         Utils.setProp(player, "lotm:sp", profile.maxSpirituality);
-        Utils.setProp(player, "lotm:digestion", 100);
+        Utils.setProp(player, "lotm:digestion", pathwayId === "none" ? 0 : digestion);
         this.applyHealthProfile(player);
     }
 
     static setSequence(player, seq) {
         Utils.setProp(player, "lotm:sequence", seq);
         if (seq === 0) {
-            Utils.setProp(player, "lotm:pathway", "none");
-            Utils.setProp(player, "lotm:sp", 0);
-            Utils.setProp(player, "lotm:digestion", 0);
+            this.setProgression(player, "none", 0, 0);
         } else if (seq === 7 || seq === 8 || seq === 9) {
-            Utils.setProp(player, "lotm:pathway", "seer");
-            const spMap = { 7: 500, 8: 260, 9: 120 };
-            Utils.setProp(player, "lotm:sp", spMap[seq] || 500);
-            Utils.setProp(player, "lotm:digestion", 100);
+            const pathway = this.getPathway(player) === "none" ? "seer" : this.getPathway(player);
+            this.setProgression(player, pathway, seq, 100);
         }
-        this.applyHealthProfile(player);
     }
 
     static getSequence(player) {
@@ -159,8 +163,47 @@ export class LotmManager {
 
     static getMaxSpirituality(player) {
         const pathway = this.getPathway(player);
-        const profile = PathwayProfileRegistry.getProfile(pathway);
+        const profile = PathwayProfileRegistry.getProfile(pathway, this.getSequence(player));
         return profile.maxSpirituality || 0;
+    }
+
+    static consumePotion(player, itemId) {
+        const potion = getPotionData(itemId);
+        if (!potion) return false;
+
+        // itemUse 与 interact 可能在同一次右键中同时上报；服务器按玩家+物品去重。
+        const useKey = `${player.id}:${itemId}`;
+        const now = system.currentTick;
+        if (now - (this.potionUseTicks.get(useKey) || -100) <= 2) return true;
+        this.potionUseTicks.set(useKey, now);
+
+        const currentPathway = this.getPathway(player);
+        const currentSequence = this.getSequence(player);
+        const digestion = this.getDigestion(player);
+        let allowed = false;
+
+        if (potion.sequence === 9) {
+            allowed = currentPathway === "none" || currentSequence === 0;
+        } else {
+            allowed = currentPathway === potion.pathwayId && currentSequence === potion.sequence + 1 && digestion >= 100;
+        }
+
+        if (!allowed) {
+            const requirement = potion.sequence === 9
+                ? "只有普通人可以服用序列 9 魔药"
+                : `需要先成为同途径序列 ${potion.sequence + 1}，并将魔药完全消化`;
+            Utils.tell(player, `§c§l[晋升失败] §7${requirement}。异途径或越级服用会导致失控。`);
+            Utils.sound.warn(player);
+            return true;
+        }
+
+        if (!Utils.removeItem(player, itemId, 1)) return true;
+        this.setProgression(player, potion.pathwayId, potion.sequence, 0);
+        const profile = PathwayProfileRegistry.getProfile(potion.pathwayId, potion.sequence);
+        Utils.broadcast(`§5§l[序列晋升] §e${player.name} 已晋升为 ${profile.title}§e！`);
+        Utils.tell(player, "§a使用对应低序列能力可推进消化；完全消化后方可继续晋升。");
+        Utils.playSound(player, "random.levelup", 0.9, 1.0);
+        return true;
     }
 
     static modifySpirituality(player, amount) {
@@ -201,7 +244,7 @@ export class LotmManager {
     static applyHealthProfile(player) {
         if (!Utils.isValid(player)) return;
         const pathway = this.getPathway(player);
-        const profile = PathwayProfileRegistry.getProfile(pathway);
+        const profile = PathwayProfileRegistry.getProfile(pathway, this.getSequence(player));
         const maxHP = profile.maxHealth || 20;
 
         // 计算所需的 health_boost amplifier
@@ -225,32 +268,33 @@ export class LotmManager {
     static applyPassiveBuffs(player) {
         if (!Utils.isValid(player)) return;
         const pathway = this.getPathway(player);
+        const sequence = this.getSequence(player);
 
         try {
             switch (pathway) {
                 case "seer":
-                    player.addEffect("speed", 140, { amplifier: 0, showParticles: false });
-                    player.addEffect("jump_boost", 140, { amplifier: 0, showParticles: false });
-                    player.addEffect("water_breathing", 140, { amplifier: 0, showParticles: false });
-                    player.addEffect("fire_resistance", 140, { amplifier: 0, showParticles: false });
+                    if (sequence <= 8) player.addEffect("speed", 140, { amplifier: 0, showParticles: false });
+                    if (sequence <= 8) player.addEffect("jump_boost", 140, { amplifier: 0, showParticles: false });
+                    if (sequence <= 7) player.addEffect("water_breathing", 140, { amplifier: 0, showParticles: false });
+                    if (sequence <= 7) player.addEffect("fire_resistance", 140, { amplifier: 0, showParticles: false });
                     break;
                 case "hunter":
-                    player.addEffect("fire_resistance", 140, { amplifier: 0, showParticles: false });
+                    if (sequence <= 7) player.addEffect("fire_resistance", 140, { amplifier: 0, showParticles: false });
                     break;
                 case "warrior":
-                    player.addEffect("resistance", 140, { amplifier: 0, showParticles: false });
+                    player.addEffect("resistance", 140, { amplifier: sequence <= 7 ? 1 : 0, showParticles: false });
                     break;
                 case "darkness":
                     player.addEffect("night_vision", 300, { amplifier: 0, showParticles: false });
                     break;
                 case "sun":
-                    player.addEffect("regeneration", 140, { amplifier: 0, showParticles: false });
+                    if (sequence <= 7) player.addEffect("regeneration", 140, { amplifier: 0, showParticles: false });
                     break;
                 case "moon":
                     player.addEffect("night_vision", 300, { amplifier: 0, showParticles: false });
                     break;
                 case "assassin":
-                    player.addEffect("speed", 140, { amplifier: 1, showParticles: false });
+                    player.addEffect("speed", 140, { amplifier: sequence <= 7 ? 1 : 0, showParticles: false });
                     break;
             }
         } catch {}
@@ -265,7 +309,7 @@ export class LotmManager {
         const pathway = this.getPathway(player);
         if (pathway === "none") return;
 
-        const profile = PathwayProfileRegistry.getProfile(pathway);
+        const profile = PathwayProfileRegistry.getProfile(pathway, this.getSequence(player));
         const maxSP = profile.maxSpirituality || 0;
         const curSP = this.getSpirituality(player);
 
@@ -279,7 +323,8 @@ export class LotmManager {
         // 吸血鬼/梦魇夜间增益
         const timeOfDay = world.getTimeOfDay();
         const isNight = timeOfDay > 13000 && timeOfDay < 23000;
-        if (pathway === "moon") {
+        const sequence = this.getSequence(player);
+        if (pathway === "moon" && sequence === 7) {
             regen = isNight ? (isOutOfCombat ? 16 : 6) : (isOutOfCombat ? 6 : 2);
         } else if (pathway === "darkness" && isNight) {
             regen = Math.round(regen * 1.25);
@@ -292,7 +337,7 @@ export class LotmManager {
         }
 
         // 吸血鬼血渴心跳处理
-        if (pathway === "moon") {
+        if (pathway === "moon" && sequence === 7) {
             PathwayMoon.handleThirstTick(player);
         }
 
@@ -302,10 +347,10 @@ export class LotmManager {
         const seqName = profile.sequenceName || "魔术师";
 
         let extraHUD = "";
-        if (pathway === "moon") {
+        if (pathway === "moon" && sequence === 7) {
             const thirst = PathwayMoon.getBloodThirst(player);
             extraHUD = ` §8| §4血渴: ${thirst}/100`;
-        } else if (pathway === "warrior") {
+        } else if (pathway === "warrior" && sequence === 7) {
             const stance = PathwayWarrior.getStance(player);
             const stanceMap = { attack: "§c进攻", defense: "§9守御", ranged: "§a远射", balanced: "§f均衡" };
             extraHUD = ` §8| 姿态: ${stanceMap[stance] || "§f均衡"}`;
@@ -322,7 +367,25 @@ export class LotmManager {
     // ==========================================
 
     static handleItemUse(player, item) {
+        if (this.consumePotion(player, item?.typeId)) return true;
         return AbilityRouter.routeItemUse(player, item, this);
+    }
+
+    static handleEmptyHandUse(player) {
+        const sequence = this.getSequence(player);
+        const pathway = this.getPathway(player);
+        if (sequence === 8 || sequence === 9) {
+            return PathwayLowSequence.use(player, pathway, sequence, player.isSneaking, this);
+        }
+        if (sequence !== 7) return false;
+        switch (pathway) {
+            case "seer": player.isSneaking ? PathwaySeer.performFlameJump(player, this) : PathwaySeer.fireAirBullet(player, this); return true;
+            case "hunter": player.isSneaking ? PathwayHunter.triggerFlameTide(player, this) : PathwayHunter.fireFlameSpear(player, this); return true;
+            case "sun": player.isSneaking ? PathwaySun.triggerSunHalo(player, this) : PathwaySun.castHolyLight(player, this); return true;
+            case "moon": player.isSneaking ? PathwayMoon.triggerDarkWings(player, this) : PathwayMoon.corrosiveClaws(player, this); return true;
+            case "assassin": player.isSneaking ? PathwayAssassin.performMirrorSubstitute(player, this) : PathwayAssassin.castBlackFlame(player, this); return true;
+            default: return false;
+        }
     }
 
     // ==========================================
@@ -331,7 +394,8 @@ export class LotmManager {
 
     static openAbilityMenu(player) {
         const pathway = this.getPathway(player);
-        const profile = PathwayProfileRegistry.getProfile(pathway);
+        const sequence = this.getSequence(player);
+        const profile = PathwayProfileRegistry.getProfile(pathway, sequence);
         const sp = this.getSpirituality(player);
         const digestion = this.getDigestion(player);
 
@@ -343,13 +407,17 @@ export class LotmManager {
                 `§f当前灵性: §d${sp} §7/ §e${profile.maxSpirituality} ✧\n` +
                 `§f魔药消化: §a${digestion}%\n` +
                 `§f最大生命: §c${profile.maxHealth} HP §7(${profile.maxHealth / 2} 颗心)\n` +
+                `§7途径一经选择不可更换；完全消化后仅可沿当前途径晋升。\n` +
                 `§7══════════════════════════════`
             )
-            .button("§l§6🎁 领取当前途径专属媒介", "textures/items/diamond_sword")
-            .button("§l§e🧪 途径转换与晋升通道", "textures/items/potion_bottle_heal");
+            .button(sequence === 7 ? "§l§6🎁 领取当前途径专属媒介" : "§l§7🔒 序列7媒介尚未解锁", "textures/items/diamond_sword");
 
         // 依据当前途径动态添加专属操作按钮
-        if (pathway === "warrior") {
+        if (sequence < 7 || sequence > 9) {
+            form.button("§l§7普通人暂无非凡能力", "textures/items/book_normal");
+        } else if (sequence > 7) {
+            form.button(sequence === 9 ? "§l§b普通右键：序列9基础能力\n§r§8潜行能力于序列8解锁" : "§l§d空手普通/潜行右键\n§r§8使用序列9与序列8能力", "textures/items/experience_bottle");
+        } else if (pathway === "warrior") {
             form.button("§l§6⚔️ 切换战术战斗姿态", "textures/items/iron_sword");
         } else if (pathway === "sun") {
             form.button("§l§e💧 凝聚制作【圣水瓶】", "textures/items/gold_ingot");
@@ -364,13 +432,13 @@ export class LotmManager {
         Utils.showForm(player, form, (res) => {
             switch (res.selection) {
                 case 0:
-                    this.giveFocusKit(player);
+                    if (sequence === 7) this.giveFocusKit(player);
+                    else Utils.tell(player, "§7专属媒介与消耗品将在晋升序列 7 后解锁。当前请空手右键使用低序列能力。");
                     break;
                 case 1:
-                    this.openPathwaySelectMenu(player);
-                    break;
-                case 2:
-                    if (pathway === "warrior") {
+                    if (sequence > 7) {
+                        Utils.tell(player, sequence === 9 ? "§b空手普通右键使用序列9能力；完全消化后服用序列8魔药。" : "§d空手普通右键使用基础能力，潜行右键使用序列8能力。");
+                    } else if (pathway === "warrior") {
                         this.openWarriorStanceMenu(player);
                     } else if (pathway === "sun") {
                         this.craftHolyWater(player);
@@ -380,7 +448,7 @@ export class LotmManager {
                         Utils.tell(player, "§9[灵视] 以太体灵性视野已激活！");
                     }
                     break;
-                case 3:
+                case 2:
                     Utils.tell(player, "§b[灵摆] 灵摆轻旋，已感应方圆矿脉与危机！");
                     break;
             }
@@ -429,38 +497,22 @@ export class LotmManager {
     }
 
     /**
-     * 途径选择与转换菜单
-     */
-    static openPathwaySelectMenu(player) {
-        const form = new ActionFormData()
-            .title("§l§e🔮 选择序列 7 途径")
-            .body("§7请选择你想踏入的非凡途径（自动配置专属体质、灵性池与全套技能）：")
-            .button("§l§5【占卜家】魔术师\n§728 HP | 空气弹·火焰跳跃", "textures/items/stick")
-            .button("§l§c【猎人】纵火家\n§732 HP | 火焰长枪·焰潮领域", "textures/items/blaze_powder")
-            .button("§l§6【战士】武器大师\n§744 HP | 四大战技·大师格挡", "textures/items/iron_sword")
-            .button("§l§9【不眠者】梦魇\n§730 HP | 强制入梦·夜之眷属", "textures/items/clock_item")
-            .button("§l§e【歌颂者】太阳神官\n§736 HP | 神圣之光·太阳光环", "textures/items/gold_ingot")
-            .button("§l§4【药师】吸血鬼\n§736 HP | 腐蚀之爪·黑暗之翼", "textures/items/redstone_dust")
-            .button("§l§d【刺客】女巫\n§728 HP | 黑焰禁疗·镜面替身", "textures/items/amethyst_shard");
-
-        Utils.showForm(player, form, (res) => {
-            const pathways = ["seer", "hunter", "warrior", "darkness", "sun", "moon", "assassin"];
-            const selected = pathways[res.selection];
-            if (selected) {
-                this.setPathway(player, selected);
-                this.giveFocusKit(player);
-                Utils.playSound(player, "random.levelup", 1.5, 1.0);
-                Utils.tell(player, `§a§l[晋升成功] §f你已正式成为 §6${PathwayProfileRegistry.getProfile(selected).title}§f！`);
-            }
-        });
-    }
-
-    /**
      * 发放当前途径全套专属媒介与消耗品
      */
     static giveFocusKit(player) {
         const pathway = this.getPathway(player);
+        if (this.getSequence(player) !== 7) {
+            Utils.tell(player, "§7序列 7 专属媒介尚未解锁。低序列能力使用空手普通/潜行右键触发。");
+            return;
+        }
         this.giveFocusKitForPathway(player, pathway);
+    }
+
+    static giveAllPotionKit(player) {
+        for (const potionId of getAllPotionIds()) {
+            Utils.giveItem(player, potionId, 1);
+        }
+        Utils.tell(player, "§a已发放七条途径序列 9、8、7 的全部魔药（共 21 瓶）。晋升仍会严格校验当前途径、序列与消化度。");
     }
 
     /**

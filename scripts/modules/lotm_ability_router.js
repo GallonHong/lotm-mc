@@ -27,6 +27,7 @@ export class AbilityRouter {
         const itemId = item.typeId;
         const isSneaking = player.isSneaking;
         const pathway = lotmManager.getPathway(player);
+        const sequence = lotmManager.getSequence(player);
 
         // ==========================================
         // P1: 手持物是非凡武器 / 封印物 (任何途径均可使用，承受反噬)
@@ -46,6 +47,20 @@ export class AbilityRouter {
         const isSunFocus = (itemId === "lotm:sun_emblem");
         const isMoonFocus = (itemId === "lotm:vampire_ring");
         const isAssassinFocus = (itemId === "lotm:witch_mirror_wand");
+
+        const sequence7Consumables = [
+            "lotm:tarot_card", "lotm:paper_figurine", "lotm:alchemical_molotov",
+            "lotm:blade_oil", "lotm:dream_dust", "lotm:holy_water_bottle",
+            "lotm:sealed_blood_bottle", "lotm:curse_doll"
+        ];
+        if (sequence !== 7 && (
+            isSeerFocus || isHunterFocus || isWarriorFocus || isDarknessFocus ||
+            isSunFocus || isMoonFocus || isAssassinFocus || sequence7Consumables.includes(itemId)
+        )) {
+            Utils.tell(player, "§c§l[阶位不足] §7该媒介需要序列 7 才能稳定驱动。低序列请空手普通/潜行右键使用能力。");
+            Utils.sound.warn(player);
+            return true;
+        }
 
         if (isSeerFocus || isHunterFocus || isWarriorFocus || isDarknessFocus || isSunFocus || isMoonFocus || isAssassinFocus) {
             // 1. 占卜家 (魔术师)
@@ -121,6 +136,11 @@ export class AbilityRouter {
                 return true;
 
             case "lotm:alchemical_molotov":
+                if (pathway !== "hunter") {
+                    Utils.tell(player, "§c§l[非凡排斥] §7仅【猎人/纵火家】可安全投掷炼金燃烧瓶！");
+                    Utils.sound.warn(player);
+                    return true;
+                }
                 PathwayHunter.throwMolotov(player, lotmManager);
                 return true;
 

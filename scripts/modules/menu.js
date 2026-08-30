@@ -109,7 +109,7 @@ export class MenuManager {
             .button("§l§a🎁 全服发放福利金币\n§r§8为所有在线玩家发放金币", "textures/ui/gift_square")
             .button("§l§6⚔️ 7大高阶封印物神兵库\n§r§8一键领取原著全部2级/3级封印物", "textures/items/death_knell")
             .button("§l§5🔮 开发者·非凡阶位调试\n§r§8一键升序/满消化/回满灵性", "textures/items/potion_magician")
-            .button("§l§e🧪 获取全途径非凡物资礼包\n§r§8获取7大途径所有媒介与消耗品", "textures/items/potion_seer")
+            .button("§l§e🧪 获取全途径测试礼包\n§r§8获取21瓶魔药及全部序列7媒介", "textures/items/potion_seer")
             .button("§l§7⬅ 返回上一级", "textures/ui/undo");
 
         Utils.showForm(player, form, (res) => {
@@ -138,7 +138,8 @@ export class MenuManager {
                     for (const p of allPathways) {
                         LotmManager.giveFocusKitForPathway(player, p);
                     }
-                    Utils.tell(player, "§5§l[物资发放] §a已成功将全部 7 大途径的专属非凡武器、施法媒介与消耗品发放至你的背包！");
+                    LotmManager.giveAllPotionKit(player);
+                    Utils.tell(player, "§5§l[物资发放] §a已成功发放 21 瓶晋升魔药及全部序列 7 专属媒介与消耗品！");
                     Utils.sound.success(player);
                     if (onBack) onBack();
                     break;
@@ -210,9 +211,9 @@ export class MenuManager {
                 `§7══════════════════════════════\n` +
                 `§7请选择一键调试操作：`
             )
-            .button("§l§5🌟 一键晋升为【序列7 魔术师】\n§r§8自动拉满500灵性与100%消化", "textures/items/potion_magician")
-            .button("§l§c🎭 一键晋升为【序列8 小丑】\n§r§8自动拉满260灵性与100%消化", "textures/items/potion_clown")
-            .button("§l§9🔮 一键晋升为【序列9 占卜家】\n§r§8自动拉满120灵性与100%消化", "textures/items/potion_seer")
+            .button("§l§5🌟 当前途径设为【序列7】\n§r§8普通人测试时默认占卜家途径", "textures/items/potion_magician")
+            .button("§l§c🎭 当前途径设为【序列8】\n§r§8保留当前途径并刷新对应档案", "textures/items/potion_clown")
+            .button("§l§9🔮 当前途径设为【序列9】\n§r§8保留当前途径并刷新对应档案", "textures/items/potion_seer")
             .button("§l§a📜 一键拉满当前魔药消化度 (100%)\n§r§8达成安全晋升条件", "textures/items/book_enchanted")
             .button("§l§b⚡ 一键瞬间回满当前灵性值\n§r§8无需等待自动冥想回复", "textures/items/experience_bottle")
             .button("§l§4🔄 重置为【普通人 (序列0)】\n§r§8清除全部非凡属性与位阶", "textures/ui/trash")
@@ -226,18 +227,18 @@ export class MenuManager {
 
             switch (res.selection) {
                 case 0:
-                    LotmManager.setPathway(player, "seer");
-                    Utils.broadcast(`§5§l[开发者调试] §e管理员 §f${player.name} §e一键晋升为 §5【序列7: 魔术师】§e！`);
+                    LotmManager.setSequence(player, 7);
+                    Utils.broadcast(`§5§l[开发者调试] §e管理员 §f${player.name} §e已切换当前途径到 §5序列7§e！`);
                     Utils.sound.success(player);
                     break;
                 case 1:
                     LotmManager.setSequence(player, 8);
-                    Utils.broadcast(`§c§l[开发者调试] §e管理员 §f${player.name} §e一键晋升为 §c【序列8: 小丑】§e！`);
+                    Utils.broadcast(`§c§l[开发者调试] §e管理员 §f${player.name} §e已切换当前途径到 §c序列8§e！`);
                     Utils.sound.success(player);
                     break;
                 case 2:
                     LotmManager.setSequence(player, 9);
-                    Utils.broadcast(`§9§l[开发者调试] §e管理员 §f${player.name} §e一键晋升为 §9【序列9: 占卜家】§e！`);
+                    Utils.broadcast(`§9§l[开发者调试] §e管理员 §f${player.name} §e已切换当前途径到 §9序列9§e！`);
                     Utils.sound.success(player);
                     break;
                 case 3:

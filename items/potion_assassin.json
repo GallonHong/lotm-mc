@@ -1,0 +1,1 @@
+{"format_version":"1.20.30","minecraft:item":{"description":{"identifier":"lotm:potion_assassin","menu_category":{"category":"items"}},"components":{"minecraft:max_stack_size":16,"minecraft:hand_equipped":true,"minecraft:icon":{"texture":"lotm_potion_assassin"},"minecraft:display_name":{"value":"§l§8【魔药】§7序列9: 刺客"},"minecraft:glint":true}}}

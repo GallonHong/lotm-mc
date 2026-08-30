@@ -112,40 +112,9 @@ world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
 
     // 空手右键方块：按当前途径触发无武器施法
     if (!itemStack) {
-        const pathway = LotmManager.getPathway(player);
-        if (pathway === "seer") {
+        if (LotmManager.getPathway(player) !== "none") {
             event.cancel = true;
-            system.run(() => {
-                LotmManager.fireAirBullet(player);
-            });
-            return;
-        } else if (pathway === "hunter") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwayHunter.triggerFlameTide(player, LotmManager);
-                else LotmManager.PathwayHunter.fireFlameSpear(player, LotmManager);
-            });
-            return;
-        } else if (pathway === "sun") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwaySun.triggerSunHalo(player, LotmManager);
-                else LotmManager.PathwaySun.castHolyLight(player, LotmManager);
-            });
-            return;
-        } else if (pathway === "moon") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwayMoon.triggerDarkWings(player, LotmManager);
-                else LotmManager.PathwayMoon.corrosiveClaws(player, LotmManager);
-            });
-            return;
-        } else if (pathway === "assassin") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwayAssassin.performMirrorSubstitute(player, LotmManager);
-                else LotmManager.PathwayAssassin.castBlackFlame(player, LotmManager);
-            });
+            system.run(() => LotmManager.handleEmptyHandUse(player));
             return;
         }
     }
@@ -178,40 +147,9 @@ world.beforeEvents.playerInteractWithEntity.subscribe((event) => {
 
     // 空手右键实体：按当前途径触发无武器施法
     if (!itemStack) {
-        const pathway = LotmManager.getPathway(player);
-        if (pathway === "seer") {
+        if (LotmManager.getPathway(player) !== "none") {
             event.cancel = true;
-            system.run(() => {
-                LotmManager.fireAirBullet(player);
-            });
-            return;
-        } else if (pathway === "hunter") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwayHunter.triggerFlameTide(player, LotmManager);
-                else LotmManager.PathwayHunter.fireFlameSpear(player, LotmManager);
-            });
-            return;
-        } else if (pathway === "sun") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwaySun.triggerSunHalo(player, LotmManager);
-                else LotmManager.PathwaySun.castHolyLight(player, LotmManager);
-            });
-            return;
-        } else if (pathway === "moon") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwayMoon.triggerDarkWings(player, LotmManager);
-                else LotmManager.PathwayMoon.corrosiveClaws(player, LotmManager);
-            });
-            return;
-        } else if (pathway === "assassin") {
-            event.cancel = true;
-            system.run(() => {
-                if (player.isSneaking) LotmManager.PathwayAssassin.performMirrorSubstitute(player, LotmManager);
-                else LotmManager.PathwayAssassin.castBlackFlame(player, LotmManager);
-            });
+            system.run(() => LotmManager.handleEmptyHandUse(player));
             return;
         }
     }
@@ -328,7 +266,13 @@ function handleChatCommand(event) {
     // !seq7 <magician|pyro|weapon|nightmare|sun|vampire|witch>
     if (msg.startsWith("!seq7 ") || msg.startsWith("!seq ")) {
         cancelCommand();
-        const arg = msg.split(" ")[1];
+        if (!Utils.isAdmin(player)) {
+            Utils.tell(player, "§c玩家不能通过菜单或指令更换途径。请从普通人开始服用序列 9 魔药，并沿同一途径晋升。");
+            return;
+        }
+        const parts = msg.split(" ").filter(Boolean);
+        const arg = parts[1];
+        const requestedSequence = msg.startsWith("!seq7 ") ? 7 : Number(parts[2] || 7);
         const aliasMap = {
             magician: "seer",
             seer: "seer",
@@ -338,41 +282,49 @@ function handleChatCommand(event) {
             hunter: "hunter",
             纵火家: "hunter",
             猎人: "hunter",
+            挑衅者: "hunter",
             weapon: "warrior",
             warrior: "warrior",
             武器大师: "warrior",
             战士: "warrior",
+            格斗家: "warrior",
             nightmare: "darkness",
             darkness: "darkness",
             梦魇: "darkness",
             不眠者: "darkness",
+            午夜诗人: "darkness",
             sun: "sun",
             太阳神官: "sun",
             太阳: "sun",
+            歌颂者: "sun",
+            祈光人: "sun",
             vampire: "moon",
             moon: "moon",
             吸血鬼: "moon",
             药师: "moon",
+            驯兽师: "moon",
             witch: "assassin",
             assassin: "assassin",
             女巫: "assassin",
             刺客: "assassin",
+            教唆者: "assassin",
             none: "none",
             "0": "none",
             普通人: "none",
         };
 
         const targetPathway = aliasMap[arg];
-        if (targetPathway) {
+        const targetSequence = targetPathway === "none" ? 0 : requestedSequence;
+        if (targetPathway && [0, 7, 8, 9].includes(targetSequence)) {
             system.run(() => {
-                LotmManager.setPathway(player, targetPathway);
-                LotmManager.giveFocusKit(player);
-                const profile = LotmManager.PathwayProfileRegistry.getProfile(targetPathway);
+                LotmManager.setProgression(player, targetPathway, targetSequence, targetSequence === 0 ? 0 : 100);
+                if (targetSequence === 7) LotmManager.giveFocusKit(player);
+                const profile = LotmManager.PathwayProfileRegistry.getProfile(targetPathway, targetSequence);
                 Utils.broadcast(`§5§l[序列晋升] §e玩家 §f${player.name} §e晋升为 §6${profile.title} §e(血量: ${profile.maxHealth} HP, 灵性: ${profile.maxSpirituality})！`);
                 Utils.sound.success(player);
             });
         } else {
-            Utils.tell(player, "§c可用序列7途径：magician (魔术师), pyro (纵火家), weapon (武器大师), nightmare (梦魇), sun (太阳神官), vampire (吸血鬼), witch (女巫), none (普通人)");
+            Utils.tell(player, "§c管理员用法：!seq <seer|hunter|warrior|darkness|sun|moon|assassin|none> <9|8|7>");
         }
         return;
     }
@@ -408,7 +360,7 @@ function handleChatCommand(event) {
         cancelCommand();
         system.run(() => {
             const pathway = LotmManager.getPathway(player);
-            const profile = LotmManager.PathwayProfileRegistry.getProfile(pathway);
+            const profile = LotmManager.PathwayProfileRegistry.getProfile(pathway, LotmManager.getSequence(player));
             const sp = LotmManager.getSpirituality(player);
             Utils.tell(
                 player,

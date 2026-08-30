@@ -9,7 +9,7 @@ export const Config = {
     // -------------------------------------------------------------
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "1.1.3",
+        version: "1.2.0",
         adminTag: "admin", // 拥有此 tag 或 op 的玩家拥有管理员权限
         menuItem: "minecraft:compass", // 右键唤起主菜单的物品 ID
         menuItemName: "§r§l§6快捷导航菜单 §7(右键使用)",
@@ -145,6 +145,24 @@ export const Config = {
                     { id: "lotm:potion_seer", name: "§9【魔药】序列9: 占卜家", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_seer" },
                     { id: "lotm:potion_clown", name: "§c【魔药】序列8: 小丑", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_clown" },
                     { id: "lotm:potion_magician", name: "§5【魔药】序列7: 魔术师", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_magician" },
+                    { id: "lotm:potion_hunter", name: "§2【魔药】序列9: 猎人", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_hunter" },
+                    { id: "lotm:potion_provoker", name: "§6【魔药】序列8: 挑衅者", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_provoker" },
+                    { id: "lotm:potion_pyromaniac", name: "§c【魔药】序列7: 纵火家", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_pyromaniac" },
+                    { id: "lotm:potion_warrior", name: "§7【魔药】序列9: 战士", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_warrior" },
+                    { id: "lotm:potion_pugilist", name: "§6【魔药】序列8: 格斗家", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_pugilist" },
+                    { id: "lotm:potion_weapon_master", name: "§6【魔药】序列7: 武器大师", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_weapon_master" },
+                    { id: "lotm:potion_sleepless", name: "§9【魔药】序列9: 不眠者", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_sleepless" },
+                    { id: "lotm:potion_midnight_poet", name: "§1【魔药】序列8: 午夜诗人", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_midnight_poet" },
+                    { id: "lotm:potion_nightmare", name: "§5【魔药】序列7: 梦魇", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_nightmare" },
+                    { id: "lotm:potion_bard", name: "§e【魔药】序列9: 歌颂者", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_bard" },
+                    { id: "lotm:potion_light_supplicant", name: "§e【魔药】序列8: 祈光人", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_light_supplicant" },
+                    { id: "lotm:potion_solar_priest", name: "§6【魔药】序列7: 太阳神官", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_solar_priest" },
+                    { id: "lotm:potion_apothecary", name: "§a【魔药】序列9: 药师", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_apothecary" },
+                    { id: "lotm:potion_beast_tamer", name: "§2【魔药】序列8: 驯兽师", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_beast_tamer" },
+                    { id: "lotm:potion_vampire", name: "§4【魔药】序列7: 吸血鬼", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_vampire" },
+                    { id: "lotm:potion_assassin", name: "§8【魔药】序列9: 刺客", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_assassin" },
+                    { id: "lotm:potion_instigator", name: "§5【魔药】序列8: 教唆者", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_instigator" },
+                    { id: "lotm:potion_witch", name: "§d【魔药】序列7: 女巫", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_witch" },
                     { id: "lotm:spirit_cane", name: "§e【非凡武器】魔术师手杖", buyPrice: 1200, sellPrice: 400, icon: "textures/items/spirit_cane" },
                     { id: "lotm:paper_figurine", name: "§f【符咒媒介】符咒纸人替身", buyPrice: 200, sellPrice: 60, icon: "textures/items/paper_figurine" },
                     { id: "lotm:tarot_card", name: "§e【飞掷道具】魔术纸牌", buyPrice: 30, sellPrice: 8, icon: "textures/items/tarot_card" },
