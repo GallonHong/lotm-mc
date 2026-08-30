@@ -26,6 +26,9 @@ export class MenuManager {
             const isAdmin = Utils.isAdmin(player);
             const seq = LotmManager.getSequence(player);
             const sp = LotmManager.getSpirituality(player);
+            const pathway = LotmManager.getPathway(player);
+            const profile = LotmManager.PathwayProfileRegistry.getProfile(pathway, seq);
+            const sequenceLabel = seq === 0 ? "普通人" : `序列${seq} · ${profile.sequenceName}`;
 
             const form = new ActionFormData()
                 .title(`§l${Config.system.serverName} §r§8- 主菜单`)
@@ -33,7 +36,7 @@ export class MenuManager {
                     `§7══════════════════════════════\n` +
                     `§f欢迎回来，§e${player.name} §f！\n` +
                     `§f当前资产: ${Utils.formatCurrency(balance)}\n` +
-                    `§f非凡阶位: §d[序列${seq}] §f灵性: §d${sp}\n` +
+                    `§f非凡阶位: §d${sequenceLabel} §8| §f灵性: §d${sp}\n` +
                     `§f当前位置: §7[${Math.floor(player.location.x)}, ${Math.floor(player.location.y)}, ${Math.floor(player.location.z)}] §8(区块 ${chunkX}, ${chunkZ})\n` +
                     `§7══════════════════════════════\n` +
                     `§7请选择你要打开的功能：`

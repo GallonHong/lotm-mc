@@ -17,6 +17,7 @@ import { PathwayMoon } from "./pathway_moon.js";
 import { PathwayAssassin } from "./pathway_assassin.js";
 import { PathwayLowSequence } from "./pathway_low_sequence.js";
 import { getPotionData, getAllPotionIds } from "./lotm_progression_registry.js";
+import { getAbilityGuide } from "./lotm_ability_guide.js";
 
 /**
  * 《诡秘之主》多途径非凡核心调度器 (LotmManager)
@@ -403,13 +404,15 @@ export class LotmManager {
             .title(`§l§5🔮 诡秘之主 · 超凡体系`)
             .body(
                 `§7══════════════════════════════\n` +
-                `§f当前途径: §6${profile.name} (${profile.sequenceName})\n` +
+                `§f当前途径: §6${profile.name}\n` +
+                `§f当前序列: §d${sequence === 0 ? "普通人" : `序列 ${sequence} · ${profile.sequenceName}`}\n` +
                 `§f当前灵性: §d${sp} §7/ §e${profile.maxSpirituality} ✧\n` +
                 `§f魔药消化: §a${digestion}%\n` +
                 `§f最大生命: §c${profile.maxHealth} HP §7(${profile.maxHealth / 2} 颗心)\n` +
                 `§7途径一经选择不可更换；完全消化后仅可沿当前途径晋升。\n` +
                 `§7══════════════════════════════`
             )
+            .button("§l§b📖 查看当前序列能力说明\n§r§8操作方式、媒介与消耗品", "textures/items/book_enchanted")
             .button(sequence === 7 ? "§l§6🎁 领取当前途径专属媒介" : "§l§7🔒 序列7媒介尚未解锁", "textures/items/diamond_sword");
 
         // 依据当前途径动态添加专属操作按钮
@@ -432,10 +435,13 @@ export class LotmManager {
         Utils.showForm(player, form, (res) => {
             switch (res.selection) {
                 case 0:
+                    this.openAbilityGuideMenu(player);
+                    break;
+                case 1:
                     if (sequence === 7) this.giveFocusKit(player);
                     else Utils.tell(player, "§7专属媒介与消耗品将在晋升序列 7 后解锁。当前请空手右键使用低序列能力。");
                     break;
-                case 1:
+                case 2:
                     if (sequence > 7) {
                         Utils.tell(player, sequence === 9 ? "§b空手普通右键使用序列9能力；完全消化后服用序列8魔药。" : "§d空手普通右键使用基础能力，潜行右键使用序列8能力。");
                     } else if (pathway === "warrior") {
@@ -448,10 +454,41 @@ export class LotmManager {
                         Utils.tell(player, "§9[灵视] 以太体灵性视野已激活！");
                     }
                     break;
-                case 2:
+                case 3:
                     Utils.tell(player, "§b[灵摆] 灵摆轻旋，已感应方圆矿脉与危机！");
                     break;
             }
+        });
+    }
+
+    static openAbilityGuideMenu(player) {
+        const pathway = this.getPathway(player);
+        const sequence = this.getSequence(player);
+        const profile = PathwayProfileRegistry.getProfile(pathway, sequence);
+        const guide = getAbilityGuide(pathway, sequence);
+
+        let body = `§7══════════════════════════════\n`;
+        body += sequence === 0
+            ? "§7你目前是普通人，尚未获得非凡能力。服用任一途径的序列 9 魔药后，途径将永久确定。\n"
+            : `§f${profile.name} §8| §d序列 ${sequence} · ${profile.sequenceName}\n\n`;
+
+        if (guide) {
+            const rows = [guide.primary, guide.secondary, guide.consumable].filter(Boolean);
+            for (const [name, input, effect] of rows) {
+                body += `§l§6【${name}】§r\n§e操作：§f${input}\n§7${effect}\n\n`;
+            }
+            if (sequence === 9) body += "§8潜行能力将在晋升序列 8 后解锁。\n";
+            if (sequence > 7) body += "§8序列 7 专属媒介与消耗品尚未解锁。\n";
+        }
+        body += "§7施法失败时请检查灵性、冷却、目标与阶位。\n§7══════════════════════════════";
+
+        const form = new ActionFormData()
+            .title("§l§b📖 当前序列能力说明")
+            .body(body)
+            .button("§l§7⬅ 返回非凡秘典", "textures/ui/undo");
+
+        Utils.showForm(player, form, (res) => {
+            if (!res.canceled && res.selection === 0) this.openAbilityMenu(player);
         });
     }
 
