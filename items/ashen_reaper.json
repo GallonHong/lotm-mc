@@ -1,18 +1,22 @@
 {
-  "format_version": "1.20.0",
+  "format_version": "1.20.30",
   "minecraft:item": {
     "description": {
       "identifier": "lotm:ashen_reaper",
-      "category": "Equipment"
+      "menu_category": {
+        "category": "equipment"
+      }
     },
     "components": {
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
-      "minecraft:icon": "lotm_ashen_reaper",
+      "minecraft:icon": {
+        "texture": "lotm_ashen_reaper"
+      },
       "minecraft:display_name": {
         "value": "§l§c【3级封印物】§6灰烬收割者"
       },
-      "minecraft:foil": true
+      "minecraft:glint": true
     }
   }
 }

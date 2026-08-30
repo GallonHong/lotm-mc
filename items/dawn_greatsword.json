@@ -1,18 +1,22 @@
 {
-  "format_version": "1.20.0",
+  "format_version": "1.20.30",
   "minecraft:item": {
     "description": {
       "identifier": "lotm:dawn_greatsword",
-      "category": "Equipment"
+      "menu_category": {
+        "category": "equipment"
+      }
     },
     "components": {
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
-      "minecraft:icon": "lotm_dawn_greatsword",
+      "minecraft:icon": {
+        "texture": "lotm_dawn_greatsword"
+      },
       "minecraft:display_name": {
         "value": "§l§e【3级封印物】§b晨曦圣剑"
       },
-      "minecraft:foil": true
+      "minecraft:glint": true
     }
   }
 }

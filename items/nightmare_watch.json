@@ -1,18 +1,22 @@
 {
-  "format_version": "1.20.0",
+  "format_version": "1.20.30",
   "minecraft:item": {
     "description": {
       "identifier": "lotm:nightmare_watch",
-      "category": "Equipment"
+      "menu_category": {
+        "category": "equipment"
+      }
     },
     "components": {
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
-      "minecraft:icon": "lotm_nightmare_watch",
+      "minecraft:icon": {
+        "texture": "lotm_nightmare_watch"
+      },
       "minecraft:display_name": {
         "value": "§l§9【非凡媒介】§b午夜怀表"
       },
-      "minecraft:foil": true
+      "minecraft:glint": true
     }
   }
 }

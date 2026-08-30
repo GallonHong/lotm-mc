@@ -77,7 +77,7 @@
 
 ## 🛠️ 安装与使用指南
 
-1. 双击运行导出的 `SAPI_System.mcaddon`，Minecraft 基岩版将自动导入行为包与资源包。
+1. 下载并双击运行 `SAPI_System_Addon.mcaddon`，Minecraft 基岩版将自动导入行为包与资源包。
 2. 创建或编辑世界，在 **行为包** 和 **资源包** 中同时激活 `SAPI_System`。
 3. 确保世界设置中的 **Beta API（测试版 API）** 选项已开启。
 4. 进入世界后，手持罗盘右键或输入 `!menu` 即可畅享全部系统！
@@ -98,3 +98,13 @@
 - **修改地皮价格**：`Config.land.pricePerChunk`
 - **新增商店商品**：在 `Config.shop.categories` 的 `items` 数组中添加物品 ID、名称与买卖价格。
 - **自定义抽奖奖品与权重**：在 `Config.lottery.pools` 中增减物品与配置 `weight`。
+
+## 📦 重新构建安装包
+
+修改源码后，在 macOS 或 Linux 中运行：
+
+```bash
+bash scripts/build-packages.sh
+```
+
+脚本会生成并校验 `SAPI_System_BP.mcpack`、`SAPI_System_RP.mcpack` 与 `SAPI_System_Addon.mcaddon`。Minecraft 安装包必须使用 ZIP 容器，不能仅把 TAR 文件改成 `.mcpack` 或 `.mcaddon` 后缀。

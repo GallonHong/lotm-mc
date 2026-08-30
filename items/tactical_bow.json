@@ -1,14 +1,18 @@
 {
-  "format_version": "1.20.0",
+  "format_version": "1.20.30",
   "minecraft:item": {
     "description": {
       "identifier": "lotm:tactical_bow",
-      "category": "Equipment"
+      "menu_category": {
+        "category": "equipment"
+      }
     },
     "components": {
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
-      "minecraft:icon": "lotm_tactical_bow",
+      "minecraft:icon": {
+        "texture": "lotm_tactical_bow"
+      },
       "minecraft:display_name": {
         "value": "§l§6【战术武器】§f战术战弓"
       }
