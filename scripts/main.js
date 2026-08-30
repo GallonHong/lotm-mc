@@ -256,64 +256,68 @@ world.afterEvents.entityHurt.subscribe((event) => {
 });
 
 /**
- * 聊天栏指令监听拦截
+ * 处理聊天栏快捷指令。
+ * chatSend 在部分稳定版 Script API 中不存在，因此订阅必须做能力检测。
  */
-world.beforeEvents.chatSend.subscribe((event) => {
+function handleChatCommand(event) {
     const { sender: player, message } = event;
     const msg = message.trim().toLowerCase();
+    const cancelCommand = () => {
+        if ("cancel" in event) event.cancel = true;
+    };
 
     // 菜单指令
     if (msg === "!menu" || msg === "!cd" || msg === "!caidan" || msg === "！菜单" || msg === "!菜单") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => MenuManager.openMainMenu(player));
         return;
     }
 
     // 非凡能力与诡秘之主指令
     if (msg === "!lotm" || msg === "!guimi" || msg === "!非凡" || msg === "!途径") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => LotmManager.openAbilityMenu(player));
         return;
     }
 
     // 商店指令
     if (msg === "!shop" || msg === "!商店" || msg === "!sd") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => ShopManager.openShopCategoryUI(player));
         return;
     }
 
     // 地皮领地指令
     if (msg === "!land" || msg === "!plot" || msg === "!地皮" || msg === "!领地") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => LandManager.openPlotMainUI(player));
         return;
     }
 
     // 抽奖指令
     if (msg === "!lottery" || msg === "!choujiang" || msg === "!抽奖" || msg === "!cj") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => LotteryManager.openLotteryMainUI(player));
         return;
     }
 
     // 银行与转账指令
     if (msg === "!pay" || msg === "!转账" || msg === "!zz") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => EconomyManager.openTransferUI(player));
         return;
     }
 
     if (msg === "!money" || msg === "!balance" || msg === "!金币" || msg === "!qb") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => EconomyManager.openBankUI(player));
         return;
     }
 
     // 管理员控制台
     if (msg === "!admin" || msg === "!gm" || msg === "!op") {
-        event.cancel = true;
-        system.run(() => MenuManager.openAdminConsole(player));
+        cancelCommand();
+        system.run(() => MenuManager.openAdminPanel(player));
         return;
     }
 
@@ -323,7 +327,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !seq7 <magician|pyro|weapon|nightmare|sun|vampire|witch>
     if (msg.startsWith("!seq7 ") || msg.startsWith("!seq ")) {
-        event.cancel = true;
+        cancelCommand();
         const arg = msg.split(" ")[1];
         const aliasMap = {
             magician: "seer",
@@ -375,7 +379,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !artifact give <id>
     if (msg.startsWith("!artifact give ")) {
-        event.cancel = true;
+        cancelCommand();
         const artId = msg.replace("!artifact give ", "").trim();
         const fullId = artId.startsWith("lotm:") ? artId : `lotm:${artId}`;
         system.run(() => {
@@ -392,7 +396,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !artifact inspect 查看手持封印物状态
     if (msg === "!artifact inspect" || msg === "!artifact" || msg === "!封印物") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => {
             LotmManager.ArtifactManager.inspect(player);
         });
@@ -401,7 +405,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !profile 查看当前体质档案
     if (msg === "!profile" || msg === "!属性") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => {
             const pathway = LotmManager.getPathway(player);
             const profile = LotmManager.PathwayProfileRegistry.getProfile(pathway);
@@ -421,7 +425,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !givefocus 领取当前途径专属媒介
     if (msg === "!givefocus" || msg === "!媒介") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => {
             LotmManager.giveFocusKit(player);
             Utils.sound.success(player);
@@ -431,7 +435,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !sp / !灵性 回满灵性
     if (msg === "!sp" || msg === "!灵性") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => {
             const max = LotmManager.getMaxSpirituality(player);
             Utils.setProp(player, "lotm:sp", max);
@@ -443,7 +447,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !status list 查看自身状态
     if (msg === "!status list" || msg === "!状态") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => {
             const statuses = LotmManager.StatusEffectManager.entityStatuses.get(player.id);
             if (!statuses || statuses.size === 0) {
@@ -463,7 +467,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !status clear 清除所有状态
     if (msg === "!status clear" || msg === "!清除状态") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => {
             LotmManager.StatusEffectManager.clearAllStatuses(player);
             Utils.tell(player, "§a所有非凡状态已全部清除！");
@@ -474,7 +478,7 @@ world.beforeEvents.chatSend.subscribe((event) => {
 
     // !combatlog 切换战斗日志
     if (msg === "!combatlog" || msg === "!日志") {
-        event.cancel = true;
+        cancelCommand();
         system.run(() => {
             const cur = LotmManager.ArtifactManager.combatLogEnabled.get(player.id) || false;
             LotmManager.ArtifactManager.combatLogEnabled.set(player.id, !cur);
@@ -482,7 +486,19 @@ world.beforeEvents.chatSend.subscribe((event) => {
         });
         return;
     }
-});
+}
+
+const beforeChatSend = world.beforeEvents.chatSend;
+const afterChatSend = world.afterEvents.chatSend;
+
+if (beforeChatSend && typeof beforeChatSend.subscribe === "function") {
+    beforeChatSend.subscribe(handleChatCommand);
+} else if (afterChatSend && typeof afterChatSend.subscribe === "function") {
+    afterChatSend.subscribe(handleChatCommand);
+    console.warn("[SAPI System] beforeEvents.chatSend is unavailable; chat shortcuts will be visible to other players.");
+} else {
+    console.warn("[SAPI System] Chat events are unavailable in this Script API version. Use the compass menu or /scriptevent commands.");
+}
 
 /**
  * ScriptEvent 指令唤起监听

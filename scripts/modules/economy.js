@@ -30,16 +30,21 @@ export class EconomyManager {
         if (!player) return 0;
         const objective = this.getObjective();
         try {
-            if (objective.hasParticipant(player)) {
-                return objective.getScore(player) ?? 0;
-            } else {
-                // 初次初始化金币
+            // getScore 在所有受支持版本均可用；避免依赖部分运行时缺失的 hasParticipant。
+            const currentScore = objective.getScore(player);
+            if (typeof currentScore === "number") return currentScore;
+
+            const initScore = Config.economy.initialBalance;
+            objective.setScore(player, initScore);
+            return initScore;
+        } catch {
+            try {
                 const initScore = Config.economy.initialBalance;
                 objective.setScore(player, initScore);
                 return initScore;
+            } catch {
+                return 0;
             }
-        } catch {
-            return 0;
         }
     }
 
@@ -185,7 +190,7 @@ export class EconomyManager {
                 .button1("§l确定")
                 .button2("§l返回");
 
-            form.show(player).then(() => {
+            Utils.showForm(player, form, () => {
                 if (onBack) onBack();
             });
             return;

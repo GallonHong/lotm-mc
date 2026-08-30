@@ -50,6 +50,20 @@ export class ArtifactManager {
     }
 
     /**
+     * 安全发放一件已注册的封印物，供管理员菜单和调试入口共用。
+     */
+    static giveArtifact(player, itemId) {
+        if (!this.isArtifact(itemId)) {
+            Utils.tell(player, `§c无效的封印物 ID：${itemId}`);
+            return false;
+        }
+
+        Utils.giveItem(player, itemId, 1);
+        Utils.tell(player, `§a已领取封印物：§e${itemId}`);
+        return true;
+    }
+
+    /**
      * 处理非凡武器主动技能触发
      */
     static handleArtifactUse(player, itemId, isSneaking, lotmManager) {

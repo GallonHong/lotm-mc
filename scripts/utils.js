@@ -25,20 +25,32 @@ export class Utils {
     static showForm(player, form, callback, maxRetries = 5) {
         if (!player || !form) return;
         form.show(player).then((res) => {
+            const invokeCallback = () => {
+                try {
+                    callback(res);
+                } catch (err) {
+                    const details = err?.stack || String(err);
+                    console.error(`[UI Callback Error] selection=${res.selection}: ${details}`);
+                    Utils.tell(player, "§c菜单操作执行失败，错误详情已写入内容日志。请将新的完整日志反馈给开发者。");
+                }
+            };
+
             if (res.canceled) {
-                if (res.cancelationReason === "UserBusy" && maxRetries > 0) {
+                const reason = String(res.cancelationReason || "");
+                if (reason.includes("UserBusy") && maxRetries > 0) {
                     system.runTimeout(() => {
                         Utils.showForm(player, form, callback, maxRetries - 1);
                     }, 3);
                     return;
                 }
+                // 让各菜单有机会在玩家主动关闭时执行返回逻辑。
+                invokeCallback();
                 return;
             }
-            try {
-                callback(res);
-            } catch (err) {
-                console.error("[UI Callback Error]", err);
-            }
+            invokeCallback();
+        }).catch((err) => {
+            const details = err?.stack || String(err);
+            console.error(`[UI Form Error] ${details}`);
         });
     }
 

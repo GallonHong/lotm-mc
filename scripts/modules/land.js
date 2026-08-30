@@ -412,8 +412,11 @@ export class LandManager {
                     .title("§l添加信任成员")
                     .dropdown("§f选择要添加的在线玩家:", candidates.map(p => p.name));
 
-                addForm.show(player).then((addRes) => {
-                    if (addRes.canceled) return;
+                Utils.showForm(player, addForm, (addRes) => {
+                    if (addRes.canceled) {
+                        if (onBack) onBack();
+                        return;
+                    }
                     const selectedPlayer = candidates[addRes.formValues[0]];
                     if (selectedPlayer) {
                         if (!plot.members) plot.members = [];
@@ -437,8 +440,11 @@ export class LandManager {
                     .title("§l移除信任成员")
                     .dropdown("§f选择要移除的成员:", members);
 
-                removeForm.show(player).then((remRes) => {
-                    if (remRes.canceled) return;
+                Utils.showForm(player, removeForm, (remRes) => {
+                    if (remRes.canceled) {
+                        if (onBack) onBack();
+                        return;
+                    }
                     const targetName = members[remRes.formValues[0]];
                     plot.members = members.filter(m => m !== targetName);
                     this.savePlot(plot);
@@ -495,8 +501,9 @@ export class LandManager {
             Utils.sound.warn(player);
         });
 
-        // 2. 放置方块保护
-        world.beforeEvents.playerPlaceBlock.subscribe((event) => {
+        // 2. 放置方块保护。旧版稳定 API 没有 beforeEvents.playerPlaceBlock，
+        // 因此优先使用可取消事件，否则在放置后立即回滚并返还物品。
+        const protectPlacement = (event, canCancel) => {
             const { player, block, dimension } = event;
             const { chunkX, chunkZ } = Utils.getChunkCoords(block.location);
             const plot = this.getPlot(dimension.id, chunkX, chunkZ);
@@ -505,10 +512,45 @@ export class LandManager {
 
             if (this.hasPermission(player, plot) || plot.flags?.allowPlace) return;
 
-            event.cancel = true;
-            Utils.actionbar(player, `§c[领地保护] 此区域属于 §e${plot.ownerName}§c，禁止放置！`);
-            Utils.sound.warn(player);
-        });
+            if (canCancel) {
+                event.cancel = true;
+                Utils.actionbar(player, `§c[领地保护] 此区域属于 §e${plot.ownerName}§c，禁止放置！`);
+                Utils.sound.warn(player);
+                return;
+            }
+
+            const placedTypeId = block.typeId;
+            system.run(() => {
+                try {
+                    block.setType("minecraft:air");
+
+                    // 生存/冒险模式已经消耗了方块，回滚后返还一个；创造模式不返还。
+                    let isCreative = false;
+                    try {
+                        isCreative = String(player.getGameMode()).toLowerCase() === "creative";
+                    } catch {}
+                    if (!isCreative) Utils.giveItem(player, placedTypeId, 1);
+
+                    Utils.actionbar(player, `§c[领地保护] 此区域属于 §e${plot.ownerName}§c，禁止放置！已撤销操作。`);
+                    Utils.sound.warn(player);
+                } catch (error) {
+                    console.warn(`[Land] Failed to roll back ${placedTypeId} placed by ${player.name}: ${error}`);
+                }
+            });
+        };
+
+        const beforePlaceBlock = world.beforeEvents.playerPlaceBlock;
+        if (beforePlaceBlock && typeof beforePlaceBlock.subscribe === "function") {
+            beforePlaceBlock.subscribe((event) => protectPlacement(event, true));
+        } else {
+            const afterPlaceBlock = world.afterEvents.playerPlaceBlock;
+            if (afterPlaceBlock && typeof afterPlaceBlock.subscribe === "function") {
+                afterPlaceBlock.subscribe((event) => protectPlacement(event, false));
+                console.warn("[Land] beforeEvents.playerPlaceBlock is unavailable; using after-event rollback protection.");
+            } else {
+                console.warn("[Land] Block placement events are unavailable; placement protection is disabled on this API version.");
+            }
+        }
 
         // 3. 方块交互保护 (箱子、门、拉杆等)
         world.beforeEvents.playerInteractWithBlock.subscribe((event) => {

@@ -86,6 +86,23 @@ export class LotmManager {
     }
 
     /**
+     * 普通人强行使用高阶封印物时触发精神污染。
+     */
+    static triggerMadness(player, reason = "高阶封印物造成精神污染") {
+        if (!Utils.isValid(player)) return;
+        Utils.tell(player, `§4§l[失控反噬] §c${reason}`);
+        Utils.actionbar(player, "§4精神遭受重创，必须先踏入非凡序列！");
+        Utils.playSound(player, "mob.wither.spawn", 0.7, 0.8);
+        try {
+            player.addEffect("nausea", 200, { amplifier: 1, showParticles: true });
+            player.addEffect("weakness", 200, { amplifier: 1, showParticles: true });
+            player.applyDamage(4);
+        } catch (error) {
+            console.warn(`[LOTM] Failed to apply madness backlash to ${player.name}: ${error}`);
+        }
+    }
+
+    /**
      * 攻击命中被动触发快捷门面
      */
     static handleAttackHit(attacker, target) {

@@ -218,7 +218,7 @@ export class MenuManager {
             .button("§l§4🔄 重置为【普通人 (序列0)】\n§r§8清除全部非凡属性与位阶", "textures/ui/trash")
             .button("§l§7⬅ 返回管理员菜单", "textures/ui/undo");
 
-        form.show(player).then(res => {
+        Utils.showForm(player, form, (res) => {
             if (res.canceled) {
                 if (onBack) onBack();
                 return;
@@ -329,75 +329,75 @@ export class MenuManager {
             return;
         }
 
-        new MessageFormData()
+        const form = new MessageFormData()
             .title("§l§4⚠️ 确认强拆地皮")
             .body(`§c确定要强制清除地皮 §e${plot.name} §c吗？\n§f所属玩家: §e${plot.ownerName}\n§f区块坐标: §7[${chunkX}, ${chunkZ}]\n§c此操作不可撤销！`)
             .button1("§l§4确认删除")
-            .button2("§l§7取消")
-            .show(player)
-            .then((res) => {
-                if (res.selection === 0) {
-                    LandManager.deletePlot(dimension, chunkX, chunkZ);
-                    Utils.tell(player, `§a已成功强行删除该地皮！`);
-                    Utils.sound.success(player);
-                }
-                if (onBack) onBack();
-            });
+            .button2("§l§7取消");
+
+        Utils.showForm(player, form, (res) => {
+            if (res.selection === 0) {
+                LandManager.deletePlot(dimension, chunkX, chunkZ);
+                Utils.tell(player, `§a已成功强行删除该地皮！`);
+                Utils.sound.success(player);
+            }
+            if (onBack) onBack();
+        });
     }
 
     /**
      * 发布全服公告
      */
     static openBroadcastModal(player, onBack = null) {
-        new ModalFormData()
+        const form = new ModalFormData()
             .title("§l§e📢 发布全服公告")
-            .textField("公告内容", "输入你要广播的消息...")
-            .show(player)
-            .then((res) => {
-                if (res.canceled) {
-                    if (onBack) onBack();
-                    return;
-                }
-                const [content] = res.formValues;
-                if (!content || content.trim().length === 0) {
-                    Utils.tell(player, "§c公告内容不能为空！");
-                } else {
-                    Utils.broadcast(`§e[管理员 ${player.name}] §f${content}`);
-                    Utils.sound.success(player);
-                }
+            .textField("公告内容", "输入你要广播的消息...");
+
+        Utils.showForm(player, form, (res) => {
+            if (res.canceled) {
                 if (onBack) onBack();
-            });
+                return;
+            }
+            const [content] = res.formValues;
+            if (!content || content.trim().length === 0) {
+                Utils.tell(player, "§c公告内容不能为空！");
+            } else {
+                Utils.broadcast(`§e[管理员 ${player.name}] §f${content}`);
+                Utils.sound.success(player);
+            }
+            if (onBack) onBack();
+        });
     }
 
     /**
      * 全服在线玩家发放福利金币
      */
     static openGiftAllModal(player, onBack = null) {
-        new ModalFormData()
+        const form = new ModalFormData()
             .title("§l§a🎁 全服发放福利金币")
-            .textField("每人发放金额", "例如: 5000")
-            .show(player)
-            .then((res) => {
-                if (res.canceled) {
-                    if (onBack) onBack();
-                    return;
-                }
-                const [amountStr] = res.formValues;
-                const amount = parseInt(amountStr);
-                if (isNaN(amount) || amount <= 0) {
-                    Utils.tell(player, "§c请输入有效的数字！");
-                } else {
-                    const players = world.getAllPlayers();
-                    for (const p of players) {
-                        if (Utils.isValid(p)) {
-                            EconomyManager.addBalance(p, amount);
-                            Utils.tell(p, `§6🎉 管理员向全服发放了福利！你获得了 ${Utils.formatCurrency(amount)}！`);
-                        }
-                    }
-                    Utils.broadcast(`§a管理员 §e${player.name} §a向全服在线玩家发放了每人 ${Utils.formatCurrency(amount)} 的福利礼金！`);
-                    Utils.sound.success(player);
-                }
+            .textField("每人发放金额", "例如: 5000");
+
+        Utils.showForm(player, form, (res) => {
+            if (res.canceled) {
                 if (onBack) onBack();
-            });
+                return;
+            }
+            const [amountStr] = res.formValues;
+            const amount = parseInt(amountStr);
+            if (isNaN(amount) || amount <= 0) {
+                Utils.tell(player, "§c请输入有效的数字！");
+            } else {
+                const players = world.getAllPlayers();
+                for (const p of players) {
+                    if (Utils.isValid(p)) {
+                        EconomyManager.addBalance(p, amount);
+                        Utils.tell(p, `§6🎉 管理员向全服发放了福利！你获得了 ${Utils.formatCurrency(amount)}！`);
+                    }
+                }
+                Utils.broadcast(`§a管理员 §e${player.name} §a向全服在线玩家发放了每人 ${Utils.formatCurrency(amount)} 的福利礼金！`);
+                Utils.sound.success(player);
+            }
+            if (onBack) onBack();
+        });
     }
 }

@@ -198,7 +198,7 @@ export class LotteryManager {
             .body(content)
             .button("§l§a确定并返回", "textures/ui/confirm");
 
-        form.show(player).then(() => {
+        Utils.showForm(player, form, () => {
             if (onBack) onBack();
         });
     }
