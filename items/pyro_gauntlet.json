@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "lotm:pyro_gauntlet",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": "lotm_pyro_gauntlet",
+      "minecraft:display_name": {
+        "value": "§l§c【非凡媒介】§6赤焰手套"
+      },
+      "minecraft:foil": true
+    }
+  }
+}

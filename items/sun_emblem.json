@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "lotm:sun_emblem",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": "lotm_sun_emblem",
+      "minecraft:display_name": {
+        "value": "§l§e【非凡媒介】§6太阳圣徽"
+      },
+      "minecraft:foil": true
+    }
+  }
+}

@@ -1,0 +1,93 @@
+{
+  "resource_pack_name": "sapi_system",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "lotm_death_knell": {
+      "textures": "textures/items/death_knell"
+    },
+    "thunder_blaster": {
+      "textures": "textures/items/thunder_blaster"
+    },
+    "lotm_potion_seer": {
+      "textures": "textures/items/potion_seer"
+    },
+    "lotm_potion_clown": {
+      "textures": "textures/items/potion_clown"
+    },
+    "lotm_potion_magician": {
+      "textures": "textures/items/potion_magician"
+    },
+    "lotm_tarot_card": {
+      "textures": "textures/items/tarot_card"
+    },
+    "lotm_paper_figurine": {
+      "textures": "textures/items/paper_figurine"
+    },
+    "lotm_spirit_cane": {
+      "textures": "textures/items/spirit_cane"
+    },
+    "lotm_pyro_gauntlet": {
+      "textures": "textures/items/pyro_gauntlet"
+    },
+    "lotm_nightmare_watch": {
+      "textures": "textures/items/nightmare_watch"
+    },
+    "lotm_sun_emblem": {
+      "textures": "textures/items/sun_emblem"
+    },
+    "lotm_vampire_ring": {
+      "textures": "textures/items/vampire_ring"
+    },
+    "lotm_witch_mirror_wand": {
+      "textures": "textures/items/witch_mirror_wand"
+    },
+    "lotm_tactical_sword": {
+      "textures": "textures/items/tactical_sword"
+    },
+    "lotm_tactical_axe": {
+      "textures": "textures/items/tactical_axe"
+    },
+    "lotm_tactical_spear": {
+      "textures": "textures/items/tactical_spear"
+    },
+    "lotm_tactical_bow": {
+      "textures": "textures/items/tactical_bow"
+    },
+    "lotm_alchemical_molotov": {
+      "textures": "textures/items/alchemical_molotov"
+    },
+    "lotm_blade_oil": {
+      "textures": "textures/items/blade_oil"
+    },
+    "lotm_dream_dust": {
+      "textures": "textures/items/dream_dust"
+    },
+    "lotm_holy_water_bottle": {
+      "textures": "textures/items/holy_water_bottle"
+    },
+    "lotm_sealed_blood_bottle": {
+      "textures": "textures/items/sealed_blood_bottle"
+    },
+    "lotm_curse_doll": {
+      "textures": "textures/items/curse_doll"
+    },
+    "lotm_ashen_reaper": {
+      "textures": "textures/items/ashen_reaper"
+    },
+    "lotm_dawn_greatsword": {
+      "textures": "textures/items/dawn_greatsword"
+    },
+    "lotm_silent_pointer": {
+      "textures": "textures/items/silent_pointer"
+    },
+    "lotm_blood_moon_rapier": {
+      "textures": "textures/items/blood_moon_rapier"
+    },
+    "lotm_mirror_split_dagger": {
+      "textures": "textures/items/mirror_split_dagger"
+    },
+    "lotm_arsenal_box": {
+      "textures": "textures/items/arsenal_box"
+    }
+  }
+}

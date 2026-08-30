@@ -1,0 +1,12 @@
+# Dependencies
+node_modules/
+
+# OS / Temporary files
+.DS_Store
+Thumbs.db
+*.tmp
+*.log
+
+# Build output (keep packaged mcaddons or ignore large temp builds)
+*.ps1
+deploy_*.js

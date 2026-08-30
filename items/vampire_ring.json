@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "lotm:vampire_ring",
+      "category": "Equipment"
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": "lotm_vampire_ring",
+      "minecraft:display_name": {
+        "value": "§l§4【非凡媒介】§c血族指环"
+      },
+      "minecraft:foil": true
+    }
+  }
+}

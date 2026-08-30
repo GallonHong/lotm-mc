@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "lotm:dream_dust",
+      "category": "Items"
+    },
+    "components": {
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": "lotm_dream_dust",
+      "minecraft:display_name": {
+        "value": "§l§9【非凡消耗品】§f梦境粉尘"
+      },
+      "minecraft:foil": true
+    }
+  }
+}
