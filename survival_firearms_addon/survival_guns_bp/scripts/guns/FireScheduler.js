@@ -48,6 +48,19 @@ export class FireScheduler {
   }
 
   /**
+   * 兼容模式的单次右键脉冲。每次物品开始使用最多结算一发，
+   * 不依赖部分 Bedrock 平台不会发送的 itemStopUse 事件。
+   */
+  static requestPulseShot(playerId, gunDef, currentTick) {
+    const state = this.#getOrCreateState(playerId);
+    const rpm = Math.max(1, Math.min(1200, Number(gunDef.rpm) || 1));
+    const minimumTicks = Math.max(1, Math.ceil((60 * 20) / rpm));
+    if (currentTick - state.lastShotTick < minimumTicks) return 0;
+    state.lastShotTick = currentTick;
+    return 1;
+  }
+
+  /**
    * 每 tick 调度计算本 tick 允许发射的弹药数量
    */
   static updateAndGetShots(playerId, gunDef, currentTick) {

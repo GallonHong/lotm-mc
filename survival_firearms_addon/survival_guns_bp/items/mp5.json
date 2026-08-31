@@ -11,7 +11,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:icon": {
-        "texture": "survival_mp5"
+        "texture": "survival:mp5"
       },
       "minecraft:display_name": {
         "value": "§l§bMP5 冲锋枪§r\n§7高射速 | 9x19mm"

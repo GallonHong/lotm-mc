@@ -11,7 +11,7 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:icon": {
-        "texture": "survival_m1911"
+        "texture": "survival:m1911"
       },
       "minecraft:display_name": {
         "value": "§l§fM1911 手枪§r\n§7半自动 | .45 ACP"

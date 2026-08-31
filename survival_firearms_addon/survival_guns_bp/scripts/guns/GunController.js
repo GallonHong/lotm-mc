@@ -40,24 +40,21 @@ export class GunController {
     const gunDef = GunRegistry.getGun(item.typeId);
     if (!gunDef) return;
 
-    // 按下扳机
+    // 右键脉冲：立即结算且立即释放，避免缺失 itemStopUse 的平台无限开火。
     if (ReloadManager.isReloading(player.id)) return;
     FireScheduler.pressTrigger(player.id);
-
-    // 半自动与泵动模式：按下瞬间立即结算第 1 发
-    if (gunDef.fireMode === "semi" || gunDef.fireMode === "pump") {
-      const inv = player.getComponent("minecraft:inventory");
-      if (inv && inv.container) {
-        const slot = player.selectedSlotIndex;
-        const mainItem = inv.container.getItem(slot);
-        if (mainItem && mainItem.typeId === gunDef.id && !ReloadManager.isReloading(player.id)) {
-          const shots = FireScheduler.updateAndGetShots(player.id, gunDef, system.currentTick);
-          for (let i = 0; i < shots; i++) {
-            this.#fireOneShot(player, inv.container, slot, mainItem, gunDef);
-          }
+    const inv = player.getComponent("minecraft:inventory");
+    if (inv && inv.container) {
+      const slot = player.selectedSlotIndex;
+      const mainItem = inv.container.getItem(slot);
+      if (mainItem && mainItem.typeId === gunDef.id) {
+        const shots = FireScheduler.requestPulseShot(player.id, gunDef, system.currentTick);
+        for (let i = 0; i < shots; i++) {
+          this.#fireOneShot(player, inv.container, slot, mainItem, gunDef);
         }
       }
     }
+    FireScheduler.releaseTrigger(player.id);
   }
 
   /**
@@ -152,16 +149,7 @@ export class GunController {
         GunAnimationBridge.playState(player, gunDef, animationState);
       }
 
-      // 3. 处理全自动射击调度 (仅在全自动且按住扳机时进行)
-      const isReloading = ReloadManager.isReloading(player.id);
-      if (!isReloading && gunDef.fireMode === "auto" && FireScheduler.isPressed(player.id)) {
-        const shotsToFire = FireScheduler.updateAndGetShots(player.id, gunDef, currentTick);
-        for (let i = 0; i < shotsToFire; i++) {
-          this.#fireOneShot(player, inv.container, currentSlot, mainItem, gunDef);
-        }
-      }
-
-      // 4. 更新 Actionbar 实时 HUD
+      // 3. 更新 Actionbar 实时 HUD
       this.#updatePlayerHud(player, mainItem, gunDef, currentTick);
     }
   }

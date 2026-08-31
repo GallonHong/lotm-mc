@@ -29,6 +29,11 @@ for (const [name, rpm, mode, expectedShots] of [
   assert.ok(error <= 0.02, `${name} RPM error ${(error * 100).toFixed(2)}%`);
 }
 assert.equal(FireScheduler.simulateFireTicks(5000, "auto", 200), 200, "RPM must clamp to 1200");
+FireScheduler.reset("pulse-test");
+assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 100), 1, "first right-click pulse must fire");
+assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 101), 0, "pulse must respect RPM cooldown");
+assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 102), 1, "next eligible right-click pulse must fire");
+FireScheduler.reset("pulse-test");
 
 const recipes = Object.fromEntries(GunRegistry.getAllBlueprints().map(bp => [bp.id, bp]));
 assert.deepEqual(recipes["survival:blueprint_m1911"].synthesisRecipe.map(x => [x.item, x.count]), [
@@ -59,6 +64,7 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
     `${gunName} must use an item format that recognizes minecraft:use_modifiers`
   );
   assert.ok(item["minecraft:item"].components["minecraft:use_modifiers"], `${gunName} must be hold-usable`);
+  assert.equal(item["minecraft:item"].components["minecraft:icon"].texture, `survival:${gunName}`, `${gunName} icon must use its namespaced atlas key`);
 }
 
 const rpFiles = walk(join(root, "survival_guns_rp_mvp"));
@@ -75,16 +81,23 @@ assert.ok(!animationSources.includes("v.is_first_person"), "standalone animation
 assert.ok(!/\b(?:v|variable)\.[A-Za-z_][A-Za-z0-9_]*/.test(animationSources), "standalone animations must not depend on any DeadZone player variables");
 assert.ok(animationSources.includes("query.is_first_person"), "standalone animations must use the supported first-person query");
 
-const renderControllerPath = join(root, "survival_guns_rp_mvp/render_controllers/survival_guns.render_controllers.json");
-const renderController = JSON.parse(readFileSync(renderControllerPath, "utf8"));
-assert.ok(renderController.render_controllers["controller.render.survival_gun"], "standalone gun render controller is missing");
 for (const attachablePath of walk(join(root, "survival_guns_rp_mvp/attachables")).filter(path => path.endsWith(".json"))) {
   const attachable = JSON.parse(readFileSync(attachablePath, "utf8"));
   const description = attachable["minecraft:attachable"].description;
-  assert.deepEqual(description.scripts.animate, ["controller"], `${attachablePath} must animate in first and third person`);
-  assert.deepEqual(description.render_controllers, ["controller.render.survival_gun"], `${attachablePath} must use the isolated render controller`);
+  assert.equal(attachable.format_version, "1.20.30", `${attachablePath} must use the current attachable sample format`);
+  assert.equal(description.item[description.identifier], "query.is_owner_identifier_any('minecraft:player')", `${attachablePath} must map the held item`);
+  assert.equal(description.animations, undefined, `${attachablePath} must remain a static compatibility model`);
+  assert.deepEqual(description.render_controllers, ["controller.render.item_default"], `${attachablePath} must use the built-in item render controller`);
   const texturePath = join(root, "survival_guns_rp_mvp", `${description.textures.default}.png`);
   assert.ok(rpFiles.includes(texturePath), `${attachablePath} texture is missing: ${texturePath}`);
 }
 
-console.log("PASS: four-gun registry, RPM, recipes, right-click use, JSON, standalone rendering, Molang, and isolated assets validated");
+const itemAtlas = JSON.parse(readFileSync(join(root, "survival_guns_rp_mvp/textures/item_texture.json"), "utf8"));
+for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
+  assert.equal(itemAtlas.texture_data[`survival:${gunName}`].textures, `textures/items/${gunName}`, `${gunName} namespaced icon atlas entry is missing`);
+  const modelName = gunName === "akm" ? "ak47" : gunName;
+  const modelSource = readFileSync(join(root, `survival_guns_rp_mvp/models/entity/temporary_deadzone_assets/${modelName}.geo.json`), "utf8");
+  assert.ok(modelSource.includes("query.item_slot_to_bone_name(context.item_slot)"), `${gunName} model must bind to the held item slot`);
+}
+
+console.log("PASS: four-gun registry, pulse firing, recipes, namespaced icons, static model binding, JSON, and isolated assets validated");

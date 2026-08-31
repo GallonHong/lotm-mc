@@ -6,7 +6,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v1.3.3 MVP...");
+console.warn("[SurvivalFirearms] Addon initializing v1.3.4 MVP...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -39,7 +39,7 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
   GunTestSuite.runAll(player);
 };
 
-// 3. 物品使用与长按开火事件
+// 3. 物品使用事件。枪械采用单次右键脉冲，不再依赖松开事件停止自动射击。
 const hasItemStartUse = subscribeAfterEvent("itemStartUse", (event) => {
   try {
     GunController.handleItemStartUse(event);

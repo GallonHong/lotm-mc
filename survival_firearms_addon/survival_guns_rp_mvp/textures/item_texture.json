@@ -2,6 +2,10 @@
   "resource_pack_name": "survival_firearms_mvp",
   "texture_name": "atlas.items",
   "texture_data": {
+    "survival:m1911": { "textures": "textures/items/m1911" },
+    "survival:akm": { "textures": "textures/items/akm" },
+    "survival:m870": { "textures": "textures/items/m870" },
+    "survival:mp5": { "textures": "textures/items/mp5" },
     "survival_m1911": { "textures": "textures/temporary_deadzone_assets/items/m1911" },
     "survival_akm": { "textures": "textures/temporary_deadzone_assets/items/akm" },
     "survival_m870": { "textures": "textures/temporary_deadzone_assets/items/m870" },

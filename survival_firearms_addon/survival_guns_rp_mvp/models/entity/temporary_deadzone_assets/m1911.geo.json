@@ -27,7 +27,7 @@
 				},
 				{
 					"name": "guns",
-					"parent": "body",
+					"binding": "query.item_slot_to_bone_name(context.item_slot)",
 					"pivot": [-5, 22, 0],
 					"rotation": [135, 0, 0]
 				},
