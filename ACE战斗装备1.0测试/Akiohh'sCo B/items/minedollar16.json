@@ -1,0 +1,17 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "bridge:minedollar16",
+			"menu_category": {
+				"category": "items",
+				"group": "itemGroup.name.currency"
+			}
+		},
+		"components": {
+			"minecraft:icon": "bridge_minedollar16",
+			"minecraft:allow_off_hand": true,
+			"minecraft:max_stack_size": 64
+		}
+	}
+}

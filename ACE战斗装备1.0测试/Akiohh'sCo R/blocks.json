@@ -1,0 +1,19 @@
+{
+	"format_version": "1.21.40",
+	"bridge:military_crate": {
+		"sound": "stone"
+	},
+	"bridge:tank": {
+		"sound": "stone"
+	},
+	"bridge:router": {
+		"sound": "stone",
+		"textures": "bridge_router"
+	},
+	"bridge:ammo_box": {
+		"sound": "stone"
+	},
+	"bridge:safe": {
+		"sound": "stone"
+	}
+}

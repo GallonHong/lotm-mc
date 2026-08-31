@@ -1,0 +1,33 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:item": {
+        "components": {
+            "minecraft:can_destroy_in_creative": false,
+            "minecraft:cooldown": {
+                "category": "chorusfruit",
+                "duration": 0
+            },
+            "minecraft:display_name": {
+                "value": "PKP 佩切内格\n§b俄罗斯7.62×54mmR通用机枪,它是PK机枪（PKM）的进一步发展和改进."
+            },
+            "minecraft:food": {
+                "can_always_eat": true
+            },
+            "minecraft:hand_equipped": true,
+            "minecraft:icon": "pkm",
+            "minecraft:max_stack_size": 1,
+            "minecraft:stacked_by_data": true,
+            "minecraft:use_modifiers": {
+                "movement_modifier": 0.9,
+                "use_duration": 9999999
+            }
+        },
+        "description": {
+            "identifier": "mw:pkm",
+            "menu_category": {
+                "category": "equipment",
+                "is_hidden_in_commands": false
+            }
+        }
+    }
+}

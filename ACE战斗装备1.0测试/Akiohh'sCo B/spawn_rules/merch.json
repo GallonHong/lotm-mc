@@ -1,0 +1,84 @@
+{
+	"format_version": "1.20.60",
+	"minecraft:spawn_rules": {
+		"description": {
+			"identifier": "hengker:operator",
+			"population_control": "animal"
+		},
+		"conditions": [
+			{
+				"minecraft:spawns_on_surface": {},
+				"minecraft:brightness_filter": {
+					"min": 7,
+					"max": 15,
+					"adjust_for_weather": false
+				},
+				"minecraft:weight": {
+					"default": 8
+				},
+				"minecraft:herd": {
+					"min_size": 1,
+					"max_size": 2
+				},
+				"minecraft:density_limit": {
+					"surface": 5,
+					"underground": 0
+				},
+				"minecraft:biome_filter": {
+					"test": "has_biome_tag",
+					"operator": "==",
+					"value": "animal"
+				},
+				"minecraft:spawns_on_block_filter": [
+					"minecraft:grass_block",
+					"minecraft:grass_path",
+					"minecraft:dirt",
+					"minecraft:coarse_dirt",
+					"minecraft:sand",
+					"minecraft:red_sand",
+					"minecraft:snow",
+					"minecraft:snow_layer",
+					"minecraft:podzol"
+				]
+			},
+			{
+				"minecraft:spawns_underground": {},
+				"minecraft:spawns_on_surface": {},
+				"minecraft:brightness_filter": {
+					"min": 0,
+					"max": 7,
+					"adjust_for_weather": false
+				},
+				"minecraft:weight": {
+					"default": 4
+				},
+				"minecraft:herd": {
+					"min_size": 1,
+					"max_size": 1
+				},
+				"minecraft:biome_filter": [
+					{
+						"any_of": [
+							{
+								"test": "has_biome_tag",
+								"operator": "==",
+								"value": "animal"
+							}
+						]
+					}
+				],
+				"minecraft:spawns_on_block_filter": [
+					"minecraft:grass_block",
+					"minecraft:grass_path",
+					"minecraft:dirt",
+					"minecraft:coarse_dirt",
+					"minecraft:sand",
+					"minecraft:red_sand",
+					"minecraft:snow",
+					"minecraft:snow_layer",
+					"minecraft:podzol"
+				]
+			}
+		]
+	}
+}

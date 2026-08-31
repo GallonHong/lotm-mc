@@ -1,0 +1,387 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.hb.shoot": {
+			"animation_length": 0.048,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!hb_silencer,tag=!brake,scores={hb=2..}] animation.hb.fpp_shoot e 1",
+					"/playanimation @s[tag=hb_silencer,scores={hb=2..}] animation.hb.fpp_silencer e 1",
+					"/playanimation @s[tag=hbbulletin,tag=!hb_silencer,tag=!brake,scores={hb=1}] animation.hb.fpp_shoot e 1",
+					"/playanimation @s[tag=hbbulletin,tag=hb_silencer,scores={hb=1}] animation.hb.fpp_silencer e 1"
+				],
+				"0.02": [
+					"/event entity @s[tag=!hbbulletin,scores={hb=2..60}] hengker:hb_fire",
+					"/event entity @s[tag=hbbulletin] hengker:hb_fire",
+					"/execute as @s[tag=hbbulletin,scores={hb=1}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={hb=2..}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[tag=!hbbulletin,scores={hb=2..}] run scriptevent hengker:hb_shoot",
+					"/tag @s[tag=hbbulletin] remove hbbulletin"
+				],
+				"0.045": [
+					"/title @s[scores={hb=1}] actionbar §4弹药耗尽！ // 弹出弹匣",
+					"/event entity @s[scores={hb=1}] bridge:not_chested",
+					"/playsound gun.click @s[scores={hb=1}]",
+					"/playanimation @s[tag=hbbulletin] animation.hb.selongsong",
+					"/tag @s[tag=!hbbulletin,scores={hb=2..}] add hbbulletin",
+					"/tag @s[tag=hbbulletin,scores={hb=1}] remove hbbulletin",
+					"/execute as @s[tag=hbbulletin,scores={hb=2..}] run scriptevent hengker:hb_shoot"
+				]
+			}
+		},
+		"animation.hb.aim": {
+			"animation_length": 0.048,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!hb_silencer,tag=!brake,scores={hb=2..}] animation.hb.fpp_shoot e 1",
+					"/playanimation @s[tag=hb_silencer,scores={hb=2..}] animation.hb.fpp_silencer e 1",
+					"/playanimation @s[tag=hbbulletin,tag=!hb_silencer,tag=!brake,scores={hb=1}] animation.hb.fpp_shoot e 1",
+					"/playanimation @s[tag=hbbulletin,tag=hb_silencer,scores={hb=1}] animation.hb.fpp_silencer e 1"
+				],
+				"0.02": [
+					"/event entity @s[tag=!hbbulletin,scores={hb=2..60}] hengker:hb_aim",
+					"/event entity @s[tag=hbbulletin] hengker:hb_aim",
+					"/execute as @s[tag=hbbulletin,scores={hb=1}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={hb=2..}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[tag=!hbbulletin,scores={hb=2..}] run scriptevent hengker:hb_shoot",
+					"/tag @s[tag=hbbulletin] remove hbbulletin"
+				],
+				"0.045": [
+					"/title @s[scores={hb=1}] actionbar §4弹药耗尽！ // 弹出弹匣",
+					"/event entity @s[scores={hb=1}] bridge:not_chested",
+					"/playsound gun.click @s[scores={hb=1}]",
+					"/playanimation @s[tag=hbbulletin] animation.hb.selongsong",
+					"/tag @s[tag=!hbbulletin,scores={hb=2..}] add hbbulletin",
+					"/tag @s[tag=hbbulletin,scores={hb=1}] remove hbbulletin",
+					"/execute as @s[tag=hbbulletin,scores={hb=2..}] run scriptevent hengker:hb_shoot"
+				]
+			}
+		},
+		"animation.hb.changemag": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:rilotchange"
+				]
+			}
+		},
+		"animation.hb.changemag.drum": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:rilotchange"
+				]
+			}
+		},
+		"animation.hb.inspect_empty": {
+			"animation_length": 4.65,
+			"loop": false,
+			"timeline": {
+				"0.3": [
+					"/function camera1"
+				],
+				"4.45": [
+					"/function camera1"
+				],
+				"4.65": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.hb.inspect": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown,scores={hb=0}] run event entity @s hengker:inspect"
+				]
+			}
+		},
+		"animation.hb.checking": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:aug_check"
+				]
+			}
+		},
+		"animation.hb.reload": {
+			"animation_length": 2.84,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/event entity @s hengker:mag",
+					"/tag @s remove hbnomag",
+					"/event entity @s[scores={hb=1}] bridge:not_chested",
+					"/event entity @s[scores={hb=2..}] bridge:is_chested"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.92": [
+					"/function camera1"
+				],
+				"1.33": [
+					"/function camera1"
+				],
+				"1.92": [
+					"/function camera1",
+					"/playanimation @s[tag=hbbulletin] animation.hb.selongsong",
+					"/tag @s[tag=!hbbulletin,scores={hb=2..}] add hbbulletin",
+					"/tag @s[tag=hbbulletin,scores={hb=1}] remove hbbulletin",
+					"/execute as @s[tag=hbbulletin,scores={hb=2..}] run scriptevent hengker:hb_shoot"
+				],
+				"2.13": [
+					"/function camera1"
+				],
+				"2.63": [
+					"/function camera1"
+				],
+				"2.84": [
+					"/title @s actionbar 换弹完成",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.hb.reload_extended": {
+			"animation_length": 3.25,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/tag @s add hbextended",
+					"/event entity @s hengker:mag",
+					"/tag @s remove hbnomag",
+					"/event entity @s[scores={hb=1}] bridge:not_chested",
+					"/event entity @s[scores={hb=2..}] bridge:is_chested"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.92": [
+					"/function camera1"
+				],
+				"1.33": [
+					"/function camera1"
+				],
+				"1.67": [
+					"/function camera1"
+				],
+				"2.33": [
+					"/function camera1",
+					"/playanimation @s[tag=hbbulletin] animation.hb.selongsong",
+					"/tag @s[tag=!hbbulletin,scores={hb=2..}] add hbbulletin",
+					"/tag @s[tag=hbbulletin,scores={hb=1}] remove hbbulletin",
+					"/execute as @s[tag=hbbulletin,scores={hb=2..}] run scriptevent hengker:hb_shoot"
+				],
+				"2.54": [
+					"/function camera1"
+				],
+				"3.04": [
+					"/function camera1"
+				],
+				"3.25": [
+					"/title @s actionbar 换弹完成",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.hb.reload_drum": {
+			"animation_length": 3.375,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/tag @s add hbdrum",
+					"/event entity @s hengker:mag",
+					"/tag @s remove hbnomag",
+					"/event entity @s[scores={hb=1}] bridge:not_chested",
+					"/event entity @s[scores={hb=2..}] bridge:is_chested"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.92": [
+					"/function camera1"
+				],
+				"1.46": [
+					"/function camera1"
+				],
+				"1.79": [
+					"/function camera1"
+				],
+				"2.42": [
+					"/function camera1",
+					"/playanimation @s[tag=hbbulletin] animation.hb.selongsong",
+					"/tag @s[tag=!hbbulletin,scores={hb=2..}] add hbbulletin",
+					"/tag @s[tag=hbbulletin,scores={hb=1}] remove hbbulletin",
+					"/execute as @s[tag=hbbulletin,scores={hb=2..}] run scriptevent hengker:hb_shoot"
+				],
+				"2.63": [
+					"/function camera1"
+				],
+				"3.17": [
+					"/function camera1"
+				],
+				"3.375": [
+					"/title @s actionbar 换弹完成",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.hb.change": {
+			"animation_length": 2.05,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"1": [
+					"/function camera1"
+				],
+				"0.25": [
+					"/function camera1"
+				],
+				"0.42": [
+					"/function camera1"
+				],
+				"1.63": [
+					"/function camera1"
+				],
+				"1.79": [
+					"/function camera1"
+				],
+				"2.05": [
+					"/event entity @s hengker:nomag",
+					"/tag @s[tag=hbdrum] remove hbdrum",
+					"/tag @s[tag=hbextended] remove hbextended",
+					"/tag @s add hbnomag",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.hb.change.drum": {
+			"animation_length": 2.25,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"2": [
+					"/function camera1"
+				],
+				"0.25": [
+					"/function camera1"
+				],
+				"0.42": [
+					"/function camera1"
+				],
+				"1.25": [
+					"/function camera1"
+				],
+				"1.83": [
+					"/function camera1"
+				],
+				"2.25": [
+					"/event entity @s hengker:nomag",
+					"/tag @s[tag=hbdrum] remove hbdrum",
+					"/tag @s[tag=hbextended] remove hbextended",
+					"/tag @s add hbnomag",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.hb.draw": {
+			"timeline": {
+				"1": [
+					"/hud @s hide crosshair",
+					"/tag @s remove cooldown",
+					"/execute as @s run function hb_check"
+				],
+				"0.0": [
+					"/tag @s add cooldown",
+					"/execute as @s run function hb_check"
+				],
+				"0.31": [
+					"/function camera1",
+					"/event entity @s[scores={hb=1}] bridge:not_chested",
+					"/event entity @s[scores={hb=2..}] bridge:is_chested"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 1
+		},
+		"animation.hb.unequip": {
+			"animation_length": 0.6,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.6": [
+					"/event entity @s unequip:hb"
+				]
+			}
+		},
+		"animation.hb.check": {
+			"animation_length": 3.67,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/event entity @s[scores={hb=1}] bridge:not_chested",
+					"/event entity @s[scores={hb=2..}] bridge:is_chested"
+				],
+				"0.45": [
+					"/function camera1"
+				],
+				"0.25": [
+					"/function camera1"
+				],
+				"0.42": [
+					"/function camera1"
+				],
+				"1.67": [
+					"/title @s[tag=!hbdrum,tag=!hbextended,scores={hb=31}] actionbar 弹匣已满",
+					"/title @s[tag=!hbdrum,tag=!hbextended,scores={hb=23..30}] actionbar 弹药接近满载",
+					"/title @s[tag=!hbdrum,tag=!hbextended,scores={hb=16..22}] actionbar 弹药过半",
+					"/title @s[tag=!hbdrum,tag=!hbextended,scores={hb=10..15}] actionbar 剩余一半弹药",
+					"/title @s[tag=!hbdrum,tag=!hbextended,scores={hb=2..9}] actionbar 弹药所剩无几",
+					"/title @s[tag=!hbdrum,tag=!hbextended,scores={hb=1}] actionbar 弹匣空仓",
+					"/title @s[tag=hbbulletin,scores={hb=1}] actionbar 膛内留有一发子弹"
+				],
+				"1.7": [
+					"/title @s[tag=hbextended,scores={hb=41}] actionbar 弹匣已满",
+					"/title @s[tag=hbextended,scores={hb=33..40}] actionbar 弹药接近满载",
+					"/title @s[tag=hbextended,scores={hb=25..32}] actionbar 弹药过半",
+					"/title @s[tag=hbextended,scores={hb=18..24}] actionbar 剩余一半弹药",
+					"/title @s[tag=hbextended,scores={hb=9..17}] actionbar 弹药不足一半",
+					"/title @s[tag=hbextended,scores={hb=2..8}] actionbar 弹药所剩无几",
+					"/title @s[tag=hbextended,scores={hb=1}] actionbar 弹匣空仓",
+					"/title @s[tag=hbbulletin,scores={hb=1}] actionbar 膛内留有一发子弹"
+				],
+				"1.75": [
+					"/title @s[tag=hbdrum,scores={hb=61}] actionbar 弹鼓已满",
+					"/title @s[tag=hbdrum,scores={hb=53..60}] actionbar 弹药接近满载",
+					"/title @s[tag=hbdrum,scores={hb=35..52}] actionbar 弹药过半",
+					"/title @s[tag=hbdrum,scores={hb=28..34}] actionbar 剩余一半弹药",
+					"/title @s[tag=hbdrum,scores={hb=9..27}] actionbar 弹药不足一半",
+					"/title @s[tag=hbdrum,scores={hb=2..8}] actionbar 弹药所剩无几",
+					"/title @s[tag=hbdrum,scores={hb=1}] actionbar 弹鼓空仓",
+					"/title @s[tag=hbbulletin,scores={hb=1}] actionbar 膛内留有一发子弹"
+				],
+				"2.5": [
+					"/function camera1"
+				],
+				"2.88": [
+					"/function camera1"
+				],
+				"3.42": [
+					"/function camera1"
+				],
+				"3.67": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		}
+	}
+}

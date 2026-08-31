@@ -1,0 +1,45 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.walk": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"move": "query.ground_speed>=0.2&&q.is_moving"
+						},
+						{
+							"riding": "query.is_riding"
+						}
+					]
+				},
+				"move": {
+					"animations": [
+						"walk"
+					],
+					"transitions": [
+						{
+							"default": "query.ground_speed<=0.2&&!q.is_moving"
+						},
+						{
+							"riding": "query.is_riding"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"riding": {
+					"animations": [
+						"riding"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_riding"
+						}
+					],
+					"blend_transition": 0.2
+				}
+			}
+		}
+	}
+}

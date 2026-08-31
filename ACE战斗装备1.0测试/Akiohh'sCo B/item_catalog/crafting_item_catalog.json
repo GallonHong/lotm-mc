@@ -1,0 +1,120 @@
+{
+    "format_version": "1.21.60",
+    "minecraft:crafting_items_catalog": {
+        "categories": [
+            {
+                "category_name": "equipment",
+                "groups": [
+                    {
+                        "group_identifier": {
+                            "icon": "bridge:aug_mag",
+                            "name": "hengker:itemGroup.name.magazines"
+                        },
+                        "items": [
+                            "bridge:aug_mag",
+                            "bridge:barret_mag",
+                            "bridge:tactile_mag",
+                            "bridge:hb_mag",
+                            "bridge:hb_mag_extended",
+                            "bridge:hb_mag_drum",
+                            "bridge:hkc_mag",
+                            "bridge:hkc_mag_extended",
+                            "bridge:hkc_mag_drum",
+                            "bridge:scar_mag",
+                            "bridge:scar_mag_extended",
+                            "bridge:scar_mag_drum",
+                            "bridge:glock_mag",
+                            "bridge:glock_mag_extended",
+                            "bridge:colt_mag"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "hengker:scar",
+                            "name": "hengker:itemGroup.name.weapons"
+                        },
+                        "items": [
+                            "hengker:scar",
+                            "hengker:hb",
+                            "hengker:hkc",
+                            "hengker:tactile",
+                            "hengker:barret",
+                            "hengker:mosin",
+                            "hengker:glock",
+                            "hengker:colt"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "hengker:silencer",
+                            "name": "hengker:itemGroup.name.attachments"
+                        },
+                        "items": [
+                            "hengker:silencer",
+                            "hengker:laser_red",
+                            "bridge:flashlight",
+                            "hengker:acog",
+                            "hengker:magnifier",
+                            "hengker:reddot",
+                            "hengker:holo",
+                            "hengker:scout",
+                            "hengker:tele",
+                            "hengker:normal",
+                            "hengker:simple",
+                            "hengker:cqb",
+                            "hengker:light",
+                            "hengker:short",
+                            "hengker:long",
+                            "hengker:exclusive"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "bridge:bullet_556mm",
+                            "name": "hengker:itemGroup.name.bullet"
+                        },
+                        "items": [
+                            "bridge:bullet_556mm",
+                            "bridge:bullet_50bmg",
+                            "bridge:bullet_762mm",
+                            "bridge:bullet_9mm",
+                            "bridge:bullet_45acp"
+                        ]
+                    }
+                ]
+            },
+            {
+                "category_name": "items",
+                "groups": [
+                    {
+                        "group_identifier": {
+                            "icon": "bridge:minedollar1",
+                            "name": "hengker:itemGroup.name.currency"
+                        },
+                        "items": [
+                            "bridge:minedollar1",
+                            "bridge:minedollar4",
+                            "bridge:minedollar16"
+                        ]
+                    },
+                    {
+                        "group_identifier": {
+                            "icon": "bridge:dvd",
+                            "name": "hengker:itemGroup.name.loot"
+                        },
+                        "items": [
+                            "bridge:dvd",
+                            "bridge:tank",
+                            "bridge:ram",
+                            "bridge:router",
+                            "bridge:usb",
+                            "bridge:syringe",
+                            "bridge:drug",
+                            "bridge:fork"
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}

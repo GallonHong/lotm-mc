@@ -1,0 +1,1 @@
+execute as @s run titleraw @a[r=10] actionbar {"rawtext":[{"text":"§a救援车将抵达 "},{"score":{"name":"@s","objective":"cd"}},{"text":" seconds."}]}

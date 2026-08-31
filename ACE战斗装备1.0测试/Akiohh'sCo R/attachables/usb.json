@@ -1,0 +1,35 @@
+{
+	"format_version": "1.20.10",
+	"minecraft:attachable": {
+		"description": {
+			"identifier": "bridge:usb",
+			"materials": {
+				"default": "entity_alphatest",
+				"enchanted": "enchanting_table_book"
+			},
+			"textures": {
+				"default": "textures/entity/flashdisk"
+			},
+			"geometry": {
+				"default": "geometry.flashdisk"
+			},
+			"render_controllers": [
+				"controller.render.item_default"
+			],
+			"scripts": {
+				"animate": [
+					{
+						"item_fpp": "c.is_first_person"
+					},
+					{
+						"item_tpp": "!c.is_first_person"
+					}
+				]
+			},
+			"animations": {
+				"item_fpp": "animation.loot.3d_fpp",
+				"item_tpp": "animation.loot.3d_tpp"
+			}
+		}
+	}
+}

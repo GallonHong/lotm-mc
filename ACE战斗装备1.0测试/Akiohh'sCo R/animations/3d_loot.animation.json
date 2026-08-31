@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.loot.3d_tpp": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"sniper": {
+					"rotation": [-92.5, 0, 0],
+					"position": [-4, 15, -9]
+				}
+			}
+		},
+		"animation.loot.3d_fpp": {
+			"loop": true,
+			"override_previous_animation": true,
+			"bones": {
+				"root_item": {
+					"rotation": [241.0023, -12.6066, -68.7592],
+					"position": [3.5, 22, -28]
+				},
+				"sniper": {
+					"rotation": [-92.5, 0, 0],
+					"position": [2, -1, -9]
+				}
+			}
+		}
+	}
+}

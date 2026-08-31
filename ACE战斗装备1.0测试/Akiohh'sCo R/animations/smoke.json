@@ -1,0 +1,22 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.smoke.flare": {
+			"animation_length": 10.15,
+			"loop": true,
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "flare",
+						"locator": "flare"
+					}
+				]
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "flare_smoke"
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,326 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.mujur": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"ngarep": "query.variant==0"
+						},
+						{
+							"mburi": "query.variant==1"
+						},
+						{
+							"ngiwo": "query.variant==2"
+						},
+						{
+							"nengen": "query.variant==3"
+						}
+					]
+				},
+				"ngarep": {
+					"on_entry": [
+						"/tp @s ~~~ facing ~~~1"
+					],
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				},
+				"mburi": {
+					"on_entry": [
+						"/tp @s ~~~ facing ~~~-1"
+					],
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				},
+				"nengen": {
+					"on_entry": [
+						"/tp @s ~~~ facing ~1~~"
+					],
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				},
+				"ngiwo": {
+					"on_entry": [
+						"/tp @s ~~~ facing ~-1~~"
+					],
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.operator_reload": {
+			"initial_state": "preshoot",
+			"states": {
+				"preshoot": {
+					"transitions": [
+						{
+							"shoot": "query.facing_target_to_range_attack&&!q.is_angry"
+						}
+					]
+				},
+				"shoot": {
+					"on_entry": [
+						"/scoreboard players add @s[tag=plor] scar -1",
+						"/execute @s ~ ~ ~ fill ~ ~2 ~ ~ ~2 ~ light_block 9 replace air"
+					],
+					"on_exit": [
+						"v.bullet_fire=q.life_time;",
+						"/particle minecraft:basic_smoke_particle ^^1.6^0.8",
+						"/execute @s ~ ~ ~ fill ~1 ~ ~1 ~-1 ~2 ~-1 air 1 replace light_block",
+						"/playanimation @s animation.scar.fpp_shoot e 1"
+					],
+					"transitions": [
+						{
+							"shooting": "1"
+						}
+					]
+				},
+				"shooting": {
+					"on_entry": [
+						"v.delaytime=q.life_time;"
+					],
+					"transitions": [
+						{
+							"preshoot": "!query.facing_target_to_range_attack||q.is_angry"
+						},
+						{
+							"reload": "query.scoreboard('scar')<0"
+						},
+						{
+							"shoot": "query.facing_target_to_range_attack&&(query.life_time-variable.bullet_fire)>=0.06&&!q.is_angry"
+						}
+					]
+				},
+				"reload": {
+					"on_entry": [
+						"@s dd_reload"
+					],
+					"transitions": [
+						{
+							"preshoot": "1"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.night_vision": {
+			"initial_state": "default",
+			"states": {
+				"off": {
+					"transitions": [
+						{
+							"on": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:ghost_helmet')&&q.property('hengker:nightvision')=='disabled'&&q.is_using_item&&!q.is_sneaking"
+						}
+					],
+					"on_exit": [
+						"@s nightvision:on"
+					]
+				},
+				"on": {
+					"transitions": [
+						{
+							"off": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:ghost_helmet')&&q.property('hengker:nightvision')=='enabled'&&q.is_sneaking"
+						}
+					],
+					"on_exit": [
+						"@s nightvision:off"
+					]
+				}
+			}
+		},
+		"controller.animation.mbg_cooldown": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"plus1": "1"
+						}
+					],
+					"on_exit": [
+						"/function mbg_cooldown"
+					]
+				},
+				"plus1": {
+					"on_entry": [
+						"variable.ngewe=query.life_time;"
+					],
+					"transitions": [
+						{
+							"default": "q.is_alive&&(query.life_time-variable.ngewe)>=1"
+						}
+					],
+					"on_exit": [
+						"/scoreboard players remove @s cd 1"
+					]
+				}
+			}
+		},
+		"controller.animation.extraction_cooldown": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"plus1": "1"
+						}
+					],
+					"on_exit": [
+						"/function extraction_cooldown"
+					]
+				},
+				"plus1": {
+					"on_entry": [
+						"variable.ngewe=query.life_time;"
+					],
+					"transitions": [
+						{
+							"default": "q.is_alive&&(query.life_time-variable.ngewe)>=1"
+						}
+					],
+					"on_exit": [
+						"/scoreboard players remove @s cd 1"
+					]
+				}
+			}
+		},
+		"controller.animation.bullet_impact": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"ground": "query.is_on_ground"
+						},
+						{
+							"water": "query.is_in_water"
+						}
+					],
+					"on_entry": [
+						"@s no"
+					]
+				},
+				"ground": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"/particle test:impact ~~~",
+						"/particle test:impact2 ~~~"
+					],
+					"on_exit": [
+						"@s hengker:delay"
+					]
+				},
+				"water": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"/particle test:impact_water ~~~"
+					],
+					"on_exit": [
+						"@s hengker:delay"
+					]
+				}
+			}
+		},
+		"controller.animation.dvd": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "q.mark_variant==0&&query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						},
+						{
+							"unequip": "q.mark_variant==9&&!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						}
+					],
+					"on_exit": [
+						"/event entity @s equip:dvd"
+					]
+				},
+				"draw": {
+					"animations": [
+						"dvd_draw"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')&&q.all_animations_finished"
+						}
+					]
+				},
+				"unequip": {
+					"animations": [
+						"dvd_unequip"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')&&q.property('hengker:reload')=='inspect'"
+						}
+					]
+				},
+				"inspect": {
+					"animations": [
+						"dvd_inspect"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						}
+					],
+					"on_exit": [
+						"@s hengker:rilotend"
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,427 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.aug.attachment.old": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"silencer": "q.variant==1&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:muzzle')=='n'&&query.is_item_name_any('slot.inventory',0,'hengker:silencer3')"
+						},
+						{
+							"muzzle": "q.variant==1&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:muzzle')!='n'"
+						},
+						{
+							"holo": "q.variant==3&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:scope')=='n'&&query.is_item_name_any('slot.weapon.offhand',0,'hengker:holo')"
+						},
+						{
+							"acog": "q.variant==3&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:scope')=='n'&&query.is_item_name_any('slot.weapon.offhand',0,'hengker:acog')"
+						},
+						{
+							"reddot": "q.variant==3&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:scope')=='n'&&query.is_item_name_any('slot.weapon.offhand',0,'hengker:reddot')"
+						},
+						{
+							"sight": "q.variant==3&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:scope')!='n'"
+						},
+						{
+							"light": "q.variant==6&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:grip')=='n'&&query.is_item_name_any('slot.inventory',2,'hengker:light')"
+						},
+						{
+							"short": "q.variant==6&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:grip')=='n'&&query.is_item_name_any('slot.inventory',2,'hengker:short')"
+						},
+						{
+							"long": "q.variant==6&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:grip')=='n'&&query.is_item_name_any('slot.inventory',2,'hengker:long')"
+						},
+						{
+							"grip": "q.variant==6&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:grip')!='n'"
+						},
+						{
+							"red": "q.variant==2&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:laser')=='n'&&query.is_item_name_any('slot.inventory',1,'hengker:laser')"
+						},
+						{
+							"green": "q.variant==2&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:laser')=='red'"
+						},
+						{
+							"gold": "q.variant==2&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:laser')=='green'"
+						},
+						{
+							"off": "q.variant==2&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:aug')&&q.property('hengker:reload')=='heal'&&q.is_using_item&&q.property('mk556:laser')=='gold'"
+						}
+					]
+				},
+				"red": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:laser",
+						"/tag @s[m=!c] add augred",
+						"/tag @s[m=!c] remove auggreen",
+						"/tag @s[m=!c] remove auggold",
+						"/clear @s[m=!c] hengker:laser",
+						"/playsound laser.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"green": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:laser2",
+						"/tag @s[m=!c] remove augred",
+						"/tag @s[m=!c] remove auggold",
+						"/tag @s[m=!c] add auggreen",
+						"/playsound laser.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"gold": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:laser3",
+						"/tag @s[m=!c] remove auggreen",
+						"/tag @s[m=!c] remove augred",
+						"/tag @s[m=!c] add auggold",
+						"/playsound laser.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"off": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:laser_off",
+						"/give @s[m=!c] hengker:laser",
+						"/tag @s[m=!c] remove auggold",
+						"/tag @s[m=!c] remove auggreen",
+						"/tag @s[m=!c] remove augred",
+						"/playsound laser.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"light": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:light",
+						"/clear @s[m=!c] hengker:light 0 1",
+						"/tag @s[m=!c] add auglight",
+						"/tag @s[m=!c] remove augshort",
+						"/tag @s[m=!c] remove auglong",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"short": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:short",
+						"/clear @s[m=!c] hengker:short 0 1",
+						"/tag @s[m=!c] remove auglight",
+						"/tag @s[m=!c] add augshort",
+						"/tag @s[m=!c] remove auglong",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"long": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:long",
+						"/clear @s[m=!c] hengker:long 0 1",
+						"/tag @s[m=!c] remove auglight",
+						"/tag @s[m=!c] remove augshort",
+						"/tag @s[m=!c] add auglong",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"grip": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:grip",
+						"/give @s[m=!c,tag=auglong] hengker:long",
+						"/give @s[m=!c,tag=augshort] hengker:short",
+						"/give @s[m=!c,tag=auglight] hengker:light",
+						"/tag @s[m=!c] remove auglight",
+						"/tag @s[m=!c] remove augshort",
+						"/tag @s[m=!c] remove auglong",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"mag": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:mag",
+						"/give @s[m=!c] hengker:drum",
+						"/tag @s[m=!c,tag=augdrum] remove augdrum",
+						"/scoreboard players set @s aug_ammo 30",
+						"/scoreboard players set @s[scores={aug=31..}] aug 30",
+						"/playsound extended.mag.uninstall @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"drum": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:drum",
+						"/clear @s[m=!c] hengker:drum 0 1",
+						"/tag @s[m=!c] add augdrum",
+						"/scoreboard players set @s aug_ammo 40",
+						"/playsound extended.mag.install @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"b5": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:b5",
+						"/clear @s[m=!c] hengker:b5 0 1",
+						"/tag @s[m=!c] add stock",
+						"/tag @s[m=!c] add augb5",
+						"/tag @s[m=!c] remove augstock",
+						"/tag @s[m=!c] remove augtactical",
+						"/tag @s[m=!c] remove augsimple",
+						"/tag @s[m=!c] remove augheavy",
+						"/tag @s[m=!c] remove augnormal",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"tactical": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:tactical",
+						"/tag @s[m=!c] add stock",
+						"/clear @s[m=!c] hengker:tactical 0 1",
+						"/tag @s[m=!c] remove augb5",
+						"/tag @s[m=!c] remove augstock",
+						"/tag @s[m=!c] add augtactical",
+						"/tag @s[m=!c] remove augnormal",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"factory": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:default",
+						"/give @s[m=!c,tag=augstock] hengker:stock",
+						"/give @s[m=!c,tag=augb5] hengker:b5",
+						"/give @s[m=!c,tag=augtactical] hengker:tactical",
+						"/tag @s[m=!c] remove stock",
+						"/tag @s[m=!c] remove augb5",
+						"/tag @s[m=!c] remove augstock",
+						"/tag @s[m=!c] remove augtactical",
+						"/tag @s[m=!c] remove augnormal",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"stock": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:stock",
+						"/tag @s[m=!c] add augstock",
+						"/tag @s[m=!c] add stock",
+						"/clear @s[m=!c] hengker:stock 0 1",
+						"/tag @s[m=!c] remove augb5",
+						"/tag @s[m=!c] remove augtactical",
+						"/tag @s[m=!c] remove augnormal",
+						"/playsound attachment.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"holo": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:holo",
+						"/tag @s[m=!c] add augholo",
+						"/tag @s[m=!c] remove augholo_long",
+						"/tag @s[m=!c] remove augreddot",
+						"/tag @s[m=!c] remove aughamr",
+						"/tag @s[m=!c] remove augacog",
+						"/clear @s[m=!c] hengker:holo 0 1",
+						"/playsound scope.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"holo_long": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:holo_long",
+						"/tag @s[m=!c] remove augholo",
+						"/tag @s[m=!c] remove augreddot",
+						"/tag @s[m=!c] remove augacog",
+						"/tag @s[m=!c] add augholo_long",
+						"/tag @s[m=!c] remove aughamr",
+						"/clear @s[m=!c] hengker:holo_long 0 1",
+						"/playsound scope.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"hamr": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:hamr",
+						"/tag @s[m=!c] remove augholo",
+						"/tag @s[m=!c] remove augreddot",
+						"/tag @s[m=!c] remove augacog",
+						"/tag @s[m=!c] remove augholo_long",
+						"/tag @s[m=!c] add aughamr",
+						"/clear @s[m=!c] hengker:hamr 0 1",
+						"/playsound scope.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"reddot": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:reddot",
+						"/tag @s[m=!c] remove augholo",
+						"/tag @s[m=!c] add augreddot",
+						"/tag @s[m=!c] remove augacog",
+						"/tag @s[m=!c] remove augholo_long",
+						"/tag @s[m=!c] remove aughamr",
+						"/clear @s[m=!c] hengker:reddot 0 1",
+						"/playsound scope.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"acog": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:acog",
+						"/clear @s[m=!c] hengker:acog 0 1",
+						"/tag @s[m=!c] remove augholo",
+						"/tag @s[m=!c] remove augreddot",
+						"/tag @s[m=!c] add augacog",
+						"/tag @s[m=!c] remove augholo_long",
+						"/tag @s[m=!c] remove aughamr",
+						"/playsound scope.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"sight": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:sight",
+						"/playsound muzzle.general @s[m=!c]",
+						"/give @s[m=!c,tag=augholo] hengker:holo",
+						"/give @s[m=!c,tag=augholo_long] hengker:holo_long",
+						"/give @s[m=!c,tag=augreddot] hengker:reddot",
+						"/give @s[m=!c,tag=augacog] hengker:acog",
+						"/give @s[m=!c,tag=augokp] hengker:okp",
+						"/give @s[m=!c,tag=aughamr] hengker:hamr",
+						"/tag @s[m=!c] remove augholo",
+						"/tag @s[m=!c] remove augreddot",
+						"/tag @s[m=!c] remove augacog",
+						"/tag @s[m=!c] remove augholo_long",
+						"/tag @s[m=!c] remove aughamr"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"silencer": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:silencer",
+						"/tag @s[m=!c] add aug_silencer",
+						"/tag @s[m=!c] remove aug_brake",
+						"/clear @s[m=!c] hengker:silencer3 0 1",
+						"/playsound muzzle.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"brake": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:brake",
+						"/tag @s[m=!c] remove aug_silencer",
+						"/tag @s[m=!c] add aug_brake",
+						"/clear @s[m=!c] hengker:brake2 0 1",
+						"/playsound muzzle.general @s[m=!c]"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				},
+				"muzzle": {
+					"on_entry": [
+						"/event entity @s[m=!c] mk556:muzzle",
+						"/playsound muzzle.general @s[m=!c]",
+						"/give @s[m=!c,tag=aug_silencer] hengker:silencer",
+						"/give @s[m=!c,tag=aug_brake] hengker:brake2",
+						"/tag @s[m=!c,tag=aug_silencer] remove aug_silencer",
+						"/tag @s[m=!c,tag=aug_brake] remove aug_brake"
+					],
+					"transitions": [
+						{
+							"default": "q.life_time>25"
+						}
+					]
+				}
+			}
+		}
+	}
+}

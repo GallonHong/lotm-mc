@@ -1,0 +1,255 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.barret.shoot": {
+			"animation_length": 0.8,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!barret_silencer,tag=!brake,scores={barret=2..}] animation.barret.fpp_shoot e 1",
+					"/playanimation @s[tag=barret_silencer,scores={barret=2..}] animation.barret.fpp_silencer e 1",
+					"/playanimation @s[tag=barretbulletin,tag=!barret_silencer,tag=!brake,scores={barret=1}] animation.barret.fpp_shoot e 1",
+					"/playanimation @s[tag=barretbulletin,tag=barret_silencer,scores={barret=1}] animation.barret.fpp_silencer e 1",
+					"/event entity @s[tag=!barretbulletin,scores={barret=2..60}] hengker:barret_fire"
+				],
+				"0.02": [
+					"/event entity @s[tag=barretbulletin] hengker:barret_fire",
+					"/execute as @s[tag=barretbulletin,scores={barret=1}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={barret=2..}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[tag=!barretbulletin,scores={barret=2..}] run scriptevent hengker:barret_shoot",
+					"/tag @s[tag=barretbulletin] remove barretbulletin"
+				],
+				"0.045": [
+					"/title @s[scores={barret=1}] actionbar §4没有弹药! // 弹出弹匣",
+					"/playsound gun.click @s[scores={barret=1}]",
+					"/playanimation @s[tag=barretbulletin] animation.barret.selongsong",
+					"/tag @s[tag=!barretbulletin,scores={barret=2..}] add barretbulletin",
+					"/tag @s[tag=barretbulletin,scores={barret=1}] remove barretbulletin",
+					"/execute as @s[tag=barretbulletin,scores={barret=2..}] run scriptevent hengker:barret_shoot"
+				],
+				"0.12": [
+					"/execute at @s[tag=barretbulletin,scores={barret=1}] positioned as @p run tp @s ~~~ facing ^^0.24^1 true",
+					"/execute at @s[scores={barret=2..}] positioned as @p run tp @s ~~~ facing ^^0.24^1 true"
+				]
+			}
+		},
+		"animation.barret.aim": {
+			"animation_length": 0.8,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!barret_silencer,tag=!brake,scores={barret=2..}] animation.barret.fpp_shoot e 1",
+					"/playanimation @s[tag=barret_silencer,scores={barret=2..}] animation.barret.fpp_silencer e 1",
+					"/playanimation @s[tag=barretbulletin,tag=!barret_silencer,tag=!brake,scores={barret=1}] animation.barret.fpp_shoot e 1",
+					"/playanimation @s[tag=barretbulletin,tag=barret_silencer,scores={barret=1}] animation.barret.fpp_silencer e 1",
+					"/event entity @s[tag=!barretbulletin,scores={barret=2..60}] hengker:barret_aim"
+				],
+				"0.02": [
+					"/event entity @s[tag=barretbulletin] hengker:barret_aim",
+					"/execute as @s[tag=barretbulletin,scores={barret=1}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={barret=2..}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[tag=!barretbulletin,scores={barret=2..}] run scriptevent hengker:barret_shoot",
+					"/tag @s[tag=barretbulletin] remove barretbulletin"
+				],
+				"0.045": [
+					"/title @s[scores={barret=1}] actionbar §4没有弹药! // 弹出弹匣",
+					"/playsound gun.click @s[scores={barret=1}]",
+					"/playanimation @s[tag=barretbulletin] animation.barret.selongsong",
+					"/tag @s[tag=!barretbulletin,scores={barret=2..}] add barretbulletin",
+					"/tag @s[tag=barretbulletin,scores={barret=1}] remove barretbulletin",
+					"/execute as @s[tag=barretbulletin,scores={barret=2..}] run scriptevent hengker:barret_shoot"
+				],
+				"0.12": [
+					"/execute at @s[tag=barretbulletin,scores={barret=1}] positioned as @p run tp @s ~~~ facing ^^0.04^1 true",
+					"/execute at @s[scores={barret=2..}] positioned as @p run tp @s ~~~ facing ^^0.04^1 true"
+				]
+			}
+		},
+		"animation.barret.changemag": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:rilotchange"
+				]
+			}
+		},
+		"animation.barret.inspect_empty": {
+			"animation_length": 4.65,
+			"loop": false,
+			"timeline": {
+				"0.3": [
+					"/function camera1"
+				],
+				"4.45": [
+					"/function camera1"
+				],
+				"4.65": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.barret.inspect": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown,scores={barret=0}] run event entity @s hengker:inspect"
+				]
+			}
+		},
+		"animation.barret.checking": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:aug_check"
+				]
+			}
+		},
+		"animation.barret.reload": {
+			"animation_length": 3.625,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/event entity @s hengker:mag",
+					"/tag @s remove barretnomag",
+					"/event entity @s[scores={barret=1}] bridge:not_chested",
+					"/event entity @s[scores={barret=2..}] bridge:is_chested"
+				],
+				"0.75": [
+					"/function camera1"
+				],
+				"1.08": [
+					"/function camera1"
+				],
+				"1.54": [
+					"/function camera1"
+				],
+				"2.08": [
+					"/function camera1"
+				],
+				"2.67": [
+					"/function camera1"
+				],
+				"3.17": [
+					"/function camera1",
+					"/playanimation @s[tag=barretbulletin] animation.barret.selongsong",
+					"/tag @s[tag=!barretbulletin,scores={barret=2..}] add barretbulletin",
+					"/tag @s[tag=barretbulletin,scores={barret=1}] remove barretbulletin",
+					"/execute as @s[tag=barretbulletin,scores={barret=2..}] run scriptevent hengker:barret_shoot"
+				],
+				"3.5": [
+					"/function camera1"
+				],
+				"3.625": [
+					"/title @s actionbar 重新加载完成",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.barret.change": {
+			"animation_length": 2.3,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/function camera1"
+				],
+				"0.42": [
+					"/function camera1"
+				],
+				"0.79": [
+					"/function camera1"
+				],
+				"1.38": [
+					"/function camera1",
+					"/event entity @s hengker:nomag",
+					"/tag @s add barretnomag",
+					"/execute as @s run scriptevent hengker:barret_changemag"
+				],
+				"1.75": [
+					"/function camera1"
+				],
+				"2.08": [
+					"/function camera1"
+				],
+				"2.3": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.barret.draw": {
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown",
+					"/execute as @s run function barret_check"
+				],
+				"0.31": [
+					"/function camera1"
+				],
+				"0.95": [
+					"/hud @s hide crosshair",
+					"/tag @s remove cooldown",
+					"/execute as @s run function barret_check"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.95
+		},
+		"animation.barret.unequip": {
+			"animation_length": 0.6,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.6": [
+					"/event entity @s unequip:barret"
+				]
+			}
+		},
+		"animation.barret.check": {
+			"animation_length": 3.375,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"2": [
+					"/title @s[scores={barret=11}] actionbar 满的",
+					"/title @s[scores={barret=7..10}] actionbar 超过一半",
+					"/title @s[scores={barret=5..6}] actionbar 还剩一半",
+					"/title @s[scores={barret=3..4}] actionbar 几乎空了",
+					"/title @s[scores={barret=2}] actionbar 左 1 颗子弹",
+					"/title @s[scores={barret=1}] actionbar 空的",
+					"/title @s[tag=barretbulletin,scores={barret=1}] actionbar 1 弹膛内的子弹"
+				],
+				"0.0": [
+					"/event entity @s[scores={barret=1}] bridge:not_chested",
+					"/event entity @s[scores={barret=2..}] bridge:is_chested"
+				],
+				"0.42": [
+					"/function camera1"
+				],
+				"0.75": [
+					"/function camera1"
+				],
+				"1.08": [
+					"/function camera1"
+				],
+				"2.33": [
+					"/function camera1"
+				],
+				"2.63": [
+					"/function camera1"
+				],
+				"2.88": [
+					"/function camera1"
+				],
+				"3.375": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		}
+	}
+}

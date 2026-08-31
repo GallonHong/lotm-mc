@@ -1,0 +1,259 @@
+{
+	"format_version": "1.10.0",
+	"render_controllers": {
+		"controller.render.barret.first_person": {
+			"textures": [
+				"texture.default"
+			],
+			"geometry": "geometry.aug_fpp",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"leftArm": "material.default"
+				},
+				{
+					"rightArm": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.barret_gun"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.barret_gun"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.barret_gun"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.barret_gun"
+				}
+			]
+		},
+		"controller.render.barret.particle": {
+			"textures": [
+				"texture.barret"
+			],
+			"geometry": "geometry.barret_particle",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": false
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.barret.third_person": {
+			"textures": [
+				"texture.barret"
+			],
+			"geometry": "geometry.barret_tpp",
+			"materials": [
+				{
+					"*": "material.default"
+				},
+				{
+					"holo": "material.default"
+				},
+				{
+					"reddot": "material.default"
+				},
+				{
+					"division_illuminated": "material.gun"
+				},
+				{
+					"division_illuminated2": "material.gun"
+				},
+				{
+					"red": "material.gun"
+				},
+				{
+					"red2": "material.gun"
+				},
+				{
+					"red3": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"laser": "query.property('mk556:laser')!='n'"
+				},
+				{
+					"red": "query.property('mk556:laser')=='red'"
+				},
+				{
+					"red2": "query.property('mk556:laser')=='green'"
+				},
+				{
+					"red3": "query.property('mk556:laser')=='gold'"
+				},
+				{
+					"reddot": "query.property('mk556:scope')=='reddot'"
+				},
+				{
+					"holo": "query.property('mk556:scope')=='holo'"
+				},
+				{
+					"division_illuminated2": "v.is_first_person && q.is_sneaking && q.property('hengker:reload')=='n' && query.property('mk556:scope')=='holo'"
+				},
+				{
+					"division_illuminated": "v.is_first_person && q.is_sneaking && q.property('hengker:reload')=='n' && query.property('mk556:scope')=='reddot'"
+				},
+				{
+					"magazine5": "!v.is_first_person && q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"magazine": "q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"bullet": "q.property('hengker:nomag')=='ada' && q.is_stackable"
+				},
+				{
+					"bullet2": "q.property('hengker:nomag')=='ada' && q.is_stackable"
+				},
+				{
+					"silencer": "query.property('mk556:muzzle')=='silencer'"
+				},
+				{
+					"active": "query.property('mk556:scope')=='n'"
+				},
+				{
+					"inactive": "query.property('mk556:scope')!='n'"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.barret.scout.third_person": {
+			"textures": [
+				"texture.barret"
+			],
+			"geometry": "geometry.barret_scout",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"division_illuminated3": "material.gun"
+				},
+				{
+					"red": "material.gun"
+				},
+				{
+					"red2": "material.gun"
+				},
+				{
+					"red3": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": false
+				},
+				{
+					"lens3": "query.property('mk556:scope')!='scout'"
+				},
+				{
+					"red": "query.property('mk556:laser')=='red'"
+				},
+				{
+					"red2": "query.property('mk556:laser')=='green'"
+				},
+				{
+					"red3": "query.property('mk556:laser')=='gold'"
+				},
+				{
+					"division_illuminated3": "q.is_sneaking && q.property('hengker:reload')=='n' && query.property('mk556:scope')=='scout'"
+				},
+				{
+					"magazine5": "!v.is_first_person && q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"magazine": "q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"silencer": "query.property('mk556:muzzle')=='silencer'"
+				},
+				{
+					"bullet": "q.property('hengker:nomag')=='ada' && q.is_stackable"
+				},
+				{
+					"bullet2": "q.property('hengker:nomag')=='ada' && q.is_stackable"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.barret_slot.first_person": {
+			"geometry": "geometry.barret_slot",
+			"textures": [
+				"texture.slot_icon"
+			],
+			"materials": [
+				{
+					"*": "material.gun"
+				},
+				{
+					"mk556": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"muzzle": "q.variant == 1"
+				},
+				{
+					"laser": "q.variant == 2"
+				},
+				{
+					"scope": "q.variant == 3"
+				},
+				{
+					"stock": "q.variant == 4"
+				},
+				{
+					"mag": "q.variant == 5"
+				},
+				{
+					"grip": "q.variant == 6"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		}
+	}
+}

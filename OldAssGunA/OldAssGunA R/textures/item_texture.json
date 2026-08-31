@@ -1,0 +1,267 @@
+{
+    "resource_pack_name": "vanilla",
+    "texture_data": {
+        "a:team": {
+            "textures": "textures/items/a_team"
+        },
+        "ak103": {
+            "textures": "textures/items/gun/ak103"
+        },
+        "ak103_barrel": {
+            "textures": "textures/items/gun/kastov762_barrel"
+        },
+        "ak103_skin": {
+            "textures": "textures/items/gun/kastov762_skin"
+        },
+        "ak103_stock": {
+            "textures": "textures/items/gun/kastov762_stock"
+        },
+        "ak103_sup": {
+            "textures": "textures/items/gun/kastov762_sup"
+        },
+        "ak47": {
+            "textures": "textures/items/gun/ak47"
+        },
+        "ak472": {
+            "textures": "textures/items/gun/ak472"
+        },
+        "ak47_barrel": {
+            "textures": "textures/items/gun/ak47_barrel"
+        },
+        "ak47_stock": {
+            "textures": "textures/items/gun/ak47_stock"
+        },
+        "ak47mag2": {
+            "textures": "textures/items/gun/ak47mag2"
+        },
+        "ak47phenolic": {
+            "textures": "textures/items/gun/ak47_phenolic"
+        },
+        "ak47reddot": {
+            "textures": "textures/items/gun/ak47_reddot"
+        },
+        "ak47skin": {
+            "textures": "textures/items/gun/ak47_skin"
+        },
+        "ak_reddot": {
+            "textures": "textures/items/gun/ak_reddot"
+        },
+        "b:team": {
+            "textures": "textures/items/b_team"
+        },
+        "de": {
+            "textures": "textures/items/gun/de"
+        },
+        "de_flashlight": {
+            "textures": "textures/items/gun/de_flashlight"
+        },
+        "de_skin": {
+            "textures": "textures/items/gun/de_skin"
+        },
+        "deamon_akimbo": {
+            "textures": "textures/items/gun/deamon_akimbo"
+        },
+        "deamon_laser": {
+            "textures": "textures/items/gun/deamon_akimbo_laser"
+        },
+        "deamon_skin": {
+            "textures": "textures/items/gun/deamon_akimbo_skin"
+        },
+        "deamon_sup": {
+            "textures": "textures/items/gun/deamon_akimbo_sup"
+        },
+        "dereddot": {
+            "textures": "textures/items/gun/de_reddot"
+        },
+        "fal": {
+            "textures": "textures/items/gun/fal"
+        },
+        "fal_holo": {
+            "textures": "textures/items/gun/fal_holo"
+        },
+        "grenade": {
+            "textures": "textures/items/gun/grenade"
+        },
+        "hk416": {
+            "textures": "textures/items/gun/hk416"
+        },
+        "jgn": {
+            "textures": "textures/items/jgn"
+        },
+        "jgn_grenade": {
+            "textures": "textures/items/gun/jgn_grenade"
+        },
+        "m14": {
+            "textures": "textures/items/gun/m14"
+        },
+        "m16": {
+            "textures": "textures/items/gun/m16"
+        },
+        "m16_barrel": {
+            "textures": "textures/items/gun/m16_barrel"
+        },
+        "m16_holo": {
+            "textures": "textures/items/gun/m16_holo"
+        },
+        "m16_laser": {
+            "textures": "textures/items/gun/m16_laser"
+        },
+        "m16_stock": {
+            "textures": "textures/items/gun/m16_stock"
+        },
+        "m4": {
+            "textures": "textures/items/gun/m4"
+        },
+        "m4reddot": {
+            "textures": "textures/items/gun/m4_reddot"
+        },
+        "m4skin": {
+            "textures": "textures/items/gun/m4_skin"
+        },
+        "minigun": {
+            "textures": "textures/items/gun/minigun"
+        },
+        "mp5": {
+            "textures": "textures/items/gun/mp5"
+        },
+        "mp5mag": {
+            "textures": "textures/items/gun/mp5mag"
+        },
+        "mp5scope": {
+            "textures": "textures/items/gun/mp5scope"
+        },
+        "nightvision": {
+            "textures": "textures/items/nightvision"
+        },
+        "npc_egg": {
+            "textures": "npc_egg"
+        },
+        "nuke": {
+            "textures": "textures/items/nuke"
+        },
+        "padoru": {
+            "textures": "textures/items/padoru"
+        },
+        "pkm": {
+            "textures": "textures/items/gun/pkm"
+        },
+        "pkm_holo": {
+            "textures": "textures/items/gun/pkm_holo"
+        },
+        "pkm_mag": {
+            "textures": "textures/items/gun/pkm_mag"
+        },
+        "pkm_skin": {
+            "textures": "textures/items/gun/pkm_skin"
+        },
+        "pkm_stock": {
+            "textures": "textures/items/gun/pkm_stock"
+        },
+        "pp19": {
+            "textures": "textures/items/gun/pp19"
+        },
+        "pp19_laser": {
+            "textures": "textures/items/gun/pp19_laser"
+        },
+        "pp19_skin": {
+            "textures": "textures/items/gun/pp19_skin"
+        },
+        "pso": {
+            "textures": "textures/items/gun/pso"
+        },
+        "riveter": {
+            "textures": "textures/items/gun/riveter"
+        },
+        "riveter:skin": {
+            "textures": "textures/items/gun/riveter_skin"
+        },
+        "rpg7": {
+            "textures": "textures/items/gun/rpg7"
+        },
+        "rpk": {
+            "textures": "textures/items/gun/rpk"
+        },
+        "ruarmor": {
+            "textures": "textures/items/ruarmor"
+        },
+        "rytec": {
+            "textures": "textures/items/gun/rytec"
+        },
+        "scar": {
+            "textures": "textures/items/gun/scar"
+        },
+        "scar_skin": {
+            "textures": "textures/items/gun/scar_skin"
+        },
+        "signal50": {
+            "textures": "textures/items/gun/signal50"
+        },
+        "signal50_grip": {
+            "textures": "textures/items/gun/signal50_grip"
+        },
+        "signal50_handguard": {
+            "textures": "textures/items/gun/signal50_handguard"
+        },
+        "signal50_laser": {
+            "textures": "textures/items/gun/signal50_laser"
+        },
+        "signal50_reddot": {
+            "textures": "textures/items/gun/signal50_reddot"
+        },
+        "signal50_skin": {
+            "textures": "textures/items/gun/signal50_skin"
+        },
+        "signal50_sup": {
+            "textures": "textures/items/gun/signal50_sup"
+        },
+        "slr107": {
+            "textures": "textures/items/gun/slr107"
+        },
+        "slr107_barrel": {
+            "textures": "textures/items/gun/slr107_barrel"
+        },
+        "slr107_reddot": {
+            "textures": "textures/items/gun/slr107_reddot"
+        },
+        "slr107_stock": {
+            "textures": "textures/items/gun/slr107_stock"
+        },
+        "taqm": {
+            "textures": "textures/items/gun/taqm"
+        },
+        "taqv": {
+            "textures": "textures/items/gun/taqv"
+        },
+        "usarmor": {
+            "textures": "textures/items/usarmor"
+        },
+        "voice_line": {
+            "textures": "textures/items/voice_line"
+        },
+        "x13": {
+            "textures": "textures/items/gun/x13"
+        },
+        "x13_laser": {
+            "textures": "textures/items/gun/x13_laser"
+        },
+        "x13_reddot": {
+            "textures": "textures/items/gun/x13_reddot"
+        },
+        "x13_skin": {
+            "textures": "textures/items/gun/x13_skin"
+        },
+        "x13_sup": {
+            "textures": "textures/items/gun/x13_sup"
+        },
+        "x16": {
+            "textures": "textures/items/gun/x16"
+        },
+        "x16mag": {
+            "textures": "textures/items/gun/x16mag"
+        },
+        "x:team": {
+            "textures": "textures/items/x_team"
+        }
+    },
+    "texture_name": "atlas.items"
+}

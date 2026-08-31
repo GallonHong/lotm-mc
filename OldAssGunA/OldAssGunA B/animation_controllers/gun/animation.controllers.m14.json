@@ -1,0 +1,878 @@
+{
+    "animation_controllers": {
+        "controller.animation.m14": {
+            "initial_state": "setup",
+            "states": {
+                "31ammo": {
+                    "on_entry": [
+                        "@s unreload",
+                        "/tag @s remove m14reload",
+                        "/tag @s remove m1429",
+                        "/tag @s remove m1428",
+                        "/tag @s remove m1427",
+                        "/tag @s remove m1426",
+                        "/tag @s remove m1425",
+                        "/tag @s remove m1424",
+                        "/tag @s remove m1423",
+                        "/tag @s remove m1423",
+                        "/tag @s remove m1421",
+                        "/tag @s remove m1420",
+                        "/tag @s remove m1419",
+                        "/tag @s remove m1418",
+                        "/tag @s remove m1417",
+                        "/tag @s remove m1414",
+                        "/tag @s remove m1410",
+                        "/tag @s remove m148",
+                        "/tag @s remove m147",
+                        "/tag @s remove m146",
+                        "/tag @s remove m145",
+                        "/tag @s remove m144",
+                        "/tag @s remove m143",
+                        "/tag @s remove m142",
+                        "/tag @s remove m141",
+                        "/tag @s remove m149",
+                        "/tag @s remove m1413",
+                        "/tag @s remove m1412",
+                        "/tag @s remove m1411",
+                        "/tag @s remove m1415",
+                        "/tag @s remove m1416",
+                        "/camerashake stop @s"
+                    ],
+                    "transitions": [
+                        {
+                            "31ammo2": "variable.delaym14beh = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "inspect2": "variable.delaym14beh = 7.61; variable.previous_timem14beh = query.life_time; return (v.attack_time && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0 && q.skin_id ==230 && q.ground_speed ==0 && !q.is_sneaking);"
+                        }
+                    ]
+                },
+                "31ammo1": {
+                    "on_entry": [
+                        "/camerashake stop @s",
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "31ammo": "(1.0)"
+                        }
+                    ]
+                },
+                "31ammo2": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14": "(query.life_time - variable.previous_timem14beh ) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        }
+                    ]
+                },
+                "fail": {
+                    "animations": [
+                        {
+                            "rootm14": "query.get_equipped_item_name('main_hand') == 'm14' && !q.is_riding"
+                        }
+                    ],
+                    "on_entry": [
+                        "/scoreboard players set @s m14 0",
+                        "@s unreload",
+                        "/stopsound @s m14.reload",
+                        "/stopsound @a[rm=1,r=20] m14.reload1"
+                    ],
+                    "on_exit": [
+                        "@s ak47:reload"
+                    ],
+                    "transitions": [
+                        {
+                            "reload_empty": "q.mark_variant ==23 && query.get_equipped_item_name('main_hand') == 'm14' && !q.is_saddled"
+                        }
+                    ]
+                },
+                "fail2": {
+                    "animations": [
+                        {
+                            "rootm14": "query.get_equipped_item_name('main_hand') == 'm14' && !q.is_riding"
+                        }
+                    ],
+                    "on_entry": [
+                        "/scoreboard players set @s[tag=m1414] m14 14",
+                        "/scoreboard players set @s[tag=m1413] m14 13",
+                        "/scoreboard players set @s[tag=m1412] m14 12",
+                        "/scoreboard players set @s[tag=m1411] m14 11",
+                        "/scoreboard players set @s[tag=m1410] m14 10",
+                        "/scoreboard players set @s[tag=m149] m14 9",
+                        "/scoreboard players set @s[tag=m148] m14 8",
+                        "/scoreboard players set @s[tag=m147] m14 7",
+                        "/scoreboard players set @s[tag=m146] m14 6",
+                        "/scoreboard players set @s[tag=m145] m14 5",
+                        "/scoreboard players set @s[tag=m144] m14 4",
+                        "/scoreboard players set @s[tag=m143] m14 3",
+                        "/scoreboard players set @s[tag=m142] m14 2",
+                        "/scoreboard players set @s[tag=m141] m14 1",
+                        "@s unreload",
+                        "@s stop:m14",
+                        "/stopsound @a[rm=1,r=20] m14.reload21",
+                        "/stopsound @s m14.reload2"
+                    ],
+                    "on_exit": [
+                        "@s ak47:reload2"
+                    ],
+                    "transitions": [
+                        {
+                            "reload": "q.mark_variant ==23 && query.get_equipped_item_name('main_hand') == 'm14' && !q.is_saddled && q.skin_id ==230"
+                        }
+                    ]
+                },
+                "inspect": {
+                    "animations": [
+                        {
+                            "m14inspect": "query.get_equipped_item_name('main_hand') == 'm14' && !q.is_riding"
+                        }
+                    ],
+                    "on_entry": [
+                        "@s inspect"
+                    ],
+                    "on_exit": [
+                        "@s unshoot",
+                        "/stopsound @a[rm=1,r=20] m14.show1",
+                        "/stopsound @s m14.show"
+                    ],
+                    "transitions": [
+                        {
+                            "setup": "!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14')"
+                        },
+                        {
+                            "m14": "(query.life_time - variable.previous_timem14beh ) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "m141": "q.is_using_item"
+                        }
+                    ]
+                },
+                "inspect2": {
+                    "animations": [
+                        {
+                            "m14inspect": "query.get_equipped_item_name('main_hand') == 'm14' && !q.is_riding"
+                        }
+                    ],
+                    "on_entry": [
+                        "@s inspect"
+                    ],
+                    "on_exit": [
+                        "@s unshoot",
+                        "/stopsound @a[rm=1,r=20] m14.show1",
+                        "/stopsound @s m14.show"
+                    ],
+                    "transitions": [
+                        {
+                            "31ammo": "((query.life_time - variable.previous_timem14beh ) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0) || (!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14'))"
+                        },
+                        {
+                            "31ammo1": "q.is_using_item"
+                        }
+                    ]
+                },
+                "m14": {
+                    "on_entry": [
+                        "@s unreload",
+                        "/camerashake stop @s",
+                        "@s unshoot",
+                        "/scoreboard players set @s m14 15"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_1": "variable.delaym14beh = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "inspect": "variable.delaym14beh = 7.61; variable.previous_timem14beh = query.life_time; return (v.attack_time && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0 && q.skin_id ==230 && q.ground_speed ==0 && !q.is_sneaking);"
+                        }
+                    ]
+                },
+                "m141": {
+                    "on_entry": [
+                        "/camerashake stop @s",
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14": "(1.0)"
+                        }
+                    ]
+                },
+                "m14_1": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_2": "(query.life_time - variable.previous_timem14beh ) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_10": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_11": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_11": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_12": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_12": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_13": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_13": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_14": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_14": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_15": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_15": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_16": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_16": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_17": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_17": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_18": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_18": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_19": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_19": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_20": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_2": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_3": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_20": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_21": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_21": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_22": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_22": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_23": "variable.delaym14beh = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_23": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_24": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_24": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_25": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_25": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_26": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_26": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_27": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_27": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_28": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_28": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_29": "variable.delaym14beh = 0.15; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_29": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot_empty",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "@s unshoot",
+                        "/tag @s add m14empty",
+                        "/tag @s add reload",
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_60_1": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        }
+                    ]
+                },
+                "m14_3": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_4": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_4": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_5": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_5": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_6": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_6": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_7": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_60_1": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "reload_empty": "query.get_equipped_item_name('main_hand') == 'm14'"
+                        },
+                        {
+                            "fail": "!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14')"
+                        }
+                    ]
+                },
+                "m14_60_2": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "reload_empty": "query.get_equipped_item_name('main_hand') == 'm14'"
+                        },
+                        {
+                            "fail": "!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14')"
+                        }
+                    ]
+                },
+                "m14_7": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_8": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_8": {
+                    "on_entry": [
+                        "@s unshoot"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_9": "variable.delaym14beh  = 0.05; variable.previous_timem14beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && q.skin_id ==230);"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "m14_9": {
+                    "on_entry": [
+                        "/scoreboard players remove @s m14 1",
+                        "@s m14:shoot",
+                        "/camerashake stop @s",
+                        "/camerashake add @s[tag=!sneak] 0.075 0.04 rotational",
+                        "/camerashake add @s[tag=sneak] 0.0375 0.04 rotational",
+                        "/camerashake add @s 0.008 0.4 rotational",
+                        "/fill ~~1~ ~~3~ light_block 14 replace air"
+                    ],
+                    "on_exit": [
+                        "/fill ~5~10~-5 ~-5~-2~5 air 0 replace light_block 14"
+                    ],
+                    "transitions": [
+                        {
+                            "m14_10": "(query.life_time - variable.previous_timem14beh) >= variable.delaym14beh && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0"
+                        },
+                        {
+                            "reload": "q.skin_id ==230 && q.mark_variant ==23 && !q.is_using_item && !q.is_sprinting && !q.is_saddled && v.attack_time && query.get_equipped_item_name('main_hand') == 'm14'"
+                        }
+                    ]
+                },
+                "reload": {
+                    "on_entry": [
+                        "@s unreload"
+                    ],
+                    "on_exit": [
+                        "@s ak47:reload2"
+                    ],
+                    "transitions": [
+                        {
+                            "reload2": "variable.delaym14shakebeh = 3.37; variable.previous_timem14shakebeh = query.life_time; return (query.get_equipped_item_name('main_hand') == 'm14' && !q.is_saddled);"
+                        }
+                    ]
+                },
+                "reload2": {
+                    "animations": [
+                        "m14reload2"
+                    ],
+                    "on_entry": [
+                        "/execute @s[tag=azur] ~~~ playsound azur.reload2 @a[rm=1,r=40] ~~~ 1 1 0.7",
+                        "/execute @s[tag=ghost] ~~~ playsound ghost.reload2 @a[rm=1,r=40] ~~~ 1 1 0.7",
+                        "@s ak47:reload2",
+                        "/execute @s[tag=ghost] ~~~ playsound ghost.reload @s",
+                        "/execute @s[tag=mara] ~~~ playsound mara.reload2 @a[rm=1,r=40] ~~~ 1 1 0.7",
+                        "/execute @s[tag=mara] ~~~ playsound mara.reload @s",
+                        "/execute @s[tag=azur] ~~~ playsound azur.reload @s",
+                        "v.time = q.life_time;"
+                    ],
+                    "transitions": [
+                        {
+                            "31ammo": "((query.life_time - variable.previous_timem14shakebeh ) >= variable.delaym14shakebeh) || (!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14') && (q.life_time - v.time) >= 1.81)"
+                        },
+                        {
+                            "fail2": "!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14') && (q.life_time - v.time) <= 1.81"
+                        }
+                    ]
+                },
+                "reload_empty": {
+                    "animations": [
+                        {
+                            "rootm14": "query.get_equipped_item_name('main_hand') == 'm14' && !q.is_riding"
+                        }
+                    ],
+                    "on_entry": [
+                        "/tag @s remove m14reload"
+                    ],
+                    "transitions": [
+                        {
+                            "reload_empty2": "variable.delaym14shakebeh = 3.74; variable.previous_timem14shakebeh = query.life_time; return (query.get_equipped_item_name('main_hand') == 'm14' && !q.is_saddled);"
+                        }
+                    ]
+                },
+                "reload_empty2": {
+                    "animations": [
+                        {
+                            "m14reload": "query.get_equipped_item_name('main_hand') == 'm14' && !q.is_riding"
+                        }
+                    ],
+                    "on_entry": [
+                        "@s ak47:reload",
+                        "/execute @s[tag=azur] ~~~ playsound azur.reload2 @a[rm=1,r=40] ~~~ 1 1 0.7",
+                        "/execute @s[tag=ghost] ~~~ playsound ghost.reload2 @a[rm=1,r=40] ~~~ 1 1 0.7",
+                        "/execute @s[tag=ghost] ~~~ playsound ghost.reload @s",
+                        "/execute @s[tag=mara] ~~~ playsound mara.reload2 @a[rm=1,r=40] ~~~ 1 1 0.7",
+                        "/execute @s[tag=mara] ~~~ playsound mara.reload @s",
+                        "/execute @s[tag=azur] ~~~ playsound azur.reload @s",
+                        "v.time = q.life_time;"
+                    ],
+                    "on_exit": [
+                        "@s de:unreload"
+                    ],
+                    "transitions": [
+                        {
+                            "m14": "((query.life_time - variable.previous_timem14shakebeh ) >= variable.delaym14shakebeh) || (!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14') && (q.life_time - v.time) >= 2.72)"
+                        },
+                        {
+                            "fail": "!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14') && (q.life_time - v.time) <= 2.72"
+                        }
+                    ]
+                },
+                "setup": {
+                    "animations": [
+                        {
+                            "rootm14": "query.get_equipped_item_name('main_hand') == 'm14' && !q.is_riding"
+                        }
+                    ],
+                    "on_exit": [
+                        "/scoreboard objectives add m14 dummy",
+                        "/scoreboard players set @s m14 15"
+                    ],
+                    "transitions": [
+                        {
+                            "m14": "query.get_equipped_item_name == 'm14'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.m14_semi": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "shoot": "variable.delaym14mbeh = 0.05; variable.previous_timem14mbeh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'm14' && q.skin_id ==230 && !q.is_riding && q.health > 0 && !q.is_chested && !q.is_stackable);"
+                        }
+                    ]
+                },
+                "shoot": {
+                    "on_entry": [
+                        "@s stop:m14",
+                        "v.time = q.life_time;"
+                    ],
+                    "on_exit": [
+                        "@s un:m14"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "((q.life_time - v.time) >= 0.025 && query.get_equipped_item_name == 'm14' && !q.is_riding && q.health > 0 && !q.is_using_item) || (q.is_chested) || (!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:m14'))"
+                        },
+                        {
+                            "default2": "q.is_stackable"
+                        }
+                    ]
+                }
+            }
+        }
+    },
+    "format_version": "1.10.0"
+}

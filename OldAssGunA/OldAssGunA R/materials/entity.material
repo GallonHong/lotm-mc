@@ -1,0 +1,40 @@
+{
+  "materials": {
+    "version": "1.0.0",
+    "scope:entity": {
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableAlphaWrite"
+      ]
+      },
+    "nv:entity_beam_additive": {
+    "+defines": [ "USE_UV_ANIM" ],
+      "+states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ]
+    },
+    "rd:entity_beam_additive": {
+      "+states": [
+        "Blending",
+        "DisableCulling",
+        "DisableDepthWrite"
+      ]
+    },
+        "nightvision:nv": {
+      "+states":["Blending"],
+      "blendSrc": "DestColor",
+      "blendDst": "SourceColor"
+     },
+     "reddot:rd:entity_beam_additive": {
+      "+states":["Blending"],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "One"
+     },
+      "scope2:entity": {
+        "+states":["Blending"]
+      }
+  }
+}

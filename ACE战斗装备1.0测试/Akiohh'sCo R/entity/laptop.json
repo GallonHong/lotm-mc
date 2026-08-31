@@ -1,0 +1,23 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "bridge:laptop",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/laptop_mati"
+			},
+			"geometry": {
+				"default": "geometry.laptop"
+			},
+			"render_controllers": [
+				"controller.render.laptop"
+			],
+			"spawn_egg": {
+				"texture": "hengker_laptop"
+			}
+		}
+	}
+}

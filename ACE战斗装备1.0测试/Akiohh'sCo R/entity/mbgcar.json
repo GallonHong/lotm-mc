@@ -1,0 +1,49 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "bridge:mbg_coming",
+			"materials": {
+				"default": "enderman"
+			},
+			"textures": {
+				"default": "textures/entity/Text_BGN"
+			},
+			"geometry": {
+				"default": "geometry.extraction_car"
+			},
+			"render_controllers": [
+				"controller.render.default"
+			],
+			"particle_effects": {
+				"flare": "test:dirt"
+			},
+			"sound_effects": {
+				"mbg_coming": "mbg.coming",
+				"mbg_brake": "mbg.brake",
+				"mbg_bagasi_open": "mbg.bagasi.open",
+				"mbg_bagasi_close": "mbg.bagasi.close",
+				"mbg_door_open": "mbg.door.open",
+				"mbg_door_scroll": "mbg.door.scroll",
+				"mbg_door_close": "mbg.door.scroll",
+				"mbg_punch": "mbg.punch",
+				"mbg_burnout": "mbg.burnout"
+			},
+			"animations": {
+				"extraction_car_coming": "animation.extraction_car.coming",
+				"extraction_car_idle": "animation.extraction_car.idle",
+				"extraction_car_moving": "animation.extraction_car.moving",
+				"extraction_general": "controller.animation.extraction_car.general"
+			},
+			"scripts": {
+				"animate": [
+					"extraction_general"
+				]
+			},
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}

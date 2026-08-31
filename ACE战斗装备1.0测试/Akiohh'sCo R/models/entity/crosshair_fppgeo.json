@@ -1,0 +1,188 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.crosshair_fpp",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 15,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [
+					0,
+					1.75,
+					0
+				]
+			},
+			"bones": [
+				{
+					"name": "Arm",
+					"pivot": [
+						0,
+						6,
+						7
+					]
+				},
+				{
+					"name": "red",
+					"parent": "Arm",
+					"pivot": [
+						0,
+						0,
+						0
+					],
+					"cubes": [
+						{
+							"origin": [
+								-3.1,
+								24.35,
+								50
+							],
+							"size": [
+								6,
+								6,
+								0
+							],
+							"uv": {
+								"north": {
+									"uv": [
+										1.75,
+										13.25
+									],
+									"uv_size": [
+										6,
+										6
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "green",
+					"parent": "Arm",
+					"pivot": [
+						0,
+						14,
+						10
+					],
+					"cubes": [
+						{
+							"origin": [
+								-3.1,
+								24.35,
+								50
+							],
+							"size": [
+								6,
+								6,
+								0
+							],
+							"uv": {
+								"north": {
+									"uv": [
+										8.5,
+										13.5
+									],
+									"uv_size": [
+										6,
+										6
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "blue",
+					"parent": "Arm",
+					"pivot": [
+						0,
+						27,
+						104
+					],
+					"cubes": [
+						{
+							"origin": [
+								-3.1,
+								24.35,
+								50
+							],
+							"size": [
+								6,
+								6,
+								0
+							],
+							"uv": {
+								"north": {
+									"uv": [
+										15,
+										13.5
+									],
+									"uv_size": [
+										6,
+										6
+									]
+								}
+							}
+						}
+					]
+				},
+				{
+					"name": "mag_and_lefthand",
+					"parent": "Arm",
+					"pivot": [
+						0,
+						0,
+						0
+					]
+				},
+				{
+					"name": "leftArm",
+					"parent": "mag_and_lefthand",
+					"pivot": [
+						-6,
+						20,
+						0
+					]
+				},
+				{
+					"name": "lFake",
+					"parent": "leftArm",
+					"pivot": [
+						0,
+						0,
+						0
+					]
+				},
+				{
+					"name": "gun_and_righthand",
+					"parent": "Arm",
+					"pivot": [
+						0,
+						0,
+						0
+					]
+				},
+				{
+					"name": "rightArm",
+					"parent": "gun_and_righthand",
+					"pivot": [
+						5,
+						20,
+						0
+					]
+				},
+				{
+					"name": "stick",
+					"parent": "gun_and_righthand",
+					"pivot": [
+						0,
+						0,
+						0
+					]
+				}
+			]
+		}
+	]
+}

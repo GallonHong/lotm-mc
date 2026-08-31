@@ -1,0 +1,251 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.glock.shoot": {
+			"animation_length": 0.048,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!glock_silencer,tag=!brake,scores={glock=2..}] animation.glock.fpp_shoot e 1",
+					"/playanimation @s[tag=glock_silencer,scores={glock=2..}] animation.glock.fpp_silencer e 1",
+					"/playanimation @s[tag=glockbulletin,tag=!glock_silencer,tag=!brake,scores={glock=1}] animation.glock.fpp_shoot e 1",
+					"/playanimation @s[tag=glockbulletin,tag=glock_silencer,scores={glock=1}] animation.glock.fpp_silencer e 1"
+				],
+				"0.02": [
+					"/event entity @s[tag=!glockbulletin,scores={glock=2..60}] hengker:glock_fire",
+					"/event entity @s[tag=glockbulletin] hengker:glock_fire",
+					"/execute as @s[tag=glockbulletin,scores={glock=1}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={glock=2..}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[tag=!glockbulletin,scores={glock=2..}] run scriptevent hengker:glock_shoot",
+					"/tag @s[tag=glockbulletin] remove glockbulletin"
+				],
+				"0.045": [
+					"/title @s[scores={glock=1}] actionbar §4没有弹药! // 弹射弹匣",
+					"/event entity @s[scores={glock=1}] pistol:empty",
+					"/playsound gun.click @s[scores={glock=1}]",
+					"/playanimation @s[tag=glockbulletin] animation.glock.selongsong",
+					"/tag @s[tag=!glockbulletin,scores={glock=2..}] add glockbulletin",
+					"/tag @s[tag=glockbulletin,scores={glock=1}] remove glockbulletin",
+					"/execute as @s[tag=glockbulletin,scores={glock=2..}] run scriptevent hengker:glock_shoot"
+				]
+			}
+		},
+		"animation.glock.aim": {
+			"animation_length": 0.048,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!glock_silencer,tag=!brake,scores={glock=2..}] animation.glock.fpp_shoot e 1",
+					"/playanimation @s[tag=glock_silencer,scores={glock=2..}] animation.glock.fpp_silencer e 1",
+					"/playanimation @s[tag=glockbulletin,tag=!glock_silencer,tag=!brake,scores={glock=1}] animation.glock.fpp_shoot e 1",
+					"/playanimation @s[tag=glockbulletin,tag=glock_silencer,scores={glock=1}] animation.glock.fpp_silencer e 1"
+				],
+				"0.02": [
+					"/event entity @s[tag=!glockbulletin,scores={glock=2..60}] hengker:glock_aim",
+					"/event entity @s[tag=glockbulletin] hengker:glock_aim",
+					"/execute as @s[tag=glockbulletin,scores={glock=1}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={glock=2..}] run fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[tag=!glockbulletin,scores={glock=2..}] run scriptevent hengker:glock_shoot",
+					"/tag @s[tag=glockbulletin] remove glockbulletin"
+				],
+				"0.045": [
+					"/title @s[scores={glock=1}] actionbar §4没有弹药! // 弹射弹匣",
+					"/event entity @s[scores={glock=1}] pistol:empty",
+					"/playsound gun.click @s[scores={glock=1}]",
+					"/playanimation @s[tag=glockbulletin] animation.glock.selongsong",
+					"/tag @s[tag=!glockbulletin,scores={glock=2..}] add glockbulletin",
+					"/tag @s[tag=glockbulletin,scores={glock=1}] remove glockbulletin",
+					"/execute as @s[tag=glockbulletin,scores={glock=2..}] run scriptevent hengker:glock_shoot"
+				]
+			}
+		},
+		"animation.glock.changemag": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:rilotchange"
+				]
+			}
+		},
+		"animation.glock.inspect_empty": {
+			"animation_length": 6,
+			"loop": false,
+			"timeline": {
+				"6": [
+					"/event entity @s hengker:rilotend"
+				],
+				"0.25": [
+					"/function camera1"
+				],
+				"3.25": [
+					"/function camera1"
+				],
+				"4.54": [
+					"/function camera1"
+				],
+				"5.71": [
+					"/function camera1"
+				]
+			}
+		},
+		"animation.glock.inspect": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown,scores={glock=0}] run event entity @s hengker:inspect"
+				]
+			}
+		},
+		"animation.glock.checking": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:aug_check"
+				]
+			}
+		},
+		"animation.glock.reload": {
+			"animation_length": 2.0833,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/event entity @s hengker:mag",
+					"/tag @s remove glocknomag",
+					"/event entity @s[scores={glock=1}] bridge:not_chested",
+					"/event entity @s[scores={glock=2..}] bridge:is_chested"
+				],
+				"1.04": [
+					"/function camera1"
+				],
+				"1.46": [
+					"/function camera1",
+					"/event entity @s[scores={glock=2..}] pistol:loaded"
+				],
+				"2.0833": [
+					"/title @s actionbar 重新加载完成",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.glock.reload_extended": {
+			"animation_length": 2.25,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/tag @s add glockextended",
+					"/event entity @s hengker:mag",
+					"/tag @s remove glocknomag",
+					"/event entity @s[scores={glock=1}] bridge:not_chested",
+					"/event entity @s[scores={glock=2..}] bridge:is_chested"
+				],
+				"1.29": [
+					"/function camera1"
+				],
+				"1.71": [
+					"/function camera1",
+					"/event entity @s[scores={glock=2..}] pistol:loaded"
+				],
+				"2.25": [
+					"/title @s actionbar 重新加载完成",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.glock.change": {
+			"animation_length": 2.25,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.71": [
+					"/function camera1"
+				],
+				"1.42": [
+					"/function camera1"
+				],
+				"2.13": [
+					"/function camera1"
+				],
+				"2.25": [
+					"/event entity @s hengker:nomag",
+					"/tag @s[tag=glockextended] remove glockextended",
+					"/tag @s add glocknomag",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.glock.draw": {
+			"timeline": {
+				"0.0": [
+					"/event entity @s[scores={glock=2..}] pistol:loaded",
+					"/tag @s add cooldown",
+					"/execute as @s run function glock_check"
+				],
+				"0.31": [
+					"/function camera1"
+				],
+				"0.71": [
+					"/hud @s hide crosshair",
+					"/tag @s remove cooldown",
+					"/execute as @s run function glock_check"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.71
+		},
+		"animation.glock.unequip": {
+			"animation_length": 0.5,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.5": [
+					"/event entity @s unequip:glock"
+				]
+			}
+		},
+		"animation.glock.check": {
+			"animation_length": 3.25,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/event entity @s[scores={glock=1}] bridge:not_chested",
+					"/event entity @s[scores={glock=2..}] bridge:is_chested"
+				],
+				"0.29": [
+					"/function camera1"
+				],
+				"1.42": [
+					"/title @s[tag=!glockextended,scores={glock=15..18}] actionbar 完整/类似完整",
+					"/title @s[tag=!glockextended,scores={glock=10..14}] actionbar 超过一半",
+					"/title @s[tag=!glockextended,scores={glock=8..9}] actionbar 还剩一半",
+					"/title @s[tag=!glockextended,scores={glock=4..7}] actionbar 不到一半",
+					"/title @s[tag=!glockextended,scores={glock=2..3}] actionbar 几乎空了",
+					"/title @s[tag=!glockextended,scores={glock=1}] actionbar 空的",
+					"/title @s[tag=glockbulletin,scores={glock=1}] actionbar 1 弹膛内的子弹"
+				],
+				"1.5": [
+					"/title @s[tag=glockextended,scores={glock=34}] actionbar 满的",
+					"/title @s[tag=glockextended,scores={glock=30..33}] actionbar 喜欢完整",
+					"/title @s[tag=glockextended,scores={glock=18..29}] actionbar 超过一半",
+					"/title @s[tag=glockextended,scores={glock=16..17}] actionbar 还剩一半",
+					"/title @s[tag=glockextended,scores={glock=5..15}] actionbar 不到一半",
+					"/title @s[tag=glockextended,scores={glock=2..4}] actionbar 几乎空了",
+					"/title @s[tag=glockextended,scores={glock=1}] actionbar 空的",
+					"/title @s[tag=glockbulletin,scores={glock=1}] actionbar 1 弹膛内的子弹"
+				],
+				"2.88": [
+					"/function camera1"
+				],
+				"3.25": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		}
+	}
+}

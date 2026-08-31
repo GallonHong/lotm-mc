@@ -1,0 +1,589 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.aug.shoot": {
+			"animation_length": 0.048,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!aug_silencer,tag=!brake,scores={aug=2..}] animation.aug.fpp_shoot e 1",
+					"/playanimation @s[tag=aug_silencer,scores={aug=2..}] animation.aug.fpp_silencer e 1"
+				],
+				"0.02": [
+					"/event entity @s[scores={aug=2..60}] hengker:aug_fire",
+					"/fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={aug=2..}] run scriptevent hengker:aug_shoot"
+				],
+				"0.045": [
+					"/title @s[scores={aug=1}] actionbar 没有弹药"
+				]
+			}
+		},
+		"animation.aug.aim": {
+			"animation_length": 0.04,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/playanimation @s[tag=!aug_silencer,tag=!brake,scores={aug=2..}] animation.aug.fpp_shoot e 1",
+					"/playanimation @s[tag=aug_silencer,scores={aug=2..}] animation.aug.fpp_silencer e 1"
+				],
+				"0.02": [
+					"/event entity @s[scores={aug=2..60}] hengker:aug_aim",
+					"/fill ~~~ ~~~ hengker:flash replace air",
+					"/execute as @s[scores={aug=2..}] run scriptevent hengker:aug_shoot"
+				],
+				"0.045": [
+					"/title @s[scores={aug=1}] actionbar 没有弹药"
+				]
+			}
+		},
+		"animation.aug.changemag": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:rilotchange"
+				]
+			}
+		},
+		"animation.aug.changemag.drum": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown,scores={aug=0..60}] run event entity @s hengker:rilotchange"
+				]
+			}
+		},
+		"animation.aug.inspect_empty": {
+			"animation_length": 4.65,
+			"loop": false,
+			"timeline": {
+				"0.3": [
+					"/function camera1"
+				],
+				"4.45": [
+					"/function camera1"
+				],
+				"4.65": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.aug.inspect": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown,scores={aug=0}] run event entity @s hengker:inspect"
+				]
+			}
+		},
+		"animation.aug.checking": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/execute as @s[tag=!cooldown] run event entity @s hengker:aug_check"
+				]
+			}
+		},
+		"animation.aug.reload": {
+			"animation_length": 3,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0": [
+					"/event entity @s hengker:mag",
+					"/tag @s remove augnomag"
+				],
+				"3": [
+					"/event entity @s hengker:rilotend"
+				],
+				"0.5": [
+					"/function camera1"
+				],
+				"1.3": [
+					"/function camera1"
+				],
+				"1.43": [
+					"/function camera1"
+				],
+				"1.9": [
+					"/function camera1"
+				],
+				"2.1": [
+					"/function camera1"
+				],
+				"2.75": [
+					"/function camera1"
+				]
+			}
+		},
+		"animation.aug.reload_drum": {
+			"animation_length": 2.8,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"1": [
+					"/function camera1"
+				],
+				"1.43": [
+					"/function camera1"
+				],
+				"1.73": [
+					"/function camera1"
+				],
+				"1.87": [
+					"/function camera1"
+				],
+				"2.4": [
+					"/function camera1"
+				],
+				"2.8": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.aug.change": {
+			"animation_length": 2.25,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.5": [
+					"/function camera1"
+				],
+				"0.65": [
+					"/function camera1"
+				],
+				"1.27": [
+					"/function camera1"
+				],
+				"1.8": [
+					"/function camera1"
+				],
+				"2.03": [
+					"/function camera1"
+				],
+				"2.25": [
+					"/event entity @s hengker:nomag",
+					"/tag @s add augnomag",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.aug.change.drum": {
+			"animation_length": 2.4,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.33": [
+					"/function camera1"
+				],
+				"0.9": [
+					"/function camera1"
+				],
+				"1.27": [
+					"/function camera1"
+				],
+				"1.4": [
+					"/function camera1"
+				],
+				"2.03": [
+					"/function camera1"
+				],
+				"2.4": [
+					"/event entity @s hengker:nomag",
+					"/tag @s add augnomag",
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.aug.draw": {
+			"timeline": {
+				"1": [
+					"/tag @s remove cooldown"
+				],
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.31": [
+					"/function camera1"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 1
+		},
+		"animation.aug.unequip": {
+			"animation_length": 0.6,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.6": [
+					"/event entity @s unequip:aug"
+				]
+			}
+		},
+		"animation.aug.check": {
+			"animation_length": 3.4,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.45": [
+					"/function camera1"
+				],
+				"0.65": [
+					"/function camera1"
+				],
+				"1.05": [
+					"/function camera1"
+				],
+				"1.8": [
+					"/title @s[scores={aug=30}] actionbar 满的",
+					"/title @s[scores={aug=23..29}] actionbar 几乎满的",
+					"/title @s[scores={aug=16..22}] actionbar 超过一半",
+					"/title @s[scores={aug=10..15}] actionbar 还剩一半",
+					"/title @s[scores={aug=2..9}] actionbar 几乎空了",
+					"/title @s[scores={aug=1}] actionbar 空的"
+				],
+				"2.3": [
+					"/function camera1"
+				],
+				"2.7": [
+					"/function camera1"
+				],
+				"2.95": [
+					"/function camera1"
+				],
+				"3.1": [
+					"/function camera1"
+				],
+				"3.4": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.attachment_in": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s hengker:attachment"
+				]
+			}
+		},
+		"animation.attachment_out": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.cooldown": {
+			"animation_length": 0.5,
+			"loop": false
+		},
+		"animation.gun.muzzle": {
+			"animation_length": 0.3,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s[tag=!break] gun:muzzle"
+				],
+				"0.02": [
+					"/tag @s add break"
+				],
+				"0.25": [
+					"/tag @s remove break"
+				]
+			}
+		},
+		"animation.gun.laser": {
+			"animation_length": 0.3,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s[tag=!break] gun:laser"
+				],
+				"0.02": [
+					"/tag @s add break"
+				],
+				"0.25": [
+					"/tag @s remove break"
+				]
+			}
+		},
+		"animation.gun.scope": {
+			"animation_length": 0.3,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s[tag=!break] gun:scope"
+				],
+				"0.02": [
+					"/tag @s add break"
+				],
+				"0.25": [
+					"/tag @s remove break"
+				]
+			}
+		},
+		"animation.gun.stock": {
+			"animation_length": 0.3,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s[tag=!break] gun:stock"
+				],
+				"0.02": [
+					"/tag @s add break"
+				],
+				"0.25": [
+					"/tag @s remove break"
+				]
+			}
+		},
+		"animation.gun.mag": {
+			"animation_length": 0.3,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s[tag=!break] gun:mag"
+				],
+				"0.02": [
+					"/tag @s add break"
+				],
+				"0.25": [
+					"/tag @s remove break"
+				]
+			}
+		},
+		"animation.gun.grip": {
+			"animation_length": 0.3,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s[tag=!break] gun:grip"
+				],
+				"0.02": [
+					"/tag @s add break"
+				],
+				"0.25": [
+					"/tag @s remove break"
+				]
+			}
+		},
+		"animation.gun.display": {
+			"animation_length": 0.3,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/event entity @s[tag=!break] gun:display"
+				],
+				"0.02": [
+					"/tag @s add break"
+				],
+				"0.25": [
+					"/tag @s remove break"
+				]
+			}
+		},
+		"animation.ram.draw": {
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.31": [
+					"/function camera1"
+				],
+				"0.95": [
+					"/tag @s remove cooldown"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 1
+		},
+		"animation.ram.unequip": {
+			"animation_length": 0.75,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.75": [
+					"/event entity @s unequip:ram"
+				]
+			}
+		},
+		"animation.ram.inspect": {
+			"animation_length": 5,
+			"loop": false,
+			"timeline": {
+				"5": [
+					"/event entity @s hengker:rilotend"
+				],
+				"2.38": [
+					"/function camera1"
+				],
+				"2.83": [
+					"/function camera1"
+				]
+			}
+		},
+		"animation.dvd.draw": {
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.31": [
+					"/function camera1"
+				],
+				"0.95": [
+					"/tag @s remove cooldown"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 1
+		},
+		"animation.dvd.unequip": {
+			"animation_length": 0.8,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.7": [
+					"/event entity @s unequip:dvd"
+				]
+			}
+		},
+		"animation.dvd.inspect": {
+			"animation_length": 6.875,
+			"loop": false,
+			"timeline": {
+				"0.33": [
+					"/function camera1"
+				],
+				"4.42": [
+					"/function camera1"
+				],
+				"5.58": [
+					"/function camera1"
+				],
+				"6.875": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.tank.draw": {
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.31": [
+					"/function camera1"
+				],
+				"0.95": [
+					"/tag @s remove cooldown"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 1
+		},
+		"animation.tank.unequip": {
+			"animation_length": 0.8,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.7": [
+					"/event entity @s unequip:tank"
+				]
+			}
+		},
+		"animation.tank.inspect": {
+			"animation_length": 6.75,
+			"loop": false,
+			"timeline": {
+				"3.08": [
+					"/function camera1"
+				],
+				"3.5": [
+					"/function camera1"
+				],
+				"6.75": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.router.draw": {
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.31": [
+					"/function camera1"
+				],
+				"0.95": [
+					"/tag @s remove cooldown"
+				]
+			},
+			"loop": "hold_on_last_frame",
+			"animation_length": 1
+		},
+		"animation.router.unequip": {
+			"animation_length": 0.8,
+			"loop": "hold_on_last_frame",
+			"timeline": {
+				"0.0": [
+					"/tag @s add cooldown"
+				],
+				"0.17": [
+					"/function camera1"
+				],
+				"0.7": [
+					"/event entity @s unequip:router"
+				]
+			}
+		},
+		"animation.router.inspect": {
+			"animation_length": 5.4167,
+			"loop": false,
+			"timeline": {
+				"3": [
+					"/function camera1"
+				],
+				"3.21": [
+					"/function camera1"
+				],
+				"5.4167": [
+					"/event entity @s hengker:rilotend"
+				]
+			}
+		},
+		"animation.player.onfire": {
+			"animation_length": 0.1,
+			"loop": true,
+			"timeline": {
+				"0.0": [
+					"/title @s[m=!c,tag=jembot] actionbar §2体力恢复!",
+					"/inputpermission set @s jump enabled",
+					"/tag @s remove jembot",
+					"/event entity @s player:semangat"
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,33 @@
+{
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hengker:advanced_leggings",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.leggings"
+			}
+		},
+		"components": {
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "advanced_leggings"
+			},
+			"minecraft:display_name": {
+				"value": "幽灵裤\n\n§7价格: 20$"
+			},
+			"minecraft:glint": false,
+			"minecraft:durability": {
+				"damage_chance": {
+					"min": 70,
+					"max": 100
+				},
+				"max_durability": 80
+			},
+			"minecraft:wearable": {
+				"slot": "slot.armor.legs",
+				"protection": 6
+			}
+		}
+	}
+}

@@ -1,0 +1,20 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "bridge:fork",
+			"menu_category": {
+				"category": "items",
+				"group": "itemGroup.name.loots"
+			}
+		},
+		"components": {
+			"minecraft:icon": "bridge_fork",
+			"minecraft:max_stack_size": 4,
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:damage": {
+				"value": 2
+			}
+		}
+	}
+}

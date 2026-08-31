@@ -1,0 +1,41 @@
+{
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hengker:glock",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.weapons"
+			}
+		},
+		"components": {
+			"minecraft:display_name": {
+				"value": "Glock-17§7\n可用弹匣: \n\n\n§7价格: 45$"
+			},
+			"minecraft:glint": false,
+			"minecraft:max_stack_size": 1,
+			"minecraft:use_modifiers": {
+				"use_duration": 3600,
+				"movement_modifier": 0.93
+			},
+			"minecraft:icon": {
+				"texture": "hengker_glock"
+			},
+			"minecraft:allow_off_hand": false,
+			"minecraft:can_destroy_in_creative": false,
+			"minecraft:food": {
+				"nutrition": 0,
+				"saturation_modifier": 0,
+				"can_always_eat": true
+			},
+			"minecraft:damage": {
+				"value": 3
+			},
+			"minecraft:tags": {
+				"tags": [
+					"flashlight"
+				]
+			}
+		}
+	}
+}

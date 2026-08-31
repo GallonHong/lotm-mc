@@ -1,0 +1,33 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:item": {
+        "components": {
+            "minecraft:can_destroy_in_creative": false,
+            "minecraft:cooldown": {
+                "category": "chorusfruit",
+                "duration": 0
+            },
+            "minecraft:display_name": {
+                "value": "沙漠之鹰\n§b沙漠之鹰,是一款单动式,导气式半自动手枪,以使用.50 AE弹药而闻名."
+            },
+            "minecraft:food": {
+                "can_always_eat": true
+            },
+            "minecraft:hand_equipped": true,
+            "minecraft:icon": "de",
+            "minecraft:max_stack_size": 1,
+            "minecraft:stacked_by_data": true,
+            "minecraft:use_modifiers": {
+                "movement_modifier": 0.9,
+                "use_duration": 9999999
+            }
+        },
+        "description": {
+            "identifier": "mw:de",
+            "menu_category": {
+                "category": "equipment",
+                "is_hidden_in_commands": false
+            }
+        }
+    }
+}

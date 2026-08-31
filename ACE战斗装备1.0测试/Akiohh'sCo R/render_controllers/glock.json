@@ -1,0 +1,165 @@
+{
+	"format_version": "1.10.0",
+	"render_controllers": {
+		"controller.render.glock.first_person": {
+			"textures": [
+				"texture.default"
+			],
+			"geometry": "geometry.aug_fpp",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"leftArm": "material.default"
+				},
+				{
+					"rightArm": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.glock_gun"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.glock_gun"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.glock_gun"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.glock_gun"
+				}
+			]
+		},
+		"controller.render.glock.particle": {
+			"textures": [
+				"texture.glock"
+			],
+			"geometry": "geometry.glock_particle",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": false
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.glock.third_person": {
+			"textures": [
+				"texture.glock"
+			],
+			"geometry": "geometry.glock_tpp",
+			"materials": [
+				{
+					"*": "material.gun"
+				},
+				{
+					"flash": "material.glow"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"flash": "!v.is_first_person && query.is_item_name_any('slot.weapon.offhand',0,'bridge:flashlight')"
+				},
+				{
+					"light": "query.is_item_name_any('slot.weapon.offhand',0,'bridge:flashlight')"
+				},
+				{
+					"scope": "query.property('mk556:scope')=='reddot'"
+				},
+				{
+					"Mag3": "query.property('mk556:mag')=='n' && !v.is_first_person && q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"Mag4": "query.property('mk556:mag')=='extended' && !v.is_first_person && q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"Mag2": "query.property('mk556:mag')=='n' && v.is_first_person && q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"Mag5": "query.property('mk556:mag')=='extended' && v.is_first_person && q.property('hengker:nomag')=='ada'"
+				},
+				{
+					"silencer": "query.property('mk556:muzzle')=='silencer'"
+				},
+				{
+					"Cartridge2": "q.property('hengker:nomag')=='ada' && v.is_first_person && q.is_stackable"
+				},
+				{
+					"Cartridge3": "q.property('hengker:nomag')=='ada' && v.is_first_person && q.is_stackable"
+				},
+				{
+					"Cartridge5": "q.property('hengker:nomag')=='ada' && v.is_first_person && q.is_stackable"
+				},
+				{
+					"Cartridge4": "q.property('hengker:nomag')=='ada' && v.is_first_person && q.is_stackable"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.glock_slot.first_person": {
+			"geometry": "geometry.glock_slot",
+			"textures": [
+				"texture.slot_icon"
+			],
+			"materials": [
+				{
+					"*": "material.gun"
+				},
+				{
+					"mk556": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"muzzle": "q.variant == 1"
+				},
+				{
+					"laser": "q.variant == 2"
+				},
+				{
+					"scope": "q.variant == 3"
+				},
+				{
+					"stock": "q.variant == 4"
+				},
+				{
+					"mag": "q.variant == 5"
+				},
+				{
+					"grip": "q.variant == 6"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		}
+	}
+}

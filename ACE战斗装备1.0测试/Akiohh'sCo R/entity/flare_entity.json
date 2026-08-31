@@ -1,0 +1,38 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "bridge:flare_entity",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/entity/flare"
+			},
+			"geometry": {
+				"default": "geometry.flare_entity"
+			},
+			"render_controllers": [
+				"controller.render.flare_entity"
+			],
+			"particle_effects": {
+				"flare": "dd:idu"
+			},
+			"sound_effects": {
+				"flare_smoke": "flare.smoke"
+			},
+			"animations": {
+				"flare": "animation.smoke.flare"
+			},
+			"scripts": {
+				"animate": [
+					"flare"
+				]
+			},
+			"spawn_egg": {
+				"base_color": "#000000",
+				"overlay_color": "#FFFFFF"
+			}
+		}
+	}
+}

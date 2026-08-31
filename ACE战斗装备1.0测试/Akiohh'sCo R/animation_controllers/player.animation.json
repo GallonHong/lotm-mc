@@ -1,0 +1,438 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.player.crossbow": {
+			"initial_state": "default",
+			"states": {
+				"charge": {
+					"animations": [
+						"third_person_crossbow_equipped"
+					],
+					"transitions": [
+						{
+							"default": "query.get_equipped_item_name!='crossbow'||(query.item_remaining_use_duration<=0&&!query.item_is_charged)"
+						},
+						{
+							"hold": "query.item_is_charged"
+						}
+					]
+				},
+				"default": {
+					"transitions": [
+						{
+							"hold": "query.item_is_charged"
+						},
+						{
+							"charge": "query.item_remaining_use_duration>0"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						"crossbow_hold"
+					],
+					"transitions": [
+						{
+							"default": "query.get_equipped_item_name!='crossbow'||(query.item_remaining_use_duration<=0&&!query.item_is_charged)"
+						},
+						{
+							"charge": "query.item_remaining_use_duration>0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.gun_hipfire": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"toggle_hipfire": "v.equip_rifle&&q.is_using_item"
+						}
+					]
+				},
+				"toggle_hipfire": {
+					"on_entry": [
+						"variable.ngentot=query.life_time;"
+					],
+					"transitions": [
+						{
+							"on": "v.equip_rifle&&q.is_using_item&&(query.life_time-variable.ngentot)>=0.1"
+						},
+						{
+							"default": "!v.equip_rifle||!q.is_using_item"
+						}
+					]
+				},
+				"on": {
+					"animations": [
+						{
+							"gun_hipfire": "v.equip_rifle&&!q.is_sneaking&&q.is_stackable"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!q.is_using_item||!v.equip_rifle||q.is_sneaking"
+						}
+					],
+					"blend_transition": 0.12,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.gun_hold": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"static": "variable.is_first_person&&!q.is_moving&&v.equip_gun"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"static": {
+					"animations": [
+						{
+							"gun_static": "variable.is_first_person&&v.equip_gun"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!q.is_alive||q.is_moving||!v.equip_gun"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.aim_move": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"move": "v.is_first_person&&v.equip_gun&&q.is_sneaking&&q.is_moving"
+						}
+					],
+					"blend_transition": 0.25,
+					"blend_via_shortest_path": true
+				},
+				"move": {
+					"animations": [
+						{
+							"move_aim": "variable.is_first_person&&variable.equip_gun&&(q.property('mk556:scope')!='tele'&&q.property('mk556:scope')!='scout'&&q.property('mk556:scope')!='exclusive')"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!q.is_sneaking||!q.is_moving||!v.equip_gun"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.gun_move": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"moving": "variable.is_first_person&&variable.equip_gun&&q.is_moving&&!query.is_sneaking&&!query.is_jumping&&!query.is_riding&&query.is_on_ground&&query.property('hengker:reload')!='heal'"
+						}
+					],
+					"blend_transition": 0.12,
+					"blend_via_shortest_path": true
+				},
+				"moving": {
+					"animations": [
+						{
+							"gun_walk": "variable.is_first_person&&v.equip_gun"
+						}
+					],
+					"transitions": [
+						{
+							"default": "variable.is_first_person&&!q.is_moving||query.is_sneaking||!variable.equip_gun||query.is_jumping||query.is_riding||!query.is_on_ground"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.gun_attack": {
+			"initial_state": "hold",
+			"states": {
+				"hold": {
+					"transitions": [
+						{
+							"melee": "v.is_first_person&&v.equip_gun&&q.property('hengker:reload')=='hit'"
+						}
+					]
+				},
+				"melee": {
+					"animations": [
+						{
+							"gun_hit": "v.is_first_person"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "query.all_animations_finished&&q.property('hengker:reload')!='hit'"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.player.first_person_attack": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"first_person_attack_rotation"
+					],
+					"transitions": [
+						{
+							"vr_attack": "variable.is_using_vr"
+						}
+					]
+				},
+				"vr_attack": {
+					"animations": [
+						"first_person_vr_attack_rotation"
+					],
+					"transitions": [
+						{
+							"default": "!variable.is_using_vr"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.player.first_person_map": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"one_hand": "query.get_equipped_item_name('off_hand')=='map'||query.get_equipped_item_name('off_hand')=='shield'"
+						},
+						{
+							"two_hand": "query.get_equipped_item_name('off_hand')!='map'&&query.get_equipped_item_name('off_hand')!='shield'"
+						}
+					]
+				},
+				"one_hand": {
+					"animations": [
+						{
+							"first_person_map_hold_main_hand": "query.get_equipped_item_name(0,1)=='map'"
+						},
+						{
+							"first_person_map_hold_off_hand": "query.get_equipped_item_name('off_hand')=='map'&&(query.get_equipped_item_name=='bow'?!(variable.item_use_normalized>0&&variable.item_use_normalized<1):1)"
+						}
+					],
+					"transitions": [
+						{
+							"default": "query.get_equipped_item_name(0,1)!='map'&&query.get_equipped_item_name('off_hand')!='map'"
+						},
+						{
+							"two_hand": "query.get_equipped_item_name('off_hand')!='map'&&query.get_equipped_item_name('off_hand')!='shield'"
+						}
+					]
+				},
+				"two_hand": {
+					"animations": [
+						"first_person_map_hold",
+						"first_person_map_hold_attack"
+					],
+					"transitions": [
+						{
+							"default": "query.get_equipped_item_name(0,1)!='map'&&query.get_equipped_item_name('off_hand')!='map'"
+						},
+						{
+							"one_hand": "query.get_equipped_item_name('off_hand')=='map'||query.get_equipped_item_name('off_hand')=='shield'"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.player.root": {
+			"initial_state": "first_person",
+			"states": {
+				"first_person": {
+					"animations": [
+						{
+							"first_person_attack_controller": "variable.attack_time>0&&query.get_equipped_item_name!='map'&&!variable.equip_gun"
+						},
+						"first_person_base_pose",
+						{
+							"first_person_empty_hand": "query.get_equipped_item_name(0,1)!='map'&&!variable.equip_gun"
+						},
+						{
+							"first_person_map_controller": "(query.get_equipped_item_name(0,1)=='map'||query.get_equipped_item_name('off_hand')=='map')"
+						},
+						{
+							"first_person_crossbow_equipped": "query.get_equipped_item_name=='crossbow'&&(variable.item_use_normalized>0&&variable.item_use_normalized<1)"
+						},
+						{
+							"first_person_crossbow_hold": "query.get_equipped_item_name=='crossbow'&&query.item_is_charged"
+						}
+					],
+					"transitions": [
+						{
+							"paperdoll": "variable.is_paperdoll"
+						},
+						{
+							"map_player": "variable.map_face_icon"
+						},
+						{
+							"third_person": "!variable.is_first_person"
+						}
+					]
+				},
+				"map_player": {
+					"transitions": [
+						{
+							"paperdoll": "variable.is_paperdoll"
+						},
+						{
+							"first_person": "variable.is_first_person"
+						},
+						{
+							"third_person": "!variable.map_face_icon&&!variable.is_first_person"
+						}
+					]
+				},
+				"paperdoll": {
+					"animations": [
+						"humanoid_base_pose",
+						"look_at_target_ui",
+						"move.arms",
+						"move.legs",
+						"cape"
+					],
+					"transitions": [
+						{
+							"first_person": "!variable.is_paperdoll&&variable.is_first_person"
+						},
+						{
+							"map_player": "variable.map_face_icon"
+						},
+						{
+							"third_person": "!variable.is_paperdoll&&!variable.is_first_person"
+						}
+					]
+				},
+				"third_person": {
+					"animations": [
+						"humanoid_base_pose",
+						{
+							"look_at_target": "!variable.equip_gun&&!query.is_sleeping"
+						},
+						{
+							"move.arms": "!variable.equip_gun"
+						},
+						"move.legs",
+						"cape",
+						{
+							"riding.arms": "query.is_riding&&!variable.equip_gun"
+						},
+						{
+							"riding.legs": "query.is_riding"
+						},
+						{
+							"holding_spyglass": "variable.is_holding_spyglass"
+						},
+						{
+							"holding": "!variable.equip_gun"
+						},
+						{
+							"brandish_spear": "variable.is_brandishing_spear"
+						},
+						{
+							"charging": "query.is_charging&&!v.equip_gun"
+						},
+						{
+							"sneaking": "query.is_sneaking&&!query.is_sleeping&&!v.equip_gun"
+						},
+						{
+							"bob": "!variable.equip_gun&&!variable.is_holding_spyglass"
+						},
+						{
+							"damage_nearby_mobs": "variable.damage_nearby_mobs"
+						},
+						{
+							"bow_and_arrow": "query.has_target"
+						},
+						{
+							"swimming": "variable.swim_amount>0"
+						},
+						{
+							"swimming.legs": "variable.swim_amount>0"
+						},
+						{
+							"use_item_progress": "(variable.use_item_interval_progress>0)||(variable.use_item_startup_progress>0)&&!variable.is_brandishing_spear&&!variable.equip_gun"
+						},
+						{
+							"sleeping": "query.is_sleeping&&query.is_alive"
+						},
+						{
+							"attack.positions": "variable.attack_time>=0&&!variable.equip_gun"
+						},
+						{
+							"attack.rotations": "variable.attack_time>=0&&!variable.equip_gun"
+						},
+						{
+							"shield_block_main_hand": "query.blocking&&query.get_equipped_item_name('off_hand')!='shield'&&query.get_equipped_item_name=='shield'"
+						},
+						{
+							"shield_block_off_hand": "query.blocking&&query.get_equipped_item_name('off_hand')=='shield'"
+						},
+						{
+							"crossbow_controller": "query.get_equipped_item_name=='crossbow'"
+						},
+						{
+							"third_person_bow_equipped": "query.get_equipped_item_name=='bow'&&(variable.item_use_normalized>0&&variable.item_use_normalized<1)"
+						}
+					],
+					"transitions": [
+						{
+							"paperdoll": "variable.is_paperdoll"
+						},
+						{
+							"first_person": "variable.is_first_person"
+						},
+						{
+							"map_player": "variable.map_face_icon"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.weapon_flashlight": {
+			"initial_state": "inactive",
+			"states": {
+				"inactive": {
+					"transitions": [
+						{
+							"active": "(v.scar_gun)&&!v.is_third_person"
+						}
+					]
+				},
+				"active": {
+					"animations": [
+						"weapon_flashlight"
+					],
+					"transitions": [
+						{
+							"inactive": "!v.scar_gun"
+						}
+					]
+				}
+			}
+		}
+	}
+}

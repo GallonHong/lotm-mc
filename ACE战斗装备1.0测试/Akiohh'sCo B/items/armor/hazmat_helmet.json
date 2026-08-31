@@ -1,0 +1,33 @@
+{
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hengker:hazmat_helmet",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.helmet"
+			}
+		},
+		"components": {
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "hazmat_helmet"
+			},
+			"minecraft:display_name": {
+				"value": "危险品头盔\n\n§7价格: 20$"
+			},
+			"minecraft:glint": false,
+			"minecraft:durability": {
+				"damage_chance": {
+					"min": 60,
+					"max": 100
+				},
+				"max_durability": 80
+			},
+			"minecraft:wearable": {
+				"slot": "slot.armor.head",
+				"protection": 4
+			}
+		}
+	}
+}

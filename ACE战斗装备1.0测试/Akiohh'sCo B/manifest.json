@@ -1,0 +1,63 @@
+{
+	"format_version": 2,
+	"metadata": {
+		"authors": [
+			"Akiohh"
+		],
+		"generated_with": {
+			"bridge": [
+				"2.7.54"
+			],
+			"dash": [
+				"0.11.7"
+			]
+		}
+	},
+	"header": {
+		"name": "Akiohh的战斗装备 (ACE)\n汉化B站:小涵不含",
+		"description": "Akiohh 的武器装备，充满自豪和爱心 :)",
+		"min_engine_version": [
+			1,
+			21,
+			120
+		],
+		"uuid": "94bcc61c-c6d9-4998-959d-42ac29366006",
+		"version": [
+			1,
+			0,
+			2
+		]
+	},
+	"modules": [
+		{
+			"type": "data",
+			"uuid": "e6a1ab7b-0f27-4c41-94a0-9a8112eed4f4",
+			"version": [
+				1,
+				0,
+				0
+			]
+		},
+		{
+			"type": "script",
+			"language": "javascript",
+			"uuid": "f13dfc50-52ad-481d-8dad-9d7fdde0aa8b",
+			"entry": "scripts/main.js",
+			"version": [
+				1,
+				0,
+				0
+			]
+		}
+	],
+	"dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.13.0"
+		},
+		{
+			"module_name": "@minecraft/server-ui",
+			"version": "1.0.0"
+		}
+	]
+}

@@ -1,0 +1,482 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.kimak": {
+			"ignore_lighting": true,
+			"materials": [
+				{
+					"*": "material.default"
+				},
+				{
+					"glass": "material.transparant"
+				}
+			],
+			"geometry": "geometry.default",
+			"textures": [
+				"texture.default"
+			]
+		},
+		"controller.render.flashlight": {
+			"geometry": "geometry.flashlight",
+			"textures": [
+				"texture.slot_icon"
+			],
+			"materials": [
+				{
+					"*": "material.glow"
+				}
+			]
+		},
+		"controller.render.backpack": {
+			"geometry": "geometry.backpack",
+			"textures": [
+				"texture.backpack"
+			],
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			]
+		},
+		"controller.render.playir.third_person": {
+			"geometry": "geometry.dipault",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"texture.default"
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"helmet": "variable.helmet_layer_visible"
+				},
+				{
+					"leftLegging": "variable.leg_layer_visible"
+				},
+				{
+					"rightLegging": "variable.leg_layer_visible"
+				},
+				{
+					"leftBoot": "variable.boot_layer_visible"
+				},
+				{
+					"rightBoot": "variable.boot_layer_visible"
+				},
+				{
+					"leftSock": "variable.boot_layer_visible && variable.leg_layer_visible"
+				},
+				{
+					"rightSock": "variable.boot_layer_visible && variable.leg_layer_visible"
+				},
+				{
+					"bodyArmor": "variable.chest_layer_visible && !query.has_cape"
+				},
+				{
+					"leftArmArmor": "variable.chest_layer_visible && !query.has_cape"
+				},
+				{
+					"rightArmArmor": "variable.chest_layer_visible && !query.has_cape"
+				},
+				{
+					"belt": "variable.chest_layer_visible && variable.leg_layer_visible"
+				}
+			]
+		},
+		"controller.render.backpack_open": {
+			"geometry": "geometry.backpack_open",
+			"textures": [
+				"texture.backpack"
+			],
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			]
+		},
+		"controller.render.ram.first_person": {
+			"textures": [
+				"texture.default"
+			],
+			"geometry": "geometry.aug_fpp",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"leftArm": "material.default"
+				},
+				{
+					"rightArm": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.ram_loot"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.ram_loot"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.ram_loot"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.ram_loot"
+				}
+			]
+		},
+		"controller.render.ram.third_person": {
+			"geometry": "geometry.ram_tpp",
+			"textures": [
+				"texture.ram"
+			],
+			"materials": [
+				{
+					"*": "material.gun"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.router.first_person": {
+			"textures": [
+				"texture.default"
+			],
+			"geometry": "geometry.aug_fpp",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"leftArm": "material.default"
+				},
+				{
+					"rightArm": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.router_loot"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.router_loot"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.router_loot"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.router_loot"
+				}
+			]
+		},
+		"controller.render.router.third_person": {
+			"geometry": "geometry.router_tpp",
+			"textures": [
+				"texture.router"
+			],
+			"materials": [
+				{
+					"*": "material.gun"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.tank.first_person": {
+			"textures": [
+				"texture.default"
+			],
+			"geometry": "geometry.aug_fpp",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"leftArm": "material.default"
+				},
+				{
+					"rightArm": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.tank_loot"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.tank_loot"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.tank_loot"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.tank_loot"
+				}
+			]
+		},
+		"controller.render.tank.third_person": {
+			"geometry": "geometry.tank_tpp",
+			"textures": [
+				"texture.tank"
+			],
+			"materials": [
+				{
+					"*": "material.gun"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.dvd.first_person": {
+			"textures": [
+				"texture.default"
+			],
+			"geometry": "geometry.aug_fpp",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.dvd_loot"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.dvd_loot"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.dvd_loot"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.dvd_loot"
+				}
+			]
+		},
+		"controller.render.dvd.third_person": {
+			"geometry": "geometry.dvd_tpp",
+			"textures": [
+				"texture.dvd"
+			],
+			"materials": [
+				{
+					"*": "material.default"
+				},
+				{
+					"dvd2": "material.gun"
+				},
+				{
+					"bone": "material.scope"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.laser_crosshair": {
+			"geometry": "geometry.crosshair_laser",
+			"textures": [
+				"texture.slot_icon"
+			],
+			"materials": [
+				{
+					"*": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"red": "query.property('mk556:laser')=='red'"
+				},
+				{
+					"green": "query.property('mk556:laser')=='green'"
+				},
+				{
+					"blue": "query.property('mk556:laser')=='gold'"
+				}
+			]
+		},
+		"controller.render.nightvision": {
+			"geometry": "geometry.default",
+			"textures": [
+				"texture.default"
+			],
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"dayvision": "q.property('hengker:nightvision')=='disabled' || (q.property('hengker:nightvision')!='disabled' && q.property('hengker:nightvision')!='enabled')"
+				},
+				{
+					"nightvision": "q.property('hengker:nightvision')=='enabled'"
+				}
+			]
+		},
+		"controller.render.green_vision.first_person": {
+			"geometry": "geometry.nightvision",
+			"textures": [
+				"texture.green"
+			],
+			"materials": [
+				{
+					"*": "material.glow"
+				}
+			]
+		},
+		"controller.render.advanced_vest.first_person": {
+			"textures": [
+				"texture.advanced_vest"
+			],
+			"geometry": "geometry.advanced_vest",
+			"materials": [
+				{
+					"*": "material.scope"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				}
+			]
+		},
+		"controller.render.advanced_armed.first_person": {
+			"textures": [
+				"texture.advanced_vest"
+			],
+			"geometry": "geometry.advanced_armed",
+			"materials": [
+				{
+					"*": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"rightarmor": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				}
+			]
+		},
+		"controller.render.hazmat_vest.first_person": {
+			"textures": [
+				"texture.hazmat_vest"
+			],
+			"geometry": "geometry.hazmat_vest",
+			"materials": [
+				{
+					"*": "material.scope"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				}
+			]
+		},
+		"controller.render.hazmat_armed.first_person": {
+			"textures": [
+				"texture.hazmat_vest"
+			],
+			"geometry": "geometry.hazmat_armed",
+			"materials": [
+				{
+					"*": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"rightarmor": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.equip_gun"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.equip_gun"
+				}
+			]
+		}
+	}
+}

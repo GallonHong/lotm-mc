@@ -1,0 +1,42 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "bridge:backpack"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"S": {
+				"item": "minecraft:tripwire_hook"
+			},
+			"E": {
+				"item": "minecraft:chest"
+			},
+			"X": {
+				"item": "minecraft:leather"
+			}
+		},
+		"pattern": [
+			"XSX",
+			"XEX",
+			"XXX"
+		],
+		"unlock": [
+			{
+				"item": "minecraft:leather"
+			},
+			{
+				"item": "minecraft:tripwire_hook"
+			},
+			{
+				"item": "minecraft:chest"
+			}
+		],
+		"result": {
+			"item": "hengker:backpack",
+			"count": 1
+		}
+	}
+}

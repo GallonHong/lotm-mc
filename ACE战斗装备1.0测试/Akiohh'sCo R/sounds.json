@@ -1,0 +1,32 @@
+{
+    "entity_sounds": {
+        "entities": {
+            "hengker:operator": {
+                "volume": 1,
+                "pitch": [
+                    0.8,
+                    1.2
+                ],
+                "events": {
+                    "ambient": "mob.villager.idle",
+                    "hurt": "mob.villager.hit",
+                    "death": "mob.villager.death",
+                    "step": "mob.zombie.step"
+                }
+            },
+            "bridge:agent": {
+                "volume": 0.8,
+                "pitch": [
+                    0.4,
+                    0.6
+                ],
+                "events": {
+                    "ambient": "mob.villager.no",
+                    "hurt": "mob.villager.hit",
+                    "death": "mob.villager.death",
+                    "step": "mob.zombie.step"
+                }
+            }
+        }
+    }
+}

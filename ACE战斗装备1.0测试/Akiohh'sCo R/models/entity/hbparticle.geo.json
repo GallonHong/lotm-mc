@@ -1,0 +1,122 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.hb_particle",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 25,
+				"visible_bounds_height": 4,
+				"visible_bounds_offset": [
+					0,
+					1,
+					0
+				]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [
+						0,
+						0,
+						0
+					]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [
+						0,
+						12,
+						0
+					]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [
+						0,
+						12,
+						0
+					]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [
+						0,
+						24,
+						0
+					]
+				},
+				{
+					"name": "Arm",
+					"parent": "body",
+					"pivot": [
+						0,
+						6,
+						7
+					]
+				},
+				{
+					"name": "gun_and_righthand",
+					"parent": "Arm",
+					"pivot": [
+						0,
+						6,
+						7
+					]
+				},
+				{
+					"name": "rightArm",
+					"parent": "gun_and_righthand",
+					"pivot": [
+						5,
+						20,
+						0
+					]
+				},
+				{
+					"name": "stick",
+					"parent": "gun_and_righthand",
+					"pivot": [
+						-0.125,
+						1.75,
+						19.75
+					],
+					"locators": {
+						"hb_muzzle": [
+							0,
+							7.25,
+							-15.25
+						],
+						"hb_selongsong": [
+							-1.1,
+							7.7,
+							4.75
+						]
+					}
+				},
+				{
+					"name": "mag_and_lefthand",
+					"parent": "Arm",
+					"pivot": [
+						0,
+						6,
+						7
+					]
+				},
+				{
+					"name": "leftArm",
+					"parent": "mag_and_lefthand",
+					"pivot": [
+						-6,
+						20,
+						0
+					]
+				}
+			]
+		}
+	]
+}

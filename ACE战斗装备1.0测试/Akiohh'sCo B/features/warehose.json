@@ -1,0 +1,15 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:structure_template_feature": {
+		"description": {
+			"identifier": "bridge:warehose"
+		},
+		"structure_name": "mystructure:warehose",
+		"adjustment_radius": 8,
+		"facing_direction": "random",
+		"constraints": {
+			"grounded": {},
+			"unburied": {}
+		}
+	}
+}

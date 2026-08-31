@@ -1,0 +1,87 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.bullet_impact": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"ground": "query.is_on_ground"
+						},
+						{
+							"water": "query.is_in_water"
+						}
+					],
+					"on_entry": [
+						"@s no"
+					]
+				},
+				"ground": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"/particle test:impact ~~~",
+						"/particle test:impact2 ~~~"
+					],
+					"on_exit": [
+						"@s hengker:delay"
+					]
+				},
+				"water": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"/particle test:impact_water ~~~"
+					],
+					"on_exit": [
+						"@s hengker:delay"
+					]
+				}
+			}
+		},
+		"controller.animation.extraction_car.general": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						{
+							"extraction_car_coming": "query.mark_variant==0"
+						}
+					],
+					"transitions": [
+						{
+							"extraction_idle": "query.all_animations_finished"
+						}
+					]
+				},
+				"extraction_idle": {
+					"animations": [
+						"extraction_car_idle"
+					],
+					"transitions": [
+						{
+							"extraction_leave": "query.mark_variant==1"
+						}
+					]
+				},
+				"extraction_leave": {
+					"animations": [
+						"extraction_car_moving"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished&&q.mark_variant==0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

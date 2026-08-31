@@ -1,0 +1,7 @@
+import "./projectile/main.js"
+import "./attachment.js"
+import "./magazine.js"
+import "./weapon.js"
+import "./system.js"
+import "./loot.js"
+import "./inventory/backpack.js"

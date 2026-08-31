@@ -1,0 +1,246 @@
+{
+	"resource_pack_name": "Akiohh's Combat Equipment (ACE)",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"hengker:hitam": {
+			"textures": "textures/items/pria_misterius"
+		},
+		"bridge_aug_mag": {
+			"textures": "textures/items/image_1778035086255"
+		},
+		"bridge_pitviper_mag": {
+			"textures": "textures/items/image_1778036839663"
+		},
+		"bridge_bullet_9mm": {
+			"textures": "textures/items/pistol"
+		},
+		"bridge_bullet_45acp": {
+			"textures": "textures/items/45acp"
+		},
+		"bridge_bullet_556mm": {
+			"textures": "textures/items/ar"
+		},
+		"bridge_bullet_762mm": {
+			"textures": "textures/items/ak"
+		},
+		"hengker_glock": {
+			"textures": "textures/items/glock"
+		},
+		"hengker_aug": {
+			"textures": "textures/items/image_1778030156628"
+		},
+		"bridge_lencana_polisi": {
+			"textures": "textures/items/blueprint"
+		},
+		"bridge_scar_mag_drum": {
+			"textures": "textures/items/image_1779203160310"
+		},
+		"bridge_scar_mag": {
+			"textures": "textures/items/image_1779203135677"
+		},
+		"bridge_scar_mag_extended": {
+			"textures": "textures/items/image_1779203089794"
+		},
+		"bridge_glock_mag": {
+			"textures": "textures/items/glock_mag"
+		},
+		"bridge_glock_mag_extended": {
+			"textures": "textures/items/glock_mag_extended"
+		},
+		"bridge_hb_mag": {
+			"textures": "textures/items/hb_mag"
+		},
+		"bridge_hb_mag_extended": {
+			"textures": "textures/items/hb_mag_extended"
+		},
+		"hengker_laptop": {
+			"textures": "textures/items/laptop"
+		},
+		"laptop_matek": {
+			"textures": "textures/items/laptop_matek"
+		},
+		"hengker_enginer": {
+			"textures": "textures/items/merchant"
+		},
+		"hengker_backpack": {
+			"textures": "textures/items/backpack_"
+		},
+		"hengker_backpack_open": {
+			"textures": "textures/items/backpack_open"
+		},
+		"hengker_mosin": {
+			"textures": "textures/items/mosin_nagant"
+		},
+		"hengker_colt": {
+			"textures": "textures/items/m1911"
+		},
+		"hengker_hb": {
+			"textures": "textures/items/honey_badger"
+		},
+		"hengker_hkc": {
+			"textures": "textures/items/glyph_e125"
+		},
+		"hengker_scar": {
+			"textures": "textures/items/scar"
+		},
+		"bridge_cqb": {
+			"textures": "textures/items/cqb_stock"
+		},
+		"bridge_exclusive": {
+			"textures": "textures/items/mount_scope"
+		},
+		"bridge_normal": {
+			"textures": "textures/items/normal_stock"
+		},
+		"bridge_simple": {
+			"textures": "textures/items/simple_stock"
+		},
+		"bridge_holo": {
+			"textures": "textures/items/holo"
+		},
+		"bridge_magnifier": {
+			"textures": "textures/items/holo_magnifier"
+		},
+		"bridge_reddot": {
+			"textures": "textures/items/reddot"
+		},
+		"advanced_boots": {
+			"textures": "textures/items/advanced_boots"
+		},
+		"advanced_leggings": {
+			"textures": "textures/items/advanced_leggings"
+		},
+		"advanced_vest": {
+			"textures": "textures/items/advanced_vest"
+		},
+		"ghost_helmet": {
+			"textures": "textures/items/ghost_helmet"
+		},
+		"bridge_acog": {
+			"textures": "textures/items/acog"
+		},
+		"bridge_tele": {
+			"textures": "textures/items/tele"
+		},
+		"bridge_light": {
+			"textures": "textures/items/light"
+		},
+		"bridge_long": {
+			"textures": "textures/items/verticalgrip"
+		},
+		"bridge_short": {
+			"textures": "textures/items/foregrip"
+		},
+		"bridge_silencer": {
+			"textures": "textures/items/silencer"
+		},
+		"bridge_laser": {
+			"textures": "textures/items/laser"
+		},
+		"bridge_laser_green": {
+			"textures": "textures/items/laser_green"
+		},
+		"bridge_laser_gold": {
+			"textures": "textures/items/laser_blue"
+		},
+		"bridge_bullet_50bmg": {
+			"textures": "textures/items/sniper"
+		},
+		"hengker_tactile": {
+			"textures": "textures/items/tactile"
+		},
+		"bridge_scout": {
+			"textures": "textures/items/scout"
+		},
+		"bridge_tactile_mag": {
+			"textures": "textures/items/tactile_mag"
+		},
+		"bridge_barret_mag": {
+			"textures": "textures/items/tactile_mag"
+		},
+		"hengker_barret": {
+			"textures": "textures/items/barret"
+		},
+		"hazmat_boots": {
+			"textures": "textures/items/hazmat_boots"
+		},
+		"hazmat_leggings": {
+			"textures": "textures/items/hazmat_pants"
+		},
+		"hazmat_helmet": {
+			"textures": "textures/items/hazmat_helmet"
+		},
+		"hazmat_suit": {
+			"textures": "textures/items/hazmat_suit"
+		},
+		"bridge_t4_helmet_helmet": {
+			"textures": "textures/items/spetnaz_helmet"
+		},
+		"bridge_t3_helmet_helmet": {
+			"textures": "textures/items/military_helmet"
+		},
+		"bridge_t2_helmet_helmet": {
+			"textures": "textures/items/tactical_helmet"
+		},
+		"bridge_t1_helmet_helmet": {
+			"textures": "textures/items/helmet_black"
+		},
+		"t4_vest": {
+			"textures": "textures/items/riot_chestplate"
+		},
+		"t3_vest": {
+			"textures": "textures/items/military_vest"
+		},
+		"t2_vest": {
+			"textures": "textures/items/tactical_vest"
+		},
+		"t1_vest": {
+			"textures": "textures/items/bodyarmor_black"
+		},
+		"bridge_minedollar1": {
+			"textures": "textures/items/money0"
+		},
+		"bridge_minedollar4": {
+			"textures": "textures/items/money1"
+		},
+		"bridge_minedollar16": {
+			"textures": "textures/items/money"
+		},
+		"bridge_ram": {
+			"textures": "textures/items/ram5ddr"
+		},
+		"bridge_router": {
+			"textures": "textures/items/modem"
+		},
+		"bridge_dvd": {
+			"textures": "textures/items/kaset"
+		},
+		"bridge_tank": {
+			"textures": "textures/items/tank"
+		},
+		"test_apple": {
+			"textures": "textures/items/apple"
+		},
+		"bridge_flashlight": {
+			"textures": "textures/items/flashlight (1)"
+		},
+		"bridge_fork": {
+			"textures": "textures/items/fork"
+		},
+		"bridge_drug": {
+			"textures": "textures/items/drug"
+		},
+		"bridge_syringe": {
+			"textures": "textures/items/drugs"
+		},
+		"bridge_usb": {
+			"textures": "textures/items/usb"
+		},
+		"bridge_crowbar": {
+			"textures": "textures/items/crowbar"
+		},
+		"bridge_lockpick": {
+			"textures": "textures/items/lockpick"
+		}
+	}
+}

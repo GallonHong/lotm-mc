@@ -1,0 +1,813 @@
+{
+	"tiers": [
+		{
+			"groups": [
+				{
+					"num_to_select": 2,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 30
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "hengker:magnifier",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:tele",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:exclusive",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 2,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.5
+												}
+											]
+										}
+									],
+									"item": "bridge:minedollar1",
+									"quantity": 20
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "bridge:scar_mag_drum",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hb_mag_drum",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hkc_mag_drum",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:tactile_mag",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.5
+												}
+											]
+										}
+									],
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "bridge:scar_mag_drum",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hb_mag_drum",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hkc_mag_drum",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:tactile_mag",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.5
+												}
+											]
+										}
+									],
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "hengker:normal",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:holo",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:silencer",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.5
+												}
+											]
+										}
+									],
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "hengker:normal",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:holo",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.4
+												}
+											]
+										}
+									],
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "bridge:scar_mag",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hb_mag",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hkc_mag",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:reddot",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.38
+												}
+											]
+										}
+									],
+									"item": "bridge:minedollar1",
+									"quantity": 15
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "bridge:scar_mag_extended",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hb_mag_extended",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:hkc_mag_extended",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						}
+					]
+				},
+				{
+					"num_to_select": 3,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:bullet_9mm",
+									"quantity": 30
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:bullet_45acp",
+									"quantity": 20
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 6
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:bullet_556mm",
+									"quantity": 30
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 7
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:bullet_762mm",
+									"quantity": 30
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 2
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:bullet_50bmg",
+									"quantity": 10
+								}
+							]
+						}
+					]
+				},
+				{
+					"num_to_select": 2,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 2
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "hengker:short",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:long",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:glock_mag",
+											"quantity": 1
+										},
+										{
+											"item": "bridge:colt_mag",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:laser_red",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 25
+								}
+							],
+							"gives": [
+								{
+									"choice": [
+										{
+											"item": "bridge:barret_mag",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:simple",
+											"quantity": 1
+										},
+										{
+											"item": "hengker:cqb",
+											"quantity": 1
+										}
+									]
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 6
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:acog",
+									"quantity": 1
+								}
+							],
+							"max_uses": 1,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 3
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:glock_mag_extended",
+									"quantity": 1
+								}
+							],
+							"max_uses": 3,
+							"reward_exp": true,
+							"trader_exp": 2
+						}
+					]
+				},
+				{
+					"num_to_select": 1,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 5
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:light",
+									"quantity": 1
+								}
+							],
+							"max_uses": 2,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 1
+								},
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 3
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:scout",
+									"quantity": 1
+								}
+							],
+							"max_uses": 2,
+							"reward_exp": true,
+							"trader_exp": 2
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 2,
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.45
+												}
+											]
+										}
+									]
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:flashlight",
+									"quantity": 1
+								}
+							],
+							"max_uses": 1,
+							"reward_exp": true,
+							"trader_exp": 5
+						}
+					]
+				},
+				{
+					"num_to_select": 2,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 5,
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.32
+												}
+											]
+										}
+									]
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:scar",
+									"quantity": 1
+								}
+							],
+							"max_uses": 1,
+							"reward_exp": false,
+							"trader_exp": 0
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 4
+								},
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:hb",
+									"quantity": 1
+								}
+							],
+							"max_uses": 1,
+							"reward_exp": false,
+							"trader_exp": 0
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 4
+								},
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 6
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:hkc",
+									"quantity": 1
+								}
+							],
+							"max_uses": 1,
+							"reward_exp": false,
+							"trader_exp": 0
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 6
+								},
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:tactile",
+									"quantity": 1
+								}
+							],
+							"max_uses": 1,
+							"reward_exp": false,
+							"trader_exp": 0
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 30,
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.4
+												}
+											]
+										}
+									]
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:barret",
+									"quantity": 1
+								}
+							],
+							"max_uses": 1,
+							"reward_exp": false,
+							"trader_exp": 0
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 45,
+									"functions": [
+										{
+											"conditions": [
+												{
+													"condition": "random_chance",
+													"chance": 0.65
+												}
+											]
+										}
+									]
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:glock",
+									"quantity": 1
+								}
+							],
+							"max_uses": 2,
+							"reward_exp": false,
+							"trader_exp": 0
+						}
+					]
+				},
+				{
+					"num_to_select": 2,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 3
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:t1_helmet_helmet",
+									"quantity": 1
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 6
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:t2_helmet_helmet",
+									"quantity": 1
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 9
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:t3_helmet_helmet",
+									"quantity": 1
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 2
+								},
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:t4_helmet_helmet",
+									"quantity": 1
+								}
+							]
+						}
+					]
+				},
+				{
+					"num_to_select": 2,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:t1_vest",
+									"quantity": 1
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 6
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:t2_vest",
+									"quantity": 1
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 9
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:t3_vest",
+									"quantity": 1
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 2
+								},
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:t4_vest",
+									"quantity": 1
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

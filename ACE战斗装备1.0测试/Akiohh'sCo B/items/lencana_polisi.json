@@ -1,0 +1,20 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hengker:lencana_polisi",
+			"menu_category": {
+				"category": "equipment"
+			}
+		},
+		"components": {
+			"minecraft:icon": "bridge_lencana_polisi",
+			"minecraft:max_stack_size": 1,
+			"minecraft:glint": true,
+			"minecraft:display_name": {
+				"value": "§d附件套件 \n§7§i拿着枪放在第 9 个槽位\n\n然后按 // 进入附件模式\n\n/潜行/ 退出"
+			},
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hengker:backpack",
+			"menu_category": {
+				"category": "equipment"
+			}
+		},
+		"components": {
+			"minecraft:icon": "hengker_backpack",
+			"minecraft:food": {
+				"can_always_eat": true,
+				"nutrition": 0,
+				"using_converts_to": "hengker:backpack"
+			},
+			"minecraft:use_modifiers": {
+				"movement_modifier": 0.4,
+				"use_duration": 99999
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:use_animation": "none"
+		}
+	}
+}

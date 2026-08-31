@@ -1,0 +1,779 @@
+{
+	"format_version": "1.14.0",
+	"sound_definitions": {
+		"bullet.attach": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/bullet_attach"
+			]
+		},
+		"sfx.opened": {
+			"category": "hostile",
+			"min_distance": 12,
+			"max_distance": 32,
+			"sounds": [
+				"sounds/failed"
+			]
+		},
+		"sfx.lockpick": {
+			"category": "hostile",
+			"min_distance": 4,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/lockpick"
+			]
+		},
+		"sfx.crowbar": {
+			"category": "hostile",
+			"min_distance": 4,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/buka"
+			]
+		},
+		"loot.opening": {
+			"category": "hostile",
+			"min_distance": 4,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/key"
+			]
+		},
+		"loot.antena1": {
+			"category": "neutral",
+			"max_distance": 16,
+			"min_distance": 3,
+			"sounds": [
+				"sounds/loot/antena1"
+			]
+		},
+		"loot.antena2": {
+			"category": "neutral",
+			"max_distance": 16,
+			"min_distance": 3,
+			"sounds": [
+				"sounds/loot/antena2"
+			]
+		},
+		"mbg.coming": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/car/vehicle_coming"
+			]
+		},
+		"mbg.brake": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/car/brake"
+			]
+		},
+		"mbg.bagasi.open": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/car/trunk_open"
+			]
+		},
+		"mbg.bagasi.close": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/car/trunk_close"
+			]
+		},
+		"mbg.door.open": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/car/door_open"
+			]
+		},
+		"mbg.punch": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/car/door_close"
+			]
+		},
+		"mbg.door.scroll": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/car/door_scroll"
+			]
+		},
+		"mbg.burnout": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/car/tempekmambu"
+			]
+		},
+		"mbg.tobrut": {
+			"category": "music",
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"volume": 80,
+					"name": "sounds/car/tempekmambu"
+				}
+			]
+		},
+		"flare.smoke": {
+			"category": "hostile",
+			"min_distance": 3,
+			"max_distance": 32,
+			"sounds": [
+				"sounds/smoke_attractor"
+			]
+		},
+		"dvd.spin": {
+			"category": "music",
+			"sounds": [
+				"sounds/loot/spin"
+			]
+		},
+		"ram.draw": {
+			"category": "music",
+			"sounds": [
+				"sounds/loot/ram_draw"
+			]
+		},
+		"glock.draw": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/glock/glock_draw"
+			]
+		},
+		"glock.unequip": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/glock/glock_unequip"
+			]
+		},
+		"glock.mag.in": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/glock/glock_mag_in"
+			]
+		},
+		"glock.mag.out": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/glock/glock_mag_out"
+			]
+		},
+		"glock.drop": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/glock/glock_drop"
+			]
+		},
+		"glock.pivot": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/glock/glock_pivot"
+			]
+		},
+		"glock.raise": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/glock/glock_raise"
+			]
+		},
+		"glock.shoot": {
+			"category": "hostile",
+			"min_distance": 32,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/glock/shot"
+			]
+		},
+		"glock.silencer": {
+			"category": "hostile",
+			"min_distance": 16,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/gun/glock/silenced"
+			]
+		},
+		"colt.shoot": {
+			"category": "hostile",
+			"min_distance": 32,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/colt/shot"
+			]
+		},
+		"colt.silencer": {
+			"category": "hostile",
+			"min_distance": 16,
+			"max_distance": 64,
+			"sounds": [
+				"sounds/gun/colt/suppresed"
+			]
+		},
+		"mosin.bolt": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_bolt"
+			]
+		},
+		"mosin.boltrelease": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_boltrelease"
+			]
+		},
+		"mosin.bullet.in": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_bullet_in"
+			]
+		},
+		"mosin.clip.insert": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_clip_insert"
+			]
+		},
+		"mosin.clip.insert2": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_clip_insert2"
+			]
+		},
+		"mosin.clip.ping": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_clip_ping"
+			]
+		},
+		"mosin.clip": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_clip"
+			]
+		},
+		"mosin.draw": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/mosin/mosin_draw"
+			]
+		},
+		"mosin.shoot": {
+			"category": "neutral",
+			"min_distance": 64,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/mosin/mosin_shoot"
+			]
+		},
+		"gun.hit": {
+			"category": "music",
+			"sounds": [
+				"sounds/gun/gun_hit"
+			]
+		},
+		"hkc.shoot": {
+			"category": "neutral",
+			"max_distance": 128,
+			"min_distance": 64,
+			"sounds": [
+				"sounds/gun/hkc/hk416d_shoot"
+			]
+		},
+		"hkc.silencer": {
+			"category": "neutral",
+			"max_distance": 128,
+			"min_distance": 32,
+			"sounds": [
+				"sounds/gun/hkc/hk416d_silence"
+			]
+		},
+		"hb.bolt": {
+			"category": "neutral",
+			"max_distance": 16,
+			"min_distance": 3,
+			"sounds": [
+				"sounds/gun/hb/hb_bolt"
+			]
+		},
+		"hb.click": {
+			"category": "neutral",
+			"max_distance": 16,
+			"min_distance": 3,
+			"sounds": [
+				"sounds/gun/hb/hb_click"
+			]
+		},
+		"hb.boltrelease": {
+			"category": "neutral",
+			"max_distance": 16,
+			"min_distance": 3,
+			"sounds": [
+				"sounds/gun/hb/hb_boltrelease"
+			]
+		},
+		"tactile.draw": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/tactile_draw"
+			]
+		},
+		"tactile.magin": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/tactile_magin"
+			]
+		},
+		"tactile.magout": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/tactile_magout"
+			]
+		},
+		"tactile.maghit": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/tactile_magin"
+			]
+		},
+		"tactile.put.away": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/tactile_put_away"
+			]
+		},
+		"tactile.shoot": {
+			"category": "neutral",
+			"min_distance": 64,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/tactile/tactile_shoot"
+			]
+		},
+		"barret.shoot": {
+			"category": "neutral",
+			"min_distance": 64,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/barret/barret_shoot"
+			]
+		},
+		"barret.silencer": {
+			"category": "neutral",
+			"min_distance": 54,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/barret/barret_silence"
+			]
+		},
+		"g.shell.drop": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/g_shell_drop"
+			]
+		},
+		"g.bolt.in": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/g_bolt_in"
+			]
+		},
+		"g.bolt.out": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/tactile/g_bolt_out"
+			]
+		},
+		"scar.draw": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_draw"
+			]
+		},
+		"scar.ads": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_ads"
+			]
+		},
+		"scar.offarm": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_offarm"
+			]
+		},
+		"scar.mag.hit": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_mag_hit"
+			]
+		},
+		"scar.magin": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_magin"
+			]
+		},
+		"scar.magin.01": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_magin_01"
+			]
+		},
+		"scar.mag.in.v01": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_mag_in_v01"
+			]
+		},
+		"scar.boltclose": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_boltclose"
+			]
+		},
+		"scar.inspect.rotate": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_inspect_rotate"
+			]
+		},
+		"scar.mag.out": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_mag_out"
+			]
+		},
+		"scar.empty.mag.draw": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_empty_mag_draw"
+			]
+		},
+		"scar.empty.arm": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_empty_arm"
+			]
+		},
+		"scar.fast.lift": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_fast_lift"
+			]
+		},
+		"hybird.off.arm": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/hybrid_off_arm"
+			]
+		},
+		"scar.inspect.o5": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_inspect_o5"
+			]
+		},
+		"scar.put.away": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/scar/scar_put_away"
+			]
+		},
+		"g.inspect.up": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/g_inspect_up"
+			]
+		},
+		"g.inspect.end": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/g_inspect_end"
+			]
+		},
+		"g.inspect.rotate": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/g_inspect_rotate"
+			]
+		},
+		"g.reload.empty.rotate": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/gun/g_reload_empty_rotate"
+			]
+		},
+		"scar.shoot": {
+			"category": "neutral",
+			"min_distance": 64,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/scar/shot"
+			]
+		},
+		"scar.silence": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 96,
+			"sounds": [
+				"sounds/gun/scar/silenced"
+			]
+		},
+		"hb.shoot": {
+			"category": "neutral",
+			"min_distance": 32,
+			"max_distance": 128,
+			"sounds": [
+				"sounds/gun/hb/hb_shot"
+			]
+		},
+		"attachment.general": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/attachment/attachment_general_a",
+				"sounds/attachment/attachment_general_b"
+			]
+		},
+		"scope.general": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				"sounds/attachment/scope_general_a",
+				"sounds/attachment/scope_general_b",
+				"sounds/attachment/scope_general_c",
+				"sounds/attachment/scope_general_d",
+				"sounds/attachment/scope_general_e"
+			]
+		},
+		"laser.general": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"volume": 1.125,
+					"name": "sounds/attachment/laser_general"
+				}
+			]
+		},
+		"gun.click": {
+			"category": "music",
+			"sounds": [
+				"sounds/gun/gun_click"
+			]
+		},
+		"muzzle.general": {
+			"category": "neutral",
+			"min_distance": 3,
+			"max_distance": 16,
+			"sounds": [
+				{
+					"load_on_low_memory": true,
+					"volume": 1.125,
+					"name": "sounds/attachment/muzzle_general"
+				}
+			]
+		},
+		"ww.bullet.hit.dirt": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/dirt/1",
+				"sounds/dirt/2",
+				"sounds/dirt/3",
+				"sounds/dirt/4",
+				"sounds/dirt/5",
+				"sounds/dirt/6",
+				"sounds/dirt/7",
+				"sounds/dirt/8",
+				"sounds/dirt/9",
+				"sounds/dirt/10",
+				"sounds/dirt/11",
+				"sounds/dirt/12",
+				"sounds/dirt/13",
+				"sounds/dirt/14"
+			]
+		},
+		"ww.bullet.hit.water": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/water/1",
+				"sounds/water/2",
+				"sounds/water/3",
+				"sounds/water/4",
+				"sounds/water/5",
+				"sounds/water/6",
+				"sounds/water/7",
+				"sounds/water/8",
+				"sounds/water/9",
+				"sounds/water/10",
+				"sounds/water/11",
+				"sounds/water/12",
+				"sounds/water/13",
+				"sounds/water/14"
+			]
+		},
+		"ww.bullet.hit.wood": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/wood/1",
+				"sounds/wood/2",
+				"sounds/wood/3",
+				"sounds/wood/4",
+				"sounds/wood/5",
+				"sounds/wood/6",
+				"sounds/wood/7",
+				"sounds/wood/8",
+				"sounds/wood/9",
+				"sounds/wood/10",
+				"sounds/wood/11",
+				"sounds/wood/12",
+				"sounds/wood/13",
+				"sounds/wood/14"
+			]
+		},
+		"ww.bullet.hit.metal": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/metal/1",
+				"sounds/metal/2",
+				"sounds/metal/3",
+				"sounds/metal/4",
+				"sounds/metal/5",
+				"sounds/metal/6",
+				"sounds/metal/7",
+				"sounds/metal/8",
+				"sounds/metal/9",
+				"sounds/metal/10",
+				"sounds/metal/11",
+				"sounds/metal/12",
+				"sounds/metal/13",
+				"sounds/metal/14"
+			]
+		},
+		"ww.bullet.hit.normal": {
+			"category": "neutral",
+			"sounds": [
+				"sounds/normal/1",
+				"sounds/normal/2",
+				"sounds/normal/3",
+				"sounds/normal/4",
+				"sounds/normal/5",
+				"sounds/normal/6",
+				"sounds/normal/7",
+				"sounds/normal/8",
+				"sounds/normal/9",
+				"sounds/normal/10",
+				"sounds/normal/11",
+				"sounds/normal/12",
+				"sounds/normal/13",
+				"sounds/normal/14"
+			]
+		}
+	}
+}

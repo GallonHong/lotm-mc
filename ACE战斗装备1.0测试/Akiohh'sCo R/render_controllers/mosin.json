@@ -1,0 +1,172 @@
+{
+	"format_version": "1.10.0",
+	"render_controllers": {
+		"controller.render.mosin.first_person": {
+			"textures": [
+				"texture.default"
+			],
+			"geometry": "geometry.mosin_fpp",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"leftArm": "material.default"
+				},
+				{
+					"rightArm": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.mosin_gun"
+				},
+				{
+					"rightSleeve": "query.get_equipped_item_name(0, 1) == '' || query.get_equipped_item_name(0, 1) == 'map' || v.mosin_gun"
+				},
+				{
+					"leftArm": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.mosin_gun"
+				},
+				{
+					"leftSleeve": "(query.get_equipped_item_name(0, 1) == 'map' && query.get_equipped_item_name('off_hand') != 'shield') || (query.get_equipped_item_name('off_hand') == 'map' && !query.item_is_charged) || (!query.item_is_charged && (variable.item_use_normalized > 0 && variable.item_use_normalized < 1.0)) || v.mosin_gun"
+				}
+			]
+		},
+		"controller.render.mosin.particle": {
+			"textures": [
+				"texture.mosin"
+			],
+			"geometry": "geometry.mosin_particle",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": false
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.mosin.third_person": {
+			"textures": [
+				"texture.mosin"
+			],
+			"geometry": "geometry.mosin_tpp",
+			"materials": [
+				{
+					"*": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"mag_hand2": "query.property('mk556:mag')=='n' && !v.is_first_person"
+				},
+				{
+					"mag_hand": "query.property('mk556:mag')=='n'"
+				},
+				{
+					"Sniper_bullet": "q.is_stackable"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.mosin.exclusive.third_person": {
+			"textures": [
+				"texture.mosin"
+			],
+			"geometry": "geometry.mosin_telescope",
+			"materials": [
+				{
+					"*": "material.scope"
+				},
+				{
+					"division_illuminated": "material.gun"
+				},
+				{
+					"lens": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"rightArm": false
+				},
+				{
+					"division_illuminated": "q.is_sneaking && q.property('hengker:reload')=='n' && query.property('mk556:scope')=='exclusive'"
+				},
+				{
+					"Sniper_bullet": "q.is_stackable"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		},
+		"controller.render.mosin_slot.first_person": {
+			"geometry": "geometry.mosin_slot",
+			"textures": [
+				"texture.slot_icon"
+			],
+			"materials": [
+				{
+					"*": "material.gun"
+				},
+				{
+					"mk556": "material.gun"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"muzzle": "q.variant == 1"
+				},
+				{
+					"laser": "q.variant == 2"
+				},
+				{
+					"scope": "q.variant == 3"
+				},
+				{
+					"stock": "q.variant == 4"
+				},
+				{
+					"mag": "q.variant == 5"
+				},
+				{
+					"grip": "q.variant == 6"
+				}
+			],
+			"is_hurt_color": {
+				"a": 0,
+				"b": 0,
+				"g": 0,
+				"r": 0
+			}
+		}
+	}
+}

@@ -1,0 +1,18 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "bridge:ram",
+			"menu_category": {
+				"category": "items",
+				"group": "itemGroup.name.loots"
+			}
+		},
+		"components": {
+			"minecraft:icon": "bridge_ram",
+			"minecraft:stacked_by_data": true,
+			"minecraft:max_stack_size": 1,
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

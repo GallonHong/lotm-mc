@@ -1,0 +1,253 @@
+const _0x4e6581 = _0x3d08;
+(function(_0x18a488, _0x2e75ef) {
+    const _0x1d901c = _0x3d08,
+        _0x2eeaca = _0x18a488();
+    while (!![]) {
+        try {
+            const _0x38ab11 = -parseInt(_0x1d901c(0x1b2)) / 0x1 + parseInt(_0x1d901c(0x1e5)) / 0x2 + parseInt(_0x1d901c(0x1dd)) / 0x3 * (parseInt(_0x1d901c(0x1c4)) / 0x4) + -parseInt(_0x1d901c(0x20b)) / 0x5 + -parseInt(_0x1d901c(0x1f1)) / 0x6 + -parseInt(_0x1d901c(0x1f0)) / 0x7 * (parseInt(_0x1d901c(0x1d9)) / 0x8) + -parseInt(_0x1d901c(0x1c0)) / 0x9 * (-parseInt(_0x1d901c(0x211)) / 0xa);
+            if (_0x38ab11 === _0x2e75ef) break;
+            else _0x2eeaca['push'](_0x2eeaca['shift']());
+        } catch (_0x2a2e28) {
+            _0x2eeaca['push'](_0x2eeaca['shift']());
+        }
+    }
+}(_0x2e10, 0xea4b4));
+import {
+    world,
+    system,
+    BlockPermutation,
+    ItemStack
+} from '@minecraft/server';
+import {
+    ActionFormData
+} from '@minecraft/server-ui';
+const playerIntervals = new Map();
+
+function startTracking(_0x73a389) {
+    const _0x56bc94 = _0x3d08;
+    if (playerIntervals[_0x56bc94(0x1ad)](_0x73a389[_0x56bc94(0x1d2)])) return;
+    const _0x5ddb5c = system[_0x56bc94(0x1fd)](() => {
+        const _0x2287db = _0x56bc94,
+            _0x37fd83 = _0x73a389[_0x2287db(0x20f)];
+        if (_0x73a389[_0x2287db(0x1d7)]) {
+            const _0x55752f = _0x73a389['previousPosition'];
+            (_0x37fd83['x'] !== _0x55752f['x'] || _0x37fd83['y'] !== _0x55752f['y'] || _0x37fd83['z'] !== _0x55752f['z']) && stopTracking(_0x73a389);
+        }
+        _0x73a389[_0x2287db(0x1d7)] = _0x37fd83;
+    }, 0x1);
+    playerIntervals[_0x56bc94(0x204)](_0x73a389[_0x56bc94(0x1d2)], _0x5ddb5c);
+}
+
+function stopTracking(_0x25bc8a) {
+    const _0x18e5d3 = _0x3d08,
+        _0x4fe480 = playerIntervals[_0x18e5d3(0x1e1)](_0x25bc8a['name']);
+    if (_0x4fe480 !== undefined) {
+        system[_0x18e5d3(0x1c9)](_0x4fe480), playerIntervals[_0x18e5d3(0x219)](_0x25bc8a[_0x18e5d3(0x1d2)]), delete _0x25bc8a[_0x18e5d3(0x1d7)];
+        let _0x357244 = _0x18e5d3(0x1ef);
+        _0x357244 += _0x18e5d3(0x1d5), _0x357244 += '\x0a', _0x357244 += _0x18e5d3(0x1d6), _0x357244 += '\x0a', _0x357244 += _0x18e5d3(0x1e2), _0x357244 += '\x0a', _0x357244 += '\x0a', _0x357244 += '\x0a', _0x357244 += _0x18e5d3(0x201), _0x357244 += '\x0a', _0x357244 += _0x18e5d3(0x1a9), _0x357244 += '\x0a', _0x357244 += _0x18e5d3(0x1b4), _0x357244 += '\x0a', _0x357244 += _0x18e5d3(0x1c5);
+        const _0x590292 = new ActionFormData()[_0x18e5d3(0x1eb)](_0x18e5d3(0x1e8))[_0x18e5d3(0x1ed)](_0x357244)[_0x18e5d3(0x1e3)](_0x18e5d3(0x214))['button'](_0x18e5d3(0x1f3));
+        _0x590292[_0x18e5d3(0x217)](_0x25bc8a)[_0x18e5d3(0x1c8)](_0x420dd8 => {
+            const _0x550bd9 = _0x18e5d3;
+            if (_0x420dd8['canceled']) return;
+            if (_0x420dd8[_0x550bd9(0x1c2)] === 0x0) return;
+            if (_0x420dd8[_0x550bd9(0x1c2)] === 0x1) {
+                const _0x2692bc = new ActionFormData()[_0x550bd9(0x1eb)]('性别')[_0x550bd9(0x1ed)](_0x550bd9(0x205))[_0x550bd9(0x1e3)](_0x550bd9(0x1e4))[_0x550bd9(0x1e3)](_0x550bd9(0x1be));
+                _0x2692bc[_0x550bd9(0x217)](_0x25bc8a)[_0x550bd9(0x1c8)](_0x45a912 => {
+                    const _0x127bbc = _0x550bd9;
+                    if (_0x45a912[_0x127bbc(0x1c6)]) return;
+                    switch (_0x45a912['selection']) {
+                        case 0x0:
+                            _0x25bc8a['triggerEvent'](_0x127bbc(0x21b));
+                            break;
+                        case 0x1:
+                            _0x25bc8a[_0x127bbc(0x1ae)](_0x127bbc(0x1b1));
+                            break;
+                    }
+                });
+            }
+        });
+    }
+}
+world[_0x4e6581(0x1ba)][_0x4e6581(0x216)]['subscribe'](_0x5a73fd => {
+    const _0xe17931 = _0x4e6581,
+        _0x34a3b7 = _0x5a73fd[_0xe17931(0x1ee)];
+    startTracking(_0x34a3b7);
+});
+const weaponList = [_0x4e6581(0x1e6), _0x4e6581(0x21c), _0x4e6581(0x1b6), _0x4e6581(0x1fb), _0x4e6581(0x1aa), _0x4e6581(0x213), _0x4e6581(0x1fa)],
+    meleeCooldown = new Map();
+
+function _0x3d08(_0x54dd85, _0x479866) {
+    _0x54dd85 = _0x54dd85 - 0x1a7;
+    const _0x2e1058 = _0x2e10();
+    let _0x3d08a1 = _0x2e1058[_0x54dd85];
+    return _0x3d08a1;
+}
+
+function _0x2e10() {
+    const _0x5a181e = ['runTimeout', 'sourceEntity', 'entitySpawn', '()\x20§c女孩', 'getDynamicProperty', '18iCCUak', 'resolve', 'selection', 'function\x20camera1', '28AhhAjZ', '\x20-Akiohh\x20\x20', 'canceled', 'number', 'then', 'clearRun', 'entityHitEntity', 'effect\x20@s\x20clear\x20weakness', 'worldInitialize', 'particle\x20minecraft:crit_particle\x20~\x20~1\x20~', 'minecraft:rideable', 'dimension', 'setPermutation', '§aEXTRACTION', 'name', 'ceil', 'includes', '此插件已公开免费发布,\x20', '(§c不要更改创作者的链接§r!!) 请通过创作者链接下载!!,\x20\x0a', 'previousPosition', 'length', '186936HLafwR', 'hengker:laptop_tick', 'getPlayers', 'updateSubtitle', '395904UqBlDi', 'isValid', 'effect\x20@s\x20weakness\x201\x20255\x20true', 'event\x20entity\x20@s\x20hengker:rilotend', 'get', '插件尚未完成，更多功能将很快添加!', 'button', '()\x20§b男孩', '1917102KeSqFY', 'hengker:scar', 'getComponent', '§b§l欢迎', 'getState', 'blockComponentRegistry', 'title', 'worldspawn_y', 'body', 'player', 'Akiohh\x27s\x20战斗装备 (ACE) 阿尔法 v0.1 由 Akiohh 制作,', '483HvQNup', '10779162EDZomQ', 'typeId', '§e§l选择性别', 'entity', 'beforeEvents', 'getDimension', 'bridge:laptop_matek', 'bridge:flare_entity', 'bridge:restart', 'hengker:glock', 'hengker:hb', 'runCommandAsync', 'runInterval', 'toString', 'selectedSlotIndex', 'hengker:despawn', '关注创作者的频道以获取最新消息', 'camerashake\x20add\x20@s\x200.055\x200.075\x20rotational', 'registerCustomComponent', 'set', '选择你的性别: 你可以通过重新进入世界来改变这一点', 'minecraft:air', 'spawnEntity', 'teleport', 'overworld', 'event\x20entity\x20@s\x20hengker:hit', '410195WhJMaB', 'permutation', 'block', 'setTitle', 'location', 'Extraction', '16784570KOnSuh', 'getAllPlayers', 'hengker:mosin', '§a§l开始', 'worldspawn_x', 'playerSpawn', 'show', 'subscribe', 'delete', 'onScreenDisplay', 'dadi:lanang', 'hengker:tactile', 'hengker:restart_tick', 'setRotation', 'hengker:restart_check', 'minecraft:cardinal_direction', 'setItem', '§cCooldown:\x20', '§6Complete', 'itemUse', 'setActionBar', 'source', 'getItem', 'worldspawn_z', 'scriptEventReceive', 'setDynamicProperty', 'floor', 'getEntities', '():\x20Sir Menkrep', 'hengker:hkc', 'hengker:flare_on', 'hengker:player_extract', 'has', 'triggerEvent', 'minecraft:inventory', 'Extraction\x20Car\x0a\x0aEstimated\x20Arrival\x20Time:\x2060sec\x0aCost:\x20\x0a\x0a§4MAKE\x20SURE\x20YOU\x20HAVE\x20SPAWNPOINT\x20NOT\x20DESTROYED\x20OR\x20OBSTRUCTED', 'dadi:wedok', '788684PytScX', 'bridge:laptop', '§4§l请在游戏前关闭视角晃动§r!!\x0a', 'minecraft:player', 'hengker:barret', 'sqrt', '§cBro\x20got\x20dropped\x20randomly\x20cuz\x20of\x20his\x20unknown\x20spawnpoint\x20', '§eRestart\x20in\x20', 'afterEvents'];
+    _0x2e10 = function() {
+        return _0x5a181e;
+    };
+    return _0x2e10();
+}
+
+function getDistance(_0x280150, _0x30b5d5) {
+    const _0x1f27b3 = _0x4e6581,
+        _0x59c835 = _0x280150[_0x1f27b3(0x20f)],
+        _0x279cbb = _0x30b5d5[_0x1f27b3(0x20f)];
+    return Math[_0x1f27b3(0x1b7)]((_0x59c835['x'] - _0x279cbb['x']) ** 0x2 + (_0x59c835['y'] - _0x279cbb['y']) ** 0x2 + (_0x59c835['z'] - _0x279cbb['z']) ** 0x2);
+}
+world[_0x4e6581(0x1ba)][_0x4e6581(0x1ca)]['subscribe'](_0x4af3f9 => {
+    const _0x39b753 = _0x4e6581,
+        {
+            damagingEntity: _0x21f7cf,
+            hitEntity: _0x209208
+        } = _0x4af3f9;
+    if (_0x21f7cf[_0x39b753(0x1f2)] !== _0x39b753(0x1b5)) return;
+    const _0x29745b = _0x21f7cf[_0x39b753(0x1e7)]('minecraft:inventory'),
+        _0x3813f5 = _0x29745b['container'][_0x39b753(0x227)](_0x21f7cf['selectedSlotIndex']);
+    if (!_0x3813f5 || !weaponList[_0x39b753(0x1d4)](_0x3813f5[_0x39b753(0x1f2)])) return;
+    const _0x25fe64 = Date['now'](),
+        _0x460414 = meleeCooldown[_0x39b753(0x1e1)](_0x21f7cf['id']) || 0x0;
+    if (_0x25fe64 - _0x460414 < 0x1f4) return;
+    meleeCooldown[_0x39b753(0x204)](_0x21f7cf['id'], _0x25fe64), _0x21f7cf['runCommandAsync'](_0x39b753(0x20a));
+    const _0x592709 = _0x209208;
+    system['runTimeout'](() => {
+        const _0x1ac2c2 = _0x39b753;
+        if (!_0x21f7cf[_0x1ac2c2(0x1de)]() || !_0x592709?.['isValid']()) return;
+        const _0x528f86 = getDistance(_0x21f7cf, _0x592709);
+        if (_0x528f86 > 3.5) return;
+        _0x21f7cf[_0x1ac2c2(0x1fc)](_0x1ac2c2(0x1df)), _0x21f7cf[_0x1ac2c2(0x1fc)](_0x1ac2c2(0x202)), _0x21f7cf['runCommandAsync'](_0x1ac2c2(0x1c3)), _0x21f7cf[_0x1ac2c2(0x1fc)]('playsound\x20random.attack\x20@s'), _0x21f7cf[_0x1ac2c2(0x1fc)](_0x1ac2c2(0x1cd));
+    }, 0x4), system[_0x39b753(0x1bb)](() => {
+        const _0x1fc245 = _0x39b753;
+        if (!_0x21f7cf[_0x1fc245(0x1de)]()) return;
+        _0x21f7cf[_0x1fc245(0x1fc)](_0x1fc245(0x1e0)), _0x21f7cf[_0x1fc245(0x1fc)](_0x1fc245(0x1cb));
+    }, 0x10);
+}), world['afterEvents'][_0x4e6581(0x216)][_0x4e6581(0x218)](_0x3d626f => {
+    const _0x25f4de = _0x4e6581,
+        _0x1d8eed = _0x3d626f[_0x25f4de(0x1ee)];
+    if (!_0x3d626f['initialSpawn']) return;
+    if (_0x1d8eed[_0x25f4de(0x1bf)](_0x25f4de(0x215)) !== undefined) return;
+    _0x1d8eed['setDynamicProperty']('worldspawn_x', _0x1d8eed[_0x25f4de(0x20f)]['x']), _0x1d8eed[_0x25f4de(0x22a)](_0x25f4de(0x1ec), _0x1d8eed[_0x25f4de(0x20f)]['y']), _0x1d8eed[_0x25f4de(0x22a)](_0x25f4de(0x228), _0x1d8eed[_0x25f4de(0x20f)]['z']);
+}), system[_0x4e6581(0x1ba)][_0x4e6581(0x229)]['subscribe'](_0x164af7 => {
+    const _0xb767c6 = _0x4e6581;
+    if (_0x164af7['id'] !== _0xb767c6(0x1ac)) return;
+    const _0x5a976e = _0x164af7['sourceEntity'];
+    if (!_0x5a976e || _0x5a976e[_0xb767c6(0x1f2)] !== 'bridge:mbg_coming') return;
+    const _0x27e2b8 = _0x5a976e['getComponent'](_0xb767c6(0x1ce))?.['getRiders']();
+    if (!_0x27e2b8?.[_0xb767c6(0x1d8)]) {
+        _0x5a976e['triggerEvent'](_0xb767c6(0x200));
+        return;
+    }
+    for (const _0x42c12d of _0x27e2b8) {
+        if (_0x42c12d['typeId'] !== _0xb767c6(0x1b5)) continue;
+        const _0x243298 = _0x42c12d['getSpawnPoint']();
+        try {
+            if (_0x243298) _0x42c12d[_0xb767c6(0x21a)][_0xb767c6(0x20e)](_0xb767c6(0x1d1)), _0x42c12d[_0xb767c6(0x21a)][_0xb767c6(0x1dc)](_0xb767c6(0x223)), _0x42c12d[_0xb767c6(0x208)](_0x243298, {
+                'dimension': world[_0xb767c6(0x1f6)](_0x243298[_0xb767c6(0x1cf)]['id'])
+            });
+            else throw new Error();
+        } catch {
+            _0x42c12d['sendMessage'](_0xb767c6(0x1b8)), _0x42c12d[_0xb767c6(0x21a)][_0xb767c6(0x20e)]('§6EXTRACTION'), _0x42c12d[_0xb767c6(0x21a)][_0xb767c6(0x1dc)]('§2Failed'), _0x42c12d['teleport']({
+                'x': world[_0xb767c6(0x1bf)](_0xb767c6(0x215)),
+                'y': world[_0xb767c6(0x1bf)]('worldspawn_y'),
+                'z': world[_0xb767c6(0x1bf)](_0xb767c6(0x228))
+            }, {
+                'dimension': world[_0xb767c6(0x1f6)](_0xb767c6(0x209))
+            });
+        }
+    }
+}), world[_0x4e6581(0x1f5)][_0x4e6581(0x1cc)][_0x4e6581(0x218)](_0x4da32a => {
+    const _0x331854 = _0x4e6581;
+    _0x4da32a[_0x331854(0x1ea)][_0x331854(0x203)](_0x331854(0x1ab), {
+        'onPlayerInteract': async _0x4d2c86 => {
+            const _0x176ca8 = _0x331854,
+                _0x313ccf = _0x4d2c86[_0x176ca8(0x1ee)],
+                _0x586561 = _0x4d2c86[_0x176ca8(0x20d)],
+                _0x1ffbdc = await new ActionFormData()[_0x176ca8(0x1eb)](_0x176ca8(0x210))[_0x176ca8(0x1ed)](_0x176ca8(0x1b0))[_0x176ca8(0x1e3)]('Launch\x20flare')[_0x176ca8(0x217)](_0x313ccf);
+            if (_0x1ffbdc[_0x176ca8(0x1c6)]) return;
+            if (_0x1ffbdc[_0x176ca8(0x1c2)] !== 0x0) return;
+            const _0x2305f6 = _0x586561[_0x176ca8(0x1cf)][_0x176ca8(0x207)](_0x176ca8(0x1f8), {
+                    'x': _0x586561[_0x176ca8(0x20f)]['x'] + 0.5,
+                    'y': _0x586561['location']['y'],
+                    'z': _0x586561[_0x176ca8(0x20f)]['z'] + 0.5
+                }),
+                _0x45a8f7 = _0x586561[_0x176ca8(0x20c)][_0x176ca8(0x1e9)](_0x176ca8(0x220)),
+                _0x4afc1b = {
+                    'south': 0x0,
+                    'west': 0x5a,
+                    'north': 0xb4,
+                    'east': 0x10e
+                } [_0x45a8f7] ?? 0x0;
+            _0x2305f6[_0x176ca8(0x21e)]({
+                'x': 0x0,
+                'y': _0x4afc1b
+            }), _0x586561[_0x176ca8(0x1d0)](BlockPermutation[_0x176ca8(0x1c1)](_0x176ca8(0x206)));
+        }
+    });
+}), world['afterEvents'][_0x4e6581(0x1bd)][_0x4e6581(0x218)](_0x5ad98e => {
+    const _0x54b768 = _0x4e6581,
+        _0x19b24f = _0x5ad98e[_0x54b768(0x1f4)];
+    if (_0x19b24f[_0x54b768(0x1f2)] !== _0x54b768(0x1b3)) return;
+    _0x19b24f[_0x54b768(0x22a)](_0x54b768(0x21d), 0x2ee0);
+}), system[_0x4e6581(0x1fd)](() => {
+    const _0xe6e17d = _0x4e6581;
+    for (const _0x400769 of world[_0xe6e17d(0x1f6)](_0xe6e17d(0x209))[_0xe6e17d(0x1a8)]({
+            'type': 'bridge:laptop'
+        })) {
+        let _0x2a11d9 = _0x400769[_0xe6e17d(0x1bf)](_0xe6e17d(0x21d));
+        if (typeof _0x2a11d9 !== _0xe6e17d(0x1c7)) continue;
+        if (_0x2a11d9 <= 0x0) continue;
+        _0x2a11d9 -= 0x14;
+        if (_0x2a11d9 < 0x0) _0x2a11d9 = 0x0;
+        _0x400769['setDynamicProperty'](_0xe6e17d(0x21d), _0x2a11d9);
+    }
+}, 0x14), system[_0x4e6581(0x1ba)][_0x4e6581(0x229)][_0x4e6581(0x218)](_0x8b3181 => {
+    const _0xaa0b28 = _0x4e6581;
+    if (_0x8b3181['id'] !== _0xaa0b28(0x21f)) return;
+    const _0x2144f4 = _0x8b3181[_0xaa0b28(0x1bc)];
+    if (!_0x2144f4) return;
+    const _0x2ddea5 = _0x2144f4['getDynamicProperty']('hengker:restart_tick');
+    if (typeof _0x2ddea5 !== _0xaa0b28(0x1c7)) return;
+    if (_0x2ddea5 <= 0x0) {
+        _0x2144f4[_0xaa0b28(0x1ae)](_0xaa0b28(0x1f9)), _0x2144f4[_0xaa0b28(0x22a)](_0xaa0b28(0x21d), 0x2ee0);
+        return;
+    }
+    const _0x31065c = Math[_0xaa0b28(0x1a7)](_0x2ddea5 / 0x4b0),
+        _0x165d71 = Math[_0xaa0b28(0x1d3)](_0x2ddea5 % 0x4b0 / 0x14);
+    for (const _0x4a6c3d of _0x2144f4['dimension'][_0xaa0b28(0x1db)]({
+            'location': _0x2144f4[_0xaa0b28(0x20f)],
+            'maxDistance': 0x10
+        })) {
+        _0x4a6c3d[_0xaa0b28(0x21a)][_0xaa0b28(0x225)](_0xaa0b28(0x1b9) + _0x31065c + ':' + _0x165d71['toString']()['padStart'](0x2, '0'));
+    }
+}), system[_0x4e6581(0x1fd)](() => {
+    const _0x288567 = _0x4e6581;
+    for (const _0x1bef82 of world[_0x288567(0x212)]()) {
+        let _0x4d20ad = _0x1bef82[_0x288567(0x1bf)]('hengker:laptop_tick');
+        typeof _0x4d20ad !== _0x288567(0x1c7) && (_0x4d20ad = 0x2ee0);
+        if (_0x4d20ad < 0x2ee0) {
+            _0x4d20ad += 0x14;
+            if (_0x4d20ad > 0x2ee0) _0x4d20ad = 0x2ee0;
+            _0x1bef82['setDynamicProperty'](_0x288567(0x1da), _0x4d20ad);
+        }
+    }
+}, 0x14), world[_0x4e6581(0x1ba)][_0x4e6581(0x224)][_0x4e6581(0x218)](_0x3117e6 => {
+    const _0x5e584d = _0x4e6581,
+        _0x520347 = _0x3117e6[_0x5e584d(0x226)],
+        _0x314583 = _0x3117e6['itemStack'];
+    if (!_0x314583) return;
+    if (_0x314583['typeId'] !== _0x5e584d(0x1f7)) return;
+    let _0x5a618c = _0x520347[_0x5e584d(0x1bf)]('hengker:laptop_tick');
+    if (typeof _0x5a618c !== 'number') _0x5a618c = 0x2ee0;
+    if (_0x5a618c < 0x2ee0) {
+        const _0x157962 = 0x2ee0 - _0x5a618c,
+            _0x2bef52 = Math[_0x5e584d(0x1a7)](_0x157962 / 0x4b0),
+            _0x19f475 = Math[_0x5e584d(0x1d3)](_0x157962 % 0x4b0 / 0x14);
+        _0x520347[_0x5e584d(0x21a)]['setActionBar'](_0x5e584d(0x222) + _0x2bef52 + ':' + _0x19f475[_0x5e584d(0x1fe)]()['padStart'](0x2, '0'));
+        return;
+    }
+    const _0x5bc38d = _0x520347['getComponent'](_0x5e584d(0x1af))?.['container'];
+    if (!_0x5bc38d) return;
+    _0x5bc38d[_0x5e584d(0x221)](_0x520347[_0x5e584d(0x1ff)], new ItemStack('bridge:laptop_spawn_egg', 0x1)), _0x520347['setDynamicProperty'](_0x5e584d(0x1da), 0x0);
+});

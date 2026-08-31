@@ -1,0 +1,480 @@
+import { system, ItemStack, world } from "@minecraft/server";
+
+// ======================================
+// CONFIG (same as yours)
+// ======================================
+const ATTACHMENTS = {
+    scar: ["hengker:holo", "hengker:magnifier", "hengker:tele", "hengker:acog", "hengker:reddot"],
+    tactile: ["hengker:holo", "hengker:scout", "hengker:acog", "hengker:reddot"],
+    barret: ["hengker:holo", "hengker:scout", "hengker:reddot"],
+    pitvaiper: ["hengker:reddot"]
+};
+
+const FOREGRIPS = {
+    scar: ["hengker:long", "hengker:short", "hengker:light"]
+};
+
+const LASERS = {
+    scar: ["hengker:laser_red", "hengker:laser_green", "hengker:laser_gold"],
+    tactile: ["hengker:laser_red", "hengker:laser_green", "hengker:laser_gold"]
+};
+
+const SILENCERS = {
+    scar: ["hengker:silencer"],
+    barret: ["hengker:silencer"]
+};
+
+// ======================================
+// HELPERS
+// ======================================
+function setLoreValue(item, key, value) {
+    if (!item) return;
+    const lore = item.getLore?.() ?? [];
+    const newLore = lore.filter(l => !l.startsWith(`${key}:`));
+    newLore.push(`${key}:${value}`);
+    item.setLore(newLore);
+}
+
+function removeLoreValue(item, key) {
+    if (!item) return;
+    const lore = item.getLore?.() ?? [];
+    item.setLore(lore.filter(l => !l.startsWith(`${key}:`)));
+}
+
+function getWeaponKey(eventId) {
+    return eventId.split(":")[1]
+        .replace("_scope_remove", "")
+        .replace("_scope", "")
+        .replace("_foregrip_remove", "")
+        .replace("_foregrip", "")
+        .replace("_laser_remove", "")
+        .replace("_laser", "")
+        .replace("_silencer_remove", "")
+        .replace("_silencer", "");
+}
+
+// ======================================
+// MAIN
+// ======================================
+system.afterEvents.scriptEventReceive.subscribe((event) => {
+
+    const player = event.sourceEntity;
+    if (!player || player.typeId !== "minecraft:player") return;
+
+    const id = event.id;
+    if (!id.startsWith("hengker:")) return;
+
+    const weapon = getWeaponKey(id);
+
+    const inv = player.getComponent("minecraft:inventory");
+    if (!inv) return;
+
+    const container = inv.container;
+    const slot = player.selectedSlotIndex;
+    let gun = container.getItem(slot);
+
+    // =====================================================
+    // SCOPE
+    // =====================================================
+    if (id.endsWith("_scope")) {
+        const allowed = ATTACHMENTS[weapon];
+        if (!allowed) return;
+
+        let found = [];
+        for (let i = 0; i < container.size; i++) {
+            const item = container.getItem(i);
+            if (item && allowed.includes(item.typeId)) {
+                found.push({ slot: i, item });
+            }
+        }
+
+        if (!found.length) {
+            player.runCommandAsync(`title @s actionbar §cNo scope`);
+            return;
+        }
+
+        const pick = found[Math.floor(Math.random() * found.length)];
+
+        container.setItem(pick.slot, undefined);
+        player.addTag(`${weapon}_scope`);
+
+        if (gun) {
+            setLoreValue(gun, "scope", pick.item.typeId);
+            container.setItem(slot, gun);
+        }
+
+        return;
+    }
+
+    if (id.endsWith("_scope_remove")) {
+
+        const tag = `${weapon}_scope`;
+
+        if (!player.hasTag(tag)) {
+            player.runCommandAsync(`title @s actionbar §cNo scope installed`);
+            return;
+        }
+
+        player.removeTag(tag);
+
+        const gun = container.getItem(slot);
+        if (!gun) return;
+
+        // 🔥 AMBIL LORE SCOPE
+        const lore = gun.getLore?.() ?? [];
+
+        let scopeItemId = null;
+
+        for (const line of lore) {
+            if (line.startsWith("scope:")) {
+                scopeItemId = line.replace("scope:", "");
+                break;
+            }
+        }
+
+        // ❗ FALLBACK kalau tidak ada lore
+        if (!scopeItemId) return;
+
+        // HAPUS LORE
+        removeLoreValue(gun, "scope");
+
+        container.setItem(slot, gun);
+
+        // 🔥 RETURN ITEM ASLI
+        container.addItem(new ItemStack(scopeItemId, 1));
+
+        player.runCommandAsync(`title @s actionbar Scope §eRemoved`);
+
+        return;
+    }
+
+    // =====================================================
+    // FOREGRIP
+    // =====================================================
+    if (id.endsWith("_foregrip")) {
+        const allowed = FOREGRIPS[weapon];
+        if (!allowed) return;
+
+        let found = [];
+        for (let i = 0; i < container.size; i++) {
+            const item = container.getItem(i);
+            if (item && allowed.includes(item.typeId)) {
+                found.push({ slot: i, item });
+            }
+        }
+
+        if (!found.length) {
+            player.runCommandAsync(`title @s actionbar §cNo foregrip`);
+            return;
+        }
+
+        const pick = found[Math.floor(Math.random() * found.length)];
+
+        container.setItem(pick.slot, undefined);
+        player.addTag(`${weapon}_foregrip`);
+
+        if (gun) {
+            setLoreValue(gun, "foregrip", pick.item.typeId);
+            container.setItem(slot, gun);
+        }
+
+        return;
+    }
+
+    if (id.endsWith("_foregrip_remove")) {
+
+        const tag = `${weapon}_foregrip`;
+
+        if (!player.hasTag(tag)) {
+            player.runCommandAsync(`title @s actionbar §cNo foregrip installed`);
+            return;
+        }
+
+        player.removeTag(tag);
+
+        const gun = container.getItem(slot);
+        if (!gun) return;
+
+        const lore = gun.getLore?.() ?? [];
+
+        let itemId = null;
+
+        for (const line of lore) {
+            if (line.startsWith("foregrip:")) {
+                itemId = line.replace("foregrip:", "");
+                break;
+            }
+        }
+
+        if (!itemId) return;
+
+        removeLoreValue(gun, "foregrip");
+        container.setItem(slot, gun);
+
+        container.addItem(new ItemStack(itemId, 1));
+
+        player.runCommandAsync(`title @s actionbar Foregrip §eRemoved`);
+        return;
+    }
+
+    // =====================================================
+    // LASER
+    // =====================================================
+    if (id.endsWith("_laser")) {
+        const allowed = LASERS[weapon];
+        if (!allowed) return;
+
+        let found = [];
+        for (let i = 0; i < container.size; i++) {
+            const item = container.getItem(i);
+            if (item && allowed.includes(item.typeId)) {
+                found.push({ slot: i, item });
+            }
+        }
+
+        if (!found.length) {
+            player.runCommandAsync(`title @s actionbar §cNo laser`);
+            return;
+        }
+
+        const pick = found[Math.floor(Math.random() * found.length)];
+
+        container.setItem(pick.slot, undefined);
+        player.addTag(`${weapon}_laser`);
+
+        if (gun) {
+            setLoreValue(gun, "laser", pick.item.typeId);
+            container.setItem(slot, gun);
+        }
+
+        return;
+    }
+
+    if (id.endsWith("_laser_remove")) {
+
+        const tag = `${weapon}_laser`;
+
+        if (!player.hasTag(tag)) {
+            player.runCommandAsync(`title @s actionbar §cNo laser installed`);
+            return;
+        }
+
+        player.removeTag(tag);
+
+        const gun = container.getItem(slot);
+        if (!gun) return;
+
+        const lore = gun.getLore?.() ?? [];
+
+        let itemId = null;
+
+        for (const line of lore) {
+            if (line.startsWith("laser:")) {
+                itemId = line.replace("laser:", "");
+                break;
+            }
+        }
+
+        if (!itemId) return;
+
+        removeLoreValue(gun, "laser");
+        container.setItem(slot, gun);
+
+        container.addItem(new ItemStack(itemId, 1));
+
+        player.runCommandAsync(`title @s actionbar Laser §eRemoved`);
+        return;
+    }
+
+    // =====================================================
+    // SILENCER
+    // =====================================================
+    if (id.endsWith("_silencer")) {
+        const allowed = SILENCERS[weapon];
+        if (!allowed) return;
+
+        let found = [];
+        for (let i = 0; i < container.size; i++) {
+            const item = container.getItem(i);
+            if (item && allowed.includes(item.typeId)) {
+                found.push({ slot: i, item });
+            }
+        }
+
+        if (!found.length) {
+            player.runCommandAsync(`title @s actionbar §cNo silencer`);
+            return;
+        }
+
+        const pick = found[Math.floor(Math.random() * found.length)];
+
+        container.setItem(pick.slot, undefined);
+        player.addTag(`${weapon}_silencer`);
+
+        if (gun) {
+            setLoreValue(gun, "silencer", pick.item.typeId);
+            container.setItem(slot, gun);
+        }
+
+        return;
+    }
+
+    if (id.endsWith("_silencer_remove")) {
+
+        const tag = `${weapon}_silencer`;
+
+        if (!player.hasTag(tag)) {
+            player.runCommandAsync(`title @s actionbar §cNo silencer installed`);
+            return;
+        }
+
+        player.removeTag(tag);
+
+        const gun = container.getItem(slot);
+        if (!gun) return;
+
+        const lore = gun.getLore?.() ?? [];
+
+        let itemId = null;
+
+        for (const line of lore) {
+            if (line.startsWith("silencer:")) {
+                itemId = line.replace("silencer:", "");
+                break;
+            }
+        }
+
+        if (!itemId) return;
+
+        removeLoreValue(gun, "silencer");
+        container.setItem(slot, gun);
+
+        container.addItem(new ItemStack(itemId, 1));
+
+        player.runCommandAsync(`title @s actionbar Silencer §eRemoved`);
+        return;
+    }
+});
+
+system.runInterval(() => {
+
+    for (const player of world.getAllPlayers()) {
+
+        let hasScope = false;
+        let hasLaser = false;
+        let hasSilencer = false;
+        let hasForegrip = false;
+
+        const inv =
+            player.getComponent("minecraft:inventory");
+
+        if (!inv)
+            continue;
+
+        const container =
+            inv.container;
+
+        const item =
+            container.getItem(
+                player.selectedSlotIndex
+            );
+
+        if (!item)
+            continue;
+
+        const lore =
+            item.getLore?.() ?? [];
+
+        for (const line of lore) {
+
+            if (!line.includes(":"))
+                continue;
+
+            const value =
+                line.split(":").pop();
+
+            const type =
+                line.split(":")[0];
+
+            switch (type) {
+
+                case "scope":
+                    hasScope = true;
+
+                    player.runCommandAsync(
+                        `event entity @s mk556:${value}`
+                    );
+                    break;
+
+                case "foregrip":
+                    hasForegrip = true;
+
+                    player.runCommandAsync(
+                        `event entity @s mk556:${value}`
+                    );
+                    break;
+
+                case "laser":
+                    hasLaser = true;
+
+                    if (value === "laser_red")
+                        player.runCommandAsync(
+                            `event entity @s mk556:red`
+                        );
+
+                    else if (value === "laser_green")
+                        player.runCommandAsync(
+                            `event entity @s mk556:green`
+                        );
+
+                    else if (value === "laser_gold")
+                        player.runCommandAsync(
+                            `event entity @s mk556:gold`
+                        );
+
+                    break;
+
+                case "silencer":
+                    hasSilencer = true;
+
+                    player.runCommandAsync(
+                        `event entity @s mk556:silencer`
+                    );
+                    break;
+            }
+        }
+
+        // ======================================
+        // DEFAULT ATTACHMENTS
+        // ======================================
+
+        if (!hasScope) {
+
+            player.runCommandAsync(
+                `event entity @s mk556:sight`
+            );
+        }
+
+        if (!hasSilencer) {
+
+            player.runCommandAsync(
+                `event entity @s mk556:muzzle`
+            );
+        }
+
+        if (!hasForegrip) {
+
+            player.runCommandAsync(
+                `event entity @s mk556:grip`
+            );
+        }
+
+        if (!hasLaser) {
+
+            player.runCommandAsync(
+                `event entity @s mk556:no_laser`
+            );
+        }
+    }
+
+}, 5);

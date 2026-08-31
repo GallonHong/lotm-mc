@@ -1,0 +1,168 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ram.fpp_draw": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.9583,
+			"override_previous_animation": true,
+			"bones": {
+				"division_illuminated2": {
+					"scale": 0
+				},
+				"scope_cross": {
+					"scale": 0
+				},
+				"scope_cross2": {
+					"scale": 0
+				}
+			},
+			"sound_effects": {
+				"0.0417": {
+					"effect": "ram_draw"
+				}
+			}
+		},
+		"animation.ram.fpp_hold": {
+			"loop": true,
+			"override_previous_animation": true,
+			"bones": {
+				"division_illuminated2": {
+					"scale": 0
+				},
+				"scope_cross": {
+					"scale": 0
+				},
+				"scope_cross2": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.ram.fpp_put_away": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.75,
+			"override_previous_animation": true,
+			"bones": {
+				"division_illuminated2": {
+					"scale": 0
+				},
+				"scope_cross": {
+					"scale": 0
+				},
+				"scope_cross2": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.ram.fpp_inspect": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 5,
+			"override_previous_animation": true,
+			"bones": {
+				"division_illuminated2": {
+					"scale": 0
+				},
+				"scope_cross": {
+					"scale": 0
+				},
+				"scope_cross2": {
+					"scale": 0
+				},
+				"ram": {
+					"rotation": {
+						"2.4167": [0, 0, 0],
+						"2.5": [90, -2.5, 87.5],
+						"2.7083": [0, 0, 0],
+						"2.8333": [0, 0, 0],
+						"2.9167": [90, -2.5, 87.5],
+						"3.125": [0, 0, 0],
+						"3.625": [0, 0, 0],
+						"3.75": [140, 0, 0],
+						"4.2917": [140, 0, 0],
+						"4.4583": [0, 0, 0]
+					},
+					"position": [0, 0, 0]
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "scar_offarm"
+				},
+				"1.8333": {
+					"effect": "hybird_off_arm"
+				},
+				"2.375": {
+					"effect": "ram_sweep"
+				},
+				"2.8333": {
+					"effect": "ram_sweep"
+				},
+				"3.625": {
+					"effect": "scar_empty_arm"
+				},
+				"4.2917": {
+					"effect": "scar_inspect_o5"
+				}
+			}
+		},
+		"animation.ram.tpp_hold": {
+			"loop": true,
+			"override_previous_animation": true,
+			"bones": {
+				"head": {
+					"rotation": ["query.target_x_rotation", 0, 0]
+				},
+				"ram": {
+					"rotation": [-72.5, 0, 0],
+					"position": [0, -1, 0]
+				}
+			}
+		},
+		"animation.ram.tpp_sneak": {
+			"loop": true,
+			"override_previous_animation": true,
+			"bones": {
+				"head": {
+					"rotation": ["query.target_x_rotation", 0, 0]
+				},
+				"rightLeg": {
+					"rotation": [35, 0, 0]
+				},
+				"leftLeg": {
+					"position": [0, 1, -4.5]
+				},
+				"ram": {
+					"rotation": [-72.5, 0, 0],
+					"position": [0, -2, 0]
+				}
+			}
+		},
+		"animation.ram.tpp_draw": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.2917,
+			"override_previous_animation": true,
+			"bones": {
+				"head": {
+					"rotation": ["query.target_x_rotation", 0, 0]
+				},
+				"ram": {
+					"rotation": [-72.5, 0, 0],
+					"position": [0, -1, 0]
+				}
+			}
+		},
+		"animation.ram.tpp_put_away": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.2917,
+			"override_previous_animation": true,
+			"bones": {
+				"head": {
+					"rotation": ["query.target_x_rotation", 0, 0]
+				},
+				"ram": {
+					"rotation": [-72.5, 0, 0],
+					"position": [0, -1, 0]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,400 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.glock_hold_fpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"m4_fpp_draw": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')&&variable.is_first_person"
+						}
+					]
+				},
+				"m4_fpp_draw": {
+					"animations": [
+						{
+							"glock_fpp_draw": "variable.is_first_person&&v.glock_gun"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "v.is_first_person&&variable.glock_gun&&q.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"m4_fpp_hold": {
+					"animations": [
+						{
+							"glock_fpp_hold": "variable.is_first_person"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_run": "!query.is_using_item&&variable.is_first_person&&variable.glock_gun&&query.is_sprinting"
+						},
+						{
+							"m4_fpp_reload": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='reload')"
+						},
+						{
+							"m4_fpp_changemag": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='change')"
+						},
+						{
+							"m4_fpp_aim": "variable.is_first_person&&variable.glock_gun&&query.is_sneaking&&q.property('hengker:reload')=='n'&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_loaded": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='loaded')"
+						},
+						{
+							"m4_fpp_inspect": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='inspect')"
+						},
+						{
+							"m4_fpp_check": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='check')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"m4_fpp_check": {
+					"animations": [
+						{
+							"glock_fpp_check": "variable.is_first_person&&v.glock_gun"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "variable.is_first_person&&v.glock_gun&&q.is_using_item&&q.all_animations_finished||q.property('hengker:reload')=='n'"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						}
+					]
+				},
+				"m4_fpp_loaded": {
+					"animations": [
+						{
+							"glock_inspect": "variable.is_first_person&&v.glock_gun"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "variable.is_first_person&&v.glock_gun&&q.is_using_item||q.property('hengker:reload')=='n'||q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						}
+					]
+				},
+				"m4_fpp_inspect": {
+					"animations": [
+						{
+							"glock_inspect": "variable.is_first_person&&v.glock_gun"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "variable.is_first_person&&v.glock_gun&&q.is_using_item||q.property('hengker:reload')=='n'||q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						}
+					]
+				},
+				"unequip": {
+					"animations": [
+						{
+							"glock_fpp_unequip": "v.is_first_person"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.glock_gun"
+						},
+						{
+							"m4_fpp_draw": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')&&q.all_animations_finished"
+						}
+					]
+				},
+				"m4_fpp_changemag": {
+					"animations": [
+						{
+							"glock_fpp_changemag": "variable.is_first_person&&variable.glock_gun&&q.property('hengker:reload')=='change'&&q.property('mk556:mag')!='extended'"
+						},
+						{
+							"glock_fpp_changemag_extended": "variable.is_first_person&&variable.glock_gun&&q.property('hengker:reload')=='change'&&q.property('mk556:mag')=='extended'"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!variable.glock_gun||!q.is_alive"
+						},
+						{
+							"m4_fpp_hold": "variable.glock_gun&&q.all_animations_finished||q.property('hengker:reload')!='change'"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						}
+					]
+				},
+				"m4_fpp_aim": {
+					"animations": [
+						{
+							"glock_fpp_aim": "variable.is_first_person&&variable.glock_gun&&q.property('mk556:scope')=='n'"
+						},
+						{
+							"glock_reddot_aim": "variable.is_first_person&&variable.glock_gun&&q.property('mk556:scope')=='reddot'"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "variable.is_first_person&&variable.glock_gun&&!query.is_sneaking"
+						},
+						{
+							"m4_fpp_reload": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='reload')"
+						},
+						{
+							"m4_fpp_changemag": "variable.is_first_person&&(v.glock_gun&&q.property('hengker:reload')=='change')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						},
+						{
+							"m4_fpp_check": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='check')"
+						}
+					],
+					"blend_transition": 0.25,
+					"blend_via_shortest_path": true
+				},
+				"m4_fpp_run": {
+					"animations": [
+						{
+							"glock_fpp_run": "variable.is_first_person&&variable.glock_gun&&!q.property('hengker:reload')!='heal'"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "variable.is_first_person&&variable.glock_gun&&!query.is_sprinting||query.is_using_item"
+						},
+						{
+							"m4_fpp_reload": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='reload')"
+						},
+						{
+							"m4_fpp_changemag": "variable.is_first_person&&(v.glock_gun&&q.property('hengker:reload')=='change')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						}
+					],
+					"blend_transition": 0.25,
+					"blend_via_shortest_path": true
+				},
+				"m4_fpp_reload": {
+					"animations": [
+						{
+							"glock_fpp_reload": "variable.is_first_person&&variable.glock_gun&&q.property('mk556:mag')=='n'"
+						},
+						{
+							"glock_fpp_reload_extended": "variable.is_first_person&&variable.glock_gun&&q.property('mk556:mag')=='extended'"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "variable.is_first_person&&variable.glock_gun&&(variable.glock_gun&&q.property('hengker:reload')=='n')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_fpp_attachment": "variable.is_first_person&&(variable.glock_gun&&q.property('hengker:reload')=='heal')"
+						}
+					]
+				},
+				"m4_fpp_attachment": {
+					"animations": [
+						{
+							"attachment_display": "variable.is_first_person&&q.variant==0"
+						},
+						{
+							"attachment_muzzle": "variable.is_first_person&&q.variant==1"
+						},
+						{
+							"attachment_laser": "variable.is_first_person&&q.variant==2"
+						},
+						{
+							"attachment_scope": "variable.is_first_person&&q.variant==3"
+						},
+						{
+							"attachment_stock": "variable.is_first_person&&q.variant==4"
+						},
+						{
+							"attachment_mag": "variable.is_first_person&&q.variant==5"
+						},
+						{
+							"attachment_grip": "variable.is_first_person&&q.variant==6"
+						}
+					],
+					"transitions": [
+						{
+							"m4_fpp_hold": "variable.is_first_person&&variable.glock_gun&&(variable.glock_gun&&q.property('hengker:reload')=='n')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						}
+					],
+					"blend_transition": 0.25,
+					"blend_via_shortest_path": true
+				}
+			}
+		},
+		"controller.animation.glock_hold_tpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						{
+							"glock_tpp_draw": "variable.glock_gun&&variable.is_third_person"
+						}
+					],
+					"transitions": [
+						{
+							"m4_tpp_hold": "query.all_animations_finished&&variable.glock_gun&&variable.is_third_person"
+						}
+					]
+				},
+				"m4_tpp_hold": {
+					"animations": [
+						{
+							"glock_tpp_hold": "variable.is_third_person&&variable.glock_gun&&!q.is_sneaking"
+						},
+						{
+							"glock_tpp_aim": "variable.is_third_person&&variable.glock_gun&&q.is_sneaking"
+						}
+					],
+					"transitions": [
+						{
+							"m4_tpp_run": "variable.is_third_person&&variable.glock_gun&&query.is_sprinting"
+						},
+						{
+							"m4_tpp_reload": "variable.is_third_person&&(variable.glock_gun&&q.property('hengker:reload')=='reload')"
+						},
+						{
+							"m4_tpp_changemag": "variable.is_third_person&&(v.glock_gun&&q.property('hengker:reload')=='change')"
+						},
+						{
+							"m4_tpp_check": "variable.is_third_person&&(v.glock_gun&&q.property('hengker:reload')=='check')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						}
+					]
+				},
+				"m4_tpp_changemag": {
+					"animations": [
+						{
+							"glock_tpp_changemag": "variable.is_third_person&&v.glock_gun&&q.property('hengker:reload')=='change'"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_tpp_hold": "v.is_third_person&&v.glock_gun&&q.property('hengker:reload')!='change'"
+						}
+					]
+				},
+				"m4_tpp_check": {
+					"animations": [
+						{
+							"glock_tpp_check": "variable.is_third_person&&v.glock_gun&&q.property('hengker:reload')=='check'"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						},
+						{
+							"m4_tpp_hold": "v.is_third_person&&v.glock_gun&&q.property('hengker:reload')!='check'"
+						}
+					]
+				},
+				"m4_tpp_run": {
+					"animations": [
+						{
+							"glock_tpp_run": "variable.is_third_person&&variable.glock_gun"
+						}
+					],
+					"transitions": [
+						{
+							"m4_tpp_hold": "variable.is_third_person&&variable.glock_gun&&!query.is_sprinting"
+						},
+						{
+							"m4_tpp_reload": "variable.is_third_person&&(variable.glock_gun&&q.property('hengker:reload')=='reload')"
+						},
+						{
+							"m4_tpp_changemag": "variable.is_third_person&&(v.glock_gun&&q.property('hengker:reload')=='change')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						}
+					],
+					"blend_transition": 0.1,
+					"blend_via_shortest_path": true
+				},
+				"m4_tpp_reload": {
+					"animations": [
+						{
+							"glock_tpp_reload": "variable.is_third_person&&variable.glock_gun"
+						}
+					],
+					"transitions": [
+						{
+							"m4_tpp_hold": "variable.is_third_person&&(variable.glock_gun&&q.property('hengker:reload')=='n')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock')"
+						}
+					]
+				},
+				"unequip": {
+					"animations": [
+						{
+							"glock_tpp_unequip": "v.is_third_person"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.glock_gun"
+						}
+					]
+				}
+			}
+		}
+	}
+}

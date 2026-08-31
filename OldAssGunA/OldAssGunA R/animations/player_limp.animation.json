@@ -1,0 +1,1 @@
+{"animations":{"animation.player.limp":{"bones":{"root":{"rotation":["variable.shake_power - query.target_x_rotation-this *12","-query.body_y_rotation - this *12",0]}},"loop":"hold_on_last_frame"}},"format_version":"1.8.0"}

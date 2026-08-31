@@ -1,0 +1,1 @@
+{"format_version":"1.10.0","minecraft:client_entity":{"description":{"geometry":{"default":"geometry.mw19"},"identifier":"mw:19","materials":{"default":"spider"},"render_controllers":["controller.render.vehicles"],"spawn_egg":{"texture":"npc_egg","texture_index":0},"textures":{"default":"textures/mw19"}}}}

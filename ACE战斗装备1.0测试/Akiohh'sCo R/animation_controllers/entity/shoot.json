@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.blu": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"idle"
+					],
+					"transitions": [
+						{
+							"aim": "query.has_target||q.facing_target_to_range_attack||q.mark_variant==5&&!q.is_saddled"
+						}
+					],
+					"blend_transition": 0.1
+				},
+				"aim": {
+					"animations": [
+						"aim"
+					],
+					"transitions": [
+						{
+							"default": "!query.has_target&&!query.facing_target_to_range_attack&&q.mark_variant==0||q.is_saddled"
+						}
+					]
+				}
+			}
+		}
+	}
+}

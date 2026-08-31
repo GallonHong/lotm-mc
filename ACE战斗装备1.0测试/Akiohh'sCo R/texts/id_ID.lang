@@ -1,0 +1,82 @@
+item.bridge:aug_mag=AUG A3 Mag \n§cDalam progress
+item.bridge:pitviper_mag=Pit Vaiper Mag \n§cDalam progress
+## magazine
+item.bridge:scar_mag_drum=SCAR-L Drum Mag \n§9Magazine\n\n§7Harga: 20$
+item.bridge:scar_mag=SCAR-L Mag \n§9Magazine\n\n§7Harga: 10$
+item.bridge:scar_mag_extended=SCAR-L Extended Mag \n§9Magazine\n\n§7Harga: 15$
+item.bridge:hb_mag_drum=AAC Honey Badger Drum Mag \n§9Magazine\n\n§7Harga: 20$
+item.bridge:hb_mag=AAC Honey Badger Mag \n§9Magazine\n\n§7Harga: 10$
+item.bridge:hb_mag_extended=AAC Honey Badger Extended Mag \n§9Magazine\n\n§7Harga: 15$
+item.bridge:hkc_mag_drum=HK416C Drum Mag \n§9Magazine\n\n§7Harga: 20$
+item.bridge:hkc_mag=HK416C Mag \n§9Magazine\n\n§7Harga: 10$
+item.bridge:hkc_mag_extended=HK416C Extended Mag \n§9Magazine\n\n§7Harga: 15$
+item.bridge:glock_mag=Glock-17 Mag \n§9Magazine\n\n§7Harga: 8$
+item.bridge:colt_mag=M1911 Mag \n§9Magazine\n\n§7Harga: 8$
+item.bridge:glock_mag_extended=Glock-17 Extended Mag \n§9Magazine\n\n§7Harga: 12$
+item.bridge:tactile_mag=Tactile T2 Mag \n§9Magazine\n\n§7Harga: 20$
+item.bridge:barret_mag=Barret M82 Mag \n§9Magazine\n\n§7Harga: 25$
+## Attachments
+item.hengker:normal=AR Stock \n§9Attachment §7\nBisa dipasang di: \n \n\n§7Harga: 20$\n§5Mengurangi goyangan senjata
+item.hengker:simple=Light Stock \n§9Attachment §7\nBisa dipasang di: \n \n\n§7Harga: 25$\n§5Mengurangi goyangan senjata
+item.hengker:cqb=CQB Stock \n§9Attachment §7\nBisa dipasang di: \n \n\n§7Harga: 25$\n§5Mengurangi goyangan senjata
+item.hengker:holo=Holographic Sight \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 20$\n§5Perbesar 2x
+item.hengker:magnifier=Holographic + Magnifier \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 30$\n§5Perbesar 5x
+item.hengker:reddot=Red-dot Sight \n§9Attachment §7\nBisa dipasang di: \n\n\n\n§7Harga: 10$\n§5Perbesar 1.5x
+item.hengker:acog=Acog Sight \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 24$\n§5Perbesar 4x
+item.hengker:tele=Vortex Scope \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 30$\n§5Perbesar 6x
+item.hengker:short=Foregrip \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 8$\n§5Mengurangi sebaran peluru
+item.hengker:long=Vertical Grip \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 8$\n§5Mengurangi sebaran peluru
+item.hengker:light=Thumb Grip \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 5$\n§5Mengurangi sebaran peluru
+item.hengker:silencer=Silencer \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 20$\n§5Meredam suara tembakan
+item.hengker:laser_red=PEQ-15 \n§9Attachment §7\nCraft to change colour\nBisa dipasang di: \n\n\n§7Harga: 8$\n§5Menambah bantuan bidikan
+item.hengker:laser_green=PEQ-15 \n§9Attachment §7\nCraft to change colour\nBisa dipasang di: \n\n\n§7Harga: 8$\n§5Menambah bantuan bidikan
+item.hengker:laser_gold=PEQ-15 \n§9Attachment §7\nCraft to change colour\nBisa dipasang di: \n\n\n§7Harga: 8$\n§5Menambah bantuan bidikan
+item.hengker:scout=Bidikan Sniper \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 35$\n§5Perbesar 8x
+item.hengker:exclusive=Telescope \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 30$\n§5Perbesar 8x
+item.bridge:flashlight=Senter \n§9Attachment §7\nBisa dipasang di: \n\n\n§7Harga: 32$\n§5Terus terang :D §7(Offhand slot only)
+## groupname
+hengker:itemGroup.name.magazines=Magazines
+hengker:itemGroup.name.attachments=Attachables
+hengker:itemGroup.name.weapons=Weapon
+hengker:itemGroup.name.loot=Loot
+hengker:itemGroup.name.currency=§aCurrency
+## bullets
+hengker:itemGroup.name.bullet=Bullet
+item.bridge:bullet_50bmg=50cal. Bullet \n§9Peluru
+item.bridge:bullet_762mm=7.62mm Bullet \n§9Peluru
+item.bridge:bullet_9mm=9mm Bullet \n§9Peluru
+item.bridge:bullet_45acp=45.ACP Bullet \n§9Peluru
+item.bridge:bullet_556mm=Bullet 5.56mm \n§9Peluru
+## Money
+item.bridge:minedollar1=§aMine Dollar\n§9Currency\n\n§7Net: 1$
+item.bridge:minedollar4=§aMine Dollar\n§9Currency\n\n§7Net: 4$
+item.bridge:minedollar16=§aMine Dollar\n§9Currency\n\n§7Net: 16$
+## Loot
+item.bridge:drug=§7Obat\n§9Rampasan\n\n§7Harga: 4$
+item.bridge:fork=§7Garpu\n§9Rampasan\n\n§7Harga: 2$
+item.bridge:syringe=§3Sampel\n§9Rampasan\n\n§7Harga: 10$
+item.bridge:usb=§3USB\n§9Rampasan\n\n§7Harga: 12$
+item.bridge:router=§5Modem\n§9Rampasan\n\n§7Harga: 112$
+item.bridge:ram=§632GB RAM\n§9Rampasan\n\n§7Harga: 128$
+item.bridge:dvd=§4DVD Rahasia\n§9Rampasan\n\n§7Harga: 160$
+item.bridge:tank=§4Figur Tank Emas\n§9Rampasan\n\n§7Harga: 144$
+## random
+item.hengker:backpack=Military Backpack \n§7Interact di slot 1 untuk membuka
+item.hengker:backpack_open=Military Backpack Terbuka \n§4Jangan dihilangkan paksa!!
+tile.bridge:flare.name=Flare Block
+item.spawn_egg.entity.bridge:flare_entity.name=Spawn Flare
+entity.bridge:flare_entity.name=Flare
+tile.bridge:military_crate.name=Military Crate
+tile.bridge:ammo_box.name=Ammo Box
+item.bridge:crowbar=Crowbar
+item.bridge:lockpick=Lockpick
+tile.bridge:safe.name=Safe
+item.spawn_egg.entity.bridge:laptop.name=Spawn Laptop
+entity.bridge:laptop.name=Laptop
+item.bridge:laptop_matek=Laptop
+item.spawn_egg.entity.bridge:kontolhitam.name=Spawn Secret Agent
+entity.bridge:kontolhitam.name=Secret Agent
+item.spawn_egg.entity.hengker:operator.name=Spawn Merchant
+entity.hengker:operator.name=Merchant
+item.spawn_egg.entity.bridge:tes.name=Spawn tes
+entity.bridge:tes.name=tes

@@ -1,0 +1,196 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.x13_arm",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 97,
+				"visible_bounds_height": 24,
+				"visible_bounds_offset": [0, -4, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "Gun",
+					"parent": "body",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "root2",
+					"parent": "Gun",
+					"pivot": [1.5, 21.5, 17]
+				},
+				{
+					"name": "all",
+					"parent": "root2",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "tag_origin",
+					"parent": "all",
+					"pivot": [0, 0, 0],
+					"rotation": [0, 90, 0]
+				},
+				{
+					"name": "tag_view",
+					"parent": "tag_origin",
+					"pivot": [-1.696, -0.003, 0]
+				},
+				{
+					"name": "tag_ads",
+					"parent": "tag_view",
+					"pivot": [-1.696, -0.003, 0]
+				},
+				{
+					"name": "tag_torso",
+					"parent": "tag_ads",
+					"pivot": [-16.135, -188.563, 0]
+				},
+				{
+					"name": "tag_weapon",
+					"parent": "tag_torso",
+					"pivot": [358.161, -98.605, -27.438],
+					"rotation": [-20.465, 0, 0]
+				},
+				{
+					"name": "j_gun001",
+					"parent": "tag_weapon",
+					"pivot": [358.161, -98.605, -27.438],
+					"rotation": [0.01, 0, 0]
+				},
+				{
+					"name": "tag_pistol_offset",
+					"parent": "j_gun001",
+					"pivot": [217.855, -79.325, -27.529],
+					"rotation": [0.003, 0, 0]
+				},
+				{
+					"name": "RightArmroot",
+					"parent": "tag_pistol_offset",
+					"pivot": [494, -274, 106],
+					"rotation": [3.5092, 68.00401, 71.71429]
+				},
+				{
+					"name": "rightArm",
+					"parent": "RightArmroot",
+					"pivot": [381, 24, 154],
+					"rotation": [0, 90, 0],
+					"cubes": [
+						{"origin": [377, 12, 150], "size": [4, 12, 4], "pivot": [379, 18, 152], "rotation": [-180, 0, 0], "uv": [40, 16]}
+					]
+				},
+				{
+					"name": "rightSleeve",
+					"parent": "rightArm",
+					"pivot": [380, 22, 152],
+					"cubes": [
+						{"origin": [377, 12, 150], "size": [4, 12, 4], "inflate": 0.25, "pivot": [379, 18, 152], "rotation": [-180, 0, 0], "uv": [40, 32]}
+					]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [379, 15, 153]
+				},
+				{
+					"name": "j_mainroot",
+					"parent": "tag_torso",
+					"pivot": [-16.135, -416.938, 0],
+					"rotation": [90.069, 0, -89.997]
+				},
+				{
+					"name": "j_spinelower",
+					"parent": "j_mainroot",
+					"pivot": [40.24, -416.938, 0]
+				},
+				{
+					"name": "j_spineupper",
+					"parent": "j_spinelower",
+					"pivot": [140.053, -416.938, 0]
+				},
+				{
+					"name": "j_clavicle_le",
+					"parent": "j_spineupper",
+					"pivot": [220.449, -428.775, 129.293],
+					"rotation": [0.047, 1.223, 91.862]
+				},
+				{
+					"name": "j_shoulder_le",
+					"parent": "j_clavicle_le",
+					"pivot": [313.002, -428.773, 129.293],
+					"rotation": [-93.546, 104.256, -17.074]
+				},
+				{
+					"name": "j_elbow_le",
+					"parent": "j_shoulder_le",
+					"pivot": [497.234, -428.771, 129.269],
+					"rotation": [-0.001, 28.079, 0]
+				},
+				{
+					"name": "j_wrist_le",
+					"parent": "j_elbow_le",
+					"pivot": [673.706, -428.781, 129.269],
+					"rotation": [-36.987, -29.17, 11.009]
+				},
+				{
+					"name": "LeftArmroot",
+					"parent": "j_wrist_le",
+					"pivot": [473, -345, 107],
+					"rotation": [92.19923, -54.63763, 4.53448]
+				},
+				{
+					"name": "leftArm",
+					"parent": "LeftArmroot",
+					"pivot": [280, -279, -1],
+					"rotation": [0, -90, 0],
+					"cubes": [
+						{"origin": [280, -291, -5], "size": [4, 12, 4], "pivot": [282, -285, -3], "rotation": [-180, 0, 0], "uv": [32, 48]}
+					]
+				},
+				{
+					"name": "leftSleeve",
+					"parent": "leftArm",
+					"pivot": [281, -290, -3],
+					"cubes": [
+						{"origin": [280, -291, -5], "size": [4, 12, 4], "inflate": 0.25, "pivot": [282, -285, -3], "rotation": [-180, 0, 0], "uv": [48, 48]}
+					]
+				},
+				{
+					"name": "leftItem",
+					"parent": "leftArm",
+					"pivot": [282, -288, -2]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "rightLeg",
+					"parent": "root",
+					"pivot": [-2, 12, 0]
+				},
+				{
+					"name": "leftLeg",
+					"parent": "root",
+					"pivot": [2, 12, 0]
+				}
+			]
+		}
+	]
+}

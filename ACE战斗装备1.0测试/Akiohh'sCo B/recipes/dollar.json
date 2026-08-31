@@ -1,0 +1,21 @@
+{
+	"format_version": "1.12",
+	"minecraft:recipe_shapeless": {
+		"description": {
+			"identifier": "bridge:dollar"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"ingredients": [
+			{
+				"item": "bridge:minedollar1",
+				"count": 4
+			}
+		],
+		"result": {
+			"item": "bridge:minedollar4",
+			"count": 1
+		}
+	}
+}

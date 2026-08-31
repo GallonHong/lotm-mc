@@ -1,0 +1,97 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "bridge:flare_entity",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"cooldown"
+				]
+			},
+			"animations": {
+				"cooldown": "controller.animation.mbg_cooldown"
+			}
+		},
+		"component_groups": {
+			"nyepong:sukses": {
+				"minecraft:transformation": {
+					"into": "bridge:mbg_coming"
+				}
+			}
+		},
+		"components": {
+			"minecraft:health": {
+				"value": 2
+			},
+			"minecraft:collision_box": {
+				"height": 0.3,
+				"width": 0.8
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": false
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "damager",
+										"value": "player"
+									},
+									{
+										"test": "has_ability",
+										"subject": "damager",
+										"value": "instabuild"
+									}
+								]
+							}
+						},
+						"deals_damage": true,
+						"damage_multiplier": 1
+					},
+					{
+						"on_damage": {},
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:type_family": {
+				"family": [
+					"villager",
+					"flare"
+				]
+			},
+			"minecraft:timer": {
+				"looping": false,
+				"time": 63,
+				"time_down_event": {
+					"event": "emut_titit_ayang",
+					"target": "self"
+				}
+			}
+		},
+		"events": {
+			"minecraft:entity_spawned": {
+				"queue_command": {
+					"command": [
+						"scoreboard players set @s cd 60"
+					]
+				}
+			},
+			"emut_titit_ayang": {
+				"add": {
+					"component_groups": [
+						"nyepong:sukses"
+					]
+				}
+			}
+		}
+	}
+}

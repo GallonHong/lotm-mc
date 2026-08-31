@@ -1,0 +1,68 @@
+{
+   "pools": [
+      {
+         "rolls": 1,
+         "entries": [
+            {
+               "name": "bridge:bullet_45acp",
+               "type": "item",
+               "weight": 1,
+               "functions": [
+                  {
+                     "function": "set_count",
+                     "count": 36
+                  },
+                  {
+                     "function": "set_lore",
+                     "lore": [
+                        "Survival Starter Pack"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "rolls": 1,
+         "entries": [
+            {
+               "name": "bridge:colt_mag",
+               "type": "item",
+               "weight": 1,
+               "functions": [
+                  {
+                     "function": "set_count",
+                     "count": 3
+                  },
+                  {
+                     "function": "set_lore",
+                     "lore": [
+                        "Survival Starter Pack"
+                     ]
+                  }
+               ]
+            }
+         ]
+      },
+      {
+         "rolls": 1,
+         "entries": [
+            {
+               "name": "hengker:colt",
+               "type": "item",
+               "weight": 1,
+               "functions": [
+                  {
+                     "function": "set_lore",
+                     "lore": [
+                        "Starter Survival Weapon",
+                        "Short range but best for begining",
+                        "(Unobtainable)"
+                     ]
+                  }
+               ]
+            }
+         ]
+      }
+   ]
+}

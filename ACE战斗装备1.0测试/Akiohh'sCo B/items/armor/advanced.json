@@ -1,0 +1,39 @@
+{
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "hengker:advanced_vest",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.chestplate"
+			}
+		},
+		"components": {
+			"minecraft:tags": {
+				"tags": [
+					"advanced_vest",
+					"pocket"
+				]
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "advanced_vest"
+			},
+			"minecraft:display_name": {
+				"value": "幽灵铠甲\n\n§7价格: 50$"
+			},
+			"minecraft:glint": false,
+			"minecraft:durability": {
+				"damage_chance": {
+					"min": 70,
+					"max": 100
+				},
+				"max_durability": 150
+			},
+			"minecraft:wearable": {
+				"slot": "slot.armor.chest",
+				"protection": 8
+			}
+		}
+	}
+}

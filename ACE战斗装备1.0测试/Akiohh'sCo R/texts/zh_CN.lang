@@ -1,0 +1,87 @@
+item.bridge:aug_mag=AUG A3弹匣 \n§c开发中
+item.bridge:pitviper_mag=Pit Viper弹匣 \n§c开发中
+## 弹匣
+item.bridge:scar_mag_drum=SCAR-L 弹鼓 \n§9弹匣\n\n§7售价：20美元
+item.bridge:scar_mag=SCAR-L 标准弹匣 \n§9弹匣\n\n§7售价：10美元
+item.bridge:scar_mag_extended=SCAR-L 扩容弹匣 \n§9弹匣\n\n§7售价：15美元
+item.bridge:hb_mag_drum=AAC蜜獾弹鼓 \n§9弹匣\n\n§7售价：20美元
+item.bridge:hb_mag=AAC蜜獾标准弹匣 \n§9弹匣\n\n§7售价：10美元
+item.bridge:hb_mag_extended=AAC蜜獾扩容弹匣 \n§9弹匣\n\n§7售价：15美元
+item.bridge:hkc_mag_drum=HK416C 弹鼓 \n§9弹匣\n\n§7售价：20美元
+item.bridge:hkc_mag=HK416C 标准弹匣 \n§9弹匣\n\n§7售价：10美元
+item.bridge:hkc_mag_extended=HK416C 扩容弹匣 \n§9弹匣\n\n§7售价：15美元
+item.bridge:glock_mag=格洛克17弹匣 \n§9弹匣\n\n§7售价：8美元
+item.bridge:colt_mag=M1911弹匣 \n§9弹匣\n\n§7售价：8美元
+item.bridge:glock_mag_extended=格洛克17扩容弹匣 \n§9弹匣\n\n§7售价：12美元
+item.bridge:tactile_mag=Tactile T2弹匣 \n§9弹匣\n\n§7售价：20美元
+item.bridge:barret_mag=巴雷特M82弹匣 \n§9弹匣\n\n§7售价：25美元
+## 配件
+item.hengker:normal=AR枪托 \n§9配件 §7\n适用枪械：\n \n\n§7售价：20$\n§5降低枪械抖动
+item.hengker:simple=轻量化枪托 \n§9配件 §7\n适用枪械：\n \n\n§7售价：25$\n§5降低枪械抖动
+item.hengker:cqb=CQB近战枪托 \n§9配件 §7\n适用枪械：\n \n\n§7售价：25$\n§5降低枪械抖动
+item.hengker:holo=全息瞄准镜 \n§9配件 §7\n适用枪械：\n\n\n§7售价：20$\n§52倍放大
+item.hengker:magnifier=全息+增倍镜 \n§9配件 §7\n适用枪械：\n\n\n§7售价：30$\n§55倍放大
+item.hengker:reddot=红点瞄准镜 \n§9配件 §7\n适用枪械：\n
+\n\n§7售价：10$\n§51.5倍放大
+item.hengker:acog=ACOG先进战斗瞄具 \n§9配件 §7\n适用枪械：\n\n\n§7售价：24$\n§54倍放大
+item.hengker:tele=涡流光学瞄准镜 \n§9配件 §7\n适用枪械：\n\n\n§7售价：30$\n§56倍放大
+item.hengker:short=短前握把 \n§9配件 §7\n适用枪械：\n\n\n§7售价：8$\n§5减小子弹散布
+item.hengker:long=垂直前握把 \n§9配件 §7\n适用枪械：\n\n\n§7售价：8$\n§5减小子弹散布
+item.hengker:light=拇指握把 \n§9配件 §7\n适用枪械：\n\n\n§7售价：5$\n§5减小子弹散布
+item.hengker:silencer=消音器 \n§9配件 §7\n适用枪械：\n\n\n§7售价：20$\n§5射击声音被抑制
+item.hengker:laser_red=PEQ-15激光指示器 \n§9配件 §7\n可合成更换光线颜色\n适用枪械：\n\n\n§7售价：8$\n§5提供准星辅助
+item.hengker:laser_green=PEQ-15激光指示器 \n§9配件 §7\n可合成更换光线颜色\n适用枪械：\n\n\n§7售价：8$\n§5提供准星辅助
+item.hengker:laser_gold=PEQ-15激光指示器 \n§9配件 §7\n可合成更换光线颜色\n适用枪械：\n\n\n§7售价：8$\n§5提供准星辅助
+item.hengker:scout=狙击瞄准镜 \n§9配件 §7\n适用枪械：\n\n\n§7售价：35$\n§58倍放大
+item.hengker:exclusive=高倍望远镜式瞄具 \n§9配件 §7\n适用枪械：\n\n\n§7售价：30$\n§58倍放大
+item.bridge:flashlight=战术手电 \n§9配件 §7\n适用枪械：\n\n\n§7售价：32$\n§5照亮周围环境 §7(仅能装备副手栏)
+## 物品分类名称
+hengker:itemGroup.name.magazines=弹匣
+hengker:itemGroup.name.attachments=枪械配件
+hengker:itemGroup.name.weapons=武器
+hengker:itemGroup.name.loot=战利品
+hengker:itemGroup.name.currency=§a货币
+## 弹药
+hengker:itemGroup.name.bullet=子弹
+item.bridge:bullet_50bmg=.50BMG子弹 \n§9子弹
+item.bridge:bullet_762mm=7.62毫米子弹 \n§9子弹
+item.bridge:bullet_9mm=9毫米子弹 \n§9子弹
+item.bridge:bullet_45acp=.45ACP子弹 \n§9子弹
+item.bridge:bullet_556mm=5.56毫米子弹 \n§9子弹
+## 货币
+item.bridge:minedollar1=§a矿山美元\n§9货币\n\n§7面值：1美元
+item.bridge:minedollar4=§a矿山美元\n§9货币\n\n§7面值：4美元
+item.bridge:minedollar16=§a矿山美元\n§9货币\n\n§7面值：16美元
+## 战利品
+item.bridge:drug=§7违禁药品\n§9战利品\n\n§7售价：4美元
+item.bridge:fork=§7餐叉\n§9战利品\n\n§7售价：2美元
+item.bridge:syringe=§3生物样本\n§9战利品\n\n§7售价：10美元
+item.bridge:usb=§3U盘\n§9战利品\n\n§7售价：12美元
+item.bridge:router=§5路由器\n§9战利品\n\n§7售价：112美元
+item.bridge:ram=§632GB内存条\n§9战利品\n\n§7售价：128美元
+item.bridge:dvd=§4机密光盘\n§9战利品\n\n§7售价：160美元
+item.bridge:tank=§4黄金坦克摆件\n§9战利品\n\n§7售价：144美元
+## 杂项
+item.hengker:backpack=军用背包 \n§7放在快捷栏第1格交互打开
+item.hengker:backpack_open=开启状态军用背包 \n§4请勿直接使用 /replaceitem强行给予!!
+tile.bridge:flare.name=信号焰方块
+item.spawn_egg.entity.bridge:flare_entity.name=生成信号弹
+entity.bridge:flare_entity.name=信号弹
+tile.bridge:military_crate.name=军用物资箱
+tile.bridge:ammo_box.name=弹药箱
+item.bridge:crowbar=撬棍
+item.bridge:lockpick=开锁工具
+tile.bridge:safe.name=保险柜
+item.spawn_egg.entity.bridge:laptop.name=放置笔记本电脑
+entity.bridge:laptop.name=笔记本电脑
+item.bridge:laptop_matek=笔记本电脑
+item.spawn_egg.entity.bridge:kontolhitam.name=生成特工
+entity.bridge:kontolhitam.name=特工
+item.spawn_egg.entity.hengker:operator.name=生成商人
+entity.hengker:operator.name=商人
+item.spawn_egg.entity.bridge:tes.name=生成测试实体
+entity.bridge:tes.name=测试实体
+Restart Shop=重新启动商店
+SHOP=商店
+Buy=买
+Medic Trade=医药贸易

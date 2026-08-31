@@ -1,0 +1,1 @@
+{"format_version":"1.10.0","minecraft:client_entity":{"description":{"geometry":{"default":"geometry.sukuna_domain"},"identifier":"mw:sukuna_domain","materials":{"default":"spider"},"render_controllers":["controller.render.vehicles"],"spawn_egg":{"texture":"null","texture_index":0},"textures":{"default":"sukuna_domain"}}}}

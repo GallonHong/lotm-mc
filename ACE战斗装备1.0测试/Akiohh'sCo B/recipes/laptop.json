@@ -1,0 +1,42 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "bridge:laptop_matek"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"S": {
+				"item": "minecraft:glass"
+			},
+			"E": {
+				"item": "minecraft:redstone_block"
+			},
+			"X": {
+				"item": "minecraft:iron_ingot"
+			}
+		},
+		"pattern": [
+			"XSX",
+			"XEX",
+			"XXX"
+		],
+		"unlock": [
+			{
+				"item": "minecraft:iron_ingot"
+			},
+			{
+				"item": "minecraft:glass"
+			},
+			{
+				"item": "minecraft:redstone_block"
+			}
+		],
+		"result": {
+			"item": "bridge:laptop_matek",
+			"count": 1
+		}
+	}
+}

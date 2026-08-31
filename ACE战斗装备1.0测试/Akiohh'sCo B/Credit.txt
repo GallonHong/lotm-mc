@@ -1,0 +1,28 @@
+Akiohh's Combat Equipment (ACE)
+all stuff here are copyrighted to the right owner (Akiohh /or Menkrep P)
+CC-BY-ND 4.0
+https://creativecommons.org/licenses/by-nd/4.0/
+
+You are not allowed to edit or take any stuff, code from this pack without owner's permission, even for personal use only.
+You are not allowed to share modded version of this addon!
+You are not allowed to reupload, relink this pack, you are only allowed share this pack using the owner's link or official link that already given before (curseforge, modbay, mcpedl)
+You are not allowed to claim this addon is yours
+
+Credit
+
+Gun model by #WewokDetok
+@catcutereborn_97514 (Discord)
+@creatorcrafter_321 for HK416C Texture https://www.youtube.com/@creatorcrafter321 (Youtube)
+
+Bullet scripts & particle are from TWW Addon (include Hit-immunity system, Armor penetatrion system, and hit sounds)
+by Fritzer and his team
+Fritzerfuhrer https://www.youtube.com/@Fritzertwwaddon (Youtube)
+Uncxrafter https://www.youtube.com/@uncxrafter (youtube)
+
+License proof :
+https://ibb.co/rGtvCx2t
+https://ibb.co/d4HPghJF
+
+Other code texture and script Created by Akiohh Except for sound effect
+Akiohh https://www.youtube.com/@akiohh (Youtube)
+Akitod https://modbay.org/user/akitod/ (modbay)

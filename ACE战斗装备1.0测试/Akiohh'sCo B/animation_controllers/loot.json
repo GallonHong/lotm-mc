@@ -1,0 +1,212 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.ram": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "q.mark_variant==0&&query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						},
+						{
+							"unequip": "q.mark_variant==8&&!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						},
+						{
+							"hold": "q.mark_variant==8&&query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						}
+					],
+					"on_exit": [
+						"/event entity @s equip:ram"
+					]
+				},
+				"draw": {
+					"animations": [
+						"ram_draw"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')&&q.all_animations_finished"
+						}
+					]
+				},
+				"unequip": {
+					"animations": [
+						"ram_unequip"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s unequip:ram"
+					]
+				},
+				"hold": {
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')&&q.property('hengker:reload')=='inspect'"
+						}
+					]
+				},
+				"inspect": {
+					"animations": [
+						"ram_inspect"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						}
+					],
+					"on_exit": [
+						"@s hengker:rilotend"
+					]
+				}
+			}
+		},
+		"controller.animation.router": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "q.mark_variant==0&&query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						},
+						{
+							"unequip": "q.mark_variant==11&&!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						}
+					],
+					"on_exit": [
+						"/event entity @s equip:router"
+					]
+				},
+				"draw": {
+					"animations": [
+						"router_draw"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')&&q.all_animations_finished"
+						}
+					]
+				},
+				"unequip": {
+					"animations": [
+						"router_unequip"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')&&q.property('hengker:reload')=='inspect'"
+						}
+					]
+				},
+				"inspect": {
+					"animations": [
+						"router_inspect"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						}
+					],
+					"on_exit": [
+						"@s hengker:rilotend"
+					]
+				}
+			}
+		},
+		"controller.animation.tank": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "q.mark_variant==0&&query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						},
+						{
+							"unequip": "q.mark_variant==12&&!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						}
+					],
+					"on_exit": [
+						"/event entity @s equip:tank"
+					]
+				},
+				"draw": {
+					"animations": [
+						"tank_draw"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')&&q.all_animations_finished"
+						}
+					]
+				},
+				"unequip": {
+					"animations": [
+						"tank_unequip"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')&&q.property('hengker:reload')=='inspect'"
+						}
+					]
+				},
+				"inspect": {
+					"animations": [
+						"tank_inspect"
+					],
+					"transitions": [
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						}
+					],
+					"on_exit": [
+						"@s hengker:rilotend"
+					]
+				}
+			}
+		}
+	}
+}

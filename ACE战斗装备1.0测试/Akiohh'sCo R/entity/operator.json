@@ -1,0 +1,64 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hengker:operator",
+			"materials": {
+				"default": "enderman"
+			},
+			"textures": {
+				"default": "textures/entity/enginer"
+			},
+			"geometry": {
+				"default": "geometry.enginer"
+			},
+			"animations": {
+				"idle": "animation.enginer.idle",
+				"walk": "animation.enginer.walk",
+				"reload": "animation.enginer.reload",
+				"shoot": "animation.enginer.aim",
+				"aim": "animation.enginer.aim",
+				"attack": "animation.enginer.attack",
+				"infected_idle": "animation.enginer.idle",
+				"riding": "animation.humanoid.riding.legs",
+				"shoot_controller": "controller.animation.blu",
+				"attack_controller": "controller.animation.attack",
+				"walk_controller": "controller.animation.walk",
+				"reload_controller": "controller.animation.reload"
+			},
+			"particle_effects": {
+				"muzzle_flash": "custom:fire",
+				"selongsong": "test:selongsong",
+				"selongsong_ak": "test:selongsong_ak",
+				"selongsong_shell": "test:selongsong_shell",
+				"selongsong_smg": "test:selongsong_smg",
+				"smoke_flash": "ww:flash",
+				"flashlight": "test:flashlight"
+			},
+			"scripts": {
+				"pre_animation": [
+					"variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+				],
+				"animate": [
+					"shoot_controller",
+					"walk_controller",
+					"reload_controller",
+					"attack_controller"
+				]
+			},
+			"spawn_egg": {
+				"texture": "hengker_enginer",
+				"texture_index": 0
+			},
+			"render_controllers": [
+				"controller.render.default"
+			],
+			"sound_effects": {
+				"scar_mag_out": "scar.mag.out",
+				"scar_mag_in": "scar.magin",
+				"gun_click": "hb.click",
+				"scar_shoot": "scar.shoot"
+			}
+		}
+	}
+}

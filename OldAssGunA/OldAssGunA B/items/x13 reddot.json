@@ -1,0 +1,40 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:item": {
+        "components": {
+            "minecraft:can_destroy_in_creative": false,
+            "minecraft:display_name": {
+                "value": "Attachment X13 Reddot"
+            },
+            "minecraft:food": {
+                "can_always_eat": true,
+                "cooldown_time": 0.1,
+                "cooldown_type": "chorusfruit",
+                "nutrition": 0,
+                "saturation_modifier": "low"
+            },
+            "minecraft:hand_equipped": true,
+            "minecraft:icon": "x13_reddot",
+            "minecraft:max_stack_size": 1,
+            "minecraft:render_offsets": {
+                "main_hand": {
+                    "first_person": { "scale": [0, 0, 0] },
+                    "third_person": { "scale": [0, 0, 0] }
+                },
+                "off_hand": {
+                    "first_person": { "scale": [0, 0, 0] },
+                    "third_person": { "scale": [0, 0, 0] }
+                }
+            },
+            "minecraft:stacked_by_data": true,
+            "minecraft:use_duration": 3200
+        },
+        "description": {
+            "identifier": "attachment:x13reddot",
+            "menu_category": {
+                "category": "equipment",
+                "is_hidden_in_commands": false
+            }
+        }
+    }
+}

@@ -1,0 +1,1 @@
+{"format_version":"1.8.0","render_controllers":{"controller.render.m14":{"geometry":"Geometry.m14","is_hurt_color":{"a":"0.0","b":"0.0","g":"0.0","r":"0.0"},"materials":[{"*":"Material.default"}],"on_fire_color":{"a":"0","b":"0","g":"0","r":"0"},"part_visibility":[{"*":true}],"textures":["texture.m14"]}}}

@@ -1,0 +1,742 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.tactile": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"on_entry": [],
+					"transitions": [
+						{
+							"draw": "q.mark_variant==0&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						},
+						{
+							"preshoot": "q.mark_variant==3&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						},
+						{
+							"unequip": "q.mark_variant==3&&!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						}
+					],
+					"on_exit": [
+						"/hud @s hide crosshair",
+						"/event entity @s equip:tactile"
+					]
+				},
+				"draw": {
+					"on_entry": [
+						"/tag add @s cooldown"
+					],
+					"animations": [
+						"tactile_draw"
+					],
+					"transitions": [
+						{
+							"preshoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.all_animations_finished&&!q.is_ignited"
+						},
+						{
+							"cooldown": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.all_animations_finished&&q.is_ignited"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.all_animations_finished"
+						}
+					]
+				},
+				"unequip": {
+					"on_entry": [
+						"/tag @s add cooldown"
+					],
+					"animations": [
+						"tactile_unequip"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s mk556:laser_off",
+						"/tag @s remove cooldown",
+						"/hud @s reset crosshair"
+					]
+				},
+				"cooldown": {
+					"animations": [
+						"tactile_cooldown"
+					],
+					"on_entry": [
+						"/event entity @s bridge:is_ignited"
+					],
+					"transitions": [
+						{
+							"preshoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						}
+					],
+					"on_exit": [
+						"/event entity @s bridge:not_ignited"
+					]
+				},
+				"preshoot": {
+					"on_entry": [
+						"/event entity @s[scores={tactile=2..}] bridge:not_ignited",
+						"/event entity @s[scores={tactile=2..}] pistol:loaded",
+						"/event entity @s[tag=!tactilebulletin,scores={tactile=1}] pistol:empty"
+					],
+					"transitions": [
+						{
+							"shoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.main_hand_item_use_duration&&q.scoreboard('tactile')>0&&!q.is_sneaking&&q.property('hengker:reload')=='n'&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&!q.is_sprinting&&!q.is_ignited&&q.property('hengker:nomag')=='ada'"
+						},
+						{
+							"aim": "!q.is_sprinting&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.main_hand_item_use_duration&&q.scoreboard('tactile')>0&&q.is_sneaking&&q.property('hengker:reload')=='n'&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&!q.is_ignited"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						},
+						{
+							"check": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.property('hengker:reload')=='check'&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')"
+						},
+						{
+							"display": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&q.property('hengker:reload')=='heal'"
+						}
+					]
+				},
+				"check": {
+					"animations": [
+						"tactile_check"
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						},
+						{
+							"preshoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s hengker:rilotend"
+					]
+				},
+				"display": {
+					"on_entry": [
+						"/event entity @s hengker:attachment"
+					],
+					"transitions": [
+						{
+							"preshoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&(q.is_sneaking||q.property('hengker:reload')!='heal')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						}
+					],
+					"on_exit": [
+						"/event entity @s hengker:rilotend",
+						"/event entity @s gun:display"
+					]
+				},
+				"shoot": {
+					"animations": [
+						"tactile_shoot"
+					],
+					"on_entry": [
+						"/camerashake add @s[tag=tactilebulletin,scores={tactile=1}] 0.08 0.7 rotational",
+						"/camerashake add @s[tag=!tactilebulletin,scores={tactile=2..}] 0.08 0.7 rotational",
+						"/event entity @s bridge:is_ignited"
+					],
+					"transitions": [
+						{
+							"preshoot": "q.all_animations_finished||!q.is_alive"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						}
+					]
+				},
+				"aim": {
+					"animations": [
+						"tactile_aim"
+					],
+					"on_entry": [
+						"/camerashake add @s[tag=tactilebulletin,scores={tactile=1}] 0.06 0.5 rotational",
+						"/camerashake add @s[tag=!tactilebulletin,scores={tactile=2..}] 0.06 0.5 rotational",
+						"/event entity @s bridge:is_ignited"
+					],
+					"transitions": [
+						{
+							"preshoot": "q.all_animations_finished||!q.is_alive"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tactile.silencer": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"silencer": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==1"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:silencer",
+						"/tag @s[m=c] add tactile_silencer",
+						"/playsound muzzle.general @s[m=c]"
+					]
+				},
+				"silencer": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"sek_sabar": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==1&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:muzzle",
+						"/tag @s[m=c] remove tactile_silencer",
+						"/playsound muzzle.general @s[m=c]"
+					]
+				},
+				"sek_sabar": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tactile.scope": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope2": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==3"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:holo",
+						"/tag @s[m=c] add tactileholo",
+						"/tag @s[m=c] remove tactilereddot",
+						"/tag @s[m=c] remove tactileacog",
+						"/tag @s[m=c] remove tactilescout",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope2": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope4": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:reddot",
+						"/tag @s[m=c] add tactilereddot",
+						"/tag @s[m=c] remove tactileacog",
+						"/tag @s[m=c] remove tactileholo",
+						"/tag @s[m=c] remove tactilescout",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope4": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope6": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:acog",
+						"/tag @s[m=c] add tactileacog",
+						"/tag @s[m=c] remove tactilereddot",
+						"/tag @s[m=c] remove tactileholo",
+						"/tag @s[m=c] remove tactilescout",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope6": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"sek_sabar": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:scout",
+						"/tag @s[m=c] add tactilescout",
+						"/tag @s[m=c] remove tactileacog",
+						"/tag @s[m=c] remove tactilereddot",
+						"/tag @s[m=c] remove tactileholo",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"sek_sabar": {
+					"animations": [
+						"cooldown"
+					],
+					"on_entry": [],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tactileinspect": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.property('hengker:reload')=='inspect'"
+						}
+					],
+					"on_exit": [
+						"/tag @s add cooldown"
+					]
+				},
+				"inspect": {
+					"animations": [
+						"tactile_inspect_empty"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished||!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')||q.is_using_item"
+						}
+					],
+					"on_exit": [
+						"/tag @s remove cooldown",
+						"/event entity @s hengker:rilotend"
+					]
+				}
+			}
+		},
+		"controller.animation.tactile.sneak": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"on_entry": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					],
+					"transitions": [
+						{
+							"sneak": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_sneaking&&query.property('mk556:scope')=='n'&&q.property('hengker:reload')=='n'"
+						},
+						{
+							"holo": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_sneaking&&(query.property('mk556:scope')=='holo'||query.property('mk556:scope')=='reddot')&&q.property('hengker:reload')=='n'"
+						},
+						{
+							"acog": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_sneaking&&query.property('mk556:scope')=='acog'&&q.property('hengker:reload')=='n'"
+						},
+						{
+							"scout": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_sneaking&&query.property('mk556:scope')=='scout'&&q.property('hengker:reload')=='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s hide status_effects",
+						"/effect @s speed infinite 7 true"
+					]
+				},
+				"sneak": {
+					"on_entry": [
+						"/effect @s slowness infinite 0 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				},
+				"holo": {
+					"on_entry": [
+						"/effect @s slowness infinite 1 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				},
+				"acog": {
+					"on_entry": [
+						"/effect @s slowness infinite 4 true",
+						"/effect @s speed infinite 54 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				},
+				"scout": {
+					"on_entry": [
+						"/effect @s slowness infinite 10 true",
+						"/effect @s speed infinite 255 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 7 true"
+					]
+				}
+			}
+		},
+		"controller.animation.tactilereload": {
+			"initial_state": "prereload",
+			"states": {
+				"prereload": {
+					"transitions": [
+						{
+							"reload": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.scoreboard('tactile')<1&&q.is_using_item&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&q.property('hengker:nomag')=='gaada'"
+						}
+					]
+				},
+				"fail": {
+					"on_entry": [
+						"/event entity @s hengker:rilotend",
+						"/event entity @s bridge:is_ignited",
+						"/event entity @s pistol:empty",
+						"/execute as @s run scriptevent hengker:tactile_changemag",
+						"/event entity @s hengker:nomag",
+						"/tag @s add tactilenomag",
+						"/stopsound @s"
+					],
+					"transitions": [
+						{
+							"prereload": "1"
+						}
+					]
+				},
+				"reload": {
+					"on_entry": [
+						"/execute as @s[tag=!cooldown] run scriptevent hengker:tactile_reload",
+						"/execute as @s[tag=!cooldown] run tag @s[scores={tactile=1..}] remove tactilenomag",
+						"/execute as @s[tag=!cooldown] run event entity @s[scores={tactile=1..}] hengker:mag",
+						"/execute as @s[tag=!cooldown] run event entity @s[hasitem={item=bridge:tactile_mag,quantity=1..}] hengker:rilot",
+						"variable.ngentot2=query.life_time;"
+					],
+					"transitions": [
+						{
+							"reloading": "q.scoreboard('tactile')>0&&q.property('hengker:reload')=='reload'&&q.property('mk556:mag')=='n'&&q.is_alive"
+						},
+						{
+							"fail": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')||(q.property('hengker:reload')!='reload'&&(query.life_time-variable.ngentot2)>=0.25)"
+						}
+					]
+				},
+				"reloading": {
+					"animations": [
+						"tactile_reload"
+					],
+					"on_entry": [
+						"/tag @s remove tactilenomag",
+						"/event entity @s hengker:mag"
+					],
+					"transitions": [
+						{
+							"done": "q.all_animations_finished&&q.is_alive"
+						},
+						{
+							"fail": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')||!q.is_alive||q.property('hengker:reload')=='hit'"
+						}
+					]
+				},
+				"done": {
+					"on_exit": [
+						"/event entity @s hengker:rilotend",
+						"/event entity @s[tag=tactilebulletin,scores={tactile=1..}] pistol:loaded",
+						"/tag @s remove tactilenomag",
+						"/event entity @s[tag=!tactilebulletin,scores={tactile=1}] pistol:empty",
+						"/stopsound @s"
+					],
+					"transitions": [
+						{
+							"prereload": "1"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tactilechangemag": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"on_entry": [
+						"/stopsound @s"
+					],
+					"transitions": [
+						{
+							"isi_peluru": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.property('hengker:reload')=='change'"
+						}
+					]
+				},
+				"gagal": {
+					"on_entry": [
+						"/stopsound @s",
+						"/event entity @s hengker:rilotend"
+					],
+					"transitions": [
+						{
+							"default": "1"
+						}
+					]
+				},
+				"isi_peluru": {
+					"on_entry": [
+						"variable.ngentot=query.life_time;",
+						"/event entity @s[tag=!cooldown] hengker:rilotchange"
+					],
+					"transitions": [
+						{
+							"mengisi_peluru": "1"
+						}
+					]
+				},
+				"mengisi_peluru": {
+					"animations": [
+						"tactile_changemag"
+					],
+					"transitions": [
+						{
+							"gagal": "query.get_equipped_item_name('main_hand')!='tactile'||q.property('hengker:reload')!='change'"
+						},
+						{
+							"selesai30": "q.is_alive&&(query.life_time-variable.ngentot)>=1.78"
+						}
+					]
+				},
+				"selesai30": {
+					"on_entry": [
+						"/event entity @s hengker:rilotend"
+					],
+					"transitions": [
+						{
+							"default": "1"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tactile_show": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"attachment_show": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&q.mark_variant==3"
+						}
+					]
+				},
+				"attachment_show": {
+					"transitions": [
+						{
+							"default": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')"
+						}
+					],
+					"on_entry": [
+						"/title @s[tag=!cd] actionbar 您正处于附件模式 || // 到 §b交换 §r|| // to §6连接/分离",
+						"/function tactile_check"
+					]
+				}
+			}
+		},
+		"controller.animation.tactile.laser": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"laser1": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==2"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser",
+						"/tag @s[m=c] add tactilered",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"laser1": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"laser2": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==2&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser2",
+						"/tag @s[m=c] remove tactilered",
+						"/tag @s[m=c] add tactilegreen",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"laser2": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"laser3": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==2&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser3",
+						"/tag @s[m=c] add tactilegold",
+						"/tag @s[m=c] remove tactilegreen",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"laser3": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"sek_sabar": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&q.is_using_item&&q.variant==2&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser_off",
+						"/tag @s[m=c] remove tactilegold",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"sek_sabar": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tactile_scope": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"install": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==3"
+						}
+					]
+				},
+				"install": {
+					"animations": [
+						"cooldown"
+					],
+					"on_entry": [
+						"/execute as @s[m=!c,tag=!tactilescout,tag=!tactileholo,tag=!tactilereddot,tag=!tactileacog] run scriptevent hengker:tactile_scope"
+					],
+					"transitions": [
+						{
+							"cooldown": "q.all_animations_finished&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==3"
+						}
+					],
+					"on_exit": [
+						"/execute as @s[m=!c] run scriptevent hengker:tactile_scope_remove"
+					]
+				},
+				"cooldown": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tactile_laser": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"install": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==2"
+						}
+					]
+				},
+				"install": {
+					"animations": [
+						"cooldown"
+					],
+					"on_entry": [
+						"/execute as @s[m=!c,tag=!tactilered,tag=!tactilegreen,tag=!tactilegold] run scriptevent hengker:tactile_laser"
+					],
+					"transitions": [
+						{
+							"cooldown": "q.all_animations_finished&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==2"
+						}
+					],
+					"on_exit": [
+						"/execute as @s[m=!c] run scriptevent hengker:tactile_laser_remove"
+					]
+				},
+				"cooldown": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		}
+	}
+}

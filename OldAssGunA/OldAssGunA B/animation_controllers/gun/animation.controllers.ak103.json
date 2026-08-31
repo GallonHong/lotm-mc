@@ -1,0 +1,376 @@
+{
+  "animation_controllers": {
+    "controller.animation.ak103_sound": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "start": "variable.delayak1032beh = 0.0475; variable.previous_timeak1032beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'ak103' && !q.is_illager_captain && !q.is_riding && q.health > 0 && !q.is_sneaking && !q.is_illager_captain);"
+            },
+            {
+              "start2": "variable.delayak1032beh = 0.0475; variable.previous_timeak1032beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'ak103' && !q.is_illager_captain && !q.is_riding && q.health > 0 && q.is_sneaking && !q.is_illager_captain);"
+            }
+          ]
+        },
+        "default2": {
+          "transitions": [
+            {
+              "shoot": "variable.delayak1032beh  = 9.2; variable.previous_timeak1032beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'ak103' && !q.is_illager_captain !q.is_riding && q.health > 0 && !q.is_sneaking);"
+            },
+            {
+              "shoot2": "variable.delayak1032beh  = 9.2; variable.previous_timeak1032beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'ak103' && !q.is_illager_captain && !q.is_riding && q.health > 0 && q.is_sneaking);"
+            },
+            {
+              "default": "!q.is_using_item"
+            }
+          ]
+        },
+        "default3": {
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        },
+        "shoot": {
+          "on_entry": [
+            "/tag @s add ak47sound",
+            "/playsound ak103.shoot @s",
+            "/stopsound @s ak103.shoot2",
+            "/stopsound @s ak103.start",
+            "/playsound ak47_shoot.mw @a[rm=1,r=35]",
+            "/playsound ak47_shoot_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_shoot_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_shoot_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default2": "(query.life_time - variable.previous_timeak1032beh ) >= variable.delayak1032beh && query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && q.is_using_item"
+            },
+            {
+              "stop": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item && !q.is_sneaking || (q.is_sprinting)"
+            },
+            {
+              "stop7": "q.is_illager_captain"
+            },
+            {
+              "stop4": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item && q.is_sneaking"
+            },
+            {
+              "stop2": "!q.is_using_item"
+            },
+            {
+              "stop5": "!query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health> 0 && q.is_sneaking"
+            },
+            {
+              "stop3": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health> 0 && q.is_illager_captain"
+            },
+            {
+              "stop6": "!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:ak103')"
+            },
+            {
+              "shoot2": "variable.delayak1032beh  = 9.2; variable.previous_timeak1032beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'ak103' && !q.is_illager_captain && !q.is_riding && q.health > 0 && q.is_sneaking);"
+            }
+          ]
+        },
+        "shoot2": {
+          "on_entry": [
+            "/tag @s add ak47sound",
+            "/playsound ak103.shoot2",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.start2",
+            "/playsound ak47_shoot.mw @a[rm=1,r=35]",
+            "/playsound ak47_shoot_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_shoot_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_shoot_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default2": "(query.life_time - variable.previous_timeak1032beh ) >= variable.delayak1032beh && query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && q.is_using_item"
+            },
+            {
+              "stop": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item && !q.is_sneaking"
+            },
+            {
+              "stop2": "!q.is_using_item"
+            },
+            {
+              "stop3": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health> 0 && q.is_illager_captain"
+            },
+            {
+              "shoot": "variable.delayak1032beh  = 9.2; variable.previous_timeak1032beh = query.life_time; return (q.is_using_item && !q.is_sprinting && !q.is_saddled && query.get_equipped_item_name == 'ak103' && !q.is_illager_captain && !q.is_riding && q.health > 0 && !q.is_sneaking);"
+            },
+            {
+              "stop4": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item && q.is_sneaking"
+            },
+            {
+              "stop5": "!query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health> 0 && q.is_sneaking"
+            },
+            {
+              "stop6": "!q.is_item_name_any('slot.weapon.mainhand', 0, 'mw:ak103')"
+            },
+            {
+              "stop7": "q.is_illager_captain"
+            }
+          ]
+        },
+        "start": {
+          "on_entry": [
+            "/playsound ak103.start @s",
+            "/playsound ak47_start.mw @a[rm=1,r=35]",
+            "/playsound ak47_start_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_start_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_start_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_start_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default2": "(query.life_time - variable.previous_timeak1032beh ) >= variable.delayak1032beh && query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && q.is_using_item"
+            },
+            {
+              "default": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item"
+            },
+            {
+              "default3": "!query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item"
+            }
+          ]
+        },
+        "start2": {
+          "on_entry": [
+            "/playsound ak103.start2 @s",
+            "/playsound ak47_start.mw @a[rm=1,r=35]",
+            "/playsound ak47_start_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_start_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_start_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_start_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default2": "(query.life_time - variable.previous_timeak1032beh ) >= variable.delayak1032beh && query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && q.is_using_item"
+            },
+            {
+              "default": "query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item"
+            },
+            {
+              "default3": "!query.get_equipped_item_name == 'ak103' && !q.is_riding && q.health > 0 && !q.is_using_item"
+            }
+          ]
+        },
+        "stop": {
+          "on_entry": [
+            "/playsound ak103.stop @s[tag=!sneak]",
+            "/playsound ak103.stop2 @s[tag=sneak]",
+            "/playsound ak47_stop.mw @a[rm=1,r=35]",
+            "/playsound ak47_stop_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_stop_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_stop_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_stop_far_dis.mw @a[rm=140]",
+            "/tag @s remove ak47sound",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.shoot2",
+            "/playanimation @s ak103aftershoot",
+            "/stopsound @a ak47_shoot.mw",
+            "/stopsound @a ak47_shoot_dis.mw",
+            "/stopsound @a ak47_shoot_med_dis.mw",
+            "/stopsound @a ak47_shoot_far_dis.mw",
+            "/stopsound @a ak47_shoot_near.mw",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot.mw @a[r=35,rm=1]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_near.mw @a[r=70,rm=35]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_dis.mw @a[r=105,rm=70]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_med_dis.mw @a[r=140,rm=105]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        },
+        "stop2": {
+          "on_entry": [
+            "/playsound ak103.stop @s[tag=!sneak]",
+            "/playsound ak103.stop2 @s[tag=sneak]",
+            "/playsound ak47_stop.mw @a[rm=1,r=35]",
+            "/playsound ak47_stop_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_stop_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_stop_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_stop_far_dis.mw @a[rm=140]",
+            "/tag @s remove ak47sound",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.shoot2",
+            "/playanimation @s ak103aftershoot",
+            "/stopsound @a ak47_shoot.mw",
+            "/stopsound @a ak47_shoot_dis.mw",
+            "/stopsound @a ak47_shoot_med_dis.mw",
+            "/stopsound @a ak47_shoot_far_dis.mw",
+            "/stopsound @a ak47_shoot_near.mw",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot.mw @a[r=35,rm=1]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_near.mw @a[r=70,rm=35]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_dis.mw @a[r=105,rm=70]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_med_dis.mw @a[r=140,rm=105]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        },
+        "stop3": {
+          "on_entry": [
+            "/playsound ak103.stop @s[tag=!sneak]",
+            "/playsound ak103.stop2 @s[tag=sneak]",
+            "/playsound ak47_stop.mw @a[rm=1,r=35]",
+            "/playsound ak47_stop_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_stop_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_stop_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_stop_far_dis.mw @a[rm=140]",
+            "/tag @s remove ak47sound",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.shoot2",
+            "/playanimation @s ak103aftershoot",
+            "/stopsound @a ak47_shoot.mw",
+            "/stopsound @a ak47_shoot_dis.mw",
+            "/stopsound @a ak47_shoot_med_dis.mw",
+            "/stopsound @a ak47_shoot_far_dis.mw",
+            "/stopsound @a ak47_shoot_near.mw",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot.mw @a[r=35,rm=1]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_near.mw @a[r=70,rm=35]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_dis.mw @a[r=105,rm=70]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_med_dis.mw @a[r=140,rm=105]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        },
+        "stop4": {
+          "on_entry": [
+            "/playsound ak103.stop @s[tag=!sneak]",
+            "/playsound ak103.stop2 @s[tag=sneak]",
+            "/playsound ak47_stop.mw @a[rm=1,r=35]",
+            "/playsound ak47_stop_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_stop_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_stop_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_stop_far_dis.mw @a[rm=140]",
+            "/tag @s remove ak47sound",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.shoot2",
+            "/playanimation @s ak103aftershoot",
+            "/stopsound @a ak47_shoot.mw",
+            "/stopsound @a ak47_shoot_dis.mw",
+            "/stopsound @a ak47_shoot_med_dis.mw",
+            "/stopsound @a ak47_shoot_far_dis.mw",
+            "/stopsound @a ak47_shoot_near.mw",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot.mw @a[r=35,rm=1]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_near.mw @a[r=70,rm=35]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_dis.mw @a[r=105,rm=70]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_med_dis.mw @a[r=140,rm=105]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        },
+        "stop5": {
+          "on_entry": [
+            "/playsound ak103.stop @s[tag=!sneak]",
+            "/playsound ak103.stop2 @s[tag=sneak]",
+            "/playsound ak47_stop.mw @a[rm=1,r=35]",
+            "/playsound ak47_stop_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_stop_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_stop_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_stop_far_dis.mw @a[rm=140]",
+            "/tag @s remove ak47sound",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.shoot2",
+            "/playanimation @s ak103aftershoot",
+            "/stopsound @a ak47_shoot.mw",
+            "/stopsound @a ak47_shoot_dis.mw",
+            "/stopsound @a ak47_shoot_med_dis.mw",
+            "/stopsound @a ak47_shoot_far_dis.mw",
+            "/stopsound @a ak47_shoot_near.mw",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot.mw @a[r=35,rm=1]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_near.mw @a[r=70,rm=35]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_dis.mw @a[r=105,rm=70]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_med_dis.mw @a[r=140,rm=105]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        },
+        "stop6": {
+          "on_entry": [
+            "/playsound ak103.stop @s[tag=!sneak]",
+            "/playsound ak103.stop2 @s[tag=sneak]",
+            "/playsound ak47_stop.mw @a[rm=1,r=35]",
+            "/playsound ak47_stop_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_stop_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_stop_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_stop_far_dis.mw @a[rm=140]",
+            "/tag @s remove ak47sound",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.shoot2",
+            "/playanimation @s ak103aftershoot",
+            "/stopsound @a ak47_shoot.mw",
+            "/stopsound @a ak47_shoot_dis.mw",
+            "/stopsound @a ak47_shoot_med_dis.mw",
+            "/stopsound @a ak47_shoot_far_dis.mw",
+            "/stopsound @a ak47_shoot_near.mw",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot.mw @a[r=35,rm=1]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_near.mw @a[r=70,rm=35]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_dis.mw @a[r=105,rm=70]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_med_dis.mw @a[r=140,rm=105]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        },
+        "stop7": {
+          "on_entry": [
+            "/playsound ak103.stop @s[tag=!sneak]",
+            "/playsound ak103.stop2 @s[tag=sneak]",
+            "/playsound ak47_stop.mw @a[rm=1,r=35]",
+            "/playsound ak47_stop_near.mw @a[rm=35,r=70]",
+            "/playsound ak47_stop_dis.mw @a[rm=70,r=105]",
+            "/playsound ak47_stop_med_dis.mw @a[rm=105,r=140]",
+            "/playsound ak47_stop_far_dis.mw @a[rm=140]",
+            "/tag @s remove ak47sound",
+            "/stopsound @s ak103.shoot",
+            "/stopsound @s ak103.shoot2",
+            "/playanimation @s ak103aftershoot",
+            "/stopsound @a ak47_shoot.mw",
+            "/stopsound @a ak47_shoot_dis.mw",
+            "/stopsound @a ak47_shoot_med_dis.mw",
+            "/stopsound @a ak47_shoot_far_dis.mw",
+            "/stopsound @a ak47_shoot_near.mw",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot.mw @a[r=35,rm=1]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_near.mw @a[r=70,rm=35]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_dis.mw @a[r=105,rm=70]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_med_dis.mw @a[r=140,rm=105]",
+            "/execute @a[tag=ak47sound] ~~~ playsound ak47_shoot_far_dis.mw @a[rm=140]"
+          ],
+          "transitions": [
+            {
+              "default": "(1.0)"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "format_version": "1.10.0"
+}

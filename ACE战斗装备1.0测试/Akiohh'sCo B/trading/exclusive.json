@@ -1,0 +1,134 @@
+{
+	"tiers": [
+		{
+			"groups": [
+				{
+					"num_to_select": 3,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 20
+								},
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:mosin"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:advanced_leggings"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 15
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:advanced_boots"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 35
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:ghost_helmet"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 50
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:advanced_vest"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 15
+								}
+							],
+							"gives": [
+								{
+									"item": "armor:hazmat_pants"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							],
+							"gives": [
+								{
+									"item": "armor:hazmat_boots"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							],
+							"gives": [
+								{
+									"item": "hengker:hazmat_helmet"
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 25
+								}
+							],
+							"gives": [
+								{
+									"item": "armor:hazmat_suit"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}

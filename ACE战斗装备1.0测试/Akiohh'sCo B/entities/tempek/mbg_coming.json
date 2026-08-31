@@ -1,0 +1,288 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "bridge:mbg_coming",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"scripts": {
+				"animate": [
+					"cooldown"
+				]
+			},
+			"animations": {
+				"cooldown": "controller.animation.extraction_cooldown"
+			}
+		},
+		"component_groups": {
+			"time:down": {
+				"minecraft:timer": {
+					"looping": false,
+					"time": 12.7,
+					"time_down_event": {
+						"target": "self",
+						"event": "emut_titit_ayang"
+					}
+				}
+			},
+			"nyepong:gagal": {
+				"minecraft:variant": {
+					"value": 0
+				},
+				"minecraft:timer": {
+					"looping": false,
+					"time": 3.3,
+					"time_down_event": {
+						"target": "self",
+						"event": "sitempek"
+					}
+				}
+			},
+			"jilmek:gagal": {
+				"minecraft:variant": {
+					"value": 0
+				},
+				"minecraft:interact": {
+					"interactions": {
+						"use_item": true,
+						"interact_text": "付费提取",
+						"on_interact": {
+							"filters": {
+								"all_of": [
+									{
+										"subject": "player",
+										"test": "has_equipment",
+										"domain": "main_hand",
+										"value": "bridge:minedollar16"
+									}
+								]
+							},
+							"target": "self",
+							"event": "dibayar"
+						}
+					}
+				}
+			},
+			"abis:dibayar": {
+				"minecraft:variant": {
+					"value": 0
+				},
+				"minecraft:rideable": {
+					"interact_text": "骑",
+					"family_types": [
+						"player"
+					],
+					"rider_can_interact": false,
+					"pull_in_entities": false,
+					"seat_count": 4,
+					"seats": [
+						{
+							"min_rider_count": 0,
+							"max_rider_count": 4,
+							"position": [
+								-0.7,
+								0.8,
+								-1
+							]
+						},
+						{
+							"min_rider_count": 1,
+							"max_rider_count": 4,
+							"position": [
+								0.7,
+								0.8,
+								-1
+							]
+						},
+						{
+							"min_rider_count": 2,
+							"max_rider_count": 4,
+							"position": [
+								0.7,
+								0.8,
+								-1.7
+							]
+						},
+						{
+							"min_rider_count": 3,
+							"max_rider_count": 4,
+							"position": [
+								-0.7,
+								0.8,
+								-1.7
+							]
+						}
+					]
+				}
+			},
+			"nyepong:pejuh": {
+				"minecraft:variant": {
+					"value": 1
+				}
+			},
+			"budhal": {
+				"minecraft:mark_variant": {
+					"value": 1
+				},
+				"minecraft:timer": {
+					"looping": false,
+					"time": 4.13,
+					"time_down_event": {
+						"event": "meluncur",
+						"target": "self"
+					}
+				}
+			},
+			"siapsiap": {
+				"minecraft:mark_variant": {
+					"value": 0
+				}
+			},
+			"nyepong:sukses": {
+				"minecraft:variant": {
+					"value": 1
+				},
+				"minecraft:timer": {
+					"looping": false,
+					"time": 4.13,
+					"time_down_event": {
+						"event": "meluncur",
+						"target": "self"
+					}
+				}
+			},
+			"jilmek:sukses": {
+				"minecraft:transformation": {
+					"delay": 1.87,
+					"into": "splash_potion"
+				}
+			}
+		},
+		"components": {
+			"minecraft:health": {
+				"value": 2
+			},
+			"minecraft:collision_box": {
+				"height": 2.6,
+				"width": 2.3
+			},
+			"minecraft:pushable": {
+				"is_pushable": false,
+				"is_pushable_by_piston": false
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "damager",
+										"value": "player"
+									},
+									{
+										"test": "has_ability",
+										"subject": "damager",
+										"value": "instabuild"
+									}
+								]
+							}
+						},
+						"deals_damage": true,
+						"damage_multiplier": 1
+					},
+					{
+						"on_damage": {},
+						"deals_damage": false
+					}
+				]
+			},
+			"minecraft:type_family": {
+				"family": [
+					"villager",
+					"flare"
+				]
+			}
+		},
+		"events": {
+			"minecraft:entity_transformed": {
+				"queue_command": {
+					"command": [
+						"event entity @s jilat_memek_ayang",
+						"scoreboard players set @s cd 15"
+					]
+				}
+			},
+			"dibayar": {
+				"remove": {
+					"component_groups": [
+						"jilmek:gagal"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"abis:dibayar"
+					]
+				}
+			},
+			"emut_titit_ayang": {
+				"add": {
+					"component_groups": [
+						"nyepong:pejuh",
+						"budhal"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"jilmek:gagal",
+						"jilmek:sukses",
+						"nyepong:gagal",
+						"time:down"
+					]
+				}
+			},
+			"jilat_memek_ayang": {
+				"remove": {
+					"component_groups": [
+						"nyepong:sukses",
+						"siapsiap"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"nyepong:gagal"
+					]
+				}
+			},
+			"sitempek": {
+				"remove": {
+					"component_groups": [
+						"nyepong:gagal"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"time:down",
+						"jilmek:gagal"
+					]
+				}
+			},
+			"meluncur": {
+				"queue_command": {
+					"target": "self",
+					"command": [
+						"camera @a[r=2] fade time 0 4 3 color 0 0 0",
+						"execute as @s run scriptevent hengker:player_extract"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"jilmek:sukses"
+					]
+				}
+			}
+		}
+	}
+}

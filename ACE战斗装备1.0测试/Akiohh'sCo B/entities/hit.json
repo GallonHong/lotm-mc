@@ -1,0 +1,238 @@
+{
+	"format_version": "1.20.10",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "hengker:hit",
+			"runtime_identifier": "minecraft:snowball",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"component_groups": {
+			"normal": {
+				"minecraft:projectile": {
+					"on_hit": {
+						"stick_in_ground": {
+							"shake_time": 0
+						},
+						"definition_event": {
+							"affect_projectile": true,
+							"eventTrigger": {
+								"event": "on:hit",
+								"target": "self"
+							}
+						},
+						"remove_on_hit": {}
+					},
+					"power": 40,
+					"gravity": 0.2,
+					"inertia": 1,
+					"offset": [
+						-0.04,
+						-0.19,
+						0
+					],
+					"reflectOnHurt": false,
+					"stop_on_hurt": true,
+					"uncertainty_base": 5,
+					"crit_particle_on_hurt": true,
+					"uncertaintyMultiplier": 2.5
+				}
+			},
+			"aim": {
+				"minecraft:projectile": {
+					"on_hit": {
+						"impact_damage": {
+							"damage": [
+								5,
+								6
+							],
+							"knockback": true
+						},
+						"stick_in_ground": {
+							"shake_time": 0
+						},
+						"definition_event": {
+							"affect_projectile": true,
+							"eventTrigger": {
+								"event": "on:hit",
+								"target": "self"
+							}
+						},
+						"remove_on_hit": {}
+					},
+					"power": 2,
+					"gravity": 0.1,
+					"inertia": 1,
+					"offset": [
+						0,
+						0,
+						0
+					],
+					"reflectOnHurt": false,
+					"stop_on_hurt": false,
+					"uncertainty_base": 12,
+					"uncertaintyMultiplier": 2.5,
+					"crit_particle_on_hurt": true
+				}
+			},
+			"despawn": {
+				"minecraft:instant_despawn": {}
+			},
+			"delay": {
+				"minecraft:timer": {
+					"looping": true,
+					"time": 0.02,
+					"time_down_event": {
+						"event": "hengker:despawn"
+					}
+				}
+			},
+			"hit": {
+				"minecraft:explode": {
+					"causes_fire": false,
+					"destroy_affected_by_griefing": true,
+					"fire_affected_by_griefing": true,
+					"fuse_length": 0.1,
+					"fuse_lit": true,
+					"power": 0
+				},
+				"minecraft:is_tamed": {}
+			}
+		},
+		"components": {
+			"minecraft:environment_sensor": {
+				"triggers": [
+					{
+						"event": "hengker:despawn",
+						"target": "self",
+						"filters": {
+							"test": "in_water",
+							"value": true
+						}
+					}
+				]
+			},
+			"minecraft:type_family": {
+				"family": [
+					"bullet"
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 0.1,
+				"height": 0.1
+			},
+			"minecraft:physics": {},
+			"minecraft:break_blocks": {
+				"breakable_blocks": [
+					"lantern",
+					"glass",
+					"glass_pane",
+					"hard_glass",
+					"hard_glass_pane",
+					"tinted_glass",
+					"bamboo",
+					"cocoa",
+					"carved_pumpkin",
+					"chorus_flower",
+					"chorus_plant",
+					"lit_pumpkin",
+					"melon_block",
+					"pumpkin",
+					"turtle_egg",
+					"waterlily",
+					"cave_vines",
+					"cave_vines_body_with_berries",
+					"cave_vines_head_with_berries",
+					"small_dripleaf_block",
+					"big_dripleaf",
+					"oak_leaves",
+					"spruce_leaves",
+					"birch_leaves",
+					"jungle_leaves",
+					"acacia_leaves",
+					"dark_oak_leaves",
+					"mangrove_leaves",
+					"cherry_leaves",
+					"azalea_leaves",
+					"azalea_leaves_flowered",
+					"white_stained_glass",
+					"orange_stained_glass",
+					"magenta_stained_glass",
+					"light_blue_stained_glass",
+					"yellow_stained_glass",
+					"lime_stained_glass",
+					"pink_stained_glass",
+					"gray_stained_glass",
+					"light_gray_stained_glass",
+					"cyan_stained_glass",
+					"purple_stained_glass",
+					"blue_stained_glass",
+					"brown_stained_glass",
+					"green_stained_glass",
+					"red_stained_glass",
+					"black_stained_glass",
+					"white_stained_glass_pane",
+					"orange_stained_glass_pane",
+					"magenta_stained_glass_pane",
+					"light_blue_stained_glass_pane",
+					"yellow_stained_glass_pane",
+					"lime_stained_glass_pane",
+					"pink_stained_glass_pane",
+					"gray_stained_glass_pane",
+					"light_gray_stained_glass_pane",
+					"cyan_stained_glass_pane",
+					"purple_stained_glass_pane",
+					"blue_stained_glass_pane",
+					"brown_stained_glass_pane",
+					"green_stained_glass_pane",
+					"red_stained_glass_pane",
+					"black_stained_glass_pane"
+				]
+			},
+			"minecraft:despawn": {
+				"despawn_from_distance": {
+					"max_distance": 4,
+					"min_distance": 4
+				}
+			}
+		},
+		"events": {
+			"hengker:normal": {
+				"add": {
+					"component_groups": [
+						"normal"
+					]
+				}
+			},
+			"hengker:aim": {
+				"add": {
+					"component_groups": [
+						"aim"
+					]
+				}
+			},
+			"hengker:despawn": {
+				"add": {
+					"component_groups": [
+						"despawn"
+					]
+				}
+			},
+			"hengker:delay": {
+				"add": {
+					"component_groups": [
+						"delay"
+					]
+				}
+			},
+			"on:hit": {
+				"add": {
+					"component_groups": [
+						"hit"
+					]
+				}
+			}
+		}
+	}
+}

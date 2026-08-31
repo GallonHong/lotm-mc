@@ -1,0 +1,29 @@
+{
+	"num_mip_levels": 4,
+	"padding": 8,
+	"resource_pack_name": "Akiohh's Combat Equipment (ACE)",
+	"texture_name": "atlas.terrain",
+	"texture_data": {
+		"hengker_empty": {
+			"textures": "textures/kosong"
+		},
+		"bridge_flare": {
+			"textures": "textures/blocks/flare"
+		},
+		"bridge_military_crate": {
+			"textures": "textures/blocks/military_crate"
+		},
+		"bridge_tank": {
+			"textures": "textures/blocks/tankgoldblock"
+		},
+		"bridge_router": {
+			"textures": "textures/blocks/router"
+		},
+		"bridge_ammo_box": {
+			"textures": "textures/blocks/ammo_box"
+		},
+		"bridge_safe": {
+			"textures": "textures/blocks/case"
+		}
+	}
+}

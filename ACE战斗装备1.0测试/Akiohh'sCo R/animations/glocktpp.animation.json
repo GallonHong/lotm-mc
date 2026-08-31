@@ -1,0 +1,1067 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.glock.tpp_hold": {
+			"loop": true,
+			"override_previous_animation": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"leftArm": {
+					"rotation": [
+						"-128.1772+query.target_x_rotation",
+						23.9275,
+						-26.3409
+					],
+					"position": [
+						-3,
+						-5,
+						-5
+					]
+				},
+				"rightArm": {
+					"rotation": [
+						"-90+query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"stick": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					],
+					"position": [
+						-5,
+						19.9,
+						-13.5
+					],
+					"scale": 0.8
+				}
+			}
+		},
+		"animation.glock.tpp_maginsert": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1.25,
+			"override_previous_animation": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						],
+						"0.3333": [
+							-220.4307,
+							68.4527,
+							-164.1777
+						],
+						"0.4167": [
+							-220.4307,
+							68.4527,
+							-164.1777
+						],
+						"0.625": [
+							-119.7431,
+							55.7014,
+							-56.9566
+						],
+						"0.7083": [
+							-119.7431,
+							55.7014,
+							-56.9566
+						],
+						"0.875": [
+							-144.7431,
+							55.7014,
+							-56.9566
+						],
+						"1.0": [
+							-144.74,
+							55.7,
+							-56.96
+						],
+						"1.25": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						]
+					},
+					"position": {
+						"0.0": [
+							-3,
+							-5,
+							-5
+						],
+						"0.3333": [
+							1,
+							-5,
+							-4
+						],
+						"0.4167": [
+							1,
+							-5,
+							-4
+						],
+						"0.625": [
+							1,
+							-5,
+							-4
+						],
+						"1.0": [
+							1,
+							-5,
+							-4
+						],
+						"1.25": [
+							-3,
+							-5,
+							-5
+						]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							-112.5,
+							-22.5,
+							0
+						],
+						"1.0": [
+							-112.5,
+							-22.5,
+							0
+						],
+						"1.25": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						]
+					},
+					"position": {
+						"0.25": [
+							0,
+							-2,
+							0
+						],
+						"1.0": [
+							0,
+							-2,
+							0
+						]
+					}
+				},
+				"stick": {
+					"rotation": {
+						"0.0": [
+							"query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							-22.5,
+							-22.5,
+							0
+						],
+						"1.0": [
+							-22.5,
+							-22.5,
+							0
+						],
+						"1.25": [
+							"query.target_x_rotation",
+							0,
+							0
+						]
+					},
+					"position": {
+						"0.0": [
+							-5,
+							19.9,
+							-13.5
+						],
+						"0.25": [
+							-5,
+							17.9,
+							-13.5
+						],
+						"1.0": [
+							-5,
+							17.9,
+							-13.5
+						],
+						"1.25": [
+							-5,
+							19.9,
+							-13.5
+						]
+					},
+					"scale": 0.8
+				},
+				"mag_hand2": {
+					"position": {
+						"0.625": [
+							2,
+							-7,
+							0
+						],
+						"0.7083": [
+							2,
+							-7,
+							0
+						],
+						"0.875": [
+							0,
+							0,
+							0
+						],
+						"1.0": [
+							0,
+							0,
+							0
+						]
+					},
+					"scale": {
+						"0.625": {
+							"pre": [
+								0,
+								0,
+								0
+							],
+							"post": [
+								1,
+								1,
+								1
+							]
+						}
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "scar_offarm"
+				},
+				"0.75": {
+					"effect": "glock17_mag_in"
+				}
+			}
+		},
+		"animation.glock.tpp_magpull": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"override_previous_animation": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						],
+						"0.1667": [
+							-128.9006,
+							25.8856,
+							-28.0573
+						],
+						"0.25": [
+							-139.6609,
+							42.166,
+							-46.9757
+						],
+						"0.375": [
+							-139.66,
+							42.17,
+							-46.98
+						],
+						"0.5": [
+							-119.7431,
+							55.7014,
+							-56.9566
+						],
+						"0.75": [
+							-220.4307,
+							68.4527,
+							-164.1777
+						],
+						"1.0": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						]
+					},
+					"position": {
+						"0.0": [
+							-3,
+							-5,
+							-5
+						],
+						"0.25": [
+							1,
+							-5,
+							-4
+						],
+						"0.375": [
+							1,
+							-5,
+							-4
+						],
+						"0.75": [
+							1,
+							-5,
+							-4
+						],
+						"1.0": [
+							-3,
+							-5,
+							-5
+						]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							-112.5,
+							-22.5,
+							0
+						],
+						"0.75": [
+							-112.5,
+							-22.5,
+							0
+						],
+						"1.0": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						]
+					},
+					"position": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.25": [
+							0,
+							-2,
+							0
+						],
+						"0.75": [
+							0,
+							-2,
+							0
+						],
+						"1.0": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"stick": {
+					"rotation": {
+						"0.0": [
+							"query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							-22.5,
+							-22.5,
+							0
+						],
+						"0.75": [
+							-22.5,
+							-22.5,
+							0
+						],
+						"1.0": [
+							"query.target_x_rotation",
+							0,
+							0
+						]
+					},
+					"position": {
+						"0.0": [
+							-5,
+							19.9,
+							-13.5
+						],
+						"0.25": [
+							-5,
+							17.9,
+							-13.5
+						],
+						"0.75": [
+							-5,
+							17.9,
+							-13.5
+						],
+						"1.0": [
+							-5,
+							19.9,
+							-13.5
+						]
+					},
+					"scale": 0.8
+				},
+				"mag_hand2": {
+					"position": {
+						"0.375": [
+							0,
+							0,
+							0
+						],
+						"0.5": [
+							2,
+							-7,
+							0
+						]
+					},
+					"scale": {
+						"0.5": {
+							"pre": [
+								1,
+								1,
+								1
+							],
+							"post": [
+								0,
+								0,
+								0
+							]
+						}
+					}
+				}
+			},
+			"sound_effects": {
+				"0.375": {
+					"effect": "glock17_mag_out"
+				}
+			}
+		},
+		"animation.glock.tpp_magcheck": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1.9167,
+			"override_previous_animation": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						],
+						"0.1667": [
+							-128.9006,
+							25.8856,
+							-28.0573
+						],
+						"0.25": [
+							-139.6609,
+							42.166,
+							-46.9757
+						],
+						"0.375": [
+							-139.66,
+							42.17,
+							-46.98
+						],
+						"0.5": [
+							-119.7431,
+							55.7014,
+							-56.9566
+						],
+						"0.6667": [
+							-142.2431,
+							55.7014,
+							-56.9566
+						],
+						"1.25": [
+							-142.24,
+							55.7,
+							-56.96
+						],
+						"1.4167": [
+							-119.74,
+							55.7,
+							-56.96
+						],
+						"1.6667": [
+							-142.24,
+							55.7,
+							-56.96
+						],
+						"1.9167": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						]
+					},
+					"position": {
+						"0.0": [
+							-3,
+							-5,
+							-5
+						],
+						"0.25": [
+							1,
+							-5,
+							-4
+						],
+						"0.375": [
+							1,
+							-5,
+							-4
+						],
+						"1.6667": [
+							1,
+							-5,
+							-4
+						],
+						"1.9167": [
+							-3,
+							-5,
+							-5
+						]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							-112.5,
+							-22.5,
+							0
+						],
+						"0.5": [
+							-112.5,
+							-22.5,
+							0
+						],
+						"0.6667": [
+							-110.7127,
+							-1.5422,
+							-8.4241
+						],
+						"1.25": [
+							-110.71,
+							-1.54,
+							-8.42
+						],
+						"1.4167": [
+							-112.4968,
+							-22.4982,
+							0.003
+						],
+						"1.6667": [
+							-112.5,
+							-22.5,
+							0
+						],
+						"1.9167": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						]
+					},
+					"position": {
+						"0.0": [
+							0,
+							0,
+							0
+						],
+						"0.25": [
+							0,
+							-2,
+							0
+						],
+						"0.5": [
+							0,
+							-2,
+							0
+						],
+						"1.6667": [
+							0,
+							-2,
+							0
+						],
+						"1.9167": [
+							0,
+							0,
+							0
+						]
+					}
+				},
+				"stick": {
+					"rotation": {
+						"0.0": [
+							"query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							-22.5,
+							-22.5,
+							0
+						],
+						"0.5": [
+							-22.5,
+							-22.5,
+							0
+						],
+						"0.6667": [
+							-20.7127,
+							-1.5422,
+							-8.4242
+						],
+						"1.25": [
+							-20.71,
+							-1.54,
+							-8.42
+						],
+						"1.4167": [
+							-22.4968,
+							-22.4982,
+							0.003
+						],
+						"1.7083": [
+							-22.5,
+							-22.5,
+							0
+						],
+						"1.9167": [
+							"query.target_x_rotation",
+							0,
+							0
+						]
+					},
+					"position": {
+						"0.0": [
+							-5,
+							19.9,
+							-13.5
+						],
+						"0.25": [
+							-5,
+							17.9,
+							-13.5
+						],
+						"0.5": [
+							-5,
+							17.9,
+							-13.5
+						],
+						"1.7083": [
+							-5,
+							17.9,
+							-13.5
+						],
+						"1.9167": [
+							-5,
+							19.9,
+							-13.5
+						]
+					},
+					"scale": 0.8
+				},
+				"mag_hand2": {
+					"position": {
+						"0.375": [
+							0,
+							0,
+							0
+						],
+						"0.5": [
+							2,
+							-7,
+							0
+						],
+						"0.6667": [
+							2,
+							-2,
+							-4
+						],
+						"1.25": [
+							2,
+							-2,
+							-4
+						],
+						"1.4167": [
+							2,
+							-6,
+							0
+						],
+						"1.6667": [
+							0,
+							0,
+							0
+						]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.375": {
+					"effect": "glock17_mag_out"
+				},
+				"1.4583": {
+					"effect": "glock17_mag_in"
+				}
+			}
+		},
+		"animation.glock.tpp_run": {
+			"loop": true,
+			"override_previous_animation": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"leftArm": {
+					"rotation": [
+						-98.1772,
+						23.9275,
+						-26.3409
+					],
+					"position": [
+						-2,
+						-5,
+						-1
+					]
+				},
+				"rightArm": {
+					"rotation": [
+						-65.8513,
+						-20.7048,
+						-9.0072
+					]
+				},
+				"stick": {
+					"rotation": [
+						22.5,
+						-22.5,
+						0
+					],
+					"position": [
+						-5,
+						19.9,
+						-13.5
+					],
+					"scale": 0.8
+				}
+			}
+		},
+		"animation.glock.tpp_draw": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"override_previous_animation": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							-60.6772,
+							23.9275,
+							-26.3409
+						],
+						"0.25": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						]
+					},
+					"position": [
+						-3,
+						-5,
+						-5
+					]
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							-22.5,
+							0,
+							0
+						],
+						"0.25": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						]
+					}
+				},
+				"stick": {
+					"rotation": {
+						"0.0": [
+							67.5,
+							0,
+							0
+						],
+						"0.25": [
+							"query.target_x_rotation",
+							0,
+							0
+						]
+					},
+					"position": [
+						-5,
+						19.9,
+						-13.5
+					],
+					"scale": 0.8
+				}
+			}
+		},
+		"animation.glock.tpp_unequip": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"override_previous_animation": true,
+			"bones": {
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					]
+				},
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"-128.1772+query.target_x_rotation",
+							23.9275,
+							-26.3409
+						],
+						"0.25": [
+							-60.6772,
+							23.9275,
+							-26.3409
+						]
+					},
+					"position": {
+						"0.0": [
+							-3,
+							-5,
+							-5
+						],
+						"0.25": [
+							-1,
+							-5,
+							-1
+						]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"-90+query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							-22.5,
+							0,
+							0
+						]
+					}
+				},
+				"stick": {
+					"rotation": {
+						"0.0": [
+							"query.target_x_rotation",
+							0,
+							0
+						],
+						"0.25": [
+							67.5,
+							0,
+							0
+						]
+					},
+					"position": [
+						-5,
+						19.9,
+						-13.5
+					],
+					"scale": 0.8
+				}
+			}
+		},
+		"animation.glock.tpp_aim": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [
+						0,
+						-1,
+						0
+					]
+				},
+				"body": {
+					"rotation": [
+						0,
+						"query.target_y_rotation",
+						0
+					]
+				},
+				"head": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						-22.5
+					]
+				},
+				"leftArm": {
+					"rotation": [
+						"-128.1772+query.target_x_rotation",
+						23.9275,
+						-26.3409
+					],
+					"position": [
+						-3,
+						-6,
+						-5
+					]
+				},
+				"rightArm": {
+					"rotation": [
+						"-90+query.target_x_rotation",
+						0,
+						0
+					],
+					"position": [
+						1,
+						-1,
+						0
+					]
+				},
+				"rightLeg": {
+					"rotation": [
+						37.5,
+						0,
+						0
+					]
+				},
+				"leftLeg": {
+					"position": [
+						0,
+						1,
+						-4
+					]
+				},
+				"stick": {
+					"rotation": [
+						"query.target_x_rotation",
+						0,
+						0
+					],
+					"position": [
+						-4,
+						18.9,
+						-13.5
+					],
+					"scale": 0.8
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,794 @@
+{
+	"format_version": "1.21.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "minecraft:player",
+			"materials": {
+				"gun": "enderman",
+				"default": "entity_alphatest",
+				"scope": "entity_alphablend",
+				"murup": "entity_emissive",
+				"glow": "entity_beam_additive",
+				"lampu": "beacon_beam_transparent",
+				"cape": "entity_alphatest",
+				"animated": "player_animated",
+				"spectator": "player_spectator"
+			},
+			"textures": {
+				"default": "textures/entity/steve",
+				"cape": "textures/entity/cape_invisible",
+				"slot_icon": "textures/ui/refit_slot_icons",
+				"aug_acog": "textures/entity/aug_acog",
+				"aug": "textures/entity/aug",
+				"scar": "textures/entity/scar",
+				"tactile": "textures/entity/tactile_tpp",
+				"tactile_scout": "textures/entity/tactile",
+				"tactile_acog": "textures/entity/tactile_acog",
+				"barret": "textures/entity/barret",
+				"hb": "textures/entity/honey_badger",
+				"advanced_vest": "textures/entity/armor/ninjasuit",
+				"hazmat_vest": "textures/entity/armor/hazmat_suit",
+				"hkc": "textures/entity/hkc",
+				"ram": "textures/entity/ram",
+				"dvd": "textures/entity/dvd",
+				"router": "textures/entity/router",
+				"backpack": "textures/entity/backpack",
+				"mosin": "textures/entity/Mosin",
+				"tank": "textures/entity/tankgold",
+				"glock": "textures/entity/glock",
+				"colt": "textures/entity/colt",
+				"green": "textures/greeeeeeeeennnnnnnnnn"
+			},
+			"geometry": {
+				"default": "geometry.humanoid.custom",
+				"dipault": "geometry.humanoid.wedok",
+				"cape": "geometry.cape",
+				"flashlight": "geometry.flash_pointer",
+				"ram_tpp": "geometry.ram_tpp",
+				"dvd_tpp": "geometry.dvd_tpp",
+				"router_tpp": "geometry.router_tpp",
+				"tank_tpp": "geometry.tank_tpp",
+				"aug_fpp": "geometry.aug_fpp",
+				"aug_slot": "geometry.aug_slot",
+				"scar_tpp": "geometry.scar_tpp",
+				"scar_acog": "geometry.scar_acog",
+				"scar_tele": "geometry.scar_tele",
+				"scar_magnifier": "geometry.scar_magnifier",
+				"scar_particle": "geometry.scar_particle",
+				"mosin_fpp": "geometry.mosin_fpp",
+				"mosin_tpp": "geometry.mosin_tpp",
+				"mosin_telescope": "geometry.mosin_telescope",
+				"mosin_particle": "geometry.mosin_particle",
+				"mosin_slot": "geometry.mosin_slot",
+				"glock_tpp": "geometry.glock_tpp",
+				"glock_slot": "geometry.glock_slot",
+				"colt_tpp": "geometry.colt_tpp",
+				"glock_particle": "geometry.glock_particle",
+				"hb_tpp": "geometry.hb_tpp",
+				"hb_acog": "geometry.hb_acog",
+				"hb_tele": "geometry.hb_tele",
+				"hb_magnifier": "geometry.hb_magnifier",
+				"hb_particle": "geometry.hb_particle",
+				"hb_slot": "geometry.hb_slot",
+				"hkc_tpp": "geometry.hkc_tpp",
+				"hkc_acog": "geometry.hkc_acog",
+				"hkc_tele": "geometry.hkc_tele",
+				"hkc_magnifier": "geometry.hkc_magnifier",
+				"hkc_particle": "geometry.hkc_particle",
+				"hkc_slot": "geometry.hkc_slot",
+				"tactile_tpp": "geometry.tactile_tpp",
+				"tactile_acog": "geometry.tactile_acog",
+				"tactile_scout": "geometry.tactile_scout",
+				"tactile_particle": "geometry.tactile_particle",
+				"tactile_slot": "geometry.tactile_slot",
+				"barret_tpp": "geometry.barret_tpp",
+				"barret_scout": "geometry.barret_scout",
+				"barret_particle": "geometry.barret_particle",
+				"barret_slot": "geometry.barret_slot",
+				"advanced_vest": "geometry.advanced_armor",
+				"advanced_armed": "geometry.advanced_armed",
+				"hazmat_vest": "geometry.hazmat_gloves",
+				"hazmat_armed": "geometry.hazmat_armed",
+				"nightvision": "geometry.nightvision",
+				"crosshair_laser": "geometry.crosshair_fpp",
+				"backpack": "geometry.backpack",
+				"backpack_open": "geometry.backpack_open"
+			},
+			"scripts": {
+				"scale": "0.9375",
+				"initialize": [
+					"variable.is_holding_right = 0.0;",
+					"variable.is_blinking = 0.0;",
+					"variable.last_blink_time = 0.0;",
+					"variable.hand_bob = 0.0;"
+				],
+				"pre_animation": [
+					"variable.is_third_person = (!variable.is_first_person && !variable.map_face_icon && !variable.is_paperdoll);",
+					"variable.helmet_layer_visible = !query.has_head_gear;",
+					"variable.leg_layer_visible = 1.0;",
+					"variable.boot_layer_visible = 1.0;",
+					"variable.chest_layer_visible = 1.0;",
+					"variable.attack_body_rot_y = Math.sin(360*Math.sqrt(variable.attack_time)) * 5.0;",
+					"variable.tcos0 = (math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;",
+					"variable.first_person_rotation_factor = math.sin((1 - variable.attack_time) * 180.0);",
+					"variable.first_person_item_rotation_factor = math.sin((1 - variable.attack_time) * 180.0);",
+					"variable.hand_bob = query.life_time < 0.01 ? 0.0 : variable.hand_bob + ((query.is_on_ground && query.is_alive ? math.clamp(math.sqrt(math.pow(query.position_delta(0), 2.0) + math.pow(query.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - variable.hand_bob) * 0.02;",
+					"variable.map_angle = math.clamp(1 - variable.player_x_rotation / 45.1, 0.0, 1.0);",
+					"variable.item_use_normalized = query.main_hand_item_use_duration / query.main_hand_item_max_duration;",
+					"variable.riding_y_offset = query.is_riding_any_entity_of_type('minecraft:minecart', 'minecraft:boat', 'minecraft:chest_boat', 'minecraft:strider') ? -3.0 : 0.0;",
+					"variable.equip_gun = !v.is_paperdoll ? query.mark_variant != 0;",
+					"variable.ram_loot = !v.is_paperdoll ? query.mark_variant == 8;",
+					"variable.dvd_loot = !v.is_paperdoll ? query.mark_variant == 9;",
+					"variable.router_loot = !v.is_paperdoll ? query.mark_variant == 11;",
+					"variable.tank_loot = !v.is_paperdoll ? query.mark_variant == 12;",
+					"variable.glock_gun = !v.is_paperdoll ? query.mark_variant == 10;",
+					"variable.glock_refresh = !v.is_paperdoll ? !query.mark_variant == 10 && q.property('hengker:reload') != 'n';",
+					"variable.glock_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:glock') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.colt_gun = !v.is_paperdoll ? query.mark_variant == 13;",
+					"variable.colt_refresh = !v.is_paperdoll ? !query.mark_variant == 13 && q.property('hengker:reload') != 'n';",
+					"variable.colt_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:colt') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.mosin_gun = !v.is_paperdoll ? query.mark_variant == 7;",
+					"variable.mosin_refresh = !v.is_paperdoll ? !query.mark_variant == 7 && q.property('hengker:reload') != 'n';",
+					"variable.mosin_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:mosin') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.scar_gun = !v.is_paperdoll ? query.mark_variant == 2;",
+					"variable.scar_refresh = !v.is_paperdoll ? !query.mark_variant == 2 && q.property('hengker:reload') != 'n';",
+					"variable.scar_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:scar') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.hkc_gun = !v.is_paperdoll ? query.mark_variant == 6;",
+					"variable.hkc_refresh = !v.is_paperdoll ? !query.mark_variant == 6 && q.property('hengker:reload') != 'n';",
+					"variable.hkc_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hkc') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.hb_gun = !v.is_paperdoll ? query.mark_variant == 5;",
+					"variable.hb_refresh = !v.is_paperdoll ? !query.mark_variant == 5 && q.property('hengker:reload') != 'n';",
+					"variable.hb_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.barret_gun = !v.is_paperdoll ? query.mark_variant == 4;",
+					"variable.barret_refresh = !v.is_paperdoll ? !query.mark_variant == 4 && q.property('hengker:reload') != 'n';",
+					"variable.barret_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:barret') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.tactile_gun = !v.is_paperdoll ? query.mark_variant == 3;",
+					"variable.tactile_refresh = !v.is_paperdoll ? !query.mark_variant == 3 && q.property('hengker:reload') != 'n';",
+					"variable.tactile_slot = !v.is_paperdoll ? query.is_item_name_any('slot.weapon.mainhand',0,'hengker:tactile') && query.property('hengker:reload') == 'heal' && !query.is_sneaking;",
+					"variable.flashlight_gun = v.glock_gun || v.scar_gun || v.hb_gun || v.hkc_gun || v.colt_gun;",
+					"variable.equip_rifle = v.scar_gun || v.hb_gun || v.hkc_gun;",
+					"variable.advanced_vest = query.equipped_item_any_tag('slot.armor.chest', 'advanced_vest');",
+					"variable.hazmat_vest = query.equipped_item_any_tag('slot.armor.chest', 'hazmat_suit');",
+					"variable.green_vision = query.equipped_item_any_tag('slot.armor.head', 'green_vision');",
+					"variable.backpack = query.is_item_name_any('slot.hotbar',0,'hengker:backpack');",
+					"variable.backpack_open = query.is_item_name_any('slot.hotbar',0,'hengker:backpack_open');"
+				],
+				"animate": [
+					"root",
+					"ram_fpp_controller",
+					"ram_tpp_controller",
+					"tank_fpp_controller",
+					"tank_tpp_controller",
+					"dvd_fpp_controller",
+					"dvd_tpp_controller",
+					"router_fpp_controller",
+					"router_tpp_controller",
+					"mosin_fpp_controller",
+					"mosin_tpp_controller",
+					"mosin_aim_fpp",
+					"scar_fpp_controller",
+					"scar_tpp_controller",
+					"hb_fpp_controller",
+					"hb_tpp_controller",
+					"tactile_fpp_controller",
+					"tactile_tpp_controller",
+					"tactile_aim_controller",
+					"barret_fpp_controller",
+					"barret_tpp_controller",
+					"hkc_fpp_controller",
+					"hkc_tpp_controller",
+					"glock_fpp_controller",
+					"glock_tpp_controller",
+					"colt_fpp_controller",
+					"colt_tpp_controller",
+					"gun_attack_controller",
+					"gun_walk_controller",
+					"gun_aim_controller",
+					"gun_hold_controller",
+					"gun_hipfire_controller",
+					{
+						"laser_off": "q.property('mk556:laser')=='n'"
+					},
+					{
+						"flashlight": "!query.is_item_name_any('slot.weapon.offhand',0,'bridge:flashlight')"
+					},
+					{
+						"glock_empty": "(v.glock_gun||v.colt_gun)&&q.property('pistol:anim')=='empty'"
+					},
+					{
+						"glock_loaded": "(v.glock_gun||v.colt_gun)&&q.property('pistol:anim')=='loaded'"
+					}
+				],
+				"variables": {
+					"variable.fp_melee_spear_use_attachable_rotation_z": "public",
+					"variable.tp_melee_spear_use_attachable_rotation_z": "public",
+					"variable.fp_melee_spear_attack_attachable_rotation_z": "public",
+					"variable.tp_melee_spear_attack_attachable_position_z": "public",
+					"variable.attack_time": "public",
+					"variable.item_use_normalized": "public"
+				},
+				"should_update_effects_offscreen": "1.0"
+			},
+			"animations": {
+				"root": "controller.animation.player.root",
+				"base_controller": "controller.animation.player.base",
+				"hudplayer": "controller.animation.player.hudplayer",
+				"humanoid_base_pose": "animation.humanoid.base_pose",
+				"look_at_target": "controller.animation.humanoid.look_at_target",
+				"look_at_target_ui": "animation.player.look_at_target.ui",
+				"look_at_target_default": "animation.humanoid.look_at_target.default",
+				"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+				"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+				"look_at_target_inverted": "animation.player.look_at_target.inverted",
+				"cape": "animation.player.cape",
+				"move.arms": "animation.player.move.arms",
+				"move.legs": "animation.player.move.legs",
+				"swimming": "animation.player.swim",
+				"swimming.legs": "animation.player.swim.legs",
+				"riding.arms": "animation.player.riding.arms",
+				"riding.legs": "animation.player.riding.legs",
+				"holding": "animation.player.holding",
+				"brandish_spear": "animation.humanoid.brandish_spear",
+				"charging": "animation.humanoid.charging",
+				"attack.positions": "animation.player.attack.positions",
+				"attack.rotations": "animation.player.attack.rotations",
+				"sneaking": "animation.player.sneaking",
+				"bob": "animation.player.bob",
+				"damage_nearby_mobs": "animation.humanoid.damage_nearby_mobs",
+				"bow_and_arrow": "animation.humanoid.bow_and_arrow",
+				"use_item_progress": "animation.humanoid.use_item_progress",
+				"skeleton_attack": "animation.skeleton.attack",
+				"sleeping": "animation.player.sleeping",
+				"first_person_base_pose": "animation.player.first_person.base_pose",
+				"first_person_empty_hand": "animation.player.first_person.empty_hand",
+				"first_person_swap_item": "animation.player.first_person.swap_item",
+				"first_person_attack_rotation": "animation.player.first_person.attack_rotation",
+				"first_person_attack_rotation_item": "animation.player.first_person.attack_rotation_item",
+				"first_person_vr_attack_rotation": "animation.player.first_person.vr_attack_rotation",
+				"first_person_walk": "animation.player.first_person.walk",
+				"first_person_map_controller": "controller.animation.player.first_person_map",
+				"first_person_map_hold": "animation.player.first_person.map_hold",
+				"first_person_map_hold_attack": "animation.player.first_person.map_hold_attack",
+				"first_person_map_hold_off_hand": "animation.player.first_person.map_hold_off_hand",
+				"first_person_map_hold_main_hand": "animation.player.first_person.map_hold_main_hand",
+				"first_person_crossbow_equipped": "animation.player.first_person.crossbow_equipped",
+				"first_person_crossbow_hold": "animation.player.first_person.crossbow_hold",
+				"first_person_breathing_bob": "animation.player.first_person.breathing_bob",
+				"third_person_crossbow_equipped": "animation.player.crossbow_equipped",
+				"third_person_bow_equipped": "animation.player.bow_equipped",
+				"crossbow_hold": "animation.player.crossbow_hold",
+				"crossbow_controller": "controller.animation.player.crossbow",
+				"shield_block_main_hand": "animation.player.shield_block_main_hand",
+				"shield_block_off_hand": "animation.player.shield_block_off_hand",
+				"fishing_rod": "animation.humanoid.fishing_rod",
+				"holding_spyglass": "animation.humanoid.holding_spyglass",
+				"first_person_shield_block": "animation.player.first_person.shield_block",
+				"tooting_goat_horn": "animation.humanoid.tooting_goat_horn",
+				"holding_brush": "animation.humanoid.holding_brush",
+				"brushing": "animation.humanoid.brushing",
+				"crawling": "animation.player.crawl",
+				"crawling.legs": "animation.player.crawl.legs",
+				"swimming.no_right_arm": "animation.player.swim.no_right_arm",
+				"crawling.no_right_arm": "animation.player.crawl.no_right_arm",
+				"riding.root": "animation.player.riding.root",
+				"holding_heavy_core": "animation.player.holding_heavy_core",
+				"first_person_melee_spear_use": "animation.player.first_person.melee_spear_use",
+				"first_person_melee_spear_hold": "animation.player.first_person.melee_spear_hold",
+				"first_person_melee_spear_attack": "animation.player.first_person.melee_spear_attack",
+				"first_person_melee_spear_controller": "controller.animation.player.first_person_melee_spear",
+				"third_person_melee_spear_use": "animation.humanoid.melee_spear_use",
+				"third_person_melee_spear_hold": "animation.humanoid.melee_spear_hold",
+				"third_person_melee_spear_attack": "animation.player.melee_spear_attack",
+				"third_person_melee_spear_controller": "controller.animation.player.melee_spear",
+				"gun_walk": "animation.gun_mlaku",
+				"laser_off": "animation.laser.off",
+				"ram_fpp_draw": "animation.ram.fpp_draw",
+				"ram_fpp_inspect": "animation.ram.fpp_inspect",
+				"ram_fpp_unequip": "animation.ram.fpp_put_away",
+				"ram_fpp_hold": "animation.ram.fpp_hold",
+				"ram_tpp_draw": "animation.ram.tpp_draw",
+				"ram_tpp_hold": "animation.ram.tpp_hold",
+				"ram_tpp_sneak": "animation.ram.tpp_sneak",
+				"ram_tpp_unequip": "animation.ram.tpp_put_away",
+				"dvd_fpp_draw": "animation.dvd.fpp_draw",
+				"dvd_fpp_inspect": "animation.dvd.fpp_inspect",
+				"dvd_fpp_unequip": "animation.dvd.fpp_put_away",
+				"dvd_fpp_hold": "animation.dvd.fpp_hold",
+				"dvd_tpp_draw": "animation.dvd.tpp_draw",
+				"dvd_tpp_hold": "animation.dvd.tpp_hold",
+				"dvd_tpp_sneak": "animation.dvd.tpp_sneak",
+				"dvd_tpp_unequip": "animation.dvd.tpp_put_away",
+				"router_fpp_draw": "animation.router.fpp_draw",
+				"router_fpp_inspect": "animation.router.fpp_inspect",
+				"router_fpp_unequip": "animation.router.fpp_put_away",
+				"router_fpp_hold": "animation.router.fpp_hold",
+				"tank_fpp_draw": "animation.tank.fpp_draw",
+				"tank_fpp_inspect": "animation.tank.fpp_inspect",
+				"tank_fpp_unequip": "animation.tank.fpp_put_away",
+				"tank_fpp_hold": "animation.tank.fpp_hold",
+				"scar_fpp_run": "animation.scar.fpp_run",
+				"scar_fpp_hold": "animation.scar.fpp_hold",
+				"scar_fpp_draw": "animation.scar.fpp_draw",
+				"scar_fpp_check": "animation.scar.fpp_checkmag",
+				"scar_fpp_reload": "animation.scar.fpp_maginsert",
+				"scar_fpp_reload_extended": "animation.scar.fpp_maginsert.extended",
+				"scar_fpp_reload_drum": "animation.scar.fpp_maginsert.drum",
+				"scar_fpp_changemag": "animation.scar.fpp_magpull",
+				"scar_fpp_changemag_drum": "animation.scar.fpp_magpull.drum",
+				"scar_fpp_aim": "animation.scar.fpp_aim",
+				"scar_acog_aim": "animation.scar.fpp_aim.acog",
+				"scar_holo_aim": "animation.scar.fpp_aim.holo",
+				"scar_reddot_aim": "animation.scar.fpp_aim.reddot",
+				"scar_tele_aim": "animation.scar.fpp_aim.tele",
+				"scar_magnifier_aim": "animation.scar.fpp_aim.holo.magnifier",
+				"scar_fpp_unequip": "animation.scar.fpp_put_away",
+				"scar_tpp_hold": "animation.scar.tpp_hold",
+				"scar_tpp_aim": "animation.scar.tpp_aim",
+				"scar_tpp_reload": "animation.scar.tpp_reload",
+				"scar_tpp_changemag": "animation.scar.tpp_changemag",
+				"scar_tpp_run": "animation.scar.tpp_run",
+				"scar_tpp_draw": "animation.scar.tpp_draw",
+				"scar_inspect": "animation.scar.fpp_inspect",
+				"glock_fpp_run": "animation.glock.fpp_run",
+				"glock_fpp_hold": "animation.glock.fpp_hold",
+				"glock_fpp_draw": "animation.glock.fpp_draw",
+				"glock_fpp_check": "animation.glock.fpp_magcheck",
+				"glock_fpp_reload": "animation.glock.fpp_maginsert",
+				"glock_fpp_reload_extended": "animation.glock.fpp_maginsert.extended",
+				"glock_fpp_changemag": "animation.glock.fpp_magpull",
+				"glock_fpp_changemag_extended": "animation.glock.fpp_magpull.extended",
+				"glock_fpp_aim": "animation.glock.fpp_aim",
+				"glock_reddot_aim": "animation.glock.fpp_aim.reddot",
+				"glock_fpp_unequip": "animation.glock.fpp_put_away",
+				"glock_tpp_hold": "animation.glock.tpp_hold",
+				"glock_tpp_aim": "animation.glock.tpp_aim",
+				"glock_tpp_reload": "animation.glock.tpp_maginsert",
+				"glock_tpp_changemag": "animation.glock.tpp_magpull",
+				"glock_tpp_check": "animation.glock.tpp_magcheck",
+				"glock_tpp_run": "animation.glock.tpp_run",
+				"glock_tpp_draw": "animation.glock.tpp_draw",
+				"glock_tpp_unequip": "animation.glock.tpp_unequip",
+				"glock_inspect": "animation.glock.fpp_inspect",
+				"glock_empty": "animation.glock.empty",
+				"glock_loaded": "animation.glock.loaded",
+				"hb_fpp_run": "animation.scar.fpp_run",
+				"hb_fpp_hold": "animation.hb.fpp_hold",
+				"hb_fpp_draw": "animation.hb.fpp_draw",
+				"hb_fpp_check": "animation.hb.fpp_checkmag",
+				"hb_fpp_reload": "animation.hb.fpp_maginsert",
+				"hb_fpp_reload_extended": "animation.hb.fpp_maginsert.extended",
+				"hb_fpp_reload_drum": "animation.hb.fpp_maginsert.drum",
+				"hb_fpp_changemag": "animation.hb.fpp_magpull",
+				"hb_fpp_changemag_drum": "animation.hb.fpp_magpull.drum",
+				"hb_fpp_aim": "animation.hb.fpp_aim",
+				"hb_acog_aim": "animation.hb.fpp_aim.acog",
+				"hb_holo_aim": "animation.hb.fpp_aim.holo",
+				"hb_reddot_aim": "animation.hb.fpp_aim.reddot",
+				"hb_tele_aim": "animation.hb.fpp_aim.tele",
+				"hb_magnifier_aim": "animation.hb.fpp_aim.magnifier",
+				"hb_fpp_unequip": "animation.hb.fpp_put_away",
+				"hb_tpp_hold": "animation.hb.tpp_hold",
+				"hb_tpp_aim": "animation.hb.tpp_aim",
+				"hb_tpp_reload": "animation.hb.tpp_reload",
+				"hb_tpp_changemag": "animation.hb.tpp_changemag",
+				"hb_tpp_run": "animation.hb.tpp_run",
+				"hb_tpp_draw": "animation.hb.tpp_draw",
+				"hb_inspect": "animation.hb.fpp_inspect",
+				"hkc_fpp_run": "animation.scar.fpp_run",
+				"hkc_fpp_hold": "animation.hkc.fpp_hold",
+				"hkc_fpp_draw": "animation.hkc.fpp_draw",
+				"hkc_fpp_check": "animation.hkc.fpp_checkmag",
+				"hkc_fpp_reload": "animation.hkc.fpp_maginsert",
+				"hkc_fpp_reload_extended": "animation.hkc.fpp_maginsert.extended",
+				"hkc_fpp_reload_drum": "animation.hkc.fpp_maginsert.drum",
+				"hkc_fpp_changemag": "animation.hkc.fpp_magpull",
+				"hkc_fpp_changemag_drum": "animation.hkc.fpp_magpull.drum",
+				"hkc_fpp_aim": "animation.hkc.fpp_aim",
+				"hkc_acog_aim": "animation.hkc.fpp_aim.acog",
+				"hkc_holo_aim": "animation.hkc.fpp_aim.holo",
+				"hkc_reddot_aim": "animation.hkc.fpp_aim.reddot",
+				"hkc_tele_aim": "animation.hkc.fpp_aim.tele",
+				"hkc_magnifier_aim": "animation.hkc.fpp_aim.magnifier",
+				"hkc_fpp_unequip": "animation.hkc.fpp_put_away",
+				"hkc_tpp_hold": "animation.hb.tpp_hold",
+				"hkc_tpp_aim": "animation.hb.tpp_aim",
+				"hkc_tpp_reload": "animation.hb.tpp_reload",
+				"hkc_tpp_changemag": "animation.hb.tpp_changemag",
+				"hkc_tpp_run": "animation.hb.tpp_run",
+				"hkc_tpp_draw": "animation.hb.tpp_draw",
+				"hkc_inspect": "animation.hkc.fpp_inspect",
+				"barret_fpp_hold": "animation.barret.fpp_hold",
+				"barret_fpp_draw": "animation.barret.fpp_draw",
+				"barret_fpp_check": "animation.barret.fpp_magcheck",
+				"barret_fpp_reload": "animation.barret.fpp_maginsert",
+				"barret_fpp_changemag": "animation.barret.fpp_magpull",
+				"barret_fpp_aim": "animation.barret.fpp_aim",
+				"barret_holo_aim": "animation.barret.fpp_aim.holo",
+				"barret_reddot_aim": "animation.barret.fpp_aim.reddot",
+				"barret_scout_aim": "animation.barret.fpp_aim.scout",
+				"barret_fpp_unequip": "animation.barret.fpp_put_away",
+				"barret_tpp_hold": "animation.barret.tpp_hold",
+				"barret_tpp_aim": "animation.barret.tpp_aim",
+				"barret_tpp_reload": "animation.barret.tpp_maginsert",
+				"barret_tpp_changemag": "animation.barret.tpp_magpull",
+				"barret_tpp_draw": "animation.tactile.tpp_draw",
+				"barret_tpp_unequip": "animation.tactile.tpp_unequip",
+				"barret_inspect": "animation.barret.fpp_inspect",
+				"tactile_fpp_run": "animation.scar.fpp_run",
+				"tactile_fpp_hold": "animation.tactile.fpp_hold",
+				"tactile_fpp_draw": "animation.tactile.fpp_draw",
+				"tactile_fpp_check": "animation.tactile.fpp_magcheck",
+				"tactile_fpp_reload": "animation.tactile.fpp_maginsert",
+				"tactile_fpp_changemag": "animation.tactile.fpp_magpull",
+				"tactile_fpp_aim": "animation.tactile.fpp_aim",
+				"tactile_acog_aim": "animation.tactile.fpp_aim.acog",
+				"tactile_holo_aim": "animation.tactile.fpp_aim.holo",
+				"tactile_reddot_aim": "animation.tactile.fpp_aim.reddot",
+				"tactile_fpp_bolt": "animation.tactile.fpp_bolt",
+				"tactile_fpp_shoot": "animation.tactile.fpp_shoot_bolt",
+				"tactile_scout_aim": "animation.tactile.fpp_aim.scout",
+				"tactile_fpp_unequip": "animation.tactile.fpp_put_away",
+				"tactile_tpp_hold": "animation.tactile.tpp_hold",
+				"tactile_tpp_aim": "animation.tactile.tpp_aim",
+				"tactile_tpp_reload": "animation.tactile.tpp_maginsert",
+				"tactile_tpp_changemag": "animation.tactile.tpp_magpull",
+				"tactile_tpp_run": "animation.tactile.tpp_run",
+				"tactile_tpp_draw": "animation.tactile.tpp_draw",
+				"tactile_tpp_shoot": "animation.tactile.tpp_shoot",
+				"tactile_tpp_bolt": "animation.tactile.tpp_bolt",
+				"tactile_tpp_unequip": "animation.tactile.tpp_unequip",
+				"tactile_inspect": "animation.tactile.fpp_inspect",
+				"mosin_fpp_run": "animation.mosin.fpp_run",
+				"mosin_fpp_hold": "animation.mosin.fpp_hold",
+				"mosin_fpp_draw": "animation.mosin.fpp_draw",
+				"mosin_fpp_check": "animation.mosin.fpp_check",
+				"mosin_fpp_reload": "animation.mosin.fpp_reload",
+				"mosin_fpp_changemag": "animation.mosin.fpp_changemag",
+				"mosin_fpp_release": "animation.mosin.fpp_changemag.done",
+				"mosin_fpp_aim": "animation.mosin.aim",
+				"mosin_exclusive_aim": "animation.mosin.aim.telescope",
+				"mosin_fpp_bolt": "animation.mosin.fpp_bolt",
+				"mosin_fpp_shoot": "animation.mosin.fpp_shoot_bolt",
+				"mosin_fpp_unequip": "animation.mosin.fpp_put_away",
+				"mosin_tpp_hold": "animation.mosin.tpp_hold",
+				"mosin_tpp_aim": "animation.mosin.tpp_aim",
+				"mosin_tpp_reload": "animation.mosin.tpp_maginsert",
+				"mosin_tpp_changemag": "animation.mosin.tpp_magpull",
+				"mosin_tpp_changemag2": "animation.mosin.tpp_magpull2",
+				"mosin_tpp_run": "animation.mosin.tpp_run",
+				"mosin_tpp_draw": "animation.mosin.tpp_draw",
+				"mosin_tpp_shoot": "animation.mosin.tpp_shoot",
+				"mosin_tpp_bolt": "animation.mosin.tpp_bolt",
+				"mosin_tpp_unequip": "animation.mosin.tpp_unequip",
+				"mosin_inspect": "animation.mosin.fpp_inspect",
+				"awp_delluminated": "animation.tactile.delluminate",
+				"move_aim": "animation.gun_walk.ngeker",
+				"gun_hit": "animation.gun.mbacok",
+				"gun_hipfire": "animation.gun.hipfire",
+				"gun_static": "animation.gun_meneng",
+				"flashlight": "animation.weapon.flashlight",
+				"attachment_display": "animation.gun.attachment",
+				"attachment_muzzle": "animation.gun.attachment_muzzle",
+				"attachment_laser": "animation.gun.attachment_laser",
+				"attachment_scope": "animation.gun.attachment_scope",
+				"attachment_stock": "animation.gun.attachment_stock",
+				"attachment_mag": "animation.gun.attachment_magazine",
+				"attachment_grip": "animation.gun.attachment_grip",
+				"blink": "controller.animation.persona.blink",
+				"ram_fpp_controller": "controller.animation.ram_hold_fpp",
+				"ram_tpp_controller": "controller.animation.ram_hold_tpp",
+				"dvd_fpp_controller": "controller.animation.dvd_hold_fpp",
+				"dvd_tpp_controller": "controller.animation.dvd_hold_tpp",
+				"router_fpp_controller": "controller.animation.router_hold_fpp",
+				"router_tpp_controller": "controller.animation.router_hold_tpp",
+				"tactile_fpp_controller": "controller.animation.tactile_hold_fpp",
+				"tactile_tpp_controller": "controller.animation.tactile_hold_tpp",
+				"tactile_aim_controller": "controller.animation.tactile_aim_fpp",
+				"hb_fpp_controller": "controller.animation.hb_hold_fpp",
+				"hb_tpp_controller": "controller.animation.hb_hold_tpp",
+				"scar_fpp_controller": "controller.animation.scar_hold_fpp",
+				"scar_tpp_controller": "controller.animation.scar_hold_tpp",
+				"hkc_fpp_controller": "controller.animation.hkc_hold_fpp",
+				"hkc_tpp_controller": "controller.animation.hkc_hold_tpp",
+				"barret_fpp_controller": "controller.animation.barret_hold_fpp",
+				"barret_tpp_controller": "controller.animation.barret_hold_tpp",
+				"mosin_fpp_controller": "controller.animation.mosin_hold_fpp",
+				"mosin_tpp_controller": "controller.animation.mosin_hold_tpp",
+				"mosin_aim_fpp": "controller.animation.mosin_aim_fpp",
+				"glock_fpp_controller": "controller.animation.glock_hold_fpp",
+				"glock_tpp_controller": "controller.animation.glock_hold_tpp",
+				"colt_fpp_controller": "controller.animation.colt_hold_fpp",
+				"colt_tpp_controller": "controller.animation.colt_hold_tpp",
+				"tank_fpp_controller": "controller.animation.tank_hold_fpp",
+				"tank_tpp_controller": "controller.animation.tank_hold_tpp",
+				"gun_walk_controller": "controller.animation.gun_move",
+				"gun_aim_controller": "controller.animation.aim_move",
+				"gun_hipfire_controller": "controller.animation.gun_hipfire",
+				"gun_attack_controller": "controller.animation.gun_attack",
+				"first_person_attack_controller": "controller.animation.player.first_person_attack",
+				"gun_hold_controller": "controller.animation.gun_hold"
+			},
+			"sound_effects": {
+				"ram_sweep": "ram.sweep",
+				"ram_draw": "ram.draw",
+				"loot_antena1": "loot.antena1",
+				"loot_antena2": "loot.antena2",
+				"dvd_spin": "dvd.spin",
+				"glock17_draw": "glock.draw",
+				"glock17_mag_out": "glock.mag.out",
+				"glock17_mag_in": "glock.mag.in",
+				"glock17_raise": "glock.raise",
+				"glock17_drop": "glock.drop",
+				"glock17_pivot": "glock.pivot",
+				"glock_shoot": "glock.shoot",
+				"glock_silencer": "glock.silencer",
+				"glock17_put_away": "glock.unequip",
+				"scar_draw": "scar.draw",
+				"scar_ads": "scar.ads",
+				"scar_offarm": "scar.offarm",
+				"scar_off_arm": "scar.offarm",
+				"scar_mag_hit": "scar.mag.hit",
+				"scar_magin": "scar.magin",
+				"scar_magin_01": "scar.magin.01",
+				"scar_mag_in_v01": "scar.mag.in.v01",
+				"scar_boltclose": "scar.boltclose",
+				"scar_inspect_rotate": "scar.inspect.rotate",
+				"scar_mag_out": "scar.mag.out",
+				"scar_empty_mag_draw": "scar.empty.mag.draw",
+				"scar_empty_arm": "scar.empty.arm",
+				"scar_fast_lift": "scar.fast.lift",
+				"hybird_off_arm": "hybird.off.arm",
+				"scar_inspect_o5": "scar.inspect.o5",
+				"scar_put_away": "scar.put.away",
+				"scar_shoot": "scar.shoot",
+				"scar_silence": "scar.silence",
+				"mosin_bolt": "mosin.bolt",
+				"mosin_boltrelease": "mosin.boltrelease",
+				"mosin_bullet_in": "mosin.bullet.in",
+				"mosin_clip_insert": "mosin.clip.insert",
+				"mosin_clip_insert2": "mosin.clip.insert2",
+				"mosin_clip": "mosin.clip",
+				"mosin_clip_ping": "mosin.clip.ping",
+				"mosin_draw": "mosin.draw",
+				"mosin_shoot": "mosin.shoot",
+				"hb_bolt": "hb.bolt",
+				"hb_boltrelease": "hb.boltrelease",
+				"hb_click": "hb.click",
+				"hkc_bolt": "hb.bolt",
+				"hkc_boltrelease": "hb.boltrelease",
+				"hb_shoot": "hb.shoot",
+				"hkc_shoot": "hkc.shoot",
+				"hkc_silencer": "hkc.silencer",
+				"tactile_draw": "tactile.draw",
+				"tactile_maghit": "tactile.maghit",
+				"tactile_magin": "tactile.magin",
+				"tactile_magout": "tactile.magout",
+				"tactile_put_away": "tactile.put.away",
+				"tactile_shoot": "tactile.shoot",
+				"colt_shoot": "colt.shoot",
+				"colt_silencer": "colt.silencer",
+				"barret_shoot": "barret.shoot",
+				"barret_silencer": "barret.silencer",
+				"gun_bolt_out": "g.bolt.out",
+				"gun_bolt_in": "g.bolt.in",
+				"gun_shell_drop": "g.shell.drop",
+				"gun_inspect_up": "g.inspect.up",
+				"gun_inspect_rotate": "g.inspect.rotate",
+				"gun_reload_empty_rotate": "g.reload.empty.rotate",
+				"gun_inspect_end": "g.inspect.end",
+				"gun_hit": "gun.hit",
+				"gun_click": "gun.click"
+			},
+			"particle_effects": {
+				"muzzle_flash": "custom:fire",
+				"selongsong": "test:selongsong",
+				"selongsong_ak": "test:selongsong_ak",
+				"selongsong_shell": "test:selongsong_shell",
+				"selongsong_smg": "test:selongsong_smg",
+				"smoke_flash": "ww:flash",
+				"flashlight": "test:flashlight"
+			},
+			"render_controllers": [
+				{
+					"controller.render.player.first_person": "variable.is_first_person&&!v.equip_gun"
+				},
+				{
+					"controller.render.player.third_person": "!variable.is_first_person&&!variable.map_face_icon"
+				},
+				{
+					"controller.render.playir.third_person": "query.skin_id==1&&!variable.is_first_person&&!variable.map_face_icon"
+				},
+				{
+					"controller.render.player.map": "variable.map_face_icon"
+				},
+				{
+					"controller.render.laser_crosshair": "variable.is_first_person&&variable.equip_gun&&q.property('mk556:laser')!='n'"
+				},
+				{
+					"controller.render.flashlight": "variable.is_first_person&&variable.flashlight_gun&&query.equipped_item_any_tag('slot.weapon.mainhand','flashlight')&&query.is_item_name_any('slot.weapon.offhand',0,'bridge:flashlight')"
+				},
+				{
+					"controller.render.glock.first_person": "variable.is_first_person&&variable.glock_gun"
+				},
+				{
+					"controller.render.glock.third_person": "variable.glock_gun"
+				},
+				{
+					"controller.render.glock_slot.first_person": "variable.is_first_person&&variable.glock_slot"
+				},
+				{
+					"controller.render.glock.particle": "variable.glock_gun"
+				},
+				{
+					"controller.render.colt.first_person": "variable.is_first_person&&variable.colt_gun"
+				},
+				{
+					"controller.render.colt.third_person": "variable.colt_gun"
+				},
+				{
+					"controller.render.colt_slot.first_person": "variable.is_first_person&&variable.colt_slot"
+				},
+				{
+					"controller.render.colt.particle": "variable.colt_gun"
+				},
+				{
+					"controller.render.ram.third_person": "variable.ram_loot"
+				},
+				{
+					"controller.render.ram.first_person": "v.is_first_person&&variable.ram_loot"
+				},
+				{
+					"controller.render.router.third_person": "variable.router_loot"
+				},
+				{
+					"controller.render.router.first_person": "v.is_first_person&&variable.router_loot"
+				},
+				{
+					"controller.render.tank.third_person": "variable.tank_loot"
+				},
+				{
+					"controller.render.tank.first_person": "v.is_first_person&&variable.tank_loot"
+				},
+				{
+					"controller.render.dvd.third_person": "variable.dvd_loot"
+				},
+				{
+					"controller.render.dvd.first_person": "v.is_first_person&&variable.dvd_loot"
+				},
+				{
+					"controller.render.scar.third_person": "variable.scar_gun&&(q.property('mk556:scope')!='acog'&&q.property('mk556:scope')!='tele'&&q.property('mk556:scope')!='magnifier')"
+				},
+				{
+					"controller.render.scar_slot.first_person": "variable.is_first_person&&variable.scar_slot"
+				},
+				{
+					"controller.render.scar.acog.third_person": "(variable.scar_gun&&q.property('mk556:scope')=='acog')"
+				},
+				{
+					"controller.render.scar.magnifier.third_person": "(variable.scar_gun&&q.property('mk556:scope')=='magnifier')"
+				},
+				{
+					"controller.render.scar.tele.third_person": "(variable.scar_gun&&q.property('mk556:scope')=='tele')"
+				},
+				{
+					"controller.render.scar.first_person": "variable.is_first_person&&variable.scar_gun"
+				},
+				{
+					"controller.render.scar.particle": "variable.scar_gun"
+				},
+				{
+					"controller.render.hb.third_person": "variable.hb_gun&&(q.property('mk556:scope')!='acog'&&q.property('mk556:scope')!='tele'&&q.property('mk556:scope')!='magnifier')"
+				},
+				{
+					"controller.render.hb_slot.first_person": "variable.is_first_person&&variable.hb_slot"
+				},
+				{
+					"controller.render.hb.acog.third_person": "(variable.hb_gun&&q.property('mk556:scope')=='acog')"
+				},
+				{
+					"controller.render.hb.magnifier.third_person": "(variable.hb_gun&&q.property('mk556:scope')=='magnifier')"
+				},
+				{
+					"controller.render.hb.tele.third_person": "(variable.hb_gun&&q.property('mk556:scope')=='tele')"
+				},
+				{
+					"controller.render.hb.first_person": "variable.is_first_person&&variable.hb_gun"
+				},
+				{
+					"controller.render.hb.particle": "variable.hb_gun"
+				},
+				{
+					"controller.render.hkc.third_person": "variable.hkc_gun&&(q.property('mk556:scope')!='acog'&&q.property('mk556:scope')!='tele'&&q.property('mk556:scope')!='magnifier')"
+				},
+				{
+					"controller.render.hkc_slot.first_person": "variable.is_first_person&&variable.hkc_slot"
+				},
+				{
+					"controller.render.hkc.acog.third_person": "(variable.hkc_gun&&q.property('mk556:scope')=='acog')"
+				},
+				{
+					"controller.render.hkc.magnifier.third_person": "(variable.hkc_gun&&q.property('mk556:scope')=='magnifier')"
+				},
+				{
+					"controller.render.hkc.tele.third_person": "(variable.hkc_gun&&q.property('mk556:scope')=='tele')"
+				},
+				{
+					"controller.render.hkc.first_person": "variable.is_first_person&&variable.hkc_gun"
+				},
+				{
+					"controller.render.hkc.particle": "variable.hkc_gun"
+				},
+				{
+					"controller.render.barret.third_person": "variable.barret_gun&&(q.property('mk556:scope')!='scout')"
+				},
+				{
+					"controller.render.barret_slot.first_person": "variable.is_first_person&&variable.barret_slot"
+				},
+				{
+					"controller.render.barret.scout.third_person": "(variable.barret_gun&&q.property('mk556:scope')=='scout')"
+				},
+				{
+					"controller.render.barret.first_person": "variable.is_first_person&&variable.barret_gun"
+				},
+				{
+					"controller.render.barret.particle": "variable.barret_gun"
+				},
+				{
+					"controller.render.tactile.third_person": "variable.tactile_gun&&(q.property('mk556:scope')!='acog'&&q.property('mk556:scope')!='scout'&&q.property('mk556:scope')!='magnifier')"
+				},
+				{
+					"controller.render.tactile_slot.first_person": "variable.is_first_person&&variable.tactile_slot"
+				},
+				{
+					"controller.render.tactile.acog.third_person": "(variable.tactile_gun&&q.property('mk556:scope')=='acog')"
+				},
+				{
+					"controller.render.tactile.scout.third_person": "(variable.tactile_gun&&q.property('mk556:scope')=='scout')"
+				},
+				{
+					"controller.render.tactile.first_person": "variable.is_first_person&&variable.tactile_gun"
+				},
+				{
+					"controller.render.tactile.particle": "variable.tactile_gun"
+				},
+				{
+					"controller.render.mosin.third_person": "variable.mosin_gun&&(q.property('mk556:scope')!='exclusive')"
+				},
+				{
+					"controller.render.mosin_slot.first_person": "variable.is_first_person&&variable.mosin_slot"
+				},
+				{
+					"controller.render.mosin.exclusive.third_person": "(variable.mosin_gun&&q.property('mk556:scope')=='exclusive')"
+				},
+				{
+					"controller.render.mosin.first_person": "variable.is_first_person&&variable.mosin_gun"
+				},
+				{
+					"controller.render.mosin.particle": "variable.mosin_gun"
+				},
+				{
+					"controller.render.advanced_vest.first_person": "variable.is_first_person&&variable.advanced_vest&&v.equip_gun&&!v.mosin_gun"
+				},
+				{
+					"controller.render.advanced_armed.first_person": "variable.is_first_person&&variable.advanced_vest&&!v.equip_gun"
+				},
+				{
+					"controller.render.hazmat_vest.first_person": "variable.is_first_person&&variable.hazmat_vest&&v.equip_gun&&!v.mosin_gun"
+				},
+				{
+					"controller.render.hazmat_armed.first_person": "variable.is_first_person&&variable.hazmat_vest&&!v.equip_gun"
+				},
+				{
+					"controller.render.green_vision.first_person": "v.is_first_person&&v.green_vision&&q.property('hengker:nightvision')=='enabled'"
+				},
+				{
+					"controller.render.backpack": "!v.is_first_person&&v.backpack"
+				},
+				{
+					"controller.render.backpack_open": "!v.is_first_person&&v.backpack_open"
+				}
+			],
+			"enable_attachables": true
+		}
+	}
+}

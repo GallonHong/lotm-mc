@@ -1,0 +1,28 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "hengker:tuempek",
+			"geometry": {
+				"default": "geometry.memek"
+			},
+			"materials": {
+				"default": "enderman"
+			},
+			"render_controllers": [
+				"controller.render.default"
+			],
+			"scripts": {
+				"animate": [
+					"tracer"
+				]
+			},
+			"animations": {
+				"tracer": "animation.bullet.new"
+			},
+			"textures": {
+				"default": "textures/entity/tempik"
+			}
+		}
+	}
+}

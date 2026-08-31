@@ -1,0 +1,933 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.hb": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"on_entry": [],
+					"transitions": [
+						{
+							"draw": "q.mark_variant==0&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						},
+						{
+							"preshoot": "q.mark_variant==5&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						},
+						{
+							"unequip": "q.mark_variant==5&&!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						}
+					],
+					"on_exit": [
+						"/hud @s hide crosshair",
+						"/event entity @s equip:hb"
+					]
+				},
+				"draw": {
+					"on_entry": [
+						"/tag add @s cooldown"
+					],
+					"animations": [
+						"hb_draw"
+					],
+					"transitions": [
+						{
+							"preshoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.all_animations_finished"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.all_animations_finished"
+						}
+					]
+				},
+				"unequip": {
+					"on_entry": [
+						"/tag @s add cooldown"
+					],
+					"animations": [
+						"hb_unequip"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s mk556:laser_off",
+						"/tag @s remove cooldown",
+						"/hud @s reset crosshair"
+					]
+				},
+				"preshoot": {
+					"transitions": [
+						{
+							"shoot": "!q.is_sprinting&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.main_hand_item_use_duration&&q.scoreboard('hb')>0&&!q.is_sneaking&&q.property('hengker:reload')=='n'&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')"
+						},
+						{
+							"aim": "!q.is_sprinting&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.main_hand_item_use_duration&&q.scoreboard('hb')>0&&q.is_sneaking&&q.property('hengker:reload')=='n'&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')"
+						},
+						{
+							"check": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.property('hengker:reload')=='check'&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						},
+						{
+							"display": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&q.property('hengker:reload')=='heal'"
+						}
+					]
+				},
+				"check": {
+					"animations": [
+						"hb_check"
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						},
+						{
+							"preshoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s hengker:rilotend"
+					]
+				},
+				"display": {
+					"on_entry": [
+						"/event entity @s hengker:attachment"
+					],
+					"transitions": [
+						{
+							"preshoot": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&(q.is_sneaking||q.property('hengker:reload')!='heal')"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						}
+					],
+					"on_exit": [
+						"/event entity @s hengker:rilotend",
+						"/event entity @s gun:display"
+					]
+				},
+				"shoot": {
+					"animations": [
+						"hb_shoot"
+					],
+					"on_entry": [
+						"/camerashake add @s[tag=!cooldown,scores={hb=2..}] 0.055 0.075 rotational",
+						"/camerashake add @s[tag=!hbnormal,tag=!hbcqb,tag=!hbsimple] 0.08 0.3 rotational"
+					],
+					"transitions": [
+						{
+							"preshoot": "q.all_animations_finished||!q.is_alive"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						}
+					]
+				},
+				"aim": {
+					"animations": [
+						"hb_aim"
+					],
+					"on_entry": [
+						"/camerashake add @s[tag=!cooldown,scores={hb=2..}] 0.055 0.075 rotational",
+						"/camerashake add @s[tag=!hbnormal,tag=!hbcqb,tag=!hbsimple] 0.08 0.3 rotational"
+					],
+					"transitions": [
+						{
+							"preshoot": "q.all_animations_finished||!q.is_alive"
+						},
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hb.laser": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"laser1": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==2"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser",
+						"/tag @s[m=c] add hbred",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"laser1": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"laser2": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==2&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser2",
+						"/tag @s[m=c] remove hbred",
+						"/tag @s[m=c] add hbgreen",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"laser2": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"laser3": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==2&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser3",
+						"/tag @s[m=c] add hbgold",
+						"/tag @s[m=c] remove hbgreen",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"laser3": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"sek_sabar": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==2&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:laser_off",
+						"/tag @s[m=c] remove hbgold",
+						"/playsound laser.general @s[m=c]"
+					]
+				},
+				"sek_sabar": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hb.scope": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope2": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==3"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:holo",
+						"/tag @s[m=c] add hbholo",
+						"/tag @s[m=c] remove hbacog",
+						"/tag @s[m=c] remove hbhamr",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope2": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope3": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:reddot",
+						"/tag @s[m=c] remove hbholo",
+						"/tag @s[m=c] add hbreddot",
+						"/tag @s[m=c] remove hbacog",
+						"/tag @s[m=c] remove hbhamr",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope3": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope4": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:acog",
+						"/tag @s[m=c] remove hbreddot",
+						"/tag @s[m=c] add hbacog",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope4": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope5": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:tele",
+						"/tag @s[m=c] remove hbacog",
+						"/tag @s[m=c] add hbtele",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope5": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"scope6": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:magnifier",
+						"/tag @s[m=c] remove hbtele",
+						"/tag @s[m=c] add hbmagnifier",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"scope6": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"sek_sabar": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==3&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:sight",
+						"/tag @s[m=c] remove hbacog",
+						"/tag @s[m=c] remove hbholo",
+						"/tag @s[m=c] remove hbreddot",
+						"/tag @s[m=c] remove hbmagnifier",
+						"/tag @s[m=c] remove hbtele",
+						"/playsound scope.general @s[m=c]"
+					]
+				},
+				"sek_sabar": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hb.stock": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"grip1": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==4"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:normal",
+						"/tag @s[m=c] add hbnormal",
+						"/playsound attachment.general @s[m=c]"
+					]
+				},
+				"grip1": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"grip2": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==4&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:simple",
+						"/tag @s[m=c] add hbsimple",
+						"/tag @s[m=c] remove hbnormal",
+						"/playsound attachment.general @s[m=c]"
+					]
+				},
+				"grip2": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"grip3": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==4&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:cqb",
+						"/tag @s[m=c] remove hbsimple",
+						"/tag @s[m=c] add hbcqb",
+						"/playsound attachment.general @s[m=c]"
+					]
+				},
+				"grip3": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"sek_sabar": "query.property('hengker:reload')=='heal'&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_using_item&&q.variant==4&&q.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/event entity @s[m=c] mk556:stock",
+						"/tag @s[m=c] remove hbcqb",
+						"/playsound attachment.general @s[m=c]"
+					]
+				},
+				"sek_sabar": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hbinspect": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.property('hengker:reload')=='inspect'"
+						}
+					],
+					"on_exit": [
+						"/tag @s add cooldown"
+					]
+				},
+				"inspect": {
+					"animations": [
+						"hb_inspect_empty"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished||!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||q.is_using_item"
+						}
+					],
+					"on_exit": [
+						"/tag @s remove cooldown",
+						"/stopsound @s",
+						"/event entity @s hengker:rilotend"
+					]
+				}
+			}
+		},
+		"controller.animation.hb.sneak": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"sneak": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_sneaking&&query.property('mk556:scope')=='n'&&q.property('hengker:reload')=='n'"
+						},
+						{
+							"acog": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_sneaking&&query.property('mk556:scope')=='acog'&&q.property('hengker:reload')=='n'"
+						},
+						{
+							"magnifier": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_sneaking&&query.property('mk556:scope')=='magnifier'&&q.property('hengker:reload')=='n'"
+						},
+						{
+							"tele": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_sneaking&&query.property('mk556:scope')=='tele'&&q.property('hengker:reload')=='n'"
+						},
+						{
+							"holo": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.is_sneaking&&(query.property('mk556:scope')=='holo'||query.property('mk556:scope')=='reddot')&&q.property('hengker:reload')=='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s hide status_effects",
+						"/effect @s speed infinite 7 true"
+					]
+				},
+				"sneak": {
+					"on_entry": [
+						"/effect @s slowness infinite 0 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				},
+				"acog": {
+					"on_entry": [
+						"/effect @s slowness infinite 4 true",
+						"/effect @s speed infinite 54 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				},
+				"magnifier": {
+					"on_entry": [
+						"/effect @s slowness infinite 5 true",
+						"/effect @s speed infinite 58 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				},
+				"tele": {
+					"on_entry": [
+						"/effect @s slowness infinite 8 true",
+						"/effect @s speed infinite 54 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				},
+				"holo": {
+					"on_entry": [
+						"/effect @s slowness infinite 1 true"
+					],
+					"transitions": [
+						{
+							"default": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_sneaking||q.property('hengker:reload')!='n'"
+						}
+					],
+					"on_exit": [
+						"/hud @s reset status_effects",
+						"/effect @s speed 0 0 true",
+						"/effect @s slowness 0 0 true"
+					]
+				}
+			}
+		},
+		"controller.animation.hbreload": {
+			"initial_state": "prereload",
+			"states": {
+				"prereload": {
+					"transitions": [
+						{
+							"reload": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.scoreboard('hb')<1&&q.is_using_item&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&q.property('hengker:nomag')=='gaada'"
+						}
+					]
+				},
+				"fail": {
+					"on_entry": [
+						"/event entity @s hengker:rilotend",
+						"/execute as @s run scriptevent hengker:hb_changemag",
+						"/event entity @s hengker:nomag",
+						"/tag @s add hbnomag",
+						"/stopsound @s"
+					],
+					"transitions": [
+						{
+							"prereload": "1"
+						}
+					]
+				},
+				"reload": {
+					"on_entry": [
+						"/execute as @s[tag=!cooldown] run scriptevent hengker:hb_reload",
+						"/execute as @s[tag=!cooldown] run tag @s[scores={hb=1..}] remove hbnomag",
+						"/execute as @s[tag=!cooldown] run event entity @s[scores={hb=1..}] hengker:mag",
+						"/execute as @s[tag=!cooldown] run event entity @s[hasitem={item=bridge:hb_mag,quantity=1..}] hengker:rilot",
+						"/execute as @s[tag=!cooldown] run event entity @s[hasitem={item=bridge:hb_mag_drum,quantity=1..}] hengker:rilot",
+						"/execute as @s[tag=!cooldown] run event entity @s[hasitem={item=bridge:hb_mag_extended,quantity=1..}] hengker:rilot",
+						"variable.ngentot2=query.life_time;"
+					],
+					"transitions": [
+						{
+							"reloading": "q.scoreboard('hb')>0&&q.property('hengker:reload')=='reload'&&q.property('mk556:mag')=='n'&&q.is_alive"
+						},
+						{
+							"reloading_extended": "q.scoreboard('hb')>0&&q.property('hengker:reload')=='reload'&&q.property('mk556:mag')=='extended'&&q.is_alive"
+						},
+						{
+							"reloading_drum": "q.scoreboard('hb')>0&&q.property('hengker:reload')=='reload'&&q.property('mk556:mag')=='drum'&&q.is_alive"
+						},
+						{
+							"fail": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||(q.property('hengker:reload')!='reload'&&(query.life_time-variable.ngentot2)>=0.25)"
+						}
+					]
+				},
+				"reloading": {
+					"animations": [
+						"hb_reload"
+					],
+					"transitions": [
+						{
+							"done": "q.all_animations_finished&&q.is_alive"
+						},
+						{
+							"fail": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_alive||q.property('hengker:reload')=='hit'"
+						}
+					]
+				},
+				"reloading_extended": {
+					"animations": [
+						"hb_reload_extended"
+					],
+					"transitions": [
+						{
+							"done": "q.all_animations_finished&&q.is_alive"
+						},
+						{
+							"fail": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_alive||q.property('hengker:reload')=='hit'"
+						}
+					]
+				},
+				"reloading_drum": {
+					"animations": [
+						"hb_reload_drum"
+					],
+					"transitions": [
+						{
+							"done": "q.all_animations_finished&&q.is_alive"
+						},
+						{
+							"fail": "!query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')||!q.is_alive||q.property('hengker:reload')=='hit'"
+						}
+					]
+				},
+				"done": {
+					"on_exit": [
+						"/event entity @s hengker:rilotend",
+						"/tag @s remove hbnomag",
+						"/stopsound @s"
+					],
+					"transitions": [
+						{
+							"prereload": "1"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hbchangemag": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"on_entry": [
+						"/stopsound @s"
+					],
+					"transitions": [
+						{
+							"isi_peluru": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.property('hengker:reload')=='change'&&q.property('mk556:mag')!='drum'"
+						}
+					]
+				},
+				"gagal": {
+					"on_entry": [
+						"/stopsound @s",
+						"/event entity @s hengker:rilotend"
+					],
+					"transitions": [
+						{
+							"default": "1"
+						}
+					]
+				},
+				"isi_peluru": {
+					"on_entry": [
+						"variable.ngentot=query.life_time;",
+						"/event entity @s[tag=!cooldown] hengker:rilotchange"
+					],
+					"transitions": [
+						{
+							"mengisi_peluru": "1"
+						}
+					]
+				},
+				"mengisi_peluru": {
+					"animations": [
+						"hb_changemag"
+					],
+					"transitions": [
+						{
+							"gagal": "query.get_equipped_item_name('main_hand')!='hb'||q.property('hengker:reload')!='change'"
+						},
+						{
+							"selesai30": "q.is_alive&&(query.life_time-variable.ngentot)>=2.05"
+						}
+					]
+				},
+				"selesai30": {
+					"on_entry": [
+						"/event entity @s hengker:nomag",
+						"/tag @s[tag=!hbnomag] add hbnomag",
+						"/event entity @s hengker:rilotend",
+						"/execute as @s run scriptevent hengker:hb_changemag"
+					],
+					"transitions": [
+						{
+							"default": "1"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hbchangemag.drum": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"on_entry": [
+						"/stopsound @s"
+					],
+					"transitions": [
+						{
+							"isi_peluru": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&q.property('hengker:reload')=='change'&&q.property('mk556:mag')=='drum'"
+						}
+					]
+				},
+				"gagal": {
+					"on_entry": [
+						"/stopsound @s",
+						"/event entity @s hengker:rilotend"
+					],
+					"transitions": [
+						{
+							"default": "1"
+						}
+					]
+				},
+				"isi_peluru": {
+					"on_entry": [
+						"variable.ngentot=query.life_time;",
+						"/event entity @s[tag=!cooldown] hengker:rilotchange"
+					],
+					"transitions": [
+						{
+							"mengisi_peluru": "1"
+						}
+					]
+				},
+				"mengisi_peluru": {
+					"animations": [
+						"hb_changemag_drum"
+					],
+					"transitions": [
+						{
+							"gagal": "query.get_equipped_item_name('main_hand')!='hb'||q.property('hengker:reload')!='change'"
+						},
+						{
+							"selesai40": "q.is_alive&&(query.life_time-variable.ngentot)>=2.25"
+						}
+					]
+				},
+				"selesai40": {
+					"on_entry": [
+						"/event entity @s hengker:nomag",
+						"/tag @s[tag=!hbnomag] add hbnomag",
+						"/event entity @s hengker:rilotend",
+						"/execute as @s run scriptevent hengker:hb_changemag"
+					],
+					"transitions": [
+						{
+							"default": "1"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hb_show": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"hb_show": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&!query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&q.mark_variant==5"
+						},
+						{
+							"attachment_show": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.is_item_name_any('slot.hotbar',8,'hengker:lencana_polisi')&&q.mark_variant==5"
+						}
+					]
+				},
+				"attachment_show": {
+					"transitions": [
+						{
+							"default": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						}
+					],
+					"on_entry": [
+						"/title @s[tag=!cd] actionbar 您正处于附件模式 || // 到 §b交换 §r|| // to §6连接/分离",
+						"/function hb_check"
+					]
+				},
+				"hb_show": {
+					"transitions": [
+						{
+							"default": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')"
+						}
+					],
+					"on_entry": [
+						"/execute at @s[hasitem={item=bridge:flashlight,location=slot.weapon.offhand}] positioned as @p run fill ^^2^0 ^^2^1 hengker:light replace air"
+					]
+				}
+			}
+		},
+		"controller.animation.hb_scope": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"install": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==3"
+						}
+					]
+				},
+				"install": {
+					"animations": [
+						"cooldown"
+					],
+					"on_entry": [
+						"/execute as @s[m=!c,tag=!hbtele,tag=!hbholo,tag=!hbmagnifier,tag=!hbreddot,tag=!hbacog] run scriptevent hengker:hb_scope"
+					],
+					"transitions": [
+						{
+							"cooldown": "q.all_animations_finished&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==3"
+						}
+					],
+					"on_exit": [
+						"/execute as @s[m=!c] run scriptevent hengker:hb_scope_remove"
+					]
+				},
+				"cooldown": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hb_laser": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"install": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==2"
+						}
+					]
+				},
+				"install": {
+					"animations": [
+						"cooldown"
+					],
+					"on_entry": [
+						"/execute as @s[m=!c,tag=!hbred,tag=!hbgreen,tag=!hbgold] run scriptevent hengker:hb_laser"
+					],
+					"transitions": [
+						{
+							"cooldown": "q.all_animations_finished&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==2"
+						}
+					],
+					"on_exit": [
+						"/execute as @s[m=!c] run scriptevent hengker:hb_laser_remove"
+					]
+				},
+				"cooldown": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.hb_stock": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"install": "query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==4"
+						}
+					]
+				},
+				"install": {
+					"animations": [
+						"cooldown"
+					],
+					"on_entry": [
+						"/execute as @s[m=!c,tag=!hbnormal,tag=!hbcqb,tag=!hbsimple] run scriptevent hengker:hb_stock"
+					],
+					"transitions": [
+						{
+							"cooldown": "q.all_animations_finished&&query.is_item_name_any('slot.weapon.mainhand',0,'hengker:hb')&&query.property('hengker:reload')=='heal'&&q.is_using_item&&q.variant==4"
+						}
+					],
+					"on_exit": [
+						"/execute as @s[m=!c] run scriptevent hengker:hb_stock_remove"
+					]
+				},
+				"cooldown": {
+					"animations": [
+						"cooldown"
+					],
+					"transitions": [
+						{
+							"default": "query.all_animations_finished"
+						}
+					]
+				}
+			}
+		}
+	}
+}

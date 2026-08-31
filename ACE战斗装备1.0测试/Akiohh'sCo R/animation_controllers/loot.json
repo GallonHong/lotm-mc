@@ -1,0 +1,501 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.ram_hold_fpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.ram_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"ram_fpp_draw": "v.is_first_person&&v.ram_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.ram_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"ram_fpp_hold": "v.is_first_person&&v.ram_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')&&q.property('hengker:reload')=='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"inspect": {
+					"animations": [
+						{
+							"ram_fpp_inspect": "v.is_first_person&&v.ram_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						},
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')&&q.all_animations_finished||q.property('hengker:reload')!='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"ram_fpp_unequip": "v.is_first_person&&v.ram_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.ram_loot"
+						},
+						{
+							"draw": "v.ram_loot&&q.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.ram_hold_tpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.ram_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"ram_tpp_draw": "v.is_third_person&&v.ram_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.ram_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"ram_tpp_hold": "v.is_third_person&&v.ram_loot&&!q.is_sneaking",
+							"ram_tpp_sneak": "v.is_third_person&&v.ram_loot&&q.is_sneaking"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:ram')"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"ram_tpp_unequip": "v.is_third_person&&v.ram_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.ram_loot"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.router_hold_fpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.router_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"router_fpp_draw": "v.is_first_person&&v.router_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.router_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"router_fpp_hold": "v.is_first_person&&v.router_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')&&q.property('hengker:reload')=='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"inspect": {
+					"animations": [
+						{
+							"router_fpp_inspect": "v.is_first_person&&v.router_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						},
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')&&q.all_animations_finished||q.property('hengker:reload')!='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"router_fpp_unequip": "v.is_first_person&&v.router_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.router_loot"
+						},
+						{
+							"draw": "v.router_loot&&q.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.router_hold_tpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.router_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"ram_tpp_draw": "v.is_third_person&&v.router_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.router_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"ram_tpp_hold": "v.is_third_person&&v.router_loot&&!q.is_sneaking",
+							"ram_tpp_sneak": "v.is_third_person&&v.router_loot&&q.is_sneaking"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:router')"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"ram_tpp_unequip": "v.is_third_person&&v.router_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.router_loot"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tank_hold_fpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.tank_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"tank_fpp_draw": "v.is_first_person&&v.tank_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.tank_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"tank_fpp_hold": "v.is_first_person&&v.tank_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')&&q.property('hengker:reload')=='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"inspect": {
+					"animations": [
+						{
+							"tank_fpp_inspect": "v.is_first_person&&v.tank_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						},
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')&&q.all_animations_finished||q.property('hengker:reload')!='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"tank_fpp_unequip": "v.is_first_person&&v.tank_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.tank_loot"
+						},
+						{
+							"draw": "v.tank_loot&&q.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.tank_hold_tpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.tank_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"ram_tpp_draw": "v.is_third_person&&v.tank_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.tank_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"ram_tpp_hold": "v.is_third_person&&v.tank_loot&&!q.is_sneaking",
+							"ram_tpp_sneak": "v.is_third_person&&v.tank_loot&&q.is_sneaking"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:tank')"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"ram_tpp_unequip": "v.is_third_person&&v.tank_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.tank_loot"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.dvd_hold_fpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.dvd_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"dvd_fpp_draw": "v.is_first_person&&v.dvd_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.dvd_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"dvd_fpp_hold": "v.is_first_person&&v.dvd_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						},
+						{
+							"inspect": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')&&q.property('hengker:reload')=='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"inspect": {
+					"animations": [
+						{
+							"dvd_fpp_inspect": "v.is_first_person&&v.dvd_loot"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						},
+						{
+							"hold": "query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')&&q.all_animations_finished||q.property('hengker:reload')!='inspect'"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"dvd_fpp_unequip": "v.is_first_person&&v.dvd_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.dvd_loot"
+						},
+						{
+							"draw": "v.dvd_loot&&q.all_animations_finished"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.dvd_hold_tpp": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"draw": "v.dvd_loot||query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						}
+					]
+				},
+				"draw": {
+					"animations": [
+						{
+							"dvd_tpp_draw": "v.is_third_person&&v.dvd_loot"
+						}
+					],
+					"transitions": [
+						{
+							"hold": "v.dvd_loot&&query.all_animations_finished"
+						}
+					]
+				},
+				"hold": {
+					"animations": [
+						{
+							"dvd_tpp_hold": "v.is_third_person&&v.dvd_loot&&!q.is_sneaking",
+							"dvd_tpp_sneak": "v.is_third_person&&v.dvd_loot&&q.is_sneaking"
+						}
+					],
+					"transitions": [
+						{
+							"unequip": "!query.is_item_name_any('slot.weapon.mainhand',0,'bridge:dvd')"
+						}
+					],
+					"blend_transition": 0.15,
+					"blend_via_shortest_path": true
+				},
+				"unequip": {
+					"animations": [
+						{
+							"dvd_tpp_unequip": "v.is_third_person&&v.dvd_loot"
+						}
+					],
+					"transitions": [
+						{
+							"default": "!v.dvd_loot"
+						}
+					]
+				}
+			}
+		}
+	}
+}

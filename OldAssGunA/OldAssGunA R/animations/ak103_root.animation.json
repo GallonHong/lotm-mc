@@ -1,0 +1,119 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ak103_root": {
+			"loop": true,
+			"bones": {
+				"ak103_jammed": {
+					"position": [0, 0.15, 0]
+				},
+				"ak103_jammed2": {
+					"position": [0, 0.15, 0]
+				},
+				"ak103_jammed3": {
+					"position": [0, 0.15, 0]
+				},
+				"ak103_jammed4": {
+					"position": [0, 0.15, 0]
+				},
+				"ak103_jammed5": {
+					"position": [0, 0.15, 0]
+				},
+				"ak103_jammed6": {
+					"position": [0, 0.15, 0]
+				},
+				"ak103_jammed7": {
+					"position": [0, 0.15, 0]
+				},
+				"ak103_jammed8": {
+					"position": [0, 0.15, 0]
+				},
+				"barrelroot": {
+					"position": [0, 0.15, 0]
+				},
+				"barrelroot2": {
+					"position": [0, 0.15, 0]
+				},
+				"bone149": {
+					"position": [0, 0, 0],
+					"scale": [1.2, 1.2, 1]
+				},
+				"bone46": {
+					"scale": [1.2, 1.2, 1]
+				},
+				"hexadecagon": {
+					"position": [0, -0.1, 0]
+				},
+				"hexadecagon13": {
+					"position": [0, -0.3, 0]
+				},
+				"hexadecagon14": {
+					"position": [0, -0.1, 0]
+				},
+				"hexadecagon15": {
+					"position": [0, -0.1, 0]
+				},
+				"hexadecagon16": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon17": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon18": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon19": {
+					"scale": [1.2, 1, 1]
+				},
+				"hexadecagon2": {
+					"position": [0, -0.1, 0]
+				},
+				"hexadecagon28": {
+					"position": [0, -0.1, 0]
+				},
+				"hexadecagon3": {
+					"position": [0, -0.1, 0]
+				},
+				"hexadecagon37": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon38": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon4": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon43": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon5": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon6": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon30": {
+					"position": [0, -0.3, 0]
+				},
+				"hexadecagon31": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon32": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon33": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon36": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon40": {
+					"position": [0, 0.15, 0]
+				},
+				"hexadecagon41": {
+					"position": [0, 0.15, 0]
+				}
+			}
+		}
+	}
+}

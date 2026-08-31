@@ -1,0 +1,30 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "bridge:lockpick"
+		},
+		"tags": [
+			"crafting_table"
+		],
+		"key": {
+			"F": {
+				"item": "minecraft:iron_ingot"
+			}
+		},
+		"pattern": [
+			"   ",
+			"FFF",
+			"  F"
+		],
+		"unlock": [
+			{
+				"item": "minecraft:iron_ingot"
+			}
+		],
+		"result": {
+			"item": "bridge:lockpick",
+			"count": 8
+		}
+	}
+}

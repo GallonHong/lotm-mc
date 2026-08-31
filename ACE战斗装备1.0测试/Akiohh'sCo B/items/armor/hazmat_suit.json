@@ -1,0 +1,38 @@
+{
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "armor:hazmat_suit",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.chestplate"
+			}
+		},
+		"components": {
+			"minecraft:tags": {
+				"tags": [
+					"hazmat_suit"
+				]
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"texture": "hazmat_suit"
+			},
+			"minecraft:display_name": {
+				"value": "危险品套装\n\n§7价格: 25$"
+			},
+			"minecraft:glint": false,
+			"minecraft:durability": {
+				"damage_chance": {
+					"min": 80,
+					"max": 100
+				},
+				"max_durability": 120
+			},
+			"minecraft:wearable": {
+				"slot": "slot.armor.chest",
+				"protection": 5
+			}
+		}
+	}
+}

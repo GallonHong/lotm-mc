@@ -1,0 +1,545 @@
+{
+	"tiers": [
+		{
+			"groups": [
+				{
+					"num_to_select": 3,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:hb_mag_drum",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:hb_mag",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:hb_mag_extended",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 15
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:hkc_mag_drum",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:hkc_mag",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:hkc_mag_extended",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 15
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:scar_mag_drum",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:scar_mag",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:scar_mag_extended",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 15
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:glock_mag",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 2
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:glock_mag_extended",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 3
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:tactile_mag",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:barret_mag",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 25
+								}
+							]
+						}
+					]
+				},
+				{
+					"num_to_select": 4,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "hengker:simple",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:normal",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 25
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:cqb",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 25
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:holo",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:magnifier",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 30
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:reddot",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:acog",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 6
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:tele",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 30
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:short",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 2
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:long",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 2
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:laser_red",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 2
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:light",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:silencer",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 5
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:scout",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 35
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "hengker:exclusive",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 30
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:flashlight",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 2
+								}
+							]
+						}
+					]
+				},
+				{
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:dvd",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 10
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:tank",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 9
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:ram",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 8
+								}
+							]
+						}
+					]
+				},
+				{
+					"num_to_select": 2,
+					"trades": [
+						{
+							"wants": [
+								{
+									"item": "bridge:usb",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar4",
+									"quantity": 3
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:syringe",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 10
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:fork",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 2
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:drug",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar1",
+									"quantity": 4
+								}
+							]
+						},
+						{
+							"wants": [
+								{
+									"item": "bridge:router",
+									"quantity": 1
+								}
+							],
+							"gives": [
+								{
+									"item": "bridge:minedollar16",
+									"quantity": 7
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	]
+}
