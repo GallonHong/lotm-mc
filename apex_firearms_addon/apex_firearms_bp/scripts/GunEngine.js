@@ -6,8 +6,8 @@ import { RaycastEngine } from "./RaycastEngine.js";
 export class GunEngine {
   static #lastShotTicks = new Map();
   static #lastMuzzleFeedback = new Map();
-  static #skillCooldowns = new Map(); // Map<playerId, nextAvailableTick>
-  static #overdriveStates = new Map(); // Map<playerId, { slot, startTick }>
+  static #skillCooldowns = new Map();
+  static #overdriveStates = new Map();
 
   /**
    * 处理武器右键点按触发
@@ -25,15 +25,14 @@ export class GunEngine {
     // 1. 如果正在换弹中，禁止射击
     if (ReloadManager.isReloading(player.id)) return false;
 
-    // 2. 如果正在【暴走狂潮】超载连射中，由后台 onTick 绝对接管，无需重复触发
+    // 2. 如果正在【暴走狂潮】超载连射中，由后台 onTick 绝对接管
     if (this.#overdriveStates.has(player.id)) return false;
 
     const currentTick = system.currentTick;
 
-    // 3. 潜行技能分支 (针对 Vector .45 暴走狂潮，其他枪械为潜行换弹)
+    // 3. 潜行分支 (Vector 为释放技能，其余枪械为潜行主动换弹)
     if (player.isSneaking) {
       if (config.hasSkill) {
-        // Vector 专属技能【暴走狂潮】(CD: 30s)
         const nextTick = this.#skillCooldowns.get(player.id) || 0;
         if (currentTick < nextTick) {
           const remainingSec = Math.max(0, (nextTick - currentTick) / 20).toFixed(1);
@@ -52,11 +51,9 @@ export class GunEngine {
           return false;
         }
 
-        // 启动技能【暴走狂潮】
         this.activateOverdrive(player, slot, config, currentTick);
         return true;
       } else {
-        // 其他枪械：潜行右键主动换弹
         const magAmmo = AmmoSystem.getMagazineAmmo(item);
         if (magAmmo < config.magSize) {
           ReloadManager.startReload(player, item, slot);
@@ -83,18 +80,21 @@ export class GunEngine {
     if (currentTick - lastTick < 3) return false;
     this.#lastShotTicks.set(player.id, currentTick);
 
-    // 6. 普通模式点射派发
+    // 6. 各武器点射派发
     if (config.burstCount === 3) {
-      // AK-47 三连发
+      // AK-47 三连发 (单发 6 HP，三发 18 HP)
       this.#executeSingleShot(player, slot, config, 1);
       system.runTimeout(() => this.#executeSingleShot(player, slot, config, 2), 2);
       system.runTimeout(() => this.#executeSingleShot(player, slot, config, 3), 4);
     } else if (config.burstCount === 2) {
-      // Vector .45 立姿双发点射
+      // Vector .45 立姿双发 (单发 5 HP，双发 10 HP)
       this.#executeSingleShot(player, slot, config, 1);
       system.runTimeout(() => this.#executeSingleShot(player, slot, config, 2), 2);
+    } else if (config.id === "apex:mgl") {
+      // M32 自动榴弹炮 (100% 40mm 破片高爆，0 地形破坏)
+      this.#executeSingleShot(player, slot, config, 1, true);
     } else {
-      // M82A1 单发重狙 (20% 概率高爆烈焰弹)
+      // M82A1 单发重狙 (20% 概率恶魂高爆弹)
       const isHeRound = config.isExplosive && (Math.random() < (config.heChance ?? 0.20));
       this.#executeSingleShot(player, slot, config, 1, isHeRound);
     }
@@ -106,17 +106,14 @@ export class GunEngine {
    * 启动 Vector【暴走狂潮 / Overdrive】技能
    */
   static activateOverdrive(player, slot, config, currentTick) {
-    // 设置 30 秒 CD
     this.#skillCooldowns.set(player.id, currentTick + (config.skillCooldownSec ?? 30) * 20);
 
-    // 播放暴走狂暴音效与粒子
     try {
       player.playSound("mob.enderdragon.growl", { location: player.location, volume: 0.9, pitch: 1.5 });
       player.playSound("random.anvil_land", { location: player.location, volume: 0.8, pitch: 1.8 });
       player.dimension.spawnParticle("minecraft:mob_flame_emitter", player.location);
     } catch {}
 
-    // 注册狂暴全速持续连射状态
     this.#overdriveStates.set(player.id, {
       slot,
       gunId: config.id,
@@ -127,19 +124,18 @@ export class GunEngine {
   }
 
   /**
-   * 20 TPS 常态更新 (处理暴走狂潮连射、换弹与 HUD)
+   * 20 TPS 常态更新
    */
   static onTick() {
     const currentTick = system.currentTick;
     const allPlayers = world.getAllPlayers();
     const playerMap = new Map(allPlayers.map((p) => [p.id, p]));
 
-    // 1. 更新换弹状态机
     try {
       ReloadManager.update(currentTick, (id) => playerMap.get(id));
     } catch {}
 
-    // 2. 处理处于【暴走狂潮】的玩家 (每 1 tick 极速射出 1 发，直到打空弹匣无法停止！)
+    // 处理处于【暴走狂潮】的玩家 (1200 RPM 极速射出直到打空 50 发弹匣)
     for (const player of allPlayers) {
       if (!player || !player.isValid()) continue;
       const od = this.#overdriveStates.get(player.id);
@@ -165,7 +161,6 @@ export class GunEngine {
 
       let currentAmmo = AmmoSystem.getMagazineAmmo(item);
       if (currentAmmo <= 0) {
-        // 弹匣完全打空 -> 结束暴走狂潮，进入强制换弹
         this.#overdriveStates.delete(player.id);
         try {
           player.playSound("random.fizz", { location: player.location, volume: 1.0, pitch: 0.8 });
@@ -175,11 +170,10 @@ export class GunEngine {
         continue;
       }
 
-      // 执行狂暴一发 (极速 1200 RPM，无法停止！)
       this.#executeSingleShot(player, od.slot, config, 1, false, true);
     }
 
-    // 3. 常态 HUD 刷新
+    // 常态 HUD 刷新
     if (currentTick % 4 === 0) {
       for (const player of allPlayers) {
         try {
@@ -253,7 +247,10 @@ export class GunEngine {
 
     // 2. 播放枪声与远距离回声
     try {
-      if (config.id === "apex:m82") {
+      if (config.id === "apex:mgl") {
+        player.playSound("apex.mgl.shoot", { location: player.location, volume: 1.0, pitch: 0.85 });
+        player.playSound("random.explode", { location: player.location, volume: 0.9, pitch: 1.3 });
+      } else if (config.id === "apex:m82") {
         if (isHeRound) {
           player.playSound("mob.ghast.fireball", { location: player.location, volume: 1.0, pitch: 1.0 });
           player.playSound("random.explode", { location: player.location, volume: 1.0, pitch: 1.2 });
@@ -276,6 +273,8 @@ export class GunEngine {
     let shakeIntensity = "0.04";
     if (isOverdrive) {
       shakeIntensity = "0.06";
+    } else if (config.id === "apex:mgl") {
+      shakeIntensity = isSneaking ? "0.04" : "0.07";
     } else if (config.id === "apex:m82") {
       shakeIntensity = isHeRound ? (isSneaking ? "0.05" : "0.08") : (isSneaking ? "0.035" : "0.06");
     } else {
@@ -299,6 +298,16 @@ export class GunEngine {
       player.onScreenDisplay?.setActionBar?.(
         `§4🔥【暴走狂潮】全速扫射中! [${bar}§4] §f${currentAmmo}§7/§a${reserve} §c(无法停火!)`
       );
+    } else if (config.id === "apex:mgl") {
+      if (rayResult && rayResult.hitResult) {
+        player.onScreenDisplay?.setActionBar?.(
+          `§6[M32 榴弹炮] 💥 [${bar}§6] ${currentAmmo}/${reserve} §7| §a🎯 直击 §f${rayResult.hitResult.targetName} §c(-20 HP + 40 破片轰炸!)`
+        );
+      } else {
+        player.onScreenDisplay?.setActionBar?.(
+          `§6[M32 榴弹炮] 💥 [${bar}§6] §f${currentAmmo}§7/§a${reserve} §7(40mm破片高爆)`
+        );
+      }
     } else if (rayResult && rayResult.hitResult) {
       const hit = rayResult.hitResult;
       const headText = hit.headshot ? "§c💥 头部暴击!" : "";

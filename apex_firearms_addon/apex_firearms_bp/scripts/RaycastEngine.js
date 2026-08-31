@@ -19,7 +19,7 @@ const BREAKABLE_BLOCKS = new Set([
 
 export class RaycastEngine {
   /**
-   * 执行带有散布偏移的视线射线投射 (支持高爆烈焰弹判定)
+   * 执行带有散布偏移的视线射线投射 (支持 0 地形破坏高爆破片弹)
    */
   static castBullet(player, gunConfig, spreadMultiplier = 1.0, isHeRound = false) {
     if (!player || !player.isValid()) return null;
@@ -45,7 +45,6 @@ export class RaycastEngine {
       const len = Math.sqrt(shootDir.x ** 2 + shootDir.y ** 2 + shootDir.z ** 2) || 1.0;
       const normDir = { x: shootDir.x / len, y: shootDir.y / len, z: shootDir.z / len };
 
-      // 限制最大检测距离在 64 格内 (防御 Unloaded Chunk)
       const maxCheckDist = Math.min(gunConfig.maxRange ?? 64, 64.0);
 
       // 1. 方块射线检测
@@ -69,7 +68,7 @@ export class RaycastEngine {
             z: headLoc.z + normDir.z * blockHitDist
           };
 
-          if (BREAKABLE_BLOCKS.has(bTypeId)) {
+          if (BREAKABLE_BLOCKS.has(bTypeId) && gunConfig.id !== "apex:mgl") {
             try {
               dim.runCommand(`fill ${bLoc.x} ${bLoc.y} ${bLoc.z} ${bLoc.x} ${bLoc.y} ${bLoc.z} air destroy`);
             } catch {}
@@ -77,6 +76,7 @@ export class RaycastEngine {
             try {
               if (isHeRound) {
                 dim.spawnParticle("minecraft:basic_flame_particle", blockImpactLoc);
+                dim.spawnParticle("minecraft:huge_explosion_emitter", blockImpactLoc);
               } else {
                 dim.spawnParticle("minecraft:crit", blockImpactLoc);
                 dim.spawnParticle("minecraft:smoke_particle", blockImpactLoc);
@@ -124,14 +124,15 @@ export class RaycastEngine {
         }
       } catch (err) {}
 
-      // 3. 高爆弹爆炸与溅射结算 (若命中或触碰方块)
+      // 3. 高爆弹爆炸与溅射结算 (100% 遵守 0 地形破坏规则)
       let explosionSplashCount = 0;
       if (isHeRound && actualImpactLoc) {
         explosionSplashCount = DamageResolver.applyExplosiveSplash(
           player,
           actualImpactLoc,
-          gunConfig.heRadius ?? 3.5,
-          gunConfig.heSplashDamage ?? 30
+          gunConfig.heRadius ?? 5.0,
+          gunConfig.heSplashDamage ?? 40,
+          gunConfig
         );
       }
 

@@ -37,6 +37,18 @@
     },
     "apex:ammo_45acp": {
       "textures": "textures/items/ammo_45acp"
+    },
+    "apex_mgl": {
+      "textures": "textures/items/mgl"
+    },
+    "apex:mgl": {
+      "textures": "textures/items/mgl"
+    },
+    "apex_ammo_40mm": {
+      "textures": "textures/items/ammo_40mm"
+    },
+    "apex:ammo_40mm": {
+      "textures": "textures/items/ammo_40mm"
     }
   }
 }

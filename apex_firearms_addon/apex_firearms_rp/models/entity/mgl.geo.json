@@ -1,0 +1,78 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.apex.mgl",
+        "texture_width": 64,
+        "texture_height": 64,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 3,
+        "visible_bounds_offset": [0, 1.5, 0]
+      },
+      "bones": [
+        {
+          "name": "root",
+          "pivot": [0, 0, 0]
+        },
+        {
+          "name": "waist",
+          "parent": "root",
+          "pivot": [0, 12, 0]
+        },
+        {
+          "name": "body",
+          "parent": "waist",
+          "pivot": [0, 24, 0]
+        },
+        {
+          "name": "rightArm",
+          "parent": "body",
+          "pivot": [-5, 22, 0]
+        },
+        {
+          "name": "rightItem",
+          "parent": "rightArm",
+          "pivot": [-6, 15, 1]
+        },
+        {
+          "name": "guns",
+          "parent": "rightItem",
+          "pivot": [-6, 15, 1],
+          "cubes": [
+            {
+              "origin": [-7.2, 11.5, 2.0],
+              "size": [2.6, 5.2, 7.0],
+              "uv": [0, 0]
+            },
+            {
+              "origin": [-7.0, 12.5, 9.0],
+              "size": [2.2, 2.8, 11.0],
+              "uv": [0, 14]
+            },
+            {
+              "origin": [-6.8, 16.0, 4.0],
+              "size": [1.8, 1.8, 12.0],
+              "uv": [20, 0]
+            },
+            {
+              "origin": [-6.6, 7.5, 0.0],
+              "size": [1.4, 4.5, 2.5],
+              "uv": [0, 30]
+            },
+            {
+              "origin": [-6.8, 12.5, -8.0],
+              "size": [1.8, 3.2, 10.0],
+              "uv": [28, 16]
+            },
+            {
+              "origin": [-6.6, 7.5, 13.0],
+              "size": [1.4, 5.0, 2.0],
+              "uv": [8, 30]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

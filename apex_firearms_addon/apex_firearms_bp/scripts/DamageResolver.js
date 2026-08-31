@@ -65,7 +65,7 @@ export class DamageResolver {
     const healthComp = target.getComponent("minecraft:health");
     if (!healthComp) return null;
 
-    const baseDmg = gunConfig?.baseDamage ?? 22;
+    const baseDmg = gunConfig?.baseDamage ?? 6;
     const headshotMult = gunConfig?.headshotMultiplier ?? 2.0;
     const ap = gunConfig?.armorPiercing ?? 0.35;
 
@@ -100,7 +100,7 @@ export class DamageResolver {
     // 施加方向性物理击退
     if (attacker) {
       const dir = attacker.getViewDirection();
-      const knockbackForce = gunConfig?.id === "apex:m82" ? 0.9 : 0.45;
+      const knockbackForce = gunConfig?.id === "apex:m82" ? 0.9 : (gunConfig?.id === "apex:mgl" ? 1.0 : 0.4);
       try {
         target.applyKnockback(dir.x, dir.z, knockbackForce, 0.15);
       } catch {}
@@ -115,22 +115,26 @@ export class DamageResolver {
   }
 
   /**
-   * 高爆烈焰弹范围轰炸结算
+   * 高爆烈焰/破片弹范围轰炸结算 (100% 遵守 breaksBlocks: false，绝不破坏地形)
    */
-  static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage) {
+  static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage, config) {
     if (!attacker || !attacker.isValid() || !centerLoc) return 0;
     const dim = attacker.dimension;
 
-    // 1. 生成恶魂火球爆炸特效与声音
+    const breaksBlocks = config?.heBreaksBlocks ?? false; // 绝不破坏地形
+    const causesFire = config?.heCausesFire ?? false;
+    const power = config?.id === "apex:mgl" ? 2.5 : 1.5;
+
+    // 1. 生成安全爆炸冲击波
     try {
-      dim.createExplosion(centerLoc, 1.5, { breaksBlocks: false, causesFire: true });
+      dim.createExplosion(centerLoc, power, { breaksBlocks, causesFire });
     } catch {
       try {
         dim.spawnParticle("minecraft:huge_explosion_emitter", centerLoc);
       } catch {}
     }
 
-    // 2. 溅射伤害与点燃
+    // 2. 溅射破片伤害与击退
     let hitCount = 0;
     try {
       const nearby = dim.getEntities({
@@ -147,7 +151,15 @@ export class DamageResolver {
             cause: EntityDamageCause.entityExplosion,
             damagingEntity: attacker
           });
-          ent.setOnFire(4, true); // 附带 4 秒烈焰燃烧
+          if (causesFire) {
+            ent.setOnFire(4, true);
+          }
+          // 强力冲击波击飞
+          const entLoc = ent.location;
+          const dx = entLoc.x - centerLoc.x;
+          const dz = entLoc.z - centerLoc.z;
+          const dist = Math.hypot(dx, dz) || 1.0;
+          ent.applyKnockback(dx / dist, dz / dist, 1.2, 0.35);
           hitCount++;
         } catch {}
       }

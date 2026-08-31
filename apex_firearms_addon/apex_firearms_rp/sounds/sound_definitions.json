@@ -37,6 +37,18 @@
         { "name": "sounds/guns/vector_distant", "volume": 0.8, "pitch": 1.1 }
       ]
     },
+    "apex.mgl.shoot": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/mgl_shoot", "volume": 1.0, "pitch": 0.8 }
+      ]
+    },
+    "apex.mgl.distant": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/mgl_distant", "volume": 0.9, "pitch": 0.8 }
+      ]
+    },
     "apex.gun.dry": {
       "category": "player",
       "sounds": [

@@ -1,0 +1,39 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "apex:craft_mgl"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ],
+    "pattern": [
+      "  I",
+      "IRT",
+      " N "
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_block"
+      },
+      "R": {
+        "item": "minecraft:redstone_block"
+      },
+      "T": {
+        "item": "minecraft:tnt"
+      },
+      "N": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "apex:mgl",
+      "count": 1
+    }
+  }
+}
