@@ -1,0 +1,53 @@
+﻿{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "gun.m1911": {
+      "category": "player",
+      "sounds": [ "sounds/guns/shoot/m1911" ]
+    },
+    "distant.m1911": {
+      "category": "player",
+      "sounds": [ { "name": "sounds/guns/distant/m1911", "volume": 2.5 } ]
+    },
+    "gun.akm": {
+      "category": "player",
+      "sounds": [ "sounds/guns/shoot/ak47" ]
+    },
+    "distant.akm": {
+      "category": "player",
+      "sounds": [ { "name": "sounds/guns/distant/ak47", "volume": 2.5 } ]
+    },
+    "gun.mp5": {
+      "category": "player",
+      "sounds": [ "sounds/guns/shoot/mp5" ]
+    },
+    "distant.mp5": {
+      "category": "player",
+      "sounds": [ { "name": "sounds/guns/distant/mp5", "volume": 2.5 } ]
+    },
+    "gun.m870": {
+      "category": "player",
+      "sounds": [ "sounds/guns/shoot/m870" ]
+    },
+    "distant.m870": {
+      "category": "player",
+      "sounds": [ { "name": "sounds/guns/distant/m870", "volume": 2.5 } ]
+    },
+    "gun.dry": {
+      "category": "player",
+      "sounds": [ "sounds/guns/dry/dry1", "sounds/guns/dry/dry3" ]
+    },
+    "gun.draw": {
+      "category": "player",
+      "sounds": [ "sounds/guns/draw/draw1", "sounds/guns/draw/draw2" ]
+    },
+    "gun.hitmarker": {
+      "category": "player",
+      "sounds": [ { "name": "sounds/guns/bullet_impact/metal/metal1", "volume": 1.2, "pitch": 1.3 } ]
+    },
+    "gun.hit_body": {
+      "category": "hostile",
+      "sounds": [ "sounds/guns/bullet_impact/pass/pass1" ]
+    }
+  }
+}

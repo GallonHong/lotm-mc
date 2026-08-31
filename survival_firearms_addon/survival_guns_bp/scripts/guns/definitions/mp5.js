@@ -1,0 +1,20 @@
+﻿export const MP5Definition = {
+  id: "survival:mp5",
+  name: "MP5",
+  displayName: "§l§bMP5 冲锋枪§r",
+  category: "smg",
+  damage: 9,
+  damagePvp: 6,
+  rpm: 900,
+  magazineSize: 30,
+  reloadSeconds: 2.1,
+  range: 30,
+  spreadHip: 0.045,
+  spreadAds: 0.01,
+  durabilityMax: 1100,
+  durabilityPerShot: 1,
+  ammoType: "survival:ammo_9mm",
+  fireMode: "auto",
+  animationProfile: "smg",
+  soundProfile: "mp5"
+};

@@ -1,0 +1,20 @@
+﻿export const AKMDefinition = {
+  id: "survival:akm",
+  name: "AKM",
+  displayName: "§l§6AKM 突击步枪§r",
+  category: "assault_rifle",
+  damage: 13,
+  damagePvp: 9,
+  rpm: 600,
+  magazineSize: 30,
+  reloadSeconds: 2.6,
+  range: 46,
+  spreadHip: 0.05,
+  spreadAds: 0.012,
+  durabilityMax: 1300,
+  durabilityPerShot: 1,
+  ammoType: "survival:ammo_762",
+  fireMode: "auto",
+  animationProfile: "rifle",
+  soundProfile: "akm"
+};

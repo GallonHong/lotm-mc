@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival:steel_ingot",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": false,
+      "minecraft:icon": {
+        "texture": "survival_steel_ingot"
+      },
+      "minecraft:display_name": {
+        "value": "§f精炼军用钢材§r\n§7枪械制造基础材料"
+      }
+    }
+  }
+}

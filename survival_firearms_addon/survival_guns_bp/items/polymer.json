@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival:polymer",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": false,
+      "minecraft:icon": {
+        "texture": "survival_polymer"
+      },
+      "minecraft:display_name": {
+        "value": "§3高强度工程聚合物§r\n§7枪身防震轻量化材料"
+      }
+    }
+  }
+}

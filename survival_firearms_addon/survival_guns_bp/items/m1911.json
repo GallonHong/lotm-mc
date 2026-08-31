@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival:m1911",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": {
+        "texture": "survival_m1911"
+      },
+      "minecraft:display_name": {
+        "value": "§l§fM1911 手枪§r\n§7半自动 | .45 ACP"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 99999,
+        "movement_modifier": 0.65
+      },
+      "minecraft:cooldown": {
+        "category": "survival:m1911",
+        "duration": 0
+      },
+      "minecraft:tags": {
+        "tags": [
+          "guns",
+          "m1911",
+          "pistol"
+        ]
+      }
+    }
+  }
+}

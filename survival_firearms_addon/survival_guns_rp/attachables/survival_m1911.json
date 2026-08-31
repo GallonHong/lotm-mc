@@ -1,0 +1,34 @@
+﻿{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "survival:m1911",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/guns/m1911"
+      },
+      "geometry": {
+        "default": "geometry.m1911"
+      },
+      "animations": {
+        "gun": "controller.animation.m1911.person",
+        "guns.draw": "animation.guns.draw",
+        "guns.hold": "animation.guns.hold",
+        "guns.sprint": "animation.guns.sprint"
+      },
+      "scripts": {
+        "animate": [
+          { "gun": "c.is_first_person" }
+        ]
+      },
+      "sound_effects": {
+        "draw.sound": "gun.draw"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

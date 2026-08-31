@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival:ammo_12g",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": false,
+      "minecraft:icon": {
+        "texture": "survival_ammo_12g"
+      },
+      "minecraft:display_name": {
+        "value": "§e12 Gauge 霰弹盒§r\n§7适用于 M870 等霰弹枪"
+      }
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival:gun_workbench",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": true,
+      "minecraft:icon": {
+        "texture": "survival_gun_workbench"
+      },
+      "minecraft:display_name": {
+        "value": "§l§e【便携/部署】枪械改装制造台§r\n§7右键/使用打开制造与图纸研究终端"
+      },
+      "minecraft:glint": true
+    }
+  }
+}

@@ -1,0 +1,383 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.player.first_person": {
+			"geometry": "geometry.default",
+			"arrays": {
+				"textures": {
+					"Array.skins": [
+						"Texture.default",
+						"Texture.variant_0",
+						"Texture.variant_1",
+						"Texture.variant_2",
+						"Texture.variant_3",
+						"Texture.variant_4",
+						"Texture.variant_5",
+						"Texture.variant_6",
+						"Texture.variant_7",
+						"Texture.variant_8",
+						"Texture.variant_9",
+						"Texture.variant_10",
+						"Texture.variant_11",
+						"Texture.variant_12",
+						"Texture.variant_13",
+						"Texture.variant_14",
+						"Texture.variant_15",
+						"Texture.variant_16",
+						"Texture.variant_17"
+					]
+				}
+			},
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"Array.skins[v.skin]"
+			],
+			"is_hurt_color": {},
+			"on_fire_color": {},
+			"part_visibility": [
+				{
+					"*": false
+				},
+				{
+					"rightArm": "q.get_equipped_item_name(0, 1) == '' || q.get_equipped_item_name(0, 1) == 'filled_map' || v.guns"
+				},
+				{
+					"rightSleeve": "q.get_equipped_item_name(0, 1) == '' || q.get_equipped_item_name(0, 1) == 'filled_map' || v.guns"
+				},
+				{
+					"leftArm": "(q.get_equipped_item_name(0, 1) == 'filled_map' && q.get_equipped_item_name('off_hand') != 'shield') || (q.get_equipped_item_name('off_hand') == 'filled_map' && !q.item_is_charged) || (!q.item_is_charged && (v.item_use_normalized > 0 && v.item_use_normalized < 1.0)) || v.guns"
+				},
+				{
+					"leftSleeve": "(q.get_equipped_item_name(0, 1) == 'filled_map' && q.get_equipped_item_name('off_hand') != 'shield') || (q.get_equipped_item_name('off_hand') == 'filled_map' && !q.item_is_charged) || (!q.item_is_charged && (v.item_use_normalized > 0 && v.item_use_normalized < 1.0)) || v.guns"
+				}
+			]
+		},
+		"controller.render.player.third_person": {
+			"geometry": "geometry.default",
+			"arrays": {
+				"textures": {
+					"Array.skins": [
+						"Texture.default",
+						"Texture.variant_0",
+						"Texture.variant_1",
+						"Texture.variant_2",
+						"Texture.variant_3",
+						"Texture.variant_4",
+						"Texture.variant_5",
+						"Texture.variant_6",
+						"Texture.variant_7",
+						"Texture.variant_8",
+						"Texture.variant_9",
+						"Texture.variant_10",
+						"Texture.variant_11",
+						"Texture.variant_12",
+						"Texture.variant_13",
+						"Texture.variant_14",
+						"Texture.variant_15",
+						"Texture.variant_16",
+						"Texture.variant_17"
+					]
+				}
+			},
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"Array.skins[v.skin]"
+			],
+			"is_hurt_color": {},
+			"on_fire_color": {},
+			"part_visibility": [
+				{
+					"*": true
+				},
+				{
+					"helmet": "v.helmet_layer_visible"
+				},
+				{
+					"leftLegging": "v.leg_layer_visible"
+				},
+				{
+					"rightLegging": "v.leg_layer_visible"
+				},
+				{
+					"leftBoot": "v.boot_layer_visible"
+				},
+				{
+					"rightBoot": "v.boot_layer_visible"
+				},
+				{
+					"leftSock": "v.boot_layer_visible && v.leg_layer_visible"
+				},
+				{
+					"rightSock": "v.boot_layer_visible && v.leg_layer_visible"
+				},
+				{
+					"bodyArmor": "v.chest_layer_visible && !q.has_cape"
+				},
+				{
+					"leftArmArmor": "v.chest_layer_visible && !q.has_cape"
+				},
+				{
+					"rightArmArmor": "v.chest_layer_visible && !q.has_cape"
+				},
+				{
+					"belt": "v.chest_layer_visible && v.leg_layer_visible"
+				}
+			]
+		},
+		"controller.render.player.map": {
+			"geometry": "geometry.default",
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"texture.default"
+			],
+			"part_visibility": [
+				{
+					"*": false
+				},
+				{
+					"head": true
+				},
+				{
+					"hat": true
+				},
+				{
+					"helmet": true
+				}
+			]
+		},
+		"controller.render.player_male_hair": {
+			"geometry": "Geometry.default",
+			"arrays": {
+				"textures": {
+					"Array.hair": [
+						"Texture.default_hair",
+						"Texture.male_hair_0",
+						"Texture.male_hair_1",
+						"Texture.male_hair_2",
+						"Texture.male_hair_3",
+						"Texture.male_hair_4",
+						"Texture.male_hair_5",
+						"Texture.male_hair_6",
+						"Texture.male_hair_7",
+						"Texture.male_hair_8",
+						"Texture.male_hair_9",
+						"Texture.male_hair_10",
+						"Texture.male_hair_11",
+						"Texture.male_hair_12",
+						"Texture.male_hair_13",
+						"Texture.male_hair_14",
+						"Texture.male_hair_15",
+						"Texture.male_hair_16",
+						"Texture.male_hair_17",
+						"Texture.male_hair_18",
+						"Texture.male_hair_19",
+						"Texture.male_hair_20",
+						"Texture.male_hair_21",
+						"Texture.male_hair_22",
+						"Texture.male_hair_23",
+						"Texture.male_hair_24",
+						"Texture.male_hair_25",
+						"Texture.male_hair_26",
+						"Texture.male_hair_27",
+						"Texture.male_hair_28",
+						"Texture.male_hair_29",
+						"Texture.male_hair_30",
+						"Texture.male_hair_31",
+						"Texture.male_hair_32",
+						"Texture.male_hair_33",
+						"Texture.male_hair_34",
+						"Texture.male_hair_35",
+						"Texture.male_hair_36",
+						"Texture.male_hair_37",
+						"Texture.male_hair_38",
+						"Texture.male_hair_39",
+						"Texture.male_hair_40",
+						"Texture.male_hair_41",
+						"Texture.male_hair_42",
+						"Texture.male_hair_43",
+						"Texture.male_hair_44",
+						"Texture.male_hair_45",
+						"Texture.male_hair_46",
+						"Texture.male_hair_47",
+						"Texture.male_hair_48",
+						"Texture.male_hair_49",
+						"Texture.male_hair_50",
+						"Texture.male_hair_51",
+						"Texture.male_hair_52",
+						"Texture.male_hair_53",
+						"Texture.male_hair_54",
+						"Texture.male_hair_55",
+						"Texture.male_hair_56",
+						"Texture.male_hair_57",
+						"Texture.male_hair_58",
+						"Texture.male_hair_59",
+						"Texture.male_hair_60",
+						"Texture.male_hair_61",
+						"Texture.male_hair_62",
+						"Texture.male_hair_63",
+						"Texture.male_hair_64",
+						"Texture.male_hair_65",
+						"Texture.male_hair_66",
+						"Texture.male_hair_67",
+						"Texture.male_hair_68",
+						"Texture.male_hair_69",
+						"Texture.male_hair_70",
+						"Texture.male_hair_71",
+						"Texture.male_hair_72",
+						"Texture.male_hair_73",
+						"Texture.male_hair_74",
+						"Texture.male_hair_75",
+						"Texture.male_hair_76"
+					]
+				}
+			},
+			"rebuild_animation_matrices": true,
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"Array.hair[v.male_hair]"
+			],
+			"is_hurt_color": {},
+			"on_fire_color": {}
+		},
+		"controller.render.player_female_hair": {
+			"geometry": "geometry.default",
+			"arrays": {
+				"textures": {
+					"Array.hair": [
+						"Texture.default_hair",
+						"Texture.female_hair_0",
+						"Texture.female_hair_1",
+						"Texture.female_hair_2",
+						"Texture.female_hair_3",
+						"Texture.female_hair_4",
+						"Texture.female_hair_5",
+						"Texture.female_hair_6",
+						"Texture.female_hair_7",
+						"Texture.female_hair_8",
+						"Texture.female_hair_9",
+						"Texture.female_hair_10",
+						"Texture.female_hair_11",
+						"Texture.female_hair_12",
+						"Texture.female_hair_13",
+						"Texture.female_hair_14",
+						"Texture.female_hair_15",
+						"Texture.female_hair_16",
+						"Texture.female_hair_17",
+						"Texture.female_hair_18",
+						"Texture.female_hair_19",
+						"Texture.female_hair_20",
+						"Texture.female_hair_21",
+						"Texture.female_hair_22",
+						"Texture.female_hair_23",
+						"Texture.female_hair_24",
+						"Texture.female_hair_25",
+						"Texture.female_hair_26",
+						"Texture.female_hair_27",
+						"Texture.female_hair_28",
+						"Texture.female_hair_29",
+						"Texture.female_hair_30",
+						"Texture.female_hair_31",
+						"Texture.female_hair_32",
+						"Texture.female_hair_33",
+						"Texture.female_hair_34",
+						"Texture.female_hair_35",
+						"Texture.female_hair_36",
+						"Texture.female_hair_37",
+						"Texture.female_hair_38",
+						"Texture.female_hair_39",
+						"Texture.female_hair_40",
+						"Texture.female_hair_41",
+						"Texture.female_hair_42",
+						"Texture.female_hair_43",
+						"Texture.female_hair_44",
+						"Texture.female_hair_45",
+						"Texture.female_hair_46",
+						"Texture.female_hair_47",
+						"Texture.female_hair_48",
+						"Texture.female_hair_49"
+					]
+				}
+			},
+			"rebuild_animation_matrices": true,
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"Array.hair[v.female_hair]"
+			],
+			"is_hurt_color": {},
+			"on_fire_color": {}
+		},
+		"controller.render.player_eyes": {
+			"geometry": "geometry.default",
+			"arrays": {
+				"textures": {
+					"Array.eye": [
+						"Texture.default_eyes",
+						"Texture.eyes_0",
+						"Texture.eyes_1",
+						"Texture.eyes_2",
+						"Texture.eyes_3",
+						"Texture.eyes_4",
+						"Texture.eyes_5",
+						"Texture.eyes_6",
+						"Texture.eyes_7",
+						"Texture.eyes_8",
+						"Texture.eyes_9",
+						"Texture.eyes_10",
+						"Texture.eyes_11",
+						"Texture.eyes_12",
+						"Texture.eyes_13",
+						"Texture.eyes_14",
+						"Texture.eyes_15",
+						"Texture.eyes_16",
+						"Texture.eyes_17",
+						"Texture.eyes_18",
+						"Texture.eyes_19",
+						"Texture.eyes_20",
+						"Texture.eyes_21",
+						"Texture.eyes_22",
+						"Texture.eyes_23",
+						"Texture.eyes_24",
+						"Texture.eyes_25",
+						"Texture.eyes_26",
+						"Texture.eyes_27",
+						"Texture.eyes_28",
+						"Texture.eyes_29",
+						"Texture.eyes_30",
+						"Texture.eyes_31"
+					]
+				}
+			},
+			"rebuild_animation_matrices": true,
+			"materials": [
+				{
+					"*": "material.default"
+				}
+			],
+			"textures": [
+				"Array.eye[v.eyes]"
+			],
+			"is_hurt_color": {},
+			"on_fire_color": {}
+		}
+	}
+}

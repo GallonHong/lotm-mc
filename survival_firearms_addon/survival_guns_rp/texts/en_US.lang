@@ -1,0 +1,29 @@
+﻿pack.name=Survival Firearms RP
+pack.description=Provides visual models, textures, animations and audio for firearms
+
+item.survival:m1911.name=M1911 Semi-Auto Pistol
+item.survival:akm.name=AKM Assault Rifle
+item.survival:mp5.name=MP5 Submachine Gun
+item.survival:m870.name=M870 Pump Shotgun
+
+item.survival:ammo_45.name=.45 ACP Ammo Box
+item.survival:ammo_9mm.name=9x19mm Ammo Box
+item.survival:ammo_762.name=7.62x39mm Ammo Box
+item.survival:ammo_12g.name=12 Gauge Shells Box
+
+item.survival:blueprint_m1911.name=Weapon Blueprint: M1911
+item.survival:blueprint_akm.name=Weapon Blueprint: AKM
+item.survival:blueprint_mp5.name=Weapon Blueprint: MP5
+item.survival:blueprint_m870.name=Weapon Blueprint: M870
+
+item.survival:steel_ingot.name=Refined Military Steel
+item.survival:mechanical_parts.name=Precision Mechanical Parts
+item.survival:polymer.name=High-Density Polymer
+item.survival:gun_barrel.name=Forged Gun Barrel
+item.survival:firearm_scrap.name=Firearm Scrap
+item.survival:mechanical_data.name=Mechanical Research Data
+item.survival:blueprint_paper.name=Engineering Blueprint Paper
+item.survival:gun_workbench.name=Weapon Crafting Station
+
+entity.survival:damage_dummy.name=Damage Dummy (5000 HP)
+entity.survival:test_infected.name=Infected Test Subject (500 HP)

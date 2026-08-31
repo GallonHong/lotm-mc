@@ -1,0 +1,20 @@
+﻿export const M1911Definition = {
+  id: "survival:m1911",
+  name: "M1911",
+  displayName: "§l§fM1911 半自动手枪§r",
+  category: "pistol",
+  damage: 18,
+  damagePvp: 12,
+  rpm: 300,
+  magazineSize: 7,
+  reloadSeconds: 1.8,
+  range: 32,
+  spreadHip: 0.035,
+  spreadAds: 0.008,
+  durabilityMax: 700,
+  durabilityPerShot: 1,
+  ammoType: "survival:ammo_45",
+  fireMode: "semi",
+  animationProfile: "pistol",
+  soundProfile: "m1911"
+};

@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.30",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival:gun_barrel",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 64,
+      "minecraft:hand_equipped": false,
+      "minecraft:icon": {
+        "texture": "survival_gun_barrel"
+      },
+      "minecraft:display_name": {
+        "value": "§7精锻枪管§r\n§7承受高压火药气体的膛线枪管"
+      }
+    }
+  }
+}
