@@ -140,10 +140,11 @@ export class DamageResolver {
       dim.spawnParticle("minecraft:campfire_smoke_particle", blastLoc);
     } catch {}
 
-    // 3. 保证播放爆炸音效
+    // 3. 播放 DeadZone 专属高保真重型爆炸音效与原版音效
     try {
-      dim.playSound("random.explode", centerLoc, { volume: 1.5, pitch: 0.9 });
-      dim.playSound("mob.ghast.fireball", centerLoc, { volume: 1.0, pitch: 0.85 });
+      dim.playSound("apex.explosion", centerLoc, { volume: 1.5, pitch: 1.0 });
+      dim.playSound("random.explode", centerLoc, { volume: 1.2, pitch: 0.9 });
+      dim.playSound("mob.ghast.fireball", centerLoc, { volume: 0.9, pitch: 0.85 });
     } catch {}
 
     // 4. 溅射破片伤害与击退

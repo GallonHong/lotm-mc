@@ -40,13 +40,22 @@
     "apex.mgl.shoot": {
       "category": "player",
       "sounds": [
-        { "name": "sounds/guns/mgl_shoot", "volume": 1.0, "pitch": 0.8 }
+        { "name": "sounds/guns/mgl_shoot", "volume": 1.0, "pitch": 1.0 }
       ]
     },
     "apex.mgl.distant": {
       "category": "player",
       "sounds": [
-        { "name": "sounds/guns/mgl_distant", "volume": 0.9, "pitch": 0.8 }
+        { "name": "sounds/guns/mgl_distant", "volume": 0.9, "pitch": 1.0 }
+      ]
+    },
+    "apex.explosion": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/explosions/explode1", "volume": 1.0, "pitch": 1.0 },
+        { "name": "sounds/explosions/explode2", "volume": 1.0, "pitch": 1.0 },
+        { "name": "sounds/explosions/explode3", "volume": 1.0, "pitch": 1.0 },
+        { "name": "sounds/explosions/explode4", "volume": 1.0, "pitch": 1.0 }
       ]
     },
     "apex.gun.dry": {
