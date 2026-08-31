@@ -1,10 +1,10 @@
 import { world, system, ItemStack } from "@minecraft/server";
-import { AK47_CONFIG, AmmoSystem } from "./AmmoSystem.js";
+import { GUN_CONFIGS, AK47_CONFIG, M82_CONFIG, AmmoSystem } from "./AmmoSystem.js";
 import { GunEngine } from "./GunEngine.js";
 import { ReloadManager } from "./ReloadManager.js";
 import { TestSuite } from "./TestSuite.js";
 
-console.warn("[ApexFirearms] Tactical AK-47 (3-Round Burst) Addon v1.1.0 initializing...");
+console.warn("[ApexFirearms] Tactical Arsenal (AK-47 Burst & M82 .50 HE) Addon v1.2.0 initializing...");
 
 /**
  * 安全事件订阅工具函数
@@ -22,18 +22,19 @@ function subscribeAfterEvent(eventName, handler) {
   }
 }
 
-// 1. 点按物品使用事件 -> 触发 3 连发点射 (3-Round Burst)
+// 1. 枪械使用事件 (支持 AK-47 三连发与 M82A1 单发高爆弹)
 subscribeAfterEvent("itemUse", (event) => {
   try {
-    if (event.itemStack && event.itemStack.typeId === AK47_CONFIG.id) {
-      GunEngine.handleBurstClick(event.source);
+    const item = event.itemStack;
+    if (item && GUN_CONFIGS[item.typeId]) {
+      GunEngine.handleGunUse(event.source, item);
     }
   } catch (e) {
     console.error(`[ApexFirearms] Error in itemUse: ${e}`);
   }
 });
 
-// 2. 20 TPS 主引擎驱动 (处理换弹与常态 HUD)
+// 2. 20 TPS 主引擎轮询
 system.runInterval(() => {
   try {
     GunEngine.onTick();
@@ -127,7 +128,7 @@ if (systemAfter && systemAfter.scriptEventReceive) {
 }
 
 /**
- * 发放枪械补给包
+ * 发放全套枪械与弹药补给包
  */
 function giveDevKit(player) {
   try {
@@ -137,29 +138,45 @@ function giveDevKit(player) {
       return;
     }
 
+    // 1. 发放 AK-47
     try {
-      const gun = new ItemStack(AK47_CONFIG.id, 1);
-      AmmoSystem.setMagazineAmmo(gun, AK47_CONFIG.magSize);
-      inv.container.addItem(gun);
-    } catch (err) {
+      const ak = new ItemStack(AK47_CONFIG.id, 1);
+      AmmoSystem.setMagazineAmmo(ak, AK47_CONFIG.magSize);
+      inv.container.addItem(ak);
+    } catch {
       player.runCommandAsync(`give @s ${AK47_CONFIG.id} 1`);
     }
 
+    // 2. 发放 M82A1 高爆重狙
     try {
-      inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
-      inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
+      const m82 = new ItemStack(M82_CONFIG.id, 1);
+      AmmoSystem.setMagazineAmmo(m82, M82_CONFIG.magSize);
+      inv.container.addItem(m82);
+    } catch {
+      player.runCommandAsync(`give @s ${M82_CONFIG.id} 1`);
+    }
+
+    // 3. 发放 7.62mm 弹药
+    try {
       inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
       inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
     } catch {
       player.runCommandAsync(`give @s ${AK47_CONFIG.ammoId} 64`);
-      player.runCommandAsync(`give @s ${AK47_CONFIG.ammoId} 64`);
+    }
+
+    // 4. 发放 .50 BMG 弹药
+    try {
+      inv.container.addItem(new ItemStack(M82_CONFIG.ammoId, 32));
+      inv.container.addItem(new ItemStack(M82_CONFIG.ammoId, 32));
+    } catch {
+      player.runCommandAsync(`give @s ${M82_CONFIG.ammoId} 32`);
     }
 
     try {
       player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 1.0 });
     } catch {}
 
-    player.sendMessage("§a✔ 已成功领取【战术 AK-47（三连发点射）】与 4 组 7.62mm 弹药！");
+    player.sendMessage("§a✔ 已成功领取【AK-47 (三连发)】、【M82A1 (20%烈焰高爆)】及对应弹药！");
   } catch (err) {
     player.sendMessage(`§c✖ 发放补给失败: ${err}`);
   }
@@ -174,8 +191,8 @@ function triggerReload(player) {
     if (!inv || !inv.container) return;
     const slot = player.selectedSlotIndex;
     const item = inv.container.getItem(slot);
-    if (!item || item.typeId !== AK47_CONFIG.id) {
-      player.sendMessage("§c✖ 手持栏未持有 AK-47！");
+    if (!item || !GUN_CONFIGS[item.typeId]) {
+      player.sendMessage("§c✖ 主手未持有 Apex 枪械！");
       return;
     }
     ReloadManager.startReload(player, item, slot);
@@ -202,19 +219,19 @@ function spawnDummy(player) {
  * 显示帮助指南
  */
 function showHelp(player) {
-  player.sendMessage("§l§e=== Apex Firearms: Tactical AK-47 指令指南 ===");
-  player.sendMessage("§6!gunkit§7 - 快捷领取 AK-47 与 7.62mm 弹药");
+  player.sendMessage("§l§e=== Apex Firearms: 战术军火库指令指南 ===");
+  player.sendMessage("§6!gunkit§7 - 领取 AK-47、M82A1 高爆重狙与全部弹药");
   player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可潜行右键或打空后点击自动换弹)");
   player.sendMessage("§6!dummy§7 - 生成 5000 HP 测试靶人");
   player.sendMessage("§6!test§7 - 运行自动化测试套件");
-  player.sendMessage("§7操作方式: 右键点按单次触发【三连发点射 (3-Round Burst)】，潜行(Shift)+右键直接换弹");
+  player.sendMessage("§7武器特性: AK-47 单点 3 连发；M82A1 单发重伤且有 20% 概率触发恶魂烈焰高爆弹！");
 }
 
 // 6. 玩家进退场与死亡清理
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§6[Apex Firearms]§r §a战术 AK-47（三连发点射模式）已就绪！输入 §e!gunkit§a 获取武器，右键点按单次连射 3 发。§r");
+      player.sendMessage("§l§6[Apex Firearms]§r §a军火库模组已就绪！输入 §e!gunkit§a 获取 AK-47 与 M82A1 高爆重狙。§r");
     }
   } catch {}
 });
@@ -233,4 +250,4 @@ subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   } catch {}
 });
 
-console.warn("[ApexFirearms] Tactical AK-47 Addon loaded successfully without errors!");
+console.warn("[ApexFirearms] Tactical Arsenal loaded successfully without errors!");

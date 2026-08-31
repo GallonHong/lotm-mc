@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apex Firearms RP (Tactical AK-47 3-Round Burst)",
+    "name": "Apex Firearms Arsenal (AK-47 Burst & M82 .50 HE)",
     "description": "Apex Tactical AK-47 Resource Pack - High Precision Firearms Showcase",
     "uuid": "d9c13f6d-8c0b-43e0-bab5-24e414c62c13",
     "version": [
       1,
-      1,
-      1
+      2,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "8eaac768-2538-49ff-96af-2075ef3e9939",
       "version": [
         1,
-        1,
-        1
+        2,
+        0
       ]
     }
   ]

@@ -13,6 +13,18 @@
     },
     "apex:ammo_762": {
       "textures": "textures/items/ammo_762"
+    },
+    "apex_m82": {
+      "textures": "textures/items/m82"
+    },
+    "apex:m82": {
+      "textures": "textures/items/m82"
+    },
+    "apex_ammo_50cal": {
+      "textures": "textures/items/ammo_50cal"
+    },
+    "apex:ammo_50cal": {
+      "textures": "textures/items/ammo_50cal"
     }
   }
 }

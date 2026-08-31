@@ -13,6 +13,18 @@
         { "name": "sounds/guns/ak47_distant", "volume": 0.8, "pitch": 1.0 }
       ]
     },
+    "apex.m82.shoot": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/m82_shoot", "volume": 1.0, "pitch": 0.85 }
+      ]
+    },
+    "apex.m82.distant": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/m82_distant", "volume": 0.9, "pitch": 0.85 }
+      ]
+    },
     "apex.gun.dry": {
       "category": "player",
       "sounds": [

@@ -1,5 +1,5 @@
 import { system } from "@minecraft/server";
-import { AK47_CONFIG, AmmoSystem } from "./AmmoSystem.js";
+import { AmmoSystem } from "./AmmoSystem.js";
 
 export class ReloadManager {
   static #reloadStates = new Map();
@@ -13,33 +13,37 @@ export class ReloadManager {
   }
 
   /**
-   * 启动换弹流程 (持续 2.0 秒 = 40 ticks)
+   * 启动换弹流程
    */
   static startReload(player, item, selectedSlot) {
     if (!player || !player.isValid()) return false;
     const playerId = player.id;
     if (this.#reloadStates.has(playerId)) return false;
 
+    const config = AmmoSystem.getGunConfig(item?.typeId);
+    if (!config) return false;
+
     const currentMag = AmmoSystem.getMagazineAmmo(item);
-    if (currentMag >= AK47_CONFIG.magSize) {
-      player.onScreenDisplay?.setActionBar?.("§e[AK-47] 弹匣已满，无需换弹");
+    if (currentMag >= config.magSize) {
+      player.onScreenDisplay?.setActionBar?.(`§e[${config.name}] 弹匣已满，无需换弹`);
       return false;
     }
 
-    const reserve = AmmoSystem.countReserveAmmo(player);
+    const reserve = AmmoSystem.countReserveAmmo(player, config.ammoId);
     if (reserve <= 0) {
       try {
         player.playSound("apex.gun.dry", { location: player.location, volume: 1.0, pitch: 1.0 });
       } catch {}
-      player.onScreenDisplay?.setActionBar?.("§c✖ 背包无 7.62mm 备弹！输入 !gunkit 补给");
+      player.onScreenDisplay?.setActionBar?.(`§c✖ 背包无 ${config.caliberName} 备弹！输入 !gunkit 补给`);
       return false;
     }
 
-    const reloadTicks = 40; // 2.0 秒
+    const reloadTicks = Math.round((config.reloadSeconds ?? 2.0) * 20);
     const currentTick = system.currentTick;
 
     const state = {
       playerId,
+      gunId: config.id,
       selectedSlot,
       startTick: currentTick,
       finishTick: currentTick + reloadTicks,
@@ -49,7 +53,6 @@ export class ReloadManager {
 
     this.#reloadStates.set(playerId, state);
 
-    // 播放换弹拉栓/插拔弹匣音效
     try {
       player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 0.9 });
     } catch {}
@@ -58,7 +61,7 @@ export class ReloadManager {
   }
 
   /**
-   * 中断换弹 (切槽/死亡等)
+   * 中断换弹
    */
   static cancelReload(playerId) {
     return this.#reloadStates.delete(playerId);
@@ -81,7 +84,6 @@ export class ReloadManager {
         continue;
       }
 
-      // 切槽位 -> 中断换弹
       if (player.selectedSlotIndex !== state.selectedSlot) {
         this.#reloadStates.delete(playerId);
         player.onScreenDisplay?.setActionBar?.("§7[换弹已取消]");
@@ -89,17 +91,22 @@ export class ReloadManager {
       }
 
       const item = inv.container.getItem(state.selectedSlot);
-      if (!item || item.typeId !== AK47_CONFIG.id) {
+      if (!item || item.typeId !== state.gunId) {
         this.#reloadStates.delete(playerId);
         continue;
       }
 
-      // 换弹进行中 HUD 倒计时显示
+      const config = AmmoSystem.getGunConfig(state.gunId);
+      if (!config) {
+        this.#reloadStates.delete(playerId);
+        continue;
+      }
+
       if (currentTick < state.finishTick) {
         const remainingSec = Math.max(0, (state.finishTick - currentTick) / 20).toFixed(1);
-        const reserve = AmmoSystem.countReserveAmmo(player);
+        const reserve = AmmoSystem.countReserveAmmo(player, config.ammoId);
         player.onScreenDisplay?.setActionBar?.(
-          `§l§6[AK-47]§r §7| §6🔄 换弹中 ${remainingSec}s... §7| 备弹: §f${reserve}`
+          `§l§6[${config.name}]§r §7| §6🔄 换弹中 ${remainingSec}s... §7| 备弹: §f${reserve}`
         );
         continue;
       }
@@ -108,19 +115,18 @@ export class ReloadManager {
       this.#reloadStates.delete(playerId);
 
       const currentMag = AmmoSystem.getMagazineAmmo(item);
-      const needed = AK47_CONFIG.magSize - currentMag;
+      const needed = config.magSize - currentMag;
       if (needed <= 0) continue;
 
-      const totalReserve = AmmoSystem.countReserveAmmo(player);
+      const totalReserve = AmmoSystem.countReserveAmmo(player, config.ammoId);
       const reloadAmount = Math.min(needed, totalReserve);
       if (reloadAmount <= 0) continue;
 
-      // 扣除背包备弹
       let remainingToDeduct = reloadAmount;
       for (let i = 0; i < inv.container.size; i++) {
         if (remainingToDeduct <= 0) break;
         const invItem = inv.container.getItem(i);
-        if (invItem && invItem.typeId === AK47_CONFIG.ammoId) {
+        if (invItem && invItem.typeId === config.ammoId) {
           if (invItem.amount <= remainingToDeduct) {
             remainingToDeduct -= invItem.amount;
             inv.container.setItem(i, undefined);
@@ -132,12 +138,10 @@ export class ReloadManager {
         }
       }
 
-      // 填充枪械弹匣
       const newAmmo = currentMag + reloadAmount;
       AmmoSystem.setMagazineAmmo(item, newAmmo);
       inv.container.setItem(state.selectedSlot, item);
 
-      // 播放上膛完成音效
       try {
         player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 1.2 });
       } catch {}
@@ -145,7 +149,7 @@ export class ReloadManager {
       const bar = "§a" + "|".repeat(10);
       const remainingReserve = totalReserve - reloadAmount;
       player.onScreenDisplay?.setActionBar?.(
-        `§a✔ 换弹完成！§e[AK-47] [${bar}§e] ${newAmmo}/${remainingReserve}`
+        `§a✔ 换弹完成！§e[${config.name}] [${bar}§e] ${newAmmo}/${remainingReserve}`
       );
     }
   }

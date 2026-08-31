@@ -1,4 +1,3 @@
-import { AK47_CONFIG } from "./AmmoSystem.js";
 import { DamageResolver } from "./DamageResolver.js";
 
 const BREAKABLE_BLOCKS = new Set([
@@ -20,9 +19,9 @@ const BREAKABLE_BLOCKS = new Set([
 
 export class RaycastEngine {
   /**
-   * 执行带有散布偏移的视线射线投射 (带未加载区块与异常全防御)
+   * 执行带有散布偏移的视线射线投射 (支持高爆烈焰弹判定)
    */
-  static castBullet(player, spreadMultiplier = 1.0) {
+  static castBullet(player, gunConfig, spreadMultiplier = 1.0, isHeRound = false) {
     if (!player || !player.isValid()) return null;
 
     try {
@@ -31,7 +30,8 @@ export class RaycastEngine {
       const viewDir = player.getViewDirection();
 
       // 计算散布 (高斯微偏)
-      const spread = (player.isSneaking ? AK47_CONFIG.spreadSneak : AK47_CONFIG.spreadStand) * spreadMultiplier;
+      const baseSpread = player.isSneaking ? gunConfig.spreadSneak : gunConfig.spreadStand;
+      const spread = baseSpread * spreadMultiplier;
       const spreadX = (Math.random() - 0.5) * spread;
       const spreadY = (Math.random() - 0.5) * spread;
       const spreadZ = (Math.random() - 0.5) * spread;
@@ -45,10 +45,10 @@ export class RaycastEngine {
       const len = Math.sqrt(shootDir.x ** 2 + shootDir.y ** 2 + shootDir.z ** 2) || 1.0;
       const normDir = { x: shootDir.x / len, y: shootDir.y / len, z: shootDir.z / len };
 
-      // 限制最大检测距离在 64 格内 (避免跨入未加载 Chunk)
-      const maxCheckDist = Math.min(AK47_CONFIG.maxRange, 64.0);
+      // 限制最大检测距离在 64 格内 (防御 Unloaded Chunk)
+      const maxCheckDist = Math.min(gunConfig.maxRange ?? 64, 64.0);
 
-      // 1. 方块射线检测 (防御 LocationInUnloadedChunkError)
+      // 1. 方块射线检测
       let blockHitDist = maxCheckDist + 1;
       let blockImpactLoc = null;
 
@@ -69,24 +69,27 @@ export class RaycastEngine {
             z: headLoc.z + normDir.z * blockHitDist
           };
 
-          // 穿透破坏玻璃/树叶
           if (BREAKABLE_BLOCKS.has(bTypeId)) {
             try {
               dim.runCommand(`fill ${bLoc.x} ${bLoc.y} ${bLoc.z} ${bLoc.x} ${bLoc.y} ${bLoc.z} air destroy`);
             } catch {}
           } else {
             try {
-              dim.spawnParticle("minecraft:crit", blockImpactLoc);
-              dim.spawnParticle("minecraft:smoke_particle", blockImpactLoc);
+              if (isHeRound) {
+                dim.spawnParticle("minecraft:basic_flame_particle", blockImpactLoc);
+              } else {
+                dim.spawnParticle("minecraft:crit", blockImpactLoc);
+                dim.spawnParticle("minecraft:smoke_particle", blockImpactLoc);
+              }
             } catch {}
           }
         }
-      } catch (err) {
-        // 捕获跨越未加载区块错误，静默兜底
-      }
+      } catch (err) {}
 
-      // 2. 实体射线检测 (在方块阻挡距离之内)
+      // 2. 实体射线检测
       let hitResult = null;
+      let actualImpactLoc = blockImpactLoc;
+
       try {
         const maxEntityDist = Math.min(maxCheckDist, blockHitDist);
         const entityHits = dim.getEntitiesFromRay(headLoc, normDir, {
@@ -106,7 +109,9 @@ export class RaycastEngine {
               z: headLoc.z + normDir.z * hit.distance
             };
 
-            const dmgResult = DamageResolver.applyDamage(player, entity, hitLoc);
+            actualImpactLoc = hitLoc;
+
+            const dmgResult = DamageResolver.applyDamage(player, entity, hitLoc, gunConfig);
             if (dmgResult) {
               hitResult = {
                 target: entity,
@@ -119,13 +124,26 @@ export class RaycastEngine {
         }
       } catch (err) {}
 
+      // 3. 高爆弹爆炸与溅射结算 (若命中或触碰方块)
+      let explosionSplashCount = 0;
+      if (isHeRound && actualImpactLoc) {
+        explosionSplashCount = DamageResolver.applyExplosiveSplash(
+          player,
+          actualImpactLoc,
+          gunConfig.heRadius ?? 3.5,
+          gunConfig.heSplashDamage ?? 30
+        );
+      }
+
       return {
         hitResult,
-        impactLocation: hitResult ? null : blockImpactLoc,
+        impactLocation: actualImpactLoc,
+        isHeRound,
+        explosionSplashCount,
         direction: normDir
       };
     } catch (e) {
-      console.warn(`[ApexFirearms] Raycast error caught safely: ${e}`);
+      console.warn(`[ApexFirearms] Raycast error: ${e}`);
       return null;
     }
   }

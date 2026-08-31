@@ -1,0 +1,36 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "apex:m82",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:display_name": {
+        "value": "§l§6巴雷特 M82A1 高爆反器材重狙§r\n§7.50 BMG | 20% 烈焰高爆弹"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "apex:m82"
+        }
+      },
+      "minecraft:cooldown": {
+        "category": "apex:m82",
+        "duration": 0.75
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "apex:gun",
+          "guns",
+          "sniper"
+        ]
+      }
+    }
+  }
+}
