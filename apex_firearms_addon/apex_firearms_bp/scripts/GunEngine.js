@@ -4,17 +4,14 @@ import { ReloadManager } from "./ReloadManager.js";
 import { RaycastEngine } from "./RaycastEngine.js";
 
 export class GunEngine {
-  static #activeTriggers = new Map();
-  static #triggerLatches = new Set();
-  static #burstCount = new Map();
+  static #lastBurstTicks = new Map();
   static #lastMuzzleFeedback = new Map();
 
   /**
-   * 按下使用键 (右键长按开始 / 点按)
+   * 处理单次右键点击 -> 触发精准 3 连发点射 (3-Round Burst)
    */
-  static handleTriggerStart(player) {
+  static handleBurstClick(player) {
     if (!player || !player.isValid()) return false;
-    if (this.#triggerLatches.has(player.id)) return false;
 
     const inv = player.getComponent("minecraft:inventory");
     if (!inv || !inv.container) return false;
@@ -23,12 +20,10 @@ export class GunEngine {
     const item = inv.container.getItem(slot);
     if (!item || item.typeId !== AK47_CONFIG.id) return false;
 
-    this.#triggerLatches.add(player.id);
-
-    // 如果正在换弹中，禁止射击
+    // 1. 如果正在换弹中，禁止射击
     if (ReloadManager.isReloading(player.id)) return false;
 
-    // 潜行 (Shift) + 右键 -> 战术主动换弹
+    // 2. 潜行 (Shift) + 右键 -> 战术主动换弹
     if (player.isSneaking) {
       const magAmmo = AmmoSystem.getMagazineAmmo(item);
       if (magAmmo < AK47_CONFIG.magSize) {
@@ -37,7 +32,7 @@ export class GunEngine {
       }
     }
 
-    // 弹药打空检测 -> 自动启动换弹流程
+    // 3. 弹药打空检测 -> 自动启动换弹流程
     const currentAmmo = AmmoSystem.getMagazineAmmo(item);
     if (currentAmmo <= 0) {
       const started = ReloadManager.startReload(player, item, slot);
@@ -50,118 +45,134 @@ export class GunEngine {
       return false;
     }
 
+    // 4. 防连点防抖 (同一 tick 只能触发一次爆发)
     const currentTick = system.currentTick;
+    const lastTick = this.#lastBurstTicks.get(player.id) || 0;
+    if (currentTick - lastTick < 4) return false;
+    this.#lastBurstTicks.set(player.id, currentTick);
 
-    // 1. 触发第 1 发射击 (0 延迟响应)
-    let fired = false;
-    try {
-      fired = this.#fireSingleShot(player, inv.container, slot, item);
-    } catch (e) {
-      console.warn(`[ApexFirearms] Initial shot error: ${e}`);
-    }
+    // 5. 依次发射 3 发子弹 (第 1 发即时，第 2 发 +2 tick，第 3 发 +4 tick)
+    // 第 1 发 (立即击发)
+    this.#executeSingleShotInBurst(player, slot, 1);
 
-    if (!fired) {
-      this.handleTriggerStop(player);
-      return false;
-    }
+    // 第 2 发 (+2 ticks = 0.1s)
+    system.runTimeout(() => {
+      this.#executeSingleShotInBurst(player, slot, 2);
+    }, 2);
 
-    // 2. 注册长按连发有界触发器 (最多持续 60 ticks = 3.0 秒 = 30发，到期自动停止)
-    this.#activeTriggers.set(player.id, {
-      slot,
-      startTick: currentTick,
-      lastShotTick: currentTick,
-      maxTicks: 60
-    });
+    // 第 3 发 (+4 ticks = 0.2s)
+    system.runTimeout(() => {
+      this.#executeSingleShotInBurst(player, slot, 3);
+    }, 4);
 
     return true;
   }
 
   /**
-   * 松开使用键 (右键松开 / 释放)
+   * 执行爆发序列中的单发子弹
    */
-  static handleTriggerStop(player) {
-    if (!player) return false;
-    const existed = this.#activeTriggers.delete(player.id);
-    const latched = this.#triggerLatches.delete(player.id);
-    this.#burstCount.delete(player.id);
-    return existed || latched;
+  static #executeSingleShotInBurst(player, targetSlot, shotIndexInBurst) {
+    if (!player || !player.isValid()) return false;
+    if (ReloadManager.isReloading(player.id)) return false;
+
+    const inv = player.getComponent("minecraft:inventory");
+    if (!inv || !inv.container) return false;
+
+    // 检查玩家手持槽位是否发生切换
+    if (player.selectedSlotIndex !== targetSlot) return false;
+
+    const item = inv.container.getItem(targetSlot);
+    if (!item || item.typeId !== AK47_CONFIG.id) return false;
+
+    let currentAmmo = AmmoSystem.getMagazineAmmo(item);
+    if (currentAmmo <= 0) {
+      // 弹药耗尽自动触发换弹
+      ReloadManager.startReload(player, item, targetSlot);
+      return false;
+    }
+
+    // 1. 扣除 1 发子弹并写回物品
+    currentAmmo -= 1;
+    AmmoSystem.setMagazineAmmo(item, currentAmmo);
+    inv.container.setItem(targetSlot, item);
+
+    this.#lastMuzzleFeedback.set(player.id, system.currentTick);
+
+    // 2. 播放枪声与远距离回声
+    try {
+      player.playSound("apex.ak47.shoot", { location: player.location, volume: 1.0, pitch: 1.0 + (shotIndexInBurst - 1) * 0.05 });
+      player.playSound("apex.ak47.distant", { location: player.location, volume: 0.8, pitch: 1.0 });
+    } catch {}
+
+    // 3. 视口后坐力微震 (蹲下减半)
+    const isSneaking = player.isSneaking;
+    const shakeIntensity = isSneaking ? "0.02" : "0.04";
+    try {
+      player.runCommandAsync(`camerashake add @s ${shakeIntensity} 0.05 rotational`);
+    } catch {}
+
+    // 4. 执行高精度射线与伤害计算
+    const spreadMultiplier = 1.0 + (shotIndexInBurst - 1) * 0.25;
+    const rayResult = RaycastEngine.castBullet(player, spreadMultiplier);
+
+    // 5. 实时 HUD 反馈
+    const reserve = AmmoSystem.countReserveAmmo(player);
+    const barFill = Math.round((currentAmmo / AK47_CONFIG.magSize) * 10);
+    const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
+
+    if (rayResult && rayResult.hitResult) {
+      const hit = rayResult.hitResult;
+      const headText = hit.headshot ? "§c💥 头部暴击!" : "";
+      const killText = hit.isFatal ? "§4☠ 击杀" : `§c-${hit.damage} HP`;
+      const dist = hit.distance.toFixed(0);
+
+      player.onScreenDisplay?.setActionBar?.(
+        `§e[AK-47] [${bar}§e] ${currentAmmo}/${reserve} §7| §a🎯 命中 §f${hit.targetName} §b(${dist}m) ${headText} ${killText}`
+      );
+
+      try {
+        player.playSound("apex.gun.hit_flesh", { volume: 0.9, pitch: 1.0 });
+      } catch {}
+    } else {
+      player.onScreenDisplay?.setActionBar?.(
+        `§e[AK-47] [${bar}§e] §f${currentAmmo}§7/§a${reserve} §7(三连发)`
+      );
+    }
+
+    // 如果该发打完后弹药变为 0，自动开始换弹
+    if (currentAmmo <= 0) {
+      system.runTimeout(() => {
+        ReloadManager.startReload(player, item, targetSlot);
+      }, 2);
+    }
+
+    return true;
   }
 
   /**
-   * 20 TPS 主引擎驱动 (处理换弹、连射节流与状态检查)
+   * 20 TPS 常态轮询更新 (处理换弹与常态 HUD)
    */
   static onTick() {
     const currentTick = system.currentTick;
     const allPlayers = world.getAllPlayers();
     const playerMap = new Map(allPlayers.map((p) => [p.id, p]));
 
-    // 1. 更新全局换弹状态机
+    // 1. 更新换弹状态机
     try {
       ReloadManager.update(currentTick, (id) => playerMap.get(id));
     } catch (err) {
       console.warn(`[ApexFirearms] ReloadManager update error: ${err}`);
     }
 
-    // 2. 处理所有正在长按开火的玩家
-    for (const player of allPlayers) {
-      if (!player || !player.isValid()) continue;
-      const trigger = this.#activeTriggers.get(player.id);
-      if (!trigger) continue;
-
-      try {
-        const inv = player.getComponent("minecraft:inventory");
-        if (!inv || !inv.container) {
-          this.handleTriggerStop(player);
-          continue;
-        }
-
-        // 切换槽位 -> 立即停火
-        if (player.selectedSlotIndex !== trigger.slot) {
-          this.handleTriggerStop(player);
-          continue;
-        }
-
-        const item = inv.container.getItem(trigger.slot);
-        if (!item || item.typeId !== AK47_CONFIG.id || ReloadManager.isReloading(player.id)) {
-          this.handleTriggerStop(player);
-          continue;
-        }
-
-        // 硬超时保护 (超过 1 个弹匣时长自动停火)
-        if (currentTick - trigger.startTick >= trigger.maxTicks) {
-          this.handleTriggerStop(player);
-          continue;
-        }
-
-        // 600 RPM 连发射频控制 (每 2 ticks 发射 1 发)
-        if (currentTick - trigger.lastShotTick >= 2) {
-          trigger.lastShotTick = currentTick;
-          const fired = this.#fireSingleShot(player, inv.container, trigger.slot, item);
-          if (!fired) {
-            this.handleTriggerStop(player);
-            // 如果是弹药打空，自动开始换弹
-            const mag = AmmoSystem.getMagazineAmmo(item);
-            if (mag <= 0) {
-              ReloadManager.startReload(player, item, trigger.slot);
-            }
-          }
-        }
-      } catch (err) {
-        console.warn(`[ApexFirearms] Safe trigger abort on tick error: ${err}`);
-        this.handleTriggerStop(player);
-      }
-    }
-
-    // 3. 更新常态 HUD (非开火、非换弹时每 4 ticks 刷新一次)
+    // 2. 常态 HUD 刷新 (每 4 ticks)
     if (currentTick % 4 === 0) {
       for (const player of allPlayers) {
         try {
           if (!player || !player.isValid()) continue;
-          if (this.#activeTriggers.has(player.id)) continue;
           if (ReloadManager.isReloading(player.id)) continue;
 
           const lastFeedback = this.#lastMuzzleFeedback.get(player.id) || 0;
-          if (currentTick - lastFeedback < 10) continue;
+          if (currentTick - lastFeedback < 8) continue;
 
           const inv = player.getComponent("minecraft:inventory");
           if (!inv || !inv.container) continue;
@@ -175,85 +186,15 @@ export class GunEngine {
           const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
 
           player.onScreenDisplay?.setActionBar?.(
-            `§e[AK-47] [${bar}§e] §f${currentAmmo}§7/§a${reserve} §7(7.62mm)`
+            `§e[AK-47] [${bar}§e] §f${currentAmmo}§7/§a${reserve} §7(三连发点射)`
           );
         } catch {}
       }
     }
   }
 
-  /**
-   * 执行单发实弹射击
-   */
-  static #fireSingleShot(player, container, slot, item) {
-    let currentAmmo = AmmoSystem.getMagazineAmmo(item);
-    if (currentAmmo <= 0) {
-      return false;
-    }
-
-    // 1. 扣除 1 发子弹并更新物品
-    currentAmmo -= 1;
-    AmmoSystem.setMagazineAmmo(item, currentAmmo);
-    container.setItem(slot, item);
-
-    this.#lastMuzzleFeedback.set(player.id, system.currentTick);
-
-    let burst = this.#burstCount.get(player.id) || 0;
-    burst++;
-    this.#burstCount.set(player.id, burst);
-
-    // 2. 播放枪声与远距离回声
-    try {
-      player.playSound("apex.ak47.shoot", { location: player.location, volume: 1.0, pitch: 1.0 });
-      player.playSound("apex.ak47.distant", { location: player.location, volume: 0.8, pitch: 1.0 });
-    } catch {}
-
-    // 3. 视口后坐力抖动 (蹲下减半)
-    const isSneaking = player.isSneaking;
-    const shakeIntensity = isSneaking ? "0.02" : "0.045";
-    try {
-      player.runCommandAsync(`camerashake add @s ${shakeIntensity} 0.05 rotational`);
-    } catch {}
-
-    // 4. 执行射线投射与伤害结算 (带未加载区块防御)
-    try {
-      const spreadMultiplier = 1.0 + Math.min(burst * 0.05, 1.0);
-      const rayResult = RaycastEngine.castBullet(player, spreadMultiplier);
-
-      // 5. 实时 HUD 反馈
-      const reserve = AmmoSystem.countReserveAmmo(player);
-      const barFill = Math.round((currentAmmo / AK47_CONFIG.magSize) * 10);
-      const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
-
-      if (rayResult && rayResult.hitResult) {
-        const hit = rayResult.hitResult;
-        const headText = hit.headshot ? "§c💥 头部暴击!" : "";
-        const killText = hit.isFatal ? "§4☠ 击杀" : `§c-${hit.damage} HP`;
-        const dist = hit.distance.toFixed(0);
-
-        player.onScreenDisplay?.setActionBar?.(
-          `§e[AK-47] [${bar}§e] ${currentAmmo}/${reserve} §7| §a🎯 命中 §f${hit.targetName} §b(${dist}m) ${headText} ${killText}`
-        );
-
-        try {
-          player.playSound("apex.gun.hit_flesh", { volume: 0.9, pitch: 1.0 });
-        } catch {}
-      } else {
-        player.onScreenDisplay?.setActionBar?.(
-          `§e[AK-47] [${bar}§e] §f${currentAmmo}§7/§a${reserve} §7(7.62mm)`
-        );
-      }
-    } catch (e) {
-      console.warn(`[ApexFirearms] Shot resolution catch: ${e}`);
-    }
-
-    return true;
-  }
-
   static resetPlayer(playerId) {
-    this.#activeTriggers.delete(playerId);
-    this.#triggerLatches.delete(playerId);
-    this.#burstCount.delete(playerId);
+    this.#lastBurstTicks.delete(playerId);
     this.#lastMuzzleFeedback.delete(playerId);
     ReloadManager.cancelReload(playerId);
   }

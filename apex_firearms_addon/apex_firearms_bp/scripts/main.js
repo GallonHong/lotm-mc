@@ -4,7 +4,7 @@ import { GunEngine } from "./GunEngine.js";
 import { ReloadManager } from "./ReloadManager.js";
 import { TestSuite } from "./TestSuite.js";
 
-console.warn("[ApexFirearms] Tactical AK-47 Addon v1.0.5 initializing...");
+console.warn("[ApexFirearms] Tactical AK-47 (3-Round Burst) Addon v1.1.0 initializing...");
 
 /**
  * 安全事件订阅工具函数
@@ -22,45 +22,18 @@ function subscribeAfterEvent(eventName, handler) {
   }
 }
 
-// 1. ScriptEvent 核心触发监听 (由 Molang 探针精确驱动，绝无重复与残留)
-const systemAfter = system.afterEvents;
-if (systemAfter && systemAfter.scriptEventReceive) {
-  systemAfter.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
-    try {
-      if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
-      if (id === "apex:trigger_down") {
-        GunEngine.handleTriggerStart(sourceEntity);
-      } else if (id === "apex:trigger_up") {
-        GunEngine.handleTriggerStop(sourceEntity);
-      } else if (id === "apex:gunkit" || id === "apex:kit") {
-        giveDevKit(sourceEntity);
-      } else if (id === "apex:reload" || id === "apex:r") {
-        triggerReload(sourceEntity);
-      } else if (id === "apex:test" || id === "apex:guntest") {
-        TestSuite.runAll(sourceEntity);
-      } else if (id === "apex:dummy") {
-        spawnDummy(sourceEntity);
-      } else if (id === "apex:help") {
-        showHelp(sourceEntity);
-      }
-    } catch (e) {
-      console.error(`[ApexFirearms] Error in scriptEventReceive: ${e}`);
-    }
-  });
-}
-
-// 2. 停火事件安全冗余
-const handleStopFiring = (event) => {
+// 1. 点按物品使用事件 -> 触发 3 连发点射 (3-Round Burst)
+subscribeAfterEvent("itemUse", (event) => {
   try {
-    GunEngine.handleTriggerStop(event.source);
-  } catch (e) {}
-};
+    if (event.itemStack && event.itemStack.typeId === AK47_CONFIG.id) {
+      GunEngine.handleBurstClick(event.source);
+    }
+  } catch (e) {
+    console.error(`[ApexFirearms] Error in itemUse: ${e}`);
+  }
+});
 
-subscribeAfterEvent("itemStopUse", handleStopFiring);
-subscribeAfterEvent("itemReleaseUse", handleStopFiring);
-subscribeAfterEvent("itemStopUseOn", handleStopFiring);
-
-// 3. 20 TPS 主引擎驱动
+// 2. 20 TPS 主引擎驱动 (处理换弹与常态 HUD)
 system.runInterval(() => {
   try {
     GunEngine.onTick();
@@ -69,7 +42,7 @@ system.runInterval(() => {
   }
 }, 1);
 
-// 4. 指令统一执行器
+// 3. 指令统一执行器
 let lastCommandTick = new Map();
 
 function executeCommand(player, rawText) {
@@ -102,7 +75,7 @@ function executeCommand(player, rawText) {
   return false;
 }
 
-// 5. 双重聊天事件监听
+// 4. 双重聊天事件监听
 const beforeChat = world.beforeEvents ? world.beforeEvents.chatSend : undefined;
 if (beforeChat && typeof beforeChat.subscribe === "function") {
   beforeChat.subscribe((event) => {
@@ -127,6 +100,29 @@ if (afterChat && typeof afterChat.subscribe === "function") {
         system.run(() => executeCommand(player, msg));
       }
     } catch (e) {}
+  });
+}
+
+// 5. ScriptEvent 原版指令支持 (/scriptevent apex:...)
+const systemAfter = system.afterEvents;
+if (systemAfter && systemAfter.scriptEventReceive) {
+  systemAfter.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
+    try {
+      if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
+      if (id === "apex:gunkit" || id === "apex:kit") {
+        giveDevKit(sourceEntity);
+      } else if (id === "apex:reload" || id === "apex:r") {
+        triggerReload(sourceEntity);
+      } else if (id === "apex:test" || id === "apex:guntest") {
+        TestSuite.runAll(sourceEntity);
+      } else if (id === "apex:dummy") {
+        spawnDummy(sourceEntity);
+      } else if (id === "apex:help") {
+        showHelp(sourceEntity);
+      }
+    } catch (e) {
+      console.error(`[ApexFirearms] Error in scriptEventReceive: ${e}`);
+    }
   });
 }
 
@@ -163,7 +159,7 @@ function giveDevKit(player) {
       player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 1.0 });
     } catch {}
 
-    player.sendMessage("§a✔ 已成功领取【战术 AK-47】与 4 组 7.62mm 弹药！");
+    player.sendMessage("§a✔ 已成功领取【战术 AK-47（三连发点射）】与 4 组 7.62mm 弹药！");
   } catch (err) {
     player.sendMessage(`§c✖ 发放补给失败: ${err}`);
   }
@@ -210,15 +206,15 @@ function showHelp(player) {
   player.sendMessage("§6!gunkit§7 - 快捷领取 AK-47 与 7.62mm 弹药");
   player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可潜行右键或打空后点击自动换弹)");
   player.sendMessage("§6!dummy§7 - 生成 5000 HP 测试靶人");
-  player.sendMessage("§6!test§7 - 运行自动化射速、无敌帧与伤害测试套件");
-  player.sendMessage("§7操作方式: 右键点按单发 / 长按连射，松开即停，潜行(Shift)+右键直接换弹");
+  player.sendMessage("§6!test§7 - 运行自动化测试套件");
+  player.sendMessage("§7操作方式: 右键点按单次触发【三连发点射 (3-Round Burst)】，潜行(Shift)+右键直接换弹");
 }
 
 // 6. 玩家进退场与死亡清理
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§6[Apex Firearms]§r §a单武器示范模组已就绪！输入 §e!gunkit§a 获取 AK-47，输入 §e!test§a 运行评测套件。§r");
+      player.sendMessage("§l§6[Apex Firearms]§r §a战术 AK-47（三连发点射模式）已就绪！输入 §e!gunkit§a 获取武器，右键点按单次连射 3 发。§r");
     }
   } catch {}
 });
