@@ -1,0 +1,41 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "apex.ak47.shoot": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/ak47_shoot", "volume": 1.0, "pitch": 1.0 }
+      ]
+    },
+    "apex.ak47.distant": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/ak47_distant", "volume": 0.8, "pitch": 1.0 }
+      ]
+    },
+    "apex.gun.dry": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/dry", "volume": 0.9, "pitch": 1.1 }
+      ]
+    },
+    "apex.gun.draw": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/draw", "volume": 0.9, "pitch": 1.0 }
+      ]
+    },
+    "apex.gun.hit_metal": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/hit_metal", "volume": 1.0, "pitch": 1.0 }
+      ]
+    },
+    "apex.gun.hit_flesh": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/hit_flesh", "volume": 1.0, "pitch": 1.0 }
+      ]
+    }
+  }
+}

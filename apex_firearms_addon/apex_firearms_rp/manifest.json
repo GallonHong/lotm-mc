@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Apex Firearms RP (Tactical AK-47)",
+    "description": "Apex Tactical AK-47 Resource Pack - High Precision Firearms Showcase",
+    "uuid": "d9c13f6d-8c0b-43e0-bab5-24e414c62c13",
+    "version": [
+      1,
+      0,
+      4
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      50
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "8eaac768-2538-49ff-96af-2075ef3e9939",
+      "version": [
+        1,
+        0,
+        4
+      ]
+    }
+  ]
+}

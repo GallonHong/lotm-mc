@@ -1,0 +1,23 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.apex.ak47_hold": {
+      "loop": true,
+      "bones": {
+        "guns": {
+          "rotation": [
+            "c.is_first_person ? -12.0 : -10.0",
+            "c.is_first_person ? 8.0 : 0.0",
+            "c.is_first_person ? 2.0 : 0.0"
+          ],
+          "position": [
+            "c.is_first_person ? 5.5 : 0.0",
+            "c.is_first_person ? -2.5 : 0.0",
+            "c.is_first_person ? 9.5 : 0.0"
+          ],
+          "scale": 1.0
+        }
+      }
+    }
+  }
+}

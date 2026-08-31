@@ -1,0 +1,5 @@
+item.apex:ak47=§6战术 AK-47 突击步枪§r
+item.apex:ak47.description=§7全自动突击步枪，口径 7.62×39mm。射速 600 RPM，弹容量 30 发。拥有强劲的穿甲与致死威力。§r
+item.apex:ammo_762=§e7.62×39mm 步枪弹药盒§r
+item.apex:ammo_762.description=§7AK-47 专用的全威力中间型步枪弹药。§r
+entity.apex:test_dummy.name=§e测试假人 (5000 HP)§r

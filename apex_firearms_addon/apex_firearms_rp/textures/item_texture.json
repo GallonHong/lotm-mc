@@ -1,0 +1,18 @@
+{
+  "resource_pack_name": "apex_firearms_rp",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "apex_ak47": {
+      "textures": "textures/items/ak47"
+    },
+    "apex:ak47": {
+      "textures": "textures/items/ak47"
+    },
+    "apex_ammo_762": {
+      "textures": "textures/items/ammo_762"
+    },
+    "apex:ammo_762": {
+      "textures": "textures/items/ammo_762"
+    }
+  }
+}

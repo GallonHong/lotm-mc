@@ -1,0 +1,43 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "apex:ak47",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:display_name": {
+        "value": "§l§6战术 AK-47 突击步枪§r\n§7全自动 | 7.62x39mm"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "apex:ak47"
+        }
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3600.0,
+        "movement_modifier": 0.82
+      },
+      "minecraft:food": {
+        "can_always_eat": true,
+        "nutrition": 0,
+        "saturation_modifier": 0
+      },
+      "minecraft:use_animation": "eat",
+      "minecraft:interact_button": "射击",
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "apex:gun",
+          "guns",
+          "rifle"
+        ]
+      }
+    }
+  }
+}

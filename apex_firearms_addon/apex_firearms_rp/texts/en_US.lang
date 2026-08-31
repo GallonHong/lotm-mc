@@ -1,0 +1,5 @@
+item.apex:ak47=§6Tactical AK-47 Assault Rifle§r
+item.apex:ak47.description=§7Full-auto assault rifle chambered in 7.62x39mm. 600 RPM, 30 rounds. High armor piercing and stopping power.§r
+item.apex:ammo_762=§e7.62x39mm Rifle Ammo Box§r
+item.apex:ammo_762.description=§7Standard ammunition box for AK-47 assault rifle.§r
+entity.apex:test_dummy.name=§eTest Dummy (5000 HP)§r
