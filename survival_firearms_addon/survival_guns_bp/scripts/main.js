@@ -5,7 +5,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v2.2.0...");
+console.warn("[SurvivalFirearms] Addon initializing v2.3.0...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -38,10 +38,19 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
   GunTestSuite.runAll(player);
 };
 
-// 3. 每个引擎 itemUse 脉冲最多结算一发。没有开始/停止订阅和持续扳机状态。
+// 3. 食物式持续使用：只有开始与停止事件都可订阅时才启用长按连射。
+const hasStopUse = subscribeAfterEvent("itemStopUse", (event) => GunController.handleTriggerStop(event));
+const hasReleaseUse = subscribeAfterEvent("itemReleaseUse", (event) => GunController.handleTriggerStop(event));
+const canObserveRelease = hasStopUse || hasReleaseUse;
+const hasStartUse = canObserveRelease
+  ? subscribeAfterEvent("itemStartUse", (event) => GunController.handleTriggerStart(event))
+  : false;
+const reliableUseLifecycle = hasStartUse && canObserveRelease;
+console.warn(`[SurvivalFirearms] Trigger mode: ${reliableUseLifecycle ? "food hold lifecycle" : "safe single-use fallback"}`);
+
 subscribeAfterEvent("itemUse", (event) => {
   try {
-    GunController.handleItemUse(event);
+    GunController.handleItemUse(event, reliableUseLifecycle);
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in itemUse: ${err}`);
   }
@@ -116,7 +125,7 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§e[Survival Firearms]§r §a原创四枪系统已就绪！§f每个有效使用脉冲最多射击一发，不会在松开后继续开火。§r");
+      player.sendMessage("§l§e[Survival Firearms]§r §a原创四枪系统已就绪！§fM1911/M870 单击一发；AKM/MP5 按住连射，松开停止。§r");
     }
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in playerSpawn: ${err}`);
@@ -141,4 +150,4 @@ subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   } catch {}
 });
 
-console.warn("[SurvivalFirearms] Addon v2.2.0 loaded successfully without errors!");
+console.warn("[SurvivalFirearms] Addon v2.3.0 loaded successfully without errors!");

@@ -4,7 +4,7 @@ set -Eeuo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 bp_dir="${script_dir}/survival_guns_bp"
 rp_dir="${script_dir}/survival_guns_rp"
-release_version="2.2.0"
+release_version="2.3.0"
 versioned_addon="${script_dir}/Survival_Guns_MVP_v${release_version}.mcaddon"
 
 obsolete_packages=(
@@ -23,6 +23,7 @@ obsolete_packages=(
   "${script_dir}/Survival_Guns_MVP_v2.0.0.mcaddon"
   "${script_dir}/Survival_Guns_MVP_v2.0.1.mcaddon"
   "${script_dir}/Survival_Guns_MVP_v2.1.0.mcaddon"
+  "${script_dir}/Survival_Guns_MVP_v2.2.0.mcaddon"
   "${versioned_addon}"
 )
 for package_path in "${obsolete_packages[@]}"; do

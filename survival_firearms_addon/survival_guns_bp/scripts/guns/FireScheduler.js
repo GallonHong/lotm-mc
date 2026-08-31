@@ -10,6 +10,8 @@ export class FireScheduler {
     let state = this.#playerSchedulers.get(playerId);
     if (!state) {
       state = {
+        accumulator: 0.0,
+        lastHeldRequestTick: -999,
         lastShotTick: -999
       };
       this.#playerSchedulers.set(playerId, state);
@@ -28,6 +30,22 @@ export class FireScheduler {
     if (currentTick - state.lastShotTick < minimumTicks) return 0;
     state.lastShotTick = currentTick;
     return 1;
+  }
+
+  static requestHeldShots(playerId, gunDef, currentTick) {
+    const state = this.#getOrCreateState(playerId);
+    if (state.lastHeldRequestTick === currentTick) return 0;
+    const elapsed = currentTick - state.lastHeldRequestTick;
+    state.lastHeldRequestTick = currentTick;
+    const rpm = Math.max(1, Math.min(1200, Number(gunDef.rpm) || 1));
+
+    if (elapsed > 2) state.accumulator = 1.0;
+    else state.accumulator += Math.max(1, elapsed) * rpm / 1200;
+
+    const shots = Math.floor(state.accumulator);
+    state.accumulator -= shots;
+    if (shots > 0) state.lastShotTick = currentTick;
+    return shots;
   }
 
   static reset(playerId) {

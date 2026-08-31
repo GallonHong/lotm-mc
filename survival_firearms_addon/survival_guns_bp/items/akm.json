@@ -23,8 +23,11 @@
         "movement_modifier": 0.65
       },
       "minecraft:food": {
-        "can_always_eat": true
+        "can_always_eat": true,
+        "nutrition": 0,
+        "saturation_modifier": 0
       },
+      "minecraft:use_animation": "eat",
       "minecraft:interact_button": "射击",
       "minecraft:cooldown": {
         "category": "survival:akm",

@@ -41,6 +41,14 @@ assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 1), 0);
 assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 2), 1);
 FireScheduler.reset("pulse-test");
 
+for (const [playerId, rpm, expectedShots] of [["akm-hold", 600, 100], ["mp5-hold", 900, 150]]) {
+  FireScheduler.reset(playerId);
+  let shots = 0;
+  for (let tick = 0; tick < 200; tick += 1) shots += FireScheduler.requestHeldShots(playerId, { rpm }, tick);
+  assert.ok(Math.abs(shots - expectedShots) / expectedShots <= 0.02, `${rpm} RPM held-fire drift: ${shots}`);
+  FireScheduler.reset(playerId);
+}
+
 for (const file of [...walk(join(root, "survival_guns_bp")), ...walk(join(root, "survival_guns_rp"))].filter((path) => path.endsWith(".json"))) {
   JSON.parse(read(file));
 }
@@ -49,6 +57,9 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   const item = json(join(root, `survival_guns_bp/items/${gunName}.json`))["minecraft:item"].components;
   assert.equal(item["minecraft:use_modifiers"].use_duration, 3600, `${gunName} must expose a long hold-use state`);
   assert.equal(item["minecraft:food"].can_always_eat, true, `${gunName} must be usable at full hunger`);
+  assert.equal(item["minecraft:food"].nutrition, 0);
+  assert.equal(item["minecraft:food"].saturation_modifier, 0);
+  assert.equal(item["minecraft:use_animation"], "eat");
   assert.equal(item["minecraft:icon"].textures.default, `survival:${gunName}`);
 }
 const paperBundleItem = json(join(root, "survival_guns_bp/items/paper_bundle.json"))["minecraft:item"].components;
@@ -57,13 +68,16 @@ assert.equal("texture" in paperBundleItem["minecraft:icon"], false, "legacy icon
 
 const mainSource = read(join(root, "survival_guns_bp/scripts/main.js"));
 const controllerSource = read(join(root, "survival_guns_bp/scripts/guns/GunController.js"));
-assert.ok(!mainSource.includes('subscribeAfterEvent("itemStartUse"'));
-assert.ok(!mainSource.includes('subscribeAfterEvent("itemStopUse"'));
-assert.ok(!mainSource.includes('subscribeAfterEvent("itemReleaseUse"'));
+assert.ok(mainSource.includes('subscribeAfterEvent("itemStartUse"'));
+assert.ok(mainSource.includes('subscribeAfterEvent("itemStopUse"'));
+assert.ok(mainSource.includes('subscribeAfterEvent("itemReleaseUse"'));
+assert.ok(mainSource.includes("food hold lifecycle"));
+assert.ok(mainSource.includes("safe single-use fallback"));
 assert.ok(!mainSource.includes('id === "survival:fire"'), "Molang fire events must be removed");
 assert.ok(controllerSource.includes("requestPulseShot"));
-assert.ok(!controllerSource.includes("activeTriggers"), "persistent trigger state must not exist");
-assert.ok(!controllerSource.includes("requestHeldShots"), "tick-driven held fire must not exist");
+assert.ok(controllerSource.includes("activeTriggers"));
+assert.ok(controllerSource.includes("requestHeldShots"));
+assert.ok(controllerSource.includes("Math.min(60"), "held fire needs a hard safety limit");
 assert.ok(!controllerSource.includes("autoFireDeadline"), "persistent automatic-fire deadline must be removed");
 assert.equal(existsSync(join(root, "survival_guns_bp/entities/player.json")), false, "BP must not override minecraft:player");
 assert.equal(existsSync(join(root, "survival_guns_bp/animation_controllers/survival_firearms.controller.json")), false, "self-loop fire controller must be deleted");
@@ -130,7 +144,7 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
 
 const bpManifest = json(join(root, "survival_guns_bp/manifest.json"));
 const rpManifest = json(join(root, "survival_guns_rp/manifest.json"));
-assert.deepEqual(bpManifest.header.version, [2, 2, 0]);
-assert.deepEqual(rpManifest.header.version, [2, 2, 0]);
+assert.deepEqual(bpManifest.header.version, [2, 3, 0]);
+assert.deepEqual(rpManifest.header.version, [2, 3, 0]);
 
-console.log("PASS: strict pulse firing, concrete recipe unlocks, item schemas, visuals, audio, manifests, scripts, and JSON validated");
+console.log("PASS: food-use hold lifecycle, safe fallback, recipe unlocks, item schemas, visuals, audio, and manifests validated");
