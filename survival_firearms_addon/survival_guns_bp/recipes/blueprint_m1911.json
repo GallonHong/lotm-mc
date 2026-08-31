@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "survival:craft_blueprint_m1911" },
+    "tags": ["crafting_table"],
+    "pattern": [
+      "PDP",
+      "R R",
+      "PDP"
+    ],
+    "key": {
+      "P": { "item": "survival:basic_firearm_page" },
+      "D": { "item": "survival:mechanical_data" },
+      "R": { "item": "minecraft:paper" }
+    },
+    "result": { "item": "survival:blueprint_m1911", "count": 1 }
+  }
+}

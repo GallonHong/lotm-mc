@@ -1,7 +1,6 @@
 ﻿import { GunRegistry } from "./GunRegistry.js";
 import { GunDurabilityManager } from "./GunDurabilityManager.js";
 import { AmmoManager } from "./AmmoManager.js";
-import { BlueprintManager } from "./BlueprintManager.js";
 import { InventoryTransaction } from "./InventoryTransaction.js";
 import { ItemStack } from "@minecraft/server";
 import { system } from "@minecraft/server";
@@ -110,9 +109,8 @@ export class WeaponCraftingManager {
   static openWorkbenchUI(player) {
     const form = new ActionFormData()
       .title("§l§e【末日枪械工作台】")
-      .body("§7请选择要执行的操作：\n§e规则：1张图纸 + 1套材料 = 1把枪 (制造后图纸消耗)")
+      .body("§7图纸请在原版工作台按九宫格配方合成。\n§e规则：1张图纸 + 1套材料 = 1把枪 (制造后图纸消耗)")
       .button("§l§6🔫 武器制造终端§r\n§8消耗1张图纸与材料制造武器", "textures/items/akm")
-      .button("§l§b📜 图纸测绘研究§r\n§8消耗残页与数据合成新图纸", "textures/items/blueprint_paper")
       .button("§l§a🧪 靶场与测试工具§r\n§8生成测试假人或运行自动测试", "textures/items/gun_barrel");
 
     form.show(player).then(res => system.run(() => {
@@ -120,8 +118,6 @@ export class WeaponCraftingManager {
       if (res.selection === 0) {
         this.openCraftingMenu(player);
       } else if (res.selection === 1) {
-        this.openBlueprintSynthesisMenu(player);
-      } else if (res.selection === 2) {
         this.openTestingMenu(player);
       }
     })).catch(() => {});
@@ -156,38 +152,6 @@ export class WeaponCraftingManager {
         player.sendMessage(`§a✔ 成功消耗 1 张图纸与材料，制造了 ${result.weapon.displayName}！`);
       } else {
         player.sendMessage(`§c✖ 制造失败：${result.reason}`);
-      }
-    })).catch(() => {});
-  }
-
-  /**
-   * 图纸测绘研究菜单
-   */
-  static openBlueprintSynthesisMenu(player) {
-    const bps = GunRegistry.getAllBlueprints().filter(bp => bp.playerCraftable);
-    const form = new ActionFormData()
-      .title("§l§b【图纸测绘研究】")
-      .body("§7测绘研究新的枪械图纸 (一次性材料)：");
-
-    for (const bp of bps) {
-      const canSyn = BlueprintManager.canSynthesize(player, bp);
-      const status = canSyn ? "§a[可测绘]" : "§c[残页/数据不足]";
-      form.button(`§l${bp.name}\n${status}`, `textures/items/${bp.id.replace("survival:", "")}`);
-    }
-
-    form.show(player).then(res => system.run(() => {
-      if (res.canceled) {
-        this.openWorkbenchUI(player);
-        return;
-      }
-      const selectedBp = bps[res.selection];
-      if (!selectedBp) return;
-
-      const result = BlueprintManager.synthesize(player, selectedBp.id);
-      if (result.success) {
-        player.sendMessage(`§a✔ 成功测绘获得 1 张 ${result.blueprint.name}！`);
-      } else {
-        player.sendMessage(`§c✖ 测绘失败：${result.reason}`);
       }
     })).catch(() => {});
   }

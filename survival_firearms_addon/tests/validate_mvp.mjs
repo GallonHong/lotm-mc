@@ -37,10 +37,10 @@ FireScheduler.reset("pulse-test");
 
 const recipes = Object.fromEntries(GunRegistry.getAllBlueprints().map(bp => [bp.id, bp]));
 assert.deepEqual(recipes["survival:blueprint_m1911"].synthesisRecipe.map(x => [x.item, x.count]), [
-  ["survival:basic_firearm_page", 8], ["survival:mechanical_data", 4], ["minecraft:paper", 2]
+  ["survival:basic_firearm_page", 4], ["survival:mechanical_data", 2], ["minecraft:paper", 2]
 ]);
 assert.deepEqual(recipes["survival:blueprint_akm"].synthesisRecipe.map(x => [x.item, x.count]), [
-  ["survival:rifle_page", 24], ["survival:mechanical_data", 18], ["survival:gun_structure_sample", 1], ["minecraft:paper", 4]
+  ["survival:rifle_page", 4], ["survival:mechanical_data", 3], ["survival:gun_structure_sample", 1], ["minecraft:paper", 1]
 ]);
 for (const bp of Object.values(recipes)) {
   assert.equal(bp.playerCraftable, true);
@@ -55,6 +55,23 @@ function walk(dir) {
 }
 for (const file of walk(root).filter(path => path.endsWith(".json"))) {
   JSON.parse(readFileSync(file, "utf8").replace(/^\uFEFF/, ""));
+}
+
+function shapedIngredientCounts(recipe) {
+  const shaped = recipe["minecraft:recipe_shaped"];
+  const counts = new Map();
+  for (const symbol of shaped.pattern.join("")) {
+    if (symbol === " ") continue;
+    const item = shaped.key[symbol].item;
+    counts.set(item, (counts.get(item) || 0) + 1);
+  }
+  return Array.from(counts.entries());
+}
+for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
+  const recipe = JSON.parse(readFileSync(join(root, `survival_guns_bp/recipes/blueprint_${gunName}.json`), "utf8"));
+  const blueprint = recipes[`survival:blueprint_${gunName}`];
+  assert.deepEqual(shapedIngredientCounts(recipe), blueprint.synthesisRecipe.map(x => [x.item, x.count]), `${gunName} crafting-table recipe must match the registry`);
+  assert.deepEqual(recipe["minecraft:recipe_shaped"].tags, ["crafting_table"], `${gunName} blueprint must be crafted at a vanilla crafting table`);
 }
 
 for (const gunName of ["m1911", "akm", "mp5", "m870"]) {

@@ -1,0 +1,19 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "survival:craft_blueprint_akm" },
+    "tags": ["crafting_table"],
+    "pattern": [
+      "RDR",
+      "DSD",
+      "RPR"
+    ],
+    "key": {
+      "R": { "item": "survival:rifle_page" },
+      "D": { "item": "survival:mechanical_data" },
+      "S": { "item": "survival:gun_structure_sample" },
+      "P": { "item": "minecraft:paper" }
+    },
+    "result": { "item": "survival:blueprint_akm", "count": 1 }
+  }
+}
