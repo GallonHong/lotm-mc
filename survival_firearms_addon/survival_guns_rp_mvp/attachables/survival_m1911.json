@@ -4,8 +4,8 @@
     "description": {
       "identifier": "survival:m1911",
       "item": { "survival:m1911": "query.is_owner_identifier_any('minecraft:player')" },
-      "materials": { "default": "entity" },
-      "textures": { "default": "textures/entity/temporary_deadzone_assets/m1911" },
+      "materials": { "default": "entity", "enchanted": "entity_alphatest_glint" },
+      "textures": { "default": "textures/entity/temporary_deadzone_assets/m1911", "enchanted": "textures/misc/enchanted_item_glint" },
       "geometry": { "default": "geometry.m1911" },
       "render_controllers": [ "controller.render.item_default" ]
     }

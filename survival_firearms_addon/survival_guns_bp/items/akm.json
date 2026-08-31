@@ -11,7 +11,9 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:icon": {
-        "texture": "survival:akm"
+        "textures": {
+          "default": "survival:akm"
+        }
       },
       "minecraft:display_name": {
         "value": "§l§6AKM 突击步枪§r\n§7全自动 | 7.62x39mm"

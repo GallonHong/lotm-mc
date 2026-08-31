@@ -21,6 +21,8 @@ export class GunController {
   static #playerSlotTracker = new Map();
   static #playerGunTracker = new Map();
   static #playerAnimationTracker = new Map();
+  static #autoFireDeadline = new Map();
+  static #MAX_AUTO_BURST_TICKS = 60;
 
   /**
    * 玩家开始使用物品 (按住右键)
@@ -40,8 +42,20 @@ export class GunController {
     const gunDef = GunRegistry.getGun(item.typeId);
     if (!gunDef) return;
 
-    // 右键脉冲：立即结算且立即释放，避免缺失 itemStopUse 的平台无限开火。
+    // 全自动武器恢复长按射击，同时设置硬超时；若平台漏掉松开事件也不会无限开火。
     if (ReloadManager.isReloading(player.id)) return;
+    if (gunDef.fireMode === "auto") {
+      if (FireScheduler.isPressed(player.id)) {
+        FireScheduler.releaseTrigger(player.id);
+        this.#autoFireDeadline.delete(player.id);
+        return;
+      }
+      FireScheduler.pressTrigger(player.id);
+      this.#autoFireDeadline.set(player.id, system.currentTick + this.#MAX_AUTO_BURST_TICKS);
+      return;
+    }
+
+    // 半自动与泵动武器：一次右键只结算一个安全脉冲。
     FireScheduler.pressTrigger(player.id);
     const inv = player.getComponent("minecraft:inventory");
     if (inv && inv.container) {
@@ -71,6 +85,7 @@ export class GunController {
     const player = event.source;
     if (!player || !player.isValid()) return;
     FireScheduler.releaseTrigger(player.id);
+    this.#autoFireDeadline.delete(player.id);
   }
 
   /**
@@ -80,6 +95,7 @@ export class GunController {
     const player = event.source;
     if (!player || !player.isValid()) return;
     FireScheduler.releaseTrigger(player.id);
+    this.#autoFireDeadline.delete(player.id);
   }
 
   /** 明确的服务端换弹入口：聊天 !reload 或 /scriptevent survival:reload。 */
@@ -92,6 +108,7 @@ export class GunController {
     const gunDef = item ? GunRegistry.getGun(item.typeId) : null;
     if (!item || !gunDef) return false;
     FireScheduler.releaseTrigger(player.id);
+    this.#autoFireDeadline.delete(player.id);
     return ReloadManager.startReload(player, item, gunDef, system.currentTick, slot);
   }
 
@@ -127,6 +144,7 @@ export class GunController {
         this.#playerSlotTracker.set(player.id, currentSlot);
         this.#playerGunTracker.set(player.id, currentGunId);
         FireScheduler.releaseTrigger(player.id);
+        this.#autoFireDeadline.delete(player.id);
         this.#playerAnimationTracker.delete(player.id);
         if (currentGunId) {
           GunAnimationBridge.playEquip(player, GunRegistry.getGun(currentGunId));
@@ -135,6 +153,7 @@ export class GunController {
 
       if (!mainItem || !GunRegistry.isGun(mainItem.typeId)) {
         FireScheduler.releaseTrigger(player.id);
+        this.#autoFireDeadline.delete(player.id);
         continue;
       }
 
@@ -149,9 +168,31 @@ export class GunController {
         GunAnimationBridge.playState(player, gunDef, animationState);
       }
 
-      // 3. 更新 Actionbar 实时 HUD
+      // 3. 全自动射击；松开事件优先停止，硬超时作为平台兼容保险。
+      if (gunDef.fireMode === "auto" && FireScheduler.isPressed(player.id)) {
+        const deadline = this.#autoFireDeadline.get(player.id) ?? currentTick;
+        if (currentTick >= deadline || ReloadManager.isReloading(player.id)) {
+          FireScheduler.releaseTrigger(player.id);
+          this.#autoFireDeadline.delete(player.id);
+        } else {
+          const shotsToFire = FireScheduler.updateAndGetShots(player.id, gunDef, currentTick);
+          for (let i = 0; i < shotsToFire; i++) {
+            this.#fireOneShot(player, inv.container, currentSlot, mainItem, gunDef);
+          }
+        }
+      }
+
+      // 4. 更新 Actionbar 实时 HUD
       this.#updatePlayerHud(player, mainItem, gunDef, currentTick);
     }
+  }
+
+  static resetPlayer(playerId) {
+    FireScheduler.reset(playerId);
+    this.#autoFireDeadline.delete(playerId);
+    this.#playerSlotTracker.delete(playerId);
+    this.#playerGunTracker.delete(playerId);
+    this.#playerAnimationTracker.delete(playerId);
   }
 
   /**

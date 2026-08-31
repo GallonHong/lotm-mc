@@ -4,8 +4,8 @@
     "description": {
       "identifier": "survival:akm",
       "item": { "survival:akm": "query.is_owner_identifier_any('minecraft:player')" },
-      "materials": { "default": "entity" },
-      "textures": { "default": "textures/entity/temporary_deadzone_assets/ak47" },
+      "materials": { "default": "entity", "enchanted": "entity_alphatest_glint" },
+      "textures": { "default": "textures/entity/temporary_deadzone_assets/ak47", "enchanted": "textures/misc/enchanted_item_glint" },
       "geometry": { "default": "geometry.ak47" },
       "render_controllers": [ "controller.render.item_default" ]
     }

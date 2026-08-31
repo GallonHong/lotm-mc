@@ -64,7 +64,7 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
     `${gunName} must use an item format that recognizes minecraft:use_modifiers`
   );
   assert.ok(item["minecraft:item"].components["minecraft:use_modifiers"], `${gunName} must be hold-usable`);
-  assert.equal(item["minecraft:item"].components["minecraft:icon"].texture, `survival:${gunName}`, `${gunName} icon must use its namespaced atlas key`);
+  assert.equal(item["minecraft:item"].components["minecraft:icon"].textures.default, `survival:${gunName}`, `${gunName} icon must use the current textures.default schema`);
 }
 
 const rpFiles = walk(join(root, "survival_guns_rp_mvp"));
@@ -88,6 +88,8 @@ for (const attachablePath of walk(join(root, "survival_guns_rp_mvp/attachables")
   assert.equal(description.item[description.identifier], "query.is_owner_identifier_any('minecraft:player')", `${attachablePath} must map the held item`);
   assert.equal(description.animations, undefined, `${attachablePath} must remain a static compatibility model`);
   assert.deepEqual(description.render_controllers, ["controller.render.item_default"], `${attachablePath} must use the built-in item render controller`);
+  assert.equal(description.materials.enchanted, "entity_alphatest_glint", `${attachablePath} must provide the enchanted material required by item_default`);
+  assert.equal(description.textures.enchanted, "textures/misc/enchanted_item_glint", `${attachablePath} must provide the enchanted texture required by item_default`);
   const texturePath = join(root, "survival_guns_rp_mvp", `${description.textures.default}.png`);
   assert.ok(rpFiles.includes(texturePath), `${attachablePath} texture is missing: ${texturePath}`);
 }
@@ -100,4 +102,8 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   assert.ok(modelSource.includes("query.item_slot_to_bone_name(context.item_slot)"), `${gunName} model must bind to the held item slot`);
 }
 
-console.log("PASS: four-gun registry, pulse firing, recipes, namespaced icons, static model binding, JSON, and isolated assets validated");
+const controllerSource = readFileSync(join(root, "survival_guns_bp/scripts/guns/GunController.js"), "utf8");
+assert.ok(controllerSource.includes("MAX_AUTO_BURST_TICKS = 60"), "automatic fire must have a three-second hard timeout");
+assert.ok(controllerSource.includes("this.#autoFireDeadline.delete(player.id)"), "automatic fire must clear its deadline when stopped");
+
+console.log("PASS: four-gun registry, bounded auto fire, pulse firing, current icon schema, static model binding, JSON, and isolated assets validated");

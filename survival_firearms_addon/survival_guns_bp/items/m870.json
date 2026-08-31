@@ -11,7 +11,9 @@
       "minecraft:max_stack_size": 1,
       "minecraft:hand_equipped": true,
       "minecraft:icon": {
-        "texture": "survival:m870"
+        "textures": {
+          "default": "survival:m870"
+        }
       },
       "minecraft:display_name": {
         "value": "§l§cM870 泵动霰弹枪§r\n§78弹丸重击 | 12 Gauge"

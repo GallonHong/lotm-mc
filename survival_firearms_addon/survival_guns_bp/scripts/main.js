@@ -1,12 +1,11 @@
 ﻿import { world, system } from "@minecraft/server";
 import { GunRegistry } from "./guns/GunRegistry.js";
 import { GunController } from "./guns/GunController.js";
-import { FireScheduler } from "./guns/FireScheduler.js";
 import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v1.3.4 MVP...");
+console.warn("[SurvivalFirearms] Addon initializing v1.3.5 MVP...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -39,7 +38,7 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
   GunTestSuite.runAll(player);
 };
 
-// 3. 物品使用事件。枪械采用单次右键脉冲，不再依赖松开事件停止自动射击。
+// 3. 物品使用事件。AKM/MP5 支持长按，并由松开事件、再次点击和硬超时共同停止。
 const hasItemStartUse = subscribeAfterEvent("itemStartUse", (event) => {
   try {
     GunController.handleItemStartUse(event);
@@ -155,7 +154,7 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§e[Survival Firearms]§r §a四枪 MVP 已就绪！§f右键射击、潜行瞄准、!reload 换弹、!workbench 制造。§r");
+      player.sendMessage("§l§e[Survival Firearms]§r §a四枪 MVP 已就绪！§fM1911/M870 单击射击，AKM/MP5 长按连射，!reload 换弹。§r");
     }
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in playerSpawn: ${err}`);
@@ -164,7 +163,7 @@ subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
 
 subscribeAfterEvent("playerLeave", (event) => {
   try {
-    FireScheduler.reset(event.playerId);
+    GunController.resetPlayer(event.playerId);
     ReloadManager.cancelReload(event.playerId);
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in playerLeave: ${err}`);
@@ -174,7 +173,7 @@ subscribeAfterEvent("playerLeave", (event) => {
 subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   try {
     if (deadEntity?.typeId === "minecraft:player") {
-      FireScheduler.reset(deadEntity.id);
+      GunController.resetPlayer(deadEntity.id);
       ReloadManager.cancelReload(deadEntity.id, deadEntity);
     }
   } catch {}
