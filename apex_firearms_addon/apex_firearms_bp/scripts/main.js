@@ -1,9 +1,10 @@
 import { world, system, ItemStack } from "@minecraft/server";
 import { AK47_CONFIG, AmmoSystem } from "./AmmoSystem.js";
 import { GunEngine } from "./GunEngine.js";
+import { ReloadManager } from "./ReloadManager.js";
 import { TestSuite } from "./TestSuite.js";
 
-console.warn("[ApexFirearms] Tactical AK-47 Addon v1.0.4 initializing...");
+console.warn("[ApexFirearms] Tactical AK-47 Addon v1.0.5 initializing...");
 
 /**
  * 安全事件订阅工具函数
@@ -21,7 +22,7 @@ function subscribeAfterEvent(eventName, handler) {
   }
 }
 
-// 1. ScriptEvent 核心触发监听 (由 Molang 探针精准驱动)
+// 1. ScriptEvent 核心触发监听 (由 Molang 探针精确驱动，绝无重复与残留)
 const systemAfter = system.afterEvents;
 if (systemAfter && systemAfter.scriptEventReceive) {
   systemAfter.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
@@ -34,7 +35,7 @@ if (systemAfter && systemAfter.scriptEventReceive) {
       } else if (id === "apex:gunkit" || id === "apex:kit") {
         giveDevKit(sourceEntity);
       } else if (id === "apex:reload" || id === "apex:r") {
-        executeReload(sourceEntity);
+        triggerReload(sourceEntity);
       } else if (id === "apex:test" || id === "apex:guntest") {
         TestSuite.runAll(sourceEntity);
       } else if (id === "apex:dummy") {
@@ -48,15 +49,7 @@ if (systemAfter && systemAfter.scriptEventReceive) {
   });
 }
 
-// 2. 物品使用事件双保险 (补充监听)
-subscribeAfterEvent("itemStartUse", (event) => {
-  try {
-    if (event.itemStack && event.itemStack.typeId === AK47_CONFIG.id) {
-      GunEngine.handleTriggerStart(event.source);
-    }
-  } catch (e) {}
-});
-
+// 2. 停火事件安全冗余
 const handleStopFiring = (event) => {
   try {
     GunEngine.handleTriggerStop(event.source);
@@ -94,7 +87,7 @@ function executeCommand(player, rawText) {
     giveDevKit(player);
     return true;
   } else if (text === "!r" || text === "!reload") {
-    executeReload(player);
+    triggerReload(player);
     return true;
   } else if (text === "!test" || text === "!guntest") {
     TestSuite.runAll(player);
@@ -109,7 +102,7 @@ function executeCommand(player, rawText) {
   return false;
 }
 
-// 5. 双重聊天事件监听 (兼容全版本基岩版客户端与服务端)
+// 5. 双重聊天事件监听
 const beforeChat = world.beforeEvents ? world.beforeEvents.chatSend : undefined;
 if (beforeChat && typeof beforeChat.subscribe === "function") {
   beforeChat.subscribe((event) => {
@@ -177,19 +170,19 @@ function giveDevKit(player) {
 }
 
 /**
- * 换弹操作
+ * 触发换弹
  */
-function executeReload(player) {
+function triggerReload(player) {
   try {
-    const result = AmmoSystem.performReload(player);
-    if (result.success) {
-      try {
-        player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 1.0 });
-      } catch {}
-      player.sendMessage(`§a✔ 换弹成功！装填 ${result.reloaded} 发 (弹匣: ${result.currentAmmo}/${AK47_CONFIG.magSize}, 剩余备弹: ${result.reserveLeft})`);
-    } else {
-      player.sendMessage(`§c✖ 换弹失败: ${result.reason}`);
+    const inv = player.getComponent("minecraft:inventory");
+    if (!inv || !inv.container) return;
+    const slot = player.selectedSlotIndex;
+    const item = inv.container.getItem(slot);
+    if (!item || item.typeId !== AK47_CONFIG.id) {
+      player.sendMessage("§c✖ 手持栏未持有 AK-47！");
+      return;
     }
+    ReloadManager.startReload(player, item, slot);
   } catch (e) {
     player.sendMessage(`§c✖ 换弹异常: ${e}`);
   }
@@ -215,10 +208,10 @@ function spawnDummy(player) {
 function showHelp(player) {
   player.sendMessage("§l§e=== Apex Firearms: Tactical AK-47 指令指南 ===");
   player.sendMessage("§6!gunkit§7 - 快捷领取 AK-47 与 7.62mm 弹药");
-  player.sendMessage("§6!r 或 !reload§7 - 快速为手持枪械换弹");
+  player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可潜行右键或打空后点击自动换弹)");
   player.sendMessage("§6!dummy§7 - 生成 5000 HP 测试靶人");
   player.sendMessage("§6!test§7 - 运行自动化射速、无敌帧与伤害测试套件");
-  player.sendMessage("§7操作方式: 右键点按单发 / 长按连射，松开即停，潜行(Shift)降低 50% 后坐力");
+  player.sendMessage("§7操作方式: 右键点按单发 / 长按连射，松开即停，潜行(Shift)+右键直接换弹");
 }
 
 // 6. 玩家进退场与死亡清理
