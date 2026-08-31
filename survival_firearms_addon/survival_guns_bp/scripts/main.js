@@ -6,7 +6,30 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v1.0.0...");
+console.warn("[SurvivalFirearms] Addon initializing v1.2.0...");
+
+/**
+ * Subscribe only when this Bedrock runtime exposes a usable event signal.
+ * Some engine builds promote the requested Script API module but omit
+ * individual signals, so event registration must never dereference a missing
+ * signal directly.
+ */
+function subscribeAfterEvent(eventName, handler) {
+  try {
+    const afterEvents = world.afterEvents;
+    const signal = afterEvents ? afterEvents[eventName] : undefined;
+    if (!signal || typeof signal.subscribe !== "function") {
+      console.warn(`[SurvivalFirearms] Event unavailable: ${eventName}`);
+      return false;
+    }
+
+    signal.subscribe(handler);
+    return true;
+  } catch (err) {
+    console.warn(`[SurvivalFirearms] Could not subscribe to ${eventName}: ${err}`);
+    return false;
+  }
+}
 
 // 1. 初始化枪械与图纸注册
 GunRegistry.init();
@@ -17,46 +40,51 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
 };
 
 // 3. 物品使用与长按开火事件
-if (world.afterEvents?.itemStartUse?.subscribe) {
-  world.afterEvents.itemStartUse.subscribe((event) => {
-    try {
-      GunController.handleItemStartUse(event);
-    } catch (err) {
-      console.error(`[SurvivalFirearms] Error in itemStartUse: ${err}`);
-    }
-  });
-}
+const hasItemStartUse = subscribeAfterEvent("itemStartUse", (event) => {
+  try {
+    GunController.handleItemStartUse(event);
+  } catch (err) {
+    console.error(`[SurvivalFirearms] Error in itemStartUse: ${err}`);
+  }
+});
 
-if (world.afterEvents?.itemUse?.subscribe) {
-  world.afterEvents.itemUse.subscribe((event) => {
-    try {
+// itemUse is a compatibility fallback only. Handling both signals for guns can
+// re-press the trigger after release and leave automatic weapons firing.
+// The portable workbench still needs the ordinary itemUse signal.
+subscribeAfterEvent("itemUse", (event) => {
+  try {
+    const itemTypeId = event.itemStack ? event.itemStack.typeId : "";
+    if (itemTypeId === "survival:gun_workbench") {
       GunController.handleItemUse(event);
-    } catch (err) {
-      console.error(`[SurvivalFirearms] Error in itemUse: ${err}`);
+    } else if (!hasItemStartUse) {
+      // Runtimes without itemStartUse cannot reliably report a held trigger.
+      // Fire a short, bounded compatibility burst and always release it.
+      GunController.handleItemUse(event);
+      system.runTimeout(() => {
+        try {
+          GunController.handleItemStopUse(event);
+        } catch {}
+      }, 4);
     }
-  });
-}
+  } catch (err) {
+    console.error(`[SurvivalFirearms] Error in itemUse: ${err}`);
+  }
+});
 
 // 4. 松开右键 / 释放物品 -> 立即停止射击
-if (world.afterEvents?.itemReleaseUse?.subscribe) {
-  world.afterEvents.itemReleaseUse.subscribe((event) => {
-    try {
-      GunController.handleItemReleaseUse(event);
-    } catch (err) {
-      console.error(`[SurvivalFirearms] Error in itemReleaseUse: ${err}`);
-    }
-  });
-}
+const stopFiring = (event) => {
+  try {
+    GunController.handleItemStopUse(event);
+  } catch (err) {
+    console.error(`[SurvivalFirearms] Error while stopping fire: ${err}`);
+  }
+};
 
-if (world.afterEvents?.itemStopUseOn?.subscribe) {
-  world.afterEvents.itemStopUseOn.subscribe((event) => {
-    try {
-      GunController.handleItemStopUse(event);
-    } catch (err) {
-      console.error(`[SurvivalFirearms] Error in itemStopUseOn: ${err}`);
-    }
-  });
-}
+// itemStopUse is the matching release signal for itemStartUse. The other two
+// signals cover charge-release and use-on-block variations across platforms.
+subscribeAfterEvent("itemStopUse", stopFiring);
+subscribeAfterEvent("itemReleaseUse", stopFiring);
+subscribeAfterEvent("itemStopUseOn", stopFiring);
 
 // 5. 20 TPS 主循环驱动
 system.runInterval(() => {
@@ -92,17 +120,21 @@ function handleChat(event) {
   }
 }
 
-const beforeChat = world.beforeEvents?.chatSend;
-const afterChat = world.afterEvents?.chatSend;
-if (beforeChat?.subscribe) {
+const beforeEvents = world.beforeEvents;
+const beforeChat = beforeEvents ? beforeEvents.chatSend : undefined;
+const afterEvents = world.afterEvents;
+const afterChat = afterEvents ? afterEvents.chatSend : undefined;
+if (beforeChat && typeof beforeChat.subscribe === "function") {
   beforeChat.subscribe(handleChat);
-} else if (afterChat?.subscribe) {
+} else if (afterChat && typeof afterChat.subscribe === "function") {
   afterChat.subscribe(handleChat);
 }
 
 // 7. 脚本事件指令支持 (/scriptevent survival:...)
-if (system.afterEvents?.scriptEventReceive?.subscribe) {
-  system.afterEvents.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
+const systemAfterEvents = system.afterEvents;
+const scriptEventReceive = systemAfterEvents ? systemAfterEvents.scriptEventReceive : undefined;
+if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
+  scriptEventReceive.subscribe(({ id, sourceEntity }) => {
     if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
     if (id === "survival:workbench" || id === "survival:menu") {
       WeaponCraftingManager.openWorkbenchUI(sourceEntity);
@@ -115,19 +147,23 @@ if (system.afterEvents?.scriptEventReceive?.subscribe) {
 }
 
 // 8. 玩家进退事件
-if (world.afterEvents?.playerSpawn?.subscribe) {
-  world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
+subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
+  try {
     if (initialSpawn && player) {
       player.sendMessage("§l§e[Survival Firearms]§r §a末日生存枪械已就绪！输入 §f!workbench §a或 §f!gunkit §a开始体验。");
     }
-  });
-}
+  } catch (err) {
+    console.error(`[SurvivalFirearms] Error in playerSpawn: ${err}`);
+  }
+});
 
-if (world.afterEvents?.playerLeave?.subscribe) {
-  world.afterEvents.playerLeave.subscribe((event) => {
+subscribeAfterEvent("playerLeave", (event) => {
+  try {
     FireScheduler.reset(event.playerId);
     ReloadManager.cancelReload(event.playerId);
-  });
-}
+  } catch (err) {
+    console.error(`[SurvivalFirearms] Error in playerLeave: ${err}`);
+  }
+});
 
 console.warn("[SurvivalFirearms] Addon loaded successfully without errors!");
