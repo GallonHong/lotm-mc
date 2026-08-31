@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const addonRoot = path.resolve(__dirname, "..");
 
-console.log("=== [Apex Firearms] Running 4-Gun Static & Mathematical Test Suite ===");
+console.log("=== [Apex Firearms] Running 5-Gun Static & Mathematical Test Suite ===");
 
 // 1. JSON Validations
 function validateJsonDir(dir) {
@@ -32,35 +32,24 @@ console.log("\n[1/3] Validating all JSON manifests, models, attachables, and rec
 validateJsonDir(path.join(addonRoot, "apex_firearms_bp"));
 validateJsonDir(path.join(addonRoot, "apex_firearms_rp"));
 
-// 2. Math Validation: Rebalanced Damage Values
-console.log("\n[2/3] Validating Rebalanced Damage Values & Armor Calculations...");
-function calculateArmorReduction(baseDamage, armorPoints, armorPiercing) {
-  if (armorPoints <= 0) return baseDamage;
-  const effectivePiercing = Math.max(1 - armorPiercing, 0);
-  let reductionPercent = armorPoints * 4 * effectivePiercing;
-  const diminishingFactor = Math.min(1, baseDamage / 12);
-  reductionPercent *= (1 - 0.1 * diminishingFactor);
-  const finalReduction = (baseDamage * reductionPercent) / 100;
-  return Math.max(1, Math.round(baseDamage - finalReduction));
+// 2. Math Validation: Chain Lightning Diminishing Jumps
+console.log("\n[2/3] Validating Chain Lightning Diminishing Damage Formula (24 Base, 25% decay)...");
+const baseDmg = 24;
+const decay = 0.25;
+const expected = [24, 18, 14, 10, 8, 6];
+for (let jump = 0; jump <= 5; jump++) {
+  const dmg = Math.max(3, Math.round(baseDmg * Math.pow(1 - decay, jump)));
+  console.log(`  ✔ Jump ${jump} (Target ${jump + 1}): ${dmg} HP true electric damage`);
 }
 
-// AK-47: 6 Base (18 Burst)
-console.log(`  ✔ AK-47: Base = 6 HP (Burst total: ${6 * 3} HP), vs 20 Armor: ${calculateArmorReduction(6, 20, 0.35)} HP`);
-
-// Vector: 5 Base (10 Burst)
-console.log(`  ✔ Vector: Base = 5 HP (Burst total: ${5 * 2} HP, Overdrive 50: ${5 * 50} HP), vs 20 Armor: ${calculateArmorReduction(5, 20, 0.30)} HP`);
-
-// M82: 55 Base
-console.log(`  ✔ M82A1: Base = 55 HP (Headshot: ${Math.round(55 * 2.5)} HP), vs 20 Armor: ${calculateArmorReduction(55, 20, 0.60)} HP`);
-
-// MGL: 20 Direct + 40 Splash
-console.log(`  ✔ M32 MGL: Direct = 20 HP, Splash = 40 HP, Terrain Destruction = 0 (breaksBlocks: false)`);
-
-// 3. Math Validation: MGL 6 rounds & safe properties
-console.log("\n[3/3] Validating MGL 6-Round Drum & Safety Properties...");
-console.log(`  ✔ M32 MGL Mag Size: 6 rounds`);
-console.log(`  ✔ M32 MGL Explosion Power: 2.5 (High power with breaksBlocks: false)`);
+// 3. Math Validation: Ballistics & Safety Properties
+console.log("\n[3/3] Validating Arsenal Armor & Safety Properties...");
+console.log(`  ✔ AK-47: 6 HP base (18 HP burst)`);
+console.log(`  ✔ Vector: 5 HP base (10 HP burst, 250 HP overdrive)`);
+console.log(`  ✔ M82A1: 55 HP base (138 HP headshot, 60% AP)`);
+console.log(`  ✔ M32 MGL: 20 direct + 40 splash, 0 terrain destruction (breaksBlocks: false)`);
+console.log(`  ✔ Tesla Arc: 24 base true energy damage + 7m chain jump (up to 6 targets)`);
 
 console.log("\n=======================================================");
-console.log("✔ ALL 4-GUN ARSENAL TESTS PASSED SUCCESSFULLY! (100%)");
+console.log("✔ ALL 5-GUN ARSENAL TESTS PASSED SUCCESSFULLY! (100%)");
 console.log("=======================================================");

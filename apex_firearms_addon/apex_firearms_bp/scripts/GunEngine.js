@@ -3,6 +3,7 @@ import { GUN_CONFIGS, AmmoSystem } from "./AmmoSystem.js";
 import { ReloadManager } from "./ReloadManager.js";
 import { RaycastEngine } from "./RaycastEngine.js";
 import { GrenadeEngine } from "./GrenadeEngine.js";
+import { ArcEngine } from "./ArcEngine.js";
 
 export class GunEngine {
   static #lastShotTicks = new Map();
@@ -92,8 +93,11 @@ export class GunEngine {
       this.#executeSingleShot(player, slot, config, 1);
       system.runTimeout(() => this.#executeSingleShot(player, slot, config, 2), 2);
     } else if (config.id === "apex:mgl") {
-      // M32 自动榴弹炮 (发射实体抛物线物理弹丸)
+      // M32 自动榴弹炮 (发射物理实体抛物线榴弹)
       this.#executeSingleShot(player, slot, config, 1, true);
+    } else if (config.id === "apex:arc_emitter") {
+      // 特斯拉电弧发射器 (连锁闪电跃迁)
+      this.#executeSingleShot(player, slot, config, 1, false);
     } else {
       // M82A1 单发重狙 (20% 概率恶魂高爆弹)
       const isHeRound = config.isExplosive && (Math.random() < (config.heChance ?? 0.20));
@@ -125,14 +129,14 @@ export class GunEngine {
   }
 
   /**
-   * 20 TPS 常态更新 (处理榴弹物理步进、暴走狂潮、换弹与 HUD)
+   * 20 TPS 常态更新
    */
   static onTick() {
     const currentTick = system.currentTick;
     const allPlayers = world.getAllPlayers();
     const playerMap = new Map(allPlayers.map((p) => [p.id, p]));
 
-    // 1. 步进 40mm 榴弹抛物线与碰撞结算
+    // 1. 步进 40mm 榴弹抛物线
     try {
       GrenadeEngine.onTick();
     } catch (e) {
@@ -227,7 +231,7 @@ export class GunEngine {
   }
 
   /**
-   * 执行单发实弹 / 榴弹发射
+   * 执行单发实弹 / 榴弹 / 特斯拉电弧
    */
   static #executeSingleShot(player, targetSlot, config, shotIndexInBurst = 1, isHeRound = false, isOverdrive = false) {
     if (!player || !player.isValid()) return false;
@@ -256,7 +260,9 @@ export class GunEngine {
 
     // 2. 播放枪声与远距离回声
     try {
-      if (config.id === "apex:mgl") {
+      if (config.id === "apex:arc_emitter") {
+        player.playSound("apex.arc.shoot", { location: player.location, volume: 1.0, pitch: 1.0 });
+      } else if (config.id === "apex:mgl") {
         player.playSound("apex.mgl.shoot", { location: player.location, volume: 1.0, pitch: 0.85 });
       } else if (config.id === "apex:m82") {
         if (isHeRound) {
@@ -281,6 +287,8 @@ export class GunEngine {
     let shakeIntensity = "0.04";
     if (isOverdrive) {
       shakeIntensity = "0.06";
+    } else if (config.id === "apex:arc_emitter") {
+      shakeIntensity = "0.025";
     } else if (config.id === "apex:mgl") {
       shakeIntensity = isSneaking ? "0.04" : "0.07";
     } else if (config.id === "apex:m82") {
@@ -293,19 +301,30 @@ export class GunEngine {
       player.runCommandAsync(`camerashake add @s ${shakeIntensity} 0.05 rotational`);
     } catch {}
 
-    // 4. 弹道派发：MGL 为物理抛物线弹丸；其余武器为光速射线
+    // 4. 弹道派发
     const reserve = AmmoSystem.countReserveAmmo(player, config.ammoId);
     const barFill = Math.round((currentAmmo / config.magSize) * 10);
     const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
 
-    if (config.id === "apex:mgl") {
-      // 启动 40mm 实体抛物线弹丸模拟
+    if (config.id === "apex:arc_emitter") {
+      // 触发特斯拉闪电链
+      const arcResult = ArcEngine.fireArc(player, config);
+      const hits = arcResult?.totalHits ?? 0;
+      if (hits > 0) {
+        player.onScreenDisplay?.setActionBar?.(
+          `§b[特斯拉电弧] ⚡ [${bar}§b] ${currentAmmo}/${reserve} §7| §e闪电链命中 §f${hits} §e个目标 (7m递减跃迁)!`
+        );
+      } else {
+        player.onScreenDisplay?.setActionBar?.(
+          `§b[特斯拉电弧] ⚡ [${bar}§b] §f${currentAmmo}§7/§a${reserve} §7(等离子充能)`
+        );
+      }
+    } else if (config.id === "apex:mgl") {
       GrenadeEngine.launchGrenade(player, config);
       player.onScreenDisplay?.setActionBar?.(
         `§6[M32 榴弹炮] 🚀 [${bar}§6] §f${currentAmmo}§7/§a${reserve} §e(40mm抛物线榴弹)`
       );
     } else {
-      // 直射射线弹道
       const spreadMult = isOverdrive ? 1.5 : (1.0 + (shotIndexInBurst - 1) * 0.25);
       const rayResult = RaycastEngine.castBullet(player, config, spreadMult, isHeRound);
 

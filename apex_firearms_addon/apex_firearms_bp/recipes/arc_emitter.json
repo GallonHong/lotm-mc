@@ -1,0 +1,42 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "apex:craft_arc_emitter"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "unlock": [
+      {
+        "item": "minecraft:copper_ingot"
+      }
+    ],
+    "pattern": [
+      "  L",
+      "CRD",
+      " I "
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:lightning_rod"
+      },
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "R": {
+        "item": "minecraft:redstone_block"
+      },
+      "D": {
+        "item": "minecraft:diamond"
+      },
+      "I": {
+        "item": "minecraft:iron_block"
+      }
+    },
+    "result": {
+      "item": "apex:arc_emitter",
+      "count": 1
+    }
+  }
+}

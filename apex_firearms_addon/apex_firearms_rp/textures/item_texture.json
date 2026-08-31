@@ -49,6 +49,18 @@
     },
     "apex:ammo_40mm": {
       "textures": "textures/items/ammo_40mm"
+    },
+    "apex_arc_emitter": {
+      "textures": "textures/items/arc_emitter"
+    },
+    "apex:arc_emitter": {
+      "textures": "textures/items/arc_emitter"
+    },
+    "apex_ammo_battery": {
+      "textures": "textures/items/ammo_battery"
+    },
+    "apex:ammo_battery": {
+      "textures": "textures/items/ammo_battery"
     }
   }
 }

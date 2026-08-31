@@ -7,7 +7,7 @@ export const GUN_CONFIGS = {
     name: "AK-47",
     caliberName: "7.62×39mm",
     magSize: 30,
-    baseDamage: 6, // 削减为单发 6 HP (三连发全中 18 HP)
+    baseDamage: 6,
     headshotMultiplier: 2.0,
     armorPiercing: 0.35,
     maxRange: 64,
@@ -23,7 +23,7 @@ export const GUN_CONFIGS = {
     name: "M82A1",
     caliberName: ".50 BMG (12.7mm)",
     magSize: 5,
-    baseDamage: 55, // 保持不变：单发 55 HP
+    baseDamage: 55,
     headshotMultiplier: 2.5,
     armorPiercing: 0.60,
     maxRange: 64,
@@ -32,7 +32,7 @@ export const GUN_CONFIGS = {
     reloadSeconds: 2.5,
     burstCount: 1,
     isExplosive: true,
-    heChance: 0.20, // 20% 恶魂火球级高爆烈焰弹
+    heChance: 0.20,
     heRadius: 3.5,
     heSplashDamage: 30,
     heBreaksBlocks: false,
@@ -44,14 +44,14 @@ export const GUN_CONFIGS = {
     name: "Vector .45",
     caliberName: ".45 ACP",
     magSize: 50,
-    baseDamage: 5, // 削减为单发 5 HP (双发全中 10 HP，暴走 50 发打满 250 HP)
+    baseDamage: 5,
     headshotMultiplier: 2.0,
     armorPiercing: 0.30,
     maxRange: 50,
     spreadStand: 0.022,
     spreadSneak: 0.008,
     reloadSeconds: 2.0,
-    burstCount: 2, // 常态双发点射
+    burstCount: 2,
     hasSkill: true,
     skillCooldownSec: 30,
     skillName: "暴走狂潮"
@@ -61,21 +61,38 @@ export const GUN_CONFIGS = {
     ammoId: "apex:ammo_40mm",
     name: "M32 榴弹炮",
     caliberName: "40mm 破片榴弹",
-    magSize: 6, // 6 发炮弹
-    baseDamage: 20, // 直击动能伤害
+    magSize: 6,
+    baseDamage: 20,
     headshotMultiplier: 1.5,
     armorPiercing: 0.50,
     maxRange: 50,
     spreadStand: 0.015,
     spreadSneak: 0.005,
     reloadSeconds: 3.0,
-    burstCount: 1, // 单发点射
+    burstCount: 1,
     isExplosive: true,
-    heChance: 1.0, // 100% 破片高爆
-    heRadius: 5.0, // 5 格巨额爆炸半径
-    heSplashDamage: 40, // 40 HP 范围破片高爆伤害
-    heBreaksBlocks: false, // 绝不破坏地形
+    heChance: 1.0,
+    heRadius: 5.0,
+    heSplashDamage: 40,
+    heBreaksBlocks: false,
     heCausesFire: false
+  },
+  "apex:arc_emitter": {
+    id: "apex:arc_emitter",
+    ammoId: "apex:ammo_battery",
+    name: "特斯拉电弧枪",
+    caliberName: "聚能微型电池",
+    magSize: 20,
+    baseDamage: 24, // 首击 24 HP 真实电击伤害
+    headshotMultiplier: 1.5,
+    armorPiercing: 1.0, // 100% 真实能量穿透
+    maxRange: 32,
+    chainRadius: 7.0, // 7 格内连锁传递
+    maxChains: 5,     // 最多连续跃迁 5 次 (总计 6 个目标)
+    decayRate: 0.25,  // 每次跃迁伤害递减 25%
+    reloadSeconds: 2.0,
+    burstCount: 1,
+    isArcEmitter: true
   }
 };
 
@@ -83,6 +100,7 @@ export const AK47_CONFIG = GUN_CONFIGS["apex:ak47"];
 export const M82_CONFIG = GUN_CONFIGS["apex:m82"];
 export const VECTOR_CONFIG = GUN_CONFIGS["apex:vector"];
 export const MGL_CONFIG = GUN_CONFIGS["apex:mgl"];
+export const ARC_CONFIG = GUN_CONFIGS["apex:arc_emitter"];
 
 export class AmmoSystem {
   static getGunConfig(typeId) {
@@ -106,7 +124,6 @@ export class AmmoSystem {
         }
       }
     }
-    // 默认新物品满弹匣
     return config.magSize;
   }
 

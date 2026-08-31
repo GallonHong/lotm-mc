@@ -49,6 +49,18 @@
         { "name": "sounds/guns/mgl_distant", "volume": 0.9, "pitch": 1.0 }
       ]
     },
+    "apex.arc.shoot": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/arc_shoot", "volume": 1.0, "pitch": 1.0 }
+      ]
+    },
+    "apex.arc.hit": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/arc_hit", "volume": 1.0, "pitch": 1.1 }
+      ]
+    },
     "apex.explosion": {
       "category": "player",
       "sounds": [

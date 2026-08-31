@@ -1,10 +1,10 @@
 import { world, system, ItemStack } from "@minecraft/server";
-import { GUN_CONFIGS, AK47_CONFIG, M82_CONFIG, VECTOR_CONFIG, MGL_CONFIG, AmmoSystem } from "./AmmoSystem.js";
+import { GUN_CONFIGS, AK47_CONFIG, M82_CONFIG, VECTOR_CONFIG, MGL_CONFIG, ARC_CONFIG, AmmoSystem } from "./AmmoSystem.js";
 import { GunEngine } from "./GunEngine.js";
 import { ReloadManager } from "./ReloadManager.js";
 import { TestSuite } from "./TestSuite.js";
 
-console.warn("[ApexFirearms] Tactical Arsenal (AK-47, M82, Vector & M32 MGL) Addon v1.4.0 initializing...");
+console.warn("[ApexFirearms] Tactical Arsenal (AK-47, M82, Vector, M32 & Arc Emitter) Addon v1.7.0 initializing...");
 
 /**
  * 安全事件订阅工具函数
@@ -22,7 +22,7 @@ function subscribeAfterEvent(eventName, handler) {
   }
 }
 
-// 1. 枪械使用事件 (支持 AK-47、M82、Vector、M32 MGL)
+// 1. 枪械使用事件 (支持全部 5 大专属武器)
 subscribeAfterEvent("itemUse", (event) => {
   try {
     const item = event.itemStack;
@@ -128,7 +128,7 @@ if (systemAfter && systemAfter.scriptEventReceive) {
 }
 
 /**
- * 发放四大神枪与弹药补给包
+ * 发放五大专属神枪与全套弹药补给包
  */
 function giveDevKit(player) {
   try {
@@ -138,60 +138,38 @@ function giveDevKit(player) {
       return;
     }
 
-    // 1. 发放 AK-47
-    try {
-      const ak = new ItemStack(AK47_CONFIG.id, 1);
-      AmmoSystem.setMagazineAmmo(ak, AK47_CONFIG.magSize);
-      inv.container.addItem(ak);
-    } catch {
-      player.runCommandAsync(`give @s ${AK47_CONFIG.id} 1`);
+    // 1. 发放 5 把神枪
+    const guns = [AK47_CONFIG, M82_CONFIG, VECTOR_CONFIG, MGL_CONFIG, ARC_CONFIG];
+    for (const g of guns) {
+      try {
+        const item = new ItemStack(g.id, 1);
+        AmmoSystem.setMagazineAmmo(item, g.magSize);
+        inv.container.addItem(item);
+      } catch {
+        player.runCommandAsync(`give @s ${g.id} 1`);
+      }
     }
 
-    // 2. 发放 M82A1
-    try {
-      const m82 = new ItemStack(M82_CONFIG.id, 1);
-      AmmoSystem.setMagazineAmmo(m82, M82_CONFIG.magSize);
-      inv.container.addItem(m82);
-    } catch {
-      player.runCommandAsync(`give @s ${M82_CONFIG.id} 1`);
-    }
-
-    // 3. 发放 Vector .45
-    try {
-      const vec = new ItemStack(VECTOR_CONFIG.id, 1);
-      AmmoSystem.setMagazineAmmo(vec, VECTOR_CONFIG.magSize);
-      inv.container.addItem(vec);
-    } catch {
-      player.runCommandAsync(`give @s ${VECTOR_CONFIG.id} 1`);
-    }
-
-    // 4. 发放 M32 MGL 六连发榴弹炮
-    try {
-      const mgl = new ItemStack(MGL_CONFIG.id, 1);
-      AmmoSystem.setMagazineAmmo(mgl, MGL_CONFIG.magSize);
-      inv.container.addItem(mgl);
-    } catch {
-      player.runCommandAsync(`give @s ${MGL_CONFIG.id} 1`);
-    }
-
-    // 5. 发放弹药
+    // 2. 发放弹药
     try {
       inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
       inv.container.addItem(new ItemStack(M82_CONFIG.ammoId, 32));
       inv.container.addItem(new ItemStack(VECTOR_CONFIG.ammoId, 64));
       inv.container.addItem(new ItemStack(MGL_CONFIG.ammoId, 24));
+      inv.container.addItem(new ItemStack(ARC_CONFIG.ammoId, 48));
     } catch {
       player.runCommandAsync(`give @s ${AK47_CONFIG.ammoId} 64`);
       player.runCommandAsync(`give @s ${M82_CONFIG.ammoId} 32`);
       player.runCommandAsync(`give @s ${VECTOR_CONFIG.ammoId} 64`);
       player.runCommandAsync(`give @s ${MGL_CONFIG.ammoId} 24`);
+      player.runCommandAsync(`give @s ${ARC_CONFIG.ammoId} 48`);
     }
 
     try {
       player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 1.0 });
     } catch {}
 
-    player.sendMessage("§a✔ 已成功领取【AK-47】、【M82A1】、【Vector】、【M32自动榴弹炮】及全套弹药！");
+    player.sendMessage("§a✔ 已成功领取【AK-47】、【M82A1】、【Vector】、【M32榴弹】、【特斯拉电弧枪】及全套弹药！");
   } catch (err) {
     player.sendMessage(`§c✖ 发放补给失败: ${err}`);
   }
@@ -234,18 +212,18 @@ function spawnDummy(player) {
  * 显示帮助指南
  */
 function showHelp(player) {
-  player.sendMessage("§l§e=== Apex Firearms: 终极四系军火库指南 ===");
-  player.sendMessage("§6!gunkit§7 - 领取 AK-47、M82A1、Vector、M32 榴弹炮与全套弹药");
+  player.sendMessage("§l§e=== Apex Firearms: 五系终极军火库指南 ===");
+  player.sendMessage("§6!gunkit§7 - 领取 AK-47、M82A1、Vector、M32、电弧枪与全套弹药");
   player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可打空后自动换弹)");
   player.sendMessage("§6!dummy§7 - 生成 5000 HP 测试靶人");
-  player.sendMessage("§6M32 自动榴弹炮§7 - 6发 40mm 破片高爆弹，2.5 威力爆炸，安全防拆家（绝不破坏地形）！");
+  player.sendMessage("§b特斯拉电弧枪§7 - 首击 24 HP，向 7 格范围内最多 5 只敌怪传递闪电链 (伤害递减 25%)！");
 }
 
 // 6. 玩家进退场与死亡清理
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§6[Apex Firearms]§r §a四系军火库已就绪！输入 §e!gunkit§a 获取全部 4 把专属枪械。§r");
+      player.sendMessage("§l§6[Apex Firearms]§r §a五系军火库已就绪！输入 §e!gunkit§a 获取全部 5 把专属枪械。§r");
     }
   } catch {}
 });
