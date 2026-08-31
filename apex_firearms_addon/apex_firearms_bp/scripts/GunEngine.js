@@ -2,6 +2,7 @@ import { world, system, Player } from "@minecraft/server";
 import { GUN_CONFIGS, AmmoSystem } from "./AmmoSystem.js";
 import { ReloadManager } from "./ReloadManager.js";
 import { RaycastEngine } from "./RaycastEngine.js";
+import { GrenadeEngine } from "./GrenadeEngine.js";
 
 export class GunEngine {
   static #lastShotTicks = new Map();
@@ -91,7 +92,7 @@ export class GunEngine {
       this.#executeSingleShot(player, slot, config, 1);
       system.runTimeout(() => this.#executeSingleShot(player, slot, config, 2), 2);
     } else if (config.id === "apex:mgl") {
-      // M32 自动榴弹炮 (100% 40mm 破片高爆，0 地形破坏)
+      // M32 自动榴弹炮 (发射实体抛物线物理弹丸)
       this.#executeSingleShot(player, slot, config, 1, true);
     } else {
       // M82A1 单发重狙 (20% 概率恶魂高爆弹)
@@ -124,18 +125,26 @@ export class GunEngine {
   }
 
   /**
-   * 20 TPS 常态更新
+   * 20 TPS 常态更新 (处理榴弹物理步进、暴走狂潮、换弹与 HUD)
    */
   static onTick() {
     const currentTick = system.currentTick;
     const allPlayers = world.getAllPlayers();
     const playerMap = new Map(allPlayers.map((p) => [p.id, p]));
 
+    // 1. 步进 40mm 榴弹抛物线与碰撞结算
+    try {
+      GrenadeEngine.onTick();
+    } catch (e) {
+      console.warn(`[ApexFirearms] GrenadeEngine tick error: ${e}`);
+    }
+
+    // 2. 更新换弹状态机
     try {
       ReloadManager.update(currentTick, (id) => playerMap.get(id));
     } catch {}
 
-    // 处理处于【暴走狂潮】的玩家 (1200 RPM 极速射出直到打空 50 发弹匣)
+    // 3. 处理处于【暴走狂潮】的玩家
     for (const player of allPlayers) {
       if (!player || !player.isValid()) continue;
       const od = this.#overdriveStates.get(player.id);
@@ -173,7 +182,7 @@ export class GunEngine {
       this.#executeSingleShot(player, od.slot, config, 1, false, true);
     }
 
-    // 常态 HUD 刷新
+    // 4. 常态 HUD 刷新
     if (currentTick % 4 === 0) {
       for (const player of allPlayers) {
         try {
@@ -218,7 +227,7 @@ export class GunEngine {
   }
 
   /**
-   * 执行单发实弹
+   * 执行单发实弹 / 榴弹发射
    */
   static #executeSingleShot(player, targetSlot, config, shotIndexInBurst = 1, isHeRound = false, isOverdrive = false) {
     if (!player || !player.isValid()) return false;
@@ -249,7 +258,6 @@ export class GunEngine {
     try {
       if (config.id === "apex:mgl") {
         player.playSound("apex.mgl.shoot", { location: player.location, volume: 1.0, pitch: 0.85 });
-        player.playSound("random.explode", { location: player.location, volume: 0.9, pitch: 1.3 });
       } else if (config.id === "apex:m82") {
         if (isHeRound) {
           player.playSound("mob.ghast.fireball", { location: player.location, volume: 1.0, pitch: 1.0 });
@@ -285,46 +293,44 @@ export class GunEngine {
       player.runCommandAsync(`camerashake add @s ${shakeIntensity} 0.05 rotational`);
     } catch {}
 
-    // 4. 执行高精度射线与伤害计算
-    const spreadMult = isOverdrive ? 1.5 : (1.0 + (shotIndexInBurst - 1) * 0.25);
-    const rayResult = RaycastEngine.castBullet(player, config, spreadMult, isHeRound);
-
-    // 5. 实时 HUD 反馈
+    // 4. 弹道派发：MGL 为物理抛物线弹丸；其余武器为光速射线
     const reserve = AmmoSystem.countReserveAmmo(player, config.ammoId);
     const barFill = Math.round((currentAmmo / config.magSize) * 10);
     const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
 
-    if (isOverdrive) {
+    if (config.id === "apex:mgl") {
+      // 启动 40mm 实体抛物线弹丸模拟
+      GrenadeEngine.launchGrenade(player, config);
       player.onScreenDisplay?.setActionBar?.(
-        `§4🔥【暴走狂潮】全速扫射中! [${bar}§4] §f${currentAmmo}§7/§a${reserve} §c(无法停火!)`
+        `§6[M32 榴弹炮] 🚀 [${bar}§6] §f${currentAmmo}§7/§a${reserve} §e(40mm抛物线榴弹)`
       );
-    } else if (config.id === "apex:mgl") {
-      if (rayResult && rayResult.hitResult) {
+    } else {
+      // 直射射线弹道
+      const spreadMult = isOverdrive ? 1.5 : (1.0 + (shotIndexInBurst - 1) * 0.25);
+      const rayResult = RaycastEngine.castBullet(player, config, spreadMult, isHeRound);
+
+      if (isOverdrive) {
         player.onScreenDisplay?.setActionBar?.(
-          `§6[M32 榴弹炮] 💥 [${bar}§6] ${currentAmmo}/${reserve} §7| §a🎯 直击 §f${rayResult.hitResult.targetName} §c(-20 HP + 40 破片轰炸!)`
+          `§4🔥【暴走狂潮】全速扫射中! [${bar}§4] §f${currentAmmo}§7/§a${reserve} §c(无法停火!)`
         );
-      } else {
+      } else if (rayResult && rayResult.hitResult) {
+        const hit = rayResult.hitResult;
+        const headText = hit.headshot ? "§c💥 头部暴击!" : "";
+        const killText = hit.isFatal ? "§4☠ 击杀" : `§c-${hit.damage} HP`;
+        const dist = hit.distance.toFixed(0);
+
         player.onScreenDisplay?.setActionBar?.(
-          `§6[M32 榴弹炮] 💥 [${bar}§6] §f${currentAmmo}§7/§a${reserve} §7(40mm破片高爆)`
+          `§e[${config.name}] [${bar}§e] ${currentAmmo}/${reserve} §7| §a🎯 命中 §f${hit.targetName} §b(${dist}m) ${headText} ${killText}`
+        );
+
+        try {
+          player.playSound("apex.gun.hit_flesh", { volume: 0.9, pitch: 1.0 });
+        } catch {}
+      } else if (isHeRound) {
+        player.onScreenDisplay?.setActionBar?.(
+          `§e[${config.name}] §6💥 触发高爆烈焰弹! (恶魂威力轰炸) §7[${bar}§e] §f${currentAmmo}§7/§a${reserve}`
         );
       }
-    } else if (rayResult && rayResult.hitResult) {
-      const hit = rayResult.hitResult;
-      const headText = hit.headshot ? "§c💥 头部暴击!" : "";
-      const killText = hit.isFatal ? "§4☠ 击杀" : `§c-${hit.damage} HP`;
-      const dist = hit.distance.toFixed(0);
-
-      player.onScreenDisplay?.setActionBar?.(
-        `§e[${config.name}] [${bar}§e] ${currentAmmo}/${reserve} §7| §a🎯 命中 §f${hit.targetName} §b(${dist}m) ${headText} ${killText}`
-      );
-
-      try {
-        player.playSound("apex.gun.hit_flesh", { volume: 0.9, pitch: 1.0 });
-      } catch {}
-    } else if (isHeRound) {
-      player.onScreenDisplay?.setActionBar?.(
-        `§e[${config.name}] §6💥 触发高爆烈焰弹! (恶魂威力轰炸) §7[${bar}§e] §f${currentAmmo}§7/§a${reserve}`
-      );
     }
 
     if (currentAmmo <= 0 && !isOverdrive) {
