@@ -13,10 +13,10 @@
         "swim": "animation.guns.back", "reload": "animation.slap.reload_full",
         "fire": "animation.mp5.shoots"
       },
-      "scripts": { "animate": [ { "controller": "context.is_first_person" } ] },
+      "scripts": { "animate": [ "controller" ] },
       "sound_effects": { "draw.sound": "gun.draw" },
       "particle_effects": { "muzzle.flash": "minecraft:basic_flame_particle" },
-      "render_controllers": [ "controller.render.default" ]
+      "render_controllers": [ "controller.render.survival_gun" ]
     }
   }
 }

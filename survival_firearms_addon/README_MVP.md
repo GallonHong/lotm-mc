@@ -1,4 +1,4 @@
-# Survival Firearms MVP 1.3.2
+# Survival Firearms MVP 1.3.3
 
 本目录严格实现仓库根目录 `1.md` 定义的四枪 MVP，不包含经济、诡秘途径或其他扩展系统。
 
@@ -22,6 +22,12 @@
 - `!workbench`：制造、图纸、靶场菜单。
 - `!guntest`：游戏内自动测试。
 - `!gunkit`：开发测试补给。
+
+### 1.3.3 修复
+
+- 四把枪的物品定义升级到 `1.21.50`，确保 `minecraft:use_modifiers` 被识别并触发右键开始/停止使用事件。
+- 四个 attachable 改为始终运行独立持枪状态机，第一、第三人称都能进入模型姿态计算。
+- 使用 Survival Gun 自己的渲染控制器显式绑定默认几何、材质和纹理，不依赖 DeadZone 的玩家渲染覆盖。
 
 ## 测试
 

@@ -52,6 +52,15 @@ for (const file of walk(root).filter(path => path.endsWith(".json"))) {
   JSON.parse(readFileSync(file, "utf8").replace(/^\uFEFF/, ""));
 }
 
+for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
+  const item = JSON.parse(readFileSync(join(root, `survival_guns_bp/items/${gunName}.json`), "utf8").replace(/^\uFEFF/, ""));
+  assert.ok(
+    Number(item.format_version.split(".").slice(0, 2).join(".")) >= 1.21,
+    `${gunName} must use an item format that recognizes minecraft:use_modifiers`
+  );
+  assert.ok(item["minecraft:item"].components["minecraft:use_modifiers"], `${gunName} must be hold-usable`);
+}
+
 const rpFiles = walk(join(root, "survival_guns_rp_mvp"));
 assert.ok(rpFiles.length < 100, `temporary RP scope leaked: ${rpFiles.length} files`);
 assert.equal(rpFiles.filter(path => path.includes("temporary_deadzone_assets") && path.endsWith(".geo.json")).length, 4);
@@ -66,4 +75,16 @@ assert.ok(!animationSources.includes("v.is_first_person"), "standalone animation
 assert.ok(!/\b(?:v|variable)\.[A-Za-z_][A-Za-z0-9_]*/.test(animationSources), "standalone animations must not depend on any DeadZone player variables");
 assert.ok(animationSources.includes("query.is_first_person"), "standalone animations must use the supported first-person query");
 
-console.log("PASS: four-gun registry, RPM, recipes, JSON, standalone Molang, and isolated assets validated");
+const renderControllerPath = join(root, "survival_guns_rp_mvp/render_controllers/survival_guns.render_controllers.json");
+const renderController = JSON.parse(readFileSync(renderControllerPath, "utf8"));
+assert.ok(renderController.render_controllers["controller.render.survival_gun"], "standalone gun render controller is missing");
+for (const attachablePath of walk(join(root, "survival_guns_rp_mvp/attachables")).filter(path => path.endsWith(".json"))) {
+  const attachable = JSON.parse(readFileSync(attachablePath, "utf8"));
+  const description = attachable["minecraft:attachable"].description;
+  assert.deepEqual(description.scripts.animate, ["controller"], `${attachablePath} must animate in first and third person`);
+  assert.deepEqual(description.render_controllers, ["controller.render.survival_gun"], `${attachablePath} must use the isolated render controller`);
+  const texturePath = join(root, "survival_guns_rp_mvp", `${description.textures.default}.png`);
+  assert.ok(rpFiles.includes(texturePath), `${attachablePath} texture is missing: ${texturePath}`);
+}
+
+console.log("PASS: four-gun registry, RPM, recipes, right-click use, JSON, standalone rendering, Molang, and isolated assets validated");
