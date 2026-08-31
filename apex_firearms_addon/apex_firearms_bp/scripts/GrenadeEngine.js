@@ -15,11 +15,11 @@ export class GrenadeEngine {
       const headLoc = player.getHeadLocation();
       const viewDir = player.getViewDirection();
 
-      // 榴弹初始初速 (约 1.35 格/tick，肉眼清晰可见飞行轨迹)
-      const baseSpeed = 1.35;
+      // 榴弹初速 (约 1.25 格/tick，肉眼清晰可见优美抛物线飞行)
+      const baseSpeed = 1.25;
       const launchVel = {
         x: viewDir.x * baseSpeed,
-        y: viewDir.y * baseSpeed + 0.08, // 战术枪口仰角加成
+        y: viewDir.y * baseSpeed + 0.08,
         z: viewDir.z * baseSpeed
       };
 
@@ -34,7 +34,7 @@ export class GrenadeEngine {
         dimensionId: dim.id,
         pos: startPos,
         velocity: launchVel,
-        gravity: 0.048, // 40mm 重力下坠加速度
+        gravity: 0.045, // 40mm 重力下坠加速度
         drag: 0.995,    // 空气阻力
         age: 0,
         maxAge: 80,     // 4 秒最大飞行寿命
@@ -66,7 +66,7 @@ export class GrenadeEngine {
 
         g.age++;
         if (g.age > g.maxAge) {
-          // 超时凌空自毁引爆
+          // 超时凌空引爆
           this.#explode(dim, g.pos, g.shooterId, g.config, null);
           continue;
         }
@@ -105,17 +105,18 @@ export class GrenadeEngine {
         // 方块碰撞
         try {
           const blockHit = dim.getBlockFromRay(curPos, normDir, {
-            maxDistance: moveDist + 0.1,
+            maxDistance: moveDist + 0.15,
             includePassableBlocks: false,
             includeLiquidBlocks: true
           });
 
           if (blockHit && blockHit.block) {
             hasCollided = true;
+            const bDist = blockHit.distance;
             impactLoc = {
-              x: curPos.x + normDir.x * blockHit.distance,
-              y: curPos.y + normDir.y * blockHit.distance,
-              z: curPos.z + normDir.z * blockHit.distance
+              x: curPos.x + normDir.x * bDist - normDir.x * 0.1,
+              y: curPos.y + normDir.y * bDist - normDir.y * 0.1 + 0.15,
+              z: curPos.z + normDir.z * bDist - normDir.z * 0.1
             };
           }
         } catch {}
@@ -147,22 +148,19 @@ export class GrenadeEngine {
         } catch {}
 
         if (hasCollided && impactLoc) {
-          // 引爆
+          // 触发落地引爆
           this.#explode(dim, impactLoc, g.shooterId, g.config, directHitEntity);
           continue;
         }
 
-        // 2. 无碰撞 -> 生成抛物线飞行轨迹粒子 (火花与尾烟)
+        // 2. 飞行中渲染抛物线轨迹 (火光与浓烟)
         try {
           dim.spawnParticle("apex:he_tracer", nextPos);
+          dim.spawnParticle("minecraft:basic_flame_particle", nextPos);
           dim.spawnParticle("minecraft:smoke_particle", nextPos);
-        } catch {
-          try {
-            dim.spawnParticle("minecraft:basic_flame_particle", nextPos);
-          } catch {}
-        }
+        } catch {}
 
-        // 3. 应用重力下坠与空气阻力 (形成优美的抛物线)
+        // 3. 应用重力下坠与空气阻力
         g.pos = nextPos;
         g.velocity.y -= g.gravity;
         g.velocity.x *= g.drag;
@@ -178,7 +176,7 @@ export class GrenadeEngine {
   }
 
   /**
-   * 触发 40mm 破片高爆 (0 地形破坏)
+   * 触发 40mm 破片高爆 (0 地形破坏 + 必出爆炸火光与音效)
    */
   static #explode(dim, loc, shooterId, config, directHitEntity) {
     if (!dim || !loc) return;
@@ -196,19 +194,14 @@ export class GrenadeEngine {
       } catch {}
     }
 
-    // 2. 范围 40 HP 破片高爆 (0 地形破坏)
+    // 2. 范围 40 HP 破片高爆 (0 地形破坏 + 保证爆炸特效)
     DamageResolver.applyExplosiveSplash(
       shooter,
       loc,
       config.heRadius ?? 5.0,
       config.heSplashDamage ?? 40,
-      config
+      config,
+      dim
     );
-
-    // 3. 爆炸特效与音效
-    try {
-      dim.spawnParticle("minecraft:huge_explosion_emitter", loc);
-      dim.spawnParticle("minecraft:lava_particle", loc);
-    } catch {}
   }
 }

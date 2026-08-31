@@ -1,4 +1,4 @@
-import { EntityDamageCause } from "@minecraft/server";
+import { EntityDamageCause, world } from "@minecraft/server";
 
 export class DamageResolver {
   /**
@@ -85,7 +85,7 @@ export class DamageResolver {
       if (isFatal) {
         target.applyDamage(finalDamage, {
           cause: EntityDamageCause.override,
-          damagingEntity: attacker
+          damagingEntity: attacker || undefined
         });
       } else {
         target.applyDamage(finalDamage, {
@@ -115,26 +115,38 @@ export class DamageResolver {
   }
 
   /**
-   * 高爆烈焰/破片弹范围轰炸结算 (100% 遵守 breaksBlocks: false，绝不破坏地形)
+   * 高爆烈焰/破片弹范围轰炸结算 (100% 遵守 0 地形破坏规则，特效与声音全覆盖)
    */
-  static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage, config) {
-    if (!attacker || !attacker.isValid() || !centerLoc) return 0;
-    const dim = attacker.dimension;
+  static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage, config, fallbackDim) {
+    const dim = attacker?.dimension || fallbackDim;
+    if (!dim || !centerLoc) return 0;
 
     const breaksBlocks = config?.heBreaksBlocks ?? false; // 绝不破坏地形
     const causesFire = config?.heCausesFire ?? false;
     const power = config?.id === "apex:mgl" ? 2.5 : 1.5;
 
-    // 1. 生成安全爆炸冲击波
+    // 1. 原版爆炸物理模拟
     try {
       dim.createExplosion(centerLoc, power, { breaksBlocks, causesFire });
-    } catch {
-      try {
-        dim.spawnParticle("minecraft:huge_explosion_emitter", centerLoc);
-      } catch {}
-    }
+    } catch {}
 
-    // 2. 溅射破片伤害与击退
+    // 2. 保证 100% 出现震撼爆炸视觉粒子
+    try {
+      const blastLoc = { x: centerLoc.x, y: centerLoc.y + 0.35, z: centerLoc.z };
+      dim.spawnParticle("minecraft:huge_explosion_emitter", blastLoc);
+      dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", blastLoc);
+      dim.spawnParticle("minecraft:lava_particle", blastLoc);
+      dim.spawnParticle("minecraft:basic_flame_particle", blastLoc);
+      dim.spawnParticle("minecraft:campfire_smoke_particle", blastLoc);
+    } catch {}
+
+    // 3. 保证播放爆炸音效
+    try {
+      dim.playSound("random.explode", centerLoc, { volume: 1.5, pitch: 0.9 });
+      dim.playSound("mob.ghast.fireball", centerLoc, { volume: 1.0, pitch: 0.85 });
+    } catch {}
+
+    // 4. 溅射破片伤害与击退
     let hitCount = 0;
     try {
       const nearby = dim.getEntities({
@@ -143,13 +155,14 @@ export class DamageResolver {
       });
 
       for (const ent of nearby) {
-        if (!ent || !ent.isValid() || ent.id === attacker.id) continue;
+        if (!ent || !ent.isValid()) continue;
+        if (attacker && ent.id === attacker.id) continue;
         if (ent.typeId === "minecraft:item" || ent.typeId === "minecraft:xp_orb") continue;
 
         try {
           ent.applyDamage(splashDamage, {
             cause: EntityDamageCause.entityExplosion,
-            damagingEntity: attacker
+            damagingEntity: attacker || undefined
           });
           if (causesFire) {
             ent.setOnFire(4, true);
