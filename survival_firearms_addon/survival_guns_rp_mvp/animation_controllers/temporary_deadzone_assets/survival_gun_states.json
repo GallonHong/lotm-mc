@@ -11,7 +11,6 @@
         "idle": {
           "animations": [ "idle" ],
           "transitions": [
-            { "reload": "query.has_tag('survival_reloading')" },
             { "ads": "query.is_sneaking" },
             { "sprint": "query.is_sprinting && !query.is_in_water" },
             { "swim": "query.is_swimming && query.is_in_water" }
@@ -20,14 +19,12 @@
         "ads": {
           "animations": [ "ads" ],
           "transitions": [
-            { "reload": "query.has_tag('survival_reloading')" },
             { "idle": "!query.is_sneaking" }
           ]
         },
         "sprint": {
           "animations": [ "sprint" ],
           "transitions": [
-            { "reload": "query.has_tag('survival_reloading')" },
             { "idle": "!query.is_sprinting" },
             { "swim": "query.is_swimming && query.is_in_water" }
           ]
@@ -35,13 +32,8 @@
         "swim": {
           "animations": [ "swim" ],
           "transitions": [
-            { "reload": "query.has_tag('survival_reloading')" },
             { "idle": "!query.is_swimming || !query.is_in_water" }
           ]
-        },
-        "reload": {
-          "animations": [ "reload" ],
-          "transitions": [ { "idle": "!query.has_tag('survival_reloading')" } ]
         }
       }
     }

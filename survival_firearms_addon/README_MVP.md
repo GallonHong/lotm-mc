@@ -1,4 +1,4 @@
-# Survival Firearms MVP 1.3.0
+# Survival Firearms MVP 1.3.1
 
 本目录严格实现仓库根目录 `1.md` 定义的四枪 MVP，不包含经济、诡秘途径或其他扩展系统。
 

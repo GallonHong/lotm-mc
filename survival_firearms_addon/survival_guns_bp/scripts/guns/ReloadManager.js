@@ -65,8 +65,8 @@ export class ReloadManager {
     };
 
     this.#reloadStates.set(playerId, state);
-    try { player.addTag("survival_reloading"); } catch {}
 
+    // 客户端动画控制器不能读取服务器 tag；换弹动作由脚本直接播放。
     GunAnimationBridge.playReload(player, gunDef);
     try {
       player.playSound("gun.draw", { location: player.location, volume: 1.0, pitch: 0.9 });
@@ -81,7 +81,6 @@ export class ReloadManager {
   static cancelReload(playerId, player = null) {
     if (this.#reloadStates.has(playerId)) {
       this.#reloadStates.delete(playerId);
-      try { player?.removeTag("survival_reloading"); } catch {}
       return true;
     }
     return false;
@@ -103,7 +102,6 @@ export class ReloadManager {
       try { currentHealth = player.getComponent("minecraft:health")?.currentValue ?? 1; } catch {}
       if (currentHealth <= 0 || player.dimension?.id !== state.dimensionId) {
         this.#reloadStates.delete(playerId);
-        try { player.removeTag("survival_reloading"); } catch {}
         continue;
       }
 
@@ -111,14 +109,12 @@ export class ReloadManager {
       const inv = player.getComponent("minecraft:inventory");
       if (!inv || !inv.container) {
         this.#reloadStates.delete(playerId);
-        try { player.removeTag("survival_reloading"); } catch {}
         continue;
       }
 
       if (player.selectedSlotIndex !== state.selectedSlot) {
         // 切槽位中断换弹
         this.#reloadStates.delete(playerId);
-        try { player.removeTag("survival_reloading"); } catch {}
         player.onScreenDisplay?.setActionBar?.("§7[换弹已取消]");
         continue;
       }
@@ -127,7 +123,6 @@ export class ReloadManager {
       if (!mainItem || mainItem.typeId !== state.gunId) {
         // 武器改变中断换弹
         this.#reloadStates.delete(playerId);
-        try { player.removeTag("survival_reloading"); } catch {}
         continue;
       }
       if (state.instanceId) {
@@ -135,7 +130,6 @@ export class ReloadManager {
         try { currentInstanceId = mainItem.getDynamicProperty("gun:instance_id"); } catch {}
         if (currentInstanceId !== state.instanceId) {
           this.#reloadStates.delete(playerId);
-          try { player.removeTag("survival_reloading"); } catch {}
           continue;
         }
       }
@@ -143,7 +137,6 @@ export class ReloadManager {
       // 3. 达到完成点结算
       if (currentTick >= state.finishTick) {
         this.#reloadStates.delete(playerId);
-        try { player.removeTag("survival_reloading"); } catch {}
 
         const gunDef = GunRegistry.getGun(state.gunId);
         if (!gunDef) continue;

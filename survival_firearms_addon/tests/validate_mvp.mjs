@@ -56,5 +56,7 @@ const rpFiles = walk(join(root, "survival_guns_rp_mvp"));
 assert.ok(rpFiles.length < 100, `temporary RP scope leaked: ${rpFiles.length} files`);
 assert.equal(rpFiles.filter(path => path.includes("temporary_deadzone_assets") && path.endsWith(".geo.json")).length, 4);
 assert.equal(rpFiles.filter(path => path.includes("temporary_deadzone_assets/items") && path.endsWith(".png")).length, 4);
+const stateController = readFileSync(join(root, "survival_guns_rp_mvp/animation_controllers/temporary_deadzone_assets/survival_gun_states.json"), "utf8");
+assert.ok(!stateController.includes("query.has_tag"), "client animation controller must not use unsupported query.has_tag");
 
-console.log("PASS: four-gun registry, RPM, recipes, JSON, and isolated assets validated");
+console.log("PASS: four-gun registry, RPM, recipes, JSON, Molang, and isolated assets validated");
