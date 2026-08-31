@@ -115,7 +115,7 @@ export class DamageResolver {
   }
 
   /**
-   * 高爆烈焰/破片弹范围轰炸结算 (100% 遵守 0 地形破坏规则，特效与声音全覆盖)
+   * 高爆破片范围轰炸结算 (100% 遵守 0 地形破坏规则，保证方块碰撞必出范围溅射伤害)
    */
   static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage, config, fallbackDim) {
     const dim = attacker?.dimension || fallbackDim;
@@ -125,14 +125,14 @@ export class DamageResolver {
     const causesFire = config?.heCausesFire ?? false;
     const power = config?.id === "apex:mgl" ? 2.5 : 1.5;
 
-    // 1. 原版爆炸物理模拟
+    // 1. 原版爆炸物理冲击波模拟 (0 方块破坏)
     try {
       dim.createExplosion(centerLoc, power, { breaksBlocks, causesFire });
     } catch {}
 
-    // 2. 保证 100% 出现震撼爆炸视觉粒子
+    // 2. 保证 100% 出现震撼爆炸视觉粒子 (提升 0.4 格避免被方块遮挡)
+    const blastLoc = { x: centerLoc.x, y: centerLoc.y + 0.4, z: centerLoc.z };
     try {
-      const blastLoc = { x: centerLoc.x, y: centerLoc.y + 0.35, z: centerLoc.z };
       dim.spawnParticle("minecraft:huge_explosion_emitter", blastLoc);
       dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", blastLoc);
       dim.spawnParticle("minecraft:lava_particle", blastLoc);
@@ -147,12 +147,15 @@ export class DamageResolver {
       dim.playSound("mob.ghast.fireball", centerLoc, { volume: 0.9, pitch: 0.85 });
     } catch {}
 
-    // 4. 溅射破片伤害与击退
+    // 4. 范围破片溅射伤害与物理冲击波结算
     let hitCount = 0;
+    const searchCenter = { x: centerLoc.x, y: centerLoc.y + 0.6, z: centerLoc.z };
+    const effectiveRadius = Math.max(radius ?? 5.0, 5.5);
+
     try {
       const nearby = dim.getEntities({
-        location: centerLoc,
-        maxDistance: radius
+        location: searchCenter,
+        maxDistance: effectiveRadius
       });
 
       for (const ent of nearby) {
@@ -160,24 +163,56 @@ export class DamageResolver {
         if (attacker && ent.id === attacker.id) continue;
         if (ent.typeId === "minecraft:item" || ent.typeId === "minecraft:xp_orb") continue;
 
+        const entLoc = ent.location;
+        const dist = Math.hypot(entLoc.x - centerLoc.x, entLoc.y - centerLoc.y, entLoc.z - centerLoc.z);
+        if (dist > effectiveRadius) continue;
+
+        // 计算距离伤害衰减 (核心 40 HP，边缘 ~25 HP)
+        const falloff = Math.max(0.6, 1 - (dist / (effectiveRadius + 1)) * 0.4);
+        const actualDmg = Math.max(12, Math.round((splashDamage ?? 40) * falloff));
+
+        // 应用高可靠伤害结算
+        const healthComp = ent.getComponent("minecraft:health");
+        const curHp = healthComp?.currentValue ?? 20;
+
         try {
-          ent.applyDamage(splashDamage, {
-            cause: EntityDamageCause.entityExplosion,
+          ent.applyDamage(actualDmg, {
+            cause: EntityDamageCause.override,
             damagingEntity: attacker || undefined
           });
-          if (causesFire) {
-            ent.setOnFire(4, true);
+        } catch (e) {
+          if (healthComp) {
+            healthComp.setCurrentValue(Math.max(0, curHp - actualDmg));
           }
-          // 强力冲击波击飞
-          const entLoc = ent.location;
-          const dx = entLoc.x - centerLoc.x;
-          const dz = entLoc.z - centerLoc.z;
-          const dist = Math.hypot(dx, dz) || 1.0;
-          ent.applyKnockback(dx / dist, dz / dist, 1.2, 0.35);
-          hitCount++;
+        }
+
+        if (causesFire) {
+          try { ent.setOnFire(4, true); } catch {}
+        }
+
+        // 强力爆炸冲击波击退
+        const dx = entLoc.x - centerLoc.x;
+        const dz = entLoc.z - centerLoc.z;
+        const hDist = Math.hypot(dx, dz) || 1.0;
+        try {
+          ent.applyKnockback(dx / hDist, dz / hDist, 1.25, 0.38);
         } catch {}
+
+        hitCount++;
       }
-    } catch {}
+    } catch (e) {
+      console.warn(`[ApexFirearms] applyExplosiveSplash entity query error: ${e}`);
+    }
+
+    // 5. 命中击中反馈给开火玩家
+    if (attacker && attacker.isValid() && hitCount > 0) {
+      try {
+        attacker.onScreenDisplay?.setActionBar?.(
+          `§6[M32 榴弹炮] 💥 破片高爆溅射命中 §f${hitCount} §6个目标! (-40 HP 范围轰炸)`
+        );
+        attacker.playSound("apex.gun.hit_flesh", { volume: 1.0, pitch: 0.9 });
+      } catch {}
+    }
 
     return hitCount;
   }

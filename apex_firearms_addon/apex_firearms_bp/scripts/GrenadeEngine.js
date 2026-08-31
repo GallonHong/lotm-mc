@@ -105,7 +105,7 @@ export class GrenadeEngine {
         // 方块碰撞
         try {
           const blockHit = dim.getBlockFromRay(curPos, normDir, {
-            maxDistance: moveDist + 0.15,
+            maxDistance: moveDist + 0.2,
             includePassableBlocks: false,
             includeLiquidBlocks: true
           });
@@ -114,16 +114,16 @@ export class GrenadeEngine {
             hasCollided = true;
             const bDist = blockHit.distance;
             impactLoc = {
-              x: curPos.x + normDir.x * bDist - normDir.x * 0.1,
-              y: curPos.y + normDir.y * bDist - normDir.y * 0.1 + 0.15,
-              z: curPos.z + normDir.z * bDist - normDir.z * 0.1
+              x: curPos.x + normDir.x * bDist,
+              y: curPos.y + normDir.y * bDist + 0.25,
+              z: curPos.z + normDir.z * bDist
             };
           }
         } catch {}
 
         // 实体碰撞
         try {
-          const checkMax = hasCollided ? Math.min(moveDist, Math.hypot(impactLoc.x - curPos.x, impactLoc.y - curPos.y, impactLoc.z - curPos.z)) : moveDist + 0.2;
+          const checkMax = hasCollided ? Math.min(moveDist, Math.hypot(impactLoc.x - curPos.x, impactLoc.y - curPos.y, impactLoc.z - curPos.z)) : moveDist + 0.25;
           const entityHits = dim.getEntitiesFromRay(curPos, normDir, {
             maxDistance: checkMax,
             ignoreBlockCollision: false
@@ -148,7 +148,7 @@ export class GrenadeEngine {
         } catch {}
 
         if (hasCollided && impactLoc) {
-          // 触发落地引爆
+          // 触发落地引爆与范围溅射
           this.#explode(dim, impactLoc, g.shooterId, g.config, directHitEntity);
           continue;
         }
@@ -176,7 +176,7 @@ export class GrenadeEngine {
   }
 
   /**
-   * 触发 40mm 破片高爆 (0 地形破坏 + 必出爆炸火光与音效)
+   * 触发 40mm 破片高爆 (0 地形破坏 + 保证地面与实体大范围溅射伤害)
    */
   static #explode(dim, loc, shooterId, config, directHitEntity) {
     if (!dim || !loc) return;
@@ -194,11 +194,11 @@ export class GrenadeEngine {
       } catch {}
     }
 
-    // 2. 范围 40 HP 破片高爆 (0 地形破坏 + 保证爆炸特效)
+    // 2. 范围 40 HP 破片高爆溅射 (0 地形破坏 + 保证地面溅射伤害与击退)
     DamageResolver.applyExplosiveSplash(
       shooter,
       loc,
-      config.heRadius ?? 5.0,
+      config.heRadius ?? 5.5,
       config.heSplashDamage ?? 40,
       config,
       dim
