@@ -3,6 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_gun_m1911" },
     "tags": ["crafting_table"],
+    "unlock": [{"context": "AlwaysUnlocked"}],
     "pattern": ["BIP", " ML"],
     "key": {
       "B": { "item": "survival:blueprint_m1911" },

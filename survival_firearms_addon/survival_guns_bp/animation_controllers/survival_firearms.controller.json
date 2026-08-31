@@ -6,10 +6,10 @@
       "states": {
         "idle": {
           "transitions": [
-            { "m1911_fire": "q.is_item_name_any('slot.weapon.mainhand','survival:m1911') && q.main_hand_item_use_duration > 0 && q.is_alive" },
-            { "akm_fire_a": "q.is_item_name_any('slot.weapon.mainhand','survival:akm') && q.main_hand_item_use_duration > 0 && q.is_alive" },
-            { "mp5_fire_a": "q.is_item_name_any('slot.weapon.mainhand','survival:mp5') && q.main_hand_item_use_duration > 0 && q.is_alive" },
-            { "m870_fire": "q.is_item_name_any('slot.weapon.mainhand','survival:m870') && q.main_hand_item_use_duration > 0 && q.is_alive" }
+            { "m1911_fire": "q.is_using_item && q.is_item_name_any('slot.weapon.mainhand','survival:m1911') && q.is_alive" },
+            { "akm_fire_a": "q.is_using_item && q.is_item_name_any('slot.weapon.mainhand','survival:akm') && q.is_alive" },
+            { "mp5_fire_a": "q.is_using_item && q.is_item_name_any('slot.weapon.mainhand','survival:mp5') && q.is_alive" },
+            { "m870_fire": "q.is_using_item && q.is_item_name_any('slot.weapon.mainhand','survival:m870') && q.is_alive" }
           ]
         },
         "m1911_fire": {
@@ -22,14 +22,14 @@
         },
         "m1911_wait_release": {
           "transitions": [
-            { "idle": "q.main_hand_item_use_duration <= 0 || !q.is_item_name_any('slot.weapon.mainhand','survival:m1911') || !q.is_alive" }
+            { "idle": "!q.is_using_item || !q.is_item_name_any('slot.weapon.mainhand','survival:m1911') || !q.is_alive" }
           ]
         },
         "akm_fire_a": {
           "animations": ["survival_fire_akm"],
           "on_entry": ["/scriptevent survival:fire akm"],
           "transitions": [
-            { "idle": "q.main_hand_item_use_duration <= 0 || !q.is_item_name_any('slot.weapon.mainhand','survival:akm') || !q.is_alive" },
+            { "idle": "!q.is_using_item || !q.is_item_name_any('slot.weapon.mainhand','survival:akm') || !q.is_alive" },
             { "akm_fire_b": "q.all_animations_finished" }
           ]
         },
@@ -37,7 +37,7 @@
           "animations": ["survival_fire_akm"],
           "on_entry": ["/scriptevent survival:fire akm"],
           "transitions": [
-            { "idle": "q.main_hand_item_use_duration <= 0 || !q.is_item_name_any('slot.weapon.mainhand','survival:akm') || !q.is_alive" },
+            { "idle": "!q.is_using_item || !q.is_item_name_any('slot.weapon.mainhand','survival:akm') || !q.is_alive" },
             { "akm_fire_a": "q.all_animations_finished" }
           ]
         },
@@ -45,7 +45,7 @@
           "animations": ["survival_fire_mp5"],
           "on_entry": ["/scriptevent survival:fire mp5"],
           "transitions": [
-            { "idle": "q.main_hand_item_use_duration <= 0 || !q.is_item_name_any('slot.weapon.mainhand','survival:mp5') || !q.is_alive" },
+            { "idle": "!q.is_using_item || !q.is_item_name_any('slot.weapon.mainhand','survival:mp5') || !q.is_alive" },
             { "mp5_fire_b": "q.all_animations_finished" }
           ]
         },
@@ -53,7 +53,7 @@
           "animations": ["survival_fire_mp5"],
           "on_entry": ["/scriptevent survival:fire mp5"],
           "transitions": [
-            { "idle": "q.main_hand_item_use_duration <= 0 || !q.is_item_name_any('slot.weapon.mainhand','survival:mp5') || !q.is_alive" },
+            { "idle": "!q.is_using_item || !q.is_item_name_any('slot.weapon.mainhand','survival:mp5') || !q.is_alive" },
             { "mp5_fire_a": "q.all_animations_finished" }
           ]
         },
@@ -67,7 +67,7 @@
         },
         "m870_wait_release": {
           "transitions": [
-            { "idle": "q.main_hand_item_use_duration <= 0 || !q.is_item_name_any('slot.weapon.mainhand','survival:m870') || !q.is_alive" }
+            { "idle": "!q.is_using_item || !q.is_item_name_any('slot.weapon.mainhand','survival:m870') || !q.is_alive" }
           ]
         }
       }

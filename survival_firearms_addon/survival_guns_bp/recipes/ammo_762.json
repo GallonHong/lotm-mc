@@ -3,6 +3,7 @@
   "minecraft:recipe_shapeless": {
     "description": { "identifier": "survival:craft_ammo_762" },
     "tags": ["crafting_table"],
+    "unlock": [{"context": "AlwaysUnlocked"}],
     "ingredients": [
       { "item": "minecraft:copper_ingot" },
       { "item": "minecraft:gunpowder" },

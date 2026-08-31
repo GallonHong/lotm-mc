@@ -12,7 +12,7 @@ import { system, world } from "@minecraft/server";
 /**
  * 枪械总控制器。
  * 开火意图不再保存在 JavaScript 循环中：行为包动画控制器每次仅在
- * q.main_hand_item_use_duration 仍大于 0 时发送一发 survival:fire。
+ * q.is_using_item 仍为真时发送一发 survival:fire。
  */
 export class GunController {
   static #playerSlotTracker = new Map();
@@ -24,7 +24,7 @@ export class GunController {
     if (!player || !player.isValid()) return false;
     const gunId = `survival:${String(requestedGunName).trim().toLowerCase()}`;
     const gunDef = GunRegistry.getGun(gunId);
-    if (!gunDef || ReloadManager.isReloading(player.id)) return false;
+    if (!gunDef) return false;
 
     const inv = player.getComponent("minecraft:inventory");
     if (!inv?.container) return false;
@@ -33,6 +33,9 @@ export class GunController {
     if (!item || item.typeId !== gunId) return false;
 
     const shots = FireScheduler.requestMolangShots(player.id, gunDef, system.currentTick);
+    // 即使正在换弹，也先记录本 tick 的使用心跳；这样异常的持续使用
+    // 状态不会在换弹结束后被误判为一次全新的按压。
+    if (ReloadManager.isReloading(player.id)) return false;
     if (shots < 1) return false;
     for (let shot = 0; shot < shots; shot++) {
       const currentItem = inv.container.getItem(slot);
@@ -60,7 +63,9 @@ export class GunController {
     const item = inv.container.getItem(slot);
     const gunDef = item ? GunRegistry.getGun(item.typeId) : null;
     if (!item || !gunDef) return false;
-    return ReloadManager.startReload(player, item, gunDef, system.currentTick, slot);
+    const started = ReloadManager.startReload(player, item, gunDef, system.currentTick, slot);
+    if (started) FireScheduler.blockUntilRelease(player.id);
+    return started;
   }
 
   /** 每 tick 只处理换弹、切枪表现与 HUD，不再推进持续开火状态。 */
@@ -120,6 +125,7 @@ export class GunController {
 
     if (AmmoManager.getMagazineAmmo(itemStack, gunDef) <= 0) {
       GunAnimationBridge.playDryFire(player);
+      FireScheduler.blockUntilRelease(player.id);
       ReloadManager.startReload(player, itemStack, gunDef, system.currentTick, slotIndex);
       return;
     }

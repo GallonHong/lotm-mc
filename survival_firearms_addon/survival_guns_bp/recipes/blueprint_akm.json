@@ -3,6 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_blueprint_akm" },
     "tags": ["crafting_table"],
+    "unlock": [{"context": "AlwaysUnlocked"}],
     "pattern": [" C ", "RBR", " I "],
     "key": {
       "C": { "item": "minecraft:compass" },

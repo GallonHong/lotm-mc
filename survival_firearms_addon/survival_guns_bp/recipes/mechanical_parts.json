@@ -3,6 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_mechanical_parts" },
     "tags": ["crafting_table"],
+    "unlock": [{"context": "AlwaysUnlocked"}],
     "pattern": [" R ", "ILI"],
     "key": {
       "R": { "item": "minecraft:redstone" },

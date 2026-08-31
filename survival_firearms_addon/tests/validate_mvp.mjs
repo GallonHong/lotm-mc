@@ -46,6 +46,15 @@ for (const [playerId, rpm, expectedShots] of [["akm-rate-test", 600, 100], ["mp5
   FireScheduler.reset(playerId);
 }
 
+FireScheduler.reset("release-lock-test");
+assert.equal(FireScheduler.requestMolangShots("release-lock-test", { fireMode: "auto", rpm: 600 }, 0), 1);
+FireScheduler.blockUntilRelease("release-lock-test");
+for (let tick = 1; tick <= 20; tick += 1) {
+  assert.equal(FireScheduler.requestMolangShots("release-lock-test", { fireMode: "auto", rpm: 600 }, tick), 0, "continuous heartbeat must not clear release lock");
+}
+assert.equal(FireScheduler.requestMolangShots("release-lock-test", { fireMode: "auto", rpm: 600 }, 24), 1, "a real request gap must clear release lock");
+FireScheduler.reset("release-lock-test");
+
 for (const file of [...walk(join(root, "survival_guns_bp")), ...walk(join(root, "survival_guns_rp"))].filter((path) => path.endsWith(".json"))) {
   JSON.parse(read(file));
 }
@@ -58,8 +67,9 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
 }
 
 const fireController = read(join(root, "survival_guns_bp/animation_controllers/survival_firearms.controller.json"));
-assert.ok(fireController.includes("q.main_hand_item_use_duration > 0"), "fire must read the live engine use state");
-assert.ok(fireController.includes("q.main_hand_item_use_duration <= 0"), "semi/pump states must wait for release");
+assert.ok(fireController.includes("q.is_using_item"), "fire must read the engine's explicit item-use boolean");
+assert.ok(fireController.includes("!q.is_using_item"), "all fire states must stop on release");
+assert.ok(!fireController.includes("main_hand_item_use_duration"), "use duration is not a reliable pressed-state signal");
 for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   assert.ok(fireController.includes(`/scriptevent survival:fire ${gunName}`), `${gunName} fire event missing`);
 }
@@ -85,6 +95,11 @@ function ingredientCounts(recipe) {
 }
 
 const blueprintRegistry = Object.fromEntries(GunRegistry.getAllBlueprints().map((bp) => [bp.id, bp]));
+for (const recipePath of walk(join(root, "survival_guns_bp/recipes")).filter((path) => path.endsWith(".json"))) {
+  const recipe = json(recipePath);
+  const body = recipe[Object.keys(recipe).find((key) => key.startsWith("minecraft:recipe_"))];
+  assert.deepEqual(body.unlock, [{ context: "AlwaysUnlocked" }], `${recipePath} requires 1.20+ unlock data`);
+}
 for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   const recipe = json(join(root, `survival_guns_bp/recipes/blueprint_${gunName}.json`));
   assert.deepEqual(recipe["minecraft:recipe_shaped"].tags, ["crafting_table"]);
@@ -124,7 +139,7 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
 
 const bpManifest = json(join(root, "survival_guns_bp/manifest.json"));
 const rpManifest = json(join(root, "survival_guns_rp/manifest.json"));
-assert.deepEqual(bpManifest.header.version, [2, 0, 0]);
-assert.deepEqual(rpManifest.header.version, [2, 0, 0]);
+assert.deepEqual(bpManifest.header.version, [2, 0, 1]);
+assert.deepEqual(rpManifest.header.version, [2, 0, 1]);
 
-console.log("PASS: live-use firing, original visuals, retained audio, vanilla-table recipes, manifests, scripts, and JSON validated");
+console.log("PASS: release-safe firing, recipe unlocks, original visuals, retained audio, manifests, scripts, and JSON validated");

@@ -3,6 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_blueprint_m870" },
     "tags": ["crafting_table"],
+    "unlock": [{"context": "AlwaysUnlocked"}],
     "pattern": [" S ", "CBC", " R "],
     "key": {
       "S": { "item": "minecraft:string" },

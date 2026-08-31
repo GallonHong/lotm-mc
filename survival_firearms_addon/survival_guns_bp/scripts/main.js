@@ -5,7 +5,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v2.0.0...");
+console.warn("[SurvivalFirearms] Addon initializing v2.0.1...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -39,7 +39,7 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
 };
 
 // 3. 普通 itemUse 只处理便携菜单。枪械射击由行为动画控制器实时读取
-// q.main_hand_item_use_duration，并通过 survival:fire 发出独立单发请求。
+// q.is_using_item，并通过 survival:fire 发出独立单发请求。
 subscribeAfterEvent("itemUse", (event) => {
   try {
     GunController.handleItemUse(event);
@@ -144,4 +144,4 @@ subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   } catch {}
 });
 
-console.warn("[SurvivalFirearms] Addon v2.0.0 loaded successfully without errors!");
+console.warn("[SurvivalFirearms] Addon v2.0.1 loaded successfully without errors!");
