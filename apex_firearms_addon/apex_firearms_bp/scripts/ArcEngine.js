@@ -1,9 +1,9 @@
-import { world, system } from "@minecraft/server";
+import { world, system, EntityDamageCause } from "@minecraft/server";
 import { DamageResolver } from "./DamageResolver.js";
 
 export class ArcEngine {
   /**
-   * 触发特斯拉高压电弧并向周围目标传递闪电链 (伤害递减)
+   * 触发高压特斯拉电弧 (智能电磁索敌 + 连锁闪电跃迁)
    */
   static fireArc(player, config) {
     if (!player || !player.isValid()) return null;
@@ -21,103 +21,122 @@ export class ArcEngine {
 
       const maxDist = config.maxRange ?? 32.0;
 
-      // 1. 首发射线检测
-      let firstEntity = null;
-      let firstImpactLoc = null;
+      // 1. 智能电磁索敌 (30度前方锥形广角自动磁吸锁定)
+      let primaryTarget = null;
+      let primaryHitPos = null;
+      let bestScore = -999;
 
-      // 方块阻挡
-      let blockDist = maxDist + 1;
       try {
-        const blockHit = dim.getBlockFromRay(headLoc, viewDir, {
-          maxDistance: maxDist,
-          includePassableBlocks: false,
-          includeLiquidBlocks: true
-        });
-        if (blockHit && blockHit.block) {
-          blockDist = blockHit.distance;
-          firstImpactLoc = {
-            x: headLoc.x + viewDir.x * blockDist,
-            y: headLoc.y + viewDir.y * blockDist,
-            z: headLoc.z + viewDir.z * blockDist
-          };
-        }
-      } catch {}
-
-      // 实体射线
-      try {
-        const checkDist = Math.min(maxDist, blockDist);
-        const entityHits = dim.getEntitiesFromRay(headLoc, viewDir, {
-          maxDistance: checkDist,
-          ignoreBlockCollision: false
+        const nearby = dim.getEntities({
+          location: headLoc,
+          maxDistance: maxDist
         });
 
-        if (entityHits && entityHits.length > 0) {
-          for (const hit of entityHits) {
-            const ent = hit.entity;
-            if (!ent || !ent.isValid() || ent.id === player.id) continue;
-            if (ent.typeId === "minecraft:item" || ent.typeId === "minecraft:xp_orb") continue;
+        for (const ent of nearby) {
+          if (!ent || !ent.isValid() || ent.id === player.id) continue;
+          if (ent.typeId === "minecraft:item" || ent.typeId === "minecraft:xp_orb") continue;
 
-            firstEntity = ent;
-            firstImpactLoc = {
-              x: headLoc.x + viewDir.x * hit.distance,
-              y: headLoc.y + viewDir.y * hit.distance,
-              z: headLoc.z + viewDir.z * hit.distance
-            };
-            break;
+          const entLoc = ent.location;
+          const eCenter = { x: entLoc.x, y: entLoc.y + 0.9, z: entLoc.z };
+          const dx = eCenter.x - headLoc.x;
+          const dy = eCenter.y - headLoc.y;
+          const dz = eCenter.z - headLoc.z;
+          const dist = Math.hypot(dx, dy, dz);
+          if (dist < 0.5 || dist > maxDist) continue;
+
+          const dot = (dx * viewDir.x + dy * viewDir.y + dz * viewDir.z) / dist;
+          if (dot > 0.75) { // 视线前方约 40 度大锥形范围
+            // 检查是否有硬障碍阻挡
+            const normToEnt = { x: dx / dist, y: dy / dist, z: dz / dist };
+            let hasWall = false;
+            try {
+              const bHit = dim.getBlockFromRay(headLoc, normToEnt, {
+                maxDistance: dist - 0.2,
+                includePassableBlocks: false,
+                includeLiquidBlocks: false
+              });
+              if (bHit && bHit.block) hasWall = true;
+            } catch {}
+
+            if (!hasWall) {
+              const score = (dot * 2.0) - (dist / maxDist);
+              if (score > bestScore) {
+                bestScore = score;
+                primaryTarget = ent;
+                primaryHitPos = eCenter;
+              }
+            }
           }
         }
-      } catch {}
+      } catch (err) {}
 
-      const initialTargetPos = firstImpactLoc || {
-        x: headLoc.x + viewDir.x * maxDist,
-        y: headLoc.y + viewDir.y * maxDist,
-        z: headLoc.z + viewDir.z * maxDist
-      };
+      // 如果未锁定到活体目标，检测准星直指方块
+      if (!primaryTarget) {
+        try {
+          const blockHit = dim.getBlockFromRay(headLoc, viewDir, {
+            maxDistance: maxDist,
+            includePassableBlocks: false,
+            includeLiquidBlocks: true
+          });
+          if (blockHit && blockHit.block) {
+            const bDist = blockHit.distance;
+            primaryHitPos = {
+              x: headLoc.x + viewDir.x * bDist,
+              y: headLoc.y + viewDir.y * bDist,
+              z: headLoc.z + viewDir.z * bDist
+            };
+          }
+        } catch {}
+      }
 
-      // 2. 生成从枪口到第一落点的高能等离子闪电光束
-      this.drawLightningBeam(dim, muzzleLoc, initialTargetPos);
+      if (!primaryHitPos) {
+        primaryHitPos = {
+          x: headLoc.x + viewDir.x * maxDist,
+          y: headLoc.y + viewDir.y * maxDist,
+          z: headLoc.z + viewDir.z * maxDist
+        };
+      }
 
-      // 3. 闪电链传递逻辑
+      // 2. 绘制从枪口到第一落点的高亮等离子闪电光束
+      this.drawLightningBeam(dim, muzzleLoc, primaryHitPos);
+
+      // 3. 伤害与连锁闪电跃迁结算
       const hitEntities = [];
       const hitSet = new Set([player.id]);
-
-      let currentSourcePos = initialTargetPos;
-      let currentSourceEntity = firstEntity;
 
       const baseDamage = config.baseDamage ?? 24;
       const decayRate = config.decayRate ?? 0.25;
       const chainRadius = config.chainRadius ?? 7.0;
       const maxChains = config.maxChains ?? 5;
 
-      // 如果直击第一只实体
-      if (firstEntity && firstEntity.isValid()) {
-        hitSet.add(firstEntity.id);
-        const dmgResult = DamageResolver.applyDamage(player, firstEntity, initialTargetPos, {
-          ...config,
-          baseDamage: baseDamage,
-          armorPiercing: 1.0 // 真实能量穿透
-        });
+      let currentSourcePos = primaryHitPos;
+      let currentSourceEntity = primaryTarget;
+
+      // 如果命中了第一只目标
+      if (primaryTarget && primaryTarget.isValid()) {
+        hitSet.add(primaryTarget.id);
+        const dmgResult = this.#applyElectricDamage(player, primaryTarget, primaryHitPos, baseDamage);
 
         hitEntities.push({
-          entity: firstEntity,
+          entity: primaryTarget,
           damage: dmgResult?.damage ?? baseDamage,
           jump: 0
         });
 
         try {
-          dim.playSound("apex.arc.hit", initialTargetPos, { volume: 1.2, pitch: 1.0 });
-          dim.spawnParticle("minecraft:electric_spark_particle", initialTargetPos);
+          dim.playSound("apex.arc.hit", primaryHitPos, { volume: 1.2, pitch: 1.0 });
+          dim.spawnParticle("minecraft:electric_spark_particle", primaryHitPos);
+          dim.spawnParticle("minecraft:crit", primaryHitPos);
         } catch {}
       } else {
-        // 未直击实体，打在地面/方块 -> 搜寻着弹点周围 4 格内最近的敌人作为链起点
+        // 未直击实体，打在地面/方块 -> 搜寻落点周围 5 格内最近的敌人作为链起点
         try {
-          dim.playSound("apex.arc.hit", initialTargetPos, { volume: 1.0, pitch: 1.2 });
-          dim.spawnParticle("minecraft:electric_spark_particle", initialTargetPos);
-          dim.spawnParticle("minecraft:portal_directional", initialTargetPos);
+          dim.playSound("apex.arc.hit", primaryHitPos, { volume: 1.0, pitch: 1.2 });
+          dim.spawnParticle("minecraft:electric_spark_particle", primaryHitPos);
 
           const nearby = dim.getEntities({
-            location: initialTargetPos,
-            maxDistance: 4.5
+            location: primaryHitPos,
+            maxDistance: 5.0
           });
 
           for (const ent of nearby) {
@@ -125,21 +144,21 @@ export class ArcEngine {
             if (ent.typeId === "minecraft:item" || ent.typeId === "minecraft:xp_orb") continue;
 
             currentSourceEntity = ent;
-            currentSourcePos = ent.location;
+            const entLoc = { x: ent.location.x, y: ent.location.y + 0.8, z: ent.location.z };
+            currentSourcePos = entLoc;
             hitSet.add(ent.id);
 
-            const entLoc = { x: ent.location.x, y: ent.location.y + 0.8, z: ent.location.z };
-            this.drawLightningBeam(dim, initialTargetPos, entLoc);
+            this.drawLightningBeam(dim, primaryHitPos, entLoc);
 
             const dmg = Math.round(baseDamage * 0.75);
-            DamageResolver.applyDamage(player, ent, entLoc, { ...config, baseDamage: dmg, armorPiercing: 1.0 });
+            this.#applyElectricDamage(player, ent, entLoc, dmg);
             hitEntities.push({ entity: ent, damage: dmg, jump: 1 });
             break;
           }
         } catch {}
       }
 
-      // 4. 连续向周围 7 格内传递闪电链 (伤害逐级递减)
+      // 4. 连续向周围 7 格内传递闪电链 (伤害逐级递减 25%)
       let prevPos = currentSourceEntity ? {
         x: currentSourceEntity.location.x,
         y: currentSourceEntity.location.y + 0.8,
@@ -171,7 +190,7 @@ export class ArcEngine {
           }
         } catch {}
 
-        if (!nextTarget) break; // 范围内无更多目标
+        if (!nextTarget) break;
 
         hitSet.add(nextTarget.id);
         const nextLoc = {
@@ -185,11 +204,7 @@ export class ArcEngine {
 
         // 计算递减伤害
         const jumpDamage = Math.max(3, Math.round(baseDamage * Math.pow(1 - decayRate, jump)));
-        DamageResolver.applyDamage(player, nextTarget, nextLoc, {
-          ...config,
-          baseDamage: jumpDamage,
-          armorPiercing: 1.0
-        });
+        this.#applyElectricDamage(player, nextTarget, nextLoc, jumpDamage);
 
         try {
           dim.playSound("apex.arc.hit", nextLoc, { volume: 0.9, pitch: 1.0 + jump * 0.1 });
@@ -216,7 +231,48 @@ export class ArcEngine {
   }
 
   /**
-   * 绘制高能闪电等离子电弧光束
+   * 应用真实闪电电击伤害 (100% 真实能量穿透)
+   */
+  static #applyElectricDamage(attacker, target, hitLocation, damage) {
+    if (!target || !target.isValid()) return null;
+    const healthComp = target.getComponent("minecraft:health");
+    if (!healthComp) return null;
+
+    const currentHp = healthComp.currentValue;
+    const isFatal = damage >= currentHp;
+
+    try {
+      if (isFatal) {
+        target.applyDamage(damage, {
+          cause: EntityDamageCause.override,
+          damagingEntity: attacker || undefined
+        });
+      } else {
+        target.applyDamage(damage, {
+          cause: EntityDamageCause.override
+        });
+      }
+    } catch (e) {
+      const newHp = Math.max(0, currentHp - damage);
+      healthComp.setCurrentValue(newHp);
+    }
+
+    // 施加短暂麻痹电击击退
+    if (attacker) {
+      const dir = attacker.getViewDirection();
+      try {
+        target.applyKnockback(dir.x, dir.z, 0.45, 0.15);
+      } catch {}
+    }
+
+    return {
+      damage,
+      targetName: target.nameTag || target.typeId.replace("minecraft:", "")
+    };
+  }
+
+  /**
+   * 绘制高能闪电等离子电弧光束 (双重特效覆盖，高光耀眼)
    */
   static drawLightningBeam(dim, p1, p2) {
     if (!dim || !p1 || !p2) return;
@@ -226,26 +282,28 @@ export class ArcEngine {
       const dy = p2.y - p1.y;
       const dz = p2.z - p1.z;
       const dist = Math.hypot(dx, dy, dz);
-      if (dist < 0.2) return;
+      if (dist < 0.15) return;
 
-      const steps = Math.min(Math.floor(dist / 0.6), 50);
+      // 步长 0.45 格，密集连接
+      const steps = Math.min(Math.floor(dist / 0.45), 65);
 
       for (let i = 0; i <= steps; i++) {
         const frac = i / steps;
-        // 电弧轻微曲折抖动
-        const jitter = (i === 0 || i === steps) ? 0 : (Math.random() - 0.5) * 0.18;
-        const px = p1.x + dx * frac + jitter;
-        const py = p1.y + dy * frac + jitter;
-        const pz = p1.z + dz * frac + jitter;
+        // 电流自然折线抖动
+        const jitterX = (i === 0 || i === steps) ? 0 : (Math.random() - 0.5) * 0.22;
+        const jitterY = (i === 0 || i === steps) ? 0 : (Math.random() - 0.5) * 0.22;
+        const jitterZ = (i === 0 || i === steps) ? 0 : (Math.random() - 0.5) * 0.22;
+
+        const px = p1.x + dx * frac + jitterX;
+        const py = p1.y + dy * frac + jitterY;
+        const pz = p1.z + dz * frac + jitterZ;
 
         try {
-          dim.spawnParticle("apex:arc_beam", { x: px, y: py, z: pz });
           dim.spawnParticle("minecraft:electric_spark_particle", { x: px, y: py, z: pz });
-        } catch {
-          try {
-            dim.spawnParticle("minecraft:electric_spark_particle", { x: px, y: py, z: pz });
-          } catch {}
-        }
+          if (i % 2 === 0) {
+            dim.spawnParticle("minecraft:endrod", { x: px, y: py, z: pz });
+          }
+        } catch {}
       }
     } catch {}
   }
