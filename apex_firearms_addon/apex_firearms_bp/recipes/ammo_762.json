@@ -14,7 +14,7 @@
     ],
     "ingredients": [
       {
-        "item": "minecraft:iron_nugget"
+        "item": "minecraft:iron_ingot"
       },
       {
         "item": "minecraft:copper_ingot"
@@ -25,7 +25,7 @@
     ],
     "result": {
       "item": "apex:ammo_762",
-      "count": 8
+      "count": 16
     }
   }
 }

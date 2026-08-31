@@ -21,7 +21,7 @@ export class ArcEngine {
 
       const maxDist = config.maxRange ?? 32.0;
 
-      // 1. 智能电磁索敌 (30度前方锥形广角自动磁吸锁定)
+      // 1. 智能电磁索敌 (40度前方广角自动磁吸锁定)
       let primaryTarget = null;
       let primaryHitPos = null;
       let bestScore = -999;
@@ -45,8 +45,7 @@ export class ArcEngine {
           if (dist < 0.5 || dist > maxDist) continue;
 
           const dot = (dx * viewDir.x + dy * viewDir.y + dz * viewDir.z) / dist;
-          if (dot > 0.75) { // 视线前方约 40 度大锥形范围
-            // 检查是否有硬障碍阻挡
+          if (dot > 0.70) {
             const normToEnt = { x: dx / dist, y: dy / dist, z: dz / dist };
             let hasWall = false;
             try {
@@ -59,7 +58,7 @@ export class ArcEngine {
             } catch {}
 
             if (!hasWall) {
-              const score = (dot * 2.0) - (dist / maxDist);
+              const score = (dot * 2.5) - (dist / maxDist);
               if (score > bestScore) {
                 bestScore = score;
                 primaryTarget = ent;
@@ -125,14 +124,14 @@ export class ArcEngine {
 
         try {
           dim.playSound("apex.arc.hit", primaryHitPos, { volume: 1.2, pitch: 1.0 });
-          dim.spawnParticle("minecraft:electric_spark_particle", primaryHitPos);
+          dim.spawnParticle("apex:arc_spark", primaryHitPos);
           dim.spawnParticle("minecraft:crit", primaryHitPos);
         } catch {}
       } else {
         // 未直击实体，打在地面/方块 -> 搜寻落点周围 5 格内最近的敌人作为链起点
         try {
           dim.playSound("apex.arc.hit", primaryHitPos, { volume: 1.0, pitch: 1.2 });
-          dim.spawnParticle("minecraft:electric_spark_particle", primaryHitPos);
+          dim.spawnParticle("apex:arc_spark", primaryHitPos);
 
           const nearby = dim.getEntities({
             location: primaryHitPos,
@@ -208,7 +207,7 @@ export class ArcEngine {
 
         try {
           dim.playSound("apex.arc.hit", nextLoc, { volume: 0.9, pitch: 1.0 + jump * 0.1 });
-          dim.spawnParticle("minecraft:electric_spark_particle", nextLoc);
+          dim.spawnParticle("apex:arc_spark", nextLoc);
         } catch {}
 
         hitEntities.push({
@@ -272,7 +271,7 @@ export class ArcEngine {
   }
 
   /**
-   * 绘制高能闪电等离子电弧光束 (双重特效覆盖，高光耀眼)
+   * 绘制高能闪电等离子电弧光束 (使用 apex:arc_beam + endrod，0 报错，高亮耀眼)
    */
   static drawLightningBeam(dim, p1, p2) {
     if (!dim || !p1 || !p2) return;
@@ -284,12 +283,10 @@ export class ArcEngine {
       const dist = Math.hypot(dx, dy, dz);
       if (dist < 0.15) return;
 
-      // 步长 0.45 格，密集连接
       const steps = Math.min(Math.floor(dist / 0.45), 65);
 
       for (let i = 0; i <= steps; i++) {
         const frac = i / steps;
-        // 电流自然折线抖动
         const jitterX = (i === 0 || i === steps) ? 0 : (Math.random() - 0.5) * 0.22;
         const jitterY = (i === 0 || i === steps) ? 0 : (Math.random() - 0.5) * 0.22;
         const jitterZ = (i === 0 || i === steps) ? 0 : (Math.random() - 0.5) * 0.22;
@@ -299,7 +296,7 @@ export class ArcEngine {
         const pz = p1.z + dz * frac + jitterZ;
 
         try {
-          dim.spawnParticle("minecraft:electric_spark_particle", { x: px, y: py, z: pz });
+          dim.spawnParticle("apex:arc_beam", { x: px, y: py, z: pz });
           if (i % 2 === 0) {
             dim.spawnParticle("minecraft:endrod", { x: px, y: py, z: pz });
           }
