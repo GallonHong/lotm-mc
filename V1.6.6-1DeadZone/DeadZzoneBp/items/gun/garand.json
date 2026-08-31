@@ -1,0 +1,46 @@
+{
+	"format_version": "1.21.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "mcpe:garand",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.ammo_7_62x51mm"
+			}
+		},
+		"components": {
+			"minecraft:tags": {
+				"tags": [
+					"guns",
+					"garand",
+					"rifle"
+				]
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"textures": {
+					"default": "garand"
+				}
+			},
+			"minecraft:use_modifiers": {
+				"use_duration": 9999,
+				"movement_modifier": 0.4
+			},
+			"minecraft:cooldown": {
+				"category": "garand",
+				"duration": 0
+			},
+			"minecraft:custom_components": [
+				"mcpe:unbreakable"
+			],
+			"minecraft:hand_equipped": true,
+			"minecraft:durability": {
+				"max_durability": 8
+			},
+			"minecraft:display_name": {
+				"value": "M1 Garand"
+			},
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

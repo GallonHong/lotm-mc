@@ -8,7 +8,7 @@ var Config = {
   // -------------------------------------------------------------
   system: {
     serverName: "\xA7l\xA7ePixel\xA7bWorld\xA7r",
-    version: "1.0.0",
+    version: "1.1.1",
     adminTag: "admin",
     // 拥有此 tag 或 op 的玩家拥有管理员权限
     menuItem: "minecraft:compass",

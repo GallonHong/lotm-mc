@@ -1,0 +1,46 @@
+{
+	"format_version": "1.21.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "mcpe:m14",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.ammo_7_62x51mm"
+			}
+		},
+		"components": {
+			"minecraft:tags": {
+				"tags": [
+					"guns",
+					"m14",
+					"rifle"
+				]
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"textures": {
+					"default": "m14"
+				}
+			},
+			"minecraft:use_modifiers": {
+				"use_duration": 9999,
+				"movement_modifier": 0.4
+			},
+			"minecraft:cooldown": {
+				"category": "m14",
+				"duration": 0
+			},
+			"minecraft:custom_components": [
+				"mcpe:unbreakable"
+			],
+			"minecraft:hand_equipped": true,
+			"minecraft:durability": {
+				"max_durability": 20
+			},
+			"minecraft:display_name": {
+				"value": "M-14"
+			},
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

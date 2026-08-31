@@ -1,0 +1,16 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.effect": {
+			"animation_length": 0.01,
+			"loop": false,
+			"timeline": {
+				"0.0": [ 
+					"/effect @e[family=player,r=3] wither 10 1",
+					"/effect @e[family=player,r=3] nausea 5 1",
+					"/effect @e[family=bandit,r=3] wither 10 1"
+				]
+			}
+		}
+	}
+}

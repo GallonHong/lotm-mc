@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.cz527_npc.reload": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 3.2,
+      "timeline": {
+        "0.0": "/event entity @s add_reload",
+        "3.0": "/scoreboard players set @s ammo 5"
+      }
+    }
+  }
+}

@@ -1,0 +1,112 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.male_hair": {
+      "arrays": {
+        "textures": {
+          "Array.hair": [
+            "Texture.male_hair_0",
+            "Texture.male_hair_1",
+            "Texture.male_hair_2",
+            "Texture.male_hair_3",
+            "Texture.male_hair_4",
+            "Texture.male_hair_5",
+            "Texture.male_hair_6",
+            "Texture.male_hair_7",
+            "Texture.male_hair_8",
+            "Texture.male_hair_9",
+            "Texture.male_hair_10",
+            "Texture.male_hair_11",
+            "Texture.male_hair_12",
+            "Texture.male_hair_13",
+            "Texture.male_hair_14",
+            "Texture.male_hair_15",
+            "Texture.male_hair_16",
+            "Texture.male_hair_17",
+            "Texture.male_hair_18",
+            "Texture.male_hair_19",
+            "Texture.male_hair_20",
+            "Texture.male_hair_21",
+            "Texture.male_hair_22",
+            "Texture.male_hair_23",
+            "Texture.male_hair_24",
+            "Texture.male_hair_25",
+            "Texture.male_hair_26",
+            "Texture.male_hair_27",
+            "Texture.male_hair_28",
+            "Texture.male_hair_29",
+            "Texture.male_hair_30",
+            "Texture.male_hair_31",
+            "Texture.male_hair_32",
+            "Texture.male_hair_33",
+            "Texture.male_hair_34",
+            "Texture.male_hair_35",
+            "Texture.male_hair_36",
+            "Texture.male_hair_37",
+            "Texture.male_hair_38",
+            "Texture.male_hair_39",
+            "Texture.male_hair_40",
+            "Texture.male_hair_41",
+            "Texture.male_hair_42",
+            "Texture.male_hair_43",
+            "Texture.male_hair_44",
+            "Texture.male_hair_45",
+            "Texture.male_hair_46",
+            "Texture.male_hair_47",
+            "Texture.male_hair_48",
+            "Texture.male_hair_49",
+            "Texture.male_hair_50",
+            "Texture.male_hair_51",
+            "Texture.male_hair_52",
+            "Texture.male_hair_53",
+            "Texture.male_hair_54",
+            "Texture.male_hair_55",
+            "Texture.male_hair_56",
+            "Texture.male_hair_57",
+            "Texture.male_hair_58",
+            "Texture.male_hair_59",
+            "Texture.male_hair_60",
+            "Texture.male_hair_61",
+            "Texture.male_hair_62",
+            "Texture.male_hair_63",
+            "Texture.male_hair_64",
+            "Texture.male_hair_65",
+            "Texture.male_hair_66",
+            "Texture.male_hair_67",
+            "Texture.male_hair_68",
+            "Texture.male_hair_69",
+            "Texture.male_hair_70",
+            "Texture.male_hair_71",
+            "Texture.male_hair_72",
+            "Texture.male_hair_73",
+            "Texture.male_hair_74",
+            "Texture.male_hair_75",
+            "Texture.male_hair_76"
+          ]
+        }
+      },
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.hair[v.male_hair]"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    }
+  }
+}

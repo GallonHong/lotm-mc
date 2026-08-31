@@ -1,0 +1,46 @@
+{
+	"format_version": "1.21.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "mcpe:m1911",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.ammo_45acp"
+			}
+		},
+		"components": {
+			"minecraft:tags": {
+				"tags": [
+					"guns",
+					"m1911",
+					"pistol"
+				]
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"textures": {
+					"default": "m1911"
+				}
+			},
+			"minecraft:use_modifiers": {
+				"use_duration": 9999,
+				"movement_modifier": 0.4
+			},
+			"minecraft:cooldown": {
+				"category": "m1911",
+				"duration": 0
+			},
+			"minecraft:custom_components": [
+				"mcpe:unbreakable"
+			],
+			"minecraft:hand_equipped": true,
+			"minecraft:durability": {
+				"max_durability": 7
+			},
+			"minecraft:display_name": {
+				"value": "M-1911"
+			},
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

@@ -1,0 +1,23 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "mcpe:ammo_45acp",
+			"menu_category": {
+				"category": "equipment"
+			}
+		},
+		"components": {
+			"minecraft:max_stack_size": 32,
+			"minecraft:icon": {
+				"textures": {
+					"default": "45acp"
+				}
+			},
+			"minecraft:hand_equipped": true,
+			"minecraft:display_name": {
+				"value": "item.mcpe:ammo_45acp.name"
+			}
+		}
+	}
+}

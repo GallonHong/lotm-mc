@@ -1,0 +1,45 @@
+{
+	"format_version": "1.21.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "mcpe:vz65",
+			"menu_category": {
+				"category": "equipment"
+			}
+		},
+		"components": {
+			"minecraft:tags": {
+				"tags": [
+					"guns",
+					"vz65",
+					"rifle"
+				]
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"textures": {
+					"default": "vz65"
+				}
+			},
+			"minecraft:use_modifiers": {
+				"use_duration": 9999,
+				"movement_modifier": 0.4
+			},
+			"minecraft:cooldown": {
+				"category": "vz65",
+				"duration": 0
+			},
+			"minecraft:custom_components": [
+				"mcpe:unbreakable"
+			],
+			"minecraft:hand_equipped": true,
+			"minecraft:durability": {
+				"max_durability": 20
+			},
+			"minecraft:display_name": {
+				"value": "VZ-65 skorpion"
+			},
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

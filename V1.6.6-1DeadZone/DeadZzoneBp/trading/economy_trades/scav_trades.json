@@ -1,0 +1,315 @@
+{
+  "tiers": [
+    {
+      "groups": [
+        {
+          "num_to_select": 5,
+          "trades": [
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:sawoff_pipe",
+                  "quantity": 4
+                },
+                {
+                  "item": "mcpe:screwdriver",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:izh43"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "minecraft:gunpowder",
+                  "quantity": 5
+                },
+                {
+                  "item": "mcpe:sawoff_pipe",
+                  "quantity": 4
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:pipe_bomb",
+                  "quantity": 2
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:mre",
+                  "quantity": 2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:water_purification",
+                  "quantity": 2
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:can_opener"
+                },
+                {
+                  "item": "mcpe:lockpick",
+                  "quantity": 5
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:walkie_talkie"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:canned_beans",
+                  "quantity": 6
+                },
+                {
+                  "item": "mcpe:canned_spaghetti",
+                  "quantity": 2
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:mre",
+                  "quantity": 3
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:crowbar",
+                  "quantity": 1
+                },
+                {
+                  "item": "mcpe:sawoff_pipe",
+                  "quantity": 6
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:plate_vest_tan"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:wooden_plank",
+                  "quantity": 1
+                },
+                {
+                  "item": "mcpe:wooden_plank",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:nailed_bat"
+                }
+              ]
+            },
+            {
+              "max_uses": 12,
+              "wants": [
+                {
+                  "item": "mcpe:screwdriver",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:ammo_9x18mm",
+                  "quantity": 5
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:tactical_sandwich",
+                  "quantity": 1
+                },
+                {
+                  "item": "mcpe:chocolate_bar",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:adrenaline",
+                  "quantity": 2
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:water_purification",
+                  "quantity": 6
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:bandage_sterilized",
+                  "quantity": 8
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:nail_box",
+                  "quantity": 4
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:flashlight"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:combat_knife",
+                  "quantity": 1
+                },
+                {
+                  "item": "mcpe:painkiller",
+                  "quantity": 6
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:tactical_vest_black"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:biker_yellow",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:first_aid",
+                  "quantity": 2
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:tactical_axe",
+                  "quantity": 1
+                },
+                {
+                  "item": "mcpe:plate_vest_gray",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:kukri_machete"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:first_aid",
+                  "quantity": 4
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:lockpick"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:strawberry_jam",
+                  "quantity": 3
+                },
+                {
+                  "item": "mcpe:chip_tortilla",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:metal_bat"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:police_baton",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:hero_flannel"
+                }
+              ]
+            },
+            {
+              "max_uses": 5,
+              "wants": [
+                {
+                  "item": "mcpe:tracksuit_blue",
+                  "quantity": 1
+                },
+                {
+                  "item": "mcpe:trackpants_blue",
+                  "quantity": 1
+                }
+              ],
+              "gives": [
+                {
+                  "item": "mcpe:biker_black"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

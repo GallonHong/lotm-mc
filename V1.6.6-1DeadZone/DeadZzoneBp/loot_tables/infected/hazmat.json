@@ -1,0 +1,145 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "random_chance_with_looting",
+          "chance": 0.25,
+          "looting_multiplier": 0.3
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "mcpe:canned_beans",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_beef_stew",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_chicken",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_chili",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_corned",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_fruit",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_ham",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_peaches",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_sardine",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_spaghetti",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_tomato",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_tuna",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bleach",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bottle_water",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stick",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:splint",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:rags",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:antidote",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bandage",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:morphine",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:adrenaline",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:first_aid",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:lockpick",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:rags_dirty",
+          "weight": 5
+        }
+      ]
+    }
+  ]
+}

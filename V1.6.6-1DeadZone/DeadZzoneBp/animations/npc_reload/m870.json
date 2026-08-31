@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.m870.reload_npc": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 5.55,
+      "timeline": {
+        "1": "/playsound shell.load @a[r=10]",
+        "1.4583": "/playsound shell.load @a[r=10]",
+        "1.9167": "/playsound shell.load @a[r=10]",
+        "2.375": "/playsound shell.load @a[r=10]",
+        "2.8333": "/playsound shell.load @a[r=10]",
+        "3.2917": "/playsound shell.load @a[r=10]",
+        "3.75": "/playsound shell.load @a[r=10]",
+        "4.2083": "/playsound shell.load @a[r=10]",
+
+        "4.8333": "/playsound pump.back @a[r=10]",
+        "5.0417": "/playsound pump.forward @a[r=10]"
+      }
+    }
+  }
+}

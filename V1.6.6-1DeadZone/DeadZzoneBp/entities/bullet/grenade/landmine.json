@@ -1,0 +1,58 @@
+{
+	"format_version": "1.21.40",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "grenade:explosive",
+			"runtime_identifier": "minecraft:snowball",
+			"is_spawnable": false,
+			"is_summonable": true
+		},
+		"components": {
+			"minecraft:type_family": {
+				"family": ["grenade"]
+			},
+			"minecraft:timer": {
+				"looping": true,
+				"time": 0,
+				"time_down_event": {
+					"event": "frag"
+				}
+			},
+			"minecraft:collision_box": {
+				"width": 0.25,
+				"height": 0.2
+			},
+			"minecraft:physics": {}
+		},
+		"component_groups": {
+			"minecraft:exploding": {
+				"minecraft:explode": {
+					"fuse_length": [0.0, 0.0],
+					"fuse_lit": true,
+					"breaks_blocks": true,
+					"causes_fire": false,
+					"destroy_affected_by_griefing": false,
+					"fire_affected_by_griefing": false,
+					"damage_scaling": 7,
+					"max_resistance": 3.40282e+38
+				}
+			}
+		},
+		"events": {
+			"frag": {
+				"queue_command": {
+					"command": [
+						"playsound explode.distance @a[r=256] ~~~ 1 1 5",
+						"fill ^^^^^1^ mcpe:fire_light replace air",
+						"camerashake add @a[r=10] 0.8 0.6 rotational"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"minecraft:exploding"
+					]
+				}
+			}
+		}
+	}
+}

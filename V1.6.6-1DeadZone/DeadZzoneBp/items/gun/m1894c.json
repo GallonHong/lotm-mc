@@ -1,0 +1,44 @@
+{
+	"format_version": "1.21.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "mcpe:m1894c",
+			"menu_category": {
+				"category": "equipment"
+			}
+		},
+		"components": {
+			"minecraft:tags": {
+				"tags": [
+					"guns",
+					"rifle"
+				]
+			},
+			"minecraft:max_stack_size": 1,
+			"minecraft:icon": {
+				"textures": {
+					"default": "m1894c"
+				}
+			},
+			"minecraft:use_modifiers": {
+				"use_duration": 0.1,
+				"movement_modifier": 0.4
+			},
+			"minecraft:cooldown": {
+				"category": "m1894c",
+				"duration": 1.35
+			},
+			"minecraft:custom_components": [
+				"mcpe:unbreakable"
+			],
+			"minecraft:hand_equipped": true,
+			"minecraft:durability": {
+				"max_durability": 10
+			},
+			"minecraft:display_name": {
+				"value": "M-1894c"
+			},
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

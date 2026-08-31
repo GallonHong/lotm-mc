@@ -1,0 +1,275 @@
+{
+  "pools": [
+    {
+      "conditions": [
+        {
+          "condition": "random_chance_with_looting",
+          "chance": 0.25,
+          "looting_multiplier": 0.3
+        }
+      ],
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "mcpe:canned_beans",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_bacon",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_ration",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:chocolate_bar",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:meat_jerky",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:mre",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:tactical_sandwich",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:popsi_cola",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:exp_coke",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:grape_soda",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:lemonade",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bottle_water",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:energy_drink",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bleach",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:splint",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "name": "mcpe:rags",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bandage",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:combat_knife",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:tactical_shovel",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:kukri_machete",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:hunting_knife",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_5_45x39mm",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_5_56x45mm",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_7_62x39mm",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_7_62x54mmr",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_7_62x51mm",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_44magnum",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_12gauge",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_9x19mm",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_9x18mm",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_357magnum",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:ammo_9x39mm",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:frag_grenade",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:smoke_grenade",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:plastic_explosive",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:detonator",
+          "weight": 3
+        },
+        {
+          "type": "item",
+          "name": "mcpe:can_opener",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:lockpick",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:flash_grenade",
+          "weight": 4
+        },
+        {
+          "type": "item",
+          "name": "mcpe:walkie_talkie",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "mcpe:duct_tape",
+          "weight": 3
+        }
+      ]
+    }
+  ]
+}

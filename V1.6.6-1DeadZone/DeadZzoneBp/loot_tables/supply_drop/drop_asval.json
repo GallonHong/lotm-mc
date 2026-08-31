@@ -1,0 +1,85 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "mcpe:asval",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:asval_emp",
+          "weight": 50
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 2,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "mcpe:ammo_9x39mm",
+          "weight": 99
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 2,
+        "max": 6
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "mcpe:mre",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:canned_bacon",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:tactical_sandwich",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bottle_water",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:first_aid",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:bandage",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:energy_drink",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:morphine",
+          "weight": 50
+        },
+        {
+          "type": "item",
+          "name": "mcpe:adrenaline",
+          "weight": 50
+        }
+      ]
+    }
+  ]
+}

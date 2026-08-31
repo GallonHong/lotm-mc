@@ -1,0 +1,20 @@
+    "mob.chase_male": {
+      "category": "neutral",
+      "sounds": [
+        "sounds/infected/male/chase/chase1",
+        "sounds/infected/male/chase/chase2",
+        "sounds/infected/male/chase/chase3",
+        "sounds/infected/male/chase/chase4",
+        "sounds/infected/male/chase/chase5",
+        "sounds/infected/male/chase/chase6",
+        "sounds/infected/male/chase/chase7",
+        "sounds/infected/male/chase/chase8",
+        "sounds/infected/male/chase/chase9",
+        "sounds/infected/male/chase/chase10",
+        "sounds/infected/male/chase/chase11",
+        "sounds/infected/male/chase/chase12",
+        "sounds/infected/male/chase/chase13",
+        "sounds/infected/male/chase/chase14",
+        "sounds/infected/male/chase/chase15"
+      ]
+    },

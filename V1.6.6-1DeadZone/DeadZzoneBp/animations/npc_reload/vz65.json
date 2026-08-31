@@ -1,0 +1,14 @@
+{
+  "format_version": "1.10.0",
+  "animations": {
+    "animation.vz65.reload_npc": {
+      "loop": "hold_on_last_frame",
+      "animation_length": 2.85,
+      "timeline": {
+        "0.4167": "/playsound smg.out @a[r=10]",
+        "1.5417": "/playsound smg.in @a[r=10]",
+        "2.0833": "/playsound smg.reload @a[r=10]"
+      }
+    }
+  }
+}

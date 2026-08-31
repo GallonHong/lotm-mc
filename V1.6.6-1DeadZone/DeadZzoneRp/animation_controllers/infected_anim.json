@@ -1,0 +1,63 @@
+{
+  "format_version" : "1.10.0",
+  "animation_controllers" : {
+    "controller.animation.infected" : {
+      "initial_state" : "infected",
+      "states" : {
+        "infected" : {
+          "on_entry": [ "v.animations = q.property('mcpe:animation');" ],
+          "animations" : [ 
+            {
+              "infected1": "v.animations == 1"
+            },
+            {
+              "infected2": "v.animations == 2"
+            },
+            {
+              "infected3": "v.animations == 3"
+            },
+            {
+              "infected4": "v.animations == 4"
+            },
+            {
+              "infected5": "v.animations == 5"
+            },
+            {
+              "infected6": "v.animations == 6"
+            },
+            {
+              "infected7": "v.animations == 7"
+            },
+            {
+              "infected8": "v.animations == 8"
+            },
+            {
+              "infected9": "v.animations == 9"
+            },
+            {
+              "infected10": "v.animations == 10"
+            },
+            {
+              "infected11": "v.animations == 11"
+            },
+            {
+              "infected12": "v.animations == 12"
+            },
+            {
+              "infected13": "v.animations == 13"
+            },
+            {
+              "infected14": "v.animations == 14"
+            },
+            {
+              "infected15": "v.animations == 15"
+            },
+            {
+              "infected16": "v.animations == 16"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

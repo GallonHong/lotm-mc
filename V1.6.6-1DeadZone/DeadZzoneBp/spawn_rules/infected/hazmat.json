@@ -1,0 +1,61 @@
+{
+  "format_version": "1.17.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "mcpe:hazmat",
+      "population_control": "monster"
+    },
+    "conditions": [
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:brightness_filter": {
+          "min": 0,
+          "max": 15,
+          "adjust_for_weather": false
+        },
+        "minecraft:difficulty_filter": {
+          "min": 0,
+          "max": 2
+        },
+        "minecraft:weight": {
+          "default": 5
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 3
+        },
+        "minecraft:permute_type": {
+          "pool": [
+            {
+              "weight": 50
+            },
+            {
+              "weight": 20,
+              "type": "mcpe:commander"
+            },
+            {
+              "weight": 10,
+              "type": "mcpe:militia"
+            }
+          ]
+        },
+        "minecraft:biome_filter": [
+          {
+            "any_of": [
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "overworld"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "overworld_generation"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

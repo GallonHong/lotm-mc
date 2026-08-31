@@ -1,0 +1,41 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "mcpe:m4a1",
+          "weight": 1,
+          "function": [
+            {
+            "function": "set_count",
+               "count": 0
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "mcpe:m4a1_emp",
+          "weight": 1,
+          "function": [
+            {
+            "function": "set_count",
+               "count": 0
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/equipment/clothing/human.json",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

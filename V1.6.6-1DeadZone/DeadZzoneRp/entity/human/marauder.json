@@ -1,0 +1,711 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "mcpe:marauder",
+			"materials": {
+				"default": "zombie_villager_v2",
+				"masked": "zombie_villager_v2_masked"
+			},
+			"textures": {
+				// Skin
+				"male_0": "textures/entity/human/skin/male/male1",
+				"male_1": "textures/entity/human/skin/male/male2",
+				"male_2": "textures/entity/human/skin/male/male3",
+				"male_3": "textures/entity/human/skin/male/male4",
+				"male_4": "textures/entity/human/skin/male/male5",
+				"male_5": "textures/entity/human/skin/male/male6",
+				"male_6": "textures/entity/human/skin/male/male7",
+				"male_7": "textures/entity/human/skin/male/male8",
+				"male_8": "textures/entity/human/skin/male/male9",
+				"male_9": "textures/entity/human/skin/male/male10",
+				"male_10": "textures/entity/human/skin/male/male11",
+				"male_11": "textures/entity/human/skin/male/male12",
+				"male_12": "textures/entity/human/skin/male/male13",
+				"male_13": "textures/entity/human/skin/male/male14",
+				"male_14": "textures/entity/human/skin/male/male15",
+				"male_15": "textures/entity/human/skin/male/male16",
+				"male_16": "textures/entity/human/skin/male/male17",
+				"male_17": "textures/entity/human/skin/male/male18",
+				
+				"female_0": "textures/entity/human/skin/female/female1",
+				"female_1": "textures/entity/human/skin/female/female2",
+				"female_2": "textures/entity/human/skin/female/female3",
+				"female_3": "textures/entity/human/skin/female/female4",
+				"female_4": "textures/entity/human/skin/female/female5",
+				"female_5": "textures/entity/human/skin/female/female6",
+				"female_6": "textures/entity/human/skin/female/female7",
+				"female_7": "textures/entity/human/skin/female/female8",
+				"female_8": "textures/entity/human/skin/female/female9",
+				"female_9": "textures/entity/human/skin/female/female10",
+				"female_10": "textures/entity/human/skin/female/female11",
+				"female_11": "textures/entity/human/skin/female/female12",
+				"female_12": "textures/entity/human/skin/female/female13",
+				"female_13": "textures/entity/human/skin/female/female14",
+				"female_14": "textures/entity/human/skin/female/female15",
+				"female_15": "textures/entity/human/skin/female/female16",
+				"female_16": "textures/entity/human/skin/female/female17",
+				
+				// Hair
+				"male_hair_0": "textures/entity/human/hair/male/hair1",
+				"male_hair_1": "textures/entity/human/hair/male/hair2",
+				"male_hair_2": "textures/entity/human/hair/male/hair3",
+				"male_hair_3": "textures/entity/human/hair/male/hair4",
+				"male_hair_4": "textures/entity/human/hair/male/hair5",
+				"male_hair_5": "textures/entity/human/hair/male/hair6",
+				"male_hair_6": "textures/entity/human/hair/male/hair7",
+				"male_hair_7": "textures/entity/human/hair/male/hair8",
+				"male_hair_8": "textures/entity/human/hair/male/hair9",
+				"male_hair_9": "textures/entity/human/hair/male/hair10",
+				"male_hair_10": "textures/entity/human/hair/male/hair11",
+				"male_hair_11": "textures/entity/human/hair/male/hair12",
+				"male_hair_12": "textures/entity/human/hair/male/hair13",
+				"male_hair_13": "textures/entity/human/hair/male/hair14",
+				"male_hair_14": "textures/entity/human/hair/male/hair15",
+				"male_hair_15": "textures/entity/human/hair/male/hair16",
+				"male_hair_16": "textures/entity/human/hair/male/hair17",
+				"male_hair_17": "textures/entity/human/hair/male/hair18",
+				"male_hair_18": "textures/entity/human/hair/male/hair19",
+				"male_hair_19": "textures/entity/human/hair/male/hair20",
+				"male_hair_20": "textures/entity/human/hair/male/hair21",
+				"male_hair_21": "textures/entity/human/hair/male/hair22",
+				"male_hair_22": "textures/entity/human/hair/male/hair23",
+				"male_hair_23": "textures/entity/human/hair/male/hair24",
+				"male_hair_24": "textures/entity/human/hair/male/hair25",
+				"male_hair_25": "textures/entity/human/hair/male/hair26",
+				"male_hair_26": "textures/entity/human/hair/male/hair27",
+				"male_hair_27": "textures/entity/human/hair/male/hair28",
+				"male_hair_28": "textures/entity/human/hair/male/hair29",
+				"male_hair_29": "textures/entity/human/hair/male/hair30",
+				"male_hair_30": "textures/entity/human/hair/male/hair31",
+				"male_hair_31": "textures/entity/human/hair/male/hair32",
+				"male_hair_32": "textures/entity/human/hair/male/hair33",
+				"male_hair_33": "textures/entity/human/hair/male/hair34",
+				"male_hair_34": "textures/entity/human/hair/male/hair35",
+				"male_hair_35": "textures/entity/human/hair/male/hair36",
+				"male_hair_36": "textures/entity/human/hair/male/hair37",
+				"male_hair_37": "textures/entity/human/hair/male/hair38",
+				"male_hair_38": "textures/entity/human/hair/male/hair39",
+				"male_hair_39": "textures/entity/human/hair/male/hair40",
+				"male_hair_40": "textures/entity/human/hair/male/hair41",
+				"male_hair_41": "textures/entity/human/hair/male/hair42",
+				"male_hair_42": "textures/entity/human/hair/male/hair43",
+				"male_hair_43": "textures/entity/human/hair/male/hair44",
+				"male_hair_44": "textures/entity/human/hair/male/hair45",
+				"male_hair_45": "textures/entity/human/hair/male/hair46",
+				"male_hair_46": "textures/entity/human/hair/male/hair47",
+				"male_hair_47": "textures/entity/human/hair/male/hair48",
+				"male_hair_48": "textures/entity/human/hair/male/hair49",
+				"male_hair_49": "textures/entity/human/hair/male/hair50",
+				"male_hair_50": "textures/entity/human/hair/male/hair51",
+				"male_hair_51": "textures/entity/human/hair/male/hair52",
+				"male_hair_52": "textures/entity/human/hair/male/hair53",
+				"male_hair_53": "textures/entity/human/hair/male/hair54",
+				"male_hair_54": "textures/entity/human/hair/male/hair55",
+				"male_hair_55": "textures/entity/human/hair/male/hair56",
+				"male_hair_56": "textures/entity/human/hair/male/hair57",
+				"male_hair_57": "textures/entity/human/hair/male/hair58",
+				"male_hair_58": "textures/entity/human/hair/male/hair59",
+				"male_hair_59": "textures/entity/human/hair/male/hair60",
+				"male_hair_60": "textures/entity/human/hair/male/hair61",
+				"male_hair_61": "textures/entity/human/hair/male/hair62",
+				"male_hair_62": "textures/entity/human/hair/male/hair63",
+				"male_hair_63": "textures/entity/human/hair/male/hair64",
+				"male_hair_64": "textures/entity/human/hair/male/hair65",
+				"male_hair_65": "textures/entity/human/hair/male/hair66",
+				"male_hair_66": "textures/entity/human/hair/male/hair67",
+				"male_hair_67": "textures/entity/human/hair/male/hair68",
+				"male_hair_68": "textures/entity/human/hair/male/hair69",
+				"male_hair_69": "textures/entity/human/hair/male/hair70",
+				"male_hair_70": "textures/entity/human/hair/male/hair71",
+				"male_hair_71": "textures/entity/human/hair/male/hair72",
+				"male_hair_72": "textures/entity/human/hair/male/hair73",
+				"male_hair_73": "textures/entity/human/hair/male/hair74",
+				"male_hair_74": "textures/entity/human/hair/male/hair75",
+				"male_hair_75": "textures/entity/human/hair/male/hair76",
+				"male_hair_76": "textures/entity/human/hair/male/hair77",
+				
+				"female_hair_0": "textures/entity/human/hair/female/hair1",
+				"female_hair_1": "textures/entity/human/hair/female/hair2",
+				"female_hair_2": "textures/entity/human/hair/female/hair3",
+				"female_hair_3": "textures/entity/human/hair/female/hair4",
+				"female_hair_4": "textures/entity/human/hair/female/hair5",
+				"female_hair_5": "textures/entity/human/hair/female/hair6",
+				"female_hair_6": "textures/entity/human/hair/female/hair7",
+				"female_hair_7": "textures/entity/human/hair/female/hair8",
+				"female_hair_8": "textures/entity/human/hair/female/hair9",
+				"female_hair_9": "textures/entity/human/hair/female/hair10",
+				"female_hair_10": "textures/entity/human/hair/female/hair11",
+				"female_hair_11": "textures/entity/human/hair/female/hair12",
+				"female_hair_12": "textures/entity/human/hair/female/hair13",
+				"female_hair_13": "textures/entity/human/hair/female/hair14",
+				"female_hair_14": "textures/entity/human/hair/female/hair15",
+				"female_hair_15": "textures/entity/human/hair/female/hair16",
+				"female_hair_16": "textures/entity/human/hair/female/hair17",
+				"female_hair_17": "textures/entity/human/hair/female/hair18",
+				"female_hair_18": "textures/entity/human/hair/female/hair19",
+				"female_hair_19": "textures/entity/human/hair/female/hair20",
+				"female_hair_20": "textures/entity/human/hair/female/hair21",
+				"female_hair_21": "textures/entity/human/hair/female/hair22",
+				"female_hair_22": "textures/entity/human/hair/female/hair23",
+				"female_hair_23": "textures/entity/human/hair/female/hair24",
+				"female_hair_24": "textures/entity/human/hair/female/hair25",
+				"female_hair_25": "textures/entity/human/hair/female/hair26",
+				"female_hair_26": "textures/entity/human/hair/female/hair27",
+				"female_hair_27": "textures/entity/human/hair/female/hair28",
+				"female_hair_28": "textures/entity/human/hair/female/hair29",
+				"female_hair_29": "textures/entity/human/hair/female/hair30",
+				"female_hair_30": "textures/entity/human/hair/female/hair31",
+				"female_hair_31": "textures/entity/human/hair/female/hair32",
+				"female_hair_32": "textures/entity/human/hair/female/hair33",
+				"female_hair_33": "textures/entity/human/hair/female/hair34",
+				"female_hair_34": "textures/entity/human/hair/female/hair35",
+				"female_hair_35": "textures/entity/human/hair/female/hair36",
+				"female_hair_36": "textures/entity/human/hair/female/hair37",
+				"female_hair_37": "textures/entity/human/hair/female/hair38",
+				"female_hair_38": "textures/entity/human/hair/female/hair39",
+				"female_hair_39": "textures/entity/human/hair/female/hair40",
+				"female_hair_40": "textures/entity/human/hair/female/hair41",
+				"female_hair_41": "textures/entity/human/hair/female/hair42",
+				"female_hair_42": "textures/entity/human/hair/female/hair43",
+				"female_hair_43": "textures/entity/human/hair/female/hair44",
+				"female_hair_44": "textures/entity/human/hair/female/hair45",
+				"female_hair_45": "textures/entity/human/hair/female/hair46",
+				"female_hair_46": "textures/entity/human/hair/female/hair47",
+				"female_hair_47": "textures/entity/human/hair/female/hair48",
+				"female_hair_48": "textures/entity/human/hair/female/hair49",
+				"female_hair_49": "textures/entity/human/hair/female/hair50",
+				
+				// Clothes
+				"top_0": "textures/entity/human/clothing/clean/top/top1",
+				"top_1": "textures/entity/human/clothing/clean/top/top2",
+				"top_2": "textures/entity/human/clothing/clean/top/top3",
+				"top_3": "textures/entity/human/clothing/clean/top/top4",
+				"top_4": "textures/entity/human/clothing/clean/top/top5",
+				"top_5": "textures/entity/human/clothing/clean/top/top6",
+				"top_6": "textures/entity/human/clothing/clean/top/top7",
+				"top_7": "textures/entity/human/clothing/clean/top/top8",
+				"top_8": "textures/entity/human/clothing/clean/top/top9",
+				"top_9": "textures/entity/human/clothing/clean/top/top10",
+				"top_10": "textures/entity/human/clothing/clean/top/top11",
+				"top_11": "textures/entity/human/clothing/clean/top/top12",
+				"top_12": "textures/entity/human/clothing/clean/top/top13",
+				"top_13": "textures/entity/human/clothing/clean/top/top14",
+				"top_14": "textures/entity/human/clothing/clean/top/top15",
+				"top_15": "textures/entity/human/clothing/clean/top/top16",
+				"top_16": "textures/entity/human/clothing/clean/top/top17",
+				"top_17": "textures/entity/human/clothing/clean/top/top18",
+				"top_18": "textures/entity/human/clothing/clean/top/top19",
+				"top_19": "textures/entity/human/clothing/clean/top/top20",
+				"top_20": "textures/entity/human/clothing/clean/top/top21",
+				"top_21": "textures/entity/human/clothing/clean/top/top22",
+				"top_22": "textures/entity/human/clothing/clean/top/top23",
+				"top_23": "textures/entity/human/clothing/clean/top/top24",
+				"top_24": "textures/entity/human/clothing/clean/top/top25",
+				"top_25": "textures/entity/human/clothing/clean/top/top26",
+				"top_26": "textures/entity/human/clothing/clean/top/top27",
+				"top_27": "textures/entity/human/clothing/clean/top/top28",
+				"top_28": "textures/entity/human/clothing/clean/top/top29",
+				"top_29": "textures/entity/human/clothing/clean/top/top30",
+				"top_30": "textures/entity/human/clothing/clean/top/top31",
+				"top_31": "textures/entity/human/clothing/clean/top/top32",
+				"top_32": "textures/entity/human/clothing/clean/top/top33",
+				"top_33": "textures/entity/human/clothing/clean/top/top34",
+				"top_34": "textures/entity/human/clothing/clean/top/top35",
+				"top_35": "textures/entity/human/clothing/clean/top/top36",
+				"top_36": "textures/entity/human/clothing/clean/top/top37",
+				"top_37": "textures/entity/human/clothing/clean/top/top38",
+				"top_38": "textures/entity/human/clothing/clean/top/top39",
+				"top_39": "textures/entity/human/clothing/clean/top/top40",
+				"top_40": "textures/entity/human/clothing/clean/top/top41",
+				"top_41": "textures/entity/human/clothing/clean/top/top42",
+				"top_42": "textures/entity/human/clothing/clean/top/top43",
+				"top_43": "textures/entity/human/clothing/clean/top/top44",
+				"top_44": "textures/entity/human/clothing/clean/top/top45",
+				"top_45": "textures/entity/human/clothing/clean/top/top46",
+				"top_46": "textures/entity/human/clothing/clean/top/top47",
+				"top_47": "textures/entity/human/clothing/clean/top/top48",
+				"top_48": "textures/entity/human/clothing/clean/top/top49",
+				"top_49": "textures/entity/human/clothing/clean/top/top50",
+				"top_50": "textures/entity/human/clothing/clean/top/top51",
+				"top_51": "textures/entity/human/clothing/clean/top/top52",
+				"top_52": "textures/entity/human/clothing/clean/top/top53",
+				"top_53": "textures/entity/human/clothing/clean/top/top54",
+				"top_54": "textures/entity/human/clothing/clean/top/top55",
+				"top_55": "textures/entity/human/clothing/clean/top/top56",
+				"top_56": "textures/entity/human/clothing/clean/top/top57",
+				"top_57": "textures/entity/human/clothing/clean/top/top58",
+				"top_58": "textures/entity/human/clothing/clean/top/top59",
+				"top_59": "textures/entity/human/clothing/clean/top/top60",
+				"top_60": "textures/entity/human/clothing/clean/top/top61",
+				"top_61": "textures/entity/human/clothing/clean/top/top62",
+				"top_62": "textures/entity/human/clothing/clean/top/top63",
+				"top_63": "textures/entity/human/clothing/clean/top/top64",
+				"top_64": "textures/entity/human/clothing/clean/top/top65",
+				"top_65": "textures/entity/human/clothing/clean/top/top66",
+				"top_66": "textures/entity/human/clothing/clean/top/top67",
+				"top_67": "textures/entity/human/clothing/clean/top/top68",
+				"top_68": "textures/entity/human/clothing/clean/top/top69",
+				"top_69": "textures/entity/human/clothing/clean/top/top70",
+				"top_70": "textures/entity/human/clothing/clean/top/top71",
+				"top_71": "textures/entity/human/clothing/clean/top/top72",
+				"top_72": "textures/entity/human/clothing/clean/top/top73",
+				"top_73": "textures/entity/human/clothing/clean/top/top74",
+				"top_74": "textures/entity/human/clothing/clean/top/top75",
+				"top_75": "textures/entity/human/clothing/clean/top/top76",
+				"top_76": "textures/entity/human/clothing/clean/top/top77",
+				"top_77": "textures/entity/human/clothing/clean/top/top78",
+				"top_78": "textures/entity/human/clothing/clean/top/top79",
+				"top_79": "textures/entity/human/clothing/clean/top/top80",
+				"top_80": "textures/entity/human/clothing/clean/top/top81",
+				"top_81": "textures/entity/human/clothing/clean/top/top82",
+				"top_82": "textures/entity/human/clothing/clean/top/top83",
+				"top_83": "textures/entity/human/clothing/clean/top/top84",
+				"top_84": "textures/entity/human/clothing/clean/top/top85",
+				"top_85": "textures/entity/human/clothing/clean/top/top86",
+				"top_86": "textures/entity/human/clothing/clean/top/top87",
+				"top_87": "textures/entity/human/clothing/clean/top/top88",
+				
+				"bottom_0": "textures/entity/human/clothing/clean/bottom/bottom1",
+				"bottom_1": "textures/entity/human/clothing/clean/bottom/bottom2",
+				"bottom_2": "textures/entity/human/clothing/clean/bottom/bottom3",
+				"bottom_3": "textures/entity/human/clothing/clean/bottom/bottom4",
+				"bottom_4": "textures/entity/human/clothing/clean/bottom/bottom5",
+				"bottom_5": "textures/entity/human/clothing/clean/bottom/bottom6",
+				"bottom_6": "textures/entity/human/clothing/clean/bottom/bottom7",
+				"bottom_7": "textures/entity/human/clothing/clean/bottom/bottom8",
+				"bottom_8": "textures/entity/human/clothing/clean/bottom/bottom9",
+				"bottom_9": "textures/entity/human/clothing/clean/bottom/bottom10",
+				"bottom_10": "textures/entity/human/clothing/clean/bottom/bottom11",
+				"bottom_11": "textures/entity/human/clothing/clean/bottom/bottom12",
+				"bottom_12": "textures/entity/human/clothing/clean/bottom/bottom13",
+				"bottom_13": "textures/entity/human/clothing/clean/bottom/bottom14",
+				"bottom_14": "textures/entity/human/clothing/clean/bottom/bottom15",
+				"bottom_15": "textures/entity/human/clothing/clean/bottom/bottom16",
+				"bottom_16": "textures/entity/human/clothing/clean/bottom/bottom17",
+				"bottom_17": "textures/entity/human/clothing/clean/bottom/bottom18",
+				"bottom_18": "textures/entity/human/clothing/clean/bottom/bottom19",
+				"bottom_19": "textures/entity/human/clothing/clean/bottom/bottom20",
+				"bottom_20": "textures/entity/human/clothing/clean/bottom/bottom21",
+				"bottom_21": "textures/entity/human/clothing/clean/bottom/bottom22",
+				"bottom_22": "textures/entity/human/clothing/clean/bottom/bottom23",
+				"bottom_23": "textures/entity/human/clothing/clean/bottom/bottom24",
+				"bottom_24": "textures/entity/human/clothing/clean/bottom/bottom25",
+				"bottom_25": "textures/entity/human/clothing/clean/bottom/bottom26",
+				"bottom_26": "textures/entity/human/clothing/clean/bottom/bottom27",
+				"bottom_27": "textures/entity/human/clothing/clean/bottom/bottom28",
+				"bottom_28": "textures/entity/human/clothing/clean/bottom/bottom29",
+				"bottom_29": "textures/entity/human/clothing/clean/bottom/bottom30",
+				"bottom_30": "textures/entity/human/clothing/clean/bottom/bottom31",
+				"bottom_31": "textures/entity/human/clothing/clean/bottom/bottom32",
+				"bottom_32": "textures/entity/human/clothing/clean/bottom/bottom33",
+				"bottom_33": "textures/entity/human/clothing/clean/bottom/bottom34",
+				
+				// Eyes
+				"male_eyes_0": "textures/entity/human/eyes/male/eyes1",
+				"male_eyes_1": "textures/entity/human/eyes/male/eyes2",
+				"male_eyes_2": "textures/entity/human/eyes/male/eyes3",
+				"male_eyes_3": "textures/entity/human/eyes/male/eyes4",
+				"male_eyes_4": "textures/entity/human/eyes/male/eyes5",
+				"male_eyes_5": "textures/entity/human/eyes/male/eyes6",
+				"male_eyes_6": "textures/entity/human/eyes/male/eyes7",
+				"male_eyes_7": "textures/entity/human/eyes/male/eyes8",
+				"male_eyes_8": "textures/entity/human/eyes/male/eyes9",
+				"male_eyes_9": "textures/entity/human/eyes/male/eyes10",
+				"male_eyes_10": "textures/entity/human/eyes/male/eyes11",
+				"male_eyes_11": "textures/entity/human/eyes/male/eyes12",
+				"male_eyes_12": "textures/entity/human/eyes/male/eyes13",
+				"male_eyes_13": "textures/entity/human/eyes/male/eyes14",
+				"male_eyes_14": "textures/entity/human/eyes/male/eyes15",
+				"male_eyes_15": "textures/entity/human/eyes/male/eyes16",
+				
+				"female_eyes_0": "textures/entity/human/eyes/female/eyes1",
+				"female_eyes_1": "textures/entity/human/eyes/female/eyes2",
+				"female_eyes_2": "textures/entity/human/eyes/female/eyes3",
+				"female_eyes_3": "textures/entity/human/eyes/female/eyes4",
+				"female_eyes_4": "textures/entity/human/eyes/female/eyes5",
+				"female_eyes_5": "textures/entity/human/eyes/female/eyes6",
+				"female_eyes_6": "textures/entity/human/eyes/female/eyes7",
+				"female_eyes_7": "textures/entity/human/eyes/female/eyes8",
+				"female_eyes_8": "textures/entity/human/eyes/female/eyes9",
+				"female_eyes_9": "textures/entity/human/eyes/female/eyes10",
+				"female_eyes_10": "textures/entity/human/eyes/female/eyes11",
+				"female_eyes_11": "textures/entity/human/eyes/female/eyes12",
+				"female_eyes_12": "textures/entity/human/eyes/female/eyes13",
+				"female_eyes_13": "textures/entity/human/eyes/female/eyes14",
+				"female_eyes_14": "textures/entity/human/eyes/female/eyes15",
+				"female_eyes_15": "textures/entity/human/eyes/female/eyes16",
+				
+				//Be infected
+				"male_eyes_infected_0": "textures/entity/infected/eyes/male/eyes1",
+				"male_eyes_infected_1": "textures/entity/infected/eyes/male/eyes2",
+				"male_eyes_infected_2": "textures/entity/infected/eyes/male/eyes3",
+				"male_eyes_infected_3": "textures/entity/infected/eyes/male/eyes4",
+				"male_eyes_infected_4": "textures/entity/infected/eyes/male/eyes5",
+				"male_eyes_infected_5": "textures/entity/infected/eyes/male/eyes6",
+				"male_eyes_infected_6": "textures/entity/infected/eyes/male/eyes7",
+				"male_eyes_infected_7": "textures/entity/infected/eyes/male/eyes8",
+				"male_eyes_infected_8": "textures/entity/infected/eyes/male/eyes9",
+				"male_eyes_infected_9": "textures/entity/infected/eyes/male/eyes10",
+				"male_eyes_infected_10": "textures/entity/infected/eyes/male/eyes11",
+				"male_eyes_infected_11": "textures/entity/infected/eyes/male/eyes12",
+				"male_eyes_infected_12": "textures/entity/infected/eyes/male/eyes13",
+				"male_eyes_infected_13": "textures/entity/infected/eyes/male/eyes14",
+				"male_eyes_infected_14": "textures/entity/infected/eyes/male/eyes15",
+				"male_eyes_infected_15": "textures/entity/infected/eyes/male/eyes16",
+				"male_eyes_infected_16": "textures/entity/infected/eyes/male/eyes17",
+				"male_eyes_infected_17": "textures/entity/infected/eyes/male/eyes18",
+				"male_eyes_infected_18": "textures/entity/infected/eyes/male/eyes19",
+				"male_eyes_infected_19": "textures/entity/infected/eyes/male/eyes20",
+				"male_eyes_infected_20": "textures/entity/infected/eyes/male/eyes21",
+				"male_eyes_infected_21": "textures/entity/infected/eyes/male/eyes22",
+				"male_eyes_infected_22": "textures/entity/infected/eyes/male/eyes23",
+				"male_eyes_infected_23": "textures/entity/infected/eyes/male/eyes24",
+				"male_eyes_infected_24": "textures/entity/infected/eyes/male/eyes25",
+				"male_eyes_infected_25": "textures/entity/infected/eyes/male/eyes26",
+				"male_eyes_infected_26": "textures/entity/infected/eyes/male/eyes27",
+				"male_eyes_infected_27": "textures/entity/infected/eyes/male/eyes28",
+				"male_eyes_infected_28": "textures/entity/infected/eyes/male/eyes29",
+				"male_eyes_infected_29": "textures/entity/infected/eyes/male/eyes30",
+				"male_eyes_infected_30": "textures/entity/infected/eyes/male/eyes31",
+				"male_eyes_infected_31": "textures/entity/infected/eyes/male/eyes32",
+				"male_eyes_infected_32": "textures/entity/infected/eyes/male/eyes33",
+				
+				"mouth_0": "textures/entity/infected/mouth/mouth1",
+				"mouth_1": "textures/entity/infected/mouth/mouth2",
+				"mouth_2": "textures/entity/infected/mouth/mouth3",
+				"mouth_3": "textures/entity/infected/mouth/mouth4",
+				"mouth_4": "textures/entity/infected/mouth/mouth5",
+				"mouth_5": "textures/entity/infected/mouth/mouth6",
+				"mouth_6": "textures/entity/infected/mouth/mouth7",
+				"mouth_7": "textures/entity/infected/mouth/mouth8",
+				"mouth_8": "textures/entity/infected/mouth/mouth9",
+				"mouth_9": "textures/entity/infected/mouth/mouth10",
+				"mouth_10": "textures/entity/infected/mouth/mouth11",
+				"mouth_11": "textures/entity/infected/mouth/mouth12",
+				"mouth_12": "textures/entity/infected/mouth/mouth13",
+				"mouth_13": "textures/entity/infected/mouth/mouth14",
+				"mouth_14": "textures/entity/infected/mouth/mouth15",
+				"mouth_15": "textures/entity/infected/mouth/mouth16",
+				"mouth_16": "textures/entity/infected/mouth/mouth17",
+				"mouth_17": "textures/entity/infected/mouth/mouth18",
+				"mouth_18": "textures/entity/infected/mouth/mouth19",
+				"mouth_19": "textures/entity/infected/mouth/mouth20",
+				"mouth_20": "textures/entity/infected/mouth/mouth21",
+				"mouth_21": "textures/entity/infected/mouth/mouth22",
+				"mouth_22": "textures/entity/infected/mouth/mouth23",
+				"mouth_23": "textures/entity/infected/mouth/mouth24",
+				"mouth_24": "textures/entity/infected/mouth/mouth25",
+				"mouth_25": "textures/entity/infected/mouth/mouth26",
+				"mouth_26": "textures/entity/infected/mouth/mouth27",
+				"mouth_27": "textures/entity/infected/mouth/mouth28",
+				
+				"ump45": "textures/entity/guns/ump45",
+				"m14": "textures/entity/guns/m14",
+				"mosin": "textures/items/guns/rifle/mosin",
+				"vz65": "textures/entity/guns/vz65",
+				"m16a1": "textures/entity/guns/m16a1",
+				"makarov": "textures/entity/guns/makarov",
+				"m870": "textures/entity/guns/m870",
+				"python": "textures/entity/guns/python",
+				"izh43": "textures/entity/guns/izh43",
+				"sks": "textures/items/guns/rifle/sks",
+				"mp5": "textures/entity/guns/mp5",
+				"cz527": "textures/entity/guns/cz527",
+				"m4a1": "textures/entity/guns/m4a1",
+				"m1897": "textures/entity/guns/m1897",
+				"garand": "textures/items/guns/rifle/garand",
+				"ak47": "textures/entity/guns/ak47",
+				"m1911": "textures/entity/guns/m1911"
+			},
+			"geometry": {
+				"default": "geometry.human",
+				"slim": "geometry.human_slim",
+				"ump45": "geometry.ump45",
+				"izh43": "geometry.izh43",
+				"sks": "geometry.sks",
+				"makarov": "geometry.makarov",
+				"mosin": "geometry.mosin",
+				"vz65": "geometry.vz61",
+				"m16a1": "geometry.m16a1",
+				"m870": "geometry.m870",
+				"m14": "geometry.m14",
+				"python": "geometry.python",
+				"mp5": "geometry.mp5",
+				"cz527": "geometry.cz527",
+				"m4a1": "geometry.m4a1",
+				"m1897": "geometry.m1897",
+				"garand": "geometry.garand",
+				"ak47": "geometry.ak47",
+				"m1911": "geometry.m1911"
+			},
+			"scripts": {
+				"initialize": [
+					"v.target_yaw = 0;"
+				],
+				"pre_animation": [
+					"v.tcos0 = (Math.cos(q.modified_distance_moved * 38.17) * q.modified_move_speed / v.gliding_speed_value) * 57.3;",
+					"v.body_rot = math.sin(q.body_y_rotation-v.target_yaw) * 90;",
+					"v.guns = q.get_equipped_item_name == 'ump45' || q.get_equipped_item_name == 'm1911' || q.get_equipped_item_name == 'ak47' || q.get_equipped_item_name == 'm4a1' || q.get_equipped_item_name == 'mp5' || q.get_equipped_item_name == 'cz527' || q.get_equipped_item_name == 'm1897' || q.get_equipped_item_name == 'garand' || q.get_equipped_item_name == 'm14' || q.get_equipped_item_name == 'mosin' || q.get_equipped_item_name == 'm16a1' || q.get_equipped_item_name == 'makarov' || q.get_equipped_item_name == 'python' || q.get_equipped_item_name == 'izh43' || q.get_equipped_item_name == 'm870' || q.get_equipped_item_name == 'sks' || q.get_equipped_item_name == 'vz65';",
+					
+					"v.all_rifle = q.get_equipped_item_name == 'ump45' || q.get_equipped_item_name == 'ak47' || q.get_equipped_item_name == 'm4a1' || q.get_equipped_item_name == 'mp5' || q.get_equipped_item_name == 'cz527' || q.get_equipped_item_name == 'garand' || q.get_equipped_item_name == 'm14' || q.get_equipped_item_name == 'mosin' || q.get_equipped_item_name == 'm16a1' || q.get_equipped_item_name == 'izh43' || q.get_equipped_item_name == 'm870' || q.get_equipped_item_name == 'sks' || q.get_equipped_item_name == 'vz65';",
+					
+					"v.all_pistol = q.get_equipped_item_name == 'm1911' || q.get_equipped_item_name == 'makarov' || q.get_equipped_item_name == 'python';",
+					
+					"v.ump45 = q.get_equipped_item_name('main_hand') == 'ump45';",
+					"v.mp5 = q.get_equipped_item_name('main_hand') == 'mp5';",
+					"v.cz527 = q.get_equipped_item_name('main_hand') == 'cz527';",
+					"v.m4a1 = q.get_equipped_item_name('main_hand') == 'm4a1';",
+					"v.m1897 = q.get_equipped_item_name('main_hand') == 'm1897';",
+					"v.garand = q.get_equipped_item_name('main_hand') == 'garand';",
+					"v.m14 = q.get_equipped_item_name('main_hand') == 'm14';",
+					"v.mosin = q.get_equipped_item_name('main_hand') == 'mosin';",
+					"v.m16a1 = q.get_equipped_item_name('main_hand') == 'm16a1';",
+					"v.makarov = q.get_equipped_item_name('main_hand') == 'makarov';",
+					"v.python = q.get_equipped_item_name('main_hand') == 'python';",
+					"v.izh43 = q.get_equipped_item_name('main_hand') == 'izh43';",
+					"v.m870 = q.get_equipped_item_name('main_hand') == 'm870';",
+					"v.sks = q.get_equipped_item_name('main_hand') == 'sks';",
+					"v.vz65 = q.get_equipped_item_name('main_hand') == 'vz65';",
+					"v.ak47 = q.get_equipped_item_name('main_hand') == 'ak47';",
+					"v.m1911 = q.get_equipped_item_name('main_hand') == 'm1911';",
+					
+					"v.gender = q.property('mcpe:gender');",
+					"v.death = q.property('mcpe:death');",
+					"v.type = q.property('mcpe:type');",
+					"v.mouth = q.property('mcpe:mouth');",
+					"v.top = q.property('mcpe:top');",
+					"v.bottom = q.property('mcpe:bottom');",
+					"v.male_eyes = q.property('mcpe:male_eyes');",
+					"v.female_eyes = q.property('mcpe:female_eyes');",
+					"v.male_hair = q.property('mcpe:male_hair');",
+					"v.female_hair = q.property('mcpe:female_hair');",
+					"v.male_skin = q.property('mcpe:male_skin');",
+					"v.female_skin = q.property('mcpe:female_skin');",
+					"v.dead = q.property('mcpe:dead');"
+				],
+				"animate": [
+					"rotate_controller",
+					{
+						"look_at_target_controller": "!v.dead"
+					},
+					{
+						"melee_root": "!v.guns && !v.dead"
+					},
+					{
+						"guns_root": "v.guns && !v.dead"
+					},
+					{
+						"death_controller": "v.dead"
+					},
+					{
+						"m1897": "v.m1897"
+					},
+					{
+						"garand": "v.garand"
+					},
+					{
+						"cz527": "v.cz527"
+					},
+					{
+						"mp5": "v.mp5"
+					},
+					{
+						"m4a1": "v.m4a1"
+					},
+					{
+						"ump45": "v.ump45"
+					},
+					{
+						"m14": "v.m14"
+					},
+					{
+						"mosin": "v.mosin"
+					},
+					{
+						"m16a1": "v.m16a1"
+					},
+					{
+						"makarov": "v.makarov"
+					},
+					{
+						"python": "v.python"
+					},
+					{
+						"izh43": "v.izh43"
+					},
+					{
+						"m870": "v.m870"
+					},
+					{
+						"sks": "v.sks"
+					},
+					{
+						"vz65": "v.vz65"
+					},
+					{
+						"ak47": "v.ak47"
+					},
+					{
+						"m1911": "v.m1911"
+					},
+					{
+						"rifle_sprint": "v.all_rifle && q.ground_speed > 3.6"
+					},
+					{
+						"pistol_sprint": "v.all_pistol && q.ground_speed > 3.6"
+					}
+				]
+			},
+			"animations": {
+				"melee_root": "controller.animation.human_melee.root",
+				"guns_root": "controller.animation.human_guns.root",
+				"rotate_controller": "controller.animation.rotate",
+				"look_at_target_controller": "controller.animation.humanoid.look_at_target",
+				"look_at_target_default": "animation.humanoid.look_at_target.default",
+				"look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+				"look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+				"attack": "controller.animation.human.attack",
+				"move.legs": "animation.human.move.legs",
+				"move.arms": "animation.human.move.arms",
+				"move.arms_guns": "animation.human.move.arms_guns",
+				"run.legs": "animation.human.run.legs",
+				"run.arms": "animation.human.run.arms",
+				"run.arms_guns": "animation.human.run.arms_guns",
+				"bob": "animation.human.bob",
+				"bob_guns": "animation.human.bob_guns",
+				
+				"melee_attack": "animation.humanoid.attack.rotations",
+				"hand_attack": "animation.humanoid.attack.rotations",
+				"rotate_right": "animation.rotate_right",
+				"rotate_left": "animation.rotate_left",
+				
+				"rifle_sprint": "animation.guns.sprint_npc",
+				"pistol_sprint": "animation.pistol.sprint_npc",
+				
+				"ak47": "animation.guns.hold_npc",
+				"m4a1": "animation.guns.hold_npc",
+				"m16a1": "animation.guns.hold_npc",
+				"mp5": "animation.guns.hold_npc",
+				"ump45": "animation.guns.hold_npc",
+				"cz527": "animation.guns.hold_npc",
+				"m1897": "animation.guns.hold_npc",
+				"izh43": "animation.guns.hold_npc",
+				"mosin": "animation.guns.hold_npc",
+				"garand": "animation.guns.hold_npc",
+				"m870": "animation.guns.hold_npc",
+				"m14": "animation.guns.hold_npc",
+				"m1911": "animation.pistol.hold_npc",
+				"makarov": "animation.pistol.hold_npc",
+				"python": "animation.pistol.hold_npc",
+				
+				"death_controller": "controller.animation.death.general",
+				
+				"dead1": "animation.dead1",
+				"dead2": "animation.dead2",
+				"dead3": "animation.dead3",
+				"dead4": "animation.dead4",
+				"dead5": "animation.dead5",
+				"dead6": "animation.dead6",
+				"dead7": "animation.dead7",
+				"dead8": "animation.dead8",
+				"dead9": "animation.dead9",
+				"dead10": "animation.dead10",
+				"dead11": "animation.dead11",
+				"dead12": "animation.dead12",
+				"dead13": "animation.dead13",
+				"dead14": "animation.dead14",
+				"dead15": "animation.dead15",
+				"dead16": "animation.dead16"
+			},
+			"spawn_egg": {
+				"texture": "human_marauder",
+				"texture_index": 0
+			},
+			"particle_effects": {
+				"muzzle.flash": "mcpe:muzzle",
+				"muzzle.smoke": "mcpe:smoke"
+			},
+			"render_controllers": [
+				{
+					"controller.render.player.ump45": "v.ump45"
+				},
+				{
+					"controller.render.player.m1897": "v.m1897"
+				},
+				{
+					"controller.render.player.garand": "v.garand"
+				},
+				{
+					"controller.render.player.m4a1": "v.m4a1"
+				},
+				{
+					"controller.render.player.cz527": "v.cz527"
+				},
+				{
+					"controller.render.player.mp5": "v.mp5"
+				},
+				{
+					"controller.render.player.m14": "v.m14"
+				},
+				{
+					"controller.render.player.mosin": "v.mosin"
+				},
+				{
+					"controller.render.player.m16a1": "v.m16a1"
+				},
+				{
+					"controller.render.player.makarov": "v.makarov"
+				},
+				{
+					"controller.render.player.python": "v.python"
+				},
+				{
+					"controller.render.player.izh43": "v.izh43"
+				},
+				{
+					"controller.render.player.m870": "v.m870"
+				},
+				{
+					"controller.render.player.sks": "v.sks"
+				},
+				{
+					"controller.render.player.vz65": "v.vz65"
+				},
+				{
+					"controller.render.player.ak47": "v.ak47"
+				},
+				{
+					"controller.render.player.m1911": "v.m1911"
+				},
+				{
+					"controller.render.male": "v.gender == 'male'"
+				},
+				{
+					"controller.render.female": "v.gender == 'female'"
+				},
+				"controller.render.human_top",
+				"controller.render.human_bottom",
+				{
+					"controller.render.variant_mouth": "v.type == 'infected'"
+				},
+				{
+					"controller.render.male_eyes_infected": "v.type == 'infected' && v.gender == 'male' && !v.dead"
+				},
+				{
+					"controller.render.male_hair": "v.gender == 'male'"
+				},
+				{
+					"controller.render.female_hair": "v.gender == 'female'"
+				},
+				{
+					"controller.render.human_male_eyes": "v.type == 'human' && v.gender == 'male' && !v.dead"
+				},
+				{
+					"controller.render.human_female_eyes": "v.type == 'human' && v.gender == 'female' && !v.dead"
+				}
+			],
+			"enable_attachables": true
+		}
+	}
+}

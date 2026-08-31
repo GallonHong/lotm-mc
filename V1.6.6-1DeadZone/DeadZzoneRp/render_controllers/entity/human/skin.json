@@ -1,0 +1,46 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.variant_human": {
+	  "arrays": {
+	    "textures": {
+		  "Array.skins": [
+			    "Texture.variant_0",
+  		    "Texture.variant_1",
+  		    "Texture.variant_2",
+  		    "Texture.variant_3",
+  		    "Texture.variant_4",
+  		    "Texture.variant_5",
+  		    "Texture.variant_6",
+  		    "Texture.variant_7",
+  		    "Texture.variant_8",
+  		    "Texture.variant_9",
+			    "Texture.variant_10",
+  		    "Texture.variant_11",
+  		    "Texture.variant_12",
+  		    "Texture.variant_13",
+  		    "Texture.variant_14",
+  		    "Texture.variant_15",
+  		    "Texture.variant_16",
+  		    "Texture.variant_17"
+		  ]
+		}
+	  },
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Array.skins[v.skin]" ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    }
+  }
+}

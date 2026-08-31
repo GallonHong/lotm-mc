@@ -1,0 +1,85 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.female_hair": {
+      "arrays": {
+        "textures": {
+          "Array.hair": [
+            "Texture.female_hair_0",
+            "Texture.female_hair_1",
+            "Texture.female_hair_2",
+            "Texture.female_hair_3",
+            "Texture.female_hair_4",
+            "Texture.female_hair_5",
+            "Texture.female_hair_6",
+            "Texture.female_hair_7",
+            "Texture.female_hair_8",
+            "Texture.female_hair_9",
+            "Texture.female_hair_10",
+            "Texture.female_hair_11",
+            "Texture.female_hair_12",
+            "Texture.female_hair_13",
+            "Texture.female_hair_14",
+            "Texture.female_hair_15",
+            "Texture.female_hair_16",
+            "Texture.female_hair_17",
+            "Texture.female_hair_18",
+            "Texture.female_hair_19",
+            "Texture.female_hair_20",
+            "Texture.female_hair_21",
+            "Texture.female_hair_22",
+            "Texture.female_hair_23",
+            "Texture.female_hair_24",
+            "Texture.female_hair_25",
+            "Texture.female_hair_26",
+            "Texture.female_hair_27",
+            "Texture.female_hair_28",
+            "Texture.female_hair_29",
+            "Texture.female_hair_30",
+            "Texture.female_hair_31",
+            "Texture.female_hair_32",
+            "Texture.female_hair_33",
+            "Texture.female_hair_34",
+            "Texture.female_hair_35",
+            "Texture.female_hair_36",
+            "Texture.female_hair_37",
+            "Texture.female_hair_38",
+            "Texture.female_hair_39",
+            "Texture.female_hair_40",
+            "Texture.female_hair_41",
+            "Texture.female_hair_42",
+            "Texture.female_hair_43",
+            "Texture.female_hair_44",
+            "Texture.female_hair_45",
+            "Texture.female_hair_46",
+            "Texture.female_hair_47",
+            "Texture.female_hair_48",
+            "Texture.female_hair_49"
+          ]
+        }
+      },
+      "rebuild_animation_matrices": true,
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Array.hair[v.female_hair]"
+      ],
+      "is_hurt_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      },
+      "on_fire_color": {
+        "r": 0.0,
+        "g": 0.0,
+        "b": 0.0,
+        "a": 0.0
+      }
+    }
+  }
+}

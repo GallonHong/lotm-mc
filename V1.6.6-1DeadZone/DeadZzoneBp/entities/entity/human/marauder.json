@@ -1,0 +1,2615 @@
+{
+	"format_version": "1.21.50",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "mcpe:marauder",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"animations": {
+				"idle": "controller.animation.marauder_idle",
+				"idle_infected": "controller.animation.zed_idle",
+				"angry": "controller.animation.marauder_angry",
+				"angry_infected": "controller.animation.zed_angry",
+				"npc_shoot": "controller.animation.npc_shoot",
+				"headlamp": "controller.animation.headlamp",
+				"ak47reload": "animation.ak47.reload_npc",
+				"m1911reload": "animation.m1911.reload_npc",
+				"m4a1reload": "animation.m4a1.reload_npc",
+				"mp5reload": "animation.mp5.reload_npc",
+				"ump45reload": "animation.ump45.reload_npc",
+				"cz527reload": "animation.cz527.reload_npc",
+				"garandreload": "animation.garand.reload_npc",
+				"m1897reload": "animation.m1897.reload_npc",
+				"m14reload": "animation.m14.reload_npc",
+				"mosinreload": "animation.mosin.reload_npc",
+				"m16a1reload": "animation.m16a1.reload_npc",
+				"makarovreload": "animation.makarov.reload_npc",
+				"izh43reload": "animation.izh43.reload_npc",
+				"sksreload": "animation.sks.reload_npc",
+				"vz65reload": "animation.vz65.reload_npc",
+				"m870reload": "animation.m870.reload_npc",
+				"pythonreload": "animation.python.reload_npc"
+			},
+			"scripts": {
+				"initialize": [
+					"v.random_idle_sounds = math.random_integer(1, 3);"
+				],
+				"animate": [
+					"angry",
+					"sensor",
+					"npc_shoot",
+					{
+						"idle": "q.property('mcpe:type') == 'human' && q.health > 1"
+					},
+					{
+						"idle_infected": "q.property('mcpe:type') == 'infected' && q.property('mcpe:gender') == 'male' && q.health > 1"
+					},
+					{
+						"angry": "q.property('mcpe:type') == 'human'"
+					},
+					{
+						"angry_infected": "q.property('mcpe:type') == 'infected' && q.property('mcpe:gender') == 'male'"
+					},
+					{
+						"headlamp": "q.equipped_item_any_tag('slot.armor.head','headlamp') && !q.is_in_water"
+					}
+				]
+			},
+			"properties": {
+				"mcpe:dead": {
+					"type": "bool",
+					"default": false,
+					"client_sync": true
+				},
+				"mcpe:gender": {
+					"type": "enum",
+					"values": ["male", "female"],
+					"default": "male",
+					"client_sync": true
+				},
+				"mcpe:type": {
+					"type": "enum",
+					"values": ["human", "infected"],
+					"default": "human",
+					"client_sync": true
+				},
+				"mcpe:weapon_type_used": {
+					"type": "int",
+					"range": [0, 17],
+					"default": 0,
+					"client_sync": true
+				},
+				"mcpe:death": {
+					"type": "int",
+					"range": [1, 16],
+					"default": "math.random(1, 16)",
+					"client_sync": true
+				},
+				"mcpe:male_skin": {
+					"type": "int",
+					"range": [0, 17],
+					"default": "math.random(0, 17)",
+					"client_sync": true
+				},
+				"mcpe:female_skin": {
+					"type": "int",
+					"range": [0, 17],
+					"default": "math.random(0, 17)",
+					"client_sync": true
+				},
+				"mcpe:male_hair": {
+					"type": "int",
+					"range": [0, 77],
+					"default": "math.random_integer(0, 77)",
+					"client_sync": true
+				},
+				"mcpe:female_hair": {
+					"type": "int",
+					"range": [0, 49],
+					"default": "math.random_integer(0, 49)",
+					"client_sync": true
+				},
+				"mcpe:male_eyes": {
+					"type": "int",
+					"range": [0, 33],
+					"default": "math.random(0, 33)",
+					"client_sync": true
+				},
+				"mcpe:female_eyes": {
+					"type": "int",
+					"range": [0, 33],
+					"default": "math.random(0, 33)",
+					"client_sync": true
+				},
+				"mcpe:top": {
+					"type": "int",
+					"range": [0, 120],
+					"default": "math.random(0, 120)",
+					"client_sync": true
+				},
+				"mcpe:mouth": {
+					"type": "int",
+					"range": [0, 28],
+					"default": "math.random(0, 28)",
+					"client_sync": true
+				},
+				"mcpe:bottom": {
+					"type": "int",
+					"range": [0, 33],
+					"default": "math.random(0, 33)",
+					"client_sync": true
+				}
+			}
+		},
+		"components": {
+			"minecraft:preferred_path": {
+				"max_fall_blocks": 6,
+				"jump_cost": 5,
+				"default_block_cost": 1.5
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "bandit"
+							}
+						},
+						"deals_damage": false
+					},
+					{
+						"on_damage": {
+							"cause": "all",
+							"event": "blood_particle"
+						}
+					}
+				]
+			}
+		},
+		"component_groups": {
+			"move_around_target": {
+				"minecraft:behavior.move_around_target": {
+					"priority": 3,
+					"destination_position_range": [4.0, 8.0],
+					"movement_speed": 1.2,
+					"destination_pos_spread_degrees": 360,
+					"filters": {
+						"all_of": [
+							{
+								"test": "on_ground",
+								"value": true
+							},
+							{
+								"test": "target_distance",
+								"subject": "self",
+								"value": 24.0,
+								"operator": "<="
+							}
+						]
+					}
+				}
+			},
+			
+			"add_noise": {
+				"minecraft:timer": {
+					"time": 3,
+					"looping": false,
+					"time_down_event": {
+						"event": "remove_noise"
+					}
+				}
+			},
+			
+			"mcpe:ak47_reload": {
+				"minecraft:timer": {
+					"time": 3.05,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:ak47_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:m1911_reload": {
+				"minecraft:timer": {
+					"time": 2.3333,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:m1911_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:m4a1_reload": {
+				"minecraft:timer": {
+					"time": 3.05,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:m4a1_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:ump45_reload": {
+				"minecraft:timer": {
+					"time": 2.9583,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:ump45_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:mp5_reload": {
+				"minecraft:timer": {
+					"time": 2.9583,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:mp5_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:cz527_reload": {
+				"minecraft:timer": {
+					"time": 3.05,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:cz527_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:m1897_reload": {
+				"minecraft:timer": {
+					"time": 5.05,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:m1897_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:garand_reload": {
+				"minecraft:timer": {
+					"time": 2.55,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:garand_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:m14_reload": {
+				"minecraft:timer": {
+					"time": 3.05,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:m14_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:mosin_reload": {
+				"minecraft:timer": {
+					"time": 3.05,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:mosin_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:m16a1_reload": {
+				"minecraft:timer": {
+					"time": 3.05,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:m16a1_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:makarov_reload": {
+				"minecraft:timer": {
+					"time": 2.3333,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:makarov_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:izh43_reload": {
+				"minecraft:timer": {
+					"time": 2.7917,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:izh43_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:sks_reload": {
+				"minecraft:timer": {
+					"time": 2.55,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:sks_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:vz65_reload": {
+				"minecraft:timer": {
+					"time": 2.85,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:vz65_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:m870_reload": {
+				"minecraft:timer": {
+					"time": 5.55,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:m870_reloaded"
+					}
+				}
+			},
+			
+			"mcpe:python_reload": {
+				"minecraft:timer": {
+					"time": 2.85,
+					"looping": false,
+					"time_down_event": {
+						"event": "mcpe:python_reloaded"
+					}
+				}
+			},
+			
+			"despawn": {
+				"minecraft:instant_despawn": {}
+			},
+			
+			"bury": {
+				"minecraft:interact": {
+					"interactions": [
+						{
+							"on_interact": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "player"
+										},
+										{
+											"test": "has_equipment",
+											"domain": "hand",
+											"subject": "other",
+											"value": "mcpe:combat_knife"
+										}
+									]
+								},
+								"event": "despawn",
+								"target": "self"
+							},
+							"spawn_items": {
+								"table": "loot_tables/meat.json"
+							},
+							"hurt_item": 5,
+							"swing": true,
+							"play_sounds": "milk_suspiciously",
+							"interact_text": "action.interact.cut"
+						},
+						{
+							"on_interact": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "player"
+										},
+										{
+											"test": "has_equipment",
+											"domain": "hand",
+											"subject": "other",
+											"value": "mcpe:kitchen_knife"
+										}
+									]
+								},
+								"event": "despawn",
+								"target": "self"
+							},
+							"spawn_items": {
+								"table": "loot_tables/meat.json"
+							},
+							"hurt_item": 5,
+							"swing": true,
+							"play_sounds": "milk_suspiciously",
+							"interact_text": "action.interact.cut"
+						},
+						{
+							"on_interact": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "player"
+										},
+										{
+											"test": "has_equipment",
+											"domain": "hand",
+											"subject": "other",
+											"value": "mcpe:hunting_knife"
+										}
+									]
+								},
+								"event": "despawn",
+								"target": "self"
+							},
+							"spawn_items": {
+								"table": "loot_tables/meat.json"
+							},
+							"hurt_item": 5,
+							"swing": true,
+							"play_sounds": "milk_suspiciously",
+							"interact_text": "action.interact.cut"
+						},
+						{
+							"on_interact": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "player"
+										},
+										{
+											"test": "has_equipment",
+											"domain": "hand",
+											"subject": "other",
+											"value": "mcpe:cleaver_knife"
+										}
+									]
+								},
+								"event": "despawn",
+								"target": "self"
+							},
+							"spawn_items": {
+								"table": "loot_tables/meat.json"
+							},
+							"hurt_item": 5,
+							"swing": true,
+							"play_sounds": "milk_suspiciously",
+							"interact_text": "action.interact.cut"
+						},
+						{
+							"on_interact": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "player"
+										},
+										{
+											"test": "has_equipment",
+											"domain": "hand",
+											"subject": "other",
+											"value": "mcpe:engineer_shovel"
+										}
+									]
+								},
+								"event": "despawn",
+								"target": "self"
+							},
+							"hurt_item": 5,
+							"swing": true,
+							"play_sounds": "step.gravel",
+							"interact_text": "action.interact.bury"
+						},
+						{
+							"on_interact": {
+								"filters": {
+									"all_of": [
+										{
+											"test": "is_family",
+											"subject": "other",
+											"value": "player"
+										},
+										{
+											"test": "has_equipment",
+											"domain": "hand",
+											"subject": "other",
+											"value": "mcpe:snow_shovel"
+										}
+									]
+								},
+								"event": "despawn",
+								"target": "self"
+							},
+							"hurt_item": 5,
+							"swing": true,
+							"play_sounds": "step.gravel",
+							"interact_text": "action.interact.bury"
+						},
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "has_equipment",
+                      "domain": "hand",
+                      "subject": "other",
+                      "value": "minecraft:wooden_shovel"
+                    }
+                  ]
+                },
+                "event": "despawn",
+                "target": "self"
+              },
+              "hurt_item": 5,
+              "swing": true,
+              "play_sounds": "step.gravel",
+              "interact_text": "action.interact.bury"
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "has_equipment",
+                      "domain": "hand",
+                      "subject": "other",
+                      "value": "minecraft:stone_shovel"
+                    }
+                  ]
+                },
+                "event": "despawn",
+                "target": "self"
+              },
+              "hurt_item": 5,
+              "swing": true,
+              "play_sounds": "step.gravel",
+              "interact_text": "action.interact.bury"
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "has_equipment",
+                      "domain": "hand",
+                      "subject": "other",
+                      "value": "minecraft:iron_shovel"
+                    }
+                  ]
+                },
+                "event": "despawn",
+                "target": "self"
+              },
+              "hurt_item": 5,
+              "swing": true,
+              "play_sounds": "step.gravel",
+              "interact_text": "action.interact.bury"
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "has_equipment",
+                      "domain": "hand",
+                      "subject": "other",
+                      "value": "minecraft:golden_shovel"
+                    }
+                  ]
+                },
+                "event": "despawn",
+                "target": "self"
+              },
+              "hurt_item": 5,
+              "swing": true,
+              "play_sounds": "step.gravel",
+              "interact_text": "action.interact.bury"
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "has_equipment",
+                      "domain": "hand",
+                      "subject": "other",
+                      "value": "minecraft:diamond_shovel"
+                    }
+                  ]
+                },
+                "event": "despawn",
+                "target": "self"
+              },
+              "hurt_item": 5,
+              "swing": true,
+              "play_sounds": "step.gravel",
+              "interact_text": "action.interact.bury"
+            },
+            {
+              "on_interact": {
+                "filters": {
+                  "all_of": [
+                    {
+                      "test": "is_family",
+                      "subject": "other",
+                      "value": "player"
+                    },
+                    {
+                      "test": "has_equipment",
+                      "domain": "hand",
+                      "subject": "other",
+                      "value": "minecraft:netherite_shovel"
+                    }
+                  ]
+                },
+                "event": "despawn",
+                "target": "self"
+              },
+              "hurt_item": 5,
+              "swing": true,
+              "play_sounds": "step.gravel",
+              "interact_text": "action.interact.bury"
+            }
+					]
+				}
+			},
+			"death": {
+				"minecraft:fire_immune": true,
+				"minecraft:type_family": {
+					"family": ["body"]
+				},
+				"minecraft:behavior.play_dead": {
+					"priority": 0,
+					"duration": 1000000,
+					"force_below_health": 1,
+					"damage_sources": ["contact", "entity_attack", "entity_explosion", "magic", "projectile", "thorns", "wither"],
+					"apply_regeneration": false
+				},
+				"minecraft:despawn": {
+					"filters": {
+						"operator": ">",
+						"test":"distance_to_nearest_player",
+						"value":56
+					}
+				},
+				"minecraft:damage_sensor": {
+					"triggers": {
+						"cause": "all",
+						"deals_damage": false
+					}
+				},
+				"minecraft:movement.basic": {},
+				"minecraft:balloonable": {},
+				"minecraft:movement.basic": {},
+				"minecraft:collision_box": {
+					"width": 0.7,
+					"height": 0.6
+				},
+				"minecraft:movement": {
+					"value": 0
+				},
+				"minecraft:pushable": {
+					"is_pushable": false,
+					"is_pushable_by_piston": true
+				},
+				"minecraft:physics": {}
+			},
+			"float": {
+				"minecraft:behavior.float": {
+					"priority": 0
+				}
+			},
+			"loot": {
+				"minecraft:inventory": {
+					"container_type": "inventory",
+					"inventory_size": 27
+				},
+				"minecraft:timer": {
+					"time": 1,
+					"looping": false,
+					"time_down_event": {
+						"event": "spawn_loot"
+					}
+				}
+			},
+			"angry_normal": {
+				"minecraft:preferred_path": {
+					"max_fall_blocks": 10,
+					"jump_cost": 5,
+					"default_block_cost": 1.5
+				},
+				"minecraft:angry": {
+					"duration": 60,
+					"broadcast_anger": true,
+					"broadcast_anger_on_attack": true,
+					"broadcast_anger_on_being_attacked": true,
+					"broadcast_range": 15,
+					"broadcast_targets": ["marauder"],
+					"calm_event": {
+						"event": "become_calm_event_normal",
+						"target": "self"
+					},
+					"filters": {
+						"all_of": [
+							{
+								"test": "is_family",
+								"subject": "other",
+								"operator": "!=",
+								"value": "marauder"
+							}
+						]
+					}
+				}
+			},
+			"angry_normal_infected": {
+				"minecraft:preferred_path": {
+					"max_fall_blocks": 256,
+					"jump_cost": 5,
+					"default_block_cost": 1.5
+				},
+				"minecraft:angry": {
+					"duration": 60,
+					"broadcast_anger": false,
+					"broadcast_range": 15,
+					"calm_event": {
+						"event": "become_calm_event_normal_infected",
+						"target": "self"
+					}
+				}
+			},
+			"melee": {
+				"minecraft:attack": {
+					"damage": 3
+				},
+				"minecraft:behavior.melee_attack": {
+					"priority": 0,
+					"speed_multiplier": 1.55,
+					"track_target": true
+				},
+				"minecraft:health": {
+					"value": 20,
+					"max": 20,
+					"min": 1
+				},
+				"minecraft:equipment": {
+					"table": "loot_tables/equipment/weapon.json"
+				}
+			},
+			"ak47": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.4,
+					"attack_interval_max": 1.4,
+					"burst_shots": 30,
+					"burst_interval": 0.3,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 26
+				},
+				"minecraft:shooter": {
+					"def": "bullet:ak47<fire:npc_unsight>"
+				}
+			},
+			"m1911": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1,
+					"attack_interval_max": 1,
+					"burst_shots": 7,
+					"burst_interval": 0.5,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 16
+				},
+				"minecraft:shooter": {
+					"def": "bullet:m1911<fire:npc_unsight>"
+				}
+			},
+			"m4a1": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.4,
+					"attack_interval_max": 1.4,
+					"burst_shots": 30,
+					"burst_interval": 0.3,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 26
+				},
+				"minecraft:shooter": {
+					"def": "bullet:m4a1<fire:npc_unsight>"
+				}
+			},
+			"mp5": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.4,
+					"attack_interval_max": 1.4,
+					"burst_shots": 30,
+					"burst_interval": 0.3,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 26
+				},
+				"minecraft:shooter": {
+					"def": "bullet:mp5<fire:npc_unsight>"
+				}
+			},
+			"ump45": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.4,
+					"attack_interval_max": 1.4,
+					"burst_shots": 25,
+					"burst_interval": 0.3,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 26
+				},
+				"minecraft:shooter": {
+					"def": "bullet:ump45<fire:npc_unsight>"
+				}
+			},
+			"cz527": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.87,
+					"attack_interval_max": 1.87,
+					"burst_shots": 5,
+					"burst_interval": 3.56,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 64
+				},
+				"minecraft:shooter": {
+					"def": "bullet:cz527<fire:npc_unsight>"
+				}
+			},
+			"garand": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.65,
+					"attack_interval_max": 1.85,
+					"burst_shots": 8,
+					"burst_interval": 0.45,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 26
+				},
+				"minecraft:shooter": {
+					"def": "bullet:garand<fire:npc_unsight>"
+				}
+			},
+			"m1897": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.2,
+					"attack_interval_max": 1.25,
+					"burst_shots": 7,
+					"burst_interval": 1,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 17
+				},
+				"minecraft:shooter": {
+					"def": "bullet:m1897<fire:npc_unsight>"
+				}
+			},
+			"m14": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.2,
+					"attack_interval_max": 1.25,
+					"burst_shots": 20,
+					"burst_interval": 1,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 26
+				},
+				"minecraft:shooter": {
+					"def": "bullet:m14<fire:npc_unsight>"
+				}
+			},
+			"mosin": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.2,
+					"attack_interval_max": 1.5,
+					"burst_shots": 5,
+					"burst_interval": 1.1667,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 64
+				},
+				"minecraft:shooter": {
+					"def": "bullet:mosin<fire:npc_unsight>"
+				}
+			},
+			"m16a1": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.4,
+					"attack_interval_max": 1.4,
+					"burst_shots": 30,
+					"burst_interval": 0.3,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 26
+				},
+				"minecraft:shooter": {
+					"def": "bullet:m16a1<fire:npc_unsight>"
+				}
+			},
+			"makarov": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.2,
+					"attack_interval_max": 1.25,
+					"burst_shots": 8,
+					"burst_interval": 0.5,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 16
+				},
+				"minecraft:shooter": {
+					"def": "bullet:makarov<fire:npc_unsight>"
+				}
+			},
+			"izh43": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 0,
+					"attack_interval_min": 1.2,
+					"attack_interval_max": 1.25,
+					"burst_shots": 2,
+					"burst_interval": 0.3,
+					"speed_multiplier": 1.55,
+					"attack_radius_min": 3,
+					"target_in_sight_time": 0.1,
+					"attack_radius": 17
+				},
+				"minecraft:shooter": {
+					"def": "bullet:izh43<fire:npc_unsight>"
+				}
+			},
+			
+			"normal": {
+				"minecraft:movement": {
+					"value": 0.25
+				},
+				"minecraft:health": {
+					"value": 20,
+					"max": 20,
+					"min": 1
+				},
+				"minecraft:equipment": {
+					"table": "loot_tables/equipment/clothing/human.json"
+				},
+				"minecraft:on_target_acquired": {
+					"event": "become_angry_event_normal",
+					"target": "self"
+				},
+				"minecraft:on_target_escape": {
+					"event": "become_calm_event_normal",
+					"target": "self"
+				},
+				"minecraft:type_family": {
+					"family": ["marauder", "human", "bandit"]
+				},
+				"minecraft:behavior.hurt_by_target": {
+					"priority": 2,
+					"entity_types": {
+						"filters": {
+							"none_of": [
+								{
+									"subject": "other",
+									"test": "is_family",
+									"value": "body"
+								}
+							]
+						},
+						"max_dist": 64,
+						"reevaluate_description": true
+					}
+				},
+				"minecraft:behavior.move_towards_target": {
+					"priority": 2,
+					"within_radius": 16
+				},
+				"minecraft:behavior.random_stroll": {
+					"priority": 8,
+					"speed_multiplier": 1
+				},
+				"minecraft:behavior.random_look_around": {
+					"priority": 10
+				},
+				"minecraft:behavior.random_look_around": {
+					"priority": 10
+				},
+				"minecraft:jump.static": {},
+				"minecraft:can_climb": {},
+				"minecraft:annotation.open_door": {},
+				"minecraft:movement.basic": {},
+				"minecraft:navigation.walk": {
+					"avoid_damage_blocks": true,
+					"is_amphibious": true,
+					"can_path_over_water": true,
+					"can_open_doors": true,
+					"can_pass_doors": true,
+					"can_float": true,
+					"can_sink": false
+				},
+				"minecraft:behavior.float": {
+					"priority": 0
+				},
+				"minecraft:follow_range": {
+					"value": 64
+				},
+				"minecraft:physics": {},
+				"minecraft:pushable": {
+					"is_pushable": true,
+					"is_pushable_by_piston": true
+				}
+			},
+			
+			"raid": {
+				"minecraft:movement": {
+					"value": 0.25
+				},
+				"minecraft:health": {
+					"value": 20,
+					"max": 20,
+					"min": 1
+				},
+				"minecraft:equipment": {
+					"table": "loot_tables/equipment/clothing/human.json"
+				},
+				"minecraft:type_family": {
+					"family": ["marauder", "human", "bandit"]
+				},
+				"minecraft:behavior.move_towards_target": {
+					"priority": 2,
+					"within_radius": 16
+				},
+				"minecraft:behavior.random_stroll": {
+					"priority": 8,
+					"speed_multiplier": 1
+				},
+				"minecraft:behavior.random_look_around": {
+					"priority": 10
+				},
+				"minecraft:behavior.random_look_around": {
+					"priority": 10
+				},
+				"minecraft:jump.static": {},
+				"minecraft:can_climb": {},
+				"minecraft:annotation.open_door": {},
+				"minecraft:movement.basic": {},
+				"minecraft:navigation.walk": {
+					"avoid_damage_blocks": true,
+					"is_amphibious": true,
+					"can_path_over_water": true,
+					"can_open_doors": true,
+					"can_pass_doors": true,
+					"can_float": true,
+					"can_sink": false
+				},
+				"minecraft:behavior.float": {
+					"priority": 0
+				},
+				"minecraft:follow_range": {
+					"value": 128
+				},
+				"minecraft:physics": {},
+				"minecraft:pushable": {
+					"is_pushable": true,
+					"is_pushable_by_piston": true
+				}
+			},
+			
+			"infected": {
+				"minecraft:movement": {
+					"value": 0.19
+				},
+				"minecraft:health": {
+					"value": 20,
+					"max": 20,
+					"min": 1
+				},
+				"minecraft:on_target_acquired": {
+					"event": "become_angry_event_infected",
+					"target": "self"
+				},
+				"minecraft:on_target_escape": {
+					"event": "become_calm_event_infected",
+					"target": "self"
+				},
+				"minecraft:behavior.melee_attack": {
+					"priority": 0,
+					"speed_multiplier": 1.55,
+					"track_target": true
+				},
+				"minecraft:type_family": {
+					"family": ["infected", "zombie", "monster", "undead"]
+				},
+				"minecraft:behavior.move_towards_target": {
+					"priority": 2,
+					"within_radius": 16
+				},
+				"minecraft:behavior.random_stroll": {
+					"priority": 8
+				},
+				"minecraft:behavior.investigate_suspicious_location": {
+					"priority": 5
+				},
+				"minecraft:movement_sound_distance_offset": {
+					"value": 0.55
+				},
+				"minecraft:jump.static": {},
+				"minecraft:can_climb": {},
+				"minecraft:movement.basic": {},
+				"minecraft:navigation.walk": {
+					"avoid_damage_blocks": true,
+					"is_amphibious": true,
+					"can_path_over_water": true,
+					"can_open_doors": true,
+					"can_pass_doors": true,
+					"can_float": true,
+					"can_sink": false
+				},
+				"minecraft:follow_range": {
+					"value": 64
+				},
+				"minecraft:physics": {},
+				"minecraft:pushable": {
+					"is_pushable": true,
+					"is_pushable_by_piston": true
+				}
+			},
+			
+			"attack_target_infected_chase": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 0,
+					"reselect_targets": true,
+					"entity_types": [
+						{
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "bandit"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "survivor"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "golem"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "chicken"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "sheep"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "cow"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "villager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "pig"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "animals"
+									}
+								]
+							},
+							"max_dist": 64,
+							"must_see": false
+						}
+					]
+				}
+			},
+			
+			"attack_target_infected": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 7,
+					"within_radius": 16.0,
+					"persist_time": 0.0,
+					"reselect_targets": true,
+					"entity_types": [
+						{
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "bandit"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "survivor"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "golem"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "chicken"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "sheep"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "cow"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "villager"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "pig"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "animals"
+									}
+								]
+							},
+							"max_dist": 15,
+							"must_see": true
+						},
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "has_tag",
+										"subject": "other",
+										"value": "kuru_effect"
+									}
+								]
+							},
+							"max_dist": 25
+						},
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "body"
+									},
+									{
+										"test": "is_sneaking",
+										"subject": "other",
+										"operator": "!=",
+										"value": true
+									}
+								]
+							},
+							"max_dist": 15,
+							"must_see": true
+						},
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "body"
+									},
+									{
+										"test": "is_sneaking",
+										"subject": "other",
+										"operator": "=",
+										"value": true
+									}
+								]
+							},
+							"max_dist": 6,
+							"must_see": true
+						}
+					]
+				}
+			},
+			
+			"attack_target_chase": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 0,
+					"reselect_targets": true,
+					"entity_types": [
+						{
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "infected"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "survivor"
+									}
+								]
+							},
+							"max_dist": 64,
+							"must_see": true
+						}
+					]
+				}
+			},
+			"attack_targets": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 7,
+					"within_radius": 16.0,
+					"persist_time": 0.0,
+					"reselect_targets": true,
+					"entity_types": [
+						{
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "survivor"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "infected"
+									}
+								]
+							},
+							"max_dist": 15,
+							"must_see": true
+						},
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "body"
+									},
+									{
+										"test": "is_sneaking",
+										"subject": "other",
+										"operator": "!=",
+										"value": true
+									}
+								]
+							},
+							"max_dist": 15,
+							"must_see": true
+						},
+						{
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"operator": "!=",
+										"value": "body"
+									},
+									{
+										"test": "is_sneaking",
+										"subject": "other",
+										"operator": "=",
+										"value": true
+									}
+								]
+							},
+							"max_dist": 6,
+							"must_see": true
+						}
+					]
+				}
+			},
+			// Raid Events
+			"attack_target_chase_event": {
+				"minecraft:behavior.nearest_prioritized_attackable_target": {
+					"priority": 0,
+					"entity_types": [
+						{
+							"filters": {
+								"any_of": [
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "player"
+									},
+									{
+										"test": "is_family",
+										"subject": "other",
+										"value": "infected"
+									}
+								]
+							},
+							"max_dist": 999,
+							"must_see": false
+						}
+					]
+				}
+			}
+		},
+		"events": {
+			//Type Component Groups
+			"gender": {
+				"set_property": {
+					"mcpe:gender": "male",
+					"mcpe:type": "human"
+				}
+			},
+			
+			"add_noise": {
+				"add": {
+					"component_groups": [
+						"add_noise"
+					]
+				}
+			},
+			
+			"remove_noise": {
+				"queue_command": {
+					"command": [
+						"tag @s remove heavy_noise",
+						"tag @s remove light_noise"
+					]
+				}
+			},
+			
+			"mcpe:ak47_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:ak47_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"ak47"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s ak47 30"
+					]
+				}
+			},
+			
+			"mcpe:m1911_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:m1911_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"m1911"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s m1911 7"
+					]
+				}
+			},
+			
+			"mcpe:m4a1_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:m4a1_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"m4a1"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s m4a1 30"
+					]
+				}
+			},
+			
+			"mcpe:ump45_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:ump45_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"ump45"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s ump45 25"
+					]
+				}
+			},
+			
+			"mcpe:mp5_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:mp5_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mp5"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s mp5 30"
+					]
+				}
+			},
+			
+			"mcpe:cz527_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:cz527_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"cz527"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s cz527 6"
+					]
+				}
+			},
+			
+			"mcpe:garand_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:garand_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"garand"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s garand 8"
+					]
+				}
+			},
+			
+			"mcpe:m1897_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:m1897_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"m1897"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s m1897 7"
+					]
+				}
+			},
+			
+			"mcpe:m14_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:m14_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"m14"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s m14 20"
+					]
+				}
+			},
+			
+			"mcpe:mosin_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:mosin_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mosin"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s mosin 5"
+					]
+				}
+			},
+			
+			"mcpe:m16a1_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:m16a1_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"m16a1"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s m16a1 30"
+					]
+				}
+			},
+			
+			"mcpe:makarov_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:makarov_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"makarov"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s makarov 8"
+					]
+				}
+			},
+			
+			"mcpe:izh43_reload": {
+				"add": {
+					"component_groups": [
+						"mcpe:izh43_reload"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"izh43"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"execute at @s run playsound mob.marauder.reload @a[r=16] ~~~",
+						"scoreboard players set @s izh43 2"
+					]
+				}
+			},
+			
+			"mcpe:ak47_reloaded": {
+				"add": {
+					"component_groups": [
+						"ak47"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:ak47_reload"
+					]
+				}
+			},
+			
+			"mcpe:m1911_reloaded": {
+				"add": {
+					"component_groups": [
+						"m1911"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:m1911_reload"
+					]
+				}
+			},
+			
+			"mcpe:m4a1_reloaded": {
+				"add": {
+					"component_groups": [
+						"m4a1"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:m4a1_reload"
+					]
+				}
+			},
+			
+			"mcpe:ump45_reloaded": {
+				"add": {
+					"component_groups": [
+						"ump45"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:ump45_reload"
+					]
+				}
+			},
+			
+			"mcpe:mp5_reloaded": {
+				"add": {
+					"component_groups": [
+						"mp5"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:mp5_reload"
+					]
+				}
+			},
+			
+			"mcpe:cz527_reloaded": {
+				"add": {
+					"component_groups": [
+						"cz527"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:cz527_reload"
+					]
+				}
+			},
+			
+			"mcpe:m1897_reloaded": {
+				"add": {
+					"component_groups": [
+						"m1897"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:m1897_reload"
+					]
+				}
+			},
+			
+			"mcpe:garand_reloaded": {
+				"add": {
+					"component_groups": [
+						"garand"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:garand_reload"
+					]
+				}
+			},
+			
+			"mcpe:m14_reloaded": {
+				"add": {
+					"component_groups": [
+						"m14"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:m14_reload"
+					]
+				}
+			},
+			
+			"mcpe:mosin_reloaded": {
+				"add": {
+					"component_groups": [
+						"mosin"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:mosin_reload"
+					]
+				}
+			},
+			
+			"mcpe:m16a1_reloaded": {
+				"add": {
+					"component_groups": [
+						"m16a1"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:m16a1_reload"
+					]
+				}
+			},
+			
+			"mcpe:makarov_reloaded": {
+				"add": {
+					"component_groups": [
+						"makarov"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:makarov_reload"
+					]
+				}
+			},
+			
+			"mcpe:izh43_reloaded": {
+				"add": {
+					"component_groups": [
+						"izh43"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"mcpe:izh43_reload"
+					]
+				}
+			},
+			
+			"cover": {
+				"sequence": [
+					{
+						"filters": {
+							"test": "has_target",
+							"value": true
+						},
+						"queue_command": {
+							"command": [
+								"say COVER!!"
+							]
+						}
+					}
+				]
+			},
+			
+			// Raid Events
+			"weapon_melee_raid": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"melee",
+						"attack_target_chase_event"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 0
+				}
+			},
+			
+			"weapon_m1911_raid": {
+				"add": {
+					"component_groups": [
+						"raid",
+						"move_around_target",
+						"m1911",
+						"attack_target_chase_event"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:m1911",
+						"scoreboard players set @s m1911 7",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 1
+				}
+			},
+			
+			
+			// Normal 
+			"weapon_melee": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"angry_normal",
+						"melee",
+						"attack_targets"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 0
+				}
+			},
+			
+			"weapon_m1911": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"m1911",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:m1911",
+						"scoreboard players set @s m1911 7",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 1
+				}
+			},
+			
+			"weapon_ak47": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"ak47",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:ak47",
+						"scoreboard players set @s ak47 30",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 2
+				}
+			},
+			
+			"weapon_m4a1": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"m4a1",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:m4a1",
+						"scoreboard players set @s m4a1 30",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 3
+				}
+			},
+			
+			"weapon_mp5": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"mp5",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:mp5",
+						"scoreboard players set @s mp5 30",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 4
+				}
+			},
+			
+			"weapon_ump45": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"ump45",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:ump45",
+						"scoreboard players set @s ump45 25",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 5
+				}
+			},
+			
+			"weapon_cz527": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"cz527",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:cz527",
+						"scoreboard players set @s cz527 6",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 6
+				}
+			},
+			
+			"weapon_garand": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"garand",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:garand",
+						"scoreboard players set @s garand 8",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 7
+				}
+			},
+			
+			"weapon_m1897": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"m1897",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:m1897",
+						"scoreboard players set @s m1897 7",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 8
+				}
+			},
+			
+			"weapon_m14": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"m14",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:m14",
+						"scoreboard players set @s m14 20",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 9
+				}
+			},
+			
+			"weapon_mosin": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"mosin",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:mosin",
+						"scoreboard players set @s mosin 5",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 10
+				}
+			},
+			
+			"weapon_m16a1": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"m16a1",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:m16a1",
+						"scoreboard players set @s m16a1 30",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 11
+				}
+			},
+			
+			"weapon_makarov": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"makarov",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:makarov",
+						"scoreboard players set @s makarov 8",
+						"scoreboard players set @s ammo 270"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 12
+				}
+			},
+			
+			"weapon_izh43": {
+				"add": {
+					"component_groups": [
+						"normal",
+						"move_around_target",
+						"angry_normal",
+						"izh43",
+						"attack_targets"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 mcpe:izh43"
+					]
+				},
+				"set_property": {
+					"mcpe:weapon_type_used": 13
+				}
+			},
+			
+			"become_angry_event_normal": {
+				"add": {
+					"component_groups": [
+						"angry_normal",
+						"attack_target_chase"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"attack_targets"
+					]
+				}
+			},
+			
+			"become_angry_event_infected": {
+				"add": {
+					"component_groups": [
+						"angry_normal_infected",
+						"attack_target_infected_chase"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"attack_target_infected"
+					]
+				}
+			},
+			
+			"blood_particle": {
+				"sequence": [
+					{
+						"filters": {
+							"test": "has_damage",
+							"value": "projectile"
+						},
+						"queue_command": {
+							"command": [
+								"particle mcpe:blood_hit ^^1^"
+							]
+						}
+					}
+				]
+			},
+			
+			"spawn_loot": {
+				"queue_command": {
+					"command": [
+						"loot replace entity @s slot.inventory 0 loot \"human_drop\""
+					]
+				}
+			},
+			
+			"attack_targets": {
+				"add": {
+					"component_groups": [
+						"attack_targets"
+					]
+				}
+			},
+			
+			"drop_item": {
+				"queue_command": {
+					"command": [
+						"execute at @s run loot spawn ~~~ loot \"human_drop\""
+					]
+				}
+			},
+			
+			"death_vanilla": {
+				"add": {
+					"component_groups": [
+						"death"
+					]
+				},
+				"set_property": {
+					"mcpe:dead": true
+				},
+				"remove": {
+					"component_groups": [
+						"normal",
+						"infected",
+						"angry_normal",
+						"attack_target_infected",
+						"attack_target_chase"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 air",
+						"replaceitem entity @s slot.armor.head 1 air",
+						"replaceitem entity @s slot.armor.chest 1 air"
+					]
+				}
+			},
+			
+			"death": {
+				"add": {
+					"component_groups": [
+						"death",
+						"loot",
+						"float",
+						"bury"
+					]
+				},
+				"set_property": {
+					"mcpe:dead": true
+				},
+				"remove": {
+					"component_groups": [
+						"normal",
+						"infected",
+						"melee",
+						"angry_normal",
+						"attack_target_infected",
+						"attack_target_chase"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 air",
+						"replaceitem entity @s slot.armor.head 1 air",
+						"replaceitem entity @s slot.armor.chest 1 air"
+					]
+				}
+			},
+			
+			"be_infected": {
+				"add": {
+					"component_groups": [
+						"infected",
+						"angry_normal_infected",
+						"attack_target_infected"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"death",
+						"loot",
+						"float",
+						"angry_normal",
+						"attack_target_chase",
+						"normal",
+						"ak47",
+						"m1911"
+					]
+				},
+				"set_property": {
+					"mcpe:type": "infected"
+				},
+				"queue_command": {
+					"command": [
+						"replaceitem entity @s slot.weapon.mainhand 1 air",
+						"effect @s instant_health 2 1"
+					]
+				}
+			},
+			
+			"despawn": {
+				"add": {
+					"component_groups": [
+						"despawn"
+					]
+				}
+			},
+			
+			"become_calm_event_normal": {
+				"remove": {
+					"component_groups": [
+						"angry_normal"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"tag @s remove angry"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"attack_targets"
+					]
+				}
+			},
+			
+			"become_calm_event_normal_infected": {
+				"remove": {
+					"component_groups": [
+						"angry_normal_infected"
+					]
+				},
+				"queue_command": {
+					"command": [
+						"tag @s remove angry"
+					]
+				},
+				"add": {
+					"component_groups": [
+						"infected",
+						"attack_target_infected"
+					]
+				}
+			},
+			
+			"minecraft:entity_spawned": {
+				"sequence": [
+					{
+						"trigger": "gender"
+					},
+					{
+						"randomize": [
+							{
+								"weight": 550,
+								"trigger": "weapon_melee"
+							},
+							{
+								"weight": 65,
+								"trigger": "weapon_m1911"
+							},
+							{
+								"weight": 25,
+								"trigger": "weapon_ak47"
+							},
+							{
+								"weight": 25,
+								"trigger": "weapon_m4a1"
+							},
+							{
+								"weight": 30,
+								"trigger": "weapon_mp5"
+							},
+							{
+								"weight": 30,
+								"trigger": "weapon_ump45"
+							},
+							{
+								"weight": 20,
+								"trigger": "weapon_cz527"
+							},
+							{
+								"weight": 30,
+								"trigger": "weapon_garand"
+							},
+							{
+								"weight": 30,
+								"trigger": "weapon_m1897"
+							},
+							{
+								"weight": 30,
+								"trigger": "weapon_m14"
+							},
+							{
+								"weight": 30,
+								"trigger": "weapon_mosin"
+							},
+							{
+								"weight": 25,
+								"trigger": "weapon_m16a1"
+							},
+							{
+								"weight": 65,
+								"trigger": "weapon_makarov"
+							},
+							{
+								"weight": 35,
+								"trigger": "weapon_izh43"
+							}
+						]
+					}
+				]
+			}
+		}
+	}
+}
