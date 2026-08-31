@@ -3,11 +3,12 @@
   "minecraft:recipe_shapeless": {
     "description": { "identifier": "survival:craft_ammo_45" },
     "tags": ["crafting_table"],
-    "unlock": [{"context": "AlwaysUnlocked"}],
+    "unlock": [{"item": "minecraft:iron_ingot"}],
     "ingredients": [
       { "item": "minecraft:copper_ingot" },
       { "item": "minecraft:gunpowder" },
-      { "item": "minecraft:iron_nugget" }
+      { "item": "minecraft:iron_nugget" },
+      { "item": "minecraft:flint" }
     ],
     "result": { "item": "survival:ammo_45", "count": 16 }
   }

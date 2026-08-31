@@ -35,16 +35,11 @@ for (const [rpm, mode, expectedShots] of [[300, "semi", 50], [600, "auto", 100],
   assert.ok(Math.abs(shots - expectedShots) / expectedShots <= 0.02, `${rpm} RPM simulation drift`);
 }
 
-for (const [playerId, rpm, expectedShots] of [["akm-rate-test", 600, 100], ["mp5-rate-test", 900, 150]]) {
-  FireScheduler.reset(playerId);
-  let shots = 0;
-  const gun = { fireMode: "auto", rpm };
-  for (let tick = 0; tick < 200; tick += 1) {
-    shots += FireScheduler.requestHeldShots(playerId, gun, tick);
-  }
-  assert.ok(Math.abs(shots - expectedShots) / expectedShots <= 0.02, `${rpm} RPM live-request drift: ${shots}`);
-  FireScheduler.reset(playerId);
-}
+FireScheduler.reset("pulse-test");
+assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 0), 1);
+assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 1), 0);
+assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 2), 1);
+FireScheduler.reset("pulse-test");
 
 for (const file of [...walk(join(root, "survival_guns_bp")), ...walk(join(root, "survival_guns_rp"))].filter((path) => path.endsWith(".json"))) {
   JSON.parse(read(file));
@@ -56,17 +51,19 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   assert.equal(item["minecraft:food"].can_always_eat, true, `${gunName} must be usable at full hunger`);
   assert.equal(item["minecraft:icon"].textures.default, `survival:${gunName}`);
 }
+const paperBundleItem = json(join(root, "survival_guns_bp/items/paper_bundle.json"))["minecraft:item"].components;
+assert.equal(paperBundleItem["minecraft:icon"].textures.default, "survival_paper_bundle");
+assert.equal("texture" in paperBundleItem["minecraft:icon"], false, "legacy icon.texture is invalid for this schema");
 
 const mainSource = read(join(root, "survival_guns_bp/scripts/main.js"));
 const controllerSource = read(join(root, "survival_guns_bp/scripts/guns/GunController.js"));
-assert.ok(mainSource.includes('subscribeAfterEvent("itemStartUse"'));
-assert.ok(mainSource.includes('subscribeAfterEvent("itemStopUse"'));
-assert.ok(mainSource.includes('subscribeAfterEvent("itemReleaseUse"'));
-assert.ok(mainSource.includes("safe single-use fallback"));
+assert.ok(!mainSource.includes('subscribeAfterEvent("itemStartUse"'));
+assert.ok(!mainSource.includes('subscribeAfterEvent("itemStopUse"'));
+assert.ok(!mainSource.includes('subscribeAfterEvent("itemReleaseUse"'));
 assert.ok(!mainSource.includes('id === "survival:fire"'), "Molang fire events must be removed");
-assert.ok(controllerSource.includes("!reliableUseLifecycle"), "missing runtimes must fall back to one use/one shot");
-assert.ok(controllerSource.includes("Math.min(60"), "held fire needs an absolute per-press limit");
-assert.ok(controllerSource.includes("currentTick - trigger.startTick >= trigger.maxTicks"));
+assert.ok(controllerSource.includes("requestPulseShot"));
+assert.ok(!controllerSource.includes("activeTriggers"), "persistent trigger state must not exist");
+assert.ok(!controllerSource.includes("requestHeldShots"), "tick-driven held fire must not exist");
 assert.ok(!controllerSource.includes("autoFireDeadline"), "persistent automatic-fire deadline must be removed");
 assert.equal(existsSync(join(root, "survival_guns_bp/entities/player.json")), false, "BP must not override minecraft:player");
 assert.equal(existsSync(join(root, "survival_guns_bp/animation_controllers/survival_firearms.controller.json")), false, "self-loop fire controller must be deleted");
@@ -83,10 +80,16 @@ function ingredientCounts(recipe) {
 }
 
 const blueprintRegistry = Object.fromEntries(GunRegistry.getAllBlueprints().map((bp) => [bp.id, bp]));
+const recipeSignatures = new Map();
 for (const recipePath of walk(join(root, "survival_guns_bp/recipes")).filter((path) => path.endsWith(".json"))) {
   const recipe = json(recipePath);
   const body = recipe[Object.keys(recipe).find((key) => key.startsWith("minecraft:recipe_"))];
-  assert.deepEqual(body.unlock, [{ context: "AlwaysUnlocked" }], `${recipePath} requires 1.20+ unlock data`);
+  assert.deepEqual(body.unlock, [{ item: "minecraft:iron_ingot" }], `${recipePath} requires a concrete unlock item`);
+  if (body.ingredients) {
+    const signature = body.ingredients.map(({ item, tag }) => item ?? `#${tag}`).sort().join("|");
+    assert.equal(recipeSignatures.has(signature), false, `${recipePath} duplicates ingredients from ${recipeSignatures.get(signature)}`);
+    recipeSignatures.set(signature, recipePath);
+  }
 }
 for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   const recipe = json(join(root, `survival_guns_bp/recipes/blueprint_${gunName}.json`));
@@ -127,7 +130,7 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
 
 const bpManifest = json(join(root, "survival_guns_bp/manifest.json"));
 const rpManifest = json(join(root, "survival_guns_rp/manifest.json"));
-assert.deepEqual(bpManifest.header.version, [2, 1, 0]);
-assert.deepEqual(rpManifest.header.version, [2, 1, 0]);
+assert.deepEqual(bpManifest.header.version, [2, 2, 0]);
+assert.deepEqual(rpManifest.header.version, [2, 2, 0]);
 
-console.log("PASS: event-bounded firing, safe fallback, recipe unlocks, visuals, audio, manifests, scripts, and JSON validated");
+console.log("PASS: strict pulse firing, concrete recipe unlocks, item schemas, visuals, audio, manifests, scripts, and JSON validated");

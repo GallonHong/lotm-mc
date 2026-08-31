@@ -1,7 +1,6 @@
 ﻿/**
  * 射频调度器 (FireScheduler)
- * 核心要求：基于 20 TPS 累加器算法，严格支持非整数 RPM 射击速率 (最高 1200 RPM)
- * 由经过开始/停止事件约束的服务端循环逐 tick 调用；本类只负责限速。
+ * 每次 itemUse 脉冲最多放行一发，并依据 RPM 施加服务端最小间隔。
  */
 export class FireScheduler {
   // 保存每个玩家的开火调度状态
@@ -11,9 +10,7 @@ export class FireScheduler {
     let state = this.#playerSchedulers.get(playerId);
     if (!state) {
       state = {
-        accumulator: 0.0,
-        lastShotTick: -999,
-        lastHeldRequestTick: -999
+        lastShotTick: -999
       };
       this.#playerSchedulers.set(playerId, state);
     }
@@ -22,7 +19,7 @@ export class FireScheduler {
 
   /**
    * 兼容模式的单次右键脉冲。每次物品开始使用最多结算一发，
-   * 不依赖部分 Bedrock 平台不会发送的 itemStopUse 事件。
+   * 不依赖不同 Bedrock 平台表现不一致的松开事件。
    */
   static requestPulseShot(playerId, gunDef, currentTick) {
     const state = this.#getOrCreateState(playerId);
@@ -31,33 +28,6 @@ export class FireScheduler {
     if (currentTick - state.lastShotTick < minimumTicks) return 0;
     state.lastShotTick = currentTick;
     return 1;
-  }
-
-  /**
-   * 自动枪长按期间逐 tick 请求的服务端小数累加器。
-   */
-  static requestHeldShots(playerId, gunDef, currentTick) {
-    const state = this.#getOrCreateState(playerId);
-    if (state.lastHeldRequestTick === currentTick) return 0;
-    const elapsed = currentTick - state.lastHeldRequestTick;
-    state.lastHeldRequestTick = currentTick;
-
-    if (gunDef.fireMode !== "auto") {
-      return this.requestPulseShot(playerId, gunDef, currentTick);
-    }
-
-    const rpm = Math.max(1, Math.min(1200, Number(gunDef.rpm) || 1));
-
-    // 请求间隔超过 2 tick 表示玩家已经松开后重新按下，首发立即响应。
-    if (elapsed > 2) {
-      state.accumulator = 1.0;
-    } else {
-      state.accumulator += Math.max(1, elapsed) * rpm / (60 * 20);
-    }
-    const shots = Math.floor(state.accumulator);
-    state.accumulator -= shots;
-    if (shots > 0) state.lastShotTick = currentTick;
-    return shots;
   }
 
   static reset(playerId) {

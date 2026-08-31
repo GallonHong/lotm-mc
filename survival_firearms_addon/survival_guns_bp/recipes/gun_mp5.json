@@ -3,7 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_gun_mp5" },
     "tags": ["crafting_table"],
-    "unlock": [{"context": "AlwaysUnlocked"}],
+    "unlock": [{"item": "minecraft:iron_ingot"}],
     "pattern": ["IBI", "PGP", " M "],
     "key": {
       "I": { "item": "minecraft:iron_block" },

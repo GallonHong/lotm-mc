@@ -11,55 +11,12 @@ import { system, world } from "@minecraft/server";
 
 /**
  * 枪械总控制器。
- * 仅在运行时同时提供 itemStartUse 与停止事件时启用长按连射。
- * 缺少完整生命周期事件时，每个 itemUse 只结算一发，绝不建立循环。
+ * 每个 itemUse 脉冲只结算一发；不保存扳机状态，不启动自动射击循环。
  */
 export class GunController {
   static #playerSlotTracker = new Map();
   static #playerGunTracker = new Map();
   static #playerAnimationTracker = new Map();
-  static #activeTriggers = new Map();
-
-  static handleTriggerStart(event) {
-    const player = event?.source;
-    const eventItem = event?.itemStack;
-    if (!player || !player.isValid()) return false;
-    const gunDef = eventItem ? GunRegistry.getGun(eventItem.typeId) : null;
-    if (!gunDef) return false;
-
-    if (gunDef.fireMode !== "auto") {
-      return this.#firePulse(player, gunDef);
-    }
-
-    const inv = player.getComponent("minecraft:inventory");
-    if (!inv?.container) return false;
-    const slot = player.selectedSlotIndex;
-    const item = inv.container.getItem(slot);
-    if (!item || item.typeId !== gunDef.id) return false;
-
-    this.#playerSlotTracker.set(player.id, slot);
-    this.#playerGunTracker.set(player.id, gunDef.id);
-    FireScheduler.reset(player.id);
-    // 首发在开始事件内立即结算，快速点击即使同 tick 收到停止事件也会射击。
-    if (FireScheduler.requestHeldShots(player.id, gunDef, system.currentTick) < 1
-        || !this.#fireOneShot(player, inv.container, slot, item, gunDef)) return false;
-    this.#activeTriggers.set(player.id, {
-      gunId: gunDef.id,
-      slot,
-      startTick: system.currentTick,
-      maxTicks: Math.min(60, Math.ceil(gunDef.magazineSize * 1200 / gunDef.rpm) + 2)
-    });
-    return true;
-  }
-
-  static handleTriggerStop(event) {
-    const player = event?.source;
-    if (!player) return false;
-    const existed = this.#activeTriggers.delete(player.id);
-    FireScheduler.reset(player.id);
-    return existed;
-  }
-
   static #firePulse(player, gunDef) {
     if (!player || !player.isValid() || !gunDef || ReloadManager.isReloading(player.id)) return false;
 
@@ -73,8 +30,8 @@ export class GunController {
     return this.#fireOneShot(player, inv.container, slot, item, gunDef);
   }
 
-  /** 缺少可靠开始/停止事件时，参考开源实现退化为一次使用一发。 */
-  static handleItemUse(event, reliableUseLifecycle = false) {
+  /** 参考开源 Bedrock 枪械实现：一次物品使用事件只请求一发。 */
+  static handleItemUse(event) {
     const player = event.source;
     const item = event.itemStack;
     if (!player || !player.isValid() || !item) return;
@@ -83,7 +40,7 @@ export class GunController {
       return;
     }
     const gunDef = GunRegistry.getGun(item.typeId);
-    if (gunDef && !reliableUseLifecycle) this.#firePulse(player, gunDef);
+    if (gunDef) this.#firePulse(player, gunDef);
   }
 
   static requestReload(player) {
@@ -94,9 +51,7 @@ export class GunController {
     const item = inv.container.getItem(slot);
     const gunDef = item ? GunRegistry.getGun(item.typeId) : null;
     if (!item || !gunDef) return false;
-    const started = ReloadManager.startReload(player, item, gunDef, system.currentTick, slot);
-    if (started) this.handleTriggerStop({ source: player });
-    return started;
+    return ReloadManager.startReload(player, item, gunDef, system.currentTick, slot);
   }
 
   /** 每 tick 只处理换弹、切枪表现与 HUD，不再推进持续开火状态。 */
@@ -122,16 +77,12 @@ export class GunController {
         this.#playerGunTracker.set(player.id, currentGunId);
         this.#playerAnimationTracker.delete(player.id);
         FireScheduler.reset(player.id);
-        this.#activeTriggers.delete(player.id);
         if (currentGunId) GunAnimationBridge.playEquip(player, GunRegistry.getGun(currentGunId));
       }
 
       if (!mainItem || !currentGunId) continue;
       const gunDef = GunRegistry.getGun(currentGunId);
       if (!gunDef) continue;
-
-      const trigger = this.#activeTriggers.get(player.id);
-      if (trigger) this.#updateHeldTrigger(player, inv.container, trigger, gunDef, currentTick);
 
       const animationState = player.isSwimming
         ? "swim"
@@ -149,28 +100,6 @@ export class GunController {
     this.#playerSlotTracker.delete(playerId);
     this.#playerGunTracker.delete(playerId);
     this.#playerAnimationTracker.delete(playerId);
-    this.#activeTriggers.delete(playerId);
-  }
-
-  static #updateHeldTrigger(player, container, trigger, gunDef, currentTick) {
-    if (trigger.gunId !== gunDef.id || trigger.slot !== player.selectedSlotIndex || ReloadManager.isReloading(player.id)) {
-      this.handleTriggerStop({ source: player });
-      return;
-    }
-    if (currentTick - trigger.startTick >= trigger.maxTicks) {
-      this.handleTriggerStop({ source: player });
-      try { player.onScreenDisplay?.setActionBar?.("§e已达到单次扳机上限，请松开后再次按下"); } catch {}
-      return;
-    }
-
-    const shots = FireScheduler.requestHeldShots(player.id, gunDef, currentTick);
-    for (let shot = 0; shot < shots; shot++) {
-      const item = container.getItem(trigger.slot);
-      if (!item || item.typeId !== gunDef.id || !this.#fireOneShot(player, container, trigger.slot, item, gunDef)) {
-        this.handleTriggerStop({ source: player });
-        return;
-      }
-    }
   }
 
   static #fireOneShot(player, container, slotIndex, itemStack, gunDef) {
@@ -182,7 +111,6 @@ export class GunController {
 
     if (AmmoManager.getMagazineAmmo(itemStack, gunDef) <= 0) {
       GunAnimationBridge.playDryFire(player);
-      this.handleTriggerStop({ source: player });
       ReloadManager.startReload(player, itemStack, gunDef, system.currentTick, slotIndex);
       return false;
     }

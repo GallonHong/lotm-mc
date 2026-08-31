@@ -3,7 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_gun_barrel" },
     "tags": ["crafting_table"],
-    "unlock": [{"context": "AlwaysUnlocked"}],
+    "unlock": [{"item": "minecraft:iron_ingot"}],
     "pattern": [" IC"],
     "key": {
       "I": { "item": "minecraft:iron_block" },

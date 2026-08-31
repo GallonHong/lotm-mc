@@ -3,7 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_blueprint_mp5" },
     "tags": ["crafting_table"],
-    "unlock": [{"context": "AlwaysUnlocked"}],
+    "unlock": [{"item": "minecraft:iron_ingot"}],
     "pattern": ["RRR", "CBC", " S "],
     "key": {
       "R": { "item": "minecraft:redstone" },

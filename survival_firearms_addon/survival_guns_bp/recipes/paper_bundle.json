@@ -3,7 +3,7 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_paper_bundle" },
     "tags": ["crafting_table"],
-    "unlock": [{"context": "AlwaysUnlocked"}],
+    "unlock": [{"item": "minecraft:iron_ingot"}],
     "pattern": ["PPP", "PPP", "PPP"],
     "key": { "P": { "item": "minecraft:paper" } },
     "result": { "item": "survival:paper_bundle", "count": 1 }
