@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apex Firearms Arsenal (Tesla Arc Emitter & Chain Lightning)",
+    "name": "Apex Firearms Arsenal (Vector 5s Infinite Ammo Overdrive)",
     "description": "Apex Tactical AK-47 Behavior Pack - Script API High Precision Gun Engine",
     "uuid": "4059eaec-0b54-438e-9e97-bd348bfbab2e",
     "version": [
       1,
-      7,
+      8,
       0
     ],
     "min_engine_version": [
@@ -21,7 +21,7 @@
       "uuid": "dc10ace2-dbd2-4a13-8a19-c1ceabe24ba0",
       "version": [
         1,
-        7,
+        8,
         0
       ]
     },
@@ -31,7 +31,7 @@
       "uuid": "61443a04-578a-4f65-b273-203a3ea72a3e",
       "version": [
         1,
-        7,
+        8,
         0
       ],
       "entry": "scripts/main.js"

@@ -32,7 +32,7 @@ export class GunEngine {
 
     const currentTick = system.currentTick;
 
-    // 3. 潜行分支 (Vector 为释放技能，其余枪械为潜行主动换弹)
+    // 3. 潜行分支 (Vector 为释放 5 秒无限子弹暴走狂潮，其余枪械为潜行主动换弹)
     if (player.isSneaking) {
       if (config.hasSkill) {
         const nextTick = this.#skillCooldowns.get(player.id) || 0;
@@ -47,12 +47,7 @@ export class GunEngine {
           return false;
         }
 
-        const currentAmmo = AmmoSystem.getMagazineAmmo(item);
-        if (currentAmmo <= 0) {
-          ReloadManager.startReload(player, item, slot);
-          return false;
-        }
-
+        // 激活 5 秒无限子弹狂暴
         this.activateOverdrive(player, slot, config, currentTick);
         return true;
       } else {
@@ -108,9 +103,10 @@ export class GunEngine {
   }
 
   /**
-   * 启动 Vector【暴走狂潮 / Overdrive】技能
+   * 启动 Vector【暴走狂潮 / Overdrive】技能 (持续 5.0 秒，不消耗子弹)
    */
   static activateOverdrive(player, slot, config, currentTick) {
+    const durationTicks = 100; // 5.0 秒 = 100 ticks
     this.#skillCooldowns.set(player.id, currentTick + (config.skillCooldownSec ?? 30) * 20);
 
     try {
@@ -122,10 +118,11 @@ export class GunEngine {
     this.#overdriveStates.set(player.id, {
       slot,
       gunId: config.id,
-      startTick: currentTick
+      startTick: currentTick,
+      finishTick: currentTick + durationTicks
     });
 
-    player.onScreenDisplay?.setActionBar?.("§4🔥【暴走狂潮 OVERDRIVE】全速超频连射已激活! 无法停止!");
+    player.onScreenDisplay?.setActionBar?.("§4🔥【暴走狂潮 OVERDRIVE】5秒无限子弹极速扫射已开启!");
   }
 
   /**
@@ -148,7 +145,7 @@ export class GunEngine {
       ReloadManager.update(currentTick, (id) => playerMap.get(id));
     } catch {}
 
-    // 3. 处理处于【暴走狂潮】的玩家
+    // 3. 处理处于【暴走狂潮】的玩家 (5秒无限子弹持续扫射)
     for (const player of allPlayers) {
       if (!player || !player.isValid()) continue;
       const od = this.#overdriveStates.get(player.id);
@@ -172,18 +169,20 @@ export class GunEngine {
         continue;
       }
 
-      let currentAmmo = AmmoSystem.getMagazineAmmo(item);
-      if (currentAmmo <= 0) {
+      // 5秒时间到判定
+      if (currentTick >= od.finishTick) {
         this.#overdriveStates.delete(player.id);
         try {
           player.playSound("random.fizz", { location: player.location, volume: 1.0, pitch: 0.8 });
           player.dimension.spawnParticle("minecraft:smoke_particle", player.location);
         } catch {}
-        ReloadManager.startReload(player, item, od.slot);
+        player.onScreenDisplay?.setActionBar?.("§7[暴走狂潮结束 - 枪管冷却完毕]");
         continue;
       }
 
-      this.#executeSingleShot(player, od.slot, config, 1, false, true);
+      const remainingSec = Math.max(0, (od.finishTick - currentTick) / 20).toFixed(1);
+      // 执行狂暴射击 (不消耗子弹)
+      this.#executeSingleShot(player, od.slot, config, 1, false, true, remainingSec);
     }
 
     // 4. 常态 HUD 刷新
@@ -218,7 +217,7 @@ export class GunEngine {
               const sec = Math.max(0, (nextTick - currentTick) / 20).toFixed(0);
               skillStatus = ` §7| §cCD: ${sec}s`;
             } else {
-              skillStatus = ` §7| §aShift技能[暴走]就绪!`;
+              skillStatus = ` §7| §aShift[5s无限子弹]就绪!`;
             }
           }
 
@@ -233,7 +232,7 @@ export class GunEngine {
   /**
    * 执行单发实弹 / 榴弹 / 特斯拉电弧
    */
-  static #executeSingleShot(player, targetSlot, config, shotIndexInBurst = 1, isHeRound = false, isOverdrive = false) {
+  static #executeSingleShot(player, targetSlot, config, shotIndexInBurst = 1, isHeRound = false, isOverdrive = false, overdriveSec = "5.0") {
     if (!player || !player.isValid()) return false;
     if (ReloadManager.isReloading(player.id)) return false;
 
@@ -246,15 +245,17 @@ export class GunEngine {
     if (!item || item.typeId !== config.id) return false;
 
     let currentAmmo = AmmoSystem.getMagazineAmmo(item);
-    if (currentAmmo <= 0) {
-      ReloadManager.startReload(player, item, targetSlot);
-      return false;
-    }
 
-    // 1. 扣除 1 发子弹并写回物品
-    currentAmmo -= 1;
-    AmmoSystem.setMagazineAmmo(item, currentAmmo);
-    inv.container.setItem(targetSlot, item);
+    // 1. 扣弹逻辑：如果是【暴走狂潮】状态，完全不消耗子弹 (0 弹药消耗)！
+    if (!isOverdrive) {
+      if (currentAmmo <= 0) {
+        ReloadManager.startReload(player, item, targetSlot);
+        return false;
+      }
+      currentAmmo -= 1;
+      AmmoSystem.setMagazineAmmo(item, currentAmmo);
+      inv.container.setItem(targetSlot, item);
+    }
 
     this.#lastMuzzleFeedback.set(player.id, system.currentTick);
 
@@ -286,7 +287,7 @@ export class GunEngine {
     const isSneaking = player.isSneaking;
     let shakeIntensity = "0.04";
     if (isOverdrive) {
-      shakeIntensity = "0.06";
+      shakeIntensity = "0.055";
     } else if (config.id === "apex:arc_emitter") {
       shakeIntensity = "0.025";
     } else if (config.id === "apex:mgl") {
@@ -307,7 +308,6 @@ export class GunEngine {
     const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
 
     if (config.id === "apex:arc_emitter") {
-      // 触发特斯拉闪电链
       const arcResult = ArcEngine.fireArc(player, config);
       const hits = arcResult?.totalHits ?? 0;
       if (hits > 0) {
@@ -325,12 +325,12 @@ export class GunEngine {
         `§6[M32 榴弹炮] 🚀 [${bar}§6] §f${currentAmmo}§7/§a${reserve} §e(40mm抛物线榴弹)`
       );
     } else {
-      const spreadMult = isOverdrive ? 1.5 : (1.0 + (shotIndexInBurst - 1) * 0.25);
+      const spreadMult = isOverdrive ? 1.4 : (1.0 + (shotIndexInBurst - 1) * 0.25);
       const rayResult = RaycastEngine.castBullet(player, config, spreadMult, isHeRound);
 
       if (isOverdrive) {
         player.onScreenDisplay?.setActionBar?.(
-          `§4🔥【暴走狂潮】全速扫射中! [${bar}§4] §f${currentAmmo}§7/§a${reserve} §c(无法停火!)`
+          `§4🔥【暴走狂潮 OVERDRIVE】(剩余 ${overdriveSec}s) §e⚡ 无限子弹极速扫射!`
         );
       } else if (rayResult && rayResult.hitResult) {
         const hit = rayResult.hitResult;
