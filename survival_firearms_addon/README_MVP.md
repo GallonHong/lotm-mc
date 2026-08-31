@@ -1,4 +1,4 @@
-# Survival Firearms MVP 1.3.5
+# Survival Firearms MVP 1.3.6
 
 本目录严格实现仓库根目录 `1.md` 定义的四枪 MVP，不包含经济、诡秘途径或其他扩展系统。
 
@@ -42,6 +42,12 @@
 - 根据实际运行日志，将 `minecraft:icon` 改为当前物品 Schema 接受的 `textures.default` 形式。
 - 补齐内置物品渲染控制器要求的 `material.enchanted` 与 `texture.enchanted` 映射。
 - AKM/MP5 恢复长按连射，并增加松开、再次点击、切槽、换弹、死亡及 3 秒硬超时停止保护。
+
+### 1.3.6 静态模型可见性修复
+
+- 将四个旧 DeadZone 几何体从 `1.12.0` 升级到支持 attachable 绑定的 `1.16.0`。
+- 扩大模型可见边界，避免枪体因旧玩家模型边界被错误裁剪。
+- 新增只调整枪体位置的静态持枪姿态，不包含换弹、开火或移动动作。
 
 ## 测试
 

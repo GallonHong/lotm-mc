@@ -1,0 +1,24 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.survival.rifle.static_hold": {
+      "loop": true,
+      "bones": {
+        "guns": {
+          "rotation": [-90.23, -29.57, 0.02],
+          "position": [-1, -2, 2]
+        }
+      }
+    },
+    "animation.survival.pistol.static_hold": {
+      "loop": true,
+      "bones": {
+        "guns": {
+          "rotation": [-93.05, -22.36, 10.03],
+          "position": [1.56, 0.32, -1.7],
+          "scale": [1, 0.8, 0.8]
+        }
+      }
+    }
+  }
+}

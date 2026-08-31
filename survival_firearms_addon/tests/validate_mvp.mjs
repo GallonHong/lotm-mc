@@ -86,7 +86,8 @@ for (const attachablePath of walk(join(root, "survival_guns_rp_mvp/attachables")
   const description = attachable["minecraft:attachable"].description;
   assert.equal(attachable.format_version, "1.20.30", `${attachablePath} must use the current attachable sample format`);
   assert.equal(description.item[description.identifier], "query.is_owner_identifier_any('minecraft:player')", `${attachablePath} must map the held item`);
-  assert.equal(description.animations, undefined, `${attachablePath} must remain a static compatibility model`);
+  assert.deepEqual(description.scripts.animate, ["hold"], `${attachablePath} must run only its static hold pose`);
+  assert.ok(description.animations.hold.includes("static_hold"), `${attachablePath} must use a static compatibility pose`);
   assert.deepEqual(description.render_controllers, ["controller.render.item_default"], `${attachablePath} must use the built-in item render controller`);
   assert.equal(description.materials.enchanted, "entity_alphatest_glint", `${attachablePath} must provide the enchanted material required by item_default`);
   assert.equal(description.textures.enchanted, "textures/misc/enchanted_item_glint", `${attachablePath} must provide the enchanted texture required by item_default`);
@@ -100,7 +101,14 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   const modelName = gunName === "akm" ? "ak47" : gunName;
   const modelSource = readFileSync(join(root, `survival_guns_rp_mvp/models/entity/temporary_deadzone_assets/${modelName}.geo.json`), "utf8");
   assert.ok(modelSource.includes("query.item_slot_to_bone_name(context.item_slot)"), `${gunName} model must bind to the held item slot`);
+  const model = JSON.parse(modelSource);
+  assert.equal(model.format_version, "1.16.0", `${gunName} model must use a geometry format that supports attachable binding`);
+  assert.equal(model["minecraft:geometry"][0].description.visible_bounds_width, 8, `${gunName} model bounds must prevent hand-held culling`);
 }
+
+const staticHold = JSON.parse(readFileSync(join(root, "survival_guns_rp_mvp/animations/survival_static_hold.animation.json"), "utf8"));
+assert.ok(staticHold.animations["animation.survival.rifle.static_hold"], "rifle static hold pose is missing");
+assert.ok(staticHold.animations["animation.survival.pistol.static_hold"], "pistol static hold pose is missing");
 
 const controllerSource = readFileSync(join(root, "survival_guns_bp/scripts/guns/GunController.js"), "utf8");
 assert.ok(controllerSource.includes("MAX_AUTO_BURST_TICKS = 60"), "automatic fire must have a three-second hard timeout");

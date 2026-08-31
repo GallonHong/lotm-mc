@@ -1,14 +1,14 @@
 {
-	"format_version": "1.12.0",
+	"format_version": "1.16.0",
 	"minecraft:geometry": [
 		{
 			"description": {
 				"identifier": "geometry.m1911",
 				"texture_width": 84,
 				"texture_height": 42,
-				"visible_bounds_width": 4,
-				"visible_bounds_height": 3.5,
-				"visible_bounds_offset": [0, 1.25, 0]
+				"visible_bounds_width": 8,
+				"visible_bounds_height": 8,
+				"visible_bounds_offset": [0, 0, 0]
 			},
 			"bones": [
 				{

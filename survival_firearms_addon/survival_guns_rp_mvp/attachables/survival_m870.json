@@ -7,6 +7,8 @@
       "materials": { "default": "entity", "enchanted": "entity_alphatest_glint" },
       "textures": { "default": "textures/entity/temporary_deadzone_assets/m870", "enchanted": "textures/misc/enchanted_item_glint" },
       "geometry": { "default": "geometry.m870" },
+      "animations": { "hold": "animation.survival.rifle.static_hold" },
+      "scripts": { "animate": [ "hold" ] },
       "render_controllers": [ "controller.render.item_default" ]
     }
   }

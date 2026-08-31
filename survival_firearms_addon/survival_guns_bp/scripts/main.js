@@ -5,7 +5,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v1.3.5 MVP...");
+console.warn("[SurvivalFirearms] Addon initializing v1.3.6 MVP...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
