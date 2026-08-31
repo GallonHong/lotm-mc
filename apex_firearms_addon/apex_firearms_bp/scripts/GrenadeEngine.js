@@ -15,18 +15,25 @@ export class GrenadeEngine {
       const headLoc = player.getHeadLocation();
       const viewDir = player.getViewDirection();
 
+      const hx = Number(headLoc.x) || 0;
+      const hy = Number(headLoc.y) || 0;
+      const hz = Number(headLoc.z) || 0;
+      const vx = Number(viewDir.x) || 0;
+      const vy = Number(viewDir.y) || 0;
+      const vz = Number(viewDir.z) || 0;
+
       // 榴弹初速 (约 1.25 格/tick，肉眼清晰可见优美抛物线飞行)
       const baseSpeed = 1.25;
       const launchVel = {
-        x: viewDir.x * baseSpeed,
-        y: viewDir.y * baseSpeed + 0.08,
-        z: viewDir.z * baseSpeed
+        x: vx * baseSpeed,
+        y: vy * baseSpeed + 0.08,
+        z: vz * baseSpeed
       };
 
       const startPos = {
-        x: headLoc.x + viewDir.x * 0.8,
-        y: headLoc.y + viewDir.y * 0.8 - 0.1,
-        z: headLoc.z + viewDir.z * 0.8
+        x: hx + vx * 0.8,
+        y: hy + vy * 0.8 - 0.1,
+        z: hz + vz * 0.8
       };
 
       this.#activeGrenades.push({
@@ -112,12 +119,20 @@ export class GrenadeEngine {
 
           if (blockHit && blockHit.block) {
             hasCollided = true;
-            const bDist = blockHit.distance;
-            impactLoc = {
-              x: curPos.x + normDir.x * bDist,
-              y: curPos.y + normDir.y * bDist + 0.25,
-              z: curPos.z + normDir.z * bDist
-            };
+            if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
+              impactLoc = {
+                x: blockHit.faceLocation.x,
+                y: blockHit.faceLocation.y + 0.15,
+                z: blockHit.faceLocation.z
+              };
+            } else {
+              const bDist = (typeof blockHit.distance === "number" && Number.isFinite(blockHit.distance)) ? blockHit.distance : moveDist;
+              impactLoc = {
+                x: curPos.x + normDir.x * bDist,
+                y: curPos.y + normDir.y * bDist + 0.2,
+                z: curPos.z + normDir.z * bDist
+              };
+            }
           }
         } catch {}
 
@@ -137,10 +152,11 @@ export class GrenadeEngine {
 
               hasCollided = true;
               directHitEntity = ent;
+              const el = ent.location;
               impactLoc = {
-                x: curPos.x + normDir.x * hit.distance,
-                y: curPos.y + normDir.y * hit.distance,
-                z: curPos.z + normDir.z * hit.distance
+                x: el.x,
+                y: el.y + 0.9,
+                z: el.z
               };
               break;
             }

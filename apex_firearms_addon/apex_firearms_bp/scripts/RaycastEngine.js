@@ -1,80 +1,41 @@
+import { world, system, EntityDamageCause } from "@minecraft/server";
 import { DamageResolver } from "./DamageResolver.js";
-
-const BREAKABLE_BLOCKS = new Set([
-  "minecraft:glass",
-  "minecraft:glass_pane",
-  "minecraft:stained_glass",
-  "minecraft:stained_glass_pane",
-  "minecraft:oak_leaves",
-  "minecraft:spruce_leaves",
-  "minecraft:birch_leaves",
-  "minecraft:jungle_leaves",
-  "minecraft:acacia_leaves",
-  "minecraft:dark_oak_leaves",
-  "minecraft:mangrove_leaves",
-  "minecraft:cherry_leaves",
-  "minecraft:azalea_leaves",
-  "minecraft:azalea_leaves_flowered"
-]);
 
 export class RaycastEngine {
   /**
-   * 生成高能弹道轨迹粒子线
+   * 计算带有随机扩散角的视线射线方向向量
    */
-  static spawnTracer(dim, startLoc, endLoc, gunConfig, isHeRound) {
-    if (!dim || !startLoc || !endLoc) return;
+  static getSpreadDirection(player, spreadMultiplier = 1.0, gunConfig) {
+    const viewDir = player.getViewDirection();
+    const isSneaking = player.isSneaking;
 
-    try {
-      const dx = endLoc.x - startLoc.x;
-      const dy = endLoc.y - startLoc.y;
-      const dz = endLoc.z - startLoc.z;
-      const totalDist = Math.sqrt(dx * dx + dy * dy + dz * dz);
-      if (totalDist < 0.5) return;
+    const baseSpread = isSneaking
+      ? (gunConfig?.spreadSneak ?? 0.008)
+      : (gunConfig?.spreadStand ?? 0.02);
 
-      // 枪口微火光
-      try {
-        dim.spawnParticle("minecraft:crit", startLoc);
-      } catch {}
+    const actualSpread = baseSpread * spreadMultiplier;
 
-      // 步长与粒子密度配置
-      const step = gunConfig.id === "apex:m82" ? 1.0 : (gunConfig.id === "apex:mgl" ? 1.0 : 1.5);
-      const steps = Math.min(Math.floor(totalDist / step), 45);
+    // 高斯随机微小扰动
+    const jitterX = (Math.random() - 0.5) * actualSpread * 2;
+    const jitterY = (Math.random() - 0.5) * actualSpread * 2;
+    const jitterZ = (Math.random() - 0.5) * actualSpread * 2;
 
-      const customParticle = isHeRound
-        ? "apex:he_tracer"
-        : (gunConfig.id === "apex:m82"
-            ? "apex:heavy_tracer"
-            : (gunConfig.id === "apex:vector"
-                ? "apex:vector_tracer"
-                : "apex:bullet_tracer"));
+    const dir = {
+      x: viewDir.x + jitterX,
+      y: viewDir.y + jitterY,
+      z: viewDir.z + jitterZ
+    };
 
-      const fallbackParticle = isHeRound
-        ? "minecraft:basic_flame_particle"
-        : (gunConfig.id === "apex:m82"
-            ? "minecraft:wax_particle"
-            : (gunConfig.id === "apex:vector"
-                ? "minecraft:electric_spark_particle"
-                : "minecraft:crit"));
-
-      for (let i = 1; i <= steps; i++) {
-        const frac = i / steps;
-        const px = startLoc.x + dx * frac;
-        const py = startLoc.y + dy * frac;
-        const pz = startLoc.z + dz * frac;
-
-        try {
-          dim.spawnParticle(customParticle, { x: px, y: py, z: pz });
-        } catch {
-          try {
-            dim.spawnParticle(fallbackParticle, { x: px, y: py, z: pz });
-          } catch {}
-        }
-      }
-    } catch (e) {}
+    const len = Math.hypot(dir.x, dir.y, dir.z);
+    return {
+      x: dir.x / len,
+      y: dir.y / len,
+      z: dir.z / len
+    };
   }
 
   /**
-   * 执行带有散布偏移的视线射线投射 (包含弹道轨迹渲染)
+   * 执行完整的枪械实弹射线检测、弹道渲染与伤害结算
    */
   static castBullet(player, gunConfig, spreadMultiplier = 1.0, isHeRound = false) {
     if (!player || !player.isValid()) return null;
@@ -82,37 +43,29 @@ export class RaycastEngine {
     try {
       const dim = player.dimension;
       const headLoc = player.getHeadLocation();
-      const viewDir = player.getViewDirection();
+      const normDir = this.getSpreadDirection(player, spreadMultiplier, gunConfig);
+      const maxCheckDist = gunConfig?.maxRange ?? 64;
 
-      // 计算散布
-      const baseSpread = player.isSneaking ? gunConfig.spreadSneak : gunConfig.spreadStand;
-      const spread = baseSpread * spreadMultiplier;
-      const spreadX = (Math.random() - 0.5) * spread;
-      const spreadY = (Math.random() - 0.5) * spread;
-      const spreadZ = (Math.random() - 0.5) * spread;
-
-      const shootDir = {
-        x: viewDir.x + spreadX,
-        y: viewDir.y + spreadY,
-        z: viewDir.z + spreadZ
+      const muzzleLoc = {
+        x: headLoc.x + normDir.x * 0.8,
+        y: headLoc.y + normDir.y * 0.8 - 0.1,
+        z: headLoc.z + normDir.z * 0.8
       };
 
-      const len = Math.sqrt(shootDir.x ** 2 + shootDir.y ** 2 + shootDir.z ** 2) || 1.0;
-      const normDir = { x: shootDir.x / len, y: shootDir.y / len, z: shootDir.z / len };
+      // 1. 枪口火光粒子
+      try {
+        if (gunConfig?.id === "apex:m82") {
+          dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", muzzleLoc);
+        } else {
+          dim.spawnParticle("minecraft:basic_flame_particle", muzzleLoc);
+        }
+      } catch {}
 
-      const maxCheckDist = Math.min(gunConfig.maxRange ?? 64, 64.0);
+      let hitResult = null;
+      let actualImpactLoc = null;
 
-      // 枪口起始位置 (头部朝前微偏 0.6 格)
-      const startLoc = {
-        x: headLoc.x + normDir.x * 0.6,
-        y: headLoc.y + normDir.y * 0.6 - 0.1,
-        z: headLoc.z + normDir.z * 0.6
-      };
-
-      // 1. 方块射线检测
-      let blockHitDist = maxCheckDist + 1;
-      let blockImpactLoc = null;
-
+      // 2. 检测方块碰撞
+      let blockHitDist = maxCheckDist;
       try {
         const blockHit = dim.getBlockFromRay(headLoc, normDir, {
           maxDistance: maxCheckDist,
@@ -121,32 +74,23 @@ export class RaycastEngine {
         });
 
         if (blockHit && blockHit.block) {
-          const bLoc = blockHit.block.location;
-          const bTypeId = blockHit.block.typeId;
-          blockHitDist = Math.sqrt((bLoc.x - headLoc.x) ** 2 + (bLoc.y - headLoc.y) ** 2 + (bLoc.z - headLoc.z) ** 2);
-          blockImpactLoc = {
-            x: headLoc.x + normDir.x * blockHitDist,
-            y: headLoc.y + normDir.y * blockHitDist,
-            z: headLoc.z + normDir.z * blockHitDist
+          const bDist = (typeof blockHit.distance === "number" && Number.isFinite(blockHit.distance)) ? blockHit.distance : maxCheckDist;
+          blockHitDist = bDist;
+          actualImpactLoc = {
+            x: headLoc.x + normDir.x * bDist,
+            y: headLoc.y + normDir.y * bDist,
+            z: headLoc.z + normDir.z * bDist
           };
 
-          if (BREAKABLE_BLOCKS.has(bTypeId) && gunConfig.id !== "apex:mgl") {
-            try {
-              dim.runCommand(`fill ${bLoc.x} ${bLoc.y} ${bLoc.z} ${bLoc.x} ${bLoc.y} ${bLoc.z} air destroy`);
-            } catch {}
-          } else if (!isHeRound) {
-            try {
-              dim.spawnParticle("minecraft:crit", blockImpactLoc);
-              dim.spawnParticle("minecraft:smoke_particle", blockImpactLoc);
-            } catch {}
-          }
+          // 击中方块生成金属/泥土碎屑火花
+          try {
+            dim.spawnParticle("minecraft:crit", actualImpactLoc);
+            dim.spawnParticle("minecraft:smoke_particle", actualImpactLoc);
+          } catch {}
         }
       } catch (err) {}
 
-      // 2. 实体射线检测
-      let hitResult = null;
-      let actualImpactLoc = blockImpactLoc;
-
+      // 3. 检测实体碰撞
       try {
         const maxEntityDist = Math.min(maxCheckDist, blockHitDist);
         const entityHits = dim.getEntitiesFromRay(headLoc, normDir, {
@@ -160,10 +104,15 @@ export class RaycastEngine {
             if (!entity || !entity.isValid() || entity.id === player.id) continue;
             if (entity.typeId === "minecraft:item" || entity.typeId === "minecraft:xp_orb") continue;
 
+            const el = entity.location;
+            const eDist = (typeof hit.distance === "number" && Number.isFinite(hit.distance))
+              ? hit.distance
+              : Math.hypot(el.x - headLoc.x, el.y - headLoc.y, el.z - headLoc.z);
+
             const hitLoc = {
-              x: headLoc.x + normDir.x * hit.distance,
-              y: headLoc.y + normDir.y * hit.distance,
-              z: headLoc.z + normDir.z * hit.distance
+              x: headLoc.x + normDir.x * eDist,
+              y: headLoc.y + normDir.y * eDist,
+              z: headLoc.z + normDir.z * eDist
             };
 
             actualImpactLoc = hitLoc;
@@ -172,7 +121,7 @@ export class RaycastEngine {
             if (dmgResult) {
               hitResult = {
                 target: entity,
-                distance: hit.distance,
+                distance: eDist,
                 ...dmgResult
               };
               break;
@@ -181,24 +130,23 @@ export class RaycastEngine {
         }
       } catch (err) {}
 
-      // 3. 计算弹道终点 (未命中则延伸至最大射程)
+      // 4. 计算弹道终点 (未命中则延伸至最大射程)
       const finalImpactLoc = actualImpactLoc || {
         x: headLoc.x + normDir.x * maxCheckDist,
         y: headLoc.y + normDir.y * maxCheckDist,
         z: headLoc.z + normDir.z * maxCheckDist
       };
 
-      // 4. 渲染弹道痕迹 (Bullet Tracer)
-      this.spawnTracer(dim, startLoc, finalImpactLoc, gunConfig, isHeRound);
+      // 5. 渲染高保真高速弹道轨迹 (Bullet Tracer Line)
+      this.#drawBulletTracer(dim, muzzleLoc, finalImpactLoc, gunConfig?.id);
 
-      // 5. 高爆弹爆炸与溅射结算 (100% 遵守 0 地形破坏规则)
-      let explosionSplashCount = 0;
+      // 6. 高爆烈焰弹判定 (Barrett M82A1 20% 恶魂烈焰高爆)
       if (isHeRound && actualImpactLoc) {
-        explosionSplashCount = DamageResolver.applyExplosiveSplash(
+        DamageResolver.applyExplosiveSplash(
           player,
           actualImpactLoc,
-          gunConfig.heRadius ?? 5.0,
-          gunConfig.heSplashDamage ?? 40,
+          gunConfig.heRadius ?? 3.5,
+          gunConfig.heSplashDamage ?? 30,
           gunConfig
         );
       }
@@ -206,13 +154,54 @@ export class RaycastEngine {
       return {
         hitResult,
         impactLocation: finalImpactLoc,
-        isHeRound,
-        explosionSplashCount,
-        direction: normDir
+        isHeRound
       };
     } catch (e) {
-      console.warn(`[ApexFirearms] Raycast error: ${e}`);
+      console.warn(`[ApexFirearms] RaycastEngine error: ${e}`);
       return null;
     }
+  }
+
+  /**
+   * 沿弹道射线密集生成高亮轨迹粒子
+   */
+  static #drawBulletTracer(dim, startPos, endPos, gunId) {
+    if (!dim || !startPos || !endPos) return;
+
+    try {
+      const dx = endPos.x - startPos.x;
+      const dy = endPos.y - startPos.y;
+      const dz = endPos.z - startPos.z;
+      const totalDist = Math.hypot(dx, dy, dz);
+      if (totalDist < 0.5) return;
+
+      let particleId = "apex:bullet_tracer";
+      let stepSize = 1.0;
+
+      if (gunId === "apex:m82") {
+        particleId = "apex:heavy_tracer";
+        stepSize = 0.6;
+      } else if (gunId === "apex:vector") {
+        particleId = "apex:vector_tracer";
+        stepSize = 0.9;
+      }
+
+      const steps = Math.min(Math.floor(totalDist / stepSize), 80);
+
+      for (let i = 1; i <= steps; i++) {
+        const frac = i / steps;
+        const px = startPos.x + dx * frac;
+        const py = startPos.y + dy * frac;
+        const pz = startPos.z + dz * frac;
+
+        try {
+          dim.spawnParticle(particleId, { x: px, y: py, z: pz });
+        } catch {
+          try {
+            dim.spawnParticle("minecraft:crit", { x: px, y: py, z: pz });
+          } catch {}
+        }
+      }
+    } catch {}
   }
 }

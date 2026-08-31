@@ -115,23 +115,33 @@ export class DamageResolver {
   }
 
   /**
-   * 高爆破片范围轰炸结算 (100% 遵守 0 地形破坏规则，保证方块碰撞必出范围溅射伤害)
+   * 高爆破片范围轰炸结算 (严格校验坐标，绝不允许 NaN，保证方块碰撞必出范围溅射伤害)
    */
   static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage, config, fallbackDim) {
     const dim = attacker?.dimension || fallbackDim;
     if (!dim || !centerLoc) return 0;
 
+    const cx = Number(centerLoc.x);
+    const cy = Number(centerLoc.y);
+    const cz = Number(centerLoc.z);
+
+    if (!Number.isFinite(cx) || !Number.isFinite(cy) || !Number.isFinite(cz)) {
+      console.warn(`[ApexFirearms] Non-finite centerLoc blocked in applyExplosiveSplash`);
+      return 0;
+    }
+
+    const validLoc = { x: cx, y: cy, z: cz };
     const breaksBlocks = config?.heBreaksBlocks ?? false; // 绝不破坏地形
     const causesFire = config?.heCausesFire ?? false;
     const power = config?.id === "apex:mgl" ? 2.5 : 1.5;
 
     // 1. 原版爆炸物理冲击波模拟 (0 方块破坏)
     try {
-      dim.createExplosion(centerLoc, power, { breaksBlocks, causesFire });
+      dim.createExplosion(validLoc, power, { breaksBlocks, causesFire });
     } catch {}
 
-    // 2. 保证 100% 出现震撼爆炸视觉粒子 (提升 0.4 格避免被方块遮挡)
-    const blastLoc = { x: centerLoc.x, y: centerLoc.y + 0.4, z: centerLoc.z };
+    // 2. 保证 100% 出现震撼爆炸视觉粒子 (提升 0.35 格避免被方块遮挡)
+    const blastLoc = { x: cx, y: cy + 0.35, z: cz };
     try {
       dim.spawnParticle("minecraft:huge_explosion_emitter", blastLoc);
       dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", blastLoc);
@@ -142,14 +152,14 @@ export class DamageResolver {
 
     // 3. 播放 DeadZone 专属高保真重型爆炸音效与原版音效
     try {
-      dim.playSound("apex.explosion", centerLoc, { volume: 1.5, pitch: 1.0 });
-      dim.playSound("random.explode", centerLoc, { volume: 1.2, pitch: 0.9 });
-      dim.playSound("mob.ghast.fireball", centerLoc, { volume: 0.9, pitch: 0.85 });
+      dim.playSound("apex.explosion", validLoc, { volume: 1.5, pitch: 1.0 });
+      dim.playSound("random.explode", validLoc, { volume: 1.2, pitch: 0.9 });
+      dim.playSound("mob.ghast.fireball", validLoc, { volume: 0.9, pitch: 0.85 });
     } catch {}
 
     // 4. 范围破片溅射伤害与物理冲击波结算
     let hitCount = 0;
-    const searchCenter = { x: centerLoc.x, y: centerLoc.y + 0.6, z: centerLoc.z };
+    const searchCenter = { x: cx, y: cy + 0.5, z: cz };
     const effectiveRadius = Math.max(radius ?? 5.0, 5.5);
 
     try {
@@ -164,7 +174,7 @@ export class DamageResolver {
         if (ent.typeId === "minecraft:item" || ent.typeId === "minecraft:xp_orb") continue;
 
         const entLoc = ent.location;
-        const dist = Math.hypot(entLoc.x - centerLoc.x, entLoc.y - centerLoc.y, entLoc.z - centerLoc.z);
+        const dist = Math.hypot(entLoc.x - cx, entLoc.y - cy, entLoc.z - cz);
         if (dist > effectiveRadius) continue;
 
         // 计算距离伤害衰减 (核心 40 HP，边缘 ~25 HP)
@@ -191,8 +201,8 @@ export class DamageResolver {
         }
 
         // 强力爆炸冲击波击退
-        const dx = entLoc.x - centerLoc.x;
-        const dz = entLoc.z - centerLoc.z;
+        const dx = entLoc.x - cx;
+        const dz = entLoc.z - cz;
         const hDist = Math.hypot(dx, dz) || 1.0;
         try {
           ent.applyKnockback(dx / hDist, dz / hDist, 1.25, 0.38);
