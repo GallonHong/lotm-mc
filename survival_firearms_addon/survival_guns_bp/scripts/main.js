@@ -5,7 +5,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v2.0.1...");
+console.warn("[SurvivalFirearms] Addon initializing v2.1.0...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -38,11 +38,19 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
   GunTestSuite.runAll(player);
 };
 
-// 3. 普通 itemUse 只处理便携菜单。枪械射击由行为动画控制器实时读取
-// q.is_using_item，并通过 survival:fire 发出独立单发请求。
+// 3. 仅在运行时同时提供开始和停止信号时启用长按；否则使用单发回退。
+const hasStopUse = subscribeAfterEvent("itemStopUse", (event) => GunController.handleTriggerStop(event));
+const hasReleaseUse = subscribeAfterEvent("itemReleaseUse", (event) => GunController.handleTriggerStop(event));
+const canObserveRelease = hasStopUse || hasReleaseUse;
+const hasStartUse = canObserveRelease
+  ? subscribeAfterEvent("itemStartUse", (event) => GunController.handleTriggerStart(event))
+  : false;
+const reliableUseLifecycle = hasStartUse && canObserveRelease;
+console.warn(`[SurvivalFirearms] Trigger mode: ${reliableUseLifecycle ? "start/stop hold" : "safe single-use fallback"}`);
+
 subscribeAfterEvent("itemUse", (event) => {
   try {
-    GunController.handleItemUse(event);
+    GunController.handleItemUse(event, reliableUseLifecycle);
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in itemUse: ${err}`);
   }
@@ -109,8 +117,6 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
       GunTestSuite.runAll(sourceEntity);
     } else if (id === "survival:reload") {
       GunController.requestReload(sourceEntity);
-    } else if (id === "survival:fire") {
-      GunController.handleMolangFire(sourceEntity, message);
     }
   });
 }
@@ -144,4 +150,4 @@ subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   } catch {}
 });
 
-console.warn("[SurvivalFirearms] Addon v2.0.1 loaded successfully without errors!");
+console.warn("[SurvivalFirearms] Addon v2.1.0 loaded successfully without errors!");

@@ -1,4 +1,4 @@
-# Survival Firearms 2.0.1
+# Survival Firearms 2.1.0
 
 四枪生存 Addon：M1911、AKM、MP5、M870。2.0.0 起已移除 DeadZone 的模型、纹理、图标、玩家动作和动画控制器；按项目决定，仅保留既有枪械音频并集中到 `sounds/retained_audio`。
 
@@ -9,7 +9,7 @@
 - 电脑版使用右键，手机版使用长按。
 - `!reload` 或 `!r` 换弹。
 
-行为包动画控制器直接读取明确的使用状态 `q.is_using_item`，松开使用键立即退出开火状态。JavaScript 不保存持续开火开关，也不依赖可能缺失的 `itemStopUse`。服务端还设置了“换弹后必须松开再按”的防失控锁：即使客户端错误地持续报告使用状态，也不会在换弹结束后自行继续开火。`survival:fire` 只是一发请求，服务端仍会检查主手枪械、换弹状态、射速、弹药、耐久、射线和伤害。
+2.1.0 不再使用玩家行为动画控制器或 Molang 自循环触发射击。运行时同时提供 `itemStartUse` 与 `itemStopUse`/`itemReleaseUse` 时，AKM、MP5 支持按住连射、松开停止；缺少完整事件时，自动降级为每次使用只结算一发。单次按压还有最多一弹匣（不超过 3 秒）的硬上限，必须松开再按，杜绝无限连射。服务端始终检查主手枪械、换弹状态、射速、弹药、耐久、射线和伤害。
 
 ## 原创视觉资源
 
@@ -57,7 +57,7 @@ bash survival_firearms_addon/build_survival_guns.sh
 - `Survival_Guns_BP.mcpack`
 - `Survival_Guns_RP.mcpack`
 - `Survival_Guns_Addon.mcaddon`
-- `Survival_Guns_MVP_v2.0.1.mcaddon`
+- `Survival_Guns_MVP_v2.1.0.mcaddon`
 
 ## 兼容性说明
 

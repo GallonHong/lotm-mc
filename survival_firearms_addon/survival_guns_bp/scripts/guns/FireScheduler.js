@@ -1,7 +1,7 @@
 ﻿/**
  * 射频调度器 (FireScheduler)
  * 核心要求：基于 20 TPS 累加器算法，严格支持非整数 RPM 射击速率 (最高 1200 RPM)
- * 动画控制器逐 tick 报告真实使用状态；本类只负责限速，不保存扳机状态。
+ * 由经过开始/停止事件约束的服务端循环逐 tick 调用；本类只负责限速。
  */
 export class FireScheduler {
   // 保存每个玩家的开火调度状态
@@ -13,8 +13,7 @@ export class FireScheduler {
       state = {
         accumulator: 0.0,
         lastShotTick: -999,
-        lastMolangRequestTick: -999,
-        blockedUntilRelease: false
+        lastHeldRequestTick: -999
       };
       this.#playerSchedulers.set(playerId, state);
     }
@@ -35,22 +34,13 @@ export class FireScheduler {
   }
 
   /**
-   * Molang 自动枪逐 tick 请求的服务端小数累加器。动画控制器只报告
-   * “本 tick 仍按住使用键”，真正允许的发数仍由这里依据 RPM 决定。
+   * 自动枪长按期间逐 tick 请求的服务端小数累加器。
    */
-  static requestMolangShots(playerId, gunDef, currentTick) {
+  static requestHeldShots(playerId, gunDef, currentTick) {
     const state = this.#getOrCreateState(playerId);
-    if (state.lastMolangRequestTick === currentTick) return 0;
-    const elapsed = currentTick - state.lastMolangRequestTick;
-    state.lastMolangRequestTick = currentTick;
-
-    // 空仓或手动换弹后必须先松开使用键。若客户端错误地一直报告
-    // 正在使用，连续请求不会解除该锁，因而不可能形成无限开火循环。
-    if (state.blockedUntilRelease) {
-      if (elapsed <= 2) return 0;
-      state.blockedUntilRelease = false;
-      state.accumulator = 0.0;
-    }
+    if (state.lastHeldRequestTick === currentTick) return 0;
+    const elapsed = currentTick - state.lastHeldRequestTick;
+    state.lastHeldRequestTick = currentTick;
 
     if (gunDef.fireMode !== "auto") {
       return this.requestPulseShot(playerId, gunDef, currentTick);
@@ -68,12 +58,6 @@ export class FireScheduler {
     state.accumulator -= shots;
     if (shots > 0) state.lastShotTick = currentTick;
     return shots;
-  }
-
-  static blockUntilRelease(playerId) {
-    const state = this.#getOrCreateState(playerId);
-    state.blockedUntilRelease = true;
-    state.accumulator = 0.0;
   }
 
   static reset(playerId) {

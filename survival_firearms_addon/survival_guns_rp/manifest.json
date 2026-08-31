@@ -1,10 +1,10 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Survival Firearms RP v2.0.1",
+    "name": "Survival Firearms RP v2.1.0",
     "description": "原创四枪模型与图标资源包（经允许保留既有枪械音频）",
     "uuid": "c72e11fa-3b9a-4122-8610-82a1f2b6e101",
-    "version": [2, 0, 1],
+    "version": [2, 1, 0],
     "min_engine_version": [1, 21, 50]
   },
   "modules": [
@@ -12,7 +12,7 @@
       "description": "Survival Firearms Resource Module",
       "type": "resources",
       "uuid": "d83f22eb-4c0b-4233-9721-93b2f3c7f202",
-      "version": [2, 0, 1]
+      "version": [2, 1, 0]
     }
   ]
 }

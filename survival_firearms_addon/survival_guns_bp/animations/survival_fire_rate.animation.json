@@ -1,9 +1,0 @@
-{
-  "format_version": "1.8.0",
-  "animations": {
-    "animation.survival.fire.m1911": { "loop": false, "animation_length": 0.2 },
-    "animation.survival.fire.akm": { "loop": false, "animation_length": 0.01 },
-    "animation.survival.fire.mp5": { "loop": false, "animation_length": 0.01 },
-    "animation.survival.fire.m870": { "loop": false, "animation_length": 0.8 }
-  }
-}

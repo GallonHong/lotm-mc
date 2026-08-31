@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { FireScheduler } from "../survival_guns_bp/scripts/guns/FireScheduler.js";
@@ -40,20 +40,11 @@ for (const [playerId, rpm, expectedShots] of [["akm-rate-test", 600, 100], ["mp5
   let shots = 0;
   const gun = { fireMode: "auto", rpm };
   for (let tick = 0; tick < 200; tick += 1) {
-    shots += FireScheduler.requestMolangShots(playerId, gun, tick);
+    shots += FireScheduler.requestHeldShots(playerId, gun, tick);
   }
   assert.ok(Math.abs(shots - expectedShots) / expectedShots <= 0.02, `${rpm} RPM live-request drift: ${shots}`);
   FireScheduler.reset(playerId);
 }
-
-FireScheduler.reset("release-lock-test");
-assert.equal(FireScheduler.requestMolangShots("release-lock-test", { fireMode: "auto", rpm: 600 }, 0), 1);
-FireScheduler.blockUntilRelease("release-lock-test");
-for (let tick = 1; tick <= 20; tick += 1) {
-  assert.equal(FireScheduler.requestMolangShots("release-lock-test", { fireMode: "auto", rpm: 600 }, tick), 0, "continuous heartbeat must not clear release lock");
-}
-assert.equal(FireScheduler.requestMolangShots("release-lock-test", { fireMode: "auto", rpm: 600 }, 24), 1, "a real request gap must clear release lock");
-FireScheduler.reset("release-lock-test");
 
 for (const file of [...walk(join(root, "survival_guns_bp")), ...walk(join(root, "survival_guns_rp"))].filter((path) => path.endsWith(".json"))) {
   JSON.parse(read(file));
@@ -66,22 +57,19 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   assert.equal(item["minecraft:icon"].textures.default, `survival:${gunName}`);
 }
 
-const fireController = read(join(root, "survival_guns_bp/animation_controllers/survival_firearms.controller.json"));
-assert.ok(fireController.includes("q.is_using_item"), "fire must read the engine's explicit item-use boolean");
-assert.ok(fireController.includes("!q.is_using_item"), "all fire states must stop on release");
-assert.ok(!fireController.includes("main_hand_item_use_duration"), "use duration is not a reliable pressed-state signal");
-for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
-  assert.ok(fireController.includes(`/scriptevent survival:fire ${gunName}`), `${gunName} fire event missing`);
-}
-assert.ok(!fireController.includes("query.has_tag"), "unsupported Molang query.has_tag must not return");
-
 const mainSource = read(join(root, "survival_guns_bp/scripts/main.js"));
 const controllerSource = read(join(root, "survival_guns_bp/scripts/guns/GunController.js"));
-assert.ok(!mainSource.includes('subscribeAfterEvent("itemStartUse"'), "guns must not latch itemStartUse");
-assert.ok(!mainSource.includes('subscribeAfterEvent("itemStopUse"'), "guns must not depend on itemStopUse");
-assert.ok(mainSource.includes('id === "survival:fire"'));
+assert.ok(mainSource.includes('subscribeAfterEvent("itemStartUse"'));
+assert.ok(mainSource.includes('subscribeAfterEvent("itemStopUse"'));
+assert.ok(mainSource.includes('subscribeAfterEvent("itemReleaseUse"'));
+assert.ok(mainSource.includes("safe single-use fallback"));
+assert.ok(!mainSource.includes('id === "survival:fire"'), "Molang fire events must be removed");
+assert.ok(controllerSource.includes("!reliableUseLifecycle"), "missing runtimes must fall back to one use/one shot");
+assert.ok(controllerSource.includes("Math.min(60"), "held fire needs an absolute per-press limit");
+assert.ok(controllerSource.includes("currentTick - trigger.startTick >= trigger.maxTicks"));
 assert.ok(!controllerSource.includes("autoFireDeadline"), "persistent automatic-fire deadline must be removed");
-assert.ok(!controllerSource.includes("pressTrigger("), "Molang requests must not create a persistent JS trigger");
+assert.equal(existsSync(join(root, "survival_guns_bp/entities/player.json")), false, "BP must not override minecraft:player");
+assert.equal(existsSync(join(root, "survival_guns_bp/animation_controllers/survival_firearms.controller.json")), false, "self-loop fire controller must be deleted");
 
 function ingredientCounts(recipe) {
   const shaped = recipe["minecraft:recipe_shaped"];
@@ -139,7 +127,7 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
 
 const bpManifest = json(join(root, "survival_guns_bp/manifest.json"));
 const rpManifest = json(join(root, "survival_guns_rp/manifest.json"));
-assert.deepEqual(bpManifest.header.version, [2, 0, 1]);
-assert.deepEqual(rpManifest.header.version, [2, 0, 1]);
+assert.deepEqual(bpManifest.header.version, [2, 1, 0]);
+assert.deepEqual(rpManifest.header.version, [2, 1, 0]);
 
-console.log("PASS: release-safe firing, recipe unlocks, original visuals, retained audio, manifests, scripts, and JSON validated");
+console.log("PASS: event-bounded firing, safe fallback, recipe unlocks, visuals, audio, manifests, scripts, and JSON validated");
