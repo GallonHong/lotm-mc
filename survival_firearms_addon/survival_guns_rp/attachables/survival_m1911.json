@@ -1,34 +1,15 @@
-﻿{
-  "format_version": "1.10.0",
+{
+  "format_version": "1.20.30",
   "minecraft:attachable": {
     "description": {
       "identifier": "survival:m1911",
-      "materials": {
-        "default": "entity_alphatest"
-      },
-      "textures": {
-        "default": "textures/entity/guns/m1911"
-      },
-      "geometry": {
-        "default": "geometry.m1911"
-      },
-      "animations": {
-        "gun": "controller.animation.m1911.person",
-        "guns.draw": "animation.guns.draw",
-        "guns.hold": "animation.guns.hold",
-        "guns.sprint": "animation.guns.sprint"
-      },
-      "scripts": {
-        "animate": [
-          { "gun": "c.is_first_person" }
-        ]
-      },
-      "sound_effects": {
-        "draw.sound": "gun.draw"
-      },
-      "render_controllers": [
-        "controller.render.default"
-      ]
+      "item": { "survival:m1911": "query.is_owner_identifier_any('minecraft:player')" },
+      "materials": { "default": "entity", "enchanted": "entity_alphatest_glint" },
+      "textures": { "default": "textures/entity/survival/m1911", "enchanted": "textures/misc/enchanted_item_glint" },
+      "geometry": { "default": "geometry.survival.m1911" },
+      "animations": { "hold": "animation.survival.weapon.static_hold" },
+      "scripts": { "animate": [ "hold" ] },
+      "render_controllers": [ "controller.render.item_default" ]
     }
   }
 }

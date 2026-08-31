@@ -1,34 +1,15 @@
-﻿{
-  "format_version": "1.10.0",
+{
+  "format_version": "1.20.30",
   "minecraft:attachable": {
     "description": {
       "identifier": "survival:akm",
-      "materials": {
-        "default": "entity_alphatest"
-      },
-      "textures": {
-        "default": "textures/entity/guns/ak47"
-      },
-      "geometry": {
-        "default": "geometry.ak47"
-      },
-      "animations": {
-        "gun": "controller.animation.ak47.person",
-        "guns.draw": "animation.guns.draw",
-        "guns.hold": "animation.guns.hold",
-        "guns.sprint": "animation.guns.sprint"
-      },
-      "scripts": {
-        "animate": [
-          { "gun": "c.is_first_person" }
-        ]
-      },
-      "sound_effects": {
-        "draw.sound": "gun.draw"
-      },
-      "render_controllers": [
-        "controller.render.default"
-      ]
+      "item": { "survival:akm": "query.is_owner_identifier_any('minecraft:player')" },
+      "materials": { "default": "entity", "enchanted": "entity_alphatest_glint" },
+      "textures": { "default": "textures/entity/survival/akm", "enchanted": "textures/misc/enchanted_item_glint" },
+      "geometry": { "default": "geometry.survival.akm" },
+      "animations": { "hold": "animation.survival.weapon.static_hold" },
+      "scripts": { "animate": [ "hold" ] },
+      "render_controllers": [ "controller.render.item_default" ]
     }
   }
 }

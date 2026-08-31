@@ -3,21 +3,15 @@
 /**
  * 枪械动画与视效音频桥接器 (GunAnimationBridge)
  * 职责：
- * 1. 严格解耦枪械核心逻辑与 DeadZone / 原创视效资源
+ * 1. 严格解耦枪械核心逻辑与原创模型；音频作为获准保留的独立资源
  * 2. 统一分发开火枪声、远景枪声、弹壳弹出、换弹、击中标记 (hitmarker) 音效
  * 3. 生成枪口焰、弹道轨迹粒子与击中血花/火星
  */
 export class GunAnimationBridge {
-  static #playAnimation(player, animationId) {
-    if (!player || !animationId) return;
-    try {
-      player.runCommand(`playanimation @s ${animationId}`);
-    } catch {}
-  }
-
   static playState(player, gunDef, state) {
-    const profile = getGunAnimationProfile(gunDef?.animationProfile);
-    this.#playAnimation(player, profile?.[state]);
+    // Keep this semantic hook for future original animations. In v2, the
+    // attachable supplies the model pose and no player action is forced.
+    getGunAnimationProfile(gunDef?.animationProfile);
   }
 
   static playEquip(player, gunDef) {

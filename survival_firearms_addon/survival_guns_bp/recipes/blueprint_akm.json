@@ -3,16 +3,12 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_blueprint_akm" },
     "tags": ["crafting_table"],
-    "pattern": [
-      "RDR",
-      "DSD",
-      "RPR"
-    ],
+    "pattern": [" C ", "RBR", " I "],
     "key": {
-      "R": { "item": "survival:rifle_page" },
-      "D": { "item": "survival:mechanical_data" },
-      "S": { "item": "survival:gun_structure_sample" },
-      "P": { "item": "minecraft:paper" }
+      "C": { "item": "minecraft:compass" },
+      "R": { "item": "minecraft:redstone" },
+      "B": { "item": "survival:paper_bundle" },
+      "I": { "item": "minecraft:iron_block" }
     },
     "result": { "item": "survival:blueprint_akm", "count": 1 }
   }

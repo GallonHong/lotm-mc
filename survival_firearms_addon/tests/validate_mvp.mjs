@@ -6,129 +6,125 @@ import { FireScheduler } from "../survival_guns_bp/scripts/guns/FireScheduler.js
 import { GunRegistry } from "../survival_guns_bp/scripts/guns/GunRegistry.js";
 
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
-
-const expected = {
-  "survival:m1911": { damage: 18, rpm: 300, magazineSize: 7, range: 32, durabilityMax: 700, ammoType: "survival:ammo_45" },
-  "survival:akm": { damage: 13, rpm: 600, magazineSize: 30, range: 46, durabilityMax: 1300, ammoType: "survival:ammo_762" },
-  "survival:mp5": { damage: 9, rpm: 900, magazineSize: 30, range: 30, durabilityMax: 1100, ammoType: "survival:ammo_9mm" },
-  "survival:m870": { damage: 6, rpm: 75, magazineSize: 6, range: 20, durabilityMax: 900, ammoType: "survival:ammo_12g" }
-};
-
-assert.equal(GunRegistry.getAllGuns().length, 4, "MVP must register exactly four guns");
-for (const [id, fields] of Object.entries(expected)) {
-  const actual = GunRegistry.getGun(id);
-  assert.ok(actual, `missing ${id}`);
-  for (const [key, value] of Object.entries(fields)) assert.equal(actual[key], value, `${id}.${key}`);
-}
-
-for (const [name, rpm, mode, expectedShots] of [
-  ["M1911", 300, "semi", 50], ["AKM", 600, "auto", 100], ["MP5", 900, "auto", 150]
-]) {
-  const shots = FireScheduler.simulateFireTicks(rpm, mode, 200);
-  const error = Math.abs(shots - expectedShots) / expectedShots;
-  assert.ok(error <= 0.02, `${name} RPM error ${(error * 100).toFixed(2)}%`);
-}
-assert.equal(FireScheduler.simulateFireTicks(5000, "auto", 200), 200, "RPM must clamp to 1200");
-FireScheduler.reset("pulse-test");
-assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 100), 1, "first right-click pulse must fire");
-assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 101), 0, "pulse must respect RPM cooldown");
-assert.equal(FireScheduler.requestPulseShot("pulse-test", { rpm: 600 }, 102), 1, "next eligible right-click pulse must fire");
-FireScheduler.reset("pulse-test");
-
-const recipes = Object.fromEntries(GunRegistry.getAllBlueprints().map(bp => [bp.id, bp]));
-assert.deepEqual(recipes["survival:blueprint_m1911"].synthesisRecipe.map(x => [x.item, x.count]), [
-  ["survival:basic_firearm_page", 4], ["survival:mechanical_data", 2], ["minecraft:paper", 2]
-]);
-assert.deepEqual(recipes["survival:blueprint_akm"].synthesisRecipe.map(x => [x.item, x.count]), [
-  ["survival:rifle_page", 4], ["survival:mechanical_data", 3], ["survival:gun_structure_sample", 1], ["minecraft:paper", 1]
-]);
-for (const bp of Object.values(recipes)) {
-  assert.equal(bp.playerCraftable, true);
-  assert.equal(bp.consumedOnCraft, true);
-}
+const read = (path) => readFileSync(path, "utf8").replace(/^\uFEFF/, "");
+const json = (path) => JSON.parse(read(path));
 
 function walk(dir) {
-  return readdirSync(dir).flatMap(name => {
+  return readdirSync(dir).flatMap((name) => {
     const path = join(dir, name);
     return statSync(path).isDirectory() ? walk(path) : [path];
   });
 }
-for (const file of walk(root).filter(path => path.endsWith(".json"))) {
-  JSON.parse(readFileSync(file, "utf8").replace(/^\uFEFF/, ""));
+
+const expected = {
+  "survival:m1911": { damage: 18, rpm: 300, magazineSize: 7, ammoType: "survival:ammo_45" },
+  "survival:akm": { damage: 13, rpm: 600, magazineSize: 30, ammoType: "survival:ammo_762" },
+  "survival:mp5": { damage: 9, rpm: 900, magazineSize: 30, ammoType: "survival:ammo_9mm" },
+  "survival:m870": { damage: 6, rpm: 75, magazineSize: 6, ammoType: "survival:ammo_12g" }
+};
+
+assert.equal(GunRegistry.getAllGuns().length, 4);
+for (const [id, fields] of Object.entries(expected)) {
+  const gun = GunRegistry.getGun(id);
+  assert.ok(gun, `missing ${id}`);
+  for (const [field, value] of Object.entries(fields)) assert.equal(gun[field], value, `${id}.${field}`);
 }
 
-function shapedIngredientCounts(recipe) {
+for (const [rpm, mode, expectedShots] of [[300, "semi", 50], [600, "auto", 100], [900, "auto", 150]]) {
+  const shots = FireScheduler.simulateFireTicks(rpm, mode, 200);
+  assert.ok(Math.abs(shots - expectedShots) / expectedShots <= 0.02, `${rpm} RPM simulation drift`);
+}
+
+for (const [playerId, rpm, expectedShots] of [["akm-rate-test", 600, 100], ["mp5-rate-test", 900, 150]]) {
+  FireScheduler.reset(playerId);
+  let shots = 0;
+  const gun = { fireMode: "auto", rpm };
+  for (let tick = 0; tick < 200; tick += 1) {
+    shots += FireScheduler.requestMolangShots(playerId, gun, tick);
+  }
+  assert.ok(Math.abs(shots - expectedShots) / expectedShots <= 0.02, `${rpm} RPM live-request drift: ${shots}`);
+  FireScheduler.reset(playerId);
+}
+
+for (const file of [...walk(join(root, "survival_guns_bp")), ...walk(join(root, "survival_guns_rp"))].filter((path) => path.endsWith(".json"))) {
+  JSON.parse(read(file));
+}
+
+for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
+  const item = json(join(root, `survival_guns_bp/items/${gunName}.json`))["minecraft:item"].components;
+  assert.equal(item["minecraft:use_modifiers"].use_duration, 3600, `${gunName} must expose a long hold-use state`);
+  assert.equal(item["minecraft:food"].can_always_eat, true, `${gunName} must be usable at full hunger`);
+  assert.equal(item["minecraft:icon"].textures.default, `survival:${gunName}`);
+}
+
+const fireController = read(join(root, "survival_guns_bp/animation_controllers/survival_firearms.controller.json"));
+assert.ok(fireController.includes("q.main_hand_item_use_duration > 0"), "fire must read the live engine use state");
+assert.ok(fireController.includes("q.main_hand_item_use_duration <= 0"), "semi/pump states must wait for release");
+for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
+  assert.ok(fireController.includes(`/scriptevent survival:fire ${gunName}`), `${gunName} fire event missing`);
+}
+assert.ok(!fireController.includes("query.has_tag"), "unsupported Molang query.has_tag must not return");
+
+const mainSource = read(join(root, "survival_guns_bp/scripts/main.js"));
+const controllerSource = read(join(root, "survival_guns_bp/scripts/guns/GunController.js"));
+assert.ok(!mainSource.includes('subscribeAfterEvent("itemStartUse"'), "guns must not latch itemStartUse");
+assert.ok(!mainSource.includes('subscribeAfterEvent("itemStopUse"'), "guns must not depend on itemStopUse");
+assert.ok(mainSource.includes('id === "survival:fire"'));
+assert.ok(!controllerSource.includes("autoFireDeadline"), "persistent automatic-fire deadline must be removed");
+assert.ok(!controllerSource.includes("pressTrigger("), "Molang requests must not create a persistent JS trigger");
+
+function ingredientCounts(recipe) {
   const shaped = recipe["minecraft:recipe_shaped"];
   const counts = new Map();
   for (const symbol of shaped.pattern.join("")) {
     if (symbol === " ") continue;
     const item = shaped.key[symbol].item;
-    counts.set(item, (counts.get(item) || 0) + 1);
+    counts.set(item, (counts.get(item) ?? 0) + 1);
   }
-  return Array.from(counts.entries());
+  return [...counts.entries()];
 }
+
+const blueprintRegistry = Object.fromEntries(GunRegistry.getAllBlueprints().map((bp) => [bp.id, bp]));
 for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
-  const recipe = JSON.parse(readFileSync(join(root, `survival_guns_bp/recipes/blueprint_${gunName}.json`), "utf8"));
-  const blueprint = recipes[`survival:blueprint_${gunName}`];
-  assert.deepEqual(shapedIngredientCounts(recipe), blueprint.synthesisRecipe.map(x => [x.item, x.count]), `${gunName} crafting-table recipe must match the registry`);
-  assert.deepEqual(recipe["minecraft:recipe_shaped"].tags, ["crafting_table"], `${gunName} blueprint must be crafted at a vanilla crafting table`);
+  const recipe = json(join(root, `survival_guns_bp/recipes/blueprint_${gunName}.json`));
+  assert.deepEqual(recipe["minecraft:recipe_shaped"].tags, ["crafting_table"]);
+  assert.deepEqual(ingredientCounts(recipe), blueprintRegistry[`survival:blueprint_${gunName}`].synthesisRecipe.map(({ item, count }) => [item, count]));
+  assert.ok(ingredientCounts(recipe).some(([item]) => item === "survival:paper_bundle"));
+
+  const gunRecipe = json(join(root, `survival_guns_bp/recipes/gun_${gunName}.json`))["minecraft:recipe_shaped"];
+  assert.deepEqual(gunRecipe.tags, ["crafting_table"]);
+  assert.equal(gunRecipe.result.item, `survival:${gunName}`);
+  assert.ok(Object.values(gunRecipe.key).some(({ item }) => item === `survival:blueprint_${gunName}`));
+  assert.ok(Object.values(gunRecipe.key).some(({ item }) => item === "minecraft:iron_block"), `${gunName} must use iron blocks`);
 }
 
+const paperBundle = json(join(root, "survival_guns_bp/recipes/paper_bundle.json"))["minecraft:recipe_shaped"];
+assert.deepEqual(paperBundle.pattern, ["PPP", "PPP", "PPP"]);
+assert.equal(paperBundle.key.P.item, "minecraft:paper");
+assert.equal(paperBundle.result.item, "survival:paper_bundle");
+
+const rpFiles = walk(join(root, "survival_guns_rp"));
+const disallowedVisual = rpFiles.filter((path) => path.includes("temporary_deadzone_assets") || path.includes("survival_guns_rp/animations/shoot/") || path.includes("survival_guns_rp/animations/reload/"));
+assert.deepEqual(disallowedVisual, [], `DeadZone visual assets remain: ${disallowedVisual.join(", ")}`);
+assert.ok(rpFiles.some((path) => path.includes("sounds/retained_audio/")), "approved retained audio is missing");
+
+const geometryPath = join(root, "survival_guns_rp/models/entity/survival_firearms.geo.json");
+const geometry = json(geometryPath);
+assert.equal(geometry["minecraft:geometry"].length, 4);
 for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
-  const item = JSON.parse(readFileSync(join(root, `survival_guns_bp/items/${gunName}.json`), "utf8").replace(/^\uFEFF/, ""));
-  assert.ok(
-    Number(item.format_version.split(".").slice(0, 2).join(".")) >= 1.21,
-    `${gunName} must use an item format that recognizes minecraft:use_modifiers`
-  );
-  assert.ok(item["minecraft:item"].components["minecraft:use_modifiers"], `${gunName} must be hold-usable`);
-  assert.equal(item["minecraft:item"].components["minecraft:icon"].textures.default, `survival:${gunName}`, `${gunName} icon must use the current textures.default schema`);
+  const model = geometry["minecraft:geometry"].find(({ description }) => description.identifier === `geometry.survival.${gunName}`);
+  assert.ok(model, `${gunName} original geometry missing`);
+  assert.ok(model.bones[0].binding.includes("query.item_slot_to_bone_name"));
+  assert.ok(statSync(join(root, `survival_guns_rp/textures/entity/survival/${gunName}.png`)).size > 0);
+  assert.ok(statSync(join(root, `survival_guns_rp/textures/items/${gunName}.png`)).size > 0);
+  const attachable = json(join(root, `survival_guns_rp/attachables/survival_${gunName}.json`))["minecraft:attachable"].description;
+  assert.equal(attachable.geometry.default, `geometry.survival.${gunName}`);
+  assert.equal(attachable.textures.default, `textures/entity/survival/${gunName}`);
 }
 
-const rpFiles = walk(join(root, "survival_guns_rp_mvp"));
-assert.ok(rpFiles.length < 100, `temporary RP scope leaked: ${rpFiles.length} files`);
-assert.equal(rpFiles.filter(path => path.includes("temporary_deadzone_assets") && path.endsWith(".geo.json")).length, 4);
-assert.equal(rpFiles.filter(path => path.includes("temporary_deadzone_assets/items") && path.endsWith(".png")).length, 4);
-const stateController = readFileSync(join(root, "survival_guns_rp_mvp/animation_controllers/temporary_deadzone_assets/survival_gun_states.json"), "utf8");
-assert.ok(!stateController.includes("query.has_tag"), "client animation controller must not use unsupported query.has_tag");
-const animationSources = walk(join(root, "survival_guns_rp_mvp/animations"))
-  .filter(path => path.endsWith(".json"))
-  .map(path => readFileSync(path, "utf8"))
-  .join("\n");
-assert.ok(!animationSources.includes("v.is_first_person"), "standalone animations must not depend on DeadZone variable.is_first_person");
-assert.ok(!/\b(?:v|variable)\.[A-Za-z_][A-Za-z0-9_]*/.test(animationSources), "standalone animations must not depend on any DeadZone player variables");
-assert.ok(animationSources.includes("query.is_first_person"), "standalone animations must use the supported first-person query");
+const bpManifest = json(join(root, "survival_guns_bp/manifest.json"));
+const rpManifest = json(join(root, "survival_guns_rp/manifest.json"));
+assert.deepEqual(bpManifest.header.version, [2, 0, 0]);
+assert.deepEqual(rpManifest.header.version, [2, 0, 0]);
 
-for (const attachablePath of walk(join(root, "survival_guns_rp_mvp/attachables")).filter(path => path.endsWith(".json"))) {
-  const attachable = JSON.parse(readFileSync(attachablePath, "utf8"));
-  const description = attachable["minecraft:attachable"].description;
-  assert.equal(attachable.format_version, "1.20.30", `${attachablePath} must use the current attachable sample format`);
-  assert.equal(description.item[description.identifier], "query.is_owner_identifier_any('minecraft:player')", `${attachablePath} must map the held item`);
-  assert.deepEqual(description.scripts.animate, ["hold"], `${attachablePath} must run only its static hold pose`);
-  assert.ok(description.animations.hold.includes("static_hold"), `${attachablePath} must use a static compatibility pose`);
-  assert.deepEqual(description.render_controllers, ["controller.render.item_default"], `${attachablePath} must use the built-in item render controller`);
-  assert.equal(description.materials.enchanted, "entity_alphatest_glint", `${attachablePath} must provide the enchanted material required by item_default`);
-  assert.equal(description.textures.enchanted, "textures/misc/enchanted_item_glint", `${attachablePath} must provide the enchanted texture required by item_default`);
-  const texturePath = join(root, "survival_guns_rp_mvp", `${description.textures.default}.png`);
-  assert.ok(rpFiles.includes(texturePath), `${attachablePath} texture is missing: ${texturePath}`);
-}
-
-const itemAtlas = JSON.parse(readFileSync(join(root, "survival_guns_rp_mvp/textures/item_texture.json"), "utf8"));
-for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
-  assert.equal(itemAtlas.texture_data[`survival:${gunName}`].textures, `textures/items/${gunName}`, `${gunName} namespaced icon atlas entry is missing`);
-  const modelName = gunName === "akm" ? "ak47" : gunName;
-  const modelSource = readFileSync(join(root, `survival_guns_rp_mvp/models/entity/temporary_deadzone_assets/${modelName}.geo.json`), "utf8");
-  assert.ok(modelSource.includes("query.item_slot_to_bone_name(context.item_slot)"), `${gunName} model must bind to the held item slot`);
-  const model = JSON.parse(modelSource);
-  assert.equal(model.format_version, "1.16.0", `${gunName} model must use a geometry format that supports attachable binding`);
-  assert.equal(model["minecraft:geometry"][0].description.visible_bounds_width, 8, `${gunName} model bounds must prevent hand-held culling`);
-}
-
-const staticHold = JSON.parse(readFileSync(join(root, "survival_guns_rp_mvp/animations/survival_static_hold.animation.json"), "utf8"));
-assert.ok(staticHold.animations["animation.survival.rifle.static_hold"], "rifle static hold pose is missing");
-assert.ok(staticHold.animations["animation.survival.pistol.static_hold"], "pistol static hold pose is missing");
-
-const controllerSource = readFileSync(join(root, "survival_guns_bp/scripts/guns/GunController.js"), "utf8");
-assert.ok(controllerSource.includes("MAX_AUTO_BURST_TICKS = 60"), "automatic fire must have a three-second hard timeout");
-assert.ok(controllerSource.includes("this.#autoFireDeadline.delete(player.id)"), "automatic fire must clear its deadline when stopped");
-
-console.log("PASS: four-gun registry, bounded auto fire, pulse firing, current icon schema, static model binding, JSON, and isolated assets validated");
+console.log("PASS: live-use firing, original visuals, retained audio, vanilla-table recipes, manifests, scripts, and JSON validated");

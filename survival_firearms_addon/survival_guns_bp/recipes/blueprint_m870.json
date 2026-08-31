@@ -3,15 +3,12 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_blueprint_m870" },
     "tags": ["crafting_table"],
-    "pattern": [
-      "SDS",
-      "DRD",
-      "SDS"
-    ],
+    "pattern": [" S ", "CBC", " R "],
     "key": {
-      "S": { "item": "survival:shotgun_page" },
-      "D": { "item": "survival:mechanical_data" },
-      "R": { "item": "minecraft:paper" }
+      "S": { "item": "minecraft:string" },
+      "C": { "item": "minecraft:copper_ingot" },
+      "B": { "item": "survival:paper_bundle" },
+      "R": { "item": "minecraft:redstone" }
     },
     "result": { "item": "survival:blueprint_m870", "count": 1 }
   }

@@ -3,15 +3,12 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_blueprint_m1911" },
     "tags": ["crafting_table"],
-    "pattern": [
-      "PDP",
-      "R R",
-      "PDP"
-    ],
+    "pattern": [" R ", "IBI", " C "],
     "key": {
-      "P": { "item": "survival:basic_firearm_page" },
-      "D": { "item": "survival:mechanical_data" },
-      "R": { "item": "minecraft:paper" }
+      "R": { "item": "minecraft:redstone" },
+      "I": { "item": "minecraft:ink_sac" },
+      "B": { "item": "survival:paper_bundle" },
+      "C": { "item": "minecraft:copper_ingot" }
     },
     "result": { "item": "survival:blueprint_m1911", "count": 1 }
   }

@@ -1,0 +1,14 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "survival:craft_mechanical_parts" },
+    "tags": ["crafting_table"],
+    "pattern": [" R ", "ILI"],
+    "key": {
+      "R": { "item": "minecraft:redstone" },
+      "I": { "item": "minecraft:iron_block" },
+      "L": { "item": "minecraft:lever" }
+    },
+    "result": { "item": "survival:mechanical_parts", "count": 2 }
+  }
+}

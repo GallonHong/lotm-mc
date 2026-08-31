@@ -1,0 +1,13 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "survival:craft_gun_barrel" },
+    "tags": ["crafting_table"],
+    "pattern": [" IC"],
+    "key": {
+      "I": { "item": "minecraft:iron_block" },
+      "C": { "item": "minecraft:copper_ingot" }
+    },
+    "result": { "item": "survival:gun_barrel", "count": 1 }
+  }
+}

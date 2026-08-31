@@ -5,7 +5,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v1.3.7 MVP...");
+console.warn("[SurvivalFirearms] Addon initializing v2.0.0...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -38,52 +38,15 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
   GunTestSuite.runAll(player);
 };
 
-// 3. 物品使用事件。AKM/MP5 支持长按，并由松开事件、再次点击和硬超时共同停止。
-const hasItemStartUse = subscribeAfterEvent("itemStartUse", (event) => {
-  try {
-    GunController.handleItemStartUse(event);
-  } catch (err) {
-    console.error(`[SurvivalFirearms] Error in itemStartUse: ${err}`);
-  }
-});
-
-// itemUse is a compatibility fallback only. Handling both signals for guns can
-// re-press the trigger after release and leave automatic weapons firing.
-// The portable workbench still needs the ordinary itemUse signal.
+// 3. 普通 itemUse 只处理便携菜单。枪械射击由行为动画控制器实时读取
+// q.main_hand_item_use_duration，并通过 survival:fire 发出独立单发请求。
 subscribeAfterEvent("itemUse", (event) => {
   try {
-    const itemTypeId = event.itemStack ? event.itemStack.typeId : "";
-    if (itemTypeId === "survival:gun_workbench") {
-      GunController.handleItemUse(event);
-    } else if (!hasItemStartUse) {
-      // Runtimes without itemStartUse cannot reliably report a held trigger.
-      // Fire a short, bounded compatibility burst and always release it.
-      GunController.handleItemUse(event);
-      system.runTimeout(() => {
-        try {
-          GunController.handleItemStopUse(event);
-        } catch {}
-      }, 4);
-    }
+    GunController.handleItemUse(event);
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in itemUse: ${err}`);
   }
 });
-
-// 4. 松开右键 / 释放物品 -> 立即停止射击
-const stopFiring = (event) => {
-  try {
-    GunController.handleItemStopUse(event);
-  } catch (err) {
-    console.error(`[SurvivalFirearms] Error while stopping fire: ${err}`);
-  }
-};
-
-// itemStopUse is the matching release signal for itemStartUse. The other two
-// signals cover charge-release and use-on-block variations across platforms.
-subscribeAfterEvent("itemStopUse", stopFiring);
-subscribeAfterEvent("itemReleaseUse", stopFiring);
-subscribeAfterEvent("itemStopUseOn", stopFiring);
 
 // 5. 20 TPS 主循环驱动
 system.runInterval(() => {
@@ -136,7 +99,7 @@ if (beforeChat && typeof beforeChat.subscribe === "function") {
 const systemAfterEvents = system.afterEvents;
 const scriptEventReceive = systemAfterEvents ? systemAfterEvents.scriptEventReceive : undefined;
 if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
-  scriptEventReceive.subscribe(({ id, sourceEntity }) => {
+  scriptEventReceive.subscribe(({ id, message, sourceEntity }) => {
     if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
     if (id === "survival:workbench" || id === "survival:menu") {
       WeaponCraftingManager.openWorkbenchUI(sourceEntity);
@@ -146,6 +109,8 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
       GunTestSuite.runAll(sourceEntity);
     } else if (id === "survival:reload") {
       GunController.requestReload(sourceEntity);
+    } else if (id === "survival:fire") {
+      GunController.handleMolangFire(sourceEntity, message);
     }
   });
 }
@@ -154,7 +119,7 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§e[Survival Firearms]§r §a四枪 MVP 已就绪！§fM1911/M870 单击射击，AKM/MP5 长按连射，!reload 换弹。§r");
+      player.sendMessage("§l§e[Survival Firearms]§r §a原创四枪系统已就绪！§fM1911/M870 单击射击，AKM/MP5 长按连射；松开立即停止。§r");
     }
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in playerSpawn: ${err}`);
@@ -179,4 +144,4 @@ subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   } catch {}
 });
 
-console.warn("[SurvivalFirearms] Addon loaded successfully without errors!");
+console.warn("[SurvivalFirearms] Addon v2.0.0 loaded successfully without errors!");

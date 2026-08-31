@@ -3,15 +3,12 @@
   "minecraft:recipe_shaped": {
     "description": { "identifier": "survival:craft_blueprint_mp5" },
     "tags": ["crafting_table"],
-    "pattern": [
-      "SDS",
-      "DRD",
-      "SDS"
-    ],
+    "pattern": ["RRR", "CBC", " S "],
     "key": {
-      "S": { "item": "survival:smg_page" },
-      "D": { "item": "survival:mechanical_data" },
-      "R": { "item": "minecraft:paper" }
+      "R": { "item": "minecraft:redstone" },
+      "C": { "item": "minecraft:copper_ingot" },
+      "B": { "item": "survival:paper_bundle" },
+      "S": { "item": "minecraft:string" }
     },
     "result": { "item": "survival:blueprint_mp5", "count": 1 }
   }

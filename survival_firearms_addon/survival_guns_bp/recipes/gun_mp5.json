@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "survival:craft_gun_mp5" },
+    "tags": ["crafting_table"],
+    "pattern": ["IBI", "PGP", " M "],
+    "key": {
+      "I": { "item": "minecraft:iron_block" },
+      "B": { "item": "survival:blueprint_mp5" },
+      "P": { "item": "survival:polymer" },
+      "G": { "item": "survival:gun_barrel" },
+      "M": { "item": "survival:mechanical_parts" }
+    },
+    "result": { "item": "survival:mp5", "count": 1 }
+  }
+}

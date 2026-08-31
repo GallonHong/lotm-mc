@@ -1,7 +1,7 @@
 ﻿/**
  * 射频调度器 (FireScheduler)
  * 核心要求：基于 20 TPS 累加器算法，严格支持非整数 RPM 射击速率 (最高 1200 RPM)
- * 严格支持长按持续开火，松开立即停止
+ * 动画控制器逐 tick 报告真实使用状态；本类只负责限速，不保存扳机状态。
  */
 export class FireScheduler {
   // 保存每个玩家的开火调度状态
@@ -12,39 +12,12 @@ export class FireScheduler {
     if (!state) {
       state = {
         accumulator: 0.0,
-        isTriggerPressed: false,
-        semiFired: false,
         lastShotTick: -999,
-        pumpReadyTick: 0
+        lastMolangRequestTick: -999,
       };
       this.#playerSchedulers.set(playerId, state);
     }
     return state;
-  }
-
-  static isPressed(playerId) {
-    const state = this.#playerSchedulers.get(playerId);
-    return state ? state.isTriggerPressed : false;
-  }
-
-  /**
-   * 玩家按下扳机 (开始长按)
-   */
-  static pressTrigger(playerId) {
-    const state = this.#getOrCreateState(playerId);
-    state.isTriggerPressed = true;
-  }
-
-  /**
-   * 玩家松开扳机 (结束长按)
-   */
-  static releaseTrigger(playerId) {
-    const state = this.#playerSchedulers.get(playerId);
-    if (state) {
-      state.isTriggerPressed = false;
-      state.semiFired = false;
-      state.accumulator = 0.0;
-    }
   }
 
   /**
@@ -61,56 +34,30 @@ export class FireScheduler {
   }
 
   /**
-   * 每 tick 调度计算本 tick 允许发射的弹药数量
+   * Molang 自动枪逐 tick 请求的服务端小数累加器。动画控制器只报告
+   * “本 tick 仍按住使用键”，真正允许的发数仍由这里依据 RPM 决定。
    */
-  static updateAndGetShots(playerId, gunDef, currentTick) {
+  static requestMolangShots(playerId, gunDef, currentTick) {
+    if (gunDef.fireMode !== "auto") {
+      return this.requestPulseShot(playerId, gunDef, currentTick);
+    }
+
     const state = this.#getOrCreateState(playerId);
-    if (!state.isTriggerPressed) {
-      return 0;
-    }
-
-    const fireMode = gunDef.fireMode;
+    if (state.lastMolangRequestTick === currentTick) return 0;
     const rpm = Math.max(1, Math.min(1200, Number(gunDef.rpm) || 1));
+    const elapsed = currentTick - state.lastMolangRequestTick;
 
-    // 1. 半自动模式 (Semi-Auto): 每次按压只触发 1 次，松开前不再激发
-    if (fireMode === "semi") {
-      if (state.semiFired) {
-        return 0;
-      }
-      const minIntervalTicks = Math.floor((60 * 20) / rpm);
-      if (currentTick - state.lastShotTick < minIntervalTicks) {
-        return 0;
-      }
-      state.semiFired = true;
-      state.lastShotTick = currentTick;
-      return 1;
+    // 请求间隔超过 2 tick 表示玩家已经松开后重新按下，首发立即响应。
+    if (elapsed > 2) {
+      state.accumulator = 1.0;
+    } else {
+      state.accumulator += Math.max(1, elapsed) * rpm / (60 * 20);
     }
+    state.lastMolangRequestTick = currentTick;
 
-    // 2. 泵动模式 (Pump-Action): 强制单发并施加动作后摇延迟
-    if (fireMode === "pump") {
-      if (currentTick < state.pumpReadyTick) {
-        return 0;
-      }
-      const pumpDelayTicks = Math.round((60 * 20) / rpm);
-      state.pumpReadyTick = currentTick + pumpDelayTicks;
-      state.lastShotTick = currentTick;
-      return 1;
-    }
-
-    // 3. 全自动模式 (Full-Auto): 20 TPS 累加器算法
-    const delta = rpm / (60 * 20);
-    state.accumulator += delta;
-
-    let shots = 0;
-    while (state.accumulator >= 1.0) {
-      shots++;
-      state.accumulator -= 1.0;
-    }
-
-    if (shots > 0) {
-      state.lastShotTick = currentTick;
-    }
-
+    const shots = Math.floor(state.accumulator);
+    state.accumulator -= shots;
+    if (shots > 0) state.lastShotTick = currentTick;
     return shots;
   }
 

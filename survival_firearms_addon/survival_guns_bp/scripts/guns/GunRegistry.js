@@ -34,16 +34,10 @@ export class GunRegistry {
       rarity: "basic",
       // 图纸合成材料
       synthesisRecipe: [
-        { item: "survival:basic_firearm_page", count: 4, name: "基础枪械残页" },
-        { item: "survival:mechanical_data", count: 2, name: "机械研究数据卡" },
-        { item: "minecraft:paper", count: 2, name: "纸" }
-      ],
-      // 枪械制造材料
-      craftingRecipe: [
-        { item: "survival:blueprint_m1911", count: 1, name: "M1911图纸(一次性)" },
-        { item: "survival:steel_ingot", count: 8, name: "精炼军用钢材" },
-        { item: "survival:mechanical_parts", count: 4, name: "精密机械零件" },
-        { item: "survival:gun_barrel", count: 1, name: "精锻枪管" }
+        { item: "minecraft:redstone", count: 1, name: "红石粉" },
+        { item: "minecraft:ink_sac", count: 2, name: "墨囊" },
+        { item: "survival:paper_bundle", count: 1, name: "装订纸束" },
+        { item: "minecraft:copper_ingot", count: 1, name: "铜锭" }
       ]
     });
 
@@ -55,16 +49,10 @@ export class GunRegistry {
       consumedOnCraft: true,
       rarity: "normal",
       synthesisRecipe: [
-        { item: "survival:smg_page", count: 4, name: "冲锋枪残页" },
-        { item: "survival:mechanical_data", count: 4, name: "机械研究数据卡" },
-        { item: "minecraft:paper", count: 1, name: "纸" }
-      ],
-      craftingRecipe: [
-        { item: "survival:blueprint_mp5", count: 1, name: "MP5图纸(一次性)" },
-        { item: "survival:steel_ingot", count: 14, name: "精炼军用钢材" },
-        { item: "survival:mechanical_parts", count: 8, name: "精密机械零件" },
-        { item: "survival:polymer", count: 4, name: "高强度工程聚合物" },
-        { item: "survival:gun_barrel", count: 1, name: "精锻枪管" }
+        { item: "minecraft:redstone", count: 3, name: "红石粉" },
+        { item: "minecraft:copper_ingot", count: 2, name: "铜锭" },
+        { item: "survival:paper_bundle", count: 1, name: "装订纸束" },
+        { item: "minecraft:string", count: 1, name: "线" }
       ]
     });
 
@@ -76,16 +64,10 @@ export class GunRegistry {
       consumedOnCraft: true,
       rarity: "normal",
       synthesisRecipe: [
-        { item: "survival:shotgun_page", count: 4, name: "霰弹枪残页" },
-        { item: "survival:mechanical_data", count: 4, name: "机械研究数据卡" },
-        { item: "minecraft:paper", count: 1, name: "纸" }
-      ],
-      craftingRecipe: [
-        { item: "survival:blueprint_m870", count: 1, name: "M870图纸(一次性)" },
-        { item: "survival:steel_ingot", count: 16, name: "精炼军用钢材" },
-        { item: "survival:mechanical_parts", count: 7, name: "精密机械零件" },
-        { item: "survival:polymer", count: 6, name: "高强度工程聚合物" },
-        { item: "survival:gun_barrel", count: 1, name: "精锻枪管" }
+        { item: "minecraft:string", count: 1, name: "线" },
+        { item: "minecraft:copper_ingot", count: 2, name: "铜锭" },
+        { item: "survival:paper_bundle", count: 1, name: "装订纸束" },
+        { item: "minecraft:redstone", count: 1, name: "红石粉" }
       ]
     });
 
@@ -97,17 +79,10 @@ export class GunRegistry {
       consumedOnCraft: true,
       rarity: "advanced",
       synthesisRecipe: [
-        { item: "survival:rifle_page", count: 4, name: "步枪残页" },
-        { item: "survival:mechanical_data", count: 3, name: "机械研究数据卡" },
-        { item: "survival:gun_structure_sample", count: 1, name: "枪械结构样本" },
-        { item: "minecraft:paper", count: 1, name: "纸" }
-      ],
-      craftingRecipe: [
-        { item: "survival:blueprint_akm", count: 1, name: "AKM图纸(一次性)" },
-        { item: "survival:steel_ingot", count: 18, name: "精炼军用钢材" },
-        { item: "survival:mechanical_parts", count: 12, name: "精密机械零件" },
-        { item: "survival:polymer", count: 5, name: "高强度工程聚合物" },
-        { item: "survival:gun_barrel", count: 1, name: "精锻枪管" }
+        { item: "minecraft:compass", count: 1, name: "指南针" },
+        { item: "minecraft:redstone", count: 2, name: "红石粉" },
+        { item: "survival:paper_bundle", count: 1, name: "装订纸束" },
+        { item: "minecraft:iron_block", count: 1, name: "铁块" }
       ]
     });
   }

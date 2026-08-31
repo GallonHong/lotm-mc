@@ -1,0 +1,17 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "survival:craft_gun_akm" },
+    "tags": ["crafting_table"],
+    "pattern": ["IIB", "PGM", "WWW"],
+    "key": {
+      "I": { "item": "minecraft:iron_block" },
+      "B": { "item": "survival:blueprint_akm" },
+      "P": { "item": "survival:gun_barrel" },
+      "G": { "item": "survival:mechanical_parts" },
+      "M": { "item": "minecraft:lever" },
+      "W": { "item": "minecraft:oak_planks" }
+    },
+    "result": { "item": "survival:akm", "count": 1 }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": { "identifier": "survival:craft_gun_m1911" },
+    "tags": ["crafting_table"],
+    "pattern": ["BIP", " ML"],
+    "key": {
+      "B": { "item": "survival:blueprint_m1911" },
+      "I": { "item": "minecraft:iron_block" },
+      "P": { "item": "survival:gun_barrel" },
+      "M": { "item": "survival:mechanical_parts" },
+      "L": { "item": "minecraft:lever" }
+    },
+    "result": { "item": "survival:m1911", "count": 1 }
+  }
+}
