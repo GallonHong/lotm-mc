@@ -1,5 +1,3 @@
-﻿import { GunAnimationBridge } from "./GunAnimationBridge.js";
-
 /**
  * 枪械伤害结算器 (FirearmDamageResolver)
  * 核心设计：
@@ -47,10 +45,18 @@ export class FirearmDamageResolver {
       zoneMultiplier = 1.5;
     }
 
-    // 3. 计算最终理论伤害
-    const calculatedDamage = Math.max(1, Math.round(baseDamage * distanceFactor * zoneMultiplier));
+    // 3. 护甲减伤。读取失败时按 0 护甲处理，避免阻断射击主流程。
+    let totalArmor = 0;
+    try {
+      const equippable = target.getComponent("minecraft:equippable");
+      totalArmor = Number(equippable?.totalArmor) || 0;
+    } catch {}
+    const armorFactor = 1.0 - Math.min(0.8, Math.max(0, totalArmor) * 0.04);
 
-    // 4. 读取与直接修改目标生命组件 (绕过无敌帧)
+    // 4. 计算最终伤害
+    const calculatedDamage = Math.max(1, Math.round(baseDamage * distanceFactor * zoneMultiplier * armorFactor));
+
+    // 5. 读取与直接修改目标生命组件 (绕过无敌帧)
     const healthComp = target.getComponent("minecraft:health");
     if (!healthComp) {
       return { actualDamage: 0, nextHealth: 0, isDead: false };
@@ -58,10 +64,6 @@ export class FirearmDamageResolver {
 
     const currentHealth = healthComp.currentValue;
     const nextHealth = Math.max(0, currentHealth - calculatedDamage);
-
-    // 5. 命中视效与 Hitmarker
-    GunAnimationBridge.playHitmarker(attacker, isHeadshot);
-    GunAnimationBridge.spawnImpactEffects(target.dimension, hitResult.hitLocation ?? target.location, true);
 
     // 6. 执行生命值扣除与死亡结算
     if (nextHealth > 0) {
@@ -74,6 +76,10 @@ export class FirearmDamageResolver {
           damagingEntity: attacker,
           cause: "entityAttack"
         });
+      } catch {}
+      // 某些构建会让致命 applyDamage 也命中原版无敌帧；再次检查并强制归零。
+      try {
+        if (target.isValid() && healthComp.currentValue > 0) healthComp.setCurrentValue(0);
       } catch {
         try { target.kill(); } catch {}
       }
@@ -88,6 +94,8 @@ export class FirearmDamageResolver {
       previousHealth: currentHealth,
       nextHealth: nextHealth,
       isDead: nextHealth <= 0,
+      isHeadshot,
+      armor: totalArmor,
       timestamp: Date.now()
     };
     this.#damageLogs.push(record);

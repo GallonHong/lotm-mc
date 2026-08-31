@@ -56,7 +56,8 @@ export class FireScheduler {
       return 0;
     }
 
-    const { rpm, fireMode } = gunDef;
+    const fireMode = gunDef.fireMode;
+    const rpm = Math.max(1, Math.min(1200, Number(gunDef.rpm) || 1));
 
     // 1. 半自动模式 (Semi-Auto): 每次按压只触发 1 次，松开前不再激发
     if (fireMode === "semi") {
@@ -105,6 +106,7 @@ export class FireScheduler {
   }
 
   static simulateFireTicks(rpm, fireMode, totalTicks = 200) {
+    rpm = Math.max(1, Math.min(1200, Number(rpm) || 1));
     let accumulator = 0.0;
     let shotsFired = 0;
     let pumpReady = 0;

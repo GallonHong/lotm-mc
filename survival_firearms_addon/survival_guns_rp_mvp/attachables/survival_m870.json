@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "survival:m870",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/temporary_deadzone_assets/m870" },
+      "geometry": { "default": "geometry.m870" },
+      "animations": {
+        "controller": "controller.animation.survival.gun_states",
+        "equip": "animation.guns.draw", "idle": "animation.guns.hold",
+        "ads": "animation.guns.aim", "sprint": "animation.guns.sprint",
+        "swim": "animation.guns.back", "reload": "animation.pump_8.reload",
+        "fire": "animation.m870.shoots"
+      },
+      "scripts": { "animate": [ { "controller": "context.is_first_person" } ] },
+      "sound_effects": {
+        "draw.sound": "gun.draw",
+        "pump.action_back": "gun.draw",
+        "pump.action_forward": "gun.draw"
+      },
+      "particle_effects": { "muzzle.flash": "minecraft:basic_flame_particle" },
+      "render_controllers": [ "controller.render.default" ]
+    }
+  }
+}

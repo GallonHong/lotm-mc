@@ -41,18 +41,6 @@
       "minecraft:physics": {
         "has_collision": true,
         "has_gravity": true
-      },
-      "minecraft:behavior.nearest_attackable_target": {
-        "priority": 2,
-        "must_see": true,
-        "entity_types": [
-          { "filters": { "test": "is_family", "subject": "other", "value": "player" }, "max_dist": 16 }
-        ]
-      },
-      "minecraft:behavior.melee_attack": {
-        "priority": 3,
-        "speed_multiplier": 1.0,
-        "track_target": true
       }
     }
   }

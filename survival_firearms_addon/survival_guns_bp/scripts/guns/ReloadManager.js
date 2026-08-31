@@ -43,18 +43,31 @@ export class ReloadManager {
     }
 
     const reloadTicks = Math.round(gunDef.reloadSeconds * 20);
+    let instanceId = null;
+    try {
+      instanceId = itemStack.getDynamicProperty("gun:instance_id");
+      if (typeof instanceId !== "string" || !instanceId) {
+        instanceId = `${playerId}:${currentTick}:${Math.floor(Math.random() * 1000000000)}`;
+        itemStack.setDynamicProperty("gun:instance_id", instanceId);
+        const inv = player.getComponent("minecraft:inventory");
+        inv?.container?.setItem(selectedSlot, itemStack);
+      }
+    } catch {}
     const state = {
       playerId,
       gunId: gunDef.id,
       selectedSlot,
       startTick: currentTick,
       finishTick: currentTick + reloadTicks,
-      totalTicks: reloadTicks
+      totalTicks: reloadTicks,
+      instanceId,
+      dimensionId: player.dimension?.id
     };
 
     this.#reloadStates.set(playerId, state);
+    try { player.addTag("survival_reloading"); } catch {}
 
-    // 播放换弹音效
+    GunAnimationBridge.playReload(player, gunDef);
     try {
       player.playSound("gun.draw", { location: player.location, volume: 1.0, pitch: 0.9 });
     } catch {}
@@ -65,9 +78,10 @@ export class ReloadManager {
   /**
    * 中断换弹
    */
-  static cancelReload(playerId) {
+  static cancelReload(playerId, player = null) {
     if (this.#reloadStates.has(playerId)) {
       this.#reloadStates.delete(playerId);
+      try { player?.removeTag("survival_reloading"); } catch {}
       return true;
     }
     return false;
@@ -80,9 +94,16 @@ export class ReloadManager {
     for (const [playerId, state] of this.#reloadStates.entries()) {
       const player = getPlayerById(playerId);
 
-      // 1. 玩家离线或死亡中断
+      // 1. 玩家离线、死亡或维度/副本切换时中断
       if (!player || !player.isValid()) {
         this.#reloadStates.delete(playerId);
+        continue;
+      }
+      let currentHealth = 1;
+      try { currentHealth = player.getComponent("minecraft:health")?.currentValue ?? 1; } catch {}
+      if (currentHealth <= 0 || player.dimension?.id !== state.dimensionId) {
+        this.#reloadStates.delete(playerId);
+        try { player.removeTag("survival_reloading"); } catch {}
         continue;
       }
 
@@ -90,12 +111,14 @@ export class ReloadManager {
       const inv = player.getComponent("minecraft:inventory");
       if (!inv || !inv.container) {
         this.#reloadStates.delete(playerId);
+        try { player.removeTag("survival_reloading"); } catch {}
         continue;
       }
 
       if (player.selectedSlotIndex !== state.selectedSlot) {
         // 切槽位中断换弹
         this.#reloadStates.delete(playerId);
+        try { player.removeTag("survival_reloading"); } catch {}
         player.onScreenDisplay?.setActionBar?.("§7[换弹已取消]");
         continue;
       }
@@ -104,12 +127,23 @@ export class ReloadManager {
       if (!mainItem || mainItem.typeId !== state.gunId) {
         // 武器改变中断换弹
         this.#reloadStates.delete(playerId);
+        try { player.removeTag("survival_reloading"); } catch {}
         continue;
+      }
+      if (state.instanceId) {
+        let currentInstanceId = null;
+        try { currentInstanceId = mainItem.getDynamicProperty("gun:instance_id"); } catch {}
+        if (currentInstanceId !== state.instanceId) {
+          this.#reloadStates.delete(playerId);
+          try { player.removeTag("survival_reloading"); } catch {}
+          continue;
+        }
       }
 
       // 3. 达到完成点结算
       if (currentTick >= state.finishTick) {
         this.#reloadStates.delete(playerId);
+        try { player.removeTag("survival_reloading"); } catch {}
 
         const gunDef = GunRegistry.getGun(state.gunId);
         if (!gunDef) continue;

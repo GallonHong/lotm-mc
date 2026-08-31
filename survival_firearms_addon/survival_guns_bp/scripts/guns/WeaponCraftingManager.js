@@ -2,7 +2,9 @@
 import { GunDurabilityManager } from "./GunDurabilityManager.js";
 import { AmmoManager } from "./AmmoManager.js";
 import { BlueprintManager } from "./BlueprintManager.js";
+import { InventoryTransaction } from "./InventoryTransaction.js";
 import { ItemStack } from "@minecraft/server";
+import { system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
 /**
@@ -72,43 +74,23 @@ export class WeaponCraftingManager {
     }
 
     // 2. 事务预检：背包是否有空位接收新枪
-    let emptySlot = -1;
-    for (let i = 0; i < inv.container.size; i++) {
-      if (!inv.container.getItem(i)) {
-        emptySlot = i;
-        break;
-      }
-    }
+    const emptySlot = InventoryTransaction.findEmptySlot(inv.container);
     if (emptySlot === -1) {
       return { success: false, reason: "背包空间已满，请清理至少 1 个空位" };
     }
 
-    // 3. 执行原子扣除 (扣除 1 张图纸 + 制造材料)
-    for (const req of bpDef.craftingRecipe) {
-      let need = req.count;
-      for (let i = 0; i < inv.container.size; i++) {
-        const item = inv.container.getItem(i);
-        if (item && item.typeId === req.item) {
-          if (item.amount <= need) {
-            need -= item.amount;
-            inv.container.setItem(i, undefined);
-          } else {
-            item.amount -= need;
-            inv.container.setItem(i, item);
-            need = 0;
-          }
-          if (need <= 0) break;
-        }
-      }
+    // 3. 先完整创建产物，再原子扣料并写入；任一步异常会恢复背包快照。
+    let weaponItem;
+    try {
+      weaponItem = new ItemStack(gunDef.id, 1);
+      GunDurabilityManager.setDurability(weaponItem, gunDef, gunDef.durabilityMax);
+      AmmoManager.setMagazineAmmo(weaponItem, gunDef, 0);
+    } catch {
+      return { success: false, reason: "无法创建武器物品，未扣除材料" };
     }
-
-    // 4. 创建满耐久、满弹匣的全新枪械
-    const weaponItem = new ItemStack(gunDef.id, 1);
-    GunDurabilityManager.setDurability(weaponItem, gunDef, gunDef.durabilityMax);
-    AmmoManager.setMagazineAmmo(weaponItem, gunDef, gunDef.magazineSize);
-
-    // 发放至空槽位
-    inv.container.setItem(emptySlot, weaponItem);
+    if (!InventoryTransaction.commit(inv.container, bpDef.craftingRecipe, weaponItem, emptySlot)) {
+      return { success: false, reason: "制造事务失败，材料已回滚" };
+    }
 
     // 播放制造成功铁砧音效
     try {
@@ -133,7 +115,7 @@ export class WeaponCraftingManager {
       .button("§l§b📜 图纸测绘研究§r\n§8消耗残页与数据合成新图纸", "textures/items/blueprint_paper")
       .button("§l§a🧪 靶场与测试工具§r\n§8生成测试假人或运行自动测试", "textures/items/gun_barrel");
 
-    form.show(player).then(res => {
+    form.show(player).then(res => system.run(() => {
       if (res.canceled) return;
       if (res.selection === 0) {
         this.openCraftingMenu(player);
@@ -142,7 +124,7 @@ export class WeaponCraftingManager {
       } else if (res.selection === 2) {
         this.openTestingMenu(player);
       }
-    }).catch(() => {});
+    })).catch(() => {});
   }
 
   /**
@@ -161,7 +143,7 @@ export class WeaponCraftingManager {
       form.button(`${gunDef?.displayName || bp.name}\n${status}`, `textures/items/${gunDef?.name?.toLowerCase() || "akm"}`);
     }
 
-    form.show(player).then(res => {
+    form.show(player).then(res => system.run(() => {
       if (res.canceled) {
         this.openWorkbenchUI(player);
         return;
@@ -175,7 +157,7 @@ export class WeaponCraftingManager {
       } else {
         player.sendMessage(`§c✖ 制造失败：${result.reason}`);
       }
-    }).catch(() => {});
+    })).catch(() => {});
   }
 
   /**
@@ -193,7 +175,7 @@ export class WeaponCraftingManager {
       form.button(`§l${bp.name}\n${status}`, `textures/items/${bp.id.replace("survival:", "")}`);
     }
 
-    form.show(player).then(res => {
+    form.show(player).then(res => system.run(() => {
       if (res.canceled) {
         this.openWorkbenchUI(player);
         return;
@@ -207,7 +189,7 @@ export class WeaponCraftingManager {
       } else {
         player.sendMessage(`§c✖ 测绘失败：${result.reason}`);
       }
-    }).catch(() => {});
+    })).catch(() => {});
   }
 
   /**
@@ -222,7 +204,7 @@ export class WeaponCraftingManager {
       .button("§l§b⚡ 运行自动化测试套件\n§8验证射速 ≤2% 误差与无敌帧穿透")
       .button("§l§d🎁 领取全套武器与弹药\n§8开发者快捷补给");
 
-    form.show(player).then(res => {
+    form.show(player).then(res => system.run(() => {
       if (res.canceled) {
         this.openWorkbenchUI(player);
         return;
@@ -252,7 +234,7 @@ export class WeaponCraftingManager {
       } else if (res.selection === 3) {
         this.giveDevKit(player);
       }
-    }).catch(() => {});
+    })).catch(() => {});
   }
 
   static giveDevKit(player) {
@@ -273,6 +255,15 @@ export class WeaponCraftingManager {
 
     inv.container.addItem(new ItemStack("survival:blueprint_m1911", 2));
     inv.container.addItem(new ItemStack("survival:blueprint_akm", 2));
+    inv.container.addItem(new ItemStack("survival:blueprint_mp5", 2));
+    inv.container.addItem(new ItemStack("survival:blueprint_m870", 2));
+    inv.container.addItem(new ItemStack("survival:basic_firearm_page", 16));
+    inv.container.addItem(new ItemStack("survival:smg_page", 32));
+    inv.container.addItem(new ItemStack("survival:shotgun_page", 32));
+    inv.container.addItem(new ItemStack("survival:rifle_page", 48));
+    inv.container.addItem(new ItemStack("survival:mechanical_data", 64));
+    inv.container.addItem(new ItemStack("survival:gun_structure_sample", 4));
+    inv.container.addItem(new ItemStack("minecraft:paper", 16));
     inv.container.addItem(new ItemStack("survival:steel_ingot", 64));
     inv.container.addItem(new ItemStack("survival:mechanical_parts", 64));
     inv.container.addItem(new ItemStack("survival:polymer", 64));

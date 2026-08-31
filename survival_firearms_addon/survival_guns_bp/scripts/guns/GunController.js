@@ -19,6 +19,8 @@ import { system, world } from "@minecraft/server";
 export class GunController {
   // 追踪玩家上一 tick 手持的槽位与武器
   static #playerSlotTracker = new Map();
+  static #playerGunTracker = new Map();
+  static #playerAnimationTracker = new Map();
 
   /**
    * 玩家开始使用物品 (按住右键)
@@ -38,15 +40,8 @@ export class GunController {
     const gunDef = GunRegistry.getGun(item.typeId);
     if (!gunDef) return;
 
-    // 潜行右键 -> 换弹
-    if (player.isSneaking) {
-      if (!ReloadManager.isReloading(player.id)) {
-        ReloadManager.startReload(player, item, gunDef, system.currentTick, player.selectedSlotIndex);
-      }
-      return;
-    }
-
     // 按下扳机
+    if (ReloadManager.isReloading(player.id)) return;
     FireScheduler.pressTrigger(player.id);
 
     // 半自动与泵动模式：按下瞬间立即结算第 1 发
@@ -90,6 +85,19 @@ export class GunController {
     FireScheduler.releaseTrigger(player.id);
   }
 
+  /** 明确的服务端换弹入口：聊天 !reload 或 /scriptevent survival:reload。 */
+  static requestReload(player) {
+    if (!player || !player.isValid()) return false;
+    const inv = player.getComponent("minecraft:inventory");
+    if (!inv?.container) return false;
+    const slot = player.selectedSlotIndex;
+    const item = inv.container.getItem(slot);
+    const gunDef = item ? GunRegistry.getGun(item.typeId) : null;
+    if (!item || !gunDef) return false;
+    FireScheduler.releaseTrigger(player.id);
+    return ReloadManager.startReload(player, item, gunDef, system.currentTick, slot);
+  }
+
   /**
    * 全局主循环 (每 tick 调度，20 TPS)
    */
@@ -113,14 +121,18 @@ export class GunController {
 
       const currentSlot = player.selectedSlotIndex;
       const mainItem = inv.container.getItem(currentSlot);
+      const currentGunId = mainItem && GunRegistry.isGun(mainItem.typeId) ? mainItem.typeId : null;
 
       // 切槽位检测
       const lastSlot = this.#playerSlotTracker.get(player.id);
-      if (lastSlot !== currentSlot) {
+      const lastGunId = this.#playerGunTracker.get(player.id) ?? null;
+      if (lastSlot !== currentSlot || lastGunId !== currentGunId) {
         this.#playerSlotTracker.set(player.id, currentSlot);
+        this.#playerGunTracker.set(player.id, currentGunId);
         FireScheduler.releaseTrigger(player.id);
-        if (mainItem && GunRegistry.isGun(mainItem.typeId)) {
-          GunAnimationBridge.playDrawSound(player);
+        this.#playerAnimationTracker.delete(player.id);
+        if (currentGunId) {
+          GunAnimationBridge.playEquip(player, GunRegistry.getGun(currentGunId));
         }
       }
 
@@ -131,6 +143,14 @@ export class GunController {
 
       const gunDef = GunRegistry.getGun(mainItem.typeId);
       if (!gunDef) continue;
+
+      const animationState = player.isSwimming
+        ? "swim"
+        : (player.isSprinting ? "sprint" : (player.isSneaking ? "ads" : "idle"));
+      if (this.#playerAnimationTracker.get(player.id) !== animationState) {
+        this.#playerAnimationTracker.set(player.id, animationState);
+        GunAnimationBridge.playState(player, gunDef, animationState);
+      }
 
       // 3. 处理全自动射击调度 (仅在全自动且按住扳机时进行)
       const isReloading = ReloadManager.isReloading(player.id);
@@ -168,7 +188,7 @@ export class GunController {
       return;
     }
 
-    // 3. 消耗 1 发弹药与耐久
+    // SHOT：只处理本次射击的消耗、表现与射线创建。
     AmmoManager.consumeMagazineAmmo(itemStack, gunDef, 1);
     GunDurabilityManager.deductDurability(itemStack, gunDef, gunDef.durabilityPerShot);
 
@@ -182,7 +202,7 @@ export class GunController {
     const pelletCount = gunDef.pellets ?? 1;
 
     for (let p = 0; p < pelletCount; p++) {
-      // (1) 服务端射线检测
+      // SHOT：服务器决定射线，不接受客户端提供的目标。
       const hitResult = HitResolver.castShot(player, gunDef, isAds);
 
       // (2) 播放第一发弹丸的射击声效与特效
@@ -190,13 +210,22 @@ export class GunController {
         GunAnimationBridge.playShootEffects(player, gunDef, hitResult.muzzleLocation, hitResult.hitLocation);
       }
 
-      // (3) 命中伤害结算 (穿透无敌帧)
+      // HIT：命中反馈与统计；DAMAGE：独立的最终伤害层。
       if (hitResult.hit && hitResult.target) {
-        FirearmDamageResolver.applyDamage(player, hitResult.target, gunDef, hitResult);
+        this.#handleHit(player, gunDef, hitResult);
       } else if (hitResult.hitType === "block") {
         GunAnimationBridge.spawnImpactEffects(player.dimension, hitResult.hitLocation, false);
       }
     }
+  }
+
+  static #handleHit(player, gunDef, hitResult) {
+    GunAnimationBridge.playHitEffects(player, hitResult);
+    return this.#handleDamage(player, gunDef, hitResult);
+  }
+
+  static #handleDamage(player, gunDef, hitResult) {
+    return FirearmDamageResolver.applyDamage(player, hitResult.target, gunDef, hitResult);
   }
 
   /**

@@ -1,0 +1,17 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "gun.m1911": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/shoot/m1911" ] },
+    "distant.m1911": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/distant/m1911" ] },
+    "gun.akm": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/shoot/ak47" ] },
+    "distant.akm": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/distant/ak47" ] },
+    "gun.mp5": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/shoot/mp5" ] },
+    "distant.mp5": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/distant/mp5" ] },
+    "gun.m870": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/shoot/m870" ] },
+    "distant.m870": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/distant/m870" ] },
+    "gun.dry": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/dry/dry1", "sounds/temporary_deadzone_assets/dry/dry3" ] },
+    "gun.draw": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/draw/draw1", "sounds/temporary_deadzone_assets/draw/draw2" ] },
+    "gun.hitmarker": { "category": "player", "sounds": [ "sounds/temporary_deadzone_assets/hit/metal1" ] },
+    "gun.hit_body": { "category": "hostile", "sounds": [ "sounds/temporary_deadzone_assets/hit/pass1" ] }
+  }
+}

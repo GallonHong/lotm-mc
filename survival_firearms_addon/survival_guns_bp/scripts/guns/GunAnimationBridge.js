@@ -1,4 +1,6 @@
-﻿/**
+﻿import { getGunAnimationProfile } from "./GunAnimationProfiles.js";
+
+/**
  * 枪械动画与视效音频桥接器 (GunAnimationBridge)
  * 职责：
  * 1. 严格解耦枪械核心逻辑与 DeadZone / 原创视效资源
@@ -6,11 +8,33 @@
  * 3. 生成枪口焰、弹道轨迹粒子与击中血花/火星
  */
 export class GunAnimationBridge {
+  static #playAnimation(player, animationId) {
+    if (!player || !animationId) return;
+    try {
+      player.runCommand(`playanimation @s ${animationId}`);
+    } catch {}
+  }
+
+  static playState(player, gunDef, state) {
+    const profile = getGunAnimationProfile(gunDef?.animationProfile);
+    this.#playAnimation(player, profile?.[state]);
+  }
+
+  static playEquip(player, gunDef) {
+    this.playState(player, gunDef, "equip");
+    this.playDrawSound(player);
+  }
+
+  static playReload(player, gunDef) {
+    this.playState(player, gunDef, "reload");
+  }
+
   static playShootEffects(player, gunDef, muzzleLocation, targetLocation = null) {
     if (!player || !gunDef) return;
 
     const dim = player.dimension;
     const soundProfile = gunDef.soundProfile;
+    this.playState(player, gunDef, "fire");
 
     // 1. 本地射击音效
     try {
@@ -100,5 +124,11 @@ export class GunAnimationBridge {
         dimension.spawnParticle("minecraft:crit", location);
       }
     } catch {}
+  }
+
+  static playHitEffects(player, hitResult) {
+    const isHeadshot = hitResult?.hitZone === "head";
+    this.playHitmarker(player, isHeadshot);
+    this.spawnImpactEffects(hitResult?.target?.dimension ?? player?.dimension, hitResult?.hitLocation, true);
   }
 }

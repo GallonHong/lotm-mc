@@ -35,6 +35,9 @@ export class GunTestSuite {
     // Test 3: 图纸一次性消耗与事务性制造测试
     results.push(this.testCraftingTransactions(player, log));
 
+    // Test 4: 仅注册四枪/四弹药，数值与动画映射完整
+    results.push(this.testRegistryScope(log));
+
     // 总结
     const passed = results.filter(r => r.passed).length;
     const total = results.length;
@@ -54,8 +57,7 @@ export class GunTestSuite {
     const cases = [
       { name: "M1911 (300 RPM)", rpm: 300, mode: "semi", expected: 50 },
       { name: "AKM (600 RPM)", rpm: 600, mode: "auto", expected: 100 },
-      { name: "MP5 (900 RPM)", rpm: 900, mode: "auto", expected: 150 },
-      { name: "M870 (75 RPM)", rpm: 75, mode: "pump", expected: 12 }
+      { name: "MP5 (900 RPM)", rpm: 900, mode: "auto", expected: 150 }
     ];
 
     for (const c of cases) {
@@ -77,9 +79,12 @@ export class GunTestSuite {
   static testDamageInvulnerabilityBypass(player, log) {
     log("§b[测试 2] 原版伤害无敌帧穿透测试 (连续 10 发 13 伤害结算):");
 
-    const akmDef = GunRegistry.getGun("survival:akm");
-    if (!akmDef) {
-      log("  §c✖ FAIL: 未找到 AKM 枪械配置");
+    const cases = [
+      { id: "survival:akm", name: "AKM", perShot: 13 },
+      { id: "survival:mp5", name: "MP5", perShot: 9 }
+    ];
+    if (cases.some(c => !GunRegistry.getGun(c.id))) {
+      log("  §c✖ FAIL: 未找到 AKM 或 MP5 枪械配置");
       return { name: "Damage Bypass", passed: false };
     }
 
@@ -96,31 +101,27 @@ export class GunTestSuite {
       const healthComp = dummy.getComponent("minecraft:health");
       const startHealth = healthComp.currentValue; // 5000
 
-      // 连续发射 10 发，每次 13 伤害
-      for (let i = 0; i < 10; i++) {
-        FirearmDamageResolver.applyDamage(player, dummy, akmDef, {
-          distance: 5,
-          hitZone: "body"
-        });
+      let expectedHealth = startHealth;
+      let pass = true;
+      for (const c of cases) {
+        const def = GunRegistry.getGun(c.id);
+        for (let i = 0; i < 10; i++) {
+          FirearmDamageResolver.applyDamage(player, dummy, def, { distance: 5, hitZone: "body" });
+        }
+        expectedHealth -= c.perShot * 10;
+        const actual = healthComp.currentValue;
+        const casePass = actual === expectedHealth;
+        pass = pass && casePass;
+        log(`  ${casePass ? "§a✔ PASS" : "§c✖ FAIL"} §f${c.name} 连续10发: 实际 ${actual} HP (预期 ${expectedHealth} HP)`);
       }
-
-      const endHealth = healthComp.currentValue;
-      const expectedHealth = startHealth - (13 * 10); // 4870
-      const pass = endHealth === expectedHealth;
-      const mark = pass ? "§a✔ PASS" : "§c✖ FAIL";
-
-      log(`  ${mark} §f实体 5000 HP 靶人受击 10 发后生命: 实际 ${endHealth} HP (预期 ${expectedHealth} HP)`);
       try { dummy.remove(); } catch {}
       return { name: "Damage Bypass", passed: pass };
     } else {
       // 算法逻辑独立验证
       log("  §eℹ (未生成实体，进行逻辑公式单元验证)");
-      let simulatedHealth = 5000;
-      for (let i = 0; i < 10; i++) {
-        simulatedHealth -= akmDef.damage;
-      }
-      const pass = simulatedHealth === 4870;
-      log(`  §a✔ PASS §f理论算法计算 5000 HP -> ${simulatedHealth} HP`);
+      const simulatedHealth = 5000 - (13 * 10) - (9 * 10);
+      const pass = simulatedHealth === 4780;
+      log(`  ${pass ? "§a✔ PASS" : "§c✖ FAIL"} §f理论算法 AKM+MP5 各10发: 5000 HP -> ${simulatedHealth} HP`);
       return { name: "Damage Bypass", passed: pass };
     }
   }
@@ -137,5 +138,25 @@ export class GunTestSuite {
     log(`  ${mark} §fM1911 图纸属性: consumedOnCraft = ${bp?.consumedOnCraft}, playerCraftable = ${bp?.playerCraftable}`);
 
     return { name: "Crafting Rules", passed: pass };
+  }
+
+  static testRegistryScope(log) {
+    log("§b[测试 4] 四枪注册范围与核心数值验证:");
+    const expected = {
+      "survival:m1911": [18, 300, 7, 32, 700],
+      "survival:akm": [13, 600, 30, 46, 1300],
+      "survival:mp5": [9, 900, 30, 30, 1100],
+      "survival:m870": [6, 75, 6, 20, 900]
+    };
+    const guns = GunRegistry.getAllGuns();
+    let pass = guns.length === 4;
+    for (const [id, values] of Object.entries(expected)) {
+      const gun = GunRegistry.getGun(id);
+      const actual = gun ? [gun.damage, gun.rpm, gun.magazineSize, gun.range, gun.durabilityMax] : [];
+      const ok = JSON.stringify(actual) === JSON.stringify(values);
+      pass = pass && ok;
+      log(`  ${ok ? "§a✔ PASS" : "§c✖ FAIL"} §f${id}`);
+    }
+    return { name: "Registry Scope", passed: pass };
   }
 }

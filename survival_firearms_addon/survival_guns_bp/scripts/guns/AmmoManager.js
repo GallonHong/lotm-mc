@@ -1,4 +1,5 @@
 ﻿import { GunDurabilityManager } from "./GunDurabilityManager.js";
+import { AmmoRegistry } from "./AmmoRegistry.js";
 
 /**
  * 弹药与弹匣管理器 (AmmoManager)
@@ -52,7 +53,7 @@ export class AmmoManager {
    * 统计玩家背包中的备弹总数
    */
   static countInventoryAmmo(player, ammoTypeId) {
-    if (!player) return 0;
+    if (!player || !AmmoRegistry.has(ammoTypeId)) return 0;
     let total = 0;
     const inv = player.getComponent("minecraft:inventory");
     if (!inv || !inv.container) return 0;
@@ -71,7 +72,7 @@ export class AmmoManager {
    * @returns {number} 实际扣除的数量
    */
   static deductInventoryAmmo(player, ammoTypeId, neededAmount) {
-    if (!player || neededAmount <= 0) return 0;
+    if (!player || !AmmoRegistry.has(ammoTypeId) || neededAmount <= 0) return 0;
     const inv = player.getComponent("minecraft:inventory");
     if (!inv || !inv.container) return 0;
 

@@ -2,6 +2,8 @@
 import { AKMDefinition } from "./definitions/akm.js";
 import { MP5Definition } from "./definitions/mp5.js";
 import { M870Definition } from "./definitions/m870.js";
+import { AmmoRegistry } from "./AmmoRegistry.js";
+import { getGunAnimationProfile } from "./GunAnimationProfiles.js";
 
 /**
  * 枪械注册中心 (GunRegistry)
@@ -10,12 +12,11 @@ import { M870Definition } from "./definitions/m870.js";
 export class GunRegistry {
   static #guns = new Map();
   static #blueprints = new Map();
-  static #ammoTypes = new Map();
 
   static init() {
     this.#guns.clear();
     this.#blueprints.clear();
-    this.#ammoTypes.clear();
+    AmmoRegistry.init();
 
     // 1. 注册 4 把核心 MVP 枪械
     this.registerGun(M1911Definition);
@@ -23,13 +24,7 @@ export class GunRegistry {
     this.registerGun(MP5Definition);
     this.registerGun(M870Definition);
 
-    // 2. 注册弹药种类
-    this.registerAmmo("survival:ammo_45", { name: ".45 ACP", maxStack: 64 });
-    this.registerAmmo("survival:ammo_762", { name: "7.62x39mm", maxStack: 64 });
-    this.registerAmmo("survival:ammo_9mm", { name: "9x19mm", maxStack: 64 });
-    this.registerAmmo("survival:ammo_12g", { name: "12 Gauge", maxStack: 64 });
-
-    // 3. 注册图纸与制造配方 (严格一次性图纸规则)
+    // 2. 注册图纸与制造配方 (严格一次性图纸规则)
     this.registerBlueprint({
       id: "survival:blueprint_m1911",
       weaponId: "survival:m1911",
@@ -39,9 +34,9 @@ export class GunRegistry {
       rarity: "basic",
       // 图纸合成材料
       synthesisRecipe: [
-        { item: "survival:firearm_scrap", count: 8, name: "枪械残页/零件废料" },
+        { item: "survival:basic_firearm_page", count: 8, name: "基础枪械残页" },
         { item: "survival:mechanical_data", count: 4, name: "机械研究数据卡" },
-        { item: "survival:blueprint_paper", count: 2, name: "工程图纸专用纸" }
+        { item: "minecraft:paper", count: 2, name: "纸" }
       ],
       // 枪械制造材料
       craftingRecipe: [
@@ -60,9 +55,9 @@ export class GunRegistry {
       consumedOnCraft: true,
       rarity: "normal",
       synthesisRecipe: [
-        { item: "survival:firearm_scrap", count: 16, name: "枪械残页/零件废料" },
+        { item: "survival:smg_page", count: 16, name: "冲锋枪残页" },
         { item: "survival:mechanical_data", count: 10, name: "机械研究数据卡" },
-        { item: "survival:blueprint_paper", count: 3, name: "工程图纸专用纸" }
+        { item: "minecraft:paper", count: 3, name: "纸" }
       ],
       craftingRecipe: [
         { item: "survival:blueprint_mp5", count: 1, name: "MP5图纸(一次性)" },
@@ -81,9 +76,9 @@ export class GunRegistry {
       consumedOnCraft: true,
       rarity: "normal",
       synthesisRecipe: [
-        { item: "survival:firearm_scrap", count: 16, name: "枪械残页/零件废料" },
+        { item: "survival:shotgun_page", count: 16, name: "霰弹枪残页" },
         { item: "survival:mechanical_data", count: 10, name: "机械研究数据卡" },
-        { item: "survival:blueprint_paper", count: 3, name: "工程图纸专用纸" }
+        { item: "minecraft:paper", count: 3, name: "纸" }
       ],
       craftingRecipe: [
         { item: "survival:blueprint_m870", count: 1, name: "M870图纸(一次性)" },
@@ -102,10 +97,10 @@ export class GunRegistry {
       consumedOnCraft: true,
       rarity: "advanced",
       synthesisRecipe: [
-        { item: "survival:firearm_scrap", count: 24, name: "枪械残页/零件废料" },
+        { item: "survival:rifle_page", count: 24, name: "步枪残页" },
         { item: "survival:mechanical_data", count: 18, name: "机械研究数据卡" },
-        { item: "survival:gun_barrel", count: 1, name: "精锻枪管" },
-        { item: "survival:blueprint_paper", count: 4, name: "工程图纸专用纸" }
+        { item: "survival:gun_structure_sample", count: 1, name: "枪械结构样本" },
+        { item: "minecraft:paper", count: 4, name: "纸" }
       ],
       craftingRecipe: [
         { item: "survival:blueprint_akm", count: 1, name: "AKM图纸(一次性)" },
@@ -118,6 +113,10 @@ export class GunRegistry {
   }
 
   static registerGun(def) {
+    if (!def || !def.id || !def.ammoType) throw new Error("Invalid gun definition");
+    if (def.rpm <= 0 || def.rpm > 1200) throw new Error(`RPM out of MVP range: ${def.id}`);
+    if (!AmmoRegistry.has(def.ammoType)) throw new Error(`Unknown ammo type: ${def.ammoType}`);
+    if (!getGunAnimationProfile(def.animationProfile)) throw new Error(`Unknown animation profile: ${def.animationProfile}`);
     this.#guns.set(def.id, Object.freeze({ ...def }));
   }
 
@@ -134,15 +133,25 @@ export class GunRegistry {
   }
 
   static registerAmmo(id, def) {
-    this.#ammoTypes.set(id, def);
+    AmmoRegistry.register(id, def);
   }
 
   static isAmmo(id) {
-    return this.#ammoTypes.has(id);
+    return AmmoRegistry.has(id);
+  }
+
+  static getAmmo(id) {
+    return AmmoRegistry.get(id);
   }
 
   static registerBlueprint(bpDef) {
-    this.#blueprints.set(bpDef.id, Object.freeze({ ...bpDef }));
+    const normalized = {
+      globalSupply: undefined,
+      serialEnabled: false,
+      ...bpDef,
+      consumedOnCraft: true
+    };
+    this.#blueprints.set(normalized.id, Object.freeze(normalized));
   }
 
   static getBlueprint(id) {

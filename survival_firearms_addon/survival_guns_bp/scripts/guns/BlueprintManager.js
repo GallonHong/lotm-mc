@@ -1,5 +1,6 @@
 ﻿import { GunRegistry } from "./GunRegistry.js";
 import { ItemStack } from "@minecraft/server";
+import { InventoryTransaction } from "./InventoryTransaction.js";
 
 /**
  * 图纸管理器 (BlueprintManager)
@@ -49,39 +50,20 @@ export class BlueprintManager {
       return { success: false, reason: "合成图纸所需残页或数据材料不足" };
     }
 
-    let emptySlot = -1;
-    for (let i = 0; i < inv.container.size; i++) {
-      if (!inv.container.getItem(i)) {
-        emptySlot = i;
-        break;
-      }
-    }
+    const emptySlot = InventoryTransaction.findEmptySlot(inv.container);
     if (emptySlot === -1) {
       return { success: false, reason: "背包空间已满，无法接收图纸" };
     }
 
-    // 2. 原子扣除材料
-    for (const req of bpDef.synthesisRecipe) {
-      let need = req.count;
-      for (let i = 0; i < inv.container.size; i++) {
-        const item = inv.container.getItem(i);
-        if (item && item.typeId === req.item) {
-          if (item.amount <= need) {
-            need -= item.amount;
-            inv.container.setItem(i, undefined);
-          } else {
-            item.amount -= need;
-            inv.container.setItem(i, item);
-            need = 0;
-          }
-          if (need <= 0) break;
-        }
-      }
+    let bpItem;
+    try {
+      bpItem = new ItemStack(bpDef.id, 1);
+    } catch {
+      return { success: false, reason: "无法创建图纸物品，未扣除材料" };
     }
-
-    // 3. 发放 1 张图纸
-    const bpItem = new ItemStack(bpDef.id, 1);
-    inv.container.setItem(emptySlot, bpItem);
+    if (!InventoryTransaction.commit(inv.container, bpDef.synthesisRecipe, bpItem, emptySlot)) {
+      return { success: false, reason: "图纸合成事务失败，材料已回滚" };
+    }
 
     try {
       player.playSound("random.orb", { location: player.location, volume: 1.0, pitch: 1.2 });

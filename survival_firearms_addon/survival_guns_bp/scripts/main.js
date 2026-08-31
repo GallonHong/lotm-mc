@@ -6,7 +6,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v1.2.1 FIXED...");
+console.warn("[SurvivalFirearms] Addon initializing v1.3.0 MVP...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -117,6 +117,9 @@ function handleChat(event) {
   } else if (msg === "!gunkit") {
     if ("cancel" in event) event.cancel = true;
     system.run(() => WeaponCraftingManager.giveDevKit(player));
+  } else if (msg === "!reload" || msg === "!r") {
+    if ("cancel" in event) event.cancel = true;
+    system.run(() => GunController.requestReload(player));
   }
 }
 
@@ -142,6 +145,8 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
       WeaponCraftingManager.giveDevKit(sourceEntity);
     } else if (id === "survival:test" || id === "survival:guntest") {
       GunTestSuite.runAll(sourceEntity);
+    } else if (id === "survival:reload") {
+      GunController.requestReload(sourceEntity);
     }
   });
 }
@@ -150,7 +155,7 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§e[Survival Firearms]§r §a末日生存枪械已就绪！输入 §f!workbench §a或 §f!gunkit §a开始体验。");
+      player.sendMessage("§l§e[Survival Firearms]§r §a四枪 MVP 已就绪！§f右键射击、潜行瞄准、!reload 换弹、!workbench 制造。§r");
     }
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in playerSpawn: ${err}`);
@@ -164,6 +169,15 @@ subscribeAfterEvent("playerLeave", (event) => {
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in playerLeave: ${err}`);
   }
+});
+
+subscribeAfterEvent("entityDie", ({ deadEntity }) => {
+  try {
+    if (deadEntity?.typeId === "minecraft:player") {
+      FireScheduler.reset(deadEntity.id);
+      ReloadManager.cancelReload(deadEntity.id, deadEntity);
+    }
+  } catch {}
 });
 
 console.warn("[SurvivalFirearms] Addon loaded successfully without errors!");
