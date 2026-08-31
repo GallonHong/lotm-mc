@@ -1,0 +1,36 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "apex:shotgun",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": true,
+      "minecraft:can_destroy_in_creative": false,
+      "minecraft:display_name": {
+        "value": "§l§e圣盾防暴重型霰弹枪§r\n§7护盾共鸣 | 单丸 2~22 HP"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "apex:shotgun"
+        }
+      },
+      "minecraft:cooldown": {
+        "category": "apex:shotgun",
+        "duration": 0.5
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "apex:gun",
+          "guns",
+          "shotgun"
+        ]
+      }
+    }
+  }
+}

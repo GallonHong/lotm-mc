@@ -49,6 +49,18 @@
         { "name": "sounds/guns/mgl_distant", "volume": 0.9, "pitch": 1.0 }
       ]
     },
+    "apex.shotgun.shoot": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/shotgun_shoot", "volume": 1.0, "pitch": 1.0 }
+      ]
+    },
+    "apex.shotgun.distant": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/shotgun_distant", "volume": 0.9, "pitch": 1.0 }
+      ]
+    },
     "apex.arc.shoot": {
       "category": "player",
       "sounds": [

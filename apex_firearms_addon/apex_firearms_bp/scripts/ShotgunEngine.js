@@ -1,0 +1,223 @@
+import { world, system, EntityDamageCause } from "@minecraft/server";
+import { DamageResolver } from "./DamageResolver.js";
+
+export class ShotgunEngine {
+  /**
+   * 获取玩家的综合圣盾/防御指数 (护甲值 + 金心吸收护盾 + 副手持盾)
+   */
+  static getPlayerShieldRating(player) {
+    if (!player || !player.isValid()) return 0;
+
+    // 1. 基础护甲点数 (0 ~ 20)
+    let armorPoints = DamageResolver.estimateArmorPoints(player);
+
+    // 2. 伤害吸收金心护盾 (Absorption Effect: 0 ~ 16+ HP)
+    let absorptionBonus = 0;
+    try {
+      const absEffect = player.getEffect("absorption");
+      if (absEffect) {
+        absorptionBonus = (absEffect.amplifier + 1) * 4;
+      }
+    } catch {}
+
+    // 3. 副手持盾加成
+    let offhandShieldBonus = 0;
+    try {
+      const equippable = player.getComponent("minecraft:equippable");
+      const offhand = equippable?.getEquipment("Offhand");
+      if (offhand && offhand.typeId === "minecraft:shield") {
+        offhandShieldBonus = 4;
+      }
+    } catch {}
+
+    return armorPoints + absorptionBonus + offhandShieldBonus;
+  }
+
+  /**
+   * 触发圣盾防暴霰弹枪开火 (8 枚弹丸同时发射，单丸 2~22 HP)
+   */
+  static fireShotgun(player, config) {
+    if (!player || !player.isValid()) return null;
+
+    try {
+      const dim = player.dimension;
+      const headLoc = player.getHeadLocation();
+      const viewDir = player.getViewDirection();
+      const isSneaking = player.isSneaking;
+
+      // 1. 计算圣盾充能与单丸伤害 (单枚 2 ~ 22 HP)
+      const shieldRating = this.getPlayerShieldRating(player);
+      // 以 20 护盾指数为满额 100% 缩放
+      const scale = Math.min(1.0, Math.max(0.0, shieldRating / 20.0));
+      const pelletDamage = Math.max(2, Math.min(22, Math.round(2 + (22 - 2) * scale)));
+
+      const pelletCount = config.pelletCount ?? 8;
+      const baseSpread = isSneaking ? (config.spreadSneak ?? 0.035) : (config.spreadStand ?? 0.055);
+      const maxDist = config.maxRange ?? 28.0;
+
+      const muzzleLoc = {
+        x: headLoc.x + viewDir.x * 0.7,
+        y: headLoc.y + viewDir.y * 0.7 - 0.1,
+        z: headLoc.z + viewDir.z * 0.7
+      };
+
+      // 枪口初速火光
+      try {
+        dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", muzzleLoc);
+        dim.spawnParticle("minecraft:basic_flame_particle", muzzleLoc);
+      } catch {}
+
+      const hitMap = new Map(); // entityId -> { count: number, totalDamage: number, name: string, entity: any }
+      let totalPelletsHit = 0;
+
+      // 2. 并行发射 8 枚散射弹丸
+      for (let i = 0; i < pelletCount; i++) {
+        // 圆锥形随机散布
+        const jx = (Math.random() - 0.5) * baseSpread * 2;
+        const jy = (Math.random() - 0.5) * baseSpread * 2;
+        const jz = (Math.random() - 0.5) * baseSpread * 2;
+
+        const rayDir = {
+          x: viewDir.x + jx,
+          y: viewDir.y + jy,
+          z: viewDir.z + jz
+        };
+        const rayLen = Math.hypot(rayDir.x, rayDir.y, rayDir.z);
+        const normDir = { x: rayDir.x / rayLen, y: rayDir.y / rayLen, z: rayDir.z / rayLen };
+
+        let blockHitDist = maxDist;
+        try {
+          const bHit = dim.getBlockFromRay(headLoc, normDir, {
+            maxDistance: maxDist,
+            includePassableBlocks: false,
+            includeLiquidBlocks: false
+          });
+          if (bHit && bHit.block) {
+            blockHitDist = bHit.distance;
+          }
+        } catch {}
+
+        let hitEntity = null;
+        let hitDist = blockHitDist;
+
+        try {
+          const entHits = dim.getEntitiesFromRay(headLoc, normDir, {
+            maxDistance: blockHitDist,
+            ignoreBlockCollision: false
+          });
+
+          if (entHits && entHits.length > 0) {
+            for (const eh of entHits) {
+              const ent = eh.entity;
+              if (!ent || !ent.isValid() || ent.id === player.id) continue;
+              if (ent.typeId === "minecraft:item" || ent.typeId === "minecraft:xp_orb") continue;
+
+              hitEntity = ent;
+              hitDist = eh.distance;
+              break;
+            }
+          }
+        } catch {}
+
+        const endPos = {
+          x: headLoc.x + normDir.x * hitDist,
+          y: headLoc.y + normDir.y * hitDist,
+          z: headLoc.z + normDir.z * hitDist
+        };
+
+        // 绘制弹丸高速破片轨迹
+        this.#drawPelletTracer(dim, muzzleLoc, endPos);
+
+        // 如果击中实体
+        if (hitEntity && hitEntity.isValid()) {
+          totalPelletsHit++;
+          const targetId = hitEntity.id;
+          const prev = hitMap.get(targetId) || {
+            count: 0,
+            totalDamage: 0,
+            name: hitEntity.nameTag || hitEntity.typeId.replace("minecraft:", ""),
+            entity: hitEntity
+          };
+
+          prev.count += 1;
+          prev.totalDamage += pelletDamage;
+          hitMap.set(targetId, prev);
+
+          // 施加单枚弹丸伤害
+          const healthComp = hitEntity.getComponent("minecraft:health");
+          const curHp = healthComp?.currentValue ?? 20;
+
+          try {
+            hitEntity.applyDamage(pelletDamage, {
+              cause: EntityDamageCause.override,
+              damagingEntity: player
+            });
+          } catch (e) {
+            if (healthComp) {
+              healthComp.setCurrentValue(Math.max(0, curHp - pelletDamage));
+            }
+          }
+
+          // 弹丸物理冲击波击退
+          try {
+            hitEntity.applyKnockback(normDir.x, normDir.z, 0.35, 0.1);
+          } catch {}
+        }
+      }
+
+      // 3. 击中音效与反馈
+      if (totalPelletsHit > 0) {
+        try {
+          player.playSound("apex.gun.hit_flesh", { volume: 1.0, pitch: 0.95 });
+        } catch {}
+      }
+
+      let totalDamageDone = 0;
+      let primaryTargetName = "";
+      for (const info of hitMap.values()) {
+        totalDamageDone += info.totalDamage;
+        if (!primaryTargetName) primaryTargetName = info.name;
+      }
+
+      return {
+        shieldRating,
+        pelletDamage,
+        totalPelletsHit,
+        pelletCount,
+        totalDamageDone,
+        primaryTargetName
+      };
+    } catch (e) {
+      console.warn(`[ApexFirearms] ShotgunEngine error: ${e}`);
+      return null;
+    }
+  }
+
+  /**
+   * 绘制霰弹破片高速弹道轨迹
+   */
+  static #drawPelletTracer(dim, p1, p2) {
+    if (!dim || !p1 || !p2) return;
+
+    try {
+      const dx = p2.x - p1.x;
+      const dy = p2.y - p1.y;
+      const dz = p2.z - p1.z;
+      const dist = Math.hypot(dx, dy, dz);
+      if (dist < 0.5) return;
+
+      const steps = Math.min(Math.floor(dist / 1.5), 20);
+
+      for (let i = 1; i <= steps; i++) {
+        const frac = i / steps;
+        const px = p1.x + dx * frac;
+        const py = p1.y + dy * frac;
+        const pz = p1.z + dz * frac;
+
+        try {
+          dim.spawnParticle("apex:shotgun_tracer", { x: px, y: py, z: pz });
+        } catch {}
+      }
+    } catch {}
+  }
+}

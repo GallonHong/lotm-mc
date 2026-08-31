@@ -72,7 +72,7 @@ export const GUN_CONFIGS = {
     burstCount: 1,
     isExplosive: true,
     heChance: 1.0,
-    heRadius: 5.0,
+    heRadius: 5.5,
     heSplashDamage: 40,
     heBreaksBlocks: false,
     heCausesFire: false
@@ -83,16 +83,34 @@ export const GUN_CONFIGS = {
     name: "特斯拉电弧枪",
     caliberName: "聚能微型电池",
     magSize: 20,
-    baseDamage: 24, // 首击 24 HP 真实电击伤害
+    baseDamage: 24,
     headshotMultiplier: 1.5,
-    armorPiercing: 1.0, // 100% 真实能量穿透
+    armorPiercing: 1.0,
     maxRange: 32,
-    chainRadius: 7.0, // 7 格内连锁传递
-    maxChains: 5,     // 最多连续跃迁 5 次 (总计 6 个目标)
-    decayRate: 0.25,  // 每次跃迁伤害递减 25%
+    chainRadius: 7.0,
+    maxChains: 5,
+    decayRate: 0.25,
     reloadSeconds: 2.0,
     burstCount: 1,
     isArcEmitter: true
+  },
+  "apex:shotgun": {
+    id: "apex:shotgun",
+    ammoId: "apex:ammo_12gauge",
+    name: "圣盾霰弹枪",
+    caliberName: "12 Gauge 鹿弹",
+    magSize: 8,
+    pelletCount: 8,
+    minPelletDamage: 2,
+    maxPelletDamage: 22,
+    headshotMultiplier: 1.5,
+    armorPiercing: 0.30,
+    maxRange: 28,
+    spreadStand: 0.055,
+    spreadSneak: 0.035,
+    reloadSeconds: 2.5,
+    burstCount: 1,
+    isShotgun: true
   }
 };
 
@@ -101,6 +119,7 @@ export const M82_CONFIG = GUN_CONFIGS["apex:m82"];
 export const VECTOR_CONFIG = GUN_CONFIGS["apex:vector"];
 export const MGL_CONFIG = GUN_CONFIGS["apex:mgl"];
 export const ARC_CONFIG = GUN_CONFIGS["apex:arc_emitter"];
+export const SHOTGUN_CONFIG = GUN_CONFIGS["apex:shotgun"];
 
 export class AmmoSystem {
   static getGunConfig(typeId) {

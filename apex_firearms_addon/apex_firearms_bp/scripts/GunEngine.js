@@ -4,6 +4,7 @@ import { ReloadManager } from "./ReloadManager.js";
 import { RaycastEngine } from "./RaycastEngine.js";
 import { GrenadeEngine } from "./GrenadeEngine.js";
 import { ArcEngine } from "./ArcEngine.js";
+import { ShotgunEngine } from "./ShotgunEngine.js";
 
 export class GunEngine {
   static #lastShotTicks = new Map();
@@ -92,6 +93,9 @@ export class GunEngine {
       this.#executeSingleShot(player, slot, config, 1, true);
     } else if (config.id === "apex:arc_emitter") {
       // 特斯拉电弧发射器 (连锁闪电跃迁)
+      this.#executeSingleShot(player, slot, config, 1, false);
+    } else if (config.id === "apex:shotgun") {
+      // 圣盾防暴霰弹枪 (8 枚弹丸，护盾共鸣 2~22 HP)
       this.#executeSingleShot(player, slot, config, 1, false);
     } else {
       // M82A1 单发重狙 (20% 概率恶魂高爆弹)
@@ -219,6 +223,11 @@ export class GunEngine {
             } else {
               skillStatus = ` §7| §aShift[5s无限子弹]就绪!`;
             }
+          } else if (config.id === "apex:shotgun") {
+            const shield = ShotgunEngine.getPlayerShieldRating(player);
+            const scale = Math.min(1.0, Math.max(0.0, shield / 20.0));
+            const dmg = Math.round(2 + 20 * scale);
+            skillStatus = ` §7| §6🛡️圣盾:${shield} (单丸${dmg}HP)`;
           }
 
           player.onScreenDisplay?.setActionBar?.(
@@ -230,7 +239,7 @@ export class GunEngine {
   }
 
   /**
-   * 执行单发实弹 / 榴弹 / 特斯拉电弧
+   * 执行单发实弹 / 榴弹 / 特斯拉电弧 / 圣盾霰弹
    */
   static #executeSingleShot(player, targetSlot, config, shotIndexInBurst = 1, isHeRound = false, isOverdrive = false, overdriveSec = "5.0") {
     if (!player || !player.isValid()) return false;
@@ -261,7 +270,10 @@ export class GunEngine {
 
     // 2. 播放枪声与远距离回声
     try {
-      if (config.id === "apex:arc_emitter") {
+      if (config.id === "apex:shotgun") {
+        player.playSound("apex.shotgun.shoot", { location: player.location, volume: 1.0, pitch: 1.0 });
+        player.playSound("apex.shotgun.distant", { location: player.location, volume: 0.9, pitch: 1.0 });
+      } else if (config.id === "apex:arc_emitter") {
         player.playSound("apex.arc.shoot", { location: player.location, volume: 1.0, pitch: 1.0 });
       } else if (config.id === "apex:mgl") {
         player.playSound("apex.mgl.shoot", { location: player.location, volume: 1.0, pitch: 0.85 });
@@ -288,6 +300,8 @@ export class GunEngine {
     let shakeIntensity = "0.04";
     if (isOverdrive) {
       shakeIntensity = "0.055";
+    } else if (config.id === "apex:shotgun") {
+      shakeIntensity = isSneaking ? "0.045" : "0.065";
     } else if (config.id === "apex:arc_emitter") {
       shakeIntensity = "0.025";
     } else if (config.id === "apex:mgl") {
@@ -307,7 +321,18 @@ export class GunEngine {
     const barFill = Math.round((currentAmmo / config.magSize) * 10);
     const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
 
-    if (config.id === "apex:arc_emitter") {
+    if (config.id === "apex:shotgun") {
+      const sgRes = ShotgunEngine.fireShotgun(player, config);
+      if (sgRes && sgRes.totalPelletsHit > 0) {
+        player.onScreenDisplay?.setActionBar?.(
+          `§e[圣盾霰弹枪] 🛡️ [${bar}§e] ${currentAmmo}/${reserve} §7| §6命中 §f${sgRes.totalPelletsHit}/${sgRes.pelletCount} §6枚弹丸 (单丸${sgRes.pelletDamage}HP) §c-${sgRes.totalDamageDone} HP!`
+        );
+      } else {
+        player.onScreenDisplay?.setActionBar?.(
+          `§e[圣盾霰弹枪] 🛡️ [${bar}§e] §f${currentAmmo}§7/§a${reserve} §7| §6护盾共鸣 (单丸${sgRes?.pelletDamage ?? 2}HP)`
+        );
+      }
+    } else if (config.id === "apex:arc_emitter") {
       const arcResult = ArcEngine.fireArc(player, config);
       const hits = arcResult?.totalHits ?? 0;
       if (hits > 0) {

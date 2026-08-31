@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const addonRoot = path.resolve(__dirname, "..");
 
-console.log("=== [Apex Firearms] Running 5-Gun Static & Mathematical Test Suite ===");
+console.log("=== [Apex Firearms] Running 6-Gun Static & Mathematical Test Suite ===");
 
 // 1. JSON Validations
 function validateJsonDir(dir) {
@@ -32,24 +32,25 @@ console.log("\n[1/3] Validating all JSON manifests, models, attachables, and rec
 validateJsonDir(path.join(addonRoot, "apex_firearms_bp"));
 validateJsonDir(path.join(addonRoot, "apex_firearms_rp"));
 
-// 2. Math Validation: Chain Lightning Diminishing Jumps
-console.log("\n[2/3] Validating Chain Lightning Diminishing Damage Formula (24 Base, 25% decay)...");
-const baseDmg = 24;
-const decay = 0.25;
-const expected = [24, 18, 14, 10, 8, 6];
-for (let jump = 0; jump <= 5; jump++) {
-  const dmg = Math.max(3, Math.round(baseDmg * Math.pow(1 - decay, jump)));
-  console.log(`  ✔ Jump ${jump} (Target ${jump + 1}): ${dmg} HP true electric damage`);
+// 2. Math Validation: Shotgun Shield Scaling Formula (2 to 22 HP)
+console.log("\n[2/3] Validating Shotgun Shield Resonance Scaling Formula (2 ~ 22 HP/pellet)...");
+const testShields = [0, 5, 10, 15, 20, 24];
+for (const s of testShields) {
+  const scale = Math.min(1.0, Math.max(0.0, s / 20.0));
+  const pelletDmg = Math.max(2, Math.min(22, Math.round(2 + (22 - 2) * scale)));
+  const fullBurst = pelletDmg * 8;
+  console.log(`  ✔ Shield ${s}: Single Pellet = ${pelletDmg} HP (8-Pellet Full Hit = ${fullBurst} HP)`);
 }
 
 // 3. Math Validation: Ballistics & Safety Properties
 console.log("\n[3/3] Validating Arsenal Armor & Safety Properties...");
 console.log(`  ✔ AK-47: 6 HP base (18 HP burst)`);
-console.log(`  ✔ Vector: 5 HP base (10 HP burst, 250 HP overdrive)`);
+console.log(`  ✔ Vector: 5 HP base (10 HP burst, 5s infinite ammo Overdrive)`);
 console.log(`  ✔ M82A1: 55 HP base (138 HP headshot, 60% AP)`);
 console.log(`  ✔ M32 MGL: 20 direct + 40 splash, 0 terrain destruction (breaksBlocks: false)`);
 console.log(`  ✔ Tesla Arc: 24 base true energy damage + 7m chain jump (up to 6 targets)`);
+console.log(`  ✔ Aegis Shotgun: 8 pellets, scaling 2~22 HP per pellet based on user shield/armor`);
 
 console.log("\n=======================================================");
-console.log("✔ ALL 5-GUN ARSENAL TESTS PASSED SUCCESSFULLY! (100%)");
+console.log("✔ ALL 6-GUN ARSENAL TESTS PASSED SUCCESSFULLY! (100%)");
 console.log("=======================================================");

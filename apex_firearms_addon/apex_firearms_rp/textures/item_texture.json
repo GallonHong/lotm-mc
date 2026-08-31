@@ -61,6 +61,18 @@
     },
     "apex:ammo_battery": {
       "textures": "textures/items/ammo_battery"
+    },
+    "apex_shotgun": {
+      "textures": "textures/items/shotgun"
+    },
+    "apex:shotgun": {
+      "textures": "textures/items/shotgun"
+    },
+    "apex_ammo_12gauge": {
+      "textures": "textures/items/ammo_12gauge"
+    },
+    "apex:ammo_12gauge": {
+      "textures": "textures/items/ammo_12gauge"
     }
   }
 }
