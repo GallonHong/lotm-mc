@@ -35,11 +35,30 @@ export const GUN_CONFIGS = {
     heChance: 0.20, // 20% 恶魂火球级高爆烈焰弹
     heRadius: 3.5,
     heSplashDamage: 30
+  },
+  "apex:vector": {
+    id: "apex:vector",
+    ammoId: "apex:ammo_45acp",
+    name: "Vector .45",
+    caliberName: ".45 ACP",
+    magSize: 50,
+    baseDamage: 18,
+    headshotMultiplier: 2.0,
+    armorPiercing: 0.30,
+    maxRange: 50,
+    spreadStand: 0.022,
+    spreadSneak: 0.008,
+    reloadSeconds: 2.0,
+    burstCount: 2, // 常态双发点射
+    hasSkill: true,
+    skillCooldownSec: 30,
+    skillName: "暴走狂潮"
   }
 };
 
 export const AK47_CONFIG = GUN_CONFIGS["apex:ak47"];
 export const M82_CONFIG = GUN_CONFIGS["apex:m82"];
+export const VECTOR_CONFIG = GUN_CONFIGS["apex:vector"];
 
 export class AmmoSystem {
   static getGunConfig(typeId) {
@@ -132,7 +151,6 @@ export class AmmoSystem {
 
     const reloadAmount = Math.min(needed, totalReserve);
 
-    // 扣除备弹
     let remainingToDeduct = reloadAmount;
     for (let i = 0; i < inv.container.size; i++) {
       if (remainingToDeduct <= 0) break;
@@ -149,7 +167,6 @@ export class AmmoSystem {
       }
     }
 
-    // 更新手持枪械弹药
     const newAmmo = currentAmmo + reloadAmount;
     this.setMagazineAmmo(mainHandItem, newAmmo);
     inv.container.setItem(selectedSlot, mainHandItem);

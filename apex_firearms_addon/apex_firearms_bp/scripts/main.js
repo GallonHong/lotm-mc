@@ -1,10 +1,10 @@
 import { world, system, ItemStack } from "@minecraft/server";
-import { GUN_CONFIGS, AK47_CONFIG, M82_CONFIG, AmmoSystem } from "./AmmoSystem.js";
+import { GUN_CONFIGS, AK47_CONFIG, M82_CONFIG, VECTOR_CONFIG, AmmoSystem } from "./AmmoSystem.js";
 import { GunEngine } from "./GunEngine.js";
 import { ReloadManager } from "./ReloadManager.js";
 import { TestSuite } from "./TestSuite.js";
 
-console.warn("[ApexFirearms] Tactical Arsenal (AK-47 Burst & M82 .50 HE) Addon v1.2.0 initializing...");
+console.warn("[ApexFirearms] Tactical Arsenal (AK-47, M82 & Vector Overdrive) Addon v1.3.0 initializing...");
 
 /**
  * 安全事件订阅工具函数
@@ -22,7 +22,7 @@ function subscribeAfterEvent(eventName, handler) {
   }
 }
 
-// 1. 枪械使用事件 (支持 AK-47 三连发与 M82A1 单发高爆弹)
+// 1. 枪械使用事件 (支持 AK-47 三连发、M82 高爆重狙、Vector 暴走狂潮)
 subscribeAfterEvent("itemUse", (event) => {
   try {
     const item = event.itemStack;
@@ -128,7 +128,7 @@ if (systemAfter && systemAfter.scriptEventReceive) {
 }
 
 /**
- * 发放全套枪械与弹药补给包
+ * 发放三大神枪与弹药补给包
  */
 function giveDevKit(player) {
   try {
@@ -147,7 +147,7 @@ function giveDevKit(player) {
       player.runCommandAsync(`give @s ${AK47_CONFIG.id} 1`);
     }
 
-    // 2. 发放 M82A1 高爆重狙
+    // 2. 发放 M82A1
     try {
       const m82 = new ItemStack(M82_CONFIG.id, 1);
       AmmoSystem.setMagazineAmmo(m82, M82_CONFIG.magSize);
@@ -156,27 +156,32 @@ function giveDevKit(player) {
       player.runCommandAsync(`give @s ${M82_CONFIG.id} 1`);
     }
 
-    // 3. 发放 7.62mm 弹药
+    // 3. 发放 Vector .45
     try {
-      inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
-      inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
+      const vec = new ItemStack(VECTOR_CONFIG.id, 1);
+      AmmoSystem.setMagazineAmmo(vec, VECTOR_CONFIG.magSize);
+      inv.container.addItem(vec);
     } catch {
-      player.runCommandAsync(`give @s ${AK47_CONFIG.ammoId} 64`);
+      player.runCommandAsync(`give @s ${VECTOR_CONFIG.id} 1`);
     }
 
-    // 4. 发放 .50 BMG 弹药
+    // 4. 发放 7.62mm、.50 BMG、.45 ACP 弹药
     try {
+      inv.container.addItem(new ItemStack(AK47_CONFIG.ammoId, 64));
       inv.container.addItem(new ItemStack(M82_CONFIG.ammoId, 32));
-      inv.container.addItem(new ItemStack(M82_CONFIG.ammoId, 32));
+      inv.container.addItem(new ItemStack(VECTOR_CONFIG.ammoId, 64));
+      inv.container.addItem(new ItemStack(VECTOR_CONFIG.ammoId, 64));
     } catch {
+      player.runCommandAsync(`give @s ${AK47_CONFIG.ammoId} 64`);
       player.runCommandAsync(`give @s ${M82_CONFIG.ammoId} 32`);
+      player.runCommandAsync(`give @s ${VECTOR_CONFIG.ammoId} 64`);
     }
 
     try {
       player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 1.0 });
     } catch {}
 
-    player.sendMessage("§a✔ 已成功领取【AK-47 (三连发)】、【M82A1 (20%烈焰高爆)】及对应弹药！");
+    player.sendMessage("§a✔ 已成功领取【AK-47】、【M82A1高爆】、【Vector超载暴走】及全套弹药！");
   } catch (err) {
     player.sendMessage(`§c✖ 发放补给失败: ${err}`);
   }
@@ -219,19 +224,18 @@ function spawnDummy(player) {
  * 显示帮助指南
  */
 function showHelp(player) {
-  player.sendMessage("§l§e=== Apex Firearms: 战术军火库指令指南 ===");
-  player.sendMessage("§6!gunkit§7 - 领取 AK-47、M82A1 高爆重狙与全部弹药");
-  player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可潜行右键或打空后点击自动换弹)");
+  player.sendMessage("§l§e=== Apex Firearms: 终极军火库指南 ===");
+  player.sendMessage("§6!gunkit§7 - 领取 AK-47、M82A1、Vector .45 与全套弹药");
+  player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可打空后自动换弹)");
   player.sendMessage("§6!dummy§7 - 生成 5000 HP 测试靶人");
-  player.sendMessage("§6!test§7 - 运行自动化测试套件");
-  player.sendMessage("§7武器特性: AK-47 单点 3 连发；M82A1 单发重伤且有 20% 概率触发恶魂烈焰高爆弹！");
+  player.sendMessage("§dVector .45§7 - 立姿双发点射；潜行(Shift)+右键释放【暴走狂潮】(CD:30s) 不可阻挡全速狂暴连射！");
 }
 
 // 6. 玩家进退场与死亡清理
 subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
   try {
     if (initialSpawn && player) {
-      player.sendMessage("§l§6[Apex Firearms]§r §a军火库模组已就绪！输入 §e!gunkit§a 获取 AK-47 与 M82A1 高爆重狙。§r");
+      player.sendMessage("§l§6[Apex Firearms]§r §a终极军火库已就绪！输入 §e!gunkit§a 获取全部 3 把神枪。§r");
     }
   } catch {}
 });

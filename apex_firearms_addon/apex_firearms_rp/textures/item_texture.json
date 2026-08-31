@@ -25,6 +25,18 @@
     },
     "apex:ammo_50cal": {
       "textures": "textures/items/ammo_50cal"
+    },
+    "apex_vector": {
+      "textures": "textures/items/vector"
+    },
+    "apex:vector": {
+      "textures": "textures/items/vector"
+    },
+    "apex_ammo_45acp": {
+      "textures": "textures/items/ammo_45acp"
+    },
+    "apex:ammo_45acp": {
+      "textures": "textures/items/ammo_45acp"
     }
   }
 }

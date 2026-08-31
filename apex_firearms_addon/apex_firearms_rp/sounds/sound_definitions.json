@@ -25,6 +25,18 @@
         { "name": "sounds/guns/m82_distant", "volume": 0.9, "pitch": 0.85 }
       ]
     },
+    "apex.vector.shoot": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/vector_shoot", "volume": 0.95, "pitch": 1.1 }
+      ]
+    },
+    "apex.vector.distant": {
+      "category": "player",
+      "sounds": [
+        { "name": "sounds/guns/vector_distant", "volume": 0.8, "pitch": 1.1 }
+      ]
+    },
     "apex.gun.dry": {
       "category": "player",
       "sounds": [

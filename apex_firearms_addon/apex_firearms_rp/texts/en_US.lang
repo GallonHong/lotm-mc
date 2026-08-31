@@ -1,9 +1,13 @@
 item.apex:ak47=§6Tactical AK-47 Assault Rifle (Burst)§r
-item.apex:ak47.description=§7Tactical assault rifle chambered in 7.62x39mm. 3-Round Burst mode, 30-round magazine. High armor piercing and stopping power.§r
+item.apex:ak47.description=§7Tactical assault rifle chambered in 7.62x39mm. 3-Round Burst mode, 30-round magazine.§r
 item.apex:ammo_762=§e7.62x39mm Rifle Ammo Box§r
 item.apex:ammo_762.description=§7Standard ammunition box for AK-47 assault rifle.§r
 item.apex:m82=§6Barrett M82A1 Anti-Materiel Rifle§r
-item.apex:m82.description=§7.50 BMG Heavy Anti-Materiel Rifle, 5-round magazine. Massive kinetic stopping power with 20% chance to trigger Ghast-tier High-Explosive Fireball!§r
+item.apex:m82.description=§7.50 BMG Heavy Anti-Materiel Rifle, 5-round magazine. Massive kinetic stopping power with 20% Ghast HE Fireball!§r
 item.apex:ammo_50cal=§c.50 BMG Heavy Ammo Box§r
 item.apex:ammo_50cal.description=§7Heavy 12.7x99mm armor-piercing ammunition for M82A1.§r
+item.apex:vector=§dVector .45 Overdrive SMG§r
+item.apex:vector.description=§7.45 ACP High-RPM SMG, 50-round magazine. Stand: 2-Round Burst; Sneak: Skill [Overdrive Frenzy] (30s CD) unleashing unstoppable full-auto firestorm!§r
+item.apex:ammo_45acp=§d.45 ACP SMG Ammo Box§r
+item.apex:ammo_45acp.description=§7Specialized .45 ACP ammunition for Vector SMG.§r
 entity.apex:test_dummy.name=§eTest Dummy (5000 HP)§r
