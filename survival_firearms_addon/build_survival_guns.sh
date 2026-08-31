@@ -4,7 +4,7 @@ set -Eeuo pipefail
 script_dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 bp_dir="${script_dir}/survival_guns_bp"
 rp_dir="${script_dir}/survival_guns_rp_mvp"
-release_version="1.3.1"
+release_version="1.3.2"
 versioned_addon="${script_dir}/Survival_Guns_MVP_v${release_version}.mcaddon"
 
 rm -f "${script_dir}/Survival_Guns_BP.mcpack" \
@@ -12,6 +12,7 @@ rm -f "${script_dir}/Survival_Guns_BP.mcpack" \
       "${script_dir}/Survival_Guns_Addon.mcaddon" \
       "${script_dir}/Survival_Guns_Addon_v1.2.1_FIXED.mcaddon" \
       "${script_dir}/Survival_Guns_MVP_v1.3.0.mcaddon" \
+      "${script_dir}/Survival_Guns_MVP_v1.3.1.mcaddon" \
       "${versioned_addon}"
 
 (

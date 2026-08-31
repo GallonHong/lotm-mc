@@ -1,10 +1,10 @@
 ﻿{
   "format_version": 2,
   "header": {
-    "name": "Survival Firearms BP v1.3.1 MVP",
+    "name": "Survival Firearms BP v1.3.2 MVP",
     "description": "末日枪械生存行为包 (枪械逻辑、长按射击、高频无敌帧绕过、图纸制造与弹药体系)",
     "uuid": "a15c33dc-5d1c-4344-a832-a4c3f4d8e303",
-    "version": [1, 3, 1],
+    "version": [1, 3, 2],
     "min_engine_version": [1, 20, 70]
   },
   "modules": [
@@ -12,21 +12,21 @@
       "description": "Data Module",
       "type": "data",
       "uuid": "b26d44ed-6e2d-4455-b943-b5d4e5e9f404",
-      "version": [1, 3, 1]
+      "version": [1, 3, 2]
     },
     {
       "description": "Script Module",
       "type": "script",
       "language": "javascript",
       "uuid": "e37e55fe-7f3e-4566-ca54-c6e5f6f0a505",
-      "version": [1, 3, 1],
+      "version": [1, 3, 2],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
     {
       "uuid": "c72e11fa-3b9a-4122-8610-82a1f2b6e101",
-      "version": [1, 3, 1]
+      "version": [1, 3, 2]
     },
     {
       "module_name": "@minecraft/server",

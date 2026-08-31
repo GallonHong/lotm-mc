@@ -58,5 +58,12 @@ assert.equal(rpFiles.filter(path => path.includes("temporary_deadzone_assets") &
 assert.equal(rpFiles.filter(path => path.includes("temporary_deadzone_assets/items") && path.endsWith(".png")).length, 4);
 const stateController = readFileSync(join(root, "survival_guns_rp_mvp/animation_controllers/temporary_deadzone_assets/survival_gun_states.json"), "utf8");
 assert.ok(!stateController.includes("query.has_tag"), "client animation controller must not use unsupported query.has_tag");
+const animationSources = walk(join(root, "survival_guns_rp_mvp/animations"))
+  .filter(path => path.endsWith(".json"))
+  .map(path => readFileSync(path, "utf8"))
+  .join("\n");
+assert.ok(!animationSources.includes("v.is_first_person"), "standalone animations must not depend on DeadZone variable.is_first_person");
+assert.ok(!/\b(?:v|variable)\.[A-Za-z_][A-Za-z0-9_]*/.test(animationSources), "standalone animations must not depend on any DeadZone player variables");
+assert.ok(animationSources.includes("query.is_first_person"), "standalone animations must use the supported first-person query");
 
-console.log("PASS: four-gun registry, RPM, recipes, JSON, Molang, and isolated assets validated");
+console.log("PASS: four-gun registry, RPM, recipes, JSON, standalone Molang, and isolated assets validated");

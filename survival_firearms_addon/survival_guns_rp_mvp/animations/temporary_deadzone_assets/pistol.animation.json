@@ -6,8 +6,8 @@
 			"animation_length": 0.4167,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"waist": {
 					"rotation": {
@@ -69,8 +69,8 @@
 			"animation_length": 0.4167,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"waist": {
 					"rotation": {
@@ -134,8 +134,8 @@
 			"loop": true,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"waist": {
 					"rotation": ["q.target_x_rotation * 0.4", "22.5 + q.target_y_rotation * 0.2", 0]
@@ -159,8 +159,8 @@
 			"loop": true,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"waist": {
 					"rotation": [0, 22.5, 0],
@@ -249,8 +249,8 @@
 			"loop": true,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"waist": {
 					"rotation": [10, 0, 0],
@@ -275,8 +275,8 @@
 			"loop": true,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"waist": {
 					"rotation": [10, 0, 0],

@@ -16,8 +16,8 @@
 					"position": [-3, -3, -1]
 				},
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? 4.5 : 0", "v.is_first_person ? 3 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? 4.5 : 0", "query.is_first_person ? 3 : 0"]
 				},
 				"guns": {
 					"rotation": [-71.29112, -66.91076, -11.70472],
@@ -31,8 +31,8 @@
 			"animation_length": 0.4167,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? 1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? 1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"body": {
 					"rotation": {
@@ -101,8 +101,8 @@
 			"loop": true,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? 1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? 1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"waist": {
 					"rotation": ["q.target_x_rotation * 0.4", "q.target_y_rotation * 0.2", 0]
@@ -132,8 +132,8 @@
 			"loop": true,
 			"bones": {
 				"root": {
-					"rotation": [0, "!v.is_first_person ? 180 : 0", 0],
-					"position": [0, "!v.is_first_person ? 1 : 0", "!v.is_first_person ? 2 : 0"]
+					"rotation": [0, "!query.is_first_person ? 180 : 0", 0],
+					"position": [0, "!query.is_first_person ? 1 : 0", "!query.is_first_person ? 2 : 0"]
 				},
 				"body": {
 					"rotation": [0, 30, 0],

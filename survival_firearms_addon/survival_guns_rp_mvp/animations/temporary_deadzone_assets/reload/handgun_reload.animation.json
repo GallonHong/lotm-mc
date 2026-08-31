@@ -6,8 +6,8 @@
 			"animation_length": 2.75,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"leftArm": {
 					"rotation": {
@@ -193,8 +193,8 @@
 			"animation_length": 2.25,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"leftArm": {
 					"rotation": {
@@ -340,8 +340,8 @@
 			"animation_length": 1.75,
 			"bones": {
 				"root": {
-					"rotation": [0, "v.is_first_person ? 180 : 0", 0],
-					"position": [0, "v.is_first_person ? -1 : 0", "v.is_first_person ? 2 : 0"]
+					"rotation": [0, "query.is_first_person ? 180 : 0", 0],
+					"position": [0, "query.is_first_person ? -1 : 0", "query.is_first_person ? 2 : 0"]
 				},
 				"leftArm": {
 					"rotation": {
