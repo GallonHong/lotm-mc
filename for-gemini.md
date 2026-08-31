@@ -167,7 +167,9 @@ Survival Firearms 使用：
 #!/usr/bin/env: No such file or directory
 ```
 
-修改后应同步提高 BP、RP、模块和依赖版本。当前修复版为 `1.2.0`，并明确请求 `@minecraft/server` `1.19.0`。
+修改后应同步提高 BP、RP、模块和依赖版本。当前修复版为 `1.2.1`，并明确请求 `@minecraft/server` `1.19.0`。
+
+如果玩家反馈的日志仍显示 PackId 版本 `1.0.0`，并且初始化文本没有 `v1.2.1 FIXED`，说明游戏实际运行的仍是旧缓存包，而不是当前源码。不要继续根据旧日志重复修改已修好的源码；应让玩家删除旧 BP/RP，导入带版本号文件名的 `Survival_Guns_Addon_v1.2.1_FIXED.mcaddon`，再重新激活行为包和资源包。
 
 ## 9. 提交前验证清单
 
@@ -209,7 +211,7 @@ rg 'dry2' survival_firearms_addon
 
 导入新包时，先删除游戏内旧的 Survival Firearms BP/RP，避免世界继续使用旧版缓存。重新导入 `Survival_Guns_Addon.mcaddon` 后测试：
 
-1. 日志显示 Survival Firearms `v1.2.0` 成功初始化。
+1. 日志显示 Survival Firearms `v1.2.1 FIXED` 成功初始化，PackId 版本为 `1.2.1`。
 2. AKM、M1911、M870、MP5 在第一和第三人称都显示模型。
 3. 按住右键时全自动枪按射速开火，松开立即停止。
 4. 半自动枪一次按压只发射一发。

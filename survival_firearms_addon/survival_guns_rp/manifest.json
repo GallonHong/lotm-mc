@@ -1,10 +1,10 @@
 ﻿{
   "format_version": 2,
   "header": {
-    "name": "Survival Firearms RP",
+    "name": "Survival Firearms RP v1.2.1 FIXED",
     "description": "末日枪械生存资源包 (包含枪械3D模型、音效、动作与材质)",
     "uuid": "c72e11fa-3b9a-4122-8610-82a1f2b6e101",
-    "version": [1, 2, 0],
+    "version": [1, 2, 1],
     "min_engine_version": [1, 20, 70]
   },
   "modules": [
@@ -12,7 +12,7 @@
       "description": "Survival Firearms Resource Module",
       "type": "resources",
       "uuid": "d83f22eb-4c0b-4233-9721-93b2f3c7f202",
-      "version": [1, 2, 0]
+      "version": [1, 2, 1]
     }
   ]
 }
