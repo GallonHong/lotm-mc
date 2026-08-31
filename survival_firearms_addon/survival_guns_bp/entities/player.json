@@ -1,0 +1,18 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "is_spawnable": false,
+      "is_summonable": false,
+      "animations": {
+        "survival_trigger_probe": "controller.animation.survival.trigger_probe"
+      },
+      "scripts": {
+        "animate": [
+          "survival_trigger_probe"
+        ]
+      }
+    }
+  }
+}

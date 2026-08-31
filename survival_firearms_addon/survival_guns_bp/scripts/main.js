@@ -5,7 +5,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v2.3.0...");
+console.warn("[SurvivalFirearms] Addon initializing v2.4.0...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -38,19 +38,15 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
   GunTestSuite.runAll(player);
 };
 
-// 3. 食物式持续使用：只有开始与停止事件都可订阅时才启用长按连射。
-const hasStopUse = subscribeAfterEvent("itemStopUse", (event) => GunController.handleTriggerStop(event));
-const hasReleaseUse = subscribeAfterEvent("itemReleaseUse", (event) => GunController.handleTriggerStop(event));
-const canObserveRelease = hasStopUse || hasReleaseUse;
-const hasStartUse = canObserveRelease
-  ? subscribeAfterEvent("itemStartUse", (event) => GunController.handleTriggerStart(event))
-  : false;
-const reliableUseLifecycle = hasStartUse && canObserveRelease;
-console.warn(`[SurvivalFirearms] Trigger mode: ${reliableUseLifecycle ? "food hold lifecycle" : "safe single-use fallback"}`);
+// 3. 松开事件只作为冗余保险。真正的按下/松开状态由行为动画控制器的
+// q.main_hand_item_use_duration 检测，并通过 survival:trigger_down/up 传入。
+subscribeAfterEvent("itemStopUse", (event) => GunController.handleTriggerStop(event));
+subscribeAfterEvent("itemReleaseUse", (event) => GunController.handleTriggerStop(event));
+console.warn("[SurvivalFirearms] Trigger mode: Molang hold-state bridge");
 
 subscribeAfterEvent("itemUse", (event) => {
   try {
-    GunController.handleItemUse(event, reliableUseLifecycle);
+    GunController.handleItemUse(event);
   } catch (err) {
     console.error(`[SurvivalFirearms] Error in itemUse: ${err}`);
   }
@@ -117,6 +113,10 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
       GunTestSuite.runAll(sourceEntity);
     } else if (id === "survival:reload") {
       GunController.requestReload(sourceEntity);
+    } else if (id === "survival:trigger_down") {
+      GunController.handleTriggerStart({ source: sourceEntity });
+    } else if (id === "survival:trigger_up") {
+      GunController.handleTriggerStop({ source: sourceEntity });
     }
   });
 }
@@ -150,4 +150,4 @@ subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   } catch {}
 });
 
-console.warn("[SurvivalFirearms] Addon v2.3.0 loaded successfully without errors!");
+console.warn("[SurvivalFirearms] Addon v2.4.0 loaded successfully without errors!");

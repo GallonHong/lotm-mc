@@ -1,0 +1,30 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.survival.trigger_probe": {
+      "initial_state": "released",
+      "states": {
+        "released": {
+          "transitions": [
+            {
+              "pressed": "q.is_alive && q.main_hand_item_use_duration > 0.0 && q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:m1911', 'survival:akm', 'survival:mp5', 'survival:m870')"
+            }
+          ]
+        },
+        "pressed": {
+          "on_entry": [
+            "/execute as @s run scriptevent survival:trigger_down"
+          ],
+          "on_exit": [
+            "/execute as @s run scriptevent survival:trigger_up"
+          ],
+          "transitions": [
+            {
+              "released": "!q.is_alive || q.main_hand_item_use_duration <= 0.0 || !q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:m1911', 'survival:akm', 'survival:mp5', 'survival:m870')"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -68,19 +68,29 @@ assert.equal("texture" in paperBundleItem["minecraft:icon"], false, "legacy icon
 
 const mainSource = read(join(root, "survival_guns_bp/scripts/main.js"));
 const controllerSource = read(join(root, "survival_guns_bp/scripts/guns/GunController.js"));
-assert.ok(mainSource.includes('subscribeAfterEvent("itemStartUse"'));
 assert.ok(mainSource.includes('subscribeAfterEvent("itemStopUse"'));
 assert.ok(mainSource.includes('subscribeAfterEvent("itemReleaseUse"'));
-assert.ok(mainSource.includes("food hold lifecycle"));
-assert.ok(mainSource.includes("safe single-use fallback"));
-assert.ok(!mainSource.includes('id === "survival:fire"'), "Molang fire events must be removed");
+assert.ok(!mainSource.includes('subscribeAfterEvent("itemStartUse"'), "itemStartUse must not drive firing");
+assert.ok(mainSource.includes("Molang hold-state bridge"));
+assert.ok(mainSource.includes('id === "survival:trigger_down"'));
+assert.ok(mainSource.includes('id === "survival:trigger_up"'));
 assert.ok(controllerSource.includes("requestPulseShot"));
 assert.ok(controllerSource.includes("activeTriggers"));
+assert.ok(controllerSource.includes("triggerLatches"), "semi-auto needs a release latch");
 assert.ok(controllerSource.includes("requestHeldShots"));
 assert.ok(controllerSource.includes("Math.min(60"), "held fire needs a hard safety limit");
 assert.ok(!controllerSource.includes("autoFireDeadline"), "persistent automatic-fire deadline must be removed");
-assert.equal(existsSync(join(root, "survival_guns_bp/entities/player.json")), false, "BP must not override minecraft:player");
-assert.equal(existsSync(join(root, "survival_guns_bp/animation_controllers/survival_firearms.controller.json")), false, "self-loop fire controller must be deleted");
+const playerEntity = json(join(root, "survival_guns_bp/entities/player.json"))["minecraft:entity"].description;
+assert.equal(playerEntity.identifier, "minecraft:player");
+assert.equal(playerEntity.animations.survival_trigger_probe, "controller.animation.survival.trigger_probe");
+assert.deepEqual(playerEntity.scripts.animate, ["survival_trigger_probe"]);
+const triggerController = json(join(root, "survival_guns_bp/animation_controllers/survival_trigger.controller.json"))
+  .animation_controllers["controller.animation.survival.trigger_probe"];
+assert.ok(triggerController.states.released.transitions[0].pressed.includes("q.main_hand_item_use_duration > 0.0"));
+assert.ok(triggerController.states.pressed.transitions[0].released.includes("q.main_hand_item_use_duration <= 0.0"));
+assert.ok(triggerController.states.pressed.on_entry.includes("/execute as @s run scriptevent survival:trigger_down"));
+assert.ok(triggerController.states.pressed.on_exit.includes("/execute as @s run scriptevent survival:trigger_up"));
+assert.ok(!JSON.stringify(triggerController).includes("query.has_tag"), "unsupported Molang query.has_tag must not return");
 
 function ingredientCounts(recipe) {
   const shaped = recipe["minecraft:recipe_shaped"];
@@ -144,7 +154,7 @@ for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
 
 const bpManifest = json(join(root, "survival_guns_bp/manifest.json"));
 const rpManifest = json(join(root, "survival_guns_rp/manifest.json"));
-assert.deepEqual(bpManifest.header.version, [2, 3, 0]);
-assert.deepEqual(rpManifest.header.version, [2, 3, 0]);
+assert.deepEqual(bpManifest.header.version, [2, 4, 0]);
+assert.deepEqual(rpManifest.header.version, [2, 4, 0]);
 
-console.log("PASS: food-use hold lifecycle, safe fallback, recipe unlocks, item schemas, visuals, audio, and manifests validated");
+console.log("PASS: Molang trigger bridge, semi-auto release latch, held-fire scheduler, recipes, visuals, audio, and manifests validated");

@@ -11,28 +11,37 @@ import { system, world } from "@minecraft/server";
 
 /**
  * 枪械总控制器。
- * 完整食物使用生命周期存在时，自动枪只在 start 与 stop/release 之间连射。
- * 事件不完整时保持单脉冲射击，避免不可停止的后台任务。
+ * Molang 玩家状态机负责把真实的使用键按下/松开状态传入脚本。
+ * 自动枪只在 trigger_down 与 trigger_up 之间连射；半自动枪必须松开后才能再次击发。
  */
 export class GunController {
   static #playerSlotTracker = new Map();
   static #playerGunTracker = new Map();
   static #playerAnimationTracker = new Map();
   static #activeTriggers = new Map();
+  static #triggerLatches = new Set();
 
   static handleTriggerStart(event) {
     const player = event?.source;
     const eventItem = event?.itemStack;
     if (!player || !player.isValid()) return false;
-    const gunDef = eventItem ? GunRegistry.getGun(eventItem.typeId) : null;
-    if (!gunDef) return false;
-    if (gunDef.fireMode !== "auto") return this.#firePulse(player, gunDef);
+    if (this.#triggerLatches.has(player.id)) return false;
 
     const inv = player.getComponent("minecraft:inventory");
     if (!inv?.container) return false;
     const slot = player.selectedSlotIndex;
-    const item = inv.container.getItem(slot);
-    if (!item || item.typeId !== gunDef.id) return false;
+    const heldItem = inv.container.getItem(slot);
+    const gunDef = eventItem
+      ? GunRegistry.getGun(eventItem.typeId)
+      : (heldItem ? GunRegistry.getGun(heldItem.typeId) : null);
+    if (!gunDef) return false;
+    if (!heldItem || heldItem.typeId !== gunDef.id) return false;
+
+    // 一次按下只建立一个锁。半自动必须等 trigger_up 清锁后才能再次击发。
+    this.#triggerLatches.add(player.id);
+    if (gunDef.fireMode !== "auto") return this.#firePulse(player, gunDef);
+
+    const item = heldItem;
 
     FireScheduler.reset(player.id);
     if (FireScheduler.requestHeldShots(player.id, gunDef, system.currentTick) < 1
@@ -52,8 +61,9 @@ export class GunController {
     const player = event?.source;
     if (!player) return false;
     const existed = this.#activeTriggers.delete(player.id);
+    const latched = this.#triggerLatches.delete(player.id);
     FireScheduler.reset(player.id);
-    return existed;
+    return existed || latched;
   }
   static #firePulse(player, gunDef) {
     if (!player || !player.isValid() || !gunDef || ReloadManager.isReloading(player.id)) return false;
@@ -68,8 +78,8 @@ export class GunController {
     return this.#fireOneShot(player, inv.container, slot, item, gunDef);
   }
 
-  /** 参考开源 Bedrock 枪械实现：一次物品使用事件只请求一发。 */
-  static handleItemUse(event, reliableUseLifecycle = false) {
+  /** 普通 itemUse 只保留工作台入口，枪械由 Molang 状态机驱动。 */
+  static handleItemUse(event) {
     const player = event.source;
     const item = event.itemStack;
     if (!player || !player.isValid() || !item) return;
@@ -77,8 +87,6 @@ export class GunController {
       system.run(() => WeaponCraftingManager.openWorkbenchUI(player));
       return;
     }
-    const gunDef = GunRegistry.getGun(item.typeId);
-    if (gunDef && !reliableUseLifecycle) this.#firePulse(player, gunDef);
   }
 
   static requestReload(player) {
@@ -118,6 +126,7 @@ export class GunController {
         this.#playerAnimationTracker.delete(player.id);
         FireScheduler.reset(player.id);
         this.#activeTriggers.delete(player.id);
+        this.#triggerLatches.delete(player.id);
         if (currentGunId) GunAnimationBridge.playEquip(player, GunRegistry.getGun(currentGunId));
       }
 
@@ -145,6 +154,7 @@ export class GunController {
     this.#playerGunTracker.delete(playerId);
     this.#playerAnimationTracker.delete(playerId);
     this.#activeTriggers.delete(playerId);
+    this.#triggerLatches.delete(playerId);
   }
 
   static #updateHeldTrigger(player, container, trigger, gunDef, currentTick) {
