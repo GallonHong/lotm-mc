@@ -15,7 +15,7 @@ export class ShootManager {
   }
 
   static isTriggerDown(player) {
-    return !this.playerShooting.get(player.id);
+    return Boolean(this.playerShooting.get(player.id));
   }
 
   static clearPlayer(player) {
