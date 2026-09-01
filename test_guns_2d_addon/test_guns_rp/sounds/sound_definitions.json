@@ -102,6 +102,12 @@
       "sounds": [
         "sounds/guns/arc_shoot"
       ]
+    },
+    "test_gun.vector_skill": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/vector_skill"
+      ]
     }
   }
 }

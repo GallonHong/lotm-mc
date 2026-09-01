@@ -35,7 +35,7 @@ export class SkillManager {
     const cooldownTicks = Math.floor((gun.skillCooldownSec || 25) * 20);
     this.skillCooldowns.set(player.id, cooldownTicks);
 
-    // Skill 1: MP7 Overdrive
+    // Skill 1: MP7 Overdrive Fury (暴走狂潮 - Apex 极速过载音效与视觉)
     if (gun.id === 'test_gun:vector') {
       const durationTicks = Math.floor((gun.skillDurationSec || 5.0) * 20);
       this.activeOverdrive.set(player.id, {
@@ -44,8 +44,17 @@ export class SkillManager {
         gun: gun
       });
       try {
+        const pLoc = player.location;
         player.addEffect('speed', durationTicks, { amplifier: 1, showParticles: false });
-        player.dimension.playSound('random.levelup', player.location, { volume: 1.0, pitch: 1.5 });
+        // 播放专属 Apex 战术过载激活音效组合
+        player.dimension.playSound('test_gun.vector_skill', pLoc, { volume: 2.0, pitch: 1.0 });
+        player.dimension.playSound('beacon.power', pLoc, { volume: 1.5, pitch: 1.3 });
+        player.dimension.playSound('respawn_anchor.charge', pLoc, { volume: 1.5, pitch: 1.2 });
+        player.dimension.spawnParticle('minecraft:sonic_explosion', {
+          x: pLoc.x,
+          y: pLoc.y + 1,
+          z: pLoc.z
+        });
       } catch {}
       updateActionBar(player, '§4🔥【暴走狂潮 OVERDRIVE】5秒无限子弹激光极速扫射开启!');
       return true;
