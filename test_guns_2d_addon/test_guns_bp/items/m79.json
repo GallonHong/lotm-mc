@@ -19,7 +19,7 @@
         "value": "M79 单发榴弹发射器 §9[优良]§r"
       },
       "minecraft:durability": {
-        "max_durability": 350
+        "max_durability": 80
       },
       "minecraft:repairable": {
         "repair_items": [
@@ -28,7 +28,7 @@
               "minecraft:iron_ingot",
               "test_gun:part_receiver"
             ],
-            "repair_amount": 120
+            "repair_amount": 30
           }
         ]
       },
