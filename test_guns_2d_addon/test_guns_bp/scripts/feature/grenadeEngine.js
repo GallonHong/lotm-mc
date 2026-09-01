@@ -22,11 +22,11 @@ export class GrenadeEngine {
       const vy = Number(viewDir.y) || 0;
       const vz = Number(viewDir.z) || 0;
 
-      // 榴弹初速向量
-      const baseSpeed = 1.35;
+      // 榴弹初速向量 (初速约 1.45 格/tick + 仰角推力)
+      const baseSpeed = 1.45;
       const launchVel = {
         x: vx * baseSpeed,
-        y: vy * baseSpeed + 0.10, // 初始仰角推力
+        y: vy * baseSpeed + 0.12,
         z: vz * baseSpeed
       };
 
@@ -38,10 +38,10 @@ export class GrenadeEngine {
 
       this.activeGrenades.push({
         shooterId: player.id,
-        dimensionId: dim.id,
+        dim: dim, // 直接持有 Dimension 实例
         pos: startPos,
         velocity: launchVel,
-        gravity: 0.045, // 重力加速度
+        gravity: 0.045, // 40mm 重力加速度
         drag: 0.995,    // 空气阻力
         age: 0,
         maxAge: 90,     // 4.5秒后强制引爆
@@ -52,6 +52,7 @@ export class GrenadeEngine {
       try {
         dim.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', startPos);
         dim.spawnParticle('minecraft:basic_flame_particle', startPos);
+        dim.spawnParticle('test_gun:he_tracer', startPos);
       } catch {}
     } catch (e) {
       console.warn('GrenadeEngine launchGrenade error:', e);
@@ -68,7 +69,7 @@ export class GrenadeEngine {
 
     for (const g of this.activeGrenades) {
       try {
-        const dim = world.getDimension(g.dimensionId);
+        const dim = g.dim;
         if (!dim) continue;
 
         g.age++;
@@ -173,11 +174,11 @@ export class GrenadeEngine {
           continue;
         }
 
-        // 4. 飞行中渲染尾焰浓烟与高爆轨迹 (Apex Particle)
+        // 4. 飞行中渲染尾焰浓烟与高爆轨迹
         try {
           dim.spawnParticle('test_gun:he_tracer', nextPos);
           dim.spawnParticle('minecraft:basic_flame_particle', nextPos);
-          dim.spawnParticle('minecraft:smoke_particle', nextPos);
+          dim.spawnParticle('minecraft:campfire_smoke_particle', nextPos);
         } catch {}
 
         // 5. 应用重力加速度与空气阻力
@@ -214,20 +215,23 @@ export class GrenadeEngine {
       DamageHandler.handleHit(null, shooter, directHitEntity, gun, loc);
     }
 
-    // 2. 生成 Apex 震撼爆炸光效与冲击波粒子
+    // 2. 生成震撼爆炸光效与冲击波粒子 (多重粒子组合保证 100% 渲染)
     try {
       dim.spawnParticle('test_gun:mgl_explosion', loc);
       dim.spawnParticle('test_gun:mgl_shockwave', loc);
+      dim.spawnParticle('minecraft:huge_explosion_emitter', loc);
       dim.spawnParticle('minecraft:explosion_manual', loc);
       dim.spawnParticle('minecraft:sonic_explosion', loc);
       dim.spawnParticle('minecraft:lava_particle', loc);
       dim.spawnParticle('minecraft:basic_flame_particle', loc);
-    } catch {}
+    } catch (e) {
+      console.warn('Failed to spawn explosion particles:', e);
+    }
 
     // 3. 播放重型轰鸣爆炸音效
     try {
-      dim.playSound('random.explode', loc, { volume: 1.8, pitch: 0.95 });
-      dim.playSound('mob.ghast.fireball', loc, { volume: 1.2, pitch: 0.85 });
+      dim.playSound('random.explode', loc, { volume: 2.0, pitch: 0.95 });
+      dim.playSound('mob.ghast.fireball', loc, { volume: 1.5, pitch: 0.85 });
     } catch {}
 
     // 4. AOE 范围高爆破片伤害结算 (无敌帧穿透)
@@ -243,18 +247,16 @@ export class GrenadeEngine {
       for (const ent of nearby) {
         if (!ent || !ent.isValid()) continue;
         if (shooter && ent.id === shooter.id) continue;
-        if (directHitEntity && ent.id === directHitEntity.id) continue; // 已结算直击伤害
+        if (directHitEntity && ent.id === directHitEntity.id) continue;
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
 
         const el = ent.location;
         const dist = Math.hypot(el.x - loc.x, el.y - loc.y, el.z - loc.z);
         if (dist > radius) continue;
 
-        // 距离衰减 (中心 100% 伤害，边缘 50% 伤害)
         const falloff = Math.max(0.5, 1.0 - (dist / (radius + 1)) * 0.5);
         const rawDamage = maxSplash * falloff;
 
-        // 护甲与穿透结算 (50% 护甲穿透)
         const armorPoints = DamageHandler.estimateArmorPoints(ent);
         const finalDmg = DamageHandler.calculateArmorReduction(rawDamage, armorPoints, stats.armorPenetration || 0.50);
 
@@ -267,17 +269,14 @@ export class GrenadeEngine {
           try { ent.applyDamage(finalDmg); } catch {}
         }
 
-        // 点燃目标 4 秒
         try { ent.setOnFire(4, true); } catch {}
 
-        // 冲击波击退
         try {
           const kx = (el.x - loc.x) / (dist + 0.1);
           const kz = (el.z - loc.z) / (dist + 0.1);
           ent.applyKnockback(kx * 0.8, kz * 0.8, 0.8, 0.4);
         } catch {}
 
-        // 唤醒仇恨
         DamageHandler.triggerMobAggro(ent, shooter);
       }
     } catch (err) {
