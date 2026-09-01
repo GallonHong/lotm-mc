@@ -1,0 +1,113 @@
+{
+	"format_version": "1.16.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.sword.first_person",
+				"texture_width": 14,
+				"texture_height": 14,
+				"visible_bounds_width": 40,
+				"visible_bounds_height": 40,
+				"visible_bounds_offset": [0, 0, 0]
+			},
+			"bones": [
+				{
+					"name": "rightitem",
+					"pivot": [0, 0, 0],
+					"texture_meshes": [
+						{
+							"texture": "default",
+							"position": [2.05, 1.3, -3],
+							"rotation": [0, -134.1, 90],
+							"local_pivot": [6, 0, 6],
+							"scale": [0.992, 0.992, 0.992]
+						}
+					],
+					"locators": {
+						"locator": [1.5, -9, -3]
+					}
+				}
+			]
+		},
+		{
+			"description": {
+				"identifier": "geometry.sword_left.first_person",
+				"texture_width": 14,
+				"texture_height": 14,
+				"visible_bounds_width": 40,
+				"visible_bounds_height": 40,
+				"visible_bounds_offset": [0, 0, 0]
+			},
+			"bones": [
+				{
+					"name": "rightitem",
+					"pivot": [0, 0, 0],
+					"texture_meshes": [
+						{
+							"texture": "default",
+							"position": [37.05, -4.85, 0],
+							"rotation": [0, -131.6, 65],
+							"local_pivot": [0, -31, -3],
+							"scale": [0.992, 0.992, 0.992]
+						}
+					],
+					"locators": {
+						"locator": [1.5, -9, -3]
+					}
+				}
+			]
+		},
+		{
+			"description": {
+				"identifier": "geometry.sword.third_person",
+				"texture_width": 17,
+				"texture_height": 17,
+				"visible_bounds_width": 40,
+				"visible_bounds_height": 40,
+				"visible_bounds_offset": [0, 0, 0]
+			},
+			"bones": [
+				{
+					"name": "rightitem",
+					"texture_meshes": [
+						{
+							"local_pivot": [0, 0, 0],
+							"position": [0, 10, -10],
+							"rotation": [0, 37, -95],
+							"texture": "default"
+						}
+					],
+					"locators": {
+						"locator": [1.5, -9, -3]
+					}
+				}
+			]
+		},
+		{
+			"description": {
+				"identifier": "geometry.sword_left.third_person",
+				"texture_width": 17,
+				"texture_height": 17,
+				"visible_bounds_width": 40,
+				"visible_bounds_height": 40,
+				"visible_bounds_offset": [0, 0, 0]
+			},
+			"bones": [
+				{
+					"name": "rightitem",
+					"texture_meshes": [
+						{
+							"local_pivot": [0, 0, 0],
+							"position": [0, 10, -10],
+							"rotation": [0, 37, -95],
+							"texture": "default"
+						}
+					],
+					"locators": {
+						"locator": [1.5, -9, -3]
+					}
+				}
+			]
+		}
+	]
+}

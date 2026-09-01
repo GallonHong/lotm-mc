@@ -16,7 +16,9 @@
         "f4": "textures/guns/stg/stgsf_5"
       },
       "geometry": {
-        "default": "geometry.item.default"
+        "default": "geometry.sword.first_person",
+        "first": "geometry.sword.first_person",
+        "third": "geometry.sword.third_person"
       },
       "render_controllers": [
         "controller.render.vector_dynamic"

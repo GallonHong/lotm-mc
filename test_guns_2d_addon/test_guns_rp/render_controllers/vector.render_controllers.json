@@ -13,7 +13,7 @@
           ]
         }
       },
-      "geometry": "geometry.default",
+      "geometry": "c.is_first_person ? geometry.first : geometry.third",
       "materials": [
         {
           "*": "material.default"
