@@ -148,20 +148,6 @@ class AddonController {
 
         if (held) {
           ShootManager.tick(player, held.gun);
-
-          // 传说级冲锋枪专属动态电光光环 (Legendary Weapon Ambient Aura)
-          if (held.gun.id === 'test_gun:vector' && this.auraTick % 6 === 0) {
-            try {
-              const head = player.getHeadLocation();
-              const view = player.getViewDirection();
-              const auraLoc = {
-                x: head.x + view.x * 0.45 + (Math.random() - 0.5) * 0.2,
-                y: head.y + view.y * 0.45 - 0.15 + (Math.random() - 0.5) * 0.2,
-                z: head.z + view.z * 0.45 + (Math.random() - 0.5) * 0.2
-              };
-              player.dimension.spawnParticle('test_gun:arc_spark', auraLoc);
-            } catch {}
-          }
         }
 
         SkillManager.tick(player, held ? held.gun : null);
