@@ -70,7 +70,7 @@ function executeCommand(player, rawText) {
   if (text === "!gunkit" || text === "!kit" || text === "!gun") {
     giveDevKit(player);
     return true;
-  } else if (text === "!armor" || text === "!suit" || text === "!exo") {
+  } else if (text === "!armor" || text === "!suit" || text === "!exo" || text === "!jetpack") {
     giveArmorKit(player);
     return true;
   } else if (text === "!r" || text === "!reload") {
@@ -196,14 +196,14 @@ function giveDevKit(player) {
 }
 
 /**
- * 单独发放泰坦外骨骼战甲套
+ * 单独发放泰坦外骨骼战甲套与喷气背包
  */
 function giveArmorKit(player) {
   try {
     const inv = player.getComponent("minecraft:inventory");
     if (!inv || !inv.container) return;
 
-    const armors = ["apex:exo_helmet", "apex:exo_chestplate", "apex:exo_leggings", "apex:exo_boots"];
+    const armors = ["apex:exo_helmet", "apex:exo_chestplate", "apex:exo_leggings", "apex:exo_boots", "apex:jetpack"];
     for (const a of armors) {
       try {
         inv.container.addItem(new ItemStack(a, 1));
@@ -251,11 +251,12 @@ function spawnDummy(player) {
  * 显示帮助指南
  */
 function showHelp(player) {
-  player.sendMessage("§l§e=== Apex Firearms: 六系终极军火库 & 泰坦战甲指南 ===");
-  player.sendMessage("§6!gunkit§7 - 领取 6 把神枪、全套泰坦外骨骼动力装甲与全套弹药");
-  player.sendMessage("§6!armor§7 - 单独领取泰坦外骨骼战甲四件套");
+  player.sendMessage("§l§e=== Apex Firearms: 六系终极军火库 & 战甲/喷气背包指南 ===");
+  player.sendMessage("§6!gunkit§7 - 领取 6 把神枪、全套泰坦外骨骼动力装甲、喷气背包与全套弹药");
+  player.sendMessage("§6!armor 或 !jetpack§7 - 单独领取泰坦外骨骼战甲四件套与喷气背包");
   player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可打空后自动换弹)");
   player.sendMessage("§6!dummy§7 - 生成 5000 HP 测试靶人");
+  player.sendMessage("§6喷气背包机制§7 - 装备在胸甲槽，§e空中双击跳跃 (Space/跳跃键)§7 瞬间离子脉冲飞升 (6~8格高度) 并附带动能缓降与 1.5s 充能冷却，不可无限悬浮！");
   player.sendMessage("§b泰坦战甲技能§7 - 头盔(全息夜视+爆头+25%)、胸甲(受击金心圣盾+联动霰弹枪)、护腿(速度+潜行加速)、战靴(100%免摔伤)、4件套技能(血量<30%触发 EMP 范围轰击与金心绝境自救)！");
 }
 

@@ -30,4 +30,6 @@ item.apex:exo_leggings=§b泰坦外骨骼液压动力护腿§r
 item.apex:exo_leggings.description=§7液压伺服助力护腿。被动【伺服加速】：赋予常驻速度提升效果，潜行移动速度提升 100%！§r
 item.apex:exo_boots=§b泰坦外骨骼动能反冲战靴§r
 item.apex:exo_boots.description=§7动能反冲减震战靴。被动【减震缓冲】：100% 免疫任何摔落掉落伤害，奔跑跳跃高度 +1 格！§r
+item.apex:jetpack=§6战术离子推进喷气背包§r
+item.apex:jetpack.description=§7战术离子喷气推进背包。双击跳跃瞬间释放高能脉冲飞升（6~8格高度），带有动能缓降与充能冷却机制，严禁无限悬浮！耐久度: 500。§r
 entity.apex:test_dummy.name=§e测试假人 (5000 HP)§r

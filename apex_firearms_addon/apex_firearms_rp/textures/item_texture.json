@@ -97,6 +97,12 @@
     },
     "apex:exo_boots": {
       "textures": "textures/items/exo_boots"
+    },
+    "apex_jetpack": {
+      "textures": "textures/items/jetpack"
+    },
+    "apex:jetpack": {
+      "textures": "textures/items/jetpack"
     }
   }
 }

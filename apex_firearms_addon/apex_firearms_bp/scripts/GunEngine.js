@@ -6,6 +6,7 @@ import { GrenadeEngine } from "./GrenadeEngine.js";
 import { ArcEngine } from "./ArcEngine.js";
 import { ShotgunEngine } from "./ShotgunEngine.js";
 import { ArmorEngine } from "./ArmorEngine.js";
+import { JetpackEngine } from "./JetpackEngine.js";
 
 export class GunEngine {
   static #lastShotTicks = new Map();
@@ -152,7 +153,14 @@ export class GunEngine {
       console.warn(`[ApexFirearms] ArmorEngine tick error: ${e}`);
     }
 
-    // 3. 更新换弹状态机
+    // 3. 步进离子喷气背包双击跳跃与飞升推进
+    try {
+      JetpackEngine.onTick();
+    } catch (e) {
+      console.warn(`[ApexFirearms] JetpackEngine tick error: ${e}`);
+    }
+
+    // 4. 更新换弹状态机
     try {
       ReloadManager.update(currentTick, (id) => playerMap.get(id));
     } catch {}

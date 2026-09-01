@@ -1,0 +1,42 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "apex:craft_jetpack"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ],
+    "pattern": [
+      "I I",
+      "CPC",
+      "RFR"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "P": {
+        "item": "minecraft:piston"
+      },
+      "R": {
+        "item": "minecraft:redstone_block"
+      },
+      "F": {
+        "item": "minecraft:blaze_powder"
+      }
+    },
+    "result": {
+      "item": "apex:jetpack",
+      "count": 1
+    }
+  }
+}

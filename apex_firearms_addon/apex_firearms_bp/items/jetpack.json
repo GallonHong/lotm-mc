@@ -1,0 +1,49 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "apex:jetpack",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§l§6战术离子推进喷气背包§r\n§7双击跳跃飞升 | 动能缓降"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "apex:jetpack"
+        }
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 5
+      },
+      "minecraft:durability": {
+        "max_durability": 500
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": ["minecraft:iron_ingot", "minecraft:copper_ingot", "minecraft:redstone"],
+            "repair_amount": 125
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "armor_torso"
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "apex:armor",
+          "jetpack"
+        ]
+      }
+    }
+  }
+}
