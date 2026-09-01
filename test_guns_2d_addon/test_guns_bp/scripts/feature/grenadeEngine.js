@@ -4,9 +4,6 @@ import { DamageHandler } from './damageHandler.js';
 export class GrenadeEngine {
   static activeGrenades = [];
 
-  /**
-   * 发射一枚带有物理抛物线、引信与爆破效果的 40mm 高爆榴弹
-   */
   static launchGrenade(player, gun) {
     if (!player || !player.isValid()) return;
 
@@ -23,7 +20,6 @@ export class GrenadeEngine {
       const vy = Number(viewDir?.y) || 0;
       const vz = Number(viewDir?.z) || 1;
 
-      // 榴弹初速向量
       const baseSpeed = 1.45;
       const launchVel = {
         x: vx * baseSpeed,
@@ -32,9 +28,9 @@ export class GrenadeEngine {
       };
 
       const startPos = {
-        x: hx + vx * 0.8,
-        y: hy + vy * 0.8 - 0.1,
-        z: hz + vz * 0.8
+        x: hx + vx * 0.45,
+        y: hy + vy * 0.45 - 0.08,
+        z: hz + vz * 0.45
       };
 
       this.activeGrenades.push({
@@ -49,9 +45,7 @@ export class GrenadeEngine {
         gun
       });
 
-      // 枪口初速火光与开火气浪
       try {
-        
         dim.spawnParticle('minecraft:basic_flame_particle', startPos);
         dim.spawnParticle('test_gun:he_tracer', startPos);
       } catch {}
@@ -60,9 +54,6 @@ export class GrenadeEngine {
     }
   }
 
-  /**
-   * 20 TPS 物理帧步进与高精度碰撞检测
-   */
   static onTick() {
     if (this.activeGrenades.length === 0) return;
 
@@ -75,7 +66,7 @@ export class GrenadeEngine {
 
         g.age++;
         if (g.age > g.maxAge) {
-          this.explode(dim, g.pos, g.shooterId, g.gun, null);
+          this.explode(dim, g.pos, g.shooterId, g.gun, null, null);
           continue;
         }
 
@@ -109,45 +100,10 @@ export class GrenadeEngine {
         let impactLoc = null;
         let directHitEntity = null;
 
-        // 1. 方块射线碰撞检测
+        // 1. 实体碰撞检测
         try {
-          const blockHit = dim.getBlockFromRay(curPos, normDir, {
-            maxDistance: moveDist + 0.35,
-            includePassableBlocks: false,
-            includeLiquidBlocks: true
-          });
-
-          if (blockHit) {
-            hasCollided = true;
-            if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
-              impactLoc = {
-                x: blockHit.faceLocation.x,
-                y: blockHit.faceLocation.y + 0.25,
-                z: blockHit.faceLocation.z
-              };
-            } else if (blockHit.block) {
-              const bl = blockHit.block.location;
-              impactLoc = { x: bl.x + 0.5, y: bl.y + 0.5, z: bl.z + 0.5 };
-            }
-          }
-        } catch {}
-
-        // 2. 空间方块占用辅助检测
-        if (!hasCollided) {
-          try {
-            const checkBlock = dim.getBlock(nextPos);
-            if (checkBlock && !checkBlock.isAir && !checkBlock.isLiquid) {
-              hasCollided = true;
-              impactLoc = { x: nextPos.x, y: nextPos.y + 0.3, z: nextPos.z };
-            }
-          } catch {}
-        }
-
-        // 3. 实体碰撞检测
-        try {
-          const checkMax = hasCollided && impactLoc ? Math.min(moveDist, Math.hypot(impactLoc.x - curPos.x, impactLoc.y - curPos.y, impactLoc.z - curPos.z)) : moveDist + 0.3;
           const entityHits = dim.getEntitiesFromRay(curPos, normDir, {
-            maxDistance: checkMax,
+            maxDistance: moveDist + 0.35,
             ignoreBlockCollision: false
           });
 
@@ -166,19 +122,61 @@ export class GrenadeEngine {
           }
         } catch {}
 
+        // 2. 方块碰撞检测 (若命中方块表面，将爆炸中心稍微往空气方向回退 0.25 格，保证粒子 100% 渲染不被方块遮挡)
+        if (!hasCollided) {
+          try {
+            const blockHit = dim.getBlockFromRay(curPos, normDir, {
+              maxDistance: moveDist + 0.35,
+              includePassableBlocks: false,
+              includeLiquidBlocks: true
+            });
+
+            if (blockHit) {
+              hasCollided = true;
+              if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
+                // 沿法线方向/反方向稍微回退，确保粒子位于空气中
+                impactLoc = {
+                  x: blockHit.faceLocation.x - normDir.x * 0.25,
+                  y: blockHit.faceLocation.y - normDir.y * 0.25 + 0.15,
+                  z: blockHit.faceLocation.z - normDir.z * 0.25
+                };
+              } else if (blockHit.block) {
+                impactLoc = {
+                  x: curPos.x,
+                  y: curPos.y + 0.2,
+                  z: curPos.z
+                };
+              }
+            }
+          } catch {}
+        }
+
+        // 3. 方块实体占用容错
+        if (!hasCollided) {
+          try {
+            const checkBlock = dim.getBlock(nextPos);
+            if (checkBlock && !checkBlock.isAir && !checkBlock.isLiquid) {
+              hasCollided = true;
+              impactLoc = {
+                x: curPos.x,
+                y: curPos.y + 0.2,
+                z: curPos.z
+              };
+            }
+          } catch {}
+        }
+
         if (hasCollided && impactLoc) {
-          this.explode(dim, impactLoc, g.shooterId, g.gun, directHitEntity);
+          this.explode(dim, impactLoc, g.shooterId, g.gun, directHitEntity, normDir);
           continue;
         }
 
-        // 4. 飞行中渲染尾焰浓烟与高爆轨迹
+        // 飞行尾迹渲染
         try {
           dim.spawnParticle('test_gun:he_tracer', nextPos);
           dim.spawnParticle('minecraft:basic_flame_particle', nextPos);
-          
         } catch {}
 
-        // 5. 应用重力加速度与空气阻力
         g.pos = nextPos;
         g.velocity.y -= g.gravity;
         g.velocity.x *= g.drag;
@@ -193,10 +191,7 @@ export class GrenadeEngine {
     this.activeGrenades = remaining;
   }
 
-  /**
-   * 触发 40mm 高爆破片爆炸 (冲击波 + 巨型爆炸光效 + 范围穿透伤害)
-   */
-  static explode(dim, loc, shooterId, gun, directHitEntity) {
+  static explode(dim, loc, shooterId, gun, directHitEntity, hitDir) {
     if (!dim || !loc) return;
     if (!Number.isFinite(loc.x) || !Number.isFinite(loc.y) || !Number.isFinite(loc.z)) return;
 
@@ -206,37 +201,37 @@ export class GrenadeEngine {
       shooter = all.find(p => p.id === shooterId) || null;
     } catch {}
 
-    // Fallback: If loc is uninitialized (0, 1, 0), use shooter location
-    let validLoc = loc;
-    if (Math.abs(loc.x) < 0.001 && Math.abs(loc.z) < 0.001 && Math.abs(loc.y - 1.0) < 0.1 && shooter && shooter.isValid()) {
-      validLoc = shooter.location;
-    }
+    // 确保爆炸中心位于开阔空气层 (抬升 0.3 格防止沉入地面方块导致粒子被遮挡)
+    const validLoc = {
+      x: loc.x,
+      y: loc.y + 0.25,
+      z: loc.z
+    };
 
-    const stats = gun.stats || { damage: 40, heSplashDamage: 45, heRadius: 6.0 };
+    const stats = gun?.stats || { damage: 40, heSplashDamage: 45, heRadius: 6.0 };
 
-    // 1. 直击动能伤害
     if (directHitEntity && directHitEntity.isValid()) {
       DamageHandler.handleHit(null, shooter, directHitEntity, gun, validLoc);
     }
 
-    // 2. 生成震撼爆炸光效与冲击波粒子 (保护在 try/catch 中防止未加载区块错误)
+    // 生成高亮多层爆炸特效 (多重保护，确保任何角度均能看到绚丽爆炸与气浪)
     try {
       dim.spawnParticle('test_gun:mgl_explosion', validLoc);
       dim.spawnParticle('test_gun:mgl_shockwave', validLoc);
       dim.spawnParticle('minecraft:huge_explosion_emitter', validLoc);
       dim.spawnParticle('minecraft:explosion_manual', validLoc);
       dim.spawnParticle('minecraft:sonic_explosion', validLoc);
-      dim.spawnParticle('minecraft:lava_particle', validLoc);
       dim.spawnParticle('minecraft:basic_flame_particle', validLoc);
+      dim.spawnParticle('minecraft:lava_particle', validLoc);
     } catch (e) {}
 
-    // 3. 播放重型轰鸣爆炸音效
+    // 播放爆炸巨响
     try {
-      dim.playSound('random.explode', validLoc, { volume: 2.0, pitch: 0.95 });
-      dim.playSound('mob.ghast.fireball', validLoc, { volume: 1.5, pitch: 0.85 });
+      dim.playSound('random.explode', validLoc, { volume: 2.5, pitch: 0.95 });
+      dim.playSound('mob.ghast.fireball', validLoc, { volume: 2.0, pitch: 0.85 });
     } catch {}
 
-    // 4. AOE 范围高爆破片伤害结算 (无敌帧穿透)
+    // AOE 范围伤害
     const radius = stats.heRadius || 6.0;
     const maxSplash = stats.heSplashDamage || 45.0;
 

@@ -6,47 +6,27 @@ export function getSpawnLocation(player) {
   const headPos = player.getHeadLocation();
   const viewDir = player.getViewDirection();
 
-  const hx = Number(headPos.x) || 0;
-  const hy = Number(headPos.y) || 0;
-  const hz = Number(headPos.z) || 0;
-  const vx = Number(viewDir.x) || 0;
-  const vy = Number(viewDir.y) || 0;
-  const vz = Number(viewDir.z) || 0;
+  const hx = Number(headPos?.x) || 0;
+  const hy = Number(headPos?.y) || 0;
+  const hz = Number(headPos?.z) || 0;
+  const vx = Number(viewDir?.x) || 0;
+  const vy = Number(viewDir?.y) || 0;
+  const vz = Number(viewDir?.z) || 0;
 
-  const forward = { x: vx * 0.9, y: vy * 0.9, z: vz * 0.9 };
-
-  let rx = -vz;
-  let rz = vx;
-  const rLen = Math.hypot(rx, rz);
-  if (rLen < 1e-4) {
-    rx = 1;
-    rz = 0;
-  } else {
-    rx /= rLen;
-    rz /= rLen;
-  }
-
-  const rightOffset = { x: rx * 0.18, y: 0, z: rz * 0.18 };
-  const upOffset = { x: 0, y: -0.12, z: 0 };
-
+  // 使用紧凑的 0.45 偏移量，防止在近距离或俯仰角时穿入方块
   return {
-    x: hx + forward.x + rightOffset.x + upOffset.x,
-    y: hy + forward.y + rightOffset.y + upOffset.y,
-    z: hz + forward.z + rightOffset.z + upOffset.z
+    x: hx + vx * 0.45,
+    y: hy + vy * 0.45 - 0.08,
+    z: hz + vz * 0.45
   };
 }
 
 export function spawnMuzzleFlash(dimension, muzzleLoc, gun) {
   if (!dimension || !muzzleLoc) return;
   try {
-    // 纯净清晰的枪口火花，彻底移除遮挡视线的浓厚烟雾
     dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
-    if (gun.id === 'test_gun:m82' || gun.type === 'shotgun') {
-      dimension.spawnParticle('minecraft:basic_flame_particle', {
-        x: muzzleLoc.x + (Math.random() - 0.5) * 0.08,
-        y: muzzleLoc.y + (Math.random() - 0.5) * 0.08,
-        z: muzzleLoc.z + (Math.random() - 0.5) * 0.08
-      });
+    if (gun.id === 'test_gun:m82' || gun.type === 'sniper' || gun.type === 'shotgun') {
+      dimension.spawnParticle('minecraft:crit', muzzleLoc);
     }
   } catch {}
 }
@@ -70,23 +50,27 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
   const dy = ey - sy;
   const dz = ez - sz;
   const totalDist = Math.hypot(dx, dy, dz);
-  if (totalDist < 0.2 || !Number.isFinite(totalDist)) return;
+  if (totalDist < 0.1 || !Number.isFinite(totalDist)) return;
 
+  // 区分全枪系的专属高亮弹道粒子
   let particleId = "test_gun:bullet_tracer";
-  let stepSize = 0.45;
+  let stepSize = 0.35;
 
-  if (gun.id === 'test_gun:m82') {
-    particleId = "test_gun:heavy_tracer";
-    stepSize = 0.50;
-  } else if (gun.id === 'test_gun:vector' || gun.type === 'smg') {
-    particleId = "test_gun:vector_tracer";
+  if (gun.id === 'test_gun:m82' || gun.type === 'sniper' || gun.id === 'test_gun:svd') {
+    particleId = "test_gun:heavy_tracer"; // 重型金色穿甲弹道
+    stepSize = 0.40;
+  } else if (gun.type === 'smg' || gun.type === 'pistol' || gun.id === 'test_gun:vector' || gun.id === 'test_gun:p90' || gun.id === 'test_gun:bizon' || gun.id === 'test_gun:glock') {
+    particleId = "test_gun:vector_tracer"; // 极速战术曳光
+    stepSize = 0.30;
+  } else if (gun.type === 'shotgun') {
+    particleId = "test_gun:shotgun_tracer"; // 霰弹破片密集群
+    stepSize = 0.45;
+  } else {
+    particleId = "test_gun:bullet_tracer"; // 步枪标准弹道 (AK47, AK74U, SCAR-H, ARX-160)
     stepSize = 0.35;
-  } else if (gun.id === 'test_gun:shotgun' || gun.type === 'shotgun') {
-    particleId = "test_gun:shotgun_tracer";
-    stepSize = 0.55;
   }
 
-  const steps = Math.max(2, Math.min(Math.floor(totalDist / stepSize), 100));
+  const steps = Math.max(3, Math.min(Math.floor(totalDist / stepSize), 120));
 
   for (let i = 1; i <= steps; i++) {
     const frac = i / steps;
@@ -184,19 +168,8 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   } else if (hitBlock) {
     try {
       dimension.spawnParticle('minecraft:crit', impactLoc);
-      
     } catch {}
   }
-
-  try {
-    const projectile = dimension.spawnEntity(gun.projectileTypeId, spawnLoc);
-    if (projectile) {
-      projectile.addTag('tg_weapon:' + gun.id);
-      projectile.addTag('tg_shooter:' + player.id);
-      const velocity = { x: dx * gun.shootPower, y: dy * gun.shootPower, z: dz * gun.shootPower };
-      projectile.applyImpulse(velocity);
-    }
-  } catch {}
 }
 
 export function fireBullet(player, gun) {
