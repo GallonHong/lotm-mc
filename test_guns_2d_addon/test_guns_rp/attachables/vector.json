@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "test_gun:vector",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/guns/vector_base",
+        "f0": "textures/guns/stg/stgsf_1",
+        "f1": "textures/guns/stg/stgsf_2",
+        "f2": "textures/guns/stg/stgsf_3",
+        "f3": "textures/guns/stg/stgsf_4",
+        "f4": "textures/guns/stg/stgsf_5"
+      },
+      "geometry": {
+        "default": "geometry.item.default"
+      },
+      "render_controllers": [
+        "controller.render.vector_dynamic"
+      ]
+    }
+  }
+}

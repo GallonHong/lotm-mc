@@ -27,6 +27,7 @@ function subscribeAfter(eventsObj, eventName, handler) {
 class AddonController {
   constructor() {
     this.lastHeldItem = new Map();
+    this.auraTick = 0;
     this.registerEvents();
     this.startGameLoop();
     console.warn('=== [Test Guns 2D Addon] Loaded Successfully with M82, Arc Emitter, Deagle, & Jetpack ===');
@@ -105,9 +106,6 @@ class AddonController {
             if (held) gun = held.gun;
           } catch {}
         }
-
-        // 伤害由射线即时计算，忽略投射物重复命中
-        // Damage is resolved exclusively via hitscan raycast
       } catch (err) {
         console.warn('Error in projectileHitEntity:', err);
       }
@@ -125,6 +123,7 @@ class AddonController {
 
   startGameLoop() {
     system.runInterval(() => {
+      this.auraTick++;
       GrenadeEngine.onTick();
       JetpackEngine.onTick();
 
@@ -149,6 +148,20 @@ class AddonController {
 
         if (held) {
           ShootManager.tick(player, held.gun);
+
+          // 传说级冲锋枪专属动态电光光环 (Legendary Weapon Ambient Aura)
+          if (held.gun.id === 'test_gun:vector' && this.auraTick % 6 === 0) {
+            try {
+              const head = player.getHeadLocation();
+              const view = player.getViewDirection();
+              const auraLoc = {
+                x: head.x + view.x * 0.45 + (Math.random() - 0.5) * 0.2,
+                y: head.y + view.y * 0.45 - 0.15 + (Math.random() - 0.5) * 0.2,
+                z: head.z + view.z * 0.45 + (Math.random() - 0.5) * 0.2
+              };
+              player.dimension.spawnParticle('test_gun:arc_spark', auraLoc);
+            } catch {}
+          }
         }
 
         SkillManager.tick(player, held ? held.gun : null);

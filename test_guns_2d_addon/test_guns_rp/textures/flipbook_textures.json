@@ -1,7 +1,14 @@
 [
   {
-    "flipbook_texture": "textures/guns/vector_stgsf_animated",
+    "flipbook_texture": "textures/guns/vector_flipbook",
     "atlas_tile": "test_gun_vector",
-    "ticks_per_frame": 3
+    "ticks_per_frame": 3,
+    "frames": [
+      0,
+      1,
+      2,
+      3,
+      4
+    ]
   }
 ]

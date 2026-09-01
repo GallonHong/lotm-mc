@@ -1,0 +1,27 @@
+{
+  "format_version": "1.10",
+  "render_controllers": {
+    "controller.render.vector_dynamic": {
+      "arrays": {
+        "textures": {
+          "array.skins": [
+            "texture.f0",
+            "texture.f1",
+            "texture.f2",
+            "texture.f3",
+            "texture.f4"
+          ]
+        }
+      },
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "material.default"
+        }
+      ],
+      "textures": [
+        "array.skins[(query.anim_time * 8)]"
+      ]
+    }
+  }
+}
