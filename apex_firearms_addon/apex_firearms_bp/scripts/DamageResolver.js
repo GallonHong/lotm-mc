@@ -3,15 +3,20 @@ import { ShieldEngine } from "./ShieldEngine.js";
 
 export class DamageResolver {
   /**
-   * 计算穿甲减伤公式
+   * 计算穿甲与重型战甲免伤减伤公式
    */
-  static calculateArmorReduction(baseDamage, armorPoints, armorPiercing) {
+  static calculateArmorReduction(baseDamage, armorPoints, armorPiercing, hasTitanChestplate = false) {
     if (armorPoints <= 0) return baseDamage;
     const effectivePiercing = Math.max(1 - armorPiercing, 0);
-    let reductionPercent = armorPoints * 4 * effectivePiercing;
+    let reductionPercent = armorPoints * 3.8 * effectivePiercing;
     
-    const diminishingFactor = Math.min(1, baseDamage / 12);
-    reductionPercent *= (1 - 0.1 * diminishingFactor);
+    // 泰坦动力装甲高分子防弹插板额外 15% 动能偏折免伤
+    if (hasTitanChestplate) {
+      reductionPercent += 15;
+    }
+
+    // 减伤上限封顶 85% (防止完全免伤)
+    reductionPercent = Math.min(85, Math.max(0, reductionPercent));
 
     const finalReduction = (baseDamage * reductionPercent) / 100;
     return Math.max(1, Math.round(baseDamage - finalReduction));
@@ -78,6 +83,20 @@ export class DamageResolver {
   }
 
   /**
+   * 检查实体是否装备了泰坦外骨骼胸甲
+   */
+  static hasExoChestplate(entity) {
+    if (!entity) return false;
+    try {
+      const equippable = entity.getComponent("minecraft:equippable");
+      const chest = equippable?.getEquipment("Chest") || equippable?.getEquipment("chest");
+      return chest?.typeId === "apex:exo_chestplate";
+    } catch {
+      return false;
+    }
+  }
+
+  /**
    * 判定是否命中头部
    */
   static isHeadshot(hitLocation, target) {
@@ -88,7 +107,7 @@ export class DamageResolver {
   }
 
   /**
-   * 执行综合伤害结算 (含原版盾牌格挡与反甲反震拦截)
+   * 执行综合伤害结算 (含护甲免伤、盾牌格挡与反甲反震拦截)
    */
   static applyDamage(attacker, target, hitLocation, gunConfig) {
     if (!target || !target.isValid()) return null;
@@ -113,7 +132,8 @@ export class DamageResolver {
     }
 
     const armorPoints = this.estimateArmorPoints(target);
-    let finalDamage = this.calculateArmorReduction(damage, armorPoints, ap);
+    const hasTitanChest = this.hasExoChestplate(target);
+    let finalDamage = this.calculateArmorReduction(damage, armorPoints, ap, hasTitanChest);
 
     // 盾牌格挡与反甲拦截
     const blockResult = ShieldEngine.checkBulletShieldBlock(attacker, target, finalDamage, gunConfig);
@@ -167,7 +187,7 @@ export class DamageResolver {
   }
 
   /**
-   * 高爆破片范围轰炸结算 (0 地形破坏 + DeadZone 高保真重型爆炸音效 + 自定义爆轰光效)
+   * 高爆破片范围轰炸结算
    */
   static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage, config, fallbackDim) {
     const dim = attacker?.dimension || fallbackDim;
@@ -193,7 +213,7 @@ export class DamageResolver {
       dim.createExplosion(validLoc, power, { breaksBlocks, causesFire });
     } catch {}
 
-    // 2. 100% 触发震撼爆炸视觉特效 (自定义 MGL 爆轰大火球 + 环形冲击波 + 原版烈焰火花)
+    // 2. 爆炸视觉特效
     try {
       dim.spawnParticle("apex:mgl_explosion", blastLoc);
       dim.spawnParticle("apex:mgl_shockwave", blastLoc);
@@ -204,7 +224,7 @@ export class DamageResolver {
       dim.spawnParticle("minecraft:campfire_smoke_particle", blastLoc);
     } catch {}
 
-    // 3. 播放 DeadZone 专属高保真重型爆炸轰鸣与远距离回声
+    // 3. 播放 DeadZone 重型爆炸音效
     try {
       dim.playSound("apex.explosion", validLoc, { volume: 1.8, pitch: 1.0 });
       dim.playSound("apex.explosion.distant", validLoc, { volume: 1.2, pitch: 1.0 });
@@ -212,7 +232,7 @@ export class DamageResolver {
       dim.playSound("mob.ghast.fireball", validLoc, { volume: 1.0, pitch: 0.85 });
     } catch {}
 
-    // 4. 范围破片溅射伤害与物理冲击波结算
+    // 4. 范围破片溅射伤害 (计入目标护甲减伤)
     let hitCount = 0;
     const searchCenter = { x: cx, y: cy + 0.5, z: cz };
     const effectiveRadius = Math.max(radius ?? 5.0, 5.5);
@@ -233,7 +253,11 @@ export class DamageResolver {
         if (dist > effectiveRadius) continue;
 
         const falloff = Math.max(0.6, 1 - (dist / (effectiveRadius + 1)) * 0.4);
-        const actualDmg = Math.max(12, Math.round((splashDamage ?? 40) * falloff));
+        const baseDmg = Math.max(12, Math.round((splashDamage ?? 40) * falloff));
+
+        const targetArmor = this.estimateArmorPoints(ent);
+        const hasChest = this.hasExoChestplate(ent);
+        const actualDmg = this.calculateArmorReduction(baseDmg, targetArmor, config.armorPiercing ?? 0.5, hasChest);
 
         const healthComp = ent.getComponent("minecraft:health");
         const curHp = healthComp?.currentValue ?? 20;
@@ -253,7 +277,6 @@ export class DamageResolver {
           try { ent.setOnFire(4, true); } catch {}
         }
 
-        // 强力爆炸冲击波击退
         const dx = entLoc.x - cx;
         const dz = entLoc.z - cz;
         const hDist = Math.hypot(dx, dz) || 1.0;

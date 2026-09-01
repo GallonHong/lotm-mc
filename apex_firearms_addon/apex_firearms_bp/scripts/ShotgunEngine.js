@@ -39,7 +39,7 @@ export class ShotgunEngine {
   }
 
   /**
-   * 触发圣盾防暴霰弹枪开火 (8 枚弹丸同时发射，单丸 2~22 HP)
+   * 触发圣盾防暴霰弹枪开火 (8 枚弹丸同时发射，计入目标护甲免伤减伤与盾牌格挡)
    */
   static fireShotgun(player, config) {
     if (!player || !player.isValid()) return null;
@@ -50,10 +50,10 @@ export class ShotgunEngine {
       const viewDir = player.getViewDirection();
       const isSneaking = player.isSneaking;
 
-      // 1. 计算圣盾充能与单丸伤害 (单枚 2 ~ 22 HP)
+      // 1. 计算自身圣盾充能与基础单丸伤害 (单枚 2 ~ 22 HP)
       const shieldRating = this.getPlayerShieldRating(player);
       const scale = Math.min(1.0, Math.max(0.0, shieldRating / 20.0));
-      const pelletDamage = Math.max(2, Math.min(22, Math.round(2 + (22 - 2) * scale)));
+      const basePelletDamage = Math.max(2, Math.min(22, Math.round(2 + (22 - 2) * scale)));
 
       const pelletCount = config.pelletCount ?? 8;
       const baseSpread = isSneaking ? (config.spreadSneak ?? 0.035) : (config.spreadStand ?? 0.055);
@@ -133,13 +133,23 @@ export class ShotgunEngine {
 
         // 如果击中实体
         if (hitEntity && hitEntity.isValid()) {
-          // 判定目标盾牌格挡与反甲反震
-          const blockResult = ShieldEngine.checkBulletShieldBlock(player, hitEntity, pelletDamage, config);
+          // A. 判定受击目标自身的护甲点数与免伤减伤
+          const targetArmor = DamageResolver.estimateArmorPoints(hitEntity);
+          const hasTitanChest = DamageResolver.hasExoChestplate(hitEntity);
+          const armorMitigatedDmg = DamageResolver.calculateArmorReduction(
+            basePelletDamage,
+            targetArmor,
+            config.armorPiercing ?? 0.30,
+            hasTitanChest
+          );
+
+          // B. 判定受击目标是否持盾格挡与反甲反震
+          const blockResult = ShieldEngine.checkBulletShieldBlock(player, hitEntity, armorMitigatedDmg, config);
           if (blockResult.blocked && blockResult.damage <= 0) {
             continue; // 弹丸被完全格挡
           }
 
-          const actualPelletDmg = blockResult.blocked ? blockResult.damage : pelletDamage;
+          const finalPelletDmg = blockResult.blocked ? blockResult.damage : armorMitigatedDmg;
           totalPelletsHit++;
           const targetId = hitEntity.id;
           const prev = hitMap.get(targetId) || {
@@ -150,21 +160,21 @@ export class ShotgunEngine {
           };
 
           prev.count += 1;
-          prev.totalDamage += actualPelletDmg;
+          prev.totalDamage += finalPelletDmg;
           hitMap.set(targetId, prev);
 
-          // 施加单枚弹丸伤害
+          // C. 施加单枚弹丸伤害
           const healthComp = hitEntity.getComponent("minecraft:health");
           const curHp = healthComp?.currentValue ?? 20;
 
           try {
-            hitEntity.applyDamage(actualPelletDmg, {
+            hitEntity.applyDamage(finalPelletDmg, {
               cause: EntityDamageCause.override,
               damagingEntity: player
             });
           } catch (e) {
             if (healthComp) {
-              healthComp.setCurrentValue(Math.max(0, curHp - actualPelletDmg));
+              healthComp.setCurrentValue(Math.max(0, curHp - finalPelletDmg));
             }
           }
 
@@ -192,13 +202,13 @@ export class ShotgunEngine {
       if (totalPelletsHit > 0) {
         try {
           player.onScreenDisplay?.setActionBar?.(
-            `§e[圣盾霰弹枪] 🛡️ 护甲圣盾: §f${shieldRating} §7(单丸 §f${pelletDamage} §7HP) 💥 命中 §f${totalPelletsHit}/8 §e丸 (-§c${totalDamageDone} §eHP!)`
+            `§e[圣盾霰弹枪] 🛡️ 自身护甲: §f${shieldRating} §7(基础单丸 §f${basePelletDamage} §7HP) 💥 命中 §f${totalPelletsHit}/8 §e丸 (-§c${totalDamageDone} §eHP!)`
           );
         } catch {}
       }
 
       return {
-        pelletDamage,
+        pelletDamage: basePelletDamage,
         totalPelletsHit,
         totalDamageDone,
         targetCount: hitMap.size,
@@ -219,7 +229,7 @@ export class ShotgunEngine {
     const dx = end.x - start.x;
     const dy = end.y - start.y;
     const dz = end.z - start.z;
-    const dist = Math.hypot(dx, dy, dz);
+    const dist = Math.hypot(dx, dz) ? Math.hypot(dx, dy, dz) : 0;
     if (dist < 0.5) return;
 
     const stepSize = 1.2;
