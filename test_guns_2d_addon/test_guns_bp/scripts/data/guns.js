@@ -53,7 +53,7 @@ export const GUNS = [
     type: 'smg',
     mode: FireMode.AUTO,
     maxAmmo: 50,
-    fireRate: 1,
+    fireRate: 2, // 10 发/秒 (平滑可控，单点打出1发)
     shootPower: 11.0,
     recoil: 0.08,
     reloadTime: 36,
@@ -65,7 +65,7 @@ export const GUNS = [
     skillCooldownSec: 25,
     skillDurationSec: 5.0,
     stats: {
-      damage: 7.0,
+      damage: 5.0, // 单发真实伤害 5.0 (爆头 8.0)
       headshotMultiplier: 1.6,
       armorPenetration: 0.25,
       damageDropOff: 0.025,

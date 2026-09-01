@@ -106,9 +106,8 @@ class AddonController {
           } catch {}
         }
 
-        if (gun && !gun.isGrenadeLauncher && !gun.isArcWeapon) {
-          DamageHandler.handleHit(projectile, shooter, hitEntity, gun, impactLocation);
-        }
+        // 伤害由射线即时计算，忽略投射物重复命中
+        // Damage is resolved exclusively via hitscan raycast
       } catch (err) {
         console.warn('Error in projectileHitEntity:', err);
       }
