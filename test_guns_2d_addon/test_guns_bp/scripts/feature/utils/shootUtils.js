@@ -39,14 +39,14 @@ export function getSpawnLocation(player) {
 export function spawnMuzzleFlash(dimension, muzzleLoc, gun) {
   if (!dimension || !muzzleLoc) return;
   try {
-    if (gun.id === 'test_gun:m82') {
-      dimension.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', muzzleLoc);
-      dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
-    } else if (gun.type === 'shotgun') {
-      dimension.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', muzzleLoc);
-    } else {
-      dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
-      dimension.spawnParticle('minecraft:campfire_smoke_particle', muzzleLoc);
+    // 纯净清晰的枪口火花，彻底移除遮挡视线的浓厚烟雾
+    dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
+    if (gun.id === 'test_gun:m82' || gun.type === 'shotgun') {
+      dimension.spawnParticle('minecraft:basic_flame_particle', {
+        x: muzzleLoc.x + (Math.random() - 0.5) * 0.08,
+        y: muzzleLoc.y + (Math.random() - 0.5) * 0.08,
+        z: muzzleLoc.z + (Math.random() - 0.5) * 0.08
+      });
     }
   } catch {}
 }
@@ -184,7 +184,7 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   } else if (hitBlock) {
     try {
       dimension.spawnParticle('minecraft:crit', impactLoc);
-      dimension.spawnParticle('minecraft:basic_smoke_particle', impactLoc);
+      
     } catch {}
   }
 

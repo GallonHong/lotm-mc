@@ -51,7 +51,7 @@ export class GrenadeEngine {
 
       // 枪口初速火光与开火气浪
       try {
-        dim.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', startPos);
+        
         dim.spawnParticle('minecraft:basic_flame_particle', startPos);
         dim.spawnParticle('test_gun:he_tracer', startPos);
       } catch {}
@@ -175,7 +175,7 @@ export class GrenadeEngine {
         try {
           dim.spawnParticle('test_gun:he_tracer', nextPos);
           dim.spawnParticle('minecraft:basic_flame_particle', nextPos);
-          dim.spawnParticle('minecraft:campfire_smoke_particle', nextPos);
+          
         } catch {}
 
         // 5. 应用重力加速度与空气阻力

@@ -85,9 +85,9 @@ export class JetpackEngine {
 
       try {
         dim.spawnParticle('minecraft:basic_flame_particle', footLoc);
-        dim.spawnParticle('minecraft:campfire_smoke_particle', footLoc);
+        
         dim.spawnParticle('minecraft:lava_particle', footLoc);
-        dim.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', footLoc);
+        
       } catch {}
 
       try {
