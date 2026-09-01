@@ -5,11 +5,80 @@ export class BossEngine {
   static #empStrikes = [];        // active delayed EMP strikes
 
   /**
+   * 判定实体是否为合法的攻击目标 (绝不攻击创造/旁观玩家，支持坚守者/铁傀儡等生物)
+   */
+  static isValidCombatTarget(entity, boss) {
+    if (!entity || !entity.isValid()) return false;
+    if (boss && entity.id === boss.id) return false;
+    if (entity.typeId === "apex_boss:juggernaut" || entity.typeId === "apex_boss:drone") return false;
+    if (entity.typeId === "minecraft:item" || entity.typeId === "minecraft:xp_orb") return false;
+
+    // 创造模式与旁观模式玩家 100% 绝对豁免，Boss 绝不索敌攻击！
+    if (entity.typeId === "minecraft:player") {
+      try {
+        const gm = entity.getGameMode?.();
+        if (gm === "creative" || gm === "spectator") {
+          return false;
+        }
+      } catch {}
+
+      const hpComp = entity.getComponent("minecraft:health");
+      if (hpComp && hpComp.currentValue <= 0) return false;
+      return true;
+    }
+
+    // 敌对生物或反击生物 (如坚守者 Warden, 铁傀儡, 凋灵等)
+    return true;
+  }
+
+  /**
+   * 获取 Boss 当前最优先的战斗目标
+   */
+  static getPrimaryCombatTarget(boss) {
+    if (!boss || !boss.isValid()) return null;
+
+    // 1. 优先获取 Boss 原生行为锁定的目标 (如正在攻击 Boss 的坚守者/玩家)
+    try {
+      const nativeTarget = boss.target || boss.getTarget?.();
+      if (nativeTarget && this.isValidCombatTarget(nativeTarget, boss)) {
+        return nativeTarget;
+      }
+    } catch {}
+
+    // 2. 搜索 36 格范围内的存活敌对目标
+    const dim = boss.dimension;
+    const bLoc = boss.location;
+
+    try {
+      const nearby = dim.getEntities({
+        location: bLoc,
+        maxDistance: 36
+      });
+
+      let bestTarget = null;
+      let minDistance = 40;
+
+      for (const ent of nearby) {
+        if (!this.isValidCombatTarget(ent, boss)) continue;
+
+        const d = Math.hypot(ent.location.x - bLoc.x, ent.location.y - bLoc.y, ent.location.z - bLoc.z);
+        if (d < minDistance) {
+          minDistance = d;
+          bestTarget = ent;
+        }
+      }
+
+      return bestTarget;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  /**
    * 20 TPS Boss 状态机与多阶段战斗逻辑
    */
   static onTick() {
     const currentTick = system.currentTick;
-    const allPlayers = world.getAllPlayers();
     const overworld = world.getDimension("overworld");
 
     // 1. 处理延迟轨道 EMP 离子雷暴打击
@@ -75,44 +144,32 @@ export class BossEngine {
       const gatlingInterval = state.phase === 1 ? 140 : 100;
       if (currentTick - state.lastGatlingTick >= gatlingInterval) {
         state.lastGatlingTick = currentTick;
-        this.#fireGatlingBarrage(boss, allPlayers);
+        this.#fireGatlingBarrage(boss);
       }
 
       // 技能 2: 地动山摇践踏 (每 11 秒)
       if (currentTick - state.lastStompTick >= 220) {
         state.lastStompTick = currentTick;
-        this.#performSeismicStomp(boss, allPlayers);
+        this.#performSeismicStomp(boss);
       }
 
       // 技能 3: 轨道 EMP 离子雷暴 (阶段2和阶段3每 14 秒)
       if (state.phase >= 2 && currentTick - state.lastEmpTick >= 280) {
         state.lastEmpTick = currentTick;
-        this.#callOrbitalEmpStrike(boss, allPlayers, currentTick);
+        this.#callOrbitalEmpStrike(boss, currentTick);
       }
     }
   }
 
   /**
-   * 技能 1: 30 连发机枪重火网弹幕扫射
+   * 技能 1: 30 连发机枪重火网弹幕扫射 (索敌：坚守者/正在交战的生物/生存玩家)
    */
-  static #fireGatlingBarrage(boss, allPlayers) {
+  static #fireGatlingBarrage(boss) {
+    const target = this.getPrimaryCombatTarget(boss);
+    if (!target || !target.isValid()) return;
+
     const dim = boss.dimension;
     const bLoc = boss.location;
-    const muzzle = { x: bLoc.x, y: bLoc.y + 2.0, z: bLoc.z };
-
-    // 寻找 32 格内最近玩家
-    let target = null;
-    let minDist = 36;
-    for (const p of allPlayers) {
-      if (!p || !p.isValid()) continue;
-      const d = Math.hypot(p.location.x - bLoc.x, p.location.y - bLoc.y, p.location.z - bLoc.z);
-      if (d < minDist) {
-        minDist = d;
-        target = p;
-      }
-    }
-
-    if (!target) return;
 
     dim.playSound("random.explode", bLoc, { volume: 1.2, pitch: 1.6 });
 
@@ -130,8 +187,6 @@ export class BossEngine {
         const dz = targetHead.z - curMuzzle.z + (Math.random() - 0.5) * 1.2;
         const dist = Math.hypot(dx, dy, dz) || 1.0;
 
-        const normDir = { x: dx / dist, y: dy / dist, z: dz / dist };
-
         // 绘制弹幕射线
         const steps = Math.min(Math.floor(dist / 0.8), 35);
         for (let s = 1; s <= steps; s++) {
@@ -147,9 +202,9 @@ export class BossEngine {
 
         // 伤害检测
         const finalImpact = { x: curMuzzle.x + dx, y: curMuzzle.y + dy, z: curMuzzle.z + dz };
-        const hits = dim.getEntities({ location: finalImpact, maxDistance: 1.8 });
+        const hits = dim.getEntities({ location: finalImpact, maxDistance: 2.0 });
         for (const h of hits) {
-          if (h && h.isValid() && h.typeId === "minecraft:player") {
+          if (this.isValidCombatTarget(h, boss)) {
             h.applyDamage(10, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
           }
         }
@@ -160,7 +215,7 @@ export class BossEngine {
   /**
    * 技能 2: 地动山摇近战践踏 (击飞 + 24 HP 震荡波)
    */
-  static #performSeismicStomp(boss, allPlayers) {
+  static #performSeismicStomp(boss) {
     const dim = boss.dimension;
     const bLoc = boss.location;
     const stompCenter = { x: bLoc.x, y: bLoc.y + 0.2, z: bLoc.z };
@@ -171,24 +226,24 @@ export class BossEngine {
       dim.spawnParticle("minecraft:sonic_explosion", stompCenter);
       dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", stompCenter);
 
-      for (const p of allPlayers) {
-        if (!p || !p.isValid()) continue;
-        const pLoc = p.location;
-        const d = Math.hypot(pLoc.x - bLoc.x, pLoc.y - bLoc.y, pLoc.z - bLoc.z);
-        if (d <= 7.0) {
-          // 向上震飞 1.1 + 水平击退
-          const dx = pLoc.x - bLoc.x || 1.0;
-          const dz = pLoc.z - bLoc.z || 1.0;
-          const hDist = Math.hypot(dx, dz);
+      const nearby = dim.getEntities({ location: stompCenter, maxDistance: 7.0 });
+      for (const ent of nearby) {
+        if (!this.isValidCombatTarget(ent, boss)) continue;
 
-          p.applyImpulse({
+        const pLoc = ent.location;
+        const dx = pLoc.x - bLoc.x || 1.0;
+        const dz = pLoc.z - bLoc.z || 1.0;
+        const hDist = Math.hypot(dx, dz);
+
+        try {
+          ent.applyImpulse({
             x: (dx / hDist) * 0.6,
             y: 0.95,
             z: (dz / hDist) * 0.6
           });
+        } catch {}
 
-          p.applyDamage(24, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
-        }
+        ent.applyDamage(24, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
       }
     } catch {}
   }
@@ -196,9 +251,12 @@ export class BossEngine {
   /**
    * 技能 3: 轨道 EMP 离子雷暴打击
    */
-  static #callOrbitalEmpStrike(boss, allPlayers, currentTick) {
+  static #callOrbitalEmpStrike(boss, currentTick) {
     const dim = boss.dimension;
-    const targets = allPlayers.filter((p) => p && p.isValid());
+    const bLoc = boss.location;
+
+    const nearby = dim.getEntities({ location: bLoc, maxDistance: 36 });
+    const targets = nearby.filter((ent) => this.isValidCombatTarget(ent, boss));
     if (targets.length === 0) return;
 
     this.#broadcastBossMessage("§c⚡ 警告：检测到轨道 EMP 高压离子聚能！2秒后定点轰击！");
@@ -240,7 +298,7 @@ export class BossEngine {
 
           const nearby = dim.getEntities({ location: emp.pos, maxDistance: 4.5 });
           for (const ent of nearby) {
-            if (ent && ent.isValid() && ent.typeId === "minecraft:player") {
+            if (this.isValidCombatTarget(ent, null)) {
               ent.applyDamage(35, { cause: EntityDamageCause.override });
               ent.setOnFire(4, true);
             }
@@ -299,12 +357,14 @@ export class BossEngine {
         // 10 格自爆冲击波
         const nearby = dim.getEntities({ location: loc, maxDistance: 10.0 });
         for (const ent of nearby) {
-          if (ent && ent.isValid() && ent.typeId === "minecraft:player") {
+          if (this.isValidCombatTarget(ent, bossEntity)) {
             ent.applyDamage(60, { cause: EntityDamageCause.override });
             const dx = ent.location.x - loc.x || 1.0;
             const dz = ent.location.z - loc.z || 1.0;
             const dist = Math.hypot(dx, dz);
-            ent.applyImpulse({ x: (dx / dist) * 1.5, y: 1.2, z: (dz / dist) * 1.5 });
+            try {
+              ent.applyImpulse({ x: (dx / dist) * 1.5, y: 1.2, z: (dz / dist) * 1.5 });
+            } catch {}
           }
         }
 
@@ -326,23 +386,23 @@ export class BossEngine {
   }
 
   /**
-   * 处理自爆近卫无人机自毁
+   * 处理自爆近卫无人机自毁 (避开创造模式玩家)
    */
   static handleDroneTick(drone) {
     if (!drone || !drone.isValid()) return;
     const dim = drone.dimension;
     const dLoc = drone.location;
 
-    const nearbyPlayers = dim.getEntities({
+    const nearby = dim.getEntities({
       location: dLoc,
-      maxDistance: 2.0
+      maxDistance: 2.5
     });
 
-    for (const p of nearbyPlayers) {
-      if (p && p.isValid() && p.typeId === "minecraft:player") {
+    for (const ent of nearby) {
+      if (this.isValidCombatTarget(ent, drone)) {
         dim.playSound("random.explode", dLoc, { volume: 1.0, pitch: 1.2 });
         dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", dLoc);
-        p.applyDamage(30, { cause: EntityDamageCause.override });
+        ent.applyDamage(30, { cause: EntityDamageCause.override });
         drone.kill();
         break;
       }
