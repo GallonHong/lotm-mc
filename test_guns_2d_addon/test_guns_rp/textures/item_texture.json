@@ -18,13 +18,13 @@
       "textures": "textures/guns/mp7_old"
     },
     "test_gun_ammo_45acp": {
-      "textures": "textures/ammo/ammo_rifle"
+      "textures": "textures/ammo/ammo_45acp"
     },
     "test_gun_mgl": {
       "textures": "textures/guns/mgl_old"
     },
     "test_gun_ammo_40mm": {
-      "textures": "textures/ammo/ammo_shotgun"
+      "textures": "textures/ammo/ammo_40mm"
     },
     "test_gun_m82": {
       "textures": "textures/guns/m82_old"
