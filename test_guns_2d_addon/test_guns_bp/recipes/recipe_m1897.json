@@ -1,0 +1,40 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_m1897"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBI",
+      "RMI",
+      "S  "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_m1897"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "M": {
+        "item": "test_gun:ammo_shotgun"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      }
+    },
+    "result": {
+      "item": "test_gun:m1897",
+      "count": 1
+    }
+  }
+}

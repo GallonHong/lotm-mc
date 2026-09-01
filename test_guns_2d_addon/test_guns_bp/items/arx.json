@@ -1,0 +1,44 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:arx",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_arx",
+      "minecraft:display_name": {
+        "value": "ARX-160 现代突击步枪 §9[优良·极低后坐]§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 1350
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "minecraft:copper_ingot"
+            ],
+            "repair_amount": 350
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_p90"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBD",
+      "RCM",
+      "SI "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_p90"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "D": {
+        "item": "test_gun:part_drum_mag"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "C": {
+        "item": "minecraft:copper_block"
+      },
+      "M": {
+        "item": "test_gun:ammo_45acp"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:p90",
+      "count": 1
+    }
+  }
+}

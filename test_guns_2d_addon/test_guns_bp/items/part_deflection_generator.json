@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:part_deflection_generator",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:hand_equipped": {
+        "value": false
+      },
+      "minecraft:icon": "test_gun_part_deflection_generator",
+      "minecraft:display_name": {
+        "value": "🛡️ 动能偏转偏振矩阵 §6[稀有核心模块]§r"
+      }
+    }
+  }
+}

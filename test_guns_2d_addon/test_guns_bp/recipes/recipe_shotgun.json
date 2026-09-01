@@ -1,0 +1,40 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_shotgun"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBI",
+      "RWI",
+      "S  "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_m870"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "W": {
+        "item": "minecraft:planks"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      }
+    },
+    "result": {
+      "item": "test_gun:shotgun",
+      "count": 1
+    }
+  }
+}

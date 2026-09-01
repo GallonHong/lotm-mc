@@ -1,0 +1,40 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_jetpack"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PTE",
+      "RCR",
+      "BTB"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_jetpack"
+      },
+      "T": {
+        "item": "test_gun:part_ion_thruster"
+      },
+      "E": {
+        "item": "minecraft:elytra"
+      },
+      "R": {
+        "item": "minecraft:firework_rocket"
+      },
+      "C": {
+        "item": "test_gun:part_plasma_core"
+      },
+      "B": {
+        "item": "minecraft:netherite_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:jetpack",
+      "count": 1
+    }
+  }
+}

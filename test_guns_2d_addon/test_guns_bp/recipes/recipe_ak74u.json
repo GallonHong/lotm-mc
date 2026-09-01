@@ -1,0 +1,40 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_ak74u"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBI",
+      "RM ",
+      "S  "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_ak74u"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "M": {
+        "item": "test_gun:ammo_rifle"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      }
+    },
+    "result": {
+      "item": "test_gun:ak74u",
+      "count": 1
+    }
+  }
+}

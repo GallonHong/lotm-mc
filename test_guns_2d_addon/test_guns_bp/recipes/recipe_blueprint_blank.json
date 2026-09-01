@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_blueprint_blank"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " P ",
+      "PMP",
+      " F "
+    ],
+    "key": {
+      "P": {
+        "item": "minecraft:paper"
+      },
+      "M": {
+        "item": "minecraft:ink_sac"
+      },
+      "F": {
+        "item": "minecraft:feather"
+      }
+    },
+    "result": {
+      "item": "test_gun:blueprint_blank",
+      "count": 3
+    }
+  }
+}

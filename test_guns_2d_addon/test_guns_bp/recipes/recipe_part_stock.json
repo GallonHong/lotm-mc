@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_part_stock"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "WW ",
+      " CN",
+      "  N"
+    ],
+    "key": {
+      "W": {
+        "item": "minecraft:planks"
+      },
+      "C": {
+        "item": "minecraft:coal"
+      },
+      "N": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "result": {
+      "item": "test_gun:part_stock",
+      "count": 1
+    }
+  }
+}

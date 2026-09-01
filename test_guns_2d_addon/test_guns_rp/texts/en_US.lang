@@ -1,16 +1,35 @@
 item.test_gun:ak47.name=AK-47 Assault Rifle (Classic)
+item.test_gun:ak74u.name=AK-74U Compact Rifle (High Mobility)
 item.test_gun:shotgun.name=Remington M870 Shotgun (Pump-Action)
-item.test_gun:vector.name=HK MP7 Tactical SMG [Overdrive]
-item.test_gun:mgl.name=MGL 40mm Rotary Grenade Launcher [HE-Frag]
-item.test_gun:m82.name=Barrett M82 .50 Anti-Materiel Sniper [1-Shot Kill]
-item.test_gun:arc_emitter.name=Tesla Arc Emitter [Chain Lightning]
+item.test_gun:m1897.name=Winchester M1897 Trench Shotgun
+item.test_gun:bizon.name=PP-19 Bizon SMG (64-Round Drum)
+item.test_gun:glock.name=Glock-18 Tactical Pistol (Full-Auto)
+
+item.test_gun:scarh.name=SCAR-H Heavy Battle Rifle [Rare]
+item.test_gun:arx.name=ARX-160 Modern Rifle [Low Recoil]
+item.test_gun:p90.name=FN P90 Tactical SMG [Suppression]
 item.test_gun:deagle.name=Desert Eagle .50 Pistol [Hand Cannon]
-item.test_gun:jetpack.name=Tactical Ion Jetpack [Double Jump / Boost]
+item.test_gun:svd.name=SVD Dragunov Sniper [Target Tracker]
+item.test_gun:m1014.name=Benelli M1014 Rapid Shotgun [Semi-Auto]
+
+item.test_gun:m82.name=Barrett M82 .50 Anti-Materiel Sniper [Epic]
 item.test_gun:riot_shield.name=Tactical Spiked Riot Shield [50% Reflect]
+item.test_gun:armor_titan_chest.name=Titan Exoskeleton Suit [12 Armor·Strength]
+
+item.test_gun:vector.name=HK MP7 Tactical SMG [Legendary·Overdrive]
+item.test_gun:mgl.name=MGL 40mm Rotary Grenade Launcher [Saturation]
+item.test_gun:arc_emitter.name=Tesla Arc Emitter [EMP Shockwave]
+item.test_gun:jetpack.name=Tactical Ion Jetpack [Double Jump·Boost]
+
+item.test_gun:armor_vest_light.name=Kevlar Light Tactical Vest
+item.test_gun:armor_vest_heavy.name=Tactical Heavy Assault Vest
+item.test_gun:armor_helmet_tactical.name=Tactical Ballistic Helmet
+
 item.test_gun:ammo_rifle.name=Rifle Ammo (Universal)
 item.test_gun:ammo_shotgun.name=Shotgun Ammo (Universal)
 item.test_gun:ammo_45acp.name=SMG Ammo (Universal)
 item.test_gun:ammo_50cal.name=Sniper / Heavy Ammo (Universal)
 item.test_gun:ammo_40mm.name=HE Grenade (Universal)
 item.test_gun:ammo_battery.name=High-Energy Battery (Universal)
+
 action.hint.exit.test_gun=Test Guns Arsenal Active

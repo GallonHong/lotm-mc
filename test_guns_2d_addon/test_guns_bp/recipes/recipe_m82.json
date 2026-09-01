@@ -1,0 +1,49 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_m82"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBW",
+      "RTI",
+      "SFM"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_m82"
+      },
+      "B": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "W": {
+        "item": "test_gun:part_tungsten_bolt"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "T": {
+        "item": "minecraft:spyglass"
+      },
+      "I": {
+        "item": "minecraft:diamond"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "F": {
+        "item": "test_gun:part_military_fcu"
+      },
+      "M": {
+        "item": "test_gun:ammo_50cal"
+      }
+    },
+    "result": {
+      "item": "test_gun:m82",
+      "count": 1
+    }
+  }
+}

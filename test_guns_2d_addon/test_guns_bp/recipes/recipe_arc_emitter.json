@@ -1,0 +1,49 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_arc_emitter"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PLF",
+      "RCE",
+      "SNB"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_arc"
+      },
+      "L": {
+        "item": "minecraft:lightning_rod"
+      },
+      "F": {
+        "item": "test_gun:part_military_fcu"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "C": {
+        "item": "test_gun:part_plasma_core"
+      },
+      "E": {
+        "item": "minecraft:redstone_block"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "N": {
+        "item": "minecraft:netherite_ingot"
+      },
+      "B": {
+        "item": "test_gun:ammo_battery"
+      }
+    },
+    "result": {
+      "item": "test_gun:arc_emitter",
+      "count": 1
+    }
+  }
+}

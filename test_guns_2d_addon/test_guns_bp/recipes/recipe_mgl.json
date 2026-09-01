@@ -1,0 +1,49 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_mgl"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBW",
+      "RDF",
+      "SNM"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_mgl"
+      },
+      "B": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "W": {
+        "item": "test_gun:part_tungsten_bolt"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "D": {
+        "item": "test_gun:part_drum_mag"
+      },
+      "F": {
+        "item": "test_gun:part_military_fcu"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "N": {
+        "item": "minecraft:netherite_ingot"
+      },
+      "M": {
+        "item": "test_gun:ammo_40mm"
+      }
+    },
+    "result": {
+      "item": "test_gun:mgl",
+      "count": 1
+    }
+  }
+}

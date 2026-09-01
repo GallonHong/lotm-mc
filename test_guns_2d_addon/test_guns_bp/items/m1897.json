@@ -1,0 +1,43 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:m1897",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_m1897",
+      "minecraft:display_name": {
+        "value": "温彻斯特 M1897 霰弹枪 §f[普通·战壕喷]§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 750
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 200
+          }
+        ]
+      }
+    }
+  }
+}

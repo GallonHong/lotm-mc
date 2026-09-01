@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_part_shield_frame"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "IBI",
+      "IEI",
+      "III"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "B": {
+        "item": "minecraft:iron_block"
+      },
+      "E": {
+        "item": "minecraft:emerald"
+      }
+    },
+    "result": {
+      "item": "test_gun:part_shield_frame",
+      "count": 1
+    }
+  }
+}

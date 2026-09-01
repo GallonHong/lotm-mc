@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_deagle",
       "minecraft:display_name": {
-        "value": "沙漠之鹰 .50 战术手枪 §e[重型手炮]§r"
+        "value": "沙漠之鹰 .50 战术手枪 §9[优良·快拔手炮]§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,
@@ -37,16 +37,6 @@
             ],
             "repair_amount": 180
           }
-        ]
-      },
-      "minecraft:enchantable": {
-        "value": 12,
-        "slot": "all"
-      },
-      "minecraft:tags": {
-        "tags": [
-          "minecraft:is_tool",
-          "test_gun:weapon"
         ]
       }
     }

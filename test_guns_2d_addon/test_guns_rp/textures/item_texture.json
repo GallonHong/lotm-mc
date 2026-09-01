@@ -5,8 +5,41 @@
     "test_gun_ak47": {
       "textures": "textures/guns/ak47_old"
     },
+    "test_gun_ak74u": {
+      "textures": "textures/guns/ak74u_old"
+    },
     "test_gun_shotgun": {
       "textures": "textures/guns/m870_shotgun"
+    },
+    "test_gun_m1897": {
+      "textures": "textures/guns/m1897_shotgun"
+    },
+    "test_gun_bizon": {
+      "textures": "textures/guns/bizon_old"
+    },
+    "test_gun_glock": {
+      "textures": "textures/guns/glock_old"
+    },
+    "test_gun_scarh": {
+      "textures": "textures/guns/scarh_old"
+    },
+    "test_gun_arx": {
+      "textures": "textures/guns/arx_old"
+    },
+    "test_gun_p90": {
+      "textures": "textures/guns/p90_old"
+    },
+    "test_gun_deagle": {
+      "textures": "textures/guns/deagle_old"
+    },
+    "test_gun_svd": {
+      "textures": "textures/guns/svd_sniper"
+    },
+    "test_gun_m1014": {
+      "textures": "textures/guns/m1014_shotgun"
+    },
+    "test_gun_m82": {
+      "textures": "textures/guns/m82_barrett"
     },
     "test_gun_vector": {
       "textures": "textures/guns/mp7_old"
@@ -14,20 +47,26 @@
     "test_gun_mgl": {
       "textures": "textures/guns/mgl_rotary"
     },
-    "test_gun_m82": {
-      "textures": "textures/guns/m82_barrett"
-    },
     "test_gun_arc_emitter": {
       "textures": "textures/guns/arc_emitter_real"
-    },
-    "test_gun_deagle": {
-      "textures": "textures/guns/deagle_old"
     },
     "test_gun_jetpack": {
       "textures": "textures/items/jetpack"
     },
     "test_gun_riot_shield": {
       "textures": "textures/items/riot_shield"
+    },
+    "test_gun_armor_vest_light": {
+      "textures": "textures/armor/armor_vest_light"
+    },
+    "test_gun_armor_vest_heavy": {
+      "textures": "textures/armor/armor_vest_heavy"
+    },
+    "test_gun_armor_helmet_tactical": {
+      "textures": "textures/armor/armor_helmet_tactical"
+    },
+    "test_gun_armor_titan_chest": {
+      "textures": "textures/armor/armor_titan_chest"
     },
     "test_gun_ammo_rifle": {
       "textures": "textures/ammo/ammo_rifle"
@@ -46,6 +85,54 @@
     },
     "test_gun_ammo_battery": {
       "textures": "textures/ammo/ammo_battery"
+    },
+    "test_gun_part_barrel": {
+      "textures": "textures/parts/part_barrel"
+    },
+    "test_gun_part_receiver": {
+      "textures": "textures/parts/part_receiver"
+    },
+    "test_gun_part_stock": {
+      "textures": "textures/parts/part_stock"
+    },
+    "test_gun_part_heavy_barrel": {
+      "textures": "textures/parts/part_heavy_barrel"
+    },
+    "test_gun_part_drum_mag": {
+      "textures": "textures/parts/part_receiver"
+    },
+    "test_gun_part_shield_frame": {
+      "textures": "textures/parts/part_shield_frame"
+    },
+    "test_gun_part_military_fcu": {
+      "textures": "textures/parts/part_military_fcu"
+    },
+    "test_gun_part_plasma_core": {
+      "textures": "textures/ammo/ammo_battery"
+    },
+    "test_gun_part_tungsten_bolt": {
+      "textures": "textures/parts/part_heavy_barrel"
+    },
+    "test_gun_part_deflection_generator": {
+      "textures": "textures/items/riot_shield"
+    },
+    "test_gun_part_ion_thruster": {
+      "textures": "textures/items/jetpack"
+    },
+    "test_gun_blueprint_blank": {
+      "textures": "textures/blueprints/blueprint_blank"
+    },
+    "test_gun_blueprint_common": {
+      "textures": "textures/blueprints/blueprint_common"
+    },
+    "test_gun_blueprint_rare": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_blueprint_epic": {
+      "textures": "textures/blueprints/blueprint_epic"
+    },
+    "test_gun_blueprint_legendary": {
+      "textures": "textures/blueprints/blueprint_legendary"
     }
   }
 }

@@ -14,16 +14,16 @@
       "minecraft:hand_equipped": {
         "value": true
       },
+      "minecraft:icon": "test_gun_ak47",
+      "minecraft:display_name": {
+        "value": "AK-47 突击步枪 §f[普通·经典实木]§r"
+      },
       "minecraft:use_modifiers": {
         "use_duration": 3200,
         "movement_modifier": 0.75
       },
       "minecraft:food": {
         "can_always_eat": true
-      },
-      "minecraft:icon": "test_gun_ak47",
-      "minecraft:display_name": {
-        "value": "AK-47 §7(2D Classic)§r"
       },
       "minecraft:durability": {
         "max_durability": 1200
@@ -36,16 +36,6 @@
             ],
             "repair_amount": 300
           }
-        ]
-      },
-      "minecraft:enchantable": {
-        "value": 12,
-        "slot": "all"
-      },
-      "minecraft:tags": {
-        "tags": [
-          "minecraft:is_tool",
-          "test_gun:weapon"
         ]
       }
     }

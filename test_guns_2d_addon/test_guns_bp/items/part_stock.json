@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:part_stock",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:hand_equipped": {
+        "value": false
+      },
+      "minecraft:icon": "test_gun_part_stock",
+      "minecraft:display_name": {
+        "value": "战术聚合物枪托 §8[半成品配件]§r"
+      }
+    }
+  }
+}

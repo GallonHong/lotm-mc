@@ -14,16 +14,16 @@
       "minecraft:hand_equipped": {
         "value": true
       },
+      "minecraft:icon": "test_gun_shotgun",
+      "minecraft:display_name": {
+        "value": "雷明顿 M870 霰弹枪 §f[普通·泵动式]§r"
+      },
       "minecraft:use_modifiers": {
         "use_duration": 3200,
-        "movement_modifier": 0.65
+        "movement_modifier": 0.75
       },
       "minecraft:food": {
         "can_always_eat": true
-      },
-      "minecraft:icon": "test_gun_shotgun",
-      "minecraft:display_name": {
-        "value": "雷明顿 M870 霰弹枪 (泵动式)"
       },
       "minecraft:durability": {
         "max_durability": 800
@@ -32,21 +32,10 @@
         "repair_items": [
           {
             "items": [
-              "minecraft:iron_ingot",
-              "minecraft:wood"
+              "minecraft:iron_ingot"
             ],
             "repair_amount": 200
           }
-        ]
-      },
-      "minecraft:enchantable": {
-        "value": 12,
-        "slot": "all"
-      },
-      "minecraft:tags": {
-        "tags": [
-          "minecraft:is_tool",
-          "test_gun:weapon"
         ]
       }
     }

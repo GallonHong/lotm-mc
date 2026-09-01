@@ -14,19 +14,19 @@
       "minecraft:hand_equipped": {
         "value": true
       },
+      "minecraft:icon": "test_gun_vector",
+      "minecraft:display_name": {
+        "value": "HK MP7 战术冲锋枪 §6[传说·暴走狂潮]§r"
+      },
       "minecraft:use_modifiers": {
         "use_duration": 3200,
-        "movement_modifier": 0.85
+        "movement_modifier": 0.75
       },
       "minecraft:food": {
         "can_always_eat": true
       },
-      "minecraft:icon": "test_gun_vector",
-      "minecraft:display_name": {
-        "value": "HK MP7 战术冲锋枪 [暴走狂潮]"
-      },
       "minecraft:durability": {
-        "max_durability": 1500
+        "max_durability": 1800
       },
       "minecraft:repairable": {
         "repair_items": [
@@ -35,18 +35,8 @@
               "minecraft:iron_ingot",
               "minecraft:copper_ingot"
             ],
-            "repair_amount": 350
+            "repair_amount": 450
           }
-        ]
-      },
-      "minecraft:enchantable": {
-        "value": 12,
-        "slot": "all"
-      },
-      "minecraft:tags": {
-        "tags": [
-          "minecraft:is_tool",
-          "test_gun:weapon"
         ]
       }
     }

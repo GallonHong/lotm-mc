@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:blueprint_scarh",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:hand_equipped": {
+        "value": false
+      },
+      "minecraft:icon": "test_gun_blueprint_rare",
+      "minecraft:display_name": {
+        "value": "SCAR-H 战术重步枪蓝图 §9[优良]§r"
+      }
+    }
+  }
+}

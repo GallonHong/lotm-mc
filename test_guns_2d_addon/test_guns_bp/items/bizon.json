@@ -1,0 +1,43 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:bizon",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_bizon",
+      "minecraft:display_name": {
+        "value": "PP-19 野牛冲锋枪 §f[普通·64发大弹筒]§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 1300
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 300
+          }
+        ]
+      }
+    }
+  }
+}

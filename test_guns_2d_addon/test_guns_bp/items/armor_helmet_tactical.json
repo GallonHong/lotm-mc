@@ -1,0 +1,40 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_helmet_tactical",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_armor_helmet_tactical",
+      "minecraft:display_name": {
+        "value": "特警防暴防弹头盔 §9[优良·3点护甲·防爆头]§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "dispensable": true
+      },
+      "minecraft:durability": {
+        "max_durability": 400
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 120
+          }
+        ]
+      }
+    }
+  }
+}

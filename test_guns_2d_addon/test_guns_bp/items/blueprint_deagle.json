@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:blueprint_deagle",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:hand_equipped": {
+        "value": false
+      },
+      "minecraft:icon": "test_gun_blueprint_rare",
+      "minecraft:display_name": {
+        "value": "沙漠之鹰 .50 制造图纸 §9[优良]§r"
+      }
+    }
+  }
+}

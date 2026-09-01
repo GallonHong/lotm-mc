@@ -1,0 +1,44 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:p90",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_p90",
+      "minecraft:display_name": {
+        "value": "FN P90 战术冲锋枪 §9[优良·火力压制]§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 1600
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "minecraft:copper_ingot"
+            ],
+            "repair_amount": 400
+          }
+        ]
+      }
+    }
+  }
+}

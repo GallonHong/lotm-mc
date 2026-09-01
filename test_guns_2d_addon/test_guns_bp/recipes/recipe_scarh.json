@@ -1,0 +1,43 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_scarh"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBC",
+      "RGB",
+      "SM "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_scarh"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "C": {
+        "item": "minecraft:copper_block"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "G": {
+        "item": "minecraft:gold_ingot"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "M": {
+        "item": "test_gun:ammo_rifle"
+      }
+    },
+    "result": {
+      "item": "test_gun:scarh",
+      "count": 1
+    }
+  }
+}

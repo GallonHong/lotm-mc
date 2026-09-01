@@ -1,0 +1,49 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_vector"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBF",
+      "RDT",
+      "SNM"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_mp7"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "F": {
+        "item": "test_gun:part_military_fcu"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "D": {
+        "item": "test_gun:part_drum_mag"
+      },
+      "T": {
+        "item": "test_gun:part_ion_thruster"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "N": {
+        "item": "minecraft:netherite_ingot"
+      },
+      "M": {
+        "item": "test_gun:ammo_45acp"
+      }
+    },
+    "result": {
+      "item": "test_gun:vector",
+      "count": 1
+    }
+  }
+}

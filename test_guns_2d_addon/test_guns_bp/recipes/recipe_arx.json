@@ -1,0 +1,43 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_arx"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBI",
+      "RCI",
+      "SM "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_arx"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "C": {
+        "item": "minecraft:copper_block"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "M": {
+        "item": "test_gun:ammo_rifle"
+      }
+    },
+    "result": {
+      "item": "test_gun:arx",
+      "count": 1
+    }
+  }
+}

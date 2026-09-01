@@ -1,16 +1,75 @@
-item.test_gun:ak47.name=AK-47 突击步枪 (经典实木)
-item.test_gun:shotgun.name=雷明顿 M870 霰弹枪 (泵动式)
-item.test_gun:vector.name=HK MP7 战术冲锋枪 [暴走狂潮]
-item.test_gun:mgl.name=MGL 40mm 连发榴弹炮 [高爆破片]
-item.test_gun:m82.name=巴雷特 M82 .50 反器材重狙 [穿甲秒杀]
-item.test_gun:arc_emitter.name=特斯拉电弧发射器 [连锁闪电]
-item.test_gun:deagle.name=沙漠之鹰 .50 战术手枪 [重型手炮]
-item.test_gun:jetpack.name=战术离子喷气背包 [双跳飞升·缓降]
-item.test_gun:riot_shield.name=战术反甲防暴盾 [50%荆棘反伤]
+item.test_gun:ak47.name=AK-47 突击步枪 §f[普通·经典实木]§r
+item.test_gun:ak74u.name=AK-74U 短突击步枪 §f[普通·高机动]§r
+item.test_gun:shotgun.name=雷明顿 M870 霰弹枪 §f[普通·泵动式]§r
+item.test_gun:m1897.name=温彻斯特 M1897 霰弹枪 §f[普通·战壕喷]§r
+item.test_gun:bizon.name=PP-19 野牛冲锋枪 §f[普通·64发大弹筒]§r
+item.test_gun:glock.name=格洛克 Glock-18 手枪 §f[普通·全自动]§r
+
+item.test_gun:scarh.name=SCAR-H 战术重步枪 §9[优良·精准重击]§r
+item.test_gun:arx.name=ARX-160 现代突击步枪 §9[优良·极低后坐]§r
+item.test_gun:p90.name=FN P90 战术冲锋枪 §9[优良·火力压制]§r
+item.test_gun:deagle.name=沙漠之鹰 .50 战术手枪 §9[优良·快拔手炮]§r
+item.test_gun:svd.name=SVD 德拉贡诺夫狙击步枪 §9[优良·连击标记]§r
+item.test_gun:m1014.name=伯奈利 M1014 连发霰弹枪 §9[优良·急速连喷]§r
+
+item.test_gun:m82.name=巴雷特 M82 .50 反器材重狙 §5[史诗·穿甲高爆]§r
+item.test_gun:riot_shield.name=战术反甲防暴盾 §5[史诗·50%荆棘反伤]§r
+item.test_gun:armor_titan_chest.name=泰坦动力外骨骼装甲 §5[史诗·12点满护甲·力量增幅]§r
+
+item.test_gun:vector.name=HK MP7 战术冲锋枪 §6[传说·暴走狂潮]§r
+item.test_gun:mgl.name=MGL 40mm 自动榴弹炮 §6[传说·饱和轰炸]§r
+item.test_gun:arc_emitter.name=特斯拉高能电弧发射器 §6[传说·EMP电磁风暴]§r
+item.test_gun:jetpack.name=战术离子喷气背包 §6[传说·双跳飞升·缓降]§r
+
+item.test_gun:armor_vest_light.name=凯夫拉轻型防弹衣 §f[普通·4点护甲]§r
+item.test_gun:armor_vest_heavy.name=战术突击重装防弹衣 §9[优良·7点护甲·防击退]§r
+item.test_gun:armor_helmet_tactical.name=特警防暴防弹头盔 §9[优良·3点护甲·防爆头]§r
+
 item.test_gun:ammo_rifle.name=突击步枪子弹 (通用)
 item.test_gun:ammo_shotgun.name=霰弹枪子弹 (通用)
 item.test_gun:ammo_45acp.name=冲锋枪子弹 (通用)
 item.test_gun:ammo_50cal.name=狙击枪/重型子弹 (通用)
 item.test_gun:ammo_40mm.name=高爆榴弹 (通用)
 item.test_gun:ammo_battery.name=高能离子电池 (通用)
+
+item.test_gun:part_barrel.name=标准精密枪管 §8[半成品配件]§r
+item.test_gun:part_receiver.name=冲压击发机匣 §8[半成品配件]§r
+item.test_gun:part_stock.name=战术聚合物枪托 §8[半成品配件]§r
+item.test_gun:part_heavy_barrel.name=重型加固合金枪管 §8[半成品配件]§r
+item.test_gun:part_drum_mag.name=高容量扩容弹筒 §8[半成品配件]§r
+item.test_gun:part_shield_frame.name=钛合金防暴骨架 §8[半成品配件]§r
+
+item.test_gun:part_military_fcu.name=🎛️ 军用数控火控核心 §6[稀有核心模块]§r
+item.test_gun:part_plasma_core.name=⚛️ 聚能等离子磁约束核心 §6[稀有核心模块]§r
+item.test_gun:part_tungsten_bolt.name=🔩 高纯度钨合金重型机心 §6[稀有核心模块]§r
+item.test_gun:part_deflection_generator.name=🛡️ 动能偏转偏振矩阵 §6[稀有核心模块]§r
+item.test_gun:part_ion_thruster.name=🚀 超导离子推进矢量喷口 §6[稀有核心模块]§r
+
+item.test_gun:blueprint_blank.name=空白军用图纸 §7[基础制图纸]§r
+item.test_gun:blueprint_ak47.name=AK-47 设计图纸 §f[普通]§r
+item.test_gun:blueprint_ak74u.name=AK-74U 设计图纸 §f[普通]§r
+item.test_gun:blueprint_m870.name=雷明顿 M870 霰弹枪图纸 §f[普通]§r
+item.test_gun:blueprint_m1897.name=温彻斯特 M1897 战壕枪图纸 §f[普通]§r
+item.test_gun:blueprint_bizon.name=PP-19 野牛冲锋枪图纸 §f[普通]§r
+item.test_gun:blueprint_glock.name=格洛克 Glock-18 战术图纸 §f[普通]§r
+item.test_gun:blueprint_vest_light.name=凯夫拉轻型防弹衣图纸 §f[普通]§r
+
+item.test_gun:blueprint_scarh.name=SCAR-H 战术重步枪蓝图 §9[优良]§r
+item.test_gun:blueprint_arx.name=ARX-160 现代步枪蓝图 §9[优良]§r
+item.test_gun:blueprint_p90.name=FN P90 冲锋枪战术蓝图 §9[优良]§r
+item.test_gun:blueprint_deagle.name=沙漠之鹰 .50 制造图纸 §9[优良]§r
+item.test_gun:blueprint_svd.name=SVD 德拉贡诺夫狙击枪蓝图 §9[优良]§r
+item.test_gun:blueprint_m1014.name=伯奈利 M1014 霰弹枪蓝图 §9[优良]§r
+item.test_gun:blueprint_vest_heavy.name=突击重装防弹衣图纸 §9[优良]§r
+item.test_gun:blueprint_helmet_tactical.name=特警防弹头盔图纸 §9[优良]§r
+
+item.test_gun:blueprint_m82.name=巴雷特 M82 反器材重狙蓝图 §5[史诗]§r
+item.test_gun:blueprint_riot_shield.name=战术反甲防暴盾结构图 §5[史诗]§r
+item.test_gun:blueprint_titan_chest.name=泰坦动力外骨骼装甲蓝图 §5[史诗]§r
+
+item.test_gun:blueprint_mp7.name=HK MP7 暴走狂潮核心设计图 §6[传说·不可合成]§r
+item.test_gun:blueprint_mgl.name=MGL 40mm 自动榴弹炮核心设计图 §6[传说·不可合成]§r
+item.test_gun:blueprint_arc.name=特斯拉高能电弧风暴核心图纸 §6[传说·不可合成]§r
+item.test_gun:blueprint_jetpack.name=战术离子喷气背包结构图 §6[传说·不可合成]§r
+
 action.hint.exit.test_gun=测试军火库 Add-on 已就绪
