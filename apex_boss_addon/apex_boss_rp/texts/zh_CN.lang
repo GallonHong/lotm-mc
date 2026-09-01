@@ -1,0 +1,6 @@
+item.apex_boss:beacon_core=§c【泰坦空投呼叫引信】§r
+item.apex_boss:beacon_core.description=§7右键地面发射信号弹，在 3 秒后呼叫【机械泰坦歼灭者】空降 (12,000 HP 巨型 BOSS)！§r
+item.apex_boss:juggernaut_core=§6【泰坦歼灭者超频核心】§r
+item.apex_boss:juggernaut_core.description=§e机械霸主顶级战利品，蕴含反物质等离子能量。§r
+entity.apex_boss:juggernaut.name=§l§c机械泰坦歼灭者 · 终焉统领§r
+entity.apex_boss:drone.name=§e机械自爆近卫无人机§r

@@ -1,0 +1,37 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "apex_boss.spawn": {
+      "category": "hostile",
+      "sounds": [
+        { "name": "mob.enderdragon.growl", "volume": 1.5, "pitch": 0.6 }
+      ]
+    },
+    "apex_boss.stomp": {
+      "category": "hostile",
+      "sounds": [
+        { "name": "random.anvil_land", "volume": 1.4, "pitch": 0.6 },
+        { "name": "random.explode", "volume": 1.2, "pitch": 0.8 }
+      ]
+    },
+    "apex_boss.emp": {
+      "category": "hostile",
+      "sounds": [
+        { "name": "mob.warden.sonic_boom", "volume": 1.5, "pitch": 1.2 },
+        { "name": "ambient.weather.thunder0", "volume": 1.4, "pitch": 0.9 }
+      ]
+    },
+    "apex_boss.gatling": {
+      "category": "hostile",
+      "sounds": [
+        { "name": "random.explode", "volume": 0.8, "pitch": 1.8 }
+      ]
+    },
+    "apex_boss.meltdown": {
+      "category": "hostile",
+      "sounds": [
+        { "name": "mob.wither.death", "volume": 1.8, "pitch": 0.7 }
+      ]
+    }
+  }
+}

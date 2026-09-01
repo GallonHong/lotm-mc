@@ -1,0 +1,24 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apex_boss:juggernaut",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/juggernaut"
+      },
+      "geometry": {
+        "default": "geometry.juggernaut"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "spawn_egg": {
+        "base_color": "#1A1A1A",
+        "overlay_color": "#FF4500"
+      }
+    }
+  }
+}

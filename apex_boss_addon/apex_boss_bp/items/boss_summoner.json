@@ -1,0 +1,32 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "apex_boss:beacon_core",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": 16,
+      "minecraft:hand_equipped": true,
+      "minecraft:display_name": {
+        "value": "§l§c【泰坦空投呼叫引信】§r\n§7右键地面召唤: 机械泰坦歼灭者 (12,000 HP)"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "apex_boss:boss_summoner"
+        }
+      },
+      "minecraft:cooldown": {
+        "category": "apex_boss_summoner",
+        "duration": 5.0
+      },
+      "minecraft:tags": {
+        "tags": [
+          "apex:boss_item"
+        ]
+      }
+    }
+  }
+}
