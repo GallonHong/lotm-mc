@@ -49,10 +49,12 @@ export class BossEngine {
       // 阶段转换判定
       if (hpRatio <= 0.30 && state.phase < 3) {
         state.phase = 3;
+        boss.nameTag = "§l§4机械泰坦歼灭者 · 终焉超频自毁态§r";
         this.#broadcastBossMessage("§4⚡【机械泰坦】进入阶段三：【终焉超频自毁狂暴态】！移速暴增，全核心过载！");
         boss.dimension.playSound("mob.wither.spawn", boss.location, { volume: 2.0, pitch: 0.8 });
       } else if (hpRatio <= 0.70 && state.phase < 2) {
         state.phase = 2;
+        boss.nameTag = "§l§6机械泰坦歼灭者 · 等离子重构态§r";
         this.#broadcastBossMessage("§e⚡【机械泰坦】进入阶段二：【等离子重构态】！开启纳米护盾并部署自爆无人机！");
         this.#triggerPhase2ShieldAndDrones(boss);
       }

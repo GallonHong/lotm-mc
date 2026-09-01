@@ -11,6 +11,11 @@
       "minecraft:type_family": {
         "family": [ "apex_boss", "monster", "mob" ]
       },
+      "minecraft:boss": {
+        "should_darken_sky": false,
+        "hud_range": 64,
+        "name": "§l§c机械泰坦歼灭者 · 终焉统领§r"
+      },
       "minecraft:nameable": {
         "always_show": true,
         "default_trigger": {
