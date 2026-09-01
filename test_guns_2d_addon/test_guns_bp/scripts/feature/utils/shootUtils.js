@@ -5,7 +5,7 @@ import { FireMode } from '../../data/types.js';
 export function getSpawnLocation(player) {
   const headPos = player.getHeadLocation();
   const viewDir = player.getViewDirection();
-  const forward = MathUtils.scale(viewDir, 1.2);
+  const forward = MathUtils.scale(viewDir, 1.0);
 
   // Compute right vector: (-z, 0, x)
   let right = { x: -viewDir.z, y: 0, z: viewDir.x };
@@ -16,14 +16,29 @@ export function getSpawnLocation(player) {
     right = MathUtils.scale(right, 1 / rLen);
   }
 
-  const rightOffset = MathUtils.scale(right, 0.20);
-  const upOffset = { x: 0, y: -0.15, z: 0 };
+  const rightOffset = MathUtils.scale(right, 0.18);
+  const upOffset = { x: 0, y: -0.12, z: 0 };
 
   return MathUtils.add(MathUtils.add(MathUtils.add(headPos, forward), rightOffset), upOffset);
 }
 
 /**
- * 沿弹道射线渲染 Apex 高亮子弹轨迹粒子 (Tracer Particles)
+ * 枪口初速火光与开火气浪
+ */
+export function spawnMuzzleFlash(dimension, muzzleLoc, gun) {
+  if (!dimension || !muzzleLoc) return;
+  try {
+    dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
+    if (gun.type === 'shotgun') {
+      dimension.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', muzzleLoc);
+    } else {
+      dimension.spawnParticle('minecraft:campfire_smoke_particle', muzzleLoc);
+    }
+  } catch {}
+}
+
+/**
+ * 沿弹道射线高密度渲染发光曳光流 (Tracer Beam)
  */
 export function drawBulletTracer(dimension, startPos, endPos, gun) {
   if (!dimension || !startPos || !endPos) return;
@@ -33,20 +48,20 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
     const dy = endPos.y - startPos.y;
     const dz = endPos.z - startPos.z;
     const totalDist = Math.hypot(dx, dy, dz);
-    if (totalDist < 0.5) return;
+    if (totalDist < 0.3) return;
 
     let particleId = "test_gun:bullet_tracer";
-    let stepSize = 0.8;
+    let stepSize = 0.5;
 
     if (gun.id === 'test_gun:vector' || gun.type === 'smg') {
       particleId = "test_gun:vector_tracer";
-      stepSize = 0.6;
+      stepSize = 0.4;
     } else if (gun.id === 'test_gun:shotgun' || gun.type === 'shotgun') {
       particleId = "test_gun:shotgun_tracer";
-      stepSize = 1.0;
+      stepSize = 0.6;
     }
 
-    const steps = Math.min(Math.floor(totalDist / stepSize), 75);
+    const steps = Math.min(Math.floor(totalDist / stepSize), 85);
 
     for (let i = 1; i <= steps; i++) {
       const frac = i / steps;
@@ -66,7 +81,7 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
 }
 
 /**
- * 执行单发弹道射线命中与伤害结算 (带射线实体优先命中)
+ * 执行单发弹道射线命中与伤害结算 (枪口火光 + 高密曳光 + 命中火花)
  */
 function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   const dimension = player.dimension;
@@ -74,8 +89,9 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
 
   let impactLoc = MathUtils.add(spawnLoc, MathUtils.scale(dir, maxRange));
   let hitEntity = null;
+  let hitBlock = false;
 
-  // 1. 方块射线检测
+  // 1. 方块射线碰撞检测
   let blockDist = maxRange;
   try {
     const blockHit = dimension.getBlockFromRay(headPos, dir, {
@@ -84,6 +100,7 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
       includeLiquidBlocks: false
     });
     if (blockHit && blockHit.block) {
+      hitBlock = true;
       blockDist = blockHit.distance;
       impactLoc = {
         x: headPos.x + dir.x * blockDist,
@@ -93,7 +110,7 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     }
   } catch {}
 
-  // 2. 实体射线检测 (检测视线内的第一个生物)
+  // 2. 实体射线碰撞检测
   try {
     const entityHits = dimension.getEntitiesFromRay(headPos, dir, {
       maxDistance: blockDist,
@@ -116,24 +133,31 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     }
   } catch {}
 
-  // 3. 渲染 Apex 曳光粒子弹道
+  // 3. 渲染枪口火光与高密度曳光弹道
+  spawnMuzzleFlash(dimension, spawnLoc, gun);
   drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
 
-  // 4. 立即结算命中伤害 (无敌帧穿透)
+  // 4. 结算击中效果 (实体受击 / 方块跳弹火花)
   if (hitEntity) {
     DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc);
-  } else {
-    // 若未直接命中实体，生成高速投射物实体覆盖边缘区域
+  } else if (hitBlock) {
+    // 命中方块产生跳弹火花与撞击烟尘
     try {
-      const projectile = dimension.spawnEntity(gun.projectileTypeId, spawnLoc);
-      if (projectile) {
-        projectile.addTag('tg_weapon:' + gun.id);
-        projectile.addTag('tg_shooter:' + player.id);
-        const velocity = MathUtils.scale(dir, gun.shootPower);
-        projectile.applyImpulse(velocity);
-      }
+      dimension.spawnParticle('minecraft:crit', impactLoc);
+      dimension.spawnParticle('minecraft:basic_smoke_particle', impactLoc);
     } catch {}
   }
+
+  // 5. 生成飞行投射物实体确保多人联机同步
+  try {
+    const projectile = dimension.spawnEntity(gun.projectileTypeId, spawnLoc);
+    if (projectile) {
+      projectile.addTag('tg_weapon:' + gun.id);
+      projectile.addTag('tg_shooter:' + player.id);
+      const velocity = MathUtils.scale(dir, gun.shootPower);
+      projectile.applyImpulse(velocity);
+    }
+  } catch {}
 }
 
 export function fireBullet(player, gun) {
@@ -142,7 +166,7 @@ export function fireBullet(player, gun) {
   const maxRange = (gun.stats && gun.stats.maxRange) ? gun.stats.maxRange : 60;
 
   if (gun.mode === FireMode.SHOTGUN) {
-    // Shotgun: 6 pellets with conical spread & individual damage resolution
+    // Shotgun: 6 pellets with conical spread & individual tracers
     const PELLETS = 6;
     const spreadFactor = 0.075;
 
