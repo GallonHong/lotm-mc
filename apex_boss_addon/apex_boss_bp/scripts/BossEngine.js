@@ -22,8 +22,10 @@ export class BossEngine {
         }
       } catch {}
 
-      const hpComp = entity.getComponent("minecraft:health");
-      if (hpComp && hpComp.currentValue <= 0) return false;
+      try {
+        const hpComp = entity.getComponent("minecraft:health");
+        if (hpComp && hpComp.currentValue <= 0) return false;
+      } catch {}
       return true;
     }
 
@@ -46,10 +48,9 @@ export class BossEngine {
     } catch {}
 
     // 2. 搜索 36 格范围内的存活敌对目标
-    const dim = boss.dimension;
-    const bLoc = boss.location;
-
     try {
+      const dim = boss.dimension;
+      const bLoc = boss.location;
       const nearby = dim.getEntities({
         location: bLoc,
         maxDistance: 36
@@ -95,11 +96,17 @@ export class BossEngine {
     for (const boss of bosses) {
       if (!boss || !boss.isValid()) continue;
 
-      const healthComp = boss.getComponent("minecraft:health");
-      if (!healthComp) continue;
+      let currentHp = 12000;
+      let maxHp = 12000;
+      try {
+        const healthComp = boss.getComponent("minecraft:health");
+        if (!healthComp) continue;
+        currentHp = healthComp.currentValue;
+        maxHp = healthComp.effectiveMax || 12000;
+      } catch {
+        continue;
+      }
 
-      const currentHp = healthComp.currentValue;
-      const maxHp = healthComp.effectiveMax || 12000;
       const hpRatio = currentHp / maxHp;
 
       let state = this.#bossStates.get(boss.id);
@@ -116,17 +123,19 @@ export class BossEngine {
       }
 
       // 阶段转换判定并动态更新顶部 Boss Bar 标题
-      if (hpRatio <= 0.30 && state.phase < 3) {
-        state.phase = 3;
-        boss.nameTag = "§l§4机械泰坦歼灭者 · 终焉超频自毁态§r";
-        this.#broadcastBossMessage("§4⚡【机械泰坦】进入阶段三：【终焉超频自毁狂暴态】！移速暴增，全核心过载！");
-        boss.dimension.playSound("mob.wither.spawn", boss.location, { volume: 2.0, pitch: 0.8 });
-      } else if (hpRatio <= 0.70 && state.phase < 2) {
-        state.phase = 2;
-        boss.nameTag = "§l§6机械泰坦歼灭者 · 等离子重构态§r";
-        this.#broadcastBossMessage("§e⚡【机械泰坦】进入阶段二：【等离子重构态】！开启纳米护盾并部署自爆无人机！");
-        this.#triggerPhase2ShieldAndDrones(boss);
-      }
+      try {
+        if (hpRatio <= 0.30 && state.phase < 3) {
+          state.phase = 3;
+          boss.nameTag = "§l§4机械泰坦歼灭者 · 终焉超频自毁态§r";
+          this.#broadcastBossMessage("§4⚡【机械泰坦】进入阶段三：【终焉超频自毁狂暴态】！移速暴增，全核心过载！");
+          boss.dimension.playSound("mob.wither.spawn", boss.location, { volume: 2.0, pitch: 0.8 });
+        } else if (hpRatio <= 0.70 && state.phase < 2) {
+          state.phase = 2;
+          boss.nameTag = "§l§6机械泰坦歼灭者 · 等离子重构态§r";
+          this.#broadcastBossMessage("§e⚡【机械泰坦】进入阶段二：【等离子重构态】！开启纳米护盾并部署自爆无人机！");
+          this.#triggerPhase2ShieldAndDrones(boss);
+        }
+      } catch {}
 
       // 狂暴阶段常驻等离子光环
       if (state.phase === 3) {
@@ -162,69 +171,80 @@ export class BossEngine {
   }
 
   /**
-   * 技能 1: 30 连发机枪重火网弹幕扫射 (索敌：坚守者/正在交战的生物/生存玩家)
+   * 技能 1: 30 连发机枪重火网弹幕扫射 (带未加载区块保护)
    */
   static #fireGatlingBarrage(boss) {
     const target = this.getPrimaryCombatTarget(boss);
     if (!target || !target.isValid()) return;
 
-    const dim = boss.dimension;
-    const bLoc = boss.location;
+    try {
+      const dim = boss.dimension;
+      const bLoc = boss.location;
+      dim.playSound("random.explode", bLoc, { volume: 1.2, pitch: 1.6 });
 
-    dim.playSound("random.explode", bLoc, { volume: 1.2, pitch: 1.6 });
+      // 连续发射 15 发高速重机枪子弹 (每 2 tick 射一发)
+      for (let i = 0; i < 15; i++) {
+        system.runTimeout(() => {
+          try {
+            if (!boss || !boss.isValid() || !target || !target.isValid()) return;
 
-    // 连续发射 15 发高速重机枪子弹 (每 2 tick 射一发)
-    for (let i = 0; i < 15; i++) {
-      system.runTimeout(() => {
-        if (!boss || !boss.isValid() || !target || !target.isValid()) return;
+            const curMuzzle = { x: boss.location.x, y: boss.location.y + 2.0, z: boss.location.z };
+            const tLoc = target.location;
+            const targetHead = { x: tLoc.x, y: tLoc.y + 1.2, z: tLoc.z };
 
-        const curMuzzle = { x: boss.location.x, y: boss.location.y + 2.0, z: boss.location.z };
-        const tLoc = target.location;
-        const targetHead = { x: tLoc.x, y: tLoc.y + 1.2, z: tLoc.z };
+            const dx = targetHead.x - curMuzzle.x + (Math.random() - 0.5) * 1.2;
+            const dy = targetHead.y - curMuzzle.y + (Math.random() - 0.5) * 0.8;
+            const dz = targetHead.z - curMuzzle.z + (Math.random() - 0.5) * 1.2;
+            const dist = Math.hypot(dx, dy, dz) || 1.0;
 
-        const dx = targetHead.x - curMuzzle.x + (Math.random() - 0.5) * 1.2;
-        const dy = targetHead.y - curMuzzle.y + (Math.random() - 0.5) * 0.8;
-        const dz = targetHead.z - curMuzzle.z + (Math.random() - 0.5) * 1.2;
-        const dist = Math.hypot(dx, dy, dz) || 1.0;
+            // 绘制弹幕射线 (未加载区块安全保护)
+            const steps = Math.min(Math.floor(dist / 0.8), 35);
+            for (let s = 1; s <= steps; s++) {
+              const frac = s / steps;
+              try {
+                dim.spawnParticle("minecraft:basic_flame_particle", {
+                  x: curMuzzle.x + dx * frac,
+                  y: curMuzzle.y + dy * frac,
+                  z: curMuzzle.z + dz * frac
+                });
+              } catch {}
+            }
 
-        // 绘制弹幕射线
-        const steps = Math.min(Math.floor(dist / 0.8), 35);
-        for (let s = 1; s <= steps; s++) {
-          const frac = s / steps;
-          dim.spawnParticle("minecraft:basic_flame_particle", {
-            x: curMuzzle.x + dx * frac,
-            y: curMuzzle.y + dy * frac,
-            z: curMuzzle.z + dz * frac
-          });
-        }
+            try {
+              dim.playSound("random.explode", curMuzzle, { volume: 0.6, pitch: 1.9 });
+            } catch {}
 
-        dim.playSound("random.explode", curMuzzle, { volume: 0.6, pitch: 1.9 });
-
-        // 伤害检测
-        const finalImpact = { x: curMuzzle.x + dx, y: curMuzzle.y + dy, z: curMuzzle.z + dz };
-        const hits = dim.getEntities({ location: finalImpact, maxDistance: 2.0 });
-        for (const h of hits) {
-          if (this.isValidCombatTarget(h, boss)) {
-            h.applyDamage(10, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
-          }
-        }
-      }, i * 2);
-    }
+            // 伤害检测
+            const finalImpact = { x: curMuzzle.x + dx, y: curMuzzle.y + dy, z: curMuzzle.z + dz };
+            try {
+              const hits = dim.getEntities({ location: finalImpact, maxDistance: 2.0 });
+              for (const h of hits) {
+                if (this.isValidCombatTarget(h, boss)) {
+                  h.applyDamage(10, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
+                }
+              }
+            } catch {}
+          } catch {}
+        }, i * 2);
+      }
+    } catch {}
   }
 
   /**
    * 技能 2: 地动山摇近战践踏 (击飞 + 24 HP 震荡波)
    */
   static #performSeismicStomp(boss) {
-    const dim = boss.dimension;
-    const bLoc = boss.location;
-    const stompCenter = { x: bLoc.x, y: bLoc.y + 0.2, z: bLoc.z };
-
     try {
-      dim.playSound("random.anvil_land", bLoc, { volume: 1.5, pitch: 0.5 });
-      dim.playSound("random.explode", bLoc, { volume: 1.2, pitch: 0.8 });
-      dim.spawnParticle("minecraft:sonic_explosion", stompCenter);
-      dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", stompCenter);
+      const dim = boss.dimension;
+      const bLoc = boss.location;
+      const stompCenter = { x: bLoc.x, y: bLoc.y + 0.2, z: bLoc.z };
+
+      try {
+        dim.playSound("random.anvil_land", bLoc, { volume: 1.5, pitch: 0.5 });
+        dim.playSound("random.explode", bLoc, { volume: 1.2, pitch: 0.8 });
+        dim.spawnParticle("minecraft:sonic_explosion", stompCenter);
+        dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", stompCenter);
+      } catch {}
 
       const nearby = dim.getEntities({ location: stompCenter, maxDistance: 7.0 });
       for (const ent of nearby) {
@@ -243,7 +263,9 @@ export class BossEngine {
           });
         } catch {}
 
-        ent.applyDamage(24, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
+        try {
+          ent.applyDamage(24, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
+        } catch {}
       }
     } catch {}
   }
@@ -252,25 +274,27 @@ export class BossEngine {
    * 技能 3: 轨道 EMP 离子雷暴打击
    */
   static #callOrbitalEmpStrike(boss, currentTick) {
-    const dim = boss.dimension;
-    const bLoc = boss.location;
+    try {
+      const dim = boss.dimension;
+      const bLoc = boss.location;
 
-    const nearby = dim.getEntities({ location: bLoc, maxDistance: 36 });
-    const targets = nearby.filter((ent) => this.isValidCombatTarget(ent, boss));
-    if (targets.length === 0) return;
+      const nearby = dim.getEntities({ location: bLoc, maxDistance: 36 });
+      const targets = nearby.filter((ent) => this.isValidCombatTarget(ent, boss));
+      if (targets.length === 0) return;
 
-    this.#broadcastBossMessage("§c⚡ 警告：检测到轨道 EMP 高压离子聚能！2秒后定点轰击！");
+      this.#broadcastBossMessage("§c⚡ 警告：检测到轨道 EMP 高压离子聚能！2秒后定点轰击！");
 
-    for (const t of targets) {
-      const tLoc = t.location;
-      const targetPos = { x: tLoc.x, y: tLoc.y, z: tLoc.z };
+      for (const t of targets) {
+        const tLoc = t.location;
+        const targetPos = { x: tLoc.x, y: tLoc.y, z: tLoc.z };
 
-      this.#empStrikes.push({
-        dimId: dim.id,
-        pos: targetPos,
-        detonateTick: currentTick + 40 // 2.0 秒后引爆
-      });
-    }
+        this.#empStrikes.push({
+          dimId: dim.id,
+          pos: targetPos,
+          detonateTick: currentTick + 40 // 2.0 秒后引爆
+        });
+      }
+    } catch {}
   }
 
   /**
@@ -283,26 +307,32 @@ export class BossEngine {
         const dim = world.getDimension(emp.dimId);
         if (!dim) continue;
 
-        // 预警光柱特效
+        // 预警光柱特效 (带未加载区块保护)
         if (currentTick < emp.detonateTick) {
           for (let y = 0; y < 12; y += 2) {
-            dim.spawnParticle("minecraft:endrod", { x: emp.pos.x, y: emp.pos.y + y, z: emp.pos.z });
+            try {
+              dim.spawnParticle("minecraft:endrod", { x: emp.pos.x, y: emp.pos.y + y, z: emp.pos.z });
+            } catch {}
           }
           remaining.push(emp);
         } else {
           // 引爆雷暴
-          dim.playSound("ambient.weather.thunder0", emp.pos, { volume: 1.5, pitch: 1.0 });
-          dim.playSound("mob.warden.sonic_boom", emp.pos, { volume: 1.5, pitch: 1.2 });
-          dim.spawnParticle("minecraft:sonic_explosion", emp.pos);
-          dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", emp.pos);
+          try {
+            dim.playSound("ambient.weather.thunder0", emp.pos, { volume: 1.5, pitch: 1.0 });
+            dim.playSound("mob.warden.sonic_boom", emp.pos, { volume: 1.5, pitch: 1.2 });
+            dim.spawnParticle("minecraft:sonic_explosion", emp.pos);
+            dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", emp.pos);
+          } catch {}
 
-          const nearby = dim.getEntities({ location: emp.pos, maxDistance: 4.5 });
-          for (const ent of nearby) {
-            if (this.isValidCombatTarget(ent, null)) {
-              ent.applyDamage(35, { cause: EntityDamageCause.override });
-              ent.setOnFire(4, true);
+          try {
+            const nearby = dim.getEntities({ location: emp.pos, maxDistance: 4.5 });
+            for (const ent of nearby) {
+              if (this.isValidCombatTarget(ent, null)) {
+                ent.applyDamage(35, { cause: EntityDamageCause.override });
+                ent.setOnFire(4, true);
+              }
             }
-          }
+          } catch {}
         }
       } catch {}
     }
@@ -318,8 +348,10 @@ export class BossEngine {
       const bLoc = boss.location;
 
       // 1. 赋予 1500 HP 吸收金心护盾
-      boss.addEffect("absorption", 2400, { amplifier: 30, showParticles: false });
-      boss.addEffect("resistance", 1200, { amplifier: 1, showParticles: false });
+      try {
+        boss.addEffect("absorption", 2400, { amplifier: 30, showParticles: false });
+        boss.addEffect("resistance", 1200, { amplifier: 1, showParticles: false });
+      } catch {}
 
       // 2. 召唤 3 只机械自爆近卫
       for (let i = 0; i < 3; i++) {
@@ -328,7 +360,9 @@ export class BossEngine {
           y: bLoc.y + 1,
           z: bLoc.z + 2
         };
-        dim.spawnEntity("apex_boss:drone", offset);
+        try {
+          dim.spawnEntity("apex_boss:drone", offset);
+        } catch {}
       }
     } catch (e) {
       console.warn(`[ApexBoss] Error spawning drones: ${e}`);
@@ -341,48 +375,50 @@ export class BossEngine {
   static handleBossDeath(bossEntity) {
     if (!bossEntity || bossEntity.typeId !== "apex_boss:juggernaut") return;
 
-    const dim = bossEntity.dimension;
-    const loc = bossEntity.location;
+    try {
+      const dim = bossEntity.dimension;
+      const loc = bossEntity.location;
 
-    this.#broadcastBossMessage("§l§4💥【机械泰坦歼灭者】核心严重过载！3秒后引发全域核能大自爆！迅速撤离！");
+      this.#broadcastBossMessage("§l§4💥【机械泰坦歼灭者】核心严重过载！3秒后引发全域核能大自爆！迅速撤离！");
 
-    // 倒计时核能大自爆
-    system.runTimeout(() => {
-      try {
-        dim.playSound("mob.wither.death", loc, { volume: 2.0, pitch: 0.6 });
-        dim.playSound("random.explode", loc, { volume: 2.0, pitch: 0.5 });
-        dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", loc);
-        dim.spawnParticle("minecraft:sonic_explosion", loc);
+      // 倒计时核能大自爆
+      system.runTimeout(() => {
+        try {
+          dim.playSound("mob.wither.death", loc, { volume: 2.0, pitch: 0.6 });
+          dim.playSound("random.explode", loc, { volume: 2.0, pitch: 0.5 });
+          dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", loc);
+          dim.spawnParticle("minecraft:sonic_explosion", loc);
 
-        // 10 格自爆冲击波
-        const nearby = dim.getEntities({ location: loc, maxDistance: 10.0 });
-        for (const ent of nearby) {
-          if (this.isValidCombatTarget(ent, bossEntity)) {
-            ent.applyDamage(60, { cause: EntityDamageCause.override });
-            const dx = ent.location.x - loc.x || 1.0;
-            const dz = ent.location.z - loc.z || 1.0;
-            const dist = Math.hypot(dx, dz);
-            try {
-              ent.applyImpulse({ x: (dx / dist) * 1.5, y: 1.2, z: (dz / dist) * 1.5 });
-            } catch {}
+          // 10 格自爆冲击波
+          const nearby = dim.getEntities({ location: loc, maxDistance: 10.0 });
+          for (const ent of nearby) {
+            if (this.isValidCombatTarget(ent, bossEntity)) {
+              try { ent.applyDamage(60, { cause: EntityDamageCause.override }); } catch {}
+              const dx = ent.location.x - loc.x || 1.0;
+              const dz = ent.location.z - loc.z || 1.0;
+              const dist = Math.hypot(dx, dz);
+              try {
+                ent.applyImpulse({ x: (dx / dist) * 1.5, y: 1.2, z: (dz / dist) * 1.5 });
+              } catch {}
+            }
           }
+
+          // 掉落顶级战利品与 Apex 军火弹药
+          dim.spawnItem(new ItemStack("apex_boss:juggernaut_core", 2), loc);
+          dim.spawnItem(new ItemStack("apex:ammo_50cal", 32), loc);
+          dim.spawnItem(new ItemStack("apex:ammo_40mm", 24), loc);
+          dim.spawnItem(new ItemStack("apex:ammo_battery", 48), loc);
+          dim.spawnItem(new ItemStack("apex:ammo_12gauge", 32), loc);
+          dim.spawnItem(new ItemStack("apex:ammo_762", 64), loc);
+          dim.spawnItem(new ItemStack("minecraft:diamond", 16), loc);
+          dim.spawnItem(new ItemStack("minecraft:netherite_ingot", 2), loc);
+
+          this.#broadcastBossMessage("§l§a🏆【机械泰坦歼灭者】已成功击破！海量 Apex 顶级军火战利品已掉落！");
+        } catch (err) {
+          console.warn(`[ApexBoss] Meltdown error: ${err}`);
         }
-
-        // 掉落顶级战利品与 Apex 军火弹药
-        dim.spawnItem(new ItemStack("apex_boss:juggernaut_core", 2), loc);
-        dim.spawnItem(new ItemStack("apex:ammo_50cal", 32), loc);
-        dim.spawnItem(new ItemStack("apex:ammo_40mm", 24), loc);
-        dim.spawnItem(new ItemStack("apex:ammo_battery", 48), loc);
-        dim.spawnItem(new ItemStack("apex:ammo_12gauge", 32), loc);
-        dim.spawnItem(new ItemStack("apex:ammo_762", 64), loc);
-        dim.spawnItem(new ItemStack("minecraft:diamond", 16), loc);
-        dim.spawnItem(new ItemStack("minecraft:netherite_ingot", 2), loc);
-
-        this.#broadcastBossMessage("§l§a🏆【机械泰坦歼灭者】已成功击破！海量 Apex 顶级军火战利品已掉落！");
-      } catch (err) {
-        console.warn(`[ApexBoss] Meltdown error: ${err}`);
-      }
-    }, 60); // 3 秒后核爆
+      }, 60); // 3 秒后核爆
+    } catch {}
   }
 
   /**
@@ -390,64 +426,69 @@ export class BossEngine {
    */
   static handleDroneTick(drone) {
     if (!drone || !drone.isValid()) return;
-    const dim = drone.dimension;
-    const dLoc = drone.location;
 
-    // 1. 飞行尾迹推进火焰与浓烟特效
     try {
-      dim.spawnParticle("minecraft:basic_flame_particle", { x: dLoc.x, y: dLoc.y + 0.2, z: dLoc.z });
-      dim.spawnParticle("minecraft:smoke_particle", { x: dLoc.x, y: dLoc.y - 0.1, z: dLoc.z });
-    } catch {}
+      const dim = drone.dimension;
+      const dLoc = drone.location;
 
-    // 2. 搜索 32 格内最近合法战斗目标 (坚守者/正在交战的生物/生存玩家)
-    let target = null;
-    let minDist = 36;
-    try {
-      const nearby = dim.getEntities({ location: dLoc, maxDistance: 32 });
-      for (const ent of nearby) {
-        if (!this.isValidCombatTarget(ent, drone)) continue;
-        const d = Math.hypot(ent.location.x - dLoc.x, ent.location.y - dLoc.y, ent.location.z - dLoc.z);
-        if (d < minDist) {
-          minDist = d;
-          target = ent;
+      // 1. 飞行尾迹推进火焰与浓烟特效
+      try {
+        dim.spawnParticle("minecraft:basic_flame_particle", { x: dLoc.x, y: dLoc.y + 0.2, z: dLoc.z });
+        dim.spawnParticle("minecraft:smoke_particle", { x: dLoc.x, y: dLoc.y - 0.1, z: dLoc.z });
+      } catch {}
+
+      // 2. 搜索 32 格内最近合法战斗目标 (坚守者/正在交战的生物/生存玩家)
+      let target = null;
+      let minDist = 36;
+      try {
+        const nearby = dim.getEntities({ location: dLoc, maxDistance: 32 });
+        for (const ent of nearby) {
+          if (!this.isValidCombatTarget(ent, drone)) continue;
+          const d = Math.hypot(ent.location.x - dLoc.x, ent.location.y - dLoc.y, ent.location.z - dLoc.z);
+          if (d < minDist) {
+            minDist = d;
+            target = ent;
+          }
         }
+      } catch {}
+
+      // 3. 飞行推进或悬浮自爆
+      if (target && target.isValid()) {
+        const tLoc = target.location;
+        const targetCenter = { x: tLoc.x, y: tLoc.y + 1.1, z: tLoc.z };
+        const dx = targetCenter.x - dLoc.x;
+        const dy = targetCenter.y - dLoc.y;
+        const dz = targetCenter.z - dLoc.z;
+        const dist = Math.hypot(dx, dy, dz) || 1.0;
+
+        if (dist <= 2.2) {
+          // 自爆引爆
+          try {
+            dim.playSound("random.explode", dLoc, { volume: 1.5, pitch: 1.2 });
+            dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", dLoc);
+            dim.spawnParticle("minecraft:sonic_explosion", dLoc);
+          } catch {}
+          try { target.applyDamage(35, { cause: EntityDamageCause.override }); } catch {}
+          try { drone.kill(); } catch {}
+          return;
+        }
+
+        // 施加 3D 空中推进冲量 (向目标高速俯冲追踪)
+        const flySpeed = 0.24;
+        try {
+          drone.applyImpulse({
+            x: (dx / dist) * flySpeed,
+            y: (dy / dist) * flySpeed + 0.035, // 克服下坠保持凌空悬浮飞行
+            z: (dz / dist) * flySpeed
+          });
+        } catch {}
+      } else {
+        // 保持空中微浮动
+        try {
+          drone.applyImpulse({ x: 0, y: 0.04, z: 0 });
+        } catch {}
       }
     } catch {}
-
-    // 3. 飞行推进或悬浮自爆
-    if (target && target.isValid()) {
-      const tLoc = target.location;
-      const targetCenter = { x: tLoc.x, y: tLoc.y + 1.1, z: tLoc.z };
-      const dx = targetCenter.x - dLoc.x;
-      const dy = targetCenter.y - dLoc.y;
-      const dz = targetCenter.z - dLoc.z;
-      const dist = Math.hypot(dx, dy, dz) || 1.0;
-
-      if (dist <= 2.2) {
-        // 自爆引爆
-        dim.playSound("random.explode", dLoc, { volume: 1.5, pitch: 1.2 });
-        dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", dLoc);
-        dim.spawnParticle("minecraft:sonic_explosion", dLoc);
-        target.applyDamage(35, { cause: EntityDamageCause.override });
-        drone.kill();
-        return;
-      }
-
-      // 施加 3D 空中推进冲量 (向目标高速俯冲追踪)
-      const flySpeed = 0.24;
-      try {
-        drone.applyImpulse({
-          x: (dx / dist) * flySpeed,
-          y: (dy / dist) * flySpeed + 0.035, // 克服下坠保持凌空悬浮飞行
-          z: (dz / dist) * flySpeed
-        });
-      } catch {}
-    } else {
-      // 保持空中微浮动
-      try {
-        drone.applyImpulse({ x: 0, y: 0.04, z: 0 });
-      } catch {}
-    }
   }
 
   static #broadcastBossMessage(msg) {
