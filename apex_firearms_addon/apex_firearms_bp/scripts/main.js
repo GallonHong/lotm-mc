@@ -3,9 +3,10 @@ import { GUN_CONFIGS, AK47_CONFIG, M82_CONFIG, VECTOR_CONFIG, MGL_CONFIG, ARC_CO
 import { GunEngine } from "./GunEngine.js";
 import { ReloadManager } from "./ReloadManager.js";
 import { ArmorEngine } from "./ArmorEngine.js";
+import { ShieldEngine } from "./ShieldEngine.js";
 import { TestSuite } from "./TestSuite.js";
 
-console.warn("[ApexFirearms] Tactical Arsenal & Titan Exo-Armor Addon v2.0.0 initializing...");
+console.warn("[ApexFirearms] Tactical Arsenal, Titan Exo-Armor & Riot Shield Addon v2.2.0 initializing...");
 
 /**
  * 安全事件订阅工具函数
@@ -23,12 +24,17 @@ function subscribeAfterEvent(eventName, handler) {
   }
 }
 
-// 1. 枪械使用事件 (支持全部 6 大专属武器)
+// 1. 物品/武器使用事件 (支持 6 大专属武器 & 重装动能反甲盾主动冲击波)
 subscribeAfterEvent("itemUse", (event) => {
   try {
     const item = event.itemStack;
-    if (item && GUN_CONFIGS[item.typeId]) {
-      GunEngine.handleGunUse(event.source, item);
+    const player = event.source;
+    if (!item || !player) return;
+
+    if (GUN_CONFIGS[item.typeId]) {
+      GunEngine.handleGunUse(player, item);
+    } else if (item.typeId === "apex:riot_shield") {
+      ShieldEngine.handleShieldBash(player);
     }
   } catch (e) {
     console.error(`[ApexFirearms] Error in itemUse: ${e}`);
@@ -70,7 +76,7 @@ function executeCommand(player, rawText) {
   if (text === "!gunkit" || text === "!kit" || text === "!gun") {
     giveDevKit(player);
     return true;
-  } else if (text === "!armor" || text === "!suit" || text === "!exo" || text === "!jetpack") {
+  } else if (text === "!armor" || text === "!suit" || text === "!exo" || text === "!jetpack" || text === "!shield") {
     giveArmorKit(player);
     return true;
   } else if (text === "!r" || text === "!reload") {
@@ -89,18 +95,22 @@ function executeCommand(player, rawText) {
   return false;
 }
 
-// 5. 双重聊天事件监听
+// 5. 聊天指令监听器 (优先使用 beforeEvents 拦截指令不显示在公屏)
 const beforeChat = world.beforeEvents ? world.beforeEvents.chatSend : undefined;
 if (beforeChat && typeof beforeChat.subscribe === "function") {
   beforeChat.subscribe((event) => {
     try {
       const msg = event.message || "";
       if (msg.startsWith("!")) {
-        event.cancel = true;
         const player = event.sender;
-        system.run(() => executeCommand(player, msg));
+        const handled = executeCommand(player, msg);
+        if (handled) {
+          event.cancel = true;
+        }
       }
-    } catch (e) {}
+    } catch (e) {
+      console.error(`[ApexFirearms] Error in beforeChat: ${e}`);
+    }
   });
 }
 
@@ -111,39 +121,16 @@ if (afterChat && typeof afterChat.subscribe === "function") {
       const msg = event.message || "";
       if (msg.startsWith("!")) {
         const player = event.sender;
-        system.run(() => executeCommand(player, msg));
-      }
-    } catch (e) {}
-  });
-}
-
-// 6. ScriptEvent 原版指令支持 (/scriptevent apex:...)
-const systemAfter = system.afterEvents;
-if (systemAfter && systemAfter.scriptEventReceive) {
-  systemAfter.scriptEventReceive.subscribe(({ id, sourceEntity }) => {
-    try {
-      if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
-      if (id === "apex:gunkit" || id === "apex:kit") {
-        giveDevKit(sourceEntity);
-      } else if (id === "apex:armor" || id === "apex:suit") {
-        giveArmorKit(sourceEntity);
-      } else if (id === "apex:reload" || id === "apex:r") {
-        triggerReload(sourceEntity);
-      } else if (id === "apex:test" || id === "apex:guntest") {
-        TestSuite.runAll(sourceEntity);
-      } else if (id === "apex:dummy") {
-        spawnDummy(sourceEntity);
-      } else if (id === "apex:help") {
-        showHelp(sourceEntity);
+        executeCommand(player, msg);
       }
     } catch (e) {
-      console.error(`[ApexFirearms] Error in scriptEventReceive: ${e}`);
+      console.error(`[ApexFirearms] Error in afterChat: ${e}`);
     }
   });
 }
 
 /**
- * 发放六大专属神枪、外骨骼动力战甲与全套弹药补给包
+ * 发放全套神装军火包
  */
 function giveDevKit(player) {
   try {
@@ -165,7 +152,7 @@ function giveDevKit(player) {
       }
     }
 
-    // 2. 发放泰坦外骨骼全套动力战甲
+    // 2. 发放泰坦外骨骼全套动力战甲、喷气背包及战术反甲盾
     giveArmorKit(player);
 
     // 3. 发放弹药
@@ -189,21 +176,28 @@ function giveDevKit(player) {
       player.playSound("apex.gun.draw", { location: player.location, volume: 1.0, pitch: 1.0 });
     } catch {}
 
-    player.sendMessage("§a✔ 已成功领取【六大枪械】、【泰坦外骨骼战甲全套】及满配弹药！");
+    player.sendMessage("§a✔ 已成功领取【六大枪械】、【泰坦外骨骼装甲】、【战术反甲盾】及满配弹药！");
   } catch (err) {
     player.sendMessage(`§c✖ 发放补给失败: ${err}`);
   }
 }
 
 /**
- * 单独发放泰坦外骨骼战甲套与喷气背包
+ * 单独发放泰坦外骨骼战甲套、喷气背包与战术防暴盾
  */
 function giveArmorKit(player) {
   try {
     const inv = player.getComponent("minecraft:inventory");
     if (!inv || !inv.container) return;
 
-    const armors = ["apex:exo_helmet", "apex:exo_chestplate", "apex:exo_leggings", "apex:exo_boots", "apex:jetpack"];
+    const armors = [
+      "apex:exo_helmet",
+      "apex:exo_chestplate",
+      "apex:exo_leggings",
+      "apex:exo_boots",
+      "apex:jetpack",
+      "apex:riot_shield"
+    ];
     for (const a of armors) {
       try {
         inv.container.addItem(new ItemStack(a, 1));
@@ -239,48 +233,46 @@ function triggerReload(player) {
 function spawnDummy(player) {
   try {
     const dim = player.dimension;
-    const loc = player.location;
-    dim.spawnEntity("apex:test_dummy", { x: loc.x + 3, y: loc.y, z: loc.z });
-    player.sendMessage("§a✔ 已在前方生成 5000 HP 评测靶人！");
-  } catch (e) {
-    player.sendMessage(`§c✖ 生成靶人失败: ${e}`);
+    const headLoc = player.getHeadLocation();
+    const viewDir = player.getViewDirection();
+    const targetLoc = {
+      x: headLoc.x + viewDir.x * 5,
+      y: player.location.y,
+      z: headLoc.z + viewDir.z * 5
+    };
+
+    const dummy = dim.spawnEntity("apex:test_dummy", targetLoc);
+    dummy.nameTag = "§l§e[Apex 5000HP 测试靶人]§r";
+
+    try {
+      dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", targetLoc);
+      player.playSound("random.anvil_land", { location: targetLoc, volume: 1.0, pitch: 1.2 });
+    } catch {}
+
+    player.sendMessage("§a✔ 成功在前方 5 格生成【Apex 5000HP 动态测试靶人】！");
+  } catch (err) {
+    player.sendMessage(`§c✖ 生成靶人失败: ${err}`);
   }
 }
 
 /**
- * 显示帮助指南
+ * 帮助信息面板
  */
 function showHelp(player) {
-  player.sendMessage("§l§e=== Apex Firearms: 六系终极军火库 & 战甲/喷气背包指南 ===");
-  player.sendMessage("§6!gunkit§7 - 领取 6 把神枪、全套泰坦外骨骼动力装甲、喷气背包与全套弹药");
-  player.sendMessage("§6!armor 或 !jetpack§7 - 单独领取泰坦外骨骼战甲四件套与喷气背包");
-  player.sendMessage("§6!r 或 !reload§7 - 快速换弹 (亦可打空后自动换弹)");
-  player.sendMessage("§6!dummy§7 - 生成 5000 HP 测试靶人");
-  player.sendMessage("§6喷气背包机制§7 - 装备在胸甲槽，§e空中双击跳跃 (Space/跳跃键)§7 瞬间离子脉冲飞升 (6~8格高度) 并附带动能缓降与 1.5s 充能冷却，不可无限悬浮！");
-  player.sendMessage("§b泰坦战甲技能§7 - 头盔(全息夜视+爆头+25%)、胸甲(受击金心圣盾+联动霰弹枪)、护腿(速度+潜行加速)、战靴(100%免摔伤)、4件套技能(血量<30%触发 EMP 范围轰击与金心绝境自救)！");
+  const helpText = [
+    "§6=== Apex Firearms Arsenal 2.2 ===§r",
+    "§e!gunkit§7 - 一键领取 6 把专属神枪、战甲套、反甲盾及弹药",
+    "§e!armor§7  - 领取泰坦外骨骼动力装甲四件套、喷气背包与战术防暴盾",
+    "§e!r§7      - 手动触发当前枪械换弹",
+    "§e!dummy§7  - 召唤 5000 HP 动态防御测试靶人",
+    "§e!test§7   - 运行枪械综合自动化数学与机制测试",
+    "§7--------------------------------",
+    "§d⚡ Vector .45 潜行右键可开启 5 秒无限子弹【暴走狂潮】",
+    "§6🚀 喷气背包空中双击跳跃可激活向上 6~8 格飞升冲量",
+    "§e🛡️ 战术反甲盾格挡实弹可 100% 偏折并反弹 50% 真实伤害！"
+  ].join("\n");
+
+  player.sendMessage(helpText);
 }
-
-// 7. 玩家进退场与死亡清理
-subscribeAfterEvent("playerSpawn", ({ player, initialSpawn }) => {
-  try {
-    if (initialSpawn && player) {
-      player.sendMessage("§l§6[Apex Firearms]§r §a六系军火库与泰坦外骨骼战甲已就绪！输入 §e!gunkit§a 获取全套神装。§r");
-    }
-  } catch {}
-});
-
-subscribeAfterEvent("playerLeave", ({ playerId }) => {
-  try {
-    GunEngine.resetPlayer(playerId);
-  } catch {}
-});
-
-subscribeAfterEvent("entityDie", ({ deadEntity }) => {
-  try {
-    if (deadEntity && deadEntity.typeId === "minecraft:player") {
-      GunEngine.resetPlayer(deadEntity.id);
-    }
-  } catch {}
-});
 
 console.warn("[ApexFirearms] Tactical Arsenal loaded successfully without errors!");

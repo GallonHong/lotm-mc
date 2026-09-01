@@ -1,5 +1,6 @@
 import { world, system, EntityDamageCause } from "@minecraft/server";
 import { DamageResolver } from "./DamageResolver.js";
+import { ShieldEngine } from "./ShieldEngine.js";
 
 export class ShotgunEngine {
   /**
@@ -20,13 +21,17 @@ export class ShotgunEngine {
       }
     } catch {}
 
-    // 3. 副手持盾加成
+    // 3. 副手持盾加成 (重装反甲盾 +8，原版盾牌 +4)
     let offhandShieldBonus = 0;
     try {
       const equippable = player.getComponent("minecraft:equippable");
       const offhand = equippable?.getEquipment("Offhand") || equippable?.getEquipment("offhand");
-      if (offhand && offhand.typeId.includes("shield")) {
-        offhandShieldBonus = 4;
+      if (offhand) {
+        if (offhand.typeId === "apex:riot_shield") {
+          offhandShieldBonus = 8;
+        } else if (offhand.typeId.includes("shield")) {
+          offhandShieldBonus = 4;
+        }
       }
     } catch {}
 
@@ -47,7 +52,6 @@ export class ShotgunEngine {
 
       // 1. 计算圣盾充能与单丸伤害 (单枚 2 ~ 22 HP)
       const shieldRating = this.getPlayerShieldRating(player);
-      // 以 20 护盾指数为满额 100% 缩放 (满护甲即达满伤)
       const scale = Math.min(1.0, Math.max(0.0, shieldRating / 20.0));
       const pelletDamage = Math.max(2, Math.min(22, Math.round(2 + (22 - 2) * scale)));
 
@@ -67,12 +71,11 @@ export class ShotgunEngine {
         dim.spawnParticle("minecraft:basic_flame_particle", muzzleLoc);
       } catch {}
 
-      const hitMap = new Map(); // entityId -> { count: number, totalDamage: number, name: string, entity: any }
+      const hitMap = new Map();
       let totalPelletsHit = 0;
 
       // 2. 并行发射 8 枚散射弹丸
       for (let i = 0; i < pelletCount; i++) {
-        // 圆锥形随机散布
         const jx = (Math.random() - 0.5) * baseSpread * 2;
         const jy = (Math.random() - 0.5) * baseSpread * 2;
         const jz = (Math.random() - 0.5) * baseSpread * 2;
@@ -130,6 +133,13 @@ export class ShotgunEngine {
 
         // 如果击中实体
         if (hitEntity && hitEntity.isValid()) {
+          // 判定目标盾牌格挡与反甲反震
+          const blockResult = ShieldEngine.checkBulletShieldBlock(player, hitEntity, pelletDamage, config);
+          if (blockResult.blocked && blockResult.damage <= 0) {
+            continue; // 弹丸被完全格挡
+          }
+
+          const actualPelletDmg = blockResult.blocked ? blockResult.damage : pelletDamage;
           totalPelletsHit++;
           const targetId = hitEntity.id;
           const prev = hitMap.get(targetId) || {
@@ -140,7 +150,7 @@ export class ShotgunEngine {
           };
 
           prev.count += 1;
-          prev.totalDamage += pelletDamage;
+          prev.totalDamage += actualPelletDmg;
           hitMap.set(targetId, prev);
 
           // 施加单枚弹丸伤害
@@ -148,13 +158,13 @@ export class ShotgunEngine {
           const curHp = healthComp?.currentValue ?? 20;
 
           try {
-            hitEntity.applyDamage(pelletDamage, {
+            hitEntity.applyDamage(actualPelletDmg, {
               cause: EntityDamageCause.override,
               damagingEntity: player
             });
           } catch (e) {
             if (healthComp) {
-              healthComp.setCurrentValue(Math.max(0, curHp - pelletDamage));
+              healthComp.setCurrentValue(Math.max(0, curHp - actualPelletDmg));
             }
           }
 
@@ -212,7 +222,6 @@ export class ShotgunEngine {
     const dist = Math.hypot(dx, dy, dz);
     if (dist < 0.5) return;
 
-    // 沿弹道插值生成粒子
     const stepSize = 1.2;
     const steps = Math.min(Math.floor(dist / stepSize), 20);
 

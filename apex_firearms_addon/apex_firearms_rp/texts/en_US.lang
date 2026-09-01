@@ -33,3 +33,6 @@ item.apex:exo_boots.description=§7Shock absorber boots. Passive [Shock Absorber
 item.apex:jetpack=§6Tactical Ion Thruster Jetpack§r
 item.apex:jetpack.description=§7Tactical jetpack. Double-tap jump to blast off upwards (6~8 blocks boost) with slow fall kinetic dampeners and recharge cooldown. No infinite hovering! Durability: 500.§r
 entity.apex:test_dummy.name=§eTest Dummy (5000 HP)§r
+
+item.apex:riot_shield=§6Tactical Spiked Riot Shield§r
+item.apex:riot_shield.description=§7Blocks bullets | 50% Thorns Reflection | 8s Shockwave Bash§r

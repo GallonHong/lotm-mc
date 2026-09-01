@@ -1,4 +1,5 @@
 import { EntityDamageCause, world } from "@minecraft/server";
+import { ShieldEngine } from "./ShieldEngine.js";
 
 export class DamageResolver {
   /**
@@ -87,7 +88,7 @@ export class DamageResolver {
   }
 
   /**
-   * 执行综合伤害结算
+   * 执行综合伤害结算 (含原版盾牌格挡与反甲反震拦截)
    */
   static applyDamage(attacker, target, hitLocation, gunConfig) {
     if (!target || !target.isValid()) return null;
@@ -112,7 +113,22 @@ export class DamageResolver {
     }
 
     const armorPoints = this.estimateArmorPoints(target);
-    const finalDamage = this.calculateArmorReduction(damage, armorPoints, ap);
+    let finalDamage = this.calculateArmorReduction(damage, armorPoints, ap);
+
+    // 盾牌格挡与反甲拦截
+    const blockResult = ShieldEngine.checkBulletShieldBlock(attacker, target, finalDamage, gunConfig);
+    if (blockResult.blocked) {
+      if (blockResult.damage <= 0) {
+        return {
+          damage: 0,
+          headshot: false,
+          isFatal: false,
+          targetName: target.nameTag || target.typeId.replace("minecraft:", ""),
+          blocked: true
+        };
+      }
+      finalDamage = blockResult.damage;
+    }
 
     const currentHp = healthComp.currentValue;
     const isFatal = finalDamage >= currentHp;
@@ -168,7 +184,7 @@ export class DamageResolver {
 
     const validLoc = { x: cx, y: cy, z: cz };
     const blastLoc = { x: cx, y: cy + 0.45, z: cz };
-    const breaksBlocks = config?.heBreaksBlocks ?? false; // 绝不破坏地形
+    const breaksBlocks = config?.heBreaksBlocks ?? false;
     const causesFire = config?.heCausesFire ?? false;
     const power = config?.id === "apex:mgl" ? 2.5 : 1.5;
 
@@ -216,11 +232,9 @@ export class DamageResolver {
         const dist = Math.hypot(entLoc.x - cx, entLoc.y - cy, entLoc.z - cz);
         if (dist > effectiveRadius) continue;
 
-        // 计算距离伤害衰减 (核心 40 HP，边缘 ~25 HP)
         const falloff = Math.max(0.6, 1 - (dist / (effectiveRadius + 1)) * 0.4);
         const actualDmg = Math.max(12, Math.round((splashDamage ?? 40) * falloff));
 
-        // 应用伤害结算
         const healthComp = ent.getComponent("minecraft:health");
         const curHp = healthComp?.currentValue ?? 20;
 
@@ -253,7 +267,6 @@ export class DamageResolver {
       console.warn(`[ApexFirearms] applyExplosiveSplash entity query error: ${e}`);
     }
 
-    // 5. 命中击中反馈给开火玩家
     if (attacker && attacker.isValid() && hitCount > 0) {
       try {
         attacker.onScreenDisplay?.setActionBar?.(

@@ -33,3 +33,6 @@ item.apex:exo_boots.description=§7动能反冲减震战靴。被动【减震缓
 item.apex:jetpack=§6战术离子推进喷气背包§r
 item.apex:jetpack.description=§7战术离子喷气推进背包。双击跳跃瞬间释放高能脉冲飞升（6~8格高度），带有动能缓降与充能冷却机制，严禁无限悬浮！耐久度: 500。§r
 entity.apex:test_dummy.name=§e测试假人 (5000 HP)§r
+
+item.apex:riot_shield=§6【重装战术动能反甲盾】§r
+item.apex:riot_shield.description=§7格挡实弹 | 50%反甲反震 | 8s动能冲击§r

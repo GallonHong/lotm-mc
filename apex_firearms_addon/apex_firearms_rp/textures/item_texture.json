@@ -103,6 +103,12 @@
     },
     "apex:jetpack": {
       "textures": "textures/items/jetpack"
+    },
+    "apex_riot_shield": {
+      "textures": "textures/items/riot_shield"
+    },
+    "apex:riot_shield": {
+      "textures": "textures/items/riot_shield"
     }
   }
 }
