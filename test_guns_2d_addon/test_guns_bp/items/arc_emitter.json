@@ -24,6 +24,30 @@
       },
       "minecraft:food": {
         "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 900
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:redstone",
+              "minecraft:copper_ingot"
+            ],
+            "repair_amount": 250
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 12,
+        "slot": "all"
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "test_gun:weapon"
+        ]
       }
     }
   }

@@ -8,6 +8,30 @@ import { SkillManager } from './skillManager.js';
 import { FireMode } from '../data/types.js';
 
 export class ShootManager {
+  static deductDurability(player, gun) {
+    try {
+      const equippable = player.getComponent('minecraft:equippable');
+      if (!equippable) return;
+
+      const mainhand = equippable.getEquipment('Mainhand');
+      if (!mainhand || mainhand.typeId !== gun.id) return;
+
+      const durComp = mainhand.getComponent('minecraft:durability');
+      if (!durComp) return;
+
+      const newDmg = durComp.damage + 1;
+      if (newDmg >= durComp.maxDurability) {
+        // Weapon broken!
+        equippable.setEquipment('Mainhand', undefined);
+        player.dimension.playSound('random.break', player.location, { volume: 1.2, pitch: 0.85 });
+        player.onScreenDisplay?.setActionBar?.(`§c⚠ 你的【${gun.name}】已磨损报废!§r`);
+      } else {
+        durComp.damage = newDmg;
+        equippable.setEquipment('Mainhand', mainhand);
+      }
+    } catch {}
+  }
+
   static playerCooldowns = new Map();
   static playerShooting = new Map();
 

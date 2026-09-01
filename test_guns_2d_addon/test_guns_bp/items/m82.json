@@ -24,6 +24,30 @@
       },
       "minecraft:food": {
         "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 500
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "minecraft:netherite_scrap"
+            ],
+            "repair_amount": 150
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 12,
+        "slot": "all"
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_tool",
+          "test_gun:weapon"
+        ]
       }
     }
   }
