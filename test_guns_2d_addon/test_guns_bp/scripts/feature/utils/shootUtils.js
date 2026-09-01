@@ -13,11 +13,11 @@ export function getSpawnLocation(player) {
   const vy = Number(viewDir?.y) || 0;
   const vz = Number(viewDir?.z) || 0;
 
-  // 使用紧凑的 0.45 偏移量，防止在近距离或俯仰角时穿入方块
+  // 使用紧凑安全的 0.20 格偏移，确保在任何方向（南/北/东/西/俯仰）都不会穿入方块
   return {
-    x: hx + vx * 0.45,
-    y: hy + vy * 0.45 - 0.08,
-    z: hz + vz * 0.45
+    x: hx + vx * 0.20,
+    y: hy + vy * 0.20 - 0.05,
+    z: hz + vz * 0.20
   };
 }
 
@@ -52,25 +52,25 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
   const totalDist = Math.hypot(dx, dy, dz);
   if (totalDist < 0.1 || !Number.isFinite(totalDist)) return;
 
-  // 区分全枪系的专属高亮弹道粒子
+  // 全枪系专属全向高亮弹道粒子
   let particleId = "test_gun:bullet_tracer";
   let stepSize = 0.35;
 
   if (gun.id === 'test_gun:m82' || gun.type === 'sniper' || gun.id === 'test_gun:svd') {
-    particleId = "test_gun:heavy_tracer"; // 重型金色穿甲弹道
-    stepSize = 0.40;
+    particleId = "test_gun:heavy_tracer";
+    stepSize = 0.35;
   } else if (gun.type === 'smg' || gun.type === 'pistol' || gun.id === 'test_gun:vector' || gun.id === 'test_gun:p90' || gun.id === 'test_gun:bizon' || gun.id === 'test_gun:glock') {
-    particleId = "test_gun:vector_tracer"; // 极速战术曳光
+    particleId = "test_gun:vector_tracer";
     stepSize = 0.30;
   } else if (gun.type === 'shotgun') {
-    particleId = "test_gun:shotgun_tracer"; // 霰弹破片密集群
-    stepSize = 0.45;
+    particleId = "test_gun:shotgun_tracer";
+    stepSize = 0.40;
   } else {
-    particleId = "test_gun:bullet_tracer"; // 步枪标准弹道 (AK47, AK74U, SCAR-H, ARX-160)
+    particleId = "test_gun:bullet_tracer";
     stepSize = 0.35;
   }
 
-  const steps = Math.max(3, Math.min(Math.floor(totalDist / stepSize), 120));
+  const steps = Math.max(3, Math.min(Math.floor(totalDist / stepSize), 150));
 
   for (let i = 1; i <= steps; i++) {
     const frac = i / steps;
@@ -80,11 +80,7 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
 
     try {
       dimension.spawnParticle(particleId, { x: px, y: py, z: pz });
-    } catch {
-      try {
-        dimension.spawnParticle("minecraft:crit", { x: px, y: py, z: pz });
-      } catch {}
-    }
+    } catch {}
   }
 }
 

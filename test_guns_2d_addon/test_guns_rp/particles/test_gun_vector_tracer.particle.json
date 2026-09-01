@@ -4,7 +4,7 @@
     "description": {
       "identifier": "test_gun:vector_tracer",
       "basic_render_parameters": {
-        "material": "particles_alpha",
+        "material": "particles_blend",
         "texture": "textures/particle/particles"
       }
     },
@@ -21,8 +21,8 @@
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.3,
-          0.3
+          0.35,
+          0.35
         ],
         "facing_camera_mode": "rotate_xyz",
         "uv": {
