@@ -13,7 +13,7 @@
       },
       "minecraft:icon": "test_gun_ammo_45acp",
       "minecraft:display_name": {
-        "value": ".45 ACP Ammo §8[Vector专用]§r"
+        "value": "冲锋枪子弹 §8[冲锋枪通用]§r"
       }
     }
   }

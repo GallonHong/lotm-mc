@@ -13,7 +13,7 @@
       },
       "minecraft:icon": "test_gun_ammo_shotgun",
       "minecraft:display_name": {
-        "value": "Shotgun Shells §8[12 Gauge]§r"
+        "value": "霰弹枪子弹 §8[霰弹通用]§r"
       }
     }
   }

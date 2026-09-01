@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_ammo_50cal",
       "minecraft:display_name": {
-        "value": ".50 BMG 穿甲重弹 §8[M82/沙鹰专用]§r"
+        "value": "狙击枪/重型子弹 §8[狙击/重手枪通用]§r"
       }
     }
   }

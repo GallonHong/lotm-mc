@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_ammo_battery",
       "minecraft:display_name": {
-        "value": "高能聚能离子电池 §8[电弧发射器专用]§r"
+        "value": "高能离子电池 §8[能量武器通用]§r"
       }
     }
   }

@@ -13,7 +13,7 @@
       },
       "minecraft:icon": "test_gun_ammo_rifle",
       "minecraft:display_name": {
-        "value": "Rifle Ammo §8[7.62mm]§r"
+        "value": "突击步枪子弹 §8[步枪通用]§r"
       }
     }
   }
