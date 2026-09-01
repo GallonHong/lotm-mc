@@ -168,8 +168,8 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     } catch {}
   }
 
-  // 💥 巴雷特 M82 .50 高爆穿甲弹头被动 (100% 触发全地形高爆冲击波)
-  if (gun.id === 'test_gun:m82') {
+  // 💥 巴雷特 M82 .50 高爆穿甲弹头被动 (20% 概率触发高爆冲击波)
+  if (gun.id === 'test_gun:m82' && Math.random() < (gun.explosiveChance || 0.20)) {
     try {
       const blastLoc = impactLoc;
       // 1. 产生超强高爆与冲击波视觉

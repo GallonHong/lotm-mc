@@ -233,6 +233,7 @@ export const GUNS = [
     id: 'test_gun:m82',
     name: 'Barrett M82',
     tier: 'epic',
+    explosiveChance: 0.20,
     type: 'sniper',
     mode: FireMode.SEMI,
     maxAmmo: 5,
