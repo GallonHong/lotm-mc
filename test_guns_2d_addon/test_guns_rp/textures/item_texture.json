@@ -42,7 +42,7 @@
       "textures": "textures/guns/m82_actual"
     },
     "test_gun_vector": {
-      "textures": "textures/guns/mp7_actual"
+      "textures": "textures/guns/vector_animated"
     },
     "test_gun_mgl": {
       "textures": "textures/guns/mgl_actual"
