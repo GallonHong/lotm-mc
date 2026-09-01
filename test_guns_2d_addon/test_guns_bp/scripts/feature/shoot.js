@@ -97,6 +97,31 @@ export class ShootManager {
     const newAmmo = currentAmmo - 1;
     setCurrentAmmo(player, gun, newAmmo);
 
+    // 0. 炸膛检测 (Misfire Malfunction)
+    if (gun.misfireChance && Math.random() < gun.misfireChance) {
+      this.deductDurability(player, gun);
+      const pLoc = player.location;
+      try {
+        player.dimension.spawnParticle('minecraft:explosion_manual', {
+          x: pLoc.x,
+          y: pLoc.y + 1.2,
+          z: pLoc.z
+        });
+        player.dimension.spawnParticle('minecraft:basic_flame_particle', {
+          x: pLoc.x,
+          y: pLoc.y + 1.2,
+          z: pLoc.z
+        });
+        player.dimension.playSound('random.explode', pLoc, { volume: 1.5, pitch: 1.8 });
+        player.applyDamage(6, { cause: EntityDamageCause.override });
+        player.onScreenDisplay?.setActionBar?.('§c💥 危险! 【' + gun.name + '】发生炸膛反噬!§r');
+      } catch {}
+      this.playerCooldowns.set(player.id, 25);
+      ReloadManager.startReload(player, gun);
+      return;
+    }
+
+
     // 1. 扣除武器耐久度
     this.deductDurability(player, gun);
 

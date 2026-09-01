@@ -73,3 +73,6 @@ item.test_gun:blueprint_arc.name=特斯拉高能电弧风暴核心图纸 §6[传
 item.test_gun:blueprint_jetpack.name=战术离子喷气背包结构图 §6[传说·不可合成]§r
 
 action.hint.exit.test_gun=测试军火库 Add-on 已就绪
+
+item.test_gun:m79.name=M79 单发榴弹发射器 §9[优良]§r
+item.test_gun:blueprint_m79.name=制造蓝图: M79 单发榴弹发射器 §9[优良]§r

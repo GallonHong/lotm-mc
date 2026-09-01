@@ -33,3 +33,6 @@ item.test_gun:ammo_40mm.name=HE Grenade (Universal)
 item.test_gun:ammo_battery.name=High-Energy Battery (Universal)
 
 action.hint.exit.test_gun=Test Guns Arsenal Active
+
+item.test_gun:m79.name=M79 Grenade Launcher §9[Rare]§r
+item.test_gun:blueprint_m79.name=Blueprint: M79 Grenade Launcher §9[Rare]§r

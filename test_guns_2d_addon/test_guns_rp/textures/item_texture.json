@@ -133,6 +133,12 @@
     },
     "test_gun_blueprint_legendary": {
       "textures": "textures/blueprints/blueprint_legendary"
+    },
+    "test_gun_m79": {
+      "textures": "textures/guns/m79_launcher"
+    },
+    "test_gun_blueprint_m79": {
+      "textures": "textures/items/blueprint_rare"
     }
   }
 }
