@@ -22,6 +22,10 @@
       "minecraft:wearable": {
         "slot": "slot.weapon.offhand"
       },
+      "minecraft:use_modifiers": {
+        "use_duration": 72000,
+        "movement_modifier": 0.32
+      },
       "minecraft:durability": {
         "max_durability": 750
       },

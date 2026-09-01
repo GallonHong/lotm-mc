@@ -4,24 +4,44 @@ export class ShieldEngine {
   static #shieldBashCooldowns = new Map(); // playerId -> nextReadyTick
 
   /**
-   * 检查玩家/实体是否装备了盾牌 (原版盾牌 或 重装反甲防暴盾)
+   * 检查玩家/实体是否装备了盾牌 (支持副手槽、主手槽、原生 Equippable 及背包快捷栏)
    */
   static getEquippedShield(entity) {
     if (!entity || !entity.isValid()) return null;
+
+    // 1. 检查 Equippable 组件 (Offhand & Mainhand)
     try {
       const equippable = entity.getComponent("minecraft:equippable");
-      if (!equippable) return null;
-
-      const offhand = equippable.getEquipment("Offhand") || equippable.getEquipment("offhand");
-      if (offhand && (offhand.typeId === "minecraft:shield" || offhand.typeId === "apex:riot_shield")) {
-        return { item: offhand, slot: "Offhand", isApexRiot: offhand.typeId === "apex:riot_shield" };
-      }
-
-      const mainhand = equippable.getEquipment("Mainhand") || equippable.getEquipment("mainhand");
-      if (mainhand && (mainhand.typeId === "minecraft:shield" || mainhand.typeId === "apex:riot_shield")) {
-        return { item: mainhand, slot: "Mainhand", isApexRiot: mainhand.typeId === "apex:riot_shield" };
+      if (equippable) {
+        const slotsToCheck = ["Offhand", "offhand", "slot.weapon.offhand", "Mainhand", "mainhand", "slot.weapon.mainhand"];
+        for (const slot of slotsToCheck) {
+          try {
+            const item = equippable.getEquipment(slot);
+            if (item) {
+              const tid = item.typeId.toLowerCase();
+              if (tid === "apex:riot_shield" || tid.includes("shield")) {
+                return { item, slot, isApexRiot: tid === "apex:riot_shield", typeId: item.typeId };
+              }
+            }
+          } catch {}
+        }
       }
     } catch {}
+
+    // 2. 检查玩家主手当前选中槽位 (Inventory Container)
+    try {
+      const inv = entity.getComponent("minecraft:inventory");
+      if (inv && inv.container && typeof entity.selectedSlotIndex === "number") {
+        const item = inv.container.getItem(entity.selectedSlotIndex);
+        if (item) {
+          const tid = item.typeId.toLowerCase();
+          if (tid === "apex:riot_shield" || tid.includes("shield")) {
+            return { item, slot: "Mainhand", isApexRiot: tid === "apex:riot_shield", typeId: item.typeId };
+          }
+        }
+      }
+    } catch {}
+
     return null;
   }
 
@@ -31,40 +51,62 @@ export class ShieldEngine {
   static checkBulletShieldBlock(attacker, target, incomingDamage, gunConfig) {
     if (!target || !target.isValid()) return { blocked: false, damage: incomingDamage };
 
-    // 1. 检查是否持盾且处于潜行/举盾格挡状态
+    // 1. 检查是否持盾
     const shieldInfo = this.getEquippedShield(target);
-    if (!shieldInfo || !target.isSneaking) {
+    if (!shieldInfo) {
       return { blocked: false, damage: incomingDamage };
     }
 
-    // 2. 判定格挡朝向角度 (目标是否正对来袭子弹 120° 扇形范围)
+    // 2. 判定格挡姿态：
+    // 如果持有【重装战术反甲盾】，只要面向敌方即具备战术防弹偏折；
+    // 如果持有【原版盾牌】，支持潜行(Shift)、使用物品(右键)或正面迎弹；
+    const isPlayer = target.typeId === "minecraft:player";
+    const isSneaking = target.isSneaking ?? false;
+    const isUsingItem = target.isItemUsing ?? false;
+
+    // 非玩家实体(如靶人/生物)只要装备盾牌即可生效；玩家只要持反甲盾或在举盾/潜行即可生效
+    const isBlockingStance = !isPlayer || shieldInfo.isApexRiot || isSneaking || isUsingItem;
+    if (!isBlockingStance) {
+      return { blocked: false, damage: incomingDamage };
+    }
+
+    // 3. 判定格挡水平朝向角度 (2D 归一化水平向量)
     if (attacker && attacker.isValid()) {
       const aLoc = attacker.location;
       const tLoc = target.location;
 
       const dx = aLoc.x - tLoc.x;
       const dz = aLoc.z - tLoc.z;
-      const hDist = Math.hypot(dx, dz) || 1.0;
-      const toAttackerX = dx / hDist;
-      const toAttackerZ = dz / hDist;
+      const hDist = Math.hypot(dx, dz);
 
-      const tView = target.getViewDirection();
-      const dot = toAttackerX * tView.x + toAttackerZ * tView.z;
+      if (hDist > 0.05) {
+        const toAttackerX = dx / hDist;
+        const toAttackerZ = dz / hDist;
 
-      // 如果背对或偏角过大 (> 60° 偏角)，则无法格挡
-      if (dot < 0.25) {
-        return { blocked: false, damage: incomingDamage };
+        const tView = target.getViewDirection();
+        const tvLen = Math.hypot(tView.x, tView.z);
+
+        if (tvLen > 0.01) {
+          const normTx = tView.x / tvLen;
+          const normTz = tView.z / tvLen;
+          const dot = toAttackerX * normTx + toAttackerZ * normTz;
+
+          // 只要不是纯后背受击 (面向前方 160° 扇形范围 dot > -0.2) 均判定为正面防弹格挡成功！
+          if (dot < -0.2) {
+            return { blocked: false, damage: incomingDamage };
+          }
+        }
       }
     }
 
-    // 3. 格挡成功视听特效与耐久消耗
+    // 4. 格挡成功视听特效与耐久消耗
     const dim = target.dimension;
     const tLoc = target.location;
     const blockSparkPos = { x: tLoc.x, y: tLoc.y + 1.2, z: tLoc.z };
 
     try {
-      dim.playSound("item.shield.block", tLoc, { volume: 1.4, pitch: 1.0 });
-      dim.playSound("apex.gun.hit_metal", tLoc, { volume: 1.2, pitch: 1.1 });
+      dim.playSound("item.shield.block", tLoc, { volume: 1.5, pitch: 1.0 });
+      dim.playSound("apex.gun.hit_metal", tLoc, { volume: 1.3, pitch: 1.1 });
       dim.spawnParticle("minecraft:lava_particle", blockSparkPos);
       dim.spawnParticle("apex:arc_spark", blockSparkPos);
     } catch {}
@@ -79,7 +121,7 @@ export class ShieldEngine {
       }
     } catch {}
 
-    // 4. 特殊武器穿透与反甲结算
+    // 5. 特殊武器穿透与反甲结算
     if (shieldInfo.isApexRiot) {
       // ⭐ 【重装战术动能反甲盾】：100% 格挡所有实弹与近战，并反弹 50% 真实伤害与冲击波！
       let reflectedDmg = Math.max(2, Math.round(incomingDamage * 0.5));
@@ -92,7 +134,7 @@ export class ShieldEngine {
 
           // 施加反震击退与火花
           const aView = attacker.getViewDirection();
-          attacker.applyKnockback(-aView.x, -aView.z, 0.6, 0.15);
+          attacker.applyKnockback(-aView.x, -aView.z, 0.7, 0.2);
           attacker.dimension.spawnParticle("minecraft:sonic_explosion", attacker.location);
           attacker.playSound("random.anvil_land", attacker.location, { volume: 1.2, pitch: 0.8 });
 
@@ -108,6 +150,10 @@ export class ShieldEngine {
         );
       } catch {}
 
+      if (attacker && attacker.isValid()) {
+        attacker.onScreenDisplay?.setActionBar?.(`§e🛡️ 敌方【重装防暴盾】完全格挡并反震了您的子弹!`);
+      }
+
       return { blocked: true, damage: 0, isApexRiot: true };
     } else {
       // ⭐ 【原版盾牌】：
@@ -119,6 +165,9 @@ export class ShieldEngine {
             `§6🛡️ 原版盾牌抵挡了 .50 狙击穿甲弹 (-60% 减伤，残余 -${piercedDmg} HP)`
           );
         } catch {}
+        if (attacker && attacker.isValid()) {
+          attacker.onScreenDisplay?.setActionBar?.(`§6🎯 .50 穿甲弹穿透敌方盾牌造成 -${piercedDmg} HP!`);
+        }
         return { blocked: true, damage: piercedDmg, isApexRiot: false };
       }
 
@@ -126,6 +175,9 @@ export class ShieldEngine {
       try {
         target.onScreenDisplay?.setActionBar?.(`§a🛡️ 原版盾牌成功格挡实弹伤害！`);
       } catch {}
+      if (attacker && attacker.isValid()) {
+        attacker.onScreenDisplay?.setActionBar?.(`§e🛡️ 敌方盾牌完全格挡了您的子弹!`);
+      }
       return { blocked: true, damage: 0, isApexRiot: false };
     }
   }
