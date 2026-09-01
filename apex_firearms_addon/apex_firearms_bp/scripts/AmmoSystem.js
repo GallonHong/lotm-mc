@@ -132,29 +132,55 @@ export class AmmoSystem {
     return GUN_CONFIGS[itemId] || null;
   }
 
+  /**
+   * 读取枪械弹匣剩余弹药 (优先读取 DynamicProperty，兼具 Lore 正则与兜底)
+   */
   static getMagazineAmmo(itemStack) {
     if (!itemStack) return 0;
+    const config = this.getGunConfig(itemStack.typeId);
+    if (!config) return 0;
+
+    // 1. 优先读取 ItemStack NBT 动态属性 (最可靠、不依赖字符串)
+    try {
+      const prop = itemStack.getDynamicProperty("apex_ammo");
+      if (typeof prop === "number" && Number.isFinite(prop)) {
+        return Math.max(0, Math.min(Math.floor(prop), config.magSize));
+      }
+    } catch (e) {}
+
+    // 2. 兼容兜底：读取 Lore 文本 (去除颜色代码正则提取)
     try {
       const lore = itemStack.getLore();
-      for (const line of lore) {
-        if (line.startsWith("§7弹药: §f")) {
-          const match = line.match(/§7弹药: §f(\d+)\//);
+      if (lore && lore.length > 0) {
+        for (const line of lore) {
+          const cleanLine = line.replace(/§[0-9a-fk-or]/gi, "");
+          const match = cleanLine.match(/弹药:\s*(\d+)\//i) || cleanLine.match(/ammo:\s*(\d+)\//i);
           if (match && match[1]) {
-            return parseInt(match[1], 10);
+            return Math.max(0, Math.min(parseInt(match[1], 10), config.magSize));
           }
         }
       }
     } catch (e) {}
-    const config = this.getGunConfig(itemStack.typeId);
-    return config ? config.magSize : 0;
+
+    return config.magSize;
   }
 
+  /**
+   * 写入枪械弹匣剩余弹药 (双重写入 DynamicProperty 与 Lore)
+   */
   static setMagazineAmmo(itemStack, count) {
     if (!itemStack) return;
     const config = this.getGunConfig(itemStack.typeId);
     if (!config) return;
 
     const clampedCount = Math.max(0, Math.min(count, config.magSize));
+
+    // 1. 写入原生 NBT 动态属性
+    try {
+      itemStack.setDynamicProperty("apex_ammo", clampedCount);
+    } catch (e) {}
+
+    // 2. 写入 Lore 提示
     let skillNote = "";
     if (config.hasSkill) {
       skillNote = `\n§d⚡ 潜行释放: 【${config.skillName}】(5s无限子弹)`;
@@ -176,9 +202,7 @@ export class AmmoSystem {
 
     try {
       itemStack.setLore(newLore);
-    } catch (e) {
-      console.warn(`[ApexFirearms] Failed to set lore on gun item: ${e}`);
-    }
+    } catch (e) {}
   }
 
   static countReserveAmmo(player, ammoId) {
