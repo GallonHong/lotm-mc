@@ -46,7 +46,7 @@ export class BossEngine {
         this.#bossStates.set(boss.id, state);
       }
 
-      // 阶段转换判定
+      // 阶段转换判定并动态更新顶部 Boss Bar 标题
       if (hpRatio <= 0.30 && state.phase < 3) {
         state.phase = 3;
         boss.nameTag = "§l§4机械泰坦歼灭者 · 终焉超频自毁态§r";
@@ -58,9 +58,6 @@ export class BossEngine {
         this.#broadcastBossMessage("§e⚡【机械泰坦】进入阶段二：【等离子重构态】！开启纳米护盾并部署自爆无人机！");
         this.#triggerPhase2ShieldAndDrones(boss);
       }
-
-      // 广播血条 HUD
-      this.#renderBossHud(boss, currentHp, maxHp, hpRatio, state.phase, allPlayers);
 
       // 狂暴阶段常驻等离子光环
       if (state.phase === 3) {
@@ -91,30 +88,6 @@ export class BossEngine {
       if (state.phase >= 2 && currentTick - state.lastEmpTick >= 280) {
         state.lastEmpTick = currentTick;
         this.#callOrbitalEmpStrike(boss, allPlayers, currentTick);
-      }
-    }
-  }
-
-  /**
-   * 广播屏幕上方全景 Boss 状态条
-   */
-  static #renderBossHud(boss, currentHp, maxHp, hpRatio, phase, allPlayers) {
-    const bossLoc = boss.location;
-    const barFill = Math.max(0, Math.min(20, Math.round(hpRatio * 20)));
-    const barColor = hpRatio > 0.7 ? "§a" : (hpRatio > 0.3 ? "§e" : "§c");
-    const bar = barColor + "█".repeat(barFill) + "§8" + "░".repeat(20 - barFill);
-
-    const phaseNames = ["", "§e[阶段I: 重装压制]", "§6[阶段II: 等离子重构]", "§4[阶段III: 终焉超频]"];
-    const title = `§c☠【机械泰坦歼灭者】 ${phaseNames[phase]} §f[${bar}§f] §f${currentHp}§7/§e${maxHp} HP`;
-
-    for (const p of allPlayers) {
-      if (!p || !p.isValid()) continue;
-      const pLoc = p.location;
-      const dist = Math.hypot(pLoc.x - bossLoc.x, pLoc.y - bossLoc.y, pLoc.z - bossLoc.z);
-      if (dist <= 50) {
-        try {
-          p.onScreenDisplay?.setActionBar?.(title);
-        } catch {}
       }
     }
   }
@@ -215,7 +188,6 @@ export class BossEngine {
           });
 
           p.applyDamage(24, { cause: EntityDamageCause.entityAttack, damagingEntity: boss });
-          p.onScreenDisplay?.setActionBar?.("§c💥 受到【机械泰坦】地动山摇震飞践踏 (-24 HP)！");
         }
       }
     } catch {}
@@ -271,7 +243,6 @@ export class BossEngine {
             if (ent && ent.isValid() && ent.typeId === "minecraft:player") {
               ent.applyDamage(35, { cause: EntityDamageCause.override });
               ent.setOnFire(4, true);
-              ent.onScreenDisplay?.setActionBar?.("§c⚡ 受到【轨道 EMP 离子雷暴】直击 (-35 HP 真实伤害)！");
             }
           }
         }
@@ -289,7 +260,7 @@ export class BossEngine {
       const bLoc = boss.location;
 
       // 1. 赋予 1500 HP 吸收金心护盾
-      boss.addEffect("absorption", 2400, { amplifier: 30, showParticles: false }); // 1200+ 护盾
+      boss.addEffect("absorption", 2400, { amplifier: 30, showParticles: false });
       boss.addEffect("resistance", 1200, { amplifier: 1, showParticles: false });
 
       // 2. 召唤 3 只机械自爆近卫
