@@ -17,32 +17,61 @@ export class DamageResolver {
   }
 
   /**
-   * 估算实体的护甲值
+   * 估算实体的护甲值 (全面适配原版、Apex 动力战甲、喷气背包及第三方模组)
    */
   static estimateArmorPoints(entity) {
     if (!entity) return 0;
-    const equippable = entity.getComponent("minecraft:equippable");
+    let equippable = null;
+    try {
+      equippable = entity.getComponent("minecraft:equippable");
+    } catch {}
     if (!equippable) return 0;
 
     let points = 0;
-    const armorSlots = ["Head", "Chest", "Legs", "Feet"];
+    const armorSlots = ["Head", "Chest", "Legs", "Feet", "head", "chest", "legs", "feet"];
     const armorValues = {
+      // 原版皮甲/金甲/锁链/铁甲/钻甲/合金/海龟壳/犰狳鳞甲
       leather_helmet: 1, leather_chestplate: 3, leather_leggings: 2, leather_boots: 1,
       golden_helmet: 2, golden_chestplate: 5, golden_leggings: 3, golden_boots: 1,
       chainmail_helmet: 2, chainmail_chestplate: 5, chainmail_leggings: 4, chainmail_boots: 1,
       iron_helmet: 2, iron_chestplate: 6, iron_leggings: 5, iron_boots: 2,
       diamond_helmet: 3, diamond_chestplate: 8, diamond_leggings: 6, diamond_boots: 3,
-      netherite_helmet: 3, netherite_chestplate: 8, netherite_leggings: 6, netherite_boots: 3
+      netherite_helmet: 3, netherite_chestplate: 8, netherite_leggings: 6, netherite_boots: 3,
+      turtle_helmet: 2, armadillo_scute: 1,
+      
+      // Apex 泰坦外骨骼动力装甲 & 离子喷气背包
+      exo_helmet: 4,
+      exo_chestplate: 9,
+      exo_leggings: 7,
+      exo_boots: 4,
+      jetpack: 5
     };
 
+    const visitedSlots = new Set();
     for (const slot of armorSlots) {
-      const item = equippable.getEquipment(slot);
-      if (item) {
-        const type = item.typeId.replace("minecraft:", "");
-        if (armorValues[type]) {
-          points += armorValues[type];
+      const normalized = slot.toLowerCase();
+      if (visitedSlots.has(normalized)) continue;
+
+      try {
+        const item = equippable.getEquipment(slot);
+        if (item) {
+          visitedSlots.add(normalized);
+          const rawId = item.typeId.toLowerCase();
+          const cleanId = rawId.replace("minecraft:", "").replace("apex:", "").replace("deadzone:", "");
+          
+          if (armorValues[cleanId] !== undefined) {
+            points += armorValues[cleanId];
+          } else if (cleanId.includes("helmet") || cleanId.includes("cap")) {
+            points += 3;
+          } else if (cleanId.includes("chestplate") || cleanId.includes("vest") || cleanId.includes("armor") || cleanId.includes("jacket")) {
+            points += 8;
+          } else if (cleanId.includes("leggings") || cleanId.includes("pants")) {
+            points += 6;
+          } else if (cleanId.includes("boots") || cleanId.includes("shoes")) {
+            points += 3;
+          }
         }
-      }
+      } catch {}
     }
     return points;
   }

@@ -8,7 +8,7 @@ export class ShotgunEngine {
   static getPlayerShieldRating(player) {
     if (!player || !player.isValid()) return 0;
 
-    // 1. 基础护甲点数 (0 ~ 20)
+    // 1. 基础护甲点数 (0 ~ 24)
     let armorPoints = DamageResolver.estimateArmorPoints(player);
 
     // 2. 伤害吸收金心护盾 (Absorption Effect: 0 ~ 16+ HP)
@@ -24,8 +24,8 @@ export class ShotgunEngine {
     let offhandShieldBonus = 0;
     try {
       const equippable = player.getComponent("minecraft:equippable");
-      const offhand = equippable?.getEquipment("Offhand");
-      if (offhand && offhand.typeId === "minecraft:shield") {
+      const offhand = equippable?.getEquipment("Offhand") || equippable?.getEquipment("offhand");
+      if (offhand && offhand.typeId.includes("shield")) {
         offhandShieldBonus = 4;
       }
     } catch {}
@@ -47,7 +47,7 @@ export class ShotgunEngine {
 
       // 1. 计算圣盾充能与单丸伤害 (单枚 2 ~ 22 HP)
       const shieldRating = this.getPlayerShieldRating(player);
-      // 以 20 护盾指数为满额 100% 缩放
+      // 以 20 护盾指数为满额 100% 缩放 (满护甲即达满伤)
       const scale = Math.min(1.0, Math.max(0.0, shieldRating / 20.0));
       const pelletDamage = Math.max(2, Math.min(22, Math.round(2 + (22 - 2) * scale)));
 
@@ -179,45 +179,52 @@ export class ShotgunEngine {
         if (!primaryTargetName) primaryTargetName = info.name;
       }
 
+      if (totalPelletsHit > 0) {
+        try {
+          player.onScreenDisplay?.setActionBar?.(
+            `§e[圣盾霰弹枪] 🛡️ 护甲圣盾: §f${shieldRating} §7(单丸 §f${pelletDamage} §7HP) 💥 命中 §f${totalPelletsHit}/8 §e丸 (-§c${totalDamageDone} §eHP!)`
+          );
+        } catch {}
+      }
+
       return {
-        shieldRating,
         pelletDamage,
         totalPelletsHit,
-        pelletCount,
         totalDamageDone,
+        targetCount: hitMap.size,
         primaryTargetName
       };
-    } catch (e) {
-      console.warn(`[ApexFirearms] ShotgunEngine error: ${e}`);
+    } catch (err) {
+      console.warn(`[ApexFirearms] Shotgun fire error: ${err}`);
       return null;
     }
   }
 
   /**
-   * 绘制霰弹破片高速弹道轨迹
+   * 绘制霰弹破片高速曳光弹道轨迹
    */
-  static #drawPelletTracer(dim, p1, p2) {
-    if (!dim || !p1 || !p2) return;
+  static #drawPelletTracer(dim, start, end) {
+    if (!dim || !start || !end) return;
 
-    try {
-      const dx = p2.x - p1.x;
-      const dy = p2.y - p1.y;
-      const dz = p2.z - p1.z;
-      const dist = Math.hypot(dx, dy, dz);
-      if (dist < 0.5) return;
+    const dx = end.x - start.x;
+    const dy = end.y - start.y;
+    const dz = end.z - start.z;
+    const dist = Math.hypot(dx, dy, dz);
+    if (dist < 0.5) return;
 
-      const steps = Math.min(Math.floor(dist / 1.5), 20);
+    // 沿弹道插值生成粒子
+    const stepSize = 1.2;
+    const steps = Math.min(Math.floor(dist / stepSize), 20);
 
-      for (let i = 1; i <= steps; i++) {
-        const frac = i / steps;
-        const px = p1.x + dx * frac;
-        const py = p1.y + dy * frac;
-        const pz = p1.z + dz * frac;
+    for (let s = 1; s <= steps; s++) {
+      const frac = s / steps;
+      const px = start.x + dx * frac;
+      const py = start.y + dy * frac;
+      const pz = start.z + dz * frac;
 
-        try {
-          dim.spawnParticle("apex:shotgun_tracer", { x: px, y: py, z: pz });
-        } catch {}
-      }
-    } catch {}
+      try {
+        dim.spawnParticle("apex:shotgun_tracer", { x: px, y: py, z: pz });
+      } catch {}
+    }
   }
 }
