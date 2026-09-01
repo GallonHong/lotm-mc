@@ -73,6 +73,30 @@
     },
     "apex:ammo_12gauge": {
       "textures": "textures/items/ammo_12gauge"
+    },
+    "apex_exo_helmet": {
+      "textures": "textures/items/exo_helmet"
+    },
+    "apex:exo_helmet": {
+      "textures": "textures/items/exo_helmet"
+    },
+    "apex_exo_chestplate": {
+      "textures": "textures/items/exo_chestplate"
+    },
+    "apex:exo_chestplate": {
+      "textures": "textures/items/exo_chestplate"
+    },
+    "apex_exo_leggings": {
+      "textures": "textures/items/exo_leggings"
+    },
+    "apex:exo_leggings": {
+      "textures": "textures/items/exo_leggings"
+    },
+    "apex_exo_boots": {
+      "textures": "textures/items/exo_boots"
+    },
+    "apex:exo_boots": {
+      "textures": "textures/items/exo_boots"
     }
   }
 }

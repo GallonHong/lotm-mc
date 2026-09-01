@@ -12,7 +12,7 @@
       "minecraft:hand_equipped": true,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:display_name": {
-        "value": "§l§d战术维克托 Vector .45§r\n§7双发点射 | 潜行【暴走狂潮】"
+        "value": "§l§d战术维克托 Vector .45§r\n§7Shift技能: 5s无限子弹暴走狂潮"
       },
       "minecraft:icon": {
         "textures": {
@@ -21,7 +21,22 @@
       },
       "minecraft:cooldown": {
         "category": "apex:vector",
-        "duration": 0.3
+        "duration": 0.15
+      },
+      "minecraft:durability": {
+        "max_durability": 800
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": ["minecraft:iron_ingot", "minecraft:copper_ingot"],
+            "repair_amount": 200
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 14,
+        "slot": "unbreaking"
       },
       "minecraft:tags": {
         "tags": [

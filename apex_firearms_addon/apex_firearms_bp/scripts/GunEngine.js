@@ -5,6 +5,7 @@ import { RaycastEngine } from "./RaycastEngine.js";
 import { GrenadeEngine } from "./GrenadeEngine.js";
 import { ArcEngine } from "./ArcEngine.js";
 import { ShotgunEngine } from "./ShotgunEngine.js";
+import { ArmorEngine } from "./ArmorEngine.js";
 
 export class GunEngine {
   static #lastShotTicks = new Map();
@@ -144,12 +145,19 @@ export class GunEngine {
       console.warn(`[ApexFirearms] GrenadeEngine tick error: ${e}`);
     }
 
-    // 2. 更新换弹状态机
+    // 2. 步进动力战甲被动光环
+    try {
+      ArmorEngine.onTick();
+    } catch (e) {
+      console.warn(`[ApexFirearms] ArmorEngine tick error: ${e}`);
+    }
+
+    // 3. 更新换弹状态机
     try {
       ReloadManager.update(currentTick, (id) => playerMap.get(id));
     } catch {}
 
-    // 3. 处理处于【暴走狂潮】的玩家 (5秒无限子弹持续扫射)
+    // 4. 处理处于【暴走狂潮】的玩家 (5秒无限子弹持续扫射)
     for (const player of allPlayers) {
       if (!player || !player.isValid()) continue;
       const od = this.#overdriveStates.get(player.id);
@@ -185,11 +193,10 @@ export class GunEngine {
       }
 
       const remainingSec = Math.max(0, (od.finishTick - currentTick) / 20).toFixed(1);
-      // 执行狂暴射击 (不消耗子弹)
       this.#executeSingleShot(player, od.slot, config, 1, false, true, remainingSec);
     }
 
-    // 4. 常态 HUD 刷新
+    // 5. 常态 HUD 刷新
     if (currentTick % 4 === 0) {
       for (const player of allPlayers) {
         try {
@@ -214,6 +221,16 @@ export class GunEngine {
           const barFill = Math.round((currentAmmo / config.magSize) * 10);
           const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
 
+          // 耐久度百分比读取
+          let durText = "";
+          try {
+            const durComp = item.getComponent("minecraft:durability");
+            if (durComp) {
+              const remain = durComp.maxDurability - durComp.damage;
+              durText = ` §7| §f耐久:${remain}/${durComp.maxDurability}`;
+            }
+          } catch {}
+
           let skillStatus = "";
           if (config.hasSkill) {
             const nextTick = this.#skillCooldowns.get(player.id) || 0;
@@ -231,7 +248,7 @@ export class GunEngine {
           }
 
           player.onScreenDisplay?.setActionBar?.(
-            `§e[${config.name}] [${bar}§e] §f${currentAmmo}§7/§a${reserve}${skillStatus}`
+            `§e[${config.name}] [${bar}§e] §f${currentAmmo}§7/§a${reserve}${durText}${skillStatus}`
           );
         } catch {}
       }
@@ -239,7 +256,7 @@ export class GunEngine {
   }
 
   /**
-   * 执行单发实弹 / 榴弹 / 特斯拉电弧 / 圣盾霰弹
+   * 执行单发实弹 / 榴弹 / 特斯拉电弧 / 圣盾霰弹 (含耐久度扣减与损坏判定)
    */
   static #executeSingleShot(player, targetSlot, config, shotIndexInBurst = 1, isHeRound = false, isOverdrive = false, overdriveSec = "5.0") {
     if (!player || !player.isValid()) return false;
@@ -255,7 +272,7 @@ export class GunEngine {
 
     let currentAmmo = AmmoSystem.getMagazineAmmo(item);
 
-    // 1. 扣弹逻辑：如果是【暴走狂潮】状态，完全不消耗子弹 (0 弹药消耗)！
+    // 1. 扣弹与扣耐久逻辑：
     if (!isOverdrive) {
       if (currentAmmo <= 0) {
         ReloadManager.startReload(player, item, targetSlot);
@@ -263,6 +280,26 @@ export class GunEngine {
       }
       currentAmmo -= 1;
       AmmoSystem.setMagazineAmmo(item, currentAmmo);
+
+      // 扣除枪械耐久度 (Durability)
+      try {
+        const durComp = item.getComponent("minecraft:durability");
+        if (durComp) {
+          const nextDamage = durComp.damage + 1;
+          if (nextDamage >= durComp.maxDurability) {
+            // 武器耐久耗尽损坏
+            inv.container.setItem(targetSlot, undefined);
+            try {
+              player.playSound("random.break", { location: player.location, volume: 1.0, pitch: 0.9 });
+              player.onScreenDisplay?.setActionBar?.(`§c💥 您的【${config.name}】因耐久耗尽已损坏！`);
+            } catch {}
+            return false;
+          } else {
+            durComp.damage = nextDamage;
+          }
+        }
+      } catch {}
+
       inv.container.setItem(targetSlot, item);
     }
 

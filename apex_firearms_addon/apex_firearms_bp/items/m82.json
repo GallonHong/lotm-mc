@@ -12,7 +12,7 @@
       "minecraft:hand_equipped": true,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:display_name": {
-        "value": "§l§6巴雷特 M82A1 高爆反器材重狙§r\n§7.50 BMG | 20% 烈焰高爆弹"
+        "value": "§l§6巴雷特 M82A1 高爆反器材重狙§r\n§720%恶魂烈焰弹 | .50 BMG"
       },
       "minecraft:icon": {
         "textures": {
@@ -21,7 +21,22 @@
       },
       "minecraft:cooldown": {
         "category": "apex:m82",
-        "duration": 0.75
+        "duration": 1.2
+      },
+      "minecraft:durability": {
+        "max_durability": 250
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": ["minecraft:iron_ingot", "minecraft:diamond"],
+            "repair_amount": 75
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 14,
+        "slot": "unbreaking"
       },
       "minecraft:tags": {
         "tags": [

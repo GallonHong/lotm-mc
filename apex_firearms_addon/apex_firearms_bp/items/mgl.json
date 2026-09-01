@@ -12,7 +12,7 @@
       "minecraft:hand_equipped": true,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:display_name": {
-        "value": "§l§6战术 M32 六连发自动榴弹炮§r\n§740mm 破片高爆 | 0 地形破坏"
+        "value": "§l§6战术 M32 六连发自动榴弹炮§r\n§740mm抛物线高爆 | 0地形破坏"
       },
       "minecraft:icon": {
         "textures": {
@@ -21,14 +21,29 @@
       },
       "minecraft:cooldown": {
         "category": "apex:mgl",
-        "duration": 0.5
+        "duration": 0.55
+      },
+      "minecraft:durability": {
+        "max_durability": 300
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": ["minecraft:iron_ingot", "minecraft:copper_ingot"],
+            "repair_amount": 80
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 14,
+        "slot": "unbreaking"
       },
       "minecraft:tags": {
         "tags": [
           "minecraft:is_tool",
           "apex:gun",
           "guns",
-          "launcher"
+          "heavy"
         ]
       }
     }

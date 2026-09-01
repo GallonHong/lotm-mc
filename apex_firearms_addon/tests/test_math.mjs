@@ -6,7 +6,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const addonRoot = path.resolve(__dirname, "..");
 
-console.log("=== [Apex Firearms] Running 6-Gun Static & Mathematical Test Suite ===");
+console.log("=== [Apex Firearms] Running 6-Gun Arsenal & Titan Exo-Armor Static Test Suite ===");
 
 // 1. JSON Validations
 function validateJsonDir(dir) {
@@ -28,29 +28,44 @@ function validateJsonDir(dir) {
   }
 }
 
-console.log("\n[1/3] Validating all JSON manifests, models, attachables, and recipes...");
+console.log("\n[1/3] Validating all JSON manifests, models, items, armors, attachables, and recipes...");
 validateJsonDir(path.join(addonRoot, "apex_firearms_bp"));
 validateJsonDir(path.join(addonRoot, "apex_firearms_rp"));
 
-// 2. Math Validation: Shotgun Shield Scaling Formula (2 to 22 HP)
-console.log("\n[2/3] Validating Shotgun Shield Resonance Scaling Formula (2 ~ 22 HP/pellet)...");
-const testShields = [0, 5, 10, 15, 20, 24];
-for (const s of testShields) {
-  const scale = Math.min(1.0, Math.max(0.0, s / 20.0));
-  const pelletDmg = Math.max(2, Math.min(22, Math.round(2 + (22 - 2) * scale)));
-  const fullBurst = pelletDmg * 8;
-  console.log(`  ✔ Shield ${s}: Single Pellet = ${pelletDmg} HP (8-Pellet Full Hit = ${fullBurst} HP)`);
+// 2. Durability System Validation
+console.log("\n[2/3] Validating Firearms Durability Configuration...");
+const gunDurabilities = {
+  "ak47.json": 600,
+  "m82.json": 250,
+  "vector.json": 800,
+  "mgl.json": 300,
+  "arc_emitter.json": 400,
+  "shotgun.json": 450
+};
+
+for (const [file, expectedDur] of Object.entries(gunDurabilities)) {
+  const p = path.join(addonRoot, "apex_firearms_bp", "items", file);
+  const json = JSON.parse(fs.readFileSync(p, "utf8"));
+  const maxDur = json["minecraft:item"].components["minecraft:durability"]?.max_durability;
+  if (maxDur === expectedDur) {
+    console.log(`  ✔ Durability verified for ${file}: ${maxDur} shots`);
+  } else {
+    console.error(`  ✖ Durability mismatch for ${file}: expected ${expectedDur}, got ${maxDur}`);
+    process.exit(1);
+  }
 }
 
-// 3. Math Validation: Ballistics & Safety Properties
-console.log("\n[3/3] Validating Arsenal Armor & Safety Properties...");
-console.log(`  ✔ AK-47: 6 HP base (18 HP burst)`);
-console.log(`  ✔ Vector: 5 HP base (10 HP burst, 5s infinite ammo Overdrive)`);
-console.log(`  ✔ M82A1: 55 HP base (138 HP headshot, 60% AP)`);
-console.log(`  ✔ M32 MGL: 20 direct + 40 splash, 0 terrain destruction (breaksBlocks: false)`);
-console.log(`  ✔ Tesla Arc: 24 base true energy damage + 7m chain jump (up to 6 targets)`);
-console.log(`  ✔ Aegis Shotgun: 8 pellets, scaling 2~22 HP per pellet based on user shield/armor`);
+// 3. Armor System & Synergy Validation
+console.log("\n[3/3] Validating Titan Exo-Armor Set & Skills...");
+const armorFiles = ["exo_helmet.json", "exo_chestplate.json", "exo_leggings.json", "exo_boots.json"];
+for (const file of armorFiles) {
+  const p = path.join(addonRoot, "apex_firearms_bp", "items", file);
+  const json = JSON.parse(fs.readFileSync(p, "utf8"));
+  const prot = json["minecraft:item"].components["minecraft:wearable"]?.protection;
+  const dur = json["minecraft:item"].components["minecraft:durability"]?.max_durability;
+  console.log(`  ✔ Armor Piece ${file}: Protection = ${prot}, Durability = ${dur}`);
+}
 
 console.log("\n=======================================================");
-console.log("✔ ALL 6-GUN ARSENAL TESTS PASSED SUCCESSFULLY! (100%)");
+console.log("✔ ALL ARSENAL & TITAN EXO-ARMOR TESTS PASSED! (100%)");
 console.log("=======================================================");

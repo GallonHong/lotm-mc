@@ -23,6 +23,21 @@
         "category": "apex:arc_emitter",
         "duration": 0.4
       },
+      "minecraft:durability": {
+        "max_durability": 400
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": ["minecraft:copper_ingot", "minecraft:redstone"],
+            "repair_amount": 100
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 14,
+        "slot": "unbreaking"
+      },
       "minecraft:tags": {
         "tags": [
           "minecraft:is_tool",

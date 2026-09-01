@@ -66,7 +66,13 @@ export class DamageResolver {
     if (!healthComp) return null;
 
     const baseDmg = gunConfig?.baseDamage ?? 6;
-    const headshotMult = gunConfig?.headshotMultiplier ?? 2.0;
+    let headshotMult = gunConfig?.headshotMultiplier ?? 2.0;
+    try {
+      const equippable = attacker?.getComponent?.("minecraft:equippable");
+      if (equippable?.getEquipment?.("Head")?.typeId === "apex:exo_helmet") {
+        headshotMult += 0.25; // 泰坦全息鹰眼头盔爆头增伤 25%
+      }
+    } catch {}
     const ap = gunConfig?.armorPiercing ?? 0.35;
 
     const headshot = this.isHeadshot(hitLocation, target);
