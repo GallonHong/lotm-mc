@@ -168,20 +168,21 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     } catch {}
   }
 
-  // 💥 巴雷特 M82 .50 高爆穿甲弹头被动 (20% 概率触发高爆冲击波)
+  // 💥 巴雷特 M82 .50 高爆穿甲弹头被动 (20% 概率触发)
   if (gun.id === 'test_gun:m82' && Math.random() < (gun.explosiveChance || 0.20)) {
     try {
       const blastLoc = impactLoc;
-      // 1. 产生超强高爆与冲击波视觉
       dimension.spawnParticle('minecraft:huge_explosion_emitter', blastLoc);
       dimension.spawnParticle('minecraft:basic_flame_particle', blastLoc);
       dimension.spawnParticle('minecraft:sonic_explosion', blastLoc);
 
-      // 2. 播放重型反器材高爆轰鸣
       dimension.playSound('random.explode', blastLoc, { volume: 2.5, pitch: 1.1 });
       dimension.playSound('ambient.weather.thunder', blastLoc, { volume: 1.8, pitch: 1.8 });
 
-      // 3. 对 4.5 格范围内的所有周围实体造成 25 点高爆范围溅射与点燃
+      if (player && player.isValid()) {
+        try { player.onScreenDisplay?.setActionBar?.('§e💥【巴雷特·高爆穿甲弹触发!】§r'); } catch {}
+      }
+
       const victims = dimension.getEntities({
         location: blastLoc,
         maxDistance: 4.5
