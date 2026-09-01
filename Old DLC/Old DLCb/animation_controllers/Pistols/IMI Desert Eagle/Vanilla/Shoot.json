@@ -1,0 +1,48 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.deagle_old": {
+			"initial_state": "inactive",
+			"states": {
+				"inactive": {
+					"transitions": [
+						{
+							"fire": "q.get_equipped_item_name(0) == 'deagle_old' && q.is_using_item"
+						}
+					]
+				},
+				"firing": {
+					"on_entry": [
+						"v.bullet_fire = q.life_time;"
+					],
+					"transitions": [
+						{
+							"inactive": "q.get_equipped_item_name(0) != 'deagle_old' || !q.is_using_item"
+						},
+						{
+							"fire": "(q.life_time - v.bullet_fire) >= 0.32"
+						}
+					]
+				},
+				"fire": {
+					"on_entry": [
+						"@s deagle_old:fire",
+						"/scoreboard players remove @s[m=!c,scores={deagle=1..7}] deagle 1",
+						"/particle minecraft:eyeofender_death_explode_particle ^ ^1 ^1",
+						"/camerashake add @s 0.40 0.1 rotational",
+                                                "/execute @s[scores={deagle=0}] ~~~ function show404_2",
+						"/summon sound:deagle_old ^^^"
+					],
+					"transitions": [
+						{
+							"firing": "1.0"
+						}
+					],
+					"on_exit": [
+						"v.bullet_fire = q.life_time;"
+					]
+				}
+			}
+		}
+	}
+}

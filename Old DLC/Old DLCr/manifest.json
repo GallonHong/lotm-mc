@@ -1,0 +1,18 @@
+{
+    "format_version": 1,
+    "header": {
+        "description": "Enable it with Actual Guns CSO\nAK-12, AK-47, Deagle, MP7, Bizon, Glock, AK-74U, SCAR-L, SCAR-H, ARX-160, P90, Tempest, Balisong",
+        "name": "Old Guns DLC (V2.3) §a- Optional Content",
+        "uuid": "838b2ed6-2ad8-457b-a929-ab1a39e5b976",
+        "version": [1, 0, 2],
+        "min_engine_version": [1, 8, 0]
+    },
+    "modules": [
+        {
+            "description": "Enable it with Actual Guns CSO Add-on\nAK-12, AK-47, Deagle, MP7, Bizon, Glock, AK-74U, SCAR-L, SCAR-H, ARX-160, P90, Tempest, Balisong",
+            "type": "resources",
+            "uuid": "f80b205f-ceab-4ecc-995d-434d30cd27c7",
+            "version": [1, 0, 2]
+        }
+    ]
+}

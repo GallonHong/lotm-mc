@@ -1,0 +1,71 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "agbullet:p90_old",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"runtime_identifier": "minecraft:egg"
+		},
+		"components": {
+"minecraft:despawn": {
+  "despawn_from_distance": {
+    "max_distance": 70
+  }
+},
+			"minecraft:type_family": {
+				"family": [
+					"bullets"
+				]
+			},
+			"minecraft:collision_box": {
+				"width": 0.1,
+				"height": 0.1
+						},
+			"minecraft:break_blocks": {
+				"breakable_blocks": [
+					"glass",
+					"glass_pane",
+					"stained_glass",
+					"stained_glass_pane",
+					"standing_sign",
+					"vine",
+					"wall_banner",
+					"wall_sign",
+					"web",
+					"wheat"
+				]
+			},
+			"minecraft:projectile": {
+				"on_hit": {
+					"impact_damage": {
+						"damage": [
+							7,
+							7
+						],
+						"knockback": true
+					},
+					"remove_on_hit": {},
+					"stick_in_ground": {
+						"shake_time": 0
+					}
+				},
+				"power": 17,
+				"gravity": 0,
+				"inertia": 1,
+				"uncertaintyBase": 10.5,
+				"uncertaintyMultiplier": 2,
+				"anchor": 1,
+				"offset": [
+					0,
+					0,
+					0
+				],
+				"reflectOnHurt": false,
+				"catch_fire": false
+			},
+			"minecraft:physics": {}
+		}
+	}
+}

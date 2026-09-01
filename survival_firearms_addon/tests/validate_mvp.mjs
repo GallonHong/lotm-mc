@@ -13,7 +13,7 @@ const json = (path) => JSON.parse(read(path));
 function walk(dir) {
   return readdirSync(dir).flatMap((name) => {
     const path = join(dir, name);
-    return statSync(path).isDirectory() ? walk(path) : [path];
+    return statSync(path).isDirectory() ? walk(path) : [path.replace(/\\/g, "/")];
   });
 }
 

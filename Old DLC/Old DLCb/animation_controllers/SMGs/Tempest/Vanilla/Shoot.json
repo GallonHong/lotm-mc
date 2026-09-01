@@ -1,0 +1,47 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.tempest_old": {
+			"initial_state": "inactive",
+			"states": {
+				"inactive": {
+					"transitions": [
+						{
+							"fire": "q.get_equipped_item_name(0) == 'tempest_old' && q.is_using_item && (q.scoreboard('tempest') >= 1) && (q.scoreboard('reload') != 4)"
+						}
+					]
+				},
+				"firing": {
+					"on_entry": [
+						"v.bullet_fire = q.life_time;"
+					],
+					"transitions": [
+						{
+							"inactive": "q.get_equipped_item_name(0) != 'tempest_old' || !q.is_using_item || (q.scoreboard('tempest') == 0) || (q.scoreboard('reload') == 4)"
+						},
+						{
+							"fire": "(q.life_time - v.bullet_fire) >= 0.04"
+						}
+					]
+				},
+				"fire": {
+					"on_entry": [
+						"@s tempest_old:fire",
+						"/scoreboard players remove @s[m=!c,scores={tempest=1..35}] tempest 1",
+						"/particle minecraft:eyeofender_death_explode_particle ^ ^1 ^1",
+						"/camerashake add @s 0.142 0.1 rotational",
+						"/summon sound:tempest_old ^^^"
+					],
+					"transitions": [
+						{
+							"firing": "1.0"
+						}
+					],
+					"on_exit": [
+						"v.bullet_fire = q.life_time;"
+					]
+				}
+			}
+		}
+	}
+}

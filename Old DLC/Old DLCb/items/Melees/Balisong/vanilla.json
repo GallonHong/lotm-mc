@@ -1,0 +1,29 @@
+{
+	"format_version": "1.20.80",
+	"minecraft:item": {
+		"description": {
+			"identifier": "melee:balisong_old",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.sword"
+      }
+		},
+		"components": {
+			"minecraft:display_name": {
+				"value": "Balisong §8Old Edition"
+            },
+            "minecraft:weapon": {
+			},
+      "minecraft:icon": "butterfly_old",
+      "minecraft:tags": {
+        "tags": [
+          "agcso:item"
+        ]
+      },
+			"minecraft:max_stack_size": 1,
+			"minecraft:damage": 11,
+			"minecraft:hand_equipped": true,
+			"minecraft:can_destroy_in_creative": false
+		}
+	}
+}

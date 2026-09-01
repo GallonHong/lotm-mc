@@ -1,0 +1,48 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.scarh_old": {
+			"initial_state": "inactive",
+			"states": {
+				"inactive": {
+					"transitions": [
+						{
+							"fire": "q.get_equipped_item_name(0) == 'scarh_old' && q.is_using_item && (q.scoreboard('scarh_old') >= 1) && (q.scoreboard('reload') != 4)"
+						}
+					]
+				},
+				"firing": {
+					"on_entry": [
+						"v.bullet_fire = q.life_time;"
+					],
+					"transitions": [
+						{
+							"inactive": "q.get_equipped_item_name(0) != 'scarh_old' || !q.is_using_item || (q.scoreboard('scarh_old') == 0) || (q.scoreboard('reload') == 4)"
+						},
+						{
+							"fire": "(q.life_time - v.bullet_fire) >= 0.06"
+						}
+					]
+				},
+				"fire": {
+					"on_entry": [
+						"@s scarh_old:fire",
+						"/scoreboard players remove @s[m=!c,scores={scarh_old=1..30}] scarh_old 1",
+						"/particle minecraft:eyeofender_death_explode_particle ^ ^1 ^1",
+						"/camerashake add @s 0.148 0.1 rotational",
+                                                "/execute @s[scores={scarh_old=0}] ~~~ function show410_2",
+						"/summon sound:scarh_old ^^^"
+					],
+					"transitions": [
+						{
+							"firing": "1.0"
+						}
+					],
+					"on_exit": [
+						"v.bullet_fire = q.life_time;"
+					]
+				}
+			}
+		}
+	}
+}

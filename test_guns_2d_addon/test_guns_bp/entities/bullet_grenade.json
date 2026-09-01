@@ -1,0 +1,45 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "test_gun:bullet_grenade",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.25,
+        "height": 0.25
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "impact_damage": {
+            "damage": 1,
+            "destroy_on_hit": true
+          },
+          "remove_on_hit": {}
+        },
+        "power": 3.5,
+        "gravity": 0.04,
+        "anchor": 1,
+        "offset": [
+          0,
+          0,
+          0
+        ]
+      },
+      "minecraft:physics": {
+        "has_gravity": true,
+        "has_collision": true
+      },
+      "minecraft:type_family": {
+        "family": [
+          "bullet",
+          "projectile",
+          "grenade"
+        ]
+      }
+    }
+  }
+}

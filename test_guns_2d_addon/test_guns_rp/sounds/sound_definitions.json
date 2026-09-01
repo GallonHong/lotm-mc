@@ -1,0 +1,29 @@
+{
+  "format_version": "1.16.0",
+  "sound_definitions": {
+    "test_gun.ak47_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/ak47_old"
+      ]
+    },
+    "test_gun.shotgun_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/shotgun_shoot"
+      ]
+    },
+    "test_gun.vector_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/mp7_old"
+      ]
+    },
+    "test_gun.mgl_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/mgl_shoot"
+      ]
+    }
+  }
+}

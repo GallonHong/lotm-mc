@@ -1,0 +1,27 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.ak74u_oldshow": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"ak74u_show": "q.get_equipped_item_name(0) == 'ak74u_old'"
+						}
+					]
+				},
+				"ak74u_show": {
+					"transitions": [
+						{
+							"default": "q.get_equipped_item_name(0) == 'ak74u_old'"
+						}
+					],
+					"on_entry": [
+						"/function show408"
+					]
+				}
+			}
+		}
+	}
+}

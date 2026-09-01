@@ -1,0 +1,57 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "agbullet:eject_old",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false,
+			"runtime_identifier": "minecraft:egg"
+		},
+		"components": {
+			"minecraft:collision_box": {
+				"width": 0.1,
+				"height": 0.1
+			},
+			"minecraft:scale": {
+				"value": 0.7
+			},
+			"minecraft:explode": {
+				"fuseLength": 4,
+				"fuseLit": true,
+				"power": 0,
+				"causesFire": false
+			},
+			"minecraft:damage_sensor": {
+				"triggers": {
+					"cause": "all",
+					"deals_damage": false
+				}
+			},
+			"minecraft:projectile": {
+				"on_hit": {
+					"impact_damage": {
+						"damage": [
+							0,
+							0
+						],
+						"knockback": false
+					},
+					"stick_in_ground": {}
+				},
+				"power": 1,
+				"gravity": 0,
+				"inertia": 1,
+				"uncertaintyBase": 14,
+				"uncertaintyMultiplier": 3,
+				"anchor": 1,
+				"reflectOnHurt": false,
+				"homing": true,
+				"catch_fire": false
+			},
+			"minecraft:physics": {}
+		},
+		"component_groups": {},
+		"events": {}
+	}
+}

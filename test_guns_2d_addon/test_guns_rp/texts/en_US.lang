@@ -1,0 +1,10 @@
+item.test_gun:ak47.name=AK-47 (2D Classic)
+item.test_gun:shotgun.name=Shotgun (2D Classic)
+item.test_gun:vector.name=MP7 / Vector SMG [Overdrive]
+item.test_gun:ammo_rifle.name=Rifle Ammo (7.62mm)
+item.test_gun:ammo_shotgun.name=Shotgun Shells (12 Gauge)
+item.test_gun:ammo_45acp.name=SMG Ammo (4.6mm / .45 ACP)
+action.hint.exit.test_gun=Test Guns Addon Active
+
+item.test_gun:mgl.name=MGL 40mm Grenade Launcher [HE-Frag]
+item.test_gun:ammo_40mm.name=40mm HE Grenade

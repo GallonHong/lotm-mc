@@ -1,0 +1,20 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:ammo_40mm",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 32
+      },
+      "minecraft:icon": "test_gun_ammo_40mm",
+      "minecraft:display_name": {
+        "value": "40mm 高爆榴弹 §c[HE-Frag]§r"
+      }
+    }
+  }
+}

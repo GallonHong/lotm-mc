@@ -1,0 +1,29 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.mp7_old2reload": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"reload_start0": "q.get_equipped_item_name(0) == 'mp7_old' && (q.scoreboard('mp7_oldres') == 0) && (q.scoreboard('mp7_old') >= 1) && q.is_sneaking && (q.scoreboard('reload') == 3)"
+						}
+					]
+				},
+				"reload_start0": {
+					"on_entry": [
+					],
+					"animations": [
+						"reload0"
+					],
+					"transitions": [
+						{
+							"default": "(q.all_animations_finished)"
+						}
+					]
+				}
+			}
+		}
+	}
+}

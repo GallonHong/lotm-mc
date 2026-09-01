@@ -1,0 +1,25 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "agbullet:ak47_old",
+      "materials": { "default": "iron_golem" },
+      "textures": {
+        "default": "textures/ammo"
+      },
+      "geometry": {
+        "default": "geometry.bullet_old"
+      },
+      
+"spawn_egg": {
+        "texture": "spawn_egg",
+        "texture_index": 21
+			},
+			"render_controllers": [
+				{
+					"controller.render.object": "query.distance_from_camera > 7"
+				}
+			]
+               }
+  }
+}

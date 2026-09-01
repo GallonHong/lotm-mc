@@ -1,0 +1,10 @@
+item.test_gun:ak47.name=AK-47 突击步枪 (2D经典)
+item.test_gun:shotgun.name=泵动式霰弹枪 (2D经典)
+item.test_gun:vector.name=MP7 / Vector 冲锋枪 [暴走狂潮]
+item.test_gun:ammo_rifle.name=步枪弹药 (7.62mm)
+item.test_gun:ammo_shotgun.name=霰弹弹药 (12号口径)
+item.test_gun:ammo_45acp.name=冲锋枪弹药 (4.6mm / .45 ACP)
+action.hint.exit.test_gun=测试枪械 Add-on 已就绪
+
+item.test_gun:mgl.name=MGL 40mm 连发榴弹炮 [高爆破片]
+item.test_gun:ammo_40mm.name=40mm 高爆榴弹

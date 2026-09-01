@@ -1,0 +1,46 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "test_gun:bullet_rifle",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.1,
+        "height": 0.1
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "impact_damage": {
+            "damage": 1,
+            "knockback": false,
+            "destroy_on_hit": true
+          },
+          "remove_on_hit": {}
+        },
+        "power": 12,
+        "gravity": 0,
+        "anchor": 1,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "catch_fire": false
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": true
+      },
+      "minecraft:type_family": {
+        "family": [
+          "bullet",
+          "projectile"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.p90_old2reload": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"reload_start0": "q.get_equipped_item_name(0) == 'p90_old' && (q.scoreboard('p90res') == 0) && (q.scoreboard('p90') >= 1) && q.is_sneaking && (q.scoreboard('reload') == 3)"
+						}
+					]
+				},
+				"reload_start0": {
+					"on_entry": [
+					],
+					"animations": [
+						"reload0"
+					],
+					"transitions": [
+						{
+							"default": "(q.all_animations_finished)"
+						}
+					]
+				}
+			}
+		}
+	}
+}

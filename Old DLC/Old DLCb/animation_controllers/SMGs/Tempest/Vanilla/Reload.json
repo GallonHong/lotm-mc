@@ -1,0 +1,30 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.tempest_oldreload": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"reload_start0": "q.get_equipped_item_name(0) == 'tempest_old' && (q.scoreboard('tempestres') == 0) && (q.scoreboard('tempest') == 0)"
+						}
+					]
+                               },
+				"reload_start0": {
+					"on_entry": [
+						"/title @s actionbar NO AMMO"
+					],
+					"animations": [
+						"reload0"
+					],
+					"transitions": [
+						{
+							"default": "(q.all_animations_finished)"
+						}
+					]
+				}
+			}
+		}
+	}
+}

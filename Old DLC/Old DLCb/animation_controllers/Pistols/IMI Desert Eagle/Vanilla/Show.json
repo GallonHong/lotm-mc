@@ -1,0 +1,27 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.deagle_oldshow": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"deagle_show": "q.get_equipped_item_name(0) == 'deagle_old'"
+						}
+					]
+				},
+				"deagle_show": {
+					"transitions": [
+						{
+							"default": "q.get_equipped_item_name(0) == 'deagle_old'"
+						}
+					],
+					"on_entry": [
+						"/function show404"
+					]
+				}
+			}
+		}
+	}
+}

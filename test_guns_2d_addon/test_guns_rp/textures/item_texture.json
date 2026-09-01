@@ -1,0 +1,30 @@
+{
+  "resource_pack_name": "test_guns_rp",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "test_gun_ak47": {
+      "textures": "textures/guns/ak47_old"
+    },
+    "test_gun_shotgun": {
+      "textures": "textures/guns/shotgun_old"
+    },
+    "test_gun_ammo_rifle": {
+      "textures": "textures/ammo/ammo_rifle"
+    },
+    "test_gun_ammo_shotgun": {
+      "textures": "textures/ammo/ammo_shotgun"
+    },
+    "test_gun_vector": {
+      "textures": "textures/guns/mp7_old"
+    },
+    "test_gun_ammo_45acp": {
+      "textures": "textures/ammo/ammo_rifle"
+    },
+    "test_gun_mgl": {
+      "textures": "textures/guns/mgl_old"
+    },
+    "test_gun_ammo_40mm": {
+      "textures": "textures/ammo/ammo_shotgun"
+    }
+  }
+}

@@ -1,0 +1,48 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.mp7_old": {
+			"initial_state": "inactive",
+			"states": {
+				"inactive": {
+					"transitions": [
+						{
+							"fire": "q.get_equipped_item_name(0) == 'mp7_old' && q.is_using_item && (q.scoreboard('mp7_old') >= 1) && (q.scoreboard('reload') != 4)"
+						}
+					]
+				},
+				"firing": {
+					"on_entry": [
+						"v.bullet_fire = q.life_time;"
+					],
+					"transitions": [
+						{
+							"inactive": "q.get_equipped_item_name(0) != 'mp7_old' || !q.is_using_item || (q.scoreboard('mp7_old') == 0) || (q.scoreboard('reload') == 4)"
+						},
+						{
+							"fire": "(q.life_time - v.bullet_fire) >= 0.04"
+						}
+					]
+				},
+				"fire": {
+					"on_entry": [
+						"@s mp7_old:fire",
+						"/scoreboard players remove @s[m=!c,scores={mp7_old=1..30}] mp7_old 1",
+						"/particle minecraft:eyeofender_death_explode_particle ^ ^1 ^1",
+						"/camerashake add @s 0.103 0.1 rotational",
+                                                "/execute @s[scores={mp7_old=0}] ~~~ function show405_2",
+						"/summon sound:mp7_old ^^^"
+					],
+					"transitions": [
+						{
+							"firing": "1.0"
+						}
+					],
+					"on_exit": [
+						"v.bullet_fire = q.life_time;"
+					]
+				}
+			}
+		}
+	}
+}

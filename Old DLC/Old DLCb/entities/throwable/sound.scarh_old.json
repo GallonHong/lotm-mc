@@ -1,0 +1,43 @@
+{
+	"minecraft:entity": {
+		"format_version": "1.12.0",
+		"description": {
+			"identifier": "sound:scarh_old",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"is_experimental": false
+		},
+		"components_groups": {},
+		"components": {
+			"minecraft:collision_box": {
+				"width": 0,
+				"height": 0
+			},
+			"minecraft:health": {
+				"value": 1000000000,
+				"max": 10000000000
+			},
+			"minecraft:explode": {
+				"fuseLength": 0.2,
+				"fuseLit": true,
+				"power": 0,
+				"causesFire": false
+			},
+			"minecraft:type_family": {
+				"family": [
+					"undead",
+					"monster",
+					"zombie"
+				]
+			},
+			"minecraft:damage_sensor": {
+				"triggers": {
+					"cause": "all",
+					"deals_damage": false
+				}
+			},
+			"minecraft:physics": {}
+		},
+		"events": {}
+	}
+}

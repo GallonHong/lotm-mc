@@ -1,0 +1,94 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.deagle_old3reload": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"akm_mag": "q.get_equipped_item_name(0) == 'deagle_old' && (q.scoreboard('reload') == 3) && (q.scoreboard('deagleres') >= 1)"
+						}
+					]
+				},
+				"akm_mag": {
+					"transitions": [
+						{
+							"reload_start0": "q.get_equipped_item_name(0) == 'deagle_old' && (q.scoreboard('reload') == 3) && (q.scoreboard('deagleres') >= 1)"
+						},
+						{
+							"default": "q.get_equipped_item_name(0) != 'deagle_old'"
+						}
+					]
+				},
+				"reload_start0": {
+					"on_entry": [
+						"v.r = q.life_time;"
+					],
+					"transitions": [
+						{
+							"reloaded0": "(q.life_time - v.r) >= 0.0 && q.get_equipped_item_name(0) == 'deagle_old' && (q.scoreboard('reload') == 3) && (q.scoreboard('deagleres') >= 1)"
+						},
+						{
+							"reload_error": "q.get_equipped_item_name(0) != 'deagle_old'"
+						}
+					]
+				},
+				"reloaded0": {
+					"on_entry": [
+                                        "/title @s title 2.0",
+"/playsound tile.piston.out @a[r=10]",
+		
+					"/scoreboard players set @s reload 4"
+					],
+					"transitions": [
+						{
+							"reload_start1": "1.0"
+						}
+					]
+				},
+				"reload_start1": {
+					"on_entry": [
+						"v.r = q.life_time;"
+					],
+					"transitions": [
+						{
+							"reloaded": "(q.life_time - v.r) >= 2.0 && q.get_equipped_item_name(0) == 'deagle_old' && (q.scoreboard('reload') == 4) && (q.scoreboard('deagleres') >= 1)"
+						},
+						{
+							"reload_error": "q.get_equipped_item_name(0) != 'deagle_old'"
+						}
+					]
+				},
+				"reloaded": {
+					"on_entry": [
+                                           "/function deagle_2",
+                                           "/playsound tile.piston.in @a[r=10]",
+					   "/scoreboard players set @s reload 0"
+					],
+					"animations": [
+						"cool0"
+					],
+					"transitions": [
+						{
+							"reload_start69": "1.0"
+						}
+					]
+				},
+				"reload_error": {
+					"on_entry": [
+                                        "/title @s title hidecd",
+					"/scoreboard players set @s reload 0",
+"/title @s title hidecd",
+                    "/title @s actionbar §7§l» §eCancelled §7§l«"
+					],
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

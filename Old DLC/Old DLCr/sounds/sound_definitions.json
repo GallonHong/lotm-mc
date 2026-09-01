@@ -1,0 +1,65 @@
+{
+	"format_version": "1.16.0",
+	"sound_definitions": {
+		"gun.ak12_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/ak12_old"
+			]
+		},
+		"gun.ak47_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/ak47_old"
+			]
+		},
+		"gun.deagle_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/deagle_old"
+			]
+		},
+		"gun.p90_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/p90_old"
+			]
+		},
+		"gun.mp7_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/mp7_old"
+			]
+		},
+		"gun.bizon_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/bizon_old"
+			]
+		},
+		"gun.glock_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/glock_old"
+			]
+		},
+		"gun.ak74u_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/ak74u_old"
+			]
+		},
+		"gun.scarl_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/scarl_old"
+			]
+		},
+		"gun.scarh_old": {
+			"category": "hostile",
+			"sounds": [
+				"sounds/guns/scarh_old"
+			]
+		}
+	}
+}

@@ -1,0 +1,30 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:mgl",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.6
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:icon": "test_gun_mgl",
+      "minecraft:display_name": {
+        "value": "MGL 40mm 连发榴弹炮 §6[高爆破片]§r"
+      }
+    }
+  }
+}

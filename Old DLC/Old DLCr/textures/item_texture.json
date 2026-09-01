@@ -1,0 +1,45 @@
+{
+	"resource_pack_name": "vanilla",
+	"texture_name": "atlas.items",
+	"texture_data": {
+		"ak12_old": {
+			"textures": "textures/guns/ak12_old"
+		},
+		"ak47_old": {
+			"textures": "textures/guns/ak47_old"
+		},
+		"deagle_old": {
+			"textures": "textures/guns/deagle_old"
+		},
+		"mp7_old": {
+			"textures": "textures/guns/mp7_old"
+		},
+		"bizon_old": {
+			"textures": "textures/guns/bizon_old"
+		},
+		"p90_old": {
+			"textures": "textures/guns/p90_old"
+		},
+		"glock_old": {
+			"textures": "textures/guns/glock_old"
+		},
+		"ak74u_old": {
+			"textures": "textures/guns/ak74u_old"
+		},
+		"scarh_old": {
+			"textures": "textures/guns/scarh_old"
+		},
+		"scarl_old": {
+			"textures": "textures/guns/scarl_old"
+		},
+		"arx_old": {
+			"textures": "textures/guns/arx_old"
+		},
+		"tempest_old": {
+			"textures": "textures/guns/tempest_old"
+		},
+		"butterfly_old": {
+			"textures": "textures/melee/butterfly_old"
+		}
+	}
+}

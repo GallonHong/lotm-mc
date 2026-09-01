@@ -1,0 +1,48 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.scarl_old": {
+			"initial_state": "inactive",
+			"states": {
+				"inactive": {
+					"transitions": [
+						{
+							"fire": "q.get_equipped_item_name(0) == 'scarl_old' && q.is_using_item && (q.scoreboard('scarl') >= 1) && (q.scoreboard('reload') != 4)"
+						}
+					]
+				},
+				"firing": {
+					"on_entry": [
+						"v.bullet_fire = q.life_time;"
+					],
+					"transitions": [
+						{
+							"inactive": "q.get_equipped_item_name(0) != 'scarl_old' || !q.is_using_item || (q.scoreboard('scarl') == 0) || (q.scoreboard('reload') == 4)"
+						},
+						{
+							"fire": "(q.life_time - v.bullet_fire) >= 0.07"
+						}
+					]
+				},
+				"fire": {
+					"on_entry": [
+						"@s scarl_old:fire",
+						"/scoreboard players remove @s[m=!c,scores={scarl=1..30}] scarl 1",
+						"/particle minecraft:eyeofender_death_explode_particle ^ ^1 ^1",
+						"/camerashake add @s 0.143 0.2 rotational",
+                                                "/execute @s[scores={scarl=0}] ~~~ function show409_2",
+						"/summon sound:scarl_old ^^^"
+					],
+					"transitions": [
+						{
+							"firing": "1.0"
+						}
+					],
+					"on_exit": [
+						"v.bullet_fire = q.life_time;"
+					]
+				}
+			}
+		}
+	}
+}

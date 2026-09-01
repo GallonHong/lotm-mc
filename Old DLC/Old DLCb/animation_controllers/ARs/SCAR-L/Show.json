@@ -1,0 +1,27 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.scarl_oldshow": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"scarh_show": "q.get_equipped_item_name(0) == 'scarl_old'"
+						}
+					]
+				},
+				"scarh_show": {
+					"transitions": [
+						{
+							"default": "q.get_equipped_item_name(0) == 'scarl_old'"
+						}
+					],
+					"on_entry": [
+						"/function show409"
+					]
+				}
+			}
+		}
+	}
+}

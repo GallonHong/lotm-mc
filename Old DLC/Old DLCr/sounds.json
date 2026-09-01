@@ -1,0 +1,105 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"sound:ak12_old": {
+				"volume": 2.4,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.ak12_old"
+				}
+			},
+			"sound:ak47_old": {
+				"volume": 2.4,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.ak47_old"
+				}
+			},
+			"sound:ak74u_old": {
+				"volume": 2.4,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.ak74u_old"
+				}
+			},
+			"sound:p90_old": {
+				"volume": 2.0,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.p90_old"
+				}
+			},
+			"sound:deagle_old": {
+				"volume": 1.6,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.deagle_old"
+				}
+			},
+			"sound:glock_old": {
+				"volume": 1.6,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.glock_old"
+				}
+			},
+			"sound:mp7_old": {
+				"volume": 2.0,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.mp7_old"
+				}
+			},
+			"sound:bizon_old": {
+				"volume": 2.0,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.bizon_old"
+				}
+			},
+			"sound:scarl_old": {
+				"volume": 2.4,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.scarl_old"
+				}
+			},
+			"sound:scarh_old": {
+				"volume": 2.4,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.scarh_old"
+				}
+			},
+			"sound:tempest_old": {
+				"volume": 2,
+				"pitch": [
+					1
+				],
+				"events": {
+					"spawn": "gun.tempest"
+				}
+			}
+		}
+	}
+}
