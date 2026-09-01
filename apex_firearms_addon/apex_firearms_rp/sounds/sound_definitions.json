@@ -74,12 +74,23 @@
       ]
     },
     "apex.explosion": {
-      "category": "player",
+      "category": "neutral",
       "sounds": [
-        { "name": "sounds/explosions/explode1", "volume": 1.0, "pitch": 1.0 },
-        { "name": "sounds/explosions/explode2", "volume": 1.0, "pitch": 1.0 },
-        { "name": "sounds/explosions/explode3", "volume": 1.0, "pitch": 1.0 },
-        { "name": "sounds/explosions/explode4", "volume": 1.0, "pitch": 1.0 }
+        { "name": "sounds/explosion/explode1", "volume": 1.0, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode2", "volume": 1.0, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode3", "volume": 1.0, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode4", "volume": 1.0, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode5", "volume": 1.0, "pitch": 1.0 }
+      ]
+    },
+    "apex.explosion.distant": {
+      "category": "ambient",
+      "sounds": [
+        { "name": "sounds/explosion/explode_distance1", "volume": 0.9, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode_distance2", "volume": 0.9, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode_distance3", "volume": 0.9, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode_distance4", "volume": 0.9, "pitch": 1.0 },
+        { "name": "sounds/explosion/explode_distance5", "volume": 0.9, "pitch": 1.0 }
       ]
     },
     "apex.gun.dry": {

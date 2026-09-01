@@ -62,6 +62,7 @@ export class DamageResolver {
    */
   static applyDamage(attacker, target, hitLocation, gunConfig) {
     if (!target || !target.isValid()) return null;
+
     const healthComp = target.getComponent("minecraft:health");
     if (!healthComp) return null;
 
@@ -121,7 +122,7 @@ export class DamageResolver {
   }
 
   /**
-   * 高爆破片范围轰炸结算 (严格校验坐标，绝不允许 NaN，保证方块碰撞必出范围溅射伤害)
+   * 高爆破片范围轰炸结算 (0 地形破坏 + DeadZone 高保真重型爆炸音效 + 自定义爆轰光效)
    */
   static applyExplosiveSplash(attacker, centerLoc, radius, splashDamage, config, fallbackDim) {
     const dim = attacker?.dimension || fallbackDim;
@@ -137,6 +138,7 @@ export class DamageResolver {
     }
 
     const validLoc = { x: cx, y: cy, z: cz };
+    const blastLoc = { x: cx, y: cy + 0.45, z: cz };
     const breaksBlocks = config?.heBreaksBlocks ?? false; // 绝不破坏地形
     const causesFire = config?.heCausesFire ?? false;
     const power = config?.id === "apex:mgl" ? 2.5 : 1.5;
@@ -146,21 +148,23 @@ export class DamageResolver {
       dim.createExplosion(validLoc, power, { breaksBlocks, causesFire });
     } catch {}
 
-    // 2. 保证 100% 出现震撼爆炸视觉粒子 (提升 0.35 格避免被方块遮挡)
-    const blastLoc = { x: cx, y: cy + 0.35, z: cz };
+    // 2. 100% 触发震撼爆炸视觉特效 (自定义 MGL 爆轰大火球 + 环形冲击波 + 原版烈焰火花)
     try {
-      dim.spawnParticle("minecraft:huge_explosion_emitter", blastLoc);
-      dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", blastLoc);
+      dim.spawnParticle("apex:mgl_explosion", blastLoc);
+      dim.spawnParticle("apex:mgl_shockwave", blastLoc);
+      dim.spawnParticle("minecraft:explosion_manual", blastLoc);
+      dim.spawnParticle("minecraft:sonic_explosion", blastLoc);
       dim.spawnParticle("minecraft:lava_particle", blastLoc);
       dim.spawnParticle("minecraft:basic_flame_particle", blastLoc);
       dim.spawnParticle("minecraft:campfire_smoke_particle", blastLoc);
     } catch {}
 
-    // 3. 播放 DeadZone 专属高保真重型爆炸音效与原版音效
+    // 3. 播放 DeadZone 专属高保真重型爆炸轰鸣与远距离回声
     try {
-      dim.playSound("apex.explosion", validLoc, { volume: 1.5, pitch: 1.0 });
-      dim.playSound("random.explode", validLoc, { volume: 1.2, pitch: 0.9 });
-      dim.playSound("mob.ghast.fireball", validLoc, { volume: 0.9, pitch: 0.85 });
+      dim.playSound("apex.explosion", validLoc, { volume: 1.8, pitch: 1.0 });
+      dim.playSound("apex.explosion.distant", validLoc, { volume: 1.2, pitch: 1.0 });
+      dim.playSound("random.explode", validLoc, { volume: 1.2, pitch: 0.95 });
+      dim.playSound("mob.ghast.fireball", validLoc, { volume: 1.0, pitch: 0.85 });
     } catch {}
 
     // 4. 范围破片溅射伤害与物理冲击波结算
@@ -187,7 +191,7 @@ export class DamageResolver {
         const falloff = Math.max(0.6, 1 - (dist / (effectiveRadius + 1)) * 0.4);
         const actualDmg = Math.max(12, Math.round((splashDamage ?? 40) * falloff));
 
-        // 应用高可靠伤害结算
+        // 应用伤害结算
         const healthComp = ent.getComponent("minecraft:health");
         const curHp = healthComp?.currentValue ?? 20;
 
