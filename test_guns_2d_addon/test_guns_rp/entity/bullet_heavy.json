@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "test_gun:bullet_heavy",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/ammo/ammo_50cal"
+      },
+      "geometry": {
+        "default": "geometry.bullet_old"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

@@ -5,10 +5,11 @@ import { ShootManager } from './feature/shoot.js';
 import { ReloadManager } from './feature/reload.js';
 import { SkillManager } from './feature/skillManager.js';
 import { GrenadeEngine } from './feature/grenadeEngine.js';
+import { JetpackEngine } from './feature/jetpackEngine.js';
 import { DamageHandler } from './feature/damageHandler.js';
 import { getGunById, getGunByProjectile } from './data/guns.js';
 
-console.warn('=== [Test Guns 2D Addon] Initializing (Absolute Guns Core + Apex Skills & MGL) ===');
+console.warn('=== [Test Guns 2D Addon] Initializing (Full Apex Arsenal & Jetpack) ===');
 
 function subscribeAfter(eventsObj, eventName, handler) {
   try {
@@ -28,11 +29,10 @@ class AddonController {
     this.lastHeldItem = new Map();
     this.registerEvents();
     this.startGameLoop();
-    console.warn('=== [Test Guns 2D Addon] Loaded Successfully with MGL Grenade Launcher ===');
+    console.warn('=== [Test Guns 2D Addon] Loaded Successfully with M82, Arc Emitter, Deagle, & Jetpack ===');
   }
 
   registerEvents() {
-    // 1. Trigger Press (Right Click)
     subscribeAfter(world.afterEvents, 'itemStartUse', (event) => {
       const player = event.source;
       const item = event.itemStack;
@@ -54,7 +54,6 @@ class AddonController {
       }
     });
 
-    // 2. Trigger Release / Stop Use
     const stopTrigger = (event) => {
       const player = event.source;
       if (player) {
@@ -66,7 +65,6 @@ class AddonController {
     subscribeAfter(world.afterEvents, 'itemReleaseUse', stopTrigger);
     subscribeAfter(world.afterEvents, 'itemStopUseOn', stopTrigger);
 
-    // 3. Projectile Hit Entity Damage Resolution (for physical bullets)
     subscribeAfter(world.afterEvents, 'projectileHitEntity', (event) => {
       try {
         const projectile = event.projectile;
@@ -108,7 +106,7 @@ class AddonController {
           } catch {}
         }
 
-        if (gun) {
+        if (gun && !gun.isGrenadeLauncher && !gun.isArcWeapon) {
           DamageHandler.handleHit(projectile, shooter, hitEntity, gun, impactLocation);
         }
       } catch (err) {
@@ -116,22 +114,21 @@ class AddonController {
       }
     });
 
-    // 4. Player Leave
     subscribeAfter(world.afterEvents, 'playerLeave', (event) => {
       ShootManager.playerShooting.delete(event.playerId);
       ShootManager.playerCooldowns.delete(event.playerId);
       ReloadManager.reloadingPlayers.delete(event.playerId);
       SkillManager.clearPlayer(event.playerId);
+      JetpackEngine.playerJumpStates.delete(event.playerId);
       this.lastHeldItem.delete(event.playerId);
     });
   }
 
   startGameLoop() {
     system.runInterval(() => {
-      // 1. Tick Grenades physics & explosions
       GrenadeEngine.onTick();
+      JetpackEngine.onTick();
 
-      // 2. Tick Players
       const players = world.getAllPlayers();
       for (const player of players) {
         const held = getHeldGun(player);

@@ -1,14 +1,15 @@
 import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { fireBullet } from './utils/shootUtils.js';
 import { GrenadeEngine } from './grenadeEngine.js';
+import { ArcEngine } from './arcEngine.js';
 import { showAmmoHUD, showOutOfAmmoHUD } from './ui.js';
 import { ReloadManager } from './reload.js';
 import { SkillManager } from './skillManager.js';
 import { FireMode } from '../data/types.js';
 
 export class ShootManager {
-  static playerCooldowns = new Map(); // playerId -> remainingCooldownTicks
-  static playerShooting = new Map();  // playerId -> boolean (isTriggerDown)
+  static playerCooldowns = new Map();
+  static playerShooting = new Map();
 
   static setTriggerState(player, isDown) {
     this.playerShooting.set(player.id, isDown);
@@ -60,31 +61,27 @@ export class ShootManager {
       return;
     }
 
-    // 1. Decrement Ammo
     const newAmmo = currentAmmo - 1;
     setCurrentAmmo(player, gun, newAmmo);
 
-    // 2. Launch Projectiles (Grenade or Bullets)
     if (gun.isGrenadeLauncher) {
       GrenadeEngine.launchGrenade(player, gun);
+    } else if (gun.isArcWeapon) {
+      ArcEngine.fireArc(player, gun);
     } else {
       fireBullet(player, gun);
     }
 
-    // 3. Play Gunshot Audio
     if (gun.shootSound) {
       try {
         player.dimension.playSound(gun.shootSound, player.location, {
-          volume: 1.2,
+          volume: 1.3,
           pitch: 0.95 + Math.random() * 0.1
         });
       } catch {}
     }
 
-    // 4. Update HUD
     showAmmoHUD(player, gun, newAmmo);
-
-    // 5. Apply Cooldown
     this.playerCooldowns.set(player.id, gun.fireRate || 4);
 
     if (gun.mode === FireMode.SEMI) {

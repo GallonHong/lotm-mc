@@ -15,7 +15,6 @@ export function getSpawnLocation(player) {
 
   const forward = { x: vx * 0.9, y: vy * 0.9, z: vz * 0.9 };
 
-  // Compute right vector: (-z, 0, x)
   let rx = -vz;
   let rz = vx;
   const rLen = Math.hypot(rx, rz);
@@ -37,24 +36,21 @@ export function getSpawnLocation(player) {
   };
 }
 
-/**
- * 枪口初速火光与开火气浪
- */
 export function spawnMuzzleFlash(dimension, muzzleLoc, gun) {
   if (!dimension || !muzzleLoc) return;
   try {
-    dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
-    if (gun.type === 'shotgun') {
+    if (gun.id === 'test_gun:m82') {
+      dimension.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', muzzleLoc);
+      dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
+    } else if (gun.type === 'shotgun') {
       dimension.spawnParticle('minecraft:huge_explosion_lab_misc_emitter', muzzleLoc);
     } else {
+      dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
       dimension.spawnParticle('minecraft:campfire_smoke_particle', muzzleLoc);
     }
   } catch {}
 }
 
-/**
- * 沿弹道射线高密度渲染发光曳光流 (全方位朝向 100% 渲染)
- */
 export function drawBulletTracer(dimension, startPos, endPos, gun) {
   if (!dimension || !startPos || !endPos) return;
 
@@ -79,7 +75,10 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
   let particleId = "test_gun:bullet_tracer";
   let stepSize = 0.45;
 
-  if (gun.id === 'test_gun:vector' || gun.type === 'smg') {
+  if (gun.id === 'test_gun:m82') {
+    particleId = "test_gun:heavy_tracer";
+    stepSize = 0.50;
+  } else if (gun.id === 'test_gun:vector' || gun.type === 'smg') {
     particleId = "test_gun:vector_tracer";
     stepSize = 0.35;
   } else if (gun.id === 'test_gun:shotgun' || gun.type === 'shotgun') {
@@ -87,7 +86,7 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
     stepSize = 0.55;
   }
 
-  const steps = Math.max(2, Math.min(Math.floor(totalDist / stepSize), 90));
+  const steps = Math.max(2, Math.min(Math.floor(totalDist / stepSize), 100));
 
   for (let i = 1; i <= steps; i++) {
     const frac = i / steps;
@@ -105,9 +104,6 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
   }
 }
 
-/**
- * 执行单发弹道射线命中与伤害结算 (带严格的坐标数值校验与实体/方块判定)
- */
 function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   const dimension = player.dimension;
   const headPos = player.getHeadLocation();
@@ -120,7 +116,6 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   const dy = Number(dir.y) || 0;
   const dz = Number(dir.z) || 0;
 
-  // 默认落点：最大射程尽头
   let impactLoc = {
     x: hx + dx * maxRange,
     y: hy + dy * maxRange,
@@ -130,7 +125,6 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   let hitEntity = null;
   let hitBlock = false;
 
-  // 1. 方块射线碰撞检测 (通过 faceLocation 或精确距离计算，彻底杜绝 NaN)
   try {
     const blockHit = dimension.getBlockFromRay(headPos, dir, {
       maxDistance: maxRange,
@@ -155,7 +149,6 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     }
   } catch {}
 
-  // 2. 实体射线碰撞检测 (在方块遮挡距离内的第一个实体)
   try {
     const entityHits = dimension.getEntitiesFromRay(headPos, dir, {
       maxDistance: blockDist,
@@ -183,11 +176,9 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     }
   } catch {}
 
-  // 3. 渲染枪口火光与发光曳光弹道 (全方位朝向 100% 触发)
   spawnMuzzleFlash(dimension, spawnLoc, gun);
   drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
 
-  // 4. 结算击中效果 (实体受击 / 方块跳弹火花)
   if (hitEntity) {
     DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc);
   } else if (hitBlock) {
@@ -197,7 +188,6 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     } catch {}
   }
 
-  // 5. 生成飞行投射物实体确保多人联机同步
   try {
     const projectile = dimension.spawnEntity(gun.projectileTypeId, spawnLoc);
     if (projectile) {
@@ -215,7 +205,6 @@ export function fireBullet(player, gun) {
   const maxRange = (gun.stats && gun.stats.maxRange) ? gun.stats.maxRange : 60;
 
   if (gun.mode === FireMode.SHOTGUN) {
-    // Shotgun: 6 pellets with conical spread & individual tracers
     const PELLETS = 6;
     const spreadFactor = 0.075;
 
@@ -251,7 +240,6 @@ export function fireBullet(player, gun) {
       processBulletRay(player, gun, spreadDir, spawnLoc, maxRange);
     }
   } else {
-    // Single Bullet (AK-47 / MP7 Vector)
     processBulletRay(player, gun, viewDir, spawnLoc, maxRange);
   }
 }

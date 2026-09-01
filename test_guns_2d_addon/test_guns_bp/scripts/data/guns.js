@@ -7,7 +7,7 @@ export const GUNS = [
     type: 'rifle',
     mode: FireMode.AUTO,
     maxAmmo: 30,
-    fireRate: 3, // 6.7 shots/sec
+    fireRate: 3,
     shootPower: 12.0,
     recoil: 0.22,
     reloadTime: 48,
@@ -53,7 +53,7 @@ export const GUNS = [
     type: 'smg',
     mode: FireMode.AUTO,
     maxAmmo: 50,
-    fireRate: 1, // 20 shots/sec!
+    fireRate: 1,
     shootPower: 11.0,
     recoil: 0.08,
     reloadTime: 36,
@@ -79,22 +79,93 @@ export const GUNS = [
     type: 'special',
     mode: FireMode.SEMI,
     maxAmmo: 6,
-    fireRate: 10, // 0.5s per shot
-    shootPower: 1.35,
+    fireRate: 10,
+    shootPower: 1.45,
     recoil: 0.75,
-    reloadTime: 70, // 3.5s
+    reloadTime: 70,
     shootSound: 'test_gun.mgl_shoot',
     ammoTypeId: 'test_gun:ammo_40mm',
     projectileTypeId: 'test_gun:bullet_grenade',
     isGrenadeLauncher: true,
     hasSkill: false,
     stats: {
-      damage: 40.0, // Direct kinetic impact
-      heSplashDamage: 45.0, // AOE explosion damage
-      heRadius: 6.0, // 6-block blast radius
-      armorPenetration: 0.50, // 50% AP on heavy explosion
+      damage: 40.0,
+      heSplashDamage: 45.0,
+      heRadius: 6.0,
+      armorPenetration: 0.50,
       maxRange: 65,
       knockback: { x: 1.2, y: 0.6 }
+    }
+  },
+  {
+    id: 'test_gun:m82',
+    name: 'M82 .50 Cal',
+    type: 'sniper',
+    mode: FireMode.SEMI,
+    maxAmmo: 5,
+    fireRate: 25,
+    shootPower: 18.0,
+    recoil: 0.85,
+    reloadTime: 65,
+    shootSound: 'test_gun.m82_shoot',
+    ammoTypeId: 'test_gun:ammo_50cal',
+    projectileTypeId: 'test_gun:bullet_heavy',
+    hasSkill: false,
+    stats: {
+      damage: 75.0,
+      headshotMultiplier: 1.8,
+      armorPenetration: 0.75,
+      damageDropOff: 0.005,
+      maxRange: 120,
+      knockback: { x: 1.4, y: 0.5 }
+    }
+  },
+  {
+    id: 'test_gun:arc_emitter',
+    name: 'Arc Emitter',
+    type: 'energy',
+    mode: FireMode.SEMI,
+    maxAmmo: 20,
+    fireRate: 8,
+    shootPower: 10.0,
+    recoil: 0.15,
+    reloadTime: 45,
+    shootSound: 'test_gun.arc_shoot',
+    ammoTypeId: 'test_gun:ammo_battery',
+    projectileTypeId: 'test_gun:bullet_rifle',
+    isArcWeapon: true,
+    hasSkill: false,
+    stats: {
+      damage: 24.0,
+      chainRadius: 8.0,
+      maxChains: 4,
+      decayRate: 0.20,
+      armorPenetration: 0.40,
+      maxRange: 25,
+      knockback: { x: 0.3, y: 0.15 }
+    }
+  },
+  {
+    id: 'test_gun:deagle',
+    name: 'Desert Eagle',
+    type: 'pistol',
+    mode: FireMode.SEMI,
+    maxAmmo: 7,
+    fireRate: 6,
+    shootPower: 12.0,
+    recoil: 0.45,
+    reloadTime: 35,
+    shootSound: 'test_gun.deagle_shoot',
+    ammoTypeId: 'test_gun:ammo_50cal',
+    projectileTypeId: 'test_gun:bullet_heavy',
+    hasSkill: false,
+    stats: {
+      damage: 25.0,
+      headshotMultiplier: 1.8,
+      armorPenetration: 0.35,
+      damageDropOff: 0.03,
+      maxRange: 45,
+      knockback: { x: 0.5, y: 0.25 }
     }
   }
 ];

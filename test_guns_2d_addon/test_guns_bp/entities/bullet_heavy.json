@@ -1,0 +1,32 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "test_gun:bullet_heavy",
+      "is_spawnable": false,
+      "is_summonable": true
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.15,
+        "height": 0.15
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "impact_damage": {
+            "damage": 1,
+            "destroy_on_hit": true
+          },
+          "remove_on_hit": {}
+        },
+        "power": 16,
+        "gravity": 0,
+        "anchor": 1
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": true
+      }
+    }
+  }
+}

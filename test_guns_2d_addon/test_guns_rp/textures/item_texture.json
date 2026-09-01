@@ -25,6 +25,27 @@
     },
     "test_gun_ammo_40mm": {
       "textures": "textures/ammo/ammo_shotgun"
+    },
+    "test_gun_m82": {
+      "textures": "textures/guns/m82_old"
+    },
+    "test_gun_arc_emitter": {
+      "textures": "textures/guns/arc_old"
+    },
+    "test_gun_deagle": {
+      "textures": "textures/guns/deagle_old"
+    },
+    "test_gun_jetpack": {
+      "textures": "textures/items/jetpack"
+    },
+    "test_gun_riot_shield": {
+      "textures": "textures/items/riot_shield"
+    },
+    "test_gun_ammo_50cal": {
+      "textures": "textures/ammo/ammo_50cal"
+    },
+    "test_gun_ammo_battery": {
+      "textures": "textures/ammo/ammo_battery"
     }
   }
 }

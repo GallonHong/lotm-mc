@@ -24,6 +24,24 @@
       "sounds": [
         "sounds/guns/mgl_shoot"
       ]
+    },
+    "test_gun.m82_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/m82_shoot"
+      ]
+    },
+    "test_gun.arc_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/arc_shoot"
+      ]
+    },
+    "test_gun.deagle_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/deagle_old"
+      ]
     }
   }
 }
