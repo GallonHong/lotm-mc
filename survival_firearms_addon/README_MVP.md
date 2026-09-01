@@ -1,6 +1,6 @@
-# Survival Firearms 2.4.0
+# Survival Firearms 2.5.0
 
-四枪生存 Addon：M1911、AKM、MP5、M870。2.0.0 起已移除 DeadZone 的模型、纹理、图标、玩家动作和动画控制器；按项目决定，仅保留既有枪械音频并集中到 `sounds/retained_audio`。
+四枪生存 Addon：M1911、AKM、MP5、M870。当前版本采用仓库 `OldAssGunA` 旧 DLC 的二维枪械图标，不打包 3D 模型、attachable 或玩家持枪动作；既有枪械音频继续集中在 `sounds/retained_audio`。
 
 ## 射击方式
 
@@ -9,14 +9,21 @@
 - 电脑版使用右键，手机版使用长按。
 - `!reload` 或 `!r` 换弹。
 
-2.4.0 使用行为动画控制器实时读取 `q.main_hand_item_use_duration`。按下与松开分别发送 `survival:trigger_down`、`survival:trigger_up` 给原创脚本，不再依赖可能漏报的 `itemStartUse`。M1911/M870 使用松开锁，每次长按只发射一发；AKM/MP5 每次射击前都必须仍处于按住状态。自动枪一次长按最多一弹匣且不超过三秒，之后必须松开再按。
+2.5.0 参考 Absolute Guns 3D 的 food item 使用生命周期，同时修正了其“布尔状态 + 后台 tick 连射”在松键事件漏报时可能失控的问题：
 
-## 原创视觉资源
+- `itemStartUse` 只开始/重置按压会话，`itemStopUse` 与 `itemReleaseUse` 负责冗余清理。
+- 行为动画控制器同时检查 `q.is_using_item` 与 `q.main_hand_item_use_duration`。
+- 半自动枪每次按压只发送一个射击脉冲；自动枪只有仍按住时才逐次发送脉冲。
+- `GunController.onTick()` 不再产生任何子弹。没有新脉冲就不会继续射击，即使漏报松键也不会无限连射。
+- 单次长按仍有一弹匣和 60 tick 的双重安全上限。
 
-- `survival_guns_rp/models/entity/survival_firearms.geo.json`：四把枪的原创低多边形方块模型。
-- `survival_guns_rp/textures/entity/survival/`：原创模型配色纹理。
-- `survival_guns_rp/textures/items/{m1911,akm,mp5,m870}.png`：全新像素图标。
-- `survival_guns_rp/animations/survival_static_hold.animation.json`：只负责把原创模型绑定到手部，不包含 DeadZone 动作。
+## 二维视觉资源
+
+- AKM 使用 `OldAssGunA` 的 AK-103 二维贴图。
+- MP5 暂用 `OldAssGunA` 的 X13 二维贴图。
+- M1911 暂用 `OldAssGunA` 的 DE 二维贴图。
+- M870 暂用 `OldAssGunA` 的 M14 二维贴图。
+- 详细映射见 `ASSET_SOURCES.md`。后续需要时再单独增加 3D 模型与动作，不影响本版开火逻辑。
 
 ## 原版工作台
 
@@ -57,8 +64,8 @@ bash survival_firearms_addon/build_survival_guns.sh
 - `Survival_Guns_BP.mcpack`
 - `Survival_Guns_RP.mcpack`
 - `Survival_Guns_Addon.mcaddon`
-- `Survival_Guns_MVP_v2.4.0.mcaddon`
+- `Survival_Guns_MVP_v2.5.0.mcaddon`
 
 ## 兼容性说明
 
-本版本通过行为包的 `minecraft:player` 动画入口挂载实时射击状态机。若另一个 Addon 也重定义行为包玩家实体，需要把双方的 `scripts.animate` 与 `animations` 映射合并，否则后加载者会覆盖前者。
+本版本通过行为包的 `minecraft:player` 动画入口挂载实时输入探针。若另一个 Addon 也重定义行为包玩家实体，需要把双方的 `scripts.animate` 与 `animations` 映射合并，否则后加载者会覆盖前者。资源包不再覆盖玩家实体。

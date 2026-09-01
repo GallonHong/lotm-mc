@@ -11,71 +11,82 @@ import { system, world } from "@minecraft/server";
 
 /**
  * 枪械总控制器。
- * Molang 玩家状态机负责把真实的使用键按下/松开状态传入脚本。
- * 自动枪只在 trigger_down 与 trigger_up 之间连射；半自动枪必须松开后才能再次击发。
+ * 原生 itemStart/Stop/Release 负责输入生命周期，Molang 玩家状态机负责
+ * 在真实按住期间发送逐次 trigger_pulse。脚本不维护后台自动开火循环，
+ * 因此即使 Bedrock 漏报松键事件，也不会在没有新脉冲时继续射击。
  */
 export class GunController {
   static #playerSlotTracker = new Map();
   static #playerGunTracker = new Map();
   static #playerAnimationTracker = new Map();
-  static #activeTriggers = new Map();
-  static #triggerLatches = new Set();
+  static #triggerSessions = new Map();
 
-  static handleTriggerStart(event) {
+  static handleTriggerBegin(event) {
     const player = event?.source;
-    const eventItem = event?.itemStack;
     if (!player || !player.isValid()) return false;
-    if (this.#triggerLatches.has(player.id)) return false;
+    // 新一次按压总会清理可能因旧版或漏报松键留下的会话。
+    this.#triggerSessions.delete(player.id);
+    FireScheduler.reset(player.id);
+    return true;
+  }
+
+  static handleTriggerPulse(event) {
+    const player = event?.source;
+    if (!player || !player.isValid()) return false;
 
     const inv = player.getComponent("minecraft:inventory");
     if (!inv?.container) return false;
     const slot = player.selectedSlotIndex;
-    const heldItem = inv.container.getItem(slot);
-    const gunDef = eventItem
-      ? GunRegistry.getGun(eventItem.typeId)
-      : (heldItem ? GunRegistry.getGun(heldItem.typeId) : null);
-    if (!gunDef) return false;
-    if (!heldItem || heldItem.typeId !== gunDef.id) return false;
+    const item = inv.container.getItem(slot);
+    const gunDef = item ? GunRegistry.getGun(item.typeId) : null;
+    if (!item || !gunDef || ReloadManager.isReloading(player.id)) return false;
 
-    // 一次按下只建立一个锁。半自动必须等 trigger_up 清锁后才能再次击发。
-    this.#triggerLatches.add(player.id);
-    if (gunDef.fireMode !== "auto") return this.#firePulse(player, gunDef);
+    let session = this.#triggerSessions.get(player.id);
+    if (!session) {
+      session = {
+        gunId: gunDef.id,
+        slot,
+        startTick: system.currentTick,
+        shotsFired: 0,
+        blocked: false,
+        maxTicks: Math.min(60, Math.ceil(gunDef.magazineSize * 1200 / Math.max(1, gunDef.rpm)) + 2)
+      };
+      this.#triggerSessions.set(player.id, session);
+    }
 
-    const item = heldItem;
+    if (session.blocked || session.gunId !== gunDef.id || session.slot !== slot) return false;
+    if (system.currentTick - session.startTick >= session.maxTicks) {
+      session.blocked = true;
+      FireScheduler.reset(player.id);
+      return false;
+    }
 
-    FireScheduler.reset(player.id);
-    if (FireScheduler.requestHeldShots(player.id, gunDef, system.currentTick) < 1
-        || !this.#fireOneShot(player, inv.container, slot, item, gunDef)) return false;
-    this.#playerSlotTracker.set(player.id, slot);
-    this.#playerGunTracker.set(player.id, gunDef.id);
-    this.#activeTriggers.set(player.id, {
-      gunId: gunDef.id,
-      slot,
-      startTick: system.currentTick,
-      maxTicks: Math.min(60, Math.ceil(gunDef.magazineSize * 1200 / gunDef.rpm) + 2)
-    });
+    // 半自动/泵动一次按压只接受首个脉冲；自动枪按 RPM 消化每个实时脉冲。
+    if (gunDef.fireMode !== "auto" && session.shotsFired > 0) return false;
+    const requested = gunDef.fireMode === "auto"
+      ? FireScheduler.requestHeldShots(player.id, gunDef, system.currentTick)
+      : FireScheduler.requestPulseShot(player.id, gunDef, system.currentTick);
+    if (requested < 1) return false;
+
+    for (let shot = 0; shot < requested; shot++) {
+      const currentItem = inv.container.getItem(slot);
+      if (!currentItem || currentItem.typeId !== gunDef.id
+          || !this.#fireOneShot(player, inv.container, slot, currentItem, gunDef)) {
+        session.blocked = true;
+        FireScheduler.reset(player.id);
+        return false;
+      }
+      session.shotsFired += 1;
+    }
     return true;
   }
 
   static handleTriggerStop(event) {
     const player = event?.source;
     if (!player) return false;
-    const existed = this.#activeTriggers.delete(player.id);
-    const latched = this.#triggerLatches.delete(player.id);
+    const existed = this.#triggerSessions.delete(player.id);
     FireScheduler.reset(player.id);
-    return existed || latched;
-  }
-  static #firePulse(player, gunDef) {
-    if (!player || !player.isValid() || !gunDef || ReloadManager.isReloading(player.id)) return false;
-
-    const inv = player.getComponent("minecraft:inventory");
-    if (!inv?.container) return false;
-    const slot = player.selectedSlotIndex;
-    const item = inv.container.getItem(slot);
-    if (!item || item.typeId !== gunDef.id) return false;
-
-    if (FireScheduler.requestPulseShot(player.id, gunDef, system.currentTick) < 1) return false;
-    return this.#fireOneShot(player, inv.container, slot, item, gunDef);
+    return existed;
   }
 
   /** 普通 itemUse 只保留工作台入口，枪械由 Molang 状态机驱动。 */
@@ -125,17 +136,13 @@ export class GunController {
         this.#playerGunTracker.set(player.id, currentGunId);
         this.#playerAnimationTracker.delete(player.id);
         FireScheduler.reset(player.id);
-        this.#activeTriggers.delete(player.id);
-        this.#triggerLatches.delete(player.id);
+        this.#triggerSessions.delete(player.id);
         if (currentGunId) GunAnimationBridge.playEquip(player, GunRegistry.getGun(currentGunId));
       }
 
       if (!mainItem || !currentGunId) continue;
       const gunDef = GunRegistry.getGun(currentGunId);
       if (!gunDef) continue;
-
-      const trigger = this.#activeTriggers.get(player.id);
-      if (trigger) this.#updateHeldTrigger(player, inv.container, trigger, gunDef, currentTick);
 
       const animationState = player.isSwimming
         ? "swim"
@@ -153,29 +160,7 @@ export class GunController {
     this.#playerSlotTracker.delete(playerId);
     this.#playerGunTracker.delete(playerId);
     this.#playerAnimationTracker.delete(playerId);
-    this.#activeTriggers.delete(playerId);
-    this.#triggerLatches.delete(playerId);
-  }
-
-  static #updateHeldTrigger(player, container, trigger, gunDef, currentTick) {
-    if (trigger.gunId !== gunDef.id || trigger.slot !== player.selectedSlotIndex || ReloadManager.isReloading(player.id)) {
-      this.handleTriggerStop({ source: player });
-      return;
-    }
-    if (currentTick - trigger.startTick >= trigger.maxTicks) {
-      this.handleTriggerStop({ source: player });
-      try { player.onScreenDisplay?.setActionBar?.("§e单次长按已打完一弹匣，请松开后再次按下"); } catch {}
-      return;
-    }
-
-    const shots = FireScheduler.requestHeldShots(player.id, gunDef, currentTick);
-    for (let shot = 0; shot < shots; shot++) {
-      const item = container.getItem(trigger.slot);
-      if (!item || item.typeId !== gunDef.id || !this.#fireOneShot(player, container, trigger.slot, item, gunDef)) {
-        this.handleTriggerStop({ source: player });
-        return;
-      }
-    }
+    this.#triggerSessions.delete(playerId);
   }
 
   static #fireOneShot(player, container, slotIndex, itemStack, gunDef) {
@@ -187,7 +172,6 @@ export class GunController {
 
     if (AmmoManager.getMagazineAmmo(itemStack, gunDef) <= 0) {
       GunAnimationBridge.playDryFire(player);
-      this.handleTriggerStop({ source: player });
       ReloadManager.startReload(player, itemStack, gunDef, system.currentTick, slotIndex);
       return false;
     }

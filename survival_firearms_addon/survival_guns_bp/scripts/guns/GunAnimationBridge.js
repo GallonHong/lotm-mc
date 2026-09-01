@@ -3,14 +3,14 @@
 /**
  * 枪械动画与视效音频桥接器 (GunAnimationBridge)
  * 职责：
- * 1. 严格解耦枪械核心逻辑与原创模型；音频作为获准保留的独立资源
+ * 1. 严格解耦枪械核心逻辑与二维物品贴图；音频作为独立资源保留
  * 2. 统一分发开火枪声、远景枪声、弹壳弹出、换弹、击中标记 (hitmarker) 音效
  * 3. 生成枪口焰、弹道轨迹粒子与击中血花/火星
  */
 export class GunAnimationBridge {
   static playState(player, gunDef, state) {
-    // Keep this semantic hook for future original animations. In v2, the
-    // attachable supplies the model pose and no player action is forced.
+    // v2.5 只使用 OldAssGunA 二维物品素材，不强制播放玩家动作。
+    // 保留语义钩子，未来加入独立动作时无需改动核心射击逻辑。
     getGunAnimationProfile(gunDef?.animationProfile);
   }
 

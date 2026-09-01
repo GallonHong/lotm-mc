@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { createHash } from "node:crypto";
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -55,11 +56,12 @@ for (const file of [...walk(join(root, "survival_guns_bp")), ...walk(join(root, 
 
 for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
   const item = json(join(root, `survival_guns_bp/items/${gunName}.json`))["minecraft:item"].components;
-  assert.equal(item["minecraft:use_modifiers"].use_duration, 3600, `${gunName} must expose a long hold-use state`);
+  assert.equal(item["minecraft:use_modifiers"].use_duration, 99999, `${gunName} must expose a long hold-use state`);
   assert.equal(item["minecraft:food"].can_always_eat, true, `${gunName} must be usable at full hunger`);
   assert.equal(item["minecraft:food"].nutrition, 0);
   assert.equal(item["minecraft:food"].saturation_modifier, 0);
-  assert.equal(item["minecraft:use_animation"], "eat");
+  assert.equal(item["minecraft:food"].using_converts_to, `survival:${gunName}`);
+  assert.equal(item["minecraft:use_animation"], "none");
   assert.equal(item["minecraft:icon"].textures.default, `survival:${gunName}`);
 }
 const paperBundleItem = json(join(root, "survival_guns_bp/items/paper_bundle.json"))["minecraft:item"].components;
@@ -70,15 +72,17 @@ const mainSource = read(join(root, "survival_guns_bp/scripts/main.js"));
 const controllerSource = read(join(root, "survival_guns_bp/scripts/guns/GunController.js"));
 assert.ok(mainSource.includes('subscribeAfterEvent("itemStopUse"'));
 assert.ok(mainSource.includes('subscribeAfterEvent("itemReleaseUse"'));
-assert.ok(!mainSource.includes('subscribeAfterEvent("itemStartUse"'), "itemStartUse must not drive firing");
-assert.ok(mainSource.includes("Molang hold-state bridge"));
-assert.ok(mainSource.includes('id === "survival:trigger_down"'));
+assert.ok(mainSource.includes('subscribeAfterEvent("itemStartUse"'));
+assert.ok(mainSource.includes("no background fire"));
+assert.ok(mainSource.includes('id === "survival:trigger_begin"'));
+assert.ok(mainSource.includes('id === "survival:trigger_pulse"'));
 assert.ok(mainSource.includes('id === "survival:trigger_up"'));
 assert.ok(controllerSource.includes("requestPulseShot"));
-assert.ok(controllerSource.includes("activeTriggers"));
-assert.ok(controllerSource.includes("triggerLatches"), "semi-auto needs a release latch");
+assert.ok(controllerSource.includes("triggerSessions"));
 assert.ok(controllerSource.includes("requestHeldShots"));
 assert.ok(controllerSource.includes("Math.min(60"), "held fire needs a hard safety limit");
+assert.ok(!controllerSource.includes("activeTriggers"), "background trigger loop must not return");
+assert.ok(!controllerSource.includes("updateHeldTrigger"), "onTick must not advance gunfire");
 assert.ok(!controllerSource.includes("autoFireDeadline"), "persistent automatic-fire deadline must be removed");
 const playerEntity = json(join(root, "survival_guns_bp/entities/player.json"))["minecraft:entity"].description;
 assert.equal(playerEntity.identifier, "minecraft:player");
@@ -86,10 +90,12 @@ assert.equal(playerEntity.animations.survival_trigger_probe, "controller.animati
 assert.deepEqual(playerEntity.scripts.animate, ["survival_trigger_probe"]);
 const triggerController = json(join(root, "survival_guns_bp/animation_controllers/survival_trigger.controller.json"))
   .animation_controllers["controller.animation.survival.trigger_probe"];
-assert.ok(triggerController.states.released.transitions[0].pressed.includes("q.main_hand_item_use_duration > 0.0"));
-assert.ok(triggerController.states.pressed.transitions[0].released.includes("q.main_hand_item_use_duration <= 0.0"));
-assert.ok(triggerController.states.pressed.on_entry.includes("/execute as @s run scriptevent survival:trigger_down"));
-assert.ok(triggerController.states.pressed.on_exit.includes("/execute as @s run scriptevent survival:trigger_up"));
+assert.ok(triggerController.states.released.transitions[0].semi_held.includes("q.is_using_item"));
+assert.ok(triggerController.states.released.transitions[1].auto_begin.includes("q.main_hand_item_use_duration > 0.0"));
+assert.ok(triggerController.states.semi_held.transitions[0].released.includes("!q.is_using_item"));
+assert.ok(triggerController.states.semi_held.on_entry.includes("/execute as @s run scriptevent survival:trigger_pulse"));
+assert.ok(triggerController.states.auto_pulse.on_entry.includes("/execute as @s run scriptevent survival:trigger_pulse"));
+assert.ok(triggerController.states.released.on_entry.includes("/execute as @s run scriptevent survival:trigger_up"));
 assert.ok(!JSON.stringify(triggerController).includes("query.has_tag"), "unsupported Molang query.has_tag must not return");
 
 function ingredientCounts(recipe) {
@@ -134,27 +140,22 @@ assert.equal(paperBundle.key.P.item, "minecraft:paper");
 assert.equal(paperBundle.result.item, "survival:paper_bundle");
 
 const rpFiles = walk(join(root, "survival_guns_rp"));
-const disallowedVisual = rpFiles.filter((path) => path.includes("temporary_deadzone_assets") || path.includes("survival_guns_rp/animations/shoot/") || path.includes("survival_guns_rp/animations/reload/"));
-assert.deepEqual(disallowedVisual, [], `DeadZone visual assets remain: ${disallowedVisual.join(", ")}`);
+const disallowedVisual = rpFiles.filter((path) => path.includes("temporary_deadzone_assets") || path.includes("survival_guns_rp/attachables/") || path.includes("survival_guns_rp/models/") || path.includes("survival_guns_rp/animations/"));
+assert.deepEqual(disallowedVisual, [], `3D/action assets remain: ${disallowedVisual.join(", ")}`);
 assert.ok(rpFiles.some((path) => path.includes("sounds/retained_audio/")), "approved retained audio is missing");
 
-const geometryPath = join(root, "survival_guns_rp/models/entity/survival_firearms.geo.json");
-const geometry = json(geometryPath);
-assert.equal(geometry["minecraft:geometry"].length, 4);
-for (const gunName of ["m1911", "akm", "mp5", "m870"]) {
-  const model = geometry["minecraft:geometry"].find(({ description }) => description.identifier === `geometry.survival.${gunName}`);
-  assert.ok(model, `${gunName} original geometry missing`);
-  assert.ok(model.bones[0].binding.includes("query.item_slot_to_bone_name"));
-  assert.ok(statSync(join(root, `survival_guns_rp/textures/entity/survival/${gunName}.png`)).size > 0);
-  assert.ok(statSync(join(root, `survival_guns_rp/textures/items/${gunName}.png`)).size > 0);
-  const attachable = json(join(root, `survival_guns_rp/attachables/survival_${gunName}.json`))["minecraft:attachable"].description;
-  assert.equal(attachable.geometry.default, `geometry.survival.${gunName}`);
-  assert.equal(attachable.textures.default, `textures/entity/survival/${gunName}`);
+const sha256 = (path) => createHash("sha256").update(readFileSync(path)).digest("hex");
+const oldDlcMap = { akm: "ak103", mp5: "x13", m1911: "de", m870: "m14" };
+for (const [gunName, oldName] of Object.entries(oldDlcMap)) {
+  const source = resolve(root, `../OldAssGunA/OldAssGunA R/textures/items/gun/${oldName}.png`);
+  const target = join(root, `survival_guns_rp/textures/items/${gunName}.png`);
+  assert.ok(existsSync(source), `${oldName} OldAssGunA source missing`);
+  assert.equal(sha256(target), sha256(source), `${gunName} must use the exact OldAssGunA 2D asset`);
 }
 
 const bpManifest = json(join(root, "survival_guns_bp/manifest.json"));
 const rpManifest = json(join(root, "survival_guns_rp/manifest.json"));
-assert.deepEqual(bpManifest.header.version, [2, 4, 0]);
-assert.deepEqual(rpManifest.header.version, [2, 4, 0]);
+assert.deepEqual(bpManifest.header.version, [2, 5, 0]);
+assert.deepEqual(rpManifest.header.version, [2, 5, 0]);
 
-console.log("PASS: Molang trigger bridge, semi-auto release latch, held-fire scheduler, recipes, visuals, audio, and manifests validated");
+console.log("PASS: no-background live pulses, food-use lifecycle, OldAssGunA 2D assets, recipes, audio, and manifests validated");

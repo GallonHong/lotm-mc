@@ -1,10 +1,10 @@
 ﻿{
   "format_version": 2,
   "header": {
-    "name": "Survival Firearms BP v2.4.0",
+    "name": "Survival Firearms BP v2.5.0",
     "description": "原创末日枪械行为包（食物式长按射击、原版工作台制造、服务端伤害与弹药体系）",
     "uuid": "a15c33dc-5d1c-4344-a832-a4c3f4d8e303",
-    "version": [2, 4, 0],
+    "version": [2, 5, 0],
     "min_engine_version": [1, 21, 50]
   },
   "modules": [
@@ -12,21 +12,21 @@
       "description": "Data Module",
       "type": "data",
       "uuid": "b26d44ed-6e2d-4455-b943-b5d4e5e9f404",
-      "version": [2, 4, 0]
+      "version": [2, 5, 0]
     },
     {
       "description": "Script Module",
       "type": "script",
       "language": "javascript",
       "uuid": "e37e55fe-7f3e-4566-ca54-c6e5f6f0a505",
-      "version": [2, 4, 0],
+      "version": [2, 5, 0],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
     {
       "uuid": "c72e11fa-3b9a-4122-8610-82a1f2b6e101",
-      "version": [2, 4, 0]
+      "version": [2, 5, 0]
     },
     {
       "module_name": "@minecraft/server",

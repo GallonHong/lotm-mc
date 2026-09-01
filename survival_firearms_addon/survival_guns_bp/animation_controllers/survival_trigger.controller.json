@@ -5,22 +5,62 @@
       "initial_state": "released",
       "states": {
         "released": {
-          "transitions": [
-            {
-              "pressed": "q.is_alive && q.main_hand_item_use_duration > 0.0 && q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:m1911', 'survival:akm', 'survival:mp5', 'survival:m870')"
-            }
-          ]
-        },
-        "pressed": {
           "on_entry": [
-            "/execute as @s run scriptevent survival:trigger_down"
-          ],
-          "on_exit": [
             "/execute as @s run scriptevent survival:trigger_up"
           ],
           "transitions": [
             {
-              "released": "!q.is_alive || q.main_hand_item_use_duration <= 0.0 || !q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:m1911', 'survival:akm', 'survival:mp5', 'survival:m870')"
+              "semi_held": "q.is_alive && q.is_using_item && q.main_hand_item_use_duration > 0.0 && q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:m1911', 'survival:m870')"
+            },
+            {
+              "auto_begin": "q.is_alive && q.is_using_item && q.main_hand_item_use_duration > 0.0 && q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:akm', 'survival:mp5')"
+            }
+          ]
+        },
+        "semi_held": {
+          "on_entry": [
+            "/execute as @s run scriptevent survival:trigger_begin",
+            "/execute as @s run scriptevent survival:trigger_pulse"
+          ],
+          "transitions": [
+            {
+              "released": "!q.is_alive || !q.is_using_item || q.main_hand_item_use_duration <= 0.0 || !q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:m1911', 'survival:m870')"
+            }
+          ]
+        },
+        "auto_begin": {
+          "on_entry": [
+            "/execute as @s run scriptevent survival:trigger_begin"
+          ],
+          "transitions": [
+            {
+              "released": "!q.is_alive || !q.is_using_item || q.main_hand_item_use_duration <= 0.0 || !q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:akm', 'survival:mp5')"
+            },
+            {
+              "auto_pulse": "q.is_alive && q.is_using_item && q.main_hand_item_use_duration > 0.0"
+            }
+          ]
+        },
+        "auto_pulse": {
+          "on_entry": [
+            "/execute as @s run scriptevent survival:trigger_pulse"
+          ],
+          "transitions": [
+            {
+              "released": "!q.is_alive || !q.is_using_item || q.main_hand_item_use_duration <= 0.0 || !q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:akm', 'survival:mp5')"
+            },
+            {
+              "auto_check": "q.is_alive && q.is_using_item && q.main_hand_item_use_duration > 0.0"
+            }
+          ]
+        },
+        "auto_check": {
+          "transitions": [
+            {
+              "released": "!q.is_alive || !q.is_using_item || q.main_hand_item_use_duration <= 0.0 || !q.is_item_name_any('slot.weapon.mainhand', 0, 'survival:akm', 'survival:mp5')"
+            },
+            {
+              "auto_pulse": "q.is_alive && q.is_using_item && q.main_hand_item_use_duration > 0.0"
             }
           ]
         }

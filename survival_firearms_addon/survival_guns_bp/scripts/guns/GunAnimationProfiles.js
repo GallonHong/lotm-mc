@@ -1,9 +1,9 @@
 /**
  * Original model-family metadata.
  *
- * Version 2 intentionally has no scripted player actions. The attachables own
- * their static hold pose, while firing/reload feedback comes from audio, HUD,
- * particles, and the item-use state machine.
+ * Version 2.5 intentionally has no attachables or scripted player actions.
+ * Firing/reload feedback comes from 2D items, audio, HUD, particles, and the
+ * item-use state machine.
  */
 export const GUN_ANIMATION_PROFILES = Object.freeze({
   pistol: Object.freeze({ family: "pistol" }),

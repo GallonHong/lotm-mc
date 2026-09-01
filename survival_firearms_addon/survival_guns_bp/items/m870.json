@@ -19,15 +19,16 @@
         "value": "§l§cM870 泵动霰弹枪§r\n§78弹丸重击 | 12 Gauge"
       },
       "minecraft:use_modifiers": {
-        "use_duration": 3600,
+        "use_duration": 99999,
         "movement_modifier": 0.65
       },
       "minecraft:food": {
         "can_always_eat": true,
         "nutrition": 0,
-        "saturation_modifier": 0
+        "saturation_modifier": 0,
+        "using_converts_to": "survival:m870"
       },
-      "minecraft:use_animation": "eat",
+      "minecraft:use_animation": "none",
       "minecraft:interact_button": "射击",
       "minecraft:cooldown": {
         "category": "survival:m870",

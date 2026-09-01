@@ -5,7 +5,7 @@ import { ReloadManager } from "./guns/ReloadManager.js";
 import { WeaponCraftingManager } from "./guns/WeaponCraftingManager.js";
 import { GunTestSuite } from "./tests/GunTestSuite.js";
 
-console.warn("[SurvivalFirearms] Addon initializing v2.4.0...");
+console.warn("[SurvivalFirearms] Addon initializing v2.5.0...");
 
 /**
  * Subscribe only when this Bedrock runtime exposes a usable event signal.
@@ -38,11 +38,13 @@ WeaponCraftingManager.onRunTestSuite = (player) => {
   GunTestSuite.runAll(player);
 };
 
-// 3. 松开事件只作为冗余保险。真正的按下/松开状态由行为动画控制器的
-// q.main_hand_item_use_duration 检测，并通过 survival:trigger_down/up 传入。
+// 3. 参考 Absolute Guns 3D 的 food-item 使用生命周期接入原生开始/停止事件。
+// 开始事件只重置一次按压会话，不负责在后台持续开火；真正的每一发必须由
+// Molang 在 q.is_using_item 仍为 true 时发送 survival:trigger_pulse。
+subscribeAfterEvent("itemStartUse", (event) => GunController.handleTriggerBegin(event));
 subscribeAfterEvent("itemStopUse", (event) => GunController.handleTriggerStop(event));
 subscribeAfterEvent("itemReleaseUse", (event) => GunController.handleTriggerStop(event));
-console.warn("[SurvivalFirearms] Trigger mode: Molang hold-state bridge");
+console.warn("[SurvivalFirearms] Trigger mode: native use lifecycle + Molang live pulses (no background fire)");
 
 subscribeAfterEvent("itemUse", (event) => {
   try {
@@ -113,8 +115,10 @@ if (scriptEventReceive && typeof scriptEventReceive.subscribe === "function") {
       GunTestSuite.runAll(sourceEntity);
     } else if (id === "survival:reload") {
       GunController.requestReload(sourceEntity);
-    } else if (id === "survival:trigger_down") {
-      GunController.handleTriggerStart({ source: sourceEntity });
+    } else if (id === "survival:trigger_begin" || id === "survival:trigger_down") {
+      GunController.handleTriggerBegin({ source: sourceEntity });
+    } else if (id === "survival:trigger_pulse") {
+      GunController.handleTriggerPulse({ source: sourceEntity });
     } else if (id === "survival:trigger_up") {
       GunController.handleTriggerStop({ source: sourceEntity });
     }
@@ -150,4 +154,4 @@ subscribeAfterEvent("entityDie", ({ deadEntity }) => {
   } catch {}
 });
 
-console.warn("[SurvivalFirearms] Addon v2.4.0 loaded successfully without errors!");
+console.warn("[SurvivalFirearms] Addon v2.5.0 loaded successfully without errors!");
