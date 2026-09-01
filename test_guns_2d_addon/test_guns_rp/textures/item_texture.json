@@ -21,7 +21,7 @@
       "textures": "textures/ammo/ammo_45acp"
     },
     "test_gun_mgl": {
-      "textures": "textures/guns/mgl_old"
+      "textures": "textures/guns/m79_launcher"
     },
     "test_gun_ammo_40mm": {
       "textures": "textures/ammo/ammo_40mm"
