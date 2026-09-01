@@ -20,7 +20,7 @@ export class GrenadeEngine {
       const vy = Number(viewDir?.y) || 0;
       const vz = Number(viewDir?.z) || 1;
 
-      const baseSpeed = 1.45;
+      const baseSpeed = (gun && gun.id === 'test_gun:m79') ? 1.35 : 1.45;
       const launchVel = {
         x: vx * baseSpeed,
         y: vy * baseSpeed + 0.12,
@@ -122,7 +122,7 @@ export class GrenadeEngine {
           }
         } catch {}
 
-        // 2. 方块碰撞检测 (若命中方块表面，将爆炸中心稍微往空气方向回退 0.25 格，保证粒子 100% 渲染不被方块遮挡)
+        // 2. 方块碰撞检测
         if (!hasCollided) {
           try {
             const blockHit = dim.getBlockFromRay(curPos, normDir, {
@@ -134,7 +134,6 @@ export class GrenadeEngine {
             if (blockHit) {
               hasCollided = true;
               if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
-                // 沿法线方向/反方向稍微回退，确保粒子位于空气中
                 impactLoc = {
                   x: blockHit.faceLocation.x - normDir.x * 0.25,
                   y: blockHit.faceLocation.y - normDir.y * 0.25 + 0.15,
@@ -171,7 +170,6 @@ export class GrenadeEngine {
           continue;
         }
 
-        // 飞行尾迹渲染
         try {
           dim.spawnParticle('test_gun:he_tracer', nextPos);
           dim.spawnParticle('minecraft:basic_flame_particle', nextPos);
@@ -201,39 +199,51 @@ export class GrenadeEngine {
       shooter = all.find(p => p.id === shooterId) || null;
     } catch {}
 
-    // 确保爆炸中心位于开阔空气层 (抬升 0.3 格防止沉入地面方块导致粒子被遮挡)
     const validLoc = {
       x: loc.x,
       y: loc.y + 0.25,
       z: loc.z
     };
 
+    const isM79 = (gun && gun.id === 'test_gun:m79');
     const stats = gun?.stats || { damage: 40, heSplashDamage: 45, heRadius: 6.0 };
 
     if (directHitEntity && directHitEntity.isValid()) {
       DamageHandler.handleHit(null, shooter, directHitEntity, gun, validLoc);
     }
 
-    // 生成高亮多层爆炸特效 (多重保护，确保任何角度均能看到绚丽爆炸与气浪)
-    try {
-      dim.spawnParticle('test_gun:mgl_explosion', validLoc);
-      dim.spawnParticle('test_gun:mgl_shockwave', validLoc);
-      dim.spawnParticle('minecraft:huge_explosion_emitter', validLoc);
-      dim.spawnParticle('minecraft:explosion_manual', validLoc);
-      dim.spawnParticle('minecraft:sonic_explosion', validLoc);
-      dim.spawnParticle('minecraft:basic_flame_particle', validLoc);
-      dim.spawnParticle('minecraft:lava_particle', validLoc);
-    } catch (e) {}
+    // 区分 M79 (单发优良榴弹：轻量精简特效) 与 MGL (传说级转轮自动榴弹：全屏多层爆轰)
+    if (isM79) {
+      try {
+        dim.spawnParticle('minecraft:explosion_manual', validLoc);
+        dim.spawnParticle('minecraft:basic_flame_particle', validLoc);
+        dim.spawnParticle('minecraft:smoke_particle', validLoc);
+      } catch {}
 
-    // 播放爆炸巨响
-    try {
-      dim.playSound('random.explode', validLoc, { volume: 2.5, pitch: 0.95 });
-      dim.playSound('mob.ghast.fireball', validLoc, { volume: 2.0, pitch: 0.85 });
-    } catch {}
+      try {
+        dim.playSound('random.explode', validLoc, { volume: 1.4, pitch: 1.25 });
+      } catch {}
+    } else {
+      // 传说级 MGL 专属多层冲击波与声波爆轰
+      try {
+        dim.spawnParticle('test_gun:mgl_explosion', validLoc);
+        dim.spawnParticle('test_gun:mgl_shockwave', validLoc);
+        dim.spawnParticle('minecraft:huge_explosion_emitter', validLoc);
+        dim.spawnParticle('minecraft:explosion_manual', validLoc);
+        dim.spawnParticle('minecraft:sonic_explosion', validLoc);
+        dim.spawnParticle('minecraft:basic_flame_particle', validLoc);
+        dim.spawnParticle('minecraft:lava_particle', validLoc);
+      } catch {}
 
-    // AOE 范围伤害
-    const radius = stats.heRadius || 6.0;
-    const maxSplash = stats.heSplashDamage || 45.0;
+      try {
+        dim.playSound('random.explode', validLoc, { volume: 2.5, pitch: 0.95 });
+        dim.playSound('mob.ghast.fireball', validLoc, { volume: 2.0, pitch: 0.85 });
+      } catch {}
+    }
+
+    // AOE 范围溅射伤害
+    const radius = stats.heRadius || 4.2;
+    const maxSplash = stats.heSplashDamage || 30.0;
 
     try {
       const nearby = dim.getEntities({
@@ -251,11 +261,11 @@ export class GrenadeEngine {
         const dist = Math.hypot(el.x - validLoc.x, el.y - validLoc.y, el.z - validLoc.z);
         if (dist > radius) continue;
 
-        const falloff = Math.max(0.5, 1.0 - (dist / (radius + 1)) * 0.5);
+        const falloff = Math.max(0.4, 1.0 - (dist / (radius + 1)) * 0.5);
         const rawDamage = maxSplash * falloff;
 
         const armorPoints = DamageHandler.estimateArmorPoints(ent);
-        const finalDmg = DamageHandler.calculateArmorReduction(rawDamage, armorPoints, stats.armorPenetration || 0.50);
+        const finalDmg = DamageHandler.calculateArmorReduction(rawDamage, armorPoints, stats.armorPenetration || 0.35);
 
         try {
           ent.applyDamage(finalDmg, {
@@ -266,12 +276,12 @@ export class GrenadeEngine {
           try { ent.applyDamage(finalDmg); } catch {}
         }
 
-        try { ent.setOnFire(4, true); } catch {}
+        try { ent.setOnFire(3, true); } catch {}
 
         try {
           const kx = (el.x - validLoc.x) / (dist + 0.1);
           const kz = (el.z - validLoc.z) / (dist + 0.1);
-          ent.applyKnockback(kx * 0.8, kz * 0.8, 0.8, 0.4);
+          ent.applyKnockback(kx * 0.6, kz * 0.6, 0.6, 0.3);
         } catch {}
 
         DamageHandler.triggerMobAggro(ent, shooter);
