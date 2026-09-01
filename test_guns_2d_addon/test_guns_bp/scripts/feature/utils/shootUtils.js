@@ -1,6 +1,7 @@
 import { MathUtils } from './mathUtils.js';
 import { DamageHandler } from '../damageHandler.js';
 import { FireMode } from '../../data/types.js';
+import { EntityDamageCause } from '@minecraft/server';
 
 export function getSpawnLocation(player) {
   const headPos = player.getHeadLocation();
@@ -165,6 +166,47 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     try {
       dimension.spawnParticle('minecraft:crit', impactLoc);
     } catch {}
+  }
+
+  // 💥 巴雷特 M82 .50 高爆穿甲弹头被动 (100% 触发全地形高爆冲击波)
+  if (gun.id === 'test_gun:m82') {
+    try {
+      const blastLoc = impactLoc;
+      // 1. 产生超强高爆与冲击波视觉
+      dimension.spawnParticle('minecraft:huge_explosion_emitter', blastLoc);
+      dimension.spawnParticle('minecraft:basic_flame_particle', blastLoc);
+      dimension.spawnParticle('minecraft:sonic_explosion', blastLoc);
+
+      // 2. 播放重型反器材高爆轰鸣
+      dimension.playSound('random.explode', blastLoc, { volume: 2.5, pitch: 1.1 });
+      dimension.playSound('ambient.weather.thunder', blastLoc, { volume: 1.8, pitch: 1.8 });
+
+      // 3. 对 4.5 格范围内的所有周围实体造成 25 点高爆范围溅射与点燃
+      const victims = dimension.getEntities({
+        location: blastLoc,
+        maxDistance: 4.5
+      });
+      for (const vic of victims) {
+        if (!vic || !vic.isValid() || (player && vic.id === player.id)) continue;
+        if (vic.typeId === 'minecraft:item' || vic.typeId === 'minecraft:xp_orb') continue;
+        if (hitEntity && vic.id === hitEntity.id) continue;
+
+        const vl = vic.location;
+        const d = Math.hypot(vl.x - blastLoc.x, vl.y - blastLoc.y, vl.z - blastLoc.z);
+        const factor = Math.max(0.3, 1.0 - (d / 4.5));
+        const splashDmg = Math.round(25.0 * factor);
+
+        try {
+          vic.applyDamage(splashDmg, {
+            cause: EntityDamageCause.override,
+            damagingEntity: (player && player.isValid()) ? player : undefined
+          });
+          vic.setOnFire(3, true);
+        } catch {}
+      }
+    } catch (e) {
+      console.warn('M82 blast error:', e);
+    }
   }
 }
 

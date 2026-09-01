@@ -4,25 +4,79 @@
     "test_gun.ak47_shoot": {
       "category": "player",
       "sounds": [
-        "sounds/guns/ak47_old"
+        "sounds/guns/ak47_shoot"
       ]
     },
-    "test_gun.shotgun_shoot": {
+    "test_gun.ak74u_shoot": {
       "category": "player",
       "sounds": [
-        "sounds/guns/shotgun_shoot"
+        "sounds/guns/ak74u_shoot"
+      ]
+    },
+    "test_gun.scarh_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/scarh_shoot"
+      ]
+    },
+    "test_gun.arx_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/arx_shoot"
+      ]
+    },
+    "test_gun.m870_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/m870_shoot"
+      ]
+    },
+    "test_gun.m1897_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/m1897_shoot"
+      ]
+    },
+    "test_gun.m1014_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/m1014_shoot"
+      ]
+    },
+    "test_gun.bizon_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/bizon_shoot"
+      ]
+    },
+    "test_gun.p90_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/p90_shoot"
+      ]
+    },
+    "test_gun.glock_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/glock_shoot"
       ]
     },
     "test_gun.vector_shoot": {
       "category": "player",
       "sounds": [
-        "sounds/guns/mp7_old"
+        "sounds/guns/vector_shoot"
       ]
     },
-    "test_gun.mgl_shoot": {
+    "test_gun.deagle_shoot": {
       "category": "player",
       "sounds": [
-        "sounds/guns/mgl_shoot"
+        "sounds/guns/deagle_shoot"
+      ]
+    },
+    "test_gun.svd_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/svd_shoot"
       ]
     },
     "test_gun.m82_shoot": {
@@ -31,16 +85,22 @@
         "sounds/guns/m82_shoot"
       ]
     },
+    "test_gun.mgl_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/mgl_shoot"
+      ]
+    },
+    "test_gun.m79_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/m79_shoot"
+      ]
+    },
     "test_gun.arc_shoot": {
       "category": "player",
       "sounds": [
         "sounds/guns/arc_shoot"
-      ]
-    },
-    "test_gun.deagle_shoot": {
-      "category": "player",
-      "sounds": [
-        "sounds/guns/deagle_old"
       ]
     }
   }
