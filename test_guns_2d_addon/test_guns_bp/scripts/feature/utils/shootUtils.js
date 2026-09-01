@@ -5,21 +5,36 @@ import { FireMode } from '../../data/types.js';
 export function getSpawnLocation(player) {
   const headPos = player.getHeadLocation();
   const viewDir = player.getViewDirection();
-  const forward = MathUtils.scale(viewDir, 1.0);
+
+  const hx = Number(headPos.x) || 0;
+  const hy = Number(headPos.y) || 0;
+  const hz = Number(headPos.z) || 0;
+  const vx = Number(viewDir.x) || 0;
+  const vy = Number(viewDir.y) || 0;
+  const vz = Number(viewDir.z) || 0;
+
+  const forward = { x: vx * 0.9, y: vy * 0.9, z: vz * 0.9 };
 
   // Compute right vector: (-z, 0, x)
-  let right = { x: -viewDir.z, y: 0, z: viewDir.x };
-  const rLen = MathUtils.length(right);
+  let rx = -vz;
+  let rz = vx;
+  const rLen = Math.hypot(rx, rz);
   if (rLen < 1e-4) {
-    right = { x: 1, y: 0, z: 0 };
+    rx = 1;
+    rz = 0;
   } else {
-    right = MathUtils.scale(right, 1 / rLen);
+    rx /= rLen;
+    rz /= rLen;
   }
 
-  const rightOffset = MathUtils.scale(right, 0.18);
+  const rightOffset = { x: rx * 0.18, y: 0, z: rz * 0.18 };
   const upOffset = { x: 0, y: -0.12, z: 0 };
 
-  return MathUtils.add(MathUtils.add(MathUtils.add(headPos, forward), rightOffset), upOffset);
+  return {
+    x: hx + forward.x + rightOffset.x + upOffset.x,
+    y: hy + forward.y + rightOffset.y + upOffset.y,
+    z: hz + forward.z + rightOffset.z + upOffset.z
+  };
 }
 
 /**
@@ -38,102 +53,137 @@ export function spawnMuzzleFlash(dimension, muzzleLoc, gun) {
 }
 
 /**
- * 沿弹道射线高密度渲染发光曳光流 (Tracer Beam)
+ * 沿弹道射线高密度渲染发光曳光流 (全方位朝向 100% 渲染)
  */
 export function drawBulletTracer(dimension, startPos, endPos, gun) {
   if (!dimension || !startPos || !endPos) return;
 
-  try {
-    const dx = endPos.x - startPos.x;
-    const dy = endPos.y - startPos.y;
-    const dz = endPos.z - startPos.z;
-    const totalDist = Math.hypot(dx, dy, dz);
-    if (totalDist < 0.3) return;
+  const sx = Number(startPos.x);
+  const sy = Number(startPos.y);
+  const sz = Number(startPos.z);
+  const ex = Number(endPos.x);
+  const ey = Number(endPos.y);
+  const ez = Number(endPos.z);
 
-    let particleId = "test_gun:bullet_tracer";
-    let stepSize = 0.5;
+  if (!Number.isFinite(sx) || !Number.isFinite(sy) || !Number.isFinite(sz) ||
+      !Number.isFinite(ex) || !Number.isFinite(ey) || !Number.isFinite(ez)) {
+    return;
+  }
 
-    if (gun.id === 'test_gun:vector' || gun.type === 'smg') {
-      particleId = "test_gun:vector_tracer";
-      stepSize = 0.4;
-    } else if (gun.id === 'test_gun:shotgun' || gun.type === 'shotgun') {
-      particleId = "test_gun:shotgun_tracer";
-      stepSize = 0.6;
-    }
+  const dx = ex - sx;
+  const dy = ey - sy;
+  const dz = ez - sz;
+  const totalDist = Math.hypot(dx, dy, dz);
+  if (totalDist < 0.2 || !Number.isFinite(totalDist)) return;
 
-    const steps = Math.min(Math.floor(totalDist / stepSize), 85);
+  let particleId = "test_gun:bullet_tracer";
+  let stepSize = 0.45;
 
-    for (let i = 1; i <= steps; i++) {
-      const frac = i / steps;
-      const px = startPos.x + dx * frac;
-      const py = startPos.y + dy * frac;
-      const pz = startPos.z + dz * frac;
+  if (gun.id === 'test_gun:vector' || gun.type === 'smg') {
+    particleId = "test_gun:vector_tracer";
+    stepSize = 0.35;
+  } else if (gun.id === 'test_gun:shotgun' || gun.type === 'shotgun') {
+    particleId = "test_gun:shotgun_tracer";
+    stepSize = 0.55;
+  }
 
+  const steps = Math.max(2, Math.min(Math.floor(totalDist / stepSize), 90));
+
+  for (let i = 1; i <= steps; i++) {
+    const frac = i / steps;
+    const px = sx + dx * frac;
+    const py = sy + dy * frac;
+    const pz = sz + dz * frac;
+
+    try {
+      dimension.spawnParticle(particleId, { x: px, y: py, z: pz });
+    } catch {
       try {
-        dimension.spawnParticle(particleId, { x: px, y: py, z: pz });
-      } catch {
-        try {
-          dimension.spawnParticle("minecraft:crit", { x: px, y: py, z: pz });
-        } catch {}
-      }
+        dimension.spawnParticle("minecraft:crit", { x: px, y: py, z: pz });
+      } catch {}
     }
-  } catch {}
+  }
 }
 
 /**
- * 执行单发弹道射线命中与伤害结算 (枪口火光 + 高密曳光 + 命中火花)
+ * 执行单发弹道射线命中与伤害结算 (带严格的坐标数值校验与实体/方块判定)
  */
 function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   const dimension = player.dimension;
   const headPos = player.getHeadLocation();
 
-  let impactLoc = MathUtils.add(spawnLoc, MathUtils.scale(dir, maxRange));
+  const hx = Number(headPos.x) || 0;
+  const hy = Number(headPos.y) || 0;
+  const hz = Number(headPos.z) || 0;
+
+  const dx = Number(dir.x) || 0;
+  const dy = Number(dir.y) || 0;
+  const dz = Number(dir.z) || 0;
+
+  // 默认落点：最大射程尽头
+  let impactLoc = {
+    x: hx + dx * maxRange,
+    y: hy + dy * maxRange,
+    z: hz + dz * maxRange
+  };
+  let blockDist = maxRange;
   let hitEntity = null;
   let hitBlock = false;
 
-  // 1. 方块射线碰撞检测
-  let blockDist = maxRange;
+  // 1. 方块射线碰撞检测 (通过 faceLocation 或精确距离计算，彻底杜绝 NaN)
   try {
     const blockHit = dimension.getBlockFromRay(headPos, dir, {
       maxDistance: maxRange,
       includePassableBlocks: false,
       includeLiquidBlocks: false
     });
-    if (blockHit && blockHit.block) {
+
+    if (blockHit) {
       hitBlock = true;
-      blockDist = blockHit.distance;
-      impactLoc = {
-        x: headPos.x + dir.x * blockDist,
-        y: headPos.y + dir.y * blockDist,
-        z: headPos.z + dir.z * blockDist
-      };
+      if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
+        impactLoc = {
+          x: blockHit.faceLocation.x,
+          y: blockHit.faceLocation.y,
+          z: blockHit.faceLocation.z
+        };
+        blockDist = Math.hypot(impactLoc.x - hx, impactLoc.y - hy, impactLoc.z - hz);
+      } else if (blockHit.block) {
+        const bl = blockHit.block.location;
+        impactLoc = { x: bl.x + 0.5, y: bl.y + 0.5, z: bl.z + 0.5 };
+        blockDist = Math.hypot(impactLoc.x - hx, impactLoc.y - hy, impactLoc.z - hz);
+      }
     }
   } catch {}
 
-  // 2. 实体射线碰撞检测
+  // 2. 实体射线碰撞检测 (在方块遮挡距离内的第一个实体)
   try {
     const entityHits = dimension.getEntitiesFromRay(headPos, dir, {
       maxDistance: blockDist,
       ignoreBlockCollision: false
     });
 
-    for (const hit of entityHits) {
-      const ent = hit.entity;
-      if (ent && ent.isValid() && ent.id !== player.id) {
-        if (ent.typeId !== 'minecraft:item' && ent.typeId !== 'minecraft:xp_orb') {
-          hitEntity = ent;
-          impactLoc = {
-            x: headPos.x + dir.x * hit.distance,
-            y: headPos.y + dir.y * hit.distance,
-            z: headPos.z + dir.z * hit.distance
-          };
-          break;
-        }
+    if (entityHits && entityHits.length > 0) {
+      for (const hit of entityHits) {
+        const ent = hit.entity;
+        if (!ent || !ent.isValid() || ent.id === player.id) continue;
+        if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+
+        hitEntity = ent;
+        const eDist = (typeof hit.distance === 'number' && Number.isFinite(hit.distance))
+          ? hit.distance
+          : Math.hypot(ent.location.x - hx, ent.location.y - hy, ent.location.z - hz);
+
+        impactLoc = {
+          x: hx + dx * eDist,
+          y: hy + dy * eDist,
+          z: hz + dz * eDist
+        };
+        break;
       }
     }
   } catch {}
 
-  // 3. 渲染枪口火光与高密度曳光弹道
+  // 3. 渲染枪口火光与发光曳光弹道 (全方位朝向 100% 触发)
   spawnMuzzleFlash(dimension, spawnLoc, gun);
   drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
 
@@ -141,7 +191,6 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
   if (hitEntity) {
     DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc);
   } else if (hitBlock) {
-    // 命中方块产生跳弹火花与撞击烟尘
     try {
       dimension.spawnParticle('minecraft:crit', impactLoc);
       dimension.spawnParticle('minecraft:basic_smoke_particle', impactLoc);
@@ -154,7 +203,7 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     if (projectile) {
       projectile.addTag('tg_weapon:' + gun.id);
       projectile.addTag('tg_shooter:' + player.id);
-      const velocity = MathUtils.scale(dir, gun.shootPower);
+      const velocity = { x: dx * gun.shootPower, y: dy * gun.shootPower, z: dz * gun.shootPower };
       projectile.applyImpulse(velocity);
     }
   } catch {}
@@ -170,27 +219,35 @@ export function fireBullet(player, gun) {
     const PELLETS = 6;
     const spreadFactor = 0.075;
 
-    let right = { x: -viewDir.z, y: 0, z: viewDir.x };
-    const rLen = MathUtils.length(right);
-    right = rLen > 1e-4 ? MathUtils.scale(right, 1 / rLen) : { x: 1, y: 0, z: 0 };
+    const vx = Number(viewDir.x) || 0;
+    const vy = Number(viewDir.y) || 0;
+    const vz = Number(viewDir.z) || 0;
 
-    const up = {
-      x: viewDir.y * right.z - viewDir.z * right.y,
-      y: viewDir.z * right.x - viewDir.x * right.z,
-      z: viewDir.x * right.y - viewDir.y * right.x
-    };
+    let rx = -vz;
+    let rz = vx;
+    const rLen = Math.hypot(rx, rz);
+    if (rLen < 1e-4) {
+      rx = 1;
+      rz = 0;
+    } else {
+      rx /= rLen;
+      rz /= rLen;
+    }
+
+    const ux = vy * rz;
+    const uy = vz * rx - vx * rz;
+    const uz = -vy * rx;
 
     for (let i = 0; i < PELLETS; i++) {
       const offsetX = (Math.random() - 0.5) * 2 * spreadFactor;
       const offsetY = (Math.random() - 0.5) * 2 * spreadFactor;
 
-      const spreadDir = MathUtils.normalize(
-        MathUtils.add(
-          MathUtils.add(viewDir, MathUtils.scale(right, offsetX)),
-          MathUtils.scale(up, offsetY)
-        )
-      );
+      const px = vx + rx * offsetX + ux * offsetY;
+      const py = vy + uy * offsetY;
+      const pz = vz + rz * offsetX + uz * offsetY;
+      const pLen = Math.hypot(px, py, pz) || 1;
 
+      const spreadDir = { x: px / pLen, y: py / pLen, z: pz / pLen };
       processBulletRay(player, gun, spreadDir, spawnLoc, maxRange);
     }
   } else {
