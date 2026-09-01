@@ -19,8 +19,7 @@
         "value": "战术突击重装防弹衣 §9[优良·7点护甲·防击退]§r"
       },
       "minecraft:wearable": {
-        "slot": "slot.armor.chest",
-        "dispensable": true
+        "slot": "slot.armor.chest"
       },
       "minecraft:durability": {
         "max_durability": 550

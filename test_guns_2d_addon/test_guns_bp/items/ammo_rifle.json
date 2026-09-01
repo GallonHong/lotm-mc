@@ -4,7 +4,7 @@
     "description": {
       "identifier": "test_gun:ammo_rifle",
       "menu_category": {
-        "category": "equipment"
+        "category": "items"
       }
     },
     "components": {
@@ -14,6 +14,9 @@
       "minecraft:icon": "test_gun_ammo_rifle",
       "minecraft:display_name": {
         "value": "突击步枪子弹 §8[步枪通用]§r"
+      },
+      "minecraft:hand_equipped": {
+        "value": false
       }
     }
   }

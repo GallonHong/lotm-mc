@@ -19,8 +19,7 @@
         "value": "战术离子喷气背包 §6[传说·双跳飞升·缓降]§r"
       },
       "minecraft:wearable": {
-        "slot": "slot.armor.chest",
-        "dispensable": true
+        "slot": "slot.armor.chest"
       },
       "minecraft:durability": {
         "max_durability": 750

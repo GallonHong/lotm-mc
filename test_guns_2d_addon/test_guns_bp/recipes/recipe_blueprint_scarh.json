@@ -12,13 +12,10 @@
         "item": "test_gun:blueprint_blank"
       },
       {
-        "item": "minecraft:iron_ingot"
+        "item": "minecraft:copper_block"
       },
       {
-        "item": "minecraft:copper_ingot"
-      },
-      {
-        "item": "minecraft:lapis_lazuli"
+        "item": "minecraft:gold_ingot"
       }
     ],
     "result": {

@@ -19,8 +19,7 @@
         "value": "泰坦动力外骨骼装甲 §5[史诗·12点满护甲·力量增幅]§r"
       },
       "minecraft:wearable": {
-        "slot": "slot.armor.chest",
-        "dispensable": true
+        "slot": "slot.armor.chest"
       },
       "minecraft:durability": {
         "max_durability": 850

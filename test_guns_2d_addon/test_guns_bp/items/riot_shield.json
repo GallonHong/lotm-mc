@@ -19,8 +19,7 @@
         "value": "战术反甲防暴盾 §5[史诗·50%荆棘反伤]§r"
       },
       "minecraft:wearable": {
-        "slot": "slot.weapon.offhand",
-        "dispensable": true
+        "slot": "slot.weapon.offhand"
       },
       "minecraft:durability": {
         "max_durability": 750

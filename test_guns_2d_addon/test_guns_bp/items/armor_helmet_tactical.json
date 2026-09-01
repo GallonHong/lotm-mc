@@ -19,8 +19,7 @@
         "value": "特警防暴防弹头盔 §9[优良·3点护甲·防爆头]§r"
       },
       "minecraft:wearable": {
-        "slot": "slot.armor.head",
-        "dispensable": true
+        "slot": "slot.armor.head"
       },
       "minecraft:durability": {
         "max_durability": 400

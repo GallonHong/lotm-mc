@@ -12,10 +12,10 @@
         "item": "test_gun:blueprint_blank"
       },
       {
-        "item": "minecraft:iron_nugget"
+        "item": "minecraft:oak_planks"
       },
       {
-        "item": "minecraft:redstone"
+        "item": "minecraft:iron_ingot"
       }
     ],
     "result": {

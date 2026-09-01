@@ -19,8 +19,7 @@
         "value": "凯夫拉轻型防弹衣 §f[普通·4点护甲]§r"
       },
       "minecraft:wearable": {
-        "slot": "slot.armor.chest",
-        "dispensable": true
+        "slot": "slot.armor.chest"
       },
       "minecraft:durability": {
         "max_durability": 350
