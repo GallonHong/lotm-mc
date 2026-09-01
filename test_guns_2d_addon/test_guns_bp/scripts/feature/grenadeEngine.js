@@ -14,15 +14,16 @@ export class GrenadeEngine {
       const dim = player.dimension;
       const headLoc = player.getHeadLocation();
       const viewDir = player.getViewDirection();
+      const pLoc = player.location;
 
-      const hx = Number(headLoc.x) || 0;
-      const hy = Number(headLoc.y) || 0;
-      const hz = Number(headLoc.z) || 0;
-      const vx = Number(viewDir.x) || 0;
-      const vy = Number(viewDir.y) || 0;
-      const vz = Number(viewDir.z) || 0;
+      const hx = Number(headLoc?.x) || Number(pLoc?.x) || 0;
+      const hy = Number(headLoc?.y) || (Number(pLoc?.y) + 1.6) || 64;
+      const hz = Number(headLoc?.z) || Number(pLoc?.z) || 0;
+      const vx = Number(viewDir?.x) || 0;
+      const vy = Number(viewDir?.y) || 0;
+      const vz = Number(viewDir?.z) || 1;
 
-      // 榴弹初速向量 (初速约 1.45 格/tick + 仰角推力)
+      // 榴弹初速向量
       const baseSpeed = 1.45;
       const launchVel = {
         x: vx * baseSpeed,
@@ -38,13 +39,13 @@ export class GrenadeEngine {
 
       this.activeGrenades.push({
         shooterId: player.id,
-        dim: dim, // 直接持有 Dimension 实例
+        dim: dim,
         pos: startPos,
         velocity: launchVel,
-        gravity: 0.045, // 40mm 重力加速度
-        drag: 0.995,    // 空气阻力
+        gravity: 0.045,
+        drag: 0.995,
         age: 0,
-        maxAge: 90,     // 4.5秒后强制引爆
+        maxAge: 90,
         gun
       });
 
@@ -116,7 +117,7 @@ export class GrenadeEngine {
             includeLiquidBlocks: true
           });
 
-          if (blockHit && blockHit.block) {
+          if (blockHit) {
             hasCollided = true;
             if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
               impactLoc = {
@@ -124,13 +125,9 @@ export class GrenadeEngine {
                 y: blockHit.faceLocation.y + 0.25,
                 z: blockHit.faceLocation.z
               };
-            } else {
-              const bDist = blockHit.distance || moveDist;
-              impactLoc = {
-                x: curPos.x + normDir.x * bDist,
-                y: curPos.y + normDir.y * bDist + 0.2,
-                z: curPos.z + normDir.z * bDist
-              };
+            } else if (blockHit.block) {
+              const bl = blockHit.block.location;
+              impactLoc = { x: bl.x + 0.5, y: bl.y + 0.5, z: bl.z + 0.5 };
             }
           }
         } catch {}
@@ -148,7 +145,7 @@ export class GrenadeEngine {
 
         // 3. 实体碰撞检测
         try {
-          const checkMax = hasCollided ? Math.min(moveDist, Math.hypot(impactLoc.x - curPos.x, impactLoc.y - curPos.y, impactLoc.z - curPos.z)) : moveDist + 0.3;
+          const checkMax = hasCollided && impactLoc ? Math.min(moveDist, Math.hypot(impactLoc.x - curPos.x, impactLoc.y - curPos.y, impactLoc.z - curPos.z)) : moveDist + 0.3;
           const entityHits = dim.getEntitiesFromRay(curPos, normDir, {
             maxDistance: checkMax,
             ignoreBlockCollision: false
@@ -201,6 +198,7 @@ export class GrenadeEngine {
    */
   static explode(dim, loc, shooterId, gun, directHitEntity) {
     if (!dim || !loc) return;
+    if (!Number.isFinite(loc.x) || !Number.isFinite(loc.y) || !Number.isFinite(loc.z)) return;
 
     let shooter = null;
     try {
@@ -208,30 +206,34 @@ export class GrenadeEngine {
       shooter = all.find(p => p.id === shooterId) || null;
     } catch {}
 
+    // Fallback: If loc is uninitialized (0, 1, 0), use shooter location
+    let validLoc = loc;
+    if (Math.abs(loc.x) < 0.001 && Math.abs(loc.z) < 0.001 && Math.abs(loc.y - 1.0) < 0.1 && shooter && shooter.isValid()) {
+      validLoc = shooter.location;
+    }
+
     const stats = gun.stats || { damage: 40, heSplashDamage: 45, heRadius: 6.0 };
 
     // 1. 直击动能伤害
     if (directHitEntity && directHitEntity.isValid()) {
-      DamageHandler.handleHit(null, shooter, directHitEntity, gun, loc);
+      DamageHandler.handleHit(null, shooter, directHitEntity, gun, validLoc);
     }
 
-    // 2. 生成震撼爆炸光效与冲击波粒子 (多重粒子组合保证 100% 渲染)
+    // 2. 生成震撼爆炸光效与冲击波粒子 (保护在 try/catch 中防止未加载区块错误)
     try {
-      dim.spawnParticle('test_gun:mgl_explosion', loc);
-      dim.spawnParticle('test_gun:mgl_shockwave', loc);
-      dim.spawnParticle('minecraft:huge_explosion_emitter', loc);
-      dim.spawnParticle('minecraft:explosion_manual', loc);
-      dim.spawnParticle('minecraft:sonic_explosion', loc);
-      dim.spawnParticle('minecraft:lava_particle', loc);
-      dim.spawnParticle('minecraft:basic_flame_particle', loc);
-    } catch (e) {
-      console.warn('Failed to spawn explosion particles:', e);
-    }
+      dim.spawnParticle('test_gun:mgl_explosion', validLoc);
+      dim.spawnParticle('test_gun:mgl_shockwave', validLoc);
+      dim.spawnParticle('minecraft:huge_explosion_emitter', validLoc);
+      dim.spawnParticle('minecraft:explosion_manual', validLoc);
+      dim.spawnParticle('minecraft:sonic_explosion', validLoc);
+      dim.spawnParticle('minecraft:lava_particle', validLoc);
+      dim.spawnParticle('minecraft:basic_flame_particle', validLoc);
+    } catch (e) {}
 
     // 3. 播放重型轰鸣爆炸音效
     try {
-      dim.playSound('random.explode', loc, { volume: 2.0, pitch: 0.95 });
-      dim.playSound('mob.ghast.fireball', loc, { volume: 1.5, pitch: 0.85 });
+      dim.playSound('random.explode', validLoc, { volume: 2.0, pitch: 0.95 });
+      dim.playSound('mob.ghast.fireball', validLoc, { volume: 1.5, pitch: 0.85 });
     } catch {}
 
     // 4. AOE 范围高爆破片伤害结算 (无敌帧穿透)
@@ -240,7 +242,7 @@ export class GrenadeEngine {
 
     try {
       const nearby = dim.getEntities({
-        location: loc,
+        location: validLoc,
         maxDistance: radius
       });
 
@@ -251,7 +253,7 @@ export class GrenadeEngine {
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
 
         const el = ent.location;
-        const dist = Math.hypot(el.x - loc.x, el.y - loc.y, el.z - loc.z);
+        const dist = Math.hypot(el.x - validLoc.x, el.y - validLoc.y, el.z - validLoc.z);
         if (dist > radius) continue;
 
         const falloff = Math.max(0.5, 1.0 - (dist / (radius + 1)) * 0.5);
@@ -272,15 +274,13 @@ export class GrenadeEngine {
         try { ent.setOnFire(4, true); } catch {}
 
         try {
-          const kx = (el.x - loc.x) / (dist + 0.1);
-          const kz = (el.z - loc.z) / (dist + 0.1);
+          const kx = (el.x - validLoc.x) / (dist + 0.1);
+          const kz = (el.z - validLoc.z) / (dist + 0.1);
           ent.applyKnockback(kx * 0.8, kz * 0.8, 0.8, 0.4);
         } catch {}
 
         DamageHandler.triggerMobAggro(ent, shooter);
       }
-    } catch (err) {
-      console.warn('AOE splash damage error:', err);
-    }
+    } catch (err) {}
   }
 }

@@ -131,7 +131,7 @@ export class DamageHandler {
     // 5. 命中粒子特效与音效反馈
     try {
       const dim = target.dimension;
-      const hitLoc = impactLocation || { x: targetLoc.x, y: targetLoc.y + 1.0, z: targetLoc.z };
+      const hitLoc = (impactLocation && Number.isFinite(impactLocation.x)) ? impactLocation : { x: targetLoc.x, y: targetLoc.y + 1.0, z: targetLoc.z };
       if (headshot) {
         dim.spawnParticle('minecraft:critical_hit_emitter', hitLoc);
       } else {
