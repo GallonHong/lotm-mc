@@ -39,7 +39,7 @@ export class ShotgunEngine {
   }
 
   /**
-   * 触发圣盾防暴霰弹枪开火 (8 枚弹丸同时发射，计入目标护甲免伤减伤与盾牌格挡)
+   * 触发圣盾防暴霰弹枪开火 (8 枚弹丸同时发射，计入目标护甲免伤减伤与仇恨唤醒)
    */
   static fireShotgun(player, config) {
     if (!player || !player.isValid()) return null;
@@ -145,6 +145,8 @@ export class ShotgunEngine {
 
           // B. 判定受击目标是否持盾格挡与反甲反震
           const blockResult = ShieldEngine.checkBulletShieldBlock(player, hitEntity, armorMitigatedDmg, config);
+          DamageResolver.triggerMobAggro(hitEntity, player);
+
           if (blockResult.blocked && blockResult.damage <= 0) {
             continue; // 弹丸被完全格挡
           }
@@ -163,18 +165,25 @@ export class ShotgunEngine {
           prev.totalDamage += finalPelletDmg;
           hitMap.set(targetId, prev);
 
-          // C. 施加单枚弹丸伤害
+          // C. 施加单枚弹丸伤害并传递 player 作为伤害源
           const healthComp = hitEntity.getComponent("minecraft:health");
           const curHp = healthComp?.currentValue ?? 20;
 
           try {
             hitEntity.applyDamage(finalPelletDmg, {
-              cause: EntityDamageCause.override,
+              cause: EntityDamageCause.projectile,
               damagingEntity: player
             });
           } catch (e) {
-            if (healthComp) {
-              healthComp.setCurrentValue(Math.max(0, curHp - finalPelletDmg));
+            try {
+              hitEntity.applyDamage(finalPelletDmg, {
+                cause: EntityDamageCause.override,
+                damagingEntity: player
+              });
+            } catch (e2) {
+              if (healthComp) {
+                healthComp.setCurrentValue(Math.max(0, curHp - finalPelletDmg));
+              }
             }
           }
 
