@@ -4,6 +4,35 @@ export class ShieldEngine {
   static #shieldBashCooldowns = new Map(); // playerId -> nextReadyTick
 
   /**
+   * 计算不同枪械实弹对盾牌造成的动能耐久损耗
+   */
+  static calculateShieldDurabilityLoss(gunConfig, isApexRiot = false) {
+    let baseLoss = 10;
+    const gunId = gunConfig?.id;
+
+    if (gunId === "apex:vector") {
+      baseLoss = 12; // Vector 极速子弹每发损耗 12 耐久 (暴走狂潮 28 发直接打爆 336 耐久原版盾)
+    } else if (gunId === "apex:ak47") {
+      baseLoss = 16; // AK-47 7.62mm 重弹每发损耗 16 耐久 (一梭子必碎)
+    } else if (gunId === "apex:m82") {
+      baseLoss = 120; // 巴雷特 .50 穿甲重狙单发损耗 120 耐久 (3枪轰碎原版盾)
+    } else if (gunId === "apex:shotgun") {
+      baseLoss = 8;  // 霰弹枪单枚弹丸损耗 8 耐久 (8 发全中损耗 64 耐久)
+    } else if (gunId === "apex:mgl") {
+      baseLoss = 150; // M32 40mm 高爆弹单发损耗 150 耐久 (2发炸碎原版盾)
+    } else if (gunId === "apex:arc_emitter") {
+      baseLoss = 18; // 特斯拉高压电弧损耗 18 耐久
+    }
+
+    // 重装战术反甲盾拥有 50% 动能磨损抗性
+    if (isApexRiot) {
+      baseLoss = Math.max(1, Math.round(baseLoss * 0.5));
+    }
+
+    return baseLoss;
+  }
+
+  /**
    * 检查玩家/实体是否装备了盾牌 (支持副手槽、主手槽、原生 Equippable 及背包快捷栏)
    */
   static getEquippedShield(entity) {
@@ -46,7 +75,7 @@ export class ShieldEngine {
   }
 
   /**
-   * 判定盾牌格挡与反甲反震结算 (支持原版盾牌与 Apex 战术反甲盾)
+   * 判定盾牌格挡与反甲反震结算 (大幅提高枪械动能耐久消耗，支持盾牌击碎系统)
    */
   static checkBulletShieldBlock(attacker, target, incomingDamage, gunConfig) {
     if (!target || !target.isValid()) return { blocked: false, damage: incomingDamage };
@@ -57,20 +86,16 @@ export class ShieldEngine {
       return { blocked: false, damage: incomingDamage };
     }
 
-    // 2. 判定格挡姿态：
-    // 如果持有【重装战术反甲盾】，只要面向敌方即具备战术防弹偏折；
-    // 如果持有【原版盾牌】，支持潜行(Shift)、使用物品(右键)或正面迎弹；
+    // 2. 判定格挡姿态
     const isPlayer = target.typeId === "minecraft:player";
     const isSneaking = target.isSneaking ?? false;
     const isUsingItem = target.isItemUsing ?? false;
-
-    // 非玩家实体(如靶人/生物)只要装备盾牌即可生效；玩家只要持反甲盾或在举盾/潜行即可生效
     const isBlockingStance = !isPlayer || shieldInfo.isApexRiot || isSneaking || isUsingItem;
     if (!isBlockingStance) {
       return { blocked: false, damage: incomingDamage };
     }
 
-    // 3. 判定格挡水平朝向角度 (2D 归一化水平向量)
+    // 3. 判定格挡水平朝向角度 (2D 水平向量)
     if (attacker && attacker.isValid()) {
       const aLoc = attacker.location;
       const tLoc = target.location;
@@ -91,7 +116,7 @@ export class ShieldEngine {
           const normTz = tView.z / tvLen;
           const dot = toAttackerX * normTx + toAttackerZ * normTz;
 
-          // 只要不是纯后背受击 (面向前方 160° 扇形范围 dot > -0.2) 均判定为正面防弹格挡成功！
+          // 正面 160° 扇形范围格挡
           if (dot < -0.2) {
             return { blocked: false, damage: incomingDamage };
           }
@@ -99,7 +124,7 @@ export class ShieldEngine {
       }
     }
 
-    // 4. 格挡成功视听特效与耐久消耗
+    // 4. 格挡成功视听特效
     const dim = target.dimension;
     const tLoc = target.location;
     const blockSparkPos = { x: tLoc.x, y: tLoc.y + 1.2, z: tLoc.z };
@@ -111,19 +136,66 @@ export class ShieldEngine {
       dim.spawnParticle("apex:arc_spark", blockSparkPos);
     } catch {}
 
-    // 消耗盾牌耐久度
+    // 5. 动能耐久损耗与【盾牌破碎】检测
+    let shieldBroken = false;
     try {
       const durComp = shieldInfo.item.getComponent("minecraft:durability");
       if (durComp) {
-        durComp.damage = Math.min(durComp.maxDurability, durComp.damage + 1);
-        const equippable = target.getComponent("minecraft:equippable");
-        equippable?.setEquipment(shieldInfo.slot, shieldInfo.item);
-      }
-    } catch {}
+        const loss = this.calculateShieldDurabilityLoss(gunConfig, shieldInfo.isApexRiot);
+        const newDmg = durComp.damage + loss;
 
-    // 5. 特殊武器穿透与反甲结算
+        if (newDmg >= durComp.maxDurability) {
+          // 💥 盾牌耐久耗尽，彻底被打爆碎裂！
+          shieldBroken = true;
+          const equippable = target.getComponent("minecraft:equippable");
+          try {
+            equippable?.setEquipment(shieldInfo.slot, undefined);
+          } catch {}
+
+          if (shieldInfo.slot === "Mainhand" && typeof target.selectedSlotIndex === "number") {
+            try {
+              const inv = target.getComponent("minecraft:inventory");
+              inv?.container?.setItem(target.selectedSlotIndex, undefined);
+            } catch {}
+          }
+
+          // 播放碎裂重型音效与破碎特效
+          try {
+            dim.playSound("random.break", tLoc, { volume: 1.8, pitch: 0.85 });
+            dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", blockSparkPos);
+            dim.spawnParticle("minecraft:crit", blockSparkPos);
+          } catch {}
+
+          target.onScreenDisplay?.setActionBar?.(`§c💥 您的盾牌已被敌方枪械火力彻底击碎摧毁！`);
+          if (attacker && attacker.isValid()) {
+            attacker.onScreenDisplay?.setActionBar?.(`§a💥 敌方的盾牌已被您的强力火力当场击碎！`);
+            try {
+              attacker.playSound("random.orb", attacker.location, { volume: 1.0, pitch: 1.2 });
+            } catch {}
+          }
+        } else {
+          durComp.damage = newDmg;
+          const equippable = target.getComponent("minecraft:equippable");
+          equippable?.setEquipment(shieldInfo.slot, shieldInfo.item);
+        }
+      }
+    } catch (e) {
+      console.warn(`[ApexFirearms] Shield durability deduction error: ${e}`);
+    }
+
+    // 盾牌破碎时，穿透 50% 伤害
+    if (shieldBroken) {
+      return {
+        blocked: true,
+        damage: Math.max(1, Math.round(incomingDamage * 0.5)),
+        shieldBroken: true,
+        isApexRiot: shieldInfo.isApexRiot
+      };
+    }
+
+    // 6. 特殊武器穿透与反甲结算
     if (shieldInfo.isApexRiot) {
-      // ⭐ 【重装战术动能反甲盾】：100% 格挡所有实弹与近战，并反弹 50% 真实伤害与冲击波！
+      // ⭐ 【重装战术动能反甲盾】：100% 格挡并反弹 50% 真实伤害与冲击波！
       let reflectedDmg = Math.max(2, Math.round(incomingDamage * 0.5));
       if (attacker && attacker.isValid() && attacker.id !== target.id) {
         try {
@@ -132,7 +204,6 @@ export class ShieldEngine {
             damagingEntity: target
           });
 
-          // 施加反震击退与火花
           const aView = attacker.getViewDirection();
           attacker.applyKnockback(-aView.x, -aView.z, 0.7, 0.2);
           attacker.dimension.spawnParticle("minecraft:sonic_explosion", attacker.location);
@@ -157,7 +228,6 @@ export class ShieldEngine {
       return { blocked: true, damage: 0, isApexRiot: true };
     } else {
       // ⭐ 【原版盾牌】：
-      // 对巴雷特 M82 .50 穿甲重狙：穿透 40% 残余伤害
       if (gunConfig?.id === "apex:m82") {
         const piercedDmg = Math.round(incomingDamage * 0.4);
         try {
@@ -171,12 +241,12 @@ export class ShieldEngine {
         return { blocked: true, damage: piercedDmg, isApexRiot: false };
       }
 
-      // 其他常规武器 100% 完全格挡
+      // 常规武器完全格挡 (耐久已大幅扣减)
       try {
         target.onScreenDisplay?.setActionBar?.(`§a🛡️ 原版盾牌成功格挡实弹伤害！`);
       } catch {}
       if (attacker && attacker.isValid()) {
-        attacker.onScreenDisplay?.setActionBar?.(`§e🛡️ 敌方盾牌完全格挡了您的子弹!`);
+        attacker.onScreenDisplay?.setActionBar?.(`§e🛡️ 敌方盾牌格挡了您的子弹! (消耗敌方巨额盾牌耐久)`);
       }
       return { blocked: true, damage: 0, isApexRiot: false };
     }
