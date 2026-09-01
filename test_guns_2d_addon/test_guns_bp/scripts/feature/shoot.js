@@ -2,18 +2,26 @@ import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { fireBullet } from './utils/shootUtils.js';
 import { GrenadeEngine } from './grenadeEngine.js';
 import { ArcEngine } from './arcEngine.js';
-import { showAmmoHUD, showOutOfAmmoHUD } from './ui.js';
+import { showAmmoHUD, showOutOfAmmoHUD, updateActionBar } from './ui.js';
 import { ReloadManager } from './reload.js';
 import { SkillManager } from './skillManager.js';
 import { FireMode } from '../data/types.js';
-import { EquipmentSlot } from '@minecraft/server';
+import { EquipmentSlot, EntityDamageCause } from '@minecraft/server';
 
 export class ShootManager {
   static playerCooldowns = new Map();
   static playerShooting = new Map();
+  static arcChargeTicks = new Map(); // playerId -> number (0 ~ 20 ticks)
 
   static setTriggerState(player, isDown) {
     this.playerShooting.set(player.id, isDown);
+    if (!isDown) {
+      const charge = this.arcChargeTicks.get(player.id) || 0;
+      if (charge > 0 && charge < 20) {
+        this.arcChargeTicks.delete(player.id);
+        updateActionBar(player, '§7[⚡ 蓄能中断 / Charge Cancelled]§r');
+      }
+    }
   }
 
   static isTriggerDown(player) {
@@ -23,11 +31,9 @@ export class ShootManager {
   static clearPlayer(player) {
     this.playerShooting.delete(player.id);
     this.playerCooldowns.delete(player.id);
+    this.arcChargeTicks.delete(player.id);
   }
 
-  /**
-   * 射击即时消耗耐久度并实时更新物品栏耐久条
-   */
   static deductDurability(player, gun) {
     if (!player || !player.isValid() || !gun) return;
     try {
@@ -77,7 +83,79 @@ export class ShootManager {
     }
 
     if (currentCd <= 0 && gun) {
-      this.executeShot(player, gun);
+      if (gun.isArcWeapon) {
+        this.processArcCharge(player, gun);
+      } else {
+        this.executeShot(player, gun);
+      }
+    }
+  }
+
+  /**
+   * 特斯拉高能电弧发射器：1.0 秒 (20 刻) 右键蓄力逻辑
+   */
+  static processArcCharge(player, gun) {
+    const currentAmmo = getCurrentAmmo(player, gun);
+    if (currentAmmo <= 0) {
+      this.arcChargeTicks.delete(player.id);
+      showOutOfAmmoHUD(player, gun);
+      try {
+        player.dimension.playSound('random.click', player.location, { volume: 0.5, pitch: 1.2 });
+      } catch {}
+      this.playerCooldowns.set(player.id, 10);
+      ReloadManager.startReload(player, gun);
+      return;
+    }
+
+    const currentTicks = (this.arcChargeTicks.get(player.id) || 0) + 1;
+    this.arcChargeTicks.set(player.id, currentTicks);
+
+    const CHARGE_MAX = 20; // 1.0 秒 = 20 ticks
+    const progress = Math.min(1.0, currentTicks / CHARGE_MAX);
+    const percent = Math.floor(progress * 100);
+
+    const filled = Math.min(10, Math.floor(progress * 10));
+    const empty = 10 - filled;
+    const bar = '§b' + '■'.repeat(filled) + '§8' + '□'.repeat(empty) + '§r';
+
+    updateActionBar(player, `§e[特斯拉高压蓄能]§r ${bar} §b${percent}% ⚡§r §7(按住右键蓄满击发)§r`);
+
+    try {
+      const pLoc = player.location;
+      const head = player.getHeadLocation();
+      const view = player.getViewDirection();
+      const muzzle = {
+        x: head.x + view.x * 0.45,
+        y: head.y + view.y * 0.45 - 0.08,
+        z: head.z + view.z * 0.45
+      };
+
+      player.dimension.spawnParticle('test_gun:arc_spark', muzzle);
+      if (currentTicks % 4 === 0) {
+        player.dimension.spawnParticle('minecraft:endrod', muzzle);
+        const pitch = 0.8 + (currentTicks / CHARGE_MAX) * 1.2;
+        player.dimension.playSound('random.orb', pLoc, { volume: 0.7, pitch: pitch });
+      }
+    } catch {}
+
+    // 蓄满 1.0 秒 (20 ticks) -> 释放高能电弧闪电
+    if (currentTicks >= CHARGE_MAX) {
+      this.arcChargeTicks.delete(player.id);
+
+      const newAmmo = currentAmmo - 1;
+      setCurrentAmmo(player, gun, newAmmo);
+
+      this.deductDurability(player, gun);
+      ArcEngine.fireArc(player, gun);
+
+      try {
+        player.dimension.playSound('ambient.weather.thunder', player.location, { volume: 2.0, pitch: 1.1 });
+        player.dimension.playSound('mob.ghast.fireball', player.location, { volume: 1.5, pitch: 1.4 });
+      } catch {}
+
+      showAmmoHUD(player, gun, newAmmo);
+      this.playerCooldowns.set(player.id, gun.fireRate || 10);
+      this.setTriggerState(player, false);
     }
   }
 
@@ -121,20 +199,14 @@ export class ShootManager {
       return;
     }
 
-
-    // 1. 扣除武器耐久度
     this.deductDurability(player, gun);
 
-    // 2. 发射武器弹道
     if (gun.isGrenadeLauncher) {
       GrenadeEngine.launchGrenade(player, gun);
-    } else if (gun.isArcWeapon) {
-      ArcEngine.fireArc(player, gun);
     } else {
       fireBullet(player, gun);
     }
 
-    // 3. 播放开火枪声
     if (gun.shootSound) {
       try {
         player.dimension.playSound(gun.shootSound, player.location, {
@@ -144,7 +216,6 @@ export class ShootManager {
       } catch {}
     }
 
-    // 4. 显示弹药 HUD 并进入射击冷却
     showAmmoHUD(player, gun, newAmmo);
     this.playerCooldowns.set(player.id, gun.fireRate || 4);
 
