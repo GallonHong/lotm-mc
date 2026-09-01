@@ -45,10 +45,10 @@
       "textures": "textures/guns/mp7_old"
     },
     "test_gun_mgl": {
-      "textures": "textures/guns/mgl_rotary"
+      "textures": "textures/guns/mgl_tempest"
     },
     "test_gun_arc_emitter": {
-      "textures": "textures/guns/arc_emitter_real"
+      "textures": "textures/guns/arc_emitter_tesla"
     },
     "test_gun_jetpack": {
       "textures": "textures/items/jetpack"
