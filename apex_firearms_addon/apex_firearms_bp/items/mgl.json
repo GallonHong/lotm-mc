@@ -36,7 +36,7 @@
       },
       "minecraft:enchantable": {
         "value": 14,
-        "slot": "unbreaking"
+        "slot": "crossbow"
       },
       "minecraft:tags": {
         "tags": [
