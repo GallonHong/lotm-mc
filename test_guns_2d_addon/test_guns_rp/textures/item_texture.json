@@ -3,22 +3,22 @@
   "texture_name": "atlas.items",
   "texture_data": {
     "test_gun_ak47": {
-      "textures": "textures/guns/ak47_actual"
+      "textures": "textures/guns/ak47_dz"
     },
     "test_gun_ak74u": {
-      "textures": "textures/guns/ak74u_actual"
+      "textures": "textures/guns/ak74u_dz"
     },
     "test_gun_shotgun": {
-      "textures": "textures/guns/m870_actual"
+      "textures": "textures/guns/m870_dz"
     },
     "test_gun_m1897": {
-      "textures": "textures/guns/m1897_actual"
+      "textures": "textures/guns/m1897_dz"
     },
     "test_gun_bizon": {
       "textures": "textures/guns/bizon_actual"
     },
     "test_gun_glock": {
-      "textures": "textures/guns/glock_actual"
+      "textures": "textures/guns/glock_dz"
     },
     "test_gun_scarh": {
       "textures": "textures/guns/scarh_actual"
@@ -33,10 +33,10 @@
       "textures": "textures/guns/deagle_actual"
     },
     "test_gun_svd": {
-      "textures": "textures/guns/svd_actual"
+      "textures": "textures/guns/svd_dz"
     },
     "test_gun_m1014": {
-      "textures": "textures/guns/m1014_actual"
+      "textures": "textures/guns/m1014_dz"
     },
     "test_gun_m82": {
       "textures": "textures/guns/m82_actual"
@@ -57,34 +57,34 @@
       "textures": "textures/items/riot_shield"
     },
     "test_gun_armor_vest_light": {
-      "textures": "textures/armor/armor_vest_light"
+      "textures": "textures/armor/armor_vest_light_dz"
     },
     "test_gun_armor_vest_heavy": {
-      "textures": "textures/armor/armor_vest_heavy"
+      "textures": "textures/armor/armor_vest_heavy_dz"
     },
     "test_gun_armor_helmet_tactical": {
-      "textures": "textures/armor/armor_helmet_tactical"
+      "textures": "textures/armor/armor_helmet_tactical_dz"
     },
     "test_gun_armor_titan_chest": {
-      "textures": "textures/armor/armor_titan_chest"
+      "textures": "textures/armor/armor_titan_chest_dz"
     },
     "test_gun_ammo_rifle": {
-      "textures": "textures/ammo/ammo_rifle_actual"
+      "textures": "textures/ammo/ammo_rifle_dz"
     },
     "test_gun_ammo_shotgun": {
-      "textures": "textures/ammo/ammo_shotgun_actual"
+      "textures": "textures/ammo/ammo_shotgun_dz"
     },
     "test_gun_ammo_45acp": {
-      "textures": "textures/ammo/ammo_45acp_actual"
+      "textures": "textures/ammo/ammo_45acp_dz"
     },
     "test_gun_ammo_50cal": {
-      "textures": "textures/ammo/ammo_50cal_actual"
+      "textures": "textures/ammo/ammo_50cal_dz"
     },
     "test_gun_ammo_40mm": {
-      "textures": "textures/ammo/ammo_40mm_actual"
+      "textures": "textures/ammo/ammo_40mm_dz"
     },
     "test_gun_ammo_battery": {
-      "textures": "textures/ammo/ammo_battery"
+      "textures": "textures/ammo/ammo_battery_dz"
     },
     "test_gun_part_barrel": {
       "textures": "textures/parts/part_barrel"
@@ -135,7 +135,7 @@
       "textures": "textures/blueprints/blueprint_legendary"
     },
     "test_gun_m79": {
-      "textures": "textures/guns/m79_actual"
+      "textures": "textures/guns/m79_dz"
     },
     "test_gun_blueprint_m79": {
       "textures": "textures/blueprints/blueprint_rare"
