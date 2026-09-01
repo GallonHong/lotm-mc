@@ -4,8 +4,7 @@
     "description": {
       "identifier": "test_gun:blueprint_m79",
       "menu_category": {
-        "category": "items",
-        "group": "itemGroup.name.misc"
+        "category": "items"
       }
     },
     "components": {
