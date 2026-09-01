@@ -386,26 +386,67 @@ export class BossEngine {
   }
 
   /**
-   * 处理自爆近卫无人机自毁 (避开创造模式玩家)
+   * 处理自爆近卫无人机 3D 飞行追踪与自毁 (避开创造模式玩家，支持空中飞行)
    */
   static handleDroneTick(drone) {
     if (!drone || !drone.isValid()) return;
     const dim = drone.dimension;
     const dLoc = drone.location;
 
-    const nearby = dim.getEntities({
-      location: dLoc,
-      maxDistance: 2.5
-    });
+    // 1. 飞行尾迹推进火焰与浓烟特效
+    try {
+      dim.spawnParticle("minecraft:basic_flame_particle", { x: dLoc.x, y: dLoc.y + 0.2, z: dLoc.z });
+      dim.spawnParticle("minecraft:smoke_particle", { x: dLoc.x, y: dLoc.y - 0.1, z: dLoc.z });
+    } catch {}
 
-    for (const ent of nearby) {
-      if (this.isValidCombatTarget(ent, drone)) {
-        dim.playSound("random.explode", dLoc, { volume: 1.0, pitch: 1.2 });
-        dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", dLoc);
-        ent.applyDamage(30, { cause: EntityDamageCause.override });
-        drone.kill();
-        break;
+    // 2. 搜索 32 格内最近合法战斗目标 (坚守者/正在交战的生物/生存玩家)
+    let target = null;
+    let minDist = 36;
+    try {
+      const nearby = dim.getEntities({ location: dLoc, maxDistance: 32 });
+      for (const ent of nearby) {
+        if (!this.isValidCombatTarget(ent, drone)) continue;
+        const d = Math.hypot(ent.location.x - dLoc.x, ent.location.y - dLoc.y, ent.location.z - dLoc.z);
+        if (d < minDist) {
+          minDist = d;
+          target = ent;
+        }
       }
+    } catch {}
+
+    // 3. 飞行推进或悬浮自爆
+    if (target && target.isValid()) {
+      const tLoc = target.location;
+      const targetCenter = { x: tLoc.x, y: tLoc.y + 1.1, z: tLoc.z };
+      const dx = targetCenter.x - dLoc.x;
+      const dy = targetCenter.y - dLoc.y;
+      const dz = targetCenter.z - dLoc.z;
+      const dist = Math.hypot(dx, dy, dz) || 1.0;
+
+      if (dist <= 2.2) {
+        // 自爆引爆
+        dim.playSound("random.explode", dLoc, { volume: 1.5, pitch: 1.2 });
+        dim.spawnParticle("minecraft:huge_explosion_lab_misc_emitter", dLoc);
+        dim.spawnParticle("minecraft:sonic_explosion", dLoc);
+        target.applyDamage(35, { cause: EntityDamageCause.override });
+        drone.kill();
+        return;
+      }
+
+      // 施加 3D 空中推进冲量 (向目标高速俯冲追踪)
+      const flySpeed = 0.24;
+      try {
+        drone.applyImpulse({
+          x: (dx / dist) * flySpeed,
+          y: (dy / dist) * flySpeed + 0.035, // 克服下坠保持凌空悬浮飞行
+          z: (dz / dist) * flySpeed
+        });
+      } catch {}
+    } else {
+      // 保持空中微浮动
+      try {
+        drone.applyImpulse({ x: 0, y: 0.04, z: 0 });
+      } catch {}
     }
   }
 
