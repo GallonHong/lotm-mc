@@ -26,7 +26,7 @@ export const GUNS = [
   },
   {
     id: 'test_gun:shotgun',
-    name: 'Shotgun',
+    name: 'Remington M870',
     type: 'shotgun',
     mode: FireMode.SHOTGUN,
     maxAmmo: 8,
@@ -49,7 +49,7 @@ export const GUNS = [
   },
   {
     id: 'test_gun:vector',
-    name: 'MP7 / Vector',
+    name: 'HK MP7',
     type: 'smg',
     mode: FireMode.AUTO,
     maxAmmo: 50,
@@ -99,7 +99,7 @@ export const GUNS = [
   },
   {
     id: 'test_gun:m82',
-    name: 'M82 .50 Cal',
+    name: 'Barrett M82',
     type: 'sniper',
     mode: FireMode.SEMI,
     maxAmmo: 5,

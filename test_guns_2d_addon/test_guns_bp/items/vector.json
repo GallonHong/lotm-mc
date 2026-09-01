@@ -23,7 +23,7 @@
       },
       "minecraft:icon": "test_gun_vector",
       "minecraft:display_name": {
-        "value": "MP7 / Vector 冲锋枪 §d[暴走狂潮]§r"
+        "value": "HK MP7 战术冲锋枪 [暴走狂潮]"
       },
       "minecraft:durability": {
         "max_durability": 1500

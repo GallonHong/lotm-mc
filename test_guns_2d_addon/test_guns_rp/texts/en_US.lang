@@ -1,8 +1,8 @@
-item.test_gun:ak47.name=AK-47 (2D Classic)
-item.test_gun:shotgun.name=Shotgun (2D Classic)
-item.test_gun:vector.name=MP7 / Vector SMG [Overdrive]
-item.test_gun:mgl.name=MGL 40mm Grenade Launcher [HE-Frag]
-item.test_gun:m82.name=M82 .50 Cal Anti-Materiel Sniper [1-Shot Kill]
+item.test_gun:ak47.name=AK-47 Assault Rifle (Classic)
+item.test_gun:shotgun.name=Remington M870 Shotgun (Pump-Action)
+item.test_gun:vector.name=HK MP7 Tactical SMG [Overdrive]
+item.test_gun:mgl.name=MGL 40mm Rotary Grenade Launcher [HE-Frag]
+item.test_gun:m82.name=Barrett M82 .50 Anti-Materiel Sniper [1-Shot Kill]
 item.test_gun:arc_emitter.name=Tesla Arc Emitter [Chain Lightning]
 item.test_gun:deagle.name=Desert Eagle .50 Pistol [Hand Cannon]
 item.test_gun:jetpack.name=Tactical Ion Jetpack [Double Jump / Boost]

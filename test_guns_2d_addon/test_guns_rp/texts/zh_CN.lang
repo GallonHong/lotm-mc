@@ -1,8 +1,8 @@
-item.test_gun:ak47.name=AK-47 突击步枪 (2D经典)
-item.test_gun:shotgun.name=泵动式霰弹枪 (2D经典)
-item.test_gun:vector.name=MP7 / Vector 冲锋枪 [暴走狂潮]
+item.test_gun:ak47.name=AK-47 突击步枪 (经典实木)
+item.test_gun:shotgun.name=雷明顿 M870 霰弹枪 (泵动式)
+item.test_gun:vector.name=HK MP7 战术冲锋枪 [暴走狂潮]
 item.test_gun:mgl.name=MGL 40mm 连发榴弹炮 [高爆破片]
-item.test_gun:m82.name=M82 .50 Cal 反器材重狙 [穿甲秒杀]
+item.test_gun:m82.name=巴雷特 M82 .50 反器材重狙 [穿甲秒杀]
 item.test_gun:arc_emitter.name=特斯拉电弧发射器 [连锁闪电]
 item.test_gun:deagle.name=沙漠之鹰 .50 战术手枪 [重型手炮]
 item.test_gun:jetpack.name=战术离子喷气背包 [双跳飞升·缓降]

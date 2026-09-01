@@ -6,31 +6,19 @@
       "textures": "textures/guns/ak47_old"
     },
     "test_gun_shotgun": {
-      "textures": "textures/guns/shotgun_old"
-    },
-    "test_gun_ammo_rifle": {
-      "textures": "textures/ammo/ammo_rifle"
-    },
-    "test_gun_ammo_shotgun": {
-      "textures": "textures/ammo/ammo_shotgun"
+      "textures": "textures/guns/m870_shotgun"
     },
     "test_gun_vector": {
       "textures": "textures/guns/mp7_old"
     },
-    "test_gun_ammo_45acp": {
-      "textures": "textures/ammo/ammo_45acp"
-    },
     "test_gun_mgl": {
-      "textures": "textures/guns/m79_launcher"
-    },
-    "test_gun_ammo_40mm": {
-      "textures": "textures/ammo/ammo_40mm"
+      "textures": "textures/guns/mgl_rotary"
     },
     "test_gun_m82": {
-      "textures": "textures/guns/m82_old"
+      "textures": "textures/guns/m82_barrett"
     },
     "test_gun_arc_emitter": {
-      "textures": "textures/guns/arc_old"
+      "textures": "textures/guns/arc_emitter_real"
     },
     "test_gun_deagle": {
       "textures": "textures/guns/deagle_old"
@@ -41,8 +29,20 @@
     "test_gun_riot_shield": {
       "textures": "textures/items/riot_shield"
     },
+    "test_gun_ammo_rifle": {
+      "textures": "textures/ammo/ammo_rifle"
+    },
+    "test_gun_ammo_shotgun": {
+      "textures": "textures/ammo/ammo_shotgun"
+    },
+    "test_gun_ammo_45acp": {
+      "textures": "textures/ammo/ammo_45acp"
+    },
     "test_gun_ammo_50cal": {
       "textures": "textures/ammo/ammo_50cal"
+    },
+    "test_gun_ammo_40mm": {
+      "textures": "textures/ammo/ammo_40mm"
     },
     "test_gun_ammo_battery": {
       "textures": "textures/ammo/ammo_battery"
