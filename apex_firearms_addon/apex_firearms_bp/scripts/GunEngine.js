@@ -75,9 +75,12 @@ export class GunEngine {
       return false;
     }
 
-    // 5. 防连点防抖
+    // 5. 攻速限制与射击后摇冷却 (Post-fire Cooldown)
     const lastTick = this.#lastShotTicks.get(player.id) || 0;
-    if (currentTick - lastTick < 3) return false;
+    const requiredInterval = config.shotIntervalTicks ?? 8;
+    if (currentTick - lastTick < requiredInterval) {
+      return false;
+    }
     this.#lastShotTicks.set(player.id, currentTick);
 
     // 6. 各武器点射派发

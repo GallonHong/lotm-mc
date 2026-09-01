@@ -12,7 +12,7 @@
       "minecraft:hand_equipped": true,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:display_name": {
-        "value": "§l§6巴雷特 M82A1 高爆反器材重狙§r\n§720%恶魂烈焰弹 | .50 BMG"
+        "value": "§l§6巴雷特 M82A1 高爆反器材重狙§r\n§720%恶魂烈焰弹 | 1.8s重狙后摇"
       },
       "minecraft:icon": {
         "textures": {
@@ -21,7 +21,7 @@
       },
       "minecraft:cooldown": {
         "category": "apex:m82",
-        "duration": 1.2
+        "duration": 1.8
       },
       "minecraft:durability": {
         "max_durability": 250

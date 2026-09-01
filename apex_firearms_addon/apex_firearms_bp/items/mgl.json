@@ -12,7 +12,7 @@
       "minecraft:hand_equipped": true,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:display_name": {
-        "value": "§l§6战术 M32 六连发自动榴弹炮§r\n§740mm抛物线高爆 | 0地形破坏"
+        "value": "§l§6战术 M32 六连发自动榴弹炮§r\n§740mm抛物线高爆 | 1.2s射击间隔"
       },
       "minecraft:icon": {
         "textures": {
@@ -21,7 +21,7 @@
       },
       "minecraft:cooldown": {
         "category": "apex:mgl",
-        "duration": 0.55
+        "duration": 1.2
       },
       "minecraft:durability": {
         "max_durability": 300

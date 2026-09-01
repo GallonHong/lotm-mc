@@ -15,6 +15,7 @@ export const GUN_CONFIGS = {
     spreadSneak: 0.006,
     reloadSeconds: 2.0,
     burstCount: 3,
+    shotIntervalTicks: 11, // 0.55s 射击间隔
     isExplosive: false
   },
   "apex:m82": {
@@ -31,6 +32,7 @@ export const GUN_CONFIGS = {
     spreadSneak: 0.001,
     reloadSeconds: 2.5,
     burstCount: 1,
+    shotIntervalTicks: 36, // 1.8s 重狙拉栓后摇
     isExplosive: true,
     heChance: 0.20,
     heRadius: 3.5,
@@ -52,6 +54,7 @@ export const GUN_CONFIGS = {
     spreadSneak: 0.008,
     reloadSeconds: 2.0,
     burstCount: 2,
+    shotIntervalTicks: 7,  // 0.35s 点射间隔
     hasSkill: true,
     skillCooldownSec: 30,
     skillName: "暴走狂潮"
@@ -70,6 +73,7 @@ export const GUN_CONFIGS = {
     spreadSneak: 0.005,
     reloadSeconds: 3.0,
     burstCount: 1,
+    shotIntervalTicks: 24, // 1.2s 榴弹转轮复位间隔
     isExplosive: true,
     heChance: 1.0,
     heRadius: 5.5,
@@ -92,6 +96,7 @@ export const GUN_CONFIGS = {
     decayRate: 0.25,
     reloadSeconds: 2.0,
     burstCount: 1,
+    shotIntervalTicks: 16, // 0.8s 等离子电容充能间隔
     isArcEmitter: true
   },
   "apex:shotgun": {
@@ -110,6 +115,7 @@ export const GUN_CONFIGS = {
     spreadSneak: 0.035,
     reloadSeconds: 2.5,
     burstCount: 1,
+    shotIntervalTicks: 20, // 1.0s 泵动上膛间隔
     isShotgun: true
   }
 };
@@ -122,59 +128,67 @@ export const ARC_CONFIG = GUN_CONFIGS["apex:arc_emitter"];
 export const SHOTGUN_CONFIG = GUN_CONFIGS["apex:shotgun"];
 
 export class AmmoSystem {
-  static getGunConfig(typeId) {
-    return GUN_CONFIGS[typeId] || null;
+  static getGunConfig(itemId) {
+    return GUN_CONFIGS[itemId] || null;
   }
 
-  /**
-   * 获取当前手持武器的弹匣内弹药数量 (从 Lore 解析或默认满弹)
-   */
-  static getMagazineAmmo(item) {
-    if (!item) return 0;
-    const config = this.getGunConfig(item.typeId);
-    if (!config) return 0;
-
-    const lore = item.getLore();
-    if (lore && lore.length > 0) {
+  static getMagazineAmmo(itemStack) {
+    if (!itemStack) return 0;
+    try {
+      const lore = itemStack.getLore();
       for (const line of lore) {
-        const match = line.match(/Ammo:\s*(\d+)\s*\/\s*(\d+)/i);
-        if (match) {
-          return parseInt(match[1], 10);
+        if (line.startsWith("§7弹药: §f")) {
+          const match = line.match(/§7弹药: §f(\d+)\//);
+          if (match && match[1]) {
+            return parseInt(match[1], 10);
+          }
         }
       }
-    }
-    return config.magSize;
+    } catch (e) {}
+    const config = this.getGunConfig(itemStack.typeId);
+    return config ? config.magSize : 0;
   }
 
-  /**
-   * 更新武器弹药 Lore 并写回物品
-   */
-  static setMagazineAmmo(item, ammoCount) {
-    if (!item) return;
-    const config = this.getGunConfig(item.typeId);
+  static setMagazineAmmo(itemStack, count) {
+    if (!itemStack) return;
+    const config = this.getGunConfig(itemStack.typeId);
     if (!config) return;
 
-    const count = Math.max(0, Math.min(config.magSize, ammoCount));
-    const barFill = Math.round((count / config.magSize) * 10);
-    const bar = "§a" + "|".repeat(barFill) + "§7" + "|".repeat(10 - barFill);
-    
-    item.setLore([
-      `§7口径: §f${config.caliberName}`,
-      `§7弹匣: [${bar}§7] §e${count}§7/§f${config.magSize}`,
-      `§8Ammo:${count}/${config.magSize}`
-    ]);
+    const clampedCount = Math.max(0, Math.min(count, config.magSize));
+    let skillNote = "";
+    if (config.hasSkill) {
+      skillNote = `\n§d⚡ 潜行释放: 【${config.skillName}】(5s无限子弹)`;
+    } else if (config.isArcEmitter) {
+      skillNote = `\n§b⚡ 连锁闪电: 7m范围递减跳跃 (穿透真伤)`;
+    } else if (config.isShotgun) {
+      skillNote = `\n§e🛡️ 核心被动: 护盾共鸣 (单丸 2~22 HP)`;
+    } else if (config.isExplosive && config.id === "apex:m82") {
+      skillNote = `\n§c💥 核心被动: 20% 恶魂烈焰高爆弹`;
+    } else if (config.isExplosive && config.id === "apex:mgl") {
+      skillNote = `\n§6💥 核心机制: 40mm 抛物线高爆 (0地形破坏)`;
+    }
+
+    const newLore = [
+      `§7口径: §e${config.caliberName}`,
+      `§7弹药: §f${clampedCount}§7/§e${config.magSize}`,
+      `§7换弹时间: §f${config.reloadSeconds}s | 射程: §f${config.maxRange}m${skillNote}`
+    ];
+
+    try {
+      itemStack.setLore(newLore);
+    } catch (e) {
+      console.warn(`[ApexFirearms] Failed to set lore on gun item: ${e}`);
+    }
   }
 
-  /**
-   * 统计背包中指定弹药的备弹总数
-   */
   static countReserveAmmo(player, ammoId) {
-    if (!player || !ammoId) return 0;
+    if (!player || !player.isValid()) return 0;
     const inv = player.getComponent("minecraft:inventory");
     if (!inv || !inv.container) return 0;
 
     let total = 0;
-    for (let i = 0; i < inv.container.size; i++) {
+    const size = inv.container.size;
+    for (let i = 0; i < size; i++) {
       const item = inv.container.getItem(i);
       if (item && item.typeId === ammoId) {
         total += item.amount;
@@ -183,60 +197,27 @@ export class AmmoSystem {
     return total;
   }
 
-  /**
-   * 执行原子换弹事务
-   */
-  static performReload(player) {
-    if (!player) return { success: false, reason: "无效玩家" };
+  static consumeReserveAmmo(player, ammoId, amountNeeded) {
+    if (!player || !player.isValid() || amountNeeded <= 0) return 0;
     const inv = player.getComponent("minecraft:inventory");
-    if (!inv || !inv.container) return { success: false, reason: "背包不可用" };
+    if (!inv || !inv.container) return 0;
 
-    const selectedSlot = player.selectedSlotIndex;
-    const mainHandItem = inv.container.getItem(selectedSlot);
-    if (!mainHandItem) return { success: false, reason: "主手未持有武器" };
+    let consumed = 0;
+    const size = inv.container.size;
 
-    const config = this.getGunConfig(mainHandItem.typeId);
-    if (!config) return { success: false, reason: "非 Apex 系列枪械" };
-
-    const currentAmmo = this.getMagazineAmmo(mainHandItem);
-    if (currentAmmo >= config.magSize) {
-      return { success: false, reason: "弹匣已满，无需换弹" };
-    }
-
-    const needed = config.magSize - currentAmmo;
-    const totalReserve = this.countReserveAmmo(player, config.ammoId);
-    if (totalReserve <= 0) {
-      return { success: false, reason: `背包无 ${config.caliberName} 备弹` };
-    }
-
-    const reloadAmount = Math.min(needed, totalReserve);
-
-    let remainingToDeduct = reloadAmount;
-    for (let i = 0; i < inv.container.size; i++) {
-      if (remainingToDeduct <= 0) break;
+    for (let i = 0; i < size && consumed < amountNeeded; i++) {
       const item = inv.container.getItem(i);
-      if (item && item.typeId === config.ammoId) {
-        if (item.amount <= remainingToDeduct) {
-          remainingToDeduct -= item.amount;
+      if (item && item.typeId === ammoId) {
+        const take = Math.min(item.amount, amountNeeded - consumed);
+        consumed += take;
+        if (item.amount - take <= 0) {
           inv.container.setItem(i, undefined);
         } else {
-          item.amount -= remainingToDeduct;
+          item.amount -= take;
           inv.container.setItem(i, item);
-          remainingToDeduct = 0;
         }
       }
     }
-
-    const newAmmo = currentAmmo + reloadAmount;
-    this.setMagazineAmmo(mainHandItem, newAmmo);
-    inv.container.setItem(selectedSlot, mainHandItem);
-
-    return {
-      success: true,
-      reloaded: reloadAmount,
-      currentAmmo: newAmmo,
-      reserveLeft: totalReserve - reloadAmount,
-      config
-    };
+    return consumed;
   }
 }

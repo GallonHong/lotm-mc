@@ -21,7 +21,7 @@
       },
       "minecraft:cooldown": {
         "category": "apex:ak47",
-        "duration": 0.25
+        "duration": 0.55
       },
       "minecraft:durability": {
         "max_durability": 600

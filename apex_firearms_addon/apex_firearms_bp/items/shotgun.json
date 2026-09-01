@@ -12,7 +12,7 @@
       "minecraft:hand_equipped": true,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:display_name": {
-        "value": "§l§e圣盾防暴重型霰弹枪§r\n§7护盾共鸣 | 单丸 2~22 HP"
+        "value": "§l§e圣盾防暴重型霰弹枪§r\n§7护盾共鸣 | 1.0s泵动拉栓"
       },
       "minecraft:icon": {
         "textures": {
@@ -21,7 +21,7 @@
       },
       "minecraft:cooldown": {
         "category": "apex:shotgun",
-        "duration": 0.5
+        "duration": 1.0
       },
       "minecraft:durability": {
         "max_durability": 450

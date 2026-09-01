@@ -12,7 +12,7 @@
       "minecraft:hand_equipped": true,
       "minecraft:can_destroy_in_creative": false,
       "minecraft:display_name": {
-        "value": "§l§b战术特斯拉电弧发射器§r\n§7连锁闪电 | 递减跃迁"
+        "value": "§l§b战术特斯拉电弧发射器§r\n§7连锁闪电 | 0.8s充能间隔"
       },
       "minecraft:icon": {
         "textures": {
@@ -21,7 +21,7 @@
       },
       "minecraft:cooldown": {
         "category": "apex:arc_emitter",
-        "duration": 0.4
+        "duration": 0.8
       },
       "minecraft:durability": {
         "max_durability": 400
