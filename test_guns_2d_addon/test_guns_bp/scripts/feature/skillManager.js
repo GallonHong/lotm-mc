@@ -1,3 +1,4 @@
+import { ShootManager } from './shoot.js';
 import { updateActionBar } from './ui.js';
 import { fireBullet } from './utils/shootUtils.js';
 import { GrenadeEngine } from './grenadeEngine.js';
@@ -110,6 +111,7 @@ export class SkillManager {
     const sec = (overdrive.remainingTicks / 20).toFixed(1);
 
     fireBullet(player, overdrive.gun);
+    ShootManager.deductDurability(player, overdrive.gun);
 
     if (overdrive.gun.shootSound) {
       try {
