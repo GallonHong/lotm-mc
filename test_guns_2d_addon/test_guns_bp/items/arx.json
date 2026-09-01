@@ -4,7 +4,8 @@
     "description": {
       "identifier": "test_gun:arx",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.sword"
       }
     },
     "components": {
