@@ -1,9 +1,9 @@
-import { countAmmoInInventory, consumeAmmoFromInventory } from './utils/inventoryUtils.js';
+import { countAmmoInInventory, consumeAmmoFromInventory, isCreativePlayer } from './utils/inventoryUtils.js';
 import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { showReloadingHUD, showAmmoHUD, updateActionBar } from './ui.js';
 
 export class ReloadManager {
-  static reloadingPlayers = new Map(); // playerId -> { gunId, currentTick, totalTicks }
+  static reloadingPlayers = new Map();
 
   static isReloading(player) {
     return this.reloadingPlayers.has(player.id);
@@ -19,14 +19,16 @@ export class ReloadManager {
     if (this.isReloading(player)) return false;
 
     const currentAmmo = getCurrentAmmo(player, gun);
+    const availableAmmo = countAmmoInInventory(player, gun.ammoTypeId);
+    const isCreative = isCreativePlayer(player);
+
     if (currentAmmo >= gun.maxAmmo) {
-      updateActionBar(player, '§a[弹夹已满 / Magazine Full]§r ' + gun.name);
+      updateActionBar(player, `§a[弹夹已满 ${currentAmmo}/${gun.maxAmmo}]§r §6[${gun.name}]§r §8(备弹: ${isCreative ? '§b∞§r' : availableAmmo})§r`);
       return false;
     }
 
-    const availableAmmo = countAmmoInInventory(player, gun.ammoTypeId);
     if (availableAmmo <= 0) {
-      updateActionBar(player, '§c[背包无对应弹药 / No Ammo in Inventory]§r ' + gun.name);
+      updateActionBar(player, `§e[枪膛余弹 ${currentAmmo}/${gun.maxAmmo}]§r §c背包无备用弹药!§r (仍可击发 ${currentAmmo} 发)`);
       try {
         player.dimension.playSound('random.click', player.location, { volume: 0.6, pitch: 1.0 });
       } catch {}
@@ -36,7 +38,7 @@ export class ReloadManager {
     this.reloadingPlayers.set(player.id, {
       gunId: gun.id,
       currentTick: 0,
-      totalTicks: gun.reloadTime || 50
+      totalTicks: gun.reloadTime || 45
     });
 
     try {
@@ -50,7 +52,6 @@ export class ReloadManager {
     const reloadInfo = this.reloadingPlayers.get(player.id);
     if (!reloadInfo) return;
 
-    // Check if player changed weapon
     if (!currentGun || currentGun.id !== reloadInfo.gunId) {
       this.cancelReload(player);
       return;
@@ -76,6 +77,6 @@ export class ReloadManager {
     setCurrentAmmo(player, gun, newAmmo);
 
     showAmmoHUD(player, gun, newAmmo);
-    updateActionBar(player, '§a[换弹完成 / Reloaded]§r ' + gun.name + ' (§e' + newAmmo + '/' + gun.maxAmmo + '§r)');
+    updateActionBar(player, `§a[换弹完成]§r §6[${gun.name}]§r (§e${newAmmo}/${gun.maxAmmo}§r)`);
   }
 }

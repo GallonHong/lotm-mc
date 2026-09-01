@@ -1,5 +1,13 @@
 import { EquipmentSlot } from '@minecraft/server';
 
+export function isCreativePlayer(player) {
+  try {
+    return player.matches({ gameMode: 'creative' });
+  } catch {
+    return false;
+  }
+}
+
 export function getHeldItem(player) {
   try {
     const equippable = player.getComponent('minecraft:equippable');
@@ -11,6 +19,9 @@ export function getHeldItem(player) {
 }
 
 export function countAmmoInInventory(player, ammoTypeId) {
+  if (isCreativePlayer(player)) {
+    return 9999;
+  }
   try {
     const inv = player.getComponent('minecraft:inventory');
     if (!inv || !inv.container) return 0;
@@ -29,6 +40,9 @@ export function countAmmoInInventory(player, ammoTypeId) {
 }
 
 export function consumeAmmoFromInventory(player, ammoTypeId, amountNeeded) {
+  if (isCreativePlayer(player)) {
+    return amountNeeded;
+  }
   try {
     const inv = player.getComponent('minecraft:inventory');
     if (!inv || !inv.container) return 0;
