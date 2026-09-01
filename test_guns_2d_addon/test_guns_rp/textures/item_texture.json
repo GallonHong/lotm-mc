@@ -45,7 +45,7 @@
       "textures": "textures/guns/mp7_old"
     },
     "test_gun_mgl": {
-      "textures": "textures/guns/mgl_tempest"
+      "textures": "textures/guns/mgl_rotary_drum"
     },
     "test_gun_arc_emitter": {
       "textures": "textures/guns/arc_emitter_tesla"
