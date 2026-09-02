@@ -1,0 +1,581 @@
+{
+  "pools": [
+  
+  // =====================
+// ARMOR (UPDATED ATG)
+// =====================
+
+{
+  "rolls": { "min": 0, "max": 4 },
+  "entries": [
+    { "type": "empty", "weight": 70 },
+
+    // BLACK CAMO HELMETS
+    { "type": "item", "name": "atg:ca_pvs31", "weight": 6 },
+    { "type": "item", "name": "atg:ca_pvs_31_up", "weight": 5 },
+    { "type": "item", "name": "atg:mch_fc", "weight": 6 },
+    { "type": "item", "name": "atg:mch_fc_up", "weight": 5 },
+    { "type": "item", "name": "atg:ocf_gpnvg18", "weight": 4 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up", "weight": 3 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up1", "weight": 2 },
+
+    // DESERT HELMETS
+    { "type": "item", "name": "atg:ca_pvs31_desert", "weight": 6 },
+    { "type": "item", "name": "atg:ca_pvs31_up_desert", "weight": 5 },
+    { "type": "item", "name": "atg:mch_fc_desert", "weight": 6 },
+    { "type": "item", "name": "atg:mch_fc_up_desert", "weight": 5 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_desert", "weight": 4 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up_desert", "weight": 3 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up1_desert", "weight": 2 }
+  ]
+},
+
+{
+  "rolls": { "min": 0, "max": 4 },
+  "entries": [
+    { "type": "empty", "weight": 70 },
+
+    // PLATE CARRIERS - BLACK CAMO
+    { "type": "item", "name": "atg:ala_spc", "weight": 8 },
+    { "type": "item", "name": "atg:jpc_2", "weight": 8 },
+    { "type": "item", "name": "atg:mlt_hg2", "weight": 7 },
+
+    // PLATE CARRIERS - DESERT
+    { "type": "item", "name": "atg:jpc_2_desert", "weight": 7 },
+    { "type": "item", "name": "atg:mlt_hg2_desert", "weight": 6 },
+
+    // PLATE CARRIERS - JUNGLE
+    { "type": "item", "name": "atg:emr_6b13", "weight": 6 },
+
+    // SPECIAL
+    { "type": "item", "name": "atg:killa_6b13", "weight": 2 }
+  ]
+},
+
+{
+  "rolls": { "min": 0, "max": 4 },
+  "entries": [
+    { "type": "empty", "weight": 70 },
+
+    // GHILLIE SUITS (RARE)
+    { "type": "item", "name": "atg:black_ghillie", "weight": 3 },
+    { "type": "item", "name": "atg:oak_ghillie", "weight": 3 },
+
+    // GEAR
+    { "type": "item", "name": "atg:m50", "weight": 4 },
+
+    // GOGGLES (COMMON)
+    { "type": "item", "name": "atg:goggles_black", "weight": 10 },
+    { "type": "item", "name": "atg:goggles_red", "weight": 8 }
+  ]
+},
+
+    // =====================
+    // GUNS (0–1 only)
+    // =====================
+    {
+      "rolls": { "min": 1, "max": 1 },
+      "entries": [
+
+        { "type": "empty", "weight": 0 },
+
+        { "type": "item", "name": "krep:m1911", "weight": 40 },
+        { "type": "item", "name": "krep:b93", "weight": 12 },
+        { "type": "item", "name": "krep:g17", "weight": 40 },
+        { "type": "item", "name": "krep:g18", "weight": 12 },
+        { "type": "item", "name": "krep:deagleg", "weight": 8 },
+        { "type": "item", "name": "krep:deagle", "weight": 6 },
+        { "type": "item", "name": "krep:t50", "weight": 25 },
+        { "type": "item", "name": "krep:cp", "weight": 25 },
+        { "type": "item", "name": "krep:p320", "weight": 40 },
+
+        { "type": "item", "name": "krep:akm", "weight": 10 },
+        { "type": "item", "name": "krep:m4a1", "weight": 14 },
+        { "type": "item", "name": "krep:hk416", "weight": 12 },
+        { "type": "item", "name": "krep:qbz95", "weight": 15 },
+        { "type": "item", "name": "krep:fal", "weight": 5 },
+        { "type": "item", "name": "krep:scarl", "weight": 7 },
+        { "type": "item", "name": "krep:scarh", "weight": 4 },
+        { "type": "item", "name": "krep:g36", "weight": 11 },
+        { "type": "item", "name": "krep:m16", "weight": 13 },
+        { "type": "item", "name": "krep:m16a1", "weight": 14 },
+        { "type": "item", "name": "krep:g3", "weight": 5 },
+        { "type": "item", "name": "krep:qbz191", "weight": 13 },
+        { "type": "item", "name": "krep:type81", "weight": 9 },
+
+        { "type": "item", "name": "krep:mp5", "weight": 22 },
+        { "type": "item", "name": "krep:p90", "weight": 18 },
+        { "type": "item", "name": "krep:vector", "weight": 17 },
+        { "type": "item", "name": "krep:ump", "weight": 23 },
+        { "type": "item", "name": "krep:uzi", "weight": 26 },
+        { "type": "item", "name": "krep:mp7", "weight": 19 },
+
+        { "type": "item", "name": "krep:awp", "weight": 2 },
+        { "type": "item", "name": "krep:sks", "weight": 6 },
+        { "type": "item", "name": "krep:mk14", "weight": 4 },
+
+        { "type": "item", "name": "krep:minigun", "weight": 1 },
+        { "type": "item", "name": "krep:evolys", "weight": 3 },
+        { "type": "item", "name": "krep:m249", "weight": 2 },
+        { "type": "item", "name": "krep:rpg", "weight": 1 },
+
+        { "type": "item", "name": "krep:m870", "weight": 12 },
+        { "type": "item", "name": "krep:saiga12", "weight": 5 },
+        { "type": "item", "name": "krep:aa12", "weight": 3 },
+        { "type": "item", "name": "krep:db", "weight": 7 },
+        { "type": "item", "name": "krep:m1014", "weight": 6 }
+      ]
+    },
+
+    // =====================
+    // AMMO (0–64)
+    // =====================
+    {
+      "rolls": { "min": 1, "max": 5 },
+      "entries": [
+
+        { "type": "empty", "weight": 0 },
+
+        {
+          "type": "item",
+          "name": "krep:mm9",
+          "weight": 45,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:acp45",
+          "weight": 40,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:m43",
+          "weight": 35,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:mm4630",
+          "weight": 30,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:m885",
+          "weight": 25,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:gauge12",
+          "weight": 20,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:mag357",
+          "weight": 15,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:win308",
+          "weight": 12,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:mm5728",
+          "weight": 10,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:mm5842",
+          "weight": 8,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:lapua338",
+          "weight": 5,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:ae50",
+          "weight": 4,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        },
+        {
+          "type": "item",
+          "name": "krep:rpgrocket",
+          "weight": 3,
+          "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+        }
+      ]
+    },
+
+    //APLOK GUNS
+
+    {
+  "rolls": { "min": 1, "max": 1 },
+  "entries": [
+    { "type": "empty", "weight": 0 },
+
+    { "type": "item", "name": "trenbankai:ak12", "weight": 6 },
+    { "type": "item", "name": "trenbankai:ak47", "weight": 8 },
+    { "type": "item", "name": "trenbankai:ak74", "weight": 7 },
+    { "type": "item", "name": "trenbankai:akm", "weight": 7 },
+    { "type": "item", "name": "trenbankai:aks74u", "weight": 6 },
+
+    { "type": "item", "name": "trenbankai:m4a1", "weight": 6 },
+    { "type": "item", "name": "trenbankai:fnfal", "weight": 4 },
+    { "type": "item", "name": "trenbankai:parafal", "weight": 4 },
+
+    { "type": "item", "name": "trenbankai:mp5a5", "weight": 9 },
+    { "type": "item", "name": "trenbankai:mossberg", "weight": 7 },
+    { "type": "item", "name": "trenbankai:m1014", "weight": 5 },
+
+    { "type": "item", "name": "trenbankai:glock17", "weight": 10 },
+    { "type": "item", "name": "trenbankai:glock18", "weight": 5 },
+    { "type": "item", "name": "trenbankai:deagle", "weight": 3 },
+
+    { "type": "item", "name": "trenbankai:m249", "weight": 2 },
+    { "type": "item", "name": "trenbankai:awp", "weight": 2 },
+    { "type": "item", "name": "trenbankai:rpg7", "weight": 1 }
+  ]
+},
+
+//MAG//
+
+{
+  "rolls": { "min": 1, "max": 5 },
+  "entries": [
+    { "type": "empty", "weight": 0 },
+
+    {
+      "type": "item",
+      "name": "trenbankai:ak12_mag",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 2 } }]
+    },
+    {
+      "type": "item",
+      "name": "trenbankai:ak47_mag",
+      "weight": 12,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 2 } }]
+    },
+    {
+      "type": "item",
+      "name": "trenbankai:ak74_mag",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 2 } }]
+    },
+    {
+      "type": "item",
+      "name": "trenbankai:akm_mag",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 2 } }]
+    },
+
+    {
+      "type": "item",
+      "name": "trenbankai:m4a1_mag",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 2 } }]
+    },
+    {
+      "type": "item",
+      "name": "trenbankai:fnfal_mag",
+      "weight": 7,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 2 } }]
+    },
+
+    {
+      "type": "item",
+      "name": "trenbankai:glock_mag",
+      "weight": 14,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 3 } }]
+    },
+
+    {
+      "type": "item",
+      "name": "trenbankai:mp5a5_mag",
+      "weight": 12,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 2 } }]
+    },
+
+    {
+      "type": "item",
+      "name": "trenbankai:m249_mag",
+      "weight": 4,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 1 } }]
+    },
+
+    {
+      "type": "item",
+      "name": "trenbankai:awp_mag",
+      "weight": 4,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 1 } }]
+    },
+
+    {
+      "type": "item",
+      "name": "trenbankai:bullet_12gauge",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 4, "max": 12 } }]
+    },
+
+    {
+      "type": "item",
+      "name": "trenbankai:rpg7_rocket",
+      "weight": 2,
+      "functions": [{ "function": "set_count", "count": { "min": 1, "max": 1 } }]
+    }
+  ]
+},
+//OTHER//
+{
+  "rolls": { "min": 1, "max": 3 },
+  "entries": [
+    { "type": "empty", "weight": 60 },
+
+    { "type": "item", "name": "trenbankai:acog_sight", "weight": 8 },
+    { "type": "item", "name": "trenbankai:eotech_sight", "weight": 10 },
+    { "type": "item", "name": "trenbankai:okp7_reflex_sight", "weight": 10 },
+
+    { "type": "item", "name": "trenbankai:scope_lp", "weight": 8 },
+    { "type": "item", "name": "trenbankai:scope_hp", "weight": 5 },
+
+    { "type": "item", "name": "trenbankai:foregrip", "weight": 12 },
+
+    { "type": "item", "name": "trenbankai:laser_red", "weight": 10 },
+    { "type": "item", "name": "trenbankai:laser_green", "weight": 10 },
+
+    { "type": "item", "name": "trenbankai:silencer", "weight": 6 },
+
+    { "type": "item", "name": "trenbankai:predator_v4_sight", "weight": 4 }
+  ]
+},
+{
+  "rolls": { "min": 1, "max": 3 },
+  "entries": [
+    { "type": "empty", "weight": 0 },
+
+    { "type": "item", "name": "trenbankai:mk2_grenade", "weight": 8 },
+    { "type": "item", "name": "trenbankai:m84_grenade", "weight": 6 },
+    { "type": "item", "name": "trenbankai:l83a1_grenade", "weight": 5 },
+
+    { "type": "item", "name": "trenbankai:flare", "weight": 10 },
+
+    { "type": "item", "name": "trenbankai:landmine_item", "weight": 3 }
+  ]
+},
+
+// GUN //
+{
+  "rolls": { "min": 1, "max": 1 },
+  "entries": [
+    { "type": "empty", "weight": 0 },
+
+    { "type": "item", "name": "krep:ak12", "weight": 6 },
+    { "type": "item", "name": "krep:arka", "weight": 6 },
+    { "type": "item", "name": "krep:m7", "weight": 7 },
+    { "type": "item", "name": "krep:m8", "weight": 7 },
+    { "type": "item", "name": "krep:m16a4", "weight": 6 },
+    { "type": "item", "name": "krep:hk416", "weight": 5 },
+    { "type": "item", "name": "krep:k2", "weight": 7 },
+    { "type": "item", "name": "krep:t112", "weight": 6 },
+    { "type": "item", "name": "krep:type95", "weight": 7 },
+    { "type": "item", "name": "krep:qbu191", "weight": 4 },
+    { "type": "item", "name": "krep:qbz191", "weight": 5 },
+    { "type": "item", "name": "krep:type88", "weight": 5 },
+    { "type": "item", "name": "krep:type882", "weight": 4 },
+    { "type": "item", "name": "krep:type89", "weight": 5 },
+
+    { "type": "item", "name": "krep:qsz92", "weight": 10 },
+    { "type": "item", "name": "krep:qcq171", "weight": 8 },
+
+    { "type": "item", "name": "krep:qjb201", "weight": 3 },
+    { "type": "item", "name": "krep:qjb95", "weight": 2 }
+  ]
+},
+
+// AMMO //
+{
+  "rolls": { "min": 1, "max": 5 },
+  "entries": [
+    { "type": "empty", "weight": 90 },
+
+    {
+      "type": "item",
+      "name": "krep:mm556",
+      "weight": 11,
+      "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+    },
+    {
+      "type": "item",
+      "name": "krep:mm5842",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+    },
+    {
+      "type": "item",
+      "name": "krep:mm5821",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+    },
+    {
+      "type": "item",
+      "name": "krep:mm545",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+    },
+    {
+      "type": "item",
+      "name": "krep:fury277",
+      "weight": 10,
+      "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+    },
+    {
+      "type": "item",
+      "name": "krep:mm9",
+      "weight": 11,
+      "functions": [{ "function": "set_count", "count": { "min": 0, "max": 64 } }]
+    }
+  ]
+},
+
+// ATTACHMENTS //
+{
+  "rolls": { "min": 1, "max": 3 },
+  "entries": [
+    { "type": "empty", "weight": 0 },
+
+    { "type": "item", "name": "krep:eotech", "weight": 10 },
+    { "type": "item", "name": "krep:compm4", "weight": 10 },
+    { "type": "item", "name": "krep:sight1p87", "weight": 10 },
+    { "type": "item", "name": "krep:m157", "weight": 6 },
+    { "type": "item", "name": "krep:acog", "weight": 8 },
+
+    { "type": "item", "name": "krep:afg", "weight": 12 },
+    { "type": "item", "name": "krep:kacgrip", "weight": 12 },
+    { "type": "item", "name": "krep:gripod", "weight": 8 },
+
+    { "type": "item", "name": "krep:stdsup", "weight": 8 },
+    { "type": "item", "name": "krep:ngswsup", "weight": 6 },
+    { "type": "item", "name": "krep:heavysup", "weight": 4 }
+  ]
+},
+
+//OTHER//
+    {
+      "rolls": 8,
+      "entries": [
+        
+        {
+          "type": "item",
+          "name": "minecraft:copper_ingot",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gold_ingot",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_nugget",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:coal",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:rotten_flesh",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gunpowder",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 6
+              }
+            }
+          ]
+        }
+      ]
+    }
+    
+
+  ]
+}

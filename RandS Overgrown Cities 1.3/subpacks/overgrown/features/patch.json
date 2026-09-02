@@ -1,0 +1,19 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:ore_feature": {
+    "description": {
+      "identifier": "ranzie:patch"
+    },
+    "count": 20,
+    "replace_rules": [
+      {
+        "places_block": "minecraft:coarse_dirt",
+        "may_replace": [
+          {
+            "name": "minecraft:grass_block"
+          }
+        ]
+      }
+    ]
+  }
+}

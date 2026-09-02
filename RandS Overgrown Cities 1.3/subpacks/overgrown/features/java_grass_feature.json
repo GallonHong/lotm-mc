@@ -1,0 +1,16 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:aggregate_feature": {
+    "description": {
+      "identifier": "grass:java_grass_feature"
+    },
+    "early_out": "first_success",
+    "features": [
+      //"minecraft:fern_feature",
+      "minecraft:scatter_tall_grass_feature",
+      //"minecraft:scatter_fern_feature",
+      "minecraft:scatter_bush_feature",
+      "minecraft:bush_feature"
+    ]
+  }
+}

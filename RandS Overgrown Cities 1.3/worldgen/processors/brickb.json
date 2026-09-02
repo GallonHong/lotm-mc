@@ -1,0 +1,568 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:processor_list": {
+    "description": {
+      "identifier": "jigsaw:brickb"
+    },
+    "processors": [
+      {
+        "processor_type": "minecraft:rule",
+        "rules": [
+        
+        //BUILDINGS
+
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:block_match",
+              "block": "minecraft:stone_bricks"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:brick_block"
+            }
+          },
+          //ROAD
+          
+         {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:cobbled_deepslate",
+              "probability": 0.01
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:moss_block"
+            }
+          },
+
+
+          
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:cobbled_deepslate",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:deepslate"
+            }
+          },
+          
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:cobbled_deepslate",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:cyan_terracotta"
+            }
+          },
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:cobbled_deepslate",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:basalt",
+              "states": {
+      "pillar_axis": "z"
+    }
+            }
+          },
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:cobbled_deepslate",
+              "probability": 0.15
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:blackstone"
+            }
+          },
+
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:block_match",
+              "block": "minecraft:cobbled_deepslate"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:cobbled_deepslate"
+            }
+          },
+          
+          //WALL
+          
+         {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:stone_brick_wall",
+              "probability": 0.05
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:iron_bars"
+            }
+          },
+
+
+          
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:stone_brick_wall",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:mossy_cobblestone_wall"
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:stone_brick_wall",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+            
+              "name": "minecraft:cobblestone_wall"
+              
+              
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:stone_brick_wall",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:mossy_stone_brick_wall"
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:block_match",
+              "block": "minecraft:stone_brick_wall"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:stone_brick_wall"
+            }
+          },
+          
+          //SLAB
+        
+          {
+  "input_predicate": {
+    "predicate_type": "minecraft:random_blockstate_match",
+    "block_state": {
+      "name": "minecraft:stone_ brick_slab",
+      "states": {
+        "minecraft:vertical_half": "bottom"
+      }
+    },
+    "probability": 0.35
+  },
+  "location_predicate": {
+    "predicate_type": "minecraft:always_true"
+  },
+  "output_state": {
+    "name": "minecraft:brick_slab",
+    "states": {
+      "minecraft:vertical_half": "bottom"
+    }
+  }
+},
+{
+  "input_predicate": {
+    "predicate_type": "minecraft:random_blockstate_match",
+    "block_state": {
+      "name": "minecraft:stone_brick_slab",
+      "states": {
+        "minecraft:vertical_half": "bottom"
+      }
+    },
+    "probability": 0.35
+  },
+  "location_predicate": {
+    "predicate_type": "minecraft:always_true"
+  },
+  "output_state": {
+    "name": "minecraft:mossy_stone_brick_slab",
+    "states": {
+      "minecraft:vertical_half": "bottom"
+    }
+  }
+},
+
+{
+  "input_predicate": {
+    "predicate_type": "minecraft:random_blockstate_match",
+    "block_state": {
+      "name": "minecraft:stone_brick_slab",
+      "states": {
+        "minecraft:vertical_half": "top"
+      }
+    },
+    "probability": 0.35
+  },
+  "location_predicate": {
+    "predicate_type": "minecraft:always_true"
+  },
+  "output_state": {
+    "name": "minecraft:brick_slab",
+    "states": {
+      "minecraft:vertical_half": "top"
+    }
+  }
+},
+{
+  "input_predicate": {
+    "predicate_type": "minecraft:random_blockstate_match",
+    "block_state": {
+      "name": "minecraft:stone_brick_slab",
+      "states": {
+        "minecraft:vertical_half": "top"
+      }
+    },
+    "probability": 0.35
+  },
+  "location_predicate": {
+    "predicate_type": "minecraft:always_true"
+  },
+  "output_state": {
+    "name": "minecraft:brick_slab",
+    "states": {
+      "minecraft:vertical_half": "top"
+    }
+  }
+},
+          
+          
+          //QUARTZ
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "quartz_block",
+              "probability": 0.01
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:moss_block"
+            }
+          },
+
+
+          
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "quartz_block",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:polished_diorite"
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "quartz_block",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+            
+              "name": "minecraft:diorite"
+              
+              
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "quartz_block",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:calcite"
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:block_match",
+              "block": "quartz_block"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "quartz_block"
+            }
+          },
+          
+          //LEAVES
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "oak_leaves",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:birch_leaves"
+            }
+          },
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "oak_leaves",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:spruce_leaves"
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "oak_leaves",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+            
+              "name": "minecraft:acacia_leaves"
+              
+              
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "oak_leaves",
+              "probability": 0.35
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:jungle_leaves"
+            }
+          },
+
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:block_match",
+              "block": "oak_leaves"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "oak_leaves"
+            }
+          },
+          
+          //STAIRS
+{
+  "input_predicate": {
+    "predicate_type": "minecraft:random_blockstate_match",
+    "block_state": "minecraft:stone_brick_stairs",
+    "probability": 0.35
+  },
+  "location_predicate": {
+    "predicate_type": "minecraft:always_true"
+  },
+  "output_state": {
+    "name": "minecraft:brick_stairs"
+  }
+},
+
+          
+          //GLASS PANE//
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:glass_pane",
+              "probability": 0.3
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:air"
+            }
+          },
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:block_match",
+              "block": "minecraft:glass_pane"
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:white_stained_glass_pane"
+            }
+          },
+          
+          //CHEST//
+          
+          {
+            "input_predicate": {
+              "predicate_type": "minecraft:random_block_match",
+              "block": "minecraft:mob_spawner",
+              "probability": 0.5
+            },
+            "location_predicate": {
+              "predicate_type": "minecraft:always_true"
+            },
+            "output_state": {
+              "name": "minecraft:air"
+            }
+          },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:mob_spawner",
+            "probability": 0.2
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "name": "minecraft:waxed_exposed_copper_chest"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "loot_tables/chests/gold.json"
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:mob_spawner",
+            "probability": 0.2
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "name": "minecraft:waxed_weathered_copper_chest"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "loot_tables/chests/diamond.json"
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:mob_spawner",
+            "probability": 0.01
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "name": "minecraft:waxed_oxidized_copper_chest"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "loot_tables/chests/netherite.json"
+          }
+        },
+        {
+          "input_predicate": {
+            "predicate_type": "minecraft:random_block_match",
+            "block": "minecraft:mob_spawner",
+            "probability": 0.4
+          },
+          "location_predicate": {
+            "predicate_type": "minecraft:always_true"
+          },
+          "output_state": {
+            "name": "minecraft:waxed_copper_chest"
+          },
+          "block_entity_modifier": {
+            "type": "minecraft:append_loot",
+            "loot_table": "loot_tables/chests/iron.json"
+          }
+        }
+        ]
+      }
+    ]
+  }
+}

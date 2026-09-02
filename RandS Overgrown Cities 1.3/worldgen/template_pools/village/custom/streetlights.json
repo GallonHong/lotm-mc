@@ -1,0 +1,19 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "jigsaw:village/custom/streetlights"
+        },
+        "elements": [
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streetlights/streetlights",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            }
+        ]
+    }
+}

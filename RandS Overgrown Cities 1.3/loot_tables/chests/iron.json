@@ -1,0 +1,180 @@
+{
+  "pools": [
+
+    // =====================
+// ARMOR (UPDATED ATG)
+// =====================
+
+{
+  "rolls": { "min": 0, "max": 1 },
+  "entries": [
+    { "type": "empty", "weight": 100 },
+
+    // BLACK CAMO HELMETS
+    { "type": "item", "name": "atg:ca_pvs31", "weight": 6 },
+    { "type": "item", "name": "atg:ca_pvs_31_up", "weight": 5 },
+    { "type": "item", "name": "atg:mch_fc", "weight": 6 },
+    { "type": "item", "name": "atg:mch_fc_up", "weight": 5 },
+    { "type": "item", "name": "atg:ocf_gpnvg18", "weight": 4 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up", "weight": 3 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up1", "weight": 2 },
+
+    // DESERT HELMETS
+    { "type": "item", "name": "atg:ca_pvs31_desert", "weight": 6 },
+    { "type": "item", "name": "atg:ca_pvs31_up_desert", "weight": 5 },
+    { "type": "item", "name": "atg:mch_fc_desert", "weight": 6 },
+    { "type": "item", "name": "atg:mch_fc_up_desert", "weight": 5 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_desert", "weight": 4 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up_desert", "weight": 3 },
+    { "type": "item", "name": "atg:ocf_gpnvg18_up1_desert", "weight": 2 }
+  ]
+},
+
+{
+  "rolls": { "min": 0, "max": 1 },
+  "entries": [
+    { "type": "empty", "weight": 100 },
+
+    // PLATE CARRIERS - BLACK CAMO
+    { "type": "item", "name": "atg:ala_spc", "weight": 8 },
+    { "type": "item", "name": "atg:jpc_2", "weight": 8 },
+    { "type": "item", "name": "atg:mlt_hg2", "weight": 7 },
+
+    // PLATE CARRIERS - DESERT
+    { "type": "item", "name": "atg:jpc_2_desert", "weight": 7 },
+    { "type": "item", "name": "atg:mlt_hg2_desert", "weight": 6 },
+
+    // PLATE CARRIERS - JUNGLE
+    { "type": "item", "name": "atg:emr_6b13", "weight": 6 },
+
+    // SPECIAL
+    { "type": "item", "name": "atg:killa_6b13", "weight": 2 }
+  ]
+},
+
+{
+  "rolls": { "min": 0, "max": 1 },
+  "entries": [
+    { "type": "empty", "weight": 100 },
+
+    // GHILLIE SUITS (RARE)
+    { "type": "item", "name": "atg:black_ghillie", "weight": 3 },
+    { "type": "item", "name": "atg:oak_ghillie", "weight": 3 },
+
+    // GEAR
+    { "type": "item", "name": "atg:m50", "weight": 4 },
+
+    // GOGGLES (COMMON)
+    { "type": "item", "name": "atg:goggles_black", "weight": 10 },
+    { "type": "item", "name": "atg:goggles_red", "weight": 8 }
+  ]
+},
+    
+    {
+      "rolls": 2,
+      "entries": [
+        
+        {
+          "type": "item",
+          "name": "minecraft:copper_ingot",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_ingot",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gold_ingot",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_nugget",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:coal",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:rotten_flesh",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gunpowder",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 0,
+                "max": 6
+              }
+            }
+          ]
+        }
+      ]
+    }
+    
+
+  ]
+}

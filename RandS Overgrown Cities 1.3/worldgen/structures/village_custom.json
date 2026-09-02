@@ -1,0 +1,27 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:jigsaw": {
+        "description": {
+            "identifier": "jigsaw:village_custom"
+        },
+        "terrain_adaptation": "beard_thin",
+        "max_depth": 20,
+        "step": "surface_structures",
+        "heightmap_projection": "world_surface",
+        "max_distance_from_center": 128,
+        "dimension_padding": 0,
+        "start_height": {
+            "type": "constant",
+            "value": {
+                "absolute": 0
+            }
+        },
+        "start_pool": "jigsaw:village/custom/streets",
+        "liquid_settings": "ignore_waterlogging",
+        "biome_filters": [
+            {
+                
+            }
+        ]
+    }
+}

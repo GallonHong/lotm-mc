@@ -1,0 +1,180 @@
+{
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/laddert1c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/laddert2c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/laddert3c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/laddert4c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/stairst1c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/stairst2c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/stairst3c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/stairst4c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/stairst5c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/stairst6c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 50,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r1c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r2c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r3c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r4c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r5c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r6c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r7c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r8c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r9c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 10,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/interior/r10c",
+                    "processors": "jigsaw:deepslate",
+                    "projection": "rigid"
+                }
+            }

@@ -1,0 +1,64 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "jigsaw:village/custom/leaves"
+        },
+        "elements": [
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/leaves/leaves1",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/leaves/leaves2",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/leaves/leaves3",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/leaves/leaves4",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/leaves/leaves5",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/leaves/leaves6",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            }
+        ]
+    }
+}

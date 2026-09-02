@@ -1,0 +1,292 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "jigsaw:village/custom/streets"
+        },
+        "elements": [
+            {
+                "weight": 9,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/road1",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 9,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/road2",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 9,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/road3",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 9,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/road4",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/bridge1",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/bridge2",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 5,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/bridge3",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end1",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end2",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end3",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end4",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end5",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end6",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end7",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 1,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/end8",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner1",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner2",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner3",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner4",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner5",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner6",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner7",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 13,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/corner8",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            
+            {
+                "weight": 100,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/center1",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 25,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/cross1",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 25,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/cross2",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 25,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/cross3",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 25,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/cross4",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 25,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/cross5",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            {
+                "weight": 25,
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/cross6",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            },
+            
+            {
+                "weight": 20,
+                "element": { 
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "village/custom/streets/down",
+                    "processors": "jigsaw:mossy",
+                    "projection": "rigid"
+                }
+            }
+        ]
+    }
+}
