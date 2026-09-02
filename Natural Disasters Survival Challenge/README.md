@@ -1,6 +1,6 @@
-# Natural Disasters Server Events v2.0.0
+# Natural Disasters Server Events v2.0.1
 
-适用于 Minecraft Bedrock/BDS 1.21.120+ 的自然灾害事件 Add-on，与 SAPI Server v2.6.0 通过世界动态属性及 `scriptevent` 联动。
+适用于 Minecraft Bedrock/BDS 1.21.120+ 的自然灾害事件 Add-on，与 SAPI Server v2.6.3 通过世界动态属性及 `scriptevent` 双通道联动。v2.0.1 支持解析 SAPI 玩家信封，并在部分版本丢失 `sourceEntity` 时通过玩家动态属性请求兜底。
 
 ## 灾害类型
 

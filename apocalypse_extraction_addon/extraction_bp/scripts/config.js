@@ -1,7 +1,9 @@
 export const CONFIG = Object.freeze({
-  version: "0.3.3",
+  version: "0.3.4",
   dimensionId: "apoc_extract:city",
   heartbeatKey: "interop:apoc_extraction_heartbeat",
+  menuRequestKey: "interop:apoc_extraction_menu_request:v1",
+  menuAckKey: "interop:apoc_extraction_ack",
   cityReadyKey: "apoc_extract:city_ready:v3",
   previousCityReadyKey: "apoc_extract:city_ready:v2",
   activeTag: "apoc_extraction_active",

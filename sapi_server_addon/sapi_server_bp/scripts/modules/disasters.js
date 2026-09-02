@@ -56,7 +56,7 @@ function readState() {
 function saveSettings(player, next, detail) {
     try {
         world.setDynamicProperty(SETTINGS_KEY, JSON.stringify(next));
-        Integration.send(player, "sando:control", JSON.stringify({ action: "reload" }));
+        Integration.sendNaturalDisasterControl(player, { action: "reload" });
         AuditManager.log("disaster_settings", player, "natural_disasters", detail);
         Utils.tell(player, "§a自然灾害设置已保存。§8目标 Add-on 会在数秒内同步。");
         return true;
@@ -81,7 +81,7 @@ export class DisasterAdminManager {
         const form = new ActionFormData()
             .title("§l§4🌪 自然灾害管理")
             .body(
-                `§0联动状态：${connected ? "§a已连接" : "§c未连接"}\n` +
+                `§0联动状态：${connected ? "§a已连接" : "§6初始化中或未启用 §8（进入世界后等待约10秒）"}\n` +
                 `§0系统总开关：${config.enabled ? "§a开启" : "§c关闭"}\n` +
                 `§0自动随机：${config.autoEnabled ? "§a开启" : "§8关闭"}\n` +
                 `§0当前状态：§e${phaseName(state.phase)}${state.running ? ` §8· §c${state.disasterName || state.disasterId} §8· ${state.dimensionId}` : ""}\n` +
@@ -177,7 +177,7 @@ export class DisasterAdminManager {
             const [disasterIndex, dimensionIndex, difficulty] = result.formValues;
             const disasterId = disasterIndex === 0 ? "" : DISASTERS[disasterIndex - 1]?.id || "";
             const dimensionId = dimensions[dimensionIndex]?.id || player.dimension.id;
-            Integration.send(player, "sando:control", JSON.stringify({ action: "trigger", disasterId, dimensionId, difficulty: Math.floor(difficulty) }));
+            Integration.sendNaturalDisasterControl(player, { action: "trigger", disasterId, dimensionId, difficulty: Math.floor(difficulty) });
             AuditManager.log("disaster_trigger", player, disasterId || "weighted_random", `${dimensionId} difficulty=${difficulty}`);
             onBack?.();
         });
@@ -187,7 +187,7 @@ export class DisasterAdminManager {
         const form = new MessageFormData().title("§l§4停止自然灾害").body("§0将立即结束当前事件，并清理灾害实体、雾效与临时洪水。").button1("§c立即停止").button2("§8取消");
         Utils.showForm(player, form, result => {
             if (result.selection === 0) {
-                Integration.send(player, "sando:control", JSON.stringify({ action: "stop" }));
+                Integration.sendNaturalDisasterControl(player, { action: "stop" });
                 AuditManager.log("disaster_stop", player, "natural_disasters", "manual stop");
             }
             onBack?.();

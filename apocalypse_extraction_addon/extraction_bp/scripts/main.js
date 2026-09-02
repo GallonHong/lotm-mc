@@ -2,23 +2,10 @@ import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { CONFIG } from "./config.js";
 
-let dimensionRegistrationError = "";
-const startupSignal = system.beforeEvents?.startup;
-if (startupSignal && typeof startupSignal.subscribe === "function") {
-  startupSignal.subscribe(event => {
-    try {
-      event.dimensionRegistry.registerCustomDimension(CONFIG.dimensionId);
-      console.warn(`[ExtractionCity] registered custom dimension ${CONFIG.dimensionId}.`);
-    } catch (error) {
-      dimensionRegistrationError = String(error);
-      console.error(`[ExtractionCity] custom dimension registration failed: ${error}`);
-    }
-  });
-} else {
-  dimensionRegistrationError = "system.beforeEvents.startup / DimensionRegistry unavailable";
-}
-
 console.warn(`[ExtractionCity] v${CONFIG.version} initializing...`);
+
+const DIMENSION_BOOTSTRAP_HEARTBEAT = "interop:apoc_extraction_dimension_bootstrap:v1";
+const DIMENSION_BOOTSTRAP_ERROR = "interop:apoc_extraction_dimension_error:v1";
 
 const extractionJobs = new Map();
 const deathHandled = new Set();
@@ -76,6 +63,20 @@ function scriptEventContext(event) {
     if (online.length === 1) player = online[0];
   }
   return { player, message };
+}
+
+function acknowledgeMenuRequest(player, rawRequestId = "") {
+  let requestId = Number(rawRequestId) || 0;
+  try { requestId ||= Number(player.getDynamicProperty(CONFIG.menuRequestKey) || 0); } catch {}
+  if (!requestId) requestId = Date.now();
+
+  try {
+    if (Number(player.getDynamicProperty(CONFIG.menuAckKey) || 0) === requestId) return false;
+    player.setDynamicProperty(CONFIG.menuAckKey, requestId);
+    player.setDynamicProperty(CONFIG.menuRequestKey, undefined);
+  } catch {}
+  system.run(() => openMenu(player));
+  return true;
 }
 
 function isAdmin(player) {
@@ -168,16 +169,14 @@ function waitTicks(ticks) {
 async function withTickingArea(dimension, areaId, from, to, action) {
   let created = false;
   try {
-    if (world.tickingAreaManager?.createTickingArea) {
-      try { world.tickingAreaManager.removeTickingArea(areaId); } catch {}
-      await world.tickingAreaManager.createTickingArea(areaId, { dimension, from, to });
+    try { dimension.runCommand(`tickingarea remove ${areaId}`); } catch {}
+    try {
+      dimension.runCommand(`tickingarea add ${from.x} ${from.y} ${from.z} ${to.x} ${to.y} ${to.z} ${areaId} true`);
       created = true;
-    }
+    } catch (error) { console.warn(`[ExtractionCity] ticking area ${areaId} unavailable: ${error}`); }
     return await action();
   } finally {
-    if (created) {
-      try { world.tickingAreaManager.removeTickingArea(areaId); } catch {}
-    }
+    if (created) try { dimension.runCommand(`tickingarea remove ${areaId}`); } catch {}
   }
 }
 
@@ -212,12 +211,7 @@ async function placeDistrict(dimension, center, index) {
     { x: center.x - 32, y: 56, z: center.z - 32 },
     { x: center.x + 32, y: 192, z: center.z + 32 },
     async () => {
-      world.structureManager.placeJigsawStructure(
-        "jigsaw:village_custom",
-        dimension,
-        { x: center.x, y: CONFIG.cityBaseY + 1, z: center.z },
-        { ignoreStartHeight: true, includeEntities: false, keepJigsaws: false }
-      );
+      dimension.runCommand(`place structure jigsaw:village_custom ${center.x} ${CONFIG.cityBaseY + 1} ${center.z} true false false`);
       await waitTicks(8);
       return true;
     }
@@ -363,11 +357,20 @@ function applyExtractionEnvironment(player) {
 async function enter(player) {
   const dimension = extractionDimension();
   if (!dimension) {
-    const detail = dimensionRegistrationError ? `\n§8${dimensionRegistrationError}` : "";
-    player.sendMessage(`§c摸金维度未注册。请启用 Beta APIs，并确认安装的是摸金都市 v${CONFIG.version}。${detail}`);
+    let bootstrapAlive = false;
+    let bootstrapError = "";
+    try {
+      const heartbeat = Number(world.getDynamicProperty(DIMENSION_BOOTSTRAP_HEARTBEAT) || 0);
+      bootstrapAlive = heartbeat > 0 && Date.now() - heartbeat < 15000;
+      bootstrapError = String(world.getDynamicProperty(DIMENSION_BOOTSTRAP_ERROR) || "");
+    } catch {}
+    const detail = bootstrapError ? `\n§8注册错误：${bootstrapError}` : "";
+    player.sendMessage(bootstrapAlive
+      ? `§cBeta 引导脚本在线，但摸金维度没有成功注册。${detail}`
+      : `§c摸金维度引导包没有启动。请启用 Apocalypse Extraction Dimension Bootstrap v0.1.0 与 Beta APIs。${detail}`);
     return;
   }
-  player.sendMessage("§e[摸金都市] 正在准备城市区块，首次进入可能需要稍候……");
+  player.sendMessage("§e[摸金都市] 正在准备城市区块。首次生成九个城区可能需要 20～60 秒，请停留在当前世界并勿重复点击入口……");
   try { await ensureCityReady(dimension); }
   catch (error) {
     player.sendMessage(`§c城市结构初始化失败：${error}`);
@@ -378,17 +381,10 @@ async function enter(player) {
   const point = CONFIG.entryPoints[Math.floor(Math.random() * CONFIG.entryPoints.length)];
   const x = point.x + Math.floor(Math.random() * 41) - 20;
   const z = point.z + Math.floor(Math.random() * 41) - 20;
-  let arrivalAreaCreated = false;
   const arrivalAreaId = `apoc_extract_arrival_${String(player.id).replace(/[^a-zA-Z0-9_]/g, "").slice(-12)}`;
+  try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {}
   try {
-    if (world.tickingAreaManager?.createTickingArea) {
-      await world.tickingAreaManager.createTickingArea(arrivalAreaId, {
-        dimension,
-        from: { x: Math.floor(x) - 8, y: 54, z: Math.floor(z) - 8 },
-        to: { x: Math.floor(x) + 8, y: 180, z: Math.floor(z) + 8 }
-      });
-      arrivalAreaCreated = true;
-    }
+    dimension.runCommand(`tickingarea add ${Math.floor(x) - 8} 54 ${Math.floor(z) - 8} ${Math.floor(x) + 8} 180 ${Math.floor(z) + 8} ${arrivalAreaId} true`);
   } catch (error) { console.warn(`[ExtractionCity] arrival ticking area unavailable: ${error}`); }
   system.runTimeout(() => {
     try {
@@ -408,9 +404,7 @@ async function enter(player) {
       snapshotBackpack(player);
       player.sendMessage(`§6[摸金都市] 随机出生：${point.name}。到达撤离点后执行 §e/scriptevent extract:exit §6开始撤离。`);
     } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
-    if (arrivalAreaCreated) {
-      try { world.tickingAreaManager.removeTickingArea(arrivalAreaId); } catch {}
-    }
+    try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {}
   }, 30);
 }
 
@@ -613,6 +607,11 @@ subscribe(world.afterEvents?.entityDie, "entityDie", event => {
 });
 
 subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
+  if (event.initialSpawn && isAdmin(event.player)) {
+    system.runTimeout(() => {
+      try { event.player.sendMessage(`§a[摸金都市] 行为脚本 v${CONFIG.version} 已加载，菜单与原版 /scriptevent 入口可用。`); } catch {}
+    }, 40);
+  }
   let shouldReturn = pendingReturn.delete(event.player.id);
   try { shouldReturn ||= event.player.getDynamicProperty(CONFIG.deathReturnKey) === true; } catch {}
   if (!shouldReturn) return;
@@ -649,8 +648,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     return;
   }
   if (event.id === "extract:menu") {
-    try { player.setDynamicProperty("interop:apoc_extraction_ack", Number(message) || Date.now()); } catch {}
-    system.run(() => openMenu(player));
+    acknowledgeMenuRequest(player, message);
   }
   else if (event.id === "extract:enter") system.run(() => enter(player));
   else if (event.id === "extract:exit") system.run(() => startExtraction(player));
@@ -693,6 +691,11 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
 system.runInterval(() => {
   try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
   for (const player of world.getAllPlayers()) {
+    try {
+      const requestId = Number(player.getDynamicProperty(CONFIG.menuRequestKey) || 0);
+      const acknowledged = Number(player.getDynamicProperty(CONFIG.menuAckKey) || 0);
+      if (requestId && requestId !== acknowledged) acknowledgeMenuRequest(player, requestId);
+    } catch {}
     if (player.dimension.id !== CONFIG.dimensionId) continue;
     snapshotBackpack(player);
     if (system.currentTick % 100 === 0) applyExtractionEnvironment(player);
@@ -723,4 +726,4 @@ system.runInterval(() => {
   for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
-console.warn("[ExtractionCity] v0.3.3 acknowledged entry bridge, 3x3 persistent city, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.");
+console.warn(`[ExtractionCity] v${CONFIG.version} dual-channel entry bridge, 3x3 persistent city, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.`);

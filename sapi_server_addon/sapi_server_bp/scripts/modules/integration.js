@@ -7,7 +7,10 @@ const DAILY_SALES_KEY = "interop:daily_sales:v1";
 const APOCALYPSE_HEARTBEAT = "apoc:heartbeat";
 const EXTRACTION_HEARTBEAT = "interop:apoc_extraction_heartbeat";
 const EXTRACTION_ACK = "interop:apoc_extraction_ack";
+const EXTRACTION_MENU_REQUEST = "interop:apoc_extraction_menu_request:v1";
 const NATURAL_DISASTERS_HEARTBEAT = "interop:natural_disasters_heartbeat";
+const NATURAL_DISASTERS_REQUEST = "interop:natural_disasters_request:v1";
+const NATURAL_DISASTERS_ACK = "interop:natural_disasters_ack:v1";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const HEARTBEAT_MAX_AGE_MS = 15000;
@@ -48,6 +51,9 @@ function rectanglesOverlap(a, b) {
 
 /** 独立 Add-on 之间不使用源码导入，只通过心跳、动态属性与 scriptevent 联动。 */
 export class Integration {
+    static pendingExtractionRequests = new Map();
+    static pendingDisasterRequests = new Map();
+
     static readHeartbeat(key) {
         try {
             return Number(world.getDynamicProperty(key) || 0);
@@ -261,14 +267,88 @@ export class Integration {
     }
 
     static openExtractionMenu(player) {
-        const requestId = Date.now();
-        try { player.setDynamicProperty(EXTRACTION_ACK, 0); } catch {}
-        this.send(player, "extract:menu", String(requestId));
-        system.runTimeout(() => {
+        const pending = this.pendingExtractionRequests.get(player.id);
+        if (pending) {
             try {
-                if (Number(player.getDynamicProperty(EXTRACTION_ACK) || 0) === requestId) return;
-                player.sendMessage("§c摸金都市没有回应该请求。请确认世界的行为包列表中已启用 Apocalypse Extraction City BP v0.3.3；仅导入文件不会自动给现有世界启用行为包。");
+                if (Number(player.getDynamicProperty(EXTRACTION_ACK) || 0) !== pending) {
+                    player.sendMessage("§e摸金都市仍在初始化，请稍候，不要重复点击入口。");
+                    return;
+                }
             } catch {}
-        }, 60);
+            this.pendingExtractionRequests.delete(player.id);
+        }
+        const requestId = Date.now();
+        this.pendingExtractionRequests.set(player.id, requestId);
+        try { player.setDynamicProperty(EXTRACTION_ACK, 0); } catch {}
+        try { player.setDynamicProperty(EXTRACTION_MENU_REQUEST, requestId); } catch {}
+        try { player.sendMessage("§e正在连接摸金都市……Beta 维度首次初始化可能需要 10～20 秒，请勿重复点击。"); } catch {}
+        this.send(player, "extract:menu", String(requestId));
+        const check = elapsedTicks => {
+            try {
+                if (Number(player.getDynamicProperty(EXTRACTION_ACK) || 0) === requestId) {
+                    this.pendingExtractionRequests.delete(player.id);
+                    return;
+                }
+                if (elapsedTicks === 60) player.sendMessage("§6摸金都市仍在加载，后台会继续等待；首次进入生成城区时可能需要更久。");
+                if (elapsedTicks < 400) {
+                    system.runTimeout(() => check(elapsedTicks + 10), 10);
+                    return;
+                }
+                this.pendingExtractionRequests.delete(player.id);
+                let dimensionRegistered = false;
+                try { dimensionRegistered = !!world.getDimension("apoc_extract:city"); } catch {}
+                player.sendMessage(dimensionRegistered
+                    ? "§c摸金都市维度已注册，但玩法脚本没有确认菜单请求。请检查内容日志中是否出现 [ExtractionCity] v0.3.4 initialized，以及是否同时启用了 Beta APIs。"
+                    : "§c摸金都市行为脚本没有启动。请在当前世界的行为包列表启用 Apocalypse Extraction City BP v0.3.4，并开启 Beta APIs；仅导入 .mcaddon 不会自动给已有世界启用行为包。");
+            } catch {
+                this.pendingExtractionRequests.delete(player.id);
+            }
+        };
+        system.runTimeout(() => check(10), 10);
+    }
+
+    static sendNaturalDisasterControl(player, payload, eventId = "sando:control") {
+        const existing = this.pendingDisasterRequests.get(player.id);
+        if (existing) {
+            try {
+                if (String(player.getDynamicProperty(NATURAL_DISASTERS_ACK) || "") !== existing) {
+                    player.sendMessage("§e自然灾害脚本仍在初始化，请稍候后再操作。");
+                    return existing;
+                }
+            } catch {}
+            this.pendingDisasterRequests.delete(player.id);
+        }
+        const requestId = `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
+        this.pendingDisasterRequests.set(player.id, requestId);
+        const message = typeof payload === "string" ? payload : JSON.stringify(payload || {});
+        try {
+            player.setDynamicProperty(NATURAL_DISASTERS_ACK, "");
+            player.setDynamicProperty(NATURAL_DISASTERS_REQUEST, JSON.stringify({ requestId, eventId, message }));
+        } catch {}
+        if (!this.isNaturalDisastersAvailable()) {
+            try { player.sendMessage("§e正在连接自然灾害脚本……刚进入世界时可能需要约 10 秒完成初始化。"); } catch {}
+        }
+        this.send(player, eventId, message);
+        const check = elapsedTicks => {
+            try {
+                if (String(player.getDynamicProperty(NATURAL_DISASTERS_ACK) || "") === requestId) {
+                    this.pendingDisasterRequests.delete(player.id);
+                    return;
+                }
+                if (elapsedTicks === 60) player.sendMessage("§6自然灾害脚本仍在初始化，后台会继续等待。");
+                if (elapsedTicks < 300) {
+                    system.runTimeout(() => check(elapsedTicks + 10), 10);
+                    return;
+                }
+                this.pendingDisasterRequests.delete(player.id);
+                player.sendMessage(this.isNaturalDisastersAvailable()
+                    ? "§c自然灾害脚本在线，但没有确认本次控制请求。请安装 Natural Disasters Server Events BP v2.0.1 后重新进入世界。"
+                    : "§c自然灾害行为脚本没有启动。请在当前世界的行为包列表启用 Natural Disasters Server Events BP v2.0.1；仅导入 .mcaddon 不会自动给已有世界启用行为包。");
+            } catch {
+                this.pendingDisasterRequests.delete(player.id);
+            }
+        };
+        system.runTimeout(() => check(10), 10);
+        return requestId;
     }
 }

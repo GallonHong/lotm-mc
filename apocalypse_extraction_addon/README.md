@@ -1,10 +1,10 @@
-# Apocalypse Extraction City v0.3.3
+# Apocalypse Extraction City v0.3.4
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.3.3 增加 SAPI 请求回执，并移除 BP 对 RP 的硬依赖：即使资源包未在现有世界启用，行为脚本也能启动并响应入口；雾效仍需要同时启用 RP。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.3.4 将稳定玩法核心与 Beta 自定义维度注册拆开：菜单、指令和错误提示不再因为维度注册失败一起消失，并增加动态属性 + `scriptevent` 双通道入口。
 
 ## 安装与联动
 
-- 必装：本 Add-on。
+- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.3.4`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
 - 推荐联动：Daily World Events v0.6.3（提供统一物资箱）、Apocalypse Mobs v0.3.4（提供感染者、掠夺者和 Boss）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Gun 没有被修改；枪械致盲等效果继续由原 Add-on 处理。
@@ -40,10 +40,9 @@
 ## 26.x 自定义维度说明
 
 - 必须在世界设置中打开 **Beta APIs**，然后彻底退出世界再重新进入。
-- v0.2.0 起改为官方 `DimensionRegistry.registerCustomDimension` 接口，不再使用会产生 Schema 错误的 `dimensions/*.json`。
-- 自定义维度当前由官方接口创建为虚空维度；本 Add-on 首次进入时通过 `StructureManager` 放置 RandS Jigsaw 城市。
+- `Apocalypse Extraction Dimension Bootstrap` 使用官方 `DimensionRegistry.registerCustomDimension` 注册虚空维度；稳定核心通过原版 `/place structure` 和 `/tickingarea` 命令建设城区。
 - 请删除旧的 v0.1.x 行为包/资源包后重新导入，避免 Minecraft 继续读取缓存的旧维度 JSON。
 
-从旧版更新后第一次进入会自动执行 v0.3.0 扩建。若旧世界仍显示原来的孤立城区，管理员执行一次 `/scriptevent extract:rebuild`。v0.3.3 不再通过心跳预判是否安装，而由 SAPI 发送真实菜单请求并等待摸金脚本回执。
+从旧版更新后第一次进入会自动执行 v0.3.0 扩建。若旧世界仍显示原来的孤立城区，管理员执行一次 `/scriptevent extract:rebuild`。v0.3.4 的核心即使检测不到 Bootstrap 也会回应入口并报告具体状态。
 
 本版的自定义维度和 RandS Jigsaw 组合属于测试功能；首次上线请用新世界或完整备份验证。

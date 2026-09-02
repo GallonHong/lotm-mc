@@ -15,9 +15,13 @@ const CFG = {
 const SETTINGS_KEY = "sando:settings:v2";
 const STATE_KEY = "sando:state:v2";
 const HEARTBEAT_KEY = "interop:natural_disasters_heartbeat";
+const CONTROL_REQUEST_KEY = "interop:natural_disasters_request:v1";
+const CONTROL_ACK_KEY = "interop:natural_disasters_ack:v1";
 const SAPI_REGIONS_KEY = "sapi:server:regions:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
+
+console.warn("[NaturalDisasters] Server Events v2.0.1 initializing with dual-channel SAPI control...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: true,
@@ -229,6 +233,74 @@ function safeCmd(target, command) {
 function isAdmin(player) {
   if (!player || player.typeId !== "minecraft:player") return false;
   try { return player.hasTag("admin") || player.hasTag("administrator") || player.isOp(); } catch (_) { return false; }
+}
+
+function scriptEventContext(event) {
+  let source = event.sourceEntity?.typeId === "minecraft:player" ? event.sourceEntity : null;
+  if (!source && event.initiator?.typeId === "minecraft:player") source = event.initiator;
+  let message = String(event.message || "");
+  const match = /^__sapi_player__=([^&]*)&data=([\s\S]*)$/.exec(message);
+  if (match) {
+    let playerName = "";
+    try { playerName = decodeURIComponent(match[1]); } catch (_) { playerName = match[1]; }
+    try { message = decodeURIComponent(match[2]); } catch (_) { message = match[2]; }
+    if (!source) source = world.getAllPlayers().find(player => player.name === playerName) || null;
+  }
+  if (!source) {
+    const online = world.getAllPlayers();
+    if (online.length === 1) source = online[0];
+  }
+  return { source, message };
+}
+
+function acknowledgeControl(source, requestId) {
+  if (!source || !requestId) return;
+  try {
+    source.setDynamicProperty(CONTROL_ACK_KEY, String(requestId));
+    source.setDynamicProperty(CONTROL_REQUEST_KEY, undefined);
+  } catch (_) {}
+}
+
+function executeControl(eventId, source, rawMessage = "", requestId = "") {
+  if (source?.typeId === "minecraft:player" && !isAdmin(source)) {
+    try { source.sendMessage("§c只有管理员可以控制自然灾害。"); } catch (_) {}
+    acknowledgeControl(source, requestId);
+    return;
+  }
+  const payload = parseJson(rawMessage, {});
+  acknowledgeControl(source, requestId);
+  system.run(() => {
+    if (eventId === "sando:start") return startGame(source, "", source?.dimension?.id);
+    if (payload.action === "reload") {
+      const wasAutoEnabled = settings.autoEnabled;
+      loadSettings();
+      if (!settings.enabled && gameStarted) stopGame(source, "自然灾害总开关已关闭，当前事件终止。");
+      else if (settings.autoEnabled && (!wasAutoEnabled || !Number.isFinite(nextAutoTick))) scheduleNextAuto();
+      else if (!settings.autoEnabled) nextAutoTick = Number.POSITIVE_INFINITY;
+      publishState();
+      try { source?.sendMessage("§a自然灾害设置已应用。"); } catch (_) {}
+    } else if (payload.action === "trigger") {
+      startGame(source, String(payload.disasterId || ""), String(payload.dimensionId || source?.dimension?.id || ""), payload.difficulty);
+    } else if (payload.action === "stop") {
+      stopGame(source);
+    } else if (payload.action === "status") {
+      publishState();
+      try { source?.sendMessage("§a自然灾害脚本在线，状态已刷新。"); } catch (_) {}
+    }
+  });
+}
+
+function consumeControlRequest(player) {
+  let request;
+  try { request = parseJson(player.getDynamicProperty(CONTROL_REQUEST_KEY), null); } catch (_) { return; }
+  if (!request?.requestId || !String(request.eventId || "").startsWith("sando:")) return;
+  try {
+    if (String(player.getDynamicProperty(CONTROL_ACK_KEY) || "") === String(request.requestId)) {
+      player.setDynamicProperty(CONTROL_REQUEST_KEY, undefined);
+      return;
+    }
+  } catch (_) {}
+  executeControl(String(request.eventId), player, String(request.message || ""), String(request.requestId));
 }
 
 function ensureObjectives() {
@@ -952,6 +1024,9 @@ world.afterEvents.playerSpawn.subscribe(ev => {
         if (p.dimension.id === activeDimensionId && !isSafeArea(activeDimensionId, p.location)) runParticipants.add(p.name);
       } catch (_) {}
     }
+    if (ev.initialSpawn && isAdmin(p)) {
+      try { p.sendMessage("§a[自然灾害] 行为脚本 v2.0.1 已加载，SAPI 联动与 /scriptevent 控制可用。"); } catch (_) {}
+    }
   });
 });
 
@@ -1126,30 +1201,15 @@ try {
 try {
   system.afterEvents.scriptEventReceive.subscribe(ev => {
     if (!["sando:start", "sando:control"].includes(ev.id)) return;
-    const source = ev.sourceEntity;
-    if (source?.typeId === "minecraft:player" && !isAdmin(source)) {
-      try { source.sendMessage("§c只有管理员可以控制自然灾害。"); } catch (_) {}
-      return;
+    const { source, message } = scriptEventContext(ev);
+    let requestId = "";
+    if (source) {
+      try {
+        const pending = parseJson(source.getDynamicProperty(CONTROL_REQUEST_KEY), null);
+        if (pending?.eventId === ev.id) requestId = String(pending.requestId || "");
+      } catch (_) {}
     }
-    const payload = parseJson(ev.message, {});
-    system.run(() => {
-      if (ev.id === "sando:start") return startGame(source, "", source?.dimension?.id);
-      if (payload.action === "reload") {
-        const wasAutoEnabled = settings.autoEnabled;
-        loadSettings();
-        if (!settings.enabled && gameStarted) stopGame(source, "自然灾害总开关已关闭，当前事件终止。");
-        else if (settings.autoEnabled && (!wasAutoEnabled || !Number.isFinite(nextAutoTick))) scheduleNextAuto();
-        else if (!settings.autoEnabled) nextAutoTick = Number.POSITIVE_INFINITY;
-        publishState();
-        try { source?.sendMessage("§a自然灾害设置已应用。"); } catch (_) {}
-      } else if (payload.action === "trigger") {
-        startGame(source, String(payload.disasterId || ""), String(payload.dimensionId || source?.dimension?.id || ""), payload.difficulty);
-      } else if (payload.action === "stop") {
-        stopGame(source);
-      } else if (payload.action === "status") {
-        publishState();
-      }
-    });
+    executeControl(ev.id, source, message, requestId);
   });
 } catch (_) {}
 
@@ -1160,6 +1220,13 @@ system.runTimeout(() => {
   bootSystem(false);
   publishState();
 }, 20);
+
+// Some Bedrock builds report player-issued `/scriptevent` as a Server source.
+// Poll the per-player request property as a second transport so SAPI controls
+// still work even if ScriptEventReceive loses the source entity or is skipped.
+system.runInterval(() => {
+  for (const player of world.getAllPlayers()) consumeControlRequest(player);
+}, 10);
 
 system.runInterval(() => {
   tickCounter++;

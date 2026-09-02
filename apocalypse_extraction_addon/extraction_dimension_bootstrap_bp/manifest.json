@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Apocalypse Extraction Dimension Bootstrap v0.1.0",
+    "description": "Minimal Beta API bootstrap that only registers the extraction city dimension.",
+    "uuid": "137d1231-b6d3-4b4d-98e3-1ce503a92177",
+    "version": [0, 1, 0],
+    "min_engine_version": [1, 21, 120]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "9157633a-34a8-4c2c-81d3-5ddd27fb30e3",
+      "version": [0, 1, 0]
+    },
+    {
+      "type": "script",
+      "language": "javascript",
+      "uuid": "e629437e-4902-40d8-ac62-63aa29bd1d2f",
+      "version": [0, 1, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "beta"
+    }
+  ]
+}

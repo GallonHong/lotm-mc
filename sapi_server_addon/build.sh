@@ -5,13 +5,15 @@ addon_dir="$(cd "$(dirname "$0")" && pwd)"
 bp_dir="${addon_dir}/sapi_server_bp"
 bp_pack="${addon_dir}/SAPI_Server_BP.mcpack"
 addon="${addon_dir}/SAPI_Server_Addon.mcaddon"
+versioned_addon="${addon_dir}/SAPI_Server_Addon_v2.6.3.mcaddon"
 bundle_dir="$(mktemp -d)"
 trap 'rm -rf "${bundle_dir}"' EXIT
 
-rm -f "${bp_pack}" "${addon}"
+rm -f "${bp_pack}" "${addon}" "${versioned_addon}"
 (cd "${bp_dir}" && zip -qr "${bp_pack}" .)
 cp "${bp_pack}" "${bundle_dir}/SAPI_Server_BP.mcpack"
 (cd "${bundle_dir}" && zip -q "${addon}" SAPI_Server_BP.mcpack)
+cp "${addon}" "${versioned_addon}"
 
 unzip -tq "${bp_pack}" >/dev/null
 unzip -tq "${addon}" >/dev/null
