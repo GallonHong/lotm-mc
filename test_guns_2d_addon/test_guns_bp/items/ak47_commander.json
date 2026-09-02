@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_ak47_commander",
       "minecraft:display_name": {
-        "value": "AK-47 \u00b7 \u6218\u672f\u6307\u6325\u5b98 \u00a76[\u4f20\u8bf4]\u00a7r"
+        "value": "§6AK-47 · 战术指挥官 [传说]§r"
       },
       "minecraft:durability": {
         "max_durability": 2100

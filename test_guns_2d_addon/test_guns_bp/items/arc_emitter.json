@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_arc_emitter",
       "minecraft:display_name": {
-        "value": "特斯拉高能电弧发射器 §6[传说·EMP电磁风暴]§r"
+        "value": "§6特斯拉高能电弧发射器 [传说·EMP电磁风暴]§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

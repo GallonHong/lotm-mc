@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_helmet_tactical",
       "minecraft:display_name": {
-        "value": "\u7279\u8b66\u9632\u66b4\u9632\u5f39\u5934\u76d4 \u00a79[\u4f18\u826f\u00b73\u70b9\u62a4\u7532\u00b7\u9632\u7206\u5934]\u00a7r"
+        "value": "§9特警防暴防弹头盔 [优良·3点护甲·防爆头]§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head"

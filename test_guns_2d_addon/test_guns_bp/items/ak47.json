@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_ak47",
       "minecraft:display_name": {
-        "value": "AK-47 突击步枪 §f[普通·经典实木]§r"
+        "value": "§fAK-47 突击步枪 [普通·经典实木]§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

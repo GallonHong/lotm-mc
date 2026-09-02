@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_shotgun",
       "minecraft:display_name": {
-        "value": "雷明顿 M870 霰弹枪 §f[普通·泵动式]§r"
+        "value": "§f雷明顿 M870 霰弹枪 [普通·泵动式]§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

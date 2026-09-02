@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_part_plasma_core",
       "minecraft:display_name": {
-        "value": "⚛️ 聚能等离子磁约束核心 §6[稀有核心模块]§r"
+        "value": "§6⚛️ 聚能等离子磁约束核心 [稀有核心模块]§r"
       }
     }
   }

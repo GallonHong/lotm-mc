@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_tactical_shovel",
       "minecraft:display_name": {
-        "value": "\u5de5\u5175\u6218\u672f\u7834\u62c6\u94f2 \u00a7a[\u4f18\u826f\u00b78\u70b9\u4f24\u00b7\u7834\u76fe\u949d\u51fb]\u00a7r"
+        "value": "§a工兵战术破拆铲 [优良·8点伤·破盾钝击]§r"
       },
       "minecraft:damage": {
         "value": 8

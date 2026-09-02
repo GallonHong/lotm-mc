@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_part_military_fcu",
       "minecraft:display_name": {
-        "value": "🎛️ 军用数控火控核心 §6[稀有核心模块]§r"
+        "value": "§6🎛️ 军用数控火控核心 [稀有核心模块]§r"
       }
     }
   }

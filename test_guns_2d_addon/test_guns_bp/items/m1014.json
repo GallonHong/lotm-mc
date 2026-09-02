@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m1014",
       "minecraft:display_name": {
-        "value": "伯奈利 M1014 连发霰弹枪 §9[优良·急速连喷]§r"
+        "value": "§9伯奈利 M1014 连发霰弹枪 [优良·急速连喷]§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

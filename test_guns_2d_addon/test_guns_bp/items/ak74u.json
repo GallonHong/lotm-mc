@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_ak74u",
       "minecraft:display_name": {
-        "value": "AK-74U 短突击步枪 §f[普通·高机动]§r"
+        "value": "§fAK-74U 短突击步枪 [普通·高机动]§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m82",
       "minecraft:display_name": {
-        "value": "巴雷特 M82 .50 反器材重狙 §5[史诗·穿甲高爆]§r"
+        "value": "§5巴雷特 M82 .50 反器材重狙 [史诗·穿甲高爆]§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_blueprint_common",
       "minecraft:display_name": {
-        "value": "AK-74U 设计图纸 §f[普通]§r"
+        "value": "§fAK-74U 设计图纸 [普通]§r"
       }
     }
   }

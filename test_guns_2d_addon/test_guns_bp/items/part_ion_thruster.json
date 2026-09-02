@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_part_ion_thruster",
       "minecraft:display_name": {
-        "value": "🚀 超导离子推进矢量喷口 §6[稀有核心模块]§r"
+        "value": "§6🚀 超导离子推进矢量喷口 [稀有核心模块]§r"
       }
     }
   }

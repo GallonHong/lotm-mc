@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_part_tungsten_bolt",
       "minecraft:display_name": {
-        "value": "🔩 高纯度钨合金重型机心 §6[稀有核心模块]§r"
+        "value": "§6🔩 高纯度钨合金重型机心 [稀有核心模块]§r"
       }
     }
   }

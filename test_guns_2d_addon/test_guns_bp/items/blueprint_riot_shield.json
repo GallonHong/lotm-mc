@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_blueprint_epic",
       "minecraft:display_name": {
-        "value": "战术反甲防暴盾结构图 §5[史诗]§r"
+        "value": "§5战术反甲防暴盾结构图 [史诗]§r"
       }
     }
   }

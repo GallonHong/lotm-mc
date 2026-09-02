@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_part_deflection_generator",
       "minecraft:display_name": {
-        "value": "🛡️ 动能偏转偏振矩阵 §6[稀有核心模块]§r"
+        "value": "§6🛡️ 动能偏转偏振矩阵 [稀有核心模块]§r"
       }
     }
   }

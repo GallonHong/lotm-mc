@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_katana",
       "minecraft:display_name": {
-        "value": "\u6218\u672f\u51b7\u94a2\u9ed1\u5203\u6b66\u58eb\u5200 \u00a75[\u53f2\u8bd7\u00b714\u70b9\u4f24\u00b7\u5c45\u5408\u62d4\u5200]\u00a7r"
+        "value": "§5战术冷钢黑刃武士刀 [史诗·14点伤·居合拔刀]§r"
       },
       "minecraft:damage": {
         "value": 14

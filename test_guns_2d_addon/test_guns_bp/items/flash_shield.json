@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_flash_shield",
       "minecraft:display_name": {
-        "value": "G52-\u6218\u672f\u95ea\u5149\u9632\u66b4\u76fe \u00a75[\u53f2\u8bd7]\u00a7r"
+        "value": "§5G52-战术闪光防暴盾 [史诗]§r"
       },
       "minecraft:wearable": {
         "slot": "slot.weapon.offhand"

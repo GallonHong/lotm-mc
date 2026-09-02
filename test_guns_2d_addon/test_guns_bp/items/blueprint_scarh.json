@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_blueprint_rare",
       "minecraft:display_name": {
-        "value": "SCAR-H 战术重步枪蓝图 §9[优良]§r"
+        "value": "§9SCAR-H 战术重步枪蓝图 [优良]§r"
       }
     }
   }

@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_blueprint_rare",
       "minecraft:display_name": {
-        "value": "伯奈利 M1014 霰弹枪蓝图 §9[优良]§r"
+        "value": "§9伯奈利 M1014 霰弹枪蓝图 [优良]§r"
       }
     }
   }

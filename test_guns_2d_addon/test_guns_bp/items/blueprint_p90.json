@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_blueprint_rare",
       "minecraft:display_name": {
-        "value": "FN P90 冲锋枪战术蓝图 §9[优良]§r"
+        "value": "§9FN P90 冲锋枪战术蓝图 [优良]§r"
       }
     }
   }
