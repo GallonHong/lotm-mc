@@ -6,9 +6,11 @@ import { WorldEventManager } from "./events/WorldEventManager.js";
 import { EventNodeRegistry } from "./events/EventNodeRegistry.js";
 import { EVENT_TEMPLATES } from "./events/templates/eventTemplates.js";
 import { DailyMenu, DailyAdminMenu, isAdmin } from "./ui/DailyMenu.js";
+import { MerchantMenu, NpcDialogue } from "./ui/NpcDialogue.js";
+import { merchantByEntity } from "./merchants/merchantConfig.js";
 import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 
-console.warn("[DailyEvents] Survival Daily & World Events v0.1.1 initializing...");
+console.warn("[DailyEvents] Survival Daily & World Events v0.2.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -44,6 +46,20 @@ function recordContributor(entity, player) {
 }
 
 function findOnline(id) { return world.getAllPlayers().find(player => player.id === id) || null; }
+
+function handleNpcInteraction(player, target) {
+  if (!player || !target) return false;
+  let commissioner = target.typeId === "daily:commissioner";
+  try { commissioner ||= target.hasTag("daily_commissioner"); } catch {}
+  if (commissioner) {
+    NpcDialogue.open(player, target, "daily_commissioner_main", () => DailyMenu.open(player));
+    return true;
+  }
+  const merchant = merchantByEntity(target);
+  if (!merchant) return false;
+  NpcDialogue.open(player, target, merchant.scene, () => MerchantMenu.open(player, merchant));
+  return true;
+}
 
 function handleEntityDeath(event) {
   const dead = event.deadEntity;
@@ -133,13 +149,13 @@ const craftedSubscribed = subscribe(world.afterEvents?.playerCraftedItem, "playe
 if (!craftedSubscribed) console.warn("[DailyEvents] Craft progress can be submitted from the Daily menu using the vanilla placeholder item.");
 
 const interactAfter = subscribe(world.afterEvents?.playerInteractWithEntity, "after playerInteractWithEntity", event => {
-  if (event.target?.typeId === "daily:commissioner") DailyMenu.open(event.player);
+  handleNpcInteraction(event.player, event.target);
 });
 if (!interactAfter) {
   subscribe(world.beforeEvents?.playerInteractWithEntity, "before playerInteractWithEntity", event => {
-    if (event.target?.typeId !== "daily:commissioner") return;
     const player = event.player;
-    system.run(() => DailyMenu.open(player));
+    const target = event.target;
+    system.run(() => handleNpcInteraction(player, target));
   });
 }
 
@@ -148,6 +164,24 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   if (!player || player.typeId !== "minecraft:player") return;
   const id = String(event.id || "").toLowerCase();
   if (id === "daily:menu") DailyMenu.open(player);
+  else if (id === "daily:quests") system.runTimeout(() => DailyMenu.openQuests(player), 2);
+  else if (id === "daily:claim") system.runTimeout(() => {
+    const count = DailyQuestManager.claimCompleted(player);
+    player.sendMessage(count ? `§a已领取 ${count} 项任务奖励。` : "§7没有可领取的任务奖励。");
+    NpcDialogue.syncPlayer(player);
+  }, 2);
+  else if (id === "daily:activity") system.runTimeout(() => DailyMenu.openActivity(player), 2);
+  else if (id === "daily:craft") system.runTimeout(() => {
+    const response = DailyQuestManager.submitCraftPlaceholder(player);
+    player.sendMessage(`${response.ok ? "§a" : "§c"}${response.message}`);
+    NpcDialogue.syncPlayer(player);
+  }, 2);
+  else if (id === "daily:pending") system.runTimeout(() => {
+    const count = RewardManager.claimPending(player);
+    player.sendMessage(count ? `§a已补发 ${count} 项物资。` : "§7暂无可补发物资，或背包空间仍不足。");
+  }, 2);
+  else if (id === "daily:help") system.runTimeout(() => DailyMenu.openHelp(player), 2);
+  else if (id === "daily:merchant") MerchantMenu.openCategory(player, event.message || "all");
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }
   else if (id === "daily:event" && isAdmin(player)) handleCommand(player, `!event ${event.message || ""}`);
@@ -172,7 +206,7 @@ system.runInterval(() => {
 
 system.runInterval(() => {
   for (const player of world.getAllPlayers()) {
-    try { DailyQuestManager.pollSales(player); } catch {}
+    try { DailyQuestManager.pollSales(player); NpcDialogue.syncPlayer(player); } catch {}
   }
 }, 100);
 

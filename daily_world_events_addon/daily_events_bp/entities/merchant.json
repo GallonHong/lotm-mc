@@ -1,9 +1,9 @@
 {
   "format_version": "1.21.50",
   "minecraft:entity": {
-    "description": { "identifier": "daily:commissioner", "is_spawnable": true, "is_summonable": true, "is_experimental": false },
+    "description": { "identifier": "daily:merchant", "is_spawnable": true, "is_summonable": true, "is_experimental": false },
     "components": {
-      "minecraft:type_family": { "family": ["daily_npc", "npc", "mob"] },
+      "minecraft:type_family": { "family": ["daily_merchant", "npc", "mob"] },
       "minecraft:npc": { "npc_data": {} },
       "minecraft:nameable": { "always_show": true, "allow_name_tag_renaming": false },
       "minecraft:health": { "value": 100, "max": 100 },
@@ -12,12 +12,7 @@
       "minecraft:physics": { "has_gravity": true, "has_collision": true },
       "minecraft:persistent": {},
       "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": "no" }] },
-      "minecraft:interact": { "interactions": [{
-        "on_interact": { "filters": { "test": "is_family", "subject": "other", "value": "player" }, "event": "daily:interacted", "target": "self" },
-        "interact_text": "action.interact"
-      }] },
       "minecraft:behavior.look_at_player": { "priority": 1, "look_distance": 8, "probability": 1 }
-    },
-    "events": { "daily:interacted": {} }
+    }
   }
 }

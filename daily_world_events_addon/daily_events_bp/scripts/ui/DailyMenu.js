@@ -6,6 +6,8 @@ import { ACTIVITY_MILESTONES } from "../config.js";
 import { EventNodeRegistry } from "../events/EventNodeRegistry.js";
 import { WorldEventManager } from "../events/WorldEventManager.js";
 import { EVENT_TEMPLATES } from "../events/templates/eventTemplates.js";
+import { MERCHANTS } from "../merchants/merchantConfig.js";
+import { NpcDialogue } from "./NpcDialogue.js";
 
 export function isAdmin(player) {
   try { if (player.hasTag("admin")) return true; } catch {}
@@ -38,7 +40,6 @@ export class DailyMenu {
       .button("§l§e查看今日任务", "textures/ui/achievements")
       .button("§l§a领取全部已完成奖励", "textures/ui/gift_square")
       .button("§l§6查看活跃度奖励", "textures/ui/Trade2")
-      .button("§l§bMVP 武器维修台", "textures/ui/anvil_icon")
       .button("§l§d提交制造成果", "textures/ui/icon_recipe_item")
       .button("§l§a领取待发物资", "textures/ui/inventory_icon")
       .button("§l§7任务说明", "textures/ui/infobulb");
@@ -50,14 +51,10 @@ export class DailyMenu {
         this.open(player);
       } else if (result.selection === 2) this.openActivity(player);
       else if (result.selection === 3) {
-        const response = DailyQuestManager.performRepair(player);
-        player.sendMessage(`${response.ok ? "§a" : "§c"}${response.message}`);
-        this.open(player);
-      } else if (result.selection === 4) {
         const response = DailyQuestManager.submitCraftPlaceholder(player);
         player.sendMessage(`${response.ok ? "§a" : "§c"}${response.message}`);
         this.open(player);
-      } else if (result.selection === 5) {
+      } else if (result.selection === 4) {
         const count = RewardManager.claimPending(player);
         player.sendMessage(count ? `§a已补发 ${count} 项物资。` : "§7暂无可补发物资，或背包空间仍不足。");
         this.open(player);
@@ -110,6 +107,7 @@ export class DailyAdminMenu {
     const form = new ActionFormData().title("§l§c日常与动态事件管理")
       .body(`§f事件节点：§e${EventNodeRegistry.getNodes().length}\n§f运行事件：§e${WorldEventManager.list().length}`)
       .button("§a放置委托专员", "textures/ui/FriendsIcon")
+      .button("§6放置商人 NPC", "textures/ui/MCStore_Gold_large")
       .button("§6创建当前位置事件节点", "textures/ui/World")
       .button("§c删除附近事件节点", "textures/ui/trash")
       .button("§4当前位置测试事件", "textures/ui/warning_alex")
@@ -119,23 +117,50 @@ export class DailyAdminMenu {
       .button("§7打开玩家委托菜单", "textures/ui/undo");
     show(player, form, result => {
       if (result.selection === 0) this.spawnCommissioner(player);
-      else if (result.selection === 1) this.createNode(player);
-      else if (result.selection === 2) this.deleteNearbyNode(player);
-      else if (result.selection === 3) this.startDebugEvent(player);
-      else if (result.selection === 4) this.listEvents(player);
-      else if (result.selection === 5) { player.sendMessage(WorldEventManager.stopNear(player) ? "§a已停止附近事件。" : "§7附近没有运行事件。"); this.open(player); }
-      else if (result.selection === 6) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a已重新生成自己的今日任务。"); this.open(player); }
+      else if (result.selection === 1) this.openMerchantSpawner(player);
+      else if (result.selection === 2) this.createNode(player);
+      else if (result.selection === 3) this.deleteNearbyNode(player);
+      else if (result.selection === 4) this.startDebugEvent(player);
+      else if (result.selection === 5) this.listEvents(player);
+      else if (result.selection === 6) { player.sendMessage(WorldEventManager.stopNear(player) ? "§a已停止附近事件。" : "§7附近没有运行事件。"); this.open(player); }
+      else if (result.selection === 7) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a已重新生成自己的今日任务。"); this.open(player); }
       else DailyMenu.open(player);
     });
   }
 
   static spawnCommissioner(player) {
     try {
-      const entity = player.dimension.spawnEntity("daily:commissioner", player.location);
+      let entity;
+      try { entity = player.dimension.spawnEntity("minecraft:npc", player.location); }
+      catch { entity = player.dimension.spawnEntity("daily:commissioner", player.location); }
       entity.nameTag = "§6生存联盟委托专员";
-      entity.addTag("daily_commissioner");
-      player.sendMessage("§a委托专员已放置。右键/长按 NPC 打开今日委托。");
+      const native = NpcDialogue.assignScene(player, entity, "daily_commissioner", "daily_commissioner_main");
+      player.sendMessage(native ? "§a委托专员已放置。右键/长按打开原生 NPC 委托对话。" : "§e委托专员已放置，但原生对话初始化失败，将使用兼容菜单。");
     } catch (error) { player.sendMessage(`§c放置失败：${error}`); }
+    this.open(player);
+  }
+
+  static openMerchantSpawner(player) {
+    const merchants = Object.values(MERCHANTS);
+    const form = new ActionFormData().title("§l放置商人 NPC").body("§7商人名称、台词、按钮和商店分类均可在配置文件中继续修改。");
+    for (const merchant of merchants) form.button(`${merchant.name}\n§r§8${merchant.description}`, "textures/ui/MCStore_Gold_large");
+    form.button("§7返回", "textures/ui/undo");
+    show(player, form, result => {
+      const merchant = merchants[result.selection];
+      if (!merchant) return this.open(player);
+      this.spawnMerchant(player, merchant);
+    });
+  }
+
+  static spawnMerchant(player, merchant) {
+    try {
+      let entity;
+      try { entity = player.dimension.spawnEntity("minecraft:npc", player.location); }
+      catch { entity = player.dimension.spawnEntity("daily:merchant", player.location); }
+      entity.nameTag = merchant.name;
+      const native = NpcDialogue.assignScene(player, entity, merchant.tag, merchant.scene);
+      player.sendMessage(native ? `§a已放置 ${merchant.name}§a。` : `§e已放置 ${merchant.name}§e，但原生对话初始化失败，将使用兼容菜单。`);
+    } catch (error) { player.sendMessage(`§c放置商人失败：${error}`); }
     this.open(player);
   }
 

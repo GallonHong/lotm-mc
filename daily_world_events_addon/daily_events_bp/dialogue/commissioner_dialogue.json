@@ -1,0 +1,29 @@
+{
+  "format_version": "1.17",
+  "minecraft:npc_dialogue": {
+    "scenes": [
+      {
+        "scene_tag": "daily_commissioner_main",
+        "npc_name": "生存联盟委托专员",
+        "text": {
+          "rawtext": [
+            { "text": "今天的委托已经准备好了。\n\n今日完成度：" },
+            { "score": { "name": "@initiator", "objective": "daily_done" } },
+            { "text": " / 4\n活跃度：" },
+            { "score": { "name": "@initiator", "objective": "daily_active" } },
+            { "text": " / 100\n可领取任务奖励：" },
+            { "score": { "name": "@initiator", "objective": "daily_claim" } }
+          ]
+        },
+        "buttons": [
+          { "name": "查看今日任务", "commands": ["/execute as @initiator run scriptevent daily:quests"] },
+          { "name": "领取任务奖励", "commands": ["/execute as @initiator run scriptevent daily:claim"] },
+          { "name": "查看活跃奖励", "commands": ["/execute as @initiator run scriptevent daily:activity"] },
+          { "name": "提交制造成果", "commands": ["/execute as @initiator run scriptevent daily:craft"] },
+          { "name": "领取待发物资", "commands": ["/execute as @initiator run scriptevent daily:pending"] },
+          { "name": "任务说明", "commands": ["/execute as @initiator run scriptevent daily:help"] }
+        ]
+      }
+    ]
+  }
+}

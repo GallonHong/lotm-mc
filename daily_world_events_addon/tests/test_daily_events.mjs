@@ -34,7 +34,8 @@ assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.h
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
 const questSource = readFileSync(join(bp, "scripts/daily/dailyQuests.js"), "utf8");
-for (const type of ["collect", "kill", "world_event", "craft", "repair", "sell"]) assert(questSource.includes(`type: \"${type}\"`));
+for (const type of ["collect", "kill", "world_event", "craft", "sell"]) assert(questSource.includes(`type: \"${type}\"`));
+assert.equal(questSource.includes('type: "repair"'), false, "repair quest must remain removed");
 const managerSource = readFileSync(join(bp, "scripts/daily/DailyQuestManager.js"), "utf8");
 assert(managerSource.includes("QUEST_POOLS.collect") && managerSource.includes("QUEST_POOLS.random"));
 assert(managerSource.includes("system.currentTick") === false, "daily persistence must not derive day identity from ticks");
@@ -53,6 +54,12 @@ assert(rewards.includes("minecraft:name_tag") && rewards.includes("minecraft:ame
 const integration = readFileSync(join(bp, "scripts/integration/IntegrationBridge.js"), "utf8");
 assert(integration.includes("apoc:spawn_requests:v1") === false, "integration key should come from configurable config.js");
 assert(integration.includes("enqueueSpawn") && integration.includes("spawnFallback"));
+
+const commissionerDialogue = json(join(bp, "dialogue/commissioner_dialogue.json"));
+const merchantDialogue = json(join(bp, "dialogue/merchant_dialogues.json"));
+assert.equal(commissionerDialogue["minecraft:npc_dialogue"].scenes[0].buttons.some(button => button.name.includes("维修")), false);
+assert.equal(merchantDialogue["minecraft:npc_dialogue"].scenes.length, 4);
+assert(files(bp).some(path => path.endsWith("scripts/merchants/merchantConfig.js")));
 
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));

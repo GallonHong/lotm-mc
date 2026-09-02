@@ -1,4 +1,3 @@
-import { EquipmentSlot } from "@minecraft/server";
 import { CONFIG, ACTIVITY_MILESTONES, COLLECT_GROUPS, MOB_TARGETS } from "../config.js";
 import { DAILY_QUEST_REGISTRY, QUEST_POOLS } from "./dailyQuests.js";
 import { RewardManager } from "../rewards/RewardManager.js";
@@ -72,6 +71,12 @@ export class DailyQuestManager {
       this.saveState(player, state);
       player.sendMessage(`§6[生存联盟] 已生成 ${dayKey} 的 4 项日常委托。`);
     }
+    if (state.quests.some(quest => quest.type === "repair")) {
+      const replacements = QUEST_POOLS.random.filter(key => DAILY_QUEST_REGISTRY[key]?.type !== "repair");
+      state.quests = state.quests.map(quest => quest.type === "repair" ? this.makeQuest(pick(replacements), dayKey) : quest);
+      this.saveState(player, state);
+      player.sendMessage("§e[生存联盟] 维修委托已取消，并自动替换为新的随机委托。");
+    }
     return state;
   }
 
@@ -130,10 +135,6 @@ export class DailyQuestManager {
 
   static onCraft(player, itemId, amount = 1) {
     this.advance(player, quest => quest.type === "craft" && quest.targetId === itemId, amount);
-  }
-
-  static onRepair(player) {
-    this.advance(player, quest => quest.type === "repair", 1, "维修武器");
   }
 
   static pollSales(player) {
@@ -204,20 +205,6 @@ export class DailyQuestManager {
     if (!this.removeItem(player, quest.targetId, needed)) return { ok: false, message: `需要提交 ${quest.targetId} ×${needed}。` };
     this.onCraft(player, quest.targetId, needed);
     return { ok: true, message: "已提交制造成果；支持制造事件的版本会自动记录，无需提交。" };
-  }
-
-  static performRepair(player) {
-    try {
-      const equipment = player.getComponent("minecraft:equippable");
-      const item = equipment?.getEquipment(EquipmentSlot.Mainhand);
-      const durability = item?.getComponent("minecraft:durability") || item?.getComponent("durability");
-      if (!item || !durability || durability.damage <= 0) return { ok: false, message: "请主手持有一件已损坏的武器或工具。" };
-      if (!this.removeItem(player, "minecraft:iron_ingot", 1)) return { ok: false, message: "维修需要铁锭 ×1（MVP 维修材料）。" };
-      durability.damage = Math.max(0, durability.damage - Math.max(1, Math.floor(durability.maxDurability * 0.25)));
-      equipment.setEquipment(EquipmentSlot.Mainhand, item);
-      this.onRepair(player);
-      return { ok: true, message: "维修完成：恢复 25% 最大耐久。" };
-    } catch (error) { return { ok: false, message: `维修失败：${error}` }; }
   }
 
   static summary(player) {

@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": { "description": {
+    "identifier": "daily:merchant",
+    "materials": { "default": "entity_alphatest" },
+    "textures": { "default": "textures/entity/alex" },
+    "geometry": { "default": "geometry.humanoid" },
+    "animations": { "base": "animation.humanoid.base_pose", "look": "animation.humanoid.look_at_target.default" },
+    "scripts": { "animate": ["base", "look"] },
+    "render_controllers": ["controller.render.default"],
+    "spawn_egg": { "base_color": "#5B4636", "overlay_color": "#D8B46A" }
+  } }
+}

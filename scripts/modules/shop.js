@@ -10,6 +10,23 @@ import { Integration } from "./integration.js";
  * 支持分类浏览、批量购买与出售回收
  */
 export class ShopManager {
+    static getVisibleCategories() {
+        return Config.shop.categories.filter(category =>
+            !["lotm", "sealed_artifacts"].includes(category.id) || Integration.isLotmAvailable()
+        );
+    }
+
+    static openCategoryById(player, categoryId, onBack = null) {
+        const id = String(categoryId || "").trim().toLowerCase();
+        if (!id || id === "all") return this.openShopCategoryUI(player, onBack);
+        const category = this.getVisibleCategories().find(value => value.id === id);
+        if (!category) {
+            Utils.tell(player, `§c商店分类 ${id} 不存在或当前未启用。`);
+            return this.openShopCategoryUI(player, onBack);
+        }
+        this.openCategoryItemsUI(player, category, () => this.openShopCategoryUI(player, onBack));
+    }
+
     /**
      * 打开商店分类主界面
      * @param {import("@minecraft/server").Player} player 
@@ -27,9 +44,7 @@ export class ShopManager {
             );
 
         // 非凡商品由服务器经济包定价，但只有 LOTM 包在线时才展示，避免无效物品标识符。
-        const categories = Config.shop.categories.filter(category =>
-            !["lotm", "sealed_artifacts"].includes(category.id) || Integration.isLotmAvailable()
-        );
+        const categories = this.getVisibleCategories();
         for (const cat of categories) {
             form.button(`${cat.name}\n§r§8${cat.description}`, cat.icon);
         }
