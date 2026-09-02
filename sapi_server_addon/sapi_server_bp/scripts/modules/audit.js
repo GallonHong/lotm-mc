@@ -80,13 +80,13 @@ export class AuditManager {
         ).slice(0, 30);
         const actions = [];
         const form = new ActionFormData().title("§l§c📋 服务器审计").body(
-            `§f总记录: §e${this.getLogs().length}§f 条\n§f当前筛选: §7${needle || "无"}\n§8仅显示最近 30 条匹配记录`
+            `§0总记录: §e${this.getLogs().length}§0 条\n§0当前筛选: §8${needle || "无"}\n§8仅显示最近 30 条匹配记录`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🔎 搜索日志", "textures/ui/magnifyingGlass", () => this.openFilterModal(player, onBack));
-        add("§l§7✖ 清除筛选", "textures/ui/cancel", () => this.openAdminUI(player, onBack));
+        add("§l§8✖ 清除筛选", "textures/ui/cancel", () => this.openAdminUI(player, onBack));
         for (const entry of logs) {
-            add(`§f${this.label(entry.type)} §8| §e${entry.actor}\n§r§7${this.formatTime(entry.time)}`, "textures/ui/achievements", () => this.openEntry(player, entry, onBack, needle));
+            add(`§0${this.label(entry.type)} §8| §e${entry.actor}\n§r§8${this.formatTime(entry.time)}`, "textures/ui/achievements", () => this.openEntry(player, entry, onBack, needle));
         }
         add("§l§6📤 输出到内容日志", "textures/ui/op", () => {
             console.warn(`[Audit Export] ${JSON.stringify(this.getLogs())}`);
@@ -94,7 +94,7 @@ export class AuditManager {
             this.openAdminUI(player, onBack, needle);
         });
         add("§l§c🗑️ 清空审计日志", "textures/ui/trash", () => this.confirmClear(player, onBack));
-        add("§l§7⬅ 返回", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, response => actions[response.selection]?.());
     }
 
@@ -108,15 +108,15 @@ export class AuditManager {
 
     static openEntry(player, entry, onBack, filter) {
         const form = new MessageFormData().title(`§l${this.label(entry.type)}`).body(
-            `§f时间: §7${this.formatTime(entry.time)}\n§f操作者: §e${entry.actor}\n§f目标: §b${entry.target || "无"}\n§f详情: §7${entry.detail || "无"}\n§8ID: ${entry.id}`
-        ).button1("§7返回日志").button2("§7关闭");
+            `§0时间: §8${this.formatTime(entry.time)}\n§0操作者: §e${entry.actor}\n§0目标: §b${entry.target || "无"}\n§0详情: §8${entry.detail || "无"}\n§8ID: ${entry.id}`
+        ).button1("§8返回日志").button2("§8关闭");
         Utils.showForm(player, form, response => {
             if (response.selection === 0) this.openAdminUI(player, onBack, filter);
         });
     }
 
     static confirmClear(player, onBack = null) {
-        const form = new MessageFormData().title("§l§c清空审计日志").body("§c此操作不可撤销。确定清空全部服务器审计记录？").button1("§c确认清空").button2("§7取消");
+        const form = new MessageFormData().title("§l§c清空审计日志").body("§c此操作不可撤销。确定清空全部服务器审计记录？").button1("§c确认清空").button2("§8取消");
         Utils.showForm(player, form, response => {
             if (response.selection === 0) {
                 this.saveLogs([]);

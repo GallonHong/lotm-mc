@@ -27,12 +27,12 @@ export class ServerMenuManager {
         const form = new ActionFormData()
             .title(`§l${Config.system.serverName} §r§8- 服务器菜单`)
             .body(
-                `§7══════════════════════════════\n` +
-                `§f玩家: §e${player.name}\n` +
-                `§f资产: ${Utils.formatCurrency(balance)}\n` +
-                (lotmReady ? `§f非凡状态: §d${sequence ? `序列 ${sequence}` : "普通人"} §8| §d${spirituality} 灵性\n` : "§8LOTM Pathways 未安装或尚未启动\n") +
-                `§f区块: §7[${chunkX}, ${chunkZ}]\n` +
-                `§7══════════════════════════════`
+                `§8══════════════════════════════\n` +
+                `§0玩家: §e${player.name}\n` +
+                `§0资产: ${Utils.formatCurrency(balance)}\n` +
+                (lotmReady ? `§0非凡状态: §d${sequence ? `序列 ${sequence}` : "普通人"} §8| §d${spirituality} 灵性\n` : "§8LOTM Pathways 未安装或尚未启动\n") +
+                `§0区块: §8[${chunkX}, ${chunkZ}]\n` +
+                `§8══════════════════════════════`
             );
 
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
@@ -54,7 +54,7 @@ export class ServerMenuManager {
         if (Utils.isAdmin(player)) {
             add("§l§c⚙️ 管理员控制台\n§r§8服务器与联动管理", "textures/ui/op", () => this.openAdminPanel(player, () => this.openMainMenu(player)));
         }
-        add("§l§7✖ 关闭菜单", "textures/ui/cancel", () => {});
+        add("§l§8✖ 关闭菜单", "textures/ui/cancel", () => {});
 
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
@@ -64,7 +64,7 @@ export class ServerMenuManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§c⚙️ 服务器管理员控制台")
-            .body(`§f在线玩家: §e${world.getAllPlayers().length}\n§7LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§7日常事件联动: ${Integration.isDailyEventsAvailable() ? "§a已连接" : "§8未连接"}`);
+            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${Integration.isDailyEventsAvailable() ? "§a已连接" : "§8未连接"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
@@ -81,7 +81,7 @@ export class ServerMenuManager {
         if (Integration.isDailyEventsAvailable()) {
             add("§l§6📋 日常与事件管理", "textures/ui/achievements", () => Integration.send(player, "daily:admin"));
         }
-        add("§l§7⬅ 返回", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 
@@ -114,10 +114,10 @@ export class ServerMenuManager {
         const dimension = player.dimension.id;
         const plot = LandManager.getPlot(dimension, chunkX, chunkZ);
         if (!plot) {
-            Utils.tell(player, "§7当前区块没有地皮。");
+            Utils.tell(player, "§8当前区块没有地皮。");
             return onBack?.();
         }
-        const form = new MessageFormData().title("§l§4确认删除地皮").body(`§f${plot.name}\n§7[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§7取消");
+        const form = new MessageFormData().title("§l§4确认删除地皮").body(`§0${plot.name}\n§8[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§8取消");
         Utils.showForm(player, form, (res) => {
             if (res.selection === 0) {
                 LandManager.deletePlot(dimension, chunkX, chunkZ);
@@ -132,7 +132,7 @@ export class ServerMenuManager {
         Utils.showForm(player, form, (res) => {
             const content = res.formValues?.[0]?.trim();
             if (content) {
-                Utils.broadcast(`§e[管理员 ${player.name}] §f${content}`);
+                Utils.broadcast(`§e[管理员 ${player.name}] §0${content}`);
                 AuditManager.log("admin_broadcast", player, "all", content);
             }
             onBack?.();

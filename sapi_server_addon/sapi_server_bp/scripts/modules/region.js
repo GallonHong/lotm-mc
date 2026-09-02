@@ -180,7 +180,7 @@ export class RegionManager {
                 const current = region?.id || null;
                 if (current === previous) continue;
                 if (region) Utils.tell(player, `§b你已进入保护区：§e${region.name}`);
-                else if (previous) Utils.tell(player, "§7你已离开管理员保护区。");
+                else if (previous) Utils.tell(player, "§8你已离开管理员保护区。");
                 if (current) this.playerRegions.set(player.id, current);
                 else this.playerRegions.delete(player.id);
             }
@@ -194,7 +194,7 @@ export class RegionManager {
         const point = value => value ? `${value.x}, ${value.y}, ${value.z}` : "未设置";
         const actions = [];
         const form = new ActionFormData().title("§l§c🏰 主城与保护区管理").body(
-            `§f保护区: §e${this.getRegions().length}§f 个\n§f选点 A: §7${point(selection.a)}\n§f选点 B: §7${point(selection.b)}`
+            `§0保护区: §e${this.getRegions().length}§0 个\n§0选点 A: §8${point(selection.a)}\n§0选点 B: §8${point(selection.b)}`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a📍 设置选点 A", "textures/ui/World", () => { this.setPoint(player, "a"); this.openAdminMenu(player, onBack); });
@@ -203,10 +203,10 @@ export class RegionManager {
         add("§l§c🗑️ 删除保护区", "textures/ui/trash", () => this.openDeleteRegionMenu(player, onBack));
         add("§l§b🔎 查看当前位置", "textures/ui/magnifyingGlass", () => {
             const region = this.getRegionAt(player.dimension.id, player.location);
-            Utils.tell(player, region ? `§a当前位置属于：§e${region.name} §7(优先级 ${region.priority})` : "§7当前位置不在管理员保护区内。");
+            Utils.tell(player, region ? `§a当前位置属于：§e${region.name} §8(优先级 ${region.priority})` : "§8当前位置不在管理员保护区内。");
             this.openAdminMenu(player, onBack);
         });
-        add("§l§7⬅ 返回", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, res => actions[res.selection]?.());
     }
 
@@ -225,13 +225,13 @@ export class RegionManager {
 
     static openDeleteRegionMenu(player, onBack = null) {
         const regions = this.getRegions();
-        const form = new ActionFormData().title("§l§c删除保护区").body("§7选择要删除的管理员保护区。");
+        const form = new ActionFormData().title("§l§c删除保护区").body("§8选择要删除的管理员保护区。");
         for (const region of regions) form.button(`${region.name}\n§r§8${region.dimension}`, "textures/ui/trash");
-        form.button("§l§7⬅ 返回", "textures/ui/undo");
+        form.button("§l§8⬅ 返回", "textures/ui/undo");
         Utils.showForm(player, form, res => {
             const region = regions[res.selection];
             if (!region) return this.openAdminMenu(player, onBack);
-            const confirm = new MessageFormData().title("§l§c确认删除").body(`§f确定删除 §e${region.name}§f？`).button1("§c删除").button2("§7取消");
+            const confirm = new MessageFormData().title("§l§c确认删除").body(`§0确定删除 §e${region.name}§0？`).button1("§c删除").button2("§8取消");
             Utils.showForm(player, confirm, answer => {
                 if (answer.selection === 0 && this.removeRegion(region.id, player)) Utils.tell(player, `§a已删除保护区：§e${region.name}`);
                 this.openAdminMenu(player, onBack);

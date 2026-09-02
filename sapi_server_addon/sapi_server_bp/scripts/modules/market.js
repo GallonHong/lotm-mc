@@ -106,7 +106,7 @@ export class MarketManager {
         EconomyManager.addBalance(player, amount);
         world.setDynamicProperty(this.payoutKey(player.name), undefined);
         if (notify) {
-            Utils.tell(player, `§a寄卖行离线成交款已到账：${Utils.formatCurrency(amount)} §7（已扣除10%手续费）。`);
+            Utils.tell(player, `§a寄卖行离线成交款已到账：${Utils.formatCurrency(amount)} §8（已扣除10%手续费）。`);
             Utils.sound.success(player);
         }
         return amount;
@@ -183,15 +183,15 @@ export class MarketManager {
         const form = new ActionFormData()
             .title("§l§6🏪 玩家交易寄卖行")
             .body(
-                `§f在售商品: §e${listings.length}\n` +
-                `§f我的寄卖: §b${mine} §7/ ${Config.market?.maxListingsPerPlayer ?? 10}\n` +
-                `§f成交手续费: §c${Math.round(this.feeRate * 100)}%\n` +
-                `§7卖家实收成交价的 ${Math.round((1 - this.feeRate) * 100)}%，离线成交款上线自动到账。`
+                `§0在售商品: §e${listings.length}\n` +
+                `§0我的寄卖: §b${mine} §8/ ${Config.market?.maxListingsPerPlayer ?? 10}\n` +
+                `§0成交手续费: §c${Math.round(this.feeRate * 100)}%\n` +
+                `§8卖家实收成交价的 ${Math.round((1 - this.feeRate) * 100)}%，离线成交款上线自动到账。`
             )
             .button("§l§a🛒 浏览寄卖商品\n§r§8购买其他玩家上架的物品", "textures/ui/MCStore_Gold_large")
             .button("§l§e📦 上架背包物品\n§r§8选择物品、数量与单价", "textures/items/chest_minecart")
             .button("§l§b📋 我的寄卖\n§r§8查看或撤回尚未售出的商品", "textures/items/book_writable");
-        if (onBack) form.button("§l§7⬅ 返回服务器菜单", "textures/ui/undo");
+        if (onBack) form.button("§l§8⬅ 返回服务器菜单", "textures/ui/undo");
         Utils.showForm(player, form, (res) => {
             if (res.selection === 0) this.openBrowseUI(player, () => this.openMainUI(player, onBack));
             else if (res.selection === 1) this.openCreateListingUI(player, () => this.openMainUI(player, onBack));
@@ -219,7 +219,7 @@ export class MarketManager {
             if (item) entries.push({ slot, item });
         }
         if (!entries.length) {
-            Utils.tell(player, "§7背包中没有可上架物品。");
+            Utils.tell(player, "§8背包中没有可上架物品。");
             return onBack?.();
         }
 
@@ -304,18 +304,18 @@ export class MarketManager {
         const actions = [];
         const form = new ActionFormData()
             .title(`§l§6🏪 寄卖商品 ${currentPage + 1}/${pageCount}`)
-            .body(pageItems.length ? "§7选择商品查看并购买。成交后系统扣除卖家10%手续费。" : "§7当前没有其他玩家的寄卖商品。");
+            .body(pageItems.length ? "§8选择商品查看并购买。成交后系统扣除卖家10%手续费。" : "§8当前没有其他玩家的寄卖商品。");
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const listing of pageItems) {
             add(
-                `§f${this.getDisplayName(listing)} x${listing.amount}\n§e${listing.unitPrice}/件 §8| ${listing.sellerName}`,
+                `§0${this.getDisplayName(listing)} x${listing.amount}\n§e${listing.unitPrice}/件 §8| ${listing.sellerName}`,
                 "textures/items/emerald",
                 () => this.openBuyUI(player, listing.id, () => this.openBrowseUI(player, onBack, currentPage))
             );
         }
         if (currentPage > 0) add("§l§b⬅ 上一页", "textures/ui/undo", () => this.openBrowseUI(player, onBack, currentPage - 1));
         if (currentPage + 1 < pageCount) add("§l§b下一页 ➡", "textures/ui/refresh", () => this.openBrowseUI(player, onBack, currentPage + 1));
-        add("§l§7⬅ 返回寄卖行", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回寄卖行", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 
@@ -370,16 +370,16 @@ export class MarketManager {
     static openMyListingsUI(player, onBack = null) {
         const listings = this.getListings().filter(listing => listing.sellerName === player.name);
         const actions = [];
-        const form = new ActionFormData().title("§l§b📋 我的寄卖").body(listings.length ? "§7选择商品可撤回剩余库存。" : "§7当前没有寄卖商品。");
+        const form = new ActionFormData().title("§l§b📋 我的寄卖").body(listings.length ? "§8选择商品可撤回剩余库存。" : "§8当前没有寄卖商品。");
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const listing of listings.slice(0, Config.market?.maxListingsPerPlayer ?? 10)) {
             add(
-                `§f${this.getDisplayName(listing)} x${listing.amount}\n§e${listing.unitPrice}/件 §8| 点击撤回`,
+                `§0${this.getDisplayName(listing)} x${listing.amount}\n§e${listing.unitPrice}/件 §8| 点击撤回`,
                 "textures/items/emerald",
                 () => this.openCancelListingUI(player, listing.id, () => this.openMyListingsUI(player, onBack))
             );
         }
-        add("§l§7⬅ 返回寄卖行", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回寄卖行", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 
@@ -392,9 +392,9 @@ export class MarketManager {
         }
         const form = new MessageFormData()
             .title("§l§c撤回寄卖商品")
-            .body(`§f${this.getDisplayName(listing)} x${listing.amount}\n§7撤回不收取手续费。`)
+            .body(`§0${this.getDisplayName(listing)} x${listing.amount}\n§8撤回不收取手续费。`)
             .button1("§a确认撤回")
-            .button2("§7取消");
+            .button2("§8取消");
         Utils.showForm(player, form, (res) => {
             if (res.selection === 0) {
                 const latest = this.getListing(listingId);

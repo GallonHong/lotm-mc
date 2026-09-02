@@ -42,9 +42,9 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     TeleportManager.handlePlayerSpawn(player);
     if (!initialSpawn) return;
     Utils.tell(player, `§a欢迎来到 ${Config.system.serverName} §a服务器！`);
-    Utils.tell(player, "§7手持罗盘右键可打开服务器菜单。");
+    Utils.tell(player, "§8手持罗盘右键可打开服务器菜单。");
     if (Config.system.giveMenuItemOnJoin && Utils.countItem(player, Config.system.menuItem) === 0) {
-        Utils.giveItem(player, Config.system.menuItem, 1, Config.system.menuItemName, ["§7右键打开服务器导航菜单"]);
+        Utils.giveItem(player, Config.system.menuItem, 1, Config.system.menuItemName, ["§8右键打开服务器导航菜单"]);
     }
 });
 

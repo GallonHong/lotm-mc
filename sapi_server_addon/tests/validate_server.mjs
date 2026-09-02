@@ -26,7 +26,7 @@ for (const route of ["!daily", "!redeem", "!tpa", "!audit"]) assert.ok(main.incl
 assert.match(menu, /每日福利/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.5.2");
+assert.equal(manifest.header.version.join("."), "2.5.3");
 assert.match(main, /sapi:shop/);
 assert.match(main, /requestCompassMenu/);
 assert.match(main, /system\.currentTick - lastTick < 8/);
@@ -35,4 +35,12 @@ const lottery = read("sapi_server_bp/scripts/modules/lottery.js");
 assert.match(lottery, /if \(res\.canceled\) return;/);
 assert.match(lottery, /res\.selection === pools\.length/);
 
-console.log("SAPI Server v2.5.2 menu and lottery navigation validation passed.");
+const uiSources = fs.readdirSync(new URL("../sapi_server_bp/scripts/", import.meta.url), { recursive: true })
+  .filter(path => String(path).endsWith(".js"))
+  .map(path => read(`sapi_server_bp/scripts/${path}`));
+for (const source of uiSources) {
+  assert.equal(source.includes("§f"), false, "white text color must not remain in SAPI UI");
+  assert.equal(source.includes("§7"), false, "light-gray text color must not remain in SAPI UI");
+}
+
+console.log("SAPI Server v2.5.3 dark-text UI validation passed.");

@@ -78,10 +78,10 @@ export class LotteryManager {
         const form = new ActionFormData()
             .title("§l§d🎁 幸运抽奖大厅")
             .body(
-                `§7═════════════════════════\n` +
-                `§f当前资产: ${Utils.formatCurrency(balance)}\n` +
-                `§7选择你感兴趣的神秘奖池，测测今日欧气！\n` +
-                `§7═════════════════════════`
+                `§8═════════════════════════\n` +
+                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§8选择你感兴趣的神秘奖池，测测今日欧气！\n` +
+                `§8═════════════════════════`
             );
 
         const pools = this.getPools();
@@ -116,11 +116,11 @@ export class LotteryManager {
         const form = new ActionFormData()
             .title(`§l${pool.name}`)
             .body(
-                `§7═════════════════════════\n` +
-                `§f当前资产: ${Utils.formatCurrency(balance)}\n` +
-                `§7奖池说明: §f${pool.description}\n` +
-                (pity ? `§f保底进度: §d${pity.current}/${pity.threshold} §7（再抽 ${pity.remaining} 次必出指定奖品）\n` : "§8该奖池未启用保底\n") +
-                `§7═════════════════════════`
+                `§8═════════════════════════\n` +
+                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§8奖池说明: §0${pool.description}\n` +
+                (pity ? `§0保底进度: §d${pity.current}/${pity.threshold} §8（再抽 ${pity.remaining} 次必出指定奖品）\n` : "§8该奖池未启用保底\n") +
+                `§8═════════════════════════`
             )
             .button(`§l§a🎯 单抽 1 次\n§r§8消耗 ${pool.singleCost} 金币`, "textures/ui/generic_single_coin")
             .button(`§l§6🌟 十连抽取\n§r§8消耗 ${pool.tenCost} 金币 (特惠)`, "textures/ui/generic_ten_coins")
@@ -226,13 +226,13 @@ export class LotteryManager {
         }
 
         // 展示抽奖结果视窗
-        let resultText = `§7═════════ 抽奖结果 (${count} 连抽) ═════════\n\n`;
+        let resultText = `§8═════════ 抽奖结果 (${count} 连抽) ═════════\n\n`;
         for (let i = 0; i < results.length; i++) {
             const { item: it, forcedPity } = results[i];
-            const rarityInfo = Config.lottery.rarities[it.rarity] || { name: "普通", color: "§7" };
-            resultText += `§f[${i + 1}] [${rarityInfo.color}${rarityInfo.name}§f] ${it.name}${forcedPity ? " §d【保底】" : ""}\n`;
+            const rarityInfo = Config.lottery.rarities[it.rarity] || { name: "普通", color: "§8" };
+            resultText += `§0[${i + 1}] [${rarityInfo.color}${rarityInfo.name}§0] ${it.name}${forcedPity ? " §d【保底】" : ""}\n`;
         }
-        resultText += `\n§7═══════════════════════════════════\n`;
+        resultText += `\n§8═══════════════════════════════════\n`;
         resultText += `§a已自动将获得的物品发放至你的背包！`;
 
         const form = new ActionFormData()
@@ -260,18 +260,18 @@ export class LotteryManager {
         const eligibleItems = this.getEligibleItems(pool);
         const totalWeight = eligibleItems.reduce((sum, it) => sum + it.weight, 0);
 
-        let content = `§7═════════ 奖池概率公示 ═════════\n\n`;
+        let content = `§8═════════ 奖池概率公示 ═════════\n\n`;
         for (const it of eligibleItems) {
-            const rarityInfo = Config.lottery.rarities[it.rarity] || { name: "普通", color: "§7" };
+            const rarityInfo = Config.lottery.rarities[it.rarity] || { name: "普通", color: "§8" };
             const chance = totalWeight > 0 ? ((it.weight / totalWeight) * 100).toFixed(1) : "0.0";
-            content += `[${rarityInfo.color}${rarityInfo.name}§r] ${it.name} §7- 概率: §e${chance}%\n`;
+            content += `[${rarityInfo.color}${rarityInfo.name}§r] ${it.name} §8- 概率: §e${chance}%\n`;
         }
         if (!eligibleItems.length) content += "§8当前没有可用奖品。\n";
         const pityPrize = eligibleItems.find(item => item.key === pool.pityPrizeKey);
         if (pityPrize && pool.pityThreshold > 0) {
             content += `\n§d保底规则：若前 ${Math.max(0, pool.pityThreshold - 1)} 抽未获得 ${pityPrize.name}，第 ${pool.pityThreshold} 抽必定获得。\n`;
         }
-        content += `\n§7══════════════════════════════`;
+        content += `\n§8══════════════════════════════`;
 
         const form = new ActionFormData()
             .title(`§l奖池概率: ${pool.name}`)
@@ -322,7 +322,7 @@ export class LotteryManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§d🎰 自定义奖池管理")
-            .body(`§f自定义奖池: §e${pools.length}/20\n§7内置奖池保持只读；自定义奖池可独立设置奖品、权重、价格与指定奖品保底。`);
+            .body(`§0自定义奖池: §e${pools.length}/20\n§8内置奖池保持只读；自定义奖池可独立设置奖品、权重、价格与指定奖品保底。`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const pool of pools) {
             const pity = pool.pityThreshold > 0 && pool.pityPrizeKey ? `保底${pool.pityThreshold}抽` : "无保底";
@@ -333,7 +333,7 @@ export class LotteryManager {
             );
         }
         if (pools.length < 20) add("§l§a＋ 创建自定义奖池", "textures/ui/gift_square", () => this.openCreatePoolUI(player, () => this.openAdminPoolManager(player, onBack)));
-        add("§l§7⬅ 返回管理员菜单", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回管理员菜单", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 
@@ -382,10 +382,10 @@ export class LotteryManager {
         const form = new ActionFormData()
             .title(`§l§d${pool.name}`)
             .body(
-                `§f状态: ${pool.enabled === false ? "§8未发布" : "§a已发布"}\n` +
-                `§f价格: §e${pool.singleCost} / ${pool.tenCost}\n` +
-                `§f奖品: §b${pool.items?.length || 0}/40\n` +
-                `§f保底: ${pityPrize && pool.pityThreshold > 0 ? `§d${pool.pityThreshold}抽必出 ${pityPrize.name}` : "§8未启用"}`
+                `§0状态: ${pool.enabled === false ? "§8未发布" : "§a已发布"}\n` +
+                `§0价格: §e${pool.singleCost} / ${pool.tenCost}\n` +
+                `§0奖品: §b${pool.items?.length || 0}/40\n` +
+                `§0保底: ${pityPrize && pool.pityThreshold > 0 ? `§d${pool.pityThreshold}抽必出 ${pityPrize.name}` : "§8未启用"}`
             );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§e✏ 编辑名称、说明与价格", "textures/items/book_writable", () => this.openEditPoolBasicsUI(player, poolId, () => this.openCustomPoolEditor(player, poolId, onBack)));
@@ -401,7 +401,7 @@ export class LotteryManager {
             this.openCustomPoolEditor(player, poolId, onBack);
         });
         add("§l§4🗑 删除奖池", "textures/ui/trash", () => this.openDeletePoolUI(player, poolId, onBack));
-        add("§l§7⬅ 返回奖池列表", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回奖池列表", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 
@@ -479,12 +479,12 @@ export class LotteryManager {
         const pool = this.getCustomPools().find(entry => entry.id === poolId);
         if (!pool) return onBack?.();
         const actions = [];
-        const form = new ActionFormData().title("§l§b📦 奖品管理").body(pool.items?.length ? "§7选择奖品进行编辑或删除。" : "§7尚未添加奖品。");
+        const form = new ActionFormData().title("§l§b📦 奖品管理").body(pool.items?.length ? "§8选择奖品进行编辑或删除。" : "§8尚未添加奖品。");
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const prize of pool.items || []) {
             add(`${prize.name}\n§r§8${prize.id} x${prize.amount} | 权重${prize.weight}`, "textures/items/emerald", () => this.openPrizeEditorUI(player, poolId, prize.key, () => this.openPrizeListUI(player, poolId, onBack)));
         }
-        add("§l§7⬅ 返回奖池编辑", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回奖池编辑", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 
@@ -494,10 +494,10 @@ export class LotteryManager {
         if (!prize) return onBack?.();
         const form = new ActionFormData()
             .title(`§l${prize.name}`)
-            .body(`§fID: §7${prize.id}\n§f数量: §e${prize.amount}\n§f权重: §e${prize.weight}\n§f稀有度: §d${prize.rarity}`)
+            .body(`§0ID: §8${prize.id}\n§0数量: §e${prize.amount}\n§0权重: §e${prize.weight}\n§0稀有度: §d${prize.rarity}`)
             .button("§l§e✏ 编辑奖品", "textures/items/book_writable")
             .button("§l§4🗑 删除奖品", "textures/ui/trash")
-            .button("§l§7⬅ 返回", "textures/ui/undo");
+            .button("§l§8⬅ 返回", "textures/ui/undo");
         Utils.showForm(player, form, (res) => {
             if (res.selection === 0) this.openEditPrizeUI(player, poolId, prizeKey, onBack);
             else if (res.selection === 1) {
@@ -587,7 +587,7 @@ export class LotteryManager {
             .title("§l§4删除自定义奖池")
             .body(`§c确定永久删除【${pool.name}】吗？玩家在该奖池的保底计数将不再使用。`)
             .button1("§4确认删除")
-            .button2("§7取消");
+            .button2("§8取消");
         Utils.showForm(player, form, (res) => {
             if (res.selection === 0) {
                 try { this.saveCustomPools(this.getCustomPools().filter(entry => entry.id !== poolId)); }

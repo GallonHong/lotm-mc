@@ -9,10 +9,10 @@ export const Config = {
     // -------------------------------------------------------------
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.5.2",
+        version: "2.5.3",
         adminTag: "admin", // 拥有此 tag 或 op 的玩家拥有管理员权限
         menuItem: "minecraft:compass", // 右键唤起主菜单的物品 ID
-        menuItemName: "§r§l§6快捷导航菜单 §7(右键使用)",
+        menuItemName: "§r§l§6快捷导航菜单 §8(右键使用)",
         giveMenuItemOnJoin: true, // 新玩家加入时是否赠送菜单罗盘
         chatPrefixes: ["!menu", "!cd", "!caidan", "！菜单", "!shop", "!land", "!lottery", "!market", "!ah", "!pay", "!money", "!warp", "!spawn", "!home", "!tpa", "!back", "!daily", "!redeem", "!region", "!audit"],
     },
@@ -114,15 +114,15 @@ export const Config = {
                 icon: "textures/blocks/stonebrick",
                 description: "各类精美建筑材料与装饰方块",
                 items: [
-                    { id: "minecraft:stone", name: "§7石头", buyPrice: 2, sellPrice: 1, icon: "textures/blocks/stone" },
-                    { id: "minecraft:cobblestone", name: "§7圆石", buyPrice: 2, sellPrice: 1, icon: "textures/blocks/cobblestone" },
+                    { id: "minecraft:stone", name: "§8石头", buyPrice: 2, sellPrice: 1, icon: "textures/blocks/stone" },
+                    { id: "minecraft:cobblestone", name: "§8圆石", buyPrice: 2, sellPrice: 1, icon: "textures/blocks/cobblestone" },
                     { id: "minecraft:oak_log", name: "§6橡木原木", buyPrice: 8, sellPrice: 4, icon: "textures/blocks/log_oak" },
-                    { id: "minecraft:glass", name: "§f玻璃", buyPrice: 4, sellPrice: 2, icon: "textures/blocks/glass" },
-                    { id: "minecraft:stonebrick", name: "§7石砖", buyPrice: 4, sellPrice: 2, icon: "textures/blocks/stonebrick" },
+                    { id: "minecraft:glass", name: "§0玻璃", buyPrice: 4, sellPrice: 2, icon: "textures/blocks/glass" },
+                    { id: "minecraft:stonebrick", name: "§8石砖", buyPrice: 4, sellPrice: 2, icon: "textures/blocks/stonebrick" },
                     { id: "minecraft:sea_lantern", name: "§b海晶灯", buyPrice: 40, sellPrice: 15, icon: "textures/blocks/sea_lantern" },
                     { id: "minecraft:glowstone", name: "§e荧石", buyPrice: 30, sellPrice: 10, icon: "textures/blocks/glowstone" },
                     { id: "minecraft:obsidian", name: "§5黑曜石", buyPrice: 80, sellPrice: 30, icon: "textures/blocks/obsidian" },
-                    { id: "minecraft:smooth_quartz", name: "§f平滑石英块", buyPrice: 25, sellPrice: 8, icon: "textures/blocks/quartz_block_bottom" },
+                    { id: "minecraft:smooth_quartz", name: "§0平滑石英块", buyPrice: 25, sellPrice: 8, icon: "textures/blocks/quartz_block_bottom" },
                 ]
             },
             {
@@ -133,7 +133,7 @@ export const Config = {
                 items: [
                     { id: "minecraft:coal", name: "§8煤炭", buyPrice: 5, sellPrice: 2, icon: "textures/items/coal" },
                     { id: "minecraft:copper_ingot", name: "§6铜锭", buyPrice: 8, sellPrice: 3, icon: "textures/items/copper_ingot" },
-                    { id: "minecraft:iron_ingot", name: "§f铁锭", buyPrice: 20, sellPrice: 8, icon: "textures/items/iron_ingot" },
+                    { id: "minecraft:iron_ingot", name: "§0铁锭", buyPrice: 20, sellPrice: 8, icon: "textures/items/iron_ingot" },
                     { id: "minecraft:gold_ingot", name: "§e金锭", buyPrice: 40, sellPrice: 18, icon: "textures/items/gold_ingot" },
                     { id: "minecraft:redstone", name: "§c红石粉", buyPrice: 8, sellPrice: 3, icon: "textures/items/redstone_dust" },
                     { id: "minecraft:lapis_lazuli", name: "§9青金石", buyPrice: 8, sellPrice: 3, icon: "textures/items/dye_powder_blue" },
@@ -171,8 +171,8 @@ export const Config = {
                     { id: "minecraft:diamond_leggings", name: "§b钻石护腿", buyPrice: 1400, sellPrice: 450, icon: "textures/items/diamond_leggings" },
                     { id: "minecraft:diamond_boots", name: "§b钻石靴子", buyPrice: 800, sellPrice: 250, icon: "textures/items/diamond_boots" },
                     { id: "minecraft:bow", name: "§6弓", buyPrice: 60, sellPrice: 15, icon: "textures/items/bow_standby" },
-                    { id: "minecraft:arrow", name: "§f箭矢", buyPrice: 2, sellPrice: 1, icon: "textures/items/arrow" },
-                    { id: "minecraft:shield", name: "§7盾牌", buyPrice: 100, sellPrice: 30, icon: "textures/items/shield" },
+                    { id: "minecraft:arrow", name: "§0箭矢", buyPrice: 2, sellPrice: 1, icon: "textures/items/arrow" },
+                    { id: "minecraft:shield", name: "§8盾牌", buyPrice: 100, sellPrice: 30, icon: "textures/items/shield" },
                 ]
             },
             {
@@ -202,7 +202,7 @@ export const Config = {
                     { id: "lotm:potion_hunter", name: "§2【魔药】序列9: 猎人", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_hunter" },
                     { id: "lotm:potion_provoker", name: "§6【魔药】序列8: 挑衅者", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_provoker" },
                     { id: "lotm:potion_pyromaniac", name: "§c【魔药】序列7: 纵火家", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_pyromaniac" },
-                    { id: "lotm:potion_warrior", name: "§7【魔药】序列9: 战士", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_warrior" },
+                    { id: "lotm:potion_warrior", name: "§8【魔药】序列9: 战士", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_warrior" },
                     { id: "lotm:potion_pugilist", name: "§6【魔药】序列8: 格斗家", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_pugilist" },
                     { id: "lotm:potion_weapon_master", name: "§6【魔药】序列7: 武器大师", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_weapon_master" },
                     { id: "lotm:potion_sleepless", name: "§9【魔药】序列9: 不眠者", buyPrice: 1500, sellPrice: 500, icon: "textures/items/potion_sleepless" },
@@ -221,7 +221,7 @@ export const Config = {
                     { id: "lotm:potion_folk_of_rage", name: "§9【魔药】序列8: 暴怒之民", buyPrice: 5000, sellPrice: 1500, icon: "textures/items/potion_midnight_poet" },
                     { id: "lotm:potion_seafarer", name: "§b【魔药】序列7: 航海家", buyPrice: 18000, sellPrice: 5000, icon: "textures/items/potion_nightmare" },
                     { id: "lotm:spirit_cane", name: "§e【非凡武器】魔术师手杖", buyPrice: 1200, sellPrice: 400, icon: "textures/items/spirit_cane" },
-                    { id: "lotm:paper_figurine", name: "§f【符咒媒介】符咒纸人替身", buyPrice: 200, sellPrice: 60, icon: "textures/items/paper_figurine" },
+                    { id: "lotm:paper_figurine", name: "§0【符咒媒介】符咒纸人替身", buyPrice: 200, sellPrice: 60, icon: "textures/items/paper_figurine" },
                     { id: "lotm:tarot_card", name: "§e【飞掷道具】魔术纸牌", buyPrice: 30, sellPrice: 8, icon: "textures/items/tarot_card" },
                     { id: "lotm:pyro_gauntlet", name: "§c【非凡媒介】纵火者手套", buyPrice: 3500, sellPrice: 1000, icon: "textures/items/pyro_gauntlet" },
                     { id: "lotm:alchemical_molotov", name: "§6【消耗品】炼金燃烧瓶", buyPrice: 150, sellPrice: 40, icon: "textures/items/alchemical_molotov" },
@@ -245,10 +245,10 @@ export const Config = {
                     { id: "lotm:death_knell", name: "§l§6【2级封印物】§c丧钟短铳", buyPrice: 88888, sellPrice: 30000, icon: "textures/items/death_knell" },
                     { id: "lotm:ashen_reaper", name: "§l§c【3级封印物】§e灰烬收割者", buyPrice: 45000, sellPrice: 15000, icon: "textures/items/ashen_reaper" },
                     { id: "lotm:dawn_greatsword", name: "§l§e【3级封印物】§b晨曦圣剑", buyPrice: 48000, sellPrice: 16000, icon: "textures/items/dawn_greatsword" },
-                    { id: "lotm:silent_pointer", name: "§l§9【3级封印物】§7静默之针", buyPrice: 42000, sellPrice: 14000, icon: "textures/items/silent_pointer" },
+                    { id: "lotm:silent_pointer", name: "§l§9【3级封印物】§8静默之针", buyPrice: 42000, sellPrice: 14000, icon: "textures/items/silent_pointer" },
                     { id: "lotm:blood_moon_rapier", name: "§l§4【3级封印物】§d血月刺剑", buyPrice: 46000, sellPrice: 15500, icon: "textures/items/blood_moon_rapier" },
                     { id: "lotm:mirror_split_dagger", name: "§l§d【3级封印物】§b镜面裂魂短匕", buyPrice: 43000, sellPrice: 14500, icon: "textures/items/mirror_split_dagger" },
-                    { id: "lotm:arsenal_box", name: "§l§6【3级封印物】§f万象军备匣", buyPrice: 52000, sellPrice: 18000, icon: "textures/items/arsenal_box" },
+                    { id: "lotm:arsenal_box", name: "§l§6【3级封印物】§0万象军备匣", buyPrice: 52000, sellPrice: 18000, icon: "textures/items/arsenal_box" },
                     { id: "lotm:tactical_sword", name: "§6【战术战兵】破甲长剑", buyPrice: 2000, sellPrice: 600, icon: "textures/items/tactical_sword" },
                     { id: "lotm:tactical_axe", name: "§c【战术战兵】碎颅战斧", buyPrice: 2200, sellPrice: 700, icon: "textures/items/tactical_axe" },
                     { id: "lotm:tactical_spear", name: "§b【战术战兵】贯穿长矛", buyPrice: 2400, sellPrice: 750, icon: "textures/items/tactical_spear" },
@@ -280,19 +280,19 @@ export const Config = {
                 id: "coin_pool",
                 name: "§e🪙 普通金币奖池",
                 icon: "textures/items/gold_nugget",
-                description: "§7消耗金币抽取日常实用建材、矿物与食物奖励。",
+                description: "§8消耗金币抽取日常实用建材、矿物与食物奖励。",
                 singleCost: 200,
                 tenCost: 1800, // 9折
                 items: [
                     // weight 权重越大几率越高
                     { id: "minecraft:coal", amount: 16, name: "§8煤炭 x16", weight: 30, rarity: "common" },
                     { id: "minecraft:cooked_beef", amount: 16, name: "§c熟牛肉 x16", weight: 25, rarity: "common" },
-                    { id: "minecraft:iron_ingot", amount: 8, name: "§f铁锭 x8", weight: 20, rarity: "common" },
+                    { id: "minecraft:iron_ingot", amount: 8, name: "§0铁锭 x8", weight: 20, rarity: "common" },
                     { id: "minecraft:gold_ingot", amount: 6, name: "§e金锭 x6", weight: 15, rarity: "rare" },
                     { id: "lotm:tarot_card", amount: 16, name: "§e魔术纸牌 x16", weight: 14, rarity: "rare" },
                     { id: "minecraft:experience_bottle", amount: 16, name: "§a附魔之瓶 x16", weight: 12, rarity: "rare" },
                     { id: "minecraft:emerald", amount: 4, name: "§a绿宝石 x4", weight: 10, rarity: "rare" },
-                    { id: "lotm:paper_figurine", amount: 2, name: "§f纸人替身 x2", weight: 8, rarity: "epic" },
+                    { id: "lotm:paper_figurine", amount: 2, name: "§0纸人替身 x2", weight: 8, rarity: "epic" },
                     { id: "minecraft:diamond", amount: 2, name: "§b钻石 x2", weight: 5, rarity: "epic" },
                     { id: "minecraft:golden_apple", amount: 3, name: "§6金苹果 x3", weight: 4, rarity: "epic" },
                     { id: "lotm:potion_seer", amount: 1, name: "§l§9【魔药】序列9: 占卜家", weight: 3, rarity: "legendary" },
@@ -303,13 +303,13 @@ export const Config = {
                 id: "vip_pool",
                 name: "§6👑 高级欧皇奖池",
                 icon: "textures/items/nether_star",
-                description: "§7高额金币奖池，极高概率获得限定神话非凡神兵、极品神装与下界合金！",
+                description: "§8高额金币奖池，极高概率获得限定神话非凡神兵、极品神装与下界合金！",
                 singleCost: 2000,
                 tenCost: 18000,
                 items: [
                     { id: "minecraft:diamond", amount: 8, name: "§b钻石 x8", weight: 26, rarity: "rare" },
                     { id: "minecraft:emerald_block", amount: 2, name: "§a绿宝石块 x2", weight: 22, rarity: "rare" },
-                    { id: "lotm:paper_figurine", amount: 8, name: "§f纸人替身 x8", weight: 16, rarity: "rare" },
+                    { id: "lotm:paper_figurine", amount: 8, name: "§0纸人替身 x8", weight: 16, rarity: "rare" },
                     { id: "minecraft:experience_bottle", amount: 64, name: "§a附魔之瓶 x64", weight: 14, rarity: "rare" },
                     { id: "lotm:spirit_cane", amount: 1, name: "§l§e【非凡手杖】魔术师手杖", weight: 12, rarity: "epic" },
                     { id: "minecraft:netherite_ingot", amount: 1, name: "§8下界合金锭 x1", weight: 10, rarity: "epic" },
@@ -323,7 +323,7 @@ export const Config = {
             }
         ],
         rarities: {
-            common: { name: "§7普通", color: "§7", broadcast: false },
+            common: { name: "§8普通", color: "§8", broadcast: false },
             rare: { name: "§9稀有", color: "§9", broadcast: false },
             epic: { name: "§5史诗", color: "§5", broadcast: true },
             legendary: { name: "§6传说", color: "§6", broadcast: true },

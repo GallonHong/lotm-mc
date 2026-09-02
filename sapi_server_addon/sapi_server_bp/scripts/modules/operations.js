@@ -177,12 +177,12 @@ export class OperationsManager {
     static claimDaily(player) {
         const { day, date, settings } = this.getDayInfo();
         if (!settings.dailyEnabled) {
-            Utils.tell(player, "§7每日签到当前已被管理员关闭。");
+            Utils.tell(player, "§8每日签到当前已被管理员关闭。");
             return false;
         }
         const state = this.getDailyState(player);
         if (state.lastDay === day) {
-            Utils.tell(player, "§7你今天已经签到过了。");
+            Utils.tell(player, "§8你今天已经签到过了。");
             return false;
         }
         state.streak = state.lastDay === day - 1 ? state.streak + 1 : 1;
@@ -265,12 +265,12 @@ export class OperationsManager {
         const state = this.getDailyState(player);
         const pending = this.getPending(player);
         const actions = [];
-        const form = new ActionFormData().title("§l§e🎁 每日福利").body(`§f服务器日期: §e${date}\n§f连续签到: §a${state.streak} 天 §7| 累计 ${state.total} 天\n§f待领取奖励: §e${pending.length}`);
+        const form = new ActionFormData().title("§l§e🎁 每日福利").body(`§0服务器日期: §e${date}\n§0连续签到: §a${state.streak} 天 §8| 累计 ${state.total} 天\n§0待领取奖励: §e${pending.length}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add(`§l§a📅 今日签到\n§r§8${settings.dailyEnabled ? "领取七日循环奖励" : "管理员已关闭"}`, "textures/ui/gift_square", () => { this.claimDaily(player); this.openPlayerMenu(player, onBack); });
         add(`§l§6🎟 输入兑换码\n§r§8${settings.redeemEnabled ? "领取服务器活动奖励" : "管理员已关闭"}`, "textures/ui/Trade2", () => this.openRedeemModal(player, onBack));
         add(`§l§b📦 待领取奖励\n§r§8当前 ${pending.length} 项`, "textures/ui/icon_recipe_nature", () => this.openPendingMenu(player, onBack));
-        add("§l§7⬅ 返回", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, response => actions[response.selection]?.());
     }
 
@@ -288,9 +288,9 @@ export class OperationsManager {
     static openPendingMenu(player, onBack = null) {
         const pending = this.getPending(player);
         const actions = [];
-        const form = new ActionFormData().title("§l§b📦 待领取奖励").body(pending.length ? "§7点击一项尝试重新领取。" : "§7没有待领取奖励。");
+        const form = new ActionFormData().title("§l§b📦 待领取奖励").body(pending.length ? "§8点击一项尝试重新领取。" : "§8没有待领取奖励。");
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-        for (const entry of pending) add(`§f${entry.source}\n§r§8${this.rewardText(entry.reward)}`, "textures/ui/gift_square", () => {
+        for (const entry of pending) add(`§0${entry.source}\n§r§8${this.rewardText(entry.reward)}`, "textures/ui/gift_square", () => {
             if (this.grantReward(player, entry.reward)) {
                 this.setPlayerJson(player, PENDING_KEY, this.getPending(player).filter(item => item.id !== entry.id));
                 Utils.tell(player, `§a已领取：§e${this.rewardText(entry.reward)}`);
@@ -298,7 +298,7 @@ export class OperationsManager {
             } else Utils.tell(player, "§c奖励仍无法发放，请联系管理员检查物品配置。");
             this.openPendingMenu(player, onBack);
         });
-        add("§l§7⬅ 返回", "textures/ui/undo", () => this.openPlayerMenu(player, onBack));
+        add("§l§8⬅ 返回", "textures/ui/undo", () => this.openPlayerMenu(player, onBack));
         Utils.showForm(player, form, response => actions[response.selection]?.());
     }
 
@@ -306,12 +306,12 @@ export class OperationsManager {
         if (!Utils.isAdmin(admin)) return;
         const settings = this.getSettings();
         const actions = [];
-        const form = new ActionFormData().title("§l§c🎛 服务器运营管理").body(`§f每日签到: ${settings.dailyEnabled ? "§a开启" : "§c关闭"}\n§f兑换码: ${settings.redeemEnabled ? "§a开启" : "§c关闭"}\n§f兑换码数量: §e${this.getCodes().length}`);
+        const form = new ActionFormData().title("§l§c🎛 服务器运营管理").body(`§0每日签到: ${settings.dailyEnabled ? "§a开启" : "§c关闭"}\n§0兑换码: ${settings.redeemEnabled ? "§a开启" : "§c关闭"}\n§0兑换码数量: §e${this.getCodes().length}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a📅 签到配置", "textures/ui/gift_square", () => this.openDailyAdmin(admin, onBack));
         add("§l§6🎟 兑换码管理", "textures/ui/Trade2", () => this.openCodeAdmin(admin, onBack));
         add("§l§b📦 玩家待领取奖励管理", "textures/ui/icon_recipe_nature", () => this.openPendingAdminSelect(admin, onBack));
-        add("§l§7⬅ 返回", "textures/ui/undo", () => onBack?.());
+        add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(admin, form, response => actions[response.selection]?.());
     }
 
@@ -342,11 +342,11 @@ export class OperationsManager {
     static openCodeAdmin(admin, onBack = null) {
         const codes = this.getCodes();
         const actions = [];
-        const form = new ActionFormData().title("§l§6🎟 兑换码管理").body(`§f当前兑换码: §e${codes.length}/${Config.operations?.maxCodes || 50}`);
+        const form = new ActionFormData().title("§l§6🎟 兑换码管理").body(`§0当前兑换码: §e${codes.length}/${Config.operations?.maxCodes || 50}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a➕ 创建兑换码", "textures/ui/plus", () => this.openCreateCode(admin, onBack));
-        for (const code of codes) add(`${code.enabled ? "§a" : "§7"}${code.name}\n§r§8${this.maskCode(code.code)} · ${code.used}/${code.maxUses || "∞"}`, "textures/ui/Trade2", () => this.openCodeActions(admin, code.id, onBack));
-        add("§l§7⬅ 返回", "textures/ui/undo", () => this.openAdminMenu(admin, onBack));
+        for (const code of codes) add(`${code.enabled ? "§a" : "§8"}${code.name}\n§r§8${this.maskCode(code.code)} · ${code.used}/${code.maxUses || "∞"}`, "textures/ui/Trade2", () => this.openCodeActions(admin, code.id, onBack));
+        add("§l§8⬅ 返回", "textures/ui/undo", () => this.openAdminMenu(admin, onBack));
         Utils.showForm(admin, form, response => actions[response.selection]?.());
     }
 
@@ -379,7 +379,7 @@ export class OperationsManager {
         const codes = this.getCodes();
         const code = codes.find(entry => entry.id === codeId);
         if (!code) return this.openCodeAdmin(admin, onBack);
-        const form = new MessageFormData().title(`§l${code.name}`).body(`§f兑换码: §e${code.code}\n§f状态: ${code.enabled ? "§a启用" : "§c停用"}\n§f奖励: §e${this.rewardText(code.reward)}\n§f使用: §e${code.used}/${code.maxUses || "∞"}\n§f每人: §e${code.perPlayer} 次\n§f到期: §7${code.expiresAt ? new Date(code.expiresAt).toLocaleString("zh-CN") : "永久"}\n\n§7选择切换状态，或进入删除确认。`).button1(code.enabled ? "§c停用" : "§a启用").button2("§4删除…");
+        const form = new MessageFormData().title(`§l${code.name}`).body(`§0兑换码: §e${code.code}\n§0状态: ${code.enabled ? "§a启用" : "§c停用"}\n§0奖励: §e${this.rewardText(code.reward)}\n§0使用: §e${code.used}/${code.maxUses || "∞"}\n§0每人: §e${code.perPlayer} 次\n§0到期: §8${code.expiresAt ? new Date(code.expiresAt).toLocaleString("zh-CN") : "永久"}\n\n§8选择切换状态，或进入删除确认。`).button1(code.enabled ? "§c停用" : "§a启用").button2("§4删除…");
         Utils.showForm(admin, form, response => {
             if (response.canceled) return this.openCodeAdmin(admin, onBack);
             if (response.selection === 0) {
@@ -392,7 +392,7 @@ export class OperationsManager {
     }
 
     static confirmDeleteCode(admin, code, onBack = null) {
-        const form = new MessageFormData().title("§l§c确认删除兑换码").body(`§c删除后无法恢复：${code.name}\n§7建议有玩家使用后优先停用，而不是删除。`).button1("§c确认删除").button2("§7取消");
+        const form = new MessageFormData().title("§l§c确认删除兑换码").body(`§c删除后无法恢复：${code.name}\n§8建议有玩家使用后优先停用，而不是删除。`).button1("§c确认删除").button2("§8取消");
         Utils.showForm(admin, form, response => {
             if (response.selection === 0) {
                 this.saveCodes(this.getCodes().filter(entry => entry.id !== code.id));
@@ -405,9 +405,9 @@ export class OperationsManager {
 
     static openPendingAdminSelect(admin, onBack = null) {
         const players = world.getAllPlayers();
-        const form = new ActionFormData().title("§l§b玩家待领取奖励").body("§7仅能管理当前在线玩家。");
+        const form = new ActionFormData().title("§l§b玩家待领取奖励").body("§8仅能管理当前在线玩家。");
         for (const target of players) form.button(`${target.name}\n§r§8待领取 ${this.getPending(target).length} 项`, "textures/ui/FriendsIcon");
-        form.button("§l§7⬅ 返回", "textures/ui/undo");
+        form.button("§l§8⬅ 返回", "textures/ui/undo");
         Utils.showForm(admin, form, response => {
             const target = players[response.selection];
             if (target) this.openPendingAdminActions(admin, target, onBack);
@@ -419,8 +419,8 @@ export class OperationsManager {
         if (!Utils.isValid(target)) return this.openPendingAdminSelect(admin, onBack);
         const pending = this.getPending(target);
         const actions = [];
-        const details = pending.slice(0, 8).map(entry => `§7- ${entry.source}: ${this.rewardText(entry.reward)}`).join("\n");
-        const form = new ActionFormData().title(`§l管理 ${target.name} 的奖励`).body(`§f待领取: §e${pending.length} 项\n${details || "§7无待领取奖励"}`);
+        const details = pending.slice(0, 8).map(entry => `§8- ${entry.source}: ${this.rewardText(entry.reward)}`).join("\n");
+        const form = new ActionFormData().title(`§l管理 ${target.name} 的奖励`).body(`§0待领取: §e${pending.length} 项\n${details || "§8无待领取奖励"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a📤 尝试发放全部", "textures/ui/gift_square", () => {
             const failed = [];
@@ -435,13 +435,13 @@ export class OperationsManager {
             this.openPendingAdminActions(admin, target, onBack);
         });
         add("§l§c🗑 清空待领取记录", "textures/ui/trash", () => this.confirmClearPending(admin, target, onBack));
-        add("§l§7⬅ 返回", "textures/ui/undo", () => this.openPendingAdminSelect(admin, onBack));
+        add("§l§8⬅ 返回", "textures/ui/undo", () => this.openPendingAdminSelect(admin, onBack));
         Utils.showForm(admin, form, response => actions[response.selection]?.());
     }
 
     static confirmClearPending(admin, target, onBack = null) {
         const count = this.getPending(target).length;
-        const form = new MessageFormData().title("§l§c清空待领取奖励").body(`§c将删除 ${target.name} 的 ${count} 项待领取奖励，且无法恢复。`).button1("§c确认清空").button2("§7取消");
+        const form = new MessageFormData().title("§l§c清空待领取奖励").body(`§c将删除 ${target.name} 的 ${count} 项待领取奖励，且无法恢复。`).button1("§c确认清空").button2("§8取消");
         Utils.showForm(admin, form, response => {
             if (response.selection === 0) {
                 this.setPlayerJson(target, PENDING_KEY, []);

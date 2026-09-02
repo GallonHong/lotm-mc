@@ -37,10 +37,10 @@ export class ShopManager {
         const form = new ActionFormData()
             .title("§l§6🛒 全球综合商店")
             .body(
-                `§7═════════════════════════\n` +
-                `§f当前资产: ${Utils.formatCurrency(balance)}\n` +
-                `§7═════════════════════════\n` +
-                `§7请选择你要浏览的商品分类：`
+                `§8═════════════════════════\n` +
+                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§8═════════════════════════\n` +
+                `§8请选择你要浏览的商品分类：`
             );
 
         // 非凡商品由服务器经济包定价，但只有 LOTM 包在线时才展示，避免无效物品标识符。
@@ -75,17 +75,17 @@ export class ShopManager {
         const form = new ActionFormData()
             .title(`§l${category.name}`)
             .body(
-                `§7═════════════════════════\n` +
-                `§f当前资产: ${Utils.formatCurrency(balance)}\n` +
-                `§7点击商品即可进入购买或出售界面\n` +
-                `§7═════════════════════════`
+                `§8═════════════════════════\n` +
+                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§8点击商品即可进入购买或出售界面\n` +
+                `§8═════════════════════════`
             );
 
         const items = category.items;
         for (const item of items) {
             const buyText = item.buyPrice ? `§a买: §e${item.buyPrice}` : "§8不可买";
             const sellText = item.sellPrice ? `§c卖: §e${item.sellPrice}` : "§8不可卖";
-            form.button(`${item.name}\n${buyText} §7| ${sellText}`, item.icon);
+            form.button(`${item.name}\n${buyText} §8| ${sellText}`, item.icon);
         }
 
         form.button("§l§c🔙 返回分类\n§r§8选择其他商品专区", "textures/ui/cancel");
@@ -128,8 +128,8 @@ export class ShopManager {
 
         const form = new ModalFormData()
             .title(`§l交易: ${item.name}`)
-            .dropdown(`§f你的金币: ${Utils.formatCurrency(balance)}\n§f背包库存: §b${bagCount} §f个\n\n§7请选择交易类型:`, tradeOptions)
-            .slider("§f交易数量 (1 - 64):", 1, 64, 1);
+            .dropdown(`§0你的金币: ${Utils.formatCurrency(balance)}\n§0背包库存: §b${bagCount} §0个\n\n§8请选择交易类型:`, tradeOptions)
+            .slider("§0交易数量 (1 - 64):", 1, 64, 1);
 
         Utils.showForm(player, form, (res) => {
             if (res.canceled) {
