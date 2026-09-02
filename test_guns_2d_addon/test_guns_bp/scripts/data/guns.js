@@ -269,6 +269,25 @@ export const GUNS = [
 
   // 🟡 Legendary Quality
   {
+    id: 'test_gun:ak47_commander',
+    name: 'AK-47 指挥官',
+    tier: 'legendary',
+    type: 'rifle',
+    mode: FireMode.AUTO,
+    maxAmmo: 30,
+    fireRate: 3,
+    shootPower: 12.0,
+    recoil: 0.22,
+    reloadTime: 40,
+    shootSound: 'test_gun.ak47_shoot',
+    ammoTypeId: 'test_gun:ammo_rifle',
+    projectileTypeId: 'test_gun:bullet_rifle',
+    hasSkill: true,
+    skillName: '战术火炮空袭',
+    skillCooldownSec: 5,
+    stats: { damage: 18.0, headshotMultiplier: 1.5, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 75, knockback: { x: 0.2, y: 0.1 } }
+  },
+  {
     id: 'test_gun:vector',
     name: 'HK MP7',
     tier: 'legendary',
