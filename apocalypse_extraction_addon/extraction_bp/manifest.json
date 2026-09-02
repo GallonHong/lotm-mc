@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Extraction City BP v0.7.0",
-    "description": "Dense persistent 5x5 extraction city, insured loadout, Apocalypse enemies, loot crates and extraction points.",
+    "name": "Apocalypse Extraction City BP v0.8.0",
+    "description": "RandS street-grid extraction city, insured loadout, Apocalypse enemies, loot crates and extraction points.",
     "uuid": "3ba398b1-341e-44b9-a426-21734cdf1180",
     "version": [
       0,
-      7,
+      8,
       0
     ],
     "min_engine_version": [
@@ -21,7 +21,7 @@
       "uuid": "f415de19-b827-4cb9-b17b-dcc17d2a1ed6",
       "version": [
         0,
-        7,
+        8,
         0
       ]
     },
@@ -31,7 +31,7 @@
       "uuid": "fe1965cb-8d9f-44f3-9206-12de3bf3ca46",
       "version": [
         0,
-        7,
+        8,
         0
       ],
       "entry": "scripts/main.js"

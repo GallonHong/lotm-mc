@@ -47,6 +47,29 @@ const CRATE_LAYOUT = Object.freeze([
   { dx: 38, dz: 40, tier: "epic" }
 ]);
 
+// These are the exact X/Z footprints of the nine RandS landmark structures.
+// The original add-on lets Jigsaw reserve these cells. In the runtime void
+// dimension we reproduce that reservation explicitly, then fill every unused
+// 16x16 cell with an actual RandS street piece.
+const RANDS_BUILDING_FOOTPRINTS = Object.freeze({
+  b1: { xCells: 1, zCells: 1, height: 46 },
+  b2: { xCells: 2, zCells: 2, height: 50 },
+  b3: { xCells: 1, zCells: 2, height: 55 },
+  b4: { xCells: 1, zCells: 1, height: 50 },
+  b5: { xCells: 1, zCells: 1, height: 50 },
+  b6: { xCells: 1, zCells: 1, height: 45 },
+  b7: { xCells: 2, zCells: 2, height: 55 },
+  b8: { xCells: 1, zCells: 2, height: 31 },
+  b9: { xCells: 2, zCells: 2, height: 33 }
+});
+
+const RANDS_STREET_STRUCTURES = Object.freeze([
+  "road1", "road2", "road3", "road4",
+  "cross1", "cross2", "cross3", "cross4", "cross5", "cross6",
+  "corner1", "corner2", "corner3", "corner4", "corner5", "corner6", "corner7", "corner8",
+  "center1"
+]);
+
 const INSURED_EQUIPMENT = Object.freeze([
   EquipmentSlot.Head,
   EquipmentSlot.Chest,
@@ -210,7 +233,7 @@ async function withTickingArea(dimension, areaId, from, to, action) {
   }
 }
 
-async function buildCityFoundation(dimension) {
+async function buildCityFoundationLayer(dimension) {
   const half = CONFIG.cityHalfSize;
   const size = CONFIG.cityTileSize;
   let tileIndex = 0;
@@ -227,10 +250,25 @@ async function buildCityFoundation(dimension) {
         async () => {
           dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY} ${minZ} ${maxX} ${CONFIG.cityBaseY} ${maxZ} minecraft:deepslate_tiles`);
           await waitTicks(1);
+          const probe = dimension.getBlock({ x: Math.floor((minX + maxX) / 2), y: CONFIG.cityBaseY, z: Math.floor((minZ + maxZ) / 2) });
+          if (isAir(probe)) {
+            // Some custom-dimension builds accept a large /fill before every
+            // target chunk is writable. Retry the same tile as 32x32 slices.
+            for (let x = minX; x <= maxX; x += 32) {
+              for (let z = minZ; z <= maxZ; z += 32) {
+                dimension.runCommand(`fill ${x} ${CONFIG.cityBaseY} ${z} ${Math.min(maxX, x + 31)} ${CONFIG.cityBaseY} ${Math.min(maxZ, z + 31)} minecraft:deepslate_tiles`);
+              }
+              await waitTicks(1);
+            }
+          }
         }
       );
     }
   }
+}
+
+async function buildCityFoundation(dimension) {
+  await buildCityFoundationLayer(dimension);
 
   // Dense permanent road grid between Jigsaw districts. It is placed before
   // structures, so buildings can overwrite it while uncovered gaps remain
@@ -243,6 +281,24 @@ async function buildCityFoundation(dimension) {
   }
 }
 
+function replaceRandSMarkers(dimension, x, z, footprint) {
+  for (let cellX = 0; cellX < footprint.xCells; cellX++) {
+    for (let cellZ = 0; cellZ < footprint.zCells; cellZ++) {
+      const minX = x + cellX * CONFIG.districtCellSize;
+      const minZ = z + cellZ * CONFIG.districtCellSize;
+      const maxX = minX + CONFIG.districtCellSize - 1;
+      const maxZ = minZ + CONFIG.districtCellSize - 1;
+      const maxY = CONFIG.cityBaseY + Math.max(25, footprint.height) + 1;
+      try {
+        dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY + 1} ${minZ} ${maxX} ${maxY} ${maxZ} daily:loot_crate_common replace minecraft:mob_spawner`);
+      } catch {
+        try { dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY + 1} ${minZ} ${maxX} ${maxY} ${maxZ} minecraft:chest replace minecraft:mob_spawner`); } catch {}
+      }
+      try { dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY + 1} ${minZ} ${maxX} ${CONFIG.cityBaseY + 26} ${maxZ} minecraft:air replace minecraft:jigsaw`); } catch {}
+    }
+  }
+}
+
 async function placeDistrict(dimension, center, index) {
   const areaId = `extract_district_${index}`;
   return withTickingArea(
@@ -251,29 +307,50 @@ async function placeDistrict(dimension, center, index) {
     { x: center.x - 72, y: 56, z: center.z - 72 },
     { x: center.x + 72, y: 192, z: center.z + 72 },
     async () => {
-      // Jigsaw placement can report command success without creating any
-      // pieces in a runtime-registered void dimension. Load the packaged
-      // 16x16 building structures directly so command success equals a real
-      // building deployment. Nine buildings per district = 225 city blocks.
+      // Natural RandS worldgen cannot run after a custom void dimension has
+      // already been registered. Materialize its Jigsaw result directly:
+      // place the nine landmarks, reserve their true footprints, then cover
+      // every remaining grid cell with one of RandS's own street structures.
       const offsets = [-40, -8, 24];
       const buildings = ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"];
-      let loaded = 0;
+      const occupied = Array.from({ length: 8 }, () => Array(8).fill(false));
+      let buildingsLoaded = 0;
       for (let row = 0; row < offsets.length; row++) {
         for (let column = 0; column < offsets.length; column++) {
           const structure = buildings[(index * 3 + row * 3 + column) % buildings.length];
+          const footprint = RANDS_BUILDING_FOOTPRINTS[structure];
           const x = center.x + offsets[column], z = center.z + offsets[row];
           placePackStructure(dimension, `village:custom/houses/${structure}`, { x, y: CONFIG.cityBaseY + 1, z });
-          try {
-            dimension.runCommand(`fill ${x} ${CONFIG.cityBaseY + 1} ${z} ${x + 15} ${CONFIG.cityBaseY + 64} ${z + 15} daily:loot_crate_common replace minecraft:mob_spawner`);
-          } catch {
-            try { dimension.runCommand(`fill ${x} ${CONFIG.cityBaseY + 1} ${z} ${x + 15} ${CONFIG.cityBaseY + 64} ${z + 15} minecraft:chest replace minecraft:mob_spawner`); } catch {}
+          replaceRandSMarkers(dimension, x, z, footprint);
+          const startCellX = 1 + column * 2;
+          const startCellZ = 1 + row * 2;
+          for (let dx = 0; dx < footprint.xCells; dx++) {
+            for (let dz = 0; dz < footprint.zCells; dz++) {
+              if (occupied[startCellZ + dz]?.[startCellX + dx] !== undefined) occupied[startCellZ + dz][startCellX + dx] = true;
+            }
           }
-          loaded++;
+          buildingsLoaded++;
           await waitTicks(1);
         }
       }
+
+      let streetsLoaded = 0;
+      const gridOriginX = center.x + CONFIG.districtGridOrigin;
+      const gridOriginZ = center.z + CONFIG.districtGridOrigin;
+      for (let row = 0; row < 8; row++) {
+        for (let column = 0; column < 8; column++) {
+          if (occupied[row][column]) continue;
+          const variant = RANDS_STREET_STRUCTURES[(index * 29 + row * 8 + column) % RANDS_STREET_STRUCTURES.length];
+          const x = gridOriginX + column * CONFIG.districtCellSize;
+          const z = gridOriginZ + row * CONFIG.districtCellSize;
+          placePackStructure(dimension, `village:custom/streets/${variant}`, { x, y: CONFIG.cityBaseY + 1, z });
+          replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: 25 });
+          streetsLoaded++;
+          if (streetsLoaded % 4 === 0) await waitTicks(1);
+        }
+      }
       dimension.runCommand(`setblock ${center.x} ${CONFIG.cityBaseY - 1} ${center.z} minecraft:bedrock`);
-      return loaded;
+      return { buildingsLoaded, streetsLoaded };
     }
   );
 }
@@ -384,19 +461,29 @@ async function buildCity(dimension) {
   await buildCityFoundation(dimension);
 
   let generated = 0;
+  let streets = 0;
   for (let index = 0; index < CONFIG.districtCenters.length; index++) {
     const center = CONFIG.districtCenters[index];
     try {
-      generated += await placeDistrict(dimension, center, index);
+      const result = await placeDistrict(dimension, center, index);
+      generated += result.buildingsLoaded;
+      streets += result.streetsLoaded;
     } catch (error) {
       console.warn(`[ExtractionCity] district ${index + 1} placement failed: ${error}`);
     }
   }
 
   const expectedBuildings = CONFIG.districtCenters.length * 9;
-  if (generated !== expectedBuildings) {
-    throw new Error(`Dense city placement incomplete: ${generated}/${expectedBuildings} direct structures. The city was not marked ready and will retry next entry.`);
+  const occupiedCellsPerDistrict = Object.values(RANDS_BUILDING_FOOTPRINTS)
+    .reduce((sum, footprint) => sum + footprint.xCells * footprint.zCells, 0);
+  const expectedStreets = CONFIG.districtCenters.length * (64 - occupiedCellsPerDistrict);
+  if (generated !== expectedBuildings || streets !== expectedStreets) {
+    throw new Error(`Dense city placement incomplete: buildings ${generated}/${expectedBuildings}, streets ${streets}/${expectedStreets}. The city was not marked ready and will retry next entry.`);
   }
+  // Run the deck again after all structures. This cannot overwrite buildings
+  // because they begin one block above it, and it repairs any foundation tile
+  // that a custom-dimension chunk did not persist during the first pass.
+  await buildCityFoundationLayer(dimension);
   const exits = await placeExtractionMarkers(dimension);
   const crates = await placeLootCrates(dimension);
   try {
@@ -423,10 +510,10 @@ async function buildCity(dimension) {
       "extract_city_layout_sentinel",
       { x: -4, y: 56, z: -4 },
       { x: 4, y: 72, z: 4 },
-      async () => dimension.getBlock(CONFIG.cityLayoutSentinel)?.setType("minecraft:redstone_block")
+      async () => dimension.getBlock(CONFIG.cityLayoutSentinel)?.setType(CONFIG.cityLayoutSentinelBlock)
     );
   } catch {}
-  console.warn(`[ExtractionCity] persistent city ready: ${generated}/${expectedBuildings} direct buildings, ${exits} exit markers, ${crates} loot crates placed.`);
+  console.warn(`[ExtractionCity] persistent city ready: ${generated}/${expectedBuildings} direct buildings, ${streets} RandS street cells, ${exits} exit markers, ${crates} loot crates placed.`);
 }
 
 function readyFlagStored() {
@@ -443,7 +530,7 @@ function cityPhysicallyPresent(dimension) {
       dimension.runCommand("tickingarea add -8 56 -8 8 80 8 extract_city_probe true");
       ticking = true;
     } catch {}
-    return dimension.getBlock(CONFIG.cityLayoutSentinel)?.typeId === "minecraft:redstone_block";
+    return dimension.getBlock(CONFIG.cityLayoutSentinel)?.typeId === CONFIG.cityLayoutSentinelBlock;
   } catch { return false; }
   finally { if (ticking) try { dimension.runCommand("tickingarea remove extract_city_probe"); } catch {} }
 }
@@ -541,7 +628,7 @@ async function enter(player) {
       : `§c摸金维度引导包没有启动。请启用 Apocalypse Extraction Dimension Bootstrap v0.1.0 与 Beta APIs。${detail}`);
     return;
   }
-  player.sendMessage("§e[摸金都市] 正在确认城市状态。若旧版只有平台，将一次性部署 225 个实际建筑；完成后永久复用……");
+  player.sendMessage("§e[摸金都市] 正在确认城市状态。旧版地形将一次性部署 225 个建筑与 1100 个 RandS 街道格；完成后永久复用，请勿重复点击入口……");
   try { await ensureCityReady(dimension); }
   catch (error) {
     player.sendMessage(`§c城市结构初始化失败：${error}`);
@@ -929,7 +1016,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (event.id === "extract:rebuild" && isAdmin(player)) system.run(async () => {
     const dimension = extractionDimension();
     if (!dimension) return player.sendMessage("§c摸金维度不可用。");
-    player.sendMessage("§e正在一次性升级为 25 个密集城区、铺设连接道路并重新布置物资箱，请等待 1～3 分钟……");
+    player.sendMessage("§e正在一次性升级 25 个密集城区，部署 225 个建筑、1100 个 RandS 街道格并二次修复承托层，请等待 1～3 分钟且不要重复执行……");
     try {
       world.setDynamicProperty(CONFIG.cityReadyKey, undefined);
       await ensureCityReady(dimension, true);
