@@ -26,7 +26,10 @@
       "render_controllers": [
         "controller.render.mutant_skeleton"
       ],
-      "enable_attachables": true
+      "enable_attachables": true,
+      "spawn_egg": {
+        "texture": "egg_mutant_skeleton"
+      }
     }
   }
 }
