@@ -29,7 +29,7 @@ for (const route of ["!daily", "!redeem", "!tpa", "!audit"]) assert.ok(main.incl
 assert.match(menu, /每日福利/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.5.4");
+assert.equal(manifest.header.version.join("."), "2.5.5");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
@@ -37,6 +37,10 @@ for (const coordinate of [2349, 2635, 2352, 2585, 1942, 2087]) assert.ok(integra
 assert.match(market, /durability\?\.damage/);
 assert.match(market, /仅允许上架耐久未损耗、尚未使用的武器/);
 assert.doesNotMatch(market, /带耐久组件的装备暂不支持寄卖/);
+assert.match(market, /sanitizeListingName/);
+assert.match(market, /寄卖名称（可选/);
+assert.match(market, /实际物品/);
+assert.match(market, /listingName,/);
 assert.match(main, /sapi:shop/);
 assert.match(main, /requestCompassMenu/);
 assert.match(main, /system\.currentTick - lastTick < 8/);
@@ -53,4 +57,4 @@ for (const source of uiSources) {
   assert.equal(source.includes("§7"), false, "light-gray text color must not remain in SAPI UI");
 }
 
-console.log("SAPI Server v2.5.4 validation passed.");
+console.log("SAPI Server v2.5.5 validation passed.");

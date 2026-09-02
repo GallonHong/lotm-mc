@@ -113,7 +113,21 @@ export class MarketManager {
     }
 
     static getDisplayName(itemOrListing) {
+        return itemOrListing.listingName || itemOrListing.nameTag || itemOrListing.displayName || itemOrListing.typeId;
+    }
+
+    static getOriginalDisplayName(itemOrListing) {
         return itemOrListing.nameTag || itemOrListing.displayName || itemOrListing.typeId;
+    }
+
+    static sanitizeListingName(value) {
+        const maxLength = Math.max(1, Math.floor(Config.market?.maxListingNameLength ?? 32));
+        const cleaned = String(value ?? "")
+            .replace(/§./g, "")
+            .replace(/[\u0000-\u001f\u007f]/g, " ")
+            .replace(/\s+/g, " ")
+            .trim();
+        return [...cleaned].slice(0, maxLength).join("");
     }
 
     static isItemAvailable(typeId) {
@@ -237,17 +251,19 @@ export class MarketManager {
         const form = new ModalFormData()
             .title("§l§e📦 上架寄卖商品")
             .dropdown("选择背包物品", entries.map(({ slot, item }) => `槽位${slot + 1} | ${this.getDisplayName(item)} x${item.amount}`))
+            .textField(`寄卖名称（可选，最多 ${Config.market?.maxListingNameLength ?? 32} 字）`, "例如：新手满耐久步枪")
             .slider("上架数量", 1, 64, 1)
             .textField("每件单价（金币）", "例如：100");
         Utils.showForm(player, form, (res) => {
             if (res.canceled) return onBack?.();
-            const [entryIndex, rawAmount, rawPrice] = res.formValues;
+            const [entryIndex, rawListingName, rawAmount, rawPrice] = res.formValues;
             const entry = entries[entryIndex];
             if (!entry) {
                 Utils.tell(player, "§c物品选择无效。");
                 return onBack?.();
             }
             const latest = container.getItem(entry.slot);
+            const listingName = this.sanitizeListingName(rawListingName);
             const amount = Math.floor(Number(rawAmount));
             const unitPrice = Math.floor(Number(rawPrice));
             if (!entry || !latest || latest.typeId !== entry.item.typeId) {
@@ -287,6 +303,7 @@ export class MarketManager {
                 sellerName: player.name,
                 typeId: snapshot.typeId,
                 nameTag: snapshot.nameTag,
+                listingName,
                 lore: snapshot.lore,
                 pristineDurability: snapshot.pristineDurability,
                 amount,
@@ -319,8 +336,10 @@ export class MarketManager {
             .body(pageItems.length ? "§8选择商品查看并购买。成交后系统扣除卖家10%手续费。" : "§8当前没有其他玩家的寄卖商品。");
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const listing of pageItems) {
+            const originalName = this.getOriginalDisplayName(listing);
+            const customLabel = listing.listingName ? `§8实际: ${originalName} | ` : "";
             add(
-                `§0${this.getDisplayName(listing)} x${listing.amount}\n§e${listing.unitPrice}/件 §8| ${listing.sellerName}`,
+                `§0${this.getDisplayName(listing)} x${listing.amount}\n${customLabel}§e${listing.unitPrice}/件 §8| ${listing.sellerName}`,
                 "textures/items/emerald",
                 () => this.openBuyUI(player, listing.id, () => this.openBrowseUI(player, onBack, currentPage))
             );
@@ -341,9 +360,13 @@ export class MarketManager {
             Utils.tell(player, "§c提供该物品的 Add-on 当前未启用，商品已暂时冻结且不会丢失。");
             return onBack?.();
         }
+        const originalName = this.getOriginalDisplayName(listing);
+        const identity = listing.listingName
+            ? `实际物品：${originalName} (${listing.typeId})`
+            : `物品标识：${listing.typeId}`;
         const form = new ModalFormData()
             .title(`§l购买 ${this.getDisplayName(listing)}`)
-            .slider(`库存 ${listing.amount} | 单价 ${listing.unitPrice} 金币`, 1, Math.min(64, listing.amount), 1);
+            .slider(`${identity}\n库存 ${listing.amount} | 单价 ${listing.unitPrice} 金币`, 1, Math.min(64, listing.amount), 1);
         Utils.showForm(player, form, (res) => {
             if (res.canceled) return onBack?.();
             const quantity = Math.floor(Number(res.formValues?.[0]));
