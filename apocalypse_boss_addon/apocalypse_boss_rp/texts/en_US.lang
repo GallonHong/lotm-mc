@@ -11,3 +11,6 @@ item.spawn_egg.entity.apoc_boss:mutant_lobber.name=Spawn Mutant Lobber
 item.spawn_egg.entity.apoc_boss:mutant_drowned.name=Spawn Mutant Drowned
 item.spawn_egg.entity.apoc_boss:mutant_enderman.name=Spawn Mutant Enderman
 item.spawn_egg.entity.apoc_boss:mutant_iron_golem.name=Spawn Mutant Iron Golem
+
+entity.apoc_boss:siren_head.name=Siren Head
+item.spawn_egg.entity.apoc_boss:siren_head.name=Spawn Siren Head

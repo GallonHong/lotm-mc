@@ -11,3 +11,6 @@ item.spawn_egg.entity.apoc_boss:mutant_lobber.name=恶疫憎恶刷怪蛋
 item.spawn_egg.entity.apoc_boss:mutant_drowned.name=变异暴食者刷怪蛋
 item.spawn_egg.entity.apoc_boss:mutant_enderman.name=虚空漫游者刷怪蛋
 item.spawn_egg.entity.apoc_boss:mutant_iron_golem.name=钢铁终结者刷怪蛋
+
+entity.apoc_boss:siren_head.name=警笛头 · 迷雾噩梦 (Siren Head)
+item.spawn_egg.entity.apoc_boss:siren_head.name=警笛头刷怪蛋
