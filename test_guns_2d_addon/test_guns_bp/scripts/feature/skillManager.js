@@ -120,8 +120,8 @@ export class SkillManager {
     overdrive.remainingTicks--;
     const sec = (overdrive.remainingTicks / 20).toFixed(1);
 
+    // 暴走狂潮技能期间：无限子弹 + 不消耗耐久
     fireBullet(player, overdrive.gun);
-    ShootManager.deductDurability(player, overdrive.gun);
 
     if (overdrive.gun.shootSound) {
       try {

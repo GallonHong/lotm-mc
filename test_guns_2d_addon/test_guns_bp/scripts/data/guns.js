@@ -325,7 +325,7 @@ export const GUNS = [
     skillName: '暴走狂潮',
     skillCooldownSec: 25,
     skillDurationSec: 5.0,
-    stats: { damage: 5.0, headshotMultiplier: 1.6, armorPenetration: 0.25, damageDropOff: 0.025, maxRange: 60, knockback: { x: 0.18, y: 0.1 } }
+    stats: { damage: 15.0, headshotMultiplier: 1.6, armorPenetration: 0.25, damageDropOff: 0.025, maxRange: 60, knockback: { x: 0.18, y: 0.1 } }
   },
   {
     id: 'test_gun:mgl',
