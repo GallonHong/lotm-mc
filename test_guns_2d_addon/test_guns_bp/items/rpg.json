@@ -1,10 +1,11 @@
 {
-  "format_version": "1.21.60",
+  "format_version": "1.20.50",
   "minecraft:item": {
     "description": {
       "identifier": "test_gun:rpg",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.sword"
       }
     },
     "components": {
