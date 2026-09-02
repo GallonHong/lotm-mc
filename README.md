@@ -7,7 +7,7 @@
 
 两个包之间只通过心跳动态属性与 `scriptevent` 公共接口通讯，不互相导入脚本文件，因此任一包缺失时仍可独立启动。联合启用时，服务器菜单会自动出现“诡秘非凡秘典”，商店和抽奖也会自动加入 LOTM 商品；LOTM 的非凡伤害会继续遵守服务器领地权限。
 
-另提供独立可选包 **Apocalypse Mobs v0.2.2**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode 和 SpawnDirector 跨包刷怪接口。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能和盾牌减伤。源码与安装包位于 `apocalypse_mobs_addon/`。
+另提供独立可选包 **Apocalypse Mobs v0.2.3**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode 和 SpawnDirector 跨包刷怪接口，并正式包含预设安全区/法制区坐标。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能和盾牌减伤。源码与安装包位于 `apocalypse_mobs_addon/`。
 
 新增独立可选包 **Survival Daily & World Events v0.3.0**：每天生成采集、击杀、动态事件和随机委托，提供原生 NPC 委托对话、四类可配置商人、20/50/80/100 活跃奖励，并提供按法制区/非法制区分级的八类随机事件。它可与 SAPI、Test Guns、Apocalypse Mobs 自动联动，源码与安装包位于 `daily_world_events_addon/`。
 
