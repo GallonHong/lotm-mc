@@ -1,3 +1,4 @@
+import { SkillManager } from '../skillManager.js';
 import { RecoilManager } from '../recoilManager.js';
 import { MathUtils } from './mathUtils.js';
 import { DamageHandler } from '../damageHandler.js';
@@ -253,12 +254,16 @@ export function fireBullet(player, gun) {
       processBulletRay(player, gun, spreadDir, spawnLoc, maxRange);
     }
   } else {
-    const offset = RecoilManager.getSprayOffset(player.id, gun.recoil);
-    const sx = (Number(viewDir.x) || 0) + offset.x;
-    const sy = (Number(viewDir.y) || 0) + offset.y;
-    const sz = (Number(viewDir.z) || 0) + offset.z;
-    const sLen = Math.hypot(sx, sy, sz) || 1;
-    const finalDir = { x: sx / sLen, y: sy / sLen, z: sz / sLen };
+    // 传说级冲锋枪开启暴走狂潮技能时，弹道完全 0 散布绝对激光指向
+    let finalDir = viewDir;
+    if (!SkillManager.isOverdriveActive(player)) {
+      const offset = RecoilManager.getSprayOffset(player.id, gun.recoil);
+      const sx = (Number(viewDir.x) || 0) + offset.x;
+      const sy = (Number(viewDir.y) || 0) + offset.y;
+      const sz = (Number(viewDir.z) || 0) + offset.z;
+      const sLen = Math.hypot(sx, sy, sz) || 1;
+      finalDir = { x: sx / sLen, y: sy / sLen, z: sz / sLen };
+    }
 
     processBulletRay(player, gun, finalDir, spawnLoc, maxRange);
   }

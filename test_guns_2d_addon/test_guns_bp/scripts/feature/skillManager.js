@@ -122,7 +122,6 @@ export class SkillManager {
 
     fireBullet(player, overdrive.gun);
     ShootManager.deductDurability(player, overdrive.gun);
-    RecoilManager.applyRecoil(player, overdrive.gun);
 
     if (overdrive.gun.shootSound) {
       try {
