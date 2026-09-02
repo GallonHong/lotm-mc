@@ -6,14 +6,14 @@
       "bones": {
         "shield": {
           "position": [
-            "query.is_sneaking ? -1.0 : -5.0",
-            "query.is_sneaking ? 1.5 : -4.0",
-            "query.is_sneaking ? -3.0 : 1.0"
+            "query.is_sneaking ? -0.8 : -6.0",
+            "query.is_sneaking ? 4.5 : -5.5",
+            "query.is_sneaking ? -4.5 : 1.0"
           ],
           "rotation": [
-            "query.is_sneaking ? 0.0 : -18.0",
-            "query.is_sneaking ? 5.0 : 35.0",
-            "query.is_sneaking ? 0.0 : -15.0"
+            "query.is_sneaking ? 0.0 : -22.0",
+            "query.is_sneaking ? 0.0 : 38.0",
+            "query.is_sneaking ? 0.0 : -16.0"
           ]
         }
       }
@@ -23,13 +23,13 @@
       "bones": {
         "shield": {
           "position": [
-            0.0,
-            0.0,
-            0.0
+            "query.is_sneaking ? 0.0 : 0.0",
+            "query.is_sneaking ? 2.0 : 0.0",
+            "query.is_sneaking ? -2.0 : 0.0"
           ],
           "rotation": [
-            "query.is_sneaking ? -15.0 : 0.0",
-            "query.is_sneaking ? 20.0 : 0.0",
+            "query.is_sneaking ? -10.0 : 0.0",
+            "query.is_sneaking ? 15.0 : 0.0",
             0.0
           ]
         }

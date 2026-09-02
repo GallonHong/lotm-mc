@@ -6,11 +6,11 @@
         "identifier": "geometry.shield",
         "texture_width": 64,
         "texture_height": 64,
-        "visible_bounds_width": 2,
-        "visible_bounds_height": 3.5,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 4.5,
         "visible_bounds_offset": [
           0,
-          1.25,
+          1.5,
           0
         ]
       },
@@ -23,16 +23,17 @@
             3
           ],
           "binding": "q.item_slot_to_bone_name(c.item_slot)",
+          "scale": 1.45,
           "cubes": [
             {
               "origin": [
                 0,
-                25,
+                24,
                 0
               ],
               "size": [
                 2,
-                6,
+                7,
                 6
               ],
               "uv": [
@@ -42,14 +43,14 @@
             },
             {
               "origin": [
-                -7,
-                15,
+                -9,
+                10,
                 -1
               ],
               "size": [
-                16,
-                25,
-                1
+                20,
+                32,
+                1.2
               ],
               "uv": [
                 1,
