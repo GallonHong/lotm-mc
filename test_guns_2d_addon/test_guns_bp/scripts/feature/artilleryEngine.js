@@ -23,7 +23,7 @@ export class ArtilleryEngine {
     const viewDir = player.getViewDirection();
     const headLoc = player.getHeadLocation();
 
-    // 1. 预先计算准星瞄准点
+    // 1. 预先计算准星瞄准点 (通过射线检测地面)
     let crosshairPos = null;
     try {
       const blockHit = player.dimension.getBlockFromRay(headLoc, viewDir, {
@@ -31,7 +31,7 @@ export class ArtilleryEngine {
         includePassableBlocks: false,
         includeLiquidBlocks: false
       });
-      if (blockHit) {
+      if (blockHit && blockHit.block) {
         crosshairPos = {
           x: blockHit.block.location.x + 0.5,
           y: blockHit.block.location.y + 1.0,
@@ -100,19 +100,35 @@ export class ArtilleryEngine {
     const dim = player.dimension;
     const pId = player.id;
 
-    // 无线电确认提示
+    // 寻找目标区域真实地面高度
+    let groundY = centerLoc.y;
+    for (let dy = 10; dy >= -15; dy--) {
+      try {
+        const b = dim.getBlock({ x: Math.floor(centerLoc.x), y: Math.floor(centerLoc.y + dy), z: Math.floor(centerLoc.z) });
+        if (b && !b.isAir && !b.isLiquid) {
+          groundY = b.location.y + 1.0;
+          break;
+        }
+      } catch {}
+    }
+
+    const realCenter = { x: centerLoc.x, y: groundY, z: centerLoc.z };
+
+    // 无线电确认提示与警笛音效
     try {
       player.onScreenDisplay?.setActionBar?.(`§6📡【火炮阵地收到】已锁定【${modeName}】! 12发集束炮群正在覆盖!§r`);
       dim.playSound('test_gun.radio_click', player.location, { volume: 1.5, pitch: 1.0 });
+      dim.playSound('ambient.weather.thunder', realCenter, { volume: 1.5, pitch: 1.6 });
     } catch {}
 
-    // 地面红圈标记粒子
+    // 地面红圈标记粒子 (8格大圆环)
     try {
-      for (let angle = 0; angle < 360; angle += 30) {
+      for (let angle = 0; angle < 360; angle += 20) {
         const rad = (angle * Math.PI) / 180;
-        const px = centerLoc.x + Math.cos(rad) * 6.0;
-        const pz = centerLoc.z + Math.sin(rad) * 6.0;
-        dim.spawnParticle('test_gun:he_tracer', { x: px, y: centerLoc.y + 0.3, z: pz });
+        const px = realCenter.x + Math.cos(rad) * 8.0;
+        const pz = realCenter.z + Math.sin(rad) * 8.0;
+        dim.spawnParticle('test_gun:he_tracer', { x: px, y: realCenter.y + 0.3, z: pz });
+        dim.spawnParticle('minecraft:basic_flame_particle', { x: px, y: realCenter.y + 0.3, z: pz });
       }
     } catch {}
 
@@ -120,10 +136,10 @@ export class ArtilleryEngine {
     this.activeBarrages.push({
       shooterId: pId,
       dim: dim,
-      center: centerLoc,
+      center: realCenter,
       totalShells: 12,
       shellsFired: 0,
-      nextShellTick: 15, // 延迟 0.75 秒第一发落弹
+      nextShellTick: 12, // 延迟 0.6 秒第一发落弹
       spreadRadius: 8.0,
       damage: 5.0
     });
@@ -153,7 +169,6 @@ export class ArtilleryEngine {
       try {
         b.nextShellTick--;
         if (b.nextShellTick <= 0) {
-          // 发射一发集束迫击炮
           this.dropShell(b);
           b.shellsFired++;
           b.nextShellTick = 5; // 0.25 秒一发
@@ -182,36 +197,48 @@ export class ArtilleryEngine {
     const rx = cx + (Math.random() - 0.5) * 2 * radius;
     const rz = cz + (Math.random() - 0.5) * 2 * radius;
 
+    // 精确向下探测实际地面实体或方块表面
     let targetY = cy;
+    for (let dy = 12; dy >= -15; dy--) {
+      try {
+        const b = dim.getBlock({ x: Math.floor(rx), y: Math.floor(cy + dy), z: Math.floor(rz) });
+        if (b && !b.isAir && !b.isLiquid) {
+          targetY = b.location.y + 1.0;
+          break;
+        }
+      } catch {}
+    }
+
+    const impactLoc = { x: rx, y: targetY + 0.1, z: rz };
+
+    // 1. 🚀 天降导弹迫击炮尾迹光柱 (从高空直插地面)
     try {
-      const topBlock = dim.getBlock({ x: Math.floor(rx), y: Math.floor(cy + 10), z: Math.floor(rz) });
-      if (topBlock) {
-        targetY = topBlock.location.y;
+      for (let h = 18; h >= 0; h -= 2.0) {
+        dim.spawnParticle('test_gun:he_tracer', { x: rx, y: targetY + h, z: rz });
       }
     } catch {}
 
-    const impactLoc = { x: rx, y: targetY + 0.2, z: rz };
-
-    // 1. 干净战术白烟与小型爆破火花 (不遮挡视野)
+    // 2. 💥 逼真地面爆炸火球与白烟粒子 (100% 地面可见)
     try {
-      dim.spawnParticle('test_gun:he_tracer', impactLoc);
+      dim.spawnParticle('minecraft:huge_explosion_emitter', impactLoc);
+      dim.spawnParticle('minecraft:explosion_manual', impactLoc);
       dim.spawnParticle('minecraft:basic_smoke_particle', impactLoc);
       dim.spawnParticle('minecraft:basic_flame_particle', impactLoc);
-      dim.spawnParticle('minecraft:crit', impactLoc);
+      dim.spawnParticle('minecraft:lava_particle', impactLoc);
     } catch {}
 
-    // 2. 战术爆破轻量音效
+    // 3. 真实迫击炮落地轰炸音效
     try {
-      dim.playSound('random.explode', impactLoc, { volume: 1.1, pitch: 1.4 + Math.random() * 0.3 });
+      dim.playSound('random.explode', impactLoc, { volume: 2.2, pitch: 1.2 + Math.random() * 0.3 });
     } catch {}
 
-    // 3. 5 点范围溅射伤害 (绝对不破坏方块)
+    // 4. 5 点范围溅射伤害 (100% 保护地形方块)
     let shooter = null;
     try {
       shooter = world.getAllPlayers().find(p => p.id === barrage.shooterId) || null;
     } catch {}
 
-    const splashRadius = 3.8;
+    const splashRadius = 4.0;
     const shellDmg = barrage.damage || 5.0;
 
     try {
@@ -234,12 +261,13 @@ export class ArtilleryEngine {
           try { ent.applyDamage(shellDmg); } catch {}
         }
 
-        // 轻微击退
+        try { ent.setOnFire(2, true); } catch {}
+
         try {
           const el = ent.location;
-          const kx = (el.x - impactLoc.x) * 0.2;
-          const kz = (el.z - impactLoc.z) * 0.2;
-          ent.applyKnockback(kx, kz, 0.3, 0.1);
+          const kx = (el.x - impactLoc.x) * 0.25;
+          const kz = (el.z - impactLoc.z) * 0.25;
+          ent.applyKnockback(kx, kz, 0.4, 0.15);
         } catch {}
       }
     } catch (err) {
