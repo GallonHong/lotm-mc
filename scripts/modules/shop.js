@@ -160,6 +160,7 @@ export class ShopManager {
                 }
 
                 EconomyManager.addBalance(player, totalEarn);
+                Integration.recordDailySale(player.name, totalEarn);
                 Utils.tell(player, `§a成功出售 §e${item.name} §ax${count}，获得 ${Utils.formatCurrency(totalEarn)}！`);
                 Utils.sound.success(player);
             }

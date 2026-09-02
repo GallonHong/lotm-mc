@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [{
+    "description": {
+      "identifier": "geometry.daily.convoy",
+      "texture_width": 16,
+      "texture_height": 16,
+      "visible_bounds_width": 4,
+      "visible_bounds_height": 3,
+      "visible_bounds_offset": [0, 1, 0]
+    },
+    "bones": [
+      { "name": "root", "pivot": [0, 0, 0] },
+      { "name": "body", "parent": "root", "pivot": [0, 8, 0], "cubes": [
+        { "origin": [-18, 2, -10], "size": [36, 10, 20], "uv": [0, 0] },
+        { "origin": [-10, 12, -9], "size": [24, 10, 18], "uv": [0, 0] }
+      ] },
+      { "name": "wheels", "parent": "root", "pivot": [0, 4, 0], "cubes": [
+        { "origin": [-14, 0, -12], "size": [8, 8, 4], "uv": [0, 0] },
+        { "origin": [7, 0, -12], "size": [8, 8, 4], "uv": [0, 0] },
+        { "origin": [-14, 0, 8], "size": [8, 8, 4], "uv": [0, 0] },
+        { "origin": [7, 0, 8], "size": [8, 8, 4], "uv": [0, 0] }
+      ] }
+    ]
+  }]
+}

@@ -17,6 +17,8 @@ export const CONFIG = Object.freeze({
   zonesKey: "apoc:zones:v1",
   lootNodesKey: "apoc:loot_nodes:v1",
   heartbeatKey: "apoc:heartbeat",
+  externalSpawnRequestsKey: "apoc:spawn_requests:v1",
+  dailyEventsHeartbeatKey: "interop:daily_events_heartbeat",
   defaultLootRespawnMinutes: 20
 });
 

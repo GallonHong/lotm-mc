@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": { "identifier": "daily:survivor", "is_spawnable": false, "is_summonable": true, "is_experimental": false },
+    "components": {
+      "minecraft:type_family": { "family": ["daily_survivor", "survivor", "mob"] },
+      "minecraft:nameable": { "always_show": true, "allow_name_tag_renaming": false },
+      "minecraft:health": { "value": 30, "max": 30 },
+      "minecraft:collision_box": { "width": 0.6, "height": 1.8 },
+      "minecraft:movement": { "value": 0.28 },
+      "minecraft:navigation.walk": { "can_path_over_water": true, "avoid_damage_blocks": true },
+      "minecraft:movement.basic": {}, "minecraft:jump.static": {},
+      "minecraft:physics": { "has_gravity": true, "has_collision": true },
+      "minecraft:persistent": {},
+      "minecraft:behavior.avoid_mob_type": { "priority": 1, "entity_types": [
+        { "filters": { "test": "is_family", "subject": "other", "value": "infected" }, "max_dist": 10, "walk_speed_multiplier": 1.0, "sprint_speed_multiplier": 1.25 },
+        { "filters": { "test": "is_family", "subject": "other", "value": "zombie" }, "max_dist": 10, "walk_speed_multiplier": 1.0, "sprint_speed_multiplier": 1.25 }
+      ] },
+      "minecraft:behavior.random_stroll": { "priority": 4, "speed_multiplier": 0.6 },
+      "minecraft:behavior.look_at_player": { "priority": 5, "look_distance": 8 }
+    }
+  }
+}

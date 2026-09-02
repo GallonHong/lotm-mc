@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": { "description": {
+    "identifier": "daily:survivor",
+    "materials": { "default": "entity_alphatest" },
+    "textures": { "default": "textures/entity/alex" },
+    "geometry": { "default": "geometry.humanoid" },
+    "animations": { "base": "animation.humanoid.base_pose", "move": "animation.humanoid.move", "look": "animation.humanoid.look_at_target.default" },
+    "scripts": { "animate": ["base", "move", "look"] },
+    "render_controllers": ["controller.render.default"]
+  } }
+}

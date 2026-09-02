@@ -62,9 +62,12 @@ export class WorldEventDirector {
   }
 
   static maybeTrigger() {
+    try {
+      const heartbeat = Number(world.getDynamicProperty(CONFIG.dailyEventsHeartbeatKey) || 0);
+      if (heartbeat > 0 && Date.now() - heartbeat < 30000) return;
+    } catch {}
     if (this.active || Math.random() > CONFIG.eventChance) return;
     const candidates = world.getAllPlayers().filter(player => player.dimension.id === CONFIG.overworld && !ZoneRegistry.isSafe(player.dimension.id, player.location));
     if (candidates.length) this.trigger(candidates[Math.floor(Math.random() * candidates.length)]);
   }
 }
-

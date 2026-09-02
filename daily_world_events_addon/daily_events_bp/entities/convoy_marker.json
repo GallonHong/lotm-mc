@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": { "identifier": "daily:convoy_marker", "is_spawnable": false, "is_summonable": true, "is_experimental": false },
+    "components": {
+      "minecraft:type_family": { "family": ["daily_convoy", "mob"] },
+      "minecraft:nameable": { "always_show": true, "allow_name_tag_renaming": false },
+      "minecraft:health": { "value": 100, "max": 100 },
+      "minecraft:collision_box": { "width": 2.4, "height": 1.4 },
+      "minecraft:physics": { "has_gravity": true, "has_collision": true },
+      "minecraft:persistent": {},
+      "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": false }] }
+    }
+  }
+}

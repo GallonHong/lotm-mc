@@ -6,7 +6,7 @@ import { LootManager } from "./loot.js";
 import { WorldEventDirector } from "./events.js";
 import { AdminMenu, isAdmin } from "./admin.js";
 
-console.warn("[Apocalypse] Mobs & SpawnDirector v0.1.0 initializing...");
+console.warn("[Apocalypse] Mobs & SpawnDirector v0.2.0 initializing...");
 
 function subscribe(signal, label, handler) {
   if (!signal || typeof signal.subscribe !== "function") {
@@ -34,6 +34,7 @@ function drop(dead) {
 }
 
 SpawnDirector.registerVanillaSuppression();
+try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
 
 const lootAfterSubscribed = subscribe(world.afterEvents?.playerInteractWithBlock, "after playerInteractWithBlock", event => {
   try { LootManager.interact(event.player, event.block); } catch (error) { console.warn(`[Apocalypse][Loot] interaction error: ${error}`); }
@@ -81,6 +82,7 @@ subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
 
 system.runInterval(() => {
   try { CombatAI.tick(); } catch (error) { console.warn(`[Apocalypse][AI] tick error: ${error}`); }
+  try { SpawnDirector.processExternalRequests(); } catch (error) { console.warn(`[Apocalypse][SpawnBus] tick error: ${error}`); }
 }, CONFIG.aiInterval);
 
 system.runInterval(() => {

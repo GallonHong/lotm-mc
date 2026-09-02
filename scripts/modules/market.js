@@ -3,6 +3,7 @@ import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/serve
 import { Config } from "../config.js";
 import { Utils } from "../utils.js";
 import { EconomyManager } from "./economy.js";
+import { Integration } from "./integration.js";
 
 const INDEX_KEY = "sapi:market:index:v1";
 const LISTING_PREFIX = "sapi_market_listing_";
@@ -352,6 +353,7 @@ export class MarketManager {
 
             const fee = Math.floor(total * this.feeRate);
             const sellerIncome = Math.max(0, total - fee);
+            Integration.recordDailySale(latest.sellerName, total);
             const onlineSeller = world.getAllPlayers().find(target => target.name === latest.sellerName);
             if (onlineSeller) {
                 EconomyManager.addBalance(onlineSeller, sellerIncome);

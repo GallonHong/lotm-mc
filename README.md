@@ -2,12 +2,14 @@
 
 项目已拆分为两个可独立启用、同时安装时自动联动的 Add-on：
 
-- **SAPI Server Economy 2.4.0**：经济、商店、地皮、寄卖行、免费传送、Home、可管理 TPA、每日签到、兑换码、主城保护及审计管理。
+- **SAPI Server Economy 2.5.0**：经济、商店、地皮、寄卖行、免费传送、Home、可管理 TPA、每日签到、兑换码、主城保护、审计及日常事件联动。
 - **LOTM Pathways 1.4.0**：途径、序列、魔药、能力、非凡媒介、封印物及全部对应资源。
 
 两个包之间只通过心跳动态属性与 `scriptevent` 公共接口通讯，不互相导入脚本文件，因此任一包缺失时仍可独立启动。联合启用时，服务器菜单会自动出现“诡秘非凡秘典”，商店和抽奖也会自动加入 LOTM 商品；LOTM 的非凡伤害会继续遵守服务器领地权限。
 
-另提供独立可选包 **Apocalypse Mobs v0.1.0**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode 和动态伏击事件。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能和盾牌减伤。源码与安装包位于 `apocalypse_mobs_addon/`。
+另提供独立可选包 **Apocalypse Mobs v0.2.0**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode 和 SpawnDirector 跨包刷怪接口。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能和盾牌减伤。源码与安装包位于 `apocalypse_mobs_addon/`。
+
+新增独立可选包 **Survival Daily & World Events v0.1.0**：每天生成采集、击杀、动态事件和随机委托，提供 20/50/80/100 活跃奖励，并通过人工事件节点运行感染者围攻、幸存者救援、掠夺者伏击和运输车防守。它可与 SAPI、Test Guns、Apocalypse Mobs 自动联动，源码与安装包位于 `daily_world_events_addon/`。
 
 ---
 
@@ -131,6 +133,7 @@
 - 纯生存经济服务器：只安装 `SAPI_Server_Addon.mcaddon`。
 - 纯诡秘玩法世界：只安装 `LOTM_Pathways_Addon.mcaddon`。
 - 完整联动服务器：两个 `.mcaddon` 都安装并启用。
+- 末日主世界：在 SAPI 基础上额外安装 `Test_Guns_2D_Addon.mcaddon`、`Apocalypse_Mobs_Addon.mcaddon` 与 `Survival_Daily_Events_Addon.mcaddon`；后三者仍可按需单独启用。
 
 > Script API 1.19.0 稳定版没有公开 `chatSend` 事件，因此该版本请使用罗盘或
 > `/scriptevent system:menu` 打开菜单；聊天快捷指令只会在运行时提供聊天事件时启用。
@@ -173,5 +176,12 @@ bash scripts/build-packages.sh
 
 - `SAPI_Server_BP.mcpack`、`SAPI_Server_Addon.mcaddon`
 - `LOTM_Pathways_BP.mcpack`、`LOTM_Pathways_RP.mcpack`、`LOTM_Pathways_Addon.mcaddon`
+
+末日生存可选包分别运行：
+
+```bash
+bash apocalypse_mobs_addon/build.sh
+bash daily_world_events_addon/build.sh
+```
 
 旧的单体 `SAPI_System_Addon.mcaddon` 会在构建时删除，避免玩家同时启用新旧入口导致事件重复订阅。

@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": { "description": {
+    "identifier": "daily:commissioner",
+    "materials": { "default": "entity_alphatest" },
+    "textures": { "default": "textures/entity/steve" },
+    "geometry": { "default": "geometry.humanoid" },
+    "animations": { "base": "animation.humanoid.base_pose", "look": "animation.humanoid.look_at_target.default" },
+    "scripts": { "animate": ["base", "look"] },
+    "render_controllers": ["controller.render.default"],
+    "spawn_egg": { "base_color": "#D89B38", "overlay_color": "#243447" }
+  } }
+}

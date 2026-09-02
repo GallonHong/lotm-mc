@@ -20,6 +20,7 @@ export class ServerMenuManager {
         const balance = EconomyManager.getBalance(player);
         const { chunkX, chunkZ } = Utils.getChunkCoords(player.location);
         const lotmReady = Integration.isLotmAvailable();
+        const dailyReady = Integration.isDailyEventsAvailable();
         const sequence = Utils.getProp(player, "lotm:sequence", 0);
         const spirituality = Utils.getProp(player, "lotm:sp", 0);
         const actions = [];
@@ -38,6 +39,9 @@ export class ServerMenuManager {
         add("§l§b🧭 公共传送点\n§r§8前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
         add("§l§a🏠 个人传送\n§r§8Home、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
         add("§l§e🎁 每日福利\n§r§8签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
+        if (dailyReady) {
+            add("§l§6📋 生存联盟委托\n§r§8日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
+        }
         add("§l§6🏦 个人银行\n§r§8资产查询与玩家转账", "textures/ui/Trade2", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
         add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/ui/MCStore_Gold_large", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
@@ -60,7 +64,7 @@ export class ServerMenuManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§c⚙️ 服务器管理员控制台")
-            .body(`§f在线玩家: §e${world.getAllPlayers().length}\n§7LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}`);
+            .body(`§f在线玩家: §e${world.getAllPlayers().length}\n§7LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§7日常事件联动: ${Integration.isDailyEventsAvailable() ? "§a已连接" : "§8未连接"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
@@ -73,6 +77,9 @@ export class ServerMenuManager {
         add("§l§d🎰 自定义奖池与保底", "textures/ui/gift_square", () => LotteryManager.openAdminPoolManager(player, () => this.openAdminPanel(player, onBack)));
         if (Integration.isLotmAvailable()) {
             add("§l§5🔮 LOTM 调试控制台", "textures/items/potion_magician", () => Integration.send(player, "lotm:admin"));
+        }
+        if (Integration.isDailyEventsAvailable()) {
+            add("§l§6📋 日常与事件管理", "textures/ui/achievements", () => Integration.send(player, "daily:admin"));
         }
         add("§l§7⬅ 返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());

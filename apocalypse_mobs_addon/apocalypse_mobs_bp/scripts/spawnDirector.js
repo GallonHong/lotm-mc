@@ -37,6 +37,34 @@ function distanceSquared(a, b) {
 }
 
 export class SpawnDirector {
+  /** 可选跨包总线：由 Daily & Events Addon 请求，仍由本 SpawnDirector 落地实体。 */
+  static processExternalRequests() {
+    let requests = [];
+    try {
+      const raw = world.getDynamicProperty(CONFIG.externalSpawnRequestsKey);
+      requests = typeof raw === "string" ? JSON.parse(raw) : [];
+      if (!Array.isArray(requests) || requests.length === 0) return;
+      world.setDynamicProperty(CONFIG.externalSpawnRequestsKey, "[]");
+    } catch (error) {
+      console.warn(`[Apocalypse][SpawnBus] 读取请求失败: ${error}`);
+      return;
+    }
+    for (const request of requests.slice(0, 50)) {
+      try {
+        const dimension = world.getDimension(request.dimension || "overworld");
+        const center = request.center;
+        const count = Math.max(1, Math.min(20, Math.floor(Number(request.count) || 1)));
+        const tags = Array.isArray(request.tags) ? request.tags.map(String).slice(0, 6) : [];
+        for (let index = 0; index < count; index++) {
+          const location = this.findGround(dimension, center, Number(request.minDistance) || 6, Number(request.maxDistance) || 14);
+          if (location) this.spawnAt(dimension, location, String(request.mobKey || "basic"), tags);
+        }
+      } catch (error) {
+        console.warn(`[Apocalypse][SpawnBus] 请求 ${request?.id || "unknown"} 失败: ${error}`);
+      }
+    }
+  }
+
   static findGround(dimension, center, minDistance = CONFIG.spawnMinDistance, maxDistance = CONFIG.spawnMaxDistance) {
     for (let attempt = 0; attempt < 10; attempt++) {
       const angle = Math.random() * Math.PI * 2;
@@ -142,4 +170,3 @@ export class SpawnDirector {
     });
   }
 }
-

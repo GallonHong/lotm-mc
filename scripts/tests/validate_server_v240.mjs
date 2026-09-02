@@ -26,6 +26,6 @@ for (const route of ["!daily", "!redeem", "!tpa", "!audit"]) assert.ok(main.incl
 assert.match(menu, /每日福利/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /teleport region audit operations/);
-assert.equal(manifest.header.version.join("."), "2.4.0");
+assert.equal(manifest.header.version.join("."), "2.5.0");
 
-console.log("SAPI Server v2.4.0 operations validation passed.");
+console.log("SAPI Server v2.5.0 daily-events integration validation passed.");

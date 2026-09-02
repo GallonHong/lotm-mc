@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。当前版本实现 PRD v0.1 的 P0 Vertical Slice。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.0 增加供 Daily & World Events Addon 使用的 SpawnDirector 跨包请求总线。
 
 ## 已实现
 
@@ -36,4 +36,3 @@ SAPI 管理保护区默认视为安全区；若其 flags 显式包含 `allowHost
 ## 素材来源
 
 感染者与掠夺者贴图复用本仓库 `V1.6.6-1DeadZone` 中的素材，并复制进本 Addon 自身资源包，因此运行时不依赖 DeadZone。
-
