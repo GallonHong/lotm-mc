@@ -1,0 +1,37 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "test_gun:flash_shield",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/entity/flash_shield",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.shield"
+      },
+      "animations": {
+        "wield": "animation.shield.wield_main_hand_first_person",
+        "wield_off_hand": "animation.shield.wield_off_hand_first_person",
+        "wield_third_person": "animation.shield.wield_third_person",
+        "block": "animation.player.shield_block_main_hand",
+        "block_off_hand": "animation.player.shield_block_off_hand"
+      },
+      "scripts": {
+        "animate": [
+          "wield",
+          {
+            "block": "query.is_sneaking"
+          }
+        ]
+      },
+      "render_controllers": [
+        "controller.render.item_default"
+      ]
+    }
+  }
+}
