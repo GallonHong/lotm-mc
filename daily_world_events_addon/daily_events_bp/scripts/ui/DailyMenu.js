@@ -16,10 +16,19 @@ export function isAdmin(player) {
   return false;
 }
 
-function show(player, form, callback) {
-  system.run(() => form.show(player).then(result => {
-    if (!result.canceled) callback(result);
-  }).catch(error => player.sendMessage(`§c[每日委托] 菜单错误: ${error}`)));
+function isUserBusy(value) {
+  const reason = String(value?.cancelationReason || value?.cancellationReason || value?.message || value || "").toLowerCase();
+  return reason.includes("userbusy") || reason.includes("user busy");
+}
+
+function show(player, form, callback, attempt = 0) {
+  system.runTimeout(() => form.show(player).then(result => {
+    if (!result.canceled) return callback(result);
+    if (isUserBusy(result) && attempt < 8) show(player, form, callback, attempt + 1);
+  }).catch(error => {
+    if (isUserBusy(error) && attempt < 8) return show(player, form, callback, attempt + 1);
+    player.sendMessage(`§c[每日委托] 菜单错误: ${error}`);
+  }), attempt === 0 ? 2 : 5);
 }
 
 function targetText(quest) {

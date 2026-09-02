@@ -68,8 +68,14 @@ for (const marker of ["安全区 1", "法制区 1", "非法制荒原"]) assert(i
 const commissionerDialogue = json(join(bp, "dialogue/commissioner_dialogue.json"));
 const merchantDialogue = json(join(bp, "dialogue/merchant_dialogues.json"));
 assert.equal(commissionerDialogue["minecraft:npc_dialogue"].scenes[0].buttons.some(button => button.name.includes("维修")), false);
+for (const button of commissionerDialogue["minecraft:npc_dialogue"].scenes[0].buttons) {
+  assert.equal(button.commands[0], "/dialogue close @initiator", `NPC button must close dialogue first: ${button.name}`);
+  assert(button.commands.some(command => command.includes("scriptevent daily:")), `NPC button is missing daily scriptevent: ${button.name}`);
+}
 assert.equal(merchantDialogue["minecraft:npc_dialogue"].scenes.length, 4);
 assert(files(bp).some(path => path.endsWith("scripts/merchants/merchantConfig.js")));
+const dailyMenu = readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8");
+assert(dailyMenu.includes("isUserBusy") && dailyMenu.includes("attempt < 8"), "daily forms must retry after native NPC UserBusy");
 
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));

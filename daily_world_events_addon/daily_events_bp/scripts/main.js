@@ -10,7 +10,7 @@ import { MerchantMenu, NpcDialogue } from "./ui/NpcDialogue.js";
 import { merchantByEntity } from "./merchants/merchantConfig.js";
 import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 
-console.warn("[DailyEvents] Survival Daily & World Events v0.3.0 initializing...");
+console.warn("[DailyEvents] Survival Daily & World Events v0.3.1 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());

@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常与动态事件 Addon，对应 PRD v0.1 MVP。
+独立的 Minecraft Bedrock 每日日常与动态事件 Addon，对应 PRD v0.1 MVP。v0.3.1 修复原生 NPC 对话未关闭导致“查看今日任务”等按钮无法打开 Script API 菜单的问题，并增加 `UserBusy` 自动重试。
 
 ## 联动关系
 
