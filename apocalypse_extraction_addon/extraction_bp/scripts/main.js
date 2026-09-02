@@ -14,6 +14,8 @@ const backpackSnapshots = new Map();
 const insuredReturns = new Map();
 let mobSpawnFailureNoticeTick = -1200;
 let cityBuildPromise = null;
+let cityReadyInSession = false;
+let cityServicesCheckedInSession = false;
 let activeHorde = null;
 let nextHordeAllowedTick = 0;
 
@@ -275,8 +277,20 @@ async function placeLootCrates(dimension) {
           ? [...CRATE_LAYOUT, { dx: 0, dz: 18, tier: "mythic" }]
           : CRATE_LAYOUT;
         for (const crate of layout) {
-          const ground = safeGround(dimension, center.x + crate.dx, center.z + crate.dz, 18);
-          if (!ground) continue;
+          let ground = safeGround(dimension, center.x + crate.dx, center.z + crate.dz, 18);
+          // Some custom-dimension builds do not expose getTopmostBlock while a
+          // freshly added ticking area is warming up. Use the permanent road
+          // deck as a deterministic fallback instead of reporting zero crates.
+          if (!ground) {
+            const fallbackOffsets = [[3, 12], [-3, -12], [12, 3], [-12, -3], [0, 18]];
+            const fallback = fallbackOffsets[Math.min(layout.indexOf(crate), fallbackOffsets.length - 1)];
+            const x = center.x + fallback[0], z = center.z + fallback[1];
+            try {
+              dimension.runCommand(`setblock ${x} ${CONFIG.cityBaseY + 1} ${z} minecraft:stone_bricks`);
+              dimension.runCommand(`fill ${x} ${CONFIG.cityBaseY + 2} ${z} ${x} ${CONFIG.cityBaseY + 3} ${z} minecraft:air`);
+              ground = { x: x + 0.5, y: CONFIG.cityBaseY + 2, z: z + 0.5 };
+            } catch { continue; }
+          }
           const location = { x: Math.floor(ground.x), y: Math.floor(ground.y), z: Math.floor(ground.z) };
           const block = dimension.getBlock(location);
           if (!block || !isAir(block)) continue;
@@ -309,8 +323,16 @@ async function placeExtractionMarkers(dimension) {
       { x: point.x - 16, y: 56, z: point.z - 16 },
       { x: point.x + 16, y: 192, z: point.z + 16 },
       async () => {
-        const ground = standingGround(dimension, point.x, point.z);
-        if (!ground) return;
+        let ground = standingGround(dimension, point.x, point.z);
+        if (!ground) {
+          // Exit coordinates sit on the city foundation. Recreate a tiny road
+          // pad directly so exits remain usable even when surface queries fail.
+          try {
+            dimension.runCommand(`fill ${point.x - 2} ${CONFIG.cityBaseY + 1} ${point.z - 2} ${point.x + 2} ${CONFIG.cityBaseY + 1} ${point.z + 2} minecraft:stone_bricks`);
+            dimension.runCommand(`fill ${point.x - 2} ${CONFIG.cityBaseY + 2} ${point.z - 2} ${point.x + 2} ${CONFIG.cityBaseY + 7} ${point.z + 2} minecraft:air`);
+            ground = { x: point.x + 0.5, y: CONFIG.cityBaseY + 2, z: point.z + 0.5 };
+          } catch { return; }
+        }
         const x = Math.floor(ground.x), y = Math.floor(ground.y), z = Math.floor(ground.z);
         try {
           dimension.runCommand(`fill ${x - 2} ${y - 1} ${z - 2} ${x + 2} ${y - 1} ${z + 2} minecraft:lime_concrete`);
@@ -344,14 +366,79 @@ async function buildCity(dimension) {
   }
   const exits = await placeExtractionMarkers(dimension);
   const crates = await placeLootCrates(dimension);
-  try { world.setDynamicProperty(CONFIG.cityReadyKey, true); } catch {}
+  try {
+    world.setDynamicProperty(CONFIG.cityReadyKey, true);
+    world.setDynamicProperty(CONFIG.cityReadyBackupKey, Date.now());
+    world.setDynamicProperty("apoc_extract:exit_count:v1", exits);
+    world.setDynamicProperty("apoc_extract:crate_count:v1", crates);
+    cityReadyInSession = true;
+    cityServicesCheckedInSession = true;
+  } catch {}
+  try {
+    await withTickingArea(
+      dimension,
+      "extract_city_sentinel",
+      { x: -4, y: 56, z: -4 },
+      { x: 4, y: 72, z: 4 },
+      async () => dimension.getBlock(CONFIG.citySentinel)?.setType("minecraft:bedrock")
+    );
+  } catch {}
   console.warn(`[ExtractionCity] persistent city ready: ${generated}/25 districts, ${exits} exit markers, ${crates} loot crates placed.`);
 }
 
-async function ensureCityReady(dimension, force = false) {
+function readyFlagStored() {
   try {
-    if (!force && world.getDynamicProperty(CONFIG.cityReadyKey) === true) return;
+    const value = world.getDynamicProperty(CONFIG.cityReadyKey);
+    return value === true || value === 1 || value === "true" || Number(world.getDynamicProperty(CONFIG.cityReadyBackupKey) || 0) > 0;
+  } catch { return false; }
+}
+
+function cityPhysicallyPresent(dimension) {
+  let ticking = false;
+  try {
+    try {
+      dimension.runCommand("tickingarea remove extract_city_probe");
+      dimension.runCommand("tickingarea add -8 56 -8 8 80 8 extract_city_probe true");
+      ticking = true;
+    } catch {}
+    if (dimension.getBlock(CONFIG.citySentinel)?.typeId === "minecraft:bedrock") return true;
+    const foundation = dimension.getBlock({ x: 0, y: CONFIG.cityBaseY, z: 0 });
+    const road = dimension.getBlock({ x: 0, y: CONFIG.cityBaseY + 1, z: 0 });
+    return !!foundation && !isAir(foundation) && !!road && !isAir(road);
+  } catch { return false; }
+  finally { if (ticking) try { dimension.runCommand("tickingarea remove extract_city_probe"); } catch {} }
+}
+
+async function ensureCityServices(dimension) {
+  if (cityServicesCheckedInSession) return;
+  cityServicesCheckedInSession = true;
+  let recordedExits = 0, recordedCrates = 0;
+  try {
+    recordedExits = Number(world.getDynamicProperty("apoc_extract:exit_count:v1") || 0);
+    recordedCrates = Number(world.getDynamicProperty("apoc_extract:crate_count:v1") || 0);
   } catch {}
+  if (recordedExits >= CONFIG.extractionPoints.length && recordedCrates > 0) return;
+  console.warn("[ExtractionCity] city exists; repairing exit markers and loot crates without rebuilding districts...");
+  const exits = await placeExtractionMarkers(dimension);
+  const crates = await placeLootCrates(dimension);
+  try {
+    world.setDynamicProperty("apoc_extract:exit_count:v1", exits);
+    world.setDynamicProperty("apoc_extract:crate_count:v1", crates);
+  } catch {}
+  console.warn(`[ExtractionCity] city service repair complete: ${exits} exits, ${crates} crates.`);
+}
+
+async function ensureCityReady(dimension, force = false) {
+  if (!force && (cityReadyInSession || readyFlagStored() || cityPhysicallyPresent(dimension))) {
+    cityReadyInSession = true;
+    try {
+      world.setDynamicProperty(CONFIG.cityReadyKey, true);
+      world.setDynamicProperty(CONFIG.cityReadyBackupKey, Date.now());
+    } catch {}
+    try { dimension.getBlock(CONFIG.citySentinel)?.setType("minecraft:bedrock"); } catch {}
+    await ensureCityServices(dimension);
+    return;
+  }
   if (!cityBuildPromise) cityBuildPromise = buildCity(dimension);
   const pending = cityBuildPromise;
   try { await pending; }
@@ -379,6 +466,20 @@ function applyExtractionEnvironment(player) {
   try { player.runCommand(`fog @s push ${CONFIG.fogId} ${CONFIG.fogStackId}`); } catch {}
 }
 
+function prepareArrivalPad(dimension, point) {
+  // District centres are aligned to the permanent road grid. A deterministic
+  // pad avoids custom-dimension surface-query failures and building interiors.
+  const x = Math.floor(point.x + 3);
+  const z = Math.floor(point.z + 10);
+  const floorY = CONFIG.cityBaseY + 1;
+  try {
+    dimension.runCommand(`fill ${x - 2} ${floorY} ${z - 2} ${x + 2} ${floorY} ${z + 2} minecraft:stone_bricks`);
+    dimension.runCommand(`fill ${x - 2} ${floorY + 1} ${z - 2} ${x + 2} ${floorY + 5} ${z + 2} minecraft:air`);
+    dimension.runCommand(`setblock ${x} ${floorY} ${z} minecraft:yellow_concrete`);
+    return { x: x + 0.5, y: floorY + 1, z: z + 0.5 };
+  } catch { return null; }
+}
+
 function enforceKeepInventory() {
   try { world.gameRules.keepInventory = true; } catch {}
   try { world.getDimension("minecraft:overworld").runCommand("gamerule keepinventory true"); } catch {}
@@ -400,7 +501,7 @@ async function enter(player) {
       : `§c摸金维度引导包没有启动。请启用 Apocalypse Extraction Dimension Bootstrap v0.1.0 与 Beta APIs。${detail}`);
     return;
   }
-  player.sendMessage("§e[摸金都市] 正在检查持久化城市。首次升级会一次性生成 25 个密集城区，可能需要 1～3 分钟；完成后再次进入不会重建，请勿重复点击……");
+  player.sendMessage("§e[摸金都市] 正在确认城市状态。已生成的城市只会补齐撤离点和物资箱，不会再次重建；首次生成才需要 1～3 分钟……");
   try { await ensureCityReady(dimension); }
   catch (error) {
     player.sendMessage(`§c城市结构初始化失败：${error}`);
@@ -409,8 +510,8 @@ async function enter(player) {
   }
   storeReturn(player);
   const point = CONFIG.entryPoints[Math.floor(Math.random() * CONFIG.entryPoints.length)];
-  const x = point.x + Math.floor(Math.random() * 41) - 20;
-  const z = point.z + Math.floor(Math.random() * 41) - 20;
+  const x = point.x + 3;
+  const z = point.z + 10;
   const arrivalAreaId = `apoc_extract_arrival_${String(player.id).replace(/[^a-zA-Z0-9_]/g, "").slice(-12)}`;
   try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {}
   try {
@@ -418,14 +519,14 @@ async function enter(player) {
   } catch (error) { console.warn(`[ExtractionCity] arrival ticking area unavailable: ${error}`); }
   system.runTimeout(() => {
     try {
-      let location = safeGround(dimension, x, z, 36);
+      let location = safeGround(dimension, x, z, 12) || prepareArrivalPad(dimension, point);
       if (!location) {
         for (const fallback of CONFIG.entryPoints) {
-          location = safeGround(dimension, fallback.x, fallback.z, 48);
+          location = prepareArrivalPad(dimension, fallback);
           if (location) break;
         }
       }
-      if (!location) throw new Error("扩展城区中没有找到安全地面，请让管理员执行 /scriptevent extract:rebuild");
+      if (!location) throw new Error("无法创建道路到达平台，请检查该维度是否允许 /fill 与 /setblock");
       player.teleport(location, { dimension });
       player.addTag(CONFIG.activeTag);
       player.setDynamicProperty(CONFIG.activeStateKey, true);

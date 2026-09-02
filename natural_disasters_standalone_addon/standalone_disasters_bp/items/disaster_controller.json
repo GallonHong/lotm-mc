@@ -1,0 +1,24 @@
+{
+  "format_version": "1.26.0",
+  "minecraft:item": {
+    "description": {
+      "identifier": "sando_standalone:disaster_controller",
+      "menu_category": {
+        "category": "items",
+        "group": "minecraft:itemGroup.name.tools"
+      }
+    },
+    "components": {
+      "minecraft:icon": "disaster_controller",
+      "minecraft:display_name": {
+        "value": "§c§l独立自然灾害控制器"
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:rarity": "epic",
+      "minecraft:glint": true,
+      "minecraft:interact_button": "打开灾害菜单",
+      "minecraft:allow_off_hand": true,
+      "sando_standalone:start_disasters": {}
+    }
+  }
+}

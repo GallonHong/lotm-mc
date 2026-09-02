@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sando_standalone:tornado_core",
+      "materials": {"default":"entity_alphablend"},
+      "textures": {"default":"textures/entity/tornado"},
+      "geometry": {"default":"geometry.sando.tornado"},
+      "render_controllers": ["controller.render.sando_standalone_disaster"]
+    }
+  }
+}

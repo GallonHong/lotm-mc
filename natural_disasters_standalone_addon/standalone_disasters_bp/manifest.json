@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Extraction City BP v0.6.0",
-    "description": "Dense persistent 5x5 extraction city, insured loadout, Apocalypse enemies, loot crates and extraction points.",
-    "uuid": "3ba398b1-341e-44b9-a426-21734cdf1180",
+    "name": "Natural Disasters Standalone BP v1.0.0",
+    "description": "Standalone tornadoes, earthquakes, meteor showers, floods and lightning storms; no other Addon required.",
+    "uuid": "324ffe52-89ab-42ad-9483-ad6ef149f735",
     "version": [
+      1,
       0,
-      6,
       0
     ],
     "min_engine_version": [
@@ -18,20 +18,20 @@
   "modules": [
     {
       "type": "data",
-      "uuid": "f415de19-b827-4cb9-b17b-dcc17d2a1ed6",
+      "uuid": "645a6fba-86a1-4e9a-ae40-eb4b21c0f7eb",
       "version": [
+        1,
         0,
-        6,
         0
       ]
     },
     {
       "type": "script",
       "language": "javascript",
-      "uuid": "fe1965cb-8d9f-44f3-9206-12de3bf3ca46",
+      "uuid": "e6b1a7ec-7053-4d99-83f2-3a8a8f230496",
       "version": [
+        1,
         0,
-        6,
         0
       ],
       "entry": "scripts/main.js"
@@ -47,8 +47,14 @@
       "version": "2.0.0"
     },
     {
-      "uuid": "137d1231-b6d3-4b4d-98e3-1ce503a92177",
-      "version": [0, 1, 0]
+      "uuid": "14f12161-9412-461e-92d0-88194d79ebfb",
+      "version": [1, 0, 0]
     }
-  ]
+  ],
+  "metadata": {
+    "authors": [
+      "EL SANDO"
+    ],
+    "product_type": "addon"
+  }
 }

@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Natural Disasters Standalone RP v1.0.0",
+    "description": "Client resources for the independent natural-disaster pack.",
+    "uuid": "14f12161-9412-461e-92d0-88194d79ebfb",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      120
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "9902f6da-1c90-49f9-9cc0-de234f9c329e",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "EL SANDO"
+    ],
+    "product_type": "addon"
+  }
+}
