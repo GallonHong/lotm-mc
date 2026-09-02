@@ -120,12 +120,17 @@ class AddonController {
       }
     });
 
-    // 4. 长按按住触发 (itemStartUse) - 全自动武器按住连射
+    // 4. 长按按住触发 (itemStartUse) - 全自动武器按住连射与史诗近战技能即时释放
     subscribeAfter(world.afterEvents, 'itemStartUse', (event) => {
       try {
         const player = event.source;
         const item = event.itemStack;
         if (!player || !item) return;
+
+        if (item.typeId === 'test_gun:kukri_machete' || item.typeId === 'test_gun:katana') {
+          MeleeEngine.handleSkillUse(player, item);
+          return;
+        }
 
         const gun = getGunById(item.typeId);
         if (gun) {

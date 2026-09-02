@@ -6,31 +6,19 @@ import { world, system, EntityDamageCause } from '@minecraft/server';
  * - 史诗 (Epic)：真·横扫之刃 + 右键专属主动战术技能 (旋风横斩 / 居合拔刀斩)
  */
 export class MeleeEngine {
-  static cooldowns = new Map(); // player.id_weapon -> remainingTicks
+  static cooldowns = new Map(); // player.id_weapon -> timestamp(ms)
   static bleedingTargets = new Map(); // entity.id -> remainingTicks
 
   static init() {
-    // 周期性处理流血 DOT 与技能冷却
     system.runInterval(() => {
       this.tickBleeding();
-      this.tickCooldowns();
     }, 1);
-  }
-
-  static tickCooldowns() {
-    for (const [key, ticks] of this.cooldowns.entries()) {
-      if (ticks <= 1) {
-        this.cooldowns.delete(key);
-      } else {
-        this.cooldowns.set(key, ticks - 1);
-      }
-    }
   }
 
   static tickBleeding() {
     for (const [entId, info] of this.bleedingTargets.entries()) {
       info.ticks--;
-      if (info.ticks % 20 === 0) { // 每秒跳一次流血伤害
+      if (info.ticks % 20 === 0) {
         try {
           const entity = world.getEntity(entId);
           if (entity && entity.isValid()) {
@@ -71,12 +59,10 @@ export class MeleeEngine {
       if (typeId === 'test_gun:combat_knife') {
         try { player.dimension.playSound('test_gun.melee_hit', pLoc, { volume: 0.8, pitch: 1.2 }); } catch {}
         if (player.isSneaking) {
-          // 判定背刺 (攻击者视线与目标视线同向)
           try {
             const tView = target.getViewDirection ? target.getViewDirection() : { x: 0, z: 0 };
             const dot = viewDir.x * tView.x + viewDir.z * tView.z;
             if (dot > 0.4) {
-              // 成功背刺！追加 8 点暴击穿甲真伤
               target.applyDamage(8.0, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
               player.dimension.spawnParticle('minecraft:critical_hit_emitter', tLoc);
               player.dimension.playSound('random.break', pLoc, { volume: 0.9, pitch: 1.8 });
@@ -98,7 +84,6 @@ export class MeleeEngine {
       else if (typeId === 'test_gun:tactical_axe') {
         try {
           player.dimension.playSound('random.break', pLoc, { volume: 0.8, pitch: 1.2 });
-          // 追加 3 点破甲真伤与强力击退
           target.applyDamage(3.0, { cause: EntityDamageCause.override, damagingEntity: player });
           target.applyKnockback(viewDir.x, viewDir.z, 0.8, 0.2);
         } catch {}
@@ -128,7 +113,7 @@ export class MeleeEngine {
       const pLoc = player.location;
       const viewDir = player.getViewDirection();
 
-      // 生成横扫刀光粒子
+      // 横扫月牙刀光
       const sweepLoc = {
         x: pLoc.x + viewDir.x * 1.5,
         y: pLoc.y + 1.2,
@@ -136,12 +121,10 @@ export class MeleeEngine {
       };
       player.dimension.spawnParticle('minecraft:sweep_attack', sweepLoc);
 
-      // 如果有流血特性，给主目标挂流血
       if (applyBleed && primaryTarget && primaryTarget.isValid()) {
-        this.bleedingTargets.set(primaryTarget.id, { ticks: 60 }); // 3秒流血
+        this.bleedingTargets.set(primaryTarget.id, { ticks: 60 });
       }
 
-      // 搜索前方 150° 扇形范围内的所有群怪
       const nearby = player.dimension.getEntities({
         location: pLoc,
         maxDistance: radius
@@ -151,14 +134,13 @@ export class MeleeEngine {
         if (!ent || !ent.isValid() || ent.id === player.id || ent.id === primaryTarget?.id) continue;
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
 
-        // 判定前方扇形
         const eLoc = ent.location;
         const dx = eLoc.x - pLoc.x;
         const dz = eLoc.z - pLoc.z;
         const dist = Math.hypot(dx, dz);
         if (dist > 0.1) {
           const dot = (dx / dist) * viewDir.x + (dz / dist) * viewDir.z;
-          if (dot > 0.25) { // 正面 150° 扇形
+          if (dot > 0.25) {
             try {
               ent.applyDamage(sweepDmg * 0.85, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
               ent.dimension.spawnParticle('minecraft:critical_hit_emitter', eLoc);
@@ -175,7 +157,7 @@ export class MeleeEngine {
   }
 
   /**
-   * 处理史诗近战右键主动技能 (ItemUse)
+   * 处理史诗近战右键主动技能 (ItemUse / ItemStartUse)
    * @param {Player} player 
    * @param {ItemStack} item 
    */
@@ -185,10 +167,12 @@ export class MeleeEngine {
     const typeId = item.typeId;
     const pId = player.id;
     const cdKey = `${pId}_${typeId}`;
+    const now = Date.now();
 
-    if (this.cooldowns.has(cdKey)) {
-      const remaining = Math.ceil(this.cooldowns.get(cdKey) / 20);
-      player.onScreenDisplay?.setActionBar?.(`§e⏳ 近战战术技能冷却中... (${remaining}s)§r`);
+    const cdEnd = this.cooldowns.get(cdKey) || 0;
+    if (now < cdEnd) {
+      const remaining = Math.max(1, Math.ceil((cdEnd - now) / 1000));
+      player.onScreenDisplay?.setActionBar?.(`§e⏳ 战术技能冷却中... (${remaining}s)§r`);
       return;
     }
 
@@ -197,7 +181,7 @@ export class MeleeEngine {
 
     // 1. 尼泊尔库克锐弯刀 - 【旋风横斩 (Whirlwind Slash)】
     if (typeId === 'test_gun:kukri_machete') {
-      this.cooldowns.set(cdKey, 120); // 6秒冷却
+      this.cooldowns.set(cdKey, now + 5000); // 5秒绝对时间冷却
 
       try {
         player.dimension.playSound('test_gun.melee_slash', pLoc, { volume: 1.2, pitch: 0.9 });
@@ -214,7 +198,6 @@ export class MeleeEngine {
           player.dimension.spawnParticle('minecraft:sweep_attack', { x: px, y: pLoc.y + 1.0, z: pz });
         }
 
-        // 周身 4.5 格全体击飞与 18 点爆发伤害
         const targets = player.dimension.getEntities({
           location: pLoc,
           maxDistance: 4.5
@@ -232,7 +215,7 @@ export class MeleeEngine {
           } catch {}
         }
 
-        player.onScreenDisplay?.setActionBar?.('§5🪝【旋风横斩】释放！对周身群怪造成 18 点爆发重击并击飞!§r');
+        player.onScreenDisplay?.setActionBar?.('§5🪝【旋风横斩】释放！对周身群怪造成 18 点重击并击飞!§r');
       } catch (err) {
         console.warn('Whirlwind slash error:', err);
       }
@@ -240,7 +223,7 @@ export class MeleeEngine {
 
     // 2. 战术冷钢黑刃武士刀 - 【居合·疾影拔刀斩 (Iaido Dash Slash)】
     else if (typeId === 'test_gun:katana') {
-      this.cooldowns.set(cdKey, 140); // 7秒冷却
+      this.cooldowns.set(cdKey, now + 5000); // 5秒绝对时间冷却
 
       try {
         player.dimension.playSound('test_gun.katana_slash', pLoc, { volume: 1.4, pitch: 1.1 });
