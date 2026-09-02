@@ -1,4 +1,4 @@
-import { world } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { RewardManager } from "./RewardManager.js";
 import { LOOT_CRATE_BLOCKS, LOOT_CRATE_POOLS } from "./lootCratePools.js";
@@ -30,6 +30,7 @@ function chooseWeighted(entries) {
 
 export class LootCrateManager {
   static states = new Map();
+  static interactionTicks = new Map();
 
   static coordinateKey(block) {
     const location = block.location;
@@ -74,12 +75,23 @@ export class LootCrateManager {
   }
 
   static interact(event) {
-    if (event.isFirstEvent === false) return false;
     const block = event.block;
     const player = event.player;
     const tier = LOOT_CRATE_BLOCKS[block?.typeId];
     if (!tier || !player) return false;
     const coordinateKey = this.coordinateKey(block);
+    // isFirstEvent 在移动端长按和部分 26.x 客户端上可能跨方块保持 false，
+    // 导致打开一个箱子后，同类型的其他箱子也被忽略。改为按“玩家+坐标”
+    // 做短时去重：同一箱子的重复触发被拦截，不同地点始终独立。
+    const interactionKey = `${player.id}:${coordinateKey}`;
+    const lastTick = Number(this.interactionTicks.get(interactionKey) ?? -1000);
+    if (system.currentTick - lastTick < 6) return true;
+    this.interactionTicks.set(interactionKey, system.currentTick);
+    if (this.interactionTicks.size > 512) {
+      for (const [key, tick] of this.interactionTicks) {
+        if (system.currentTick - Number(tick) > 200) this.interactionTicks.delete(key);
+      }
+    }
     const state = this.states.get(coordinateKey);
     const now = Date.now();
     if (state && state.readyAt > now) {

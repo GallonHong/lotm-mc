@@ -1,10 +1,11 @@
-# Apocalypse Extraction City v0.3.1
+# Apocalypse Extraction City v0.3.2
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）、Beta APIs 实验玩法、`Survival Daily & World Events v0.6.2` 和 `Apocalypse Mobs v0.3.4`。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。`Survival Daily & World Events v0.6.3` 和 `Apocalypse Mobs v0.3.4` 改为运行时联动，不再因精确版本依赖不匹配而阻止摸金脚本启动。
 
 ## 安装与联动
 
-- 必装：本 Add-on、Daily World Events v0.6.2（提供统一物资箱）、Apocalypse Mobs v0.3.4（提供感染者、掠夺者和 Boss）。
+- 必装：本 Add-on。
+- 推荐联动：Daily World Events v0.6.3（提供统一物资箱）、Apocalypse Mobs v0.3.4（提供感染者、掠夺者和 Boss）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Gun 没有被修改；枪械致盲等效果继续由原 Add-on 处理。
 - 城市测试素材复制自仓库内 `RandS Overgrown Cities 1.3`。不要再同时启用原 RandS 包，避免 `jigsaw:*` 标识冲突。
@@ -43,6 +44,6 @@
 - 自定义维度当前由官方接口创建为虚空维度；本 Add-on 首次进入时通过 `StructureManager` 放置 RandS Jigsaw 城市。
 - 请删除旧的 v0.1.x 行为包/资源包后重新导入，避免 Minecraft 继续读取缓存的旧维度 JSON。
 
-从旧版更新后第一次进入会自动执行 v0.3.0 扩建。若旧世界仍显示原来的孤立城区，管理员执行一次 `/scriptevent extract:rebuild`。v0.3.1 增加 Boss 状态显示与管理员强制生成测试入口。
+从旧版更新后第一次进入会自动执行 v0.3.0 扩建。若旧世界仍显示原来的孤立城区，管理员执行一次 `/scriptevent extract:rebuild`。v0.3.2 修复 SAPI 菜单事件缺少玩家来源时被静默忽略的问题，并移除会导致整个行为包无法加载的跨 Add-on 精确版本硬依赖。
 
 本版的自定义维度和 RandS Jigsaw 组合属于测试功能；首次上线请用新世界或完整备份验证。

@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.6.2 修复多结构副本中带子目录结构 ID 被 `/structure load` 错误解析的问题：优先使用稳定版 `StructureManager.place()`，并为旧引擎保留带引号的命令回退。v0.6.1 的可复用四级物资箱、原版 `/scriptevent` 测试入口、动态事件阵亡淘汰与副本独立结算规则保持不变。
+独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.6.3 修复 SAPI 跨包菜单事件丢失玩家来源、同一玩家开启一个箱子后其他同类箱子被 `isFirstEvent` 错误拦截的问题，并将错误的透明 UV 图集替换为统一的 32×32 原版像素风木箱贴图。v0.6.2 的副本结构加载修复保持不变。
 
 ## 可复用物资箱
 

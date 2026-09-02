@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 6, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 6, 1]);
+assert.deepEqual(manifest.header.version, [0, 6, 3]);
+assert.deepEqual(rpManifest.header.version, [0, 6, 3]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -86,12 +86,18 @@ const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"),
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));
 assert(rewardManager.includes("grantBundle(player, bundle, uniqueId"), "dynamic crate rewards must use RewardManager");
 const crateManager = readFileSync(join(bp, "scripts/rewards/LootCrateManager.js"), "utf8");
-assert(crateManager.includes("event.isFirstEvent === false"), "hold interaction must not open a crate repeatedly");
+assert.equal(crateManager.includes("event.isFirstEvent === false"), false, "global isFirstEvent gate must not lock other crates");
+assert(crateManager.includes("interactionKey") && crateManager.includes("player.id") && crateManager.includes("coordinateKey"), "crate interaction debounce must be scoped to player and coordinate");
 assert(crateManager.includes("lootCrateStatePrefix") && crateManager.includes("readyAt"), "crate cooldown must persist across restart");
 for (const tier of ["common", "rare", "epic", "legendary"]) {
   assert.equal(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].description.identifier, `daily:loot_crate_${tier}`);
 }
 assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_common);
+for (const texture of ["common", "rare", "epic", "legendary", "opened"]) {
+  const png = readFileSync(join(rp, `textures/blocks/daily_crate_${texture}.png`));
+  assert.equal(png.readUInt32BE(16), 32, `${texture} crate texture width must be 32`);
+  assert.equal(png.readUInt32BE(20), 32, `${texture} crate texture height must be 32`);
+}
 
 const dungeonTemplates = await import(`file://${join(bp, "scripts/dungeons/dungeonTemplates.js")}`);
 const clinic = dungeonTemplates.DUNGEON_TEMPLATES.abandoned_clinic;
@@ -123,6 +129,7 @@ const sapiIntegration = readFileSync(join(repo, "sapi_server_addon/sapi_server_b
 const sapiMenu = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/server_menu.js"), "utf8");
 const apocSpawn = readFileSync(join(repo, "apocalypse_mobs_addon/apocalypse_mobs_bp/scripts/spawnDirector.js"), "utf8");
 assert(sapiIntegration.includes("recordDailySale") && sapiMenu.includes("daily:menu"), "SAPI bridge missing");
+assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("__sapi_player__"), "SAPI event sender fallback missing");
 assert(apocSpawn.includes("processExternalRequests") && apocSpawn.includes("externalSpawnRequestsKey"), "SpawnDirector bridge missing");
 assert(apocSpawn.includes('request.placement === "exact"'), "SpawnDirector fixed dungeon placement missing");
 

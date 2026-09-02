@@ -13,7 +13,7 @@ import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Loot Crates v0.6.2 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Loot Crates v0.6.3 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -29,6 +29,24 @@ function subscribe(signal, label, handler) {
 
 function valid(entity) {
   try { return !!entity && entity.isValid(); } catch { return false; }
+}
+
+function scriptEventContext(event) {
+  let player = event.sourceEntity?.typeId === "minecraft:player" ? event.sourceEntity : null;
+  if (!player && event.initiator?.typeId === "minecraft:player") player = event.initiator;
+  let message = String(event.message || "");
+  const match = /^__sapi_player__=([^&]*)&data=([\s\S]*)$/.exec(message);
+  if (match) {
+    let playerName = "";
+    try { playerName = decodeURIComponent(match[1]); } catch { playerName = match[1]; }
+    try { message = decodeURIComponent(match[2]); } catch { message = match[2]; }
+    if (!player) player = world.getAllPlayers().find(value => value.name === playerName) || null;
+  }
+  if (!player) {
+    const online = world.getAllPlayers();
+    if (online.length === 1) player = online[0];
+  }
+  return { player, message };
 }
 
 function attackerPlayer(damageSource) {
@@ -192,7 +210,7 @@ subscribe(world.afterEvents?.playerInteractWithBlock, "playerInteractWithBlock",
 });
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
-  const player = event.sourceEntity;
+  const { player, message } = scriptEventContext(event);
   if (!player || player.typeId !== "minecraft:player") return;
   const id = String(event.id || "").toLowerCase();
   if (id === "daily:menu") DailyMenu.open(player);
@@ -213,12 +231,12 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     player.sendMessage(count ? `§a已补发 ${count} 项物资。` : "§7暂无可补发物资，或背包空间仍不足。");
   }, 2);
   else if (id === "daily:help") system.runTimeout(() => DailyMenu.openHelp(player), 2);
-  else if (id === "daily:merchant") MerchantMenu.openCategory(player, event.message || "all");
+  else if (id === "daily:merchant") MerchantMenu.openCategory(player, message || "all");
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
   else if (id === "daily:crate" || id === "daily:box") handleCommand(player, "!crate give");
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }
-  else if (id === "daily:event" && isAdmin(player)) handleCommand(player, `!event ${event.message || ""}`);
+  else if (id === "daily:event" && isAdmin(player)) handleCommand(player, `!event ${message || ""}`);
 });
 
 subscribe(world.beforeEvents?.chatSend, "chatSend", event => {

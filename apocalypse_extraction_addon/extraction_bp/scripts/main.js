@@ -59,6 +59,25 @@ function subscribe(signal, label, handler) {
   catch (error) { console.warn(`[ExtractionCity] ${label} subscribe failed: ${error}`); return false; }
 }
 
+function scriptEventContext(event) {
+  let player = event.sourceEntity?.typeId === "minecraft:player" ? event.sourceEntity : null;
+  if (!player && event.initiator?.typeId === "minecraft:player") player = event.initiator;
+  let message = String(event.message || "");
+  const match = /^__sapi_player__=([^&]*)&data=([\s\S]*)$/.exec(message);
+  if (match) {
+    let playerName = "";
+    try { playerName = decodeURIComponent(match[1]); } catch { playerName = match[1]; }
+    try { message = decodeURIComponent(match[2]); } catch { message = match[2]; }
+    if (!player) player = world.getAllPlayers().find(value => value.name === playerName) || null;
+  }
+  // 单人测试世界中，某些版本把玩家手动执行的 /scriptevent 也报告为 Server。
+  if (!player) {
+    const online = world.getAllPlayers();
+    if (online.length === 1) player = online[0];
+  }
+  return { player, message };
+}
+
 function isAdmin(player) {
   try { return player.hasTag("admin") || player.hasTag("administrator") || player.isOp(); } catch { return false; }
 }
@@ -421,7 +440,10 @@ function openMenu(player) {
   form.show(player).then(result => {
     if (result.canceled || result.selection !== 0) return;
     if (inside) startExtraction(player); else enter(player);
-  }).catch(() => {});
+  }).catch(error => {
+    console.warn(`[ExtractionCity] menu failed for ${player.name}: ${error}`);
+    try { player.sendMessage("§c摸金都市菜单打开失败，请直接执行 /scriptevent extract:enter；若仍无响应，请确认行为包 v0.3.2 已启用。"); } catch {}
+  });
 }
 
 function captureBackpack(player) {
@@ -618,8 +640,14 @@ subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
 });
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
-  if (event.sourceEntity?.typeId !== "minecraft:player") return;
-  const player = event.sourceEntity;
+  const { player } = scriptEventContext(event);
+  if (!player) {
+    if (String(event.id || "").startsWith("extract:")) {
+      console.warn(`[ExtractionCity] ignored ${event.id}: player source could not be resolved.`);
+      try { world.sendMessage("§c[摸金都市] 已收到指令，但无法识别发起玩家。请从 SAPI 菜单进入，或由玩家本人执行指令。"); } catch {}
+    }
+    return;
+  }
   if (event.id === "extract:menu") system.run(() => openMenu(player));
   else if (event.id === "extract:enter") system.run(() => enter(player));
   else if (event.id === "extract:exit") system.run(() => startExtraction(player));
@@ -692,4 +720,4 @@ system.runInterval(() => {
   for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
-console.warn("[ExtractionCity] v0.3.1 3x3 persistent city, strict backpack loss, Apocalypse-only hostiles, loot crates, 12 exits, bosses and dusk fog initialized.");
+console.warn("[ExtractionCity] v0.3.2 responsive inter-addon entry, 3x3 persistent city, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.");

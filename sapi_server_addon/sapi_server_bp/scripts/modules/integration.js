@@ -243,7 +243,11 @@ export class Integration {
             // 避免 Bedrock 返回 UserBusy 后静默吞掉目标菜单。
             system.runTimeout(() => {
                 try {
-                    player.runCommand(`scriptevent ${eventId} ${message}`.trim());
+                    // runCommand 触发的 scriptevent 在部分 Bedrock 版本中会被标为
+                    // Server 来源，目标 Add-on 收不到 sourceEntity。把玩家名放入
+                    // 联动信封，目标包可在多人服务器中准确找回发起者。
+                    const envelope = `__sapi_player__=${encodeURIComponent(player.name)}&data=${encodeURIComponent(String(message || ""))}`;
+                    player.runCommand(`scriptevent ${eventId} ${envelope}`);
                 } catch (error) {
                     console.warn(`[Integration] Failed to send ${eventId}: ${error}`);
                     try { player.sendMessage("§c联动菜单打开失败，请确认目标 Addon 已启用。"); } catch {}
