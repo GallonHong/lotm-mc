@@ -1,0 +1,27 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:recipe_shaped": {
+      "description": {
+        "identifier": "ab_ve:helicopter_spawner"
+      },
+      "tags": ["crafting_table"],
+      "pattern": [
+        "SSS",
+        "GS",
+        "SSS"
+      ],
+      "key": {
+        "G": {
+          "item": "minecraft:glass"
+        },
+        "S": {
+          "item": "minecraft:iron_ingot"
+        }
+      },
+      "unlock": [
+        { "item": "ab_ve:menu" }
+      ],
+      "result": {"item": "ab_ve:helicopter_spawner"}
+    }
+  }
+  

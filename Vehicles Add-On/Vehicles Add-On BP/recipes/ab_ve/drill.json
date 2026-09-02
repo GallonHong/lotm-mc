@@ -1,0 +1,33 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ab_ve:drill_spawner"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "RBS"
+    ],
+    "key": {
+      "B": {
+        "item": "minecraft:iron_block"
+      },
+      "R": {
+        "item": "minecraft:redstone_block"
+      },
+      "S": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "unlock": [
+      {
+        "item": "ab_ve:menu"
+      }
+    ],
+    "result": {
+      "item": "ab_ve:drill_spawner"
+    }
+  }
+}

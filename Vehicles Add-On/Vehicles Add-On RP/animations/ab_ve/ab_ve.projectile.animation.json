@@ -1,0 +1,15 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ab_ve.fire_truck_projectile.move": {
+			"loop": true,
+			"animation_length": 0.9167,
+			"particle_effects": {
+				"0.0": {
+					"effect": "water_projectile",
+					"locator": "locator"
+				}
+			}
+		}
+	}
+}

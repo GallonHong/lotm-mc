@@ -1,0 +1,261 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ab_ve.player.ride_car": {
+			"loop": true,
+			"animation_length": 1.0417,
+			"bones": {
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -54.68821",
+							"v.is_first_person || !q.is_riding ? 0 : 9.23186",
+							"v.is_first_person || !q.is_riding ? 0 : 3.86032"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.68821",
+							"v.is_first_person || !q.is_riding ? 0 : 9.23186",
+							"v.is_first_person || !q.is_riding ? 0 : 3.86032"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -54.68821",
+							"v.is_first_person || !q.is_riding ? 0 : 9.23186",
+							"v.is_first_person || !q.is_riding ? 0 : 3.86032"
+						]
+					},
+					"position": {
+						"0.0": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"],
+						"1.0417": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -54.50992",
+							"v.is_first_person || !q.is_riding ? 0 : -11.53486",
+							"v.is_first_person || !q.is_riding ? 0 : -4.8493"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.50992",
+							"v.is_first_person || !q.is_riding ? 0 : -11.53486",
+							"v.is_first_person || !q.is_riding ? 0 : -4.8493"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -54.50992",
+							"v.is_first_person || !q.is_riding ? 0 : -11.53486",
+							"v.is_first_person || !q.is_riding ? 0 : -4.8493"
+						]
+					},
+					"position": {
+						"0.0": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"],
+						"1.0417": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"]
+					}
+				}
+			}
+		},
+		"animation.ab_ve.player.ride_motorcycle": {
+			"loop": true,
+			"animation_length": 1.0417,
+			"bones": {
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : -12.6984550898",
+							"v.is_first_person || !q.is_riding ? 0 : -9.1102455248"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : -12.6984550898",
+							"v.is_first_person || !q.is_riding ? 0 : -9.1102455248"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : -12.6984550898",
+							"v.is_first_person || !q.is_riding ? 0 : -9.1102455248"
+						]
+					},
+					"position": {
+						"0.0": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -1-(query.target_y_rotation*0.025)"],
+						"0.5": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -1-(query.target_y_rotation*0.025)"],
+						"1.0417": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -1-(query.target_y_rotation*0.025)"]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.9876841017",
+							"v.is_first_person || !q.is_riding ? 0 : 15.1385752926",
+							"v.is_first_person || !q.is_riding ? 0 : 8.4661166195"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : 15.1385752926",
+							"v.is_first_person || !q.is_riding ? 0 : 8.4661166195"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.9876841017",
+							"v.is_first_person || !q.is_riding ? 0 : 15.1385752926",
+							"v.is_first_person || !q.is_riding ? 0 : 8.4661166195"
+						]
+					},
+					"position": {
+						"0.0": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -1+(query.target_y_rotation*0.025)"],
+						"0.5": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -1+(query.target_y_rotation*0.025)"],
+						"1.0417": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -1+(query.target_y_rotation*0.025)"]
+					}
+				},
+				"body": {
+					"rotation": ["v.is_first_person || !q.is_riding ? 0 : 27.5", 0, 0],
+					"position": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -5"]
+				}
+			}
+		},
+		"animation.ab_ve.player.ride_racing_car": {
+			"loop": true,
+			"animation_length": 1.0417,
+			"bones": {
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -44.6882",
+							"v.is_first_person || !q.is_riding ? 0 : 9.23186",
+							"v.is_first_person || !q.is_riding ? 0 : 3.86032"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -45.6882",
+							"v.is_first_person || !q.is_riding ? 0 : 9.23186",
+							"v.is_first_person || !q.is_riding ? 0 : 3.86032"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -44.6882",
+							"v.is_first_person || !q.is_riding ? 0 : 9.23186",
+							"v.is_first_person || !q.is_riding ? 0 : 3.86032"
+						]
+					},
+					"position": {
+						"0.0": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"],
+						"1.0417": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -44.5099",
+							"v.is_first_person || !q.is_riding ? 0 : -11.5349",
+							"v.is_first_person || !q.is_riding ? 0 : -4.8493"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -45.5099",
+							"v.is_first_person || !q.is_riding ? 0 : -11.5349",
+							"v.is_first_person || !q.is_riding ? 0 : -4.8493"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -44.5099",
+							"v.is_first_person || !q.is_riding ? 0 : -11.5349",
+							"v.is_first_person || !q.is_riding ? 0 : -4.8493"
+						]
+					},
+					"position": {
+						"0.0": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"],
+						"1.0417": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1"]
+					}
+				},
+				"leftLeg": {
+					"rotation": [
+						"v.is_first_person || !q.is_riding ? 0 : -20.5053",
+						"v.is_first_person || !q.is_riding ? 0 : 0",
+						"v.is_first_person || !q.is_riding ? 0 : 0"
+					],
+					"position": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1", "v.is_first_person || !q.is_riding ? 0 : 1"]
+				},
+				"rightLeg": {
+					"rotation": [
+						"v.is_first_person || !q.is_riding ? 0 : -20.894",
+						"v.is_first_person || !q.is_riding ? 0 : 0",
+						"v.is_first_person || !q.is_riding ? 0 : 0"
+					],
+					"position": ["v.is_first_person || !q.is_riding ? 0 : 0", "v.is_first_person || !q.is_riding ? 0 : 1", "v.is_first_person || !q.is_riding ? 0 : 1"]
+				}
+			}
+		},
+		"animation.ab_ve.player.wheely_motorcycle": {
+			"loop": true,
+			"animation_length": 1.5417,
+			"bones": {
+				"root": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.1667": [-15.5, 0, 0],
+						"0.4583": [-15.5, 0, 0],
+						"0.7083": [-15.5, 0, 0],
+						"0.9583": [-15.5, 0, 0],
+						"1.2917": [-15.5, 0, 0],
+						"1.5417": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.1667": [0, 6, -1],
+						"0.4583": [0, 5.4, -1],
+						"0.7083": [0, 4.5, -1],
+						"0.9583": [0, 5.3, -1],
+						"1.2917": [0, 5.1, -1],
+						"1.5417": [0, 0, 0]
+					}
+				},
+				"body": {
+					"rotation": ["v.is_first_person || !q.is_riding ? 0 : 27.5", 0, 0],
+					"position": [0, 0, "v.is_first_person || !q.is_riding ? 0 : -5"]
+				},
+				"leftArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : -12.6984550898",
+							"v.is_first_person || !q.is_riding ? 0 : -9.1102455248"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : -12.6984550898",
+							"v.is_first_person || !q.is_riding ? 0 : -9.1102455248"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : -12.6984550898",
+							"v.is_first_person || !q.is_riding ? 0 : -9.1102455248"
+						]
+					},
+					"position": {
+						"0.0": [0, 1, "v.is_first_person || !q.is_riding ? 0 : 1.5-(query.target_y_rotation*0.025)"],
+						"0.5": [0, 1, "v.is_first_person || !q.is_riding ? 0 : 1.5-(query.target_y_rotation*0.025)"],
+						"1.0417": [0, 1, "v.is_first_person || !q.is_riding ? 0 : 1.5-(query.target_y_rotation*0.025)"]
+					}
+				},
+				"rightArm": {
+					"rotation": {
+						"0.0": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.9876841017",
+							"v.is_first_person || !q.is_riding ? 0 : 15.1385752926",
+							"v.is_first_person || !q.is_riding ? 0 : 8.4661166195"
+						],
+						"0.5": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.8422132988",
+							"v.is_first_person || !q.is_riding ? 0 : 15.1385752926",
+							"v.is_first_person || !q.is_riding ? 0 : 8.4661166195"
+						],
+						"1.0417": [
+							"v.is_first_person || !q.is_riding ? 0 : -55.9876841017",
+							"v.is_first_person || !q.is_riding ? 0 : 15.1385752926",
+							"v.is_first_person || !q.is_riding ? 0 : 8.4661166195"
+						]
+					},
+					"position": {
+						"0.0": [0, 1, "v.is_first_person || !q.is_riding ? 0 : 1.5+(query.target_y_rotation*0.025)"],
+						"0.5": [0, 1, "v.is_first_person || !q.is_riding ? 0 : 1.5+(query.target_y_rotation*0.025)"],
+						"1.0417": [0, 1, "v.is_first_person || !q.is_riding ? 0 : 1.5+(query.target_y_rotation*0.025)"]
+					}
+				}
+			}
+		}
+	}
+}

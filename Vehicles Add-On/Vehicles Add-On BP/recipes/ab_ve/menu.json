@@ -1,0 +1,30 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:recipe_shaped": {
+      "description": {
+        "identifier": "ab_ve:menu"
+      },
+      "tags": [
+        "crafting_table"
+      ],
+      "pattern": [
+        "WB"
+      ],
+      "key": {
+        "B": {
+          "item": "minecraft:book"
+        },
+        "W": {
+          "item": "ab_ve:wrench"
+        }
+      },
+      "unlock": [
+        {
+          "item": "ab_ve:menu"
+        }
+      ],
+      "result": {
+        "item": "ab_ve:menu"
+      }
+    }
+  }

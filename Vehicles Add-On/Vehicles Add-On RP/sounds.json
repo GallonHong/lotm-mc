@@ -1,0 +1,156 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"ab_ve:common_car": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:racing_car": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:truck": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:motorcycle": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:sports_car": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:police_car": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:ambulence": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:fire_truck": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:drill": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:bus": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:private_jet": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:common_plane": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:pathmaker": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:harvester": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			},
+			"ab_ve:fire_truck_projectile": {
+				"volume": 1,
+				"pitch": [
+					1,
+					1
+				],
+				"events": {
+					"step": "ab_ve.mute.sound"
+				}
+			}
+		}
+	}
+}

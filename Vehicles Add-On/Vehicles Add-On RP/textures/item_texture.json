@@ -1,0 +1,67 @@
+{
+  "texture_data": {
+    "ab_ve:wrench": {
+      "textures": "textures/asiagobagels/vehicles/items/wrench.png"
+    },
+    "ab_ve:menu": {
+      "textures": "textures/asiagobagels/vehicles/items/menu.png"
+    },
+    "ab_ve:common_car": {
+      "textures": "textures/asiagobagels/vehicles/items/common_car.png"
+    },
+    "ab_ve:jetski": {
+      "textures": "textures/asiagobagels/vehicles/items/jetski.png"
+    },
+    "ab_ve:ambulance": {
+      "textures": "textures/asiagobagels/vehicles/items/ambulance.png"
+    },
+    "ab_ve:bus": {
+      "textures": "textures/asiagobagels/vehicles/items/bus.png"
+    },
+    "ab_ve:cargo_heli": {
+      "textures": "textures/asiagobagels/vehicles/items/cargo_heli.png"
+    },
+    "ab_ve:common_plane": {
+      "textures": "textures/asiagobagels/vehicles/items/common_plane.png"
+    },
+    "ab_ve:drill": {
+      "textures": "textures/asiagobagels/vehicles/items/drill.png"
+    },
+    "ab_ve:fire_truck": {
+      "textures": "textures/asiagobagels/vehicles/items/firetruck.png"
+    },
+    "ab_ve:fishing_trawler": {
+      "textures": "textures/asiagobagels/vehicles/items/fishing_trawler.png"
+    },
+    "ab_ve:harvester": {
+      "textures": "textures/asiagobagels/vehicles/items/harvester.png"
+    },
+    "ab_ve:helicopter": {
+      "textures": "textures/asiagobagels/vehicles/items/helicopter.png"
+    },
+    "ab_ve:motorcycle": {
+      "textures": "textures/asiagobagels/vehicles/items/motorcycle.png"
+    },
+    "ab_ve:pathmaker": {
+      "textures": "textures/asiagobagels/vehicles/items/pathmaker.png"
+    },
+    "ab_ve:police_car": {
+      "textures": "textures/asiagobagels/vehicles/items/police_car.png"
+    },
+    "ab_ve:private_jet": {
+      "textures": "textures/asiagobagels/vehicles/items/private_jet.png"
+    },
+    "ab_ve:sports_car": {
+      "textures": "textures/asiagobagels/vehicles/items/sports_car.png"
+    },
+    "ab_ve:speedboat": {
+      "textures": "textures/asiagobagels/vehicles/items/speedboat.png"
+    },
+    "ab_ve:racing_car": {
+      "textures": "textures/asiagobagels/vehicles/items/racing_car.png"
+    },
+    "ab_ve:truck": {
+      "textures": "textures/asiagobagels/vehicles/items/truck.png"
+    }
+  }
+}

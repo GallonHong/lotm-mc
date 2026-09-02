@@ -1,0 +1,81 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "ab_ve:harvester",
+			"materials": {
+				"default": "entity_alphatest",
+				"cracks": "entity_alphablend",
+				"light": "entity_alphablend"
+			},
+			"textures": {
+				"white": "textures/asiagobagels/vehicles/entity/harvester/white",
+				"light_gray": "textures/asiagobagels/vehicles/entity/harvester/light_gray",
+				"gray": "textures/asiagobagels/vehicles/entity/harvester/gray",
+				"black": "textures/asiagobagels/vehicles/entity/harvester/black",
+				"brown": "textures/asiagobagels/vehicles/entity/harvester/brown",
+				"red": "textures/asiagobagels/vehicles/entity/harvester/red",
+				"orange": "textures/asiagobagels/vehicles/entity/harvester/orange",
+				"yellow": "textures/asiagobagels/vehicles/entity/harvester/yellow",
+				"lime": "textures/asiagobagels/vehicles/entity/harvester/lime",
+				"green": "textures/asiagobagels/vehicles/entity/harvester/green",
+				"cyan": "textures/asiagobagels/vehicles/entity/harvester/cyan",
+				"light_blue": "textures/asiagobagels/vehicles/entity/harvester/light_blue",
+				"blue": "textures/asiagobagels/vehicles/entity/harvester/blue",
+				"purple": "textures/asiagobagels/vehicles/entity/harvester/purple",
+				"magenta": "textures/asiagobagels/vehicles/entity/harvester/magenta",
+				"pink": "textures/asiagobagels/vehicles/entity/harvester/pink",
+				"crack_0": "textures/asiagobagels/vehicles/overlay/invisible",
+				"crack_1": "textures/asiagobagels/vehicles/overlay/256/crack_0",
+				"crack_2": "textures/asiagobagels/vehicles/overlay/256/crack_1",
+				"crack_3": "textures/asiagobagels/vehicles/overlay/256/crack_2"
+			},
+			"geometry": {
+				"default": "geometry.ab_ve.harvester",
+				"cracks": "geometry.ab_ve.crack.harvester"
+			},
+			"animations": {
+				"wheels": "animation.ab_ve.harvester.wheels",
+				"wobble": "animation.ab_ve.harvester.wobble",
+				"on": "animation.ab_ve.harvester.on",
+				"speed_lines": "animation.ab_ve.speed_lines",
+				"spawn": "animation.ab_ve.spawn",
+				"spawning":"controller.animation.ab_ve.spawn_animation",
+				"speed_lines_controller": "controller.animation.ab_ve.speed_lines"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.speed = 0;",
+					"variable.wheel_turns = Math.random(-80, 80);",
+					"variable.shake_dir = 1;"
+				],
+				"pre_animation": [
+					"variable.speed = query.ground_speed;",
+					"variable.wheel_turns = (variable.wheel_turns + query.yaw_speed) / 2;"
+				],
+				"animate": [
+					{
+						"wheels": "query.modified_move_speed"
+					},
+					{
+						"wobble": "query.modified_move_speed"
+					},
+					{
+						"on": "query.modified_move_speed"
+					},
+					"spawning",
+					"speed_lines_controller"
+				]
+			},
+			"particle_effects": {
+				"headlight": "ab_ve:headlight",
+				"backlight": "ab_ve:backlight",
+				"speed_lines": "ab_ve:speed_lines"
+			},
+			"render_controllers": [
+				"controller.render.ab_ve.vehicles.color",
+				"controller.render.ab_ve.vehicles.crack"
+			]
+		}
+	}
+}

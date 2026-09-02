@@ -1,0 +1,37 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:recipe_shaped": {
+      "description": {
+        "identifier": "ab_ve:pathmaker_spawner"
+      },
+      "tags": [
+        "crafting_table"
+      ],
+      "pattern": [
+        "BPB",
+        "WSW"
+      ],
+      "key": {
+        "B": {
+          "item": "minecraft:iron_block"
+        },
+        "P": {
+          "item": "minecraft:wool"
+        },
+        "S": {
+          "item": "minecraft:iron_ingot"
+        },
+        "W": {
+          "item": "minecraft:dried_kelp"
+        }
+      },
+      "unlock": [
+        {
+          "item": "ab_ve:menu"
+        }
+      ],
+      "result": {
+        "item": "ab_ve:pathmaker_spawner"
+      }
+    }
+  }

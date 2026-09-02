@@ -1,0 +1,41 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:recipe_shaped": {
+      "description": {
+        "identifier": "ab_ve:truck_spawner"
+      },
+      "tags": [
+        "crafting_table"
+      ],
+      "pattern": [
+        "GCC",
+        "GBS",
+        "W W"
+      ],
+      "key": {
+        "B": {
+          "item": "minecraft:iron_block"
+        },
+        "G": {
+          "item": "minecraft:glass"
+        },
+        "S": {
+          "item": "minecraft:iron_ingot"
+        },
+        "C": {
+          "item": "minecraft:chest"
+        },
+        "W": {
+          "item": "minecraft:dried_kelp"
+        }
+      },
+      "unlock": [
+        {
+          "item": "ab_ve:menu"
+        }
+      ],
+      "result": {
+        "item": "ab_ve:truck_spawner"
+      }
+    }
+  }

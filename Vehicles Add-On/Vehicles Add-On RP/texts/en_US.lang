@@ -1,0 +1,64 @@
+pack.name=Vehicles Add-On
+pack.description=Adds a variety of vehicles to your world!
+
+action.interact.ride.common_car=Enter vehicle
+
+item.spawn_egg.entity.ab_ve:ambulance.name=Ambulance
+action.hint.exit.ab_ve:ambulance=Jump for special ability | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:bus.name=Bus
+action.hint.exit.ab_ve:bus=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:cargo_helicopter.name=Cargo Helicopter
+action.hint.exit.ab_ve:cargo_helicopter=Jump to to toggle carry | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:common_car.name=Common Car
+action.hint.exit.ab_ve:common_car=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:common_plane.name=Common Plane
+action.hint.exit.ab_ve:common_plane=Jump to change perspective | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:drill.name=Drill
+action.hint.exit.ab_ve:drill=Jump to toggle drill | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:fire_truck.name=Fire Truck
+action.hint.exit.ab_ve:fire_truck=Jump to spray water | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:fishing_trawler.name=Fishing Trawler
+action.hint.exit.ab_ve:fishing_trawler=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:harvester.name=Harvester
+action.hint.exit.ab_ve:harvester=Jump to harvest | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:helicopter.name=Helicopter
+action.hint.exit.ab_ve:helicopter=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:jetski.name=Jetski
+action.hint.exit.ab_ve:jetski=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:motorcycle.name=Motorcycle
+action.hint.exit.ab_ve:motorcycle=Jump to try a Wheely | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:pathmaker.name=Pathmaker
+action.hint.exit.ab_ve:pathmaker=Jump to create path | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:police_car.name=Police Car
+action.hint.exit.ab_ve:police_car=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:private_jet.name=Private Jet
+action.hint.exit.ab_ve:private_jet=Jump to change perspective | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:racing_car.name=Racing Car
+action.hint.exit.ab_ve:racing_car=Jump to boost | Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:speedboat.name=Speedboat
+action.hint.exit.ab_ve:speedboat=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:sports_car.name=Sports Car
+action.hint.exit.ab_ve:sports_car=Sneak to exit the vehicle
+
+item.spawn_egg.entity.ab_ve:truck.name=Truck
+action.hint.exit.ab_ve:truck=Sneak to exit the vehicle
+
+
+item.ab_ve:menu=§l§eVehicles §r§7(Info Menu)

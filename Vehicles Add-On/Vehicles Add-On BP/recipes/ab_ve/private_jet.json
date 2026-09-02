@@ -1,0 +1,33 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:recipe_shaped": {
+      "description": {
+        "identifier": "ab_ve:private_jet_spawner"
+      },
+      "tags": [
+        "crafting_table"
+      ],
+      "pattern": [
+        "WGB"
+      ],
+      "key": {
+        "B": {
+          "item": "minecraft:iron_block"
+        },
+        "G": {
+          "item": "minecraft:gold_block"
+        },
+        "W": {
+          "item": "minecraft:glass"
+        }
+      },
+      "unlock": [
+        {
+          "item": "ab_ve:menu"
+        }
+      ],
+      "result": {
+        "item": "ab_ve:private_jet_spawner"
+      }
+    }
+  }

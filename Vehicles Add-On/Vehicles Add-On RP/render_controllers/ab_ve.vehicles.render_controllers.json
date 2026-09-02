@@ -1,0 +1,145 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.ab_ve.vehicles.crack": {
+      "arrays": {
+        "textures": {
+          "Array.skin": [
+            "Texture.crack_0",
+            "Texture.crack_1",
+            "Texture.crack_2",
+            "Texture.crack_3"
+          ]
+        }
+      },
+      "geometry": "Geometry.cracks",
+      "part_visibility": [
+        {
+          "*": "q.property('ab_ve:crack_state') > 0"
+        }
+      ],
+      "materials": [
+        {
+          "*": "material.cracks"
+        }
+      ],
+      "textures": [
+        "array.skin[q.property('ab_ve:crack_state')]"
+      ]
+    },
+    "controller.render.ab_ve.vehicles.sirene": {
+      "arrays": {
+        "textures": {
+          "Array.sirene": [
+            "Texture.sirene_0",
+            "Texture.sirene_1"
+          ]
+        }
+      },
+      "geometry": "Geometry.sirene",
+      "materials": [
+        {
+          "*": "q.property('ab_ve:light') ? Material.sirene : Material.default"
+        }
+      ],
+      "textures": [
+        "q.property('ab_ve:light') ? array.sirene[v.sirene] : array.sirene[0]"
+      ]
+    },
+    "controller.render.ab_ve.vehicles.default": {
+      "arrays": {
+        "textures": {
+          "Array.color": [
+            "Texture.default"
+          ]
+        }
+      },
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "(q.property('ab_ve:light') ? Material.light : Material.default)"
+        }
+      ],
+      "textures": [
+        "array.color[0]"
+      ]
+    },
+    "controller.render.ab_ve.vehicles.color": {
+      "arrays": {
+        "textures": {
+          "Array.color": [
+            "Texture.white",
+            "Texture.light_gray",
+            "Texture.gray",
+            "Texture.black",
+            "Texture.brown",
+            "Texture.red",
+            "Texture.orange",
+            "Texture.yellow",
+            "Texture.lime",
+            "Texture.green",
+            "Texture.cyan",
+            "Texture.light_blue",
+            "Texture.blue",
+            "Texture.purple",
+            "Texture.magenta",
+            "Texture.pink"
+          ]
+        }
+      },
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "(q.property('ab_ve:light') ? Material.light : Material.default)"
+        }
+      ],
+      "textures": [
+        "array.color[q.property('ab_ve:color')]"
+      ]
+    },
+    "controller.render.ab_ve.vehicles.truck": {
+      "arrays": {
+        "textures": {
+          "Array.color": [
+            "Texture.white",
+            "Texture.light_gray",
+            "Texture.gray",
+            "Texture.black",
+            "Texture.brown",
+            "Texture.red",
+            "Texture.orange",
+            "Texture.yellow",
+            "Texture.lime",
+            "Texture.green",
+            "Texture.cyan",
+            "Texture.light_blue",
+            "Texture.blue",
+            "Texture.purple",
+            "Texture.magenta",
+            "Texture.pink"
+          ]
+        }
+      },
+      "geometry": "geometry.default",
+      "part_visibility": [
+        {
+          "chest_0": "query.property('ab_ve:special') >= 0"
+        },
+        {
+          "chest_1": "query.property('ab_ve:special') >= 1"
+        },
+        {
+          "chest_2": "query.property('ab_ve:special') >= 2"
+        }
+      ],
+      "materials": [
+        {
+          "*": "(q.property('ab_ve:light') ? Material.light : Material.default)"
+        }
+      ],
+      "textures": [
+        "array.color[q.property('ab_ve:color')]"
+      ]
+    }
+  }
+}

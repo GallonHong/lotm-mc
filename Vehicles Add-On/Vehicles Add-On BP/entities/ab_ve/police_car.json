@@ -1,0 +1,315 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "ab_ve:police_car",
+            "is_spawnable": false,
+            "is_summonable": true,
+            "is_experimental": false,
+            "animations": {
+                "idle_sound_animation": "animation.ab_ve.start_idle.vehicle",
+                "stop_engine_sound_animation": "animation.ab_ve.stop_engine.vehicle",
+                "engine_sound_animation": "animation.ab_ve.start_engine.vehicle",
+                "stop_idle_sound_animation": "animation.ab_ve.stop_idle.vehicle",
+                "sound_controller": "controller.animation.ab_ve.sound_controller.vehicle",
+                "sirene_controller": "controller.animation.ab_ve.sirene.police_car",
+                "sirene_sound": "animation.ab_ve.police_car.sirene"
+            },
+            "scripts": {
+                "animate": [
+                    "sound_controller",
+                    "sirene_controller"
+                ]
+            },
+            "properties": {
+                "ab_ve:max_speed": {
+                    "client_sync": true,
+                    "default": 0,
+                    "range": [
+                        0,
+                        3
+                    ],
+                    "type": "int"
+                },
+                "ab_ve:acceleration": {
+                    "client_sync": true,
+                    "default": 0,
+                    "range": [
+                        0,
+                        3
+                    ],
+                    "type": "int"
+                },
+                "ab_ve:crack_state": {
+                    "client_sync": true,
+                    "default": 0,
+                    "range": [
+                        0,
+                        3
+                    ],
+                    "type": "int"
+                },
+                "ab_ve:light": {
+                    "client_sync": true,
+                    "default": false,
+                    "type": "bool"
+                }
+            }
+        },
+        "component_groups": {
+            "ab_ve:despawn": {
+                "minecraft:instant_despawn": {}
+            }
+        },
+        "components": {
+            "minecraft:type_family": {
+                "family": [
+                    "ab_ve.vehicle",
+                    "ab_ve.car",
+                    "ab_ve.default_car",
+                    "inanimate"
+                ]
+            },
+            "minecraft:health": {
+                "min": 1,
+                "value": 1,
+                "max": 1
+            },
+            "minecraft:collision_box": {
+                "width": 1.5,
+                "height": 1.5
+            },
+            "minecraft:custom_hit_test": {
+                "hitboxes": [
+                    {
+                        "width": 2,
+                        "height": 2,
+                        "pivot": [
+                            0,
+                            1,
+                            0
+                        ]
+                    }
+                ]
+            },
+            "minecraft:movement": {
+                "value": 0.15
+            },
+            "minecraft:scale": {
+                "value": 0.85
+            },
+            "minecraft:input_ground_controlled": {},
+            "minecraft:movement.basic": {},
+            "minecraft:navigation.walk": {
+                "can_float": false,
+                "avoid_damage_blocks": true
+            },
+            "minecraft:jump.static": {},
+            "minecraft:rideable": {
+                "seat_count": 2,
+                "controlling_seat": 0,
+                "family_types": [
+                    "player"
+                ],
+                "interact_text": "action.interact.ride.car",
+                "pull_in_entities": false,
+                "rider_can_interact": true,
+                "seats": [
+                    {
+                        "position": [
+                            0.63,
+                            0.65,
+                            -0.1
+                        ],
+                        "min_rider_count": 0,
+                        "max_rider_count": 1
+                    },
+                    {
+                        "position": [
+                            -0.63,
+                            0.65,
+                            -0.1
+                        ],
+                        "min_rider_count": 1,
+                        "max_rider_count": 2
+                    }
+                ]
+            },
+            "minecraft:physics": {
+                "has_gravity": true,
+                "has_collision": true
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:knockback_resistance": {
+                "value": 1
+            },
+            "minecraft:fire_immune": {},
+            "minecraft:can_power_jump": {},
+            "minecraft:horse.jump_strength": {
+                "value": {
+                    "range_max": 0,
+                    "range_min": 0
+                }
+            },
+            "minecraft:conditional_bandwidth_optimization": {},
+            "minecraft:damage_sensor": {
+                "triggers": [
+                    {
+                        "on_damage": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "is_family",
+                                            "subject": "damager",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "is_riding",
+                                            "subject": "damager",
+                                            "value": true
+                                        },
+                                        {
+                                            "test": "rider_count",
+                                            "subject": "self",
+                                            "operator": ">",
+                                            "value": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "ab_ve:toggle_headlights"
+                        },
+                        "deals_damage": false
+                    },
+                    {
+                        "on_damage": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "is_family",
+                                            "subject": "damager",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "rider_count",
+                                            "subject": "self",
+                                            "operator": "<",
+                                            "value": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "ab_ve:add_crack_state"
+                        },
+                        "deals_damage": false
+                    },
+                    {
+                        "cause": "all",
+                        "deals_damage": false
+                    }
+                ]
+            },
+            "minecraft:interact": {
+                "interactions": [
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "ab_ve:wrench"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "ab_ve:open_vehicle_menu"
+                        },
+                        "use_item": false
+                    }
+                ]
+            }
+        },
+        "events": {
+            "minecraft:entity_spawned": {},
+            "ab_ve:remove_car": {
+                "add": {
+                    "component_groups": [
+                        "ab_ve:despawn"
+                    ]
+                }
+            },
+            "ab_ve:open_vehicle_menu": {
+                "queue_command": {
+                    "command": "scriptevent ab_ve:vehicles.open_menu"
+                }
+            },
+            "ab_ve:add_crack_state": {
+                "queue_command": {
+                    "command": "scriptevent ab_ve:vehicles.crack"
+                }
+            },
+            "ab_ve:toggle_headlights": {
+                "sequence": [
+                    {
+                        "sequence": [
+                            {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "bool_property",
+                                            "domain": "ab_ve:light",
+                                            "value": false
+                                        }
+                                    ]
+                                },
+                                "set_property":{
+                                    "ab_ve:light": true
+                                },
+                                "queue_command": {
+                                    "command":[
+                                        "playsound ab_ve.cars.light_on @a[r=3]"
+                                    ]
+                                }
+                            },
+                            {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "bool_property",
+                                            "domain": "ab_ve:light",
+                                            "value": true
+                                        }
+                                    ]
+                                },
+                                "set_property":{
+                                    "ab_ve:light": false
+                                },
+                                "queue_command": {
+                                    "command":[
+                                        "playsound ab_ve.cars.light_off @a[r=3]"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

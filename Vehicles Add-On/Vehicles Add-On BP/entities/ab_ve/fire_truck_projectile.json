@@ -1,0 +1,120 @@
+{
+  "format_version": "1.21.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ab_ve:fire_truck_projectile",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "animations": {
+        "on_ground_controller": "controller.animation.ab_ve.fire_truck_projectile",
+        "despawn_late": "animation.ab_ve.despawn_late"
+      },
+      "scripts": {
+        "animate": [
+          "on_ground_controller"
+        ]
+      }
+    },
+    "component_groups": {
+      "trigger_remove": {
+        "minecraft:timer": {
+          "time": 0.2,
+          "looping": true,
+          "time_down_event": {
+            "event": "ab_ve:despawn",
+            "target": "self"
+          }
+        }
+      },
+      "despawn": {
+        "minecraft:instant_despawn": {}
+      }
+    },
+    "components": {
+      "minecraft:timer": {
+          "time": 3,
+          "looping": true,
+          "time_down_event": {
+            "event": "ab_ve:despawn",
+            "target": "self"
+          }
+        },
+      "minecraft:collision_box": {
+        "width": 0.41,
+        "height": 0.41
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "impact_damage": {
+            "damage": 0,
+            "knockback": true,
+            "semi_random_diff_damage": false
+          },
+          "definition_event": {
+            "affect_projectile": false,
+            "event_trigger": {
+              "event": "ab_ve:trigger_remove",
+              "target": "self"
+            }
+          }
+        },
+        "power": 1.3,
+        "knockback": true,
+        "gravity": 0.0,
+        "inertia": 1,
+        "liquid_inertia": 1,
+        "anchor": 2,
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "semi_random_diff_damage": true,
+        "uncertainty_base": 10.0,
+        "reflect_on_hurt": true
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "all",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 80.0,
+          "max_dropped_ticks": 7,
+          "use_motion_prediction_hints": true
+        }
+      }
+    },
+    "events": {
+      "ab_ve:trigger_remove": {
+        "add": {
+          "component_groups": [
+            "trigger_remove"
+          ]
+        }
+      },
+      "ab_ve:despawn": {
+        "add": {
+          "component_groups": [
+            "despawn"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "trigger_remove"
+          ]
+        }
+      }
+    }
+  }
+}

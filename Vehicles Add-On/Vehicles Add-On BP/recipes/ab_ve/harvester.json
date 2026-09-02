@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ab_ve:harvester_spawner"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "HBS",
+      "W W"
+    ],
+    "key": {
+      "B": {
+        "item": "minecraft:iron_block"
+      },
+      "H": {
+        "item": "minecraft:diamond_hoe"
+      },
+      "S": {
+        "item": "minecraft:iron_ingot"
+      },
+      "W": {
+        "item": "minecraft:dried_kelp"
+      }
+    },
+    "unlock": [
+      {
+        "item": "ab_ve:menu"
+      }
+    ],
+    "result": {
+      "item": "ab_ve:harvester_spawner"
+    }
+  }
+}

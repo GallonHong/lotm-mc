@@ -1,0 +1,26 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ab_ve:harvester_spawner",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "Harvester"
+      },
+      "minecraft:custom_components": [
+        "ab_ve:entity_spawner"
+      ],
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "textures": {
+          "default": "ab_ve:harvester"
+        }
+      }
+    }
+  }
+}

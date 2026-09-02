@@ -1,0 +1,1085 @@
+{
+    "format_version": "1.16.0",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "ab_ve:pathmaker",
+            "is_spawnable": false,
+            "is_summonable": true,
+            "is_experimental": false,
+            "animations": {
+                "idle_sound_animation": "animation.ab_ve.start_idle.drill",
+                "stop_engine_sound_animation": "animation.ab_ve.stop_engine.drill",
+                "engine_sound_animation": "animation.ab_ve.start_engine.drill",
+                "stop_idle_sound_animation": "animation.ab_ve.stop_idle.drill",
+                "sound_controller": "controller.animation.ab_ve.sound_controller.drill"
+            },
+            "scripts": {
+                "animate": [
+                    "sound_controller"
+                ]
+            },
+            "properties": {
+                "ab_ve:max_speed": {
+                    "client_sync": true,
+                    "default": 0,
+                    "range": [
+                        0,
+                        3
+                    ],
+                    "type": "int"
+                },
+                "ab_ve:acceleration": {
+                    "client_sync": true,
+                    "default": 0,
+                    "range": [
+                        0,
+                        3
+                    ],
+                    "type": "int"
+                },
+                "ab_ve:crack_state": {
+                    "client_sync": true,
+                    "default": 0,
+                    "range": [
+                        0,
+                        3
+                    ],
+                    "type": "int"
+                },
+                "ab_ve:light": {
+                    "client_sync": true,
+                    "default": false,
+                    "type": "bool"
+                },
+                "ab_ve:color": {
+                    "client_sync": true,
+                    "default": 0,
+                    "range": [
+                        0,
+                        15
+                    ],
+                    "type": "int"
+                }
+            }
+        },
+        "component_groups": {
+            "ab_ve:inventory_0": {
+                "minecraft:inventory": {
+                    "can_be_siphoned_from": false,
+                    "container_type": "inventory",
+                    "inventory_size": 9,
+                    "private": false,
+                    "restrict_to_owner": false
+                }
+            },
+            "ab_ve:inventory_1": {
+                "minecraft:inventory": {
+                    "can_be_siphoned_from": false,
+                    "container_type": "inventory",
+                    "inventory_size": 18,
+                    "private": false,
+                    "restrict_to_owner": false
+                }
+            },
+            "ab_ve:inventory_2": {
+                "minecraft:inventory": {
+                    "can_be_siphoned_from": false,
+                    "container_type": "inventory",
+                    "inventory_size": 27,
+                    "private": false,
+                    "restrict_to_owner": false
+                }
+            },
+            "ab_ve:despawn": {
+                "minecraft:instant_despawn": {}
+            }
+        },
+        "components": {
+            "minecraft:type_family": {
+                "family": [
+                    "ab_ve.vehicle",
+                    "ab_ve.car",
+                    "ab_ve.default_car",
+                    "inanimate"
+                ]
+            },
+            "minecraft:health": {
+                "min": 1,
+                "value": 1,
+                "max": 1
+            },
+            "minecraft:collision_box": {
+                "width": 1.5,
+                "height": 1.5
+            },
+            "minecraft:custom_hit_test": {
+                "hitboxes": [
+                    {
+                        "width": 3.5,
+                        "height": 3,
+                        "pivot": [
+                            0,
+                            1,
+                            0
+                        ]
+                    }
+                ]
+            },
+            "minecraft:movement": {
+                "value": 0.06
+            },
+            "minecraft:scale": {
+                "value": 1
+            },
+            "minecraft:input_ground_controlled": {},
+            "minecraft:movement.basic": {},
+            "minecraft:navigation.walk": {
+                "can_float": false,
+                "avoid_damage_blocks": true
+            },
+            "minecraft:jump.static": {},
+            "minecraft:rideable": {
+                "seat_count": 1,
+                "controlling_seat": 0,
+                "family_types": [
+                    "player"
+                ],
+                "interact_text": "action.interact.ride.car",
+                "pull_in_entities": false,
+                "rider_can_interact": true,
+                "seats": [
+                    {
+                        "position": [0, 1.6, 2],
+                        "min_rider_count": 0,
+                        "max_rider_count": 1
+                    }
+                ]
+            },
+            "minecraft:physics": {
+                "has_gravity": true,
+                "has_collision": true
+            },
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:knockback_resistance": {
+                "value": 1
+            },
+            "minecraft:inventory": {
+                "container_type": "hopper",
+                "inventory_size": 5
+            },
+            "minecraft:fire_immune": {},
+            "minecraft:can_power_jump": {},
+            "minecraft:horse.jump_strength": {
+                "value": {
+                    "range_max": 0,
+                    "range_min": 0
+                }
+            },
+            "minecraft:conditional_bandwidth_optimization": {},
+            "minecraft:damage_sensor": {
+                "triggers": [
+                    {
+                        "on_damage": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "is_family",
+                                            "subject": "damager",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "is_riding",
+                                            "subject": "damager",
+                                            "value": true
+                                        },
+                                        {
+                                            "test": "rider_count",
+                                            "subject": "self",
+                                            "operator": ">",
+                                            "value": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "ab_ve:toggle_headlights"
+                        },
+                        "deals_damage": false
+                    },
+                    {
+                        "on_damage": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "is_family",
+                                            "subject": "damager",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "rider_count",
+                                            "subject": "self",
+                                            "operator": "<",
+                                            "value": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "ab_ve:add_crack_state"
+                        },
+                        "deals_damage": false
+                    },
+                    {
+                        "cause": "all",
+                        "deals_damage": false
+                    }
+                ]
+            },
+            "minecraft:interact": {
+                "interactions": [
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "ab_ve:wrench"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "ab_ve:open_vehicle_menu"
+                        },
+                        "use_item": false
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:white_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 0
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:white"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:light_gray_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 1
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:light_gray"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:gray_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 2
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:gray"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:black_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 3
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:black"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:brown_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 4
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:brown"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:red_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 5
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:red"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:orange_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 6
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:orange"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:yellow_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 7
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:yellow"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:lime_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 8
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:lime"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:green_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 9
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:green"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:cyan_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 10
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:cyan"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:light_blue_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 11
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:light_blue"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:blue_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 12
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:blue"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:purple_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 13
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:purple"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:magenta_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 14
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:magenta"
+                        },
+                        "use_item": true
+                    },
+                    {
+                        "on_interact": {
+                            "filters": [
+                                {
+                                    "all_of": [
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "minecraft:pink_dye"
+                                        },
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "int_property",
+                                            "subject": "self",
+                                            "operator": "!=",
+                                            "domain": "ab_ve:color",
+                                            "value": 15
+                                        }
+                                    ]
+                                }
+                            ],
+                            "target": "self",
+                            "event": "color:pink"
+                        },
+                        "use_item": true
+                    }
+                ]
+            }
+        },
+        "events": {
+            "minecraft:entity_spawned": {},
+            "ab_ve:remove_car": {
+                "add": {
+                    "component_groups": [
+                        "ab_ve:despawn"
+                    ]
+                }
+            },
+            "ab_ve:open_vehicle_menu": {
+                "queue_command": {
+                    "command": "scriptevent ab_ve:vehicles.open_menu"
+                }
+            },
+            "ab_ve:add_crack_state": {
+                "queue_command": {
+                    "command": "scriptevent ab_ve:vehicles.crack"
+                }
+            },
+            "ab_ve:toggle_headlights": {
+                "sequence": [
+                    {
+                        "sequence": [
+                            {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "bool_property",
+                                            "domain": "ab_ve:light",
+                                            "value": false
+                                        }
+                                    ]
+                                },
+                                "set_property":{
+                                    "ab_ve:light": true
+                                },
+                                "queue_command": {
+                                    "command":[
+                                        "playsound ab_ve.cars.light_on @a[r=3]"
+                                    ]
+                                }
+                            },
+                            {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "bool_property",
+                                            "domain": "ab_ve:light",
+                                            "value": true
+                                        }
+                                    ]
+                                },
+                                "set_property":{
+                                    "ab_ve:light": false
+                                },
+                                "queue_command": {
+                                    "command":[
+                                        "playsound ab_ve.cars.light_off @a[r=3]"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "color:white": {
+                "set_property": {
+                    "ab_ve:color": 0
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_white ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "ab_ve:fix_inventory_size": {
+                "sequence": [
+                    {
+                        "sequence": [
+                            {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "int_property",
+                                            "domain": "ab_ve:special",
+                                            "value": 0
+                                        }
+                                    ]
+                                },
+                                "add": {
+                                    "component_groups": [
+                                        "ab_ve:inventory_0"
+                                    ]
+                                },
+                                "remove": {
+                                    "component_groups": [
+                                        "ab_ve:inventory_1",
+                                        "ab_ve:inventory_2"
+                                    ]
+                                }
+                            },
+                            {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "int_property",
+                                            "domain": "ab_ve:special",
+                                            "value": 1
+                                        }
+                                    ]
+                                },
+                                "add": {
+                                    "component_groups": [
+                                        "ab_ve:inventory_1"
+                                    ]
+                                },
+                                "remove": {
+                                    "component_groups": [
+                                        "ab_ve:inventory_0",
+                                        "ab_ve:inventory_2"
+                                    ]
+                                }
+                            },
+                            {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "int_property",
+                                            "domain": "ab_ve:special",
+                                            "value": 2
+                                        }
+                                    ]
+                                },
+                                "add": {
+                                    "component_groups": [
+                                        "ab_ve:inventory_2"
+                                    ]
+                                },
+                                "remove": {
+                                    "component_groups": [
+                                        "ab_ve:inventory_0",
+                                        "ab_ve:inventory_1"
+                                    ]
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "color:light_gray": {
+                "set_property": {
+                    "ab_ve:color": 1
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_light_gray ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:gray": {
+                "set_property": {
+                    "ab_ve:color": 2
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_gray ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:black": {
+                "set_property": {
+                    "ab_ve:color": 3
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_black ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:brown": {
+                "set_property": {
+                    "ab_ve:color": 4
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_brown ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:red": {
+                "set_property": {
+                    "ab_ve:color": 5
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_red ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:orange": {
+                "set_property": {
+                    "ab_ve:color": 6
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_orange ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:yellow": {
+                "set_property": {
+                    "ab_ve:color": 7
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_yellow ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:lime": {
+                "set_property": {
+                    "ab_ve:color": 8
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_lime ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:green": {
+                "set_property": {
+                    "ab_ve:color": 9
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_green ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:cyan": {
+                "set_property": {
+                    "ab_ve:color": 10
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_cyan ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:light_blue": {
+                "set_property": {
+                    "ab_ve:color": 11
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_light_blue ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:blue": {
+                "set_property": {
+                    "ab_ve:color": 12
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_blue ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:purple": {
+                "set_property": {
+                    "ab_ve:color": 13
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_purple ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:magenta": {
+                "set_property": {
+                    "ab_ve:color": 14
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_magenta ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            },
+            "color:pink": {
+                "set_property": {
+                    "ab_ve:color": 15
+                },
+                "queue_command": {
+                    "command": [
+                        "particle ab_ve:color_pink ~~~",
+                        "playsound brush.generic @a"
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,74 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "ab_ve:fire_truck",
+			"materials": {
+				"default": "entity_alphatest",
+				"light": "entity_emissive_alpha",
+				"sirene": "entity_emissive_alpha",
+				"cracks": "entity_alphablend"
+			},
+			"textures": {
+				"default": "textures/asiagobagels/vehicles/entity/fire_truck/default",
+				"sirene_0": "textures/asiagobagels/vehicles/entity/fire_truck/sirene_0",
+				"sirene_1": "textures/asiagobagels/vehicles/entity/fire_truck/sirene_1",
+				"crack_0": "textures/asiagobagels/vehicles/overlay/invisible",
+				"crack_1": "textures/asiagobagels/vehicles/overlay/512/crack_0",
+				"crack_2": "textures/asiagobagels/vehicles/overlay/512/crack_1",
+				"crack_3": "textures/asiagobagels/vehicles/overlay/512/crack_2"
+			},
+			"geometry": {
+				"default": "geometry.ab_ve.fire_truck",
+				"cracks": "geometry.ab_ve.crack.fire_truck",
+				"sirene": "geometry.ab_ve.fire_truck.sirene"
+			},
+			"animations": {
+				"wheels": "animation.ab_ve.fire_truck.wheels",
+				"wobble": "animation.ab_ve.fire_truck.wobble",
+				"light": "animation.ab_ve.fire_truck.lights",
+				"cannon": "animation.ab_ve.fire_truck.cannon",
+				"speed_lines": "animation.ab_ve.speed_lines",
+				"spawn": "animation.ab_ve.spawn",
+				"spawning":"controller.animation.ab_ve.spawn_animation",
+				"speed_lines_controller": "controller.animation.ab_ve.speed_lines"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.speed = 0;",
+					"variable.wheel_turns = Math.random(-80, 80);",
+					"variable.shake_dir = 1;",
+					"variable.sirene = 0;"
+				],
+				"pre_animation": [
+					"variable.speed = query.ground_speed;",
+					"variable.wheel_turns = (variable.wheel_turns + query.yaw_speed) / 2;"
+				],
+				"animate": [
+					{
+						"wheels": "query.modified_move_speed"
+					},
+					{
+						"wobble": "query.modified_move_speed"
+					},
+					{
+						"light": "query.property('ab_ve:light')"
+					},
+					"cannon",
+					"spawning",
+					"speed_lines_controller"
+				]
+			},
+			"particle_effects": {
+				"headlight": "ab_ve:headlight",
+				"backlight": "ab_ve:backlight",
+				"speed_lines": "ab_ve:speed_lines"
+			},
+			"render_controllers": [
+				"controller.render.ab_ve.vehicles.default",
+				"controller.render.ab_ve.vehicles.sirene",
+				"controller.render.ab_ve.vehicles.crack"
+			]
+		}
+	}
+}

@@ -1,0 +1,77 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.ab_ve.sirene.police_car": {
+            "states": {
+                "lights_off": {
+                    "transitions": [
+                        {
+                            "lights_on": "query.property('ab_ve:light') == true"
+                        }
+                    ]
+                },
+                "lights_on": {
+                    "animations": [
+                        "sirene_sound"
+                    ],
+                    "transitions": [
+                        {
+                            "lights_off": "query.property('ab_ve:light') == false"
+                        }
+                    ],
+                    "on_exit": [
+                        "/stopsound @a[r=8] ab_ve.police_car.sirene"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sirene.ambulance": {
+            "states": {
+                "lights_off": {
+                    "transitions": [
+                        {
+                            "lights_on": "query.property('ab_ve:light') == true"
+                        }
+                    ]
+                },
+                "lights_on": {
+                    "animations": [
+                        "sirene_sound"
+                    ],
+                    "transitions": [
+                        {
+                            "lights_off": "query.property('ab_ve:light') == false"
+                        }
+                    ],
+                    "on_exit": [
+                        "/stopsound @a[r=8] ab_ve.ambulance.sirene"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sirene.fire_truck": {
+            "states": {
+                "lights_off": {
+                    "transitions": [
+                        {
+                            "lights_on": "query.property('ab_ve:light') == true"
+                        }
+                    ]
+                },
+                "lights_on": {
+                    "animations": [
+                        "sirene_sound"
+                    ],
+                    "transitions": [
+                        {
+                            "lights_off": "query.property('ab_ve:light') == false"
+                        }
+                    ],
+                    "on_exit": [
+                        "/stopsound @a[r=8] ab_ve.fire_truck.sirene"
+                    ]
+                }
+            }
+        }
+    }
+}

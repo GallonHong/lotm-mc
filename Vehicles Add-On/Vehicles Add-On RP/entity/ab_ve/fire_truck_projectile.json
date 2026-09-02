@@ -1,0 +1,31 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ab_ve:fire_truck_projectile",
+      "materials": {
+        "default": "arrow"
+      },
+      "textures": {
+        "default": "textures/asiagobagels/vehicles/overlay/invisible"
+      },
+      "geometry": {
+        "default": "geometry.ab_ve.null"
+      },
+      "animations": {
+        "move": "animation.ab_ve.fire_truck_projectile.move"
+      },
+      "particle_effects": {
+        "water_projectile": "ab_ve:water_projectile"
+      },
+      "scripts": {
+        "animate": [
+          "move"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.arrow"
+      ]
+    }
+  }
+}

@@ -1,0 +1,72 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "ab_ve:police_car",
+			"materials": {
+				"default": "entity_alphatest",
+				"light": "entity_emissive_alpha",
+				"sirene": "entity_emissive_alpha",
+				"cracks": "entity_alphablend"
+			},
+			"textures": {
+				"default": "textures/asiagobagels/vehicles/entity/police_car/default",
+				"sirene_0": "textures/asiagobagels/vehicles/entity/police_car/sirene_0",
+				"sirene_1": "textures/asiagobagels/vehicles/entity/police_car/sirene_1",
+				"crack_0": "textures/asiagobagels/vehicles/overlay/invisible",
+				"crack_1": "textures/asiagobagels/vehicles/overlay/256/crack_0",
+				"crack_2": "textures/asiagobagels/vehicles/overlay/256/crack_1",
+				"crack_3": "textures/asiagobagels/vehicles/overlay/256/crack_2"
+			},
+			"geometry": {
+				"default": "geometry.ab_ve.police_car",
+				"sirene": "geometry.ab_ve.police_car.sirene",
+				"cracks": "geometry.ab_ve.crack.police_car"
+			},
+			"animations": {
+				"wheels": "animation.ab_ve.police_car.wheels",
+				"wobble": "animation.ab_ve.police_car.wobble",
+				"light": "animation.ab_ve.police_car.light",
+				"speed_lines": "animation.ab_ve.speed_lines",
+				"spawn": "animation.ab_ve.spawn",
+				"spawning":"controller.animation.ab_ve.spawn_animation",
+				"speed_lines_controller": "controller.animation.ab_ve.speed_lines"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.speed = 0;",
+					"variable.wheel_turns = Math.random(-80, 80);",
+					"variable.shake_dir = 1;",
+					"variable.sirene = 0;"
+				],
+				"pre_animation": [
+					"variable.speed = query.ground_speed;",
+					"variable.wheel_turns = (variable.wheel_turns + query.yaw_speed) / 2;"
+				],
+				"animate": [
+					{
+						"wheels": "query.modified_move_speed"
+					},
+					{
+						"wobble": "query.modified_move_speed"
+					},
+					{
+						"light": "query.property('ab_ve:light')"
+					},
+					"spawning",
+					"speed_lines_controller"
+				]
+			},
+			"particle_effects": {
+				"headlight": "ab_ve:headlight",
+				"backlight": "ab_ve:backlight",
+				"speed_lines": "ab_ve:speed_lines"
+			},
+			"render_controllers": [
+				"controller.render.ab_ve.vehicles.default",
+				"controller.render.ab_ve.vehicles.sirene",
+				"controller.render.ab_ve.vehicles.crack"
+			]
+		}
+	}
+}

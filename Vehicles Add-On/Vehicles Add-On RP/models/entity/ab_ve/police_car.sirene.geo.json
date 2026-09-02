@@ -1,0 +1,40 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.ab_ve.police_car.sirene",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 4,
+				"visible_bounds_height": 4.5,
+				"visible_bounds_offset": [0, 1.75, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, -13]
+				},
+				{
+					"name": "top",
+					"parent": "root",
+					"pivot": [0, 34.64784, 0.26791],
+					"cubes": [
+						{
+							"origin": [-20, 39, 3],
+							"size": [40, 3, 10],
+							"uv": {
+								"north": {"uv": [0, 20], "uv_size": [40, 3]},
+								"east": {"uv": [0, 26], "uv_size": [10, 3]},
+								"south": {"uv": [0, 23], "uv_size": [40, 3]},
+								"west": {"uv": [10, 26], "uv_size": [10, 3]},
+								"up": {"uv": [0, 0], "uv_size": [40, 10]},
+								"down": {"uv": [0, 20], "uv_size": [40, -10]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,78 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "ab_ve:private_jet",
+			"materials": {
+				"default": "entity_alphatest",
+				"light": "entity_emissive_alpha",
+				"cracks": "entity_alphablend"
+			},
+			"textures": {
+				"white": "textures/asiagobagels/vehicles/entity/private_jet/white",
+				"light_gray": "textures/asiagobagels/vehicles/entity/private_jet/light_gray",
+				"gray": "textures/asiagobagels/vehicles/entity/private_jet/gray",
+				"black": "textures/asiagobagels/vehicles/entity/private_jet/black",
+				"brown": "textures/asiagobagels/vehicles/entity/private_jet/brown",
+				"red": "textures/asiagobagels/vehicles/entity/private_jet/red",
+				"orange": "textures/asiagobagels/vehicles/entity/private_jet/orange",
+				"yellow": "textures/asiagobagels/vehicles/entity/private_jet/yellow",
+				"lime": "textures/asiagobagels/vehicles/entity/private_jet/lime",
+				"green": "textures/asiagobagels/vehicles/entity/private_jet/green",
+				"cyan": "textures/asiagobagels/vehicles/entity/private_jet/cyan",
+				"light_blue": "textures/asiagobagels/vehicles/entity/private_jet/light_blue",
+				"blue": "textures/asiagobagels/vehicles/entity/private_jet/blue",
+				"purple": "textures/asiagobagels/vehicles/entity/private_jet/purple",
+				"magenta": "textures/asiagobagels/vehicles/entity/private_jet/magenta",
+				"pink": "textures/asiagobagels/vehicles/entity/private_jet/pink",
+				"crack_0": "textures/asiagobagels/vehicles/overlay/invisible",
+				"crack_1": "textures/asiagobagels/vehicles/overlay/512/crack_0",
+				"crack_2": "textures/asiagobagels/vehicles/overlay/512/crack_1",
+				"crack_3": "textures/asiagobagels/vehicles/overlay/512/crack_2"
+			},
+			"geometry": {
+				"default": "geometry.ab_ve.private_jet",
+				"cracks": "geometry.ab_ve.crack.private_jet"
+			},
+			"animations": {
+				"wheels": "animation.ab_ve.private_plane.wheels",
+				"speed_lines": "animation.ab_ve.speed_lines.private_jet",
+				"spawn": "animation.ab_ve.spawn",
+				"spawning":"controller.animation.ab_ve.spawn_animation",
+				"speed_lines_controller": "controller.animation.ab_ve.speed_lines",
+				"land": "animation.ab_ve.private_plane.land",
+				"lift_off": "animation.ab_ve.private_plane.lift_off",
+				"wheel_control": "controller.animation.ab_ve.wheel_control"
+			},
+			"scripts": {
+				"initialize": [
+					"variable.speed = 0;",
+					"variable.wheel_turns = Math.random(-80, 80);",
+					"variable.shake_dir = 1;"
+				],
+				"pre_animation": [
+					"variable.speed = query.ground_speed;",
+					"variable.wheel_turns = (variable.wheel_turns + query.yaw_speed) / 2;"
+				],
+				"animate": [
+					{
+						"wheels": "query.modified_move_speed"
+					},
+					"spawning",
+					"wheel_control",
+					"speed_lines_controller"
+				]
+			},
+			"particle_effects": {
+				"headlight": "ab_ve:headlight",
+				"backlight": "ab_ve:backlight",
+				"exhaust": "ab_ve:exhaust",
+				"speed_lines": "ab_ve:speed_lines"
+			},
+			"render_controllers": [
+				"controller.render.ab_ve.vehicles.color",
+				"controller.render.ab_ve.vehicles.crack"
+			]
+		}
+	}
+}

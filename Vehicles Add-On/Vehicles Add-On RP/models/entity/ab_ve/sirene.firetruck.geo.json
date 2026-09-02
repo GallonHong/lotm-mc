@@ -1,0 +1,50 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.ab_ve.fire_truck.sirene",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 8,
+				"visible_bounds_height": 5.5,
+				"visible_bounds_offset": [0, 2.25, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [10, 2, -50]
+				},
+				{
+					"name": "top",
+					"parent": "root",
+					"pivot": [-31, 43.75, -69.25]
+				},
+				{
+					"name": "bone",
+					"parent": "top",
+					"pivot": [31, 43.75, -69.25]
+				},
+				{
+					"name": "sirene",
+					"parent": "top",
+					"pivot": [0, 57.5, -63.5],
+					"cubes": [
+						{
+							"origin": [-24, 56, -68],
+							"size": [48, 3, 9],
+							"uv": {
+								"north": {"uv": [0, 18], "uv_size": [48, 3]},
+								"east": {"uv": [0, 24], "uv_size": [9, 3]},
+								"south": {"uv": [0, 21], "uv_size": [48, 3]},
+								"west": {"uv": [9, 24], "uv_size": [9, 3]},
+								"up": {"uv": [0, 0], "uv_size": [48, 9]},
+								"down": {"uv": [0, 18], "uv_size": [48, -9]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}
