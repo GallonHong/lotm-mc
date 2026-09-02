@@ -70,6 +70,7 @@ export class WorldEventManager {
       spawnedWaves: 0,
       waitUntil: system.currentTick + 40,
       participantScores: {},
+      disqualifiedPlayerIds: [],
       specialEntityId: null,
       triggerPlayerId: triggeringPlayer?.id || null
     };
@@ -140,7 +141,10 @@ export class WorldEventManager {
       const waves = wavesFor(template, instance.zoneType);
       const waveTicks = waveTicksFor(template, instance.zoneType);
       const defenseTicks = defenseTicksFor(template, instance.zoneType);
-      for (const player of nearby) instance.participantScores[player.id] = Number(instance.participantScores[player.id] || 0) + 0.25;
+      for (const player of nearby) {
+        if (instance.disqualifiedPlayerIds.includes(player.id)) continue;
+        instance.participantScores[player.id] = Number(instance.participantScores[player.id] || 0) + 0.25;
+      }
       for (let index = instance.spawnedWaves; index < waves.length; index++) {
         if (system.currentTick - instance.startTick >= waveTicks[index]) this.spawnWave(instance, waves[index]);
         else break;
@@ -180,11 +184,31 @@ export class WorldEventManager {
     for (const instance of this.active.values()) {
       try {
         if (!entity.hasTag(instance.tag) || distance(player.location, instance.center) > CONFIG.eventJoinRadius) continue;
+        if (instance.disqualifiedPlayerIds.includes(player.id)) return false;
         instance.participantScores[player.id] = Number(instance.participantScores[player.id] || 0) + Math.max(0.5, Math.min(3, Number(damage) || 1)) + (killed ? 3 : 0);
         return true;
       } catch {}
     }
     return false;
+  }
+
+  static onPlayerDeath(player) {
+    if (!player) return false;
+    let disqualified = false;
+    for (const instance of this.active.values()) {
+      try {
+        if (player.dimension.id !== instance.dimension) continue;
+        if (distance(player.location, instance.center) > CONFIG.eventJoinRadius) continue;
+        const participated = Number(instance.participantScores[player.id] || 0) > 0 || instance.triggerPlayerId === player.id;
+        if (!participated || instance.disqualifiedPlayerIds.includes(player.id)) continue;
+        instance.disqualifiedPlayerIds.push(player.id);
+        disqualified = true;
+      } catch {}
+    }
+    if (disqualified) {
+      try { player.sendMessage("§c[动态事件] 你已阵亡，本次事件的奖励与日常进度资格已失效。"); } catch {}
+    }
+    return disqualified;
   }
 
   static finish(instance, success, reason = "") {
@@ -198,6 +222,10 @@ export class WorldEventManager {
       for (const player of world.getAllPlayers()) {
         const score = Number(instance.participantScores[player.id] || 0);
         if (score < CONFIG.participantMinScore) continue;
+        if (instance.disqualifiedPlayerIds.includes(player.id)) {
+          player.sendMessage(`§c动态事件已完成，但你在「${template.name}」中阵亡，未获得奖励与日常进度。`);
+          continue;
+        }
         const rewardId = instance.zoneType === "outlaw" && template.outlawRewardId ? template.outlawRewardId : template.rewardId;
         RewardManager.grant(player, rewardId, `event:${instance.instanceId}:${player.id}`, `world_event:${instance.templateId}:${instance.zoneType}`);
         DailyQuestManager.onWorldEventSuccess(player, instance.templateId);
@@ -233,6 +261,10 @@ export class WorldEventManager {
   }
 
   static list() {
-    return [...this.active.values()].map(instance => ({ ...instance, participantScores: { ...instance.participantScores } }));
+    return [...this.active.values()].map(instance => ({
+      ...instance,
+      participantScores: { ...instance.participantScores },
+      disqualifiedPlayerIds: [...instance.disqualifiedPlayerIds]
+    }));
   }
 }
