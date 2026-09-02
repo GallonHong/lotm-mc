@@ -37,24 +37,64 @@ class AddonController {
   }
 
   registerEvents() {
-    subscribeAfter(world.afterEvents, 'itemStartUse', (event) => {
-      const player = event.source;
-      const item = event.itemStack;
-      if (!player || !item) return;
+    // 1. 立即点击触发 (itemUse) - 支持单点、半自动与首发即时射击
+    subscribeAfter(world.afterEvents, 'itemUse', (event) => {
+      try {
+        const player = event.source;
+        const item = event.itemStack;
+        if (!player || !item) return;
 
-      const gun = getGunById(item.typeId);
-      if (gun) {
-        if (player.isSneaking) {
-          if (gun.hasSkill) {
-            SkillManager.tryActivateSkill(player, gun);
-          } else {
-            ReloadManager.startReload(player, gun);
-          }
-          ShootManager.setTriggerState(player, false);
-        } else {
-          ShootManager.setTriggerState(player, true);
-          ShootManager.tick(player, gun);
+        if (item.typeId === 'test_gun:flash_shield') {
+          ShieldEngine.triggerFlash(player, item);
+          return;
         }
+
+        const gun = getGunById(item.typeId);
+        if (gun) {
+          if (player.isSneaking) {
+            if (gun.id === 'test_gun:ak47_commander') {
+              ArtilleryEngine.openMenu(player);
+            } else if (gun.hasSkill) {
+              SkillManager.tryActivateSkill(player, gun);
+            } else {
+              ReloadManager.startReload(player, gun);
+            }
+            ShootManager.setTriggerState(player, false);
+          } else {
+            ShootManager.setTriggerState(player, true);
+            ShootManager.tick(player, gun);
+          }
+        }
+      } catch (err) {
+        console.warn('Error in itemUse:', err);
+      }
+    });
+
+    // 2. 长按按住触发 (itemStartUse) - 支持全自动武器按住连射
+    subscribeAfter(world.afterEvents, 'itemStartUse', (event) => {
+      try {
+        const player = event.source;
+        const item = event.itemStack;
+        if (!player || !item) return;
+
+        const gun = getGunById(item.typeId);
+        if (gun) {
+          if (player.isSneaking) {
+            if (gun.id === 'test_gun:ak47_commander') {
+              ArtilleryEngine.openMenu(player);
+            } else if (gun.hasSkill) {
+              SkillManager.tryActivateSkill(player, gun);
+            } else {
+              ReloadManager.startReload(player, gun);
+            }
+            ShootManager.setTriggerState(player, false);
+          } else {
+            ShootManager.setTriggerState(player, true);
+            ShootManager.tick(player, gun);
+          }
+        }
+      } catch (err) {
+        console.warn('Error in itemStartUse:', err);
       }
     });
 
@@ -69,48 +109,14 @@ class AddonController {
     subscribeAfter(world.afterEvents, 'itemReleaseUse', stopTrigger);
     subscribeAfter(world.afterEvents, 'itemStopUseOn', stopTrigger);
 
-    subscribeAfter(world.afterEvents, 'projectileHitEntity', (event) => {
+    subscribeAfter(world.afterEvents, 'entityHurt', (event) => {
       try {
-        const projectile = event.projectile;
-        const shooter = event.source;
-        const hitInfo = typeof event.getEntityHit === 'function' ? event.getEntityHit() : undefined;
-        const hitEntity = hitInfo ? hitInfo.entity : event.entity;
-        const impactLocation = event.location;
-
-        if (!hitEntity) return;
-        if (typeof hitEntity.isValid === 'function' && !hitEntity.isValid()) return;
-        if (shooter && hitEntity.id === shooter.id) return;
-
-        let gun = undefined;
-        if (projectile) {
-          try {
-            if (typeof projectile.isValid !== 'function' || projectile.isValid()) {
-              const tags = projectile.getTags ? projectile.getTags() : [];
-              for (const t of tags || []) {
-                if (typeof t === 'string' && t.startsWith('tg_weapon:')) {
-                  const parts = t.split(':');
-                  gun = getGunById(parts[1] + ':' + parts[2]);
-                  break;
-                }
-              }
-            }
-          } catch {}
-
-          if (!gun) {
-            try {
-              gun = getGunByProjectile(projectile.typeId);
-            } catch {}
-          }
-        }
-
-        if (!gun && shooter) {
-          try {
-            const held = getHeldGun(shooter);
-            if (held) gun = held.gun;
-          } catch {}
+        const hurtEntity = event.hurtEntity;
+        if (hurtEntity && hurtEntity.typeId === 'minecraft:player') {
+          ShieldEngine.handleDamageReduction(hurtEntity, event.damageSource?.damagingEntity, event.damage);
         }
       } catch (err) {
-        console.warn('Error in projectileHitEntity:', err);
+        console.warn('Error in entityHurt:', err);
       }
     });
 
@@ -165,12 +171,14 @@ class AddonController {
 new AddonController();
 
 world.afterEvents.entityHitEntity.subscribe(event => {
-  const player = event.damagingEntity;
-  if (player && player.typeId === 'minecraft:player' && player.isSneaking) {
-    const equ = player.getComponent('minecraft:equippable');
-    const mainhand = equ?.getEquipment('Mainhand');
-    if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
-      ArtilleryEngine.openMenu(player);
+  try {
+    const player = event.damagingEntity;
+    if (player && player.typeId === 'minecraft:player' && player.isSneaking) {
+      const equ = player.getComponent('minecraft:equippable');
+      const mainhand = equ?.getEquipment('Mainhand');
+      if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
+        ArtilleryEngine.openMenu(player);
+      }
     }
-  }
+  } catch {}
 });
