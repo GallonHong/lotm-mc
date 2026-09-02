@@ -1,19 +1,19 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Survival Daily & World Events BP v0.2.0",
-    "description": "Daily quests, activity rewards, event nodes and four world-event templates.",
+    "name": "Survival Daily & World Events BP v0.3.0",
+    "description": "Zone-scaled daily quests and eight law/outlaw world-event templates.",
     "uuid": "c6ef6f20-3d85-4d84-bf93-4b39e77e2760",
-    "version": [0, 2, 0],
+    "version": [0, 3, 0],
     "min_engine_version": [1, 21, 50]
   },
   "modules": [
-    { "type": "data", "uuid": "4eb84713-d0f9-47ac-a36b-2bcb7acc7001", "version": [0, 2, 0] },
-    { "type": "script", "language": "javascript", "uuid": "14631ce9-6658-4be5-ad0d-3c65f1a0883d", "version": [0, 2, 0], "entry": "scripts/main.js" }
+    { "type": "data", "uuid": "4eb84713-d0f9-47ac-a36b-2bcb7acc7001", "version": [0, 3, 0] },
+    { "type": "script", "language": "javascript", "uuid": "14631ce9-6658-4be5-ad0d-3c65f1a0883d", "version": [0, 3, 0], "entry": "scripts/main.js" }
   ],
   "dependencies": [
     { "module_name": "@minecraft/server", "version": "1.19.0" },
     { "module_name": "@minecraft/server-ui", "version": "1.3.0" },
-    { "uuid": "a62ce956-662d-43c4-863b-020a42563552", "version": [0, 2, 0] }
+    { "uuid": "a62ce956-662d-43c4-863b-020a42563552", "version": [0, 3, 0] }
   ]
 }

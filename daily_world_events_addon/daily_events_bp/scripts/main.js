@@ -10,7 +10,7 @@ import { MerchantMenu, NpcDialogue } from "./ui/NpcDialogue.js";
 import { merchantByEntity } from "./merchants/merchantConfig.js";
 import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 
-console.warn("[DailyEvents] Survival Daily & World Events v0.2.0 initializing...");
+console.warn("[DailyEvents] Survival Daily & World Events v0.3.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -92,7 +92,7 @@ function handleCommand(player, raw) {
   const parts = lower.split(/\s+/);
   if (parts[1] === "list") {
     const list = WorldEventManager.list();
-    return player.sendMessage(list.length ? `§6[运行事件]\n${list.map(value => `${value.templateId} | ${value.state} | ${value.nodeId}`).join("\n")}` : "§7当前没有运行事件。");
+    return player.sendMessage(list.length ? `§6[运行事件]\n${list.map(value => `${value.templateId} | ${value.zoneType || "law"} | ${value.state} | ${value.nodeId}`).join("\n")}` : "§7当前没有运行事件。");
   }
   if (parts[1] === "nodes") {
     const nodes = EventNodeRegistry.nearby(player, 200);
@@ -217,4 +217,4 @@ system.runInterval(() => {
   }
 }, 100);
 
-console.warn("[DailyEvents] DailyQuestManager, RewardManager, EventNodeRegistry and four event templates initialized.");
+console.warn(`[DailyEvents] DailyQuestManager, RewardManager, EventNodeRegistry and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);

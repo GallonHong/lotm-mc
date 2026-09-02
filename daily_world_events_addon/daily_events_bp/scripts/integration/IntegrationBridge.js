@@ -17,6 +17,16 @@ function contains(region, dimensionId, location) {
     location.y >= region.min.y && location.y <= region.max.y && location.z >= region.min.z && location.z <= region.max.z;
 }
 
+// Mirrors the built-in zones exported by Apocalypse Mobs. Administrator-created
+// zones are still loaded from the shared dynamic property and take precedence.
+const APOCALYPSE_PRESET_ZONES = Object.freeze([
+  { name: "安全区 1", type: "safe", dimension: "minecraft:overworld", min: { x: 2349, y: -64, z: 1863 }, max: { x: 2635, y: 320, z: 2069 }, priority: 500 },
+  { name: "安全区 2", type: "safe", dimension: "minecraft:overworld", min: { x: 2352, y: -64, z: 1165 }, max: { x: 2585, y: 320, z: 1303 }, priority: 500 },
+  { name: "安全区 3", type: "safe", dimension: "minecraft:overworld", min: { x: 1942, y: -64, z: 1273 }, max: { x: 2087, y: 320, z: 1465 }, priority: 500 },
+  { name: "法制区 1", type: "law", dimension: "minecraft:overworld", min: { x: 3450, y: -64, z: 2033 }, max: { x: 3869, y: 320, z: 2478 }, priority: 300 },
+  { name: "法制区 2", type: "law", dimension: "minecraft:overworld", min: { x: 1687, y: -64, z: 2509 }, max: { x: 2250, y: 320, z: 3127 }, priority: 300 }
+]);
+
 function isAir(block) {
   const id = String(block?.typeId || "");
   return block?.isAir === true || id === "minecraft:air" || id === "minecraft:cave_air" || id === "minecraft:void_air";
@@ -58,23 +68,36 @@ export class IntegrationBridge {
     } catch { return false; }
   }
 
-  static isSafeZone(dimensionId, location) {
-    const local = parseArray(world.getDynamicProperty(CONFIG.apocalypseZonesKey));
+  static resolveZone(dimensionId, location) {
+    const local = [...APOCALYPSE_PRESET_ZONES, ...parseArray(world.getDynamicProperty(CONFIG.apocalypseZonesKey))];
     const localZone = local.filter(zone => zone?.min && zone?.max && contains(zone, dimensionId, location))
       .sort((a, b) => (b.priority || 0) - (a.priority || 0))[0];
-    if (localZone) return localZone.type === "safe";
+    if (localZone) {
+      const type = ["safe", "law", "outlaw"].includes(localZone.type) ? localZone.type : "law";
+      return { type, name: localZone.name || (type === "outlaw" ? "非法制区" : type === "safe" ? "安全区" : "法制区"), source: "apocalypse" };
+    }
     const sapi = parseArray(world.getDynamicProperty(CONFIG.sapiRegionsKey));
     const sapiRegion = sapi.filter(region => region?.min && region?.max && contains(region, dimensionId, location))
       .sort((a, b) => (b.priority || 0) - (a.priority || 0))[0];
-    if (sapiRegion && sapiRegion.flags?.allowHostileSpawn !== true) return true;
+    if (sapiRegion) {
+      if (sapiRegion.flags?.allowHostileSpawn !== true) return { type: "safe", name: sapiRegion.name || "SAPI 保护区", source: "sapi" };
+      const configured = sapiRegion.flags?.zoneType || sapiRegion.zoneType || sapiRegion.type;
+      const outlaw = configured === "outlaw" || sapiRegion.flags?.outlaw === true || sapiRegion.flags?.lawless === true;
+      return { type: outlaw ? "outlaw" : "law", name: sapiRegion.name || (outlaw ? "非法制区" : "法制区"), source: "sapi" };
+    }
     let spawn = parseArray(world.getDynamicProperty(CONFIG.sapiWarpsKey)).find(warp => warp?.id === "spawn" || warp?.isSpawn);
     if (!spawn) {
       try { spawn = { dimension: "minecraft:overworld", ...world.getDefaultSpawnLocation() }; } catch {}
     }
-    if (!spawn || !sameDimension(spawn.dimension, dimensionId)) return false;
+    if (!spawn || !sameDimension(spawn.dimension, dimensionId)) return { type: "outlaw", name: "非法制荒原", source: "default" };
     const dx = Number(location.x) - Number(spawn.x || 0);
     const dz = Number(location.z) - Number(spawn.z || 0);
-    return dx * dx + dz * dz <= CONFIG.fallbackSafeRadius * CONFIG.fallbackSafeRadius;
+    if (dx * dx + dz * dz <= CONFIG.fallbackSafeRadius * CONFIG.fallbackSafeRadius) return { type: "safe", name: "主城出生点", source: "spawn" };
+    return { type: "outlaw", name: "非法制荒原", source: "default" };
+  }
+
+  static isSafeZone(dimensionId, location) {
+    return this.resolveZone(dimensionId, location).type === "safe";
   }
 
   static enqueueSpawn(dimensionId, center, mobKey, count, tags, minDistance = 7, maxDistance = 15) {

@@ -41,10 +41,18 @@ assert(managerSource.includes("QUEST_POOLS.collect") && managerSource.includes("
 assert(managerSource.includes("system.currentTick") === false, "daily persistence must not derive day identity from ticks");
 
 const eventSource = readFileSync(join(bp, "scripts/events/templates/eventTemplates.js"), "utf8");
-for (const id of ["infected_attack", "survivor_rescue", "raider_ambush", "crashed_convoy"]) assert(eventSource.includes(`${id}:`));
+for (const id of ["infected_attack", "survivor_rescue", "raider_ambush", "crashed_convoy", "roadblock_clearance", "toxic_outbreak", "mutant_nest", "mercenary_blockade"]) assert(eventSource.includes(`${id}:`));
+assert(eventSource.includes("outlawWaves") && eventSource.includes('zones: ["outlaw"]'), "law/outlaw event difficulty split missing");
+const templatesModule = await import(`file://${join(bp, "scripts/events/templates/eventTemplates.js")}`);
+assert.equal(Object.keys(templatesModule.EVENT_TEMPLATES).length, 8, "expected eight event templates");
+for (let index = 0; index < 100; index++) {
+  const selected = templatesModule.chooseTemplate(null, "law");
+  assert(!["mutant_nest", "mercenary_blockade"].includes(selected), "law zone selected outlaw-only event");
+}
 const worldEvents = readFileSync(join(bp, "scripts/events/WorldEventManager.js"), "utf8");
 assert(worldEvents.includes("EventNodeRegistry") && worldEvents.includes("participantScores"));
 assert(worldEvents.includes("eventMaxEntities") && worldEvents.includes("setCooldown"));
+assert(worldEvents.includes("zoneType") && worldEvents.includes("outlawRewardId"), "zone-scaled event rewards missing");
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
 const rewardIds = [...rewards.matchAll(/id: \"([^\"]+)\"/g)].map(match => match[1]);
@@ -54,6 +62,8 @@ assert(rewards.includes("minecraft:name_tag") && rewards.includes("minecraft:ame
 const integration = readFileSync(join(bp, "scripts/integration/IntegrationBridge.js"), "utf8");
 assert(integration.includes("apoc:spawn_requests:v1") === false, "integration key should come from configurable config.js");
 assert(integration.includes("enqueueSpawn") && integration.includes("spawnFallback"));
+assert(integration.includes("resolveZone") && integration.includes('"outlaw"'), "zone resolver missing");
+for (const marker of ["安全区 1", "法制区 1", "非法制荒原"]) assert(integration.includes(marker), `missing Apocalypse preset/default zone: ${marker}`);
 
 const commissionerDialogue = json(join(bp, "dialogue/commissioner_dialogue.json"));
 const merchantDialogue = json(join(bp, "dialogue/merchant_dialogues.json"));

@@ -11,7 +11,17 @@ export const REWARD_REGISTRY = Object.freeze({
   activity_80: { coins: 400, items: [{ id: "minecraft:amethyst_shard", amount: 3, name: "Epic 研究数据（MVP）" }] },
   activity_100: { coins: 600, items: [{ id: "minecraft:name_tag", amount: 1, name: "Epic Research Ticket（MVP）" }] },
   event_infected_attack: { coins: 700, items: [{ id: "minecraft:rotten_flesh", amount: 4 }, { id: "minecraft:iron_nugget", amount: 6 }] },
+  event_infected_attack_outlaw: { coins: 1200, items: [{ id: "minecraft:iron_ingot", amount: 4 }, { id: "minecraft:redstone", amount: 4 }] },
   event_survivor_rescue: { coins: 800, items: [{ id: "minecraft:honey_bottle", amount: 2 }, { id: "minecraft:bread", amount: 3 }] },
+  event_survivor_rescue_outlaw: { coins: 1300, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:honey_bottle", amount: 3 }] },
   event_raider_ambush: { coins: 1000, items: [{ id: "minecraft:arrow", amount: 16, name: "弹药（MVP）" }, { id: "minecraft:iron_ingot", amount: 3 }] },
-  event_crashed_convoy: { coins: 1200, items: [{ id: "minecraft:amethyst_shard", amount: 2 }, { id: "minecraft:redstone", amount: 5 }] }
+  event_raider_ambush_outlaw: { coins: 1700, items: [{ id: "minecraft:arrow", amount: 32, name: "弹药（MVP）" }, { id: "minecraft:iron_block", amount: 1 }] },
+  event_crashed_convoy: { coins: 1200, items: [{ id: "minecraft:amethyst_shard", amount: 2 }, { id: "minecraft:redstone", amount: 5 }] },
+  event_crashed_convoy_outlaw: { coins: 2200, items: [{ id: "minecraft:amethyst_shard", amount: 5 }, { id: "minecraft:diamond", amount: 1 }] },
+  event_roadblock_clearance: { coins: 850, items: [{ id: "minecraft:iron_ingot", amount: 3 }, { id: "minecraft:coal", amount: 8 }] },
+  event_roadblock_clearance_outlaw: { coins: 1450, items: [{ id: "minecraft:iron_block", amount: 1 }, { id: "minecraft:arrow", amount: 24 }] },
+  event_toxic_outbreak: { coins: 900, items: [{ id: "minecraft:honey_bottle", amount: 2 }, { id: "minecraft:redstone", amount: 3 }] },
+  event_toxic_outbreak_outlaw: { coins: 1550, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 3 }] },
+  event_mutant_nest_outlaw: { coins: 2000, items: [{ id: "minecraft:diamond", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 4 }] },
+  event_mercenary_blockade_outlaw: { coins: 2100, items: [{ id: "minecraft:arrow", amount: 32 }, { id: "minecraft:gold_ingot", amount: 4 }] }
 });

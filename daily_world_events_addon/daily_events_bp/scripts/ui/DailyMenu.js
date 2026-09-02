@@ -8,6 +8,7 @@ import { WorldEventManager } from "../events/WorldEventManager.js";
 import { EVENT_TEMPLATES } from "../events/templates/eventTemplates.js";
 import { MERCHANTS } from "../merchants/merchantConfig.js";
 import { NpcDialogue } from "./NpcDialogue.js";
+import { IntegrationBridge } from "../integration/IntegrationBridge.js";
 
 export function isAdmin(player) {
   try { if (player.hasTag("admin")) return true; } catch {}
@@ -165,7 +166,7 @@ export class DailyAdminMenu {
   }
 
   static createNode(player) {
-    const templateNames = ["全部 4 类随机", ...Object.values(EVENT_TEMPLATES).map(value => value.name)];
+    const templateNames = [`全部 ${Object.keys(EVENT_TEMPLATES).length} 类随机`, ...Object.values(EVENT_TEMPLATES).map(value => `${value.name}${value.zones?.includes("outlaw") && value.zones.length === 1 ? "（仅非法制区）" : ""}`)];
     const templateIds = [null, ...Object.keys(EVENT_TEMPLATES)];
     const form = new ModalFormData().title("创建人工事件节点")
       .textField("节点名称", "废弃加油站", "新事件节点")
@@ -176,7 +177,8 @@ export class DailyAdminMenu {
       const [name, typeIndex, radius, cooldown] = result.formValues;
       const selected = templateIds[Number(typeIndex) || 0];
       const node = EventNodeRegistry.add(player, name, selected ? [selected] : Object.keys(EVENT_TEMPLATES), radius, cooldown);
-      player.sendMessage(node ? `§a已创建节点 ${node.name}。` : "§c创建节点失败。");
+      const zone = IntegrationBridge.resolveZone(player.dimension.id, player.location);
+      player.sendMessage(node ? `§a已创建节点 ${node.name}。§7当前区域：${zone.type === "outlaw" ? "§4非法制区·高危" : "§e法制区·常规"}` : "§c创建节点失败。");
       this.open(player);
     });
   }
@@ -209,7 +211,7 @@ export class DailyAdminMenu {
 
   static listEvents(player) {
     const active = WorldEventManager.list();
-    const body = active.length ? active.map(value => `${EVENT_TEMPLATES[value.templateId]?.name || value.templateId} | ${value.state} | ${value.nodeId}`).join("\n") : "§7当前没有运行事件。";
+    const body = active.length ? active.map(value => `${EVENT_TEMPLATES[value.templateId]?.name || value.templateId} | ${value.zoneType === "outlaw" ? "非法制区" : "法制区"} | ${value.state} | ${value.nodeId}`).join("\n") : "§7当前没有运行事件。";
     const form = new MessageFormData().title("运行事件").body(body).button1("刷新").button2("返回");
     show(player, form, result => result.selection === 0 ? this.listEvents(player) : this.open(player));
   }

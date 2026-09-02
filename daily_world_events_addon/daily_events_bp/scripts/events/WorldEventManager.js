@@ -12,6 +12,18 @@ function valid(entity) {
 
 function distance(a, b) { return Math.hypot(a.x - b.x, a.y - b.y, a.z - b.z); }
 
+function wavesFor(template, zoneType) {
+  return zoneType === "outlaw" && template.outlawWaves ? template.outlawWaves : template.waves;
+}
+
+function defenseTicksFor(template, zoneType) {
+  return zoneType === "outlaw" && template.outlawDefenseTicks ? template.outlawDefenseTicks : template.defenseTicks;
+}
+
+function waveTicksFor(template, zoneType) {
+  return zoneType === "outlaw" && template.outlawWaveAtTicks ? template.outlawWaveAtTicks : template.waveAtTicks;
+}
+
 export class WorldEventManager {
   static active = new Map();
 
@@ -34,8 +46,9 @@ export class WorldEventManager {
 
   static start(node, templateId = null, triggeringPlayer = null) {
     if (!node || this.active.has(node.id) || Number(node.cooldownUntil || 0) > Date.now()) return false;
-    if (IntegrationBridge.isSafeZone(node.dimension, node.location)) return false;
-    const id = templateId && EVENT_TEMPLATES[templateId] ? templateId : chooseTemplate(node.allowedEvents);
+    const zone = IntegrationBridge.resolveZone(node.dimension, node.location);
+    if (zone.type === "safe") return false;
+    const id = templateId && EVENT_TEMPLATES[templateId] ? templateId : chooseTemplate(node.allowedEvents, zone.type);
     const template = EVENT_TEMPLATES[id];
     if (!template) return false;
     let dimension;
@@ -49,6 +62,8 @@ export class WorldEventManager {
       tag: `daily_ev_${shortId}`,
       dimension: node.dimension,
       center: { ...node.location },
+      zoneType: zone.type,
+      zoneName: zone.name,
       startTick: system.currentTick,
       lastPlayerTick: system.currentTick,
       waveIndex: 0,
@@ -61,11 +76,12 @@ export class WorldEventManager {
     this.active.set(node.id, instance);
     if (template.mode === "rescue") this.spawnSpecial(instance, "daily:survivor", "§a受困幸存者");
     if (template.mode === "defense") this.spawnSpecial(instance, "daily:convoy_marker", "§6坠毁运输车");
-    if (template.mode !== "defense") this.spawnWave(instance, template.waves[0]);
+    if (template.mode !== "defense") this.spawnWave(instance, wavesFor(template, instance.zoneType)[0]);
     instance.state = "active";
     for (const player of dimension.getPlayers({ location: node.location, maxDistance: 80 })) {
-      player.sendMessage(`§4⚠ [动态事件] ${template.name} 已开始！`);
-      try { player.onScreenDisplay.setTitle(`§4${template.name}`, { subtitle: "§e参与战斗可获得个人奖励", fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 10 }); } catch {}
+      const zoneLabel = instance.zoneType === "outlaw" ? "§4非法制区·高危" : "§e法制区·常规";
+      player.sendMessage(`§4⚠ [动态事件] ${template.name} 已开始！§7（${zoneLabel}§7）`);
+      try { player.onScreenDisplay.setTitle(`§4${template.name}`, { subtitle: `${zoneLabel} §7| §e参与战斗可获得个人奖励`, fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 10 }); } catch {}
     }
     return instance;
   }
@@ -121,15 +137,18 @@ export class WorldEventManager {
     else if (system.currentTick - instance.lastPlayerTick > 600) return this.finish(instance, false, "参与者已离开区域");
 
     if (template.mode === "defense") {
+      const waves = wavesFor(template, instance.zoneType);
+      const waveTicks = waveTicksFor(template, instance.zoneType);
+      const defenseTicks = defenseTicksFor(template, instance.zoneType);
       for (const player of nearby) instance.participantScores[player.id] = Number(instance.participantScores[player.id] || 0) + 0.25;
-      for (let index = instance.spawnedWaves; index < template.waves.length; index++) {
-        if (system.currentTick - instance.startTick >= template.waveAtTicks[index]) this.spawnWave(instance, template.waves[index]);
+      for (let index = instance.spawnedWaves; index < waves.length; index++) {
+        if (system.currentTick - instance.startTick >= waveTicks[index]) this.spawnWave(instance, waves[index]);
         else break;
       }
       const elapsed = system.currentTick - instance.startTick;
-      if (elapsed >= template.defenseTicks && this.getEntities(instance).length === 0) return this.finish(instance, true);
+      if (elapsed >= defenseTicks && this.getEntities(instance).length === 0) return this.finish(instance, true);
       if (system.currentTick % 100 === 0) {
-        const seconds = Math.max(0, Math.ceil((template.defenseTicks - elapsed) / 20));
+        const seconds = Math.max(0, Math.ceil((defenseTicks - elapsed) / 20));
         for (const player of nearby) player.sendMessage(`§6[运输车防守] 剩余 ${seconds} 秒。`);
       }
       return;
@@ -148,8 +167,9 @@ export class WorldEventManager {
     if (system.currentTick < instance.waitUntil) return;
     const living = this.getEntities(instance);
     if (living.length) return;
-    if (instance.spawnedWaves < template.waves.length) {
-      this.spawnWave(instance, template.waves[instance.spawnedWaves]);
+    const waves = wavesFor(template, instance.zoneType);
+    if (instance.spawnedWaves < waves.length) {
+      this.spawnWave(instance, waves[instance.spawnedWaves]);
       return;
     }
     this.finish(instance, true);
@@ -178,7 +198,8 @@ export class WorldEventManager {
       for (const player of world.getAllPlayers()) {
         const score = Number(instance.participantScores[player.id] || 0);
         if (score < CONFIG.participantMinScore) continue;
-        RewardManager.grant(player, template.rewardId, `event:${instance.instanceId}:${player.id}`, `world_event:${instance.templateId}`);
+        const rewardId = instance.zoneType === "outlaw" && template.outlawRewardId ? template.outlawRewardId : template.rewardId;
+        RewardManager.grant(player, rewardId, `event:${instance.instanceId}:${player.id}`, `world_event:${instance.templateId}:${instance.zoneType}`);
         DailyQuestManager.onWorldEventSuccess(player, instance.templateId);
         player.sendMessage(`§a☑ 动态事件完成：${template.name}（参与分 ${score.toFixed(1)}）`);
       }
@@ -195,7 +216,7 @@ export class WorldEventManager {
     const nodes = EventNodeRegistry.getNodes();
     for (const node of nodes) {
       if (this.active.has(node.id) || Number(node.cooldownUntil || 0) > Date.now()) continue;
-      if (IntegrationBridge.isSafeZone(node.dimension, node.location)) continue;
+      if (IntegrationBridge.resolveZone(node.dimension, node.location).type === "safe") continue;
       let dimension;
       try { dimension = world.getDimension(node.dimension); } catch { continue; }
       const players = dimension.getPlayers({ location: node.location, maxDistance: Number(node.triggerRadius || 35) });
