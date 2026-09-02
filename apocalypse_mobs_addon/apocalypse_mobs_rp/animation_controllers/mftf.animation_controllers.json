@@ -1,0 +1,113 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.tmftf.movement": {
+			"initial_state": "stalk",
+			"states": {
+				"stalk": {
+					"animations": ["stalk"],
+					"blend_transition": 0.2,
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "jumpscare_var": "query.is_pregnant && !query.is_stunned && !query.is_sheared" },
+						{ "calm_run": "query.is_chested && query.modified_move_speed >= 0.05 && query.is_moving && !query.is_stunned && !query.is_sheared && !query.is_wall_climbing && !query.is_in_water && !query.is_stackable" },
+						{ "hang": "query.is_sheared && !query.is_in_water && !query.is_tamed" },
+						{ "swim": "query.is_in_water && !query.is_wall_climbing && !query.is_sheared && !query.is_stunned" },
+						{ "climb": "query.is_wall_climbing && !query.is_in_water && !query.is_sheared && !query.is_stunned" },
+						{ "crawl": "query.is_stunned && !query.is_in_water && !query.is_sheared && !query.is_wall_climbing" },
+						{ "run": "query.modified_move_speed >= 0.05 && query.is_moving && !query.is_stunned && !query.is_sheared && !query.is_wall_climbing && !query.is_in_water && !query.is_stackable" }
+					]
+				},
+				"run": {
+					"animations": ["run"],
+					"blend_transition": 0.2,
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "jumpscare_var": "query.is_pregnant && !query.is_stunned && !query.is_sheared" },
+						{ "calm_run": "query.is_chested && query.modified_move_speed >= 0.05 && query.is_moving && !query.is_stunned && !query.is_sheared && !query.is_wall_climbing && !query.is_in_water && !query.is_stackable" },
+						{ "hang": "query.is_sheared && !query.is_in_water && !query.is_tamed" },
+						{ "swim": "query.is_in_water && !query.is_wall_climbing && !query.is_sheared && !query.is_stunned" },
+						{ "climb": "query.is_wall_climbing && !query.is_in_water && !query.is_sheared && !query.is_stunned" },
+						{ "crawl": "query.is_stunned && !query.is_in_water && !query.is_sheared && !query.is_wall_climbing" },
+						{ "stalk": "query.modified_move_speed < 0.05 || !query.is_moving || query.is_stunned || query.is_sheared || query.is_wall_climbing || query.is_in_water || query.is_stackable" }
+					]
+				},
+				"hang": {
+					"animations": ["hang"],
+					"blend_transition": 0.5,
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "jumpscare_var": "query.is_pregnant && !query.is_stunned && !query.is_sheared" },
+						{ "swim": "query.is_in_water && !query.is_wall_climbing && !query.is_sheared && !query.is_stunned" },
+						{ "stalk": "!query.is_sheared || query.is_in_water || query.is_tamed" }
+					]
+				},
+				"swim": {
+					"animations": ["swim"],
+					"blend_transition": 0.2,
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "jumpscare_var": "query.is_pregnant && !query.is_stunned && !query.is_sheared" },
+						{ "calm_run": "query.is_chested && query.modified_move_speed >= 0.05 && query.is_moving && !query.is_stunned && !query.is_sheared && !query.is_wall_climbing && !query.is_in_water && !query.is_stackable" },
+						{ "hang": "query.is_sheared && !query.is_in_water && !query.is_tamed" },
+						{ "climb": "query.is_wall_climbing && !query.is_in_water && !query.is_sheared && !query.is_stunned" },
+						{ "crawl": "query.is_stunned && !query.is_in_water && !query.is_sheared && !query.is_wall_climbing" },
+						{ "stalk": "!query.is_in_water || query.is_wall_climbing || query.is_sheared || query.is_stunned" }
+					]
+				},
+				"climb": {
+					"animations": ["climb"],
+					"blend_transition": 0.5,
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "jumpscare_var": "query.is_pregnant && !query.is_stunned && !query.is_sheared" },
+						{ "calm_run": "query.is_chested && query.modified_move_speed >= 0.05 && query.is_moving && !query.is_stunned && !query.is_sheared && !query.is_wall_climbing && !query.is_in_water && !query.is_stackable" },
+						{ "run": "query.modified_move_speed >= 0.05 && query.is_moving && !query.is_stunned && !query.is_sheared && !query.is_wall_climbing && !query.is_in_water && !query.is_stackable" },
+						{ "hang": "query.is_sheared && !query.is_in_water && !query.is_tamed" },
+						{ "swim": "query.is_in_water && !query.is_wall_climbing && !query.is_sheared && !query.is_stunned" },
+						{ "crawl": "query.is_stunned && !query.is_in_water && !query.is_sheared && !query.is_wall_climbing" },
+						{ "stalk": "!query.is_wall_climbing || query.is_in_water || query.is_sheared || query.is_stunned" }
+					]
+				},
+				"crawl": {
+					"animations": ["crawl"],
+					"blend_transition": 0.2,
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "jumpscare_var": "query.is_pregnant && !query.is_stunned && !query.is_sheared" },
+						{ "calm_run": "query.is_chested && query.modified_move_speed >= 0.05 && query.is_moving && !query.is_stunned && !query.is_sheared && !query.is_wall_climbing && !query.is_in_water && !query.is_stackable" },
+						{ "hang": "query.is_sheared && !query.is_in_water && !query.is_tamed" },
+						{ "swim": "query.is_in_water && !query.is_wall_climbing && !query.is_sheared && !query.is_stunned" },
+						{ "climb": "query.is_wall_climbing && !query.is_in_water && !query.is_sheared && !query.is_stunned" },
+						{ "stalk": "!query.is_stunned || query.is_in_water || query.is_sheared || query.is_wall_climbing" }
+					]
+				},
+				"calm_run": {
+					"animations": ["calm_run"],
+					"blend_transition": 0.2,
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "jumpscare_var": "query.is_pregnant && !query.is_stunned && !query.is_sheared" },
+						{ "swim": "query.is_in_water && !query.is_wall_climbing && !query.is_sheared && !query.is_stunned" },
+						{ "climb": "query.is_wall_climbing && !query.is_in_water && !query.is_sheared && !query.is_stunned" },
+						{ "crawl": "query.is_stunned && !query.is_in_water && !query.is_sheared && !query.is_wall_climbing" },
+						{ "stalk": "!query.is_chested || query.modified_move_speed < 0.05 || !query.is_moving" }
+					]
+				},
+				"jumpscare_var": {
+					"animations": ["jumpscare_var"],
+					"transitions": [
+						{ "jumpscare": "query.is_shaking && !query.is_sheared && !query.is_tamed" },
+						{ "stalk": "!query.is_pregnant || query.is_stunned || query.is_sheared" }
+					]
+				},
+				"jumpscare": {
+					"animations": ["jumpscare"],
+					"transitions": [
+						{ "stalk": "!query.is_shaking || query.is_sheared || query.is_tamed" }
+					]
+				}
+			}
+		}
+	}
+}

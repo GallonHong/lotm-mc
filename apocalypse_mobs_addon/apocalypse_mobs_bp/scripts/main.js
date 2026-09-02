@@ -302,6 +302,43 @@ class BossSkillEngine {
         }
       } catch (e) {}
     }
+
+    // 8. 雾中人 (The Fog Man) -> 迷雾突袭 + 暗影破防撕咬
+    else if (typeId === 'apoc_boss:fog_man') {
+      try {
+        dim.playSound('mob.endermen.stare', bLoc, { volume: 2.0, pitch: 0.5 });
+        dim.playSound('mob.wither.shoot', bLoc, { volume: 1.5, pitch: 0.8 });
+        dim.spawnParticle('minecraft:campfire_smoke_particle', { x: bLoc.x, y: bLoc.y + 1, z: bLoc.z });
+
+        // 暗影冲刺突袭至玩家身前
+        const rushPos = {
+          x: tLoc.x - (dx / Math.max(0.1, dist)) * 1.5,
+          y: tLoc.y,
+          z: tLoc.z - (dz / Math.max(0.1, dist)) * 1.5
+        };
+        boss.teleport(rushPos);
+
+        target.applyDamage(10, { cause: 'entityAttack', damagingEntity: boss });
+        target.addEffect('weakness', 100, { amplifier: 1, showParticles: true });
+        target.onScreenDisplay?.setActionBar?.('§8🌫️ 雾中人 发动了【暗影破防撕咬】! 造成虚弱破防!§r');
+      } catch (e) {}
+    }
+
+    // 9. 山羊人 (The Goatman) -> 野性狂暴冲撞 + 恶魔践踏
+    else if (typeId === 'apoc_boss:goatman') {
+      try {
+        dim.playSound('mob.ravager.roar', bLoc, { volume: 2.5, pitch: 1.2 });
+        dim.spawnParticle('minecraft:large_explosion', bLoc);
+
+        // 强力野性践踏与击飞
+        for (const p of dim.getEntities({ location: bLoc, maxDistance: 8, families: ['player'] })) {
+          p.applyDamage(12, { cause: 'entityAttack', damagingEntity: boss });
+          p.applyKnockback(dx * 0.4, dz * 0.4, 1.4, 0.5);
+          p.addEffect('slowness', 60, { amplifier: 1, showParticles: true });
+          p.onScreenDisplay?.setActionBar?.('§c🐐 山羊人 发动了【野性狂暴冲撞】! 强行击飞震退!§r');
+        }
+      } catch (e) {}
+    }
   }
 }
 

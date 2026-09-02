@@ -23,3 +23,8 @@ item.spawn_egg.entity.apoc_boss:mutant_iron_golem.name=钢铁终结者刷怪蛋
 entity.apoc_boss:siren_head.name=警笛头 · 迷雾噩梦 (Siren Head)
 item.spawn_egg.entity.apoc_boss:siren_head.name=警笛头刷怪蛋
 
+
+entity.apoc_boss:fog_man.name=雾中人 · 阴影潜行者 (The Fog Man)
+item.spawn_egg.entity.apoc_boss:fog_man.name=雾中人刷怪蛋
+entity.apoc_boss:goatman.name=山羊人 · 血夜恶灵 (The Goatman)
+item.spawn_egg.entity.apoc_boss:goatman.name=山羊人刷怪蛋

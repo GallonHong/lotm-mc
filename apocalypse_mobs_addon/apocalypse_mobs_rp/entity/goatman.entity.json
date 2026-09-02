@@ -1,0 +1,41 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:goatman",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/goatman/lrgtm_goatman_agressive"
+      },
+      "geometry": {
+        "default": "geometry.lrgtm_goatman_agressive_default"
+      },
+      "animations": {
+        "run": "animation.lrgtm_goatman_agressive.run",
+        "idle": "animation.lrgtm_goatman_agressive.run_idle",
+        "look": "animation.lrgtm_goatman_agressive.look_at_target"
+      },
+      "scripts": {
+        "scale": "1.15",
+        "animate": [
+          "look",
+          {
+            "run": "query.modified_move_speed > 0.1"
+          },
+          {
+            "idle": "query.modified_move_speed <= 0.1"
+          }
+        ]
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "spawn_egg": {
+        "base_color": "#3b281c",
+        "overlay_color": "#8c1111"
+      }
+    }
+  }
+}
