@@ -1,4 +1,4 @@
-import { world, system } from "@minecraft/server";
+import { world, system, ItemStack, BlockPermutation } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { IntegrationBridge } from "../integration/IntegrationBridge.js";
 import { RewardManager } from "../rewards/RewardManager.js";
@@ -7,6 +7,7 @@ import { DUNGEON_SLOTS, absolutePoint, dungeonTemplate } from "./dungeonTemplate
 
 const PLAYER_STATE_KEY = "daily:dungeon_player:v1";
 const DUNGEON_ENTITY_TAG = "daily_dungeon_entity";
+const DUNGEON_ENEMY_TAG = "daily_dungeon_enemy";
 
 function valid(entity) {
   try { return !!entity && entity.isValid(); } catch { return false; }
@@ -45,6 +46,10 @@ function distanceSquared(a, b) {
   const dy = Number(a.y) - Number(b.y);
   const dz = Number(a.z) - Number(b.z);
   return dx * dx + dy * dy + dz * dz;
+}
+
+function stageTicks(stage) {
+  return Math.max(20, Math.floor(Number(stage?.durationTicks) || 20));
 }
 
 function insideArena(location, origin, bounds, margin = 0) {
@@ -131,6 +136,12 @@ export class DungeonManager {
     }));
   }
 
+  static hasCompleted(player, templateId) {
+    const template = dungeonTemplate(templateId);
+    if (!template?.completionKey) return false;
+    try { return player.getDynamicProperty(template.completionKey) === true; } catch { return false; }
+  }
+
   static availableSlot() {
     const occupied = new Set([...this.active.values()].map(instance => instance.slot.id));
     return DUNGEON_SLOTS.find(slot => !occupied.has(slot.id) && !this.resettingSlots.has(slot.id)) || null;
@@ -174,6 +185,7 @@ export class DungeonManager {
     const previous = readPlayerState(player);
     writePlayerState(player, {
       instanceId: instance.instanceId,
+      templateId: instance.templateId,
       returnLocation: previous?.returnLocation || safeLocation(player),
       pendingRespawn: false
     });
@@ -205,14 +217,6 @@ export class DungeonManager {
     let dimension;
     try {
       dimension = world.getDimension(instance.slot.dimension);
-      const platform = template.platform;
-      if (platform) {
-        const x1 = instance.slot.origin.x + platform.min.x;
-        const z1 = instance.slot.origin.z + platform.min.z;
-        const x2 = instance.slot.origin.x + platform.max.x;
-        const z2 = instance.slot.origin.z + platform.max.z;
-        dimension.runCommand(`fill ${x1} ${instance.slot.origin.y - 1} ${z1} ${x2} ${instance.slot.origin.y - 1} ${z2} ${platform.block}`);
-      }
     } catch (error) {
       onError?.(error);
       return;
@@ -234,7 +238,40 @@ export class DungeonManager {
       }
       system.runTimeout(() => loadNext(index + 1), Number(template.structureLoadDelayTicks || 8));
     };
-    loadNext(0);
+    this.prepareArena(instance, dimension, () => loadNext(0), onError);
+  }
+
+  /**
+   * 多模板共用实例槽位时必须先清空上一个地图。每 tick 只执行一个
+   * 32³ fill，避免一次加载几十条大范围命令造成卡顿。
+   */
+  static prepareArena(instance, dimension, onDone, onError) {
+    const template = dungeonTemplate(instance.templateId);
+    const jobs = [];
+    const min = -2;
+    const maxX = Math.max(130, Number(template.arenaBounds?.max?.x) || 0);
+    const maxZ = Math.max(130, Number(template.arenaBounds?.max?.z) || 0);
+    for (let x = min; x <= maxX; x += 32) {
+      for (let z = min; z <= maxZ; z += 32) {
+        for (let y = 0; y <= 63; y += 32) {
+          const x2 = Math.min(maxX, x + 31);
+          const z2 = Math.min(maxZ, z + 31);
+          const y2 = Math.min(63, y + 31);
+          jobs.push(`fill ${instance.slot.origin.x + x} ${instance.slot.origin.y + y} ${instance.slot.origin.z + z} ${instance.slot.origin.x + x2} ${instance.slot.origin.y + y2} ${instance.slot.origin.z + z2} air`);
+        }
+      }
+    }
+    const platform = template.platform;
+    if (platform) {
+      jobs.push(`fill ${instance.slot.origin.x + platform.min.x} ${instance.slot.origin.y - 1} ${instance.slot.origin.z + platform.min.z} ${instance.slot.origin.x + platform.max.x} ${instance.slot.origin.y - 1} ${instance.slot.origin.z + platform.max.z} ${platform.block}`);
+    }
+    const run = index => {
+      if (index >= jobs.length) return onDone?.();
+      try { dimension.runCommand(jobs[index]); }
+      catch (error) { onError?.(error); return; }
+      system.runTimeout(() => run(index + 1), 1);
+    };
+    run(0);
   }
 
   static teleportInto(player, instance) {
@@ -277,20 +314,119 @@ export class DungeonManager {
     if (!stage) return this.finish(instance, true);
     instance.stageIndex = stageIndex;
     instance.stageHadEnemies = false;
-    const requested = stage.type === "checkpoint" ? 0 : this.spawnStageGroups(instance, stage, false);
-    instance.stageHadEnemies = stage.type !== "checkpoint" && requested > 0;
+    instance.stageData = { startedTick: system.currentTick, routeIndex: 0, spawnedWaves: [] };
+    let requested = 0;
+    if (stage.type === "eliminate" || stage.type === "boss") {
+      requested = this.spawnStageGroups(instance, stage, false);
+      instance.stageHadEnemies = requested > 0;
+    } else if (stage.type === "defend") {
+      for (let index = 0; index < (stage.waves || []).length; index++) {
+        const wave = stage.waves[index];
+        if (Number(wave.atTicks || 0) > 0) continue;
+        requested += this.spawnStageGroups(instance, wave, false);
+        instance.stageData.spawnedWaves.push(index);
+      }
+      instance.stageHadEnemies = requested > 0;
+    } else if (stage.type === "briefing") {
+      this.giveStageLoadout(instance, stage);
+      this.sendStageMessages(instance, stage.messages);
+    } else if (stage.type === "interact") {
+      this.placeStageCrate(instance, stage);
+    } else if (stage.type === "route") {
+      this.startRouteSupport(instance, stage);
+    } else if (stage.type === "disaster") {
+      this.sendStageMessages(instance, stage.messages);
+      instance.stageData.nextDisasterPulse = system.currentTick + 40;
+    }
     instance.expectedEnemies = requested;
-    instance.waitUntil = system.currentTick + (stage.type === "checkpoint" ? 20 : Number(template.spawnConfirmTicks || 80));
-    const checkpoint = stage.type === "checkpoint" ? this.checkpoint(instance, stage.checkpoint) : null;
+    instance.waitUntil = system.currentTick + ((stage.type === "eliminate" || stage.type === "boss") ? Number(template.spawnConfirmTicks || 80) : 20);
+    const checkpoint = stage.type === "checkpoint" || stage.type === "interact" ? this.checkpoint(instance, stage.checkpoint) : null;
     const checkpointTarget = checkpoint ? absolutePoint(instance.slot.origin, checkpoint.offset) : null;
     for (const id of instance.participantIds) {
       const player = onlinePlayer(id);
       if (!player) continue;
       const coordinate = checkpointTarget ? ` §8(${Math.floor(checkpointTarget.x)}, ${Math.floor(checkpointTarget.y)}, ${Math.floor(checkpointTarget.z)})` : "";
-      const detail = stage.type === "checkpoint" ? `§e${stage.hint || "前往任务标记点。"}${coordinate}` : `§c预计敌人 ${requested} 名。`;
+      const detail = ["checkpoint", "interact", "route"].includes(stage.type)
+        ? `§e${stage.hint || "前往任务标记点。"}${coordinate}`
+        : stage.type === "briefing" ? "§7请阅读剧情与教学提示。"
+          : stage.type === "disaster" ? `§d坚持 ${Math.ceil(stageTicks(stage) / 20)} 秒。`
+            : stage.type === "defend" ? `§c防守 ${Math.ceil(stageTicks(stage) / 20)} 秒。`
+              : `§c预计敌人 ${requested} 名。`;
       player.sendMessage(`§6[副本 ${stageIndex + 1}/${template.stages.length}] §f${stage.name}：${detail}`);
       try { player.onScreenDisplay.setTitle(`§4${stage.name}`, { subtitle: `§e阶段 ${stageIndex + 1}/${template.stages.length}`, fadeInDuration: 5, stayDuration: 35, fadeOutDuration: 10 }); } catch {}
     }
+  }
+
+  static sendStageMessages(instance, messages = []) {
+    for (const id of instance.participantIds) {
+      const player = onlinePlayer(id);
+      if (!player) continue;
+      for (const message of messages || []) player.sendMessage(message);
+    }
+  }
+
+  static giveStageLoadout(instance, stage) {
+    for (const id of instance.participantIds) {
+      const player = onlinePlayer(id);
+      if (!player) continue;
+      for (const entry of stage.loadout || []) {
+        try {
+          const stack = new ItemStack(entry.id, Math.max(1, Math.min(64, Number(entry.amount) || 1)));
+          if (entry.name) stack.nameTag = entry.name;
+          const leftover = player.getComponent("minecraft:inventory")?.container?.addItem(stack);
+          if (leftover) player.sendMessage(`§e背包已满，未能放入 ${entry.id}。请清理背包后重开教学。`);
+        } catch {
+          player.sendMessage(`§c教学装备 ${entry.id} 不可用；请确认已安装 Test Gun Addon。`);
+        }
+      }
+    }
+  }
+
+  static placeStageCrate(instance, stage) {
+    const checkpoint = this.checkpoint(instance, stage.checkpoint);
+    if (!checkpoint) return;
+    const location = absolutePoint(instance.slot.origin, checkpoint.offset);
+    try {
+      const block = world.getDimension(instance.slot.dimension).getBlock(location);
+      block?.setPermutation(BlockPermutation.resolve(`daily:loot_crate_${stage.crateTier || "common"}`, { "daily:opened": false }));
+      instance.stageData.crateLocation = location;
+    } catch (error) {
+      console.warn(`[DailyEvents][Dungeon] crate placement failed: ${error}`);
+    }
+  }
+
+  static startRouteSupport(instance, stage) {
+    const dimension = world.getDimension(instance.slot.dimension);
+    let entity = null;
+    if (stage.reuseEscort && instance.escortEntityId) entity = this.entityById(instance, instance.escortEntityId);
+    if (stage.reuseVehicle && instance.vehicleEntityId) entity = this.entityById(instance, instance.vehicleEntityId);
+    if (!entity) {
+      const spawnId = stage.escortSpawnPoint || stage.vehicleSpawnPoint;
+      const location = this.spawnPoint(instance, spawnId);
+      const requestedId = stage.escortEntity || stage.vehicleId;
+      try { entity = dimension.spawnEntity(requestedId, location); } catch {}
+      if (!entity) {
+        try { entity = dimension.spawnEntity("daily:convoy_marker", location); } catch {}
+      }
+      if (entity) {
+        try {
+          entity.addTag(instance.tag);
+          entity.addTag(DUNGEON_ENTITY_TAG);
+          entity.nameTag = stage.escortEntity ? "§a周医生" : "§e任务载具";
+          entity.nameTagVisible = true;
+        } catch {}
+      }
+    }
+    if (stage.escortEntity && entity) instance.escortEntityId = entity.id;
+    if (stage.vehicleId && entity) instance.vehicleEntityId = entity.id;
+    instance.stageData.supportId = entity?.id || "";
+    if (!entity && (stage.escortEntity || stage.vehicleId)) this.sendStageMessages(instance, ["§e联动实体不可用，当前路线允许队伍步行完成。"]);
+  }
+
+  static entityById(instance, id) {
+    if (!id) return null;
+    try { return world.getDimension(instance.slot.dimension).getEntities({ tags: [instance.tag] }).find(entity => entity.id === id && valid(entity)) || null; }
+    catch { return null; }
   }
 
   static spawnStageGroups(instance, stage, force) {
@@ -303,7 +439,7 @@ export class DungeonManager {
         this.spawnPoint(instance, group.spawnPoint),
         group.mobKey,
         group.count,
-        [instance.tag, DUNGEON_ENTITY_TAG]
+        [instance.tag, DUNGEON_ENTITY_TAG, DUNGEON_ENEMY_TAG]
       );
     }
     return requested;
@@ -337,6 +473,11 @@ export class DungeonManager {
     catch { return []; }
   }
 
+  static enemies(instance) {
+    try { return world.getDimension(instance.slot.dimension).getEntities({ tags: [instance.tag, DUNGEON_ENEMY_TAG] }); }
+    catch { return []; }
+  }
+
   static tick() {
     for (const instance of [...this.active.values()]) this.tickInstance(instance);
   }
@@ -365,16 +506,127 @@ export class DungeonManager {
       if (system.currentTick >= instance.waitUntil && this.checkpointReached(instance, stage)) this.beginStage(instance, instance.stageIndex + 1);
       return;
     }
-
-    const enemies = this.entities(instance);
-    if (enemies.length) {
-      instance.stageHadEnemies = true;
+    if (stage.type === "briefing") {
+      if (system.currentTick - instance.stageData.startedTick >= stageTicks(stage)) this.beginStage(instance, instance.stageIndex + 1);
       return;
     }
+    if (stage.type === "interact") return;
+    if (stage.type === "route") {
+      if (this.tickRoute(instance, stage)) this.beginStage(instance, instance.stageIndex + 1);
+      return;
+    }
+    if (stage.type === "disaster") {
+      this.tickDisaster(instance, stage);
+      if (system.currentTick - instance.stageData.startedTick >= stageTicks(stage)) this.beginStage(instance, instance.stageIndex + 1);
+      return;
+    }
+    if (stage.type === "defend") {
+      this.tickDefense(instance, stage);
+      const elapsed = system.currentTick - instance.stageData.startedTick;
+      if (elapsed >= stageTicks(stage) && this.enemies(instance).length === 0) this.beginStage(instance, instance.stageIndex + 1);
+      return;
+    }
+
+    const enemies = this.enemies(instance);
+    if (enemies.length) { instance.stageHadEnemies = true; return; }
     if (system.currentTick < instance.waitUntil) return;
     if (instance.stageHadEnemies) return this.beginStage(instance, instance.stageIndex + 1);
-
     this.finish(instance, false, "确认性生成没有产生任何敌人，请检查 Apocalypse Mobs 或副本刷怪坐标");
+  }
+
+  static tickDefense(instance, stage) {
+    const elapsed = system.currentTick - instance.stageData.startedTick;
+    for (let index = 0; index < (stage.waves || []).length; index++) {
+      if (instance.stageData.spawnedWaves.includes(index)) continue;
+      const wave = stage.waves[index];
+      if (elapsed < Number(wave.atTicks || 0)) continue;
+      const count = this.spawnStageGroups(instance, wave, false);
+      instance.stageData.spawnedWaves.push(index);
+      instance.stageHadEnemies ||= count > 0;
+      this.sendStageMessages(instance, [`§c[副本] 新一波敌人抵达（${count}）`]);
+    }
+    if (elapsed % 100 === 0) {
+      const remain = Math.max(0, Math.ceil((stageTicks(stage) - elapsed) / 20));
+      for (const id of instance.participantIds) {
+        try { onlinePlayer(id)?.onScreenDisplay.setActionBar(`§c防守剩余 ${remain}s §8| §f敌人 ${this.enemies(instance).length}`); } catch {}
+      }
+    }
+  }
+
+  static tickRoute(instance, stage) {
+    const route = Array.isArray(stage.route) ? stage.route : [];
+    const index = Number(instance.stageData.routeIndex || 0);
+    if (index >= route.length) return true;
+    const checkpoint = this.checkpoint(instance, route[index]);
+    if (!checkpoint) return true;
+    const target = absolutePoint(instance.slot.origin, checkpoint.offset);
+    const radiusSq = Number(checkpoint.radius || 5) ** 2;
+    const nearby = instance.participantIds.map(onlinePlayer).find(player => player && sameDimension(player.dimension.id, instance.slot.dimension) && distanceSquared(player.location, target) <= radiusSq);
+    const support = this.entityById(instance, instance.stageData.supportId) ||
+      (stage.escortEntity ? this.entityById(instance, instance.escortEntityId) : this.entityById(instance, instance.vehicleEntityId));
+
+    if (stage.escortEntity && support && system.currentTick % 20 === 0) {
+      const escorting = instance.participantIds.map(onlinePlayer).some(player => player && sameDimension(player.dimension.id, instance.slot.dimension) && distanceSquared(player.location, support.location) <= 18 * 18);
+      if (escorting) {
+        const dx = target.x - support.location.x;
+        const dz = target.z - support.location.z;
+        const length = Math.max(0.01, Math.hypot(dx, dz));
+        try { support.teleport({ x: support.location.x + dx / length * Math.min(1.5, length), y: target.y, z: support.location.z + dz / length * Math.min(1.5, length) }); } catch {}
+      }
+    }
+    if (system.currentTick % 40 === 0) {
+      for (const id of instance.participantIds) {
+        const player = onlinePlayer(id);
+        if (!player) continue;
+        const distance = Math.floor(Math.sqrt(distanceSquared(player.location, target)));
+        try { player.onScreenDisplay.setActionBar(`§6路线 ${index + 1}/${route.length} §8| §f${checkpoint.name} §e${distance}m §8| §7${Math.floor(target.x)}, ${Math.floor(target.y)}, ${Math.floor(target.z)}`); } catch {}
+      }
+    }
+    const supportReady = !stage.escortEntity || !support || distanceSquared(support.location, target) <= radiusSq;
+    if (!nearby || !supportReady) return false;
+    instance.stageData.routeIndex = index + 1;
+    instance.respawnOffset = checkpoint.offset;
+    for (const id of instance.participantIds) {
+      instance.participantScores[id] = Number(instance.participantScores[id] || 0) + 1;
+      onlinePlayer(id)?.sendMessage(`§a✓ 路线节点 ${index + 1}/${route.length}：${checkpoint.name}`);
+    }
+    return index + 1 >= route.length;
+  }
+
+  static tickDisaster(instance, stage) {
+    if (system.currentTick < Number(instance.stageData.nextDisasterPulse || 0)) return;
+    instance.stageData.nextDisasterPulse = system.currentTick + Math.max(40, 100 - Number(stage.difficulty || 0) * 12);
+    const players = instance.participantIds.map(onlinePlayer).filter(Boolean);
+    if (!players.length) return;
+    const player = players[Math.floor(Math.random() * players.length)];
+    const angle = Math.random() * Math.PI * 2;
+    const radius = Math.max(7, 15 - Number(stage.difficulty || 0) * 2);
+    const location = { x: player.location.x + Math.cos(angle) * radius, y: player.location.y, z: player.location.z + Math.sin(angle) * radius };
+    try { player.dimension.spawnEntity("minecraft:lightning_bolt", location); } catch {}
+    try { player.runCommand("playsound ambient.weather.thunder @s ~ ~ ~ 0.8 0.9"); } catch {}
+    const elapsed = system.currentTick - instance.stageData.startedTick;
+    const remain = Math.max(0, Math.ceil((stageTicks(stage) - elapsed) / 20));
+    for (const id of instance.participantIds) {
+      try { onlinePlayer(id)?.onScreenDisplay.setActionBar(`§d${stage.name} §8| §f避险 ${remain}s`); } catch {}
+    }
+  }
+
+  static onBlockInteract(event) {
+    const player = event?.player;
+    const block = event?.block;
+    const instance = player ? this.playerInstance(player) : null;
+    const template = instance ? dungeonTemplate(instance.templateId) : null;
+    const stage = template?.stages?.[instance.stageIndex];
+    if (!instance || !stage || stage.type !== "interact" || !block) return false;
+    const target = instance.stageData?.crateLocation;
+    if (!target || !sameDimension(block.dimension.id, instance.slot.dimension) || distanceSquared(block.location, target) > 4) return false;
+    if (!String(block.typeId).startsWith("daily:loot_crate_")) return false;
+    for (const id of instance.participantIds) instance.participantScores[id] = Number(instance.participantScores[id] || 0) + 1;
+    this.sendStageMessages(instance, ["§a✓ 已完成物资箱教学。普通箱可直接开启，神话箱需要补给卡。"]);
+    system.runTimeout(() => {
+      if (this.active.has(instance.instanceId) && instance.stageIndex === template.stages.indexOf(stage)) this.beginStage(instance, instance.stageIndex + 1);
+    }, 2);
+    return true;
   }
 
   static recordCombat(entity, player, damage = 1, killed = false) {
@@ -448,9 +700,22 @@ export class DungeonManager {
         player.teleport(spawn, { dimension: world.getDimension("overworld") });
       }
     } catch {}
+    if (state?.templateId === "newcomer_valley") this.cleanupTutorialLoans(player);
     writePlayerState(player, null);
     try { player.removeTag("daily_in_dungeon"); } catch {}
     if (message) player.sendMessage(`§e[副本] ${message}`);
+  }
+
+  static cleanupTutorialLoans(player) {
+    try {
+      const container = player.getComponent("minecraft:inventory")?.container;
+      if (!container) return;
+      for (let slot = 0; slot < container.size; slot++) {
+        const item = container.getItem(slot);
+        const name = String(item?.nameTag || "").replace(/§./g, "");
+        if (name === "教学用 AK74U [普通]" || name === "教学步枪弹") container.setItem(slot, undefined);
+      }
+    } catch {}
   }
 
   static finish(instance, success, reason = "") {
@@ -466,7 +731,14 @@ export class DungeonManager {
       if (!player) continue;
       const score = Number(instance.participantScores[id] || 0);
       if (success && score >= Number(template.minimumContribution || 0)) {
-        RewardManager.grant(player, template.rewardId, `dungeon:${instance.instanceId}:${id}`, `dungeon:${template.id}`);
+        const completed = template.oneTimeReward && this.hasCompleted(player, template.id);
+        const uniqueId = template.oneTimeReward ? `dungeon-once:${template.id}:v1` : `dungeon:${instance.instanceId}:${id}`;
+        const granted = completed ? false : RewardManager.grant(player, template.rewardId, uniqueId, `dungeon:${template.id}`);
+        if (template.oneTimeReward && granted) {
+          try { player.setDynamicProperty(template.completionKey, true); } catch {}
+        } else if (template.oneTimeReward && completed) {
+          player.sendMessage("§e新手教程可以重玩，但 2000 元与优良图纸每名玩家只能领取一次。此次不重复发奖。");
+        }
         DailyQuestManager.onWorldEventSuccess(player, template.id);
         player.sendMessage(`§a☑ 副本通关：${template.name}（贡献 ${score.toFixed(1)}）`);
       } else if (success) {
@@ -484,7 +756,7 @@ export class DungeonManager {
       const dimension = world.getDimension(slot.dimension);
       const name = `daily_${slot.id}`;
       try { dimension.runCommand(`tickingarea remove ${name}`); } catch {}
-      dimension.runCommand(`tickingarea add ${slot.origin.x - 8} ${slot.origin.y} ${slot.origin.z - 8} ${slot.origin.x + 64} ${slot.origin.y} ${slot.origin.z + 112} ${name} true`);
+      dimension.runCommand(`tickingarea add ${slot.origin.x - 8} ${slot.origin.y} ${slot.origin.z - 8} ${slot.origin.x + 136} ${slot.origin.y} ${slot.origin.z + 136} ${name} true`);
     } catch {}
   }
 
@@ -496,13 +768,20 @@ export class DungeonManager {
     this.resettingSlots.add(instance.slot.id);
     this.addTickingArea(instance.slot);
     system.runTimeout(() => {
-      this.loadStructureSet(instance, () => {
+      let dimension;
+      try { dimension = world.getDimension(instance.slot.dimension); }
+      catch (error) {
+        console.warn(`[DailyEvents][Dungeon] slot cleanup failed: ${error}`);
+        this.resettingSlots.delete(instance.slot.id);
+        return;
+      }
+      this.prepareArena(instance, dimension, () => {
         system.runTimeout(() => {
           this.removeTickingArea(instance.slot);
           this.resettingSlots.delete(instance.slot.id);
         }, 40);
       }, error => {
-        console.warn(`[DailyEvents][Dungeon] slot reset failed: ${error}`);
+        console.warn(`[DailyEvents][Dungeon] slot cleanup failed: ${error}`);
         this.removeTickingArea(instance.slot);
         this.resettingSlots.delete(instance.slot.id);
       });

@@ -13,7 +13,7 @@ import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Loot Crates v0.8.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.9.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -40,7 +40,10 @@ subscribe(lootCrateComponentSignal, "loot crate component registration", event =
         const block = componentEvent.block;
         if (!player || !block) return;
         system.run(() => {
-          try { LootCrateManager.interact({ player, block }); }
+          try {
+            DungeonManager.onBlockInteract({ player, block });
+            LootCrateManager.interact({ player, block });
+          }
           catch (error) { console.warn(`[DailyEvents] custom loot crate interaction failed: ${error}`); }
         });
       }
@@ -233,7 +236,10 @@ if (!interactAfter) {
 }
 
 subscribe(world.afterEvents?.playerInteractWithBlock, "playerInteractWithBlock", event => {
-  try { LootCrateManager.interact(event); } catch (error) { console.warn(`[DailyEvents] loot crate interaction failed: ${error}`); }
+  try {
+    DungeonManager.onBlockInteract(event);
+    LootCrateManager.interact(event);
+  } catch (error) { console.warn(`[DailyEvents] loot crate interaction failed: ${error}`); }
 });
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {

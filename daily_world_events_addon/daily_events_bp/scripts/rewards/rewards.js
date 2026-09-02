@@ -31,5 +31,32 @@ export const REWARD_REGISTRY = Object.freeze({
       { id: "minecraft:amethyst_shard", amount: 4, name: "副本研究数据（MVP）" },
       { id: "minecraft:iron_ingot", amount: 6, name: "武器维护材料（MVP）" }
     ]
+  },
+  dungeon_newcomer_valley: {
+    coins: 2000,
+    items: [
+      { id: "test_gun:blueprint_deagle", amount: 1, name: "§9沙漠之鹰 .50 制造图纸 [优良]§r" }
+    ]
+  },
+  dungeon_outpost_defense: {
+    coins: 1800,
+    items: [
+      { id: "minecraft:iron_ingot", amount: 8, name: "防线维修材料（MVP）" },
+      { id: "minecraft:arrow", amount: 32, name: "通用弹药物资（MVP）" }
+    ]
+  },
+  dungeon_storm_rescue: {
+    coins: 2600,
+    items: [
+      { id: "minecraft:golden_apple", amount: 2, name: "黑雨医院医疗箱（MVP）" },
+      { id: "minecraft:amethyst_shard", amount: 6, name: "高级感染研究数据（MVP）" }
+    ]
+  },
+  dungeon_convoy_escort: {
+    coins: 2200,
+    items: [
+      { id: "minecraft:iron_block", amount: 1, name: "车队机械零件箱（MVP）" },
+      { id: "minecraft:redstone", amount: 12, name: "车辆电气组件（MVP）" }
+    ]
   }
 });

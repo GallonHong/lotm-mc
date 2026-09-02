@@ -156,6 +156,45 @@ VANILLA_REPLACEMENTS = {
 }
 
 
+def generic_replacement(identifier: str) -> str:
+    """Return a conservative vanilla stand-in for DeadZone furniture.
+
+    Dungeon structures are scenery only: enemies, loot and interaction state are
+    owned by Script API.  Keeping this fallback here lets additional DeadZone
+    structures be imported without silently retaining a missing mcpe:* block.
+    """
+    name = identifier.split(":", 1)[-1]
+    if "loot" in name or name == "crate":
+        return "minecraft:barrel"
+    if "light" in name:
+        return "minecraft:sea_lantern" if "broken" not in name else "minecraft:gray_concrete"
+    if "barrel_explosive" in name:
+        return "minecraft:red_concrete"
+    if "barrel" in name:
+        return "minecraft:barrel"
+    if "metal" in name or "fence" in name or "rack" in name:
+        return "minecraft:iron_bars"
+    if "chair" in name or "bench" in name:
+        return "minecraft:spruce_planks"
+    if "monitor" in name or name in {"tv", "radio_ham", "radio"}:
+        return "minecraft:black_concrete"
+    if "paper" in name:
+        return "minecraft:light_gray_carpet"
+    if "tile" in name or "sink" in name or "toilet" in name:
+        return "minecraft:quartz_block"
+    if "brick" in name:
+        return "minecraft:stone_bricks"
+    if "plastic" in name or "corrugated" in name:
+        return "minecraft:gray_concrete"
+    if "caution" in name or "traffic" in name:
+        return "minecraft:yellow_concrete"
+    if "trace" in name or "graffiti" in name:
+        return "minecraft:gray_carpet"
+    if "sign" in name:
+        return "minecraft:redstone_lamp"
+    return "minecraft:smooth_stone"
+
+
 def child(compound: Tag, name: str) -> Tag:
     return compound.value[name]
 
@@ -186,7 +225,9 @@ def main() -> None:
         name_tag = child(entry, "name")
         replacement = VANILLA_REPLACEMENTS.get(name_tag.value)
         if name_tag.value.startswith("mcpe:") and not replacement:
-            raise ValueError(f"No vanilla replacement configured for {name_tag.value}")
+            replacement = generic_replacement(name_tag.value)
+        if name_tag.value in {"minecraft:mob_spawner", "minecraft:jigsaw"}:
+            replacement = "minecraft:air"
         if not replacement:
             continue
         name_tag.value = replacement
@@ -196,6 +237,9 @@ def main() -> None:
     # The original four block-entity records belong to custom loot/furniture blocks.
     # Rewards are handled per player by RewardManager, so these records are removed.
     default_palette.value["block_position_data"] = Tag(10, {})
+    # Imported packs sometimes save zombies, markers or jigsaw entities inside
+    # the structure. DungeonManager is the sole authority for spawned actors.
+    structure.value["entities"] = Tag(9, [], 10)
 
     encoded = struct.pack("<B", root.kind) + encode_string(root_name) + encode_payload(root)
     if b"mcpe:" in encoded:

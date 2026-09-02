@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 8, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 8, 0]);
+assert.deepEqual(manifest.header.version, [0, 9, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 9, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -62,7 +62,8 @@ assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("WorldEventMan
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
 const rewardIds = [...rewards.matchAll(/id: \"([^\"]+)\"/g)].map(match => match[1]);
-assert(rewardIds.length > 0 && rewardIds.every(id => id.startsWith("minecraft:")), "MVP rewards must use vanilla items only");
+assert(rewardIds.length > 0 && rewardIds.every(id => id.startsWith("minecraft:") || id === "test_gun:blueprint_deagle"), "only the requested tutorial blueprint may use an external item id");
+assert(rewards.includes('id: "test_gun:blueprint_deagle"') && rewards.includes("coins: 2000"), "one-time tutorial reward must use the real blue-quality Test Gun blueprint and 2000 coins");
 assert(rewards.includes("minecraft:name_tag") && rewards.includes("minecraft:amethyst_shard"));
 
 const integration = readFileSync(join(bp, "scripts/integration/IntegrationBridge.js"), "utf8");
@@ -116,25 +117,43 @@ assert.equal(clinic.spawnPoints.length, 10);
 assert.equal(clinic.checkpoints.length, 4);
 assert.equal(clinic.stages.length, 9);
 assert.equal(clinic.stages.filter(stage => stage.type === "checkpoint").length, 4);
-for (const component of clinic.structures) {
-  const relative = component.structureId.replace("daily_dungeon:", "");
-  const dungeonStructure = readFileSync(join(bp, "structures", "daily_dungeon", `${relative}.mcstructure`));
-  assert(dungeonStructure.length > 1000, `${component.id} structure is missing or empty`);
-  assert.equal(dungeonStructure.includes(Buffer.from("mcpe:")), false, `${component.id} must not depend on Deadzone custom blocks`);
+assert.deepEqual(Object.keys(dungeonTemplates.DUNGEON_TEMPLATES), ["newcomer_valley", "outpost_defense", "storm_rescue", "convoy_escort", "abandoned_clinic"]);
+const tutorial = dungeonTemplates.DUNGEON_TEMPLATES.newcomer_valley;
+assert.equal(tutorial.oneTimeReward, true);
+assert.equal(tutorial.maxPlayers, 1);
+assert.equal(tutorial.rewardId, "dungeon_newcomer_valley");
+assert(tutorial.stages.some(stage => stage.loadout?.some(item => item.id === "test_gun:ak74u")), "tutorial common AK74U loadout missing");
+assert(tutorial.stages.some(stage => stage.loadout?.some(item => item.id === "test_gun:ammo_rifle")), "tutorial rifle ammo missing");
+assert(tutorial.stages.some(stage => stage.vehicleId === "ab_ve:motorcycle"), "tutorial must use the current Apocalypse Vehicles motorcycle id");
+for (const type of ["briefing", "eliminate", "checkpoint", "interact", "route", "defend", "disaster"]) assert(tutorial.stages.some(stage => stage.type === type), `tutorial stage type missing: ${type}`);
+assert(dungeonTemplates.DUNGEON_TEMPLATES.storm_rescue.stages.some(stage => stage.type === "boss" && stage.groups.some(group => group.mobKey === "tyrant")), "rescue boss missing");
+assert(dungeonTemplates.DUNGEON_TEMPLATES.storm_rescue.stages.some(stage => stage.escortEntity === "daily:survivor"), "rescue path escort missing");
+assert(dungeonTemplates.DUNGEON_TEMPLATES.convoy_escort.stages.some(stage => stage.vehicleId === "ab_ve:truck"), "vehicle integration missing");
+assert(Object.values(dungeonTemplates.DUNGEON_TEMPLATES).slice(0, 4).every(template => template.structures.length >= 13), "new dungeons must be multi-structure maps");
+for (const template of Object.values(dungeonTemplates.DUNGEON_TEMPLATES)) {
+  for (const component of template.structures) {
+    const relative = component.structureId.replace("daily_dungeon:", "");
+    const dungeonStructure = readFileSync(join(bp, "structures", "daily_dungeon", `${relative}.mcstructure`));
+    assert(dungeonStructure.length > 900, `${template.id}/${component.id} structure is missing or empty`);
+    assert.equal(dungeonStructure.includes(Buffer.from("mcpe:")), false, `${template.id}/${component.id} must not depend on Deadzone custom blocks`);
+  }
 }
-assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 2);
+assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 4);
 assert(dungeonTemplates.DUNGEON_SLOTS.every(slot => slot.origin.y === 250), "dungeon slots should remain in isolated high-altitude arenas");
 const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js"), "utf8");
-for (const marker of ["structure load", "loadStructureSet", "spawnDungeonMobs", "checkpointReached", "stageHadEnemies", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
+for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "checkpointReached", "tickDefense", "tickRoute", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
 assert.equal(dungeonManager.includes("正在重新部署"), false, "dungeon must use direct confirmed spawning instead of two async retries");
 assert(integration.includes("spawnDungeonMobs") && integration.includes("spawnExact"), "direct confirmed dungeon spawning missing");
 assert(rewards.includes("dungeon_abandoned_clinic"), "clinic reward is missing");
+for (const reward of ["dungeon_newcomer_valley", "dungeon_outpost_defense", "dungeon_storm_rescue", "dungeon_convoy_escort"]) assert(rewards.includes(reward), `missing dungeon reward: ${reward}`);
 assert(readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8").includes("进入副本行动"));
 const dungeonMenu = readFileSync(join(bp, "scripts/ui/DungeonMenu.js"), "utf8");
 assert(dungeonMenu.includes("isUserBusy") && dungeonMenu.includes("result.canceled") && dungeonMenu.includes("attempt < 8"), "dungeon menu must retry UserBusy cancellation results");
+assert(dungeonMenu.includes("Object.values(DUNGEON_TEMPLATES)") && dungeonMenu.includes("首次奖励已领·可重玩"), "dungeon menu must list every template and one-time completion state");
 assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.tick"));
+assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
 
 const sapiIntegration = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/integration.js"), "utf8");
 const sapiMenu = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/server_menu.js"), "utf8");

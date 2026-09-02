@@ -1,7 +1,15 @@
 import { system } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { DungeonManager } from "../dungeons/DungeonManager.js";
-import { DUNGEON_TEMPLATES } from "../dungeons/dungeonTemplates.js";
+import { DUNGEON_TEMPLATES, DUNGEON_SLOTS } from "../dungeons/dungeonTemplates.js";
+
+const ICONS = Object.freeze({
+  tutorial: "textures/ui/how_to_play_button_default",
+  defense: "textures/ui/icon_shield",
+  rescue: "textures/ui/icon_recipe_nature",
+  escort: "textures/ui/icon_trailer",
+  combat: "textures/ui/warning_alex"
+});
 
 function isUserBusy(value) {
   const reason = String(value?.cancelationReason || value?.cancellationReason || value?.message || value || "").toLowerCase();
@@ -26,10 +34,14 @@ export class DungeonMenu {
     const active = DungeonManager.list();
     const actions = [];
     const form = new ActionFormData().title("§l§4生存联盟 · 副本行动")
-      .body(`§7副本采用独立场地、个人贡献与防重复奖励结算。\n§f运行实例：§e${active.length} §8/ 2`);
+      .body(`§7副本由多块 DeadZone / RandS Structure 拼接，采用独立场地与个人奖励结算。\n§f运行实例：§e${active.length} §8/ ${DUNGEON_SLOTS.length}`);
     const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-    const clinic = DUNGEON_TEMPLATES.abandoned_clinic;
-    add(`§l§c${clinic.name}\n§r§8推荐 1–4 人 | 多建筑九阶段行动`, "textures/ui/warning_alex", () => this.confirmStart(player, clinic, onBack));
+    for (const template of Object.values(DUNGEON_TEMPLATES)) {
+      const firstReward = template.oneTimeReward
+        ? (DungeonManager.hasCompleted(player, template.id) ? "§8首次奖励已领·可重玩" : "§a首次奖励可领")
+        : `§8${template.difficulty}`;
+      add(`§l§c${template.name}\n§r${firstReward} §8| ${template.recommendedPlayers}`, ICONS[template.category] || ICONS.combat, () => this.confirmStart(player, template, onBack));
+    }
     for (const instance of active) {
       const template = DUNGEON_TEMPLATES[instance.templateId];
       if (!template || instance.participants.length >= template.maxPlayers) continue;
@@ -42,8 +54,11 @@ export class DungeonMenu {
   }
 
   static confirmStart(player, template, onBack) {
+    const rewardText = template.oneTimeReward
+      ? (DungeonManager.hasCompleted(player, template.id) ? "首次奖励已领取，本次可重玩但不重复发奖" : "首次通关 2000 元 + §9沙漠之鹰 .50 [优良] 图纸")
+      : "按个人贡献独立结算";
     const form = new MessageFormData().title(`§l${template.name}`)
-      .body(`§7${template.description}\n\n§f地图：§e${template.structureSize.x}×${template.structureSize.y}×${template.structureSize.z} 多建筑小镇\n§fStructure：§e${template.structures.length} 个\n§f阶段：§e${template.stages.length}\n§f复活：§e每人 ${template.maxDeathsPerPlayer} 次\n§f限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n§f奖励：§e按个人贡献独立结算`)
+      .body(`§7${template.description}\n\n§f类型：§e${template.category} §8| §f难度：§e${template.difficulty}\n§f地图：§e${template.structureSize.x}×${template.structureSize.y}×${template.structureSize.z}\n§fStructure：§e${template.structures.length} 个\n§f阶段：§e${template.stages.length}\n§f复活：§e每人 ${template.maxDeathsPerPlayer} 次\n§f限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n§f奖励：§e${rewardText}`)
       .button1("§a创建副本")
       .button2("§8返回");
     show(player, form, result => {
