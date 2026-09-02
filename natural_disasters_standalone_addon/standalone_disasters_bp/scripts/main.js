@@ -13,17 +13,17 @@ const CFG = {
   maxSurfaceCache: 280,
 };
 
-const SETTINGS_KEY = "sando_standalone:settings:v2";
+const SETTINGS_KEY = "sando_standalone:settings:v3";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.0.0 initializing; no external Addon integration required...");
+console.warn("[NaturalDisastersStandalone] v1.0.1 initializing; direct overworld targeting enabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: true,
   autoEnabled: true,
   overworldEnabled: true,
-  protectSafeZones: true,
+  protectSafeZones: false,
   blockDamage: false,
   warningSeconds: 20,
   disasterSeconds: 45,
@@ -982,9 +982,12 @@ function bootSystem(showMessage = false) {
 function chooseTargetDimension(requestedDimensionId) {
   const allowed = allowedDimensionIds();
   if (!allowed.length) return null;
-  if (requestedDimensionId && allowed.includes(requestedDimensionId) && participantsFor(requestedDimensionId).length) return requestedDimensionId;
+  const playersIn = id => world.getAllPlayers().some(player => {
+    try { return player.dimension.id === id; } catch (_) { return false; }
+  });
+  if (requestedDimensionId && allowed.includes(requestedDimensionId) && playersIn(requestedDimensionId)) return requestedDimensionId;
   const occupied = allowed.filter(id => {
-    try { world.getDimension(id); return participantsFor(id).length > 0; } catch (_) { return false; }
+    try { world.getDimension(id); return playersIn(id); } catch (_) { return false; }
   });
   return occupied.length ? occupied[Math.floor(Math.random() * occupied.length)] : null;
 }
@@ -1039,7 +1042,7 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
     const selected = DISASTERS.find(entry => entry.id === requestedDisasterId) || weightedDisaster();
     const targetDimensionId = chooseTargetDimension(requestedDimensionId || source?.dimension?.id);
     if (!targetDimensionId) {
-      try { source?.sendMessage("§c没有可用目标：目标维度必须已启用，并至少有一名位于非安全区的玩家。"); } catch (_) {}
+      try { source?.sendMessage("§c没有可用目标：主世界中至少需要一名在线玩家。"); } catch (_) {}
       scheduleNextAuto();
       return;
     }
