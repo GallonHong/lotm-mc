@@ -1,0 +1,39 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.tg_shield.wield_first_person": {
+      "loop": true,
+      "bones": {
+        "shield": {
+          "position": [
+            "query.is_sneaking ? -1.0 : -5.0",
+            "query.is_sneaking ? 1.5 : -4.0",
+            "query.is_sneaking ? -3.0 : 1.0"
+          ],
+          "rotation": [
+            "query.is_sneaking ? 0.0 : -18.0",
+            "query.is_sneaking ? 5.0 : 35.0",
+            "query.is_sneaking ? 0.0 : -15.0"
+          ]
+        }
+      }
+    },
+    "animation.tg_shield.wield_third_person": {
+      "loop": true,
+      "bones": {
+        "shield": {
+          "position": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "rotation": [
+            "query.is_sneaking ? -15.0 : 0.0",
+            "query.is_sneaking ? 20.0 : 0.0",
+            0.0
+          ]
+        }
+      }
+    }
+  }
+}

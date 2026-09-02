@@ -15,18 +15,13 @@
         "default": "geometry.shield"
       },
       "animations": {
-        "wield": "animation.shield.wield_main_hand_first_person",
-        "wield_off_hand": "animation.shield.wield_off_hand_first_person",
-        "wield_third_person": "animation.shield.wield_third_person",
-        "block": "animation.player.shield_block_main_hand",
-        "block_off_hand": "animation.player.shield_block_off_hand"
+        "wield_fp": "animation.tg_shield.wield_first_person",
+        "wield_tp": "animation.tg_shield.wield_third_person"
       },
       "scripts": {
         "animate": [
-          "wield",
-          {
-            "block": "query.is_sneaking"
-          }
+          "wield_fp",
+          "wield_tp"
         ]
       },
       "render_controllers": [
