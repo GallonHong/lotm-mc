@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.6.1",
+  version: "0.6.2",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,

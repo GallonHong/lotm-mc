@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Survival Daily & World Events BP v0.6.1",
+    "name": "Survival Daily & World Events BP v0.6.2",
     "description": "Daily quests, zone-scaled world events and configurable dungeon instances.",
     "uuid": "c6ef6f20-3d85-4d84-bf93-4b39e77e2760",
     "version": [
       0,
       6,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         6,
-        1
+        2
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         0,
         6,
-        1
+        2
       ],
       "entry": "scripts/main.js"
     }
@@ -51,7 +51,7 @@
       "version": [
         0,
         6,
-        1
+        2
       ]
     }
   ]

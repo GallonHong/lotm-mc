@@ -53,6 +53,41 @@ function insideArena(location, origin, bounds, margin = 0) {
     location.z >= origin.z + bounds.min.z - margin && location.z <= origin.z + bounds.max.z + margin;
 }
 
+/**
+ * Place a behavior-pack structure without passing a path-like identifier through
+ * the command parser. Nested pack ids such as
+ * daily_dungeon:abandoned_town/clinic_a are valid StructureManager ids, but the
+ * `/structure load` command parser used by some Bedrock builds rejects the `/`
+ * when the id is not quoted.
+ */
+function placePackStructure(dimension, structureId, location) {
+  const id = String(structureId || "");
+  if (!/^[a-z0-9_.-]+:[a-z0-9_./-]+$/i.test(id)) {
+    throw new Error(`invalid structure id: ${id}`);
+  }
+
+  let apiError = null;
+  try {
+    if (world.structureManager && typeof world.structureManager.place === "function") {
+      world.structureManager.place(id, dimension, location, {
+        includeBlocks: true,
+        includeEntities: true
+      });
+      return;
+    }
+  } catch (error) {
+    apiError = error;
+  }
+
+  // Compatibility fallback for older Script API builds. Keep the identifier
+  // quoted so nested structure names are parsed as one command argument.
+  try {
+    dimension.runCommand(`structure load "${id}" ${location.x} ${location.y} ${location.z}`);
+  } catch (commandError) {
+    throw new Error(`API=${apiError || "unavailable"}; command=${commandError}`);
+  }
+}
+
 function arenaQuery(instance, template) {
   const min = template.arenaBounds.min;
   const max = template.arenaBounds.max;
@@ -194,7 +229,7 @@ export class DungeonManager {
       const component = structures[index];
       const point = absolutePoint(instance.slot.origin, component.offset);
       try {
-        dimension.runCommand(`structure load ${component.structureId} ${point.x} ${point.y} ${point.z}`);
+        placePackStructure(dimension, component.structureId, point);
       } catch (error) {
         onError?.(new Error(`${component.id}: ${error}`));
         return;

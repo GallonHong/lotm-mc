@@ -529,19 +529,22 @@ function cleanupVanillaHostiles(dimension) {
   }
 }
 
-function spawnBoss(player) {
-  if (player.dimension.getEntities({ tags: ["apoc_extraction_boss"] }).length) return;
-  if (Math.random() >= CONFIG.bossChancePerCheck) return;
+function spawnBoss(player, force = false) {
+  const existing = player.dimension.getEntities({ tags: ["apoc_extraction_boss"] });
+  if (existing.length) return { spawned: false, reason: "existing", entity: existing[0] };
+  if (!force && Math.random() >= CONFIG.bossChancePerCheck) return { spawned: false, reason: "chance" };
   const profile = weighted(CONFIG.bossPool);
   const angle = Math.random() * Math.PI * 2;
   const location = safeGround(player.dimension, player.location.x + Math.cos(angle) * 45, player.location.z + Math.sin(angle) * 45);
-  if (!location) return;
+  if (!location) return { spawned: false, reason: "ground" };
   try {
     const boss = player.dimension.spawnEntity(profile.id, location);
     boss.addTag("apoc_extraction_boss"); boss.addTag("apoc_hostile");
     world.sendMessage(`§4[都市警报] ${profile.urbanLegend ? "都市传说" : "变异首领"}已在摸金都市出现：${profile.id}`);
+    return { spawned: true, id: profile.id, entity: boss };
   } catch (error) {
     console.warn(`[ExtractionCity] boss ${profile.id} unavailable: ${error}`);
+    return { spawned: false, reason: "unavailable", error };
   }
 }
 
@@ -629,7 +632,17 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     const ready = world.getDynamicProperty(CONFIG.cityReadyKey) === true;
     const heartbeat = Number(world.getDynamicProperty(CONFIG.apocalypseHeartbeatKey) || 0);
     const crates = Number(world.getDynamicProperty("apoc_extract:crate_count:v1") || 0);
-    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates}`);
+    const dimension = extractionDimension();
+    const bosses = dimension ? dimension.getEntities({ tags: ["apoc_extraction_boss"] }).length : 0;
+    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates}\n§0当前 Boss：§e${bosses}`);
+  });
+  else if (event.id === "extract:boss" && isAdmin(player)) system.run(() => {
+    if (player.dimension.id !== CONFIG.dimensionId) return player.sendMessage("§c请先进入摸金都市再测试 Boss。");
+    const result = spawnBoss(player, true);
+    if (result?.spawned) return player.sendMessage(`§a已在附近生成 Boss：${result.id}`);
+    if (result?.reason === "existing") return player.sendMessage("§e摸金维度中已有一个存活的 Boss；击败后才能生成下一个。");
+    if (result?.reason === "ground") return player.sendMessage("§c附近没有可用生成地面，请移动到城区道路后重试。");
+    player.sendMessage("§cBoss 生成失败，请检查 Apocalypse Mobs 是否启用并查看内容日志。");
   });
   else if (event.id === "extract:rebuild" && isAdmin(player)) system.run(async () => {
     const dimension = extractionDimension();
@@ -679,4 +692,4 @@ system.runInterval(() => {
   for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
-console.warn("[ExtractionCity] 3x3 persistent city, strict backpack loss, Apocalypse-only hostiles, loot crates, 12 exits and dusk fog initialized.");
+console.warn("[ExtractionCity] v0.3.1 3x3 persistent city, strict backpack loss, Apocalypse-only hostiles, loot crates, 12 exits, bosses and dusk fog initialized.");
