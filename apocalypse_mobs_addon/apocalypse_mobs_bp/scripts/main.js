@@ -57,7 +57,22 @@ subscribe(world.afterEvents?.projectileHitEntity, "projectileHitEntity", event =
   } catch {}
 });
 
-subscribe(world.afterEvents?.entityDie, "entityDie", event => drop(event.deadEntity));
+subscribe(world.afterEvents?.entityDie, "entityDie", event => {
+  const dead = event.deadEntity;
+  const killer = event.damageSource?.damagingEntity;
+
+  // 击杀 JumpScare: 雾中人击杀玩家时触发专属处决特写与尖叫
+  if (dead && dead.typeId === "minecraft:player" && killer && killer.typeId === "apoc_boss:fog_man") {
+    try {
+      dead.dimension.playSound("mftf.scream", dead.location, { volume: 4.0, pitch: 1.0 });
+      dead.runCommandAsync("camerashake add @s 0.6 1.5 rotational");
+      dead.onScreenDisplay?.setTitle?.("§4【你被雾中人猎杀了】§r");
+      dead.onScreenDisplay?.setSubtitle?.("§8不要在迷雾中直视深渊...§r");
+    } catch {}
+  }
+
+  drop(dead);
+});
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
   const player = event.sourceEntity;
@@ -133,6 +148,36 @@ class BossSkillEngine {
         
         const bId = boss.id;
         const bType = boss.typeId;
+
+        // 雾中人专属: 视线凝视 JumpScare (当玩家准心直视雾中人时触发)
+        if (bType === 'apoc_boss:fog_man') {
+          try {
+            const bLoc = boss.location;
+            const pHead = player.getHeadLocation();
+            const pView = player.getViewDirection();
+            const toBoss = { x: bLoc.x - pHead.x, y: (bLoc.y + 1.2) - pHead.y, z: bLoc.z - pHead.z };
+            const distB = Math.hypot(toBoss.x, toBoss.y, toBoss.z);
+            if (distB > 3 && distB < 40) {
+              const dot = (pView.x * toBoss.x + pView.y * toBoss.y + pView.z * toBoss.z) / distB;
+              // 视角对准 (dot > 0.88)
+              if (dot > 0.88) {
+                const stareKey = `stare_${bId}_${player.id}`;
+                const lastStare = this.bossCooldowns.get(stareKey) || 0;
+                if (currentTick - lastStare > 300) { // 15秒冷却一次惊吓
+                  this.bossCooldowns.set(stareKey, currentTick);
+                  dim.playSound('mftf.jumpscare', pHead, { volume: 3.5, pitch: 1.0 });
+                  player.runCommandAsync('camerashake add @s 0.45 0.8 rotational');
+                  player.runCommandAsync('fog @s push apoc_boss:fog "tmftf_stare_fog"');
+                  system.runTimeout(() => {
+                    try { player.runCommandAsync('fog @s pop "tmftf_stare_fog"'); } catch {}
+                  }, 80);
+                  player.onScreenDisplay?.setActionBar?.('§4👁️ 雾中人 正在死死凝视着你!§r');
+                }
+              }
+            }
+          } catch {}
+        }
+
         const info = this.bossCooldowns.get(bId) || { lastSkillTick: 0, skillIndex: 0 };
         
         // 每 6 秒 (120 ticks) 判定释放一次战斗技能

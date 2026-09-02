@@ -51,6 +51,28 @@
           "volume": 1.5
         }
       ]
+    },
+    "mftf.jumpscare": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/mftf/jumpscare",
+          "volume": 3.5
+        }
+      ]
+    },
+    "mftf.scream": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/mftf/screams",
+          "volume": 3.5
+        },
+        {
+          "name": "sounds/mftf/sudden",
+          "volume": 3.0
+        }
+      ]
     }
   }
 }
