@@ -18,7 +18,7 @@ const SETTINGS_KEY = "sando_standalone:settings:v5";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.3.0 initializing; law/outlaw schedules and controller override enabled...");
+console.warn("[NaturalDisastersStandalone] v1.3.1 initializing; direct SAPI menu bridge enabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: STANDALONE_CONFIG.enabled,
@@ -984,7 +984,7 @@ world.afterEvents.playerSpawn.subscribe(ev => {
       } catch (_) {}
     }
     if (ev.initialSpawn && isAdmin(p)) {
-      try { p.sendMessage("§a[独立自然灾害] v1.3.0 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；管理员可使用 /give @s sando_standalone:disaster_controller 获取控制器。"); } catch (_) {}
+      try { p.sendMessage("§a[独立自然灾害] v1.3.1 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；管理员可从 SAPI 控制台直接打开灾害页面。"); } catch (_) {}
     }
   });
 });
@@ -1197,6 +1197,32 @@ function openControllerMenu(player) {
   }).catch(error => player.sendMessage(`§c控制器菜单打开失败：${error}`));
 }
 
+function decodeSapiEnvelope(rawMessage) {
+  const raw = String(rawMessage || "");
+  if (!raw.startsWith("__sapi_player__=")) return { playerName: "", data: raw };
+  const values = {};
+  for (const part of raw.split("&")) {
+    const separator = part.indexOf("=");
+    if (separator < 0) continue;
+    const key = part.slice(0, separator);
+    const encoded = part.slice(separator + 1);
+    try { values[key] = decodeURIComponent(encoded); }
+    catch (_) { values[key] = encoded; }
+  }
+  return { playerName: String(values.__sapi_player__ || ""), data: String(values.data || "") };
+}
+
+function resolveScriptEventPlayer(event, envelope) {
+  const direct = event.sourceEntity?.typeId === "minecraft:player"
+    ? event.sourceEntity
+    : event.initiator?.typeId === "minecraft:player"
+      ? event.initiator
+      : null;
+  if (direct) return direct;
+  if (!envelope.playerName) return null;
+  return world.getAllPlayers().find(player => player.name === envelope.playerName) || null;
+}
+
 // Register the controller as a real custom item component during startup.
 // This is the primary activation path.
 try {
@@ -1225,10 +1251,11 @@ try {
 // Optional native commands; these are handled entirely inside this pack.
 try {
   system.afterEvents.scriptEventReceive.subscribe(ev => {
-    const source = ev.sourceEntity?.typeId === "minecraft:player" ? ev.sourceEntity : ev.initiator?.typeId === "minecraft:player" ? ev.initiator : null;
+    const envelope = decodeSapiEnvelope(ev.message);
+    const source = resolveScriptEventPlayer(ev, envelope);
     if (!source || !isAdmin(source)) return;
     if (ev.id === "sando_standalone:menu") system.run(() => openControllerMenu(source));
-    else if (ev.id === "sando_standalone:start") system.run(() => startGame(source, String(ev.message || "").trim(), "minecraft:overworld", settings.difficulty));
+    else if (ev.id === "sando_standalone:start") system.run(() => startGame(source, envelope.data.trim(), "minecraft:overworld", settings.difficulty));
     else if (ev.id === "sando_standalone:stop") system.run(() => stopGame(source));
   });
 } catch (_) {}

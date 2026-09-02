@@ -70,7 +70,8 @@ export class ServerMenuManager {
         add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§e📋 管理与审计日志", "textures/ui/achievements", () => AuditManager.openAdminUI(player, () => this.openAdminPanel(player, onBack)));
         add("§l§d🎛 服务器运营管理", "textures/ui/op", () => OperationsManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
-        add("§l§c🌪 获取灾害遥控器\n§r§8需要独立自然灾害 Addon", "textures/ui/warning_alex", () => this.giveDisasterController(player, () => this.openAdminPanel(player, onBack)));
+        add("§l§c🌪 打开灾害控制器\n§r§8直接进入独立灾害管理页面", "textures/ui/warning_alex", () => this.openDisasterController(player));
+        add("§l§6🎛 获取灾害遥控器物品\n§r§8页面无法打开时的备用入口", "textures/ui/op", () => this.giveDisasterController(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6💵 玩家金币管理", "textures/ui/Trade2", () => this.openPlayerMoneyAdmin(player, onBack));
         add("§l§4🗑️ 强制删除当前地皮", "textures/ui/trash", () => this.forceDeleteCurrentPlot(player, onBack));
         add("§l§e📢 发布全服公告", "textures/ui/accessibility_glyph_color", () => this.openBroadcastModal(player, onBack));
@@ -86,13 +87,18 @@ export class ServerMenuManager {
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 
+    static openDisasterController(player) {
+        Utils.tell(player, "§e正在打开独立灾害控制器……若没有出现页面，请确认独立灾害行为包已启用，或返回后领取遥控器物品。");
+        Integration.send(player, "sando_standalone:menu");
+    }
+
     static giveDisasterController(player, onBack = null) {
         try {
             player.runCommand("give @s sando_standalone:disaster_controller 1");
             Utils.tell(player, "§a已发放独立自然灾害遥控器。手持后右键/长按打开控制器。");
             AuditManager.log("admin_item_give", player, player.name, "sando_standalone:disaster_controller x1");
         } catch (error) {
-            Utils.tell(player, "§c发放失败：请先在当前世界启用 Natural Disasters Standalone BP v1.3.0。也可输入 /give @p sando_standalone:disaster_controller。");
+            Utils.tell(player, "§c发放失败：请先在当前世界启用 Natural Disasters Standalone BP v1.3.1。也可输入 /give @p sando_standalone:disaster_controller。");
             console.warn(`[SAPI] Failed to give disaster controller: ${error}`);
         }
         onBack?.();

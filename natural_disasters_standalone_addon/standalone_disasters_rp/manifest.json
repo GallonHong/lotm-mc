@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Natural Disasters Standalone RP v1.3.0",
+    "name": "Natural Disasters Standalone RP v1.3.1",
     "description": "Client resources for the independent natural-disaster pack.",
     "uuid": "14f12161-9412-461e-92d0-88194d79ebfb",
     "version": [
       1,
       3,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         3,
-        0
+        1
       ]
     }
   ],

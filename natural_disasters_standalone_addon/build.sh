@@ -6,8 +6,8 @@ RP="$ROOT/standalone_disasters_rp"
 BP_OUT="$ROOT/Natural_Disasters_Standalone_BP.mcpack"
 RP_OUT="$ROOT/Natural_Disasters_Standalone_RP.mcpack"
 ADDON_OUT="$ROOT/Natural_Disasters_Standalone_Addon.mcaddon"
-VERSIONED_OUT="$ROOT/Natural_Disasters_Standalone_Addon_v1.3.0.mcaddon"
-rm -f "$BP_OUT" "$RP_OUT" "$ADDON_OUT" "$ROOT/Natural_Disasters_Standalone_Addon_v1.0.0.mcaddon" "$ROOT/Natural_Disasters_Standalone_Addon_v1.0.1.mcaddon" "$ROOT/Natural_Disasters_Standalone_Addon_v1.1.0.mcaddon" "$ROOT/Natural_Disasters_Standalone_Addon_v1.2.0.mcaddon" "$VERSIONED_OUT"
+VERSIONED_OUT="$ROOT/Natural_Disasters_Standalone_Addon_v1.3.1.mcaddon"
+rm -f "$BP_OUT" "$RP_OUT" "$ADDON_OUT" "$ROOT/Natural_Disasters_Standalone_Addon_v1.0.0.mcaddon" "$ROOT/Natural_Disasters_Standalone_Addon_v1.0.1.mcaddon" "$ROOT/Natural_Disasters_Standalone_Addon_v1.1.0.mcaddon" "$ROOT/Natural_Disasters_Standalone_Addon_v1.2.0.mcaddon" "$ROOT/Natural_Disasters_Standalone_Addon_v1.3.0.mcaddon" "$VERSIONED_OUT"
 (cd "$BP" && zip -qr "$BP_OUT" .)
 (cd "$RP" && zip -qr "$RP_OUT" .)
 TMP="$(mktemp -d)"

@@ -1,6 +1,6 @@
 # SAPI Server Addon
 
-独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.7.1 不再检测或控制灾害脚本，只在管理员控制台提供“获取灾害遥控器”按钮；按钮等效于 `/give @p sando_standalone:disaster_controller`，需要同时启用独立灾害 Addon。
+独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.7.2 的管理员控制台可直接打开 Natural Disasters Standalone v1.3.1 的控制器页面，同时保留“获取灾害遥控器物品”备用入口；SAPI 仍不检测或控制灾害运行状态。
 
 ## 目录
 

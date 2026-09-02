@@ -1,8 +1,8 @@
-# Natural Disasters Standalone v1.3.0
+# Natural Disasters Standalone v1.3.1
 
 完全独立的自然灾害 Addon，不依赖 SAPI Server、摸金都市、怪物或枪械 Addon。只保留龙卷风、陨石雨和雷暴。
 
-v1.3.0 按区域分别安排自动灾害：
+v1.3.1 支持从 SAPI Server v2.7.2 管理员控制台直接打开本包的控制器页面；跨包事件即使没有携带 `sourceEntity`，也会通过信封中的玩家名恢复发起者。自动灾害按区域分别安排：
 
 - 法制区：每 20～40 分钟；
 - 非法制区：每 10～20 分钟；
