@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_ammo_belt_100"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "IDI",
+      " I "
+    ],
+    "key": {
+      "A": {
+        "item": "test_gun:ammo_rifle"
+      },
+      "D": {
+        "item": "test_gun:part_drum_mag"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:ammo_belt_100",
+      "count": 1
+    }
+  }
+}

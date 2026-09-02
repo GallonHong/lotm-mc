@@ -48,3 +48,11 @@ item.test_gun:ak47_commander.name=AK-47 Tactical Commander §6[Legendary]§r
 item.test_gun:blueprint_ak47_commander.name=Weapon Blueprint: AK-47 Commander §6[Legendary]§r
 
 item.test_gun:usas12.name=USAS-12 Blood Frenzy [Epic Shotgun]
+
+item.test_gun:pkm.name=PKM Incendiary GPMG §5[Epic·Molten DOT]§r
+item.test_gun:rpk.name=RPK Squad LMG §9[Rare·Suppression]§r
+item.test_gun:m1014_ward.name=M1014 Titan Ward §5[Epic·Armor-Scale]§r
+item.test_gun:ammo_belt_100.name=100-Round 7.62mm Belt Box §5[GPMG Ammo]§r
+item.test_gun:blueprint_pkm.name=Weapon Blueprint: PKM GPMG §5[Epic]§r
+item.test_gun:blueprint_rpk.name=Weapon Blueprint: RPK LMG §9[Rare]§r
+item.test_gun:blueprint_m1014_ward.name=Weapon Blueprint: M1014 Ward §5[Epic]§r

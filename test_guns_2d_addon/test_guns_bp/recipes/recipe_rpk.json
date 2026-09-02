@@ -1,0 +1,43 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_rpk"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBI",
+      "RMA",
+      "S  "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_rpk"
+      },
+      "B": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "M": {
+        "item": "test_gun:ammo_rifle"
+      },
+      "A": {
+        "item": "test_gun:part_drum_mag"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      }
+    },
+    "result": {
+      "item": "test_gun:rpk",
+      "count": 1
+    }
+  }
+}

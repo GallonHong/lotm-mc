@@ -209,6 +209,23 @@ export const GUNS = [
     stats: { damage: 7.0, headshotMultiplier: 1.5, armorPenetration: 0.20, damageDropOff: 0.04, maxRange: 35, knockback: { x: 0.65, y: 0.3 } }
   },
   {
+    id: 'test_gun:rpk',
+    name: 'RPK 班用轻机枪',
+    tier: 'rare',
+    type: 'rifle',
+    mode: FireMode.AUTO,
+    maxAmmo: 45,
+    fireRate: 3,
+    shootPower: 13.0,
+    recoil: 0.20,
+    reloadTime: 46,
+    shootSound: 'test_gun.rpk_shoot',
+    ammoTypeId: 'test_gun:ammo_rifle',
+    projectileTypeId: 'test_gun:bullet_rifle',
+    hasSkill: false,
+    stats: { damage: 16.0, headshotMultiplier: 1.75, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 75, knockback: { x: 0.35, y: 0.15 } }
+  },
+  {
     id: 'test_gun:m79',
     name: 'M79',
     tier: 'rare',
@@ -229,6 +246,42 @@ export const GUNS = [
   },
 
   // 🟣 Epic Quality
+  {
+    id: 'test_gun:pkm',
+    name: 'PKM 烈焰重机枪',
+    tier: 'epic',
+    type: 'rifle',
+    mode: FireMode.AUTO,
+    maxAmmo: 100,
+    fireRate: 2,
+    shootPower: 13.5,
+    recoil: 0.18,
+    reloadTime: 70,
+    shootSound: 'test_gun.pkm_shoot',
+    ammoTypeId: 'test_gun:ammo_belt_100',
+    projectileTypeId: 'test_gun:bullet_rifle',
+    isIncendiaryDot: true,
+    hasSkill: false,
+    stats: { damage: 14.0, headshotMultiplier: 1.65, armorPenetration: 0.40, damageDropOff: 0.015, maxRange: 80, knockback: { x: 0.30, y: 0.12 } }
+  },
+  {
+    id: 'test_gun:m1014_ward',
+    name: 'M1014 泰坦壁垒',
+    tier: 'epic',
+    type: 'shotgun',
+    mode: FireMode.SHOTGUN,
+    maxAmmo: 8,
+    fireRate: 7,
+    shootPower: 10.0,
+    recoil: 0.45,
+    reloadTime: 50,
+    shootSound: 'test_gun.m1014_shoot',
+    ammoTypeId: 'test_gun:ammo_shotgun',
+    projectileTypeId: 'test_gun:bullet_shotgun',
+    isArmorScaled: true,
+    hasSkill: false,
+    stats: { damage: 5.0, headshotMultiplier: 1.5, armorPenetration: 0.25, damageDropOff: 0.04, maxRange: 25, knockback: { x: 0.70, y: 0.30 } }
+  },
   {
     id: 'test_gun:usas12',
     name: 'USAS-12 嗜血狂潮',

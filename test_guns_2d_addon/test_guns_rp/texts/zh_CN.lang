@@ -129,3 +129,11 @@ item.test_gun:armor_gorka_bottom.name=高尔卡重型防风裤 §9[优良·耐�
 # === 史诗 (Epic) 蜕变战甲 ===
 item.test_gun:armor_epic_titan_vest.name=【泰坦重工】动力外骨骼装甲 §5[史诗·极高护甲+防击退]§r
 item.test_gun:armor_epic_ghillie_suit.name=【幽灵幻影】超导隐匿吉利战袍 §5[史诗·战术伪装+静音]§r
+
+item.test_gun:pkm.name=PKM 烈焰重机枪 §5[史诗·熔火撕裂]§r
+item.test_gun:rpk.name=RPK 班用轻机枪 §9[稀有·火力压制]§r
+item.test_gun:m1014_ward.name=M1014 泰坦壁垒 §5[史诗·重装过载]§r
+item.test_gun:ammo_belt_100.name=100发 7.62mm 弹链箱 §5[重机枪专用]§r
+item.test_gun:blueprint_pkm.name=PKM 烈焰重机枪设计图 §5[史诗]§r
+item.test_gun:blueprint_rpk.name=RPK 班用轻机枪设计图 §9[稀有]§r
+item.test_gun:blueprint_m1014_ward.name=M1014 泰坦壁垒设计图 §5[史诗]§r

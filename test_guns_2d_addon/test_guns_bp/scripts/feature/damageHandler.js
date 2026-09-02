@@ -192,6 +192,39 @@ export class DamageHandler {
     // 3. 武器专属被动机制结算 (Weapon Passives)
     let finalPenetration = stats.armorPenetration || 0.25;
 
+    // 3.1 🟣 M1014 泰坦壁垒：【重装过载 / Armor-Scale Dynamic Damage】(自身护甲越厚伤害越高)
+    if (gun.id === 'test_gun:m1014_ward' || gun.isArmorScaled) {
+      const shooterArmor = (shooter && shooter.isValid()) ? this.estimateArmorPoints(shooter) : 0;
+      // 每点自身护甲增伤 3.0% (满护甲 20点增伤 60%，泰坦套24点增伤 72%)
+      const armorBonusRatio = 1.0 + Math.min(1.0, shooterArmor * 0.03);
+      currentDamage *= armorBonusRatio;
+      if (shooter && shooter.typeId === 'minecraft:player') {
+        const bonusPct = Math.round((armorBonusRatio - 1.0) * 100);
+        shooter.onScreenDisplay?.setActionBar?.(`§6🛡【重装过载】自身护甲 §e${shooterArmor}§6 点，霰弹威力爆发 §a+${bonusPct}%§6!§r`);
+      }
+    }
+
+    // 3.2 🟣 PKM 烈焰重机枪：【硫磺烈焰 / Incendiary DOT】(连续灼烧与熔火爆燃)
+    if (gun.id === 'test_gun:pkm' || gun.isIncendiaryDot) {
+      try {
+        target.setOnFire(4, true); // 施加4秒持续燃烧
+        // 概率触发熔火爆炸钢屑与爆燃音效
+        const dim = target.dimension;
+        dim.spawnParticle('test_gun:pkm_burn', { x: targetLoc.x, y: targetLoc.y + 1, z: targetLoc.z });
+        dim.spawnParticle('minecraft:basic_flame_particle', { x: targetLoc.x, y: targetLoc.y + 1.2, z: targetLoc.z });
+        if (Math.random() < 0.35) {
+          dim.playSound('random.fizz', targetLoc, { volume: 0.8, pitch: 1.2 });
+        }
+      } catch {}
+    }
+
+    // 3.3 🔵 RPK 班用轻机枪：【火力压制 / Suppression】(强力减速与破除霸体)
+    if (gun.id === 'test_gun:rpk') {
+      try {
+        target.addEffect('slowness', 40, { amplifier: 1, showParticles: false });
+      } catch {}
+    }
+
     // SCAR-H: 精准重击 (连续穿透)
     if (gun.id === 'test_gun:scarh') {
       finalPenetration = Math.min(0.60, finalPenetration + 0.15);

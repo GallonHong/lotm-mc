@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_pkm"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBI",
+      "RMA",
+      "ST "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_pkm"
+      },
+      "B": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_block"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "M": {
+        "item": "test_gun:ammo_belt_100"
+      },
+      "A": {
+        "item": "test_gun:part_drum_mag"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "T": {
+        "item": "test_gun:part_tungsten_bolt"
+      }
+    },
+    "result": {
+      "item": "test_gun:pkm",
+      "count": 1
+    }
+  }
+}

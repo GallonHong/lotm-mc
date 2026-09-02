@@ -1,0 +1,23 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:ammo_belt_100",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 16
+      },
+      "minecraft:icon": "test_gun_ammo_belt_100",
+      "minecraft:display_name": {
+        "value": "§5100发 7.62mm 重机枪弹链箱 [重机枪专用]§r"
+      },
+      "minecraft:hand_equipped": {
+        "value": false
+      }
+    }
+  }
+}

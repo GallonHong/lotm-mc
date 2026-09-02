@@ -278,7 +278,7 @@ class AddonController {
 
 new AddonController();
 
-// 聊天快捷指令系统 (!usas / !guns)
+// 聊天快捷指令系统 (!usas / !pkm / !rpk / !m1014)
 let lastTgChatTick = new Map();
 function handleTgCommand(player, rawText) {
   if (!player || !player.isValid()) return;
@@ -289,12 +289,37 @@ function handleTgCommand(player, rawText) {
   if (lastTgChatTick.has(key) && (now - lastTgChatTick.get(key) < 2)) return;
   lastTgChatTick.set(key, now);
 
-  if (text === '!usas' || text === '!aa12' || text === '!shotgun') {
+  const inv = player.getComponent('minecraft:inventory');
+
+  if (text === '!usas' || text === '!aa12') {
     try {
-      const inv = player.getComponent('minecraft:inventory');
       inv?.container?.addItem(new ItemStack('test_gun:usas12', 1));
       inv?.container?.addItem(new ItemStack('test_gun:ammo_shotgun', 64));
       player.sendMessage('§d✔ 已获得 1 把【USAS-12 嗜血狂潮】与 64 发霰弹！§r');
+    } catch (e) {
+      player.sendMessage('§c获取失败: ' + e);
+    }
+  } else if (text === '!pkm' || text === '!mg') {
+    try {
+      inv?.container?.addItem(new ItemStack('test_gun:pkm', 1));
+      inv?.container?.addItem(new ItemStack('test_gun:ammo_belt_100', 4));
+      player.sendMessage('§5✔ 已获得 1 把【PKM 烈焰重机枪】与 400 发弹链箱！§r');
+    } catch (e) {
+      player.sendMessage('§c获取失败: ' + e);
+    }
+  } else if (text === '!rpk') {
+    try {
+      inv?.container?.addItem(new ItemStack('test_gun:rpk', 1));
+      inv?.container?.addItem(new ItemStack('test_gun:ammo_rifle', 64));
+      player.sendMessage('§9✔ 已获得 1 把【RPK 班用轻机枪】与 64 发步枪弹！§r');
+    } catch (e) {
+      player.sendMessage('§c获取失败: ' + e);
+    }
+  } else if (text === '!m1014' || text === '!ward') {
+    try {
+      inv?.container?.addItem(new ItemStack('test_gun:m1014_ward', 1));
+      inv?.container?.addItem(new ItemStack('test_gun:ammo_shotgun', 64));
+      player.sendMessage('§5✔ 已获得 1 把【M1014 泰坦壁垒】(护甲增伤喷) 与 64 发霰弹！§r');
     } catch (e) {
       player.sendMessage('§c获取失败: ' + e);
     }
@@ -305,8 +330,8 @@ const beforeTgChat = world.beforeEvents ? world.beforeEvents.chatSend : undefine
 if (beforeTgChat && typeof beforeTgChat.subscribe === 'function') {
   beforeTgChat.subscribe((event) => {
     try {
-      const msg = event.message || '';
-      if (msg.startsWith('!usas') || msg.startsWith('!aa12') || msg.startsWith('!shotgun')) {
+      const msg = (event.message || '').trim().toLowerCase();
+      if (['!usas', '!aa12', '!pkm', '!mg', '!rpk', '!m1014', '!ward'].some(k => msg.startsWith(k))) {
         event.cancel = true;
         const player = event.sender;
         system.run(() => handleTgCommand(player, msg));

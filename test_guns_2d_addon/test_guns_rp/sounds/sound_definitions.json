@@ -162,6 +162,18 @@
       "sounds": [
         "sounds/melee/knife_hit1"
       ]
+    },
+    "test_gun.pkm_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/pkm_shoot"
+      ]
+    },
+    "test_gun.rpk_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/rpk_shoot"
+      ]
     }
   }
 }

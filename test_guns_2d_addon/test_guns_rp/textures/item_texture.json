@@ -283,6 +283,27 @@
     },
     "test_gun_armor_epic_ghillie_suit": {
       "textures": "textures/clothing/armor_epic_ghillie_suit"
+    },
+    "test_gun_pkm": {
+      "textures": "textures/guns/pkm"
+    },
+    "test_gun_rpk": {
+      "textures": "textures/guns/rpk"
+    },
+    "test_gun_m1014_ward": {
+      "textures": "textures/guns/m1014_ward"
+    },
+    "test_gun_ammo_belt_100": {
+      "textures": "textures/ammo/ammo_belt_100"
+    },
+    "test_gun_blueprint_pkm": {
+      "textures": "textures/blueprints/blueprint_epic"
+    },
+    "test_gun_blueprint_rpk": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_blueprint_m1014_ward": {
+      "textures": "textures/blueprints/blueprint_epic"
     }
   }
 }
