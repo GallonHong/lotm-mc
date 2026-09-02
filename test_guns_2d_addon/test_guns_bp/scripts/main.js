@@ -339,3 +339,24 @@ if (beforeTgChat && typeof beforeTgChat.subscribe === 'function') {
     } catch {}
   });
 }
+
+// 原版 /scriptevent 指令系统 (/scriptevent gun:pkm, /scriptevent gun:rpk, /scriptevent gun:m1014, /scriptevent gun:usas)
+if (system.afterEvents?.scriptEventReceive) {
+  system.afterEvents.scriptEventReceive.subscribe((event) => {
+    try {
+      const id = String(event.id || '').toLowerCase();
+      const player = event.sourceEntity;
+      if (!player || player.typeId !== 'minecraft:player') return;
+
+      if (id === 'gun:pkm' || id === 'gun:mg') {
+        system.run(() => handleTgCommand(player, '!pkm'));
+      } else if (id === 'gun:rpk') {
+        system.run(() => handleTgCommand(player, '!rpk'));
+      } else if (id === 'gun:m1014' || id === 'gun:ward') {
+        system.run(() => handleTgCommand(player, '!m1014'));
+      } else if (id === 'gun:usas' || id === 'gun:aa12') {
+        system.run(() => handleTgCommand(player, '!usas'));
+      }
+    } catch {}
+  });
+}

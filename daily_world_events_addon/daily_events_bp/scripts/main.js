@@ -215,6 +215,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (id === "daily:help") system.runTimeout(() => DailyMenu.openHelp(player), 2);
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, event.message || "all");
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
+  else if (id === "daily:crate" || id === "daily:box") handleCommand(player, "!crate give");
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }
   else if (id === "daily:event" && isAdmin(player)) handleCommand(player, `!event ${event.message || ""}`);
