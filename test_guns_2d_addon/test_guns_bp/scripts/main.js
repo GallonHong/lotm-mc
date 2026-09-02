@@ -51,7 +51,24 @@ class AddonController {
   }
 
   registerEvents() {
-    // 1. 【左键交互 / 破坏方块拦截 -> 手动换弹】
+        // 1. 【左键击打方块 (entityHitBlock) -> 立即触发手动换弹】
+    subscribeAfter(world.afterEvents, 'entityHitBlock', (event) => {
+      try {
+        const player = event.damagingEntity;
+        if (!player || player.typeId !== 'minecraft:player') return;
+
+        const equ = player.getComponent('minecraft:equippable');
+        const mainhand = equ?.getEquipment('Mainhand');
+        if (mainhand) {
+          const gun = getGunById(mainhand.typeId);
+          if (gun) {
+            ReloadManager.startReload(player, gun);
+          }
+        }
+      } catch {}
+    });
+
+    // 1.2 【左键破坏方块拦截 -> 手动换弹】
     subscribeBefore(world.beforeEvents, 'playerBreakBlock', (event) => {
       try {
         const player = event.player;

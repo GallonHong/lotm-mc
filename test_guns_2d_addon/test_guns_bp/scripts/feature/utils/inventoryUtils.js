@@ -1,6 +1,12 @@
 import { EquipmentSlot } from '@minecraft/server';
 
 export function isCreativePlayer(player) {
+  if (!player || !player.isValid()) return false;
+  try {
+    if (typeof player.getGameMode === 'function') {
+      return player.getGameMode() === 'creative';
+    }
+  } catch {}
   try {
     return player.matches({ gameMode: 'creative' });
   } catch {
