@@ -1,0 +1,49 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "Copyright 2025 Ranzie",
+        "name": "§l§aRanzie's Visual Effects for §cRise&Survive 1.2 (Might cause lag)",
+        "uuid": "87892df1-d216-43a4-9507-4433e4d85750",
+        "version": [1, 2, 0],
+        "min_engine_version": [1, 21, 70]
+    },
+    "modules": [
+        {
+            "description": "Copyright 2025 Ranzie",
+            "type": "data",
+            "uuid": "b0bdcff0-b0c8-4e97-a5fe-eabdff3fd204",
+            "version": [
+                0,
+                0,
+                1
+            ]
+        },
+        {
+			"type": "script",
+			"language": "javascript",
+			"uuid": "b0bdcff0-b6c8-4e97-a0fe-eabdff0fd904",
+			"entry": "scripts/visuals.js",
+			"version": [
+				1,
+				5,
+				0
+			]
+		}
+	],
+    "dependencies": [
+		{
+			"module_name": "@minecraft/server",
+			"version": "1.15.0"
+		},
+		{
+			"uuid": "c148f8d5-cfc2-49cc-8405-e977a612a1e1",
+			"version": [1, 2, 0]
+		}
+    ],
+      "metadata": {
+    "authors": [
+      "Ranzie"
+    ],
+    "product_type": "addon"
+  }
+}	

@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "Copyright 2026 Ranzie",
+    "name": "§l§aRanzie's §6Visual Effects for §cRise&Survive",
+    "uuid": "c148f8d5-cfc2-49cc-8405-e977a612a1e1",
+    "version": [
+      1,
+      2,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      17,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Copyright 2026 Ranzie", 
+      "type": "resources",
+      "uuid": "da4d8835-3f78-4901-beb1-a5d6be07759d",
+      "version": [
+        0,
+        0,
+        1
+      ]
+    }
+  ]
+}
