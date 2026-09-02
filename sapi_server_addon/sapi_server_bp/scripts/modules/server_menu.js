@@ -39,9 +39,7 @@ export class ServerMenuManager {
         add("§l§e🎁 每日福利\n§r§8签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
         add("§l§6📋 生存联盟委托\n§r§8日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
         add("§l§c⚔ 副本行动\n§r§8进入多建筑封锁小镇副本", "textures/ui/warning_alex", () => Integration.send(player, "daily:dungeon"));
-        if (Integration.isExtractionAvailable()) {
-            add("§l§4☣ 末日摸金都市\n§r§8随机进入高危城市并寻找撤离点", "textures/ui/warning_alex", () => Integration.send(player, "extract:menu"));
-        }
+        add("§l§4☣ 末日摸金都市\n§r§8随机进入高危城市并寻找撤离点", "textures/ui/warning_alex", () => Integration.send(player, "extract:menu"));
         add("§l§6🏦 个人银行\n§r§8资产查询与玩家转账", "textures/ui/Trade2", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
         add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/ui/MCStore_Gold_large", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));

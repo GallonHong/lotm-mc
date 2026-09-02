@@ -221,7 +221,7 @@
               "predicate_type": "minecraft:always_true"
             },
             "output_state": {
-              "name": "minecraft:deepslate_slab",
+              "name": "minecraft:cobbled_deepslate_slab",
               "states": {
                 "minecraft:vertical_half": "top"
               }

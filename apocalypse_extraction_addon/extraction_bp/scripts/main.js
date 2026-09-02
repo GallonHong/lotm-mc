@@ -2,6 +2,22 @@ import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { CONFIG } from "./config.js";
 
+let dimensionRegistrationError = "";
+const startupSignal = system.beforeEvents?.startup;
+if (startupSignal && typeof startupSignal.subscribe === "function") {
+  startupSignal.subscribe(event => {
+    try {
+      event.dimensionRegistry.registerCustomDimension(CONFIG.dimensionId);
+      console.warn(`[ExtractionCity] registered custom dimension ${CONFIG.dimensionId}.`);
+    } catch (error) {
+      dimensionRegistrationError = String(error);
+      console.error(`[ExtractionCity] custom dimension registration failed: ${error}`);
+    }
+  });
+} else {
+  dimensionRegistrationError = "system.beforeEvents.startup / DimensionRegistry unavailable";
+}
+
 console.warn(`[ExtractionCity] v${CONFIG.version} initializing...`);
 
 const extractionJobs = new Map();
@@ -69,6 +85,66 @@ function storeReturn(player) {
   } catch {}
 }
 
+async function ensureCityReady(dimension) {
+  try {
+    if (world.getDynamicProperty(CONFIG.cityReadyKey) === true) return;
+  } catch {}
+
+  const areaId = "apoc_extract_city_bootstrap";
+  let areaCreated = false;
+  try {
+    if (world.tickingAreaManager?.createTickingArea) {
+      await world.tickingAreaManager.createTickingArea(areaId, {
+        dimension,
+        from: { x: -24, y: 56, z: -24 },
+        to: { x: 24, y: 160, z: 24 }
+      });
+      areaCreated = true;
+    }
+
+    // 26.x 的自定义维度当前使用虚空生成器；城市必须显式放置，不能靠 dimensions/*.json 生成。
+    let generated = false;
+    try {
+      world.structureManager.placeJigsawStructure(
+        "jigsaw:village_custom",
+        dimension,
+        { x: 0, y: 64, z: 0 },
+        { ignoreStartHeight: true, includeEntities: false, keepJigsaws: false }
+      );
+      generated = true;
+      console.warn("[ExtractionCity] RandS jigsaw city placement queued.");
+    } catch (error) {
+      console.warn(`[ExtractionCity] jigsaw placement failed, using building-grid fallback: ${error}`);
+    }
+
+    if (!generated) {
+      const ids = world.structureManager.getPackStructureIds()
+        .filter(id => /(?:^|[:/])custom\/houses\/b[1-9]$/.test(id))
+        .slice(0, 9);
+      for (let index = 0; index < ids.length; index++) {
+        const column = index % 3;
+        const row = Math.floor(index / 3);
+        world.structureManager.place(ids[index], dimension, {
+          x: (column - 1) * 72,
+          y: 64,
+          z: (row - 1) * 72
+        }, { includeEntities: false, integrity: 1, integritySeed: `extract_${index}` });
+      }
+      generated = ids.length > 0;
+      if (generated) console.warn(`[ExtractionCity] fallback placed ${ids.length} RandS building structures.`);
+    }
+
+    // 无论结构落点如何，中心均保留一个安全的首次加载平台。
+    try { dimension.runCommand("fill -8 63 -8 8 63 8 minecraft:cobbled_deepslate"); } catch {}
+    if (!generated) throw new Error("No RandS pack structures were available to place");
+    try { world.setDynamicProperty(CONFIG.cityReadyKey, true); } catch {}
+  } finally {
+    if (areaCreated) {
+      try { world.tickingAreaManager.removeTickingArea(areaId); } catch {}
+    }
+  }
+}
+
 function returnPlayer(player, reason = "已离开摸金都市。") {
   let saved = parse(player.getDynamicProperty(CONFIG.returnKey), null);
   let dimension;
@@ -83,17 +159,36 @@ function returnPlayer(player, reason = "已离开摸金都市。") {
   } catch (error) { player.sendMessage(`§c撤离失败：${error}`); }
 }
 
-function enter(player) {
+async function enter(player) {
   const dimension = extractionDimension();
   if (!dimension) {
-    player.sendMessage("§c摸金维度未注册。请使用 1.21.120+ 并开启 Beta API 实验玩法。");
+    const detail = dimensionRegistrationError ? `\n§8${dimensionRegistrationError}` : "";
+    player.sendMessage(`§c摸金维度未注册。请启用 Beta APIs，并确认安装的是摸金都市 v${CONFIG.version}。${detail}`);
+    return;
+  }
+  player.sendMessage("§e[摸金都市] 正在准备城市区块，首次进入可能需要稍候……");
+  try { await ensureCityReady(dimension); }
+  catch (error) {
+    player.sendMessage(`§c城市结构初始化失败：${error}`);
+    console.error(`[ExtractionCity] city initialization failed: ${error}`);
     return;
   }
   storeReturn(player);
   const point = CONFIG.entryPoints[Math.floor(Math.random() * CONFIG.entryPoints.length)];
   const x = point.x + Math.floor(Math.random() * 41) - 20;
   const z = point.z + Math.floor(Math.random() * 41) - 20;
-  try { dimension.runCommand(`tickingarea add circle ${Math.floor(x)} 96 ${Math.floor(z)} 2 extract_entry true`); } catch {}
+  let arrivalAreaCreated = false;
+  const arrivalAreaId = `apoc_extract_arrival_${String(player.id).replace(/[^a-zA-Z0-9_]/g, "").slice(-12)}`;
+  try {
+    if (world.tickingAreaManager?.createTickingArea) {
+      await world.tickingAreaManager.createTickingArea(arrivalAreaId, {
+        dimension,
+        from: { x: Math.floor(x) - 8, y: 54, z: Math.floor(z) - 8 },
+        to: { x: Math.floor(x) + 8, y: 180, z: Math.floor(z) + 8 }
+      });
+      arrivalAreaCreated = true;
+    }
+  } catch (error) { console.warn(`[ExtractionCity] arrival ticking area unavailable: ${error}`); }
   system.runTimeout(() => {
     try {
       const location = safeGround(dimension, x, z);
@@ -102,7 +197,9 @@ function enter(player) {
       player.addEffect("resistance", 100, { amplifier: 4, showParticles: false });
       player.sendMessage(`§6[摸金都市] 随机出生：${point.name}。寻找任一撤离点安全离开。`);
     } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
-    try { dimension.runCommand("tickingarea remove extract_entry"); } catch {}
+    if (arrivalAreaCreated) {
+      try { world.tickingAreaManager.removeTickingArea(arrivalAreaId); } catch {}
+    }
   }, 30);
 }
 
@@ -252,8 +349,10 @@ subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
 });
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
-  if (event.id !== "extract:menu" || event.sourceEntity?.typeId !== "minecraft:player") return;
-  system.run(() => openMenu(event.sourceEntity));
+  if (event.sourceEntity?.typeId !== "minecraft:player") return;
+  if (event.id === "extract:menu") system.run(() => openMenu(event.sourceEntity));
+  else if (event.id === "extract:enter") system.run(() => enter(event.sourceEntity));
+  else if (event.id === "extract:exit") system.run(() => startExtraction(event.sourceEntity));
 });
 
 system.runInterval(() => {

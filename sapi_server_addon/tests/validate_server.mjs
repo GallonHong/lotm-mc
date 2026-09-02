@@ -30,7 +30,7 @@ assert.match(menu, /每日福利/);
 assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.5.7");
+assert.equal(manifest.header.version.join("."), "2.5.8");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
@@ -60,5 +60,5 @@ for (const source of uiSources) {
   assert.equal(source.includes("§7"), false, "light-gray text color must not remain in SAPI UI");
 }
 
-assert(menu.includes("isExtractionAvailable") && menu.includes("extract:menu") && integration.includes("interop:apoc_extraction_heartbeat"), "extraction menu bridge missing");
-console.log("SAPI Server v2.5.7 validation passed.");
+assert(menu.includes("extract:menu") && !menu.includes("if (Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "permanent extraction menu bridge missing");
+console.log("SAPI Server v2.5.8 validation passed.");

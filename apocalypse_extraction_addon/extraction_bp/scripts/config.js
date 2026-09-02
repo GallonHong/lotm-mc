@@ -1,7 +1,8 @@
 export const CONFIG = Object.freeze({
-  version: "0.1.0",
+  version: "0.2.0",
   dimensionId: "apoc_extract:city",
   heartbeatKey: "interop:apoc_extraction_heartbeat",
+  cityReadyKey: "apoc_extract:city_ready:v2",
   activeTag: "apoc_extraction_active",
   returnKey: "apoc_extract:return:v1",
   deathReturnKey: "apoc_extract:death_return:v1",
@@ -17,20 +18,20 @@ export const CONFIG = Object.freeze({
   bossCheckIntervalTicks: 1200,
   bossChancePerCheck: 0.08,
   entryPoints: [
-    { name: "东部街区", x: 96, z: 96 }, { name: "西部街区", x: -96, z: 96 },
-    { name: "南部街区", x: 96, z: -96 }, { name: "北部街区", x: -96, z: -96 },
-    { name: "旧城区", x: 320, z: 64 }, { name: "工业区", x: -320, z: -64 },
-    { name: "河东区", x: 64, z: 320 }, { name: "河西区", x: -64, z: -320 }
+    { name: "东部街区", x: 72, z: 72 }, { name: "西部街区", x: -72, z: 72 },
+    { name: "南部街区", x: 72, z: -72 }, { name: "北部街区", x: -72, z: -72 },
+    { name: "旧城区", x: 96, z: 24 }, { name: "工业区", x: -96, z: -24 },
+    { name: "河东区", x: 24, z: 96 }, { name: "河西区", x: -24, z: -96 }
   ],
   extractionPoints: [
-    { id: "metro_north", name: "北部地铁口", x: 0, z: 420 },
-    { id: "bridge_east", name: "东部断桥", x: 420, z: 0 },
-    { id: "tunnel_south", name: "南部隧道", x: 0, z: -420 },
-    { id: "rail_west", name: "西部铁路", x: -420, z: 0 },
-    { id: "hospital", name: "医院停机坪", x: 260, z: 260 },
-    { id: "factory", name: "废厂后门", x: -260, z: -260 },
-    { id: "checkpoint", name: "公路检查站", x: 260, z: -260 },
-    { id: "sewer", name: "下水道出口", x: -260, z: 260 }
+    { id: "metro_north", name: "北部地铁口", x: 0, z: 112 },
+    { id: "bridge_east", name: "东部断桥", x: 112, z: 0 },
+    { id: "tunnel_south", name: "南部隧道", x: 0, z: -112 },
+    { id: "rail_west", name: "西部铁路", x: -112, z: 0 },
+    { id: "hospital", name: "医院停机坪", x: 88, z: 88 },
+    { id: "factory", name: "废厂后门", x: -88, z: -88 },
+    { id: "checkpoint", name: "公路检查站", x: 88, z: -88 },
+    { id: "sewer", name: "下水道出口", x: -88, z: 88 }
   ],
   mobPool: [
     { key: "mutant", weight: 35 }, { key: "heavy", weight: 28 },
