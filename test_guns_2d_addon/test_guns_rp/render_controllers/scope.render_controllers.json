@@ -1,0 +1,38 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.scope_sniper": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.scope"
+        }
+      ],
+      "textures": [
+        "Texture.scope_sniper"
+      ]
+    },
+    "controller.render.scope_pso": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.scope"
+        }
+      ],
+      "textures": [
+        "Texture.scope_pso"
+      ]
+    },
+    "controller.render.scope_reddot": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.scope"
+        }
+      ],
+      "textures": [
+        "Texture.scope_reddot"
+      ]
+    }
+  }
+}

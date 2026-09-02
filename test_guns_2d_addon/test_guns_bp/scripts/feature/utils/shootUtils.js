@@ -217,10 +217,12 @@ export function fireBullet(player, gun) {
   const spawnLoc = getSpawnLocation(player);
   const viewDir = player.getViewDirection();
   const maxRange = (gun.stats && gun.stats.maxRange) ? gun.stats.maxRange : 60;
+  const isADS = Boolean(player.isSneaking);
 
   if (gun.mode === FireMode.SHOTGUN) {
     const PELLETS = 6;
-    const spreadFactor = 0.075;
+    // 战术开镜瞄准时散布极度收拢 (0.02 vs 0.075)
+    const spreadFactor = isADS ? 0.022 : 0.075;
 
     const vx = Number(viewDir.x) || 0;
     const vy = Number(viewDir.y) || 0;
@@ -254,13 +256,14 @@ export function fireBullet(player, gun) {
       processBulletRay(player, gun, spreadDir, spawnLoc, maxRange);
     }
   } else {
-    // 传说级冲锋枪开启暴走狂潮技能时，弹道完全 0 散布绝对激光指向
     let finalDir = viewDir;
     if (!SkillManager.isOverdriveActive(player)) {
       const offset = RecoilManager.getSprayOffset(player.id, gun.recoil);
-      const sx = (Number(viewDir.x) || 0) + offset.x;
-      const sy = (Number(viewDir.y) || 0) + offset.y;
-      const sz = (Number(viewDir.z) || 0) + offset.z;
+      // 开镜状态下散布减小 75%
+      const spreadMult = isADS ? 0.25 : 1.0;
+      const sx = (Number(viewDir.x) || 0) + offset.x * spreadMult;
+      const sy = (Number(viewDir.y) || 0) + offset.y * spreadMult;
+      const sz = (Number(viewDir.z) || 0) + offset.z * spreadMult;
       const sLen = Math.hypot(sx, sy, sz) || 1;
       finalDir = { x: sx / sLen, y: sy / sLen, z: sz / sLen };
     }

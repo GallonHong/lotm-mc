@@ -11,9 +11,9 @@ import { SkillManager } from './feature/skillManager.js';
 import { GrenadeEngine } from './feature/grenadeEngine.js';
 import { JetpackEngine } from './feature/jetpackEngine.js';
 import { DamageHandler } from './feature/damageHandler.js';
-import { getGunById, getGunByProjectile } from './data/guns.js';
+import { getGunById } from './data/guns.js';
 
-console.warn('=== [Test Guns 2D Addon] Initializing (Full Apex Arsenal & Jetpack) ===');
+console.warn('=== [Test Guns 2D Addon] Initializing (Left-Click Reload + Shift-Right-Click ADS/Skill) ===');
 
 function subscribeAfter(eventsObj, eventName, handler) {
   try {
@@ -47,54 +47,57 @@ class AddonController {
     this.auraTick = 0;
     this.registerEvents();
     this.startGameLoop();
-    console.warn('=== [Test Guns 2D Addon] Loaded Successfully with M82, Arc Emitter, Deagle, & Jetpack ===');
+    console.warn('=== [Test Guns 2D Addon] Loaded Successfully with ADS & Left-Click Reload ===');
   }
 
   registerEvents() {
-    // 1. 拦截 Shift + 左键 (破坏方块)，阻断破损并弹出 SAPI 战术空袭菜单
+    // 1. 【左键交互 / 破坏方块拦截 -> 手动换弹】
     subscribeBefore(world.beforeEvents, 'playerBreakBlock', (event) => {
       try {
         const player = event.player;
-        if (player && player.isSneaking) {
-          const item = event.itemStack;
-          if (item && item.typeId === 'test_gun:ak47_commander') {
-            event.cancel = true;
-            system.run(() => {
-              ArtilleryEngine.openMenu(player);
-            });
-          }
+        const item = event.itemStack;
+        if (!player || !item) return;
+
+        const gun = getGunById(item.typeId);
+        if (gun) {
+          event.cancel = true; // 阻止持枪破坏方块
+          system.run(() => {
+            ReloadManager.startReload(player, gun);
+          });
         }
       } catch {}
     });
 
-    // 2. 拦截 Shift + 右键点击方块
+    // 2. 拦截 Shift + 右键点击方块 (防止放置或原版冲突)
     subscribeBefore(world.beforeEvents, 'playerInteractWithBlock', (event) => {
       try {
         const player = event.player;
-        if (player && player.isSneaking) {
-          const item = event.itemStack;
-          if (item && item.typeId === 'test_gun:ak47_commander') {
-            event.cancel = true;
-            system.run(() => {
-              ArtilleryEngine.openMenu(player);
-            });
-          }
+        const item = event.itemStack;
+        if (!player || !item) return;
+
+        if (player.isSneaking && item.typeId === 'test_gun:ak47_commander') {
+          event.cancel = true;
+          system.run(() => {
+            ArtilleryEngine.openMenu(player);
+          });
         }
       } catch {}
     });
 
-    // 3. 立即点击触发 (itemUse) - 单点、半自动与潜行技能触发
+    // 3. 【右键单点 / 立即触发 (itemUse)】
     subscribeAfter(world.afterEvents, 'itemUse', (event) => {
       try {
         const player = event.source;
         const item = event.itemStack;
         if (!player || !item) return;
 
-              if (item.typeId === 'test_gun:kukri_machete' || item.typeId === 'test_gun:katana') {
-        MeleeEngine.handleSkillUse(player, item);
-        return;
-      }
-      if (item.typeId === 'test_gun:flash_shield') {
+        // 近战武器技能
+        if (item.typeId === 'test_gun:kukri_machete' || item.typeId === 'test_gun:katana') {
+          MeleeEngine.handleSkillUse(player, item);
+          return;
+        }
+        // 闪光防暴盾技能
+        if (item.typeId === 'test_gun:flash_shield') {
           ShieldEngine.triggerFlash(player, item);
           return;
         }
@@ -102,15 +105,21 @@ class AddonController {
         const gun = getGunById(item.typeId);
         if (gun) {
           if (player.isSneaking) {
+            // Shift + 右键分支判定
             if (gun.id === 'test_gun:ak47_commander') {
               ArtilleryEngine.openMenu(player);
+              ShootManager.setTriggerState(player, false);
             } else if (gun.hasSkill) {
+              // 拥有专属主动技能的枪械 -> 释放战术技能
               SkillManager.tryActivateSkill(player, gun);
+              ShootManager.setTriggerState(player, false);
             } else {
-              ReloadManager.startReload(player, gun);
+              // 无专属技能的常规枪械 -> 战术开镜射击 (ADS Aiming Precision Shot)
+              ShootManager.setTriggerState(player, true);
+              ShootManager.tick(player, gun);
             }
-            ShootManager.setTriggerState(player, false);
           } else {
+            // 常规右键 -> 腰射击发
             ShootManager.setTriggerState(player, true);
             ShootManager.tick(player, gun);
           }
@@ -120,7 +129,7 @@ class AddonController {
       }
     });
 
-    // 4. 长按按住触发 (itemStartUse) - 全自动武器按住连射与史诗近战技能即时释放
+    // 4. 【右键长按连发 (itemStartUse)】
     subscribeAfter(world.afterEvents, 'itemStartUse', (event) => {
       try {
         const player = event.source;
@@ -137,12 +146,15 @@ class AddonController {
           if (player.isSneaking) {
             if (gun.id === 'test_gun:ak47_commander') {
               ArtilleryEngine.openMenu(player);
+              ShootManager.setTriggerState(player, false);
             } else if (gun.hasSkill) {
               SkillManager.tryActivateSkill(player, gun);
+              ShootManager.setTriggerState(player, false);
             } else {
-              ReloadManager.startReload(player, gun);
+              // 开镜连发射击
+              ShootManager.setTriggerState(player, true);
+              ShootManager.tick(player, gun);
             }
-            ShootManager.setTriggerState(player, false);
           } else {
             ShootManager.setTriggerState(player, true);
             ShootManager.tick(player, gun);
@@ -175,22 +187,23 @@ class AddonController {
       }
     });
 
-    // 5. 命中实体时触发近战攻击 (背刺/破盾/破甲/真·横扫之刃) 与 AK 指挥官菜单
+    // 5. 【左键攻击实体 -> 近战挥砍或手动换弹】
     subscribeAfter(world.afterEvents, 'entityHitEntity', (event) => {
       try {
         const player = event.damagingEntity;
         const hitEntity = event.hitEntity;
         if (player && player.typeId === 'minecraft:player') {
-          // 近战武器特性
-          MeleeEngine.handleEntityHit(player, hitEntity);
+          const equ = player.getComponent('minecraft:equippable');
+          const mainhand = equ?.getEquipment('Mainhand');
 
-          if (player.isSneaking) {
-            const equ = player.getComponent('minecraft:equippable');
-            const mainhand = equ?.getEquipment('Mainhand');
-            if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
-              system.run(() => {
-                ArtilleryEngine.openMenu(player);
-              });
+          if (mainhand) {
+            const gun = getGunById(mainhand.typeId);
+            if (gun) {
+              // 持枪左键命中 -> 手动换弹
+              ReloadManager.startReload(player, gun);
+            } else {
+              // 近战武器
+              MeleeEngine.handleEntityHit(player, hitEntity);
             }
           }
         }
