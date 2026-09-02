@@ -94,11 +94,11 @@ export class LotteryManager {
         }
 
         Utils.showForm(player, form, (res) => {
-
+            if (res.canceled) return;
             if (res.selection < pools.length) {
                 const selectedPool = pools[res.selection];
                 this.openPoolActionUI(player, selectedPool, () => this.openLotteryMainUI(player, onBack));
-            } else if (onBack) {
+            } else if (res.selection === pools.length && onBack) {
                 onBack();
             }
         });
@@ -131,14 +131,14 @@ export class LotteryManager {
         }
 
         Utils.showForm(player, form, (res) => {
-
+            if (res.canceled) return;
             if (res.selection === 0) {
                 this.executeDraw(player, pool, 1, () => this.openPoolActionUI(player, pool, onBack));
             } else if (res.selection === 1) {
                 this.executeDraw(player, pool, 10, () => this.openPoolActionUI(player, pool, onBack));
             } else if (res.selection === 2) {
                 this.openPoolPrizesPreviewUI(player, pool, () => this.openPoolActionUI(player, pool, onBack));
-            } else if (onBack) {
+            } else if (res.selection === 3 && onBack) {
                 onBack();
             }
         });

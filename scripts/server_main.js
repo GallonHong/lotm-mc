@@ -13,6 +13,16 @@ import { RegionManager } from "./modules/region.js";
 import { AuditManager } from "./modules/audit.js";
 import { OperationsManager } from "./modules/operations.js";
 
+const compassMenuTicks = new Map();
+
+function requestCompassMenu(player) {
+    if (!Utils.isValid(player)) return;
+    const lastTick = Number(compassMenuTicks.get(player.id) ?? -1000);
+    if (system.currentTick - lastTick < 8) return;
+    compassMenuTicks.set(player.id, system.currentTick);
+    system.run(() => ServerMenuManager.openMainMenu(player));
+}
+
 function initServerSystem() {
     console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
     try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
@@ -41,6 +51,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 const playerLeave = world.afterEvents?.playerLeave;
 if (playerLeave && typeof playerLeave.subscribe === "function") {
     playerLeave.subscribe(({ playerId }) => {
+        compassMenuTicks.delete(playerId);
         TeleportManager.cooldowns.delete(playerId);
         for (const [id, request] of TeleportManager.requests) {
             if (request.fromId === playerId || request.toId === playerId) TeleportManager.requests.delete(id);
@@ -50,14 +61,14 @@ if (playerLeave && typeof playerLeave.subscribe === "function") {
 
 world.afterEvents.itemUse.subscribe(({ source: player, itemStack }) => {
     if (!Utils.isValid(player) || !itemStack) return;
-    if (itemStack.typeId === Config.system.menuItem) system.run(() => ServerMenuManager.openMainMenu(player));
+    if (itemStack.typeId === Config.system.menuItem) requestCompassMenu(player);
 });
 
 const interceptCompass = (event) => {
     const { player, itemStack } = event;
     if (!Utils.isValid(player) || itemStack?.typeId !== Config.system.menuItem) return;
     event.cancel = true;
-    system.run(() => ServerMenuManager.openMainMenu(player));
+    requestCompassMenu(player);
 };
 
 const blockInteract = world.beforeEvents.playerInteractWithBlock;

@@ -26,8 +26,13 @@ for (const route of ["!daily", "!redeem", "!tpa", "!audit"]) assert.ok(main.incl
 assert.match(menu, /每日福利/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /teleport region audit operations/);
-assert.equal(manifest.header.version.join("."), "2.5.1");
+assert.equal(manifest.header.version.join("."), "2.5.2");
 assert.match(main, /sapi:shop/);
+assert.match(main, /requestCompassMenu/);
+assert.match(main, /system\.currentTick - lastTick < 8/);
 assert.match(read("scripts/modules/shop.js"), /openCategoryById/);
+const lottery = read("scripts/modules/lottery.js");
+assert.match(lottery, /if \(res\.canceled\) return;/);
+assert.match(lottery, /res\.selection === pools\.length/);
 
-console.log("SAPI Server v2.5.1 merchant integration validation passed.");
+console.log("SAPI Server v2.5.2 menu and lottery navigation validation passed.");
