@@ -1,0 +1,6 @@
+entity.apoc_boss:mutant_zombie.name=Mutant Zombie
+entity.apoc_boss:mutant_skeleton.name=Mutant Skeleton
+entity.apoc_boss:mutant_lobber.name=Mutant Lobber
+entity.apoc_boss:mutant_drowned.name=Mutant Drowned
+entity.apoc_boss:mutant_enderman.name=Mutant Enderman
+entity.apoc_boss:mutant_iron_golem.name=Mutant Iron Golem

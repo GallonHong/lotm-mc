@@ -1,0 +1,39 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Apocalypse Boss BP v1.0.0",
+    "description": "High-HP Tactical Bosses without natural spawn.",
+    "uuid": "b0fe523f-a241-423b-9617-30e6d1a33013",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      20,
+      80
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "86ef90a6-50c6-4888-956e-56b9a9c44064",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "ab128e86-8313-46ca-967e-83408a6a701e",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

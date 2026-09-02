@@ -1,0 +1,137 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "apoc_boss:mutant_drowned",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:is_hidden_when_invisible": {},
+      "minecraft:nameable": {
+        "always_show": true,
+        "default_trigger": {
+          "trigger": "minecraft:on_named"
+        }
+      },
+      "minecraft:health": {
+        "value": 900,
+        "max": 900
+      },
+      "minecraft:scale": {
+        "value": 1.5
+      },
+      "minecraft:boss": {
+        "name": "变异暴食者 (Mutant Drowned)",
+        "should_darken_sky": true,
+        "hud_range": 64
+      },
+      "minecraft:knockback_resistance": {
+        "value": 1.0
+      },
+      "minecraft:collision_box": {
+        "width": 1.2,
+        "height": 3.2
+      },
+      "minecraft:movement": {
+        "value": 0.34
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_break_doors": true,
+        "avoid_water": false
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:attack": {
+        "damage": 26
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "fall",
+            "deals_damage": false
+          },
+          {
+            "cause": "drowning",
+            "deals_damage": false
+          },
+          {
+            "cause": "suffocation",
+            "deals_damage": false
+          }
+        ]
+      },
+      "minecraft:experience_reward": {
+        "on_death": "300"
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/boss/mutant_drowned.json"
+      },
+      "minecraft:type_family": {
+        "family": [
+          "monster",
+          "undead",
+          "drowned",
+          "boss",
+          "apoc_boss"
+        ]
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:follow_range": {
+        "value": 64,
+        "max": 64
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 1,
+        "must_see": false,
+        "within_radius": 64.0,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "player"
+            },
+            "max_dist": 64
+          },
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "irongolem"
+            },
+            "max_dist": 48
+          }
+        ]
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 2
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 3,
+        "speed_multiplier": 1.2,
+        "track_target": true,
+        "reach_multiplier": 1.6
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 7,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 8,
+        "look_distance": 12
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 9
+      }
+    }
+  }
+}

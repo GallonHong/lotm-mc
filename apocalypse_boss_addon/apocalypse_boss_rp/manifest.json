@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Apocalypse Boss RP v1.0.0",
+    "description": "Resources for Apocalypse Boss Addon.",
+    "uuid": "ab128e86-8313-46ca-967e-83408a6a701e",
+    "version": [
+      1,
+      0,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      20,
+      80
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "863861c8-ab05-4ccf-a554-becc0d758150",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

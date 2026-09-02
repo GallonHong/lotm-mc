@@ -1,0 +1,32 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:mutant_enderman",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/enderman/mutant_enderman"
+      },
+      "geometry": {
+        "default": "geometry.mutant_enderman"
+      },
+      "animations": {
+        "idle": "animation.menderman.general",
+        "walk": "animation.menderman.move",
+        "attack": "animation.menderman.attack_bare_hand",
+        "look_at_target": "animation.menderman.look_at_target"
+      },
+      "animation_controllers": [
+        {
+          "move": "controller.animation.jumpable_menderman.walking"
+        }
+      ],
+      "render_controllers": [
+        "controller.render.mutant_enderman"
+      ],
+      "enable_attachables": true
+    }
+  }
+}
