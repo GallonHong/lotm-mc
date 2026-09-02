@@ -101,6 +101,38 @@ export class ArtilleryEngine {
   }
 
   /**
+   * 轰炸技能消耗 10 点枪械耐久
+   */
+  static deductSkillDurability(player, amount = 10) {
+    if (!player || !player.isValid()) return;
+    try {
+      const equippable = player.getComponent('minecraft:equippable');
+      if (!equippable) return;
+
+      const mainhand = equippable.getEquipment('Mainhand');
+      if (!mainhand || mainhand.typeId !== 'test_gun:ak47_commander') return;
+
+      const durComp = mainhand.getComponent('minecraft:durability');
+      if (!durComp) return;
+
+      const currentDamage = durComp.damage || 0;
+      const maxDur = durComp.maxDurability || 2100;
+      const nextDamage = currentDamage + amount;
+
+      if (nextDamage >= maxDur) {
+        equippable.setEquipment('Mainhand', undefined);
+        player.dimension.playSound('random.break', player.location, { volume: 1.2, pitch: 0.85 });
+        player.onScreenDisplay?.setActionBar?.('§c⚠ 你的【AK-47 · 战术指挥官】已磨损报废!§r');
+      } else {
+        durComp.damage = nextDamage;
+        equippable.setEquipment('Mainhand', mainhand);
+      }
+    } catch (err) {
+      console.warn('deductSkillDurability error:', err);
+    }
+  }
+
+  /**
    * 启动多波次集束火炮地毯轰炸
    */
   static startBarrage(player, centerLoc, modeName) {
@@ -108,6 +140,7 @@ export class ArtilleryEngine {
 
     // 5秒测试冷却 (100 ticks)
     this.cooldowns.set(player.id, 100);
+    this.deductSkillDurability(player, 10);
 
     const dim = player.dimension;
     const pId = player.id;
