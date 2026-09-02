@@ -23,5 +23,13 @@ export const REWARD_REGISTRY = Object.freeze({
   event_toxic_outbreak: { coins: 900, items: [{ id: "minecraft:honey_bottle", amount: 2 }, { id: "minecraft:redstone", amount: 3 }] },
   event_toxic_outbreak_outlaw: { coins: 1550, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 3 }] },
   event_mutant_nest_outlaw: { coins: 2000, items: [{ id: "minecraft:diamond", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 4 }] },
-  event_mercenary_blockade_outlaw: { coins: 2100, items: [{ id: "minecraft:arrow", amount: 32 }, { id: "minecraft:gold_ingot", amount: 4 }] }
+  event_mercenary_blockade_outlaw: { coins: 2100, items: [{ id: "minecraft:arrow", amount: 32 }, { id: "minecraft:gold_ingot", amount: 4 }] },
+  dungeon_abandoned_clinic: {
+    coins: 1800,
+    items: [
+      { id: "minecraft:golden_apple", amount: 1, name: "医院急救物资（MVP）" },
+      { id: "minecraft:amethyst_shard", amount: 4, name: "副本研究数据（MVP）" },
+      { id: "minecraft:iron_ingot", amount: 6, name: "武器维护材料（MVP）" }
+    ]
+  }
 });

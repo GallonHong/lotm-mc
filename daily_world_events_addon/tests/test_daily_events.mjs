@@ -30,6 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
+assert.deepEqual(manifest.header.version, [0, 4, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 4, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -79,6 +81,24 @@ assert(dailyMenu.includes("isUserBusy") && dailyMenu.includes("attempt < 8"), "d
 
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));
+
+const dungeonStructure = readFileSync(join(bp, "structures/daily_dungeon/abandoned_clinic.mcstructure"));
+assert(dungeonStructure.length > 1000, "clinic dungeon structure is missing or empty");
+assert.equal(dungeonStructure.includes(Buffer.from("mcpe:")), false, "clinic dungeon must not depend on Deadzone custom blocks");
+const dungeonTemplates = await import(`file://${join(bp, "scripts/dungeons/dungeonTemplates.js")}`);
+const clinic = dungeonTemplates.DUNGEON_TEMPLATES.abandoned_clinic;
+assert.deepEqual(clinic.structureSize, { x: 18, y: 10, z: 15 });
+assert.equal(clinic.spawnPoints.length, 3);
+assert.equal(clinic.stages.length, 3);
+assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 2);
+assert(dungeonTemplates.DUNGEON_SLOTS.every(slot => slot.origin.y === 250), "dungeon slots should remain in isolated high-altitude arenas");
+const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js"), "utf8");
+for (const marker of ["structure load", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
+  assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
+}
+assert(rewards.includes("dungeon_abandoned_clinic"), "clinic reward is missing");
+assert(readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8").includes("进入副本行动"));
+assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.tick"));
 
 const sapiIntegration = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/integration.js"), "utf8");
 const sapiMenu = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/server_menu.js"), "utf8");

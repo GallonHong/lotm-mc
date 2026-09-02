@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常与动态事件 Addon，对应 PRD v0.1 MVP。v0.3.1 修复原生 NPC 对话未关闭导致“查看今日任务”等按钮无法打开 Script API 菜单的问题，并增加 `UserBusy` 自动重试。
+独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.4.0 新增首个可配置副本“废弃医院·感染诊所”，包含两个实例槽位、1–4 人中途加入、三阶段清理、死亡复活、返回原位置和个人奖励结算。
 
 ## 联动关系
 
@@ -58,6 +58,19 @@
 
 事件实体统一带 `daily_event_entity` 和实例 tag。节点完成或失败后进入独立冷却；重启时清理旧事件实体，不恢复错误的 ACTIVE 状态。
 
+## 废弃医院副本
+
+- 地图原型来自仓库中的 Deadzone `clinic.mcstructure`，实际尺寸仅为 `18×10×15`；构建工具将其中 16 个 `mcpe:*` 调色板项替换为原版方块，因此成品不依赖 Deadzone 行为包。
+- 成品结构位于 `daily_events_bp/structures/daily_dungeon/abandoned_clinic.mcstructure`。
+- 默认提供两个高空隔离实例槽位：`100000,250,100000` 与 `100128,250,100000`，可在 `scripts/dungeons/dungeonTemplates.js` 修改或继续添加。
+- 出生点、候诊大厅、病房和隔离室刷怪点均使用“相对结构原点”的坐标配置，不依赖脚本自动猜测。
+- 三阶段依次生成普通、疾行、毒液、变异和重型感染者；Apocalypse 可用时交给 SpawnDirector，未安装时回退为原版怪物。
+- 通关奖励通过 `RewardManager` 为每位贡献达标的玩家独立结算，唯一键为 `dungeon:<instanceId>:<playerId>`，不存在公共箱子抢奖励或重复领取问题。
+- 当前奖励：1800 金币、金苹果×1、紫水晶碎片×4、铁锭×6；背包已满时进入待发物资。
+- 玩家死亡可返回副本，每人最多复活两次；主动退出不获得通关奖励；服务器重启后残留玩家会返回进入副本前的位置。
+
+地图与关卡配置集中在 `scripts/dungeons/dungeonTemplates.js`，后续新增副本只需提供结构、实例槽位、入口点、刷怪点、阶段和奖励 ID。
+
 ## 使用
 
 管理员：
@@ -82,12 +95,14 @@
 
 ```mcfunction
 /scriptevent daily:menu
+/scriptevent daily:dungeon
 ```
 
 调试命令（聊天事件可用时）：
 
 - `!daily`
 - `!daily reset`
+- `!dungeon`
 - `!event list`
 - `!event start infected_attack`
 - `!event start survivor_rescue`

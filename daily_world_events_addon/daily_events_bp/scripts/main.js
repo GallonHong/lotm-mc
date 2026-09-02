@@ -9,8 +9,10 @@ import { DailyMenu, DailyAdminMenu, isAdmin } from "./ui/DailyMenu.js";
 import { MerchantMenu, NpcDialogue } from "./ui/NpcDialogue.js";
 import { merchantByEntity } from "./merchants/merchantConfig.js";
 import { IntegrationBridge } from "./integration/IntegrationBridge.js";
+import { DungeonManager } from "./dungeons/DungeonManager.js";
+import { DungeonMenu } from "./ui/DungeonMenu.js";
 
-console.warn("[DailyEvents] Survival Daily & World Events v0.3.1 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.4.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -64,6 +66,7 @@ function handleNpcInteraction(player, target) {
 function handleEntityDeath(event) {
   const dead = event.deadEntity;
   if (!dead) return;
+  if (dead.typeId === "minecraft:player") DungeonManager.onPlayerDeath(dead);
   const direct = attackerPlayer(event.damageSource);
   if (direct) recordContributor(dead, direct);
   const map = contributors.get(dead.id) || {};
@@ -75,6 +78,7 @@ function handleEntityDeath(event) {
     try { if (Math.hypot(player.location.x - dead.location.x, player.location.y - dead.location.y, player.location.z - dead.location.z) > 30) continue; } catch { continue; }
     if (recognizedMobs.has(dead.typeId)) DailyQuestManager.onKillCredit(player, dead.typeId);
     WorldEventManager.recordCombat(dead, player, 0, true);
+    DungeonManager.recordCombat(dead, player, 0, true);
   }
 }
 
@@ -87,6 +91,7 @@ function handleCommand(player, raw) {
     DailyQuestManager.ensureState(player, true);
     return player.sendMessage("§a已重新生成自己的今日任务。");
   }
+  if (lower === "!dungeon") return DungeonMenu.open(player);
   if (!lower.startsWith("!event")) return;
   if (!isAdmin(player)) return player.sendMessage("§c事件调试命令仅管理员可用。");
   const parts = lower.split(/\s+/);
@@ -111,6 +116,7 @@ function handleCommand(player, raw) {
 try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
 IntegrationBridge.cleanupStaleDailySpawnRequests();
 WorldEventManager.initializeCleanup();
+DungeonManager.initializeCleanup();
 
 subscribe(world.afterEvents?.entityLoad, "entityLoad", event => WorldEventManager.cleanupIfStale(event.entity));
 
@@ -118,6 +124,7 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
   system.runTimeout(() => {
     try {
       DailyQuestManager.ensureState(event.player);
+      DungeonManager.handlePlayerSpawn(event.player);
       const pending = RewardManager.pendingCount(event.player);
       if (pending) event.player.sendMessage(`§e[生存联盟] 你有 ${pending} 项待发物资，可在委托菜单重试领取。`);
     } catch {}
@@ -136,6 +143,7 @@ subscribe(world.afterEvents?.entityHurt, "entityHurt", event => {
   if (!player || !event.hurtEntity) return;
   recordContributor(event.hurtEntity, player);
   WorldEventManager.recordCombat(event.hurtEntity, player, event.damage || 1, false);
+  DungeonManager.recordCombat(event.hurtEntity, player, event.damage || 1, false);
 });
 
 subscribe(world.afterEvents?.entityDie, "entityDie", handleEntityDeath);
@@ -182,6 +190,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   }, 2);
   else if (id === "daily:help") system.runTimeout(() => DailyMenu.openHelp(player), 2);
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, event.message || "all");
+  else if (id === "daily:dungeon") DungeonMenu.open(player);
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }
   else if (id === "daily:event" && isAdmin(player)) handleCommand(player, `!event ${event.message || ""}`);
@@ -189,7 +198,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
 
 subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
   const lower = String(event.message || "").trim().toLowerCase();
-  if (!lower.startsWith("!daily") && !lower.startsWith("!event")) return;
+  if (!lower.startsWith("!daily") && !lower.startsWith("!event") && !lower.startsWith("!dungeon")) return;
   event.cancel = true;
   const player = event.sender;
   const message = event.message;
@@ -198,6 +207,7 @@ subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
 
 system.runInterval(() => {
   try { WorldEventManager.tick(); } catch (error) { console.warn(`[DailyEvents] event tick failed: ${error}`); }
+  try { DungeonManager.tick(); } catch (error) { console.warn(`[DailyEvents] dungeon tick failed: ${error}`); }
 }, CONFIG.eventTickTicks);
 
 system.runInterval(() => {
@@ -217,4 +227,4 @@ system.runInterval(() => {
   }
 }, 100);
 
-console.warn(`[DailyEvents] DailyQuestManager, RewardManager, EventNodeRegistry and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);
+console.warn(`[DailyEvents] DailyQuestManager, RewardManager, DungeonManager and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);

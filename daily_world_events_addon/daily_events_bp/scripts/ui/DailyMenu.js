@@ -9,6 +9,7 @@ import { EVENT_TEMPLATES } from "../events/templates/eventTemplates.js";
 import { MERCHANTS } from "../merchants/merchantConfig.js";
 import { NpcDialogue } from "./NpcDialogue.js";
 import { IntegrationBridge } from "../integration/IntegrationBridge.js";
+import { DungeonMenu } from "./DungeonMenu.js";
 
 export function isAdmin(player) {
   try { if (player.hasTag("admin")) return true; } catch {}
@@ -50,6 +51,7 @@ export class DailyMenu {
       .button("§l§e查看今日任务", "textures/ui/achievements")
       .button("§l§a领取全部已完成奖励", "textures/ui/gift_square")
       .button("§l§6查看活跃度奖励", "textures/ui/Trade2")
+      .button("§l§c进入副本行动", "textures/ui/warning_alex")
       .button("§l§d提交制造成果", "textures/ui/icon_recipe_item")
       .button("§l§a领取待发物资", "textures/ui/inventory_icon")
       .button("§l§7任务说明", "textures/ui/infobulb");
@@ -60,11 +62,12 @@ export class DailyMenu {
         player.sendMessage(count ? `§a已领取 ${count} 项任务奖励。` : "§7没有可领取的任务奖励。完成任务后再来看看。\n");
         this.open(player);
       } else if (result.selection === 2) this.openActivity(player);
-      else if (result.selection === 3) {
+      else if (result.selection === 3) DungeonMenu.open(player, () => this.open(player));
+      else if (result.selection === 4) {
         const response = DailyQuestManager.submitCraftPlaceholder(player);
         player.sendMessage(`${response.ok ? "§a" : "§c"}${response.message}`);
         this.open(player);
-      } else if (result.selection === 4) {
+      } else if (result.selection === 5) {
         const count = RewardManager.claimPending(player);
         player.sendMessage(count ? `§a已补发 ${count} 项物资。` : "§7暂无可补发物资，或背包空间仍不足。");
         this.open(player);
