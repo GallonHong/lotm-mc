@@ -22,7 +22,8 @@
         ]
       },
       "minecraft:nameable": {
-        "always_show": false
+        "always_show": false,
+        "allow_name_tag_renaming": true
       },
       "minecraft:health": {
         "value": 60,
@@ -81,7 +82,7 @@
                 }
               ]
             },
-            "max_dist": 40
+            "max_dist": 48
           },
           {
             "filters": {

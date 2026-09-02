@@ -17,7 +17,7 @@ function subscribeAfterEvent(eventName, handler) {
   }
 }
 
-// 1. 物品使用事件：呼叫泰坦 Boss & 一键引爆 20 尸潮
+// 1. 物品右键空气使用事件
 subscribeAfterEvent("itemUse", (event) => {
   try {
     const item = event.itemStack;
@@ -34,7 +34,39 @@ subscribeAfterEvent("itemUse", (event) => {
   }
 });
 
-// 2. 死亡事件
+// 2. 物品右键方块使用事件 (针对玩家右键地面召唤)
+subscribeAfterEvent("itemUseOn", (event) => {
+  try {
+    const item = event.itemStack;
+    const player = event.source;
+    if (!player || !item) return;
+
+    if (item.typeId === "apex_boss:beacon_core" || item.typeId === "apex_boss:boss_summoner") {
+      summonBossWithAirDrop(player);
+    } else if (item.typeId === "apex_boss:zombie_horde_egg") {
+      triggerZombieHorde(player);
+    }
+  } catch (e) {
+    console.error(`[ApexBoss] Error in itemUseOn: ${e}`);
+  }
+});
+
+// 3. 物品长按完成使用事件
+subscribeAfterEvent("itemCompleteUse", (event) => {
+  try {
+    const item = event.itemStack;
+    const player = event.source;
+    if (!player || !item) return;
+
+    if (item.typeId === "apex_boss:zombie_horde_egg") {
+      triggerZombieHorde(player);
+    }
+  } catch (e) {
+    console.error(`[ApexBoss] Error in itemCompleteUse: ${e}`);
+  }
+});
+
+// 4. 死亡事件
 subscribeAfterEvent("entityDie", (event) => {
   try {
     const deadEntity = event.deadEntity;
@@ -50,7 +82,7 @@ subscribeAfterEvent("entityDie", (event) => {
   }
 });
 
-// 3. 主循环 (Boss & 雇佣兵 AI 战术驱动)
+// 5. 主循环 (Boss & 雇佣兵 AI 战术驱动)
 system.runInterval(() => {
   try {
     BossEngine.onTick();
@@ -68,15 +100,20 @@ system.runInterval(() => {
   }
 }, 1);
 
-// 4. 一键引爆 20 狂暴尸潮函数
+// 6. 一键引爆 20 狂暴尸潮函数 (带极其鲁棒的生成与报错打印)
 function triggerZombieHorde(player) {
+  if (!player || !player.isValid()) return;
   const dim = player.dimension;
   const pLoc = player.location;
 
+  console.warn(`[ApexBoss] Triggering Zombie Horde for player ${player.name} at (${pLoc.x.toFixed(1)}, ${pLoc.y.toFixed(1)}, ${pLoc.z.toFixed(1)})`);
+
   // 播放末日尸潮警报
-  dim.playSound("mob.wither.spawn", pLoc, { volume: 1.8, pitch: 0.7 });
-  dim.playSound("ambient.weather.thunder0", pLoc, { volume: 1.5, pitch: 0.6 });
-  dim.playSound("mob.zombie.say", pLoc, { volume: 2.0, pitch: 0.5 });
+  try {
+    dim.playSound("mob.wither.spawn", pLoc, { volume: 1.8, pitch: 0.7 });
+    dim.playSound("ambient.weather.thunder0", pLoc, { volume: 1.5, pitch: 0.6 });
+    dim.playSound("mob.zombie.say", pLoc, { volume: 2.0, pitch: 0.5 });
+  } catch {}
 
   try {
     player.onScreenDisplay?.setTitle?.("§4☠ [ 尸潮已被引爆! ] ☠", {
@@ -87,28 +124,36 @@ function triggerZombieHorde(player) {
     });
   } catch {}
 
+  world.sendMessage("§4☠ [生化警报] 尸潮已被引爆！20 只狂暴变异感染者正在极速围攻！§r");
+
   const ZOMBIE_COUNT = 20;
   for (let i = 0; i < ZOMBIE_COUNT; i++) {
     const angle = (i / ZOMBIE_COUNT) * 2 * Math.PI + (Math.random() - 0.5) * 0.4;
-    const dist = 8.0 + Math.random() * 6.0;
+    const dist = 6.0 + Math.random() * 6.0;
 
     const spawnPos = {
       x: pLoc.x + Math.cos(angle) * dist,
-      y: pLoc.y,
+      y: pLoc.y + 0.5,
       z: pLoc.z + Math.sin(angle) * dist
     };
 
     system.runTimeout(() => {
       try {
-        dim.spawnEntity("apex_boss:deadzone_zombie", spawnPos);
+        const zombie = dim.spawnEntity("apex_boss:deadzone_zombie", spawnPos);
         dim.spawnParticle("minecraft:huge_explosion_emitter", spawnPos);
         dim.spawnParticle("minecraft:basic_flame_particle", spawnPos);
-      } catch {}
-    }, i * 2); // 错开 2 ticks 极速蜂拥出场
+      } catch (err) {
+        console.warn(`[ApexBoss] Error spawning zombie at index ${i}: ${err}`);
+        // Fallback summon via dimension command
+        try {
+          dim.runCommand(`summon apex_boss:deadzone_zombie ${spawnPos.x} ${spawnPos.y} ${spawnPos.z}`);
+        } catch {}
+      }
+    }, i * 2);
   }
 }
 
-// 5. 空投召唤泰坦 Boss
+// 7. 空投召唤泰坦 Boss
 function summonBossWithAirDrop(player) {
   const dim = player.dimension;
   const loc = player.location;
@@ -131,11 +176,14 @@ function summonBossWithAirDrop(player) {
       dim.playSound("random.explode", spawnPos, { volume: 1.5, pitch: 0.7 });
     } catch (err) {
       world.sendMessage(`§c召唤失败: ${err}`);
+      try {
+        dim.runCommand(`summon apex_boss:juggernaut ${spawnPos.x} ${spawnPos.y} ${spawnPos.z}`);
+      } catch {}
     }
   }, 40);
 }
 
-// 6. 指令快捷获取与召唤
+// 8. 快捷指令系统
 let lastChatTick = new Map();
 function handleCommand(player, rawText) {
   if (!player || !player.isValid()) return;
@@ -154,9 +202,11 @@ function handleCommand(player, rawText) {
     try {
       const dim = player.dimension;
       const loc = player.location;
-      dim.spawnEntity("apex_boss:hostile_mercenary", { x: loc.x + 4, y: loc.y, z: loc.z + 4 });
-      player.sendMessage("§c✔ 已在身旁部署 1 名【叛军雇佣兵】！");
-    } catch {}
+      dim.spawnEntity("apex_boss:hostile_mercenary", { x: loc.x + 4, y: loc.y + 0.5, z: loc.z + 4 });
+      player.sendMessage("§c✔ 已在身旁部署 1 名【叛军特战雇佣兵】！");
+    } catch (e) {
+      player.sendMessage(`§c部署失败: ${e}`);
+    }
   } else if (text === "!kit" || text === "!bosskit") {
     try {
       const inv = player.getComponent("minecraft:inventory");
@@ -172,8 +222,21 @@ if (beforeChat && typeof beforeChat.subscribe === "function") {
   beforeChat.subscribe((event) => {
     try {
       const msg = event.message || "";
-      if (msg.startsWith("!boss") || msg.startsWith("!horde") || msg.startsWith("!mercenary") || msg.startsWith("!kit")) {
+      if (msg.startsWith("!boss") || msg.startsWith("!horde") || msg.startsWith("!zombie") || msg.startsWith("!mercenary") || msg.startsWith("!npc") || msg.startsWith("!kit")) {
         event.cancel = true;
+        const player = event.sender;
+        system.run(() => handleCommand(player, msg));
+      }
+    } catch {}
+  });
+}
+
+const afterChat = world.afterEvents ? world.afterEvents.chatSend : undefined;
+if (afterChat && typeof afterChat.subscribe === "function") {
+  afterChat.subscribe((event) => {
+    try {
+      const msg = event.message || "";
+      if (msg.startsWith("!boss") || msg.startsWith("!horde") || msg.startsWith("!zombie") || msg.startsWith("!mercenary") || msg.startsWith("!npc") || msg.startsWith("!kit")) {
         const player = event.sender;
         system.run(() => handleCommand(player, msg));
       }
