@@ -359,6 +359,42 @@ function replaceRandSMarkers(dimension, x, z, footprint, tier = "common") {
   }
 }
 
+async function repairDistrictRoadCross(dimension, gridOriginX, gridOriginZ) {
+  const supportMinY = CONFIG.cityBaseY - 1;
+  const supportMaxY = CONFIG.cityBaseY;
+  const surfaceY = CONFIG.cityBaseY + 1;
+  const crossMin = 3 * CONFIG.districtCellSize;
+  const crossMax = 5 * CONFIG.districtCellSize - 1;
+  const districtMax = 8 * CONFIG.districtCellSize - 1;
+  const corridors = [
+    {
+      minX: gridOriginX + crossMin,
+      maxX: gridOriginX + crossMax,
+      minZ: gridOriginZ,
+      maxZ: gridOriginZ + districtMax
+    },
+    {
+      minX: gridOriginX,
+      maxX: gridOriginX + districtMax,
+      minZ: gridOriginZ + crossMin,
+      maxZ: gridOriginZ + crossMax
+    }
+  ];
+  for (const corridor of corridors) {
+    // RandS street structures include saved air. Loading them can erase a
+    // road surface after the initial city foundation was laid, producing the
+    // long void trench seen through the middle of a district. Repair only air
+    // after every structure has loaded, preserving all existing road details.
+    dimension.runCommand(`fill ${corridor.minX} ${supportMinY} ${corridor.minZ} ${corridor.maxX} ${supportMaxY} ${corridor.maxZ} minecraft:deepslate_tiles`);
+    for (const emptyBlock of ["minecraft:air", "minecraft:cave_air", "minecraft:void_air"]) {
+      try {
+        dimension.runCommand(`fill ${corridor.minX} ${surfaceY} ${corridor.minZ} ${corridor.maxX} ${surfaceY} ${corridor.maxZ} minecraft:stone_bricks replace ${emptyBlock}`);
+      } catch {}
+    }
+    await waitTicks(1);
+  }
+}
+
 async function placeDistrict(dimension, center, index) {
   const areaId = `extract_district_${index}`;
   return withTickingArea(
@@ -429,6 +465,7 @@ async function placeDistrict(dimension, center, index) {
       // visible in old worlds and is repaired while the district is tick-loaded.
       dimension.runCommand(`fill ${gridOriginX} ${CONFIG.cityBaseY - 1} ${gridOriginZ} ${gridOriginX + 127} ${CONFIG.cityBaseY} ${gridOriginZ + 127} minecraft:deepslate_tiles`);
       await waitTicks(1);
+      await repairDistrictRoadCross(dimension, gridOriginX, gridOriginZ);
       dimension.runCommand(`setblock ${center.x} ${CONFIG.cityBaseY - 1} ${center.z} minecraft:bedrock`);
       return { buildingsLoaded, streetsLoaded };
     }

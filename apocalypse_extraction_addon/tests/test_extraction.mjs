@@ -14,8 +14,8 @@ for (const path of files(bp).filter(path => path.endsWith(".json"))) assert.does
 const manifest = json(join(bp, "manifest.json"));
 const resourceManifest = json(join(rp, "manifest.json"));
 const bootstrapManifest = json(join(bootstrap, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 10, 0]);
-assert.deepEqual(resourceManifest.header.version, [0, 10, 0]);
+assert.deepEqual(manifest.header.version, [0, 10, 1]);
+assert.deepEqual(resourceManifest.header.version, [0, 10, 1]);
 assert.deepEqual(manifest.header.min_engine_version, [1, 21, 120]);
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
@@ -53,7 +53,7 @@ assert(spawnerRuleCount > 0, "no deterministic spawner replacement rules found")
 assert(!processors.includes("loot_tables/chests/"), "legacy external loot tables must be removed");
 const config = readFileSync(join(bp, "scripts/config.js"), "utf8");
 for (const boss of ["fog_man", "goatman", "siren_head", "mutant_zombie", "mutant_skeleton", "mutant_lobber"]) assert(config.includes(boss));
-for (const marker of ["cityHalfSize: 384", "districtSpacing: 128", "districtCellSize: 16", "districtGridOrigin: -56", "city_ready:v7", "cityLayoutVersion: 10", 'cityLayoutSentinelBlock: "minecraft:gold_block"', "activeStateKey", "lootNodesKey", "dusk_fog"]) assert(config.includes(marker), `missing dense-city config: ${marker}`);
+for (const marker of ["cityHalfSize: 384", "districtSpacing: 128", "districtCellSize: 16", "districtGridOrigin: -56", "city_ready:v8", "cityLayoutVersion: 11", 'cityLayoutSentinelBlock: "minecraft:diamond_block"', "activeStateKey", "lootNodesKey", "dusk_fog"]) assert(config.includes(marker), `missing dense-city config: ${marker}`);
 const configModule = await import(`file://${join(bp, "scripts/config.js")}`);
 assert.equal(configModule.CONFIG.districtCenters.length, 25, "5x5 district centers missing");
 const main = readFileSync(join(bp, "scripts/main.js"), "utf8");
@@ -62,6 +62,7 @@ for (const marker of ["placePackStructure", "structure load \"${id}\"", "village
 for (const marker of ["cityReadyInSession", "cityReadyBackupKey", "cityPhysicallyPresent", "ensureCityServices", "prepareArrivalPad", "city service repair complete"]) assert(main.includes(marker) || config.includes(marker), `missing no-rebuild/safe-arrival behavior: ${marker}`);
 for (const marker of ["cityLayoutVersionKey", "cityLayoutSentinel", "expectedBuildings", "expectedStreets", "roadCellsPerDistrict", "airDropY", 'addEffect("slow_falling"', "11 类建筑"]) assert(main.includes(marker) || config.includes(marker), `missing mixed-city/airdrop behavior: ${marker}`);
 for (const marker of ["groundOffset: 9", "groundOffset: 10", "CONFIG.cityBaseY + 1 - footprint.groundOffset", "CRATE_BLOCK_BY_TIER", "structureCrateTier", "districtCrateLayout", "prepareCratePad", "loot_crate_rare", "loot_crate_epic", "loot_crate_legendary", "crate_tiers:v1"]) assert(main.includes(marker), `missing aligned-building/high-tier-crate behavior: ${marker}`);
+for (const marker of ["repairDistrictRoadCross", "minecraft:void_air", "crossMin", "crossMax", "supportMinY", "supportMaxY"]) assert(main.includes(marker), `missing central void-trench repair: ${marker}`);
 assert(main.includes("point.distance <= CONFIG.extractionRadius && !extractionJobs.has(player.id)"), "entering an extraction point must automatically start extraction");
 assert(!main.includes("registerCustomDimension") && !main.includes("world.tickingAreaManager") && !main.includes("world.structureManager"), "stable extraction core must not access Beta-only registries/managers");
 const bootstrapMain = readFileSync(join(bootstrap, "scripts/main.js"), "utf8");
@@ -74,4 +75,4 @@ assert(!main.includes('spawnEntity("minecraft:ravager"'), "bosses must not silen
 const fog = json(join(rp, "fogs/extraction_dusk.json"));
 assert.equal(fog["minecraft:fog_settings"].description.identifier, "apoc_extract:dusk_fog");
 assert(!processors.includes("chiseled_deepslste") && !processors.includes('"minecraft:deepslate_slab"'), "invalid RandS deepslate blocks remain");
-console.log("Apocalypse Extraction City v0.10.0 validation passed.");
+console.log("Apocalypse Extraction City v0.10.1 validation passed.");
