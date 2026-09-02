@@ -2,18 +2,13 @@
   "format_version": "1.10.0",
   "minecraft:attachable": {
     "description": {
-      "identifier": "test_gun:vector",
+      "identifier": "test_gun:shotgun",
       "materials": {
         "default": "entity_alphatest",
         "enchanted": "entity_alphatest_glint"
       },
       "textures": {
-        "default": "textures/guns/vector_base",
-        "f1": "textures/guns/stg/stgsf_1",
-        "f2": "textures/guns/stg/stgsf_2",
-        "f3": "textures/guns/stg/stgsf_3",
-        "f4": "textures/guns/stg/stgsf_4",
-        "f5": "textures/guns/stg/stgsf_5",
+        "default": "textures/guns/m870_dz",
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
@@ -33,12 +28,7 @@
         ]
       },
       "render_controllers": [
-        {
-          "controller.render.first_vector": "c.is_first_person"
-        },
-        {
-          "controller.render.third_vector": "!c.is_first_person"
-        }
+        "controller.render.tg_gun"
       ]
     }
   }

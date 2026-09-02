@@ -1,6 +1,70 @@
 {
   "format_version": "1.10.0",
   "animations": {
+    "animation.tg_gun.wield_rifle": {
+      "loop": true,
+      "bones": {
+        "rightitem": {
+          "position": [
+            "c.is_first_person ? -5.5 : 0.5",
+            "c.is_first_person ? -3.0 : -2.5",
+            "c.is_first_person ? -3.0 : 1.0"
+          ],
+          "rotation": [
+            "c.is_first_person ? 38.0 : 0.0",
+            "c.is_first_person ? -120.0 : 0.0",
+            "c.is_first_person ? -63.0 : 0.0"
+          ],
+          "scale": 1.0
+        },
+        "rightArm": {
+          "rotation": [
+            "-85.0 - query.target_x_rotation * 0.9",
+            "-query.target_y_rotation * 0.1",
+            0.0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "-80.0 - query.target_x_rotation * 0.9",
+            35.0,
+            10.0
+          ]
+        }
+      }
+    },
+    "animation.tg_gun.wield_pistol": {
+      "loop": true,
+      "bones": {
+        "rightitem": {
+          "position": [
+            "c.is_first_person ? -5.5 : 0.5",
+            "c.is_first_person ? -3.0 : -2.5",
+            "c.is_first_person ? -3.0 : 1.0"
+          ],
+          "rotation": [
+            "c.is_first_person ? 38.0 : 0.0",
+            "c.is_first_person ? -120.0 : 0.0",
+            "c.is_first_person ? -63.0 : 0.0"
+          ],
+          "scale": 1.0
+        },
+        "rightArm": {
+          "rotation": [
+            "-85.0 - query.target_x_rotation * 0.9",
+            0.0,
+            0.0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "-82.0 - query.target_x_rotation * 0.9",
+            24.0,
+            5.0
+          ]
+        }
+      }
+    },
     "animation.cso.wield": {
       "loop": true,
       "bones": {
@@ -15,40 +79,20 @@
             "c.is_first_person ? -120.0 : 0.0",
             "c.is_first_person ? -63.0 : 0.0"
           ],
-          "scale": 1
-        }
-      }
-    },
-    "animation.bow.wield": {
-      "loop": true,
-      "bones": {
-        "rightitem": {
-          "position": [
-            "c.is_first_person ? -5.5 : 0.5",
-            "c.is_first_person ? -3.0 : -2.5",
-            "c.is_first_person ? -3.0 : 1.0"
-          ],
+          "scale": 1.0
+        },
+        "rightArm": {
           "rotation": [
-            "c.is_first_person ? 38.0 : 0.0",
-            "c.is_first_person ? -120.0 : 0.0",
-            "c.is_first_person ? -63.0 : 0.0"
+            "-85.0 - query.target_x_rotation * 0.9",
+            "-query.target_y_rotation * 0.1",
+            0.0
           ]
-        }
-      }
-    },
-    "animation.bow.wield2": {
-      "loop": true,
-      "bones": {
-        "rightitem": {
-          "position": [
-            "c.is_first_person ? -5.5 : 0.5",
-            "c.is_first_person ? -3.0 : -2.5",
-            "c.is_first_person ? -3.0 : 1.0"
-          ],
+        },
+        "leftArm": {
           "rotation": [
-            "c.is_first_person ? 38.0 : 0.0",
-            "c.is_first_person ? -120.0 : 0.0",
-            "c.is_first_person ? -63.0 : 0.0"
+            "-80.0 - query.target_x_rotation * 0.9",
+            35.0,
+            10.0
           ]
         }
       }

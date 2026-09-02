@@ -28,7 +28,7 @@
         "third": "geometry.sword.third_person"
       },
       "animations": {
-        "wield": "animation.cso.wield",
+        "wield": "animation.tg_gun.wield_rifle",
         "shoot": "animation.cso.wield_first_person_pull"
       },
       "scripts": {
