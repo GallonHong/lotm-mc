@@ -1,0 +1,27 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_combat_knife"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " I",
+      " S"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "result": {
+      "item": "test_gun:combat_knife",
+      "count": 1
+    }
+  }
+}

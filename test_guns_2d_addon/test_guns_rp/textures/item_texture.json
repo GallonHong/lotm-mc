@@ -160,6 +160,27 @@
     },
     "test_gun_blueprint_ak47_commander": {
       "textures": "textures/blueprints/blueprint_ak47_commander"
+    },
+    "test_gun_combat_knife": {
+      "textures": "textures/items/combat_knife"
+    },
+    "test_gun_tactical_shovel": {
+      "textures": "textures/items/tactical_shovel"
+    },
+    "test_gun_tactical_axe": {
+      "textures": "textures/items/tactical_axe"
+    },
+    "test_gun_kukri_machete": {
+      "textures": "textures/items/kukri_machete"
+    },
+    "test_gun_katana": {
+      "textures": "textures/items/katana"
+    },
+    "test_gun_blueprint_kukri_machete": {
+      "textures": "textures/blueprints/blueprint_kukri_machete"
+    },
+    "test_gun_blueprint_katana": {
+      "textures": "textures/blueprints/blueprint_katana"
     }
   }
 }

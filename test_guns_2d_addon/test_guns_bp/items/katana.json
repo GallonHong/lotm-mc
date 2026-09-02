@@ -1,0 +1,52 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:katana",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.sword"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_katana",
+      "minecraft:display_name": {
+        "value": "\u6218\u672f\u51b7\u94a2\u9ed1\u5203\u6b66\u58eb\u5200 \u00a75[\u53f2\u8bd7\u00b714\u70b9\u4f24\u00b7\u5c45\u5408\u62d4\u5200]\u00a7r"
+      },
+      "minecraft:damage": {
+        "value": 14
+      },
+      "minecraft:durability": {
+        "max_durability": 1500
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "sword"
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "test_gun:part_barrel"
+            ],
+            "repair_amount": 525
+          }
+        ]
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.85
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      }
+    }
+  }
+}

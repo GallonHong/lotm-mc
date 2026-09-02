@@ -1,0 +1,27 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_bp_kukri_exchange"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " P",
+      " I"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_epic"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:blueprint_kukri_machete",
+      "count": 1
+    }
+  }
+}

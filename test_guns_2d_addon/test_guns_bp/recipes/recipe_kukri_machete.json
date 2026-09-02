@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_kukri_machete"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " B",
+      " T",
+      " P"
+    ],
+    "key": {
+      "B": {
+        "item": "minecraft:iron_block"
+      },
+      "T": {
+        "item": "test_gun:part_tungsten_bolt"
+      },
+      "P": {
+        "item": "test_gun:blueprint_kukri_machete"
+      }
+    },
+    "result": {
+      "item": "test_gun:kukri_machete",
+      "count": 1
+    }
+  }
+}

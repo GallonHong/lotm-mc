@@ -143,6 +143,25 @@
           "volume": 1.0
         }
       ]
+    },
+    "test_gun.melee_slash": {
+      "category": "player",
+      "sounds": [
+        "sounds/melee/knife_slash1",
+        "sounds/melee/knife_slash2"
+      ]
+    },
+    "test_gun.katana_slash": {
+      "category": "player",
+      "sounds": [
+        "sounds/melee/katana_slash1"
+      ]
+    },
+    "test_gun.melee_hit": {
+      "category": "player",
+      "sounds": [
+        "sounds/melee/knife_hit1"
+      ]
     }
   }
 }

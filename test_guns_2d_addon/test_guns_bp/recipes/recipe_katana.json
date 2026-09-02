@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_katana"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " B",
+      " T",
+      " P"
+    ],
+    "key": {
+      "B": {
+        "item": "minecraft:iron_block"
+      },
+      "T": {
+        "item": "test_gun:part_military_fcu"
+      },
+      "P": {
+        "item": "test_gun:blueprint_katana"
+      }
+    },
+    "result": {
+      "item": "test_gun:katana",
+      "count": 1
+    }
+  }
+}

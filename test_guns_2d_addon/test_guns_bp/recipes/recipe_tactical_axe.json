@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_tactical_axe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BP",
+      "BS",
+      " S"
+    ],
+    "key": {
+      "B": {
+        "item": "minecraft:iron_ingot"
+      },
+      "P": {
+        "item": "test_gun:part_barrel"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "result": {
+      "item": "test_gun:tactical_axe",
+      "count": 1
+    }
+  }
+}

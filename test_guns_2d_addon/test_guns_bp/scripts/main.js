@@ -1,3 +1,4 @@
+import { MeleeEngine } from './feature/meleeEngine.js';
 import { ArtilleryEngine } from './feature/artilleryEngine.js';
 import { ShieldEngine } from './feature/shieldEngine.js';
 import { RocketEngine } from './feature/rocketEngine.js';
@@ -89,7 +90,11 @@ class AddonController {
         const item = event.itemStack;
         if (!player || !item) return;
 
-        if (item.typeId === 'test_gun:flash_shield') {
+              if (item.typeId === 'test_gun:kukri_machete' || item.typeId === 'test_gun:katana') {
+        MeleeEngine.handleSkillUse(player, item);
+        return;
+      }
+      if (item.typeId === 'test_gun:flash_shield') {
           ShieldEngine.triggerFlash(player, item);
           return;
         }
@@ -165,17 +170,23 @@ class AddonController {
       }
     });
 
-    // 5. 命中实体时 Shift + 左键也弹出菜单
+    // 5. 命中实体时触发近战攻击 (背刺/破盾/破甲/真·横扫之刃) 与 AK 指挥官菜单
     subscribeAfter(world.afterEvents, 'entityHitEntity', (event) => {
       try {
         const player = event.damagingEntity;
-        if (player && player.typeId === 'minecraft:player' && player.isSneaking) {
-          const equ = player.getComponent('minecraft:equippable');
-          const mainhand = equ?.getEquipment('Mainhand');
-          if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
-            system.run(() => {
-              ArtilleryEngine.openMenu(player);
-            });
+        const hitEntity = event.hitEntity;
+        if (player && player.typeId === 'minecraft:player') {
+          // 近战武器特性
+          MeleeEngine.handleEntityHit(player, hitEntity);
+
+          if (player.isSneaking) {
+            const equ = player.getComponent('minecraft:equippable');
+            const mainhand = equ?.getEquipment('Mainhand');
+            if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
+              system.run(() => {
+                ArtilleryEngine.openMenu(player);
+              });
+            }
           }
         }
       } catch {}
