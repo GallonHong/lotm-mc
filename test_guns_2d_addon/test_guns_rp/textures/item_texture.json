@@ -154,6 +154,12 @@
     },
     "test_gun_blueprint_flash_shield": {
       "textures": "textures/blueprints/blueprint_flash_shield"
+    },
+    "test_gun_ak47_commander": {
+      "textures": "textures/guns/ak47_commander"
+    },
+    "test_gun_blueprint_ak47_commander": {
+      "textures": "textures/blueprints/blueprint_ak47_commander"
     }
   }
 }

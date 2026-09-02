@@ -1,3 +1,4 @@
+import { ArtilleryEngine } from './feature/artilleryEngine.js';
 import { ShieldEngine } from './feature/shieldEngine.js';
 import { RocketEngine } from './feature/rocketEngine.js';
 import { world, system } from '@minecraft/server';
@@ -129,6 +130,7 @@ class AddonController {
       GrenadeEngine.onTick();
       RocketEngine.onTick();
       ShieldEngine.tick();
+      ArtilleryEngine.tick();
       JetpackEngine.onTick();
 
       const players = world.getAllPlayers();
@@ -161,3 +163,14 @@ class AddonController {
 }
 
 new AddonController();
+
+world.afterEvents.entityHitEntity.subscribe(event => {
+  const player = event.damagingEntity;
+  if (player && player.typeId === 'minecraft:player' && player.isSneaking) {
+    const equ = player.getComponent('minecraft:equippable');
+    const mainhand = equ?.getEquipment('Mainhand');
+    if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
+      ArtilleryEngine.openMenu(player);
+    }
+  }
+});

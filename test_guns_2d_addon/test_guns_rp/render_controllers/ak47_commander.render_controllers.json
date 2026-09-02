@@ -1,0 +1,65 @@
+{
+  "format_version": "1.10",
+  "render_controllers": {
+    "controller.render.first_ak47_commander": {
+      "arrays": {
+        "textures": {
+          "array.skins": [
+            "texture.f1",
+            "texture.f2",
+            "texture.f3",
+            "texture.f4",
+            "texture.f5",
+            "texture.f6",
+            "texture.f7",
+            "texture.f8",
+            "texture.f9",
+            "texture.f10",
+            "texture.f11",
+            "texture.f12",
+            "texture.f13"
+          ]
+        }
+      },
+      "geometry": "geometry.first",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "array.skins[(query.anim_time * 8)]"
+      ]
+    },
+    "controller.render.third_ak47_commander": {
+      "arrays": {
+        "textures": {
+          "array.skins": [
+            "texture.f1",
+            "texture.f2",
+            "texture.f3",
+            "texture.f4",
+            "texture.f5",
+            "texture.f6",
+            "texture.f7",
+            "texture.f8",
+            "texture.f9",
+            "texture.f10",
+            "texture.f11",
+            "texture.f12",
+            "texture.f13"
+          ]
+        }
+      },
+      "geometry": "geometry.third",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "array.skins[(query.anim_time * 8)]"
+      ]
+    }
+  }
+}

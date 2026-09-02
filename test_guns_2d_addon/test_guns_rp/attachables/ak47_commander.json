@@ -1,0 +1,52 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "test_gun:ak47_commander",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/guns/ak47_commander",
+        "f1": "textures/guns/ak47_ap/ak47ap_1",
+        "f2": "textures/guns/ak47_ap/ak47ap_2",
+        "f3": "textures/guns/ak47_ap/ak47ap_3",
+        "f4": "textures/guns/ak47_ap/ak47ap_4",
+        "f5": "textures/guns/ak47_ap/ak47ap_5",
+        "f6": "textures/guns/ak47_ap/ak47ap_6",
+        "f7": "textures/guns/ak47_ap/ak47ap_7",
+        "f8": "textures/guns/ak47_ap/ak47ap_8",
+        "f9": "textures/guns/ak47_ap/ak47ap_9",
+        "f10": "textures/guns/ak47_ap/ak47ap_10",
+        "f11": "textures/guns/ak47_ap/ak47ap_11",
+        "f12": "textures/guns/ak47_ap/ak47ap_12",
+        "f13": "textures/guns/ak47_ap/ak47ap_13"
+      },
+      "geometry": {
+        "first": "geometry.sword.first_person",
+        "third": "geometry.sword.third_person"
+      },
+      "animations": {
+        "wield": "animation.cso.wield",
+        "shoot": "animation.cso.wield_first_person_pull"
+      },
+      "scripts": {
+        "animate": [
+          "wield",
+          {
+            "shoot": "q.is_using_item && c.is_first_person"
+          }
+        ]
+      },
+      "render_controllers": [
+        {
+          "controller.render.first_ak47_commander": "c.is_first_person"
+        },
+        {
+          "controller.render.third_ak47_commander": "!c.is_first_person"
+        }
+      ]
+    }
+  }
+}

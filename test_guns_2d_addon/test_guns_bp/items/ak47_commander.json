@@ -1,0 +1,44 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:ak47_commander",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_ak47_commander",
+      "minecraft:display_name": {
+        "value": "AK-47 · 战术指挥官 §6[传说]§r"
+      },
+      "minecraft:durability": {
+        "max_durability": 300
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "test_gun:part_barrel"
+            ],
+            "repair_amount": 100
+          }
+        ]
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.8
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      }
+    }
+  }
+}

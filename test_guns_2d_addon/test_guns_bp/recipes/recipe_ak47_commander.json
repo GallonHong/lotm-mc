@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_ak47_commander"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " P ",
+      "RBS",
+      " N "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_ak47_commander"
+      },
+      "R": {
+        "item": "test_gun:ak47"
+      },
+      "B": {
+        "item": "test_gun:part_fcu"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "N": {
+        "item": "minecraft:netherite_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:ak47_commander",
+      "count": 1
+    }
+  }
+}
