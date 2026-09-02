@@ -8,9 +8,6 @@ const APOCALYPSE_HEARTBEAT = "apoc:heartbeat";
 const EXTRACTION_HEARTBEAT = "interop:apoc_extraction_heartbeat";
 const EXTRACTION_ACK = "interop:apoc_extraction_ack";
 const EXTRACTION_MENU_REQUEST = "interop:apoc_extraction_menu_request:v1";
-const NATURAL_DISASTERS_HEARTBEAT = "interop:natural_disasters_heartbeat";
-const NATURAL_DISASTERS_REQUEST = "interop:natural_disasters_request:v1";
-const NATURAL_DISASTERS_ACK = "interop:natural_disasters_ack:v1";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const HEARTBEAT_MAX_AGE_MS = 15000;
@@ -52,7 +49,6 @@ function rectanglesOverlap(a, b) {
 /** 独立 Add-on 之间不使用源码导入，只通过心跳、动态属性与 scriptevent 联动。 */
 export class Integration {
     static pendingExtractionRequests = new Map();
-    static pendingDisasterRequests = new Map();
 
     static readHeartbeat(key) {
         try {
@@ -87,10 +83,6 @@ export class Integration {
 
     static isExtractionAvailable() {
         return this.isAlive(EXTRACTION_HEARTBEAT);
-    }
-
-    static isNaturalDisastersAvailable() {
-        return this.isAlive(NATURAL_DISASTERS_HEARTBEAT);
     }
 
     /**
@@ -307,48 +299,4 @@ export class Integration {
         system.runTimeout(() => check(10), 10);
     }
 
-    static sendNaturalDisasterControl(player, payload, eventId = "sando:control") {
-        const existing = this.pendingDisasterRequests.get(player.id);
-        if (existing) {
-            try {
-                if (String(player.getDynamicProperty(NATURAL_DISASTERS_ACK) || "") !== existing) {
-                    player.sendMessage("§e自然灾害脚本仍在初始化，请稍候后再操作。");
-                    return existing;
-                }
-            } catch {}
-            this.pendingDisasterRequests.delete(player.id);
-        }
-        const requestId = `${Date.now()}-${Math.floor(Math.random() * 1000000)}`;
-        this.pendingDisasterRequests.set(player.id, requestId);
-        const message = typeof payload === "string" ? payload : JSON.stringify(payload || {});
-        try {
-            player.setDynamicProperty(NATURAL_DISASTERS_ACK, "");
-            player.setDynamicProperty(NATURAL_DISASTERS_REQUEST, JSON.stringify({ requestId, eventId, message }));
-        } catch {}
-        if (!this.isNaturalDisastersAvailable()) {
-            try { player.sendMessage("§e正在连接自然灾害脚本……刚进入世界时可能需要约 10 秒完成初始化。"); } catch {}
-        }
-        this.send(player, eventId, message);
-        const check = elapsedTicks => {
-            try {
-                if (String(player.getDynamicProperty(NATURAL_DISASTERS_ACK) || "") === requestId) {
-                    this.pendingDisasterRequests.delete(player.id);
-                    return;
-                }
-                if (elapsedTicks === 60) player.sendMessage("§6自然灾害脚本仍在初始化，后台会继续等待。");
-                if (elapsedTicks < 300) {
-                    system.runTimeout(() => check(elapsedTicks + 10), 10);
-                    return;
-                }
-                this.pendingDisasterRequests.delete(player.id);
-                player.sendMessage(this.isNaturalDisastersAvailable()
-                    ? "§c自然灾害脚本在线，但没有确认本次控制请求。请安装 Natural Disasters Server Events BP v2.2.0 后重新进入世界。"
-                    : "§c自然灾害行为脚本没有启动。请在当前世界的行为包列表启用 Natural Disasters Server Events BP v2.2.0；仅导入 .mcaddon 不会自动给已有世界启用行为包。");
-            } catch {
-                this.pendingDisasterRequests.delete(player.id);
-            }
-        };
-        system.runTimeout(() => check(10), 10);
-        return requestId;
-    }
 }

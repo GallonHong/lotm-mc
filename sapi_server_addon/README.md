@@ -1,6 +1,6 @@
 # SAPI Server Addon
 
-独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.6.5 将自然灾害管理员页面收敛为手动指定灾害/维度/X/Y/Z 与停止事件；自动开关、间隔、权重、安全区和地形破坏等高级参数统一由 Natural Disasters Server Events v2.2.0 的 `scripts/config.js` 管理，避免跨 Add-on 配置覆盖导致灾害失效。
+独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.7.1 不再检测或控制灾害脚本，只在管理员控制台提供“获取灾害遥控器”按钮；按钮等效于 `/give @p sando_standalone:disaster_controller`，需要同时启用独立灾害 Addon。
 
 ## 目录
 

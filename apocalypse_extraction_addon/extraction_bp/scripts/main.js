@@ -70,6 +70,30 @@ const RANDS_STREET_STRUCTURES = Object.freeze([
   "center1"
 ]);
 
+// RandS also ships eleven distinct 16x16 building shells. The previous
+// materialized layout ignored them and repeated only b1..b9 in every district,
+// which made the city look like a single cloned building. These structures are
+// now distributed through each block around a permanent two-cell road cross.
+const RANDS_SMALL_HOUSES = Object.freeze([
+  "house1", "house2", "house3", "house4", "house5", "house6",
+  "house7", "house8", "house9", "house10", "house11"
+]);
+
+const RANDS_LANDMARKS = Object.freeze(Object.keys(RANDS_BUILDING_FOOTPRINTS));
+const LANDMARK_ANCHORS = Object.freeze([
+  { column: 0, row: 0 }, { column: 5, row: 0 },
+  { column: 0, row: 5 }, { column: 5, row: 5 }
+]);
+
+function deterministicIndex(districtIndex, row, column, length, salt = 0) {
+  const value = Math.imul(districtIndex + 1, 73856093) ^ Math.imul(row + 11, 19349663) ^ Math.imul(column + 17, 83492791) ^ salt;
+  return (value >>> 0) % length;
+}
+
+function isDistrictRoadCell(row, column) {
+  return row === 3 || row === 4 || column === 3 || column === 4;
+}
+
 const INSURED_EQUIPMENT = Object.freeze([
   EquipmentSlot.Head,
   EquipmentSlot.Chest,
@@ -308,48 +332,67 @@ async function placeDistrict(dimension, center, index) {
     { x: center.x - 72, y: 56, z: center.z - 72 },
     { x: center.x + 72, y: 192, z: center.z + 72 },
     async () => {
-      // Natural RandS worldgen cannot run after a custom void dimension has
-      // already been registered. Materialize its Jigsaw result directly:
-      // place the nine landmarks, reserve their true footprints, then cover
-      // every remaining grid cell with one of RandS's own street structures.
-      const offsets = [-40, -8, 24];
-      const buildings = ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"];
-      const occupied = Array.from({ length: 8 }, () => Array(8).fill(false));
-      let buildingsLoaded = 0;
-      for (let row = 0; row < offsets.length; row++) {
-        for (let column = 0; column < offsets.length; column++) {
-          const structure = buildings[(index * 3 + row * 3 + column) % buildings.length];
-          const footprint = RANDS_BUILDING_FOOTPRINTS[structure];
-          const x = center.x + offsets[column], z = center.z + offsets[row];
-          placePackStructure(dimension, `village:custom/houses/${structure}`, { x, y: CONFIG.cityBaseY + 1, z });
-          replaceRandSMarkers(dimension, x, z, footprint);
-          const startCellX = 1 + column * 2;
-          const startCellZ = 1 + row * 2;
-          for (let dx = 0; dx < footprint.xCells; dx++) {
-            for (let dz = 0; dz < footprint.zCells; dz++) {
-              if (occupied[startCellZ + dz]?.[startCellX + dx] !== undefined) occupied[startCellZ + dz][startCellX + dx] = true;
-            }
+      const gridOriginX = center.x + CONFIG.districtGridOrigin;
+      const gridOriginZ = center.z + CONFIG.districtGridOrigin;
+
+      // Remove remnants of the old nine-tower layout. 32x32x32 is exactly the
+      // vanilla /fill volume limit and prevents upper floors from floating over
+      // the new RandS blocks after an in-place upgrade.
+      let clearCommands = 0;
+      for (let x = gridOriginX; x < gridOriginX + 128; x += 32) {
+        for (let z = gridOriginZ; z < gridOriginZ + 128; z += 32) {
+          for (let y = CONFIG.cityBaseY + 1; y <= CONFIG.cityBaseY + 64; y += 32) {
+            dimension.runCommand(`fill ${x} ${y} ${z} ${x + 31} ${y + 31} ${z + 31} minecraft:air`);
+            if (++clearCommands % 4 === 0) await waitTicks(1);
           }
-          buildingsLoaded++;
-          await waitTicks(1);
         }
       }
 
+      const occupied = Array.from({ length: 8 }, () => Array(8).fill(false));
+      let buildingsLoaded = 0;
+
+      // One differently positioned tall landmark per district keeps the skyline
+      // varied without allowing a 32x32 building to cut through the road cross.
+      const landmark = RANDS_LANDMARKS[(index * 5) % RANDS_LANDMARKS.length];
+      const footprint = RANDS_BUILDING_FOOTPRINTS[landmark];
+      const anchor = LANDMARK_ANCHORS[index % LANDMARK_ANCHORS.length];
+      const landmarkX = gridOriginX + anchor.column * CONFIG.districtCellSize;
+      const landmarkZ = gridOriginZ + anchor.row * CONFIG.districtCellSize;
+      placePackStructure(dimension, `village:custom/houses/${landmark}`, { x: landmarkX, y: CONFIG.cityBaseY + 1, z: landmarkZ });
+      replaceRandSMarkers(dimension, landmarkX, landmarkZ, footprint);
+      for (let dx = 0; dx < footprint.xCells; dx++) {
+        for (let dz = 0; dz < footprint.zCells; dz++) {
+          occupied[anchor.row + dz][anchor.column + dx] = true;
+        }
+      }
+      buildingsLoaded++;
+      await waitTicks(1);
+
       let streetsLoaded = 0;
-      const gridOriginX = center.x + CONFIG.districtGridOrigin;
-      const gridOriginZ = center.z + CONFIG.districtGridOrigin;
       for (let row = 0; row < 8; row++) {
         for (let column = 0; column < 8; column++) {
           if (occupied[row][column]) continue;
-          const variant = RANDS_STREET_STRUCTURES[(index * 29 + row * 8 + column) % RANDS_STREET_STRUCTURES.length];
           const x = gridOriginX + column * CONFIG.districtCellSize;
           const z = gridOriginZ + row * CONFIG.districtCellSize;
-          placePackStructure(dimension, `village:custom/streets/${variant}`, { x, y: CONFIG.cityBaseY + 1, z });
-          replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: 25 });
-          streetsLoaded++;
-          if (streetsLoaded % 4 === 0) await waitTicks(1);
+          if (isDistrictRoadCell(row, column)) {
+            const variant = RANDS_STREET_STRUCTURES[deterministicIndex(index, row, column, RANDS_STREET_STRUCTURES.length, 0x51f15e)];
+            placePackStructure(dimension, `village:custom/streets/${variant}`, { x, y: CONFIG.cityBaseY + 1, z });
+            replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: 25 });
+            streetsLoaded++;
+          } else {
+            const house = RANDS_SMALL_HOUSES[deterministicIndex(index, row, column, RANDS_SMALL_HOUSES.length, 0x19a4c3)];
+            placePackStructure(dimension, `village:custom/houses/${house}`, { x, y: CONFIG.cityBaseY + 1, z });
+            replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: house === "house11" ? 19 : 16 });
+            buildingsLoaded++;
+          }
+          if ((buildingsLoaded + streetsLoaded) % 4 === 0) await waitTicks(1);
         }
       }
+
+      // A two-block-thick district deck eliminates the one-block void seams
+      // visible in old worlds and is repaired while the district is tick-loaded.
+      dimension.runCommand(`fill ${gridOriginX} ${CONFIG.cityBaseY - 1} ${gridOriginZ} ${gridOriginX + 127} ${CONFIG.cityBaseY} ${gridOriginZ + 127} minecraft:deepslate_tiles`);
+      await waitTicks(1);
       dimension.runCommand(`setblock ${center.x} ${CONFIG.cityBaseY - 1} ${center.z} minecraft:bedrock`);
       return { buildingsLoaded, streetsLoaded };
     }
@@ -458,7 +501,7 @@ async function placeExtractionMarkers(dimension) {
 }
 
 async function buildCity(dimension) {
-  console.warn("[ExtractionCity] building persistent 5x5 city districts, connector streets and void foundation...");
+  console.warn("[ExtractionCity] building persistent 5x5 mixed RandS districts, continuous roads and reinforced foundation...");
   await buildCityFoundation(dimension);
 
   let generated = 0;
@@ -474,10 +517,13 @@ async function buildCity(dimension) {
     }
   }
 
-  const expectedBuildings = CONFIG.districtCenters.length * 9;
-  const occupiedCellsPerDistrict = Object.values(RANDS_BUILDING_FOOTPRINTS)
-    .reduce((sum, footprint) => sum + footprint.xCells * footprint.zCells, 0);
-  const expectedStreets = CONFIG.districtCenters.length * (64 - occupiedCellsPerDistrict);
+  const roadCellsPerDistrict = 28;
+  const expectedBuildings = CONFIG.districtCenters.reduce((sum, _center, index) => {
+    const landmark = RANDS_LANDMARKS[(index * 5) % RANDS_LANDMARKS.length];
+    const footprint = RANDS_BUILDING_FOOTPRINTS[landmark];
+    return sum + 1 + (64 - roadCellsPerDistrict - footprint.xCells * footprint.zCells);
+  }, 0);
+  const expectedStreets = CONFIG.districtCenters.length * roadCellsPerDistrict;
   if (generated !== expectedBuildings || streets !== expectedStreets) {
     throw new Error(`Dense city placement incomplete: buildings ${generated}/${expectedBuildings}, streets ${streets}/${expectedStreets}. The city was not marked ready and will retry next entry.`);
   }
@@ -1017,7 +1063,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (event.id === "extract:rebuild" && isAdmin(player)) system.run(async () => {
     const dimension = extractionDimension();
     if (!dimension) return player.sendMessage("§c摸金维度不可用。");
-    player.sendMessage("§e正在一次性升级 25 个密集城区，部署 225 个建筑、1100 个 RandS 街道格并二次修复承托层，请等待 1～3 分钟且不要重复执行……");
+    player.sendMessage("§e正在一次性升级 25 个混合城区：清理旧重复高楼、部署 RandS 地标与 11 类建筑、铺设连续道路并加固双层承托面。预计 3～6 分钟，请勿重复执行……");
     try {
       world.setDynamicProperty(CONFIG.cityReadyKey, undefined);
       await ensureCityReady(dimension, true);

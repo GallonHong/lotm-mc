@@ -12,7 +12,6 @@ import { TeleportManager } from "./modules/teleport.js";
 import { RegionManager } from "./modules/region.js";
 import { AuditManager } from "./modules/audit.js";
 import { OperationsManager } from "./modules/operations.js";
-import { DisasterAdminManager } from "./modules/disasters.js";
 
 const compassMenuTicks = new Map();
 
@@ -107,7 +106,6 @@ function handleChat(event) {
         "!region": () => RegionManager.openAdminMenu(player),
         "!audit": () => AuditManager.openAdminUI(player),
         "!admin": () => ServerMenuManager.openAdminPanel(player),
-        "!disaster": () => DisasterAdminManager.openMain(player),
     };
     const route = routes[message];
     if (!route) return;
@@ -141,6 +139,5 @@ if (scriptEvents?.subscribe) {
         else if (["system:dungeon", "dungeon:open"].includes(id)) Integration.send(player, "daily:dungeon");
         else if (["system:region", "region:admin"].includes(id)) RegionManager.openAdminMenu(player);
         else if (["system:audit", "audit:admin"].includes(id)) AuditManager.openAdminUI(player);
-        else if (["system:disaster", "disaster:admin"].includes(id)) DisasterAdminManager.openMain(player);
     });
 }

@@ -10,7 +10,6 @@ const menu = read("sapi_server_bp/scripts/modules/server_menu.js");
 const land = read("sapi_server_bp/scripts/modules/land.js");
 const market = read("sapi_server_bp/scripts/modules/market.js");
 const integration = read("sapi_server_bp/scripts/modules/integration.js");
-const disasters = read("sapi_server_bp/scripts/modules/disasters.js");
 const build = read("build.sh");
 const manifest = JSON.parse(read("sapi_server_bp/manifest.json"));
 
@@ -26,22 +25,22 @@ assert.match(operations, /maxUses/);
 assert.match(operations, /perPlayer/);
 assert.match(operations, /maskCode/);
 assert.match(audit, /code_redeem/);
-for (const route of ["!daily", "!dungeon", "!redeem", "!tpa", "!audit", "!disaster"]) assert.ok(main.includes(route), `missing route ${route}`);
+for (const route of ["!daily", "!dungeon", "!redeem", "!tpa", "!audit"]) assert.ok(main.includes(route), `missing route ${route}`);
 assert.match(menu, /每日福利/);
 assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.6.5");
+assert.equal(manifest.header.version.join("."), "2.7.1");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
-assert.match(integration, /interop:natural_disasters_heartbeat/);
-assert.match(menu, /自然灾害管理/);
-for (const marker of ["sando:settings:v3", "sando:state:v2", "sendNaturalDisasterControl", "手动触发", "停止当前灾害", "scripts/config.js"]) assert.match(disasters, new RegExp(marker));
-for (const removed of ["openGeneral", "openTiming", "openWeights", "confirmReset", "saveSettings"]) assert.doesNotMatch(disasters, new RegExp(removed), `SAPI must not expose advanced disaster setting ${removed}`);
-const disasterRegistry = disasters.slice(disasters.indexOf("const DISASTERS"), disasters.indexOf("const DEFAULTS"));
-for (const removed of ["flood", "earthquake", "特大洪水", "地震"]) assert.equal(disasterRegistry.includes(removed), false, `removed disaster remains in SAPI menu: ${removed}`);
-for (const marker of ["指定坐标触发", "bypassSafeZone", "payload.origin", "X 坐标", "Y 坐标", "Z 坐标"]) assert.match(disasters, new RegExp(marker));
+for (const source of [main, menu, integration]) {
+  for (const removed of ["!disaster", "DisasterAdminManager", "isNaturalDisastersAvailable", "sendNaturalDisasterControl", "自然灾害联动", "自然灾害管理"]) {
+    assert.equal(source.includes(removed), false, `SAPI disaster integration remains: ${removed}`);
+  }
+}
+assert.match(menu, /give @s sando_standalone:disaster_controller 1/);
+assert.match(menu, /\/give @p sando_standalone:disaster_controller/);
 for (const coordinate of [2349, 2635, 2352, 2585, 1942, 2087]) assert.ok(integration.includes(String(coordinate)), `missing safe-zone coordinate ${coordinate}`);
 assert.match(market, /durability\?\.damage/);
 assert.match(market, /仅允许上架耐久未损耗、尚未使用的武器/);
@@ -60,8 +59,6 @@ assert.match(integration, /encodeURIComponent\(player\.name\)/);
 assert.match(integration, /openExtractionMenu/);
 assert.match(integration, /interop:apoc_extraction_ack/);
 assert.match(integration, /interop:apoc_extraction_menu_request:v1/);
-assert.match(integration, /sendNaturalDisasterControl/);
-assert.match(integration, /interop:natural_disasters_request:v1/);
 assert.match(read("sapi_server_bp/scripts/modules/shop.js"), /openCategoryById/);
 const lottery = read("sapi_server_bp/scripts/modules/lottery.js");
 assert.match(lottery, /if \(res\.canceled\) return;/);
@@ -77,4 +74,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.6.5 validation passed.");
+console.log("SAPI Server v2.7.1 validation passed.");

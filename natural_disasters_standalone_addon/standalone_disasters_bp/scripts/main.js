@@ -1,5 +1,6 @@
 import { world, system, BlockPermutation } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
+import { STANDALONE_CONFIG } from "./config.js";
 
 const CFG = {
   warningSeconds: 20,
@@ -13,25 +14,23 @@ const CFG = {
   maxSurfaceCache: 280,
 };
 
-const SETTINGS_KEY = "sando_standalone:settings:v3";
+const SETTINGS_KEY = "sando_standalone:settings:v5";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.1.0 initializing; tornado, meteors and lightning enabled...");
+console.warn("[NaturalDisastersStandalone] v1.3.0 initializing; law/outlaw schedules and controller override enabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
-  enabled: true,
-  autoEnabled: true,
+  enabled: STANDALONE_CONFIG.enabled,
+  autoEnabled: STANDALONE_CONFIG.autoEnabled,
   overworldEnabled: true,
-  protectSafeZones: false,
-  blockDamage: false,
-  warningSeconds: 20,
-  disasterSeconds: 45,
-  cooldownSeconds: 120,
-  minIntervalMinutes: 20,
-  maxIntervalMinutes: 40,
-  difficulty: 2,
-  weights: { tornado: 20, meteors: 20, lightning: 20 }
+  protectSafeZones: STANDALONE_CONFIG.protectSpawn,
+  blockDamage: STANDALONE_CONFIG.blockDamage,
+  warningSeconds: STANDALONE_CONFIG.warningSeconds,
+  disasterSeconds: STANDALONE_CONFIG.disasterSeconds,
+  cooldownSeconds: STANDALONE_CONFIG.cooldownSeconds,
+  difficulty: STANDALONE_CONFIG.difficulty,
+  weights: { ...STANDALONE_CONFIG.weights }
 });
 
 const DISASTERS = [
@@ -73,6 +72,9 @@ let failedPlayers = new Set();
 let runParticipants = new Set();
 let deadParticipants = new Set();
 let surfaceCache = new Map();
+let activeAutoRegion = null;
+let scheduledAutoRegion = null;
+let manualCenter = null;
 
 function clamp(value, min, max, fallback) {
   const numeric = Number(value);
@@ -86,8 +88,6 @@ function parseJson(raw, fallback) {
 function normalizeSettings(value) {
   const source = value && typeof value === "object" ? value : {};
   const weights = source.weights && typeof source.weights === "object" ? source.weights : {};
-  const minIntervalMinutes = clamp(source.minIntervalMinutes, 1, 1440, DEFAULT_SETTINGS.minIntervalMinutes);
-  const maxIntervalMinutes = Math.max(minIntervalMinutes, clamp(source.maxIntervalMinutes, 1, 1440, DEFAULT_SETTINGS.maxIntervalMinutes));
   return {
     enabled: source.enabled !== false,
     autoEnabled: source.autoEnabled === true,
@@ -97,8 +97,6 @@ function normalizeSettings(value) {
     warningSeconds: Math.floor(clamp(source.warningSeconds, 5, 300, DEFAULT_SETTINGS.warningSeconds)),
     disasterSeconds: Math.floor(clamp(source.disasterSeconds, 10, 600, DEFAULT_SETTINGS.disasterSeconds)),
     cooldownSeconds: Math.floor(clamp(source.cooldownSeconds, 10, 3600, DEFAULT_SETTINGS.cooldownSeconds)),
-    minIntervalMinutes: Math.floor(minIntervalMinutes),
-    maxIntervalMinutes: Math.floor(maxIntervalMinutes),
     difficulty: Math.floor(clamp(source.difficulty, 0, 10, DEFAULT_SETTINGS.difficulty)),
     weights: Object.fromEntries(DISASTERS.map(entry => [entry.id, Math.floor(clamp(weights[entry.id], 0, 1000, DEFAULT_SETTINGS.weights[entry.id]))]))
   };
@@ -117,12 +115,22 @@ function loadSettings() {
 function scheduleNextAuto() {
   if (!settings.enabled || !settings.autoEnabled) {
     nextAutoTick = Number.POSITIVE_INFINITY;
+    scheduledAutoRegion = null;
     return;
   }
-  const min = settings.minIntervalMinutes;
-  const max = Math.max(min, settings.maxIntervalMinutes);
+  scheduledAutoRegion = chooseOccupiedAutoRegion();
+  if (!scheduledAutoRegion) return scheduleAutoRegionRetry();
+  const interval = STANDALONE_CONFIG.intervalMinutes[scheduledAutoRegion.type] || STANDALONE_CONFIG.intervalMinutes.outlaw;
+  const min = Math.max(1, Number(interval.min) || 1);
+  const max = Math.max(min, Number(interval.max) || min);
   const minutes = min + Math.random() * (max - min);
   nextAutoTick = system.currentTick + Math.max(1200, Math.floor(minutes * 1200));
+}
+
+function scheduleAutoRegionRetry() {
+  scheduledAutoRegion = null;
+  const minutes = Math.max(1, Number(STANDALONE_CONFIG.emptyRegionRetryMinutes) || 1);
+  nextAutoTick = system.currentTick + Math.floor(minutes * 1200);
 }
 
 function weightedDisaster() {
@@ -156,7 +164,36 @@ function inBounds(entry, dimensionId, location) {
     location.z >= Number(min.z) && location.z <= Number(max.z);
 }
 
+function automaticRegionForPlayer(player) {
+  try {
+    if (player.dimension.id !== "minecraft:overworld") return null;
+    if (STANDALONE_CONFIG.safeRegions.some(region => inBounds(region, player.dimension.id, player.location))) return null;
+    const law = STANDALONE_CONFIG.autoRegions.find(region => inBounds(region, player.dimension.id, player.location));
+    if (law) return law;
+    const radius = Math.max(16, Number(STANDALONE_CONFIG.automaticRadius) || 96);
+    return {
+      id: `outlaw_${player.name}`,
+      name: `非法制区（${player.name}附近）`,
+      type: "outlaw",
+      dimension: player.dimension.id,
+      minX: player.location.x - radius,
+      maxX: player.location.x + radius,
+      minZ: player.location.z - radius,
+      maxZ: player.location.z + radius,
+    };
+  } catch (_) { return null; }
+}
+
+function chooseOccupiedAutoRegion(preferredType = "") {
+  const candidates = world.getAllPlayers().map(automaticRegionForPlayer).filter(region => region && (!preferredType || region.type === preferredType));
+  const unique = [...new Map(candidates.map(region => [region.id, region])).values()];
+  return unique.length ? unique[Math.floor(Math.random() * unique.length)] : null;
+}
+
 function isSafeArea(dimensionId, location) {
+  // The controller is an explicit administrator override and can target any area.
+  if (manualCenter) return false;
+  if (STANDALONE_CONFIG.safeRegions.some(region => inBounds(region, dimensionId, location))) return true;
   if (!settings.protectSafeZones) return false;
   if (dimensionId !== "minecraft:overworld") return false;
   let spawn = null;
@@ -176,7 +213,18 @@ function touchesSafeArea(dimensionId, location, radius) {
 
 function participantsFor(dimensionId = activeDimensionId) {
   return world.getAllPlayers().filter(player => {
-    try { return player.dimension.id === dimensionId && !isSafeArea(dimensionId, player.location); }
+    try {
+      if (player.dimension.id !== dimensionId) return false;
+      if (manualCenter) {
+        if (manualCenter.dimension !== dimensionId) return false;
+        const dx = player.location.x - manualCenter.x;
+        const dz = player.location.z - manualCenter.z;
+        return dx * dx + dz * dz <= STANDALONE_CONFIG.manualRadius * STANDALONE_CONFIG.manualRadius;
+      }
+      if (isSafeArea(dimensionId, player.location)) return false;
+      if (activeAutoRegion) return inBounds(activeAutoRegion, dimensionId, player.location);
+      return automaticRegionForPlayer(player) !== null;
+    }
     catch (_) { return false; }
   });
 }
@@ -192,6 +240,11 @@ function publishState() {
       dimensionId: gameStarted ? activeDimensionId : "",
       remaining: gameStarted ? remaining : 0,
       difficulty: disasterLevel,
+      regionId: activeAutoRegion?.id || "",
+      regionName: activeAutoRegion?.name || (manualCenter ? "管理员定点释放" : ""),
+      regionType: activeAutoRegion?.type || (manualCenter ? "manual" : ""),
+      scheduledRegionType: scheduledAutoRegion?.type || "",
+      manualCenter,
       nextAutoSeconds: Number.isFinite(nextAutoTick) ? Math.max(0, Math.floor((nextAutoTick - system.currentTick) / 20)) : -1,
       updatedAt: Date.now()
     }));
@@ -488,6 +541,8 @@ function advanceSequence() {
   runParticipants.clear();
   deadParticipants.clear();
   failedPlayers.clear();
+  activeAutoRegion = null;
+  manualCenter = null;
   scheduleNextAuto();
   publishState();
 }
@@ -929,7 +984,7 @@ world.afterEvents.playerSpawn.subscribe(ev => {
       } catch (_) {}
     }
     if (ev.initialSpawn && isAdmin(p)) {
-      try { p.sendMessage("§a[独立自然灾害] v1.0.0 已加载。管理员可合成灾害控制器，或使用 /give @s sando_standalone:disaster_controller。"); } catch (_) {}
+      try { p.sendMessage("§a[独立自然灾害] v1.3.0 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；管理员可使用 /give @s sando_standalone:disaster_controller 获取控制器。"); } catch (_) {}
     }
   });
 });
@@ -1000,6 +1055,8 @@ function stopGame(source, reason = "管理员停止了当前灾害。") {
   runParticipants.clear();
   deadParticipants.clear();
   failedPlayers.clear();
+  activeAutoRegion = null;
+  manualCenter = null;
   scheduleNextAuto();
   publishState();
   if (wasRunning) {
@@ -1037,9 +1094,33 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
       return;
     }
 
+    const manual = source?.typeId === "minecraft:player";
+    if (manual) {
+      activeAutoRegion = null;
+      scheduledAutoRegion = null;
+      manualCenter = {
+        dimension: source.dimension.id,
+        x: Number(source.location.x),
+        y: Number(source.location.y),
+        z: Number(source.location.z),
+      };
+    } else {
+      manualCenter = null;
+      const scheduledType = scheduledAutoRegion?.type || "";
+      scheduledAutoRegion = null;
+      activeAutoRegion = chooseOccupiedAutoRegion(scheduledType);
+      if (!activeAutoRegion) {
+        scheduleAutoRegionRetry();
+        publishState();
+        return;
+      }
+    }
+
     const selected = DISASTERS.find(entry => entry.id === requestedDisasterId) || weightedDisaster();
-    const targetDimensionId = chooseTargetDimension(requestedDimensionId || source?.dimension?.id);
+    const targetDimensionId = chooseTargetDimension(requestedDimensionId || manualCenter?.dimension || activeAutoRegion?.dimension);
     if (!targetDimensionId) {
+      activeAutoRegion = null;
+      manualCenter = null;
       try { source?.sendMessage("§c没有可用目标：主世界中至少需要一名在线玩家。"); } catch (_) {}
       scheduleNextAuto();
       return;
@@ -1061,7 +1142,8 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
     nextAutoTick = Number.POSITIVE_INFINITY;
     publishState();
 
-    try { world.sendMessage(`§c§l[自然灾害预警] §r§f${disaster.name} §f将在 ${remaining} 秒后袭击 ${activeDimensionId}！`); } catch (_) {}
+    const targetLabel = activeAutoRegion?.name || (manualCenter ? `管理员坐标 ${Math.floor(manualCenter.x)}, ${Math.floor(manualCenter.y)}, ${Math.floor(manualCenter.z)}` : activeDimensionId);
+    try { world.sendMessage(`§c§l[自然灾害预警] §r§f${disaster.name} §f将在 ${remaining} 秒后袭击 ${targetLabel}！`); } catch (_) {}
     for (const p of participantsFor(targetDimensionId)) {
       try {
         p.onScreenDisplay.setTitle("§c§lNATURAL DISASTERS", {
@@ -1088,7 +1170,7 @@ function openControllerMenu(player) {
   const activeText = gameStarted ? `${disaster.name} §8· §f${phase} §8· §f${remaining}s` : "§a当前无灾害";
   const form = new ActionFormData()
     .title("§l§c独立自然灾害控制器")
-    .body(`§0本版本完全独立运行，不读取其他 Addon。\n§0状态：${activeText}\n§0自动灾害：${settings.autoEnabled ? "§a开启" : "§c关闭"}\n§0默认难度：§e${settings.difficulty}`)
+    .body(`§0本版本完全独立运行，不读取其他 Addon。\n§0状态：${activeText}\n§0自动灾害：${settings.autoEnabled ? "§a开启" : "§c关闭"}\n§0法制区间隔：§e20～40 分钟\n§0非法制区间隔：§e10～20 分钟\n§0已排除：§a${STANDALONE_CONFIG.safeRegions.map(region => region.name).join("、")}\n§0下次目标：§e${scheduledAutoRegion?.type === "law" ? "法制区" : scheduledAutoRegion?.type === "outlaw" ? "非法制区" : "等待区域玩家"}\n§0下次检查：§e${Number.isFinite(nextAutoTick) ? Math.max(0, Math.ceil((nextAutoTick - system.currentTick) / 20)) : "--"} 秒\n§0手动释放：以管理员当前位置为中心 ${STANDALONE_CONFIG.manualRadius} 格`)
     .button("§6随机灾害")
     .button("§f龙卷风")
     .button("§c陨石雨")
@@ -1103,7 +1185,11 @@ function openControllerMenu(player) {
     if (result.selection === 4) {
       settings.autoEnabled = !settings.autoEnabled;
       saveSettings();
-      if (settings.autoEnabled) scheduleNextAuto(); else nextAutoTick = Number.POSITIVE_INFINITY;
+      if (settings.autoEnabled) scheduleNextAuto();
+      else {
+        nextAutoTick = Number.POSITIVE_INFINITY;
+        scheduledAutoRegion = null;
+      }
       player.sendMessage(`§a自动灾害已${settings.autoEnabled ? "开启" : "关闭"}。`);
       return;
     }

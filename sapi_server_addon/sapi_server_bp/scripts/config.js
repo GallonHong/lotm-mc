@@ -9,12 +9,12 @@ export const Config = {
     // -------------------------------------------------------------
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.6.5",
+        version: "2.7.1",
         adminTag: "admin", // 拥有此 tag 或 op 的玩家拥有管理员权限
         menuItem: "minecraft:compass", // 右键唤起主菜单的物品 ID
         menuItemName: "§r§l§6快捷导航菜单 §8(右键使用)",
         giveMenuItemOnJoin: true, // 新玩家加入时是否赠送菜单罗盘
-        chatPrefixes: ["!menu", "!cd", "!caidan", "！菜单", "!shop", "!land", "!lottery", "!market", "!ah", "!pay", "!money", "!warp", "!spawn", "!home", "!tpa", "!back", "!daily", "!dungeon", "!redeem", "!region", "!audit", "!disaster"],
+        chatPrefixes: ["!menu", "!cd", "!caidan", "！菜单", "!shop", "!land", "!lottery", "!market", "!ah", "!pay", "!money", "!warp", "!spawn", "!home", "!tpa", "!back", "!daily", "!dungeon", "!redeem", "!region", "!audit"],
     },
 
     // 公共传送点：不收费，仅设置短冷却防止误触刷屏
