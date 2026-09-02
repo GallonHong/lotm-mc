@@ -4,10 +4,20 @@
   "padding": 8,
   "num_mip_levels": 4,
   "texture_data": {
-    "daily_crate_common": { "textures": "textures/blocks/copper_block" },
-    "daily_crate_rare": { "textures": "textures/blocks/exposed_copper" },
-    "daily_crate_epic": { "textures": "textures/blocks/weathered_copper" },
-    "daily_crate_legendary": { "textures": "textures/blocks/gold_block" },
-    "daily_crate_opened": { "textures": "textures/blocks/oxidized_copper" }
+    "daily_crate_common": {
+      "textures": "textures/blocks/daily_crate_common"
+    },
+    "daily_crate_rare": {
+      "textures": "textures/blocks/daily_crate_rare"
+    },
+    "daily_crate_epic": {
+      "textures": "textures/blocks/daily_crate_epic"
+    },
+    "daily_crate_legendary": {
+      "textures": "textures/blocks/daily_crate_legendary"
+    },
+    "daily_crate_opened": {
+      "textures": "textures/blocks/daily_crate_opened"
+    }
   }
 }

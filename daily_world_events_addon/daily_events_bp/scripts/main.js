@@ -96,6 +96,21 @@ function handleCommand(player, raw) {
     return player.sendMessage("§a已重新生成自己的今日任务。");
   }
   if (lower === "!dungeon") return DungeonMenu.open(player);
+  if (lower.startsWith("!crate") || lower.startsWith("!box")) {
+    const parts = lower.split(/\s+/);
+    if (parts[1] === "give" || parts.length === 1) {
+      try {
+        const inv = player.getComponent("minecraft:inventory")?.container;
+        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_common", 4));
+        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_rare", 4));
+        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_epic", 4));
+        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_legendary", 4));
+        return player.sendMessage("§a[物资箱] 已获得 普通/稀有/史诗/传说 物资箱各 4 个！放置后右键搜刮。");
+      } catch (e) {
+        return player.sendMessage(`§c给予失败: ${e}`);
+      }
+    }
+  }
   if (!lower.startsWith("!event")) return;
   if (!isAdmin(player)) return player.sendMessage("§c事件调试命令仅管理员可用。");
   const parts = lower.split(/\s+/);
@@ -207,7 +222,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
 
 subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
   const lower = String(event.message || "").trim().toLowerCase();
-  if (!lower.startsWith("!daily") && !lower.startsWith("!event") && !lower.startsWith("!dungeon")) return;
+  if (!lower.startsWith("!daily") && !lower.startsWith("!event") && !lower.startsWith("!dungeon") && !lower.startsWith("!crate") && !lower.startsWith("!box")) return;
   event.cancel = true;
   const player = event.sender;
   const message = event.message;
