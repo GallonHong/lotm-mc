@@ -27,6 +27,19 @@ function subscribeAfter(eventsObj, eventName, handler) {
   return false;
 }
 
+function subscribeBefore(eventsObj, eventName, handler) {
+  try {
+    const signal = eventsObj ? eventsObj[eventName] : undefined;
+    if (signal && typeof signal.subscribe === 'function') {
+      signal.subscribe(handler);
+      return true;
+    }
+  } catch (err) {
+    console.warn('Cannot subscribe to beforeEvent ' + eventName + ':', err);
+  }
+  return false;
+}
+
 class AddonController {
   constructor() {
     this.lastHeldItem = new Map();
@@ -37,7 +50,39 @@ class AddonController {
   }
 
   registerEvents() {
-    // 1. 立即点击触发 (itemUse) - 支持单点、半自动与首发即时射击
+    // 1. 拦截 Shift + 左键 (破坏方块)，阻断破损并弹出 SAPI 战术空袭菜单
+    subscribeBefore(world.beforeEvents, 'playerBreakBlock', (event) => {
+      try {
+        const player = event.player;
+        if (player && player.isSneaking) {
+          const item = event.itemStack;
+          if (item && item.typeId === 'test_gun:ak47_commander') {
+            event.cancel = true;
+            system.run(() => {
+              ArtilleryEngine.openMenu(player);
+            });
+          }
+        }
+      } catch {}
+    });
+
+    // 2. 拦截 Shift + 右键点击方块
+    subscribeBefore(world.beforeEvents, 'playerInteractWithBlock', (event) => {
+      try {
+        const player = event.player;
+        if (player && player.isSneaking) {
+          const item = event.itemStack;
+          if (item && item.typeId === 'test_gun:ak47_commander') {
+            event.cancel = true;
+            system.run(() => {
+              ArtilleryEngine.openMenu(player);
+            });
+          }
+        }
+      } catch {}
+    });
+
+    // 3. 立即点击触发 (itemUse) - 单点、半自动与潜行技能触发
     subscribeAfter(world.afterEvents, 'itemUse', (event) => {
       try {
         const player = event.source;
@@ -70,7 +115,7 @@ class AddonController {
       }
     });
 
-    // 2. 长按按住触发 (itemStartUse) - 支持全自动武器按住连射
+    // 4. 长按按住触发 (itemStartUse) - 全自动武器按住连射
     subscribeAfter(world.afterEvents, 'itemStartUse', (event) => {
       try {
         const player = event.source;
@@ -118,6 +163,22 @@ class AddonController {
       } catch (err) {
         console.warn('Error in entityHurt:', err);
       }
+    });
+
+    // 5. 命中实体时 Shift + 左键也弹出菜单
+    subscribeAfter(world.afterEvents, 'entityHitEntity', (event) => {
+      try {
+        const player = event.damagingEntity;
+        if (player && player.typeId === 'minecraft:player' && player.isSneaking) {
+          const equ = player.getComponent('minecraft:equippable');
+          const mainhand = equ?.getEquipment('Mainhand');
+          if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
+            system.run(() => {
+              ArtilleryEngine.openMenu(player);
+            });
+          }
+        }
+      } catch {}
     });
 
     subscribeAfter(world.afterEvents, 'playerLeave', (event) => {
@@ -169,16 +230,3 @@ class AddonController {
 }
 
 new AddonController();
-
-world.afterEvents.entityHitEntity.subscribe(event => {
-  try {
-    const player = event.damagingEntity;
-    if (player && player.typeId === 'minecraft:player' && player.isSneaking) {
-      const equ = player.getComponent('minecraft:equippable');
-      const mainhand = equ?.getEquipment('Mainhand');
-      if (mainhand && mainhand.typeId === 'test_gun:ak47_commander') {
-        ArtilleryEngine.openMenu(player);
-      }
-    }
-  } catch {}
-});
