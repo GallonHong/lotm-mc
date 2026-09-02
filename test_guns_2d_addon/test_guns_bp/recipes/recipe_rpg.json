@@ -1,0 +1,37 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_rpg"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " P ",
+      "RBS",
+      " I "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_rpg"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "B": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "I": {
+        "item": "minecraft:iron_block"
+      }
+    },
+    "result": {
+      "item": "test_gun:rpg",
+      "count": 1
+    }
+  }
+}

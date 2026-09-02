@@ -1,0 +1,31 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_ammo_rocket"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " T ",
+      "IGI",
+      " I "
+    ],
+    "key": {
+      "T": {
+        "item": "minecraft:tnt"
+      },
+      "G": {
+        "item": "minecraft:gunpowder"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:ammo_rocket",
+      "count": 2
+    }
+  }
+}

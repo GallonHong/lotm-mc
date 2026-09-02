@@ -1,0 +1,44 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:rpg",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_rpg",
+      "minecraft:display_name": {
+        "value": "RPG-7 单兵火箭筒 §5[史诗]§r"
+      },
+      "minecraft:durability": {
+        "max_durability": 150
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "test_gun:part_heavy_barrel"
+            ],
+            "repair_amount": 50
+          }
+        ]
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.65
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      }
+    }
+  }
+}

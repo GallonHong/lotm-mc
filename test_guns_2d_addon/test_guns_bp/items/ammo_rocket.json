@@ -1,0 +1,20 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:ammo_rocket",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 16
+      },
+      "minecraft:icon": "test_gun_ammo_rocket",
+      "minecraft:display_name": {
+        "value": "PG-7V 高爆破甲火箭弹 §5[史诗]§r"
+      }
+    }
+  }
+}

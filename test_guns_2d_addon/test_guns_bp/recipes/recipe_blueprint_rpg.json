@@ -1,0 +1,31 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_blueprint_rpg"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " D ",
+      "EBE",
+      " D "
+    ],
+    "key": {
+      "D": {
+        "item": "minecraft:diamond"
+      },
+      "E": {
+        "item": "minecraft:emerald"
+      },
+      "B": {
+        "item": "test_gun:blueprint_blank"
+      }
+    },
+    "result": {
+      "item": "test_gun:blueprint_rpg",
+      "count": 1
+    }
+  }
+}
