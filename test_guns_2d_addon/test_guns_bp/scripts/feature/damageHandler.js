@@ -231,6 +231,43 @@ export class DamageHandler {
         damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
       };
       target.applyDamage(finalDamage, damageOptions);
+    // 🩸 USAS-12「嗜血狂潮」专属吸血被动结算 (Life-Steal & Overheal Barrier)
+    if (gun && (gun.isLifeSteal || gun.id === 'test_gun:usas12') && shooter && shooter.isValid() && shooter.typeId === 'minecraft:player') {
+      try {
+        const ratio = gun.lifeStealRatio || 0.18;
+        const healAmount = Math.max(0.5, Math.round(finalDamage * ratio * 10) / 10);
+        
+        const healthComp = shooter.getComponent('minecraft:health');
+        if (healthComp) {
+          const currentHp = healthComp.currentValue;
+          const maxHp = healthComp.effectiveMax;
+          
+          if (currentHp < maxHp) {
+            const newHp = Math.min(maxHp, currentHp + healAmount);
+            healthComp.setCurrentValue(newHp);
+            shooter.dimension.spawnParticle('minecraft:heart_particle', {
+              x: shooter.location.x + (Math.random() - 0.5) * 0.4,
+              y: shooter.location.y + 1.2,
+              z: shooter.location.z + (Math.random() - 0.5) * 0.4
+            });
+            shooter.onScreenDisplay?.setActionBar?.(`§c🩸【噬血狂潮】汲取生命 +${healAmount.toFixed(1)} HP (§e${newHp.toFixed(0)}/${maxHp}§c)§r`);
+          } else {
+            // 满血过量吸血转化为临时金色伤害吸收护盾 (Absorption)
+            shooter.addEffect('absorption', 120, { amplifier: 1, showParticles: false });
+            shooter.onScreenDisplay?.setActionBar?.(`§6🛡【鲜血盛宴】过量吸血激活金色伤害吸收护盾！§r`);
+          }
+          
+          // 受害者产生猩红噬血粒子与音效
+          target.dimension.spawnParticle('minecraft:critical_hit_emitter', target.location);
+          if (Math.random() < 0.20) {
+            shooter.dimension.playSound('random.drink', shooter.location, { volume: 0.6, pitch: 1.4 });
+          }
+        }
+      } catch (err) {
+        console.warn('Error in life-steal handler:', err);
+      }
+    }
+
     } catch {
       try {
         const healthComp = target.getComponent('minecraft:health');

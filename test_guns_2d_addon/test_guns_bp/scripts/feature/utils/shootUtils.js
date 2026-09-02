@@ -220,8 +220,8 @@ export function fireBullet(player, gun) {
   const maxRange = (gun.stats && gun.stats.maxRange) ? gun.stats.maxRange : 60;
   const isADS = Boolean(player.isSneaking);
 
-  if (gun.mode === FireMode.SHOTGUN) {
-    const PELLETS = 6;
+  if (gun.mode === FireMode.SHOTGUN || gun.type === 'shotgun') {
+    const PELLETS = (gun.stats && gun.stats.pelletCount) ? gun.stats.pelletCount : 8;
     // 战术开镜瞄准时散布极度收拢 (0.02 vs 0.075)
     const spreadFactor = isADS ? 0.022 : 0.075;
 
