@@ -137,13 +137,56 @@ export class DamageHandler {
       }
     }
 
-    // 2.3 防暴盾反弹荆棘
-    if (offhandItem && offhandItem.typeId.includes('riot_shield') && shooter && shooter.isValid()) {
-      try {
-        const reflectDmg = Math.max(1.0, Math.round(currentDamage * 0.4));
-        shooter.applyDamage(reflectDmg, { cause: EntityDamageCause.thorns, damagingEntity: target });
-        target.dimension.playSound('item.shield.block', targetLoc, { volume: 1.0, pitch: 1.2 });
-      } catch {}
+    // 2.3 战术防暴盾牌格挡枪械子弹伤害与反弹 (Bullet Shield Blocking & Reflection)
+    const mainhandItem = targetEquip?.getEquipment(EquipmentSlot.Mainhand);
+    const hasShield = (offhandItem?.typeId?.includes('shield') || mainhandItem?.typeId?.includes('shield'));
+    const isRiot = (offhandItem?.typeId?.includes('riot_shield') || mainhandItem?.typeId?.includes('riot_shield'));
+    const isFlash = (offhandItem?.typeId?.includes('flash_shield') || mainhandItem?.typeId?.includes('flash_shield'));
+
+    if (hasShield) {
+      // 判定攻击方向是否在正面 (前方 200° 大扇形格挡)
+      let isFrontal = true;
+      if (shooter && shooter.isValid()) {
+        const sLoc = shooter.location;
+        const tLoc = target.location;
+        const viewDir = target.getViewDirection ? target.getViewDirection() : { x: 0, z: 0 };
+        const dx = sLoc.x - tLoc.x;
+        const dz = sLoc.z - tLoc.z;
+        const dist = Math.hypot(dx, dz);
+        if (dist > 0.1) {
+          const dot = (dx / dist) * viewDir.x + (dz / dist) * viewDir.z;
+          isFrontal = (dot > -0.25);
+        }
+      }
+
+      if (isFrontal) {
+        // 潜行举盾吸收 85% 枪械伤害，常态持盾吸收 70% 枪械伤害
+        const blockRate = target.isSneaking ? 0.85 : 0.70;
+        currentDamage *= (1.0 - blockRate);
+
+        // 盾牌金属跳弹火花与格挡重击音效
+        try {
+          target.dimension.playSound('item.shield.block', targetLoc, { volume: 1.3, pitch: 1.1 });
+          target.dimension.playSound('random.anvil_land', targetLoc, { volume: 0.7, pitch: 1.9 });
+          const sparkLoc = (impactLocation && Number.isFinite(impactLocation.x)) ? impactLocation : targetLoc;
+          target.dimension.spawnParticle('minecraft:crit', sparkLoc);
+          target.dimension.spawnParticle('minecraft:camera_shoot_explosion', sparkLoc);
+        } catch {}
+
+        // 重装反甲盾 50% 真实动能反伤
+        if (isRiot && shooter && shooter.isValid() && shooter.id !== target.id) {
+          const reflectDmg = Math.max(2.0, Math.round(baseDmg * 0.50));
+          try {
+            shooter.applyDamage(reflectDmg, { cause: EntityDamageCause.thorns, damagingEntity: target });
+            shooter.dimension.spawnParticle('minecraft:critical_hit_emitter', shooter.location);
+          } catch {}
+          if (target.typeId === 'minecraft:player') {
+            target.onScreenDisplay?.setActionBar?.(`§6🛡【重装反甲盾】格挡子弹！吸收 ${(blockRate * 100).toFixed(0)}% 枪伤，反弹 §e${reflectDmg}§6 动能反伤!§r`);
+          }
+        } else if (target.typeId === 'minecraft:player') {
+          target.onScreenDisplay?.setActionBar?.(`§9🛡【G52 防暴盾】格挡子弹！吸收 ${(blockRate * 100).toFixed(0)}% 枪械伤害!§r`);
+        }
+      }
     }
 
     // 3. 武器专属被动机制结算 (Weapon Passives)
