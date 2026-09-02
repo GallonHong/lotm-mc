@@ -216,9 +216,11 @@ export class ArtilleryEngine {
           // 炸弹从天而降的简单自然粒子：头部火光 + 尾部轻烟 (Clean falling bomb trail)
           const shellPos = { x: s.x, y: s.y, z: s.z };
           const trailPos = { x: s.x, y: s.y + 1.2, z: s.z };
-          s.dim.spawnParticle('minecraft:basic_flame_particle', shellPos);
-          s.dim.spawnParticle('test_gun:he_tracer', shellPos);
-          s.dim.spawnParticle('minecraft:basic_smoke_particle', trailPos);
+          try {
+            s.dim.spawnParticle('minecraft:basic_flame_particle', shellPos);
+            s.dim.spawnParticle('test_gun:he_tracer', shellPos);
+            s.dim.spawnParticle('minecraft:basic_smoke_particle', trailPos);
+          } catch {}
 
           if (s.y <= s.targetY) {
             this.explodeShell(s);
@@ -226,7 +228,8 @@ export class ArtilleryEngine {
             nextFalling.push(s);
           }
         } catch (err) {
-          console.warn('Falling shell error:', err);
+          // safely ignore unloaded chunk
+          if (err.name !== 'LocationInUnloadedChunkError') console.warn('Falling shell error:', err);
         }
       }
       this.fallingShells = nextFalling;
@@ -273,7 +276,7 @@ export class ArtilleryEngine {
 
     // 精确向下探测实际地面实体或方块表面
     let targetY = cy;
-    for (let dy = 12; dy >= -15; dy--) {
+    for (let dy = 8; dy >= -10; dy--) {
       try {
         const b = dim.getBlock({ x: Math.floor(rx), y: Math.floor(cy + dy), z: Math.floor(rz) });
         if (b && !b.isAir && !b.isLiquid) {
