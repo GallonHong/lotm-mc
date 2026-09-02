@@ -277,15 +277,11 @@ export class ArtilleryEngine {
       dim.spawnParticle('minecraft:basic_smoke_particle', impactLoc);
     } catch {}
 
-    // 2. 真实重型火炮爆鸣 (复用 Actual Guns 重型爆炸音效 + 原版大音量共振)
+    // 2. 战术迫击炮爆鸣 (适中音量，温和舒适不刺耳)
     try {
       dim.playSound('test_gun.artillery_explode', impactLoc, {
-        volume: 3.5,
-        pitch: 0.92 + Math.random() * 0.16
-      });
-      dim.playSound('random.explode', impactLoc, {
-        volume: 2.5,
-        pitch: 0.85 + Math.random() * 0.15
+        volume: 1.2,
+        pitch: 0.95 + Math.random() * 0.15
       });
     } catch {}
 
@@ -306,16 +302,8 @@ export class ArtilleryEngine {
 
       for (const ent of entities) {
         if (!ent || !ent.isValid()) continue;
-        // 1. 自身绝对免疫轰炸伤害与击退 (Immunity for shooter)
-        if (ent.id === shell.shooterId) continue;
-        if (shooter && (ent.id === shooter.id || ent.nameTag === shooter.nameTag || ent.name === shooter.name)) continue;
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
-
-        // 2. 保护自身驯服的宠物 (狗/猫/马)
-        try {
-          const tameable = ent.getComponent('minecraft:tameable');
-          if (tameable && tameable.tamedToPlayerId === shell.shooterId) continue;
-        } catch {}
+        // 无差别地毯轰炸：自身进入轰炸区同样受到迫击炮溅射伤害与击退
 
         try {
           ent.applyDamage(shellDmg, {
