@@ -52,7 +52,7 @@ export class MercenaryEngine {
 
     if (players && players.length > 0) {
       for (const p of players) {
-        if (!p || !p.isValid() || p.getGameMode() === 'spectator') continue;
+        if (!p || !p.isValid() || p.getGameMode() === 'creative' || p.getGameMode() === 'spectator') continue;
         const d = Math.hypot(p.location.x - merc.location.x, p.location.y - merc.location.y, p.location.z - merc.location.z);
         if (d < closestDist) {
           closestDist = d;
