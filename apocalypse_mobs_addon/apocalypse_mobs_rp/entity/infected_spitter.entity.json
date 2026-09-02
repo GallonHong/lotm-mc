@@ -4,7 +4,7 @@
     "identifier": "apoc:infected_spitter",
     "materials": { "default": "entity_alphatest" },
     "textures": { "default": "textures/entity/infected_mutant" },
-    "geometry": { "default": "geometry.infected" },
+    "geometry": { "default": "geometry.apoc.infected" },
     "animations": { "base": "animation.humanoid.base_pose", "move": "animation.humanoid.move", "look": "animation.humanoid.look_at_target.default", "attack": "animation.zombie.attack_bare_hand" },
     "scripts": { "animate": ["base", "move", "look", "attack"] },
     "render_controllers": ["controller.render.default"],
