@@ -2,9 +2,21 @@ entity.apoc:infected_basic.name=Basic Infected
 entity.apoc:infected_runner.name=Runner Infected
 entity.apoc:infected_mutant.name=Mutant Infected
 entity.apoc:infected_heavy.name=Heavy Infected
-entity.apoc:infected_spitter.name=Toxic Spitter
+entity.apoc:infected_spitter.name=Spitter
+entity.apoc:infected_shrieker.name=Shrieker
+entity.apoc:infected_charger.name=Charger
+entity.apoc:infected_hunter.name=Hunter
+entity.apoc:infected_tyrant.name=Armored Tyrant
+entity.apoc:infected_broodmother.name=Broodmother
 entity.apoc:raider_rifleman.name=Raider Rifleman
 tile.apoc:loot_crate.name=Apocalypse Loot Crate
+
+item.spawn_egg.entity.apoc:infected_spitter.name=Spawn Spitter
+item.spawn_egg.entity.apoc:infected_shrieker.name=Spawn Shrieker
+item.spawn_egg.entity.apoc:infected_charger.name=Spawn Charger
+item.spawn_egg.entity.apoc:infected_hunter.name=Spawn Hunter
+item.spawn_egg.entity.apoc:infected_tyrant.name=Spawn Armored Tyrant
+item.spawn_egg.entity.apoc:infected_broodmother.name=Spawn Broodmother
 
 entity.apoc_boss:mutant_zombie.name=Mutant Zombie
 entity.apoc_boss:mutant_skeleton.name=Mutant Skeleton

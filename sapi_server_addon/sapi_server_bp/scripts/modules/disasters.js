@@ -90,7 +90,7 @@ export class DisasterAdminManager {
                 `§8默认保护主城/SAPI 保护区；地形破坏默认关闭。`
             );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-        add("§l§6▶ 手动触发灾害\n§r§8选择类型、维度与难度", "textures/ui/warning_alex", () => this.openTrigger(player, () => this.openMain(player, onBack)));
+        add("§l§6▶ 手动触发灾害\n§r§8可指定坐标并无视安全区", "textures/ui/warning_alex", () => this.openTrigger(player, () => this.openMain(player, onBack)));
         add("§l§e⚙ 基础开关与作用范围\n§r§8主世界、摸金都市、安全区、地形破坏", "textures/ui/settings_glyph_color_2x", () => this.openGeneral(player, () => this.openMain(player, onBack)));
         add("§l§b⏱ 时间与难度\n§r§8预警、持续、冷却和随机间隔", "textures/ui/timer", () => this.openTiming(player, () => this.openMain(player, onBack)));
         add("§l§d⚖ 随机权重\n§r§8分别设置五种灾害出现权重", "textures/ui/icon_recipe_nature", () => this.openWeights(player, () => this.openMain(player, onBack)));
@@ -171,14 +171,31 @@ export class DisasterAdminManager {
             .title("§l§6手动触发自然灾害")
             .dropdown("灾害类型", ["按权重随机", ...DISASTERS.map(entry => entry.name)])
             .dropdown("目标维度", dimensions.map(entry => entry.name))
-            .slider("本次难度（0-10）", 0, 10, 1, value.difficulty);
+            .slider("本次难度（0-10）", 0, 10, 1, value.difficulty)
+            .toggle("指定坐标触发（无视安全区）", true)
+            .textField("X 坐标", "例如 2438", String(Math.floor(player.location.x)))
+            .textField("Y 坐标", "例如 64", String(Math.floor(player.location.y)))
+            .textField("Z 坐标", "例如 2024", String(Math.floor(player.location.z)));
         Utils.showForm(player, form, result => {
             if (result.canceled) return onBack?.();
-            const [disasterIndex, dimensionIndex, difficulty] = result.formValues;
+            const [disasterIndex, dimensionIndex, difficulty, useCoordinates, rawX, rawY, rawZ] = result.formValues;
             const disasterId = disasterIndex === 0 ? "" : DISASTERS[disasterIndex - 1]?.id || "";
             const dimensionId = dimensions[dimensionIndex]?.id || player.dimension.id;
-            Integration.sendNaturalDisasterControl(player, { action: "trigger", disasterId, dimensionId, difficulty: Math.floor(difficulty) });
-            AuditManager.log("disaster_trigger", player, disasterId || "weighted_random", `${dimensionId} difficulty=${difficulty}`);
+            const coordinates = { x: Number(rawX), y: Number(rawY), z: Number(rawZ) };
+            if (useCoordinates && !Object.values(coordinates).every(Number.isFinite)) {
+                Utils.tell(player, "§c坐标必须是有效数字，灾害未触发。");
+                return this.openTrigger(player, onBack);
+            }
+            const payload = { action: "trigger", disasterId, dimensionId, difficulty: Math.floor(difficulty) };
+            if (useCoordinates) {
+                payload.origin = coordinates;
+                payload.bypassSafeZone = true;
+            }
+            Integration.sendNaturalDisasterControl(player, payload);
+            AuditManager.log("disaster_trigger", player, disasterId || "weighted_random", `${dimensionId} difficulty=${difficulty}${useCoordinates ? ` origin=${coordinates.x},${coordinates.y},${coordinates.z} bypassSafeZone=true` : ""}`);
+            Utils.tell(player, useCoordinates
+                ? `§a已提交坐标灾害：§e${coordinates.x}, ${coordinates.y}, ${coordinates.z}§a；本次无视安全区。`
+                : "§a已提交自然灾害触发请求。");
             onBack?.();
         });
     }

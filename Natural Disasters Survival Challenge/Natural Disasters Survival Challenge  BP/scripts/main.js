@@ -21,7 +21,7 @@ const SAPI_REGIONS_KEY = "sapi:server:regions:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 
-console.warn("[NaturalDisasters] Server Events v2.0.1 initializing with dual-channel SAPI control...");
+console.warn("[NaturalDisasters] Server Events v2.1.0 initializing with coordinate-targeted SAPI control...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: true,
@@ -80,6 +80,8 @@ let failedPlayers = new Set();
 let runParticipants = new Set();
 let deadParticipants = new Set();
 let surfaceCache = new Map();
+let manualOrigin = null;
+let manualSafeZoneBypass = false;
 
 function clamp(value, min, max, fallback) {
   const numeric = Number(value);
@@ -169,6 +171,9 @@ function inBounds(entry, dimensionId, location) {
 }
 
 function isSafeArea(dimensionId, location) {
+  // An explicit administrator coordinate trigger is authoritative for this run.
+  // This only affects disaster logic; it does not modify SAPI or Apocalypse zones.
+  if (manualSafeZoneBypass) return false;
   if (!settings.protectSafeZones) return false;
   const presetSafeZones = [
     { dimension: "minecraft:overworld", minX: 2349, maxX: 2635, minZ: 1863, maxZ: 2069 },
@@ -209,6 +214,16 @@ function participantsFor(dimensionId = activeDimensionId) {
   });
 }
 
+function normalizeOrigin(value) {
+  if (!value || typeof value !== "object") return null;
+  const origin = { x: Number(value.x), y: Number(value.y), z: Number(value.z) };
+  return Object.values(origin).every(Number.isFinite) ? origin : null;
+}
+
+function locationTargets(players) {
+  return manualOrigin ? [{ location: manualOrigin, manual: true }] : players;
+}
+
 function publishState() {
   try {
     world.setDynamicProperty(HEARTBEAT_KEY, Date.now());
@@ -220,6 +235,8 @@ function publishState() {
       dimensionId: gameStarted ? activeDimensionId : "",
       remaining: gameStarted ? remaining : 0,
       difficulty: disasterLevel,
+      origin: manualOrigin,
+      safeZoneBypassed: manualSafeZoneBypass,
       nextAutoSeconds: Number.isFinite(nextAutoTick) ? Math.max(0, Math.floor((nextAutoTick - system.currentTick) / 20)) : -1,
       updatedAt: Date.now()
     }));
@@ -280,7 +297,14 @@ function executeControl(eventId, source, rawMessage = "", requestId = "") {
       publishState();
       try { source?.sendMessage("§a自然灾害设置已应用。"); } catch (_) {}
     } else if (payload.action === "trigger") {
-      startGame(source, String(payload.disasterId || ""), String(payload.dimensionId || source?.dimension?.id || ""), payload.difficulty);
+      startGame(
+        source,
+        String(payload.disasterId || ""),
+        String(payload.dimensionId || source?.dimension?.id || ""),
+        payload.difficulty,
+        payload.origin,
+        payload.bypassSafeZone === true
+      );
     } else if (payload.action === "stop") {
       stopGame(source);
     } else if (payload.action === "status") {
@@ -584,6 +608,8 @@ function advanceSequence() {
   runParticipants.clear();
   deadParticipants.clear();
   failedPlayers.clear();
+  manualOrigin = null;
+  manualSafeZoneBypass = false;
   scheduleNextAuto();
   publishState();
 }
@@ -605,17 +631,18 @@ function tornadoProfile(level) {
 function tornadoTick(dim, players) {
   if (!players.length) return;
   const profile = tornadoProfile(disasterLevel);
+  const targets = locationTargets(players);
 
   if (!tornado || !tornado.isValid) {
-    const p = players[Math.floor(Math.random() * players.length)];
-    const c = centerForPlayer(p, 24, 10);
-    c.y = surfaceY(dim, c.x, p.location.y, c.z) + 1;
+    const p = targets[Math.floor(Math.random() * targets.length)];
+    const c = p.manual ? { ...p.location } : centerForPlayer(p, 24, 10);
+    if (!p.manual) c.y = surfaceY(dim, c.x, p.location.y, c.z) + 1;
     try { tornado = dim.spawnEntity("sando:tornado_core", c); } catch (_) { tornado = null; }
   }
   if (!tornado?.isValid) return;
 
   if (activeTick % 10 === 0) {
-    const target = players[Math.floor(Math.random() * players.length)];
+    const target = targets[Math.floor(Math.random() * targets.length)];
     const l = tornado.location;
     const dx = target.location.x - l.x, dz = target.location.z - l.z;
     const len = Math.max(1, Math.hypot(dx, dz));
@@ -718,10 +745,11 @@ function spawnMeteor(dim, player) {
 function meteorTick(dim, players) {
   const interval = Math.max(10, 24 - disasterLevel * 2);
   const perPulse = Math.min(4, 1 + Math.floor(disasterLevel / 2));
+  const targets = locationTargets(players);
 
   if (activeTick % interval === 0 && meteors.length < CFG.maxTrackedMeteors) {
     for (let n = 0; n < perPulse && meteors.length < CFG.maxTrackedMeteors; n++) {
-      const p = players[Math.floor(Math.random() * players.length)];
+      const p = targets[Math.floor(Math.random() * targets.length)];
       if (p) spawnMeteor(dim, p);
     }
   }
@@ -773,6 +801,7 @@ function floodTick(dim, players) {
   const level = disasterLevel;
   const push = Math.min(0.15, 0.045 + level * 0.006);
   const downward = Math.min(0.19, 0.085 + level * 0.007);
+  const centers = locationTargets(players);
 
   // Water pressure is applied frequently, but only to players. It keeps the
   // player submerged while still allowing determined upward swimming.
@@ -791,7 +820,7 @@ function floodTick(dim, players) {
 
   // A light vanilla splash ring sells the wave without custom particle spam.
   if (activeTick % 15 === 0) {
-    for (const p of players) {
+    for (const p of centers) {
       for (let i = 0; i < 8; i++) {
         const a = (Math.PI * 2 * i / 8) + activeTick * 0.05;
         vanillaWaterParticle(dim, {
@@ -807,14 +836,14 @@ function floodTick(dim, players) {
   // hundreds of world blocks. This keeps feet, body and head underwater.
   if (activeTick % 10 !== 0) return;
 
-  const offsets = players.length <= 4
+  const offsets = centers.length <= 4
     ? [[-1,-1],[0,-1],[1,-1],[-1,0],[0,0],[1,0],[-1,1],[0,1],[1,1]]
-    : players.length <= 10
+    : centers.length <= 10
       ? [[0,0],[1,0],[-1,0],[0,1],[0,-1]]
       : [[0,0]];
 
   const desired = new Set();
-  for (const p of players) {
+  for (const p of centers) {
     const baseX = Math.floor(p.location.x);
     const baseY = Math.floor(p.location.y);
     const baseZ = Math.floor(p.location.z);
@@ -850,9 +879,10 @@ function lightningTick(dim, players) {
   const interval = Math.max(8, 28 - level * 2);
   const boltsPerPulse = Math.min(6, 1 + Math.floor(level / 2));
   if (activeTick % interval !== 0) return;
+  const targets = locationTargets(players);
 
   for (let i = 0; i < boltsPerPulse; i++) {
-    const p = players[Math.floor(Math.random() * players.length)];
+    const p = targets[Math.floor(Math.random() * targets.length)];
     if (!p) continue;
     const c = centerForPlayer(p, Math.min(28, 17 + level * 2), 5);
     c.y = surfaceY(dim, c.x, p.location.y, c.z) + 1;
@@ -947,6 +977,7 @@ function processEarthquakeQueue(dim) {
 
 function earthquakeTick(dim, players) {
   const level = disasterLevel;
+  const targets = locationTargets(players);
   const shakeInterval = Math.max(7, 17 - level);
   if (activeTick % shakeInterval === 0) {
     const intensity = Math.min(1.25, 0.20 + level * 0.10);
@@ -964,7 +995,7 @@ function earthquakeTick(dim, players) {
 
   const crackInterval = Math.max(34, 72 - level * 5);
   if (activeTick % crackInterval === 0 && earthquakeQueue.length < CFG.maxEarthquakeQueue) {
-    for (const p of players.slice(0, Math.min(3, players.length))) queueEarthquakeCrack(dim, p);
+    for (const p of targets.slice(0, Math.min(3, targets.length))) queueEarthquakeCrack(dim, p);
   }
   processEarthquakeQueue(dim);
 }
@@ -998,6 +1029,8 @@ function resetChallengeAfterAllDead() {
   failedPlayers.clear();
   deadParticipants.clear();
   runParticipants.clear();
+  manualOrigin = null;
+  manualSafeZoneBypass = false;
   scheduleNextAuto();
   publishState();
 
@@ -1025,7 +1058,7 @@ world.afterEvents.playerSpawn.subscribe(ev => {
       } catch (_) {}
     }
     if (ev.initialSpawn && isAdmin(p)) {
-      try { p.sendMessage("§a[自然灾害] 行为脚本 v2.0.1 已加载，SAPI 联动与 /scriptevent 控制可用。"); } catch (_) {}
+      try { p.sendMessage("§a[自然灾害] 行为脚本 v2.1.0 已加载，SAPI 坐标触发与 /scriptevent 控制可用。"); } catch (_) {}
     }
   });
 });
@@ -1093,6 +1126,8 @@ function stopGame(source, reason = "管理员停止了当前灾害。") {
   runParticipants.clear();
   deadParticipants.clear();
   failedPlayers.clear();
+  manualOrigin = null;
+  manualSafeZoneBypass = false;
   scheduleNextAuto();
   publishState();
   if (wasRunning) {
@@ -1102,7 +1137,7 @@ function stopGame(source, reason = "管理员停止了当前灾害。") {
   }
 }
 
-function startGame(source, requestedDisasterId = "", requestedDimensionId = "", requestedDifficulty = undefined) {
+function startGame(source, requestedDisasterId = "", requestedDimensionId = "", requestedDifficulty = undefined, requestedOrigin = null, bypassSafeZone = false) {
   try {
     loadSettings();
     if (source?.typeId === "minecraft:player" && !isAdmin(source)) {
@@ -1116,7 +1151,7 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
     if (!bootSystem(false)) {
       try { source?.sendMessage("§e[Natural Disasters] Preparing scoreboards... starting in a moment."); } catch (_) {}
       system.runTimeout(() => {
-        if (bootSystem(false)) startGame(source, requestedDisasterId, requestedDimensionId, requestedDifficulty);
+        if (bootSystem(false)) startGame(source, requestedDisasterId, requestedDimensionId, requestedDifficulty, requestedOrigin, bypassSafeZone);
         else {
           try { source?.sendMessage("§c[Natural Disasters] Scoreboard initialization failed. Check Content Log for the exact error."); } catch (_) {}
         }
@@ -1131,9 +1166,14 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
     }
 
     const selected = DISASTERS.find(entry => entry.id === requestedDisasterId) || weightedDisaster();
+    const normalizedOrigin = normalizeOrigin(requestedOrigin);
+    manualOrigin = normalizedOrigin;
+    manualSafeZoneBypass = Boolean(normalizedOrigin && bypassSafeZone);
     const targetDimensionId = chooseTargetDimension(requestedDimensionId || source?.dimension?.id);
     if (!targetDimensionId) {
-      try { source?.sendMessage("§c没有可用目标：目标维度必须已启用，并至少有一名位于非安全区的玩家。"); } catch (_) {}
+      manualOrigin = null;
+      manualSafeZoneBypass = false;
+      try { source?.sendMessage("§c没有可用目标：目标维度必须已启用，并至少有一名在线玩家。普通触发仍要求玩家位于非安全区。"); } catch (_) {}
       scheduleNextAuto();
       return;
     }
@@ -1154,7 +1194,8 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
     nextAutoTick = Number.POSITIVE_INFINITY;
     publishState();
 
-    try { world.sendMessage(`§c§l[自然灾害预警] §r§f${disaster.name} §f将在 ${remaining} 秒后袭击 ${activeDimensionId}！`); } catch (_) {}
+    const originText = manualOrigin ? ` §8| §e中心 ${manualOrigin.x}, ${manualOrigin.y}, ${manualOrigin.z}${manualSafeZoneBypass ? " §c[无视安全区]" : ""}` : "";
+    try { world.sendMessage(`§c§l[自然灾害预警] §r§f${disaster.name} §f将在 ${remaining} 秒后袭击 ${activeDimensionId}！${originText}`); } catch (_) {}
     for (const p of participantsFor(targetDimensionId)) {
       try {
         p.onScreenDisplay.setTitle("§c§lNATURAL DISASTERS", {
@@ -1167,6 +1208,10 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
       } catch (_) {}
     }
   } catch (error) {
+    if (!gameStarted) {
+      manualOrigin = null;
+      manualSafeZoneBypass = false;
+    }
     console.error(`[NaturalDisasters] start failed: ${error?.stack || error}`);
     try { source?.sendMessage(`§c自然灾害启动失败：${error}`); } catch (_) {}
   }

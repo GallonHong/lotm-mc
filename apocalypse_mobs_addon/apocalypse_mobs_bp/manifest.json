@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs BP v0.4.0",
+    "name": "Apocalypse Mobs BP v0.4.1",
     "description": "Regional infected director with six Ranzie-derived special infected, armor, skills and world-event integration.",
     "uuid": "714f16b3-b6ad-47f3-af06-dd93095da201",
     "version": [
       0,
       4,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         4,
-        0
+        1
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         0,
         4,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -51,7 +51,7 @@
       "version": [
         0,
         4,
-        0
+        1
       ]
     },
     {

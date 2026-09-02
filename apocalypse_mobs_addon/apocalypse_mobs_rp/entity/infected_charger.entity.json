@@ -4,14 +4,13 @@
     "identifier": "apoc:infected_charger",
     "materials": { "default": "entity_alphatest" },
     "textures": { "default": "textures/entity/ranzie/charger" },
-    "geometry": { "default": "geometry.apoc.ranzie_infected" },
-    "animations": { "base": "animation.apoc.ranzie_infected.base", "walk": "animation.apoc.ranzie_infected.walking", "run": "animation.apoc.ranzie_infected.running", "attack": "animation.apoc.ranzie_infected.attack_time", "look": "animation.apoc.ranzie_infected.looking" },
+    "geometry": { "default": "geometry.apoc.infected" },
+    "animations": { "base": "animation.humanoid.base_pose", "move": "animation.humanoid.move", "look": "animation.humanoid.look_at_target.default", "attack": "animation.zombie.attack_bare_hand" },
     "scripts": {
-      "pre_animation": ["variable.tcos0 = math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed * 57.3;", "variable.eye_target_x = query.target_y_rotation - this;", "variable.eye_target_y = query.target_x_rotation - this;"],
-      "animate": ["base", { "walk": "query.ground_speed > 0.02 && query.ground_speed <= 3.0" }, { "run": "query.ground_speed > 3.0" }, { "attack": "query.attack_time > 0.0" }, "look"]
+      "animate": ["base", "move", "look", "attack"]
     },
     "render_controllers": ["controller.render.default"],
     "enable_attachables": true,
-    "spawn_egg": { "base_color": "#4B3530", "overlay_color": "#BC3A28" }
+    "spawn_egg": { "texture": "spawn_egg_zombie" }
   } }
 }

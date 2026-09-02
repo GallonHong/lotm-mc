@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Natural Disasters Server Events RP v2.0.1",
+    "name": "Natural Disasters Server Events RP v2.1.0",
     "description": "Client resources for configurable SAPI-compatible natural disasters.",
     "uuid": "f92b4cf0-7abc-4942-80a5-ae037a14cf80",
     "version": [
       2,
-      0,
-      1
+      1,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "c0841eec-868a-4e0a-a70c-a139b32f518a",
       "version": [
         2,
-        0,
-        1
+        1,
+        0
       ]
     }
   ],

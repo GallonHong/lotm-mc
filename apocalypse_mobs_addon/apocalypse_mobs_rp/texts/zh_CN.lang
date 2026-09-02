@@ -2,9 +2,21 @@ entity.apoc:infected_basic.name=普通感染者
 entity.apoc:infected_runner.name=疾行感染者
 entity.apoc:infected_mutant.name=变异感染者
 entity.apoc:infected_heavy.name=重型感染者
-entity.apoc:infected_spitter.name=毒液感染者
+entity.apoc:infected_spitter.name=喷吐者
+entity.apoc:infected_shrieker.name=尖啸者
+entity.apoc:infected_charger.name=冲锋者
+entity.apoc:infected_hunter.name=猎手
+entity.apoc:infected_tyrant.name=重装暴君
+entity.apoc:infected_broodmother.name=召唤母体
 entity.apoc:raider_rifleman.name=掠夺者步枪手
 tile.apoc:loot_crate.name=末日补给箱
+
+item.spawn_egg.entity.apoc:infected_spitter.name=喷吐者刷怪蛋
+item.spawn_egg.entity.apoc:infected_shrieker.name=尖啸者刷怪蛋
+item.spawn_egg.entity.apoc:infected_charger.name=冲锋者刷怪蛋
+item.spawn_egg.entity.apoc:infected_hunter.name=猎手刷怪蛋
+item.spawn_egg.entity.apoc:infected_tyrant.name=重装暴君刷怪蛋
+item.spawn_egg.entity.apoc:infected_broodmother.name=召唤母体刷怪蛋
 
 entity.apoc_boss:mutant_zombie.name=泰坦巨尸 (Mutant Zombie)
 entity.apoc_boss:mutant_skeleton.name=枯骨巨煞 (Mutant Skeleton)

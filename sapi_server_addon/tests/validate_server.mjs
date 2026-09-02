@@ -31,13 +31,14 @@ assert.match(menu, /每日福利/);
 assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.6.3");
+assert.equal(manifest.header.version.join("."), "2.6.4");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
 assert.match(integration, /interop:natural_disasters_heartbeat/);
 assert.match(menu, /自然灾害管理/);
 for (const marker of ["sando:settings:v2", "sando:state:v2", "sendNaturalDisasterControl", "自动随机", "地形破坏", "随机权重", "手动触发"]) assert.match(disasters, new RegExp(marker));
+for (const marker of ["指定坐标触发", "bypassSafeZone", "payload.origin", "X 坐标", "Y 坐标", "Z 坐标"]) assert.match(disasters, new RegExp(marker));
 for (const coordinate of [2349, 2635, 2352, 2585, 1942, 2087]) assert.ok(integration.includes(String(coordinate)), `missing safe-zone coordinate ${coordinate}`);
 assert.match(market, /durability\?\.damage/);
 assert.match(market, /仅允许上架耐久未损耗、尚未使用的武器/);
@@ -73,4 +74,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.6.3 validation passed.");
+console.log("SAPI Server v2.6.4 validation passed.");

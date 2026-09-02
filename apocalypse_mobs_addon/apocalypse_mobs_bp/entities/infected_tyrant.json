@@ -5,7 +5,7 @@
     "components": {
       "minecraft:type_family": { "family": ["apoc_hostile", "apoc_special_infected", "apoc_boss", "infected", "tyrant", "zombie", "undead", "monster", "mob"] },
       "minecraft:nameable": { "always_show": true },
-      "minecraft:boss": { "should_darken_sky": false, "hud_range": 40 },
+      "minecraft:boss": { "name": "重装暴君", "should_darken_sky": false, "hud_range": 40 },
       "minecraft:health": { "value": 220, "max": 220 },
       "minecraft:scale": { "value": 1.45 },
       "minecraft:collision_box": { "width": 0.95, "height": 2.75 },

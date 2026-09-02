@@ -22,8 +22,8 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [0, 4, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 4, 0]);
+assert.deepEqual(bpManifest.header.version, [0, 4, 1]);
+assert.deepEqual(rpManifest.header.version, [0, 4, 1]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -74,11 +74,19 @@ for (const name of ["infected_basic", "infected_runner", "infected_mutant", "inf
 }
 for (const name of ["infected_spitter", "infected_shrieker", "infected_charger", "infected_hunter", "infected_tyrant", "infected_broodmother"]) {
   const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
-  assert.equal(client.geometry.default, "geometry.apoc.ranzie_infected", `${name} must use the isolated Ranzie geometry`);
+  assert.equal(client.geometry.default, "geometry.apoc.infected", `${name} must use the proven namespaced humanoid geometry`);
+  assert.equal(client.spawn_egg.texture, "spawn_egg_zombie", `${name} must use a visible vanilla spawn egg icon`);
   assert.equal(client.enable_attachables, true, `${name} must render equipped armor attachables`);
 }
 const ranzieGeometry = json(join(rp, "models", "entity", "ranzie", "infected_special.geo.json"))["minecraft:geometry"];
 assert(ranzieGeometry.some(value => value.description.identifier === "geometry.apoc.ranzie_infected"), "Ranzie geometry namespace isolation missing");
+assert.equal(json(join(bp, "entities", "infected_tyrant.json"))["minecraft:entity"].components["minecraft:boss"].name, "重装暴君");
+assert.equal(json(join(bp, "entities", "infected_broodmother.json"))["minecraft:entity"].components["minecraft:boss"].name, "召唤母体");
+const zh = readFileSync(join(rp, "texts", "zh_CN.lang"), "utf8");
+for (const name of ["infected_spitter", "infected_shrieker", "infected_charger", "infected_hunter", "infected_tyrant", "infected_broodmother"]) {
+  assert(zh.includes(`entity.apoc:${name}.name=`), `missing localized entity name for ${name}`);
+  assert(zh.includes(`item.spawn_egg.entity.apoc:${name}.name=`), `missing localized spawn egg name for ${name}`);
+}
 
 const zones = readFileSync(join(bp, "scripts/zones.js"), "utf8");
 assert(zones.includes("sapiRegionsKey") && zones.includes("allowHostileSpawn"), "SAPI safe-zone compatibility missing");

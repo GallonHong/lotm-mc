@@ -11,8 +11,8 @@ const json = file => JSON.parse(read(file));
 
 const bpManifest = json(path.join(bp, "manifest.json"));
 const rpManifest = json(path.join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [2, 0, 1]);
-assert.deepEqual(rpManifest.header.version, [2, 0, 1]);
+assert.deepEqual(bpManifest.header.version, [2, 1, 0]);
+assert.deepEqual(rpManifest.header.version, [2, 1, 0]);
 assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
 assert(!rpManifest.capabilities?.includes("pbr"), "disaster resources must not request PBR/enhanced rendering globally");
 
@@ -22,7 +22,9 @@ for (const marker of [
   "autoEnabled", "extractionEnabled", "protectSafeZones", "blockDamage",
   "sando:control", "weightedDisaster", "participantsFor", "apoc_extract:city",
   "interop:natural_disasters_request:v1", "interop:natural_disasters_ack:v1",
-  "scriptEventContext", "consumeControlRequest", "__sapi_player__"
+  "scriptEventContext", "consumeControlRequest", "__sapi_player__",
+  "manualOrigin", "manualSafeZoneBypass", "normalizeOrigin", "locationTargets",
+  "payload.origin", "payload.bypassSafeZone === true"
 ]) assert(main.includes(marker), `missing disaster integration marker: ${marker}`);
 for (const disaster of ["tornado", "meteors", "flood", "lightning", "earthquake"]) assert(main.includes(disaster));
 assert(!main.includes("give @s sando:disaster_controller"), "players must not receive a global disaster controller");
@@ -40,4 +42,4 @@ for (const directory of [bp, rp]) {
   }
 }
 
-console.log("Natural Disasters Server Events v2.0.1 validation passed.");
+console.log("Natural Disasters Server Events v2.1.0 validation passed.");
