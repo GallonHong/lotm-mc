@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.6.0",
+  version: "0.7.0",
   dimensionId: "apoc_extract:city",
   heartbeatKey: "interop:apoc_extraction_heartbeat",
   menuRequestKey: "interop:apoc_extraction_menu_request:v1",
@@ -8,6 +8,11 @@ export const CONFIG = Object.freeze({
   previousCityReadyKey: "apoc_extract:city_ready:v3",
   cityReadyBackupKey: "apoc_extract:city_ready_backup:v1",
   citySentinel: { x: 0, y: 62, z: 0 },
+  cityLayoutVersionKey: "apoc_extract:city_layout_version:v1",
+  cityLayoutVersion: 7,
+  cityLayoutSentinel: { x: 1, y: 62, z: 0 },
+  airDropY: 180,
+  airDropSlowFallingTicks: 1200,
   activeTag: "apoc_extraction_active",
   activeStateKey: "apoc_extract:active:v1",
   returnKey: "apoc_extract:return:v1",

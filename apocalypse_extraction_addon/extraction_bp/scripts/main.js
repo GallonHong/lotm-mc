@@ -184,6 +184,18 @@ function waitTicks(ticks) {
   return new Promise(resolve => system.runTimeout(resolve, ticks));
 }
 
+function placePackStructure(dimension, structureId, location) {
+  const id = String(structureId || "");
+  if (!/^[a-z0-9_.-]+:[a-z0-9_./-]+$/i.test(id)) throw new Error(`invalid structure id: ${id}`);
+  try {
+    // Nested ids must be quoted or the Bedrock command parser treats `/` as
+    // an unexpected token.
+    dimension.runCommand(`structure load "${id}" ${location.x} ${location.y} ${location.z}`);
+  } catch (commandError) {
+    throw new Error(`structure ${id}: command=${commandError}`);
+  }
+}
+
 async function withTickingArea(dimension, areaId, from, to, action) {
   let created = false;
   try {
@@ -239,9 +251,29 @@ async function placeDistrict(dimension, center, index) {
     { x: center.x - 72, y: 56, z: center.z - 72 },
     { x: center.x + 72, y: 192, z: center.z + 72 },
     async () => {
-      dimension.runCommand(`place structure jigsaw:village_custom ${center.x} ${CONFIG.cityBaseY + 1} ${center.z} true false false`);
-      await waitTicks(8);
-      return true;
+      // Jigsaw placement can report command success without creating any
+      // pieces in a runtime-registered void dimension. Load the packaged
+      // 16x16 building structures directly so command success equals a real
+      // building deployment. Nine buildings per district = 225 city blocks.
+      const offsets = [-40, -8, 24];
+      const buildings = ["b1", "b2", "b3", "b4", "b5", "b6", "b7", "b8", "b9"];
+      let loaded = 0;
+      for (let row = 0; row < offsets.length; row++) {
+        for (let column = 0; column < offsets.length; column++) {
+          const structure = buildings[(index * 3 + row * 3 + column) % buildings.length];
+          const x = center.x + offsets[column], z = center.z + offsets[row];
+          placePackStructure(dimension, `village:custom/houses/${structure}`, { x, y: CONFIG.cityBaseY + 1, z });
+          try {
+            dimension.runCommand(`fill ${x} ${CONFIG.cityBaseY + 1} ${z} ${x + 15} ${CONFIG.cityBaseY + 64} ${z + 15} daily:loot_crate_common replace minecraft:mob_spawner`);
+          } catch {
+            try { dimension.runCommand(`fill ${x} ${CONFIG.cityBaseY + 1} ${z} ${x + 15} ${CONFIG.cityBaseY + 64} ${z + 15} minecraft:chest replace minecraft:mob_spawner`); } catch {}
+          }
+          loaded++;
+          await waitTicks(1);
+        }
+      }
+      dimension.runCommand(`setblock ${center.x} ${CONFIG.cityBaseY - 1} ${center.z} minecraft:bedrock`);
+      return loaded;
     }
   );
 }
@@ -355,14 +387,15 @@ async function buildCity(dimension) {
   for (let index = 0; index < CONFIG.districtCenters.length; index++) {
     const center = CONFIG.districtCenters[index];
     try {
-      if (await placeDistrict(dimension, center, index)) generated++;
+      generated += await placeDistrict(dimension, center, index);
     } catch (error) {
       console.warn(`[ExtractionCity] district ${index + 1} placement failed: ${error}`);
     }
   }
 
-  if (generated !== CONFIG.districtCenters.length) {
-    throw new Error(`Dense city placement incomplete: ${generated}/${CONFIG.districtCenters.length} districts. The city was not marked ready and will retry next entry.`);
+  const expectedBuildings = CONFIG.districtCenters.length * 9;
+  if (generated !== expectedBuildings) {
+    throw new Error(`Dense city placement incomplete: ${generated}/${expectedBuildings} direct structures. The city was not marked ready and will retry next entry.`);
   }
   const exits = await placeExtractionMarkers(dimension);
   const crates = await placeLootCrates(dimension);
@@ -371,6 +404,7 @@ async function buildCity(dimension) {
     world.setDynamicProperty(CONFIG.cityReadyBackupKey, Date.now());
     world.setDynamicProperty("apoc_extract:exit_count:v1", exits);
     world.setDynamicProperty("apoc_extract:crate_count:v1", crates);
+    world.setDynamicProperty(CONFIG.cityLayoutVersionKey, CONFIG.cityLayoutVersion);
     cityReadyInSession = true;
     cityServicesCheckedInSession = true;
   } catch {}
@@ -383,13 +417,21 @@ async function buildCity(dimension) {
       async () => dimension.getBlock(CONFIG.citySentinel)?.setType("minecraft:bedrock")
     );
   } catch {}
-  console.warn(`[ExtractionCity] persistent city ready: ${generated}/25 districts, ${exits} exit markers, ${crates} loot crates placed.`);
+  try {
+    await withTickingArea(
+      dimension,
+      "extract_city_layout_sentinel",
+      { x: -4, y: 56, z: -4 },
+      { x: 4, y: 72, z: 4 },
+      async () => dimension.getBlock(CONFIG.cityLayoutSentinel)?.setType("minecraft:redstone_block")
+    );
+  } catch {}
+  console.warn(`[ExtractionCity] persistent city ready: ${generated}/${expectedBuildings} direct buildings, ${exits} exit markers, ${crates} loot crates placed.`);
 }
 
 function readyFlagStored() {
   try {
-    const value = world.getDynamicProperty(CONFIG.cityReadyKey);
-    return value === true || value === 1 || value === "true" || Number(world.getDynamicProperty(CONFIG.cityReadyBackupKey) || 0) > 0;
+    return Number(world.getDynamicProperty(CONFIG.cityLayoutVersionKey) || 0) >= CONFIG.cityLayoutVersion;
   } catch { return false; }
 }
 
@@ -401,10 +443,7 @@ function cityPhysicallyPresent(dimension) {
       dimension.runCommand("tickingarea add -8 56 -8 8 80 8 extract_city_probe true");
       ticking = true;
     } catch {}
-    if (dimension.getBlock(CONFIG.citySentinel)?.typeId === "minecraft:bedrock") return true;
-    const foundation = dimension.getBlock({ x: 0, y: CONFIG.cityBaseY, z: 0 });
-    const road = dimension.getBlock({ x: 0, y: CONFIG.cityBaseY + 1, z: 0 });
-    return !!foundation && !isAir(foundation) && !!road && !isAir(road);
+    return dimension.getBlock(CONFIG.cityLayoutSentinel)?.typeId === "minecraft:redstone_block";
   } catch { return false; }
   finally { if (ticking) try { dimension.runCommand("tickingarea remove extract_city_probe"); } catch {} }
 }
@@ -434,6 +473,7 @@ async function ensureCityReady(dimension, force = false) {
     try {
       world.setDynamicProperty(CONFIG.cityReadyKey, true);
       world.setDynamicProperty(CONFIG.cityReadyBackupKey, Date.now());
+      world.setDynamicProperty(CONFIG.cityLayoutVersionKey, CONFIG.cityLayoutVersion);
     } catch {}
     try { dimension.getBlock(CONFIG.citySentinel)?.setType("minecraft:bedrock"); } catch {}
     await ensureCityServices(dimension);
@@ -501,7 +541,7 @@ async function enter(player) {
       : `§c摸金维度引导包没有启动。请启用 Apocalypse Extraction Dimension Bootstrap v0.1.0 与 Beta APIs。${detail}`);
     return;
   }
-  player.sendMessage("§e[摸金都市] 正在确认城市状态。已生成的城市只会补齐撤离点和物资箱，不会再次重建；首次生成才需要 1～3 分钟……");
+  player.sendMessage("§e[摸金都市] 正在确认城市状态。若旧版只有平台，将一次性部署 225 个实际建筑；完成后永久复用……");
   try { await ensureCityReady(dimension); }
   catch (error) {
     player.sendMessage(`§c城市结构初始化失败：${error}`);
@@ -519,24 +559,18 @@ async function enter(player) {
   } catch (error) { console.warn(`[ExtractionCity] arrival ticking area unavailable: ${error}`); }
   system.runTimeout(() => {
     try {
-      let location = safeGround(dimension, x, z, 12) || prepareArrivalPad(dimension, point);
-      if (!location) {
-        for (const fallback of CONFIG.entryPoints) {
-          location = prepareArrivalPad(dimension, fallback);
-          if (location) break;
-        }
-      }
-      if (!location) throw new Error("无法创建道路到达平台，请检查该维度是否允许 /fill 与 /setblock");
+      const location = { x: x + 0.5, y: CONFIG.airDropY, z: z + 0.5 };
       player.teleport(location, { dimension });
       player.addTag(CONFIG.activeTag);
       player.setDynamicProperty(CONFIG.activeStateKey, true);
       player.addEffect("resistance", 100, { amplifier: 4, showParticles: false });
+      player.addEffect("slow_falling", CONFIG.airDropSlowFallingTicks, { amplifier: 0, showParticles: true });
       applyExtractionEnvironment(player);
       snapshotBackpack(player);
       const exit = nearestExit(player);
-      player.sendMessage(`§6[摸金都市] 随机出生：${point.name}。最近撤离点：§a${exit?.name || "未知"} §8(${Math.floor(exit?.distance || 0)}m，${exit?.x || 0}, ${exit?.z || 0})§6。跟随屏幕撤离向导，进入撤离点 ${CONFIG.extractionRadius} 格范围后会自动开始倒计时。`);
+      player.sendMessage(`§6[摸金都市] 已在 ${point.name} 上空投放，并获得 60 秒缓降。最近撤离点：§a${exit?.name || "未知"} §8(${Math.floor(exit?.distance || 0)}m，${exit?.x || 0}, ${exit?.z || 0})§6。跟随屏幕撤离向导，进入撤离点 ${CONFIG.extractionRadius} 格范围后会自动开始倒计时。`);
     } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
-    try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {}
+    system.runTimeout(() => { try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {} }, 100);
   }, 30);
 }
 
