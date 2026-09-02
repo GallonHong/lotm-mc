@@ -154,9 +154,12 @@ export class SpawnDirector {
     try { overworld = world.getDimension("overworld"); } catch { return; }
     const maxSq = CONFIG.despawnDistance * CONFIG.despawnDistance;
     for (const entity of overworld.getEntities({ tags: ["apoc_director"] })) {
-      if (!players.some(player => player.dimension.id === entity.dimension.id && distanceSquared(player.location, entity.location) <= maxSq)) {
-        try { entity.remove(); } catch {}
-      }
+      try {
+        if (typeof entity.isValid === "function" && !entity.isValid()) continue;
+        const entityDimension = entity.dimension.id;
+        const entityLocation = entity.location;
+        if (!players.some(player => player.dimension.id === entityDimension && distanceSquared(player.location, entityLocation) <= maxSq)) entity.remove();
+      } catch {}
     }
   }
 
@@ -164,9 +167,14 @@ export class SpawnDirector {
     const signal = world.afterEvents?.entitySpawn;
     if (!CONFIG.suppressVanillaHostiles || !signal || typeof signal.subscribe !== "function") return;
     signal.subscribe(event => {
-      const entity = event.entity;
-      if (!entity || entity.dimension.id !== CONFIG.overworld || !VANILLA_HOSTILES.has(entity.typeId)) return;
-      try { entity.remove(); } catch {}
+      try {
+        const entity = event.entity;
+        if (!entity || (typeof entity.isValid === "function" && !entity.isValid())) return;
+        const typeId = entity.typeId;
+        const dimensionId = entity.dimension.id;
+        if (dimensionId !== CONFIG.overworld || !VANILLA_HOSTILES.has(typeId)) return;
+        entity.remove();
+      } catch {}
     });
   }
 }

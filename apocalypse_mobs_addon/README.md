@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.3 将内置安全区/法制区坐标正式打入安装包，并确保安全区内的脚本怪物与原版敌对生物会被周期清除。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.4 修复实体已被其他系统移除后，生成监听仍读取 `entity.dimension` 导致的 `InvalidEntityError`；同时包含全部内置安全区/法制区坐标。
 
 ## 已实现
 
