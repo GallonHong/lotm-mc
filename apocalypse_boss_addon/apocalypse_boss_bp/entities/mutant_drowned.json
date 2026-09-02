@@ -132,6 +132,22 @@
       "minecraft:behavior.random_look_around": {
         "priority": 9
       }
+    },
+    "component_groups": {
+      "apoc_boss:calm": {
+        "minecraft:behavior.nearest_attackable_target": {
+          "priority": 99
+        }
+      }
+    },
+    "events": {
+      "minecraft:stop_aggro": {
+        "add": {
+          "component_groups": [
+            "apoc_boss:calm"
+          ]
+        }
+      }
     }
   }
 }
