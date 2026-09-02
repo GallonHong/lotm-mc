@@ -1,7 +1,13 @@
 {
   "format_version": "1.21.50",
   "minecraft:entity": {
-    "description": { "identifier": "apoc:infected_broodmother", "is_spawnable": true, "is_summonable": true, "is_experimental": false },
+    "description": {
+      "identifier": "apoc:infected_broodmother",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": { "apoc:appearance": { "type": "int", "range": [0, 7], "default": "math.random_integer(0, 7)", "client_sync": true } }
+    },
     "components": {
       "minecraft:type_family": { "family": ["apoc_hostile", "apoc_special_infected", "apoc_boss", "infected", "broodmother", "summoner", "zombie", "undead", "monster", "mob"] },
       "minecraft:nameable": { "always_show": true },

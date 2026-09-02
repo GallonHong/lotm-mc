@@ -3,7 +3,16 @@
   "minecraft:client_entity": { "description": {
     "identifier": "apoc:infected_spitter",
     "materials": { "default": "entity_alphatest" },
-    "textures": { "default": "textures/entity/ranzie/spitter" },
+    "textures": {
+      "appearance_0": "textures/entity/ranzie/spitter",
+      "appearance_1": "textures/entity/ranzie/spitter",
+      "appearance_2": "textures/entity/ranzie/spitter",
+      "appearance_3": "textures/entity/ranzie/spitter",
+      "appearance_4": "textures/entity/deadzone_variants/infected_0",
+      "appearance_5": "textures/entity/deadzone_variants/infected_2",
+      "appearance_6": "textures/entity/deadzone_variants/infected_4",
+      "appearance_7": "textures/entity/deadzone_variants/infected_6"
+    },
     "geometry": { "default": "geometry.apoc.infected" },
     "animations": {
       "base": "animation.humanoid.base_pose",
@@ -14,7 +23,7 @@
     "scripts": {
       "animate": ["base", "move", "look", "attack"]
     },
-    "render_controllers": ["controller.render.default"],
+    "render_controllers": ["controller.render.apoc.infected_variants"],
     "enable_attachables": true,
     "spawn_egg": { "texture": "spawn_egg_zombie" }
   } }

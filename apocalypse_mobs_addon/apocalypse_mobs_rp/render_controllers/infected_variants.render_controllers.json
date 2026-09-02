@@ -1,0 +1,30 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.apoc.infected_variants": {
+      "arrays": {
+        "textures": {
+          "Array.appearances": [
+            "Texture.appearance_0",
+            "Texture.appearance_1",
+            "Texture.appearance_2",
+            "Texture.appearance_3",
+            "Texture.appearance_4",
+            "Texture.appearance_5",
+            "Texture.appearance_6",
+            "Texture.appearance_7"
+          ]
+        }
+      },
+      "geometry": "Geometry.default",
+      "materials": [
+        { "*": "Material.default" }
+      ],
+      "textures": [
+        "Array.appearances[query.property('apoc:appearance')]"
+      ],
+      "is_hurt_color": {},
+      "on_fire_color": {}
+    }
+  }
+}

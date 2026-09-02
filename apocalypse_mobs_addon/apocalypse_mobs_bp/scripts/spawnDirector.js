@@ -38,6 +38,27 @@ function distanceSquared(a, b) {
 
 const PROFILE_BY_TYPE = new Map(Object.entries(MOB_PROFILES).map(([key, value]) => [value.typeId, { key, ...value }]));
 
+const VANILLA_ARMOR_FALLBACKS = Object.freeze({
+  law: {
+    head: "minecraft:leather_helmet",
+    chest: "minecraft:leather_chestplate",
+    legs: "minecraft:leather_leggings",
+    feet: "minecraft:leather_boots"
+  },
+  outlaw: {
+    head: "minecraft:iron_helmet",
+    chest: "minecraft:iron_chestplate",
+    legs: "minecraft:iron_leggings",
+    feet: "minecraft:iron_boots"
+  },
+  extraction: {
+    head: "minecraft:diamond_helmet",
+    chest: "minecraft:diamond_chestplate",
+    legs: "minecraft:diamond_leggings",
+    feet: "minecraft:diamond_boots"
+  }
+});
+
 function valid(entity) {
   try { return !!entity && (typeof entity.isValid !== "function" || entity.isValid()); } catch { return false; }
 }
@@ -58,6 +79,9 @@ export class SpawnDirector {
     if (!ZONE_DIFFICULTY[zoneType]) zoneType = "law";
     entity.addTag("apoc_spawn_configured");
     entity.addTag(`apoc_zone_${zoneType}`);
+    if (entity.typeId.startsWith("apoc:infected_")) {
+      try { entity.setProperty("apoc:appearance", Math.floor(Math.random() * 8)); } catch {}
+    }
 
     const targetHealth = Number(profile.health?.[zoneType] || profile.health?.law || 20);
     const baseHealth = Number(profile.health?.law || targetHealth);
@@ -82,23 +106,31 @@ export class SpawnDirector {
     const tierBonus = Math.min(0.16, Number(profile.tier || 1) * 0.025);
     const slots = Object.entries(pool).filter(([, items]) => Array.isArray(items) && items.length);
     if (!slots.length || Math.random() >= setting.armorChance + tierBonus) return;
-    try {
-      const equipment = entity.getComponent("minecraft:equippable");
-      if (!equipment) return;
-      const pieces = 1 + (Math.random() < 0.28 ? 1 : 0) + (zoneType === "extraction" && Math.random() < 0.18 ? 1 : 0);
-      const available = [...slots];
-      for (let i = 0; i < pieces; i++) {
-        const pickIndex = Math.floor(Math.random() * available.length);
-        const entry = available.splice(pickIndex, 1)[0];
-        if (!entry) break;
-        const [slotName, items] = entry;
-        const slot = EquipmentSlot[slotName[0].toUpperCase() + slotName.slice(1)] || slotName;
-        equipment.setEquipment(slot, new ItemStack(choose(items), 1));
+    let equipment;
+    try { equipment = entity.getComponent("minecraft:equippable"); } catch { return; }
+    if (!equipment) return;
+    const pieces = 1 + (Math.random() < 0.28 ? 1 : 0) + (zoneType === "extraction" && Math.random() < 0.18 ? 1 : 0);
+    const available = [...slots];
+    let equippedPieces = 0;
+    for (let i = 0; i < pieces; i++) {
+      const pickIndex = Math.floor(Math.random() * available.length);
+      const entry = available.splice(pickIndex, 1)[0];
+      if (!entry) break;
+      const [slotName, items] = entry;
+      const slot = EquipmentSlot[slotName[0].toUpperCase() + slotName.slice(1)] || slotName;
+      const preferred = choose(items);
+      const fallback = VANILLA_ARMOR_FALLBACKS[zoneType]?.[slotName];
+      const candidates = [...new Set([preferred, ...items, fallback].filter(Boolean))];
+      for (const itemId of candidates) {
+        try {
+          equipment.setEquipment(slot, new ItemStack(itemId, 1));
+          equippedPieces++;
+          break;
+        } catch {}
       }
-      entity.addTag("apoc_armored");
-    } catch (error) {
-      console.warn(`[Apocalypse][Armor] ${entity.typeId} 装备失败（依赖包物品可能未安装）: ${error}`);
     }
+    if (equippedPieces > 0) entity.addTag("apoc_armored");
+    else console.warn(`[Apocalypse][Armor] ${entity.typeId} 未找到可用护甲，已跳过装备。`);
   }
 
   static registerSpawnConfiguration() {

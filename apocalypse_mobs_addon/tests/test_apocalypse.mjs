@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { readFileSync, readdirSync, statSync } from "node:fs";
+import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -22,8 +22,8 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [0, 4, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 4, 1]);
+assert.deepEqual(bpManifest.header.version, [0, 5, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 5, 0]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -68,15 +68,30 @@ assert(!raiderClient.render_controllers.includes("controller.render.item_in_hand
 
 const infectedGeometry = json(join(rp, "models", "entity", "infected.geo.json"))["minecraft:geometry"];
 assert(infectedGeometry.some(value => value.description.identifier === "geometry.apoc.infected"), "namespaced humanoid geometry missing");
-for (const name of ["infected_basic", "infected_runner", "infected_mutant", "infected_heavy"]) {
+const infectedBones = infectedGeometry.find(value => value.description.identifier === "geometry.apoc.infected").bones.map(value => value.name);
+for (const bone of ["root", "body", "head", "leftArm", "rightArm", "leftLeg", "rightLeg"]) {
+  assert(infectedBones.includes(bone), `armor-compatible infected bone missing: ${bone}`);
+}
+const infectedNames = ["infected_basic", "infected_runner", "infected_spitter", "infected_shrieker", "infected_charger", "infected_hunter", "infected_mutant", "infected_heavy", "infected_tyrant", "infected_broodmother"];
+for (const name of infectedNames) {
+  const server = json(join(bp, "entities", `${name}.json`))["minecraft:entity"];
+  assert.deepEqual(server.description.properties["apoc:appearance"].range, [0, 7], `${name} appearance property missing`);
   const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
   assert.equal(client.geometry.default, "geometry.apoc.infected", `${name} must use the namespaced geometry`);
+  assert.equal(client.enable_attachables, true, `${name} must render equipped armor attachables`);
+  assert(client.render_controllers.includes("controller.render.apoc.infected_variants"), `${name} variant render controller missing`);
+  for (let index = 0; index < 8; index++) assert(client.textures[`appearance_${index}`], `${name} appearance_${index} missing`);
 }
 for (const name of ["infected_spitter", "infected_shrieker", "infected_charger", "infected_hunter", "infected_tyrant", "infected_broodmother"]) {
   const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
   assert.equal(client.geometry.default, "geometry.apoc.infected", `${name} must use the proven namespaced humanoid geometry`);
   assert.equal(client.spawn_egg.texture, "spawn_egg_zombie", `${name} must use a visible vanilla spawn egg icon`);
   assert.equal(client.enable_attachables, true, `${name} must render equipped armor attachables`);
+}
+const variantController = json(join(rp, "render_controllers", "infected_variants.render_controllers.json")).render_controllers["controller.render.apoc.infected_variants"];
+assert(variantController.textures[0].includes("apoc:appearance"), "variant controller must use the synchronized appearance property");
+for (let index = 0; index < 8; index++) {
+  assert(existsSync(join(rp, "textures", "entity", "deadzone_variants", `infected_${index}.png`)), `Deadzone appearance texture ${index} missing`);
 }
 const ranzieGeometry = json(join(rp, "models", "entity", "ranzie", "infected_special.geo.json"))["minecraft:geometry"];
 assert(ranzieGeometry.some(value => value.description.identifier === "geometry.apoc.ranzie_infected"), "Ranzie geometry namespace isolation missing");
@@ -94,7 +109,7 @@ for (const marker of ["apoc_zone_safe_1", "2349", "2635", "1863", "2069"]) asser
 assert(zones.includes('type: "outlaw", name: "非法制荒原"'), "unassigned locations must default to outlaw");
 const spawnDirector = readFileSync(join(bp, "scripts/spawnDirector.js"), "utf8");
 assert(spawnDirector.includes('typeof entity.isValid === "function"') && spawnDirector.includes("const dimensionId = entity.dimension.id"), "spawn listener must validate entities before reading dimension");
-for (const marker of ["health_boost", "EquipmentSlot", "ARMOR_POOLS", "apoc_zone_${zoneType}", "registerSpawnConfiguration"]) assert(spawnDirector.includes(marker), `missing regional spawn configuration: ${marker}`);
+for (const marker of ["health_boost", "EquipmentSlot", "ARMOR_POOLS", "apoc_zone_${zoneType}", "registerSpawnConfiguration", "apoc:appearance", "VANILLA_ARMOR_FALLBACKS", "equippedPieces"]) assert(spawnDirector.includes(marker), `missing regional spawn configuration: ${marker}`);
 const config = readFileSync(join(bp, "scripts/config.js"), "utf8");
 for (const marker of ["ZONE_DIFFICULTY", "armorChance", "test_gun:armor_titan_chest", "broodmother", "tyrant"]) assert(config.includes(marker), `missing regional balance config: ${marker}`);
 const special = readFileSync(join(bp, "scripts/specialInfectedAI.js"), "utf8");
