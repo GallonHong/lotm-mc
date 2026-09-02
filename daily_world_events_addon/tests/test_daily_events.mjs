@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 5, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 5, 0]);
+assert.deepEqual(manifest.header.version, [0, 5, 1]);
+assert.deepEqual(rpManifest.header.version, [0, 5, 1]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -104,6 +104,8 @@ for (const marker of ["structure load", "loadStructureSet", "spawnDungeonMobs", 
 }
 assert(rewards.includes("dungeon_abandoned_clinic"), "clinic reward is missing");
 assert(readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8").includes("进入副本行动"));
+const dungeonMenu = readFileSync(join(bp, "scripts/ui/DungeonMenu.js"), "utf8");
+assert(dungeonMenu.includes("isUserBusy") && dungeonMenu.includes("result.canceled") && dungeonMenu.includes("attempt < 8"), "dungeon menu must retry UserBusy cancellation results");
 assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.tick"));
 
 const sapiIntegration = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/integration.js"), "utf8");

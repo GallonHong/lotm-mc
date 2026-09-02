@@ -99,6 +99,7 @@ function handleChat(event) {
         "!back": () => TeleportManager.returnToDeath(player),
         "!返回": () => TeleportManager.returnToDeath(player),
         "!daily": () => OperationsManager.openPlayerMenu(player),
+        "!dungeon": () => Integration.send(player, "daily:dungeon"),
         "!签到": () => OperationsManager.openPlayerMenu(player),
         "!redeem": () => OperationsManager.openRedeemModal(player),
         "!兑换码": () => OperationsManager.openRedeemModal(player),
@@ -135,6 +136,7 @@ if (scriptEvents?.subscribe) {
         else if (["system:tpa", "tpa:open"].includes(id)) TeleportManager.openTpaMenu(player);
         else if (["system:back", "death:back"].includes(id)) TeleportManager.returnToDeath(player);
         else if (["system:daily", "daily:open", "system:redeem"].includes(id)) OperationsManager.openPlayerMenu(player);
+        else if (["system:dungeon", "dungeon:open"].includes(id)) Integration.send(player, "daily:dungeon");
         else if (["system:region", "region:admin"].includes(id)) RegionManager.openAdminMenu(player);
         else if (["system:audit", "audit:admin"].includes(id)) AuditManager.openAdminUI(player);
     });

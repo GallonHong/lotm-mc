@@ -25,11 +25,12 @@ assert.match(operations, /maxUses/);
 assert.match(operations, /perPlayer/);
 assert.match(operations, /maskCode/);
 assert.match(audit, /code_redeem/);
-for (const route of ["!daily", "!redeem", "!tpa", "!audit"]) assert.ok(main.includes(route), `missing route ${route}`);
+for (const route of ["!daily", "!dungeon", "!redeem", "!tpa", "!audit"]) assert.ok(main.includes(route), `missing route ${route}`);
 assert.match(menu, /每日福利/);
+assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.5.5");
+assert.equal(manifest.header.version.join("."), "2.5.6");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
@@ -44,6 +45,8 @@ assert.match(market, /listingName,/);
 assert.match(main, /sapi:shop/);
 assert.match(main, /requestCompassMenu/);
 assert.match(main, /system\.currentTick - lastTick < 8/);
+assert.match(integration, /system\.runTimeout/);
+assert.match(integration, /daily:dungeon|Failed to send/);
 assert.match(read("sapi_server_bp/scripts/modules/shop.js"), /openCategoryById/);
 const lottery = read("sapi_server_bp/scripts/modules/lottery.js");
 assert.match(lottery, /if \(res\.canceled\) return;/);
@@ -57,4 +60,4 @@ for (const source of uiSources) {
   assert.equal(source.includes("§7"), false, "light-gray text color must not remain in SAPI UI");
 }
 
-console.log("SAPI Server v2.5.5 validation passed.");
+console.log("SAPI Server v2.5.6 validation passed.");
