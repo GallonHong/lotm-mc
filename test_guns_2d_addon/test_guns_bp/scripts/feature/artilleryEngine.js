@@ -4,13 +4,22 @@ import { ActionFormData } from '@minecraft/server-ui';
 export class ArtilleryEngine {
   static cooldowns = new Map(); // playerId -> remainingTicks
   static activeBarrages = [];   // Array of active barrage tasks
+  static fallingShells = [];    // Array of shells currently in mid-air descent
+  static isMenuOpen = new Set(); // playerId lock to prevent duplicate popups
+  static lastOpenTime = new Map(); // playerId -> timestamp for debounce
 
   /**
-   * 打开 SAPI 空袭目标选择菜单
+   * 打开 SAPI 空袭目标选择菜单 (带严格防重复弹窗机制)
    * @param {Player} player 
    */
   static openMenu(player) {
     if (!player || !player.isValid()) return;
+    if (this.isMenuOpen.has(player.id)) return;
+
+    const now = Date.now();
+    const last = this.lastOpenTime.get(player.id) || 0;
+    if (now - last < 800) return; // 800ms 严格防抖
+    this.lastOpenTime.set(player.id, now);
 
     const cd = this.cooldowns.get(player.id) || 0;
     if (cd > 0) {
@@ -18,6 +27,8 @@ export class ArtilleryEngine {
       player.onScreenDisplay?.setActionBar?.(`§7[火炮阵地装填中... 剩余 ${sec}s]§r`);
       return;
     }
+
+    this.isMenuOpen.add(player.id);
 
     const pLoc = player.location;
     const viewDir = player.getViewDirection();
@@ -62,13 +73,14 @@ export class ArtilleryEngine {
 
     const form = new ActionFormData();
     form.title('§6📡 战术火炮空袭指挥链路 (SAPI)§r');
-    form.body('§7请选择集束迫击炮群的轰炸覆盖区域:\n§8(提示: 12发集束弹群饱和压制，单发5伤，不破坏地形)§r');
+    form.body('§7请选择集束迫击炮群的轰炸覆盖区域:\n§8(提示: 12发迫击炮弹从天而降，单发5伤，原版TNT特效，不破坏地形)§r');
 
     form.button(`§e🎯【准星目标】锁定当前瞄准点\n§8(${crosshairPos.x.toFixed(0)}, ${crosshairPos.y.toFixed(0)}, ${crosshairPos.z.toFixed(0)})`, 'textures/ui/crosshair');
     form.button(`§b📍【中程压制】自身正前方 30 格\n§8(${pos30.x.toFixed(0)}, ${pos30.y.toFixed(0)}, ${pos30.z.toFixed(0)})`, 'textures/ui/magnifying_glass');
     form.button(`§c🚀【远程覆盖】自身正前方 50 格\n§8(${pos50.x.toFixed(0)}, ${pos50.y.toFixed(0)}, ${pos50.z.toFixed(0)})`, 'textures/ui/beacon');
 
     form.show(player).then(res => {
+      this.isMenuOpen.delete(player.id);
       if (res.canceled || typeof res.selection !== 'number') return;
 
       let targetLoc = crosshairPos;
@@ -83,8 +95,8 @@ export class ArtilleryEngine {
       }
 
       this.startBarrage(player, targetLoc, modeName);
-    }).catch(err => {
-      console.warn('SAPI form error:', err);
+    }).catch(() => {
+      this.isMenuOpen.delete(player.id);
     });
   }
 
@@ -116,7 +128,7 @@ export class ArtilleryEngine {
 
     // 无线电确认提示与警笛音效
     try {
-      player.onScreenDisplay?.setActionBar?.(`§6📡【火炮阵地收到】已锁定【${modeName}】! 12发集束炮群正在覆盖!§r`);
+      player.onScreenDisplay?.setActionBar?.(`§6📡【火炮阵地收到】已锁定【${modeName}】! 12发迫击炮弹正在自天顶下落!§r`);
       dim.playSound('test_gun.radio_click', player.location, { volume: 1.5, pitch: 1.0 });
       dim.playSound('ambient.weather.thunder', realCenter, { volume: 1.5, pitch: 1.6 });
     } catch {}
@@ -139,7 +151,7 @@ export class ArtilleryEngine {
       center: realCenter,
       totalShells: 12,
       shellsFired: 0,
-      nextShellTick: 12, // 延迟 0.6 秒第一发落弹
+      nextShellTick: 8,
       spreadRadius: 8.0,
       damage: 5.0
     });
@@ -161,7 +173,33 @@ export class ArtilleryEngine {
       }
     }
 
-    // 2. 轰炸波次推进
+    // 2. 推进正在下落的炸弹物理与空中下落粒子 (Falling Shells)
+    if (this.fallingShells.length > 0) {
+      const nextFalling = [];
+      for (const s of this.fallingShells) {
+        try {
+          s.y -= s.speed;
+
+          // 炸弹从天而降的简单自然粒子：头部火光 + 尾部轻烟 (Clean falling bomb trail)
+          const shellPos = { x: s.x, y: s.y, z: s.z };
+          const trailPos = { x: s.x, y: s.y + 1.2, z: s.z };
+          s.dim.spawnParticle('minecraft:basic_flame_particle', shellPos);
+          s.dim.spawnParticle('test_gun:he_tracer', shellPos);
+          s.dim.spawnParticle('minecraft:basic_smoke_particle', trailPos);
+
+          if (s.y <= s.targetY) {
+            this.explodeShell(s);
+          } else {
+            nextFalling.push(s);
+          }
+        } catch (err) {
+          console.warn('Falling shell error:', err);
+        }
+      }
+      this.fallingShells = nextFalling;
+    }
+
+    // 3. 轰炸批次生成落弹
     if (this.activeBarrages.length === 0) return;
 
     const remaining = [];
@@ -169,9 +207,9 @@ export class ArtilleryEngine {
       try {
         b.nextShellTick--;
         if (b.nextShellTick <= 0) {
-          this.dropShell(b);
+          this.spawnFallingShell(b);
           b.shellsFired++;
-          b.nextShellTick = 5; // 0.25 秒一发
+          b.nextShellTick = 5; // 0.25 秒下一发
         }
 
         if (b.shellsFired < b.totalShells) {
@@ -184,7 +222,10 @@ export class ArtilleryEngine {
     this.activeBarrages = remaining;
   }
 
-  static dropShell(barrage) {
+  /**
+   * 在天顶生成一枚真实下落的炸弹 (Sky Spawn)
+   */
+  static spawnFallingShell(barrage) {
     const dim = barrage.dim;
     if (!dim) return;
 
@@ -209,37 +250,46 @@ export class ArtilleryEngine {
       } catch {}
     }
 
-    const impactLoc = { x: rx, y: targetY + 0.1, z: rz };
+    // 从高空 24 格处生成炸弹，以 3.0 格/刻的速度呼啸砸向地面 (约 8 刻 = 0.4 秒着陆)
+    this.fallingShells.push({
+      dim: dim,
+      shooterId: barrage.shooterId,
+      x: rx,
+      y: targetY + 24.0,
+      z: rz,
+      targetY: targetY + 0.1,
+      speed: 3.0,
+      damage: barrage.damage || 5.0
+    });
+  }
 
-    // 1. 🚀 天降导弹迫击炮尾迹光柱 (从高空直插地面)
-    try {
-      for (let h = 18; h >= 0; h -= 2.0) {
-        dim.spawnParticle('test_gun:he_tracer', { x: rx, y: targetY + h, z: rz });
-      }
-    } catch {}
+  /**
+   * 炸弹触地引发原版经典 TNT 爆炸
+   */
+  static explodeShell(shell) {
+    const dim = shell.dim;
+    const impactLoc = { x: shell.x, y: shell.targetY, z: shell.z };
 
-    // 2. 💥 逼真地面爆炸火球与白烟粒子 (100% 地面可见)
+    // 1. 原版经典 TNT 爆炸特效 (minecraft:huge_explosion_emitter + explosion_manual + basic_smoke_particle)
     try {
       dim.spawnParticle('minecraft:huge_explosion_emitter', impactLoc);
       dim.spawnParticle('minecraft:explosion_manual', impactLoc);
       dim.spawnParticle('minecraft:basic_smoke_particle', impactLoc);
-      dim.spawnParticle('minecraft:basic_flame_particle', impactLoc);
-      dim.spawnParticle('minecraft:lava_particle', impactLoc);
     } catch {}
 
-    // 3. 真实迫击炮落地轰炸音效
+    // 2. 原版经典 TNT 爆炸音效
     try {
-      dim.playSound('random.explode', impactLoc, { volume: 2.2, pitch: 1.2 + Math.random() * 0.3 });
+      dim.playSound('random.explode', impactLoc, { volume: 1.8, pitch: 1.0 });
     } catch {}
 
-    // 4. 5 点范围溅射伤害 (100% 保护地形方块)
+    // 3. 5 点范围溅射伤害 (100% 保护地形方块)
     let shooter = null;
     try {
-      shooter = world.getAllPlayers().find(p => p.id === barrage.shooterId) || null;
+      shooter = world.getAllPlayers().find(p => p.id === shell.shooterId) || null;
     } catch {}
 
     const splashRadius = 4.0;
-    const shellDmg = barrage.damage || 5.0;
+    const shellDmg = shell.damage || 5.0;
 
     try {
       const entities = dim.getEntities({
@@ -260,8 +310,6 @@ export class ArtilleryEngine {
         } catch {
           try { ent.applyDamage(shellDmg); } catch {}
         }
-
-        try { ent.setOnFire(2, true); } catch {}
 
         try {
           const el = ent.location;
