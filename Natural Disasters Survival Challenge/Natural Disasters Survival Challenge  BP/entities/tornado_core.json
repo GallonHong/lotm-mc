@@ -1,0 +1,18 @@
+{
+  "format_version": "1.21.120",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "sando:tornado_core",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": { "family": ["disaster", "tornado"] },
+      "minecraft:collision_box": { "width": 0.1, "height": 0.1 },
+      "minecraft:health": { "value": 9999, "max": 9999 },
+      "minecraft:physics": { "has_gravity": false, "has_collision": false },
+      "minecraft:pushable": { "is_pushable": false, "is_pushable_by_piston": false }
+    }
+  }
+}

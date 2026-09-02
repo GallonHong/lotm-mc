@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sando:meteor",
+      "materials": {"default":"entity_emissive_alpha"},
+      "textures": {"default":"textures/entity/meteor"},
+      "geometry": {"default":"geometry.sando.meteor"},
+      "render_controllers": ["controller.render.sando_disaster"]
+    }
+  }
+}
