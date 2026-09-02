@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "§cNatural Disasters Resources §7| §fEL SANDO",
-    "description": "Epic  natural disaster survival addon: tornadoes, earthquakes, meteor showers, floods and lightning storms.",
+    "name": "Natural Disasters Server Events RP v2.0.0",
+    "description": "Client resources for configurable SAPI-compatible natural disasters.",
     "uuid": "f92b4cf0-7abc-4942-80a5-ae037a14cf80",
     "version": [
-      1,
-      6,
+      2,
+      0,
       0
     ],
     "min_engine_version": [
@@ -20,8 +20,8 @@
       "type": "resources",
       "uuid": "c0841eec-868a-4e0a-a70c-a139b32f518a",
       "version": [
-        1,
-        6,
+        2,
+        0,
         0
       ]
     }
@@ -31,6 +31,5 @@
       "EL SANDO"
     ],
     "product_type": "addon"
-  },
-  "capabilities":["pbr"]
+  }
 }

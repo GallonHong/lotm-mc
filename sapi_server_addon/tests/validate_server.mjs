@@ -10,6 +10,7 @@ const menu = read("sapi_server_bp/scripts/modules/server_menu.js");
 const land = read("sapi_server_bp/scripts/modules/land.js");
 const market = read("sapi_server_bp/scripts/modules/market.js");
 const integration = read("sapi_server_bp/scripts/modules/integration.js");
+const disasters = read("sapi_server_bp/scripts/modules/disasters.js");
 const build = read("build.sh");
 const manifest = JSON.parse(read("sapi_server_bp/manifest.json"));
 
@@ -25,15 +26,18 @@ assert.match(operations, /maxUses/);
 assert.match(operations, /perPlayer/);
 assert.match(operations, /maskCode/);
 assert.match(audit, /code_redeem/);
-for (const route of ["!daily", "!dungeon", "!redeem", "!tpa", "!audit"]) assert.ok(main.includes(route), `missing route ${route}`);
+for (const route of ["!daily", "!dungeon", "!redeem", "!tpa", "!audit", "!disaster"]) assert.ok(main.includes(route), `missing route ${route}`);
 assert.match(menu, /每日福利/);
 assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.5.8");
+assert.equal(manifest.header.version.join("."), "2.6.0");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
+assert.match(integration, /interop:natural_disasters_heartbeat/);
+assert.match(menu, /自然灾害管理/);
+for (const marker of ["sando:settings:v2", "sando:state:v2", "sando:control", "自动随机", "地形破坏", "随机权重", "手动触发"]) assert.match(disasters, new RegExp(marker));
 for (const coordinate of [2349, 2635, 2352, 2585, 1942, 2087]) assert.ok(integration.includes(String(coordinate)), `missing safe-zone coordinate ${coordinate}`);
 assert.match(market, /durability\?\.damage/);
 assert.match(market, /仅允许上架耐久未损耗、尚未使用的武器/);
@@ -61,4 +65,4 @@ for (const source of uiSources) {
 }
 
 assert(menu.includes("extract:menu") && !menu.includes("if (Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "permanent extraction menu bridge missing");
-console.log("SAPI Server v2.5.8 validation passed.");
+console.log("SAPI Server v2.6.0 validation passed.");

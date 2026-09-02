@@ -12,7 +12,29 @@ const CFG = {
   maxSurfaceCache: 280,
 };
 
-// Fixed order. Every survived wave increases the challenge level.
+const SETTINGS_KEY = "sando:settings:v2";
+const STATE_KEY = "sando:state:v2";
+const HEARTBEAT_KEY = "interop:natural_disasters_heartbeat";
+const SAPI_REGIONS_KEY = "sapi:server:regions:v1";
+const SAPI_WARPS_KEY = "sapi:server:warps:v1";
+const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
+
+const DEFAULT_SETTINGS = Object.freeze({
+  enabled: true,
+  autoEnabled: false,
+  overworldEnabled: true,
+  extractionEnabled: true,
+  protectSafeZones: true,
+  blockDamage: false,
+  warningSeconds: 20,
+  disasterSeconds: 45,
+  cooldownSeconds: 120,
+  minIntervalMinutes: 20,
+  maxIntervalMinutes: 40,
+  difficulty: 2,
+  weights: { tornado: 20, meteors: 20, flood: 20, lightning: 20, earthquake: 20 }
+});
+
 const DISASTERS = [
   { id: "tornado", name: "§fTORNADO" },
   { id: "meteors", name: "§cMETEOR SHOWER" },
@@ -39,6 +61,9 @@ let disasterLevel = 0;
 let disaster = DISASTERS[0];
 let tickCounter = 0;
 let activeTick = 0;
+let activeDimensionId = "minecraft:overworld";
+let settings = { ...DEFAULT_SETTINGS, weights: { ...DEFAULT_SETTINGS.weights } };
+let nextAutoTick = Number.POSITIVE_INFINITY;
 
 let tornado = null;
 let meteors = [];
@@ -52,8 +77,158 @@ let runParticipants = new Set();
 let deadParticipants = new Set();
 let surfaceCache = new Map();
 
+function clamp(value, min, max, fallback) {
+  const numeric = Number(value);
+  return Number.isFinite(numeric) ? Math.max(min, Math.min(max, numeric)) : fallback;
+}
+
+function parseJson(raw, fallback) {
+  try { return typeof raw === "string" ? JSON.parse(raw) : fallback; } catch (_) { return fallback; }
+}
+
+function normalizeSettings(value) {
+  const source = value && typeof value === "object" ? value : {};
+  const weights = source.weights && typeof source.weights === "object" ? source.weights : {};
+  const minIntervalMinutes = clamp(source.minIntervalMinutes, 1, 1440, DEFAULT_SETTINGS.minIntervalMinutes);
+  const maxIntervalMinutes = Math.max(minIntervalMinutes, clamp(source.maxIntervalMinutes, 1, 1440, DEFAULT_SETTINGS.maxIntervalMinutes));
+  return {
+    enabled: source.enabled !== false,
+    autoEnabled: source.autoEnabled === true,
+    overworldEnabled: source.overworldEnabled !== false,
+    extractionEnabled: source.extractionEnabled !== false,
+    protectSafeZones: source.protectSafeZones !== false,
+    blockDamage: source.blockDamage === true,
+    warningSeconds: Math.floor(clamp(source.warningSeconds, 5, 300, DEFAULT_SETTINGS.warningSeconds)),
+    disasterSeconds: Math.floor(clamp(source.disasterSeconds, 10, 600, DEFAULT_SETTINGS.disasterSeconds)),
+    cooldownSeconds: Math.floor(clamp(source.cooldownSeconds, 10, 3600, DEFAULT_SETTINGS.cooldownSeconds)),
+    minIntervalMinutes: Math.floor(minIntervalMinutes),
+    maxIntervalMinutes: Math.floor(maxIntervalMinutes),
+    difficulty: Math.floor(clamp(source.difficulty, 0, 10, DEFAULT_SETTINGS.difficulty)),
+    weights: Object.fromEntries(DISASTERS.map(entry => [entry.id, Math.floor(clamp(weights[entry.id], 0, 1000, DEFAULT_SETTINGS.weights[entry.id]))]))
+  };
+}
+
+function loadSettings() {
+  try {
+    settings = normalizeSettings(parseJson(world.getDynamicProperty(SETTINGS_KEY), DEFAULT_SETTINGS));
+    world.setDynamicProperty(SETTINGS_KEY, JSON.stringify(settings));
+  } catch (_) {
+    settings = normalizeSettings(DEFAULT_SETTINGS);
+  }
+  return settings;
+}
+
+function scheduleNextAuto() {
+  if (!settings.enabled || !settings.autoEnabled) {
+    nextAutoTick = Number.POSITIVE_INFINITY;
+    return;
+  }
+  const min = settings.minIntervalMinutes;
+  const max = Math.max(min, settings.maxIntervalMinutes);
+  const minutes = min + Math.random() * (max - min);
+  nextAutoTick = system.currentTick + Math.max(1200, Math.floor(minutes * 1200));
+}
+
+function weightedDisaster() {
+  const weighted = DISASTERS.map(entry => ({ ...entry, weight: Math.max(0, Number(settings.weights?.[entry.id]) || 0) }));
+  const total = weighted.reduce((sum, entry) => sum + entry.weight, 0);
+  if (total <= 0) return DISASTERS[Math.floor(Math.random() * DISASTERS.length)];
+  let roll = Math.random() * total;
+  for (const entry of weighted) {
+    roll -= entry.weight;
+    if (roll <= 0) return entry;
+  }
+  return weighted[weighted.length - 1];
+}
+
+function allowedDimensionIds() {
+  const ids = [];
+  if (settings.overworldEnabled) ids.push("minecraft:overworld");
+  if (settings.extractionEnabled) ids.push("apoc_extract:city");
+  return ids;
+}
+
+function dimensionLabel(dimensionId) {
+  if (dimensionId === "minecraft:overworld" || dimensionId === "overworld") return "主世界";
+  if (dimensionId === "apoc_extract:city") return "摸金都市";
+  return String(dimensionId || "未知维度");
+}
+
+function inBounds(entry, dimensionId, location) {
+  const dimension = String(entry?.dimension || "minecraft:overworld");
+  if (dimension !== dimensionId && dimension.replace("minecraft:", "") !== dimensionId.replace("minecraft:", "")) return false;
+  const min = entry.min || { x: entry.minX, y: -64, z: entry.minZ };
+  const max = entry.max || { x: entry.maxX, y: 320, z: entry.maxZ };
+  return location.x >= Number(min.x) && location.x <= Number(max.x) &&
+    location.y >= Number(min.y ?? -64) && location.y <= Number(max.y ?? 320) &&
+    location.z >= Number(min.z) && location.z <= Number(max.z);
+}
+
+function isSafeArea(dimensionId, location) {
+  if (!settings.protectSafeZones) return false;
+  const presetSafeZones = [
+    { dimension: "minecraft:overworld", minX: 2349, maxX: 2635, minZ: 1863, maxZ: 2069 },
+    { dimension: "minecraft:overworld", minX: 2352, maxX: 2585, minZ: 1165, maxZ: 1303 },
+    { dimension: "minecraft:overworld", minX: 1942, maxX: 2087, minZ: 1273, maxZ: 1465 }
+  ];
+  if (presetSafeZones.some(zone => inBounds(zone, dimensionId, location))) return true;
+
+  const apocalypseZones = parseJson(world.getDynamicProperty(APOCALYPSE_ZONES_KEY), []);
+  if (Array.isArray(apocalypseZones) && apocalypseZones.some(zone => zone?.type === "safe" && inBounds(zone, dimensionId, location))) return true;
+
+  const sapiRegions = parseJson(world.getDynamicProperty(SAPI_REGIONS_KEY), []);
+  if (Array.isArray(sapiRegions) && sapiRegions.some(region => inBounds(region, dimensionId, location) &&
+      (region.flags?.allowExplosion === false || region.flags?.allowBreak === false))) return true;
+
+  if (dimensionId !== "minecraft:overworld") return false;
+  let spawn = null;
+  const warps = parseJson(world.getDynamicProperty(SAPI_WARPS_KEY), []);
+  if (Array.isArray(warps)) spawn = warps.find(warp => warp?.id === "spawn" || warp?.isSpawn);
+  try { if (!spawn) spawn = { dimension: "minecraft:overworld", ...world.getDefaultSpawnLocation() }; } catch (_) {}
+  if (!spawn || String(spawn.dimension || "minecraft:overworld").replace("minecraft:", "") !== "overworld") return false;
+  const dx = Number(location.x) - Number(spawn.x);
+  const dz = Number(location.z) - Number(spawn.z);
+  return Number.isFinite(dx) && Number.isFinite(dz) && dx * dx + dz * dz <= 64 * 64;
+}
+
+function touchesSafeArea(dimensionId, location, radius) {
+  if (!settings.protectSafeZones) return false;
+  const offsets = [[0, 0], [radius, 0], [-radius, 0], [0, radius], [0, -radius],
+    [radius, radius], [radius, -radius], [-radius, radius], [-radius, -radius]];
+  return offsets.some(([x, z]) => isSafeArea(dimensionId, { x: location.x + x, y: location.y, z: location.z + z }));
+}
+
+function participantsFor(dimensionId = activeDimensionId) {
+  return world.getAllPlayers().filter(player => {
+    try { return player.dimension.id === dimensionId && !isSafeArea(dimensionId, player.location); }
+    catch (_) { return false; }
+  });
+}
+
+function publishState() {
+  try {
+    world.setDynamicProperty(HEARTBEAT_KEY, Date.now());
+    world.setDynamicProperty(STATE_KEY, JSON.stringify({
+      running: gameStarted,
+      phase: gameStarted ? phase : "idle",
+      disasterId: gameStarted ? disaster.id : "",
+      disasterName: gameStarted ? disaster.name.replace(/§./g, "") : "",
+      dimensionId: gameStarted ? activeDimensionId : "",
+      remaining: gameStarted ? remaining : 0,
+      difficulty: disasterLevel,
+      nextAutoSeconds: Number.isFinite(nextAutoTick) ? Math.max(0, Math.floor((nextAutoTick - system.currentTick) / 20)) : -1,
+      updatedAt: Date.now()
+    }));
+  } catch (error) { console.warn(`[NaturalDisasters] state publish failed: ${error}`); }
+}
+
 function safeCmd(target, command) {
   try { return target.runCommand(command); } catch (_) { return undefined; }
+}
+
+function isAdmin(player) {
+  if (!player || player.typeId !== "minecraft:player") return false;
+  try { return player.hasTag("admin") || player.hasTag("administrator") || player.isOp(); } catch (_) { return false; }
 }
 
 function ensureObjectives() {
@@ -137,11 +312,8 @@ function bar(seconds, max) {
 }
 
 function hud() {
-  const max = phase === "warning" ? CFG.warningSeconds : phase === "active" ? CFG.disasterSeconds : CFG.cooldownSeconds;
-  for (const p of world.getAllPlayers()) {
-    ensurePlayerScores(p);
-    const wins = score(p, "ds_wins");
-    const best = score(p, "ds_best");
+  const max = phase === "warning" ? settings.warningSeconds : phase === "active" ? settings.disasterSeconds : settings.cooldownSeconds;
+  for (const p of participantsFor()) {
     const title = phase === "active"
       ? disaster.name
       : phase === "warning"
@@ -149,9 +321,7 @@ function hud() {
         : "§aSAFE TIME";
     try {
       p.onScreenDisplay.setActionBar(
-        `${title} §8| §6LEVEL ${disasterLevel} §8| ${bar(remaining, max)} §f${remaining}s
-` +
-        `§aCircuits Completed §f${wins} §8| §eBest §f${best} Waves §8| §dWorld Record §fEL SANDO - 12 Waves`
+        `${title} §8| §6难度 ${disasterLevel} §8| ${bar(remaining, max)} §f${remaining}s §8| §3${dimensionLabel(activeDimensionId)}`
       );
     } catch (_) {}
   }
@@ -204,18 +374,18 @@ function vanillaCampfireSmoke(dim, loc) {
   }
 }
 
-function queueFloodRestore(key, oldType) {
+function queueFloodRestore(key, oldType, dimensionId = activeDimensionId) {
   const [x, y, z] = key.split(",").map(Number);
-  floodRestoreQueue.push({ x, y, z, oldType });
+  floodRestoreQueue.push({ x, y, z, oldType, dimensionId });
 }
 
 function processFloodRestoreQueue() {
   if (!floodRestoreQueue.length) return;
-  const dim = world.getDimension("overworld");
   let count = 0;
   while (floodRestoreQueue.length && count < CFG.floodRestorePerTick) {
     const q = floodRestoreQueue.shift();
     try {
+      const dim = world.getDimension(q.dimensionId || "minecraft:overworld");
       const b = dim.getBlock({ x: q.x, y: q.y, z: q.z });
       if (b?.typeId === "minecraft:water") b.setPermutation(BlockPermutation.resolve(q.oldType));
     } catch (_) {}
@@ -250,8 +420,13 @@ function resetCycleProgressAtNewCycle() {
 }
 
 function startDisaster() {
+  const players = participantsFor();
+  if (!players.length) {
+    stopGame(null, "目标维度没有位于非安全区的玩家，灾害已取消。");
+    return;
+  }
   phase = "active";
-  remaining = CFG.disasterSeconds;
+  remaining = settings.disasterSeconds;
   activeTick = 0;
   tornado = null;
   meteors = [];
@@ -260,21 +435,20 @@ function startDisaster() {
   earthquakeQueuedKeys.clear();
   failedPlayers.clear();
 
-  if (disasterIndex === 0) resetCycleProgressAtNewCycle();
-
-  for (const p of world.getAllPlayers()) {
+  for (const p of players) {
     ensurePlayerScores(p);
     safeCmd(p, "fog @s push sando:apocalypse_fog sando_disaster");
     safeCmd(p, "playsound ambient.weather.thunder @s ~ ~ ~ 0.8 0.8");
     try {
       p.onScreenDisplay.setTitle(disaster.name, {
-        subtitle: `§fLEVEL ${disasterLevel} §8| §fSURVIVE WAVE ${disasterIndex + 1}/5!`,
+        subtitle: `§f难度 ${disasterLevel} §8| §f坚持 ${settings.disasterSeconds} 秒`,
         fadeInDuration: 5,
         stayDuration: 35,
         fadeOutDuration: 10
       });
     } catch (_) {}
   }
+  publishState();
 }
 
 function cleanupWorld() {
@@ -285,7 +459,7 @@ function cleanupWorld() {
   meteors = [];
 
   // Flood cleanup is queued and restored over several ticks to avoid a freeze.
-  for (const [key, oldType] of floodBlocks) queueFloodRestore(key, oldType);
+  for (const [key, oldType] of floodBlocks) queueFloodRestore(key, oldType, activeDimensionId);
   floodBlocks.clear();
   floodByPlayer.clear();
   earthquakeQueue = [];
@@ -295,46 +469,29 @@ function cleanupWorld() {
 function finishDisaster() {
   cleanupWorld();
 
-  const isCycleEnd = disasterIndex === DISASTERS.length - 1;
-  for (const p of world.getAllPlayers()) {
+  for (const p of world.getAllPlayers().filter(player => runParticipants.has(player.name))) {
     ensurePlayerScores(p);
     const failed = failedPlayers.has(p.name);
 
     if (!failed) {
       addScore(p, "ds_streak", 1);
-      addScore(p, "ds_cycle", 1);
       updateBest(p);
 
       const streak = score(p, "ds_streak");
-      const cycle = score(p, "ds_cycle");
       safeCmd(p, "playsound random.levelup @s ~ ~ ~ 0.8 1.2");
-
-      if (isCycleEnd && cycle >= 5) {
-        addScore(p, "ds_wins", 1);
-        try {
-          p.onScreenDisplay.setTitle("§6CIRCUIT COMPLETE", {
-            subtitle: `§aCircuits ${score(p, "ds_wins")} §8| §eBest ${score(p, "ds_best")} Waves`,
-            fadeInDuration: 5,
-            stayDuration: 50,
-            fadeOutDuration: 10
-          });
-        } catch (_) {}
-      } else {
-        try {
-          p.onScreenDisplay.setTitle("§aWAVE SURVIVED!", {
-            subtitle: `§fSurvived ${streak} Waves §8| §eBest ${score(p, "ds_best")} Waves`,
-            fadeInDuration: 5,
-            stayDuration: 30,
-            fadeOutDuration: 10
-          });
-        } catch (_) {}
-      }
+      try {
+        p.onScreenDisplay.setTitle("§a灾害幸存", {
+          subtitle: `§3连续幸存 ${streak} 次 §8| §6最佳 ${score(p, "ds_best")} 次`,
+          fadeInDuration: 5,
+          stayDuration: 30,
+          fadeOutDuration: 10
+        });
+      } catch (_) {}
     } else {
       setScore(p, "ds_streak", 0);
-      setScore(p, "ds_cycle", 0);
       try {
-        p.onScreenDisplay.setTitle("§cWAVE FAILED", {
-          subtitle: "§7Challenge reset to Level 0.",
+        p.onScreenDisplay.setTitle("§c灾害挑战失败", {
+          subtitle: "§8连续幸存记录已重置。",
           fadeInDuration: 5,
           stayDuration: 30,
           fadeOutDuration: 10
@@ -344,21 +501,19 @@ function finishDisaster() {
   }
 
   phase = "cooldown";
-  remaining = CFG.cooldownSeconds;
+  remaining = settings.cooldownSeconds;
+  publishState();
 }
 
 function advanceSequence() {
-  disasterIndex++;
-  if (disasterIndex >= DISASTERS.length) {
-    disasterIndex = 0;
-  }
-
-  disasterLevel++;
-  disaster = DISASTERS[disasterIndex];
-  setGlobalScore("DISASTER_INDEX", disasterIndex);
-  setGlobalScore("WORLD_LEVEL", disasterLevel);
-  phase = "warning";
-  remaining = CFG.warningSeconds;
+  gameStarted = false;
+  phase = "idle";
+  remaining = 0;
+  runParticipants.clear();
+  deadParticipants.clear();
+  failedPlayers.clear();
+  scheduleNextAuto();
+  publishState();
 }
 
 function tornadoProfile(level) {
@@ -426,6 +581,7 @@ function tornadoTick(dim, players) {
   const ents = dim.getEntities({ location: l, maxDistance: profile.radius }).slice(0, CFG.maxEntitiesAffectedByTornado);
   for (const e of ents) {
     if (e.id === tornado.id || e.typeId === "minecraft:lightning_bolt") continue;
+    try { if (isSafeArea(dim.id, e.location)) continue; } catch (_) { continue; }
     const ex = e.location.x - l.x, ez = e.location.z - l.z;
     const d = Math.max(0.8, Math.hypot(ex, ez));
     const nx = ex / d, nz = ez / d;
@@ -453,7 +609,7 @@ function tornadoTick(dim, players) {
         const b = dim.getBlock({ x, y, z });
         if (!b || b.isAir || isProtectedBlock(b.typeId)) continue;
         vanillaCampfireSmoke(dim, { x: x + 0.5, y: y + 0.6, z: z + 0.5 });
-        b.setPermutation(BlockPermutation.resolve("minecraft:air"));
+        if (settings.blockDamage && !isSafeArea(dim.id, { x, y, z })) b.setPermutation(BlockPermutation.resolve("minecraft:air"));
       } catch (_) {}
     }
   }
@@ -464,6 +620,11 @@ function spawnMeteor(dim, player) {
   const targetRadius = Math.min(30, 18 + level * 2);
   const target = centerForPlayer(player, targetRadius, 6);
   target.y = surfaceY(dim, target.x, player.location.y, target.z) + 1;
+  if (isSafeArea(dim.id, target)) {
+    target.x = player.location.x;
+    target.y = surfaceY(dim, player.location.x, player.location.y, player.location.z) + 1;
+    target.z = player.location.z;
+  }
 
   const giantChance = level >= 4 ? Math.min(0.34, 0.08 + (level - 4) * 0.045) : 0;
   const giant = Math.random() < giantChance;
@@ -511,7 +672,9 @@ function meteorTick(dim, players) {
       const radius = m.giant
         ? Math.min(7.5, 5.2 + disasterLevel * 0.22)
         : Math.min(4.8, 3.0 + disasterLevel * 0.16);
-      try { dim.createExplosion(m.target, radius, { breaksBlocks: true, causesFire: true }); } catch (_) {}
+      const safeBoundary = touchesSafeArea(dim.id, m.target, radius * 1.5);
+      const allowDamage = settings.blockDamage && !safeBoundary;
+      if (!safeBoundary) try { dim.createExplosion(m.target, radius, { breaksBlocks: allowDamage, causesFire: allowDamage }); } catch (_) {}
       spawnParticleSafe(dim, "minecraft:campfire_smoke_particle", m.target);
       if (m.giant) {
         spawnParticleSafe(dim, "minecraft:campfire_smoke_particle", { x: m.target.x + 1.2, y: m.target.y + 0.5, z: m.target.z });
@@ -587,6 +750,7 @@ function floodTick(dim, players) {
     for (const [ox, oz] of offsets) {
       for (let h = 0; h < 3; h++) {
         const pos = { x: baseX + ox, y: baseY + h, z: baseZ + oz };
+        if (isSafeArea(dim.id, pos)) continue;
         const key = `${pos.x},${pos.y},${pos.z}`;
         desired.add(key);
         if (floodBlocks.has(key) || floodBlocks.size >= CFG.maxFloodBlocks) continue;
@@ -603,7 +767,7 @@ function floodTick(dim, players) {
   // Restore only water pockets the players have already moved away from.
   for (const [key, oldType] of Array.from(floodBlocks)) {
     if (desired.has(key)) continue;
-    queueFloodRestore(key, oldType);
+    queueFloodRestore(key, oldType, dim.id);
     floodBlocks.delete(key);
   }
   floodByPlayer.clear();
@@ -620,7 +784,7 @@ function lightningTick(dim, players) {
     if (!p) continue;
     const c = centerForPlayer(p, Math.min(28, 17 + level * 2), 5);
     c.y = surfaceY(dim, c.x, p.location.y, c.z) + 1;
-    try { dim.spawnEntity("minecraft:lightning_bolt", c); } catch (_) {}
+    if (!touchesSafeArea(dim.id, c, 3)) try { dim.spawnEntity("minecraft:lightning_bolt", c); } catch (_) {}
 
     // No custom particles. Nearby strikes create a lightweight camera shake.
     for (const viewer of players) {
@@ -662,7 +826,7 @@ function queueEarthquakeCrack(dim, player) {
 
         try {
           const b = dim.getBlock({ x, y, z });
-          if (!b || b.isAir || isProtectedBlock(b.typeId)) continue;
+          if (!b || b.isAir || isProtectedBlock(b.typeId) || isSafeArea(dim.id, { x, y, z })) continue;
           earthquakeQueuedKeys.add(key);
           earthquakeQueue.push({ x, y, z, key, delay: i * 3 + branch * 5 + Math.abs(w), stage: 0 });
         } catch (_) {}
@@ -695,7 +859,7 @@ function processEarthquakeQueue(dim) {
       const by = q.y - depth;
       try {
         const b = dim.getBlock({ x: q.x, y: by, z: q.z });
-        if (b && !b.isAir && !isProtectedBlock(b.typeId)) {
+        if (settings.blockDamage && !isSafeArea(dim.id, { x: q.x, y: by, z: q.z }) && b && !b.isAir && !isProtectedBlock(b.typeId)) {
           b.setPermutation(BlockPermutation.resolve("minecraft:air"));
         }
       } catch (_) {}
@@ -734,8 +898,9 @@ function earthquakeTick(dim, players) {
 }
 
 function disasterTick() {
-  const dim = world.getDimension("overworld");
-  const players = world.getAllPlayers().filter(p => p.dimension.id === "minecraft:overworld");
+  let dim;
+  try { dim = world.getDimension(activeDimensionId); } catch (_) { return stopGame(null, "目标维度不可用，灾害已停止。"); }
+  const players = participantsFor(activeDimensionId);
   if (!players.length) return;
 
   if (disaster.id === "tornado") tornadoTick(dim, players);
@@ -754,20 +919,18 @@ function resetChallengeAfterAllDead() {
     setScore(p, "ds_cycle", 0);
   }
 
-  disasterLevel = 0;
-  disasterIndex = 0;
-  disaster = DISASTERS[0];
-  phase = "warning";
-  remaining = 10;
+  gameStarted = false;
+  phase = "idle";
+  remaining = 0;
   activeTick = 0;
   failedPlayers.clear();
   deadParticipants.clear();
-  runParticipants = new Set(world.getAllPlayers().map(p => p.name));
-  setGlobalScore("WORLD_LEVEL", 0);
-  setGlobalScore("DISASTER_INDEX", 0);
+  runParticipants.clear();
+  scheduleNextAuto();
+  publishState();
 
   try {
-    world.sendMessage("§c[Natural Disasters] §fAll players died. Challenge reset to §6Level 0§f. Tornado in 10 seconds.");
+    world.sendMessage("§c[自然灾害] §f当前参与者全部死亡，本次灾害事件已经结束。");
   } catch (_) {}
 }
 
@@ -779,22 +942,15 @@ function allCurrentParticipantsHaveDied() {
 world.afterEvents.playerSpawn.subscribe(ev => {
   const p = ev.player;
   system.run(() => {
-    // Give the starter exactly once per player. Tags persist with the player/world.
-    try {
-      if (ev.initialSpawn === true && !p.hasTag("sando_disaster_starter_received")) {
-        safeCmd(p, "give @s sando:disaster_controller 1");
-        p.addTag("sando_disaster_starter_received");
-        p.sendMessage("§a[Natural Disasters] §fYou received the §cDisaster Controller§f. Use it to start the disaster waves!");
-      }
-    } catch (_) {}
-
-    // Scoreboard setup is allowed to retry, but DOES NOT start the game.
+    // Scoreboard setup is allowed to retry, but never starts a disaster.
     if (!initialized) ensureObjectives();
     ensurePlayerScores(p);
 
     if (gameStarted) {
       ensurePlayerScores(p);
-      runParticipants.add(p.name);
+      try {
+        if (p.dimension.id === activeDimensionId && !isSafeArea(activeDimensionId, p.location)) runParticipants.add(p.name);
+      } catch (_) {}
     }
   });
 });
@@ -804,6 +960,7 @@ world.afterEvents.entityDie.subscribe(ev => {
   if (!gameStarted || e.typeId !== "minecraft:player") return;
   const name = e.name;
   system.run(() => {
+    if (!runParticipants.has(name)) return;
     failedPlayers.add(name);
     deadParticipants.add(name);
     runParticipants.add(name);
@@ -841,12 +998,50 @@ function bootSystem(showMessage = false) {
   }
 }
 
-function startGame(source) {
+function chooseTargetDimension(requestedDimensionId) {
+  const allowed = allowedDimensionIds();
+  if (!allowed.length) return null;
+  if (requestedDimensionId && allowed.includes(requestedDimensionId) && participantsFor(requestedDimensionId).length) return requestedDimensionId;
+  const occupied = allowed.filter(id => {
+    try { world.getDimension(id); return participantsFor(id).length > 0; } catch (_) { return false; }
+  });
+  return occupied.length ? occupied[Math.floor(Math.random() * occupied.length)] : null;
+}
+
+function stopGame(source, reason = "管理员停止了当前灾害。") {
+  const wasRunning = gameStarted;
+  cleanupWorld();
+  gameStarted = false;
+  phase = "idle";
+  remaining = 0;
+  activeTick = 0;
+  runParticipants.clear();
+  deadParticipants.clear();
+  failedPlayers.clear();
+  scheduleNextAuto();
+  publishState();
+  if (wasRunning) {
+    try { world.sendMessage(`§a[自然灾害] §f${reason}`); } catch (_) {}
+  } else {
+    try { source?.sendMessage("§8当前没有正在运行的自然灾害。"); } catch (_) {}
+  }
+}
+
+function startGame(source, requestedDisasterId = "", requestedDimensionId = "", requestedDifficulty = undefined) {
   try {
+    loadSettings();
+    if (source?.typeId === "minecraft:player" && !isAdmin(source)) {
+      source.sendMessage("§c只有管理员可以启动自然灾害。");
+      return;
+    }
+    if (!settings.enabled) {
+      try { source?.sendMessage("§c自然灾害总开关已关闭，请先在 SAPI 管理页面启用。"); } catch (_) {}
+      return;
+    }
     if (!bootSystem(false)) {
       try { source?.sendMessage("§e[Natural Disasters] Preparing scoreboards... starting in a moment."); } catch (_) {}
       system.runTimeout(() => {
-        if (bootSystem(false)) startGame(source);
+        if (bootSystem(false)) startGame(source, requestedDisasterId, requestedDimensionId, requestedDifficulty);
         else {
           try { source?.sendMessage("§c[Natural Disasters] Scoreboard initialization failed. Check Content Log for the exact error."); } catch (_) {}
         }
@@ -860,24 +1055,35 @@ function startGame(source) {
       return;
     }
 
+    const selected = DISASTERS.find(entry => entry.id === requestedDisasterId) || weightedDisaster();
+    const targetDimensionId = chooseTargetDimension(requestedDimensionId || source?.dimension?.id);
+    if (!targetDimensionId) {
+      try { source?.sendMessage("§c没有可用目标：目标维度必须已启用，并至少有一名位于非安全区的玩家。"); } catch (_) {}
+      scheduleNextAuto();
+      return;
+    }
+
     cleanupWorld();
     gameStarted = true;
     bootMessageShown = true;
     phase = "warning";
-    remaining = 10;
-    disasterIndex = 0;
-    disasterLevel = 0;
-    disaster = DISASTERS[0];
-    runParticipants = new Set(world.getAllPlayers().map(p => p.name));
+    remaining = settings.warningSeconds;
+    disaster = selected;
+    disasterIndex = Math.max(0, DISASTERS.findIndex(entry => entry.id === selected.id));
+    disasterLevel = Math.floor(clamp(requestedDifficulty, 0, 10, settings.difficulty));
+    activeDimensionId = targetDimensionId;
+    runParticipants = new Set(participantsFor(targetDimensionId).map(p => p.name));
     deadParticipants.clear();
-    setGlobalScore("DISASTER_INDEX", 0);
-    setGlobalScore("WORLD_LEVEL", 0);
+    setGlobalScore("DISASTER_INDEX", disasterIndex);
+    setGlobalScore("WORLD_LEVEL", disasterLevel);
+    nextAutoTick = Number.POSITIVE_INFINITY;
+    publishState();
 
-    try { world.sendMessage("§c§l[NATURAL DISASTERS] §r§fThe disaster challenge has started! §eTornado in 10 seconds."); } catch (_) {}
-    for (const p of world.getAllPlayers()) {
+    try { world.sendMessage(`§c§l[自然灾害预警] §r§f${disaster.name} §f将在 ${remaining} 秒后袭击 ${activeDimensionId}！`); } catch (_) {}
+    for (const p of participantsFor(targetDimensionId)) {
       try {
         p.onScreenDisplay.setTitle("§c§lNATURAL DISASTERS", {
-          subtitle: "§fSTARTED §8| §eTORNADO IN 10 SECONDS",
+          subtitle: `§f${remaining} 秒后开始 §8| §e难度 ${disasterLevel}`,
           fadeInDuration: 3,
           stayDuration: 40,
           fadeOutDuration: 7
@@ -885,7 +1091,10 @@ function startGame(source) {
         safeCmd(p, "playsound random.levelup @s ~ ~ ~ 1 0.8");
       } catch (_) {}
     }
-  } catch (_) {}
+  } catch (error) {
+    console.error(`[NaturalDisasters] start failed: ${error?.stack || error}`);
+    try { source?.sendMessage(`§c自然灾害启动失败：${error}`); } catch (_) {}
+  }
 }
 
 // Register the controller as a real custom item component during startup.
@@ -913,16 +1122,44 @@ try {
   });
 } catch (_) {}
 
-// Keep /scriptevent as a developer fallback only.
+// SAPI Server 与本 Add-on 仅通过动态属性和 Script Event 联动。
 try {
   system.afterEvents.scriptEventReceive.subscribe(ev => {
-    if (ev.id !== "sando:start") return;
-    system.run(() => startGame(ev.sourceEntity));
+    if (!["sando:start", "sando:control"].includes(ev.id)) return;
+    const source = ev.sourceEntity;
+    if (source?.typeId === "minecraft:player" && !isAdmin(source)) {
+      try { source.sendMessage("§c只有管理员可以控制自然灾害。"); } catch (_) {}
+      return;
+    }
+    const payload = parseJson(ev.message, {});
+    system.run(() => {
+      if (ev.id === "sando:start") return startGame(source, "", source?.dimension?.id);
+      if (payload.action === "reload") {
+        const wasAutoEnabled = settings.autoEnabled;
+        loadSettings();
+        if (!settings.enabled && gameStarted) stopGame(source, "自然灾害总开关已关闭，当前事件终止。");
+        else if (settings.autoEnabled && (!wasAutoEnabled || !Number.isFinite(nextAutoTick))) scheduleNextAuto();
+        else if (!settings.autoEnabled) nextAutoTick = Number.POSITIVE_INFINITY;
+        publishState();
+        try { source?.sendMessage("§a自然灾害设置已应用。"); } catch (_) {}
+      } else if (payload.action === "trigger") {
+        startGame(source, String(payload.disasterId || ""), String(payload.dimensionId || source?.dimension?.id || ""), payload.difficulty);
+      } else if (payload.action === "stop") {
+        stopGame(source);
+      } else if (payload.action === "status") {
+        publishState();
+      }
+    });
   });
 } catch (_) {}
 
 // Initialize data only; never auto-start disasters.
-system.runTimeout(() => bootSystem(false), 20);
+system.runTimeout(() => {
+  loadSettings();
+  if (settings.autoEnabled) scheduleNextAuto();
+  bootSystem(false);
+  publishState();
+}, 20);
 
 system.runInterval(() => {
   tickCounter++;
@@ -932,12 +1169,17 @@ system.runInterval(() => {
     return;
   }
 
+  if (tickCounter % 100 === 0) {
+    const previousAuto = settings.autoEnabled;
+    loadSettings();
+    if (!settings.enabled && gameStarted) stopGame(null, "自然灾害总开关已关闭，当前事件终止。");
+    if (settings.autoEnabled && (!previousAuto || !Number.isFinite(nextAutoTick)) && !gameStarted) scheduleNextAuto();
+    if (!settings.autoEnabled && !gameStarted) nextAutoTick = Number.POSITIVE_INFINITY;
+    publishState();
+  }
+
   if (!gameStarted) {
-    if (tickCounter % 40 === 0) {
-      for (const p of world.getAllPlayers()) {
-        try { p.onScreenDisplay.setActionBar("§cNatural Disasters §8| §fUse the §eDisaster Controller §fto start"); } catch (_) {}
-      }
-    }
+    if (settings.enabled && settings.autoEnabled && system.currentTick >= nextAutoTick) startGame(null);
     return;
   }
 

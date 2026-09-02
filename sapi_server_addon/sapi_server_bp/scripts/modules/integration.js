@@ -6,6 +6,7 @@ const DAILY_EVENTS_HEARTBEAT = "interop:daily_events_heartbeat";
 const DAILY_SALES_KEY = "interop:daily_sales:v1";
 const APOCALYPSE_HEARTBEAT = "apoc:heartbeat";
 const EXTRACTION_HEARTBEAT = "interop:apoc_extraction_heartbeat";
+const NATURAL_DISASTERS_HEARTBEAT = "interop:natural_disasters_heartbeat";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const HEARTBEAT_MAX_AGE_MS = 15000;
@@ -79,6 +80,10 @@ export class Integration {
 
     static isExtractionAvailable() {
         return this.isAlive(EXTRACTION_HEARTBEAT);
+    }
+
+    static isNaturalDisastersAvailable() {
+        return this.isAlive(NATURAL_DISASTERS_HEARTBEAT);
     }
 
     /**

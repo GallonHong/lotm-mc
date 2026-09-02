@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "§cNatural Disasters §7| §fEL SANDO",
-    "description": "Epic natural disaster survival addon: tornadoes, earthquakes, meteor showers, floods and lightning storms.",
+    "name": "Natural Disasters Server Events BP v2.0.0",
+    "description": "SAPI-compatible configurable tornadoes, earthquakes, meteor showers, floods and lightning storms.",
     "uuid": "f227c4e1-7f63-4e10-9191-2f90c81ea6d4",
     "version": [
-      1,
-      6,
+      2,
+      0,
       0
     ],
     "min_engine_version": [
@@ -20,8 +20,8 @@
       "type": "data",
       "uuid": "fa4b0fee-f7a9-4a65-b717-240479fbbc51",
       "version": [
-        1,
-        6,
+        2,
+        0,
         0
       ]
     },
@@ -30,8 +30,8 @@
       "language": "javascript",
       "uuid": "f9be551c-7035-4b3c-9dbb-67d28610a7b3",
       "version": [
-        1,
-        6,
+        2,
+        0,
         0
       ],
       "entry": "scripts/main.js"
@@ -45,8 +45,8 @@
     {
       "uuid": "f92b4cf0-7abc-4942-80a5-ae037a14cf80",
       "version": [
-        1,
-        6,
+        2,
+        0,
         0
       ]
     }

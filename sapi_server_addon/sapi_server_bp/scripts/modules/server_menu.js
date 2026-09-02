@@ -12,6 +12,7 @@ import { TeleportManager } from "./teleport.js";
 import { RegionManager } from "./region.js";
 import { AuditManager } from "./audit.js";
 import { OperationsManager } from "./operations.js";
+import { DisasterAdminManager } from "./disasters.js";
 
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
 export class ServerMenuManager {
@@ -62,12 +63,13 @@ export class ServerMenuManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§c⚙️ 服务器管理员控制台")
-            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${Integration.isDailyEventsAvailable() ? "§a已连接" : "§8未连接"}`);
+            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${Integration.isDailyEventsAvailable() ? "§a已连接" : "§8未连接"}\n§8自然灾害联动: ${Integration.isNaturalDisastersAvailable() ? "§a已连接" : "§8未连接"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§e📋 管理与审计日志", "textures/ui/achievements", () => AuditManager.openAdminUI(player, () => this.openAdminPanel(player, onBack)));
         add("§l§d🎛 服务器运营管理", "textures/ui/op", () => OperationsManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
+        add("§l§4🌪 自然灾害管理", "textures/ui/warning_alex", () => DisasterAdminManager.openMain(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6💵 玩家金币管理", "textures/ui/Trade2", () => this.openPlayerMoneyAdmin(player, onBack));
         add("§l§4🗑️ 强制删除当前地皮", "textures/ui/trash", () => this.forceDeleteCurrentPlot(player, onBack));
         add("§l§e📢 发布全服公告", "textures/ui/accessibility_glyph_color", () => this.openBroadcastModal(player, onBack));
