@@ -181,6 +181,9 @@
     },
     "test_gun_blueprint_katana": {
       "textures": "textures/blueprints/blueprint_katana"
+    },
+    "test_gun_usas12": {
+      "textures": "textures/guns/usas12"
     }
   }
 }

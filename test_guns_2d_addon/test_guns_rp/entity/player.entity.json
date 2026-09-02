@@ -167,7 +167,7 @@
           "controller.render.scope_smg": "variable.scope_visible && (query.get_equipped_item_name(0) == 'p90' || query.get_equipped_item_name(0) == 'bizon' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:p90','test_gun:bizon'))"
         },
         {
-          "controller.render.scope_m1014": "variable.scope_visible && (query.get_equipped_item_name(0) == 'm1014' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:m1014'))"
+          "controller.render.scope_m1014": "variable.scope_visible && (query.get_equipped_item_name(0) == 'm1014' || query.get_equipped_item_name(0) == 'usas12' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:m1014'))"
         },
         {
           "controller.render.scope_m1897": "variable.scope_visible && (query.get_equipped_item_name(0) == 'm1897' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:m1897'))"

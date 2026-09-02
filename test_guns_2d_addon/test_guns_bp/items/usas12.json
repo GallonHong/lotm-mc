@@ -1,0 +1,49 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:usas12",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_usas12",
+      "minecraft:display_name": {
+        "value": "\u00a7dUSAS-12\u300c\u55dc\u8840\u72c2\u6f6e\u300d\u00a7r\n\u00a75[\u53f2\u8bd7\u00b720\u53d1\u5168\u81ea\u52a8\u5f39\u9f13\u5438\u8840\u8fde\u55b7]\u00a7r\n\u00a7c\u88ab\u52a8: \u9c9c\u8840\u76db\u5bb4 (\u5438\u53d618%\u4f24\u5bb3\u4e3a\u751f\u547d\u503c+\u8fc7\u91cf\u62a4\u76fe)\u00a7r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 1500
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:netherite_ingot",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 400
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
+  }
+}

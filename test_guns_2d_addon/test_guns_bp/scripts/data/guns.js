@@ -230,6 +230,26 @@ export const GUNS = [
 
   // 🟣 Epic Quality
   {
+    id: 'test_gun:usas12',
+    name: 'USAS-12 嗜血狂潮',
+    tier: 'epic',
+    type: 'shotgun',
+    mode: FireMode.AUTO,
+    maxAmmo: 20,
+    fireRate: 5,
+    shootPower: 10.5,
+    recoil: 0.38,
+    reloadTime: 55,
+    shootSound: 'test_gun.m870_shoot',
+    ammoTypeId: 'test_gun:ammo_shotgun',
+    projectileTypeId: 'test_gun:bullet_shotgun',
+    hasSkill: false,
+    isLifeSteal: true,
+    lifeStealRatio: 0.18,
+    stats: { damage: 6.5, headshotMultiplier: 1.5, armorPenetration: 0.30, damageDropOff: 0.04, maxRange: 35, knockback: { x: 0.65, y: 0.25 } }
+  },
+
+  {
     id: 'test_gun:rpg',
     name: 'RPG-7',
     tier: 'epic',
