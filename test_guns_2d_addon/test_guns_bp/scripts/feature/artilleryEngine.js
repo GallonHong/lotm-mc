@@ -73,7 +73,7 @@ export class ArtilleryEngine {
 
     const form = new ActionFormData();
     form.title('§6📡 战术火炮空袭指挥链路 (SAPI)§r');
-    form.body('§7请选择集束迫击炮群的轰炸覆盖区域:\n§8(提示: 12发迫击炮弹从天而降，单发5伤，原版TNT特效，不破坏地形)§r');
+    form.body('§7请选择集束迫击炮群的轰炸覆盖区域:\n§8(提示: 24发迫击炮弹从天而降，单发5伤，原版TNT特效，不破坏地形)§r');
 
     form.button(`§e🎯【准星目标】锁定当前瞄准点\n§8(${crosshairPos.x.toFixed(0)}, ${crosshairPos.y.toFixed(0)}, ${crosshairPos.z.toFixed(0)})`, 'textures/ui/crosshair');
     form.button(`§b📍【中程压制】自身正前方 30 格\n§8(${pos30.x.toFixed(0)}, ${pos30.y.toFixed(0)}, ${pos30.z.toFixed(0)})`, 'textures/ui/magnifying_glass');
@@ -128,7 +128,7 @@ export class ArtilleryEngine {
 
     // 无线电确认提示与警笛音效
     try {
-      player.onScreenDisplay?.setActionBar?.(`§6📡【火炮阵地收到】已锁定【${modeName}】! 12发迫击炮弹正在自天顶下落!§r`);
+      player.onScreenDisplay?.setActionBar?.(`§6📡【火炮阵地收到】已锁定【${modeName}】! 24发迫击炮弹正在自天顶下落!§r`);
       dim.playSound('test_gun.radio_click', player.location, { volume: 1.5, pitch: 1.0 });
       dim.playSound('ambient.weather.thunder', realCenter, { volume: 1.5, pitch: 1.6 });
     } catch {}
@@ -149,9 +149,9 @@ export class ArtilleryEngine {
       shooterId: pId,
       dim: dim,
       center: realCenter,
-      totalShells: 12,
+      totalShells: 24,
       shellsFired: 0,
-      nextShellTick: 8,
+      nextShellTick: 6,
       spreadRadius: 8.0,
       damage: 5.0
     });
@@ -209,7 +209,7 @@ export class ArtilleryEngine {
         if (b.nextShellTick <= 0) {
           this.spawnFallingShell(b);
           b.shellsFired++;
-          b.nextShellTick = 5; // 0.25 秒下一发
+          b.nextShellTick = 4; // 0.20 秒下一发 (24发集束炮弹密集倾泻)
         }
 
         if (b.shellsFired < b.totalShells) {
@@ -277,9 +277,16 @@ export class ArtilleryEngine {
       dim.spawnParticle('minecraft:basic_smoke_particle', impactLoc);
     } catch {}
 
-    // 2. 原版经典 TNT 爆炸音效
+    // 2. 真实重型火炮爆鸣 (复用 Actual Guns 重型爆炸音效 + 原版大音量共振)
     try {
-      dim.playSound('random.explode', impactLoc, { volume: 1.8, pitch: 1.0 });
+      dim.playSound('test_gun.artillery_explode', impactLoc, {
+        volume: 3.5,
+        pitch: 0.92 + Math.random() * 0.16
+      });
+      dim.playSound('random.explode', impactLoc, {
+        volume: 2.5,
+        pitch: 0.85 + Math.random() * 0.15
+      });
     } catch {}
 
     // 3. 5 点范围溅射伤害 (100% 保护地形方块)

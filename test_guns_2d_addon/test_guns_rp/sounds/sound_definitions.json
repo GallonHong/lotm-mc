@@ -120,6 +120,29 @@
       "sounds": [
         "sounds/guns/flashbang"
       ]
+    },
+    "test_gun.artillery_explode": {
+      "category": "hostile",
+      "min_distance": 15.0,
+      "max_distance": 150.0,
+      "sounds": [
+        {
+          "name": "sounds/explosions/artillery_explode1",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/explosions/artillery_explode2",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/explosions/artillery_explode3",
+          "volume": 1.0
+        },
+        {
+          "name": "sounds/explosions/artillery_explode4",
+          "volume": 1.0
+        }
+      ]
     }
   }
 }
