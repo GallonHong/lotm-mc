@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.5.2",
+  version: "0.6.0",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,
@@ -8,6 +8,9 @@ export const CONFIG = Object.freeze({
   claimedRewardsKey: "daily:claimed_rewards:v1",
   pendingRewardsKey: "daily:pending_rewards:v1",
   rewardLogKey: "daily:reward_log:v1",
+  lootCrateStatePrefix: "daily:loot_crate:v1:",
+  lootCrateResetScanTicks: 100,
+  lootCratePlayerSafeRadius: 8,
   eventNodesKey: "daily:event_nodes:v1",
   apocalypseHeartbeatKey: "apoc:heartbeat",
   apocalypseSpawnQueueKey: "apoc:spawn_requests:v1",

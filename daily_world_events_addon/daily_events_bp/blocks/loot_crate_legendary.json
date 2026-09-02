@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": { "identifier": "daily:loot_crate_legendary", "menu_category": { "category": "items" }, "states": { "daily:opened": [false, true] } },
+    "components": {
+      "minecraft:destructible_by_mining": false,
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:material_instances": { "*": { "texture": "daily_crate_legendary", "render_method": "opaque" } }
+    },
+    "permutations": [
+      { "condition": "q.block_state('daily:opened') == true", "components": { "minecraft:material_instances": { "*": { "texture": "daily_crate_opened", "render_method": "opaque" } } } }
+    ]
+  }
+}

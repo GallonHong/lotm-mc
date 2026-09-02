@@ -1,0 +1,11 @@
+{
+  "format_version": "1.21.120",
+  "minecraft:dimension": {
+    "description": { "identifier": "apoc_extract:city" },
+    "components": {
+      "minecraft:default_biome": { "biome": "apoc_extract:ruined_city" },
+      "minecraft:dimension_height": { "min_y": -64, "height_range": 384 },
+      "minecraft:generation": { "generator_type": "overworld" }
+    }
+  }
+}

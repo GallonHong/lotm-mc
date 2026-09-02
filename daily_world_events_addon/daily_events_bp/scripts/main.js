@@ -11,8 +11,9 @@ import { merchantByEntity } from "./merchants/merchantConfig.js";
 import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
+import { LootCrateManager } from "./rewards/LootCrateManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.5.2 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Loot Crates v0.6.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -120,6 +121,7 @@ try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
 IntegrationBridge.cleanupStaleDailySpawnRequests();
 WorldEventManager.initializeCleanup();
 DungeonManager.initializeCleanup();
+LootCrateManager.initialize();
 
 subscribe(world.afterEvents?.entityLoad, "entityLoad", event => WorldEventManager.cleanupIfStale(event.entity));
 
@@ -170,6 +172,10 @@ if (!interactAfter) {
   });
 }
 
+subscribe(world.afterEvents?.playerInteractWithBlock, "playerInteractWithBlock", event => {
+  try { LootCrateManager.interact(event); } catch (error) { console.warn(`[DailyEvents] loot crate interaction failed: ${error}`); }
+});
+
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
   const player = event.sourceEntity;
   if (!player || player.typeId !== "minecraft:player") return;
@@ -218,6 +224,10 @@ system.runInterval(() => {
 }, CONFIG.eventScanTicks);
 
 system.runInterval(() => {
+  try { LootCrateManager.tick(); } catch (error) { console.warn(`[DailyEvents] loot crate reset failed: ${error}`); }
+}, CONFIG.lootCrateResetScanTicks);
+
+system.runInterval(() => {
   for (const player of world.getAllPlayers()) {
     try { DailyQuestManager.pollSales(player); NpcDialogue.syncPlayer(player); } catch {}
   }
@@ -230,4 +240,4 @@ system.runInterval(() => {
   }
 }, 100);
 
-console.warn(`[DailyEvents] DailyQuestManager, RewardManager, DungeonManager and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);
+console.warn(`[DailyEvents] DailyQuestManager, RewardManager, LootCrateManager, DungeonManager and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);

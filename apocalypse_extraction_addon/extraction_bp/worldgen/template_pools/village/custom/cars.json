@@ -1,0 +1,73 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:template_pool": {
+    "description": {
+      "identifier": "jigsaw:village/custom/cars"
+    },
+    "elements": [
+      {
+        "weight": 5,
+        "element": {
+          "element_type": "minecraft:single_pool_element",
+          "location": "village/custom/cars/cars1",
+          "processors": "jigsaw:mossy",
+          "projection": "rigid"
+        }
+      },
+      {
+        "weight": 5,
+        "element": {
+          "element_type": "minecraft:single_pool_element",
+          "location": "village/custom/cars/cars2",
+          "processors": "jigsaw:mossy",
+          "projection": "rigid"
+        }
+      },
+      {
+        "weight": 80,
+        "element": {
+          "element_type": "minecraft:single_pool_element",
+          "location": "village/custom/cars/cars3",
+          "processors": "jigsaw:mossy",
+          "projection": "rigid"
+        }
+      },
+      {
+        "weight": 5,
+        "element": {
+          "element_type": "minecraft:single_pool_element",
+          "location": "village/custom/cars/cars4",
+          "processors": "jigsaw:mossy",
+          "projection": "rigid"
+        }
+      },
+      {
+        "weight": 5,
+        "element": {
+          "element_type": "minecraft:single_pool_element",
+          "location": "village/custom/cars/cars5",
+          "processors": "jigsaw:mossy",
+          "projection": "rigid"
+        }
+      },
+      {
+        "weight": 5,
+        "element": {
+          "element_type": "minecraft:single_pool_element",
+          "location": "village/custom/cars/cars6",
+          "processors": "jigsaw:mossy",
+          "projection": "rigid"
+        }
+      },
+      {
+        "weight": 1,
+        "element": {
+          "element_type": "minecraft:single_pool_element",
+          "location": "village/custom/cars/cars7",
+          "processors": "jigsaw:mossy",
+          "projection": "rigid"
+        }
+      }
+    ]
+  }
+}

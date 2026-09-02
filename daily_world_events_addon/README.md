@@ -1,6 +1,15 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.5.2 增加动态事件阵亡淘汰规则：已参与玩家在事件范围内死亡后，本次事件不能领取奖励，也不会推进日常事件任务；复活后重新进入仍保持失效。副本继续使用自身独立的死亡与结算规则。
+独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.6.0 增加可复用的四级物资箱：按坐标持久保存刷新冷却，统一通过 RewardManager 防重结算。动态事件阵亡淘汰与副本独立结算规则保持不变。
+
+## 可复用物资箱
+
+- `daily:loot_crate_common`：15 分钟刷新；
+- `daily:loot_crate_rare`：30 分钟刷新；
+- `daily:loot_crate_epic`：60 分钟刷新；
+- `daily:loot_crate_legendary`：120 分钟刷新。
+
+奖池和刷新时间集中在 `scripts/rewards/lootCratePools.js`。World Event、摸金都市与主世界地图均可直接放置这些方块；长按/右键只处理首次交互，已开启箱子在附近有玩家时不会突然复原。
 
 ## 联动关系
 

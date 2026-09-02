@@ -1,3 +1,7 @@
 entity.daily:commissioner.name=Survival Alliance Commissioner
 entity.daily:survivor.name=Trapped Survivor
 entity.daily:convoy_marker.name=Crashed Convoy
+tile.daily:loot_crate_common.name=Common Supply Crate
+tile.daily:loot_crate_rare.name=Rare Supply Crate
+tile.daily:loot_crate_epic.name=Epic Supply Crate
+tile.daily:loot_crate_legendary.name=Legendary Supply Crate

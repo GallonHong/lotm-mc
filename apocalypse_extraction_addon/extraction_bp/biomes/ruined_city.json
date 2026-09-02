@@ -1,0 +1,10 @@
+{
+  "format_version": "1.21.120",
+  "minecraft:biome": {
+    "description": { "identifier": "apoc_extract:ruined_city" },
+    "components": {
+      "minecraft:climate": { "downfall": 0.35, "temperature": 0.65 },
+      "minecraft:tags": { "tags": ["apoc_extraction_city", "overworld", "plains", "monster"] }
+    }
+  }
+}

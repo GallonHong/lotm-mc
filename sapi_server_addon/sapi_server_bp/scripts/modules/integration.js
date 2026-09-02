@@ -5,6 +5,7 @@ const LOTM_HEARTBEAT = "interop:lotm_heartbeat";
 const DAILY_EVENTS_HEARTBEAT = "interop:daily_events_heartbeat";
 const DAILY_SALES_KEY = "interop:daily_sales:v1";
 const APOCALYPSE_HEARTBEAT = "apoc:heartbeat";
+const EXTRACTION_HEARTBEAT = "interop:apoc_extraction_heartbeat";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const HEARTBEAT_MAX_AGE_MS = 15000;
@@ -74,6 +75,10 @@ export class Integration {
         // Apocalypse 每 10 秒刷新一次心跳，额外留出一轮调度余量。
         const heartbeat = this.readHeartbeat(APOCALYPSE_HEARTBEAT);
         return heartbeat > 0 && Date.now() - heartbeat <= 30000;
+    }
+
+    static isExtractionAvailable() {
+        return this.isAlive(EXTRACTION_HEARTBEAT);
     }
 
     /**

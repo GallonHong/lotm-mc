@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.6 在 v0.2.5 枪械 attachable 修复基础上，为副本刷怪总线增加人工固定坐标模式，避免建筑内敌人被地面搜索算法放到屋顶或生成失败。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.3.4 已集成雾中人、羊人、警笛头和六类变异 Boss，并保留枪械 attachable、副本固定坐标刷怪总线与主世界区域刷怪功能。摸金都市会通过现有 SpawnDirector 队列生成高档怪物，并直接复用本包的 Boss 实体。
 
 ## 已实现
 

@@ -1,7 +1,7 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs BP v0.2.4",
+    "name": "Apocalypse Mobs BP v0.3.4",
     "description": "SpawnDirector, infected, raiders, loot nodes and world events with optional SAPI/Test Guns integration.",
     "uuid": "714f16b3-b6ad-47f3-af06-dd93095da201",
     "version": [
@@ -50,8 +50,8 @@
       "uuid": "03db80ee-e322-46ce-8787-7efab344707c",
       "version": [
         0,
-        1,
-        2
+        3,
+        4
       ]
     },
     {

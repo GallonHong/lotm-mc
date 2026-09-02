@@ -93,6 +93,17 @@ export class RewardManager {
     return true;
   }
 
+  static grantBundle(player, bundle, uniqueId, source = "dynamic") {
+    if (!bundle || !this.reserve(player, uniqueId)) return false;
+    const coins = Math.max(0, Math.floor(Number(bundle.coins) || 0));
+    const items = Array.isArray(bundle.items) ? bundle.items : [];
+    const coinResult = this.addCoins(player, coins);
+    for (const item of items) this.giveOrQueue(player, item);
+    this.log(player, uniqueId, bundle.id || "custom_bundle", source, coinResult);
+    player.sendMessage(`§6[物资箱] 获得 ${coins} 金币与 ${items.length} 类物资。`);
+    return true;
+  }
+
   static log(player, uniqueId, rewardId, source, coinResult) {
     try {
       const raw = world.getDynamicProperty(CONFIG.rewardLogKey);

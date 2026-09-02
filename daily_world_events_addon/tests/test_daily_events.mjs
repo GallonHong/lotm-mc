@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 5, 2]);
-assert.deepEqual(rpManifest.header.version, [0, 5, 2]);
+assert.deepEqual(manifest.header.version, [0, 6, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 6, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -84,6 +84,14 @@ assert(dailyMenu.includes("isUserBusy") && dailyMenu.includes("attempt < 8"), "d
 
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));
+assert(rewardManager.includes("grantBundle(player, bundle, uniqueId"), "dynamic crate rewards must use RewardManager");
+const crateManager = readFileSync(join(bp, "scripts/rewards/LootCrateManager.js"), "utf8");
+assert(crateManager.includes("event.isFirstEvent === false"), "hold interaction must not open a crate repeatedly");
+assert(crateManager.includes("lootCrateStatePrefix") && crateManager.includes("readyAt"), "crate cooldown must persist across restart");
+for (const tier of ["common", "rare", "epic", "legendary"]) {
+  assert.equal(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].description.identifier, `daily:loot_crate_${tier}`);
+}
+assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_common);
 
 const dungeonTemplates = await import(`file://${join(bp, "scripts/dungeons/dungeonTemplates.js")}`);
 const clinic = dungeonTemplates.DUNGEON_TEMPLATES.abandoned_clinic;
