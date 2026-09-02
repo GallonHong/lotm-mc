@@ -1,0 +1,40 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:assemble_helicopter"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " R ",
+      "BCP",
+      "ETE"
+    ],
+    "key": {
+      "R": {
+        "item": "survival_vehicle:heli_rotor"
+      },
+      "B": {
+        "item": "survival_vehicle:blueprint_helicopter"
+      },
+      "C": {
+        "item": "survival_vehicle:vehicle_chassis"
+      },
+      "P": {
+        "item": "survival_vehicle:heli_tail_rotor"
+      },
+      "E": {
+        "item": "survival_vehicle:vehicle_engine"
+      },
+      "T": {
+        "item": "survival_vehicle:vehicle_battery"
+      }
+    },
+    "result": {
+      "item": "ab_ve:helicopter_spawner",
+      "count": 1
+    }
+  }
+}

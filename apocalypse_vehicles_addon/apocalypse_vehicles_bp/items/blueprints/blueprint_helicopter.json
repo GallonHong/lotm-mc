@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival_vehicle:blueprint_helicopter",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§l§d【稀有航空蓝图】军用直升机§r\n§e用于装配具备空中悬停与立体机动的直升机"
+      },
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 16,
+      "minecraft:glint": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "survival_vehicle:blueprint_helicopter"
+        }
+      }
+    }
+  }
+}

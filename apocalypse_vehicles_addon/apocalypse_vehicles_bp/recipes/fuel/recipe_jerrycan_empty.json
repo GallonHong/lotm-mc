@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:craft_jerrycan_empty"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " I ",
+      "S S",
+      "SSS"
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "S": {
+        "item": "survival_vehicle:scrap_metal"
+      }
+    },
+    "result": {
+      "item": "survival_vehicle:jerrycan_empty",
+      "count": 1
+    }
+  }
+}

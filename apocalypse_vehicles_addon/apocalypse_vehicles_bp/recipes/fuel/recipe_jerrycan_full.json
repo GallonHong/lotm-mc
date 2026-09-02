@@ -1,0 +1,29 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "survival_vehicle:craft_jerrycan_full"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "survival_vehicle:jerrycan_empty"
+      },
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:coal"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      }
+    ],
+    "result": {
+      "item": "survival_vehicle:jerrycan_full",
+      "count": 1
+    }
+  }
+}

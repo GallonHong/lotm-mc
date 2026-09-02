@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:craft_scrap_metal"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " I ",
+      "ICI",
+      " I "
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "C": {
+        "item": "minecraft:copper_ingot"
+      }
+    },
+    "result": {
+      "item": "survival_vehicle:scrap_metal",
+      "count": 4
+    }
+  }
+}

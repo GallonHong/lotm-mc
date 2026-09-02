@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival_vehicle:blueprint_motorcycle",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§l§6【车辆蓝图】极速摩托车§r\n§7用于装配轻量级机动越野摩托"
+      },
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 16,
+      "minecraft:glint": true,
+      "minecraft:icon": {
+        "textures": {
+          "default": "survival_vehicle:blueprint_motorcycle"
+        }
+      }
+    }
+  }
+}

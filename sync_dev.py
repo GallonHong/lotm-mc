@@ -14,14 +14,19 @@ links = [
     (os.path.abspath('test_guns_2d_addon/test_guns_rp'), os.path.join(dev_rp_dir, 'Test_Guns_2D_RP')),
     (os.path.abspath('apex_boss_addon/apex_boss_bp'), os.path.join(dev_bp_dir, 'Apex_Boss_BP')),
     (os.path.abspath('apex_boss_addon/apex_boss_rp'), os.path.join(dev_rp_dir, 'Apex_Boss_RP')),
+    (os.path.abspath('apocalypse_vehicles_addon/apocalypse_vehicles_bp'), os.path.join(dev_bp_dir, 'apocalypse_vehicles_bp')),
+    (os.path.abspath('apocalypse_vehicles_addon/apocalypse_vehicles_rp'), os.path.join(dev_rp_dir, 'apocalypse_vehicles_rp')),
 ]
 
 for src, dst in links:
     if os.path.exists(dst):
-        if os.path.islink(dst):
-            os.unlink(dst)
-        elif os.path.isdir(dst):
-            shutil.rmtree(dst)
+        try:
+            os.rmdir(dst)
+        except OSError:
+            if os.path.islink(dst):
+                os.unlink(dst)
+            elif os.path.isdir(dst):
+                shutil.rmtree(dst)
     cmd = f'cmd /c mklink /J "{dst}" "{src}"'
     subprocess.run(cmd, shell=True, capture_output=True, text=True)
     print(f"[OK Linked] {os.path.basename(dst)} -> {src}")

@@ -1,0 +1,40 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:assemble_ambulance"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "SBS",
+      "MCE",
+      "TTT"
+    ],
+    "key": {
+      "S": {
+        "item": "survival_vehicle:scrap_metal"
+      },
+      "B": {
+        "item": "survival_vehicle:blueprint_ambulance"
+      },
+      "M": {
+        "item": "survival_vehicle:medical_box_module"
+      },
+      "C": {
+        "item": "survival_vehicle:vehicle_chassis"
+      },
+      "E": {
+        "item": "survival_vehicle:vehicle_engine"
+      },
+      "T": {
+        "item": "survival_vehicle:vehicle_tire"
+      }
+    },
+    "result": {
+      "item": "ab_ve:ambulance_spawner",
+      "count": 1
+    }
+  }
+}

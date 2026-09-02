@@ -1,0 +1,415 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.ab_ve.sound_controller.vehicle": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "idle": "query.has_rider"
+                        }
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.cars.enter @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "idle": {
+                    "transitions": [
+                        {
+                            "startup": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "idle_sound_animation",
+                        "stop_engine_sound_animation"
+                    ]
+                },
+                "startup": {
+                    "transitions": [
+                        {
+                            "moving": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.cars.startup @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "moving": {
+                    "transitions": [
+                        {
+                            "idle": "query.ground_speed < 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.cars.stop @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "exiting": {
+                    "transitions": [
+                        {
+                            "default": "query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "stop_engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.cars.exit @a ~~~ 1 1 0.01"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sound_controller.racing_car": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "idle": "query.has_rider"
+                        }
+                    ]
+                },
+                "idle": {
+                    "transitions": [
+                        {
+                            "startup": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "idle_sound_animation",
+                        "stop_engine_sound_animation"
+                    ]
+                },
+                "startup": {
+                    "transitions": [
+                        {
+                            "moving": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.cars.startup @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "moving": {
+                    "transitions": [
+                        {
+                            "idle": "query.ground_speed < 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.cars.stop @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "exiting": {
+                    "transitions": [
+                        {
+                            "default": "query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "stop_engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sound_controller.private_jet": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "idle": "query.has_rider"
+                        }
+                    ]
+                },
+                "idle": {
+                    "transitions": [
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "idle_sound_animation"
+                    ]
+                },
+                "exiting": {
+                    "transitions": [
+                        {
+                            "default": "query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "stop_idle_sound_animation"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sound_controller.harvester": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "idle": "query.has_rider"
+                        }
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.cars.enter @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "idle": {
+                    "transitions": [
+                        {
+                            "startup": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "idle_sound_animation",
+                        "stop_engine_sound_animation"
+                    ]
+                },
+                "startup": {
+                    "transitions": [
+                        {
+                            "moving": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.harvester.startup @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "moving": {
+                    "transitions": [
+                        {
+                            "idle": "query.ground_speed < 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.cars.stop @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "exiting": {
+                    "transitions": [
+                        {
+                            "default": "query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "stop_engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.cars.exit @a ~~~ 1 1 0.01"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sound_controller.drill": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "idle": "query.has_rider"
+                        }
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.cars.enter @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "idle": {
+                    "transitions": [
+                        {
+                            "startup": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "idle_sound_animation",
+                        "stop_engine_sound_animation"
+                    ]
+                },
+                "startup": {
+                    "transitions": [
+                        {
+                            "moving": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.harvester.startup @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "moving": {
+                    "transitions": [
+                        {
+                            "idle": "query.ground_speed < 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.drill.stop @a ~~~ 1 1 0.01"
+                    ]
+                },
+                "exiting": {
+                    "transitions": [
+                        {
+                            "default": "query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "stop_engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.cars.exit @a ~~~ 1 1 0.01"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sound_controller.common_plane": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "idle": "query.has_rider"
+                        }
+                    ],
+                    "on_exit": [
+                        "/playsound ab_ve.common_plane.startup @a ~~~ 4 1 0.1"
+                    ]
+                },
+                "idle": {
+                    "transitions": [
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "idle_sound_animation"
+                    ]
+                },
+                "exiting": {
+                    "transitions": [
+                        {
+                            "default": "query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "stop_idle_sound_animation"
+                    ]
+                }
+            }
+        },
+        "controller.animation.ab_ve.sound_controller.boat": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "idle": "query.has_rider"
+                        }
+                    ]
+                },
+                "idle": {
+                    "transitions": [
+                        {
+                            "startup": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "idle_sound_animation",
+                        "stop_engine_sound_animation"
+                    ]
+                },
+                "startup": {
+                    "transitions": [
+                        {
+                            "moving": "query.ground_speed > 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "on_entry": [
+                        "/playsound ab_ve.harvester.startup @a ~~~ 2 1 0.01"
+                    ]
+                },
+                "moving": {
+                    "transitions": [
+                        {
+                            "idle": "query.ground_speed < 0.5 && query.has_rider"
+                        },
+                        {
+                            "exiting": "!query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ]
+                },
+                "exiting": {
+                    "transitions": [
+                        {
+                            "default": "query.has_rider"
+                        }
+                    ],
+                    "animations": [
+                        "stop_engine_sound_animation",
+                        "stop_idle_sound_animation"
+                    ]
+                }
+            }
+        }
+    }
+}

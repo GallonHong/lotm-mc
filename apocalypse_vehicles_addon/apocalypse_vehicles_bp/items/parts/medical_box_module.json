@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival_vehicle:medical_box_module",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§a战地医疗单元§r\n§7搭载生命监测仪与急救注射系统的医疗模块"
+      },
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:icon": {
+        "textures": {
+          "default": "survival_vehicle:medical_box_module"
+        }
+      }
+    }
+  }
+}

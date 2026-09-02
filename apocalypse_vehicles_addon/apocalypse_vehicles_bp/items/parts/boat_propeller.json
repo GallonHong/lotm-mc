@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival_vehicle:boat_propeller",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§b船用推进螺旋桨§r\n§7三叶高推力耐腐蚀水下推进桨"
+      },
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:icon": {
+        "textures": {
+          "default": "survival_vehicle:boat_propeller"
+        }
+      }
+    }
+  }
+}

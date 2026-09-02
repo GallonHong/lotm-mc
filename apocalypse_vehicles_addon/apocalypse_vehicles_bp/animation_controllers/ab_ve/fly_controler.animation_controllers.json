@@ -1,0 +1,173 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.ab_ve.aircraft.control": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "animations": [
+            {
+              "fly_default": "q.has_rider"
+            }
+          ],
+          "transitions": [
+            {
+              "fly_up": "q.target_x_rotation < -1 && q.has_rider"
+            },
+            {
+              "fly_down": "q.target_x_rotation > 2 && q.has_rider"
+            },
+            {
+              "no_rider": "!q.has_rider"
+            }
+          ]
+        },
+        "fly_up": {
+          "animations": [
+            {
+              "fly_up": "q.has_rider"
+            }
+          ],
+          "transitions": [
+            {
+              "default": "q.target_x_rotation >= -1 && q.target_x_rotation <= 2 && q.has_rider"
+            },
+            {
+              "fly_down": "q.target_x_rotation > 2 && q.has_rider"
+            },
+            {
+              "no_rider": "!q.has_rider"
+            }
+          ]
+        },
+        "fly_down": {
+          "animations": [
+            {
+              "fly_down": "q.has_rider"
+            }
+          ],
+          "transitions": [
+            {
+              "default": "q.target_x_rotation >= -1 && q.target_x_rotation <= 2 && q.has_rider"
+            },
+            {
+              "fly_up": "q.target_x_rotation < -1 && q.has_rider"
+            },
+            {
+              "no_rider": "!q.has_rider"
+            }
+          ]
+        },
+        "no_rider": {
+          "on_entry": [
+            "@s gravity_true",
+            "/camera @p clear",
+            "/tag @p remove camera_set"
+          ],
+          "transitions": [
+            {
+              "default": "q.is_on_ground && q.has_rider"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.ab_ve.move_speed": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "on_entry": [
+            "@s on_ground",
+            "@s gravity_false"
+          ],
+          "transitions": [
+            {
+              "on_air": "!q.is_on_ground"
+            }
+          ]
+        },
+        "on_air": {
+          "on_entry": [
+            "@s on_air",
+            "@s gravity_false"
+          ],
+          "transitions": [
+            {
+              "default": "q.is_on_ground || !q.has_rider"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.ab_ve.ground_control": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "attempt_flight": "q.target_x_rotation < -5 && query.ground_speed > 7"
+            }
+          ]
+        },
+        "attempt_flight": {
+          "animations": [
+            "control"
+          ],
+          "transitions": [
+            {
+              "default": "q.is_on_ground && q.target_x_rotation > -5 || query.ground_speed < 1"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.ab_ve.ground_control.helicopter": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "attempt_flight": "q.target_x_rotation < -8 || !q.is_on_ground"
+            }
+          ]
+        },
+        "attempt_flight": {
+          "animations": [
+            "control"
+          ],
+          "transitions": [
+            {
+              "default": "q.is_on_ground && q.target_x_rotation > -8"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.ab_ve.has_rider": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "on_entry": [
+            "@s gravity_true"
+          ],
+          "transitions": [
+            {
+              "activate": "q.has_rider"
+            }
+          ]
+        },
+        "activate": {
+          "on_exit": [
+            "@s gravity_false",
+            "/camera @a[r=5] clear"
+          ],
+          "transitions": [
+            {
+              "default": "!q.has_rider"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

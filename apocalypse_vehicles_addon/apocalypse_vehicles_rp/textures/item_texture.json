@@ -1,0 +1,75 @@
+{
+  "resource_pack_name": "survival_vehicles",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "ab_ve:truck": {
+      "textures": "textures/asiagobagels/vehicles/items/truck.png"
+    },
+    "ab_ve:motorcycle": {
+      "textures": "textures/asiagobagels/vehicles/items/motorcycle.png"
+    },
+    "ab_ve:ambulance": {
+      "textures": "textures/asiagobagels/vehicles/items/ambulance.png"
+    },
+    "ab_ve:speedboat": {
+      "textures": "textures/asiagobagels/vehicles/items/speedboat.png"
+    },
+    "ab_ve:helicopter": {
+      "textures": "textures/asiagobagels/vehicles/items/helicopter.png"
+    },
+    "ab_ve:wrench": {
+      "textures": "textures/asiagobagels/vehicles/items/wrench.png"
+    },
+    "ab_ve:menu": {
+      "textures": "textures/asiagobagels/vehicles/items/menu.png"
+    },
+    "survival_vehicle:blueprint_truck": {
+      "textures": "textures/items/blueprints/blueprint_truck.png"
+    },
+    "survival_vehicle:blueprint_motorcycle": {
+      "textures": "textures/items/blueprints/blueprint_motorcycle.png"
+    },
+    "survival_vehicle:blueprint_ambulance": {
+      "textures": "textures/items/blueprints/blueprint_ambulance.png"
+    },
+    "survival_vehicle:blueprint_speedboat": {
+      "textures": "textures/items/blueprints/blueprint_speedboat.png"
+    },
+    "survival_vehicle:blueprint_helicopter": {
+      "textures": "textures/items/blueprints/blueprint_helicopter.png"
+    },
+    "survival_vehicle:scrap_metal": {
+      "textures": "textures/items/parts/scrap_metal.png"
+    },
+    "survival_vehicle:vehicle_tire": {
+      "textures": "textures/items/parts/vehicle_tire.png"
+    },
+    "survival_vehicle:vehicle_chassis": {
+      "textures": "textures/items/parts/vehicle_chassis.png"
+    },
+    "survival_vehicle:vehicle_engine": {
+      "textures": "textures/items/parts/vehicle_engine.png"
+    },
+    "survival_vehicle:vehicle_battery": {
+      "textures": "textures/items/parts/vehicle_battery.png"
+    },
+    "survival_vehicle:heli_rotor": {
+      "textures": "textures/items/parts/heli_rotor.png"
+    },
+    "survival_vehicle:heli_tail_rotor": {
+      "textures": "textures/items/parts/heli_tail_rotor.png"
+    },
+    "survival_vehicle:boat_propeller": {
+      "textures": "textures/items/parts/boat_propeller.png"
+    },
+    "survival_vehicle:medical_box_module": {
+      "textures": "textures/items/parts/medical_box_module.png"
+    },
+    "survival_vehicle:jerrycan_full": {
+      "textures": "textures/items/fuel/jerrycan_full.png"
+    },
+    "survival_vehicle:jerrycan_empty": {
+      "textures": "textures/items/fuel/jerrycan_empty.png"
+    }
+  }
+}

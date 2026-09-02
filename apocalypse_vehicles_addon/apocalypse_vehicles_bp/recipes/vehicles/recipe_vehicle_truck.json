@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:assemble_truck"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "SBS",
+      "ECE",
+      "TTT"
+    ],
+    "key": {
+      "S": {
+        "item": "survival_vehicle:scrap_metal"
+      },
+      "B": {
+        "item": "survival_vehicle:blueprint_truck"
+      },
+      "E": {
+        "item": "survival_vehicle:vehicle_engine"
+      },
+      "C": {
+        "item": "survival_vehicle:vehicle_chassis"
+      },
+      "T": {
+        "item": "survival_vehicle:vehicle_tire"
+      }
+    },
+    "result": {
+      "item": "ab_ve:truck_spawner",
+      "count": 1
+    }
+  }
+}

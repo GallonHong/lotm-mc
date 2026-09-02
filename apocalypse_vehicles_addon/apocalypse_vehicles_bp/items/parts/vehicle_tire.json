@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival_vehicle:vehicle_tire",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§f橡胶轮胎§r\n§7高抓地力耐磨防爆车辆轮胎"
+      },
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:icon": {
+        "textures": {
+          "default": "survival_vehicle:vehicle_tire"
+        }
+      }
+    }
+  }
+}

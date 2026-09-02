@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:craft_heli_tail_rotor"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " S ",
+      "SIS",
+      " S "
+    ],
+    "key": {
+      "S": {
+        "item": "survival_vehicle:scrap_metal"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "survival_vehicle:heli_tail_rotor",
+      "count": 1
+    }
+  }
+}

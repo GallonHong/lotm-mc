@@ -1,0 +1,31 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:craft_vehicle_battery"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "C C",
+      "SRS",
+      "SSS"
+    ],
+    "key": {
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "S": {
+        "item": "survival_vehicle:scrap_metal"
+      },
+      "R": {
+        "item": "minecraft:redstone"
+      }
+    },
+    "result": {
+      "item": "survival_vehicle:vehicle_battery",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival_vehicle:scrap_metal",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§b废钢板 / 加固钣金§r\n§7末日机械车身与底盘的基础加固构件"
+      },
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:icon": {
+        "textures": {
+          "default": "survival_vehicle:scrap_metal"
+        }
+      }
+    }
+  }
+}

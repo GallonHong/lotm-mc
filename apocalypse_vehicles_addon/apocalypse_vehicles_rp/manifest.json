@@ -1,0 +1,18 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Apocalypse Vehicles RP v1.0.3",
+    "description": "末日生存载具资源包（车辆高模、损伤开裂模型、车灯警笛粒子、引擎音效、零件与蓝图材质）",
+    "uuid": "f179a256-053b-4d7f-9c03-d92f26ffb083",
+    "version": [1, 0, 3],
+    "min_engine_version": [1, 21, 40]
+  },
+  "modules": [
+    {
+      "description": "Resources Module",
+      "type": "resources",
+      "uuid": "a55ada05-88a4-4f49-b12e-88c22559a973",
+      "version": [1, 0, 3]
+    }
+  ]
+}

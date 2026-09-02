@@ -1,0 +1,19 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.ab_ve.despawn_late": {
+			"loop": true,
+			"animation_length": 0.2,
+			"timeline": {
+				"0.12": [
+					"/fill ~-1~-1~-1 ~1~1~1 air replace fire",
+					"/playsound cauldron.fillwater @a ~~~ 0.3 1.1 0.001"
+				],
+				"0.15": [
+					"@s ab_ve:despawn",
+					"/particle ab_ve:water_splash ~~0.5~"
+				]
+			}
+		}
+	}
+}

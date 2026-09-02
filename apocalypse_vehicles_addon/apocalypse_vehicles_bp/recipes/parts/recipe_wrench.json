@@ -1,0 +1,25 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ab_ve:craft_wrench"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "I I",
+      " I ",
+      " I "
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "ab_ve:wrench",
+      "count": 1
+    }
+  }
+}

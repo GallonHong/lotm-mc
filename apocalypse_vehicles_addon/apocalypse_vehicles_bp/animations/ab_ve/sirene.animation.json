@@ -1,0 +1,32 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.ab_ve.police_car.sirene": {
+			"loop": true,
+			"animation_length": 5.55,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.police_car.sirene @a[r=6]"
+				]
+			}
+		},
+		"animation.ab_ve.ambulance.sirene": {
+			"loop": true,
+			"animation_length": 5.1,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.ambulance.sirene @a[r=6]"
+				]
+			}
+		},
+		"animation.ab_ve.fire_truck.sirene": {
+			"loop": true,
+			"animation_length": 5.0,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.fire_truck.sirene @a[r=6]"
+				]
+			}
+		}
+	}
+}

@@ -1,0 +1,366 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		
+		"animation.ab_ve.start_engine.vehicle": {
+			"loop": true,
+			"animation_length": 8,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.cars.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.vehicle": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.cars.engine"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.vehicle": {
+			"loop": true,
+			"animation_length": 8.0,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.cars.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.vehicle": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.cars.idle"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.racing_car": {
+			"loop": true,
+			"animation_length": 6.5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.racing_car.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.racing_car": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.racing_car.engine"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.racing_car": {
+			"loop": true,
+			"animation_length": 6.5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.racing_car.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.racing_car": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.racing_car.idle"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.truck": {
+			"loop": true,
+			"animation_length": 8,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.truck.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.truck": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.truck.engine"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.truck": {
+			"loop": true,
+			"animation_length": 8.0,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.truck.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.truck": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.truck.idle"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.motorcycle": {
+			"loop": true,
+			"animation_length": 7.5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.motorcycle.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.motorcycle": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.motorcycle.engine"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.motorcycle": {
+			"loop": true,
+			"animation_length": 7.5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.motorcycle.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.motorcycle": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.motorcycle.idle"
+				]
+			}
+		},
+		"animation.ab_ve.start_idle.plane": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.plane.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.plane": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=7] ab_ve.plane.idle"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.harvester": {
+			"loop": true,
+			"animation_length": 5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.harvester.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.harvester": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.harvester.engine"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.harvester": {
+			"loop": true,
+			"animation_length": 5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.harvester.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.harvester": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.harvester.idle"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.drill": {
+			"loop": true,
+			"animation_length": 5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.drill.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.drill": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.drill.engine"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.drill": {
+			"loop": true,
+			"animation_length": 5,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.drill.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.drill": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.drill.idle"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.boat": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.boat.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.boat": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.boat.idle"
+				]
+			}
+		}, 
+		"animation.ab_ve.start_idle.helicopter": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.helicopter.idle @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.helicopter": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.helicopter.idle"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.jetski": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.jetski.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.jetski": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.jetski.engine"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.speed_boat": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.speed_boat.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.speed_boat": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.speed_boat.engine"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.fishing_trawler": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.fishing_trawler.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.fishing_trawler": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.fishing_trawler.engine"
+				]
+			}
+		},
+		"animation.ab_ve.start_engine.common_plane": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.common_plane.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_engine.common_plane": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.common_plane.engine"
+				]
+			}
+		},
+		"animation.ab_ve.start_idle.common_plane": {
+			"loop": true,
+			"animation_length": 6,
+			"timeline": {
+				"0.0": [
+					"/playsound ab_ve.common_plane.engine @a[r=7]"
+				]
+			}
+		}, 
+		"animation.ab_ve.stop_idle.common_plane": {
+			"loop": false,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.1": [
+					"/stopsound @a[r=4] ab_ve.common_plane.engine"
+				]
+			}
+		}
+	}
+}

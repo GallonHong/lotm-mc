@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:assemble_speedboat"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "SBS",
+      "ECE",
+      " P "
+    ],
+    "key": {
+      "S": {
+        "item": "survival_vehicle:scrap_metal"
+      },
+      "B": {
+        "item": "survival_vehicle:blueprint_speedboat"
+      },
+      "E": {
+        "item": "survival_vehicle:vehicle_engine"
+      },
+      "C": {
+        "item": "survival_vehicle:vehicle_chassis"
+      },
+      "P": {
+        "item": "survival_vehicle:boat_propeller"
+      }
+    },
+    "result": {
+      "item": "ab_ve:speedboat_spawner",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.10",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "survival_vehicle:craft_heli_rotor"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "S S",
+      " I ",
+      "S S"
+    ],
+    "key": {
+      "S": {
+        "item": "survival_vehicle:scrap_metal"
+      },
+      "I": {
+        "item": "minecraft:iron_block"
+      }
+    },
+    "result": {
+      "item": "survival_vehicle:heli_rotor",
+      "count": 1
+    }
+  }
+}

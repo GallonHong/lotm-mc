@@ -1,0 +1,24 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "survival_vehicle:vehicle_engine",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§e内燃机引擎§r\n§7高功率大扭矩四冲程机动发动机"
+      },
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:icon": {
+        "textures": {
+          "default": "survival_vehicle:vehicle_engine"
+        }
+      }
+    }
+  }
+}
