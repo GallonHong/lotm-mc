@@ -47,7 +47,7 @@
       "minecraft:jump.static": {},
       "minecraft:can_climb": {},
       "minecraft:attack": {
-        "damage": 28
+        "damage": 12
       },
       "minecraft:damage_sensor": {
         "triggers": [
