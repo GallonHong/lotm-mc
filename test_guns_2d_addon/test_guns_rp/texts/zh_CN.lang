@@ -76,3 +76,7 @@ action.hint.exit.test_gun=测试军火库 Add-on 已就绪
 
 item.test_gun:m79.name=M79 单发榴弹发射器 §9[优良]§r
 item.test_gun:blueprint_m79.name=制造蓝图: M79 单发榴弹发射器 §9[优良]§r
+
+item.test_gun:rpg.name=RPG-7 单兵火箭筒 §5[史诗]§r
+item.test_gun:ammo_rocket.name=PG-7V 高爆破甲火箭弹 §5[史诗]§r
+item.test_gun:blueprint_rpg.name=武器图纸: RPG-7 火箭筒 §5[史诗]§r

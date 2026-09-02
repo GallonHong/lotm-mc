@@ -108,6 +108,12 @@
       "sounds": [
         "sounds/guns/vector_skill"
       ]
+    },
+    "test_gun.rpg_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/rpg_shoot"
+      ]
     }
   }
 }

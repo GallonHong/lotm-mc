@@ -230,6 +230,25 @@ export const GUNS = [
 
   // 🟣 Epic Quality
   {
+    id: 'test_gun:rpg',
+    name: 'RPG-7',
+    tier: 'epic',
+    type: 'special',
+    mode: FireMode.SEMI,
+    maxAmmo: 1,
+    fireRate: 20,
+    shootPower: 2.2,
+    recoil: 0.90,
+    reloadTime: 80,
+    shootSound: 'test_gun.rpg_shoot',
+    ammoTypeId: 'test_gun:ammo_rocket',
+    projectileTypeId: 'test_gun:bullet_heavy',
+    isRocketLauncher: true,
+    breaksBlocks: true,
+    hasSkill: false,
+    stats: { damage: 100.0, heSplashDamage: 80.0, heRadius: 6.5, armorPenetration: 0.80, maxRange: 100, knockback: { x: 1.5, y: 0.8 } }
+  },
+  {
     id: 'test_gun:m82',
     name: 'Barrett M82',
     tier: 'epic',

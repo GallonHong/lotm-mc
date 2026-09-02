@@ -139,6 +139,15 @@
     },
     "test_gun_blueprint_m79": {
       "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_rpg": {
+      "textures": "textures/guns/rpg"
+    },
+    "test_gun_ammo_rocket": {
+      "textures": "textures/ammo/ammo_rocket"
+    },
+    "test_gun_blueprint_rpg": {
+      "textures": "textures/blueprints/blueprint_rpg"
     }
   }
 }

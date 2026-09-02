@@ -1,3 +1,4 @@
+import { RocketEngine } from './feature/rocketEngine.js';
 import { world, system } from '@minecraft/server';
 import { getHeldGun, getCurrentAmmo } from './feature/utils/gunUtils.js';
 import { showAmmoHUD } from './feature/ui.js';
@@ -125,6 +126,7 @@ class AddonController {
     system.runInterval(() => {
       this.auraTick++;
       GrenadeEngine.onTick();
+      RocketEngine.onTick();
       JetpackEngine.onTick();
 
       const players = world.getAllPlayers();

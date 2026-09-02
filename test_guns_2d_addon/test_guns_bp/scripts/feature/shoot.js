@@ -1,3 +1,4 @@
+import { RocketEngine } from './rocketEngine.js';
 import { RecoilManager } from './recoilManager.js';
 import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { fireBullet } from './utils/shootUtils.js';
@@ -203,7 +204,9 @@ export class ShootManager {
 
     this.deductDurability(player, gun);
 
-    if (gun.isGrenadeLauncher) {
+    if (gun.isRocketLauncher) {
+      RocketEngine.launchRocket(player, gun);
+    } else if (gun.isGrenadeLauncher) {
       GrenadeEngine.launchGrenade(player, gun);
     } else {
       fireBullet(player, gun);
