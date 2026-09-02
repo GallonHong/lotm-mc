@@ -1,0 +1,16 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "apoc_boss:fog"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 25,
+        "fog_end": 75,
+        "fog_color": "#6b6b6b",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}

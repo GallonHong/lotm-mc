@@ -303,12 +303,29 @@ class BossSkillEngine {
       } catch (e) {}
     }
 
-    // 8. 雾中人 (The Fog Man) -> 迷雾突袭 + 暗影破防撕咬
+    // 8. 雾中人 (The Fog Man) -> 迷雾突袭 + 暗影破防撕咬 (原版环境迷雾环绕)
     else if (typeId === 'apoc_boss:fog_man') {
       try {
         dim.playSound('mob.endermen.stare', bLoc, { volume: 2.0, pitch: 0.5 });
         dim.playSound('mob.wither.shoot', bLoc, { volume: 1.5, pitch: 0.8 });
-        dim.spawnParticle('minecraft:campfire_smoke_particle', { x: bLoc.x, y: bLoc.y + 1, z: bLoc.z });
+        
+        // 生成大量浓厚迷雾烟尘粒子
+        for (let i = 0; i < 4; i++) {
+          const offX = (Math.random() - 0.5) * 6;
+          const offZ = (Math.random() - 0.5) * 6;
+          dim.spawnParticle('minecraft:campfire_smoke_particle', { x: bLoc.x + offX, y: bLoc.y + 1, z: bLoc.z + offZ });
+        }
+
+        // 给附近玩家施加原版环境迷雾效果与氛围提示
+        for (const p of dim.getEntities({ location: bLoc, maxDistance: 32, families: ['player'] })) {
+          try {
+            p.runCommandAsync('fog @s push apoc_boss:fog "tmftf_fog"');
+            // 8 秒后自动淡化移除迷雾
+            system.runTimeout(() => {
+              try { p.runCommandAsync('fog @s pop "tmftf_fog"'); } catch {}
+            }, 160);
+          } catch {}
+        }
 
         // 暗影冲刺突袭至玩家身前
         const rushPos = {
@@ -318,9 +335,9 @@ class BossSkillEngine {
         };
         boss.teleport(rushPos);
 
-        target.applyDamage(10, { cause: 'entityAttack', damagingEntity: boss });
+        target.applyDamage(6, { cause: 'entityAttack', damagingEntity: boss });
         target.addEffect('weakness', 100, { amplifier: 1, showParticles: true });
-        target.onScreenDisplay?.setActionBar?.('§8🌫️ 雾中人 发动了【暗影破防撕咬】! 造成虚弱破防!§r');
+        target.onScreenDisplay?.setActionBar?.('§8🌫️ 浓雾降临! 雾中人 发动了【暗影破防突袭】!§r');
       } catch (e) {}
     }
 
@@ -332,7 +349,7 @@ class BossSkillEngine {
 
         // 强力野性践踏与击飞
         for (const p of dim.getEntities({ location: bLoc, maxDistance: 8, families: ['player'] })) {
-          p.applyDamage(12, { cause: 'entityAttack', damagingEntity: boss });
+          p.applyDamage(7, { cause: 'entityAttack', damagingEntity: boss });
           p.applyKnockback(dx * 0.4, dz * 0.4, 1.4, 0.5);
           p.addEffect('slowness', 60, { amplifier: 1, showParticles: true });
           p.onScreenDisplay?.setActionBar?.('§c🐐 山羊人 发动了【野性狂暴冲撞】! 强行击飞震退!§r');
