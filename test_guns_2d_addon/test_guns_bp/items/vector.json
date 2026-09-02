@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_vector",
       "minecraft:display_name": {
-        "value": "§6HK MP7 战术冲锋枪 [传说·暴走狂潮]§r"
+        "value": "\u00a76HK MP7 \u6218\u672f\u51b2\u950b\u67aa [\u4f20\u8bf4\u00b7\u66b4\u8d70\u72c2\u6f6e]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

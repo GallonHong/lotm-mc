@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m1897",
       "minecraft:display_name": {
-        "value": "§f温彻斯特 M1897 霰弹枪 [普通·战壕喷]§r"
+        "value": "\u00a7f\u6e29\u5f7b\u65af\u7279 M1897 \u9730\u5f39\u67aa [\u666e\u901a\u00b7\u6218\u58d5\u55b7]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

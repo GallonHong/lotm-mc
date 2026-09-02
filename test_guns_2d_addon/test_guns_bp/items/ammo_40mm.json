@@ -13,7 +13,7 @@
       },
       "minecraft:icon": "test_gun_ammo_40mm",
       "minecraft:display_name": {
-        "value": "高爆榴弹 §8[发射器通用]§r"
+        "value": "\u9ad8\u7206\u69b4\u5f39 \u00a78[\u53d1\u5c04\u5668\u901a\u7528]\u00a7r"
       },
       "minecraft:hand_equipped": {
         "value": false

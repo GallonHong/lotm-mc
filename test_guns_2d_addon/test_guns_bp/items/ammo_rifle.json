@@ -13,7 +13,7 @@
       },
       "minecraft:icon": "test_gun_ammo_rifle",
       "minecraft:display_name": {
-        "value": "突击步枪子弹 §8[步枪通用]§r"
+        "value": "\u7a81\u51fb\u6b65\u67aa\u5b50\u5f39 \u00a78[\u6b65\u67aa\u901a\u7528]\u00a7r"
       },
       "minecraft:hand_equipped": {
         "value": false

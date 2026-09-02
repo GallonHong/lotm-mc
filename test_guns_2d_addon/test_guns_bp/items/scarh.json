@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_scarh",
       "minecraft:display_name": {
-        "value": "§9SCAR-H 战术重步枪 [优良·精准重击]§r"
+        "value": "\u00a79SCAR-H \u6218\u672f\u91cd\u6b65\u67aa [\u4f18\u826f\u00b7\u7cbe\u51c6\u91cd\u51fb]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

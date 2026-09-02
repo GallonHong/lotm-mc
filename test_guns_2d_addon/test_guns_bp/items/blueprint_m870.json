@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_blueprint_common",
       "minecraft:display_name": {
-        "value": "§f雷明顿 M870 霰弹枪图纸 [普通]§r"
+        "value": "\u00a7f\u96f7\u660e\u987f M870 \u9730\u5f39\u67aa\u56fe\u7eb8 [\u666e\u901a]\u00a7r"
       }
     }
   }

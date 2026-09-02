@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_svd",
       "minecraft:display_name": {
-        "value": "§9SVD 德拉贡诺夫狙击步枪 [优良·连击标记]§r"
+        "value": "\u00a79SVD \u5fb7\u62c9\u8d21\u8bfa\u592b\u72d9\u51fb\u6b65\u67aa [\u4f18\u826f\u00b7\u8fde\u51fb\u6807\u8bb0]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

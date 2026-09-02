@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_glock",
       "minecraft:display_name": {
-        "value": "§f格洛克 Glock-18 手枪 [普通·全自动]§r"
+        "value": "\u00a7f\u683c\u6d1b\u514b Glock-18 \u624b\u67aa [\u666e\u901a\u00b7\u5168\u81ea\u52a8]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

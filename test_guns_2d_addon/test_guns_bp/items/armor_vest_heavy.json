@@ -4,8 +4,7 @@
     "description": {
       "identifier": "test_gun:armor_vest_heavy",
       "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.chestplate"
+        "category": "equipment"
       }
     },
     "components": {
@@ -17,10 +16,11 @@
       },
       "minecraft:icon": "test_gun_armor_vest_heavy",
       "minecraft:display_name": {
-        "value": "§9战术突击重装防弹衣 [优良·7点护甲·防击退]§r"
+        "value": "\u00a79\u6218\u672f\u7a81\u51fb\u91cd\u88c5\u9632\u5f39\u8863 [\u4f18\u826f\u00b77\u70b9\u62a4\u7532\u00b7\u9632\u51fb\u9000]\u00a7r"
       },
       "minecraft:wearable": {
-        "slot": "slot.armor.chest"
+        "slot": "slot.armor.chest",
+        "protection": 7
       },
       "minecraft:durability": {
         "max_durability": 550
@@ -35,9 +35,6 @@
             "repair_amount": 150
           }
         ]
-      },
-      "minecraft:armor": {
-        "protection": 7
       },
       "minecraft:enchantable": {
         "value": 15,

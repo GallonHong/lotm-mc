@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_ammo_50cal",
       "minecraft:display_name": {
-        "value": "狙击枪/重型子弹 §8[狙击/重手枪通用]§r"
+        "value": "\u72d9\u51fb\u67aa/\u91cd\u578b\u5b50\u5f39 \u00a78[\u72d9\u51fb/\u91cd\u624b\u67aa\u901a\u7528]\u00a7r"
       }
     }
   }

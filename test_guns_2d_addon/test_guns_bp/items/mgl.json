@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_mgl",
       "minecraft:display_name": {
-        "value": "§6MGL 40mm 自动榴弹炮 [传说·饱和轰炸]§r"
+        "value": "\u00a76MGL 40mm \u81ea\u52a8\u69b4\u5f39\u70ae [\u4f20\u8bf4\u00b7\u9971\u548c\u8f70\u70b8]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

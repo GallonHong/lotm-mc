@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_blueprint_m79",
       "minecraft:display_name": {
-        "value": "§9制造蓝图: M79 单发榴弹发射器 [优良]§r"
+        "value": "\u00a79\u5236\u9020\u84dd\u56fe: M79 \u5355\u53d1\u69b4\u5f39\u53d1\u5c04\u5668 [\u4f18\u826f]\u00a7r"
       }
     }
   }

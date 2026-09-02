@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_arx",
       "minecraft:display_name": {
-        "value": "§9ARX-160 现代突击步枪 [优良·极低后坐]§r"
+        "value": "\u00a79ARX-160 \u73b0\u4ee3\u7a81\u51fb\u6b65\u67aa [\u4f18\u826f\u00b7\u6781\u4f4e\u540e\u5750]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

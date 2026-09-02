@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_p90",
       "minecraft:display_name": {
-        "value": "§9FN P90 战术冲锋枪 [优良·火力压制]§r"
+        "value": "\u00a79FN P90 \u6218\u672f\u51b2\u950b\u67aa [\u4f18\u826f\u00b7\u706b\u529b\u538b\u5236]\u00a7r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,
