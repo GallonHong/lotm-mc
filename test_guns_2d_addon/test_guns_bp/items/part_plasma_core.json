@@ -1,11 +1,10 @@
 {
-  "format_version": "1.20.50",
+  "format_version": "1.21.50",
   "minecraft:item": {
     "description": {
       "identifier": "test_gun:part_plasma_core",
       "menu_category": {
-        "category": "items",
-        "group": "itemGroup.name.misc"
+        "category": "items"
       }
     },
     "components": {
