@@ -268,6 +268,7 @@ async function buildCityFoundationLayer(dimension) {
 }
 
 async function buildCityFoundation(dimension) {
+  const half = CONFIG.cityHalfSize;
   await buildCityFoundationLayer(dimension);
 
   // Dense permanent road grid between Jigsaw districts. It is placed before

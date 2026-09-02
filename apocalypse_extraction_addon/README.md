@@ -1,10 +1,10 @@
-# Apocalypse Extraction City v0.8.0
+# Apocalypse Extraction City v0.8.1
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.8.0 直接物化 RandS 的 Jigsaw 结果：除 225 个 RandS 建筑外，每个城区未被建筑占用的 16×16 格都加载 RandS 原始街道 Structure，并在结构前后两次铺设连续承托层。旧版红石布局哨兵不会被误判为最新版，第一次进入会强制完成一次地形升级。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.8.1 修复都市重建铺路阶段的 `half is not defined` 作用域错误；城市内容沿用 v0.8.0：除 225 个 RandS 建筑外，每个城区未被建筑占用的 16×16 格都加载 RandS 原始街道 Structure，并在结构前后两次铺设连续承托层。旧版红石布局哨兵不会被误判为最新版，第一次进入会强制完成一次地形升级。
 
 ## 安装与联动
 
-- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.8.0`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
+- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.8.1`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
 - 推荐联动：Daily World Events v0.7.0（提供统一物资箱和神话箱）、Apocalypse Mobs v0.4.1（提供区域强化感染者、掠夺者和 Boss）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Gun 没有被修改；枪械致盲等效果继续由原 Add-on 处理。
@@ -27,7 +27,7 @@
 
 ## 城市与环境
 
-- 首次加载 v0.8.0 时会一次性生成 5×5 共 25 个城区；`city_ready:v5` 和钻石块布局哨兵写入后，每次进入只检查状态，不重复加载城市结构。
+- 首次加载 v0.8.1 时会一次性生成 5×5 共 25 个城区；`city_ready:v5` 和钻石块布局哨兵写入后，每次进入只检查状态，不重复加载城市结构。
 - 虚空维度先铺承托层，再按每区 8×8 的 16 格网格加载 RandS 建筑与街道，最后二次修复承托层；城区之间连续衔接，不再留下道路/建筑之间的虚空。
 - 城市 Structure 中的所有原版刷怪笼都由 Processor 确定性替换为普通物资箱，不再使用概率规则留下残余刷怪笼。
 - 每个城区额外放置 Common/Rare/Epic 可刷新物资箱，中央城区增加一个 Mythic 神话箱；奖励、补给卡校验和恢复时间由 Daily Events 的 `LootCrateManager` 管理。
@@ -44,6 +44,6 @@
 - `Apocalypse Extraction Dimension Bootstrap` 使用官方 `DimensionRegistry.registerCustomDimension` 注册虚空维度；稳定核心通过原版 `/place structure` 和 `/tickingarea` 命令建设城区。
 - 请删除旧的 v0.1.x 行为包/资源包后重新导入，避免 Minecraft 继续读取缓存的旧维度 JSON。
 
-从旧版更新后第一次进入会自动执行一次 v0.8.0 RandS 街道网升级，预计需要 1～3 分钟；完成后不再重建。若旧世界仍显示悬空建筑，管理员执行一次 `/scriptevent extract:rebuild`。升级期间不要重复点击入口。
+从旧版更新后第一次进入会自动执行一次 v0.8.1 RandS 街道网升级，预计需要 1～3 分钟；完成后不再重建。若旧世界仍显示悬空建筑，管理员执行一次 `/scriptevent extract:rebuild`。升级期间不要重复点击入口。
 
 本版的自定义维度和 RandS Jigsaw 组合属于测试功能；首次上线请用新世界或完整备份验证。

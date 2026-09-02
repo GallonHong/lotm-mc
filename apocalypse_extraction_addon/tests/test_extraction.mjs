@@ -14,8 +14,8 @@ for (const path of files(bp).filter(path => path.endsWith(".json"))) assert.does
 const manifest = json(join(bp, "manifest.json"));
 const resourceManifest = json(join(rp, "manifest.json"));
 const bootstrapManifest = json(join(bootstrap, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 8, 0]);
-assert.deepEqual(resourceManifest.header.version, [0, 8, 0]);
+assert.deepEqual(manifest.header.version, [0, 8, 1]);
+assert.deepEqual(resourceManifest.header.version, [0, 8, 1]);
 assert.deepEqual(manifest.header.min_engine_version, [1, 21, 120]);
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
@@ -54,6 +54,7 @@ for (const marker of ["cityHalfSize: 384", "districtSpacing: 128", "districtCell
 const configModule = await import(`file://${join(bp, "scripts/config.js")}`);
 assert.equal(configModule.CONFIG.districtCenters.length, 25, "5x5 district centers missing");
 const main = readFileSync(join(bp, "scripts/main.js"), "utf8");
+assert.match(main, /async function buildCityFoundation\(dimension\) \{\s+const half = CONFIG\.cityHalfSize;/, "buildCityFoundation must declare half in its own scope");
 for (const marker of ["placePackStructure", "structure load \"${id}\"", "village:custom/houses/", "village:custom/streets/", "RANDS_BUILDING_FOOTPRINTS", "RANDS_STREET_STRUCTURES", "replaceRandSMarkers", "buildCityFoundation", "buildCityFoundationLayer", "expectedStreets", "roadCoordinates", "placeExtractionMarkers", "lime_stained_glass", "placeLootCrates", 'tier: "mythic"', "cityReadyKey", "protectedHotbarSlots", "backpackSnapshots", "insuredReturns", "restoreInsuredLoadout", "clearBackpackSlots", "dropBackpack", "extractionJobs", "entryPoints", "spawnExtractionMob", "cleanupVanillaHostiles", "spawnBoss", "entitySpawn", "extract:menu", "extract:enter", "extract:exit", "extract:exits", "extract:status", "extract:boss", "extract:rebuild", "gamerule keepinventory true"]) assert(main.includes(marker), `missing extraction behavior: ${marker}`);
 for (const marker of ["cityReadyInSession", "cityReadyBackupKey", "cityPhysicallyPresent", "ensureCityServices", "prepareArrivalPad", "city service repair complete"]) assert(main.includes(marker) || config.includes(marker), `missing no-rebuild/safe-arrival behavior: ${marker}`);
 for (const marker of ["cityLayoutVersionKey", "cityLayoutSentinel", "expectedBuildings", "expectedStreets", "airDropY", 'addEffect("slow_falling"', "225 个建筑与 1100 个 RandS 街道格"]) assert(main.includes(marker) || config.includes(marker), `missing direct-city/airdrop behavior: ${marker}`);
@@ -69,4 +70,4 @@ assert(!main.includes('spawnEntity("minecraft:ravager"'), "bosses must not silen
 const fog = json(join(rp, "fogs/extraction_dusk.json"));
 assert.equal(fog["minecraft:fog_settings"].description.identifier, "apoc_extract:dusk_fog");
 assert(!processors.includes("chiseled_deepslste") && !processors.includes('"minecraft:deepslate_slab"'), "invalid RandS deepslate blocks remain");
-console.log("Apocalypse Extraction City v0.8.0 validation passed.");
+console.log("Apocalypse Extraction City v0.8.1 validation passed.");
