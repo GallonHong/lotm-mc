@@ -12,7 +12,7 @@ import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.5.1 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.5.2 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -66,7 +66,10 @@ function handleNpcInteraction(player, target) {
 function handleEntityDeath(event) {
   const dead = event.deadEntity;
   if (!dead) return;
-  if (dead.typeId === "minecraft:player") DungeonManager.onPlayerDeath(dead);
+  if (dead.typeId === "minecraft:player") {
+    WorldEventManager.onPlayerDeath(dead);
+    DungeonManager.onPlayerDeath(dead);
+  }
   const direct = attackerPlayer(event.damageSource);
   if (direct) recordContributor(dead, direct);
   const map = contributors.get(dead.id) || {};

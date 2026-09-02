@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 5, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 5, 1]);
+assert.deepEqual(manifest.header.version, [0, 5, 2]);
+assert.deepEqual(rpManifest.header.version, [0, 5, 2]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -55,6 +55,9 @@ const worldEvents = readFileSync(join(bp, "scripts/events/WorldEventManager.js")
 assert(worldEvents.includes("EventNodeRegistry") && worldEvents.includes("participantScores"));
 assert(worldEvents.includes("eventMaxEntities") && worldEvents.includes("setCooldown"));
 assert(worldEvents.includes("zoneType") && worldEvents.includes("outlawRewardId"), "zone-scaled event rewards missing");
+assert(worldEvents.includes("disqualifiedPlayerIds") && worldEvents.includes("static onPlayerDeath(player)"), "event death disqualification missing");
+assert(worldEvents.includes("instance.disqualifiedPlayerIds.includes(player.id)"), "dead participants must be excluded from scoring and rewards");
+assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("WorldEventManager.onPlayerDeath(dead)"), "player deaths must reach WorldEventManager");
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
 const rewardIds = [...rewards.matchAll(/id: \"([^\"]+)\"/g)].map(match => match[1]);
