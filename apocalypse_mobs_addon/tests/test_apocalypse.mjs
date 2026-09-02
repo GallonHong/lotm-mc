@@ -52,8 +52,18 @@ assert.equal(
   "raider equipment table must use the Test Guns AK47"
 );
 const raiderClient = json(join(rp, "entity", "raider_rifleman.entity.json"))["minecraft:client_entity"].description;
-assert.equal(raiderClient.geometry.default, "geometry.infected", "raider must use the bundled humanoid geometry");
-assert(raiderClient.render_controllers.includes("controller.render.item_in_hand"), "raider must render held items");
+assert.equal(raiderClient.geometry.default, "geometry.apoc.infected", "raider must use the namespaced bundled humanoid geometry");
+assert.equal(raiderClient.geometry.item_in_hand, undefined, "held-item rendering must not declare a fake entity geometry");
+assert.equal(raiderClient.materials.item_in_hand, undefined, "held-item rendering must use the equipped item's attachable material");
+assert.equal(raiderClient.enable_attachables, true, "raider must enable the Test Guns AK47 attachable");
+assert(!raiderClient.render_controllers.includes("controller.render.item_in_hand"), "attachable must not be rendered through the entity geometry controller");
+
+const infectedGeometry = json(join(rp, "models", "entity", "infected.geo.json"))["minecraft:geometry"];
+assert(infectedGeometry.some(value => value.description.identifier === "geometry.apoc.infected"), "namespaced humanoid geometry missing");
+for (const name of ["infected_basic", "infected_runner", "infected_mutant", "infected_heavy", "infected_spitter"]) {
+  const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
+  assert.equal(client.geometry.default, "geometry.apoc.infected", `${name} must use the namespaced geometry`);
+}
 
 const zones = readFileSync(join(bp, "scripts/zones.js"), "utf8");
 assert(zones.includes("sapiRegionsKey") && zones.includes("allowHostileSpawn"), "SAPI safe-zone compatibility missing");
