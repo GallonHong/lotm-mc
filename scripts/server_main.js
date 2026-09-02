@@ -8,13 +8,16 @@ import { LotteryManager } from "./modules/lottery.js";
 import { MarketManager } from "./modules/market.js";
 import { ServerMenuManager } from "./modules/server_menu.js";
 import { Integration } from "./modules/integration.js";
+import { TeleportManager } from "./modules/teleport.js";
+import { RegionManager } from "./modules/region.js";
 
 function initServerSystem() {
-    console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Economy v2.1.0...`);
+    console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
     try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
+    RegionManager.registerProtectionEvents();
     LandManager.registerProtectionEvents();
     Integration.startServerHeartbeat();
-    console.warn("[SAPI Server] Economy, Shop, Land, Lottery, Market and integration bridge initialized.");
+    console.warn("[SAPI Server] Economy, Shop, Land, Lottery, Market, free Warps, Regions and integration bridge initialized.");
 }
 
 system.run(initServerSystem);
@@ -61,6 +64,12 @@ function handleChat(event) {
         "!寄卖": () => MarketManager.openMainUI(player),
         "!pay": () => EconomyManager.openTransferUI(player),
         "!money": () => EconomyManager.openBankUI(player),
+        "!warp": () => TeleportManager.openWarpMenu(player),
+        "!warps": () => TeleportManager.openWarpMenu(player),
+        "!传送": () => TeleportManager.openWarpMenu(player),
+        "!spawn": () => TeleportManager.teleportToSpawn(player),
+        "!主城": () => TeleportManager.teleportToSpawn(player),
+        "!region": () => RegionManager.openAdminMenu(player),
         "!admin": () => ServerMenuManager.openAdminPanel(player),
     };
     const route = routes[message];
@@ -85,5 +94,8 @@ if (scriptEvents?.subscribe) {
         else if (["system:lottery", "gui:lottery", "lottery:open"].includes(id)) LotteryManager.openLotteryMainUI(player);
         else if (["system:market", "gui:market", "market:open"].includes(id)) MarketManager.openMainUI(player);
         else if (["system:bank", "gui:bank", "bank:open"].includes(id)) EconomyManager.openBankUI(player);
+        else if (["system:warp", "gui:warp", "warp:open"].includes(id)) TeleportManager.openWarpMenu(player);
+        else if (["system:spawn", "spawn:teleport"].includes(id)) TeleportManager.teleportToSpawn(player);
+        else if (["system:region", "region:admin"].includes(id)) RegionManager.openAdminMenu(player);
     });
 }

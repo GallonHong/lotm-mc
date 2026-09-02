@@ -3,6 +3,7 @@ import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/serve
 import { Config } from "../config.js";
 import { Utils } from "../utils.js";
 import { EconomyManager } from "./economy.js";
+import { RegionManager } from "./region.js";
 
 /**
  * 地皮/领地保护系统管理器
@@ -98,6 +99,12 @@ export class LandManager {
         const existingPlot = this.getPlot(dimensionId, chunkX, chunkZ);
         if (existingPlot) {
             Utils.tell(player, `§c此区块已被玩家 §e${existingPlot.ownerName} §c认领，无法重复购买！`);
+            Utils.sound.fail(player);
+            return;
+        }
+
+        if (!RegionManager.isLandClaimAllowed(dimensionId, chunkX, chunkZ)) {
+            Utils.tell(player, "§c该区块与管理员保护区重叠，无法认领为玩家地皮。");
             Utils.sound.fail(player);
             return;
         }

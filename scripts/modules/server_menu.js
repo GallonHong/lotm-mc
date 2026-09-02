@@ -8,6 +8,8 @@ import { LandManager } from "./land.js";
 import { LotteryManager } from "./lottery.js";
 import { MarketManager } from "./market.js";
 import { Integration } from "./integration.js";
+import { TeleportManager } from "./teleport.js";
+import { RegionManager } from "./region.js";
 
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
 export class ServerMenuManager {
@@ -31,6 +33,7 @@ export class ServerMenuManager {
             );
 
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+        add("§l§b🧭 公共传送点\n§r§8前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
         add("§l§6🏦 个人银行\n§r§8资产查询与玩家转账", "textures/ui/Trade2", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
         add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/ui/MCStore_Gold_large", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
@@ -55,6 +58,8 @@ export class ServerMenuManager {
             .title("§l§c⚙️ 服务器管理员控制台")
             .body(`§f在线玩家: §e${world.getAllPlayers().length}\n§7LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+        add("§l§b🧭 公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
+        add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6💵 玩家金币管理", "textures/ui/Trade2", () => this.openPlayerMoneyAdmin(player, onBack));
         add("§l§4🗑️ 强制删除当前地皮", "textures/ui/trash", () => this.forceDeleteCurrentPlot(player, onBack));
         add("§l§e📢 发布全服公告", "textures/ui/accessibility_glyph_color", () => this.openBroadcastModal(player, onBack));
