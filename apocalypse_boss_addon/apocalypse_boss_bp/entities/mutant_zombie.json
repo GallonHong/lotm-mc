@@ -3,7 +3,7 @@
   "minecraft:entity": {
     "description": {
       "identifier": "apoc_boss:mutant_zombie",
-      "is_spawnable": false,
+      "is_spawnable": true,
       "is_summonable": true,
       "is_experimental": false
     },
