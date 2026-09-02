@@ -32,11 +32,22 @@ export const LOOT_CRATE_POOLS = Object.freeze({
   legendary: {
     resetMinutes: 120, rolls: 5, coins: [1500, 3500],
     entries: [
-      { weight: 30, id: "minecraft:diamond", min: 2, max: 5 },
+      { weight: 26, id: "minecraft:diamond", min: 2, max: 5 },
       { weight: 25, id: "minecraft:emerald_block", min: 1, max: 2 },
       { weight: 20, id: "minecraft:golden_apple", min: 2, max: 5 },
       { weight: 15, id: "minecraft:netherite_scrap", min: 1, max: 2 },
-      { weight: 10, id: "minecraft:nether_star", min: 1, max: 1 }
+      { weight: 10, id: "minecraft:nether_star", min: 1, max: 1 },
+      { weight: 4, id: "minecraft:echo_shard", min: 1, max: 1, name: "§d神话补给卡（MVP）" }
+    ]
+  },
+  mythic: {
+    resetMinutes: 240,
+    rolls: 1,
+    coins: [0, 0],
+    requiredKey: { id: "minecraft:echo_shard", name: "神话补给卡（MVP）" },
+    entries: [
+      { weight: 70, id: "test_gun:blueprint_mgl", min: 1, max: 1, name: "§d【神话图纸】MGL" },
+      { weight: 30, id: "test_gun:blueprint_riot_shield", min: 1, max: 1, name: "§d【神话图纸】重装防爆盾" }
     ]
   }
 });
@@ -45,5 +56,6 @@ export const LOOT_CRATE_BLOCKS = Object.freeze({
   "daily:loot_crate_common": "common",
   "daily:loot_crate_rare": "rare",
   "daily:loot_crate_epic": "epic",
-  "daily:loot_crate_legendary": "legendary"
+  "daily:loot_crate_legendary": "legendary",
+  "daily:loot_crate_mythic": "mythic"
 });

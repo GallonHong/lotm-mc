@@ -14,8 +14,8 @@ for (const path of files(bp).filter(path => path.endsWith(".json"))) assert.does
 const manifest = json(join(bp, "manifest.json"));
 const resourceManifest = json(join(rp, "manifest.json"));
 const bootstrapManifest = json(join(bootstrap, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 3, 4]);
-assert.deepEqual(resourceManifest.header.version, [0, 3, 4]);
+assert.deepEqual(manifest.header.version, [0, 4, 0]);
+assert.deepEqual(resourceManifest.header.version, [0, 4, 0]);
 assert.deepEqual(manifest.header.min_engine_version, [1, 21, 120]);
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
@@ -29,15 +29,30 @@ assert.equal(json(join(bp, "biomes/ruined_city.json"))["minecraft:biome"].compon
 assert(files(join(bp, "structures")).filter(path => path.endsWith(".mcstructure")).length >= 500, "RandS test city structures missing");
 const jigsaw = json(join(bp, "worldgen/structures/village_custom.json"))["minecraft:jigsaw"];
 assert(jigsaw.biome_filters.some(filter => filter.value === "apoc_extraction_city"));
-const processors = files(join(bp, "worldgen/processors")).filter(path => path.endsWith(".json")).map(path => readFileSync(path, "utf8")).join("\n");
-for (const tier of ["common", "rare", "epic", "legendary"]) assert(processors.includes(`daily:loot_crate_${tier}`));
+const processorPaths = files(join(bp, "worldgen/processors")).filter(path => path.endsWith(".json"));
+const processors = processorPaths.map(path => readFileSync(path, "utf8")).join("\n");
+let spawnerRuleCount = 0;
+function inspectSpawnerRules(value) {
+  if (Array.isArray(value)) return value.forEach(inspectSpawnerRules);
+  if (!value || typeof value !== "object") return;
+  if (value.input_predicate?.block === "minecraft:mob_spawner") {
+    spawnerRuleCount++;
+    assert.equal(value.input_predicate.predicate_type, "minecraft:block_match", "spawner replacement must be deterministic");
+    assert.equal(value.output_state?.name, "daily:loot_crate_common", "every structure spawner must become a crate");
+  }
+  Object.values(value).forEach(inspectSpawnerRules);
+}
+processorPaths.map(json).forEach(inspectSpawnerRules);
+assert(spawnerRuleCount > 0, "no deterministic spawner replacement rules found");
 assert(!processors.includes("loot_tables/chests/"), "legacy external loot tables must be removed");
 const config = readFileSync(join(bp, "scripts/config.js"), "utf8");
 for (const boss of ["fog_man", "goatman", "siren_head", "mutant_zombie", "mutant_skeleton", "mutant_lobber"]) assert(config.includes(boss));
-for (const marker of ["cityHalfSize: 384", "districtSpacing: 256", "city_ready:v3", "activeStateKey", "lootNodesKey", "dusk_fog"]) assert(config.includes(marker), `missing expanded-city config: ${marker}`);
-assert((config.match(/\{ x: (?:-?256|0), z: (?:-?256|0) \}/g) || []).length >= 9, "3x3 district centers missing");
+for (const marker of ["cityHalfSize: 384", "districtSpacing: 128", "city_ready:v4", "activeStateKey", "lootNodesKey", "dusk_fog"]) assert(config.includes(marker), `missing dense-city config: ${marker}`);
+const configModule = await import(`file://${join(bp, "scripts/config.js")}`);
+assert.equal(configModule.CONFIG.districtCenters.length, 25, "5x5 district centers missing");
 const main = readFileSync(join(bp, "scripts/main.js"), "utf8");
-for (const marker of ["place structure jigsaw:village_custom", "buildCityFoundation", "placeExtractionMarkers", "lime_stained_glass", "placeLootCrates", "cityReadyKey", "protectedHotbarSlots", "backpackSnapshots", "clearBackpackSlots", "dropBackpack", "extractionJobs", "entryPoints", "spawnExtractionMob", "cleanupVanillaHostiles", "spawnBoss", "entitySpawn", "extract:menu", "extract:enter", "extract:exit", "extract:exits", "extract:status", "extract:boss", "extract:rebuild", "gamerule keepinventory true"]) assert(main.includes(marker), `missing extraction behavior: ${marker}`);
+for (const marker of ["place structure jigsaw:village_custom", "buildCityFoundation", "roadCoordinates", "placeExtractionMarkers", "lime_stained_glass", "placeLootCrates", 'tier: "mythic"', "cityReadyKey", "protectedHotbarSlots", "backpackSnapshots", "insuredReturns", "restoreInsuredLoadout", "clearBackpackSlots", "dropBackpack", "extractionJobs", "entryPoints", "spawnExtractionMob", "cleanupVanillaHostiles", "spawnBoss", "entitySpawn", "extract:menu", "extract:enter", "extract:exit", "extract:exits", "extract:status", "extract:boss", "extract:rebuild", "gamerule keepinventory true"]) assert(main.includes(marker), `missing extraction behavior: ${marker}`);
+assert(main.includes("point.distance <= CONFIG.extractionRadius && !extractionJobs.has(player.id)"), "entering an extraction point must automatically start extraction");
 assert(!main.includes("registerCustomDimension") && !main.includes("world.tickingAreaManager") && !main.includes("world.structureManager"), "stable extraction core must not access Beta-only registries/managers");
 const bootstrapMain = readFileSync(join(bootstrap, "scripts/main.js"), "utf8");
 assert(bootstrapMain.includes("registerCustomDimension") && bootstrapMain.includes("apoc_extract:city"));
@@ -48,4 +63,4 @@ assert(!main.includes('spawnEntity("minecraft:ravager"'), "bosses must not silen
 const fog = json(join(rp, "fogs/extraction_dusk.json"));
 assert.equal(fog["minecraft:fog_settings"].description.identifier, "apoc_extract:dusk_fog");
 assert(!processors.includes("chiseled_deepslste") && !processors.includes('"minecraft:deepslate_slab"'), "invalid RandS deepslate blocks remain");
-console.log("Apocalypse Extraction City v0.3.4 validation passed.");
+console.log("Apocalypse Extraction City v0.4.0 validation passed.");

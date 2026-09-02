@@ -1,11 +1,11 @@
 export const CONFIG = Object.freeze({
-  version: "0.3.4",
+  version: "0.4.0",
   dimensionId: "apoc_extract:city",
   heartbeatKey: "interop:apoc_extraction_heartbeat",
   menuRequestKey: "interop:apoc_extraction_menu_request:v1",
   menuAckKey: "interop:apoc_extraction_ack",
-  cityReadyKey: "apoc_extract:city_ready:v3",
-  previousCityReadyKey: "apoc_extract:city_ready:v2",
+  cityReadyKey: "apoc_extract:city_ready:v4",
+  previousCityReadyKey: "apoc_extract:city_ready:v3",
   activeTag: "apoc_extraction_active",
   activeStateKey: "apoc_extract:active:v1",
   returnKey: "apoc_extract:return:v1",
@@ -22,11 +22,13 @@ export const CONFIG = Object.freeze({
   cityBaseY: 63,
   cityHalfSize: 384,
   cityTileSize: 128,
-  districtSpacing: 256,
+  districtSpacing: 128,
   districtCenters: [
-    { x: -256, z: -256 }, { x: 0, z: -256 }, { x: 256, z: -256 },
-    { x: -256, z: 0 }, { x: 0, z: 0 }, { x: 256, z: 0 },
-    { x: -256, z: 256 }, { x: 0, z: 256 }, { x: 256, z: 256 }
+    { x: -256, z: -256 }, { x: -128, z: -256 }, { x: 0, z: -256 }, { x: 128, z: -256 }, { x: 256, z: -256 },
+    { x: -256, z: -128 }, { x: -128, z: -128 }, { x: 0, z: -128 }, { x: 128, z: -128 }, { x: 256, z: -128 },
+    { x: -256, z: 0 }, { x: -128, z: 0 }, { x: 0, z: 0 }, { x: 128, z: 0 }, { x: 256, z: 0 },
+    { x: -256, z: 128 }, { x: -128, z: 128 }, { x: 0, z: 128 }, { x: 128, z: 128 }, { x: 256, z: 128 },
+    { x: -256, z: 256 }, { x: -128, z: 256 }, { x: 0, z: 256 }, { x: 128, z: 256 }, { x: 256, z: 256 }
   ],
   hostileCapPerPlayer: 12,
   hostileSpawnIntervalTicks: 80,

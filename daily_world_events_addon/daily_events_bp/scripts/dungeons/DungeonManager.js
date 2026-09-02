@@ -157,8 +157,6 @@ export class DungeonManager {
       stageIndex: -1,
       respawnOffset: template.entryOffset,
       stageHadEnemies: false,
-      spawnRetries: 0,
-      emergencySpawned: false,
       startTick: system.currentTick,
       lastPlayerTick: system.currentTick,
       waitUntil: system.currentTick + 80
@@ -279,9 +277,8 @@ export class DungeonManager {
     if (!stage) return this.finish(instance, true);
     instance.stageIndex = stageIndex;
     instance.stageHadEnemies = false;
-    instance.spawnRetries = 0;
-    instance.emergencySpawned = false;
     const requested = stage.type === "checkpoint" ? 0 : this.spawnStageGroups(instance, stage, false);
+    instance.stageHadEnemies = stage.type !== "checkpoint" && requested > 0;
     instance.expectedEnemies = requested;
     instance.waitUntil = system.currentTick + (stage.type === "checkpoint" ? 20 : Number(template.spawnConfirmTicks || 80));
     const checkpoint = stage.type === "checkpoint" ? this.checkpoint(instance, stage.checkpoint) : null;
@@ -377,21 +374,7 @@ export class DungeonManager {
     if (system.currentTick < instance.waitUntil) return;
     if (instance.stageHadEnemies) return this.beginStage(instance, instance.stageIndex + 1);
 
-    if (instance.spawnRetries < Number(template.maxSpawnRetries || 2)) {
-      instance.spawnRetries++;
-      this.spawnStageGroups(instance, stage, false);
-      instance.waitUntil = system.currentTick + Number(template.spawnConfirmTicks || 80);
-      for (const id of instance.participantIds) onlinePlayer(id)?.sendMessage(`§e[副本] 敌人尚未出现，正在重新部署（${instance.spawnRetries}/${template.maxSpawnRetries}）。`);
-      return;
-    }
-    if (!instance.emergencySpawned) {
-      instance.emergencySpawned = true;
-      const forced = this.spawnStageGroups(instance, stage, true);
-      instance.waitUntil = system.currentTick + Number(template.spawnConfirmTicks || 80);
-      for (const id of instance.participantIds) onlinePlayer(id)?.sendMessage(`§6[副本] 已启用确认性补刷，部署 ${forced} 名敌人。`);
-      return;
-    }
-    this.finish(instance, false, "敌人生成失败，请检查 Apocalypse Mobs 是否启用");
+    this.finish(instance, false, "确认性生成没有产生任何敌人，请检查 Apocalypse Mobs 或副本刷怪坐标");
   }
 
   static recordCombat(entity, player, damage = 1, killed = false) {

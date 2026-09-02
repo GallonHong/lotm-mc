@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 6, 3]);
-assert.deepEqual(rpManifest.header.version, [0, 6, 3]);
+assert.deepEqual(manifest.header.version, [0, 7, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 7, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -89,10 +89,18 @@ const crateManager = readFileSync(join(bp, "scripts/rewards/LootCrateManager.js"
 assert.equal(crateManager.includes("event.isFirstEvent === false"), false, "global isFirstEvent gate must not lock other crates");
 assert(crateManager.includes("interactionKey") && crateManager.includes("player.id") && crateManager.includes("coordinateKey"), "crate interaction debounce must be scoped to player and coordinate");
 assert(crateManager.includes("lootCrateStatePrefix") && crateManager.includes("readyAt"), "crate cooldown must persist across restart");
-for (const tier of ["common", "rare", "epic", "legendary"]) {
+assert(crateManager.includes("consumeRequiredKey") && crateManager.includes("selectedSlotIndex"), "mythic supply-card gate missing");
+assert(crateManager.includes("held?.nameTag") && crateManager.includes("heldName !== requiredName"), "ordinary echo shards must not open mythic crates");
+const cratePools = readFileSync(join(bp, "scripts/rewards/lootCratePools.js"), "utf8");
+assert(cratePools.includes('"test_gun:blueprint_mgl"') && cratePools.includes('weight: 70'), "70% MGL blueprint reward missing");
+assert(cratePools.includes('"test_gun:blueprint_riot_shield"') && cratePools.includes('weight: 30'), "30% riot shield blueprint reward missing");
+assert(cratePools.includes('requiredKey: { id: "minecraft:echo_shard"'), "vanilla supply-card placeholder missing");
+for (const tier of ["common", "rare", "epic", "legendary", "mythic"]) {
   assert.equal(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].description.identifier, `daily:loot_crate_${tier}`);
+  assert(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].components["minecraft:custom_components"].includes("daily:loot_crate_interact"));
 }
 assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_common);
+assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_mythic);
 for (const texture of ["common", "rare", "epic", "legendary", "opened"]) {
   const png = readFileSync(join(rp, `textures/blocks/daily_crate_${texture}.png`));
   assert.equal(png.readUInt32BE(16), 32, `${texture} crate texture width must be 32`);
@@ -119,6 +127,8 @@ const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js
 for (const marker of ["structure load", "loadStructureSet", "spawnDungeonMobs", "checkpointReached", "stageHadEnemies", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
+assert.equal(dungeonManager.includes("正在重新部署"), false, "dungeon must use direct confirmed spawning instead of two async retries");
+assert(integration.includes("spawnDungeonMobs") && integration.includes("spawnExact"), "direct confirmed dungeon spawning missing");
 assert(rewards.includes("dungeon_abandoned_clinic"), "clinic reward is missing");
 assert(readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8").includes("进入副本行动"));
 const dungeonMenu = readFileSync(join(bp, "scripts/ui/DungeonMenu.js"), "utf8");

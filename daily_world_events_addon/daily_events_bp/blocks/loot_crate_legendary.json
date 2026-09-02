@@ -5,6 +5,7 @@
     "components": {
       "minecraft:destructible_by_mining": false,
       "minecraft:destructible_by_explosion": false,
+      "minecraft:custom_components": ["daily:loot_crate_interact"],
       "minecraft:geometry": "minecraft:geometry.full_block",
       "minecraft:material_instances": { "*": { "texture": "daily_crate_legendary", "render_method": "opaque" } }
     },

@@ -1,0 +1,17 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:block": {
+    "description": { "identifier": "daily:loot_crate_mythic", "menu_category": { "category": "items" }, "states": { "daily:opened": [false, true] } },
+    "components": {
+      "minecraft:destructible_by_mining": false,
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:custom_components": ["daily:loot_crate_interact"],
+      "minecraft:geometry": "minecraft:geometry.full_block",
+      "minecraft:light_emission": 4,
+      "minecraft:material_instances": { "*": { "texture": "daily_crate_mythic", "render_method": "opaque" } }
+    },
+    "permutations": [
+      { "condition": "q.block_state('daily:opened') == true", "components": { "minecraft:light_emission": 0, "minecraft:material_instances": { "*": { "texture": "daily_crate_opened", "render_method": "opaque" } } } }
+    ]
+  }
+}

@@ -163,13 +163,11 @@ export class IntegrationBridge {
   }
 
   /**
-   * 副本坐标由地图模板人工验证，不再运行从屋顶向下搜索地面的算法。
-   * Apocalypse 在线时仍通过 SpawnDirector 总线生成；缺失时使用原版实体兜底。
+   * 副本坐标由地图模板人工验证。副本必须立即知道实际生成数量，
+   * 因此不经过异步请求队列，直接尝试生成 Apocalypse 实体并以原版实体兜底。
    */
   static spawnDungeonMobs(dimension, center, mobKey, count, tags) {
-    const allTags = [...tags, "daily_event_entity"];
-    if (this.isApocalypseAvailable() && this.enqueueSpawn(dimension.id, center, mobKey, count, allTags, 0, 0, "exact")) return count;
-    return this.spawnExact(dimension, center, mobKey, count, allTags, false);
+    return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true);
   }
 
   /** 最后的确认性补刷：优先直接生成 Apocalypse 实体，避免异步总线丢包导致空阶段。 */

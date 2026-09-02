@@ -688,61 +688,8 @@
           },
           {
             "input_predicate": {
-              "predicate_type": "minecraft:random_block_match",
-              "block": "minecraft:mob_spawner",
-              "probability": 0.5
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "name": "minecraft:air"
-            }
-          },
-          {
-            "input_predicate": {
-              "predicate_type": "minecraft:random_block_match",
-              "block": "minecraft:mob_spawner",
-              "probability": 0.2
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "name": "daily:loot_crate_rare"
-            }
-          },
-          {
-            "input_predicate": {
-              "predicate_type": "minecraft:random_block_match",
-              "block": "minecraft:mob_spawner",
-              "probability": 0.1
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "name": "daily:loot_crate_epic"
-            }
-          },
-          {
-            "input_predicate": {
-              "predicate_type": "minecraft:random_block_match",
-              "block": "minecraft:mob_spawner",
-              "probability": 0.01
-            },
-            "location_predicate": {
-              "predicate_type": "minecraft:always_true"
-            },
-            "output_state": {
-              "name": "daily:loot_crate_legendary"
-            }
-          },
-          {
-            "input_predicate": {
-              "predicate_type": "minecraft:random_block_match",
-              "block": "minecraft:mob_spawner",
-              "probability": 0.4
+              "predicate_type": "minecraft:block_match",
+              "block": "minecraft:mob_spawner"
             },
             "location_predicate": {
               "predicate_type": "minecraft:always_true"

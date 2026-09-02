@@ -60,9 +60,9 @@ export class LootCrateManager {
       const entry = chooseWeighted(pool.entries);
       if (!entry) continue;
       const amount = randomInt(entry.min, entry.max);
-      const existing = items.find(item => item.id === entry.id && !item.name);
+      const existing = items.find(item => item.id === entry.id && String(item.name || "") === String(entry.name || ""));
       if (existing) existing.amount = Math.min(64, existing.amount + amount);
-      else items.push({ id: entry.id, amount });
+      else items.push({ id: entry.id, amount, ...(entry.name ? { name: entry.name } : {}) });
     }
     return { id: `loot_crate_${tier}`, coins: randomInt(pool.coins[0], pool.coins[1]), items };
   }
@@ -72,6 +72,29 @@ export class LootCrateManager {
       block.setPermutation(block.permutation.withState("daily:opened", !!opened));
       return true;
     } catch { return false; }
+  }
+
+  static consumeRequiredKey(player, requiredKey) {
+    if (!requiredKey?.id) return true;
+    try {
+      const container = player.getComponent("minecraft:inventory")?.container;
+      const slot = Math.max(0, Math.min(container.size - 1, Number(player.selectedSlotIndex) || 0));
+      const held = container?.getItem(slot);
+      const requiredName = String(requiredKey.name || "").replace(/§./g, "");
+      const heldName = String(held?.nameTag || "").replace(/§./g, "");
+      if (!held || held.typeId !== requiredKey.id || (requiredName && heldName !== requiredName)) {
+        player.sendMessage(`§d神话物资箱需要手持 §f${requiredKey.name || requiredKey.id} §d才能开启。§8当前 MVP 使用回响碎片。`);
+        return false;
+      }
+      if (held.amount > 1) {
+        held.amount -= 1;
+        container.setItem(slot, held);
+      } else container.setItem(slot, undefined);
+      return true;
+    } catch {
+      player.sendMessage("§c无法验证补给卡，请清出一个快捷栏位置后重试。");
+      return false;
+    }
   }
 
   static interact(event) {
@@ -100,6 +123,7 @@ export class LootCrateManager {
       return true;
     }
     const pool = LOOT_CRATE_POOLS[tier];
+    if (!this.consumeRequiredKey(player, pool.requiredKey)) return true;
     const readyAt = now + pool.resetMinutes * 60000;
     const propertyKey = this.propertyKey(coordinateKey);
     const next = { coordinateKey, propertyKey, dimension: block.dimension.id, location: { ...block.location }, tier, readyAt };

@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.6.3 修复 SAPI 跨包菜单事件丢失玩家来源、同一玩家开启一个箱子后其他同类箱子被 `isFirstEvent` 错误拦截的问题，并将错误的透明 UV 图集替换为统一的 32×32 原版像素风木箱贴图。v0.6.2 的副本结构加载修复保持不变。
+独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.7.0 为物资箱注册了明确的方块交互组件，空手、持枪或持普通物品均可右键/长按打开；新增需要补给卡的神话物资箱，并把副本怪物改为固定坐标直接确认生成，不再反复显示“重新部署 2/2”。
 
 ## 可复用物资箱
 
@@ -8,8 +8,11 @@
 - `daily:loot_crate_rare`：30 分钟刷新；
 - `daily:loot_crate_epic`：60 分钟刷新；
 - `daily:loot_crate_legendary`：120 分钟刷新。
+- `daily:loot_crate_mythic`：240 分钟刷新，必须手持“神话补给卡”开启。
 
-奖池和刷新时间集中在 `scripts/rewards/lootCratePools.js`。World Event、摸金都市与主世界地图均可直接放置这些方块；长按/右键只处理首次交互，已开启箱子在附近有玩家时不会突然复原。
+神话补给卡暂用原版回响碎片 `minecraft:echo_shard` 代替。神话箱固定开出一张 Test Gun 图纸：70% 为 `test_gun:blueprint_mgl`，30% 为 `test_gun:blueprint_riot_shield`。本包只引用物品标识，不修改 Test Gun；未安装 Test Gun 时不要投放神话箱。
+
+奖池、钥匙和刷新时间集中在 `scripts/rewards/lootCratePools.js`。World Event、摸金都市与主世界地图均可直接放置这些方块；交互按“玩家 + 箱子坐标”独立去重，已开启箱子在附近有玩家时不会突然复原。
 
 ## 联动关系
 
@@ -74,7 +77,7 @@
 - 成品位于 `daily_events_bp/structures/daily_dungeon/abandoned_town/`；每个组件间隔 8 tick 加载，避免同一 tick 同时加载整座小镇。
 - 默认提供两个高空隔离实例槽位：`100000,250,100000` 与 `100192,250,100000`。
 - 九阶段流程为：清理 A 楼 → 诊所外打卡 → 街道阻击 → B 楼打卡 → 清理警局 → 市场打卡 → 清理感染巢穴 → 车库打卡 → 最终清剿。
-- 所有刷怪点都是模板中的人工固定坐标，不再从建筑屋顶向下猜测地面。异步 SpawnDirector 请求有确认窗口、两次补发和一次直接确认性补刷；未实际观察到敌人时绝不会自动跳到下一阶段。
+- 所有刷怪点都是模板中的人工固定坐标，不再从建筑屋顶向下猜测地面。副本怪绕过异步请求队列，直接在固定坐标尝试生成 Apocalypse 实体并以原版实体兜底；返回值是实际生成数量，因此不再等待两轮“重新部署”。
 - 检查点会更新死亡复活位置；玩家离开入口 40 格后仍在完整小镇边界内，不会再被错误判定为放弃副本。
 - 通关奖励通过 `RewardManager` 为每位贡献达标的玩家独立结算，唯一键为 `dungeon:<instanceId>:<playerId>`，不存在公共箱子抢奖励或重复领取问题。
 - 当前奖励：1800 金币、金苹果×1、紫水晶碎片×4、铁锭×6；背包已满时进入待发物资。

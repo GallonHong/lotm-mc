@@ -1,4 +1,4 @@
-import { world, system } from "@minecraft/server";
+import { world, system, EquipmentSlot } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { CONFIG } from "./config.js";
 
@@ -11,6 +11,7 @@ const extractionJobs = new Map();
 const deathHandled = new Set();
 const pendingReturn = new Map();
 const backpackSnapshots = new Map();
+const insuredReturns = new Map();
 let mobSpawnFailureNoticeTick = -1200;
 let cityBuildPromise = null;
 
@@ -35,6 +36,14 @@ const CRATE_LAYOUT = Object.freeze([
   { dx: 42, dz: -38, tier: "common" },
   { dx: -34, dz: 44, tier: "rare" },
   { dx: 38, dz: 40, tier: "epic" }
+]);
+
+const INSURED_EQUIPMENT = Object.freeze([
+  EquipmentSlot.Head,
+  EquipmentSlot.Chest,
+  EquipmentSlot.Legs,
+  EquipmentSlot.Feet,
+  EquipmentSlot.Offhand
 ]);
 
 function subscribe(signal, label, handler) {
@@ -201,6 +210,16 @@ async function buildCityFoundation(dimension) {
       );
     }
   }
+
+  // Dense permanent road grid between Jigsaw districts. It is placed before
+  // structures, so buildings can overwrite it while uncovered gaps remain
+  // navigable streets instead of a featureless deepslate square.
+  const roadCoordinates = [-256, -128, 0, 128, 256];
+  for (const coordinate of roadCoordinates) {
+    dimension.runCommand(`fill ${-half} ${CONFIG.cityBaseY + 1} ${coordinate - 5} ${half - 1} ${CONFIG.cityBaseY + 1} ${coordinate + 5} minecraft:stone_bricks`);
+    dimension.runCommand(`fill ${coordinate - 5} ${CONFIG.cityBaseY + 1} ${-half} ${coordinate + 5} ${CONFIG.cityBaseY + 1} ${half - 1} minecraft:stone_bricks`);
+    await waitTicks(1);
+  }
 }
 
 async function placeDistrict(dimension, center, index) {
@@ -208,8 +227,8 @@ async function placeDistrict(dimension, center, index) {
   return withTickingArea(
     dimension,
     areaId,
-    { x: center.x - 32, y: 56, z: center.z - 32 },
-    { x: center.x + 32, y: 192, z: center.z + 32 },
+    { x: center.x - 72, y: 56, z: center.z - 72 },
+    { x: center.x + 72, y: 192, z: center.z + 72 },
     async () => {
       dimension.runCommand(`place structure jigsaw:village_custom ${center.x} ${CONFIG.cityBaseY + 1} ${center.z} true false false`);
       await waitTicks(8);
@@ -245,8 +264,8 @@ async function placeLootCrates(dimension) {
       { x: center.x - 64, y: 56, z: center.z - 64 },
       { x: center.x + 64, y: 192, z: center.z + 64 },
       async () => {
-        const layout = districtIndex === 4
-          ? [...CRATE_LAYOUT, { dx: 0, dz: 18, tier: "legendary" }]
+        const layout = districtIndex === 12
+          ? [...CRATE_LAYOUT, { dx: 0, dz: 18, tier: "mythic" }]
           : CRATE_LAYOUT;
         for (const crate of layout) {
           const ground = safeGround(dimension, center.x + crate.dx, center.z + crate.dz, 18);
@@ -300,15 +319,12 @@ async function placeExtractionMarkers(dimension) {
 }
 
 async function buildCity(dimension) {
-  let previousReady = false;
-  try { previousReady = world.getDynamicProperty(CONFIG.previousCityReadyKey) === true; } catch {}
-  console.warn("[ExtractionCity] building 3x3 city districts and repairing the void foundation...");
+  console.warn("[ExtractionCity] building persistent 5x5 city districts, connector streets and void foundation...");
   await buildCityFoundation(dimension);
 
-  let generated = previousReady ? 1 : 0;
+  let generated = 0;
   for (let index = 0; index < CONFIG.districtCenters.length; index++) {
     const center = CONFIG.districtCenters[index];
-    if (previousReady && center.x === 0 && center.z === 0) continue;
     try {
       if (await placeDistrict(dimension, center, index)) generated++;
     } catch (error) {
@@ -316,11 +332,13 @@ async function buildCity(dimension) {
     }
   }
 
-  if (!generated) throw new Error("No RandS Jigsaw districts could be placed");
+  if (generated !== CONFIG.districtCenters.length) {
+    throw new Error(`Dense city placement incomplete: ${generated}/${CONFIG.districtCenters.length} districts. The city was not marked ready and will retry next entry.`);
+  }
   const exits = await placeExtractionMarkers(dimension);
   const crates = await placeLootCrates(dimension);
   try { world.setDynamicProperty(CONFIG.cityReadyKey, true); } catch {}
-  console.warn(`[ExtractionCity] expanded city ready: ${generated} districts, ${exits} exit markers, ${crates} loot crates placed.`);
+  console.warn(`[ExtractionCity] persistent city ready: ${generated}/25 districts, ${exits} exit markers, ${crates} loot crates placed.`);
 }
 
 async function ensureCityReady(dimension, force = false) {
@@ -354,6 +372,11 @@ function applyExtractionEnvironment(player) {
   try { player.runCommand(`fog @s push ${CONFIG.fogId} ${CONFIG.fogStackId}`); } catch {}
 }
 
+function enforceKeepInventory() {
+  try { world.gameRules.keepInventory = true; } catch {}
+  try { world.getDimension("minecraft:overworld").runCommand("gamerule keepinventory true"); } catch {}
+}
+
 async function enter(player) {
   const dimension = extractionDimension();
   if (!dimension) {
@@ -370,7 +393,7 @@ async function enter(player) {
       : `§c摸金维度引导包没有启动。请启用 Apocalypse Extraction Dimension Bootstrap v0.1.0 与 Beta APIs。${detail}`);
     return;
   }
-  player.sendMessage("§e[摸金都市] 正在准备城市区块。首次生成九个城区可能需要 20～60 秒，请停留在当前世界并勿重复点击入口……");
+  player.sendMessage("§e[摸金都市] 正在检查持久化城市。首次升级会一次性生成 25 个密集城区，可能需要 1～3 分钟；完成后再次进入不会重建，请勿重复点击……");
   try { await ensureCityReady(dimension); }
   catch (error) {
     player.sendMessage(`§c城市结构初始化失败：${error}`);
@@ -402,7 +425,8 @@ async function enter(player) {
       player.addEffect("resistance", 100, { amplifier: 4, showParticles: false });
       applyExtractionEnvironment(player);
       snapshotBackpack(player);
-      player.sendMessage(`§6[摸金都市] 随机出生：${point.name}。到达撤离点后执行 §e/scriptevent extract:exit §6开始撤离。`);
+      const exit = nearestExit(player);
+      player.sendMessage(`§6[摸金都市] 随机出生：${point.name}。最近撤离点：§a${exit?.name || "未知"} §8(${Math.floor(exit?.distance || 0)}m，${exit?.x || 0}, ${exit?.z || 0})§6。跟随屏幕撤离向导，进入撤离点 ${CONFIG.extractionRadius} 格范围后会自动开始倒计时。`);
     } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
     try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {}
   }, 30);
@@ -427,8 +451,8 @@ function openMenu(player) {
   const point = inside ? nearestExit(player) : null;
   const form = new ActionFormData().title("§l§6末日摸金都市")
     .body(inside
-      ? `§0快捷栏 1-9 与穿戴装备受保险保护。\n§4背包槽位 10-36 死亡时全部掉落。\n\n§0最近撤离点：§e${point?.name || "无"} §8(${Math.floor(point?.distance || 0)}格)\n§0到达 9 格内后点击下方按钮，或执行：\n§e/scriptevent extract:exit`
-      : "§0这是持续开放的最高风险区域，不需要创建战局。\n§0九个城区组成约 768×768 的废弃都市；进入位置随机。\n§0都市传说 Boss 会低概率出现。")
+      ? `§0快捷栏 1-9 与穿戴装备受保险保护。\n§4背包槽位 10-36 死亡时全部掉落。\n\n§0最近撤离点：§e${point?.name || "无"} §8(${Math.floor(point?.distance || 0)}格)\n§0进入 ${CONFIG.extractionRadius} 格范围会自动开始撤离；下方按钮与命令仅作为备用。\n§e/scriptevent extract:exit`
+      : "§0这是持续开放的最高风险区域，不需要创建战局。\n§025 个密集城区组成约 768×768 的废弃都市；首次升级只生成一次。\n§0都市传说 Boss 会低概率出现。")
     .button(inside ? "§a开始撤离" : "§6随机进入都市", inside ? "textures/ui/confirm" : "textures/ui/World")
     .button("§8关闭", "textures/ui/cancel");
   form.show(player).then(result => {
@@ -436,7 +460,7 @@ function openMenu(player) {
     if (inside) startExtraction(player); else enter(player);
   }).catch(error => {
     console.warn(`[ExtractionCity] menu failed for ${player.name}: ${error}`);
-    try { player.sendMessage("§c摸金都市菜单打开失败，请直接执行 /scriptevent extract:enter；若仍无响应，请确认行为包 v0.3.2 已启用。"); } catch {}
+    try { player.sendMessage(`§c摸金都市菜单打开失败，请直接执行 /scriptevent extract:enter；若仍无响应，请确认行为包 v${CONFIG.version} 已启用。`); } catch {}
   });
 }
 
@@ -444,12 +468,25 @@ function captureBackpack(player) {
   try {
     const container = player.getComponent("minecraft:inventory")?.container;
     if (!container) return null;
-    const items = [];
+    const hotbarItems = [];
+    const backpackItems = [];
+    for (let slot = 0; slot < Math.min(CONFIG.protectedHotbarSlots, container.size); slot++) {
+      const item = container.getItem(slot);
+      if (item) hotbarItems.push({ slot, item });
+    }
     for (let slot = CONFIG.protectedHotbarSlots; slot < container.size; slot++) {
       const item = container.getItem(slot);
-      if (item) items.push({ slot, item });
+      if (item) backpackItems.push({ slot, item });
     }
-    return { items, size: container.size };
+    const equipmentItems = [];
+    try {
+      const equippable = player.getComponent("minecraft:equippable");
+      for (const slot of INSURED_EQUIPMENT) {
+        const item = equippable?.getEquipment(slot);
+        if (item) equipmentItems.push({ slot, item });
+      }
+    } catch {}
+    return { hotbarItems, backpackItems, equipmentItems, size: container.size };
   } catch { return null; }
 }
 
@@ -476,27 +513,53 @@ function clearBackpackSlots(player) {
   } catch { return false; }
 }
 
+function restoreInsuredLoadout(player, snapshot) {
+  if (!snapshot) return false;
+  let restored = false;
+  try {
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (container) {
+      for (let slot = 0; slot < Math.min(CONFIG.protectedHotbarSlots, container.size); slot++) container.setItem(slot, undefined);
+      for (const entry of snapshot.hotbarItems || []) container.setItem(entry.slot, entry.item);
+      restored = true;
+    }
+  } catch {}
+  try {
+    const equippable = player.getComponent("minecraft:equippable");
+    if (equippable) {
+      for (const slot of INSURED_EQUIPMENT) equippable.setEquipment(slot, undefined);
+      for (const entry of snapshot.equipmentItems || []) equippable.setEquipment(entry.slot, entry.item);
+      restored = true;
+    }
+  } catch {}
+  return restored;
+}
+
 function extractionSessionActive(player, snapshot) {
   if (snapshot?.dimensionId === CONFIG.dimensionId) return true;
   try { if (player.getDynamicProperty(CONFIG.activeStateKey) === true) return true; } catch {}
   try { return player.hasTag(CONFIG.activeTag); } catch { return false; }
 }
 
-function dropBackpack(player, location = null, dimension = null) {
+function dropBackpack(player, location = null, dimension = null, preferCurrent = false) {
   const cached = backpackSnapshots.get(player.id);
   if (deathHandled.has(player.id) || !extractionSessionActive(player, cached)) return;
   deathHandled.add(player.id);
   const current = captureBackpack(player);
-  const dropped = current || cached || { items: [] };
+  const dropped = (preferCurrent && current) ? current : (cached || current || { backpackItems: [] });
   const dropLocation = location || cached?.location;
   let dropDimension = dimension;
   if (!dropDimension) {
     try { dropDimension = world.getDimension(cached?.dimensionId || CONFIG.dimensionId); } catch {}
   }
   clearBackpackSlots(player);
-  if (dropDimension && dropLocation) for (const entry of dropped.items || []) {
+  if (dropDimension && dropLocation) for (const entry of dropped.backpackItems || []) {
     try { dropDimension.spawnItem(entry.item, dropLocation); } catch {}
   }
+  insuredReturns.set(player.id, {
+    hotbarItems: [...(dropped.hotbarItems || [])],
+    equipmentItems: [...(dropped.equipmentItems || [])]
+  });
   backpackSnapshots.delete(player.id);
   pendingReturn.set(player.id, true);
   try { player.setDynamicProperty(CONFIG.deathReturnKey, true); } catch {}
@@ -581,7 +644,7 @@ function command(player, message) {
   return true;
 }
 
-try { world.getDimension("minecraft:overworld").runCommand("gamerule keepinventory true"); } catch {}
+enforceKeepInventory();
 try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
 
 subscribe(world.afterEvents?.entityHurt, "entityHurt", event => {
@@ -591,7 +654,7 @@ subscribe(world.afterEvents?.entityHurt, "entityHurt", event => {
     const health = player.getComponent("minecraft:health");
     if (health && health.currentValue <= 0) {
       const cached = backpackSnapshots.get(player.id);
-      dropBackpack(player, cached?.location, extractionDimension());
+      dropBackpack(player, cached?.location, extractionDimension(), true);
     }
   } catch {}
 });
@@ -617,7 +680,10 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
   if (!shouldReturn) return;
   try { event.player.setDynamicProperty(CONFIG.deathReturnKey, undefined); } catch {}
   system.runTimeout(() => {
+    const insured = insuredReturns.get(event.player.id);
     clearBackpackSlots(event.player);
+    restoreInsuredLoadout(event.player, insured);
+    insuredReturns.delete(event.player.id);
     returnPlayer(event.player, "行动失败，已返回安全区域；背包物资留在死亡地点。");
   }, 20);
 });
@@ -655,7 +721,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (event.id === "extract:exits") system.run(() => {
     if (player.dimension.id !== CONFIG.dimensionId) return player.sendMessage("§c请先进入摸金都市。");
     const nearest = points().map(point => ({ ...point, distance: distance2D(player.location, point) })).sort((a, b) => a.distance - b.distance).slice(0, 5);
-    player.sendMessage(`§6[撤离点]\n${nearest.map(point => `§e${point.name} §8- ${Math.floor(point.distance)}m §0(${point.x}, ${point.z})`).join("\n")}\n§0寻找绿色信标，到达 9 格内执行 /scriptevent extract:exit。`);
+    player.sendMessage(`§6[撤离点]\n${nearest.map(point => `§e${point.name} §8- ${Math.floor(point.distance)}m §0(${point.x}, ${point.z})`).join("\n")}\n§0寻找绿色信标，进入 ${CONFIG.extractionRadius} 格范围会自动开始撤离。`);
   });
   else if (event.id === "extract:status" && isAdmin(player)) system.run(() => {
     const ready = world.getDynamicProperty(CONFIG.cityReadyKey) === true;
@@ -676,7 +742,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (event.id === "extract:rebuild" && isAdmin(player)) system.run(async () => {
     const dimension = extractionDimension();
     if (!dimension) return player.sendMessage("§c摸金维度不可用。");
-    player.sendMessage("§e正在修复承托层、扩建九个城区并重新布置物资箱，请稍候……");
+    player.sendMessage("§e正在一次性升级为 25 个密集城区、铺设连接道路并重新布置物资箱，请等待 1～3 分钟……");
     try {
       world.setDynamicProperty(CONFIG.cityReadyKey, undefined);
       await ensureCityReady(dimension, true);
@@ -700,8 +766,13 @@ system.runInterval(() => {
     snapshotBackpack(player);
     if (system.currentTick % 100 === 0) applyExtractionEnvironment(player);
     const point = nearestExit(player);
-    if (point && point.distance <= 32 && !extractionJobs.has(player.id)) {
-      player.onScreenDisplay.setActionBar(`§a撤离点：${point.name} §f${Math.floor(point.distance)}m §8| §0${point.x},${point.z} §8| §e/scriptevent extract:exit`);
+    if (point && point.distance <= CONFIG.extractionRadius && !extractionJobs.has(player.id)) {
+      startExtraction(player);
+      continue;
+    }
+    if (point && !extractionJobs.has(player.id) && system.currentTick % 40 === 0) {
+      const near = point.distance <= 32 ? "§a已接近" : "§6向导";
+      player.onScreenDisplay.setActionBar(`${near} §f${point.name} §e${Math.floor(point.distance)}m §8| §0${point.x},${point.z} §8| §e/scriptevent extract:exits`);
     }
     const job = extractionJobs.get(player.id);
     if (!job) continue;
@@ -716,6 +787,8 @@ system.runInterval(() => {
   }
 }, 10);
 
+system.runInterval(enforceKeepInventory, 200);
+
 system.runInterval(() => {
   const players = world.getAllPlayers().filter(player => player.dimension.id === CONFIG.dimensionId);
   if (players.length) cleanupVanillaHostiles(players[0].dimension);
@@ -726,4 +799,4 @@ system.runInterval(() => {
   for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
-console.warn(`[ExtractionCity] v${CONFIG.version} dual-channel entry bridge, 3x3 persistent city, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.`);
+console.warn(`[ExtractionCity] v${CONFIG.version} dual-channel entry bridge, dense 5x5 persistent city, insured hotbar/equipment, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.`);

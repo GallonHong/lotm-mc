@@ -1,4 +1,4 @@
-import { world, system } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 import { CONFIG, MOB_TARGETS } from "./config.js";
 import { DailyQuestManager } from "./daily/DailyQuestManager.js";
 import { RewardManager } from "./rewards/RewardManager.js";
@@ -13,7 +13,7 @@ import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Loot Crates v0.6.3 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Loot Crates v0.7.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -26,6 +26,29 @@ function subscribe(signal, label, handler) {
   try { signal.subscribe(handler); return true; }
   catch (error) { console.warn(`[DailyEvents] ${label} subscribe failed: ${error}`); return false; }
 }
+
+// A plain custom block has no vanilla action, so some 26.x clients only emit
+// playerInteractWithBlock while the player is holding another placeable block.
+// Binding a block custom component makes empty-hand and normal-item interaction
+// an explicit action. The world event below remains as a compatibility fallback.
+const lootCrateComponentSignal = system.beforeEvents?.startup || world.beforeEvents?.worldInitialize;
+subscribe(lootCrateComponentSignal, "loot crate component registration", event => {
+  try {
+    event.blockComponentRegistry.registerCustomComponent("daily:loot_crate_interact", {
+      onPlayerInteract(componentEvent) {
+        const player = componentEvent.player;
+        const block = componentEvent.block;
+        if (!player || !block) return;
+        system.run(() => {
+          try { LootCrateManager.interact({ player, block }); }
+          catch (error) { console.warn(`[DailyEvents] custom loot crate interaction failed: ${error}`); }
+        });
+      }
+    });
+  } catch (error) {
+    console.warn(`[DailyEvents] loot crate custom component registration failed: ${error}`);
+  }
+});
 
 function valid(entity) {
   try { return !!entity && entity.isValid(); } catch { return false; }
@@ -119,11 +142,15 @@ function handleCommand(player, raw) {
     if (parts[1] === "give" || parts.length === 1) {
       try {
         const inv = player.getComponent("minecraft:inventory")?.container;
-        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_common", 4));
-        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_rare", 4));
-        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_epic", 4));
-        inv?.addItem(new (world.getDimension("overworld").constructor.ItemStack || (import("@minecraft/server")).ItemStack)("daily:loot_crate_legendary", 4));
-        return player.sendMessage("§a[物资箱] 已获得 普通/稀有/史诗/传说 物资箱各 4 个！放置后右键搜刮。");
+        inv?.addItem(new ItemStack("daily:loot_crate_common", 4));
+        inv?.addItem(new ItemStack("daily:loot_crate_rare", 4));
+        inv?.addItem(new ItemStack("daily:loot_crate_epic", 4));
+        inv?.addItem(new ItemStack("daily:loot_crate_legendary", 4));
+        inv?.addItem(new ItemStack("daily:loot_crate_mythic", 2));
+        const supplyCards = new ItemStack("minecraft:echo_shard", 2);
+        supplyCards.nameTag = "§d神话补给卡（MVP）";
+        inv?.addItem(supplyCards);
+        return player.sendMessage("§a[物资箱] 已获得四种常规物资箱、2 个神话物资箱和 2 张神话补给卡！普通箱可空手打开，神话箱必须手持补给卡。");
       } catch (e) {
         return player.sendMessage(`§c给予失败: ${e}`);
       }

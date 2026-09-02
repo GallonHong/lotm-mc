@@ -5,3 +5,4 @@ tile.daily:loot_crate_common.name=普通物资箱
 tile.daily:loot_crate_rare.name=稀有物资箱
 tile.daily:loot_crate_epic.name=史诗物资箱
 tile.daily:loot_crate_legendary.name=传奇物资箱
+tile.daily:loot_crate_mythic.name=神话物资箱

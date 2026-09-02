@@ -5,3 +5,4 @@ tile.daily:loot_crate_common.name=Common Supply Crate
 tile.daily:loot_crate_rare.name=Rare Supply Crate
 tile.daily:loot_crate_epic.name=Epic Supply Crate
 tile.daily:loot_crate_legendary.name=Legendary Supply Crate
+tile.daily:loot_crate_mythic.name=Mythic Supply Crate
