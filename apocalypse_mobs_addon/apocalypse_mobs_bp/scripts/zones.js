@@ -21,16 +21,67 @@ function contains(region, dimensionId, location) {
     location.z >= region.min.z && location.z <= region.max.z;
 }
 
+export const PRESET_ZONES = Object.freeze([
+  {
+    id: "apoc_zone_safe_1",
+    name: "安全区 1",
+    type: "safe",
+    dimension: "minecraft:overworld",
+    min: { x: 2349, y: -64, z: 1863 },
+    max: { x: 2635, y: 320, z: 2069 },
+    priority: 500
+  },
+  {
+    id: "apoc_zone_safe_2",
+    name: "安全区 2",
+    type: "safe",
+    dimension: "minecraft:overworld",
+    min: { x: 2352, y: -64, z: 1165 },
+    max: { x: 2585, y: 320, z: 1303 },
+    priority: 500
+  },
+  {
+    id: "apoc_zone_safe_3",
+    name: "安全区 3",
+    type: "safe",
+    dimension: "minecraft:overworld",
+    min: { x: 1942, y: -64, z: 1273 },
+    max: { x: 2087, y: 320, z: 1465 },
+    priority: 500
+  },
+  {
+    id: "apoc_zone_law_1",
+    name: "法制区 1",
+    type: "law",
+    dimension: "minecraft:overworld",
+    min: { x: 3450, y: -64, z: 2033 },
+    max: { x: 3869, y: 320, z: 2478 },
+    priority: 300
+  },
+  {
+    id: "apoc_zone_law_2",
+    name: "法制区 2",
+    type: "law",
+    dimension: "minecraft:overworld",
+    min: { x: 1687, y: -64, z: 2509 },
+    max: { x: 2250, y: 320, z: 3127 },
+    priority: 300
+  }
+]);
+
 export class ZoneRegistry {
   static selections = new Map();
 
   static getLocalZones() {
-    return parseArray(world.getDynamicProperty(CONFIG.zonesKey)).filter(zone => zone?.id && zone?.min && zone?.max);
+    const dynamicZones = parseArray(world.getDynamicProperty(CONFIG.zonesKey)).filter(zone => zone?.id && zone?.min && zone?.max);
+    return [...PRESET_ZONES, ...dynamicZones];
   }
 
   static saveLocalZones(zones) {
     try {
-      world.setDynamicProperty(CONFIG.zonesKey, JSON.stringify(zones.slice(0, 100)));
+      // 过滤掉静态内置区域，仅持久化动态创建的区域
+      const dynamicOnly = zones.filter(z => !z.id.startsWith("apoc_zone_safe_") && !z.id.startsWith("apoc_zone_law_"));
+      world.setDynamicProperty(CONFIG.zonesKey, JSON.stringify(dynamicOnly.slice(0, 100)));
       return true;
     } catch (error) {
       console.warn(`[Apocalypse][Zones] 保存区域失败: ${error}`);
@@ -58,7 +109,7 @@ export class ZoneRegistry {
     const local = this.getLocalZones()
       .filter(zone => contains(zone, dimensionId, location))
       .sort((a, b) => (b.priority || 0) - (a.priority || 0))[0];
-    if (local) return { type: local.type || "law", name: local.name, source: "apoc", data: local };
+    if (local) return { type: local.type || "outlaw", name: local.name, source: "apoc", data: local };
 
     const sapi = this.getSapiRegions()
       .filter(region => contains(region, dimensionId, location))
@@ -75,7 +126,8 @@ export class ZoneRegistry {
         return { type: "safe", name: "主城出生点", source: spawn.source, data: spawn };
       }
     }
-    return { type: "law", name: "法制区", source: "default", data: null };
+    // 其余未指定区域全部默认为【非法制区 (outlaw)】
+    return { type: "outlaw", name: "非法制荒原", source: "default", data: null };
   }
 
   static isSafe(dimensionId, location) {
