@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Extraction City RP v0.3.2",
+    "name": "Apocalypse Extraction City RP v0.3.3",
     "description": "Client resources and dusk fog for the expanded extraction city.",
     "uuid": "02df7076-5477-4282-9bb8-f072f89b9275",
-    "version": [0, 3, 2],
+    "version": [0, 3, 3],
     "min_engine_version": [1, 21, 120]
   },
   "modules": [
-    { "type": "resources", "uuid": "d211b57b-c6f0-4fc1-8038-60150190bc77", "version": [0, 3, 2] }
+    { "type": "resources", "uuid": "d211b57b-c6f0-4fc1-8038-60150190bc77", "version": [0, 3, 3] }
   ]
 }

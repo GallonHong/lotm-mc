@@ -31,7 +31,7 @@ assert.match(menu, /每日福利/);
 assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.6.1");
+assert.equal(manifest.header.version.join("."), "2.6.2");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
@@ -53,6 +53,8 @@ assert.match(integration, /system\.runTimeout/);
 assert.match(integration, /daily:dungeon|Failed to send/);
 assert.match(integration, /__sapi_player__/);
 assert.match(integration, /encodeURIComponent\(player\.name\)/);
+assert.match(integration, /openExtractionMenu/);
+assert.match(integration, /interop:apoc_extraction_ack/);
 assert.match(read("sapi_server_bp/scripts/modules/shop.js"), /openCategoryById/);
 const lottery = read("sapi_server_bp/scripts/modules/lottery.js");
 assert.match(lottery, /if \(res\.canceled\) return;/);
@@ -66,6 +68,6 @@ for (const source of uiSources) {
   assert.equal(source.includes("§7"), false, "light-gray text color must not remain in SAPI UI");
 }
 
-assert(menu.includes("extract:menu") && menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "responsive extraction menu bridge missing");
-assert.match(menu, /has been sent/);
-console.log("SAPI Server v2.6.1 validation passed.");
+assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
+assert.match(integration, /仅导入文件不会自动给现有世界启用行为包/);
+console.log("SAPI Server v2.6.2 validation passed.");

@@ -640,7 +640,7 @@ subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
 });
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
-  const { player } = scriptEventContext(event);
+  const { player, message } = scriptEventContext(event);
   if (!player) {
     if (String(event.id || "").startsWith("extract:")) {
       console.warn(`[ExtractionCity] ignored ${event.id}: player source could not be resolved.`);
@@ -648,7 +648,10 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     }
     return;
   }
-  if (event.id === "extract:menu") system.run(() => openMenu(player));
+  if (event.id === "extract:menu") {
+    try { player.setDynamicProperty("interop:apoc_extraction_ack", Number(message) || Date.now()); } catch {}
+    system.run(() => openMenu(player));
+  }
   else if (event.id === "extract:enter") system.run(() => enter(player));
   else if (event.id === "extract:exit") system.run(() => startExtraction(player));
   else if (event.id === "extract:exits") system.run(() => {
@@ -720,4 +723,4 @@ system.runInterval(() => {
   for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
-console.warn("[ExtractionCity] v0.3.2 responsive inter-addon entry, 3x3 persistent city, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.");
+console.warn("[ExtractionCity] v0.3.3 acknowledged entry bridge, 3x3 persistent city, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.");

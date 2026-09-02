@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Extraction City BP v0.3.2",
+    "name": "Apocalypse Extraction City BP v0.3.3",
     "description": "Expanded 3x3 extraction city, strict insurance loss, Apocalypse enemies, loot crates and extraction points.",
     "uuid": "3ba398b1-341e-44b9-a426-21734cdf1180",
     "version": [
       0,
       3,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         3,
-        2
+        3
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         0,
         3,
-        2
+        3
       ],
       "entry": "scripts/main.js"
     }
@@ -45,14 +45,6 @@
     {
       "module_name": "@minecraft/server-ui",
       "version": "2.0.0"
-    },
-    {
-      "uuid": "02df7076-5477-4282-9bb8-f072f89b9275",
-      "version": [
-        0,
-        3,
-        2
-      ]
     }
   ]
 }

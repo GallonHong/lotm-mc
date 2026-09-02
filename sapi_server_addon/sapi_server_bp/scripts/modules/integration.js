@@ -6,6 +6,7 @@ const DAILY_EVENTS_HEARTBEAT = "interop:daily_events_heartbeat";
 const DAILY_SALES_KEY = "interop:daily_sales:v1";
 const APOCALYPSE_HEARTBEAT = "apoc:heartbeat";
 const EXTRACTION_HEARTBEAT = "interop:apoc_extraction_heartbeat";
+const EXTRACTION_ACK = "interop:apoc_extraction_ack";
 const NATURAL_DISASTERS_HEARTBEAT = "interop:natural_disasters_heartbeat";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
@@ -257,5 +258,17 @@ export class Integration {
         } catch {
             return false;
         }
+    }
+
+    static openExtractionMenu(player) {
+        const requestId = Date.now();
+        try { player.setDynamicProperty(EXTRACTION_ACK, 0); } catch {}
+        this.send(player, "extract:menu", String(requestId));
+        system.runTimeout(() => {
+            try {
+                if (Number(player.getDynamicProperty(EXTRACTION_ACK) || 0) === requestId) return;
+                player.sendMessage("§c摸金都市没有回应该请求。请确认世界的行为包列表中已启用 Apocalypse Extraction City BP v0.3.3；仅导入文件不会自动给现有世界启用行为包。");
+            } catch {}
+        }, 60);
     }
 }
