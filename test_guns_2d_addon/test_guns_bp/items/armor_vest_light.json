@@ -4,7 +4,8 @@
     "description": {
       "identifier": "test_gun:armor_vest_light",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
       }
     },
     "components": {
@@ -16,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_vest_light",
       "minecraft:display_name": {
-        "value": "凯夫拉轻型防弹衣 §f[普通·4点护甲]§r"
+        "value": "\u51ef\u592b\u62c9\u8f7b\u578b\u9632\u5f39\u8863 \u00a7f[\u666e\u901a\u00b74\u70b9\u62a4\u7532]\u00a7r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.chest"
@@ -34,6 +35,13 @@
             "repair_amount": 100
           }
         ]
+      },
+      "minecraft:armor": {
+        "protection": 4
+      },
+      "minecraft:enchantable": {
+        "value": 10,
+        "slot": "armor_torso"
       }
     }
   }

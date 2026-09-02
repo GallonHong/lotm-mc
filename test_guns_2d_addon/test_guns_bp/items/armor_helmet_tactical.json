@@ -4,7 +4,8 @@
     "description": {
       "identifier": "test_gun:armor_helmet_tactical",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
       }
     },
     "components": {
@@ -16,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_helmet_tactical",
       "minecraft:display_name": {
-        "value": "特警防暴防弹头盔 §9[优良·3点护甲·防爆头]§r"
+        "value": "\u7279\u8b66\u9632\u66b4\u9632\u5f39\u5934\u76d4 \u00a79[\u4f18\u826f\u00b73\u70b9\u62a4\u7532\u00b7\u9632\u7206\u5934]\u00a7r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head"
@@ -33,6 +34,13 @@
             "repair_amount": 120
           }
         ]
+      },
+      "minecraft:armor": {
+        "protection": 3
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "armor_helmet"
       }
     }
   }

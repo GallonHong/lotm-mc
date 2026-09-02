@@ -4,7 +4,8 @@
     "description": {
       "identifier": "test_gun:armor_titan_chest",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
       }
     },
     "components": {
@@ -16,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_titan_chest",
       "minecraft:display_name": {
-        "value": "泰坦动力外骨骼装甲 §5[史诗·12点满护甲·力量增幅]§r"
+        "value": "\u6cf0\u5766\u52a8\u529b\u5916\u9aa8\u9abc\u88c5\u7532 \u00a75[\u53f2\u8bd7\u00b712\u70b9\u6ee1\u62a4\u7532\u00b7\u529b\u91cf\u589e\u5e45]\u00a7r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.chest"
@@ -34,6 +35,13 @@
             "repair_amount": 250
           }
         ]
+      },
+      "minecraft:armor": {
+        "protection": 10
+      },
+      "minecraft:enchantable": {
+        "value": 20,
+        "slot": "armor_torso"
       }
     }
   }

@@ -4,7 +4,8 @@
     "description": {
       "identifier": "test_gun:flash_shield",
       "menu_category": {
-        "category": "equipment"
+        "category": "equipment",
+        "group": "itemGroup.name.shield"
       }
     },
     "components": {
