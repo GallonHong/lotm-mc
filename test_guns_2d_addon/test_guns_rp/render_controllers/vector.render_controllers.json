@@ -1,26 +1,48 @@
 {
   "format_version": "1.10",
   "render_controllers": {
-    "controller.render.vector_dynamic": {
+    "controller.render.first_vector": {
       "arrays": {
         "textures": {
-          "array.skins": [
-            "texture.f0",
+          "array.swords": [
             "texture.f1",
             "texture.f2",
             "texture.f3",
-            "texture.f4"
+            "texture.f4",
+            "texture.f5"
           ]
         }
       },
-      "geometry": "c.is_first_person ? geometry.first : geometry.third",
+      "geometry": "geometry.first",
       "materials": [
         {
-          "*": "material.default"
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
         }
       ],
       "textures": [
-        "array.skins[(query.anim_time * 8)]"
+        "array.swords[(query.anim_time * 8)]"
+      ]
+    },
+    "controller.render.third_vector": {
+      "arrays": {
+        "textures": {
+          "array.swords": [
+            "texture.f1",
+            "texture.f2",
+            "texture.f3",
+            "texture.f4",
+            "texture.f5"
+          ]
+        }
+      },
+      "geometry": "geometry.third",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "array.swords[(query.anim_time * 8)]"
       ]
     }
   }
