@@ -1,3 +1,4 @@
+import { RecoilManager } from '../recoilManager.js';
 import { MathUtils } from './mathUtils.js';
 import { DamageHandler } from '../damageHandler.js';
 import { FireMode } from '../../data/types.js';
@@ -252,6 +253,13 @@ export function fireBullet(player, gun) {
       processBulletRay(player, gun, spreadDir, spawnLoc, maxRange);
     }
   } else {
-    processBulletRay(player, gun, viewDir, spawnLoc, maxRange);
+    const offset = RecoilManager.getSprayOffset(player.id, gun.recoil);
+    const sx = (Number(viewDir.x) || 0) + offset.x;
+    const sy = (Number(viewDir.y) || 0) + offset.y;
+    const sz = (Number(viewDir.z) || 0) + offset.z;
+    const sLen = Math.hypot(sx, sy, sz) || 1;
+    const finalDir = { x: sx / sLen, y: sy / sLen, z: sz / sLen };
+
+    processBulletRay(player, gun, finalDir, spawnLoc, maxRange);
   }
 }
