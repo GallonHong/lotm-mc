@@ -11,6 +11,7 @@ import { Integration } from "./modules/integration.js";
 import { TeleportManager } from "./modules/teleport.js";
 import { RegionManager } from "./modules/region.js";
 import { AuditManager } from "./modules/audit.js";
+import { OperationsManager } from "./modules/operations.js";
 
 function initServerSystem() {
     console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
@@ -86,6 +87,10 @@ function handleChat(event) {
         "!tpa": () => TeleportManager.openTpaMenu(player),
         "!back": () => TeleportManager.returnToDeath(player),
         "!返回": () => TeleportManager.returnToDeath(player),
+        "!daily": () => OperationsManager.openPlayerMenu(player),
+        "!签到": () => OperationsManager.openPlayerMenu(player),
+        "!redeem": () => OperationsManager.openRedeemModal(player),
+        "!兑换码": () => OperationsManager.openRedeemModal(player),
         "!region": () => RegionManager.openAdminMenu(player),
         "!audit": () => AuditManager.openAdminUI(player),
         "!admin": () => ServerMenuManager.openAdminPanel(player),
@@ -117,6 +122,7 @@ if (scriptEvents?.subscribe) {
         else if (["system:home", "home:open"].includes(id)) TeleportManager.openHomeMenu(player);
         else if (["system:tpa", "tpa:open"].includes(id)) TeleportManager.openTpaMenu(player);
         else if (["system:back", "death:back"].includes(id)) TeleportManager.returnToDeath(player);
+        else if (["system:daily", "daily:open", "system:redeem"].includes(id)) OperationsManager.openPlayerMenu(player);
         else if (["system:region", "region:admin"].includes(id)) RegionManager.openAdminMenu(player);
         else if (["system:audit", "audit:admin"].includes(id)) AuditManager.openAdminUI(player);
     });

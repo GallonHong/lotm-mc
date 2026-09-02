@@ -208,13 +208,21 @@ export class Utils {
      */
     static giveItem(player, typeId, amount = 1, nameTag = null, lore = null) {
         const inventory = player.getComponent("inventory");
-        if (!inventory || !inventory.container) return;
+        if (!inventory || !inventory.container) return false;
 
         const container = inventory.container;
         let leftAmount = amount;
+        let success = true;
+        let stackLimit = 64;
+        try {
+            stackLimit = Math.max(1, Number(new ItemStack(typeId, 1).maxAmount) || 1);
+        } catch (e) {
+            console.warn(`[Utils] Invalid item identifier: ${typeId} - ${e}`);
+            return false;
+        }
 
         while (leftAmount > 0) {
-            const batch = Math.min(leftAmount, 64);
+            const batch = Math.min(leftAmount, stackLimit);
             leftAmount -= batch;
 
             try {
@@ -231,8 +239,10 @@ export class Utils {
                 }
             } catch (e) {
                 console.warn(`[Utils] Failed to create or give item: ${typeId} - ${e}`);
+                success = false;
             }
         }
+        return success;
     }
 
     /**

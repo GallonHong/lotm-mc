@@ -3,10 +3,12 @@ import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/serve
 import { Config } from "../config.js";
 import { Utils } from "../utils.js";
 import { AuditManager } from "./audit.js";
+import { OperationsManager } from "./operations.js";
 
 const WARPS_KEY = "sapi:server:warps:v1";
 const HOMES_KEY = "sapi:homes:v1";
 const DEATH_KEY = "sapi:last_death:v1";
+const TPA_RECEIVE_KEY = "sapi:tpa_receive:v1";
 
 /** 免费公共传送点与统一安全落点服务。 */
 export class TeleportManager {
@@ -267,6 +269,15 @@ export class TeleportManager {
 
     static sendTpaRequest(from, to, direction = "to") {
         if (!Utils.isValid(from) || !Utils.isValid(to) || from.id === to.id) return false;
+        const settings = OperationsManager.getSettings();
+        if (!settings.tpaEnabled || (direction === "here" && !settings.tpaHereEnabled) || (direction !== "here" && !settings.tpaToEnabled)) {
+            Utils.tell(from, "§7该类型的 TPA 已被管理员关闭。");
+            return false;
+        }
+        if (to.getDynamicProperty(TPA_RECEIVE_KEY) === false && !Utils.isAdmin(from)) {
+            Utils.tell(from, `§7${to.name} 当前拒绝接收 TPA 请求。`);
+            return false;
+        }
         this.pruneRequests();
         for (const [id, request] of this.requests) {
             if (request.fromId === from.id && request.toId === to.id) this.requests.delete(id);
@@ -292,6 +303,12 @@ export class TeleportManager {
         this.pruneRequests();
         const request = this.requests.get(requestId);
         if (!request || request.toId !== player.id) return false;
+        const settings = OperationsManager.getSettings();
+        if (!settings.tpaEnabled || (request.direction === "here" && !settings.tpaHereEnabled) || (request.direction !== "here" && !settings.tpaToEnabled)) {
+            this.requests.delete(requestId);
+            Utils.tell(player, "§7TPA 已被管理员关闭，该请求已取消。");
+            return false;
+        }
         this.requests.delete(requestId);
         const requester = world.getAllPlayers().find(other => other.id === request.fromId);
         if (!Utils.isValid(requester)) {
@@ -423,17 +440,24 @@ export class TeleportManager {
 
     static openTpaMenu(player, onBack = null) {
         this.pruneRequests();
+        const settings = OperationsManager.getSettings();
+        const receives = player.getDynamicProperty(TPA_RECEIVE_KEY) !== false;
         const incoming = [...this.requests.values()].filter(request => request.toId === player.id);
         const outgoing = [...this.requests.values()].filter(request => request.fromId === player.id);
         const actions = [];
-        const form = new ActionFormData().title("§l§b👥 TPA 玩家传送").body(`§f收到: §e${incoming.length} §f| 已发送: §e${outgoing.length}\n§7请求必须由对方明确接受，过期时间 ${Config.teleport?.tpaExpirySeconds || 60} 秒。`);
+        const form = new ActionFormData().title("§l§b👥 TPA 玩家传送").body(`§f全局状态: ${settings.tpaEnabled ? "§a开启" : "§c关闭"}\n§f接收请求: ${receives ? "§a开启" : "§7关闭"}\n§f收到: §e${incoming.length} §f| 已发送: §e${outgoing.length}\n§7请求必须由对方明确接受，过期时间 ${Config.teleport?.tpaExpirySeconds || 60} 秒。`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const request of incoming) {
             const label = request.direction === "here" ? `${request.fromName} 邀请你过去` : `${request.fromName} 请求过来`;
             add(`§l§e📨 ${label}\n§r§8点击处理`, "textures/ui/FriendsIcon", () => this.openTpaResponse(player, request, onBack));
         }
-        add("§l§a➡ 请求传送到玩家", "textures/ui/FriendsIcon", () => this.openTpaPlayerSelect(player, "to", onBack));
-        add("§l§6⬅ 邀请玩家传送过来", "textures/ui/FriendsIcon", () => this.openTpaPlayerSelect(player, "here", onBack));
+        if (settings.tpaEnabled && settings.tpaToEnabled) add("§l§a➡ 请求传送到玩家", "textures/ui/FriendsIcon", () => this.openTpaPlayerSelect(player, "to", onBack));
+        if (settings.tpaEnabled && settings.tpaHereEnabled) add("§l§6⬅ 邀请玩家传送过来", "textures/ui/FriendsIcon", () => this.openTpaPlayerSelect(player, "here", onBack));
+        add(receives ? "§l§7🔕 拒绝接收 TPA" : "§l§a🔔 允许接收 TPA", "textures/ui/cancel", () => {
+            player.setDynamicProperty(TPA_RECEIVE_KEY, !receives);
+            AuditManager.log("tpa_receive", player, player.name, `enabled=${!receives}`);
+            this.openTpaMenu(player, onBack);
+        });
         add("§l§c✖ 取消我发出的请求", "textures/ui/cancel", () => {
             let count = 0;
             for (const [id, request] of this.requests) if (request.fromId === player.id) { this.requests.delete(id); count++; }
@@ -491,6 +515,7 @@ export class TeleportManager {
         });
         add("§l§c🗑️ 删除传送点", "textures/ui/trash", () => this.openDeleteWarpMenu(player, onBack));
         add("§l§b👁️ 预览玩家传送菜单", "textures/ui/World", () => this.openWarpMenu(player, () => this.openAdminMenu(player, onBack)));
+        add("§l§e⚙ TPA 开关设置", "textures/ui/op", () => this.openTpaAdminSettings(player, onBack));
         add("§l§6🛠 玩家传送数据管理", "textures/ui/op", () => this.openPlayerDataAdmin(player, onBack));
         add("§l§c✖ 清空全部待处理 TPA", "textures/ui/cancel", () => {
             const count = this.requests.size;
@@ -514,6 +539,30 @@ export class TeleportManager {
                 const [name, icon] = res.formValues;
                 if (this.createWarp(player, name, icon || "textures/ui/World")) Utils.tell(player, `§a已创建免费传送点：§e${this.sanitizeName(name)}`);
                 else Utils.tell(player, "§c创建失败：名称为空、数量已达上限或数据无法保存。");
+            }
+            this.openAdminMenu(player, onBack);
+        });
+    }
+
+    static openTpaAdminSettings(player, onBack = null) {
+        const settings = OperationsManager.getSettings();
+        const form = new ModalFormData().title("§lTPA 管理开关")
+            .toggle("全局启用 TPA", settings.tpaEnabled)
+            .toggle("允许请求传送到玩家", settings.tpaToEnabled)
+            .toggle("允许邀请玩家传送过来", settings.tpaHereEnabled);
+        Utils.showForm(player, form, response => {
+            if (!response.canceled) {
+                const [tpaEnabled, tpaToEnabled, tpaHereEnabled] = response.formValues;
+                OperationsManager.saveSettings({ ...settings, tpaEnabled, tpaToEnabled, tpaHereEnabled }, player);
+                let cleared = 0;
+                for (const [id, request] of this.requests) {
+                    if (!tpaEnabled || (request.direction === "here" && !tpaHereEnabled) || (request.direction !== "here" && !tpaToEnabled)) {
+                        this.requests.delete(id);
+                        cleared++;
+                    }
+                }
+                AuditManager.log("tpa_admin", player, "TPA", `global=${tpaEnabled} to=${tpaToEnabled} here=${tpaHereEnabled} cleared=${cleared}`);
+                Utils.tell(player, `§aTPA 设置已保存，清理了 ${cleared} 条不再允许的请求。`);
             }
             this.openAdminMenu(player, onBack);
         });

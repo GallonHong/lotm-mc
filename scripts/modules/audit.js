@@ -59,7 +59,10 @@ export class AuditManager {
             tpa_request: "发起 TPA", tpa_accept: "接受 TPA", tpa_reject: "拒绝 TPA", tpa_cancel: "取消 TPA", tpa_expire: "TPA 过期",
             death_record: "记录死亡点", death_back: "死亡返回", admin_clear: "管理员清理",
             region_create: "创建保护区", region_delete: "删除保护区", land_claim: "认领地皮", land_sell: "出售地皮",
-            admin_money: "管理金币", admin_plot_delete: "强删地皮", admin_broadcast: "发布公告", admin_gift: "全服福利"
+            admin_money: "管理金币", admin_plot_delete: "强删地皮", admin_broadcast: "发布公告", admin_gift: "全服福利",
+            ops_settings: "运营设置", daily_claim: "每日签到", code_create: "创建兑换码", code_toggle: "切换兑换码",
+            code_delete: "删除兑换码", code_redeem: "兑换礼包码", pending_claim: "领取暂存奖励", pending_admin: "管理暂存奖励",
+            tpa_receive: "TPA 接收设置", tpa_admin: "TPA 管理设置"
         };
         return labels[type] || type;
     }

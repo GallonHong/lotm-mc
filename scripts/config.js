@@ -9,12 +9,12 @@ export const Config = {
     // -------------------------------------------------------------
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.3.0",
+        version: "2.4.0",
         adminTag: "admin", // 拥有此 tag 或 op 的玩家拥有管理员权限
         menuItem: "minecraft:compass", // 右键唤起主菜单的物品 ID
         menuItemName: "§r§l§6快捷导航菜单 §7(右键使用)",
         giveMenuItemOnJoin: true, // 新玩家加入时是否赠送菜单罗盘
-        chatPrefixes: ["!menu", "!cd", "!caidan", "！菜单", "!shop", "!land", "!lottery", "!market", "!ah", "!pay", "!money", "!warp", "!spawn", "!home", "!tpa", "!back", "!region", "!audit"],
+        chatPrefixes: ["!menu", "!cd", "!caidan", "！菜单", "!shop", "!land", "!lottery", "!market", "!ah", "!pay", "!money", "!warp", "!spawn", "!home", "!tpa", "!back", "!daily", "!redeem", "!region", "!audit"],
     },
 
     // 公共传送点：不收费，仅设置短冷却防止误触刷屏
@@ -30,6 +30,19 @@ export const Config = {
 
     audit: {
         maxEntries: 200,
+    },
+
+    operations: {
+        tpaEnabled: true,
+        tpaToEnabled: true,
+        tpaHereEnabled: true,
+        dailyEnabled: true,
+        redeemEnabled: true,
+        timezoneOffsetMinutes: 480,
+        dailyMoney: [200, 250, 300, 350, 400, 500, 800],
+        daySevenItem: "minecraft:diamond",
+        daySevenAmount: 1,
+        maxCodes: 50,
     },
 
     // 管理员主城/区域保护，优先于玩家地皮
