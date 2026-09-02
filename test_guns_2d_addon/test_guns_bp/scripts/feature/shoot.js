@@ -1,3 +1,4 @@
+import { RecoilManager } from './recoilManager.js';
 import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { fireBullet } from './utils/shootUtils.js';
 import { GrenadeEngine } from './grenadeEngine.js';
@@ -147,6 +148,7 @@ export class ShootManager {
 
       this.deductDurability(player, gun);
       ArcEngine.fireArc(player, gun);
+      RecoilManager.applyRecoil(player, gun);
 
       try {
         player.dimension.playSound('ambient.weather.thunder', player.location, { volume: 2.0, pitch: 1.1 });
@@ -206,6 +208,8 @@ export class ShootManager {
     } else {
       fireBullet(player, gun);
     }
+
+    RecoilManager.applyRecoil(player, gun);
 
     if (gun.shootSound) {
       try {
