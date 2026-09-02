@@ -342,8 +342,8 @@ export class Integration {
                 }
                 this.pendingDisasterRequests.delete(player.id);
                 player.sendMessage(this.isNaturalDisastersAvailable()
-                    ? "§c自然灾害脚本在线，但没有确认本次控制请求。请安装 Natural Disasters Server Events BP v2.0.1 后重新进入世界。"
-                    : "§c自然灾害行为脚本没有启动。请在当前世界的行为包列表启用 Natural Disasters Server Events BP v2.0.1；仅导入 .mcaddon 不会自动给已有世界启用行为包。");
+                    ? "§c自然灾害脚本在线，但没有确认本次控制请求。请安装 Natural Disasters Server Events BP v2.2.0 后重新进入世界。"
+                    : "§c自然灾害行为脚本没有启动。请在当前世界的行为包列表启用 Natural Disasters Server Events BP v2.2.0；仅导入 .mcaddon 不会自动给已有世界启用行为包。");
             } catch {
                 this.pendingDisasterRequests.delete(player.id);
             }

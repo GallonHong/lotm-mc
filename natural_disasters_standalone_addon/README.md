@@ -1,6 +1,6 @@
-# Natural Disasters Standalone v1.0.1
+# Natural Disasters Standalone v1.1.0
 
-完全独立的自然灾害 Addon，不依赖 SAPI Server、摸金都市、怪物或枪械 Addon。包含龙卷风、陨石雨、洪水、雷暴与地震。
+完全独立的自然灾害 Addon，不依赖 SAPI Server、摸金都市、怪物或枪械 Addon。v1.1.0 删除洪水与地震，只保留龙卷风、陨石雨和雷暴。
 
 管理员可在原版工作台合成 `sando_standalone:disaster_controller`，或输入：
 

@@ -1,18 +1,20 @@
 import { world, system, BlockPermutation } from "@minecraft/server";
+import { DISASTER_CONFIG } from "./config.js";
 
 const CFG = {
-  warningSeconds: 20,
-  disasterSeconds: 45,
+  warningSeconds: DISASTER_CONFIG.warningSeconds,
+  disasterSeconds: DISASTER_CONFIG.disasterSeconds,
   cooldownSeconds: 12,
-  maxTrackedMeteors: 18,
-  maxFloodBlocks: 180,
-  maxEarthquakeQueue: 120,
-  maxEntitiesAffectedByTornado: 18,
+  // Legacy cleanup paths remain inert so an in-progress old flood can never
+  // leak temporary blocks across a script reload. Flood/earthquake are not
+  // registered and cannot be selected in v2.2.0.
+  maxFloodBlocks: 0,
+  maxEarthquakeQueue: 0,
   floodRestorePerTick: 12,
-  maxSurfaceCache: 280,
+  ...DISASTER_CONFIG.runtime,
 };
 
-const SETTINGS_KEY = "sando:settings:v2";
+const SETTINGS_KEY = "sando:settings:v3";
 const STATE_KEY = "sando:state:v2";
 const HEARTBEAT_KEY = "interop:natural_disasters_heartbeat";
 const CONTROL_REQUEST_KEY = "interop:natural_disasters_request:v1";
@@ -21,30 +23,28 @@ const SAPI_REGIONS_KEY = "sapi:server:regions:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 
-console.warn("[NaturalDisasters] Server Events v2.1.0 initializing with coordinate-targeted SAPI control...");
+console.warn("[NaturalDisasters] Server Events v2.2.0 initializing; standalone runtime with optional SAPI manual control...");
 
 const DEFAULT_SETTINGS = Object.freeze({
-  enabled: true,
-  autoEnabled: false,
-  overworldEnabled: true,
-  extractionEnabled: true,
-  protectSafeZones: true,
-  blockDamage: false,
-  warningSeconds: 20,
-  disasterSeconds: 45,
-  cooldownSeconds: 120,
-  minIntervalMinutes: 20,
-  maxIntervalMinutes: 40,
-  difficulty: 2,
-  weights: { tornado: 20, meteors: 20, flood: 20, lightning: 20, earthquake: 20 }
+  enabled: DISASTER_CONFIG.enabled,
+  autoEnabled: DISASTER_CONFIG.autoEnabled,
+  overworldEnabled: DISASTER_CONFIG.overworldEnabled,
+  extractionEnabled: DISASTER_CONFIG.extractionEnabled,
+  protectSafeZones: DISASTER_CONFIG.protectSafeZones,
+  blockDamage: DISASTER_CONFIG.blockDamage,
+  warningSeconds: DISASTER_CONFIG.warningSeconds,
+  disasterSeconds: DISASTER_CONFIG.disasterSeconds,
+  cooldownSeconds: DISASTER_CONFIG.cooldownSeconds,
+  minIntervalMinutes: DISASTER_CONFIG.minIntervalMinutes,
+  maxIntervalMinutes: DISASTER_CONFIG.maxIntervalMinutes,
+  difficulty: DISASTER_CONFIG.difficulty,
+  weights: { ...DISASTER_CONFIG.weights }
 });
 
 const DISASTERS = [
   { id: "tornado", name: "§fTORNADO" },
   { id: "meteors", name: "§cMETEOR SHOWER" },
-  { id: "flood", name: "§9MEGA FLOOD" },
   { id: "lightning", name: "§dELECTRIC STORM" },
-  { id: "earthquake", name: "§6EARTHQUAKE" },
 ];
 
 const SCORE_OBJECTIVES = [
@@ -115,12 +115,13 @@ function normalizeSettings(value) {
 }
 
 function loadSettings() {
+  // v2.2.0 起配置文件是唯一真源。旧版由 SAPI 写入的动态属性可能把
+  // autoEnabled 永久留在 false，造成“联动版完全没有灾害”。不再读取
+  // 那份持久状态，只发布当前配置供 SAPI 状态页显示。
+  settings = normalizeSettings(DEFAULT_SETTINGS);
   try {
-    settings = normalizeSettings(parseJson(world.getDynamicProperty(SETTINGS_KEY), DEFAULT_SETTINGS));
     world.setDynamicProperty(SETTINGS_KEY, JSON.stringify(settings));
-  } catch (_) {
-    settings = normalizeSettings(DEFAULT_SETTINGS);
-  }
+  } catch (_) {}
   return settings;
 }
 
@@ -517,7 +518,7 @@ function resetCycleProgressAtNewCycle() {
 
 function startDisaster() {
   const players = participantsFor();
-  if (!players.length) {
+  if (!players.length && !manualOrigin) {
     stopGame(null, "目标维度没有位于非安全区的玩家，灾害已取消。");
     return;
   }
@@ -629,9 +630,9 @@ function tornadoProfile(level) {
 }
 
 function tornadoTick(dim, players) {
-  if (!players.length) return;
   const profile = tornadoProfile(disasterLevel);
   const targets = locationTargets(players);
+  if (!targets.length) return;
 
   if (!tornado || !tornado.isValid) {
     const p = targets[Math.floor(Math.random() * targets.length)];
@@ -1004,7 +1005,7 @@ function disasterTick() {
   let dim;
   try { dim = world.getDimension(activeDimensionId); } catch (_) { return stopGame(null, "目标维度不可用，灾害已停止。"); }
   const players = participantsFor(activeDimensionId);
-  if (!players.length) return;
+  if (!players.length && !manualOrigin) return;
 
   if (disaster.id === "tornado") tornadoTick(dim, players);
   else if (disaster.id === "meteors") meteorTick(dim, players);
@@ -1106,10 +1107,15 @@ function bootSystem(showMessage = false) {
   }
 }
 
-function chooseTargetDimension(requestedDimensionId) {
+function chooseTargetDimension(requestedDimensionId, hasManualOrigin = false) {
   const allowed = allowedDimensionIds();
   if (!allowed.length) return null;
-  if (requestedDimensionId && allowed.includes(requestedDimensionId) && participantsFor(requestedDimensionId).length) return requestedDimensionId;
+  if (requestedDimensionId && allowed.includes(requestedDimensionId)) {
+    try {
+      world.getDimension(requestedDimensionId);
+      if (hasManualOrigin || participantsFor(requestedDimensionId).length) return requestedDimensionId;
+    } catch (_) {}
+  }
   const occupied = allowed.filter(id => {
     try { world.getDimension(id); return participantsFor(id).length > 0; } catch (_) { return false; }
   });
@@ -1169,11 +1175,11 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
     const normalizedOrigin = normalizeOrigin(requestedOrigin);
     manualOrigin = normalizedOrigin;
     manualSafeZoneBypass = Boolean(normalizedOrigin && bypassSafeZone);
-    const targetDimensionId = chooseTargetDimension(requestedDimensionId || source?.dimension?.id);
+    const targetDimensionId = chooseTargetDimension(requestedDimensionId || source?.dimension?.id, Boolean(normalizedOrigin));
     if (!targetDimensionId) {
       manualOrigin = null;
       manualSafeZoneBypass = false;
-      try { source?.sendMessage("§c没有可用目标：目标维度必须已启用，并至少有一名在线玩家。普通触发仍要求玩家位于非安全区。"); } catch (_) {}
+      try { source?.sendMessage("§c没有可用目标：请确认目标维度已启用。自动触发仍要求至少一名玩家位于非安全区；指定坐标的管理员触发不受此限制。"); } catch (_) {}
       scheduleNextAuto();
       return;
     }

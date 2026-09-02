@@ -1,6 +1,6 @@
 # SAPI Server Addon
 
-独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.6.4 在自然灾害管理员页面增加指定维度与 X/Y/Z 坐标触发；坐标模式会明确标记本次事件绕过安全区，并写入审计日志。v2.6.3 的双通道联动与既有服务器功能保持不变。
+独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.6.5 将自然灾害管理员页面收敛为手动指定灾害/维度/X/Y/Z 与停止事件；自动开关、间隔、权重、安全区和地形破坏等高级参数统一由 Natural Disasters Server Events v2.2.0 的 `scripts/config.js` 管理，避免跨 Add-on 配置覆盖导致灾害失效。
 
 ## 目录
 

@@ -17,7 +17,7 @@ const SETTINGS_KEY = "sando_standalone:settings:v3";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.0.1 initializing; direct overworld targeting enabled...");
+console.warn("[NaturalDisastersStandalone] v1.1.0 initializing; tornado, meteors and lightning enabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: true,
@@ -31,15 +31,13 @@ const DEFAULT_SETTINGS = Object.freeze({
   minIntervalMinutes: 20,
   maxIntervalMinutes: 40,
   difficulty: 2,
-  weights: { tornado: 20, meteors: 20, flood: 20, lightning: 20, earthquake: 20 }
+  weights: { tornado: 20, meteors: 20, lightning: 20 }
 });
 
 const DISASTERS = [
   { id: "tornado", name: "§fTORNADO" },
   { id: "meteors", name: "§cMETEOR SHOWER" },
-  { id: "flood", name: "§9MEGA FLOOD" },
   { id: "lightning", name: "§dELECTRIC STORM" },
-  { id: "earthquake", name: "§6EARTHQUAKE" },
 ];
 
 const SCORE_OBJECTIVES = [
@@ -1094,24 +1092,22 @@ function openControllerMenu(player) {
     .button("§6随机灾害")
     .button("§f龙卷风")
     .button("§c陨石雨")
-    .button("§9洪水")
     .button("§d雷暴")
-    .button("§6地震")
     .button(settings.autoEnabled ? "§c关闭自动灾害" : "§a开启自动灾害")
     .button("§4停止当前灾害")
     .button("§8关闭");
   form.show(player).then(result => {
-    if (result.canceled || result.selection === 8) return;
-    const ids = ["", "tornado", "meteors", "flood", "lightning", "earthquake"];
-    if (result.selection <= 5) return startGame(player, ids[result.selection], "minecraft:overworld", settings.difficulty);
-    if (result.selection === 6) {
+    if (result.canceled || result.selection === 6) return;
+    const ids = ["", "tornado", "meteors", "lightning"];
+    if (result.selection <= 3) return startGame(player, ids[result.selection], "minecraft:overworld", settings.difficulty);
+    if (result.selection === 4) {
       settings.autoEnabled = !settings.autoEnabled;
       saveSettings();
       if (settings.autoEnabled) scheduleNextAuto(); else nextAutoTick = Number.POSITIVE_INFINITY;
       player.sendMessage(`§a自动灾害已${settings.autoEnabled ? "开启" : "关闭"}。`);
       return;
     }
-    if (result.selection === 7) stopGame(player);
+    if (result.selection === 5) stopGame(player);
   }).catch(error => player.sendMessage(`§c控制器菜单打开失败：${error}`));
 }
 

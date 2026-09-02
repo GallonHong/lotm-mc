@@ -11,8 +11,8 @@ const json = file => JSON.parse(read(file));
 const bpManifest = json(path.join(bp, "manifest.json"));
 const rpManifest = json(path.join(rp, "manifest.json"));
 
-assert.deepEqual(bpManifest.header.version, [1, 0, 1]);
-assert.deepEqual(rpManifest.header.version, [1, 0, 1]);
+assert.deepEqual(bpManifest.header.version, [1, 1, 0]);
+assert.deepEqual(rpManifest.header.version, [1, 1, 0]);
 assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
 assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
 const resourceDependency = bpManifest.dependencies.find(dep => dep.uuid);
@@ -22,7 +22,10 @@ assert.deepEqual(resourceDependency?.version, rpManifest.header.version);
 const main = read(path.join(bp, "scripts/main.js"));
 for (const marker of ["openControllerMenu", "ActionFormData", "autoEnabled: true", "sando_standalone:menu", "sando_standalone:start", "sando_standalone:stop"]) assert(main.includes(marker), `missing standalone control: ${marker}`);
 for (const marker of ['protectSafeZones: false', 'const playersIn = id', 'return playersIn(id)', 'settings:v3']) assert(main.includes(marker), `missing direct target fix: ${marker}`);
-for (const disaster of ["tornado", "meteors", "flood", "lightning", "earthquake"]) assert(main.includes(disaster));
+const disasterRegistry = main.slice(main.indexOf("const DISASTERS = ["), main.indexOf("const SCORE_OBJECTIVES"));
+for (const disaster of ["tornado", "meteors", "lightning"]) assert(disasterRegistry.includes(disaster));
+for (const removed of ["flood", "earthquake"]) assert(!disasterRegistry.includes(removed), `removed disaster remains registered: ${removed}`);
+assert(!main.includes('.button("§9洪水")') && !main.includes('.button("§6地震")'), "removed disasters remain in standalone menu");
 for (const forbidden of ["sapi:server", "apoc_extract:city", "interop:natural_disasters_request", "consumeControlRequest"]) assert(!main.includes(forbidden), `standalone pack still references integration: ${forbidden}`);
 
 for (const directory of [bp, rp]) {
@@ -36,4 +39,4 @@ for (const directory of [bp, rp]) {
     }
   }
 }
-console.log("Natural Disasters Standalone v1.0.1 validation passed.");
+console.log("Natural Disasters Standalone v1.1.0 validation passed.");
