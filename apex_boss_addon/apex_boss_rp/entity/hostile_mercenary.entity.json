@@ -4,7 +4,8 @@
     "description": {
       "identifier": "apex_boss:hostile_mercenary",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "entity_alphatest",
+        "item_in_hand": "entity_alphatest_glint"
       },
       "textures": {
         "default": "textures/entity/mercenary_woodland",
@@ -12,7 +13,8 @@
         "desert": "textures/entity/mercenary_desert"
       },
       "geometry": {
-        "default": "geometry.humanoid"
+        "default": "geometry.humanoid",
+        "item_in_hand": "geometry.item_in_hand"
       },
       "spawn_egg": {
         "base_color": "#3B444B",
@@ -35,7 +37,8 @@
         "skeleton_attack": "animation.skeleton.attack"
       },
       "render_controllers": [
-        "controller.render.default"
+        "controller.render.default",
+        "controller.render.item_in_hand"
       ]
     }
   }

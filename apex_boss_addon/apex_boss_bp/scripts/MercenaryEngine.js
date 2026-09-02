@@ -13,18 +13,39 @@ export class MercenaryEngine {
   }
 
   static handleMercenaryAI(merc, dim) {
-    // 1. 确保雇佣兵手持 3D 枪械
-    try {
-      const eq = merc.getComponent('minecraft:equippable');
-      if (eq) {
-        const held = eq.getEquipment('Mainhand');
-        if (!held || held.typeId === 'minecraft:air') {
-          eq.setEquipment('Mainhand', new ItemStack('test_gun:ak47', 1));
-        }
+    // 1. 检查雇佣兵是否被【闪光盾】致盲或瘫痪
+    const isBlinded = merc.getEffect('blindness') || merc.getEffect('darkness') || merc.getEffect('slowness');
+    if (isBlinded) {
+      // 处于强光致盲状态：头部乱晃，彻底丧失索敌与开火能力，持续产生致盲电火花
+      if (system.currentTick % 6 === 0) {
+        dim.spawnParticle('minecraft:critical_hit_emitter', merc.location);
+        dim.spawnParticle('minecraft:basic_flame_particle', {
+          x: merc.location.x + (Math.random() - 0.5) * 0.6,
+          y: merc.location.y + 1.6,
+          z: merc.location.z + (Math.random() - 0.5) * 0.6
+        });
       }
-    } catch {}
+      return; // 立即跳过开火与瞄准！
+    }
 
-    // 2. 搜索 40 格内的目标
+    // 2. 双重保障：确保主手稳定渲染 3D 枪械
+    if (system.currentTick % 20 === 0) {
+      try {
+        const eq = merc.getComponent('minecraft:equippable');
+        if (eq) {
+          const held = eq.getEquipment('Mainhand');
+          if (!held || held.typeId === 'minecraft:air') {
+            eq.setEquipment('Mainhand', new ItemStack('test_gun:ak47', 1));
+          }
+        }
+      } catch {
+        try {
+          merc.runCommandAsync('replaceitem entity @s slot.weapon.mainhand 0 test_gun:ak47');
+        } catch {}
+      }
+    }
+
+    // 3. 搜索 40 格内的目标 (排除旁观者)
     const players = dim.getPlayers({ location: merc.location, maxDistance: 40 });
     let target = null;
     let closestDist = 999;
@@ -40,7 +61,6 @@ export class MercenaryEngine {
       }
     }
 
-    // 如果没有玩家，寻找附近的村民或中立生物
     if (!target) {
       const mobs = dim.getEntities({ location: merc.location, maxDistance: 25, families: ['villager'] });
       if (mobs && mobs.length > 0) target = mobs[0];
@@ -51,14 +71,14 @@ export class MercenaryEngine {
     const mLoc = merc.getHeadLocation ? merc.getHeadLocation() : { x: merc.location.x, y: merc.location.y + 1.6, z: merc.location.z };
     const tLoc = target.getHeadLocation ? target.getHeadLocation() : { x: target.location.x, y: target.location.y + 1.2, z: target.location.z };
 
-    // 3. 雇佣兵转身面向目标
+    // 4. 雇佣兵实时转身朝向目标
     try {
       if (typeof merc.lookAt === 'function') {
         merc.lookAt(tLoc);
       }
     } catch {}
 
-    // 4. 每 12 刻 (0.6 秒) 连续扫射 2 发子弹
+    // 5. 每 12 刻 (0.6 秒) 进行实弹点射
     if (system.currentTick % 12 === 0) {
       const dx = tLoc.x - mLoc.x;
       const dy = tLoc.y - mLoc.y;
@@ -68,7 +88,7 @@ export class MercenaryEngine {
 
       const dir = { x: dx / dist, y: dy / dist, z: dz / dist };
 
-      // 枪口火焰与 AK-47 枪声
+      // 枪口烈焰与真实 AK 枪声
       try {
         dim.spawnParticle('minecraft:basic_flame_particle', { x: mLoc.x + dir.x * 0.8, y: mLoc.y + dir.y * 0.8, z: mLoc.z + dir.z * 0.8 });
         dim.playSound('test_gun.ak47_shoot', mLoc, { volume: 1.5, pitch: 0.95 });
@@ -76,7 +96,7 @@ export class MercenaryEngine {
         dim.playSound('random.explode', mLoc, { volume: 0.8, pitch: 1.8 });
       }
 
-      // 生成真实的弹道与子弹实体
+      // 生成真实物理子弹实体
       const bulletSpawnPos = { x: mLoc.x + dir.x * 1.0, y: mLoc.y + dir.y * 1.0, z: mLoc.z + dir.z * 1.0 };
       try {
         const bullet = dim.spawnEntity('test_gun:bullet_rifle', bulletSpawnPos);
@@ -86,7 +106,7 @@ export class MercenaryEngine {
         }
       } catch {}
 
-      // 高亮弹道超光粒子线
+      // 高亮激光弹道轨迹线
       const steps = Math.min(30, Math.floor(dist / 0.6));
       for (let i = 1; i <= steps; i++) {
         const f = i / steps;
@@ -95,7 +115,7 @@ export class MercenaryEngine {
         } catch {}
       }
 
-      // 命中判定与伤害输出 (10~15 点真实枪械伤害)
+      // 命中判定与伤害输出
       const hitChance = Math.max(0.45, 0.95 - (dist / 45.0));
       if (Math.random() < hitChance) {
         const damage = 10 + Math.floor(Math.random() * 6);
