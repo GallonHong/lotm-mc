@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 4, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 4, 0]);
+assert.deepEqual(manifest.header.version, [0, 5, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 5, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -82,18 +82,24 @@ assert(dailyMenu.includes("isUserBusy") && dailyMenu.includes("attempt < 8"), "d
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));
 
-const dungeonStructure = readFileSync(join(bp, "structures/daily_dungeon/abandoned_clinic.mcstructure"));
-assert(dungeonStructure.length > 1000, "clinic dungeon structure is missing or empty");
-assert.equal(dungeonStructure.includes(Buffer.from("mcpe:")), false, "clinic dungeon must not depend on Deadzone custom blocks");
 const dungeonTemplates = await import(`file://${join(bp, "scripts/dungeons/dungeonTemplates.js")}`);
 const clinic = dungeonTemplates.DUNGEON_TEMPLATES.abandoned_clinic;
-assert.deepEqual(clinic.structureSize, { x: 18, y: 10, z: 15 });
-assert.equal(clinic.spawnPoints.length, 3);
-assert.equal(clinic.stages.length, 3);
+assert.deepEqual(clinic.structureSize, { x: 55, y: 25, z: 105 });
+assert.equal(clinic.structures.length, 6);
+assert.equal(clinic.spawnPoints.length, 10);
+assert.equal(clinic.checkpoints.length, 4);
+assert.equal(clinic.stages.length, 9);
+assert.equal(clinic.stages.filter(stage => stage.type === "checkpoint").length, 4);
+for (const component of clinic.structures) {
+  const relative = component.structureId.replace("daily_dungeon:", "");
+  const dungeonStructure = readFileSync(join(bp, "structures", "daily_dungeon", `${relative}.mcstructure`));
+  assert(dungeonStructure.length > 1000, `${component.id} structure is missing or empty`);
+  assert.equal(dungeonStructure.includes(Buffer.from("mcpe:")), false, `${component.id} must not depend on Deadzone custom blocks`);
+}
 assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 2);
 assert(dungeonTemplates.DUNGEON_SLOTS.every(slot => slot.origin.y === 250), "dungeon slots should remain in isolated high-altitude arenas");
 const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js"), "utf8");
-for (const marker of ["structure load", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
+for (const marker of ["structure load", "loadStructureSet", "spawnDungeonMobs", "checkpointReached", "stageHadEnemies", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
 assert(rewards.includes("dungeon_abandoned_clinic"), "clinic reward is missing");
@@ -105,5 +111,6 @@ const sapiMenu = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scrip
 const apocSpawn = readFileSync(join(repo, "apocalypse_mobs_addon/apocalypse_mobs_bp/scripts/spawnDirector.js"), "utf8");
 assert(sapiIntegration.includes("recordDailySale") && sapiMenu.includes("daily:menu"), "SAPI bridge missing");
 assert(apocSpawn.includes("processExternalRequests") && apocSpawn.includes("externalSpawnRequestsKey"), "SpawnDirector bridge missing");
+assert(apocSpawn.includes('request.placement === "exact"'), "SpawnDirector fixed dungeon placement missing");
 
 console.log("Survival Daily & World Events validation passed.");

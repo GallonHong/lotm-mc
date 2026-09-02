@@ -56,7 +56,13 @@ export class SpawnDirector {
         const count = Math.max(1, Math.min(20, Math.floor(Number(request.count) || 1)));
         const tags = Array.isArray(request.tags) ? request.tags.map(String).slice(0, 6) : [];
         for (let index = 0; index < count; index++) {
-          const location = this.findGround(dimension, center, Number(request.minDistance) || 6, Number(request.maxDistance) || 14);
+          const location = request.placement === "exact"
+            ? {
+                x: Number(center.x) + ((index % 3) - 1) * 0.35,
+                y: Number(center.y),
+                z: Number(center.z) + (Math.floor(index / 3) % 3) * 0.35
+              }
+            : this.findGround(dimension, center, Number(request.minDistance) || 6, Number(request.maxDistance) || 14);
           if (location) this.spawnAt(dimension, location, String(request.mobKey || "basic"), tags);
         }
       } catch (error) {

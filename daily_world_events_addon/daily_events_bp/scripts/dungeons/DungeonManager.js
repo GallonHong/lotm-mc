@@ -40,6 +40,31 @@ function safeLocation(player) {
   };
 }
 
+function distanceSquared(a, b) {
+  const dx = Number(a.x) - Number(b.x);
+  const dy = Number(a.y) - Number(b.y);
+  const dz = Number(a.z) - Number(b.z);
+  return dx * dx + dy * dy + dz * dz;
+}
+
+function insideArena(location, origin, bounds, margin = 0) {
+  return location.x >= origin.x + bounds.min.x - margin && location.x <= origin.x + bounds.max.x + margin &&
+    location.y >= origin.y + bounds.min.y - margin && location.y <= origin.y + bounds.max.y + margin &&
+    location.z >= origin.z + bounds.min.z - margin && location.z <= origin.z + bounds.max.z + margin;
+}
+
+function arenaQuery(instance, template) {
+  const min = template.arenaBounds.min;
+  const max = template.arenaBounds.max;
+  const center = absolutePoint(instance.slot.origin, {
+    x: (min.x + max.x) / 2,
+    y: (min.y + max.y) / 2,
+    z: (min.z + max.z) / 2
+  });
+  const radius = Math.sqrt((max.x - min.x) ** 2 + (max.y - min.y) ** 2 + (max.z - min.z) ** 2) / 2 + 4;
+  return { center, radius };
+}
+
 export class DungeonManager {
   static active = new Map();
   static resettingSlots = new Set();
@@ -95,6 +120,10 @@ export class DungeonManager {
       participantScores: { [player.id]: 0 },
       deaths: { [player.id]: 0 },
       stageIndex: -1,
+      respawnOffset: template.entryOffset,
+      stageHadEnemies: false,
+      spawnRetries: 0,
+      emergencySpawned: false,
       startTick: system.currentTick,
       lastPlayerTick: system.currentTick,
       waitUntil: system.currentTick + 80
@@ -121,10 +150,8 @@ export class DungeonManager {
   static loadAndEnter(instance) {
     if (!this.active.has(instance.instanceId)) return;
     const template = dungeonTemplate(instance.templateId);
-    try {
-      const dimension = world.getDimension(instance.slot.dimension);
-      const { x, y, z } = instance.slot.origin;
-      dimension.runCommand(`structure load ${template.structureId} ${x} ${y} ${z}`);
+    this.loadStructureSet(instance, () => {
+      if (!this.active.has(instance.instanceId)) return;
       instance.state = "active";
       instance.startTick = system.currentTick;
       instance.lastPlayerTick = system.currentTick;
@@ -133,20 +160,57 @@ export class DungeonManager {
         if (player) this.teleportInto(player, instance);
       }
       this.beginStage(instance, 0);
-      system.runTimeout(() => this.removeTickingArea(instance.slot), 40);
-    } catch (error) {
+      system.runTimeout(() => this.removeTickingArea(instance.slot), 80);
+    }, error => {
       console.warn(`[DailyEvents][Dungeon] structure load failed: ${error}`);
       this.finish(instance, false, "副本结构加载失败");
+    });
+  }
+
+  static loadStructureSet(instance, onDone, onError) {
+    const template = dungeonTemplate(instance.templateId);
+    let dimension;
+    try {
+      dimension = world.getDimension(instance.slot.dimension);
+      const platform = template.platform;
+      if (platform) {
+        const x1 = instance.slot.origin.x + platform.min.x;
+        const z1 = instance.slot.origin.z + platform.min.z;
+        const x2 = instance.slot.origin.x + platform.max.x;
+        const z2 = instance.slot.origin.z + platform.max.z;
+        dimension.runCommand(`fill ${x1} ${instance.slot.origin.y - 1} ${z1} ${x2} ${instance.slot.origin.y - 1} ${z2} ${platform.block}`);
+      }
+    } catch (error) {
+      onError?.(error);
+      return;
     }
+
+    const structures = Array.isArray(template.structures) ? template.structures : [];
+    const loadNext = index => {
+      if (index >= structures.length) {
+        onDone?.();
+        return;
+      }
+      const component = structures[index];
+      const point = absolutePoint(instance.slot.origin, component.offset);
+      try {
+        dimension.runCommand(`structure load ${component.structureId} ${point.x} ${point.y} ${point.z}`);
+      } catch (error) {
+        onError?.(new Error(`${component.id}: ${error}`));
+        return;
+      }
+      system.runTimeout(() => loadNext(index + 1), Number(template.structureLoadDelayTicks || 8));
+    };
+    loadNext(0);
   }
 
   static teleportInto(player, instance) {
     const template = dungeonTemplate(instance.templateId);
     const dimension = world.getDimension(instance.slot.dimension);
-    const location = absolutePoint(instance.slot.origin, template.entryOffset);
+    const location = absolutePoint(instance.slot.origin, instance.respawnOffset || template.entryOffset);
     try {
       player.teleport(location, { dimension });
-      player.sendMessage(`§6[副本] 已进入 ${template.name}。§8完成三个区域后自动结算个人奖励。`);
+      player.sendMessage(`§6[副本] 已进入 ${template.name}。§8按阶段清理建筑并前往标记点打卡。`);
     } catch (error) {
       console.warn(`[DailyEvents][Dungeon] teleport failed for ${player.name}: ${error}`);
     }
@@ -179,26 +243,61 @@ export class DungeonManager {
     const stage = template?.stages?.[stageIndex];
     if (!stage) return this.finish(instance, true);
     instance.stageIndex = stageIndex;
-    instance.waitUntil = system.currentTick + 100;
+    instance.stageHadEnemies = false;
+    instance.spawnRetries = 0;
+    instance.emergencySpawned = false;
+    const requested = stage.type === "checkpoint" ? 0 : this.spawnStageGroups(instance, stage, false);
+    instance.expectedEnemies = requested;
+    instance.waitUntil = system.currentTick + (stage.type === "checkpoint" ? 20 : Number(template.spawnConfirmTicks || 80));
+    const checkpoint = stage.type === "checkpoint" ? this.checkpoint(instance, stage.checkpoint) : null;
+    const checkpointTarget = checkpoint ? absolutePoint(instance.slot.origin, checkpoint.offset) : null;
+    for (const id of instance.participantIds) {
+      const player = onlinePlayer(id);
+      if (!player) continue;
+      const coordinate = checkpointTarget ? ` §8(${Math.floor(checkpointTarget.x)}, ${Math.floor(checkpointTarget.y)}, ${Math.floor(checkpointTarget.z)})` : "";
+      const detail = stage.type === "checkpoint" ? `§e${stage.hint || "前往任务标记点。"}${coordinate}` : `§c预计敌人 ${requested} 名。`;
+      player.sendMessage(`§6[副本 ${stageIndex + 1}/${template.stages.length}] §f${stage.name}：${detail}`);
+      try { player.onScreenDisplay.setTitle(`§4${stage.name}`, { subtitle: `§e阶段 ${stageIndex + 1}/${template.stages.length}`, fadeInDuration: 5, stayDuration: 35, fadeOutDuration: 10 }); } catch {}
+    }
+  }
+
+  static spawnStageGroups(instance, stage, force) {
     const dimension = world.getDimension(instance.slot.dimension);
     let requested = 0;
-    for (const group of stage.groups) {
-      requested += IntegrationBridge.spawnEventMobs(
+    for (const group of stage.groups || []) {
+      const method = force ? "forceDungeonMobs" : "spawnDungeonMobs";
+      requested += IntegrationBridge[method](
         dimension,
         this.spawnPoint(instance, group.spawnPoint),
         group.mobKey,
         group.count,
-        [instance.tag, DUNGEON_ENTITY_TAG],
-        0.5,
-        2.2
+        [instance.tag, DUNGEON_ENTITY_TAG]
       );
     }
+    return requested;
+  }
+
+  static checkpoint(instance, checkpointId) {
+    const template = dungeonTemplate(instance.templateId);
+    return template.checkpoints.find(value => value.id === checkpointId) || null;
+  }
+
+  static checkpointReached(instance, stage) {
+    const checkpoint = this.checkpoint(instance, stage.checkpoint);
+    if (!checkpoint) return false;
+    const target = absolutePoint(instance.slot.origin, checkpoint.offset);
+    const radiusSq = Number(checkpoint.radius || 4) ** 2;
+    const player = instance.participantIds.map(onlinePlayer).find(value => value &&
+      sameDimension(value.dimension.id, instance.slot.dimension) && distanceSquared(value.location, target) <= radiusSq);
+    if (!player) return false;
+    instance.respawnOffset = checkpoint.offset;
     for (const id of instance.participantIds) {
-      const player = onlinePlayer(id);
-      if (!player) continue;
-      player.sendMessage(`§c[副本 ${stageIndex + 1}/${template.stages.length}] ${stage.name}，预计敌人 ${requested} 名。`);
-      try { player.onScreenDisplay.setTitle(`§4${stage.name}`, { subtitle: `§e阶段 ${stageIndex + 1}/${template.stages.length}`, fadeInDuration: 5, stayDuration: 35, fadeOutDuration: 10 }); } catch {}
+      instance.participantScores[id] = Number(instance.participantScores[id] || 0) + 1;
+      const member = onlinePlayer(id);
+      member?.sendMessage(`§a✓ 已到达：${checkpoint.name}`);
+      try { member?.onScreenDisplay.setActionBar(`§a副本检查点：${checkpoint.name}`); } catch {}
     }
+    return true;
   }
 
   static entities(instance) {
@@ -217,19 +316,47 @@ export class DungeonManager {
     if (system.currentTick - instance.startTick > template.timeoutTicks) return this.finish(instance, false, "副本超时");
 
     const dimension = world.getDimension(instance.slot.dimension);
-    const entry = absolutePoint(instance.slot.origin, template.entryOffset);
-    const nearbyPlayers = dimension.getPlayers({ location: entry, maxDistance: 40 })
-      .filter(player => instance.participantIds.includes(player.id));
+    const nearbyPlayers = instance.participantIds.map(onlinePlayer).filter(player => player &&
+      sameDimension(player.dimension.id, instance.slot.dimension) && insideArena(player.location, instance.slot.origin, template.arenaBounds, 6));
     if (nearbyPlayers.length) instance.lastPlayerTick = system.currentTick;
     else if (system.currentTick - instance.lastPlayerTick > template.abandonTicks) return this.finish(instance, false, "队伍已离开副本");
 
     // 防止普通 SpawnDirector 单位进入实例；副本怪必须持有实例 tag。
-    for (const entity of dimension.getEntities({ location: entry, maxDistance: 38, tags: ["apoc_director"] })) {
+    const query = arenaQuery(instance, template);
+    for (const entity of dimension.getEntities({ location: query.center, maxDistance: query.radius, tags: ["apoc_director"] })) {
       try { if (!entity.hasTag(instance.tag)) entity.remove(); } catch {}
     }
 
-    if (system.currentTick < instance.waitUntil || this.entities(instance).length) return;
-    this.beginStage(instance, instance.stageIndex + 1);
+    const stage = template.stages[instance.stageIndex];
+    if (!stage) return this.finish(instance, true);
+    if (stage.type === "checkpoint") {
+      if (system.currentTick >= instance.waitUntil && this.checkpointReached(instance, stage)) this.beginStage(instance, instance.stageIndex + 1);
+      return;
+    }
+
+    const enemies = this.entities(instance);
+    if (enemies.length) {
+      instance.stageHadEnemies = true;
+      return;
+    }
+    if (system.currentTick < instance.waitUntil) return;
+    if (instance.stageHadEnemies) return this.beginStage(instance, instance.stageIndex + 1);
+
+    if (instance.spawnRetries < Number(template.maxSpawnRetries || 2)) {
+      instance.spawnRetries++;
+      this.spawnStageGroups(instance, stage, false);
+      instance.waitUntil = system.currentTick + Number(template.spawnConfirmTicks || 80);
+      for (const id of instance.participantIds) onlinePlayer(id)?.sendMessage(`§e[副本] 敌人尚未出现，正在重新部署（${instance.spawnRetries}/${template.maxSpawnRetries}）。`);
+      return;
+    }
+    if (!instance.emergencySpawned) {
+      instance.emergencySpawned = true;
+      const forced = this.spawnStageGroups(instance, stage, true);
+      instance.waitUntil = system.currentTick + Number(template.spawnConfirmTicks || 80);
+      for (const id of instance.participantIds) onlinePlayer(id)?.sendMessage(`§6[副本] 已启用确认性补刷，部署 ${forced} 名敌人。`);
+      return;
+    }
+    this.finish(instance, false, "敌人生成失败，请检查 Apocalypse Mobs 是否启用");
   }
 
   static recordCombat(entity, player, damage = 1, killed = false) {
@@ -237,6 +364,7 @@ export class DungeonManager {
     for (const instance of this.active.values()) {
       try {
         if (!entity.hasTag(instance.tag) || !instance.participantIds.includes(player.id)) continue;
+        instance.stageHadEnemies = true;
         const gain = Math.max(0.5, Math.min(3, Number(damage) || 1)) + (killed ? 3 : 0);
         instance.participantScores[player.id] = Number(instance.participantScores[player.id] || 0) + gain;
         return true;
@@ -338,7 +466,7 @@ export class DungeonManager {
       const dimension = world.getDimension(slot.dimension);
       const name = `daily_${slot.id}`;
       try { dimension.runCommand(`tickingarea remove ${name}`); } catch {}
-      dimension.runCommand(`tickingarea add circle ${slot.origin.x} ${slot.origin.y} ${slot.origin.z} 1 ${name} true`);
+      dimension.runCommand(`tickingarea add ${slot.origin.x - 8} ${slot.origin.y} ${slot.origin.z - 8} ${slot.origin.x + 64} ${slot.origin.y} ${slot.origin.z + 112} ${name} true`);
     } catch {}
   }
 
@@ -347,21 +475,19 @@ export class DungeonManager {
   }
 
   static resetSlot(instance) {
-    const template = dungeonTemplate(instance.templateId);
     this.resettingSlots.add(instance.slot.id);
     this.addTickingArea(instance.slot);
     system.runTimeout(() => {
-      try {
-        const dimension = world.getDimension(instance.slot.dimension);
-        const { x, y, z } = instance.slot.origin;
-        dimension.runCommand(`structure load ${template.structureId} ${x} ${y} ${z}`);
-      } catch (error) {
+      this.loadStructureSet(instance, () => {
+        system.runTimeout(() => {
+          this.removeTickingArea(instance.slot);
+          this.resettingSlots.delete(instance.slot.id);
+        }, 40);
+      }, error => {
         console.warn(`[DailyEvents][Dungeon] slot reset failed: ${error}`);
-      }
-      system.runTimeout(() => {
         this.removeTickingArea(instance.slot);
         this.resettingSlots.delete(instance.slot.id);
-      }, 40);
+      });
     }, 20);
   }
 }
