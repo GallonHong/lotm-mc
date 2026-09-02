@@ -24,7 +24,7 @@
         }
       ],
       "render_controllers": [
-        "controller.render.mutant_zombie"
+        "controller.render.default"
       ],
       "enable_attachables": true,
       "spawn_egg": {
