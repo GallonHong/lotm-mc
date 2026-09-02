@@ -1,0 +1,90 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "apex_boss:hostile_mercenary",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "mercenary",
+          "hostile_npc",
+          "monster",
+          "mob"
+        ]
+      },
+      "minecraft:nameable": {
+        "always_show": true,
+        "name": "\u00a7c\u53db\u519b\u7279\u79cd\u96c7\u4f63\u5175\u00a7r"
+      },
+      "minecraft:health": {
+        "value": 100,
+        "max": 100
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.85
+      },
+      "minecraft:movement": {
+        "value": 0.28
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "avoid_damage_blocks": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:knockback_resistance": {
+        "value": 0.5
+      },
+      "minecraft:physics": {
+        "has_gravity": true,
+        "has_collision": true
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": true,
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                }
+              ]
+            },
+            "max_dist": 35
+          }
+        ]
+      },
+      "minecraft:behavior.ranged_attack": {
+        "priority": 3,
+        "burst_shots": 3,
+        "burst_interval": 0.2,
+        "charge_charged_trigger": 0.0,
+        "charge_shoot_trigger": 0.0,
+        "attack_interval_min": 1.5,
+        "attack_interval_max": 2.5,
+        "attack_radius": 35.0
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 5,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 6
+      }
+    }
+  }
+}

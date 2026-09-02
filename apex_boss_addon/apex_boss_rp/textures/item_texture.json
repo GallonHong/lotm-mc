@@ -1,18 +1,15 @@
 {
-  "resource_pack_name": "apex_boss_rp",
+  "resource_pack_name": "apex_boss",
   "texture_name": "atlas.items",
   "texture_data": {
-    "apex_boss_beacon_core": {
+    "boss_summoner": {
       "textures": "textures/items/boss_summoner"
     },
-    "apex_boss:boss_summoner": {
-      "textures": "textures/items/boss_summoner"
-    },
-    "apex_boss_juggernaut_core": {
+    "juggernaut_core": {
       "textures": "textures/items/juggernaut_core"
     },
-    "apex_boss:juggernaut_core": {
-      "textures": "textures/items/juggernaut_core"
+    "zombie_horde_egg": {
+      "textures": "textures/items/zombie_horde_egg"
     }
   }
 }

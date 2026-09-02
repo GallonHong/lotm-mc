@@ -1,0 +1,26 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apex_boss:hostile_mercenary",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/mercenary_woodland",
+        "urban": "textures/entity/mercenary_urban",
+        "desert": "textures/entity/mercenary_desert"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.custom"
+      },
+      "spawn_egg": {
+        "base_color": "#3B444B",
+        "overlay_color": "#C2B280"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

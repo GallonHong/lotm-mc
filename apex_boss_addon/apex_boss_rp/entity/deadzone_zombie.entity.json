@@ -1,0 +1,25 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apex_boss:deadzone_zombie",
+      "materials": {
+        "default": "zombie"
+      },
+      "textures": {
+        "default": "textures/entity/deadzone_zombie",
+        "host": "textures/entity/deadzone_zombie_host"
+      },
+      "geometry": {
+        "default": "geometry.zombie"
+      },
+      "spawn_egg": {
+        "base_color": "#2E4F2F",
+        "overlay_color": "#8B0000"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}
