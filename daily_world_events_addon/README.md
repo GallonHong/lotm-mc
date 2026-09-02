@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.5.0 将废弃医院扩展为多 Structure 拼接的封锁小镇，并修复异步刷怪请求未落地时副本错误跳过战斗阶段的问题。
+独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.5.1 将废弃医院扩展为多 Structure 拼接的封锁小镇，修复异步刷怪阶段，并让副本菜单完整处理跨 Addon 表单切换时的 `UserBusy`。
 
 ## 联动关系
 

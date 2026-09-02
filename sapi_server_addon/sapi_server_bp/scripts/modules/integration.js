@@ -229,7 +229,16 @@ export class Integration {
 
     static send(player, eventId, message = "") {
         try {
-            player.runCommand(`scriptevent ${eventId} ${message}`.trim());
+            // 等上一张服务器表单彻底关闭后再触发另一个 Addon 的 UI，
+            // 避免 Bedrock 返回 UserBusy 后静默吞掉目标菜单。
+            system.runTimeout(() => {
+                try {
+                    player.runCommand(`scriptevent ${eventId} ${message}`.trim());
+                } catch (error) {
+                    console.warn(`[Integration] Failed to send ${eventId}: ${error}`);
+                    try { player.sendMessage("§c联动菜单打开失败，请确认目标 Addon 已启用。"); } catch {}
+                }
+            }, 3);
             return true;
         } catch {
             return false;

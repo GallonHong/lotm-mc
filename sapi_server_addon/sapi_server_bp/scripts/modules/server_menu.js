@@ -32,16 +32,13 @@ export class ServerMenuManager {
                 `§8══════════════════════════════`
             );
 
-        const dailyReady = Integration.isDailyEventsAvailable();
         const lotmReady = Integration.isLotmAvailable();
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点\n§r§8前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
         add("§l§a🏠 个人传送\n§r§8Home、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
         add("§l§e🎁 每日福利\n§r§8签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
-        // 委托行动入口
-        add("§l§6📋 生存联盟今日委托\n§r§8每日任务、活跃度、世界事件与副本", "textures/ui/achievements", () => {
-            Integration.send(player, "daily:menu");
-        });
+        add("§l§6📋 生存联盟委托\n§r§8日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
+        add("§l§c⚔ 副本行动\n§r§8进入多建筑封锁小镇副本", "textures/ui/warning_alex", () => Integration.send(player, "daily:dungeon"));
         add("§l§6🏦 个人银行\n§r§8资产查询与玩家转账", "textures/ui/Trade2", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
         add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/ui/MCStore_Gold_large", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));

@@ -12,7 +12,7 @@ import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.5.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.5.1 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -190,7 +190,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   }, 2);
   else if (id === "daily:help") system.runTimeout(() => DailyMenu.openHelp(player), 2);
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, event.message || "all");
-  else if (id === "daily:dungeon") DungeonMenu.open(player);
+  else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }
   else if (id === "daily:event" && isAdmin(player)) handleCommand(player, `!event ${event.message || ""}`);

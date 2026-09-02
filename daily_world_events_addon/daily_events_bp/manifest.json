@@ -1,19 +1,19 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Survival Daily & World Events BP v0.5.0",
+    "name": "Survival Daily & World Events BP v0.5.1",
     "description": "Daily quests, zone-scaled world events and configurable dungeon instances.",
     "uuid": "c6ef6f20-3d85-4d84-bf93-4b39e77e2760",
-    "version": [0, 5, 0],
+    "version": [0, 5, 1],
     "min_engine_version": [1, 21, 50]
   },
   "modules": [
-    { "type": "data", "uuid": "4eb84713-d0f9-47ac-a36b-2bcb7acc7001", "version": [0, 5, 0] },
-    { "type": "script", "language": "javascript", "uuid": "14631ce9-6658-4be5-ad0d-3c65f1a0883d", "version": [0, 5, 0], "entry": "scripts/main.js" }
+    { "type": "data", "uuid": "4eb84713-d0f9-47ac-a36b-2bcb7acc7001", "version": [0, 5, 1] },
+    { "type": "script", "language": "javascript", "uuid": "14631ce9-6658-4be5-ad0d-3c65f1a0883d", "version": [0, 5, 1], "entry": "scripts/main.js" }
   ],
   "dependencies": [
     { "module_name": "@minecraft/server", "version": "1.19.0" },
     { "module_name": "@minecraft/server-ui", "version": "1.3.0" },
-    { "uuid": "a62ce956-662d-43c4-863b-020a42563552", "version": [0, 5, 0] }
+    { "uuid": "a62ce956-662d-43c4-863b-020a42563552", "version": [0, 5, 1] }
   ]
 }

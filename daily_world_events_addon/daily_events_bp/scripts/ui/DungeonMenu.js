@@ -3,13 +3,19 @@ import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { DungeonManager } from "../dungeons/DungeonManager.js";
 import { DUNGEON_TEMPLATES } from "../dungeons/dungeonTemplates.js";
 
+function isUserBusy(value) {
+  const reason = String(value?.cancelationReason || value?.cancellationReason || value?.message || value || "").toLowerCase();
+  return reason.includes("userbusy") || reason.includes("user busy");
+}
+
 function show(player, form, callback, attempt = 0) {
-  form.show(player).then(result => {
-    if (!result.canceled) callback(result);
+  system.runTimeout(() => form.show(player).then(result => {
+    if (!result.canceled) return callback(result);
+    if (isUserBusy(result) && attempt < 8) return show(player, form, callback, attempt + 1);
   }).catch(error => {
-    if (String(error).includes("UserBusy") && attempt < 8) return system.runTimeout(() => show(player, form, callback, attempt + 1), 4);
+    if (isUserBusy(error) && attempt < 8) return show(player, form, callback, attempt + 1);
     try { player.sendMessage(`§c副本菜单打开失败：${error}`); } catch {}
-  });
+  }), attempt === 0 ? 3 : 5);
 }
 
 export class DungeonMenu {
@@ -37,7 +43,7 @@ export class DungeonMenu {
 
   static confirmStart(player, template, onBack) {
     const form = new MessageFormData().title(`§l${template.name}`)
-      .body(`§7${template.description}\n\n§f地图：§e18×10×15 废弃诊所\n§f阶段：§e${template.stages.length}\n§f复活：§e每人 ${template.maxDeathsPerPlayer} 次\n§f限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n§f奖励：§e按个人贡献独立结算`)
+      .body(`§7${template.description}\n\n§f地图：§e${template.structureSize.x}×${template.structureSize.y}×${template.structureSize.z} 多建筑小镇\n§fStructure：§e${template.structures.length} 个\n§f阶段：§e${template.stages.length}\n§f复活：§e每人 ${template.maxDeathsPerPlayer} 次\n§f限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n§f奖励：§e按个人贡献独立结算`)
       .button1("§a创建副本")
       .button2("§8返回");
     show(player, form, result => {
