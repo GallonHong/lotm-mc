@@ -299,8 +299,16 @@ export class ArtilleryEngine {
 
       for (const ent of entities) {
         if (!ent || !ent.isValid()) continue;
-        if (shooter && ent.id === shooter.id) continue;
+        // 1. 自身绝对免疫轰炸伤害与击退 (Immunity for shooter)
+        if (ent.id === shell.shooterId) continue;
+        if (shooter && (ent.id === shooter.id || ent.nameTag === shooter.nameTag || ent.name === shooter.name)) continue;
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+
+        // 2. 保护自身驯服的宠物 (狗/猫/马)
+        try {
+          const tameable = ent.getComponent('minecraft:tameable');
+          if (tameable && tameable.tamedToPlayerId === shell.shooterId) continue;
+        } catch {}
 
         try {
           ent.applyDamage(shellDmg, {
