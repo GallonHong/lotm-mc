@@ -5,6 +5,7 @@ import { Utils } from "../utils.js";
 import { EconomyManager } from "./economy.js";
 import { RegionManager } from "./region.js";
 import { AuditManager } from "./audit.js";
+import { Integration } from "./integration.js";
 
 /**
  * 地皮/领地保护系统管理器
@@ -106,6 +107,12 @@ export class LandManager {
 
         if (!RegionManager.isLandClaimAllowed(dimensionId, chunkX, chunkZ)) {
             Utils.tell(player, "§c该区块与管理员保护区重叠，无法认领为玩家地皮。");
+            Utils.sound.fail(player);
+            return;
+        }
+
+        if (Integration.isApocalypseSafeChunk(dimensionId, chunkX, chunkZ)) {
+            Utils.tell(player, "§c该区块与安全区重叠，安全区内不能创建玩家地皮。");
             Utils.sound.fail(player);
             return;
         }

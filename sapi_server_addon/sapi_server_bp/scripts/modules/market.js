@@ -136,7 +136,10 @@ export class MarketManager {
         } catch {}
         try {
             const durability = item.getComponent("minecraft:durability") || item.getComponent("durability");
-            if (durability) return "带耐久组件的装备暂不支持寄卖，以免损失耐久数据";
+            const damage = Math.max(0, Number(durability?.damage || 0));
+            if (durability && (!Number.isFinite(damage) || damage > 0)) {
+                return "该武器已有耐久损耗；仅允许上架耐久未损耗、尚未使用的武器";
+            }
         } catch {}
         try {
             const enchantable = item.getComponent("minecraft:enchantable") || item.getComponent("enchantable");
@@ -153,6 +156,14 @@ export class MarketManager {
             typeId: item.typeId,
             nameTag: String(item.nameTag || "").slice(0, 120),
             lore: lore.slice(0, 20).map(line => String(line).slice(0, 240)),
+            pristineDurability: (() => {
+                try {
+                    const durability = item.getComponent("minecraft:durability") || item.getComponent("durability");
+                    return Boolean(durability) && Number(durability.damage || 0) === 0;
+                } catch {
+                    return false;
+                }
+            })(),
         };
     }
 
@@ -277,6 +288,7 @@ export class MarketManager {
                 typeId: snapshot.typeId,
                 nameTag: snapshot.nameTag,
                 lore: snapshot.lore,
+                pristineDurability: snapshot.pristineDurability,
                 amount,
                 unitPrice,
                 createdAt: Date.now(),

@@ -4,7 +4,42 @@ const SERVER_HEARTBEAT = "interop:sapi_server_heartbeat";
 const LOTM_HEARTBEAT = "interop:lotm_heartbeat";
 const DAILY_EVENTS_HEARTBEAT = "interop:daily_events_heartbeat";
 const DAILY_SALES_KEY = "interop:daily_sales:v1";
+const APOCALYPSE_HEARTBEAT = "apoc:heartbeat";
+const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
+const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const HEARTBEAT_MAX_AGE_MS = 15000;
+const APOCALYPSE_FALLBACK_SAFE_RADIUS = 64;
+
+const APOCALYPSE_PRESET_SAFE_ZONES = Object.freeze([
+    { dimension: "minecraft:overworld", minX: 2349, maxX: 2635, minZ: 1863, maxZ: 2069 },
+    { dimension: "minecraft:overworld", minX: 2352, maxX: 2585, minZ: 1165, maxZ: 1303 },
+    { dimension: "minecraft:overworld", minX: 1942, maxX: 2087, minZ: 1273, maxZ: 1465 },
+]);
+
+function parseArray(raw) {
+    try {
+        const value = typeof raw === "string" ? JSON.parse(raw) : [];
+        return Array.isArray(value) ? value : [];
+    } catch {
+        return [];
+    }
+}
+
+function readWorldArray(key) {
+    try {
+        return parseArray(world.getDynamicProperty(key));
+    } catch {
+        return [];
+    }
+}
+
+function normalizeDimension(value) {
+    return String(value || "").replace("minecraft:", "");
+}
+
+function rectanglesOverlap(a, b) {
+    return a.minX <= b.maxX && a.maxX >= b.minX && a.minZ <= b.maxZ && a.maxZ >= b.minZ;
+}
 
 /** 独立 Add-on 之间不使用源码导入，只通过心跳、动态属性与 scriptevent 联动。 */
 export class Integration {
@@ -31,6 +66,73 @@ export class Integration {
 
     static isDailyEventsAvailable() {
         return this.isAlive(DAILY_EVENTS_HEARTBEAT);
+    }
+
+    static isApocalypseAvailable() {
+        // Apocalypse 每 10 秒刷新一次心跳，额外留出一轮调度余量。
+        const heartbeat = this.readHeartbeat(APOCALYPSE_HEARTBEAT);
+        return heartbeat > 0 && Date.now() - heartbeat <= 30000;
+    }
+
+    /**
+     * 判断整个 16x16 地皮区块是否与 Apocalypse 安全区相交。
+     * 包含内置安全区、管理员动态安全区和主城出生点 64 格保险范围。
+     */
+    static isApocalypseSafeChunk(dimensionId, chunkX, chunkZ) {
+        if (!this.isApocalypseAvailable()) return false;
+
+        const dimension = normalizeDimension(dimensionId);
+        const chunk = {
+            minX: Math.floor(Number(chunkX)) * 16,
+            maxX: Math.floor(Number(chunkX)) * 16 + 15,
+            minZ: Math.floor(Number(chunkZ)) * 16,
+            maxZ: Math.floor(Number(chunkZ)) * 16 + 15,
+        };
+        if (![chunk.minX, chunk.maxX, chunk.minZ, chunk.maxZ].every(Number.isFinite)) return true;
+
+        const presetOverlap = APOCALYPSE_PRESET_SAFE_ZONES.some(zone =>
+            normalizeDimension(zone.dimension) === dimension && rectanglesOverlap(chunk, zone)
+        );
+        if (presetOverlap) return true;
+
+        const dynamicZones = readWorldArray(APOCALYPSE_ZONES_KEY);
+        const dynamicOverlap = dynamicZones.some(zone => {
+            if (zone?.type !== "safe" || !zone.min || !zone.max) return false;
+            if (normalizeDimension(zone.dimension) !== dimension) return false;
+            const bounds = {
+                minX: Number(zone.min.x), maxX: Number(zone.max.x),
+                minZ: Number(zone.min.z), maxZ: Number(zone.max.z),
+            };
+            if (![bounds.minX, bounds.maxX, bounds.minZ, bounds.maxZ].every(Number.isFinite)) return false;
+            return rectanglesOverlap(chunk, bounds);
+        });
+        if (dynamicOverlap) return true;
+
+        const warps = readWorldArray(SAPI_WARPS_KEY);
+        const spawnWarp = warps.find(warp => warp?.id === "spawn" || warp?.isSpawn);
+        let spawn;
+        if (spawnWarp) {
+            spawn = {
+                dimension: spawnWarp.dimension,
+                x: Number(spawnWarp.x),
+                z: Number(spawnWarp.z),
+            };
+        } else {
+            try {
+                const location = world.getDefaultSpawnLocation();
+                spawn = { dimension: "minecraft:overworld", x: Number(location.x), z: Number(location.z) };
+            } catch {
+                spawn = { dimension: "minecraft:overworld", x: 0, z: 0 };
+            }
+        }
+        if (normalizeDimension(spawn.dimension) !== dimension || !Number.isFinite(spawn.x) || !Number.isFinite(spawn.z)) return false;
+
+        // 圆形安全区与矩形区块的最近点距离。
+        const nearestX = Math.max(chunk.minX, Math.min(spawn.x, chunk.maxX));
+        const nearestZ = Math.max(chunk.minZ, Math.min(spawn.z, chunk.maxZ));
+        const dx = nearestX - spawn.x;
+        const dz = nearestZ - spawn.z;
+        return dx * dx + dz * dz <= APOCALYPSE_FALLBACK_SAFE_RADIUS * APOCALYPSE_FALLBACK_SAFE_RADIUS;
     }
 
     /** 累计成交额桥接：日常 Add-on 只读取差值，不介入 SAPI 交易。 */

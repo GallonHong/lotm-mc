@@ -1,6 +1,6 @@
 # SAPI Server Addon
 
-独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.5.3 将界面中的白色和浅灰文字统一替换为黑色与深灰色，改善浅色菜单背景上的可读性。
+独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.5.4 禁止在 Apocalypse 安全区创建地皮，并允许寄卖耐久未损耗的武器；已有耐久损耗的武器仍会被拒绝。
 
 ## 目录
 
