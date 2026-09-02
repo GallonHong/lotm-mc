@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.0 增加供 Daily & World Events Addon 使用的 SpawnDirector 跨包请求总线。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.1 增加供 Daily & World Events Addon 使用的 SpawnDirector 跨包请求总线，并修复补给箱几何资源引用。
 
 ## 已实现
 

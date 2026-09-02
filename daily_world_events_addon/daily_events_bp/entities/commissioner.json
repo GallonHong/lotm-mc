@@ -10,7 +10,7 @@
       "minecraft:movement": { "value": 0 },
       "minecraft:physics": { "has_gravity": true, "has_collision": true },
       "minecraft:persistent": {},
-      "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": false }] },
+      "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": "no" }] },
       "minecraft:interact": { "interactions": [{
         "on_interact": { "filters": { "test": "is_family", "subject": "other", "value": "player" }, "event": "daily:interacted", "target": "self" },
         "interact_text": "action.interact"

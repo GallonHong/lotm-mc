@@ -8,7 +8,7 @@ import { EVENT_TEMPLATES } from "./events/templates/eventTemplates.js";
 import { DailyMenu, DailyAdminMenu, isAdmin } from "./ui/DailyMenu.js";
 import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 
-console.warn("[DailyEvents] Survival Daily & World Events v0.1.0 initializing...");
+console.warn("[DailyEvents] Survival Daily & World Events v0.1.1 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());

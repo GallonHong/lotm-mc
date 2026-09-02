@@ -9,7 +9,7 @@
       "minecraft:collision_box": { "width": 2.4, "height": 1.4 },
       "minecraft:physics": { "has_gravity": true, "has_collision": true },
       "minecraft:persistent": {},
-      "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": false }] }
+      "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": "no" }] }
     }
   }
 }

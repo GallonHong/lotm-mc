@@ -1,17 +1,17 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs RP v0.1.0",
+    "name": "Apocalypse Mobs RP v0.1.1",
     "description": "Resources for Apocalypse Mobs.",
     "uuid": "03db80ee-e322-46ce-8787-7efab344707c",
-    "version": [0, 1, 0],
+    "version": [0, 1, 1],
     "min_engine_version": [1, 21, 50]
   },
   "modules": [
     {
       "type": "resources",
       "uuid": "97c74218-d546-45fa-b895-95f0f3effd19",
-      "version": [0, 1, 0]
+      "version": [0, 1, 1]
     }
   ]
 }
