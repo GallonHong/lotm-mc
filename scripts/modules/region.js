@@ -2,6 +2,7 @@ import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
 import { Utils } from "../utils.js";
+import { AuditManager } from "./audit.js";
 
 const REGIONS_KEY = "sapi:server:regions:v1";
 
@@ -86,7 +87,7 @@ export class RegionManager {
         }
         const volume = (max.x - min.x + 1) * (max.y - min.y + 1) * (max.z - min.z + 1);
         if (volume > (Config.regions?.maxVolume ?? 4000000)) return false;
-        regions.push({
+        const region = {
             id: `region_${Date.now().toString(36)}`,
             name: String(name || "主城保护区").replace(/[\n\r§]/g, "").trim().slice(0, 24) || "主城保护区",
             dimension: selection.a.dimension,
@@ -96,15 +97,21 @@ export class RegionManager {
             flags: { ...Config.regions.defaultFlags },
             createdBy: player.name,
             createdAt: Date.now()
-        });
+        };
+        regions.push(region);
         this.selections.delete(player.id);
-        return this.saveRegions(regions);
+        const saved = this.saveRegions(regions);
+        if (saved) AuditManager.log("region_create", player, region.name, `${region.dimension} ${region.min.x},${region.min.y},${region.min.z} -> ${region.max.x},${region.max.y},${region.max.z}`);
+        return saved;
     }
 
-    static removeRegion(id) {
+    static removeRegion(id, actor = "system") {
         const regions = this.getRegions();
+        const removed = regions.find(region => region.id === id);
         const next = regions.filter(region => region.id !== id);
-        return next.length !== regions.length && this.saveRegions(next);
+        const saved = next.length !== regions.length && this.saveRegions(next);
+        if (saved) AuditManager.log("region_delete", actor, removed?.name || id, id);
+        return saved;
     }
 
     static subscribe(eventSignal, label, callback) {
@@ -226,7 +233,7 @@ export class RegionManager {
             if (!region) return this.openAdminMenu(player, onBack);
             const confirm = new MessageFormData().title("§l§c确认删除").body(`§f确定删除 §e${region.name}§f？`).button1("§c删除").button2("§7取消");
             Utils.showForm(player, confirm, answer => {
-                if (answer.selection === 0 && this.removeRegion(region.id)) Utils.tell(player, `§a已删除保护区：§e${region.name}`);
+                if (answer.selection === 0 && this.removeRegion(region.id, player)) Utils.tell(player, `§a已删除保护区：§e${region.name}`);
                 this.openAdminMenu(player, onBack);
             });
         });

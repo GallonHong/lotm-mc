@@ -4,6 +4,7 @@ import { Config } from "../config.js";
 import { Utils } from "../utils.js";
 import { EconomyManager } from "./economy.js";
 import { RegionManager } from "./region.js";
+import { AuditManager } from "./audit.js";
 
 /**
  * 地皮/领地保护系统管理器
@@ -147,6 +148,7 @@ export class LandManager {
         this.setPlayerPlots(player, playerPlots);
 
         Utils.tell(player, `§a🎉 恭喜！成功购买区块领地 [${chunkX}, ${chunkZ}]！花费 ${Utils.formatCurrency(price)}。`);
+        AuditManager.log("land_claim", player, `[${chunkX},${chunkZ}]`, `${dimensionId} price=${price}`);
         Utils.sound.rareWin(player);
         this.showPlotBoundary(player, chunkX, chunkZ);
     }
@@ -171,6 +173,7 @@ export class LandManager {
         this.setPlayerPlots(player, playerPlots);
 
         Utils.tell(player, `§a已成功出售地皮 [${plot.name}]，返还 ${Utils.formatCurrency(refund)}！`);
+        AuditManager.log("land_sell", player, plot.name, `${plot.dimension} [${plot.chunkX},${plot.chunkZ}] refund=${refund}`);
         Utils.sound.success(player);
     }
 

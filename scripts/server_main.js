@@ -10,14 +10,16 @@ import { ServerMenuManager } from "./modules/server_menu.js";
 import { Integration } from "./modules/integration.js";
 import { TeleportManager } from "./modules/teleport.js";
 import { RegionManager } from "./modules/region.js";
+import { AuditManager } from "./modules/audit.js";
 
 function initServerSystem() {
     console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
     try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
     RegionManager.registerProtectionEvents();
     LandManager.registerProtectionEvents();
+    TeleportManager.registerEvents();
     Integration.startServerHeartbeat();
-    console.warn("[SAPI Server] Economy, Shop, Land, Lottery, Market, free Warps, Regions and integration bridge initialized.");
+    console.warn("[SAPI Server] Economy, Shop, Land, Lottery, Market, free Warps/Home/TPA/DeathBack, Regions and Audit initialized.");
 }
 
 system.run(initServerSystem);
@@ -26,6 +28,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     if (!Utils.isValid(player)) return;
     EconomyManager.getBalance(player);
     MarketManager.claimPendingPayout(player, initialSpawn);
+    TeleportManager.handlePlayerSpawn(player);
     if (!initialSpawn) return;
     Utils.tell(player, `§a欢迎来到 ${Config.system.serverName} §a服务器！`);
     Utils.tell(player, "§7手持罗盘右键可打开服务器菜单。");
@@ -33,6 +36,16 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
         Utils.giveItem(player, Config.system.menuItem, 1, Config.system.menuItemName, ["§7右键打开服务器导航菜单"]);
     }
 });
+
+const playerLeave = world.afterEvents?.playerLeave;
+if (playerLeave && typeof playerLeave.subscribe === "function") {
+    playerLeave.subscribe(({ playerId }) => {
+        TeleportManager.cooldowns.delete(playerId);
+        for (const [id, request] of TeleportManager.requests) {
+            if (request.fromId === playerId || request.toId === playerId) TeleportManager.requests.delete(id);
+        }
+    });
+}
 
 world.afterEvents.itemUse.subscribe(({ source: player, itemStack }) => {
     if (!Utils.isValid(player) || !itemStack) return;
@@ -69,7 +82,12 @@ function handleChat(event) {
         "!传送": () => TeleportManager.openWarpMenu(player),
         "!spawn": () => TeleportManager.teleportToSpawn(player),
         "!主城": () => TeleportManager.teleportToSpawn(player),
+        "!home": () => TeleportManager.openHomeMenu(player),
+        "!tpa": () => TeleportManager.openTpaMenu(player),
+        "!back": () => TeleportManager.returnToDeath(player),
+        "!返回": () => TeleportManager.returnToDeath(player),
         "!region": () => RegionManager.openAdminMenu(player),
+        "!audit": () => AuditManager.openAdminUI(player),
         "!admin": () => ServerMenuManager.openAdminPanel(player),
     };
     const route = routes[message];
@@ -96,6 +114,10 @@ if (scriptEvents?.subscribe) {
         else if (["system:bank", "gui:bank", "bank:open"].includes(id)) EconomyManager.openBankUI(player);
         else if (["system:warp", "gui:warp", "warp:open"].includes(id)) TeleportManager.openWarpMenu(player);
         else if (["system:spawn", "spawn:teleport"].includes(id)) TeleportManager.teleportToSpawn(player);
+        else if (["system:home", "home:open"].includes(id)) TeleportManager.openHomeMenu(player);
+        else if (["system:tpa", "tpa:open"].includes(id)) TeleportManager.openTpaMenu(player);
+        else if (["system:back", "death:back"].includes(id)) TeleportManager.returnToDeath(player);
         else if (["system:region", "region:admin"].includes(id)) RegionManager.openAdminMenu(player);
+        else if (["system:audit", "audit:admin"].includes(id)) AuditManager.openAdminUI(player);
     });
 }

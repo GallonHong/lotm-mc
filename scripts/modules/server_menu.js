@@ -10,6 +10,7 @@ import { MarketManager } from "./market.js";
 import { Integration } from "./integration.js";
 import { TeleportManager } from "./teleport.js";
 import { RegionManager } from "./region.js";
+import { AuditManager } from "./audit.js";
 
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
 export class ServerMenuManager {
@@ -34,6 +35,7 @@ export class ServerMenuManager {
 
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点\n§r§8前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
+        add("§l§a🏠 个人传送\n§r§8Home、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
         add("§l§6🏦 个人银行\n§r§8资产查询与玩家转账", "textures/ui/Trade2", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
         add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/ui/MCStore_Gold_large", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
@@ -60,6 +62,7 @@ export class ServerMenuManager {
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
+        add("§l§e📋 管理与审计日志", "textures/ui/achievements", () => AuditManager.openAdminUI(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6💵 玩家金币管理", "textures/ui/Trade2", () => this.openPlayerMoneyAdmin(player, onBack));
         add("§l§4🗑️ 强制删除当前地皮", "textures/ui/trash", () => this.forceDeleteCurrentPlot(player, onBack));
         add("§l§e📢 发布全服公告", "textures/ui/accessibility_glyph_color", () => this.openBroadcastModal(player, onBack));
@@ -86,9 +89,12 @@ export class ServerMenuManager {
             const amount = Math.floor(Number(rawAmount));
             if (!Utils.isValid(target) || !Number.isFinite(amount) || amount < 0) {
                 Utils.tell(player, "§c玩家或金额无效。");
-            } else if (operation === 0) EconomyManager.addBalance(target, amount);
-            else if (operation === 1) EconomyManager.removeBalance(target, amount);
-            else EconomyManager.setBalance(target, amount);
+            } else {
+                if (operation === 0) EconomyManager.addBalance(target, amount);
+                else if (operation === 1) EconomyManager.removeBalance(target, amount);
+                else EconomyManager.setBalance(target, amount);
+                AuditManager.log("admin_money", player, target.name, `${["增加", "扣除", "设定"][operation]} ${amount}`);
+            }
             onBack?.();
         });
     }
@@ -103,7 +109,10 @@ export class ServerMenuManager {
         }
         const form = new MessageFormData().title("§l§4确认删除地皮").body(`§f${plot.name}\n§7[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§7取消");
         Utils.showForm(player, form, (res) => {
-            if (res.selection === 0) LandManager.deletePlot(dimension, chunkX, chunkZ);
+            if (res.selection === 0) {
+                LandManager.deletePlot(dimension, chunkX, chunkZ);
+                AuditManager.log("admin_plot_delete", player, plot.ownerName, `${dimension} [${chunkX},${chunkZ}] ${plot.name}`);
+            }
             onBack?.();
         });
     }
@@ -112,7 +121,10 @@ export class ServerMenuManager {
         const form = new ModalFormData().title("§l§e📢 发布公告").textField("内容", "服务器公告");
         Utils.showForm(player, form, (res) => {
             const content = res.formValues?.[0]?.trim();
-            if (content) Utils.broadcast(`§e[管理员 ${player.name}] §f${content}`);
+            if (content) {
+                Utils.broadcast(`§e[管理员 ${player.name}] §f${content}`);
+                AuditManager.log("admin_broadcast", player, "all", content);
+            }
             onBack?.();
         });
     }
@@ -124,6 +136,7 @@ export class ServerMenuManager {
             if (Number.isFinite(amount) && amount > 0) {
                 for (const target of world.getAllPlayers()) EconomyManager.addBalance(target, amount);
                 Utils.broadcast(`§a管理员发放了每人 ${Utils.formatCurrency(amount)} 的福利。`);
+                AuditManager.log("admin_gift", player, "all", `每人 ${amount}，在线 ${world.getAllPlayers().length} 人`);
             }
             onBack?.();
         });
