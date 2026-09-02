@@ -8,6 +8,7 @@
     "animations": { "base": "animation.humanoid.base_pose", "move": "animation.humanoid.move", "look": "animation.humanoid.look_at_target.default", "attack": "animation.zombie.attack_bare_hand" },
     "scripts": { "animate": ["base", "move", "look", "attack"] },
     "render_controllers": ["controller.render.default"],
+    "enable_attachables": true,
     "spawn_egg": { "base_color": "#536B3D", "overlay_color": "#792D2D" }
   } }
 }

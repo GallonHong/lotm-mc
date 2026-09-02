@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.7.0",
+  version: "0.8.0",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,
@@ -47,5 +47,5 @@ export const MOB_TARGETS = Object.freeze({
   runner: ["apoc:infected_runner", "minecraft:husk"],
   mutant: ["apoc:infected_mutant"],
   heavy: ["apoc:infected_heavy"],
-  elite: ["apoc:infected_mutant", "apoc:infected_heavy", "apoc:infected_spitter"]
+  elite: ["apoc:infected_mutant", "apoc:infected_heavy", "apoc:infected_spitter", "apoc:infected_shrieker", "apoc:infected_charger", "apoc:infected_hunter", "apoc:infected_tyrant", "apoc:infected_broodmother"]
 });

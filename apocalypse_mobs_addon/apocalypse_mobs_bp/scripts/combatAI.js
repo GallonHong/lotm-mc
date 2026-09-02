@@ -2,17 +2,17 @@ import { world, system, EntityDamageCause, ItemStack } from "@minecraft/server";
 import { NPC_WEAPONS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
 
-function valid(entity) {
+export function valid(entity) {
   try { return !!entity && entity.isValid(); } catch { return false; }
 }
 
-function head(entity, offset = 1.5) {
+export function head(entity, offset = 1.5) {
   try { return entity.getHeadLocation(); } catch {
     return { x: entity.location.x, y: entity.location.y + offset, z: entity.location.z };
   }
 }
 
-function vector(from, to) {
+export function vector(from, to) {
   const x = to.x - from.x, y = to.y - from.y, z = to.z - from.z;
   const distance = Math.hypot(x, y, z) || 0.001;
   return { x: x / distance, y: y / distance, z: z / distance, distance };
@@ -26,7 +26,7 @@ function isSoftBlock(block) {
     id.includes("flower") || id.includes("snow_layer") || id.includes("vine");
 }
 
-function hasLineOfSight(dimension, from, to) {
+export function hasLineOfSight(dimension, from, to) {
   const direction = vector(from, to);
   const steps = Math.max(1, Math.floor(direction.distance * 2));
   for (let step = 2; step < steps - 1; step++) {
@@ -55,7 +55,7 @@ export function isFlashDisabled(entity) {
   return !!blindness || !!darkness || Number(slowness?.amplifier || 0) >= 10 || Number(weakness?.amplifier || 0) >= 10;
 }
 
-function findTarget(entity, maxDistance) {
+export function findTarget(entity, maxDistance) {
   const players = entity.dimension.getPlayers({ location: entity.location, maxDistance });
   let target = null;
   let best = Infinity;
@@ -71,7 +71,7 @@ function findTarget(entity, maxDistance) {
   return target;
 }
 
-function face(entity, location) {
+export function face(entity, location) {
   try { entity.lookAt(location); return; } catch {}
   try {
     const dir = vector(entity.location, location);
@@ -79,7 +79,7 @@ function face(entity, location) {
   } catch {}
 }
 
-function telegraph(entity, color = "acid") {
+export function telegraph(entity, color = "acid") {
   const loc = head(entity);
   try {
     entity.dimension.spawnParticle(color === "acid" ? "minecraft:crop_growth_emitter" : "minecraft:critical_hit_emitter", loc);
@@ -114,10 +114,14 @@ export class CombatAI {
   }
 
   static tick() {
-    let dimension;
-    try { dimension = world.getDimension("overworld"); } catch { return; }
-    for (const entity of dimension.getEntities({ type: "apoc:infected_spitter" })) this.tickSpitter(entity);
-    for (const entity of dimension.getEntities({ type: "apoc:raider_rifleman" })) this.tickRaider(entity);
+    const dimensions = new Map();
+    for (const player of world.getAllPlayers()) {
+      try { dimensions.set(player.dimension.id, player.dimension); } catch {}
+    }
+    for (const dimension of dimensions.values()) {
+      for (const entity of dimension.getEntities({ type: "apoc:infected_spitter" })) this.tickSpitter(entity);
+      for (const entity of dimension.getEntities({ type: "apoc:raider_rifleman" })) this.tickRaider(entity);
+    }
     if (system.currentTick % 200 === 0) this.prune();
   }
 

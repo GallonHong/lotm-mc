@@ -6,6 +6,7 @@
       "minecraft:type_family": { "family": ["apoc_hostile", "infected", "ranged_infected", "undead", "monster", "mob"] },
       "minecraft:nameable": {},
       "minecraft:health": { "value": 50, "max": 50 },
+      "minecraft:equippable": { "slots": [{ "slot": 2, "accepted_items": [] }, { "slot": 3, "accepted_items": [] }, { "slot": 4, "accepted_items": [] }, { "slot": 5, "accepted_items": [] }] },
       "minecraft:collision_box": { "width": 0.6, "height": 1.9 },
       "minecraft:movement": { "value": 0.25 },
       "minecraft:navigation.walk": { "can_path_over_water": true, "can_pass_doors": true, "avoid_damage_blocks": true },

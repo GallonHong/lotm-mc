@@ -5,7 +5,7 @@
 ## 安装与联动
 
 - 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.4.0`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
-- 推荐联动：Daily World Events v0.7.0（提供统一物资箱和神话箱）、Apocalypse Mobs v0.3.4（提供感染者、掠夺者和 Boss）；缺少时入口仍会响应，但对应内容不会生成。
+- 推荐联动：Daily World Events v0.7.0（提供统一物资箱和神话箱）、Apocalypse Mobs v0.4.0（提供区域强化感染者、掠夺者和 Boss）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Gun 没有被修改；枪械致盲等效果继续由原 Add-on 处理。
 - 城市测试素材复制自仓库内 `RandS Overgrown Cities 1.3`。不要再同时启用原 RandS 包，避免 `jigsaw:*` 标识冲突。

@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 7, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 7, 0]);
+assert.deepEqual(manifest.header.version, [0, 8, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 8, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -45,6 +45,7 @@ assert(managerSource.includes("system.currentTick") === false, "daily persistenc
 const eventSource = readFileSync(join(bp, "scripts/events/templates/eventTemplates.js"), "utf8");
 for (const id of ["infected_attack", "survivor_rescue", "raider_ambush", "crashed_convoy", "roadblock_clearance", "toxic_outbreak", "mutant_nest", "mercenary_blockade"]) assert(eventSource.includes(`${id}:`));
 assert(eventSource.includes("outlawWaves") && eventSource.includes('zones: ["outlaw"]'), "law/outlaw event difficulty split missing");
+for (const key of ["shrieker", "charger", "hunter", "tyrant"]) assert(eventSource.includes(`mobKey: "${key}"`), `world events missing special infected: ${key}`);
 const templatesModule = await import(`file://${join(bp, "scripts/events/templates/eventTemplates.js")}`);
 assert.equal(Object.keys(templatesModule.EVENT_TEMPLATES).length, 8, "expected eight event templates");
 for (let index = 0; index < 100; index++) {

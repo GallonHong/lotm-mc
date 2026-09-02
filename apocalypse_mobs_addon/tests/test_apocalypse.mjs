@@ -22,14 +22,22 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
+assert.deepEqual(bpManifest.header.version, [0, 4, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 4, 0]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
 const health = {
   infected_basic: 20,
+  infected_runner: 30,
   infected_spitter: 50,
+  infected_shrieker: 45,
+  infected_charger: 70,
+  infected_hunter: 60,
   infected_mutant: 100,
   infected_heavy: 200,
+  infected_tyrant: 220,
+  infected_broodmother: 500,
   raider_rifleman: 50
 };
 for (const [name, expected] of Object.entries(health)) {
@@ -60,10 +68,17 @@ assert(!raiderClient.render_controllers.includes("controller.render.item_in_hand
 
 const infectedGeometry = json(join(rp, "models", "entity", "infected.geo.json"))["minecraft:geometry"];
 assert(infectedGeometry.some(value => value.description.identifier === "geometry.apoc.infected"), "namespaced humanoid geometry missing");
-for (const name of ["infected_basic", "infected_runner", "infected_mutant", "infected_heavy", "infected_spitter"]) {
+for (const name of ["infected_basic", "infected_runner", "infected_mutant", "infected_heavy"]) {
   const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
   assert.equal(client.geometry.default, "geometry.apoc.infected", `${name} must use the namespaced geometry`);
 }
+for (const name of ["infected_spitter", "infected_shrieker", "infected_charger", "infected_hunter", "infected_tyrant", "infected_broodmother"]) {
+  const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
+  assert.equal(client.geometry.default, "geometry.apoc.ranzie_infected", `${name} must use the isolated Ranzie geometry`);
+  assert.equal(client.enable_attachables, true, `${name} must render equipped armor attachables`);
+}
+const ranzieGeometry = json(join(rp, "models", "entity", "ranzie", "infected_special.geo.json"))["minecraft:geometry"];
+assert(ranzieGeometry.some(value => value.description.identifier === "geometry.apoc.ranzie_infected"), "Ranzie geometry namespace isolation missing");
 
 const zones = readFileSync(join(bp, "scripts/zones.js"), "utf8");
 assert(zones.includes("sapiRegionsKey") && zones.includes("allowHostileSpawn"), "SAPI safe-zone compatibility missing");
@@ -71,10 +86,15 @@ for (const marker of ["apoc_zone_safe_1", "2349", "2635", "1863", "2069"]) asser
 assert(zones.includes('type: "outlaw", name: "非法制荒原"'), "unassigned locations must default to outlaw");
 const spawnDirector = readFileSync(join(bp, "scripts/spawnDirector.js"), "utf8");
 assert(spawnDirector.includes('typeof entity.isValid === "function"') && spawnDirector.includes("const dimensionId = entity.dimension.id"), "spawn listener must validate entities before reading dimension");
+for (const marker of ["health_boost", "EquipmentSlot", "ARMOR_POOLS", "apoc_zone_${zoneType}", "registerSpawnConfiguration"]) assert(spawnDirector.includes(marker), `missing regional spawn configuration: ${marker}`);
+const config = readFileSync(join(bp, "scripts/config.js"), "utf8");
+for (const marker of ["ZONE_DIFFICULTY", "armorChance", "test_gun:armor_titan_chest", "broodmother", "tyrant"]) assert(config.includes(marker), `missing regional balance config: ${marker}`);
+const special = readFileSync(join(bp, "scripts/specialInfectedAI.js"), "utf8");
+for (const marker of ["tickShrieker", "tickCharger", "tickHunter", "tickTyrant", "tickBroodmother", "isFlashDisabled", "builderMaxBlocksPerMob", 'zone.type !== "outlaw"']) assert(special.includes(marker), `missing special infected behavior: ${marker}`);
 const loot = readFileSync(join(bp, "scripts/loot.js"), "utf8");
 assert(loot.includes('getObjective("money")'), "SAPI economy reward bridge missing");
 
 const main = readFileSync(join(bp, "scripts/main.js"), "utf8");
-for (const moduleName of ["SpawnDirector", "CombatAI", "LootManager", "WorldEventDirector", "AdminMenu"]) assert(main.includes(moduleName));
+for (const moduleName of ["SpawnDirector", "CombatAI", "SpecialInfectedAI", "LootManager", "WorldEventDirector", "AdminMenu"]) assert(main.includes(moduleName));
 
 console.log("Apocalypse Mobs validation passed.");

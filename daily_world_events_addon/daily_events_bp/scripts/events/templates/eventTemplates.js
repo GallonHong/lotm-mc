@@ -2,7 +2,7 @@ export const EVENT_TEMPLATES = Object.freeze({
   infected_attack: {
     name: "感染者围攻", rewardId: "event_infected_attack", outlawRewardId: "event_infected_attack_outlaw", weight: 28, mode: "waves",
     waves: [[{ mobKey: "basic", count: 6 }], [{ mobKey: "basic", count: 6 }, { mobKey: "runner", count: 3 }], [{ mobKey: "mutant", count: 2 }]],
-    outlawWaves: [[{ mobKey: "basic", count: 8 }, { mobKey: "runner", count: 4 }], [{ mobKey: "basic", count: 6 }, { mobKey: "runner", count: 4 }, { mobKey: "spitter", count: 3 }], [{ mobKey: "mutant", count: 3 }, { mobKey: "heavy", count: 1 }]]
+    outlawWaves: [[{ mobKey: "runner", count: 6 }, { mobKey: "shrieker", count: 1 }], [{ mobKey: "spitter", count: 3 }, { mobKey: "charger", count: 2 }, { mobKey: "hunter", count: 2 }], [{ mobKey: "mutant", count: 3 }, { mobKey: "heavy", count: 1 }, { mobKey: "tyrant", count: 1 }]]
   },
   survivor_rescue: {
     name: "幸存者救援", rewardId: "event_survivor_rescue", outlawRewardId: "event_survivor_rescue_outlaw", weight: 14, mode: "rescue",
@@ -33,7 +33,7 @@ export const EVENT_TEMPLATES = Object.freeze({
   },
   mutant_nest: {
     name: "变异体巢穴", rewardId: "event_mutant_nest_outlaw", weight: 10, zones: ["outlaw"], mode: "waves",
-    waves: [[{ mobKey: "runner", count: 6 }, { mobKey: "mutant", count: 2 }], [{ mobKey: "spitter", count: 4 }, { mobKey: "mutant", count: 3 }], [{ mobKey: "heavy", count: 2 }, { mobKey: "mutant", count: 3 }]]
+    waves: [[{ mobKey: "runner", count: 6 }, { mobKey: "shrieker", count: 1 }], [{ mobKey: "spitter", count: 3 }, { mobKey: "charger", count: 2 }, { mobKey: "hunter", count: 2 }], [{ mobKey: "heavy", count: 2 }, { mobKey: "mutant", count: 2 }, { mobKey: "tyrant", count: 1 }]]
   },
   mercenary_blockade: {
     name: "武装封锁线", rewardId: "event_mercenary_blockade_outlaw", weight: 9, zones: ["outlaw"], mode: "waves",

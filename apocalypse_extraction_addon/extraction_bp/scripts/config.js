@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.4.0",
+  version: "0.5.0",
   dimensionId: "apoc_extract:city",
   heartbeatKey: "interop:apoc_extraction_heartbeat",
   menuRequestKey: "interop:apoc_extraction_menu_request:v1",
@@ -34,6 +34,10 @@ export const CONFIG = Object.freeze({
   hostileSpawnIntervalTicks: 80,
   bossCheckIntervalTicks: 1200,
   bossChancePerCheck: 0.08,
+  hordeCheckIntervalTicks: 1200,
+  hordeChancePerCheck: 0.12,
+  hordeCooldownTicks: 12000,
+  hordeWaveTimeoutTicks: 1200,
   entryPoints: [
     { name: "西北旧城", x: -256, z: -256 }, { name: "北部商业区", x: 0, z: -256 },
     { name: "东北住宅区", x: 256, z: -256 }, { name: "西部工业区", x: -256, z: 0 },
@@ -56,9 +60,11 @@ export const CONFIG = Object.freeze({
     { id: "hospital_south_east", name: "医院停机坪", x: 256, z: 352 }
   ],
   mobPool: [
-    { key: "mutant", weight: 30 }, { key: "heavy", weight: 25 },
-    { key: "spitter", weight: 20 }, { key: "runner", weight: 10 },
-    { key: "raider", weight: 15 }
+    { key: "mutant", weight: 18 }, { key: "heavy", weight: 15 },
+    { key: "spitter", weight: 13 }, { key: "runner", weight: 8 },
+    { key: "shrieker", weight: 10 }, { key: "charger", weight: 11 },
+    { key: "hunter", weight: 12 }, { key: "tyrant", weight: 3 },
+    { key: "raider", weight: 10 }
   ],
   bossPool: [
     { id: "apoc_boss:fog_man", weight: 26, urbanLegend: true },
@@ -70,5 +76,6 @@ export const CONFIG = Object.freeze({
     { id: "apoc_boss:mutant_drowned", weight: 4 },
     { id: "apoc_boss:mutant_enderman", weight: 3 },
     { id: "apoc_boss:mutant_iron_golem", weight: 3 }
+    ,{ id: "apoc:infected_broodmother", weight: 1, urbanLegend: false }
   ]
 });

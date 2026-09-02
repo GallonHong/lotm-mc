@@ -2,11 +2,12 @@ import { world, system, ItemStack } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { SpawnDirector } from "./spawnDirector.js";
 import { CombatAI } from "./combatAI.js";
+import { SpecialInfectedAI } from "./specialInfectedAI.js";
 import { LootManager } from "./loot.js";
 import { WorldEventDirector } from "./events.js";
 import { AdminMenu, isAdmin } from "./admin.js";
 
-console.warn("[Apocalypse] Mobs & SpawnDirector v0.3.4 initializing...");
+console.warn("[Apocalypse] Mobs & SpawnDirector v0.4.0 initializing...");
 
 function subscribe(signal, label, handler) {
   if (!signal || typeof signal.subscribe !== "function") {
@@ -34,6 +35,7 @@ function drop(dead) {
 }
 
 SpawnDirector.registerVanillaSuppression();
+SpawnDirector.registerSpawnConfiguration();
 try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
 
 const lootAfterSubscribed = subscribe(world.afterEvents?.playerInteractWithBlock, "after playerInteractWithBlock", event => {
@@ -83,7 +85,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (id === "apoc:event") {
     player.sendMessage(WorldEventDirector.trigger(player, true) ? "§a动态伏击已触发。" : "§c触发失败，请离开安全区或等待当前事件完成。");
   } else if (id === "apoc:spawn") {
-    const key = ["basic", "runner", "spitter", "mutant", "heavy", "raider"].includes(message) ? message : "basic";
+    const key = ["basic", "runner", "spitter", "shrieker", "charger", "hunter", "mutant", "heavy", "tyrant", "broodmother", "raider"].includes(message) ? message : "basic";
     player.sendMessage(SpawnDirector.spawnNearPlayer(player, key, ["apoc_admin_spawn"], 5, 8) ? `§a已生成 ${key}。` : "§c生成失败。");
   }
 });
@@ -99,6 +101,10 @@ system.runInterval(() => {
   try { CombatAI.tick(); } catch (error) { console.warn(`[Apocalypse][AI] tick error: ${error}`); }
   try { SpawnDirector.processExternalRequests(); } catch (error) { console.warn(`[Apocalypse][SpawnBus] tick error: ${error}`); }
 }, CONFIG.aiInterval);
+
+system.runInterval(() => {
+  try { SpecialInfectedAI.tick(); } catch (error) { console.warn(`[Apocalypse][SpecialAI] tick error: ${error}`); }
+}, CONFIG.specialAIInterval);
 
 system.runInterval(() => {
   try { SpawnDirector.tick(); } catch (error) { console.warn(`[Apocalypse][Spawn] tick error: ${error}`); }

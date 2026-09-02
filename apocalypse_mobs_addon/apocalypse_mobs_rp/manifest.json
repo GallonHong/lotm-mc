@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs RP v0.3.4",
-    "description": "Resources for Apocalypse Mobs with Test Guns raider rendering.",
+    "name": "Apocalypse Mobs RP v0.4.0",
+    "description": "Ranzie-derived special infected visuals plus Apocalypse Mobs resources.",
     "uuid": "03db80ee-e322-46ce-8787-7efab344707c",
     "version": [
       0,
-      3,
-      4
+      4,
+      0
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "97c74218-d546-45fa-b895-95f0f3effd19",
       "version": [
         0,
-        3,
-        4
+        4,
+        0
       ]
     }
   ],

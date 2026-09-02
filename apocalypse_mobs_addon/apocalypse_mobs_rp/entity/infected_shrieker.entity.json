@@ -1,0 +1,17 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": { "description": {
+    "identifier": "apoc:infected_shrieker",
+    "materials": { "default": "entity_alphatest" },
+    "textures": { "default": "textures/entity/ranzie/shrieker" },
+    "geometry": { "default": "geometry.apoc.ranzie_infected" },
+    "animations": { "base": "animation.apoc.ranzie_infected.base", "walk": "animation.apoc.ranzie_infected.walking", "run": "animation.apoc.ranzie_infected.running", "attack": "animation.apoc.ranzie_infected.attack_time", "look": "animation.apoc.ranzie_infected.looking" },
+    "scripts": {
+      "pre_animation": ["variable.tcos0 = math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed * 57.3;", "variable.eye_target_x = query.target_y_rotation - this;", "variable.eye_target_y = query.target_x_rotation - this;"],
+      "animate": ["base", { "walk": "query.ground_speed > 0.02 && query.ground_speed <= 3.0" }, { "run": "query.ground_speed > 3.0" }, { "attack": "query.attack_time > 0.0" }, "look"]
+    },
+    "render_controllers": ["controller.render.default"],
+    "enable_attachables": true,
+    "spawn_egg": { "base_color": "#A8A09B", "overlay_color": "#7A1111" }
+  } }
+}

@@ -33,6 +33,11 @@ const APOCALYPSE_MOBS = Object.freeze({
   mutant: "apoc:infected_mutant",
   heavy: "apoc:infected_heavy",
   spitter: "apoc:infected_spitter",
+  shrieker: "apoc:infected_shrieker",
+  charger: "apoc:infected_charger",
+  hunter: "apoc:infected_hunter",
+  tyrant: "apoc:infected_tyrant",
+  broodmother: "apoc:infected_broodmother",
   raider: "apoc:raider_rifleman"
 });
 
@@ -42,6 +47,11 @@ const VANILLA_MOBS = Object.freeze({
   mutant: "minecraft:zombie",
   heavy: "minecraft:zombie",
   spitter: "minecraft:skeleton",
+  shrieker: "minecraft:zombie",
+  charger: "minecraft:ravager",
+  hunter: "minecraft:husk",
+  tyrant: "minecraft:ravager",
+  broodmother: "minecraft:ravager",
   raider: "minecraft:pillager"
 });
 

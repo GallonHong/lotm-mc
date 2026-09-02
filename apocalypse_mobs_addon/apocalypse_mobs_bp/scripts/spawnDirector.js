@@ -1,5 +1,5 @@
-import { world } from "@minecraft/server";
-import { CONFIG, MOB_PROFILES, ZONE_POOLS } from "./config.js";
+import { world, system, ItemStack, EquipmentSlot } from "@minecraft/server";
+import { CONFIG, MOB_PROFILES, ZONE_POOLS, ZONE_DIFFICULTY, ARMOR_POOLS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
 
 const VANILLA_HOSTILES = new Set([
@@ -36,7 +36,78 @@ function distanceSquared(a, b) {
   return dx * dx + dy * dy + dz * dz;
 }
 
+const PROFILE_BY_TYPE = new Map(Object.entries(MOB_PROFILES).map(([key, value]) => [value.typeId, { key, ...value }]));
+
+function valid(entity) {
+  try { return !!entity && (typeof entity.isValid !== "function" || entity.isValid()); } catch { return false; }
+}
+
+function choose(list) { return list[Math.floor(Math.random() * list.length)]; }
+
 export class SpawnDirector {
+  static configureEntity(entity, forcedZoneType = null) {
+    if (!valid(entity) || entity.hasTag("apoc_spawn_configured")) return;
+    const profile = PROFILE_BY_TYPE.get(entity.typeId);
+    if (!profile) return;
+    let zoneType = forcedZoneType;
+    try {
+      if (!zoneType) zoneType = entity.dimension.id === CONFIG.extractionDimension
+        ? "extraction"
+        : ZoneRegistry.resolve(entity.dimension.id, entity.location).type;
+    } catch { zoneType = "law"; }
+    if (!ZONE_DIFFICULTY[zoneType]) zoneType = "law";
+    entity.addTag("apoc_spawn_configured");
+    entity.addTag(`apoc_zone_${zoneType}`);
+
+    const targetHealth = Number(profile.health?.[zoneType] || profile.health?.law || 20);
+    const baseHealth = Number(profile.health?.law || targetHealth);
+    if (targetHealth > baseHealth) {
+      const amplifier = Math.max(0, Math.round((targetHealth - baseHealth) / 4) - 1);
+      try { entity.addEffect("health_boost", 20000000, { amplifier, showParticles: false }); } catch {}
+      system.run(() => {
+        if (!valid(entity)) return;
+        try {
+          const health = entity.getComponent("minecraft:health");
+          if (health) health.setCurrentValue(health.effectiveMax);
+        } catch {}
+      });
+    }
+    this.equipRandomArmor(entity, profile, zoneType);
+  }
+
+  static equipRandomArmor(entity, profile, zoneType) {
+    if (!profile.armorEligible) return;
+    const setting = ZONE_DIFFICULTY[zoneType];
+    const pool = ARMOR_POOLS[zoneType] || {};
+    const tierBonus = Math.min(0.16, Number(profile.tier || 1) * 0.025);
+    const slots = Object.entries(pool).filter(([, items]) => Array.isArray(items) && items.length);
+    if (!slots.length || Math.random() >= setting.armorChance + tierBonus) return;
+    try {
+      const equipment = entity.getComponent("minecraft:equippable");
+      if (!equipment) return;
+      const pieces = 1 + (Math.random() < 0.28 ? 1 : 0) + (zoneType === "extraction" && Math.random() < 0.18 ? 1 : 0);
+      const available = [...slots];
+      for (let i = 0; i < pieces; i++) {
+        const pickIndex = Math.floor(Math.random() * available.length);
+        const entry = available.splice(pickIndex, 1)[0];
+        if (!entry) break;
+        const [slotName, items] = entry;
+        const slot = EquipmentSlot[slotName[0].toUpperCase() + slotName.slice(1)] || slotName;
+        equipment.setEquipment(slot, new ItemStack(choose(items), 1));
+      }
+      entity.addTag("apoc_armored");
+    } catch (error) {
+      console.warn(`[Apocalypse][Armor] ${entity.typeId} 装备失败（依赖包物品可能未安装）: ${error}`);
+    }
+  }
+
+  static registerSpawnConfiguration() {
+    const signal = world.afterEvents?.entitySpawn;
+    if (!signal || typeof signal.subscribe !== "function") return;
+    signal.subscribe(event => system.run(() => {
+      try { this.configureEntity(event.entity); } catch {}
+    }));
+  }
   /** 可选跨包总线：由 Daily & Events Addon 请求，仍由本 SpawnDirector 落地实体。 */
   static processExternalRequests() {
     let requests = [];
@@ -93,7 +164,7 @@ export class SpawnDirector {
     return null;
   }
 
-  static spawnAt(dimension, location, mobKey, tags = []) {
+  static spawnAt(dimension, location, mobKey, tags = [], forcedZoneType = null) {
     const profile = MOB_PROFILES[mobKey];
     if (!profile || ZoneRegistry.isSafe(dimension.id, location)) return null;
     try {
@@ -102,6 +173,7 @@ export class SpawnDirector {
       entity.addTag("apoc_director");
       entity.addTag(`apoc_tier_${profile.tier}`);
       for (const tag of tags) entity.addTag(tag);
+      this.configureEntity(entity, forcedZoneType);
       return entity;
     } catch (error) {
       console.warn(`[Apocalypse][Spawn] ${profile.typeId} 生成失败: ${error}`);

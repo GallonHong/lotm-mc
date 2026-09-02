@@ -14,13 +14,20 @@ const backpackSnapshots = new Map();
 const insuredReturns = new Map();
 let mobSpawnFailureNoticeTick = -1200;
 let cityBuildPromise = null;
+let activeHorde = null;
+let nextHordeAllowedTick = 0;
 
 const APOCALYPSE_MOBS = Object.freeze({
   basic: "apoc:infected_basic",
   runner: "apoc:infected_runner",
   spitter: "apoc:infected_spitter",
+  shrieker: "apoc:infected_shrieker",
+  charger: "apoc:infected_charger",
+  hunter: "apoc:infected_hunter",
   mutant: "apoc:infected_mutant",
   heavy: "apoc:infected_heavy",
+  tyrant: "apoc:infected_tyrant",
+  broodmother: "apoc:infected_broodmother",
   raider: "apoc:raider_rifleman"
 });
 
@@ -589,12 +596,57 @@ function spawnExtractionMob(player) {
       entity.addTag("apoc_hostile");
       entity.addTag("apoc_director");
       entity.addTag("apoc_extraction_hostile");
+      entity.addTag("apoc_zone_extraction");
     } catch (error) {
       if (system.currentTick - mobSpawnFailureNoticeTick >= 1200) {
         mobSpawnFailureNoticeTick = system.currentTick;
         console.warn(`[ExtractionCity] Apocalypse mob spawn failed; verify Apocalypse Mobs is active: ${error}`);
       }
     }
+  }
+}
+
+function spawnHordeWave(player, wave) {
+  const waves = [
+    ["runner", "runner", "basic", "basic", "spitter", "shrieker"],
+    ["runner", "spitter", "shrieker", "charger", "hunter", "hunter"],
+    ["heavy", "charger", "hunter", "mutant", "tyrant"]
+  ];
+  let spawned = 0;
+  for (const key of waves[Math.max(0, Math.min(2, wave - 1))]) {
+    const angle = Math.random() * Math.PI * 2;
+    const location = safeGround(player.dimension, player.location.x + Math.cos(angle) * (18 + Math.random() * 12), player.location.z + Math.sin(angle) * (18 + Math.random() * 12), 12);
+    if (!location) continue;
+    try {
+      const entity = player.dimension.spawnEntity(APOCALYPSE_MOBS[key], location);
+      for (const tag of ["apoc_hostile", "apoc_director", "apoc_extraction_hostile", "apoc_zone_extraction", "apoc_extraction_horde"]) entity.addTag(tag);
+      spawned++;
+    } catch {}
+  }
+  world.sendMessage(`§4[摸金尸潮] 第 ${wave}/3 波来袭，侦测到 ${spawned} 个目标！`);
+}
+
+function tickHorde(allowStart = false) {
+  const players = world.getAllPlayers().filter(player => player.dimension.id === CONFIG.dimensionId);
+  if (!players.length) { activeHorde = null; return; }
+  const now = system.currentTick;
+  if (!activeHorde) {
+    if (!allowStart || now < nextHordeAllowedTick || Math.random() >= CONFIG.hordeChancePerCheck) return;
+    activeHorde = { wave: 1, startedTick: now, nextWaveTick: now + CONFIG.hordeWaveTimeoutTicks };
+    world.sendMessage("§c[都市警报] 尸潮正在向城区聚集！共三波，寻找掩体并准备交战。");
+    spawnHordeWave(players[Math.floor(Math.random() * players.length)], 1);
+    return;
+  }
+  let alive = 0;
+  try { alive = players[0].dimension.getEntities({ tags: ["apoc_extraction_horde"] }).length; } catch {}
+  if (activeHorde.wave < 3 && (alive === 0 || now >= activeHorde.nextWaveTick)) {
+    activeHorde.wave++;
+    activeHorde.nextWaveTick = now + CONFIG.hordeWaveTimeoutTicks;
+    spawnHordeWave(players[Math.floor(Math.random() * players.length)], activeHorde.wave);
+  } else if (activeHorde.wave === 3 && alive === 0) {
+    world.sendMessage("§a[摸金尸潮] 尸潮已被击退，城区暂时恢复平静。");
+    activeHorde = null;
+    nextHordeAllowedTick = now + CONFIG.hordeCooldownTicks;
   }
 }
 
@@ -618,7 +670,7 @@ function spawnBoss(player, force = false) {
   if (!location) return { spawned: false, reason: "ground" };
   try {
     const boss = player.dimension.spawnEntity(profile.id, location);
-    boss.addTag("apoc_extraction_boss"); boss.addTag("apoc_hostile");
+    boss.addTag("apoc_extraction_boss"); boss.addTag("apoc_hostile"); boss.addTag("apoc_zone_extraction");
     world.sendMessage(`§4[都市警报] ${profile.urbanLegend ? "都市传说" : "变异首领"}已在摸金都市出现：${profile.id}`);
     return { spawned: true, id: profile.id, entity: boss };
   } catch (error) {
@@ -799,4 +851,12 @@ system.runInterval(() => {
   for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
-console.warn(`[ExtractionCity] v${CONFIG.version} dual-channel entry bridge, dense 5x5 persistent city, insured hotbar/equipment, Apocalypse hostiles, loot crates, 12 exits, bosses and dusk fog initialized.`);
+system.runInterval(() => {
+  try { tickHorde(true); } catch (error) { console.warn(`[ExtractionCity] horde start check failed: ${error}`); }
+}, CONFIG.hordeCheckIntervalTicks);
+
+system.runInterval(() => {
+  try { tickHorde(false); } catch (error) { console.warn(`[ExtractionCity] active horde tick failed: ${error}`); }
+}, 40);
+
+console.warn(`[ExtractionCity] v${CONFIG.version} dense city, regional Apocalypse special infected, random hordes, loot crates, exits and dusk fog initialized.`);
