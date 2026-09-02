@@ -23,6 +23,32 @@ console.warn(`[ExtractionCity] v${CONFIG.version} initializing...`);
 const extractionJobs = new Map();
 const deathHandled = new Set();
 const pendingReturn = new Map();
+const backpackSnapshots = new Map();
+let mobSpawnFailureNoticeTick = -1200;
+let cityBuildPromise = null;
+
+const APOCALYPSE_MOBS = Object.freeze({
+  basic: "apoc:infected_basic",
+  runner: "apoc:infected_runner",
+  spitter: "apoc:infected_spitter",
+  mutant: "apoc:infected_mutant",
+  heavy: "apoc:infected_heavy",
+  raider: "apoc:raider_rifleman"
+});
+
+const VANILLA_HOSTILES = new Set([
+  "minecraft:zombie", "minecraft:zombie_villager", "minecraft:husk", "minecraft:drowned",
+  "minecraft:skeleton", "minecraft:stray", "minecraft:creeper", "minecraft:spider",
+  "minecraft:cave_spider", "minecraft:witch", "minecraft:phantom", "minecraft:pillager",
+  "minecraft:vindicator", "minecraft:ravager", "minecraft:evocation_illager"
+]);
+
+const CRATE_LAYOUT = Object.freeze([
+  { dx: -46, dz: -34, tier: "common" },
+  { dx: 42, dz: -38, tier: "common" },
+  { dx: -34, dz: 44, tier: "rare" },
+  { dx: 38, dz: 40, tier: "epic" }
+]);
 
 function subscribe(signal, label, handler) {
   if (!signal || typeof signal.subscribe !== "function") {
@@ -59,24 +85,54 @@ function weighted(entries) {
   return entries[entries.length - 1];
 }
 
-function safeGround(dimension, x, z) {
+function isAir(block) {
+  const id = String(block?.typeId || "");
+  return block?.isAir === true || id === "minecraft:air" || id === "minecraft:cave_air" || id === "minecraft:void_air";
+}
+
+function isUnsafeFloor(block) {
+  const id = String(block?.typeId || "");
+  return !block || isAir(block) || id.includes("water") || id.includes("lava") ||
+    id.includes("leaves") || id.includes("glass_pane") || id.includes("fence");
+}
+
+function standingGround(dimension, x, z, preferredY = CONFIG.cityBaseY) {
   x = Math.floor(x); z = Math.floor(z);
-  try {
-    const top = dimension.getTopmostBlock({ x, z });
-    if (top && top.location.y < 315) return { x: x + 0.5, y: top.location.y + 1, z: z + 0.5 };
-  } catch {}
-  for (let y = 250; y >= -50; y--) {
+  const candidates = [];
+  for (let delta = 0; delta <= 24; delta++) {
+    candidates.push(preferredY + delta);
+    if (delta) candidates.push(preferredY - delta);
+  }
+  for (const floorY of candidates) {
     try {
-      const floor = dimension.getBlock({ x, y, z });
-      const feet = dimension.getBlock({ x, y: y + 1, z });
-      const head = dimension.getBlock({ x, y: y + 2, z });
-      if (floor && floor.typeId !== "minecraft:air" && feet?.typeId === "minecraft:air" && head?.typeId === "minecraft:air") return { x: x + 0.5, y: y + 1, z: z + 0.5 };
+      const floor = dimension.getBlock({ x, y: floorY, z });
+      const feet = dimension.getBlock({ x, y: floorY + 1, z });
+      const head = dimension.getBlock({ x, y: floorY + 2, z });
+      if (!isUnsafeFloor(floor) && isAir(feet) && isAir(head)) return { x: x + 0.5, y: floorY + 1, z: z + 0.5 };
     } catch {}
   }
   try {
-    dimension.getBlock({ x, y: 96, z })?.setType("minecraft:stone");
-    return { x: x + 0.5, y: 97, z: z + 0.5 };
-  } catch { return { x: x + 0.5, y: 120, z: z + 0.5 }; }
+    const top = dimension.getTopmostBlock({ x, z });
+    if (top && top.location.y < 315 && !isUnsafeFloor(top)) {
+      const feet = dimension.getBlock({ x, y: top.location.y + 1, z });
+      const head = dimension.getBlock({ x, y: top.location.y + 2, z });
+      if (isAir(feet) && isAir(head)) return { x: x + 0.5, y: top.location.y + 1, z: z + 0.5 };
+    }
+  } catch {}
+  return null;
+}
+
+function safeGround(dimension, x, z, searchRadius = 16) {
+  const direct = standingGround(dimension, x, z);
+  if (direct) return direct;
+  for (let radius = 4; radius <= searchRadius; radius += 4) {
+    for (let step = 0; step < 16; step++) {
+      const angle = (Math.PI * 2 * step / 16) + radius * 0.13;
+      const found = standingGround(dimension, x + Math.cos(angle) * radius, z + Math.sin(angle) * radius);
+      if (found) return found;
+    }
+  }
+  return null;
 }
 
 function storeReturn(player) {
@@ -85,64 +141,183 @@ function storeReturn(player) {
   } catch {}
 }
 
-async function ensureCityReady(dimension) {
-  try {
-    if (world.getDynamicProperty(CONFIG.cityReadyKey) === true) return;
-  } catch {}
+function waitTicks(ticks) {
+  if (typeof system.waitTicks === "function") return system.waitTicks(ticks);
+  return new Promise(resolve => system.runTimeout(resolve, ticks));
+}
 
-  const areaId = "apoc_extract_city_bootstrap";
-  let areaCreated = false;
+async function withTickingArea(dimension, areaId, from, to, action) {
+  let created = false;
   try {
     if (world.tickingAreaManager?.createTickingArea) {
-      await world.tickingAreaManager.createTickingArea(areaId, {
-        dimension,
-        from: { x: -24, y: 56, z: -24 },
-        to: { x: 24, y: 160, z: 24 }
-      });
-      areaCreated = true;
+      try { world.tickingAreaManager.removeTickingArea(areaId); } catch {}
+      await world.tickingAreaManager.createTickingArea(areaId, { dimension, from, to });
+      created = true;
     }
-
-    // 26.x 的自定义维度当前使用虚空生成器；城市必须显式放置，不能靠 dimensions/*.json 生成。
-    let generated = false;
-    try {
-      world.structureManager.placeJigsawStructure(
-        "jigsaw:village_custom",
-        dimension,
-        { x: 0, y: 64, z: 0 },
-        { ignoreStartHeight: true, includeEntities: false, keepJigsaws: false }
-      );
-      generated = true;
-      console.warn("[ExtractionCity] RandS jigsaw city placement queued.");
-    } catch (error) {
-      console.warn(`[ExtractionCity] jigsaw placement failed, using building-grid fallback: ${error}`);
-    }
-
-    if (!generated) {
-      const ids = world.structureManager.getPackStructureIds()
-        .filter(id => /(?:^|[:/])custom\/houses\/b[1-9]$/.test(id))
-        .slice(0, 9);
-      for (let index = 0; index < ids.length; index++) {
-        const column = index % 3;
-        const row = Math.floor(index / 3);
-        world.structureManager.place(ids[index], dimension, {
-          x: (column - 1) * 72,
-          y: 64,
-          z: (row - 1) * 72
-        }, { includeEntities: false, integrity: 1, integritySeed: `extract_${index}` });
-      }
-      generated = ids.length > 0;
-      if (generated) console.warn(`[ExtractionCity] fallback placed ${ids.length} RandS building structures.`);
-    }
-
-    // 无论结构落点如何，中心均保留一个安全的首次加载平台。
-    try { dimension.runCommand("fill -8 63 -8 8 63 8 minecraft:cobbled_deepslate"); } catch {}
-    if (!generated) throw new Error("No RandS pack structures were available to place");
-    try { world.setDynamicProperty(CONFIG.cityReadyKey, true); } catch {}
+    return await action();
   } finally {
-    if (areaCreated) {
+    if (created) {
       try { world.tickingAreaManager.removeTickingArea(areaId); } catch {}
     }
   }
+}
+
+async function buildCityFoundation(dimension) {
+  const half = CONFIG.cityHalfSize;
+  const size = CONFIG.cityTileSize;
+  let tileIndex = 0;
+  for (let minX = -half; minX < half; minX += size) {
+    for (let minZ = -half; minZ < half; minZ += size) {
+      const maxX = Math.min(half - 1, minX + size - 1);
+      const maxZ = Math.min(half - 1, minZ + size - 1);
+      const areaId = `extract_foundation_${tileIndex++}`;
+      await withTickingArea(
+        dimension,
+        areaId,
+        { x: minX, y: CONFIG.cityBaseY - 1, z: minZ },
+        { x: maxX, y: CONFIG.cityBaseY + 4, z: maxZ },
+        async () => {
+          dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY} ${minZ} ${maxX} ${CONFIG.cityBaseY} ${maxZ} minecraft:deepslate_tiles`);
+          await waitTicks(1);
+        }
+      );
+    }
+  }
+}
+
+async function placeDistrict(dimension, center, index) {
+  const areaId = `extract_district_${index}`;
+  return withTickingArea(
+    dimension,
+    areaId,
+    { x: center.x - 32, y: 56, z: center.z - 32 },
+    { x: center.x + 32, y: 192, z: center.z + 32 },
+    async () => {
+      world.structureManager.placeJigsawStructure(
+        "jigsaw:village_custom",
+        dimension,
+        { x: center.x, y: CONFIG.cityBaseY + 1, z: center.z },
+        { ignoreStartHeight: true, includeEntities: false, keepJigsaws: false }
+      );
+      await waitTicks(8);
+      return true;
+    }
+  );
+}
+
+function addFallbackLootNode(nodes, location, tier) {
+  const x = Math.floor(location.x), y = Math.floor(location.y), z = Math.floor(location.z);
+  if (nodes.some(node => node.dimension === CONFIG.dimensionId && node.x === x && node.y === y && node.z === z)) return;
+  nodes.push({
+    id: `extract_loot_${x}_${y}_${z}`,
+    type: tier === "epic" || tier === "legendary" ? "military" : tier === "rare" ? "medical" : "tools",
+    dimension: CONFIG.dimensionId,
+    x, y, z,
+    respawnMinutes: tier === "legendary" ? 120 : tier === "epic" ? 60 : tier === "rare" ? 30 : 15,
+    lastLooted: 0,
+    createdBy: "Apocalypse Extraction City"
+  });
+}
+
+async function placeLootCrates(dimension) {
+  let existingNodes = [];
+  try { existingNodes = parse(world.getDynamicProperty(CONFIG.lootNodesKey), []); } catch {}
+  const fallbackNodes = Array.isArray(existingNodes) ? existingNodes.slice() : [];
+  let placed = 0;
+  for (let districtIndex = 0; districtIndex < CONFIG.districtCenters.length; districtIndex++) {
+    const center = CONFIG.districtCenters[districtIndex];
+    await withTickingArea(
+      dimension,
+      `extract_crates_${districtIndex}`,
+      { x: center.x - 64, y: 56, z: center.z - 64 },
+      { x: center.x + 64, y: 192, z: center.z + 64 },
+      async () => {
+        const layout = districtIndex === 4
+          ? [...CRATE_LAYOUT, { dx: 0, dz: 18, tier: "legendary" }]
+          : CRATE_LAYOUT;
+        for (const crate of layout) {
+          const ground = safeGround(dimension, center.x + crate.dx, center.z + crate.dz, 18);
+          if (!ground) continue;
+          const location = { x: Math.floor(ground.x), y: Math.floor(ground.y), z: Math.floor(ground.z) };
+          const block = dimension.getBlock(location);
+          if (!block || !isAir(block)) continue;
+          try {
+            block.setType(`daily:loot_crate_${crate.tier}`);
+          } catch {
+            try {
+              block.setType("apoc:loot_crate");
+              addFallbackLootNode(fallbackNodes, location, crate.tier);
+            } catch { continue; }
+          }
+          placed++;
+        }
+        await waitTicks(1);
+      }
+    );
+  }
+  try { world.setDynamicProperty(CONFIG.lootNodesKey, JSON.stringify(fallbackNodes.slice(-300))); } catch {}
+  try { world.setDynamicProperty("apoc_extract:crate_count:v1", placed); } catch {}
+  return placed;
+}
+
+async function placeExtractionMarkers(dimension) {
+  let placed = 0;
+  for (let index = 0; index < CONFIG.extractionPoints.length; index++) {
+    const point = CONFIG.extractionPoints[index];
+    await withTickingArea(
+      dimension,
+      `extract_exit_${index}`,
+      { x: point.x - 16, y: 56, z: point.z - 16 },
+      { x: point.x + 16, y: 192, z: point.z + 16 },
+      async () => {
+        const ground = standingGround(dimension, point.x, point.z);
+        if (!ground) return;
+        const x = Math.floor(ground.x), y = Math.floor(ground.y), z = Math.floor(ground.z);
+        try {
+          dimension.runCommand(`fill ${x - 2} ${y - 1} ${z - 2} ${x + 2} ${y - 1} ${z + 2} minecraft:lime_concrete`);
+          dimension.runCommand(`fill ${x} ${y} ${z} ${x} ${y + 4} ${z} minecraft:lime_stained_glass`);
+          dimension.getBlock({ x, y: y + 5, z })?.setType("minecraft:sea_lantern");
+          placed++;
+        } catch {}
+        await waitTicks(1);
+      }
+    );
+  }
+  return placed;
+}
+
+async function buildCity(dimension) {
+  let previousReady = false;
+  try { previousReady = world.getDynamicProperty(CONFIG.previousCityReadyKey) === true; } catch {}
+  console.warn("[ExtractionCity] building 3x3 city districts and repairing the void foundation...");
+  await buildCityFoundation(dimension);
+
+  let generated = previousReady ? 1 : 0;
+  for (let index = 0; index < CONFIG.districtCenters.length; index++) {
+    const center = CONFIG.districtCenters[index];
+    if (previousReady && center.x === 0 && center.z === 0) continue;
+    try {
+      if (await placeDistrict(dimension, center, index)) generated++;
+    } catch (error) {
+      console.warn(`[ExtractionCity] district ${index + 1} placement failed: ${error}`);
+    }
+  }
+
+  if (!generated) throw new Error("No RandS Jigsaw districts could be placed");
+  const exits = await placeExtractionMarkers(dimension);
+  const crates = await placeLootCrates(dimension);
+  try { world.setDynamicProperty(CONFIG.cityReadyKey, true); } catch {}
+  console.warn(`[ExtractionCity] expanded city ready: ${generated} districts, ${exits} exit markers, ${crates} loot crates placed.`);
+}
+
+async function ensureCityReady(dimension, force = false) {
+  try {
+    if (!force && world.getDynamicProperty(CONFIG.cityReadyKey) === true) return;
+  } catch {}
+  if (!cityBuildPromise) cityBuildPromise = buildCity(dimension);
+  const pending = cityBuildPromise;
+  try { await pending; }
+  finally { if (cityBuildPromise === pending) cityBuildPromise = null; }
 }
 
 function returnPlayer(player, reason = "已离开摸金都市。") {
@@ -154,9 +329,16 @@ function returnPlayer(player, reason = "已离开摸金都市。") {
   try {
     player.teleport(location, { dimension });
     player.removeTag(CONFIG.activeTag);
+    player.setDynamicProperty(CONFIG.activeStateKey, undefined);
     player.setDynamicProperty(CONFIG.returnKey, undefined);
+    backpackSnapshots.delete(player.id);
+    try { player.runCommand(`fog @s remove ${CONFIG.fogStackId}`); } catch {}
     player.sendMessage(`§a[撤离] ${reason}`);
   } catch (error) { player.sendMessage(`§c撤离失败：${error}`); }
+}
+
+function applyExtractionEnvironment(player) {
+  try { player.runCommand(`fog @s push ${CONFIG.fogId} ${CONFIG.fogStackId}`); } catch {}
 }
 
 async function enter(player) {
@@ -191,11 +373,21 @@ async function enter(player) {
   } catch (error) { console.warn(`[ExtractionCity] arrival ticking area unavailable: ${error}`); }
   system.runTimeout(() => {
     try {
-      const location = safeGround(dimension, x, z);
+      let location = safeGround(dimension, x, z, 36);
+      if (!location) {
+        for (const fallback of CONFIG.entryPoints) {
+          location = safeGround(dimension, fallback.x, fallback.z, 48);
+          if (location) break;
+        }
+      }
+      if (!location) throw new Error("扩展城区中没有找到安全地面，请让管理员执行 /scriptevent extract:rebuild");
       player.teleport(location, { dimension });
       player.addTag(CONFIG.activeTag);
+      player.setDynamicProperty(CONFIG.activeStateKey, true);
       player.addEffect("resistance", 100, { amplifier: 4, showParticles: false });
-      player.sendMessage(`§6[摸金都市] 随机出生：${point.name}。寻找任一撤离点安全离开。`);
+      applyExtractionEnvironment(player);
+      snapshotBackpack(player);
+      player.sendMessage(`§6[摸金都市] 随机出生：${point.name}。到达撤离点后执行 §e/scriptevent extract:exit §6开始撤离。`);
     } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
     if (arrivalAreaCreated) {
       try { world.tickingAreaManager.removeTickingArea(arrivalAreaId); } catch {}
@@ -214,7 +406,7 @@ function startExtraction(player) {
     return;
   }
   extractionJobs.set(player.id, { pointId: point.id, startedTick: system.currentTick, origin: { ...player.location } });
-  player.sendMessage(`§e[撤离] ${CONFIG.extractionSeconds} 秒倒计时开始，请留在 ${point.name}。`);
+  player.sendMessage(`§e[撤离] ${CONFIG.extractionSeconds} 秒倒计时开始，请留在 ${point.name} 的 ${CONFIG.extractionRadius} 格范围内。`);
 }
 
 function openMenu(player) {
@@ -222,8 +414,8 @@ function openMenu(player) {
   const point = inside ? nearestExit(player) : null;
   const form = new ActionFormData().title("§l§6末日摸金都市")
     .body(inside
-      ? `§0快捷栏 1-9 与穿戴装备受保险保护。\n§4背包槽位 10-36 死亡时全部掉落。\n\n§0最近撤离点：§e${point?.name || "无"} §8(${Math.floor(point?.distance || 0)}格)`
-      : "§0这是持续开放的最高风险区域，不需要创建战局。\n§0进入位置随机；都市传说 Boss 会低概率出现。")
+      ? `§0快捷栏 1-9 与穿戴装备受保险保护。\n§4背包槽位 10-36 死亡时全部掉落。\n\n§0最近撤离点：§e${point?.name || "无"} §8(${Math.floor(point?.distance || 0)}格)\n§0到达 9 格内后点击下方按钮，或执行：\n§e/scriptevent extract:exit`
+      : "§0这是持续开放的最高风险区域，不需要创建战局。\n§0九个城区组成约 768×768 的废弃都市；进入位置随机。\n§0都市传说 Boss 会低概率出现。")
     .button(inside ? "§a开始撤离" : "§6随机进入都市", inside ? "textures/ui/confirm" : "textures/ui/World")
     .button("§8关闭", "textures/ui/cancel");
   form.show(player).then(result => {
@@ -232,51 +424,109 @@ function openMenu(player) {
   }).catch(() => {});
 }
 
-function dropBackpack(player, location, dimension) {
-  if (deathHandled.has(player.id) || player.dimension.id !== CONFIG.dimensionId) return;
-  deathHandled.add(player.id);
-  const container = player.getComponent("minecraft:inventory")?.container;
-  if (container) {
+function captureBackpack(player) {
+  try {
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return null;
+    const items = [];
     for (let slot = CONFIG.protectedHotbarSlots; slot < container.size; slot++) {
-      try {
-        const item = container.getItem(slot);
-        if (!item) continue;
-        dimension.spawnItem(item, location);
-        container.setItem(slot, undefined);
-      } catch {}
+      const item = container.getItem(slot);
+      if (item) items.push({ slot, item });
     }
+    return { items, size: container.size };
+  } catch { return null; }
+}
+
+function snapshotBackpack(player) {
+  try {
+    if (player.dimension.id !== CONFIG.dimensionId) return;
+    const captured = captureBackpack(player);
+    if (!captured) return;
+    backpackSnapshots.set(player.id, {
+      ...captured,
+      dimensionId: CONFIG.dimensionId,
+      location: { ...player.location },
+      updatedTick: system.currentTick
+    });
+  } catch {}
+}
+
+function clearBackpackSlots(player) {
+  try {
+    const container = player.getComponent("minecraft:inventory")?.container;
+    if (!container) return false;
+    for (let slot = CONFIG.protectedHotbarSlots; slot < container.size; slot++) container.setItem(slot, undefined);
+    return true;
+  } catch { return false; }
+}
+
+function extractionSessionActive(player, snapshot) {
+  if (snapshot?.dimensionId === CONFIG.dimensionId) return true;
+  try { if (player.getDynamicProperty(CONFIG.activeStateKey) === true) return true; } catch {}
+  try { return player.hasTag(CONFIG.activeTag); } catch { return false; }
+}
+
+function dropBackpack(player, location = null, dimension = null) {
+  const cached = backpackSnapshots.get(player.id);
+  if (deathHandled.has(player.id) || !extractionSessionActive(player, cached)) return;
+  deathHandled.add(player.id);
+  const current = captureBackpack(player);
+  const dropped = current || cached || { items: [] };
+  const dropLocation = location || cached?.location;
+  let dropDimension = dimension;
+  if (!dropDimension) {
+    try { dropDimension = world.getDimension(cached?.dimensionId || CONFIG.dimensionId); } catch {}
   }
+  clearBackpackSlots(player);
+  if (dropDimension && dropLocation) for (const entry of dropped.items || []) {
+    try { dropDimension.spawnItem(entry.item, dropLocation); } catch {}
+  }
+  backpackSnapshots.delete(player.id);
   pendingReturn.set(player.id, true);
   try { player.setDynamicProperty(CONFIG.deathReturnKey, true); } catch {}
+  try { player.setDynamicProperty(CONFIG.activeStateKey, undefined); } catch {}
   extractionJobs.delete(player.id);
   try { player.removeTag(CONFIG.activeTag); } catch {}
   system.runTimeout(() => deathHandled.delete(player.id), 100);
 }
 
-function enqueueMob(player) {
+function spawnExtractionMob(player) {
   const nearby = player.dimension.getEntities({ location: player.location, maxDistance: 48, tags: ["apoc_hostile"] });
   if (nearby.length >= CONFIG.hostileCapPerPlayer) return;
   const choice = weighted(CONFIG.mobPool);
-  const heartbeat = Number(world.getDynamicProperty(CONFIG.apocalypseHeartbeatKey) || 0);
-  if (!heartbeat || Date.now() - heartbeat > 30000) {
+  const count = nearby.length < 4 ? 2 : 1;
+  for (let index = 0; index < count; index++) {
     const angle = Math.random() * Math.PI * 2;
-    const location = safeGround(player.dimension, player.location.x + Math.cos(angle) * 24, player.location.z + Math.sin(angle) * 24);
+    const radius = 18 + Math.random() * 18;
+    const location = safeGround(
+      player.dimension,
+      player.location.x + Math.cos(angle) * radius,
+      player.location.z + Math.sin(angle) * radius,
+      10
+    );
+    if (!location) continue;
     try {
-      const fallback = player.dimension.spawnEntity(choice.key === "raider" ? "minecraft:pillager" : choice.key === "spitter" ? "minecraft:skeleton" : "minecraft:zombie", location);
-      fallback.addTag("apoc_hostile"); fallback.addTag("apoc_extraction_hostile");
-      if (choice.key === "heavy") fallback.addEffect("resistance", 999999, { amplifier: 2, showParticles: false });
-      if (choice.key === "mutant") fallback.addEffect("strength", 999999, { amplifier: 1, showParticles: false });
-    } catch {}
-    return;
+      const entity = player.dimension.spawnEntity(APOCALYPSE_MOBS[choice.key] || APOCALYPSE_MOBS.mutant, location);
+      entity.addTag("apoc_hostile");
+      entity.addTag("apoc_director");
+      entity.addTag("apoc_extraction_hostile");
+    } catch (error) {
+      if (system.currentTick - mobSpawnFailureNoticeTick >= 1200) {
+        mobSpawnFailureNoticeTick = system.currentTick;
+        console.warn(`[ExtractionCity] Apocalypse mob spawn failed; verify Apocalypse Mobs is active: ${error}`);
+      }
+    }
   }
-  const queue = parse(world.getDynamicProperty(CONFIG.spawnQueueKey), []);
-  queue.push({
-    id: `extract_${Date.now().toString(36)}_${Math.floor(Math.random() * 9999)}`,
-    dimension: CONFIG.dimensionId, center: { ...player.location }, mobKey: choice.key,
-    count: nearby.length < 3 ? 2 : 1, minDistance: 18, maxDistance: 34,
-    tags: ["apoc_extraction_hostile"]
-  });
-  world.setDynamicProperty(CONFIG.spawnQueueKey, JSON.stringify(queue.slice(-50)));
+}
+
+function cleanupVanillaHostiles(dimension) {
+  for (const typeId of VANILLA_HOSTILES) {
+    let entities = [];
+    try { entities = dimension.getEntities({ type: typeId }); } catch {}
+    for (const entity of entities) {
+      try { if (!entity.hasTag("apoc_extraction_allowed")) entity.remove(); } catch {}
+    }
+  }
 }
 
 function spawnBoss(player) {
@@ -285,16 +535,13 @@ function spawnBoss(player) {
   const profile = weighted(CONFIG.bossPool);
   const angle = Math.random() * Math.PI * 2;
   const location = safeGround(player.dimension, player.location.x + Math.cos(angle) * 45, player.location.z + Math.sin(angle) * 45);
+  if (!location) return;
   try {
     const boss = player.dimension.spawnEntity(profile.id, location);
     boss.addTag("apoc_extraction_boss"); boss.addTag("apoc_hostile");
     world.sendMessage(`§4[都市警报] ${profile.urbanLegend ? "都市传说" : "变异首领"}已在摸金都市出现：${profile.id}`);
   } catch (error) {
     console.warn(`[ExtractionCity] boss ${profile.id} unavailable: ${error}`);
-    try {
-      const fallback = player.dimension.spawnEntity("minecraft:ravager", location);
-      fallback.addTag("apoc_extraction_boss"); fallback.addTag("apoc_hostile");
-    } catch {}
   }
 }
 
@@ -320,17 +567,23 @@ try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
 
 subscribe(world.afterEvents?.entityHurt, "entityHurt", event => {
   const player = event.hurtEntity;
-  if (player?.typeId !== "minecraft:player" || player.dimension.id !== CONFIG.dimensionId) return;
+  if (player?.typeId !== "minecraft:player" || !extractionSessionActive(player, backpackSnapshots.get(player.id))) return;
   try {
     const health = player.getComponent("minecraft:health");
-    if (health && health.currentValue <= 0) dropBackpack(player, { ...player.location }, player.dimension);
+    if (health && health.currentValue <= 0) {
+      const cached = backpackSnapshots.get(player.id);
+      dropBackpack(player, cached?.location, extractionDimension());
+    }
   } catch {}
 });
 
 subscribe(world.afterEvents?.entityDie, "entityDie", event => {
   const player = event.deadEntity;
   if (player?.typeId === "minecraft:player") {
-    try { dropBackpack(player, { ...player.location }, player.dimension); } catch {}
+    try {
+      const cached = backpackSnapshots.get(player.id);
+      dropBackpack(player, cached?.location, extractionDimension());
+    } catch {}
   }
 });
 
@@ -339,7 +592,20 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
   try { shouldReturn ||= event.player.getDynamicProperty(CONFIG.deathReturnKey) === true; } catch {}
   if (!shouldReturn) return;
   try { event.player.setDynamicProperty(CONFIG.deathReturnKey, undefined); } catch {}
-  system.runTimeout(() => returnPlayer(event.player, "行动失败，已返回安全区域；背包物资留在死亡地点。"), 20);
+  system.runTimeout(() => {
+    clearBackpackSlots(event.player);
+    returnPlayer(event.player, "行动失败，已返回安全区域；背包物资留在死亡地点。");
+  }, 20);
+});
+
+subscribe(world.afterEvents?.entitySpawn, "entitySpawn", event => {
+  const entity = event.entity;
+  if (!entity || !VANILLA_HOSTILES.has(entity.typeId)) return;
+  system.run(() => {
+    try {
+      if (entity.dimension.id === CONFIG.dimensionId && !entity.hasTag("apoc_extraction_allowed")) entity.remove();
+    } catch {}
+  });
 });
 
 subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
@@ -350,17 +616,46 @@ subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
   if (event.sourceEntity?.typeId !== "minecraft:player") return;
-  if (event.id === "extract:menu") system.run(() => openMenu(event.sourceEntity));
-  else if (event.id === "extract:enter") system.run(() => enter(event.sourceEntity));
-  else if (event.id === "extract:exit") system.run(() => startExtraction(event.sourceEntity));
+  const player = event.sourceEntity;
+  if (event.id === "extract:menu") system.run(() => openMenu(player));
+  else if (event.id === "extract:enter") system.run(() => enter(player));
+  else if (event.id === "extract:exit") system.run(() => startExtraction(player));
+  else if (event.id === "extract:exits") system.run(() => {
+    if (player.dimension.id !== CONFIG.dimensionId) return player.sendMessage("§c请先进入摸金都市。");
+    const nearest = points().map(point => ({ ...point, distance: distance2D(player.location, point) })).sort((a, b) => a.distance - b.distance).slice(0, 5);
+    player.sendMessage(`§6[撤离点]\n${nearest.map(point => `§e${point.name} §8- ${Math.floor(point.distance)}m §0(${point.x}, ${point.z})`).join("\n")}\n§0寻找绿色信标，到达 9 格内执行 /scriptevent extract:exit。`);
+  });
+  else if (event.id === "extract:status" && isAdmin(player)) system.run(() => {
+    const ready = world.getDynamicProperty(CONFIG.cityReadyKey) === true;
+    const heartbeat = Number(world.getDynamicProperty(CONFIG.apocalypseHeartbeatKey) || 0);
+    const crates = Number(world.getDynamicProperty("apoc_extract:crate_count:v1") || 0);
+    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates}`);
+  });
+  else if (event.id === "extract:rebuild" && isAdmin(player)) system.run(async () => {
+    const dimension = extractionDimension();
+    if (!dimension) return player.sendMessage("§c摸金维度不可用。");
+    player.sendMessage("§e正在修复承托层、扩建九个城区并重新布置物资箱，请稍候……");
+    try {
+      world.setDynamicProperty(CONFIG.cityReadyKey, undefined);
+      await ensureCityReady(dimension, true);
+      player.sendMessage("§a摸金都市扩建与修复完成。");
+    } catch (error) {
+      player.sendMessage(`§c摸金都市重建失败：${error}`);
+      console.error(`[ExtractionCity] manual rebuild failed: ${error}`);
+    }
+  });
 });
 
 system.runInterval(() => {
   try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
   for (const player of world.getAllPlayers()) {
     if (player.dimension.id !== CONFIG.dimensionId) continue;
+    snapshotBackpack(player);
+    if (system.currentTick % 100 === 0) applyExtractionEnvironment(player);
     const point = nearestExit(player);
-    if (point && point.distance <= 32) player.onScreenDisplay.setActionBar(`§a撤离点：${point.name} §f${Math.floor(point.distance)}m`);
+    if (point && point.distance <= 32 && !extractionJobs.has(player.id)) {
+      player.onScreenDisplay.setActionBar(`§a撤离点：${point.name} §f${Math.floor(point.distance)}m §8| §0${point.x},${point.z} §8| §e/scriptevent extract:exit`);
+    }
     const job = extractionJobs.get(player.id);
     if (!job) continue;
     const activePoint = points().find(value => value.id === job.pointId);
@@ -375,11 +670,13 @@ system.runInterval(() => {
 }, 10);
 
 system.runInterval(() => {
-  for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { enqueueMob(player); } catch {}
+  const players = world.getAllPlayers().filter(player => player.dimension.id === CONFIG.dimensionId);
+  if (players.length) cleanupVanillaHostiles(players[0].dimension);
+  for (const player of players) try { spawnExtractionMob(player); } catch {}
 }, CONFIG.hostileSpawnIntervalTicks);
 
 system.runInterval(() => {
   for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
-console.warn("[ExtractionCity] persistent city, insurance, random entry, 8 exits and urban-legend boss pool initialized.");
+console.warn("[ExtractionCity] 3x3 persistent city, strict backpack loss, Apocalypse-only hostiles, loot crates, 12 exits and dusk fog initialized.");

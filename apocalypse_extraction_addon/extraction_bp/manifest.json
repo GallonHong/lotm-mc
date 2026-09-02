@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Extraction City BP v0.2.0",
-    "description": "Persistent extraction dimension, RandS test city generation, insurance and high-tier enemies.",
+    "name": "Apocalypse Extraction City BP v0.3.0",
+    "description": "Expanded 3x3 extraction city, strict insurance loss, Apocalypse enemies, loot crates and extraction points.",
     "uuid": "3ba398b1-341e-44b9-a426-21734cdf1180",
     "version": [
       0,
-      2,
+      3,
       0
     ],
     "min_engine_version": [
@@ -21,7 +21,7 @@
       "uuid": "f415de19-b827-4cb9-b17b-dcc17d2a1ed6",
       "version": [
         0,
-        2,
+        3,
         0
       ]
     },
@@ -31,7 +31,7 @@
       "uuid": "fe1965cb-8d9f-44f3-9206-12de3bf3ca46",
       "version": [
         0,
-        2,
+        3,
         0
       ],
       "entry": "scripts/main.js"
@@ -51,14 +51,22 @@
       "version": [
         0,
         6,
-        0
+        1
+      ]
+    },
+    {
+      "uuid": "714f16b3-b6ad-47f3-af06-dd93095da201",
+      "version": [
+        0,
+        3,
+        4
       ]
     },
     {
       "uuid": "02df7076-5477-4282-9bb8-f072f89b9275",
       "version": [
         0,
-        2,
+        3,
         0
       ]
     }

@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.6.0 增加可复用的四级物资箱：按坐标持久保存刷新冷却，统一通过 RewardManager 防重结算。动态事件阵亡淘汰与副本独立结算规则保持不变。
+独立的 Minecraft Bedrock 每日日常、动态事件与副本 Addon。v0.6.1 提供可复用的四级物资箱：按坐标持久保存刷新冷却，统一通过 RewardManager 防重结算，并补齐原版 `/scriptevent` 测试入口。动态事件阵亡淘汰与副本独立结算规则保持不变。
 
 ## 可复用物资箱
 

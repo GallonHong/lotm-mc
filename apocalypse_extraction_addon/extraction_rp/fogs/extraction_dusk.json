@@ -1,0 +1,22 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:fog_settings": {
+    "description": {
+      "identifier": "apoc_extract:dusk_fog"
+    },
+    "distance": {
+      "air": {
+        "fog_start": 42.0,
+        "fog_end": 138.0,
+        "fog_color": "#6f615c",
+        "render_distance_type": "fixed"
+      },
+      "weather": {
+        "fog_start": 30.0,
+        "fog_end": 105.0,
+        "fog_color": "#514b4d",
+        "render_distance_type": "fixed"
+      }
+    }
+  }
+}
