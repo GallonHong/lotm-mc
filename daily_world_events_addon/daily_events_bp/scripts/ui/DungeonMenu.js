@@ -23,7 +23,7 @@ export class DungeonMenu {
       .body(`§7副本采用独立场地、个人贡献与防重复奖励结算。\n§f运行实例：§e${active.length} §8/ 2`);
     const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
     const clinic = DUNGEON_TEMPLATES.abandoned_clinic;
-    add(`§l§c${clinic.name}\n§r§8推荐 1–4 人 | 三阶段感染清理`, "textures/ui/warning_alex", () => this.confirmStart(player, clinic, onBack));
+    add(`§l§c${clinic.name}\n§r§8推荐 1–4 人 | 多建筑九阶段行动`, "textures/ui/warning_alex", () => this.confirmStart(player, clinic, onBack));
     for (const instance of active) {
       const template = DUNGEON_TEMPLATES[instance.templateId];
       if (!template || instance.participants.length >= template.maxPlayers) continue;

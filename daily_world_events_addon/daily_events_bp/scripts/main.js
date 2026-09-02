@@ -12,7 +12,7 @@ import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.4.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Dungeons v0.5.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());

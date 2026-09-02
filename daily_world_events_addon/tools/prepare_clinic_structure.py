@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Convert Deadzone's clinic.mcstructure into a standalone vanilla-block dungeon asset."""
+"""Convert a Deadzone structure into a standalone vanilla-block dungeon asset."""
 
 from __future__ import annotations
 
@@ -126,6 +126,33 @@ VANILLA_REPLACEMENTS = {
     "mcpe:monitor_keyboard": "minecraft:black_concrete",
     "mcpe:office_chair_white": "minecraft:white_wool",
     "mcpe:office_chair_blue": "minecraft:blue_wool",
+    "mcpe:civilian_loot": "minecraft:barrel",
+    "mcpe:food_loot": "minecraft:barrel",
+    "mcpe:police_loot": "minecraft:barrel",
+    "mcpe:crate": "minecraft:barrel",
+    "mcpe:metal_rack": "minecraft:iron_bars",
+    "mcpe:microwave": "minecraft:iron_block",
+    "mcpe:monitor": "minecraft:black_concrete",
+    "mcpe:office_chair_black": "minecraft:black_wool",
+    "mcpe:office_chair_green": "minecraft:green_wool",
+    "mcpe:ceiling_light": "minecraft:sea_lantern",
+    "mcpe:ceiling_light_broken": "minecraft:gray_concrete",
+    "mcpe:display_rack_middle_bottom": "minecraft:bookshelf",
+    "mcpe:display_rack_middle_top": "minecraft:bookshelf",
+    "mcpe:display_rack_side_bottom": "minecraft:bookshelf",
+    "mcpe:display_rack_side_top": "minecraft:bookshelf",
+    "mcpe:monobloc_yellow": "minecraft:yellow_wool",
+    "mcpe:plastic_tan": "minecraft:sandstone",
+    "mcpe:radio": "minecraft:note_block",
+    "mcpe:street_bench_blue": "minecraft:blue_wool",
+    "mcpe:street_bench_white": "minecraft:smooth_stone",
+    "mcpe:worklight": "minecraft:glowstone",
+    "mcpe:barrel_explosive": "minecraft:red_concrete",
+    "mcpe:crowd_fence": "minecraft:iron_bars",
+    "mcpe:road_barrier": "minecraft:yellow_concrete",
+    "mcpe:traffic_rod": "minecraft:yellow_concrete",
+    "mcpe:traffic_turn_left": "minecraft:yellow_concrete",
+    "mcpe:traffic_turn_right": "minecraft:yellow_concrete",
 }
 
 
@@ -137,6 +164,7 @@ def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("source", type=Path)
     parser.add_argument("output", type=Path)
+    parser.add_argument("--expected-size", help="Optional X,Y,Z safety check")
     args = parser.parse_args()
 
     reader = Reader(args.source.read_bytes())
@@ -145,8 +173,10 @@ def main() -> None:
         raise ValueError("Trailing data found after root NBT tag")
 
     size = [entry.value for entry in child(root, "size").value]
-    if size != [18, 10, 15]:
-        raise ValueError(f"Unexpected clinic dimensions: {size}")
+    if args.expected_size:
+        expected = [int(value) for value in args.expected_size.split(",")]
+        if size != expected:
+            raise ValueError(f"Unexpected structure dimensions: {size}; expected {expected}")
 
     structure = child(root, "structure")
     default_palette = child(child(structure, "palette"), "default")
@@ -155,6 +185,8 @@ def main() -> None:
     for entry in block_palette.value:
         name_tag = child(entry, "name")
         replacement = VANILLA_REPLACEMENTS.get(name_tag.value)
+        if name_tag.value.startswith("mcpe:") and not replacement:
+            raise ValueError(f"No vanilla replacement configured for {name_tag.value}")
         if not replacement:
             continue
         name_tag.value = replacement

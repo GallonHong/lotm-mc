@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.5 修复持枪掠夺者错误声明 `geometry.item_in_hand` 引起的 `geometry.default not found`；人形模型改为 `geometry.apoc.infected` 以避免跨资源包标识冲突，并通过 `enable_attachables` 让 Test Guns 自己负责 AK-47 模型渲染。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.6 在 v0.2.5 枪械 attachable 修复基础上，为副本刷怪总线增加人工固定坐标模式，避免建筑内敌人被地面搜索算法放到屋顶或生成失败。
 
 ## 已实现
 

@@ -27,6 +27,24 @@ const APOCALYPSE_PRESET_ZONES = Object.freeze([
   { name: "法制区 2", type: "law", dimension: "minecraft:overworld", min: { x: 1687, y: -64, z: 2509 }, max: { x: 2250, y: 320, z: 3127 }, priority: 300 }
 ]);
 
+const APOCALYPSE_MOBS = Object.freeze({
+  basic: "apoc:infected_basic",
+  runner: "apoc:infected_runner",
+  mutant: "apoc:infected_mutant",
+  heavy: "apoc:infected_heavy",
+  spitter: "apoc:infected_spitter",
+  raider: "apoc:raider_rifleman"
+});
+
+const VANILLA_MOBS = Object.freeze({
+  basic: "minecraft:zombie",
+  runner: "minecraft:husk",
+  mutant: "minecraft:zombie",
+  heavy: "minecraft:zombie",
+  spitter: "minecraft:skeleton",
+  raider: "minecraft:pillager"
+});
+
 function isAir(block) {
   const id = String(block?.typeId || "");
   return block?.isAir === true || id === "minecraft:air" || id === "minecraft:cave_air" || id === "minecraft:void_air";
@@ -100,7 +118,7 @@ export class IntegrationBridge {
     return this.resolveZone(dimensionId, location).type === "safe";
   }
 
-  static enqueueSpawn(dimensionId, center, mobKey, count, tags, minDistance = 7, maxDistance = 15) {
+  static enqueueSpawn(dimensionId, center, mobKey, count, tags, minDistance = 7, maxDistance = 15, placement = "ground") {
     try {
       const raw = world.getDynamicProperty(CONFIG.apocalypseSpawnQueueKey);
       const queue = parseArray(raw);
@@ -112,7 +130,8 @@ export class IntegrationBridge {
         count,
         tags,
         minDistance,
-        maxDistance
+        maxDistance,
+        placement
       });
       world.setDynamicProperty(CONFIG.apocalypseSpawnQueueKey, JSON.stringify(queue.slice(-50)));
       return true;
@@ -120,7 +139,6 @@ export class IntegrationBridge {
   }
 
   static spawnFallback(dimension, center, mobKey, count, tags, minDistance = 7, maxDistance = 15) {
-    const fallback = { basic: "minecraft:zombie", runner: "minecraft:husk", mutant: "minecraft:zombie", heavy: "minecraft:zombie", spitter: "minecraft:skeleton", raider: "minecraft:pillager" };
     let spawned = 0;
     for (let index = 0; index < count; index++) {
       const angle = Math.random() * Math.PI * 2;
@@ -128,7 +146,7 @@ export class IntegrationBridge {
       const location = findFallbackGround(dimension, center, angle, radius);
       if (!location) continue;
       try {
-        const entity = dimension.spawnEntity(fallback[mobKey] || fallback.basic, location);
+        const entity = dimension.spawnEntity(VANILLA_MOBS[mobKey] || VANILLA_MOBS.basic, location);
         for (const tag of tags) entity.addTag(tag);
         entity.addTag("daily_event_entity");
         if (mobKey === "runner") entity.addEffect("speed", 999999, { amplifier: 1, showParticles: false });
@@ -142,6 +160,49 @@ export class IntegrationBridge {
   static spawnEventMobs(dimension, center, mobKey, count, tags, minDistance, maxDistance) {
     if (this.isApocalypseAvailable() && this.enqueueSpawn(dimension.id, center, mobKey, count, [...tags, "daily_event_entity"], minDistance, maxDistance)) return count;
     return this.spawnFallback(dimension, center, mobKey, count, tags, minDistance, maxDistance);
+  }
+
+  /**
+   * 副本坐标由地图模板人工验证，不再运行从屋顶向下搜索地面的算法。
+   * Apocalypse 在线时仍通过 SpawnDirector 总线生成；缺失时使用原版实体兜底。
+   */
+  static spawnDungeonMobs(dimension, center, mobKey, count, tags) {
+    const allTags = [...tags, "daily_event_entity"];
+    if (this.isApocalypseAvailable() && this.enqueueSpawn(dimension.id, center, mobKey, count, allTags, 0, 0, "exact")) return count;
+    return this.spawnExact(dimension, center, mobKey, count, allTags, false);
+  }
+
+  /** 最后的确认性补刷：优先直接生成 Apocalypse 实体，避免异步总线丢包导致空阶段。 */
+  static forceDungeonMobs(dimension, center, mobKey, count, tags) {
+    return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true);
+  }
+
+  static spawnExact(dimension, center, mobKey, count, tags, preferApocalypse) {
+    let spawned = 0;
+    for (let index = 0; index < count; index++) {
+      const location = {
+        x: Number(center.x) + ((index % 3) - 1) * 0.35,
+        y: Number(center.y),
+        z: Number(center.z) + (Math.floor(index / 3) % 3) * 0.35
+      };
+      let entity = null;
+      if (preferApocalypse) {
+        try { entity = dimension.spawnEntity(APOCALYPSE_MOBS[mobKey] || APOCALYPSE_MOBS.basic, location); } catch {}
+      }
+      try { entity ||= dimension.spawnEntity(VANILLA_MOBS[mobKey] || VANILLA_MOBS.basic, location); } catch {}
+      if (!entity) continue;
+      try {
+        for (const tag of tags) entity.addTag(tag);
+        if (String(entity.typeId).startsWith("apoc:")) {
+          entity.addTag("apoc_hostile");
+          entity.addTag("apoc_director");
+        }
+        if (mobKey === "runner" && !String(entity.typeId).startsWith("apoc:")) entity.addEffect("speed", 999999, { amplifier: 1, showParticles: false });
+        if (mobKey === "heavy" && !String(entity.typeId).startsWith("apoc:")) entity.addEffect("resistance", 999999, { amplifier: 1, showParticles: false });
+        spawned++;
+      } catch {}
+    }
+    return spawned;
   }
 
   static getSalesTotal(playerName) {
