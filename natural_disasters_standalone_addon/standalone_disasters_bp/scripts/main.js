@@ -18,7 +18,7 @@ const SETTINGS_KEY = "sando_standalone:settings:v5";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.3.1 initializing; direct SAPI menu bridge enabled...");
+console.warn("[NaturalDisastersStandalone] v1.3.2 initializing; cooldown Action Bar disabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: STANDALONE_CONFIG.enabled,
@@ -341,13 +341,13 @@ function bar(seconds, max) {
 }
 
 function hud() {
-  const max = phase === "warning" ? settings.warningSeconds : phase === "active" ? settings.disasterSeconds : settings.cooldownSeconds;
+  // 冷却期保持 Action Bar 空闲，避免覆盖枪械 HUD、任务进度等其他 Addon 信息。
+  if (phase !== "warning" && phase !== "active") return;
+  const max = phase === "warning" ? settings.warningSeconds : settings.disasterSeconds;
   for (const p of participantsFor()) {
     const title = phase === "active"
       ? disaster.name
-      : phase === "warning"
-        ? `§eNEXT: ${disaster.name}`
-        : "§aSAFE TIME";
+      : `§eNEXT: ${disaster.name}`;
     try {
       p.onScreenDisplay.setActionBar(
         `${title} §8| §6难度 ${disasterLevel} §8| ${bar(remaining, max)} §f${remaining}s §8| §3${dimensionLabel(activeDimensionId)}`
@@ -984,7 +984,7 @@ world.afterEvents.playerSpawn.subscribe(ev => {
       } catch (_) {}
     }
     if (ev.initialSpawn && isAdmin(p)) {
-      try { p.sendMessage("§a[独立自然灾害] v1.3.1 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；管理员可从 SAPI 控制台直接打开灾害页面。"); } catch (_) {}
+      try { p.sendMessage("§a[独立自然灾害] v1.3.2 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；灾害冷却期不再占用 Action Bar。"); } catch (_) {}
     }
   });
 });
