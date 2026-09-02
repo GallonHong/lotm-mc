@@ -5,6 +5,15 @@
     "components": {
       "minecraft:type_family": { "family": ["apoc_hostile", "raider", "hostile_npc", "monster", "mob"] },
       "minecraft:nameable": {},
+      "minecraft:equipment": { "table": "loot_tables/entities/raider_rifleman_gear.json" },
+      "minecraft:equippable": {
+        "slots": [
+          {
+            "slot": 0,
+            "accepted_items": ["test_gun:ak47"]
+          }
+        ]
+      },
       "minecraft:health": { "value": 50, "max": 50 },
       "minecraft:collision_box": { "width": 0.6, "height": 1.85 },
       "minecraft:movement": { "value": 0.28 },

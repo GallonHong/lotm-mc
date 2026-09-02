@@ -1,4 +1,4 @@
-import { world, system, EntityDamageCause } from "@minecraft/server";
+import { world, system, EntityDamageCause, ItemStack } from "@minecraft/server";
 import { NPC_WEAPONS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
 
@@ -86,6 +86,23 @@ function telegraph(entity, color = "acid") {
   } catch {}
 }
 
+function ensureRaiderWeapon(entity) {
+  try {
+    const equippable = entity.getComponent("minecraft:equippable");
+    if (!equippable) return false;
+    const held = equippable.getEquipment("Mainhand");
+    if (held?.typeId === "test_gun:ak47") return true;
+    equippable.setEquipment("Mainhand", new ItemStack("test_gun:ak47", 1));
+    return true;
+  } catch {
+    try {
+      entity.runCommandAsync("replaceitem entity @s slot.weapon.mainhand 0 test_gun:ak47");
+      return true;
+    } catch {}
+  }
+  return false;
+}
+
 export class CombatAI {
   static raiders = new Map();
   static spitters = new Map();
@@ -155,6 +172,7 @@ export class CombatAI {
 
   static tickRaider(entity) {
     if (!valid(entity)) return;
+    if (system.currentTick % 20 === 0) ensureRaiderWeapon(entity);
     if (isFlashDisabled(entity)) return this.resetDisabled(entity, this.raiders);
     const profile = NPC_WEAPONS.raider_rifle;
     const now = system.currentTick;
@@ -217,4 +235,3 @@ export class CombatAI {
     for (const [id, state] of this.spitters) if (system.currentTick - Number(state.nextTick || 0) > 1200) this.spitters.delete(id);
   }
 }
-

@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.1 增加供 Daily & World Events Addon 使用的 SpawnDirector 跨包请求总线，并修复补给箱几何资源引用。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.2.2 修复掠夺者本体与枪械显示：实体使用包内 humanoid 几何体，并自动装备 Test Guns 的 `test_gun:ak47` 模型。
 
 ## 已实现
 
@@ -9,7 +9,7 @@
 - 主城保险：安全区禁止生成并周期清除敌对生物。
 - 感染者：普通（20 HP）、疾行（30 HP）、变异（100 HP）、重型（200 HP）、毒液远程（50 HP）。
 - 掠夺者步枪手（50 HP）：瞄准、4 发短点射、弹匣、换弹、距离衰减精度、掩体视线检测。
-- Test Guns 联动：`test_gun:flash_shield` 的致盲/黑暗/高等级减速会立即中断毒液怪和步枪手的瞄准与射击；NPC 伤害会进入玩家盾牌减伤事件。
+- Test Guns 联动：掠夺者会在主手装备并显示 `test_gun:ak47`；`test_gun:flash_shield` 的致盲/黑暗/高等级减速会立即中断毒液怪和步枪手的瞄准与射击；NPC 伤害会进入玩家盾牌减伤事件。
 - LootNode：管理员人工登记补给箱，支持刷新冷却。
 - 动态事件：野外感染者伏击，完成后向参战玩家发放金币或物资。
 - 原版敌对生物抑制开关，避免自然怪物绕过 SpawnDirector。
@@ -18,7 +18,7 @@
 
 导入根目录生成的 `Apocalypse_Mobs_Addon.mcaddon`，为世界同时启用行为包与资源包。脚本 API 使用稳定版 `@minecraft/server 1.19.0`。
 
-SAPI Server 与 Test Guns 都是可选包，不安装时本 Addon 仍可独立运行。
+SAPI Server 是可选包。持枪掠夺者现在依赖 Test Guns 2D v3.9.0，导入怪物 Addon 时应同时启用 Test Guns 的行为包和资源包；本次修复没有修改 Test Guns 文件。
 
 ## 管理
 

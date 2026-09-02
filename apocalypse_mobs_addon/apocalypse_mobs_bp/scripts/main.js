@@ -6,7 +6,7 @@ import { LootManager } from "./loot.js";
 import { WorldEventDirector } from "./events.js";
 import { AdminMenu, isAdmin } from "./admin.js";
 
-console.warn("[Apocalypse] Mobs & SpawnDirector v0.2.1 initializing...");
+console.warn("[Apocalypse] Mobs & SpawnDirector v0.2.2 initializing...");
 
 function subscribe(signal, label, handler) {
   if (!signal || typeof signal.subscribe !== "function") {
