@@ -41,26 +41,50 @@ const VANILLA_HOSTILES = new Set([
 ]);
 
 const CRATE_LAYOUT = Object.freeze([
-  { dx: -46, dz: -34, tier: "common" },
-  { dx: 42, dz: -38, tier: "common" },
-  { dx: -34, dz: 44, tier: "rare" },
-  { dx: 38, dz: 40, tier: "epic" }
+  // All four locations sit on the permanent two-cell road cross. They are
+  // deliberately not resolved with safeGround: that could move a crate onto
+  // a roof or into an interior and made higher tiers almost impossible to see.
+  { dx: -4, dz: -20, tier: "common" },
+  { dx: 12, dz: 20, tier: "common" },
+  { dx: -20, dz: 4, tier: "rare" },
+  { dx: 20, dz: -4, tier: "epic" }
 ]);
+
+const CRATE_BLOCK_BY_TIER = Object.freeze({
+  common: "daily:loot_crate_common",
+  rare: "daily:loot_crate_rare",
+  epic: "daily:loot_crate_epic",
+  legendary: "daily:loot_crate_legendary",
+  mythic: "daily:loot_crate_mythic"
+});
+
+const CRATE_PAD_BY_TIER = Object.freeze({
+  common: "minecraft:stone_bricks",
+  rare: "minecraft:light_blue_concrete",
+  epic: "minecraft:purple_concrete",
+  legendary: "minecraft:yellow_concrete",
+  mythic: "minecraft:magenta_concrete"
+});
+
+const LEGENDARY_CRATE_DISTRICTS = Object.freeze([0, 6, 12, 18, 24]);
 
 // These are the exact X/Z footprints of the nine RandS landmark structures.
 // The original add-on lets Jigsaw reserve these cells. In the runtime void
 // dimension we reproduce that reservation explicitly, then fill every unused
 // 16x16 cell with an actual RandS street piece.
 const RANDS_BUILDING_FOOTPRINTS = Object.freeze({
-  b1: { xCells: 1, zCells: 1, height: 46 },
-  b2: { xCells: 2, zCells: 2, height: 50 },
-  b3: { xCells: 1, zCells: 2, height: 55 },
-  b4: { xCells: 1, zCells: 1, height: 50 },
-  b5: { xCells: 1, zCells: 1, height: 50 },
-  b6: { xCells: 1, zCells: 1, height: 45 },
-  b7: { xCells: 2, zCells: 2, height: 55 },
-  b8: { xCells: 1, zCells: 2, height: 31 },
-  b9: { xCells: 2, zCells: 2, height: 33 }
+  // groundOffset is the structure-local layer that represents street level.
+  // RandS saved several towers with their underground foundation starting at
+  // layer 0, while the smaller buildings were saved directly at street level.
+  b1: { xCells: 1, zCells: 1, height: 46, groundOffset: 9 },
+  b2: { xCells: 2, zCells: 2, height: 50, groundOffset: 9 },
+  b3: { xCells: 1, zCells: 2, height: 55, groundOffset: 2 },
+  b4: { xCells: 1, zCells: 1, height: 50, groundOffset: 10 },
+  b5: { xCells: 1, zCells: 1, height: 50, groundOffset: 9 },
+  b6: { xCells: 1, zCells: 1, height: 45, groundOffset: 10 },
+  b7: { xCells: 2, zCells: 2, height: 55, groundOffset: 1 },
+  b8: { xCells: 1, zCells: 2, height: 31, groundOffset: 2 },
+  b9: { xCells: 2, zCells: 2, height: 33, groundOffset: 3 }
 });
 
 const RANDS_STREET_STRUCTURES = Object.freeze([
@@ -306,20 +330,31 @@ async function buildCityFoundation(dimension) {
   }
 }
 
-function replaceRandSMarkers(dimension, x, z, footprint) {
+function structureCrateTier(districtIndex, row, column, isLandmark = false) {
+  if (isLandmark && (districtIndex === 12 || districtIndex % 6 === 0)) return "epic";
+  if (isLandmark) return "rare";
+  const roll = deterministicIndex(districtIndex, row, column, 100, 0x4c00f00d);
+  if (roll < 5) return "epic";
+  if (roll < 25) return "rare";
+  return "common";
+}
+
+function replaceRandSMarkers(dimension, x, z, footprint, tier = "common") {
+  const structureY = CONFIG.cityBaseY + 1 - Number(footprint.groundOffset || 0);
+  const crateBlock = CRATE_BLOCK_BY_TIER[tier] || CRATE_BLOCK_BY_TIER.common;
   for (let cellX = 0; cellX < footprint.xCells; cellX++) {
     for (let cellZ = 0; cellZ < footprint.zCells; cellZ++) {
       const minX = x + cellX * CONFIG.districtCellSize;
       const minZ = z + cellZ * CONFIG.districtCellSize;
       const maxX = minX + CONFIG.districtCellSize - 1;
       const maxZ = minZ + CONFIG.districtCellSize - 1;
-      const maxY = CONFIG.cityBaseY + Math.max(25, footprint.height) + 1;
+      const maxY = structureY + Math.max(25, footprint.height) + 1;
       try {
-        dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY + 1} ${minZ} ${maxX} ${maxY} ${maxZ} daily:loot_crate_common replace minecraft:mob_spawner`);
+        dimension.runCommand(`fill ${minX} ${structureY} ${minZ} ${maxX} ${maxY} ${maxZ} ${crateBlock} replace minecraft:mob_spawner`);
       } catch {
-        try { dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY + 1} ${minZ} ${maxX} ${maxY} ${maxZ} minecraft:chest replace minecraft:mob_spawner`); } catch {}
+        try { dimension.runCommand(`fill ${minX} ${structureY} ${minZ} ${maxX} ${maxY} ${maxZ} minecraft:chest replace minecraft:mob_spawner`); } catch {}
       }
-      try { dimension.runCommand(`fill ${minX} ${CONFIG.cityBaseY + 1} ${minZ} ${maxX} ${CONFIG.cityBaseY + 26} ${maxZ} minecraft:air replace minecraft:jigsaw`); } catch {}
+      try { dimension.runCommand(`fill ${minX} ${structureY} ${minZ} ${maxX} ${maxY} ${maxZ} minecraft:air replace minecraft:jigsaw`); } catch {}
     }
   }
 }
@@ -358,8 +393,9 @@ async function placeDistrict(dimension, center, index) {
       const anchor = LANDMARK_ANCHORS[index % LANDMARK_ANCHORS.length];
       const landmarkX = gridOriginX + anchor.column * CONFIG.districtCellSize;
       const landmarkZ = gridOriginZ + anchor.row * CONFIG.districtCellSize;
-      placePackStructure(dimension, `village:custom/houses/${landmark}`, { x: landmarkX, y: CONFIG.cityBaseY + 1, z: landmarkZ });
-      replaceRandSMarkers(dimension, landmarkX, landmarkZ, footprint);
+      const landmarkY = CONFIG.cityBaseY + 1 - footprint.groundOffset;
+      placePackStructure(dimension, `village:custom/houses/${landmark}`, { x: landmarkX, y: landmarkY, z: landmarkZ });
+      replaceRandSMarkers(dimension, landmarkX, landmarkZ, footprint, structureCrateTier(index, anchor.row, anchor.column, true));
       for (let dx = 0; dx < footprint.xCells; dx++) {
         for (let dz = 0; dz < footprint.zCells; dz++) {
           occupied[anchor.row + dz][anchor.column + dx] = true;
@@ -377,12 +413,12 @@ async function placeDistrict(dimension, center, index) {
           if (isDistrictRoadCell(row, column)) {
             const variant = RANDS_STREET_STRUCTURES[deterministicIndex(index, row, column, RANDS_STREET_STRUCTURES.length, 0x51f15e)];
             placePackStructure(dimension, `village:custom/streets/${variant}`, { x, y: CONFIG.cityBaseY + 1, z });
-            replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: 25 });
+            replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: 25 }, structureCrateTier(index, row, column));
             streetsLoaded++;
           } else {
             const house = RANDS_SMALL_HOUSES[deterministicIndex(index, row, column, RANDS_SMALL_HOUSES.length, 0x19a4c3)];
             placePackStructure(dimension, `village:custom/houses/${house}`, { x, y: CONFIG.cityBaseY + 1, z });
-            replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: house === "house11" ? 19 : 16 });
+            replaceRandSMarkers(dimension, x, z, { xCells: 1, zCells: 1, height: house === "house11" ? 19 : 16 }, structureCrateTier(index, row, column));
             buildingsLoaded++;
           }
           if ((buildingsLoaded + streetsLoaded) % 4 === 0) await waitTicks(1);
@@ -413,11 +449,32 @@ function addFallbackLootNode(nodes, location, tier) {
   });
 }
 
+function districtCrateLayout(districtIndex) {
+  const layout = [...CRATE_LAYOUT];
+  if (LEGENDARY_CRATE_DISTRICTS.includes(districtIndex)) layout.push({ dx: 4, dz: 20, tier: "legendary" });
+  if (districtIndex === 12) layout.push({ dx: 4, dz: -20, tier: "mythic" });
+  return layout;
+}
+
+function prepareCratePad(dimension, center, crate) {
+  const x = Math.floor(center.x + crate.dx);
+  const z = Math.floor(center.z + crate.dz);
+  const floorY = CONFIG.cityBaseY + 1;
+  const crateY = floorY + 1;
+  const pad = CRATE_PAD_BY_TIER[crate.tier] || CRATE_PAD_BY_TIER.common;
+  // A small coloured road-side pad makes quality obvious and guarantees two
+  // clear blocks above every crate even if a RandS car/canopy occupied the cell.
+  dimension.runCommand(`fill ${x - 1} ${floorY} ${z - 1} ${x + 1} ${floorY} ${z + 1} ${pad}`);
+  dimension.runCommand(`fill ${x} ${crateY} ${z} ${x} ${crateY + 2} ${z} minecraft:air`);
+  return { x, y: crateY, z };
+}
+
 async function placeLootCrates(dimension) {
   let existingNodes = [];
   try { existingNodes = parse(world.getDynamicProperty(CONFIG.lootNodesKey), []); } catch {}
   const fallbackNodes = Array.isArray(existingNodes) ? existingNodes.slice() : [];
   let placed = 0;
+  const placedByTier = { common: 0, rare: 0, epic: 0, legendary: 0, mythic: 0 };
   for (let districtIndex = 0; districtIndex < CONFIG.districtCenters.length; districtIndex++) {
     const center = CONFIG.districtCenters[districtIndex];
     await withTickingArea(
@@ -426,29 +483,14 @@ async function placeLootCrates(dimension) {
       { x: center.x - 64, y: 56, z: center.z - 64 },
       { x: center.x + 64, y: 192, z: center.z + 64 },
       async () => {
-        const layout = districtIndex === 12
-          ? [...CRATE_LAYOUT, { dx: 0, dz: 18, tier: "mythic" }]
-          : CRATE_LAYOUT;
+        const layout = districtCrateLayout(districtIndex);
         for (const crate of layout) {
-          let ground = safeGround(dimension, center.x + crate.dx, center.z + crate.dz, 18);
-          // Some custom-dimension builds do not expose getTopmostBlock while a
-          // freshly added ticking area is warming up. Use the permanent road
-          // deck as a deterministic fallback instead of reporting zero crates.
-          if (!ground) {
-            const fallbackOffsets = [[3, 12], [-3, -12], [12, 3], [-12, -3], [0, 18]];
-            const fallback = fallbackOffsets[Math.min(layout.indexOf(crate), fallbackOffsets.length - 1)];
-            const x = center.x + fallback[0], z = center.z + fallback[1];
-            try {
-              dimension.runCommand(`setblock ${x} ${CONFIG.cityBaseY + 1} ${z} minecraft:stone_bricks`);
-              dimension.runCommand(`fill ${x} ${CONFIG.cityBaseY + 2} ${z} ${x} ${CONFIG.cityBaseY + 3} ${z} minecraft:air`);
-              ground = { x: x + 0.5, y: CONFIG.cityBaseY + 2, z: z + 0.5 };
-            } catch { continue; }
-          }
-          const location = { x: Math.floor(ground.x), y: Math.floor(ground.y), z: Math.floor(ground.z) };
+          let location;
+          try { location = prepareCratePad(dimension, center, crate); } catch { continue; }
           const block = dimension.getBlock(location);
-          if (!block || !isAir(block)) continue;
+          if (!block) continue;
           try {
-            block.setType(`daily:loot_crate_${crate.tier}`);
+            block.setType(CRATE_BLOCK_BY_TIER[crate.tier] || CRATE_BLOCK_BY_TIER.common);
           } catch {
             try {
               block.setType("apoc:loot_crate");
@@ -456,6 +498,7 @@ async function placeLootCrates(dimension) {
             } catch { continue; }
           }
           placed++;
+          placedByTier[crate.tier]++;
         }
         await waitTicks(1);
       }
@@ -463,6 +506,7 @@ async function placeLootCrates(dimension) {
   }
   try { world.setDynamicProperty(CONFIG.lootNodesKey, JSON.stringify(fallbackNodes.slice(-300))); } catch {}
   try { world.setDynamicProperty("apoc_extract:crate_count:v1", placed); } catch {}
+  try { world.setDynamicProperty("apoc_extract:crate_tiers:v1", JSON.stringify(placedByTier)); } catch {}
   return placed;
 }
 
@@ -476,21 +520,18 @@ async function placeExtractionMarkers(dimension) {
       { x: point.x - 16, y: 56, z: point.z - 16 },
       { x: point.x + 16, y: 192, z: point.z + 16 },
       async () => {
-        let ground = standingGround(dimension, point.x, point.z);
-        if (!ground) {
-          // Exit coordinates sit on the city foundation. Recreate a tiny road
-          // pad directly so exits remain usable even when surface queries fail.
-          try {
-            dimension.runCommand(`fill ${point.x - 2} ${CONFIG.cityBaseY + 1} ${point.z - 2} ${point.x + 2} ${CONFIG.cityBaseY + 1} ${point.z + 2} minecraft:stone_bricks`);
-            dimension.runCommand(`fill ${point.x - 2} ${CONFIG.cityBaseY + 2} ${point.z - 2} ${point.x + 2} ${CONFIG.cityBaseY + 7} ${point.z + 2} minecraft:air`);
-            ground = { x: point.x + 0.5, y: CONFIG.cityBaseY + 2, z: point.z + 0.5 };
-          } catch { return; }
-        }
-        const x = Math.floor(ground.x), y = Math.floor(ground.y), z = Math.floor(ground.z);
+        const x = Math.floor(point.x), z = Math.floor(point.z);
+        const floorY = CONFIG.cityBaseY + 1;
+        const y = floorY + 1;
         try {
-          dimension.runCommand(`fill ${x - 2} ${y - 1} ${z - 2} ${x + 2} ${y - 1} ${z + 2} minecraft:lime_concrete`);
-          dimension.runCommand(`fill ${x} ${y} ${z} ${x} ${y + 4} ${z} minecraft:lime_stained_glass`);
-          dimension.getBlock({ x, y: y + 5, z })?.setType("minecraft:sea_lantern");
+          dimension.runCommand(`fill ${x - 4} ${floorY} ${z - 4} ${x + 4} ${floorY} ${z + 4} minecraft:lime_concrete`);
+          dimension.runCommand(`fill ${x - 1} ${floorY} ${z - 1} ${x + 1} ${floorY} ${z + 1} minecraft:iron_block`);
+          dimension.runCommand(`fill ${x - 2} ${y} ${z - 2} ${x + 2} ${y + 3} ${z + 2} minecraft:air`);
+          dimension.runCommand(`setblock ${x} ${y} ${z} minecraft:beacon`);
+          dimension.runCommand(`fill ${x} ${y + 1} ${z} ${x} ${y + 31} ${z} minecraft:lime_stained_glass`);
+          for (const lightY of [y + 6, y + 14, y + 22, y + 30]) {
+            dimension.runCommand(`setblock ${x + 1} ${lightY} ${z} minecraft:sea_lantern`);
+          }
           placed++;
         } catch {}
         await waitTicks(1);
@@ -702,6 +743,12 @@ async function enter(player) {
       applyExtractionEnvironment(player);
       snapshotBackpack(player);
       const exit = nearestExit(player);
+      try {
+        player.onScreenDisplay.setTitle("§a撤离点导航已锁定", {
+          subtitle: `§f${exit?.name || "未知"} §e${Math.floor(exit?.distance || 0)}m`,
+          fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20
+        });
+      } catch {}
       player.sendMessage(`§6[摸金都市] 已在 ${point.name} 上空投放，并获得 60 秒缓降。最近撤离点：§a${exit?.name || "未知"} §8(${Math.floor(exit?.distance || 0)}m，${exit?.x || 0}, ${exit?.z || 0})§6。跟随屏幕撤离向导，进入撤离点 ${CONFIG.extractionRadius} 格范围后会自动开始倒计时。`);
     } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
     system.runTimeout(() => { try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {} }, 100);
@@ -710,6 +757,42 @@ async function enter(player) {
 
 function nearestExit(player) {
   return points().map(point => ({ ...point, distance: distance2D(player.location, point) })).sort((a, b) => a.distance - b.distance)[0] || null;
+}
+
+function legendaryCratePoints() {
+  return LEGENDARY_CRATE_DISTRICTS.map(districtIndex => {
+    const center = CONFIG.districtCenters[districtIndex];
+    return { id: `legendary_${districtIndex}`, name: "传说物资箱", x: center.x + 4, z: center.z + 20 };
+  });
+}
+
+function nearestLegendaryCrate(player) {
+  return legendaryCratePoints().map(point => ({ ...point, distance: distance2D(player.location, point) })).sort((a, b) => a.distance - b.distance)[0] || null;
+}
+
+function navigationDirection(player, point) {
+  const dx = Number(point.x) - Number(player.location.x);
+  const dz = Number(point.z) - Number(player.location.z);
+  const length = Math.max(0.001, Math.hypot(dx, dz));
+  const nx = dx / length, nz = dz / length;
+  let view = { x: 0, z: -1 };
+  try { view = player.getViewDirection(); } catch {}
+  const viewLength = Math.max(0.001, Math.hypot(view.x, view.z));
+  const vx = view.x / viewLength, vz = view.z / viewLength;
+  const forward = vx * nx + vz * nz;
+  const right = vx * nz - vz * nx;
+  let relative;
+  if (forward >= 0.7) relative = "↑前方";
+  else if (forward <= -0.7) relative = "↓后方";
+  else if (right >= 0.7) relative = "→右侧";
+  else if (right <= -0.7) relative = "←左侧";
+  else if (forward >= 0 && right >= 0) relative = "↗右前";
+  else if (forward >= 0) relative = "↖左前";
+  else if (right >= 0) relative = "↘右后";
+  else relative = "↙左后";
+  const eastWest = Math.abs(dx) < length * 0.25 ? "" : dx > 0 ? "东" : "西";
+  const northSouth = Math.abs(dz) < length * 0.25 ? "" : dz > 0 ? "南" : "北";
+  return `${relative}·${northSouth}${eastWest || (northSouth ? "" : "原地")}`;
 }
 
 function startExtraction(player) {
@@ -1048,9 +1131,10 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     const ready = world.getDynamicProperty(CONFIG.cityReadyKey) === true;
     const heartbeat = Number(world.getDynamicProperty(CONFIG.apocalypseHeartbeatKey) || 0);
     const crates = Number(world.getDynamicProperty("apoc_extract:crate_count:v1") || 0);
+    const crateTiers = parse(world.getDynamicProperty("apoc_extract:crate_tiers:v1"), {});
     const dimension = extractionDimension();
     const bosses = dimension ? dimension.getEntities({ tags: ["apoc_extraction_boss"] }).length : 0;
-    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates}\n§0当前 Boss：§e${bosses}`);
+    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates} §8(普通 ${crateTiers.common || 0} / 稀有 ${crateTiers.rare || 0} / 史诗 ${crateTiers.epic || 0} / 传奇 ${crateTiers.legendary || 0} / 神话 ${crateTiers.mythic || 0})\n§0当前 Boss：§e${bosses}`);
   });
   else if (event.id === "extract:boss" && isAdmin(player)) system.run(() => {
     if (player.dimension.id !== CONFIG.dimensionId) return player.sendMessage("§c请先进入摸金都市再测试 Boss。");
@@ -1092,8 +1176,14 @@ system.runInterval(() => {
       continue;
     }
     if (point && !extractionJobs.has(player.id) && system.currentTick % 40 === 0) {
-      const near = point.distance <= 32 ? "§a已接近" : "§6向导";
-      player.onScreenDisplay.setActionBar(`${near} §f${point.name} §e${Math.floor(point.distance)}m §8| §0${point.x},${point.z} §8| §e/scriptevent extract:exits`);
+      const showLegendary = system.currentTick % 80 >= 40;
+      const legendary = nearestLegendaryCrate(player);
+      if (showLegendary && legendary) {
+        player.onScreenDisplay.setActionBar(`§6传说箱向导 §f${legendary.name} §e${Math.floor(legendary.distance)}m §b${navigationDirection(player, legendary)} §8| §7${legendary.x}, ${legendary.z}`);
+      } else {
+        const near = point.distance <= 32 ? "§a已接近" : "§a撤离向导";
+        player.onScreenDisplay.setActionBar(`${near} §f${point.name} §e${Math.floor(point.distance)}m §b${navigationDirection(player, point)} §8| §7${point.x}, ${point.z}`);
+      }
     }
     const job = extractionJobs.get(player.id);
     if (!job) continue;
