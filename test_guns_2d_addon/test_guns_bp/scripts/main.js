@@ -158,7 +158,7 @@ class AddonController {
       try {
         const hurtEntity = event.hurtEntity;
         if (hurtEntity && hurtEntity.typeId === 'minecraft:player') {
-          ShieldEngine.handleDamageReduction(hurtEntity, event.damageSource?.damagingEntity, event.damage);
+          ShieldEngine.handleDamageReduction(hurtEntity, event.damageSource, event.damage);
         }
       } catch (err) {
         console.warn('Error in entityHurt:', err);

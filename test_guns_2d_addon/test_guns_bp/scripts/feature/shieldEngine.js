@@ -186,24 +186,27 @@ export class ShieldEngine {
   }
 
   /**
-   * 判定盾牌正面格挡减伤 70%
+   * 判定盾牌正面格挡减伤 70% 与反甲盾 50% 动能反伤
    * @param {Player} player 
-   * @param {Entity} attacker 
+   * @param {Object} damageSource 
    * @param {number} damage 
-   * @returns {number} 最终受到的伤害
    */
-  static handleDamageReduction(player, attacker, damage) {
-    if (!player || !player.isValid()) return damage;
+  static handleDamageReduction(player, damageSource, damage) {
+    if (!player || !player.isValid() || damage <= 0) return;
 
     try {
       const equ = player.getComponent('minecraft:equippable');
       const mainhand = equ?.getEquipment('Mainhand');
       const offhand = equ?.getEquipment('Offhand');
 
-      const hasShield = (mainhand?.typeId === 'test_gun:flash_shield' || offhand?.typeId === 'test_gun:flash_shield');
-      if (!hasShield) return damage;
+      const isFlash = (mainhand?.typeId === 'test_gun:flash_shield' || offhand?.typeId === 'test_gun:flash_shield');
+      const isRiot = (mainhand?.typeId === 'test_gun:riot_shield' || offhand?.typeId === 'test_gun:riot_shield');
+      if (!isFlash && !isRiot) return;
 
-      // 判定攻击方向是否在正面
+      const attacker = damageSource?.damagingEntity || damageSource?.damagingProjectile;
+
+      // 判定攻击方向是否在正面 (前方 200° 大扇形格挡)
+      let isFrontal = true;
       if (attacker && attacker.isValid()) {
         const pLoc = player.location;
         const aLoc = attacker.location;
@@ -215,20 +218,61 @@ export class ShieldEngine {
 
         if (dist > 0.1) {
           const dot = (dx / dist) * viewDir.x + (dz / dist) * viewDir.z;
-          if (dot > 0.2) {
-            // 正面格挡成功！减免 70% 伤害
-            const reducedDmg = Math.max(1, damage * 0.30);
-            try {
-              player.dimension.playSound('random.anvil_land', pLoc, { volume: 0.6, pitch: 2.0 });
-              player.dimension.spawnParticle('minecraft:crit', { x: pLoc.x, y: pLoc.y + 1.2, z: pLoc.z });
-              player.onScreenDisplay?.setActionBar?.(`§9🛡【G52 防暴格挡】吸收 70% 伤害! (受到 ${reducedDmg.toFixed(1)} 伤)§r`);
-            } catch {}
-            return reducedDmg;
-          }
+          isFrontal = (dot > -0.25);
         }
       }
-    } catch {}
 
-    return damage;
+      if (!isFrontal) return;
+
+      // 1. 真实恢复 70% 被格挡吸收的血量 (Instant Health Recovery of 70% absorbed damage)
+      const health = player.getComponent('minecraft:health');
+      if (health) {
+        const absorbedAmount = damage * 0.70;
+        const nextHp = Math.min(health.effectiveMax, health.currentValue + absorbedAmount);
+        health.setCurrentValue(nextHp);
+      }
+
+      const pLoc = player.location;
+
+      // 2. 盾牌受击格挡音效与火花粒子
+      try {
+        player.dimension.playSound('random.anvil_land', pLoc, { volume: 0.8, pitch: 1.8 });
+        player.dimension.playSound('item.shield.block', pLoc, { volume: 1.2, pitch: 1.0 });
+        player.dimension.spawnParticle('minecraft:crit', { x: pLoc.x, y: pLoc.y + 1.2, z: pLoc.z });
+      } catch {}
+
+      // 3. 重装反甲盾 50% 真实动能反伤 (Thorns Reflection)
+      if (isRiot && attacker && attacker.isValid() && attacker.id !== player.id) {
+        // 如果攻击者是弹射物 (如箭矢/火球)，寻找其发射者主体
+        let realTarget = attacker;
+        try {
+          if (attacker.typeId === 'minecraft:arrow' || attacker.typeId.includes('projectile')) {
+            const shooter = attacker.getComponent('minecraft:projectile')?.owner;
+            if (shooter && shooter.isValid()) realTarget = shooter;
+          }
+        } catch {}
+
+        const reflectDmg = Math.max(2.0, damage * 0.50);
+        try {
+          realTarget.applyDamage(reflectDmg, {
+            cause: EntityDamageCause.thorns,
+            damagingEntity: player
+          });
+        } catch {
+          try { realTarget.applyDamage(reflectDmg); } catch {}
+        }
+
+        try {
+          realTarget.dimension.spawnParticle('minecraft:critical_hit_emitter', realTarget.location);
+          player.dimension.playSound('random.break', realTarget.location, { volume: 0.8, pitch: 1.4 });
+        } catch {}
+
+        player.onScreenDisplay?.setActionBar?.(`§6🛡【重装反甲盾】吸收 70% 伤害，反弹 §e${reflectDmg.toFixed(1)}§6 动能反伤!§r`);
+      } else {
+        player.onScreenDisplay?.setActionBar?.(`§9🛡【G52 防暴格挡】吸收 70% 伤害!§r`);
+      }
+    } catch (err) {
+      console.warn('handleDamageReduction error:', err);
+    }
   }
 }
