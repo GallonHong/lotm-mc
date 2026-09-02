@@ -4,8 +4,7 @@
     "description": {
       "identifier": "test_gun:riot_shield",
       "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.shield"
+        "category": "equipment"
       }
     },
     "components": {
@@ -17,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_riot_shield",
       "minecraft:display_name": {
-        "value": "§5战术重装防暴盾 [史诗·70%格挡减伤]§r"
+        "value": "\u00a75\u6218\u672f\u91cd\u88c5\u9632\u66b4\u76fe [\u53f2\u8bd7\u00b770%\u683c\u6321\u51cf\u4f24]\u00a7r"
       },
       "minecraft:wearable": {
         "slot": "slot.weapon.offhand"
