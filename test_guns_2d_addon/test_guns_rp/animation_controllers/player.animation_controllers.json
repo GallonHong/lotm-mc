@@ -90,6 +90,12 @@
               "holding": "!variable.is_holding_gun"
             },
             {
+              "gun_hold_tpp": "variable.is_holding_rifle"
+            },
+            {
+              "pistol_hold_tpp": "variable.is_holding_pistol"
+            },
+            {
               "riding.arms": "query.is_riding && !variable.is_holding_gun"
             },
             {
