@@ -1,0 +1,7 @@
+entity.apoc:infected_basic.name=普通感染者
+entity.apoc:infected_runner.name=疾行感染者
+entity.apoc:infected_mutant.name=变异感染者
+entity.apoc:infected_heavy.name=重型感染者
+entity.apoc:infected_spitter.name=毒液感染者
+entity.apoc:raider_rifleman.name=掠夺者步枪手
+tile.apoc:loot_crate.name=末日补给箱

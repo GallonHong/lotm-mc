@@ -1,0 +1,7 @@
+entity.apoc:infected_basic.name=Basic Infected
+entity.apoc:infected_runner.name=Runner Infected
+entity.apoc:infected_mutant.name=Mutant Infected
+entity.apoc:infected_heavy.name=Heavy Infected
+entity.apoc:infected_spitter.name=Toxic Spitter
+entity.apoc:raider_rifleman.name=Raider Rifleman
+tile.apoc:loot_crate.name=Apocalypse Loot Crate

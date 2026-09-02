@@ -1,0 +1,26 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": { "identifier": "apoc:toxic_spit", "is_spawnable": false, "is_summonable": true, "is_experimental": false },
+    "components": {
+      "minecraft:type_family": { "family": ["apoc_projectile"] },
+      "minecraft:collision_box": { "width": 0.2, "height": 0.2 },
+      "minecraft:physics": { "has_gravity": false, "has_collision": false },
+      "minecraft:projectile": {
+        "power": 1.2,
+        "gravity": 0.035,
+        "inertia": 0.99,
+        "liquid_inertia": 0.8,
+        "anchor": 1,
+        "on_hit": {
+          "impact_damage": { "damage": 4, "knockback": false, "semi_random_diff_damage": false },
+          "mob_effect": { "effect": "poison", "durationeasy": 2, "durationnormal": 3, "durationhard": 4, "amplifier": 0 },
+          "remove_on_hit": {}
+        }
+      },
+      "minecraft:timer": { "looping": false, "time": 5, "time_down_event": { "event": "apoc:despawn", "target": "self" } }
+    },
+    "events": { "apoc:despawn": { "add": { "component_groups": ["apoc:despawn_now"] } } },
+    "component_groups": { "apoc:despawn_now": { "minecraft:instant_despawn": {} } }
+  }
+}

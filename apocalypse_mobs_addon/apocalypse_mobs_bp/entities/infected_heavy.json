@@ -1,0 +1,25 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": { "identifier": "apoc:infected_heavy", "is_spawnable": true, "is_summonable": true, "is_experimental": false },
+    "components": {
+      "minecraft:type_family": { "family": ["apoc_hostile", "infected", "heavy", "undead", "monster", "mob"] },
+      "minecraft:nameable": {},
+      "minecraft:health": { "value": 200, "max": 200 },
+      "minecraft:scale": { "value": 1.25 },
+      "minecraft:collision_box": { "width": 0.82, "height": 2.35 },
+      "minecraft:movement": { "value": 0.18 },
+      "minecraft:navigation.walk": { "can_path_over_water": true, "can_pass_doors": true, "avoid_damage_blocks": true },
+      "minecraft:movement.basic": {}, "minecraft:jump.static": {}, "minecraft:can_climb": {},
+      "minecraft:attack": { "damage": 10 },
+      "minecraft:knockback_resistance": { "value": 0.85 },
+      "minecraft:physics": { "has_gravity": true, "has_collision": true },
+      "minecraft:behavior.hurt_by_target": { "priority": 1 },
+      "minecraft:behavior.nearest_attackable_target": { "priority": 2, "must_see": true, "entity_types": [{ "filters": { "test": "is_family", "subject": "other", "value": "player" }, "max_dist": 36 }] },
+      "minecraft:behavior.melee_attack": { "priority": 3, "speed_multiplier": 0.95, "track_target": true },
+      "minecraft:behavior.random_stroll": { "priority": 6, "speed_multiplier": 0.65 },
+      "minecraft:behavior.random_look_around": { "priority": 7 },
+      "minecraft:despawn": { "despawn_from_distance": { "min_distance": 64, "max_distance": 96 } }
+    }
+  }
+}

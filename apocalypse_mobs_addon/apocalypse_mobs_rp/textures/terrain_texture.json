@@ -1,0 +1,7 @@
+{
+  "resource_pack_name": "apocalypse_mobs",
+  "texture_name": "atlas.terrain",
+  "texture_data": {
+    "apoc_loot_crate": { "textures": "textures/blocks/loot_crate" }
+  }
+}
