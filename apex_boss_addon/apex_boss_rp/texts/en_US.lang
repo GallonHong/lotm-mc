@@ -1,6 +1,8 @@
-item.apex_boss:beacon_core=§cTitan Beacon Calling Core§r
-item.apex_boss:beacon_core.description=§7Right-click ground to summon Apex Titan Juggernaut (12,000 HP Raid Boss)!§r
-item.apex_boss:juggernaut_core=§6Titan Juggernaut Overclock Core§r
-item.apex_boss:juggernaut_core.description=§eLegendary loot dropped from defeating the Apex Titan Juggernaut.§r
-entity.apex_boss:juggernaut.name=§l§cApex Titan Juggernaut§r
-entity.apex_boss:drone.name=§eKamikaze Assault Drone§r
+item.apex_boss:beacon_core.name=Titan Beacon Core
+item.apex_boss:boss_summoner.name=Titan Beacon Core
+item.apex_boss:juggernaut_core.name=Juggernaut Power Core
+item.apex_boss:zombie_horde_egg.name=Zombie Horde Beacon
+entity.apex_boss:juggernaut.name=Titan Juggernaut
+entity.apex_boss:drone.name=Kamikaze Drone
+entity.apex_boss:deadzone_zombie.name=DeadZone Zombie
+entity.apex_boss:hostile_mercenary.name=Renegade Mercenary

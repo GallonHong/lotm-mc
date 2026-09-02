@@ -5,10 +5,19 @@
     "boss_summoner": {
       "textures": "textures/items/boss_summoner"
     },
+    "apex_boss:boss_summoner": {
+      "textures": "textures/items/boss_summoner"
+    },
     "juggernaut_core": {
       "textures": "textures/items/juggernaut_core"
     },
+    "apex_boss:juggernaut_core": {
+      "textures": "textures/items/juggernaut_core"
+    },
     "zombie_horde_egg": {
+      "textures": "textures/items/zombie_horde_egg"
+    },
+    "apex_boss:zombie_horde_egg": {
       "textures": "textures/items/zombie_horde_egg"
     }
   }

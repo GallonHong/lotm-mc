@@ -17,8 +17,8 @@
         ]
       },
       "minecraft:nameable": {
-        "always_show": true,
-        "name": "\u00a7c\u53db\u519b\u7279\u79cd\u96c7\u4f63\u5175\u00a7r"
+        "always_show": false,
+        "allow_name_tag_renaming": true
       },
       "minecraft:health": {
         "value": 100,

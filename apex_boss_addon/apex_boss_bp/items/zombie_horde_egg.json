@@ -9,9 +9,7 @@
       }
     },
     "components": {
-      "minecraft:icon": {
-        "texture": "zombie_horde_egg"
-      },
+      "minecraft:icon": "zombie_horde_egg",
       "minecraft:display_name": {
         "value": "\u00a7c\u00a7l\u3010\u5c38\u6f6e\u5f15\u7206\u4fe1\u6807\u3011\u00a7r\n\u00a77\u53f3\u952e\u7acb\u5373\u5f15\u7206\u751f\u5316\u611f\u67d3 \u00b7 \u53ec\u552420\u53ea\u72c2\u66b4\u53d8\u5f02\u5c38\u6f6e\u00a7r"
       },
