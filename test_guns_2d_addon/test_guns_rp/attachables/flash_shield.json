@@ -20,8 +20,12 @@
       },
       "scripts": {
         "animate": [
-          "wield_fp",
-          "wield_tp"
+          {
+            "wield_fp": "c.is_first_person"
+          },
+          {
+            "wield_tp": "!c.is_first_person"
+          }
         ]
       },
       "render_controllers": [
