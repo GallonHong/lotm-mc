@@ -37,6 +37,11 @@
             "repair_amount": 300
           }
         ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
       }
     }
   }

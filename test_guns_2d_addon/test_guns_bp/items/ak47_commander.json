@@ -38,6 +38,11 @@
       },
       "minecraft:food": {
         "can_always_eat": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
       }
     }
   }
