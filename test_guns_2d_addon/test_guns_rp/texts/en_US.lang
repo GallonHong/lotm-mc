@@ -46,3 +46,5 @@ item.test_gun:blueprint_flash_shield.name=Armor Blueprint: G52 Flash Shield §5[
 
 item.test_gun:ak47_commander.name=AK-47 Tactical Commander §6[Legendary]§r
 item.test_gun:blueprint_ak47_commander.name=Weapon Blueprint: AK-47 Commander §6[Legendary]§r
+
+item.test_gun:usas12.name=USAS-12 Blood Frenzy [Epic Shotgun]

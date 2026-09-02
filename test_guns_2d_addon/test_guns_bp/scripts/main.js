@@ -1,3 +1,4 @@
+import { ItemStack } from '@minecraft/server';
 import { MeleeEngine } from './feature/meleeEngine.js';
 import { ArtilleryEngine } from './feature/artilleryEngine.js';
 import { ShieldEngine } from './feature/shieldEngine.js';
@@ -276,3 +277,40 @@ class AddonController {
 }
 
 new AddonController();
+
+// 聊天快捷指令系统 (!usas / !guns)
+let lastTgChatTick = new Map();
+function handleTgCommand(player, rawText) {
+  if (!player || !player.isValid()) return;
+  const text = (rawText || '').trim().toLowerCase();
+
+  const key = `${player.id}_${text}`;
+  const now = system.currentTick;
+  if (lastTgChatTick.has(key) && (now - lastTgChatTick.get(key) < 2)) return;
+  lastTgChatTick.set(key, now);
+
+  if (text === '!usas' || text === '!aa12' || text === '!shotgun') {
+    try {
+      const inv = player.getComponent('minecraft:inventory');
+      inv?.container?.addItem(new ItemStack('test_gun:usas12', 1));
+      inv?.container?.addItem(new ItemStack('test_gun:ammo_shotgun', 64));
+      player.sendMessage('§d✔ 已获得 1 把【USAS-12 嗜血狂潮】与 64 发霰弹！§r');
+    } catch (e) {
+      player.sendMessage('§c获取失败: ' + e);
+    }
+  }
+}
+
+const beforeTgChat = world.beforeEvents ? world.beforeEvents.chatSend : undefined;
+if (beforeTgChat && typeof beforeTgChat.subscribe === 'function') {
+  beforeTgChat.subscribe((event) => {
+    try {
+      const msg = event.message || '';
+      if (msg.startsWith('!usas') || msg.startsWith('!aa12') || msg.startsWith('!shotgun')) {
+        event.cancel = true;
+        const player = event.sender;
+        system.run(() => handleTgCommand(player, msg));
+      }
+    } catch {}
+  });
+}
