@@ -155,7 +155,7 @@
           "controller.render.scope_svd": "variable.scope_visible && (query.get_equipped_item_name(0) == 'svd' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:svd'))"
         },
         {
-          "controller.render.scope_ak47": "variable.scope_visible && (query.get_equipped_item_name(0) == 'ak47' || query.get_equipped_item_name(0) == 'ak47_commander' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:ak47','test_gun:ak47_commander'))"
+          "controller.render.scope_ak47": "variable.scope_visible && (query.get_equipped_item_name(0) == 'ak47' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:ak47'))"
         },
         {
           "controller.render.scope_ak74u": "variable.scope_visible && (query.get_equipped_item_name(0) == 'ak74u' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:ak74u'))"
@@ -164,7 +164,7 @@
           "controller.render.scope_rifle": "variable.scope_visible && (query.get_equipped_item_name(0) == 'scarh' || query.get_equipped_item_name(0) == 'arx' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:scarh','test_gun:arx'))"
         },
         {
-          "controller.render.scope_smg": "variable.scope_visible && (query.get_equipped_item_name(0) == 'vector' || query.get_equipped_item_name(0) == 'p90' || query.get_equipped_item_name(0) == 'bizon' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:vector','test_gun:p90','test_gun:bizon'))"
+          "controller.render.scope_smg": "variable.scope_visible && (query.get_equipped_item_name(0) == 'p90' || query.get_equipped_item_name(0) == 'bizon' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:p90','test_gun:bizon'))"
         },
         {
           "controller.render.scope_m1014": "variable.scope_visible && (query.get_equipped_item_name(0) == 'm1014' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:m1014'))"
@@ -176,10 +176,10 @@
           "controller.render.scope_shotgun": "variable.scope_visible && (query.get_equipped_item_name(0) == 'shotgun' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:shotgun'))"
         },
         {
-          "controller.render.scope_heavy": "variable.scope_visible && (query.get_equipped_item_name(0) == 'm79' || query.get_equipped_item_name(0) == 'mgl' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:m79','test_gun:mgl'))"
+          "controller.render.scope_heavy": "variable.scope_visible && (query.get_equipped_item_name(0) == 'm79' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:m79'))"
         },
         {
-          "controller.render.scope_launcher": "variable.scope_visible && (query.get_equipped_item_name(0) == 'rpg' || query.get_equipped_item_name(0) == 'arc_emitter' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:rpg','test_gun:arc_emitter'))"
+          "controller.render.scope_launcher": "variable.scope_visible && (query.get_equipped_item_name(0) == 'rpg' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:rpg'))"
         },
         {
           "controller.render.scope_glock": "variable.scope_visible && (query.get_equipped_item_name(0) == 'glock' || query.is_item_name_any('slot.weapon.mainhand',0,'test_gun:glock'))"
