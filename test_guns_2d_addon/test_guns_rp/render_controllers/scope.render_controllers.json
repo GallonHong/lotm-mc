@@ -1,37 +1,147 @@
 {
   "format_version": "1.8.0",
   "render_controllers": {
-    "controller.render.scope_sniper": {
+    "controller.render.scope_m82": {
       "geometry": "Geometry.scope",
       "materials": [
         {
-          "*": "Material.scope"
+          "*": "Material.render"
         }
       ],
       "textures": [
-        "Texture.scope_sniper"
+        "Texture.hunting_scope"
       ]
     },
-    "controller.render.scope_pso": {
+    "controller.render.scope_svd": {
       "geometry": "Geometry.scope",
       "materials": [
         {
-          "*": "Material.scope"
+          "*": "Material.render"
         }
       ],
       "textures": [
-        "Texture.scope_pso"
+        "Texture.pso_scope"
       ]
     },
-    "controller.render.scope_reddot": {
+    "controller.render.scope_ak47": {
       "geometry": "Geometry.scope",
       "materials": [
         {
-          "*": "Material.scope"
+          "*": "Material.render"
         }
       ],
       "textures": [
-        "Texture.scope_reddot"
+        "Texture.ak47_sight"
+      ]
+    },
+    "controller.render.scope_ak74u": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.aks74u_sight"
+      ]
+    },
+    "controller.render.scope_rifle": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.m4a1_sight"
+      ]
+    },
+    "controller.render.scope_smg": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.mp5_sight"
+      ]
+    },
+    "controller.render.scope_m1014": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.m1014_sight"
+      ]
+    },
+    "controller.render.scope_m1897": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.m1897_sight"
+      ]
+    },
+    "controller.render.scope_shotgun": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.m870_sight"
+      ]
+    },
+    "controller.render.scope_heavy": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.m79_sight"
+      ]
+    },
+    "controller.render.scope_launcher": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.rpk_sight"
+      ]
+    },
+    "controller.render.scope_glock": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.glock17_sight"
+      ]
+    },
+    "controller.render.scope_deagle": {
+      "geometry": "Geometry.scope",
+      "materials": [
+        {
+          "*": "Material.render"
+        }
+      ],
+      "textures": [
+        "Texture.deagle_sight"
       ]
     }
   }
