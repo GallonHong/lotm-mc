@@ -179,7 +179,7 @@ class BossSkillEngine {
       } catch (e) {}
     }
 
-    // 7. 警笛头 (Siren Head) -> 防空警报音爆冲击 + 精神致盲耳鸣
+    // 7. 警笛头 (Siren Head) -> 防空警报音爆冲击 + 精神震慑耳鸣 (已移除失明与黑暗)
     else if (typeId === 'apoc_boss:siren_head') {
       try {
         dim.playSound('sirenhead.siren', bLoc, { volume: 4.0, pitch: 1.0 });
@@ -187,12 +187,10 @@ class BossSkillEngine {
         dim.spawnParticle('minecraft:sonic_explosion', { x: bLoc.x, y: bLoc.y + 7.5, z: bLoc.z });
 
         for (const p of dim.getEntities({ location: bLoc, maxDistance: 32, families: ['player'] })) {
-          p.addEffect('blindness', 100, { amplifier: 1, showParticles: true });
-          p.addEffect('darkness', 100, { amplifier: 1, showParticles: true });
           p.addEffect('slowness', 80, { amplifier: 1, showParticles: true });
           p.applyDamage(8, { cause: 'sonicBoom', damagingEntity: boss });
-          try { p.runCommandAsync('camerashake add @s 0.35 0.50 rotational'); } catch {}
-          p.onScreenDisplay?.setActionBar?.('§4🚨 警笛头 释放了【致命防空音爆】! 视野丧失与重度耳鸣!§r');
+          try { p.runCommandAsync('camerashake add @s 0.25 0.40 rotational'); } catch {}
+          p.onScreenDisplay?.setActionBar?.('§4🚨 警笛头 释放了【致命防空音爆】! 受到强力音波震慑!§r');
         }
       } catch (e) {}
     }
