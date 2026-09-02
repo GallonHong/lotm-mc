@@ -8,16 +8,21 @@ import { showAmmoHUD, showOutOfAmmoHUD, updateActionBar } from './ui.js';
 import { ReloadManager } from './reload.js';
 import { SkillManager } from './skillManager.js';
 import { FireMode } from '../data/types.js';
-import { EquipmentSlot, EntityDamageCause } from '@minecraft/server';
+import { EquipmentSlot, EntityDamageCause, system } from '@minecraft/server';
 
 export class ShootManager {
   static playerCooldowns = new Map();
   static playerShooting = new Map();
+  static playerLastUseTick = new Map(); // playerId -> system.currentTick
   static arcChargeTicks = new Map(); // playerId -> number (0 ~ 20 ticks)
 
   static setTriggerState(player, isDown) {
+    if (!player) return;
     this.playerShooting.set(player.id, isDown);
-    if (!isDown) {
+    if (isDown) {
+      this.playerLastUseTick.set(player.id, system.currentTick);
+    } else {
+      this.playerLastUseTick.delete(player.id);
       const charge = this.arcChargeTicks.get(player.id) || 0;
       if (charge > 0 && charge < 20) {
         this.arcChargeTicks.delete(player.id);
@@ -26,15 +31,38 @@ export class ShootManager {
     }
   }
 
-  static isTriggerDown(player) {
-    return Boolean(this.playerShooting.get(player.id));
+  static refreshTriggerHeartbeat(player) {
+    if (!player) return;
+    this.playerShooting.set(player.id, true);
+    this.playerLastUseTick.set(player.id, system.currentTick);
+  }
+
+  static isTriggerDown(player, gun) {
+    if (!player || !this.playerShooting.get(player.id)) return false;
+
+    // 心跳看门狗超时检测 (Watchdog Timeout)
+    // 超过 8 个 ticks (0.4秒) 未收到基岩版长按更新事件，判定为松开或事件丢失，强制熔断停火
+    const lastTick = this.playerLastUseTick.get(player.id) || 0;
+    const currentTick = system.currentTick;
+    const timeoutThreshold = (gun?.fireRate ? Math.max(gun.fireRate + 4, 8) : 8);
+
+    if (currentTick - lastTick > timeoutThreshold) {
+      this.setTriggerState(player, false);
+      return false;
+    }
+    return true;
   }
 
   static clearPlayer(player) {
-    this.playerShooting.delete(player.id);
-    this.playerCooldowns.delete(player.id);
-    this.arcChargeTicks.delete(player.id);
+    if (!player) return;
+    const pId = typeof player === 'string' ? player : player.id;
+    this.playerShooting.delete(pId);
+    this.playerCooldowns.delete(pId);
+    this.playerLastUseTick.delete(pId);
+    this.arcChargeTicks.delete(pId);
   }
+
+  static playerShotCounts = new Map();
 
   static deductDurability(player, gun) {
     if (!player || !player.isValid() || !gun) return;
@@ -48,17 +76,25 @@ export class ShootManager {
       const durComp = mainhand.getComponent('minecraft:durability');
       if (!durComp) return;
 
+      const count = (this.playerShotCounts.get(player.id) || 0) + 1;
+      this.playerShotCounts.set(player.id, count);
+
       const currentDamage = durComp.damage || 0;
       const maxDur = durComp.maxDurability || 500;
-      const nextDamage = currentDamage + 1;
 
-      if (nextDamage >= maxDur) {
-        equippable.setEquipment(EquipmentSlot.Mainhand, undefined);
-        player.dimension.playSound('random.break', player.location, { volume: 1.2, pitch: 0.85 });
-        player.onScreenDisplay?.setActionBar?.(`§c⚠ 你的【${gun.name}】已磨损报废!§r`);
-      } else {
-        durComp.damage = nextDamage;
-        equippable.setEquipment(EquipmentSlot.Mainhand, mainhand);
+      // 仅在累计射击 6 发子弹，或即将损坏时才触发 setEquipment，避免频繁重置右键长按动画
+      if (count >= 6 || (currentDamage + count >= maxDur)) {
+        this.playerShotCounts.set(player.id, 0);
+        const nextDamage = currentDamage + count;
+
+        if (nextDamage >= maxDur) {
+          equippable.setEquipment(EquipmentSlot.Mainhand, undefined);
+          player.dimension.playSound('random.break', player.location, { volume: 1.2, pitch: 0.85 });
+          player.onScreenDisplay?.setActionBar?.(`§c⚠ 你的【${gun.name}】已磨损报废!§r`);
+        } else {
+          durComp.damage = nextDamage;
+          equippable.setEquipment(EquipmentSlot.Mainhand, mainhand);
+        }
       }
     } catch (err) {
       console.warn('deductDurability error:', err);
@@ -80,7 +116,7 @@ export class ShootManager {
       return;
     }
 
-    if (!this.isTriggerDown(player)) {
+    if (!this.isTriggerDown(player, gun)) {
       return;
     }
 
@@ -222,6 +258,9 @@ export class ShootManager {
         });
       } catch {}
     }
+
+    // 持续长按连发时，每次击发成功均自动延续看门狗心跳（避免长按被误熔断）
+    this.refreshTriggerHeartbeat(player);
 
     showAmmoHUD(player, gun, newAmmo);
     this.playerCooldowns.set(player.id, gun.fireRate || 4);

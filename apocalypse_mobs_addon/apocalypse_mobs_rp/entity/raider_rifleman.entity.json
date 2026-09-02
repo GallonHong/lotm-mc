@@ -3,13 +3,11 @@
   "minecraft:client_entity": { "description": {
     "identifier": "apoc:raider_rifleman",
     "materials": {
-      "default": "entity_alphatest",
-      "item_in_hand": "entity_alphatest"
+      "default": "entity_alphatest"
     },
     "textures": { "default": "textures/entity/raider" },
     "geometry": {
-      "default": "geometry.infected",
-      "item_in_hand": "geometry.item_in_hand"
+      "default": "geometry.infected"
     },
     "animations": {
       "base": "animation.humanoid.base_pose",
@@ -20,8 +18,7 @@
     },
     "scripts": { "animate": ["base", "move", "look", "hold", "attack"] },
     "render_controllers": [
-      "controller.render.default",
-      "controller.render.item_in_hand"
+      "controller.render.default"
     ],
     "spawn_egg": { "base_color": "#3A4036", "overlay_color": "#7E6A45" }
   } }

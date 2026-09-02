@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:craft_armor_assault_vest"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PKP",
+      "PVP",
+      "PKP"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:part_ceramic_plate"
+      },
+      "K": {
+        "item": "test_gun:part_kevlar_sheet"
+      },
+      "V": {
+        "item": "test_gun:armor_police_vest"
+      }
+    },
+    "result": {
+      "item": "test_gun:armor_assault_vest",
+      "count": 1
+    }
+  }
+}

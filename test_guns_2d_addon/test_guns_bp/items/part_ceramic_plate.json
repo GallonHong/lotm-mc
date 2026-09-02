@@ -1,0 +1,20 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:part_ceramic_plate",
+      "menu_category": {
+        "category": "items",
+        "group": "itemGroup.name.rawMaterials"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_part_ceramic_plate",
+      "minecraft:max_stack_size": 16,
+      "minecraft:display_name": {
+        "value": "复合陶瓷防弹插板"
+      },
+      "minecraft:hand_equipped": false
+    }
+  }
+}

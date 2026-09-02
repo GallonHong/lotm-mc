@@ -88,3 +88,44 @@ item.test_gun:ak47_commander.name=AK-47 · 战术指挥官 §6[传说]§r
 item.test_gun:blueprint_ak47_commander.name=武器图纸: AK-47 战术指挥官 §6[传说]§r
 
 item.test_gun:usas12.name=USAS-12「嗜血狂潮」§5[史诗·20发全自动吸血连喷]§r
+
+# === 裁缝与防弹半成品 ===
+item.test_gun:part_fabric_rag.name=🧵 粗制纤维布匹 §f[普通·基础材料]§r
+item.test_gun:part_sewing_kit.name=🪡 战术针线包 §a[优良·缝纫修补]§r
+item.test_gun:part_kevlar_sheet.name=🛡️ 军规凯夫拉防弹纤维 §9[优良·防弹强化]§r
+item.test_gun:part_ceramic_plate.name=🧱 复合陶瓷防弹插板 §9[优良·抗弹插板]§r
+item.test_gun:part_exo_core.name=⚡ 战术外骨骼伺服核心 §5[史诗·动力核心]§r
+
+# === 民用普通衣物 ===
+item.test_gun:cloth_beanie_black.name=黑色保暖冷帽 §f[普通·头部]§r
+item.test_gun:cloth_cowboy_brown.name=荒野牛仔帽 §f[普通·头部]§r
+item.test_gun:cloth_shemagh_tan.name=沙漠战术方巾 §f[普通·头部]§r
+item.test_gun:cloth_boonie_woodland.name=丛林奔尼遮阳帽 §f[普通·头部]§r
+item.test_gun:cloth_ushanka.name=苏式保暖雷锋棉帽 §f[普通·头部]§r
+item.test_gun:cloth_flannel_red.name=经典红色法兰绒伐木衫 §f[普通·上装]§r
+item.test_gun:cloth_hoodie_black.name=黑色战术连帽衫 §f[普通·上装]§r
+item.test_gun:cloth_leather_black.name=废土黑皮夹克 §f[普通·上装]§r
+item.test_gun:cloth_hunting_vest.name=多功能猎人马甲 §f[普通·上装]§r
+item.test_gun:cloth_varsity_red.name=复古棒球服夹克 §f[普通·上装]§r
+item.test_gun:cloth_puffer_blue.name=保暖羽绒服外套 §f[普通·上装]§r
+item.test_gun:cloth_sweater_white.name=白色高领毛衣 §f[普通·上装]§r
+item.test_gun:cloth_hawaiian_red.name=度假风夏威夷花衬衫 §f[普通·上装]§r
+item.test_gun:cloth_jean_blue.name=耐磨工装牛仔裤 §f[普通·下装]§r
+item.test_gun:cloth_cargo_tan.name=卡其色多口袋工装裤 §f[普通·下装]§r
+item.test_gun:cloth_overall_blue.name=经典背带牛仔工装裤 §f[普通·下装]§r
+item.test_gun:cloth_trackpants_black.name=黑色三条杠运动卫裤 §f[普通·下装]§r
+
+# === 军警与特种战术装备 ===
+item.test_gun:armor_tactical_helmet.name=FAST 战术导轨头盔 §9[优良·防爆头]§r
+item.test_gun:armor_gasmask.name=M40 军用防毒面具 §9[优良·防剧毒]§r
+item.test_gun:armor_night_goggles.name=四眼全景夜视仪 §9[优良·夜视]§r
+item.test_gun:armor_bdu_woodland_top.name=丛林特种 BDU 战术上衣 §9[优良·潜行]§r
+item.test_gun:armor_police_vest.name=特警防刺防弹背心 §9[优良·防刺]§r
+item.test_gun:armor_assault_vest.name=重型突击插板防弹衣 §9[优良·高减伤]§r
+item.test_gun:armor_hazmat_top.name=生化防化服上装 §9[优良·防腐蚀]§r
+item.test_gun:armor_bdu_woodland_bottom.name=丛林特种 BDU 迷彩战术裤 §9[优良·高机动]§r
+item.test_gun:armor_gorka_bottom.name=高尔卡重型防风裤 §9[优良·耐磨]§r
+
+# === 史诗 (Epic) 蜕变战甲 ===
+item.test_gun:armor_epic_titan_vest.name=【泰坦重工】动力外骨骼装甲 §5[史诗·极高护甲+防击退]§r
+item.test_gun:armor_epic_ghillie_suit.name=【幽灵幻影】超导隐匿吉利战袍 §5[史诗·战术伪装+静音]§r

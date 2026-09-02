@@ -184,7 +184,7 @@ class AddonController {
     });
 
     const stopTrigger = (event) => {
-      const player = event.source;
+      const player = event.source || event.player;
       if (player) {
         ShootManager.setTriggerState(player, false);
       }

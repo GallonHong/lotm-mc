@@ -184,6 +184,105 @@
     },
     "test_gun_usas12": {
       "textures": "textures/guns/usas12"
+    },
+    "test_gun_part_fabric_rag": {
+      "textures": "textures/parts/part_fabric_rag"
+    },
+    "test_gun_part_sewing_kit": {
+      "textures": "textures/parts/part_sewing_kit"
+    },
+    "test_gun_part_kevlar_sheet": {
+      "textures": "textures/parts/part_kevlar_sheet"
+    },
+    "test_gun_part_ceramic_plate": {
+      "textures": "textures/parts/part_ceramic_plate"
+    },
+    "test_gun_part_exo_core": {
+      "textures": "textures/parts/part_exo_core"
+    },
+    "test_gun_cloth_beanie_black": {
+      "textures": "textures/clothing/cloth_beanie_black"
+    },
+    "test_gun_cloth_cowboy_brown": {
+      "textures": "textures/clothing/cloth_cowboy_brown"
+    },
+    "test_gun_cloth_shemagh_tan": {
+      "textures": "textures/clothing/cloth_shemagh_tan"
+    },
+    "test_gun_cloth_boonie_woodland": {
+      "textures": "textures/clothing/cloth_boonie_woodland"
+    },
+    "test_gun_cloth_ushanka": {
+      "textures": "textures/clothing/cloth_ushanka"
+    },
+    "test_gun_cloth_flannel_red": {
+      "textures": "textures/clothing/cloth_flannel_red"
+    },
+    "test_gun_cloth_hoodie_black": {
+      "textures": "textures/clothing/cloth_hoodie_black"
+    },
+    "test_gun_cloth_leather_black": {
+      "textures": "textures/clothing/cloth_leather_black"
+    },
+    "test_gun_cloth_hunting_vest": {
+      "textures": "textures/clothing/cloth_hunting_vest"
+    },
+    "test_gun_cloth_varsity_red": {
+      "textures": "textures/clothing/cloth_varsity_red"
+    },
+    "test_gun_cloth_puffer_blue": {
+      "textures": "textures/clothing/cloth_puffer_blue"
+    },
+    "test_gun_cloth_sweater_white": {
+      "textures": "textures/clothing/cloth_sweater_white"
+    },
+    "test_gun_cloth_hawaiian_red": {
+      "textures": "textures/clothing/cloth_hawaiian_red"
+    },
+    "test_gun_cloth_jean_blue": {
+      "textures": "textures/clothing/cloth_jean_blue"
+    },
+    "test_gun_cloth_cargo_tan": {
+      "textures": "textures/clothing/cloth_cargo_tan"
+    },
+    "test_gun_cloth_overall_blue": {
+      "textures": "textures/clothing/cloth_overall_blue"
+    },
+    "test_gun_cloth_trackpants_black": {
+      "textures": "textures/clothing/cloth_trackpants_black"
+    },
+    "test_gun_armor_tactical_helmet": {
+      "textures": "textures/clothing/armor_tactical_helmet"
+    },
+    "test_gun_armor_gasmask": {
+      "textures": "textures/clothing/armor_gasmask"
+    },
+    "test_gun_armor_night_goggles": {
+      "textures": "textures/clothing/armor_night_goggles"
+    },
+    "test_gun_armor_bdu_woodland_top": {
+      "textures": "textures/clothing/armor_bdu_woodland_top"
+    },
+    "test_gun_armor_police_vest": {
+      "textures": "textures/clothing/armor_police_vest"
+    },
+    "test_gun_armor_assault_vest": {
+      "textures": "textures/clothing/armor_assault_vest"
+    },
+    "test_gun_armor_hazmat_top": {
+      "textures": "textures/clothing/armor_hazmat_top"
+    },
+    "test_gun_armor_bdu_woodland_bottom": {
+      "textures": "textures/clothing/armor_bdu_woodland_bottom"
+    },
+    "test_gun_armor_gorka_bottom": {
+      "textures": "textures/clothing/armor_gorka_bottom"
+    },
+    "test_gun_armor_epic_titan_vest": {
+      "textures": "textures/clothing/armor_epic_titan_vest"
+    },
+    "test_gun_armor_epic_ghillie_suit": {
+      "textures": "textures/clothing/armor_epic_ghillie_suit"
     }
   }
 }

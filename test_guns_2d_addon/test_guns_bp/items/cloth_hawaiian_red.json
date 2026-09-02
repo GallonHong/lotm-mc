@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:cloth_hawaiian_red",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_cloth_hawaiian_red",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "度假风夏威夷花衬衫"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 1
+      },
+      "minecraft:durability": {
+        "max_durability": 100
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:leather"
+            ],
+            "repair_amount": 40
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:craft_cloth_leather_black"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "L L",
+      "LDL",
+      "LLL"
+    ],
+    "key": {
+      "L": {
+        "item": "minecraft:leather"
+      },
+      "D": {
+        "item": "minecraft:black_dye"
+      }
+    },
+    "result": {
+      "item": "test_gun:cloth_leather_black",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:part_fabric_rag",
+      "menu_category": {
+        "category": "items",
+        "group": "itemGroup.name.rawMaterials"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_part_fabric_rag",
+      "minecraft:max_stack_size": 64,
+      "minecraft:display_name": {
+        "value": "粗制纤维布匹"
+      },
+      "minecraft:hand_equipped": false
+    }
+  }
+}

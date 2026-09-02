@@ -1,0 +1,28 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:craft_part_sewing_kit"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " S ",
+      "ISI",
+      " I "
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:string"
+      },
+      "I": {
+        "item": "minecraft:iron_nugget"
+      }
+    },
+    "result": {
+      "item": "test_gun:part_sewing_kit",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:craft_armor_tactical_helmet"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "KKK",
+      "KPI",
+      " I "
+    ],
+    "key": {
+      "K": {
+        "item": "test_gun:part_kevlar_sheet"
+      },
+      "P": {
+        "item": "test_gun:part_ceramic_plate"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:armor_tactical_helmet",
+      "count": 1
+    }
+  }
+}

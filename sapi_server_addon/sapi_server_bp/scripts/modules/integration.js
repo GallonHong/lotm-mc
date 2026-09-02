@@ -10,10 +10,12 @@ const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const HEARTBEAT_MAX_AGE_MS = 15000;
 const APOCALYPSE_FALLBACK_SAFE_RADIUS = 64;
 
-const APOCALYPSE_PRESET_SAFE_ZONES = Object.freeze([
-    { dimension: "minecraft:overworld", minX: 2349, maxX: 2635, minZ: 1863, maxZ: 2069 },
-    { dimension: "minecraft:overworld", minX: 2352, maxX: 2585, minZ: 1165, maxZ: 1303 },
-    { dimension: "minecraft:overworld", minX: 1942, maxX: 2087, minZ: 1273, maxZ: 1465 },
+const APOCALYPSE_PRESET_ZONES = Object.freeze([
+    { name: "安全区 1", type: "safe", dimension: "minecraft:overworld", minX: 2349, maxX: 2635, minZ: 1863, maxZ: 2069, priority: 500 },
+    { name: "安全区 2", type: "safe", dimension: "minecraft:overworld", minX: 2352, maxX: 2585, minZ: 1165, maxZ: 1303, priority: 500 },
+    { name: "安全区 3", type: "safe", dimension: "minecraft:overworld", minX: 1942, maxX: 2087, minZ: 1273, maxZ: 1465, priority: 500 },
+    { name: "法制区 1", type: "law", dimension: "minecraft:overworld", minX: 3450, maxX: 3869, minZ: 2033, maxZ: 2478, priority: 300 },
+    { name: "法制区 2", type: "law", dimension: "minecraft:overworld", minX: 1687, maxX: 2250, minZ: 2509, maxZ: 3127, priority: 300 },
 ]);
 
 function parseArray(raw) {
@@ -90,7 +92,7 @@ export class Integration {
         };
         if (![chunk.minX, chunk.maxX, chunk.minZ, chunk.maxZ].every(Number.isFinite)) return true;
 
-        const presetOverlap = APOCALYPSE_PRESET_SAFE_ZONES.some(zone =>
+        const presetOverlap = APOCALYPSE_PRESET_ZONES.filter(z => z.type === "safe").some(zone =>
             normalizeDimension(zone.dimension) === dimension && rectanglesOverlap(chunk, zone)
         );
         if (presetOverlap) return true;
@@ -133,6 +135,66 @@ export class Integration {
         const dx = nearestX - spawn.x;
         const dz = nearestZ - spawn.z;
         return dx * dx + dz * dz <= APOCALYPSE_FALLBACK_SAFE_RADIUS * APOCALYPSE_FALLBACK_SAFE_RADIUS;
+    }
+
+    /**
+     * 解析玩家当前位置所属的末日/服务器区域类型与名称
+     * @param {string} dimensionId 
+     * @param {{x: number, y: number, z: number}} location 
+     * @returns {{type: string, name: string, color: string}}
+     */
+    static resolveCurrentZone(dimensionId, location) {
+        const dim = normalizeDimension(dimensionId);
+        const pt = { x: Number(location.x), y: Number(location.y), z: Number(location.z) };
+
+        // 1. 检查预设区域 (安全区 / 法制区)
+        const preset = APOCALYPSE_PRESET_ZONES.find(z =>
+            normalizeDimension(z.dimension) === dim &&
+            pt.x >= z.minX && pt.x <= z.maxX &&
+            pt.z >= z.minZ && pt.z <= z.maxZ
+        );
+        if (preset) {
+            if (preset.type === "safe") return { type: "safe", name: preset.name, color: "§a" };
+            if (preset.type === "law") return { type: "law", name: preset.name, color: "§e" };
+            return { type: preset.type, name: preset.name, color: "§6" };
+        }
+
+        // 2. 检查动态末日区域
+        const dynamicZones = readWorldArray(APOCALYPSE_ZONES_KEY);
+        const dyn = dynamicZones.find(z =>
+            normalizeDimension(z.dimension) === dim &&
+            z.min && z.max &&
+            pt.x >= Number(z.min.x) && pt.x <= Number(z.max.x) &&
+            pt.y >= Number(z.min.y) && pt.y <= Number(z.max.y) &&
+            pt.z >= Number(z.min.z) && pt.z <= Number(z.max.z)
+        );
+        if (dyn) {
+            const color = dyn.type === "safe" ? "§a" : dyn.type === "law" ? "§e" : "§c";
+            return { type: dyn.type || "outlaw", name: dyn.name || "末日区域", color };
+        }
+
+        // 3. 检查出生点主城安全区
+        const warps = readWorldArray(SAPI_WARPS_KEY);
+        const spawnWarp = warps.find(warp => warp?.id === "spawn" || warp?.isSpawn);
+        let spawn = { dimension: "minecraft:overworld", x: 0, z: 0 };
+        if (spawnWarp) {
+            spawn = { dimension: spawnWarp.dimension, x: Number(spawnWarp.x), z: Number(spawnWarp.z) };
+        } else {
+            try {
+                const loc = world.getDefaultSpawnLocation();
+                spawn = { dimension: "minecraft:overworld", x: Number(loc.x), z: Number(loc.z) };
+            } catch {}
+        }
+        if (normalizeDimension(spawn.dimension) === dim) {
+            const dx = pt.x - spawn.x;
+            const dz = pt.z - spawn.z;
+            if (dx * dx + dz * dz <= APOCALYPSE_FALLBACK_SAFE_RADIUS * APOCALYPSE_FALLBACK_SAFE_RADIUS) {
+                return { type: "safe", name: "主城保护区", color: "§a" };
+            }
+        }
+
+        // 4. 默认非法制区
+        return { type: "outlaw", name: "非法制荒原", color: "§c" };
     }
 
     /** 累计成交额桥接：日常 Add-on 只读取差值，不介入 SAPI 交易。 */
