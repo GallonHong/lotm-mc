@@ -148,6 +148,12 @@
     },
     "test_gun_blueprint_rpg": {
       "textures": "textures/blueprints/blueprint_rpg"
+    },
+    "test_gun_flash_shield": {
+      "textures": "textures/items/flash_shield"
+    },
+    "test_gun_blueprint_flash_shield": {
+      "textures": "textures/blueprints/blueprint_flash_shield"
     }
   }
 }

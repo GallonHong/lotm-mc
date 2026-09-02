@@ -40,3 +40,6 @@ item.test_gun:blueprint_m79.name=Blueprint: M79 Grenade Launcher §9[Rare]§r
 item.test_gun:rpg.name=RPG-7 Rocket Launcher §5[Epic]§r
 item.test_gun:ammo_rocket.name=PG-7V High-Explosive Rocket §5[Epic]§r
 item.test_gun:blueprint_rpg.name=Weapon Blueprint: RPG-7 §5[Epic]§r
+
+item.test_gun:flash_shield.name=G52 Tactical Flash Shield §5[Epic]§r
+item.test_gun:blueprint_flash_shield.name=Armor Blueprint: G52 Flash Shield §5[Epic]§r

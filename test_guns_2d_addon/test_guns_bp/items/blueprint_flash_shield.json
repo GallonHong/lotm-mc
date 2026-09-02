@@ -1,0 +1,20 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:blueprint_flash_shield",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:icon": "test_gun_blueprint_flash_shield",
+      "minecraft:display_name": {
+        "value": "防具图纸: G52 战术闪光盾 §5[史诗]§r"
+      }
+    }
+  }
+}

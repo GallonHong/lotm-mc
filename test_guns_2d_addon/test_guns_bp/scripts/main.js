@@ -1,3 +1,4 @@
+import { ShieldEngine } from './feature/shieldEngine.js';
 import { RocketEngine } from './feature/rocketEngine.js';
 import { world, system } from '@minecraft/server';
 import { getHeldGun, getCurrentAmmo } from './feature/utils/gunUtils.js';
@@ -127,6 +128,7 @@ class AddonController {
       this.auraTick++;
       GrenadeEngine.onTick();
       RocketEngine.onTick();
+      ShieldEngine.tick();
       JetpackEngine.onTick();
 
       const players = world.getAllPlayers();

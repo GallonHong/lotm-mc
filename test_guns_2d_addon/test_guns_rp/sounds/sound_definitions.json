@@ -114,6 +114,12 @@
       "sounds": [
         "sounds/guns/rpg_shoot"
       ]
+    },
+    "test_gun.flashbang": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/flashbang"
+      ]
     }
   }
 }

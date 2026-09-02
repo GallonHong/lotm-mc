@@ -80,3 +80,6 @@ item.test_gun:blueprint_m79.name=制造蓝图: M79 单发榴弹发射器 §9[优
 item.test_gun:rpg.name=RPG-7 单兵火箭筒 §5[史诗]§r
 item.test_gun:ammo_rocket.name=PG-7V 高爆破甲火箭弹 §5[史诗]§r
 item.test_gun:blueprint_rpg.name=武器图纸: RPG-7 火箭筒 §5[史诗]§r
+
+item.test_gun:flash_shield.name=G52-战术闪光防暴盾 §5[史诗]§r
+item.test_gun:blueprint_flash_shield.name=防具图纸: G52 战术闪光盾 §5[史诗]§r
