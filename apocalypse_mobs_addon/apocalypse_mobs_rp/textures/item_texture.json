@@ -1,0 +1,24 @@
+{
+  "resource_pack_name": "apocalypse_boss_rp",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "egg_mutant_zombie": {
+      "textures": "textures/items/spawn_eggs/spawn_mzombie"
+    },
+    "egg_mutant_skeleton": {
+      "textures": "textures/items/spawn_eggs/spawn_mskeleton"
+    },
+    "egg_mutant_lobber": {
+      "textures": "textures/items/spawn_eggs/spawn_mlobberzombie"
+    },
+    "egg_mutant_drowned": {
+      "textures": "textures/items/spawn_eggs/spawn_mdrowned"
+    },
+    "egg_mutant_enderman": {
+      "textures": "textures/items/spawn_eggs/spawn_menderman"
+    },
+    "egg_mutant_iron_golem": {
+      "textures": "textures/items/spawn_eggs/spawn_miron_golem"
+    }
+  }
+}

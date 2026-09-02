@@ -4,20 +4,36 @@
     "name": "Apocalypse Mobs BP v0.2.4",
     "description": "SpawnDirector, infected, raiders, loot nodes and world events with optional SAPI/Test Guns integration.",
     "uuid": "714f16b3-b6ad-47f3-af06-dd93095da201",
-    "version": [0, 2, 4],
-    "min_engine_version": [1, 21, 50]
+    "version": [
+      0,
+      3,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      50
+    ]
   },
   "modules": [
     {
       "type": "data",
       "uuid": "caa8a7a6-d36b-48cb-867e-49a0394e4811",
-      "version": [0, 2, 4]
+      "version": [
+        0,
+        3,
+        0
+      ]
     },
     {
       "type": "script",
       "language": "javascript",
       "uuid": "f22c9099-0ddf-4604-97cd-7bd87da2d958",
-      "version": [0, 2, 4],
+      "version": [
+        0,
+        3,
+        0
+      ],
       "entry": "scripts/main.js"
     }
   ],
@@ -32,11 +48,19 @@
     },
     {
       "uuid": "03db80ee-e322-46ce-8787-7efab344707c",
-      "version": [0, 1, 2]
+      "version": [
+        0,
+        1,
+        2
+      ]
     },
     {
       "uuid": "f47a1111-e222-4333-8444-555555550001",
-      "version": [3, 9, 0]
+      "version": [
+        3,
+        9,
+        0
+      ]
     }
   ]
 }

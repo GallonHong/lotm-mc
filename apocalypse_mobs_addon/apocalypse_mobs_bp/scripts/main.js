@@ -107,3 +107,209 @@ system.runInterval(() => {
 }, 200);
 
 console.warn("[Apocalypse] SpawnDirector, ZoneRegistry, ranged AI, LootNode and world events initialized.");
+
+/**
+ * Apocalypse Boss AI & Combat Skills Engine
+ */
+class BossSkillEngine {
+  static bossCooldowns = new Map(); // entityId -> { lastSkillTick, phase }
+
+  static tick() {
+    const currentTick = system.currentTick;
+    
+    // 寻找大世界中的活跃 Boss
+    for (const player of world.getAllPlayers()) {
+      if (!player || !player.isValid()) continue;
+      const dim = player.dimension;
+      
+      const bosses = dim.getEntities({
+        families: ['apoc_boss'],
+        location: player.location,
+        maxDistance: 48
+      });
+
+      for (const boss of bosses) {
+        if (!boss || !boss.isValid()) continue;
+        
+        const bId = boss.id;
+        const bType = boss.typeId;
+        const info = this.bossCooldowns.get(bId) || { lastSkillTick: 0, skillIndex: 0 };
+        
+        // 每 6 秒 (120 ticks) 判定释放一次战斗技能
+        if (currentTick - info.lastSkillTick < 120) continue;
+        
+        // 获取附近目标
+        const targets = dim.getEntities({
+          location: boss.location,
+          maxDistance: 24,
+          families: ['player']
+        });
+        
+        if (targets.length === 0) continue;
+        const target = targets[0]; // 锁定最近玩家
+        
+        info.lastSkillTick = currentTick;
+        this.bossCooldowns.set(bId, info);
+
+        this.executeBossSkill(boss, bType, target, dim);
+      }
+    }
+  }
+
+  static executeBossSkill(boss, typeId, target, dim) {
+    const bLoc = boss.location;
+    const tLoc = target.location;
+    const dx = tLoc.x - bLoc.x;
+    const dz = tLoc.z - bLoc.z;
+    const dist = Math.hypot(dx, dz);
+
+    // 1. 变异暴食者 (Mutant Drowned) -> 水龙卷聚怪突刺 + 引雷重击
+    if (typeId === 'apoc_boss:mutant_drowned') {
+      try {
+        // 咆哮蓄力
+        dim.playSound('mob.drowned.say', bLoc, { volume: 2.0, pitch: 0.6 });
+        dim.spawnParticle('minecraft:water_splash_particle', { x: bLoc.x, y: bLoc.y + 1, z: bLoc.z });
+
+        // 技能1: 深渊水浪吸聚 (漩涡吸怪)
+        for (const p of dim.getEntities({ location: bLoc, maxDistance: 16, families: ['player'] })) {
+          const pLoc = p.location;
+          const pullX = (bLoc.x - pLoc.x) * 0.15;
+          const pullZ = (bLoc.z - pLoc.z) * 0.15;
+          p.applyImpulse({ x: pullX, y: 0.2, z: pullZ });
+          p.onScreenDisplay?.setActionBar?.('§b🌊 变异暴食者 发动了【深海怒涛】漩涡强行吸附!§r');
+        }
+
+        // 技能2: 延迟 1 秒后召唤水柱与三叉戟穿刺
+        system.runTimeout(() => {
+          if (!boss.isValid()) return;
+          dim.playSound('item.trident.thunder', bLoc, { volume: 2.5, pitch: 0.9 });
+          dim.spawnParticle('minecraft:critical_hit_emitter', { x: bLoc.x, y: bLoc.y + 1.5, z: bLoc.z });
+
+          // 正面锥形水波冲击
+          for (const p of dim.getEntities({ location: bLoc, maxDistance: 10, families: ['player'] })) {
+            p.applyDamage(8, { cause: 'magic', damagingEntity: boss });
+            p.applyKnockback((tLoc.x - bLoc.x) * 0.3, (tLoc.z - bLoc.z) * 0.3, 1.2, 0.4);
+          }
+        }, 20);
+      } catch (e) {}
+    }
+
+    // 2. 泰坦巨尸 (Mutant Zombie) -> 大地裂地重震 (Earthquake Smash)
+    else if (typeId === 'apoc_boss:mutant_zombie') {
+      try {
+        dim.playSound('mob.zombie.say', bLoc, { volume: 2.5, pitch: 0.5 });
+        dim.playSound('random.anvil_land', bLoc, { volume: 2.0, pitch: 0.7 });
+        dim.spawnParticle('minecraft:huge_explosion_emitter', bLoc);
+
+        for (const p of dim.getEntities({ location: bLoc, maxDistance: 12, families: ['player'] })) {
+          p.applyDamage(10, { cause: 'entityAttack', damagingEntity: boss });
+          p.applyKnockback(0, 0, 0.2, 1.1); // 击飞至空中
+          p.addEffect('slowness', 60, { amplifier: 2, showParticles: true });
+          p.onScreenDisplay?.setActionBar?.('§c💥 泰坦巨尸 发动【裂地重震】! 行动力受损!§r');
+        }
+      } catch (e) {}
+    }
+
+    // 3. 枯骨巨煞 (Mutant Skeleton) -> 骨刺齐射 (Bone Rain)
+    else if (typeId === 'apoc_boss:mutant_skeleton') {
+      try {
+        dim.playSound('mob.skeleton.say', bLoc, { volume: 2.0, pitch: 0.7 });
+        dim.playSound('random.bow', bLoc, { volume: 1.8, pitch: 0.8 });
+
+        // 散射骨刺弹幕
+        for (let i = -2; i <= 2; i++) {
+          const angle = Math.atan2(dz, dx) + (i * 0.2);
+          const spdX = Math.cos(angle) * 1.5;
+          const spdZ = Math.sin(angle) * 1.5;
+
+          const arrow = dim.spawnEntity('minecraft:arrow', { x: bLoc.x, y: bLoc.y + 2.0, z: bLoc.z });
+          const proj = arrow.getComponent('minecraft:projectile');
+          if (proj) {
+            proj.owner = boss;
+            proj.shoot({ x: spdX, y: 0.1, z: spdZ });
+          }
+        }
+        target.onScreenDisplay?.setActionBar?.('§7🏹 枯骨巨煞 发动了【穿甲骨箭齐射】!§r');
+      } catch (e) {}
+    }
+
+    // 4. 恶疫憎恶 (Mutant Lobber) -> 剧毒酸液轰炸 (Acid Bomb)
+    else if (typeId === 'apoc_boss:mutant_lobber') {
+      try {
+        dim.playSound('random.bow', bLoc, { volume: 1.5, pitch: 0.6 });
+        dim.playSound('random.fizz', tLoc, { volume: 2.0, pitch: 0.8 });
+
+        dim.spawnParticle('minecraft:dragon_breath_fire', tLoc);
+        for (const p of dim.getEntities({ location: tLoc, maxDistance: 5, families: ['player'] })) {
+          p.addEffect('poison', 100, { amplifier: 1, showParticles: true });
+          p.addEffect('weakness', 100, { amplifier: 1, showParticles: true });
+          p.applyDamage(6, { cause: 'magic', damagingEntity: boss });
+          p.onScreenDisplay?.setActionBar?.('§2🤢 受到 恶疫憎恶 剧毒酸液腐蚀!§r');
+        }
+      } catch (e) {}
+    }
+
+    // 5. 虚空漫游者 (Mutant Enderman) -> 空间瞬移背刺 (Void Blink)
+    else if (typeId === 'apoc_boss:mutant_enderman') {
+      try {
+        dim.playSound('mob.endermen.portal', bLoc, { volume: 2.0, pitch: 0.8 });
+        dim.spawnParticle('minecraft:portal_reverse_particle', bLoc);
+
+        // 瞬间折跃到目标身后
+        const behindPos = {
+          x: tLoc.x - (dx / Math.max(0.1, dist)) * 2.0,
+          y: tLoc.y,
+          z: tLoc.z - (dz / Math.max(0.1, dist)) * 2.0
+        };
+        boss.teleport(behindPos);
+
+        dim.playSound('mob.endermen.hit', behindPos, { volume: 2.0, pitch: 1.0 });
+        dim.spawnParticle('minecraft:camera_shoot_explosion', behindPos);
+
+        target.applyDamage(12, { cause: 'entityAttack', damagingEntity: boss });
+        target.applyKnockback(dx * 0.2, dz * 0.2, 0.8, 0.3);
+        target.onScreenDisplay?.setActionBar?.('§5🔮 虚空漫游者 发动了【虚空折跃背刺】!§r');
+      } catch (e) {}
+    }
+
+    // 6. 钢铁终结者 (Mutant Iron Golem) -> 地刺突击 (Spike Burst)
+    else if (typeId === 'apoc_boss:mutant_iron_golem') {
+      try {
+        dim.playSound('mob.irongolem.hit', bLoc, { volume: 2.5, pitch: 0.6 });
+        dim.playSound('random.anvil_land', bLoc, { volume: 2.5, pitch: 0.5 });
+        dim.spawnParticle('minecraft:huge_explosion_emitter', bLoc);
+
+        for (const p of dim.getEntities({ location: bLoc, maxDistance: 10, families: ['player'] })) {
+          p.applyDamage(14, { cause: 'contact', damagingEntity: boss });
+          p.applyKnockback(0, 0, 0, 1.3);
+          p.onScreenDisplay?.setActionBar?.('§6🛡️ 钢铁终结者 发动【合金地刺突刺】重击震飞!§r');
+        }
+      } catch (e) {}
+    }
+
+    // 7. 警笛头 (Siren Head) -> 防空警报音爆冲击 + 精神致盲耳鸣
+    else if (typeId === 'apoc_boss:siren_head') {
+      try {
+        dim.playSound('sirenhead.siren', bLoc, { volume: 4.0, pitch: 1.0 });
+        dim.playSound('sirenhead.screech', bLoc, { volume: 3.5, pitch: 0.9 });
+        dim.spawnParticle('minecraft:sonic_explosion', { x: bLoc.x, y: bLoc.y + 7.5, z: bLoc.z });
+
+        for (const p of dim.getEntities({ location: bLoc, maxDistance: 32, families: ['player'] })) {
+          p.addEffect('blindness', 100, { amplifier: 1, showParticles: true });
+          p.addEffect('darkness', 100, { amplifier: 1, showParticles: true });
+          p.addEffect('slowness', 80, { amplifier: 1, showParticles: true });
+          p.applyDamage(8, { cause: 'sonicBoom', damagingEntity: boss });
+          try { p.runCommandAsync('camerashake add @s 0.35 0.50 rotational'); } catch {}
+          p.onScreenDisplay?.setActionBar?.('§4🚨 警笛头 释放了【致命防空音爆】! 视野丧失与重度耳鸣!§r');
+        }
+      } catch (e) {}
+    }
+  }
+}
+
+// 每 10 刻运行一次 Boss AI 技能轮询
+system.runInterval(() => {
+  try {
+    BossSkillEngine.tick();
+  } catch (e) {}
+}, 10);

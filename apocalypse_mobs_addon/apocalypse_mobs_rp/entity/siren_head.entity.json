@@ -1,0 +1,40 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:siren_head",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/siren_head/pntmc_sirenhead_texture"
+      },
+      "geometry": {
+        "default": "geometry.pntmc_siren_head"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "spawn_egg": {
+        "base_color": "#2a1a14",
+        "overlay_color": "#b31b1b"
+      },
+      "animations": {
+        "idle": "animation.pntmc_sirenhead.SirenIdle",
+        "walk": "animation.pntmc_sirenhead.SirenWalk",
+        "run": "animation.pntmc_sirenhead.SirenRun",
+        "smash": "animation.pntmc_sirenhead.SirenSmash",
+        "scream": "animation.pntmc_sirenhead.SirenScream",
+        "stomp": "animation.pntmc_sirenhead.SirenStomp",
+        "death": "animation.pntmc_sirenhead.SirenHeadDeath",
+        "pntmc_SirenHead_controller": "controller.animation.pntmcSirenHead"
+      },
+      "scripts": {
+        "scale": "1.2",
+        "animate": [
+          "pntmc_SirenHead_controller"
+        ]
+      }
+    }
+  }
+}

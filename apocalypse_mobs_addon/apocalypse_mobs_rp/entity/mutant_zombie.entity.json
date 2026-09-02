@@ -1,0 +1,40 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:mutant_zombie",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/zombie/zombie"
+      },
+      "geometry": {
+        "default": "geometry.mzombie"
+      },
+      "animations": {
+        "idle": "animation.mzombie.general",
+        "walk": "animation.mzombie.move",
+        "attack": "animation.mzombie.attack_bare_hand",
+        "smash": "animation.mzombie.smash",
+        "roar": "animation.mzombie.roar",
+        "look_at_target": "animation.mzombie.look_at_target"
+      },
+      "animation_controllers": [
+        {
+          "move": "controller.animation.jumpable_mzombie.walking"
+        },
+        {
+          "general": "controller.animation.mzombie.general"
+        }
+      ],
+      "render_controllers": [
+        "controller.render.mutant_zombie"
+      ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "texture": "egg_mutant_zombie"
+      }
+    }
+  }
+}

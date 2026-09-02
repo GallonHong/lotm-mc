@@ -5,3 +5,21 @@ entity.apoc:infected_heavy.name=重型感染者
 entity.apoc:infected_spitter.name=毒液感染者
 entity.apoc:raider_rifleman.name=掠夺者步枪手
 tile.apoc:loot_crate.name=末日补给箱
+
+entity.apoc_boss:mutant_zombie.name=泰坦巨尸 (Mutant Zombie)
+entity.apoc_boss:mutant_skeleton.name=枯骨巨煞 (Mutant Skeleton)
+entity.apoc_boss:mutant_lobber.name=恶疫憎恶 (Mutant Lobber)
+entity.apoc_boss:mutant_drowned.name=变异暴食者 (Mutant Drowned)
+entity.apoc_boss:mutant_enderman.name=虚空漫游者 (Mutant Enderman)
+entity.apoc_boss:mutant_iron_golem.name=钢铁终结者 (Mutant Iron Golem)
+
+item.spawn_egg.entity.apoc_boss:mutant_zombie.name=泰坦巨尸刷怪蛋
+item.spawn_egg.entity.apoc_boss:mutant_skeleton.name=枯骨巨煞刷怪蛋
+item.spawn_egg.entity.apoc_boss:mutant_lobber.name=恶疫憎恶刷怪蛋
+item.spawn_egg.entity.apoc_boss:mutant_drowned.name=变异暴食者刷怪蛋
+item.spawn_egg.entity.apoc_boss:mutant_enderman.name=虚空漫游者刷怪蛋
+item.spawn_egg.entity.apoc_boss:mutant_iron_golem.name=钢铁终结者刷怪蛋
+
+entity.apoc_boss:siren_head.name=警笛头 · 迷雾噩梦 (Siren Head)
+item.spawn_egg.entity.apoc_boss:siren_head.name=警笛头刷怪蛋
+

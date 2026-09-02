@@ -5,3 +5,21 @@ entity.apoc:infected_heavy.name=Heavy Infected
 entity.apoc:infected_spitter.name=Toxic Spitter
 entity.apoc:raider_rifleman.name=Raider Rifleman
 tile.apoc:loot_crate.name=Apocalypse Loot Crate
+
+entity.apoc_boss:mutant_zombie.name=Mutant Zombie
+entity.apoc_boss:mutant_skeleton.name=Mutant Skeleton
+entity.apoc_boss:mutant_lobber.name=Mutant Lobber
+entity.apoc_boss:mutant_drowned.name=Mutant Drowned
+entity.apoc_boss:mutant_enderman.name=Mutant Enderman
+entity.apoc_boss:mutant_iron_golem.name=Mutant Iron Golem
+
+item.spawn_egg.entity.apoc_boss:mutant_zombie.name=Spawn Mutant Zombie
+item.spawn_egg.entity.apoc_boss:mutant_skeleton.name=Spawn Mutant Skeleton
+item.spawn_egg.entity.apoc_boss:mutant_lobber.name=Spawn Mutant Lobber
+item.spawn_egg.entity.apoc_boss:mutant_drowned.name=Spawn Mutant Drowned
+item.spawn_egg.entity.apoc_boss:mutant_enderman.name=Spawn Mutant Enderman
+item.spawn_egg.entity.apoc_boss:mutant_iron_golem.name=Spawn Mutant Iron Golem
+
+entity.apoc_boss:siren_head.name=Siren Head
+item.spawn_egg.entity.apoc_boss:siren_head.name=Spawn Siren Head
+

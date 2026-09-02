@@ -4,20 +4,36 @@
     "name": "Apocalypse Mobs RP v0.1.2",
     "description": "Resources for Apocalypse Mobs with Test Guns raider rendering.",
     "uuid": "03db80ee-e322-46ce-8787-7efab344707c",
-    "version": [0, 1, 2],
-    "min_engine_version": [1, 21, 50]
+    "version": [
+      0,
+      3,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      50
+    ]
   },
   "modules": [
     {
       "type": "resources",
       "uuid": "97c74218-d546-45fa-b895-95f0f3effd19",
-      "version": [0, 1, 2]
+      "version": [
+        0,
+        3,
+        0
+      ]
     }
   ],
   "dependencies": [
     {
       "uuid": "f47a1111-e222-4333-8444-555555550003",
-      "version": [3, 9, 0]
+      "version": [
+        3,
+        9,
+        0
+      ]
     }
   ]
 }
