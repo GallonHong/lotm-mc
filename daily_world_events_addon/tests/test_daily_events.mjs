@@ -74,8 +74,8 @@ assert(files(bp).some(path => path.endsWith("scripts/merchants/merchantConfig.js
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));
 
-const sapiIntegration = readFileSync(join(repo, "scripts/modules/integration.js"), "utf8");
-const sapiMenu = readFileSync(join(repo, "scripts/modules/server_menu.js"), "utf8");
+const sapiIntegration = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/integration.js"), "utf8");
+const sapiMenu = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/server_menu.js"), "utf8");
 const apocSpawn = readFileSync(join(repo, "apocalypse_mobs_addon/apocalypse_mobs_bp/scripts/spawnDirector.js"), "utf8");
 assert(sapiIntegration.includes("recordDailySale") && sapiMenu.includes("daily:menu"), "SAPI bridge missing");
 assert(apocSpawn.includes("processExternalRequests") && apocSpawn.includes("externalSpawnRequestsKey"), "SpawnDirector bridge missing");

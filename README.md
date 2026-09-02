@@ -7,9 +7,9 @@
 
 两个包之间只通过心跳动态属性与 `scriptevent` 公共接口通讯，不互相导入脚本文件，因此任一包缺失时仍可独立启动。联合启用时，服务器菜单会自动出现“诡秘非凡秘典”，商店和抽奖也会自动加入 LOTM 商品；LOTM 的非凡伤害会继续遵守服务器领地权限。
 
-另提供独立可选包 **Apocalypse Mobs v0.2.1**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode 和 SpawnDirector 跨包刷怪接口。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能和盾牌减伤。源码与安装包位于 `apocalypse_mobs_addon/`。
+另提供独立可选包 **Apocalypse Mobs v0.2.2**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode 和 SpawnDirector 跨包刷怪接口。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能和盾牌减伤。源码与安装包位于 `apocalypse_mobs_addon/`。
 
-新增独立可选包 **Survival Daily & World Events v0.2.0**：每天生成采集、击杀、动态事件和随机委托，提供原生 NPC 委托对话、四类可配置商人、20/50/80/100 活跃奖励，并通过人工事件节点运行感染者围攻、幸存者救援、掠夺者伏击和运输车防守。它可与 SAPI、Test Guns、Apocalypse Mobs 自动联动，源码与安装包位于 `daily_world_events_addon/`。
+新增独立可选包 **Survival Daily & World Events v0.3.0**：每天生成采集、击杀、动态事件和随机委托，提供原生 NPC 委托对话、四类可配置商人、20/50/80/100 活跃奖励，并提供按法制区/非法制区分级的八类随机事件。它可与 SAPI、Test Guns、Apocalypse Mobs 自动联动，源码与安装包位于 `daily_world_events_addon/`。
 
 ---
 
@@ -123,14 +123,14 @@
 
 ## 🛠️ 安装与使用指南
 
-1. 下载并双击导入 `SAPI_Server_Addon.mcaddon` 与 `LOTM_Pathways_Addon.mcaddon`。
+1. 下载并双击导入 `sapi_server_addon/SAPI_Server_Addon.mcaddon` 与根目录的 `LOTM_Pathways_Addon.mcaddon`。
 2. 创建或编辑世界，在行为包中启用 `SAPI Server Economy` 与 `LOTM Pathways`；LOTM 资源包会由依赖自动启用。
 3. 确保世界设置中的 **Beta API（测试版 API）** 选项已开启。
 4. 进入世界后手持罗盘右键打开服务器菜单；只安装 LOTM 时，罗盘会直接打开非凡秘典。
 
 也可以按需求单独安装：
 
-- 纯生存经济服务器：只安装 `SAPI_Server_Addon.mcaddon`。
+- 纯生存经济服务器：只安装 `sapi_server_addon/SAPI_Server_Addon.mcaddon`。
 - 纯诡秘玩法世界：只安装 `LOTM_Pathways_Addon.mcaddon`。
 - 完整联动服务器：两个 `.mcaddon` 都安装并启用。
 - 末日主世界：在 SAPI 基础上额外安装 `Test_Guns_2D_Addon.mcaddon`、`Apocalypse_Mobs_Addon.mcaddon` 与 `Survival_Daily_Events_Addon.mcaddon`；后三者仍可按需单独启用。
@@ -158,7 +158,7 @@
 
 ## ⚙️ 自定义配置指南
 
-所有商品、价格、抽奖掉落、地皮单价均可在 [scripts/config.js](scripts/config.js) 中轻松修改：
+所有商品、价格、抽奖掉落、地皮单价均可在 [sapi_server_addon/sapi_server_bp/scripts/config.js](sapi_server_addon/sapi_server_bp/scripts/config.js) 中轻松修改：
 - **修改货币名称**：`Config.economy.currencyName`
 - **修改地皮价格**：`Config.land.pricePerChunk`
 - **新增商店商品**：在 `Config.shop.categories` 的 `items` 数组中添加物品 ID、名称与买卖价格。
@@ -172,9 +172,15 @@
 bash scripts/build-packages.sh
 ```
 
+只构建 SAPI Server 时运行：
+
+```bash
+bash sapi_server_addon/build.sh
+```
+
 脚本会生成并校验：
 
-- `SAPI_Server_BP.mcpack`、`SAPI_Server_Addon.mcaddon`
+- `sapi_server_addon/SAPI_Server_BP.mcpack`、`sapi_server_addon/SAPI_Server_Addon.mcaddon`
 - `LOTM_Pathways_BP.mcpack`、`LOTM_Pathways_RP.mcpack`、`LOTM_Pathways_Addon.mcaddon`
 
 末日生存可选包分别运行：

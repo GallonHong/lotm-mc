@@ -4,7 +4,7 @@
 
 ## 1. 仓库与发布物
 
-- `SAPI_Server_Addon.mcaddon`：服务器经济、商店、领地、抽奖和寄卖行。
+- `sapi_server_addon/SAPI_Server_Addon.mcaddon`：服务器经济、商店、领地、抽奖和寄卖行。
 - `LOTM_Pathways_Addon.mcaddon`：诡秘之主途径、序列和能力系统。
 - `survival_firearms_addon/`：Survival Firearms 独立枪械 Addon。
 - `V1.6.6-1DeadZone/`：DeadZone 原始参考资源。Survival Firearms 复用了其中的枪械模型、动画、材质和音效。
