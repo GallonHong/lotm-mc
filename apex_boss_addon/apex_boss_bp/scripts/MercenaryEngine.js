@@ -1,8 +1,6 @@
-import { world, system, EntityDamageCause } from '@minecraft/server';
+import { world, system, ItemStack, EntityDamageCause } from '@minecraft/server';
 
 export class MercenaryEngine {
-  static mercenaryWeapons = ['test_gun:ak47', 'test_gun:scarh', 'test_gun:shotgun', 'test_gun:m82'];
-
   static onTick() {
     const dim = world.getDimension('overworld');
     if (!dim) return;
@@ -15,46 +13,81 @@ export class MercenaryEngine {
   }
 
   static handleMercenaryAI(merc, dim) {
-    // 寻找 35 格内最近的存活玩家
-    const players = dim.getPlayers({ location: merc.location, maxDistance: 35 });
-    if (!players || players.length === 0) return;
+    // 1. 确保雇佣兵手持 3D 枪械
+    try {
+      const eq = merc.getComponent('minecraft:equippable');
+      if (eq) {
+        const held = eq.getEquipment('Mainhand');
+        if (!held || held.typeId === 'minecraft:air') {
+          eq.setEquipment('Mainhand', new ItemStack('test_gun:ak47', 1));
+        }
+      }
+    } catch {}
 
+    // 2. 搜索 40 格内的目标
+    const players = dim.getPlayers({ location: merc.location, maxDistance: 40 });
     let target = null;
     let closestDist = 999;
-    for (const p of players) {
-      if (!p || !p.isValid() || p.getGameMode() === 'creative' || p.getGameMode() === 'spectator') continue;
-      const d = Math.hypot(p.location.x - merc.location.x, p.location.y - merc.location.y, p.location.z - merc.location.z);
-      if (d < closestDist) {
-        closestDist = d;
-        target = p;
+
+    if (players && players.length > 0) {
+      for (const p of players) {
+        if (!p || !p.isValid() || p.getGameMode() === 'spectator') continue;
+        const d = Math.hypot(p.location.x - merc.location.x, p.location.y - merc.location.y, p.location.z - merc.location.z);
+        if (d < closestDist) {
+          closestDist = d;
+          target = p;
+        }
       }
+    }
+
+    // 如果没有玩家，寻找附近的村民或中立生物
+    if (!target) {
+      const mobs = dim.getEntities({ location: merc.location, maxDistance: 25, families: ['villager'] });
+      if (mobs && mobs.length > 0) target = mobs[0];
     }
 
     if (!target) return;
 
-    // 每 15 刻 (0.75秒) 瞄准并射击一次点射
-    if (system.currentTick % 15 === 0) {
-      const mLoc = merc.getHeadLocation ? merc.getHeadLocation() : merc.location;
-      const tLoc = target.getHeadLocation ? target.getHeadLocation() : target.location;
+    const mLoc = merc.getHeadLocation ? merc.getHeadLocation() : { x: merc.location.x, y: merc.location.y + 1.6, z: merc.location.z };
+    const tLoc = target.getHeadLocation ? target.getHeadLocation() : { x: target.location.x, y: target.location.y + 1.2, z: target.location.z };
 
+    // 3. 雇佣兵转身面向目标
+    try {
+      if (typeof merc.lookAt === 'function') {
+        merc.lookAt(tLoc);
+      }
+    } catch {}
+
+    // 4. 每 12 刻 (0.6 秒) 连续扫射 2 发子弹
+    if (system.currentTick % 12 === 0) {
       const dx = tLoc.x - mLoc.x;
       const dy = tLoc.y - mLoc.y;
       const dz = tLoc.z - mLoc.z;
       const dist = Math.hypot(dx, dy, dz);
-      if (dist < 0.1) return;
+      if (dist < 0.5) return;
 
       const dir = { x: dx / dist, y: dy / dist, z: dz / dist };
 
-      // 枪口火焰与音效
+      // 枪口火焰与 AK-47 枪声
       try {
-        dim.spawnParticle('minecraft:basic_flame_particle', { x: mLoc.x + dir.x * 0.5, y: mLoc.y + dir.y * 0.5, z: mLoc.z + dir.z * 0.5 });
-        dim.playSound('test_gun.ak47_shoot', mLoc, { volume: 1.2, pitch: 0.95 });
+        dim.spawnParticle('minecraft:basic_flame_particle', { x: mLoc.x + dir.x * 0.8, y: mLoc.y + dir.y * 0.8, z: mLoc.z + dir.z * 0.8 });
+        dim.playSound('test_gun.ak47_shoot', mLoc, { volume: 1.5, pitch: 0.95 });
       } catch {
         dim.playSound('random.explode', mLoc, { volume: 0.8, pitch: 1.8 });
       }
 
-      // 弹道粒子轨迹
-      const steps = Math.min(25, Math.floor(dist / 0.5));
+      // 生成真实的弹道与子弹实体
+      const bulletSpawnPos = { x: mLoc.x + dir.x * 1.0, y: mLoc.y + dir.y * 1.0, z: mLoc.z + dir.z * 1.0 };
+      try {
+        const bullet = dim.spawnEntity('test_gun:bullet_rifle', bulletSpawnPos);
+        const projComp = bullet.getComponent('minecraft:projectile');
+        if (projComp) {
+          projComp.shoot({ x: dir.x * 3.0, y: dir.y * 3.0, z: dir.z * 3.0 });
+        }
+      } catch {}
+
+      // 高亮弹道超光粒子线
+      const steps = Math.min(30, Math.floor(dist / 0.6));
       for (let i = 1; i <= steps; i++) {
         const f = i / steps;
         try {
@@ -62,17 +95,19 @@ export class MercenaryEngine {
         } catch {}
       }
 
-      // 命中判定与伤害输出 (8~14 点枪械穿透伤害)
-      const hitChance = Math.max(0.4, 0.9 - (dist / 40.0));
+      // 命中判定与伤害输出 (10~15 点真实枪械伤害)
+      const hitChance = Math.max(0.45, 0.95 - (dist / 45.0));
       if (Math.random() < hitChance) {
-        const damage = 10 + Math.floor(Math.random() * 5);
+        const damage = 10 + Math.floor(Math.random() * 6);
         try {
           target.applyDamage(damage, {
             cause: EntityDamageCause.projectile,
             damagingEntity: merc
           });
           dim.spawnParticle('minecraft:crit', tLoc);
-          target.onScreenDisplay?.setActionBar?.('§c⚠ 遭受【叛军雇佣兵】步枪射击压制! -' + damage + ' HP§r');
+          if (target.typeId === 'minecraft:player') {
+            target.onScreenDisplay?.setActionBar?.('§c⚠ 遭受【叛军雇佣兵】AK-47 枪械火力压制! -' + damage + ' HP§r');
+          }
         } catch {}
       }
     }
@@ -83,11 +118,10 @@ export class MercenaryEngine {
     const dim = merc.dimension;
     const loc = merc.location;
 
-    // 掉落 Test Guns 弹药补给箱与军火
     try {
       dim.spawnItem(new ItemStack('test_gun:ammo_rifle', 30), loc);
       dim.spawnItem(new ItemStack('test_gun:ammo_45acp', 20), loc);
-      if (Math.random() < 0.25) {
+      if (Math.random() < 0.35) {
         dim.spawnItem(new ItemStack('test_gun:ak47', 1), loc);
       }
       dim.spawnParticle('minecraft:huge_explosion_emitter', loc);

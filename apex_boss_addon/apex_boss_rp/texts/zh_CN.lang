@@ -1,8 +1,11 @@
 item.apex_boss:beacon_core.name=§l§c泰坦空投呼叫引信§r
 item.apex_boss:boss_summoner.name=§l§c泰坦空投呼叫引信§r
 item.apex_boss:juggernaut_core.name=§6歼灭者高能动力核心§r
-item.apex_boss:zombie_horde_egg.name=§c§l尸潮引爆信标§r
+item.apex_boss:zombie_horde_egg.name=§c§l【尸潮引爆信标】(一键20尸潮)§r
 entity.apex_boss:juggernaut.name=§c机械泰坦歼灭者·终焉统领§r
 entity.apex_boss:drone.name=§6自爆无人机§r
-entity.apex_boss:deadzone_zombie.name=§2变异感染者§r
+entity.apex_boss:deadzone_zombie.name=§2变异感染者 (60 HP)§r
 entity.apex_boss:hostile_mercenary.name=§c叛军特战雇佣兵§r
+item.spawn_egg.entity.apex_boss:deadzone_zombie.name=§2生成 变异感染者 (单只)§r
+item.spawn_egg.entity.apex_boss:hostile_mercenary.name=§c生成 叛军特战雇佣兵 (持枪NPC)§r
+item.spawn_egg.entity.apex_boss:juggernaut.name=§4生成 机械泰坦歼灭者 (12,000 HP)§r

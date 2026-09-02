@@ -20,6 +20,22 @@
         "always_show": false,
         "allow_name_tag_renaming": true
       },
+      "minecraft:equipment": {
+        "table": "loot_tables/entities/mercenary_gear.json"
+      },
+      "minecraft:equippable": {
+        "slots": [
+          {
+            "slot": 0,
+            "accepted_items": [
+              "test_gun:ak47",
+              "test_gun:scarh",
+              "test_gun:shotgun",
+              "test_gun:m82"
+            ]
+          }
+        ]
+      },
       "minecraft:health": {
         "value": 100,
         "max": 100
@@ -47,12 +63,15 @@
         "has_gravity": true,
         "has_collision": true
       },
+      "minecraft:shooter": {
+        "def": "test_gun:bullet_rifle"
+      },
       "minecraft:behavior.hurt_by_target": {
         "priority": 1
       },
       "minecraft:behavior.nearest_attackable_target": {
         "priority": 2,
-        "must_see": true,
+        "must_see": false,
         "entity_types": [
           {
             "filters": {
@@ -64,18 +83,30 @@
                 }
               ]
             },
-            "max_dist": 35
+            "max_dist": 40
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "villager"
+                }
+              ]
+            },
+            "max_dist": 30
           }
         ]
       },
       "minecraft:behavior.ranged_attack": {
         "priority": 3,
         "burst_shots": 3,
-        "burst_interval": 0.2,
+        "burst_interval": 0.15,
         "charge_charged_trigger": 0.0,
         "charge_shoot_trigger": 0.0,
-        "attack_interval_min": 1.5,
-        "attack_interval_max": 2.5,
+        "attack_interval_min": 1.0,
+        "attack_interval_max": 2.0,
         "attack_radius": 35.0
       },
       "minecraft:behavior.random_stroll": {

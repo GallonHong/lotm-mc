@@ -1,8 +1,11 @@
 item.apex_boss:beacon_core.name=Titan Beacon Core
 item.apex_boss:boss_summoner.name=Titan Beacon Core
 item.apex_boss:juggernaut_core.name=Juggernaut Power Core
-item.apex_boss:zombie_horde_egg.name=Zombie Horde Beacon
+item.apex_boss:zombie_horde_egg.name=Zombie Horde Beacon (20 Zombies)
 entity.apex_boss:juggernaut.name=Titan Juggernaut
 entity.apex_boss:drone.name=Kamikaze Drone
 entity.apex_boss:deadzone_zombie.name=DeadZone Zombie
 entity.apex_boss:hostile_mercenary.name=Renegade Mercenary
+item.spawn_egg.entity.apex_boss:deadzone_zombie.name=Spawn DeadZone Zombie
+item.spawn_egg.entity.apex_boss:hostile_mercenary.name=Spawn Renegade Mercenary
+item.spawn_egg.entity.apex_boss:juggernaut.name=Spawn Titan Juggernaut
