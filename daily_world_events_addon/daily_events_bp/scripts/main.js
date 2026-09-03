@@ -15,7 +15,7 @@ import { LootCrateManager } from "./rewards/LootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.14.1 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.14.2 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -254,8 +254,16 @@ subscribe(world.afterEvents?.playerInteractWithBlock, "playerInteractWithBlock",
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
   const { player, message } = scriptEventContext(event);
-  if (!player || player.typeId !== "minecraft:player") return;
   const id = String(event.id || "").toLowerCase();
+  if (id === "sapi:daily_probe") {
+    if (!player || player.typeId !== "minecraft:player") return;
+    const nonce = String(message || "").replace(/[^a-z0-9_\-]/gi, "").slice(0, 64);
+    if (nonce) system.run(() => {
+      try { player.runCommand(`scriptevent sapi:daily_pong ${nonce}`); } catch {}
+    });
+    return;
+  }
+  if (!player || player.typeId !== "minecraft:player") return;
   if (id === "daily:menu") DailyMenu.open(player);
   else if (id === "daily:quests") system.runTimeout(() => DailyMenu.openQuests(player), 2);
   else if (id === "daily:claim") system.runTimeout(() => {

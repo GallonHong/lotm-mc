@@ -1,0 +1,19 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "sapi:secure_safe_deployer",
+      "menu_category": {
+        "category": "none",
+        "is_hidden_in_commands": false
+      }
+    },
+    "components": {
+      "minecraft:display_name": { "value": "item.sapi:secure_safe_deployer.name" },
+      "minecraft:icon": { "textures": { "default": "sapi_secure_safe" } },
+      "minecraft:max_stack_size": 1,
+      "minecraft:hand_equipped": false,
+      "minecraft:custom_components": ["sapi:secure_safe_deployer"]
+    }
+  }
+}

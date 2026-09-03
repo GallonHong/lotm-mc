@@ -5,7 +5,7 @@ import { MERCHANT_CATEGORIES, VANILLA_DAILY_SELL_CAP } from "./data/merchantConf
 export const Config = {
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.8.1",
+        version: "2.9.0",
         adminTag: "admin",
         menuItem: "minecraft:compass",
         menuItemName: "§r§l§6快捷导航菜单 §8(右键使用)",
@@ -43,6 +43,16 @@ export const Config = {
         },
     },
     shop: { categories: MERCHANT_CATEGORIES, vanillaDailySellCap: VANILLA_DAILY_SELL_CAP },
+    safe: {
+        maxDurability: 2000,
+        normalDamageReduction: 0.90,
+        passwordMinLength: 4,
+        passwordMaxLength: 8,
+        maxPasswordAttempts: 3,
+        passwordLockSeconds: 30,
+        // 特殊枪械穿透保险箱减伤的预留白名单；当前为空。
+        specialWeaponIds: [],
+    },
     weapon: {
         id: "lotm:death_knell", fallbackId: "minecraft:blaze_rod",
         name: "§l§6【2级封印物】§c丧钟左轮", damage: 48, maxRange: 55, cooldownMs: 350,

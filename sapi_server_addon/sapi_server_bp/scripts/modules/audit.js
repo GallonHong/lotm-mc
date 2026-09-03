@@ -62,7 +62,9 @@ export class AuditManager {
             admin_money: "管理金币", admin_plot_delete: "强删地皮", admin_broadcast: "发布公告", admin_gift: "全服福利",
             ops_settings: "运营设置", daily_claim: "每日签到", code_create: "创建兑换码", code_toggle: "切换兑换码",
             code_delete: "删除兑换码", code_redeem: "兑换礼包码", pending_claim: "领取暂存奖励", pending_admin: "管理暂存奖励",
-            tpa_receive: "TPA 接收设置", tpa_admin: "TPA 管理设置"
+            tpa_receive: "TPA 接收设置", tpa_admin: "TPA 管理设置",
+            safe_place: "放置保险箱", safe_open: "打开保险箱", safe_deposit: "存入保险箱",
+            safe_withdraw: "取出保险箱", safe_password: "修改保险箱密码", safe_breach: "攻破保险箱", safe_recover: "回收保险箱"
         };
         return labels[type] || type;
     }

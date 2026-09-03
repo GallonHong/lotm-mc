@@ -12,8 +12,12 @@ import { TeleportManager } from "./modules/teleport.js";
 import { RegionManager } from "./modules/region.js";
 import { AuditManager } from "./modules/audit.js";
 import { OperationsManager } from "./modules/operations.js";
+import { SafeManager } from "./modules/safe.js";
 
 const compassMenuTicks = new Map();
+
+// 自定义物品组件必须在 startup/worldInitialize 阶段订阅，不能延迟到 system.run。
+SafeManager.registerEvents();
 
 function requestCompassMenu(player) {
     if (!Utils.isValid(player)) return;
@@ -30,13 +34,14 @@ function initServerSystem() {
     LandManager.registerProtectionEvents();
     TeleportManager.registerEvents();
     Integration.startServerHeartbeat();
-    console.warn("[SAPI Server] Economy, Shop, Land, Lottery, Market, free Warps/Home/TPA/DeathBack, Regions and Audit initialized.");
+    console.warn("[SAPI Server] Economy, Shop, Safe, Land, Lottery, Market, free Warps/Home/TPA/DeathBack, Regions and Audit initialized.");
 }
 
 system.run(initServerSystem);
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     if (!Utils.isValid(player)) return;
+    system.runTimeout(() => Integration.probeDailyEvents(player), 20);
     EconomyManager.getBalance(player);
     MarketManager.claimPendingPayout(player, initialSpawn);
     TeleportManager.handlePlayerSpawn(player);
@@ -121,6 +126,10 @@ else if (afterChat?.subscribe) afterChat.subscribe(handleChat);
 const scriptEvents = system.afterEvents.scriptEventReceive;
 if (scriptEvents?.subscribe) {
     scriptEvents.subscribe(({ id, message, sourceEntity }) => {
+        if (id === "sapi:daily_pong") {
+            Integration.receiveDailyPong(message);
+            return;
+        }
         if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
         const player = sourceEntity;
         if (["system:menu", "gui:menu", "menu:open", "sapi:open"].includes(id)) ServerMenuManager.openMainMenu(player);

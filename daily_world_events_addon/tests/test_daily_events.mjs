@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 14, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 14, 1]);
+assert.deepEqual(manifest.header.version, [0, 14, 2]);
+assert.deepEqual(rpManifest.header.version, [0, 14, 2]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -230,6 +230,7 @@ assert(dungeonMenu.includes("不再使用心跳阻止创建"), "dungeon menu mus
 assert.equal(dungeonManager.includes("!IntegrationBridge.isApocalypseAvailable()"), false, "stale heartbeat must never block dungeon creation");
 const dailyMain = readFileSync(join(bp, "scripts/main.js"), "utf8");
 assert(dailyMain.includes("DungeonManager.tick"));
+assert(dailyMain.includes('id === "sapi:daily_probe"') && dailyMain.includes("sapi:daily_pong"), "SAPI/Daily active ping-pong bridge missing");
 assert(dailyMain.includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
 assert(dailyMain.includes('id === "daily:news_admin"') && dailyMain.includes("DailyAdminMenu.startNewsEvent(player)"), "SAPI news-admin direct route missing");
 assert(dailyMain.includes("SpawnerReplacementManager.enqueueAroundPlayers") && dailyMain.includes("SpawnerReplacementManager.tick"), "overworld spawner replacement scheduler missing");

@@ -11,8 +11,10 @@ const land = read("sapi_server_bp/scripts/modules/land.js");
 const market = read("sapi_server_bp/scripts/modules/market.js");
 const integration = read("sapi_server_bp/scripts/modules/integration.js");
 const shop = read("sapi_server_bp/scripts/modules/shop.js");
+const safe = read("sapi_server_bp/scripts/modules/safe.js");
 const build = read("build.sh");
 const manifest = JSON.parse(read("sapi_server_bp/manifest.json"));
+const resourceManifest = JSON.parse(read("sapi_server_rp/manifest.json"));
 
 assert.equal(/\b(EconomyManager|removeBalance|fee|cost|price)\b/.test(teleport), false, "personal teleport must remain free");
 assert.match(teleport, /tpaEnabled/);
@@ -35,7 +37,9 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、新闻与事件完整管理/);
 assert.match(menu, /新闻按钮仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.8.1");
+assert.equal(manifest.header.version.join("."), "2.9.0");
+assert.equal(resourceManifest.header.version.join("."), "2.9.0");
+assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2末日生存联盟§r/);
 assert.match(menu, /openMoreMenu/);
 assert.match(land, /isApocalypseSafeChunk/);
@@ -65,6 +69,10 @@ assert.match(integration, /system\.runTimeout/);
 assert.match(integration, /daily:dungeon|Failed to send/);
 assert.match(integration, /__sapi_player__/);
 assert.match(integration, /encodeURIComponent\(player\.name\)/);
+assert.match(integration, /probeDailyEvents/);
+assert.match(integration, /receiveDailyPong/);
+assert.match(integration, /sapi:daily_probe/);
+assert.match(main, /sapi:daily_pong/);
 assert.match(integration, /openExtractionMenu/);
 assert.match(integration, /interop:apoc_extraction_ack/);
 assert.match(integration, /interop:apoc_extraction_menu_request:v1/);
@@ -72,6 +80,8 @@ assert.match(shop, /openCategoryById/);
 assert.match(shop, /openCategoryUI/);
 assert.match(shop, /openSubcategoryUI/);
 const merchantConfig = await import(new URL("../sapi_server_bp/scripts/data/merchantConfig.js", import.meta.url));
+const serverConfig = await import(new URL("../sapi_server_bp/scripts/config.js", import.meta.url));
+const safeRules = await import(new URL("../sapi_server_bp/scripts/data/safeRules.js", import.meta.url));
 const supplies = merchantConfig.MERCHANT_CATEGORIES.find(category => category.id === "supplies");
 assert.ok(supplies, "supplies merchant missing");
 assert.ok(Array.isArray(supplies.subcategories) && supplies.subcategories.length >= 6, "supplies merchant must use nested categories");
@@ -87,6 +97,28 @@ for (const itemId of [
   "minecraft:sugar",
 ]) assert.ok(supplyItems.some(item => item.id === itemId), `missing supplies item ${itemId}`);
 assert.equal(new Set(supplyItems.map(item => item.id)).size, supplyItems.length, "duplicate supplies item id");
+const safeItem = supplyItems.find(item => item.id === "sapi:secure_safe_deployer");
+assert.deepEqual([safeItem.buyPrice, safeItem.dailyLimit], [15000, 1]);
+assert.deepEqual([serverConfig.Config.safe.maxDurability, serverConfig.Config.safe.normalDamageReduction], [2000, 0.90]);
+assert.deepEqual(serverConfig.Config.safe.specialWeaponIds, [], "special safe weapon placeholder must remain empty");
+assert.equal(safeRules.calculateSafeDamage(100, false, 0.90), 10);
+assert.equal(safeRules.calculateSafeDamage(100, true, 0.90), 100);
+for (const weaponId of serverConfig.Config.safe.specialWeaponIds) {
+  const itemName = weaponId.split(":")[1];
+  assert.ok(fs.existsSync(new URL(`../../test_guns_2d_addon/test_guns_bp/items/${itemName}.json`, import.meta.url)), `unknown special safe weapon ${weaponId}`);
+}
+assert.match(safe, /maxDurability \|\| 2000/);
+assert.match(safe, /normalDamageReduction \?\? 0\.90/);
+assert.match(safe, /safe\.remove\(\)/);
+assert.match(safe, /再次放置时会恢复 2000 满耐久/);
+assert.match(safe, /this\.isBreached\(safe\).*openSafeMenu/s);
+assert.match(main, /SafeManager\.registerEvents\(\)/);
+const safeEntity = JSON.parse(read("sapi_server_bp/entities/secure_safe.json"));
+assert.equal(safeEntity["minecraft:entity"].description.identifier, "sapi:secure_safe");
+assert.equal(safeEntity["minecraft:entity"].components["minecraft:inventory"].inventory_size, 27);
+assert.equal(safeEntity["minecraft:entity"].components["minecraft:health"].max, 2000);
+const safeItemDefinition = JSON.parse(read("sapi_server_bp/items/secure_safe_deployer.json"));
+assert.equal(safeItemDefinition["minecraft:item"].description.identifier, "sapi:secure_safe_deployer");
 const lottery = read("sapi_server_bp/scripts/modules/lottery.js");
 assert.match(lottery, /if \(res\.canceled\) return;/);
 assert.match(lottery, /res\.selection === pools\.length/);
@@ -114,4 +146,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.8.1 validation passed.");
+console.log("SAPI Server v2.9.0 validation passed.");

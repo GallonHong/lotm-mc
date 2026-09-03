@@ -49,6 +49,8 @@ function rectanglesOverlap(a, b) {
 /** 独立 Add-on 之间不使用源码导入，只通过心跳、动态属性与 scriptevent 联动。 */
 export class Integration {
     static pendingExtractionRequests = new Map();
+    static pendingDailyProbes = new Map();
+    static dailyEventsPongAt = 0;
 
     static readHeartbeat(key) {
         try {
@@ -72,7 +74,10 @@ export class Integration {
     }
 
     static isDailyEventsAvailable() {
-        return this.isAlive(DAILY_EVENTS_HEARTBEAT);
+        // Dynamic Properties may be scoped to the behavior pack UUID on some
+        // Bedrock builds. Prefer an explicit cross-pack ping/pong and retain
+        // the old heartbeat only as a compatibility fallback.
+        return Date.now() - this.dailyEventsPongAt <= HEARTBEAT_MAX_AGE_MS || this.isAlive(DAILY_EVENTS_HEARTBEAT);
     }
 
     static isApocalypseAvailable() {
@@ -222,6 +227,30 @@ export class Integration {
 
     static startServerHeartbeat() {
         this.startHeartbeat(SERVER_HEARTBEAT);
+        const probe = () => {
+            const player = world.getAllPlayers()[0];
+            if (player) this.probeDailyEvents(player);
+        };
+        system.runTimeout(probe, 20);
+        system.runInterval(probe, 40);
+    }
+
+    static probeDailyEvents(player) {
+        if (!player) return false;
+        const nonce = `${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`;
+        this.pendingDailyProbes.set(nonce, Date.now() + 10000);
+        for (const [key, expiresAt] of this.pendingDailyProbes) {
+            if (expiresAt < Date.now()) this.pendingDailyProbes.delete(key);
+        }
+        return this.send(player, "sapi:daily_probe", nonce);
+    }
+
+    static receiveDailyPong(message) {
+        const nonce = String(message || "").trim();
+        if (!nonce || !this.pendingDailyProbes.has(nonce)) return false;
+        this.pendingDailyProbes.delete(nonce);
+        this.dailyEventsPongAt = Date.now();
+        return true;
     }
 
     static startLotmHeartbeat() {

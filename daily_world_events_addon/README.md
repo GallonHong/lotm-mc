@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.14.1 取消副本创建前的心跳硬阻断，Boss 在对应阶段直接尝试生成；刷怪笼替换也改为 Script API 逐块设置，不再依赖 `fill` 命令。v0.14.0 新增无品质“废墟物资箱”。v0.13.0 接入单金币经济、四类固定日常、分难度副本收益递减、正式神话补给密钥与 Epic 蓝图掉落。每日新闻管理入口仍位于 Daily 管理菜单首项，并可由 SAPI 管理员控制台通过 `daily:news_admin` 直达。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.14.2 新增跨行为包的 `scriptevent` 主动探测/应答，让 SAPI 管理控制台不再因动态属性隔离而误报“未连接”。v0.14.1 取消副本创建前的心跳硬阻断，Boss 在对应阶段直接尝试生成；刷怪笼替换也改为 Script API 逐块设置，不再依赖 `fill` 命令。v0.14.0 新增无品质“废墟物资箱”。每日新闻管理入口仍位于 Daily 管理菜单首项，并可由 SAPI 管理员控制台通过 `daily:news_admin` 直达。
 
 ## 可复用物资箱
 

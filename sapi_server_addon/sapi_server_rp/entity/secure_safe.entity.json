@@ -1,0 +1,16 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "sapi:secure_safe",
+      "materials": { "default": "entity_alphatest" },
+      "textures": {
+        "default": "textures/entity/secure_safe",
+        "breached": "textures/entity/secure_safe_breached"
+      },
+      "geometry": { "default": "geometry.sapi.secure_safe" },
+      "render_controllers": ["controller.render.sapi.secure_safe"],
+      "spawn_egg": { "base_color": "#30353a", "overlay_color": "#c89424" }
+    }
+  }
+}

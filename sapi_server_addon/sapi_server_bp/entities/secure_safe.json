@@ -1,0 +1,50 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "sapi:secure_safe",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "properties": {
+        "sapi:breached": {
+          "type": "bool",
+          "default": false,
+          "client_sync": true
+        }
+      }
+    },
+    "component_groups": {},
+    "components": {
+      "minecraft:type_family": { "family": ["sapi_safe", "inanimate"] },
+      "minecraft:collision_box": { "width": 1.0, "height": 1.35 },
+      "minecraft:health": { "value": 2000, "max": 2000 },
+      "minecraft:knockback_resistance": { "value": 1.0 },
+      "minecraft:physics": { "has_collision": true, "has_gravity": true },
+      "minecraft:pushable": { "is_pushable": false, "is_pushable_by_piston": false },
+      "minecraft:persistent": {},
+      "minecraft:nameable": { "always_show": false, "allow_name_tag_renaming": false },
+      "minecraft:inventory": {
+        "inventory_size": 27,
+        "container_type": "inventory",
+        "can_be_siphoned_from": false,
+        "private": true,
+        "restrict_to_owner": false
+      },
+      "minecraft:interact": {
+        "interactions": [
+          {
+            "interact_text": "action.interact.sapi:secure_safe",
+            "on_interact": { "event": "sapi:interacted", "target": "self" }
+          }
+        ]
+      }
+    },
+    "events": {
+      "sapi:interacted": {},
+      "sapi:breach": {
+        "set_property": { "sapi:breached": true }
+      }
+    }
+  }
+}

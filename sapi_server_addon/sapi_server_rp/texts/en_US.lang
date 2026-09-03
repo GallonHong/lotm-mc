@@ -1,0 +1,3 @@
+item.sapi:secure_safe_deployer.name=Reinforced Combination Safe
+entity.sapi:secure_safe.name=Reinforced Combination Safe
+action.interact.sapi:secure_safe=Open Safe

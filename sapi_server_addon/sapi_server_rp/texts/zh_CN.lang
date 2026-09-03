@@ -1,0 +1,3 @@
+item.sapi:secure_safe_deployer.name=加固密码保险箱
+entity.sapi:secure_safe.name=加固密码保险箱
+action.interact.sapi:secure_safe=打开保险箱
