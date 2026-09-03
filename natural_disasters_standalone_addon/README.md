@@ -17,7 +17,7 @@ v1.3.1 支持从 SAPI Server v2.7.2 管理员控制台直接打开本包的控�
 
 三个内置安全区与上述法制区之外的主世界区域会按“非法制区”处理。区域、分类间隔、难度、权重、地形破坏与管理员手动影响半径均可在行为包 `scripts/config.js` 修改。没有可用区域玩家时，每分钟重新检查一次。
 
-管理员可在原版工作台合成 `sando_standalone:disaster_controller`，或输入：
+管理员可通过指令获取 `sando_standalone:disaster_controller`，或在管理员控制台领取：
 
 ```mcfunction
 /give @s sando_standalone:disaster_controller
