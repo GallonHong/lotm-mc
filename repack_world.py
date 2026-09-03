@@ -3,6 +3,25 @@ import zipfile
 import json
 import shutil
 import time
+import io
+import struct
+import nbtlib
+
+def enable_deferred(raw_bytes):
+    header = raw_bytes[:8]
+    ver = struct.unpack("<I", header[:4])[0]
+    nbt_bytes = raw_bytes[8:]
+    f = io.BytesIO(nbt_bytes)
+    nbt_file = nbtlib.File.parse(f, byteorder="little")
+    if "experiments" not in nbt_file:
+        nbt_file["experiments"] = nbtlib.Compound()
+    nbt_file["experiments"]["deferred_technical_preview"] = nbtlib.Byte(1)
+    nbt_file["experiments"]["experiments_ever_used"] = nbtlib.Byte(1)
+    nbt_file["experiments"]["saved_with_toggled_experiments"] = nbtlib.Byte(1)
+    out_f = io.BytesIO()
+    nbt_file.write(out_f, byteorder="little")
+    new_nbt_bytes = out_f.getvalue()
+    return struct.pack("<II", ver, len(new_nbt_bytes)) + new_nbt_bytes
 
 SRC_MCWORLD = r"c:\Users\10973\Documents\WeChat Files\wxid_p0qzgqeqkla022\FileStorage\File\2025-04\MRZH SURVIVE -------- V2 (1).mcworld"
 OUT_MCWORLD = os.path.join(os.path.dirname(os.path.abspath(__file__)), "明日之后.mcworld")
@@ -20,12 +39,14 @@ BEHAVIOR_PACKS = [
 
 RESOURCE_PACKS = [
     ("apocalypse_ui_rp", os.path.join(BASE_DIR, "apocalypse_ui_addon", "apocalypse_ui_rp")),
+    ("sapi_server_rp", os.path.join(BASE_DIR, "sapi_server_addon", "sapi_server_rp")),
     ("apocalypse_mobs_rp", os.path.join(BASE_DIR, "apocalypse_mobs_addon", "apocalypse_mobs_rp")),
     ("apocalypse_vehicles_rp", os.path.join(BASE_DIR, "apocalypse_vehicles_addon", "apocalypse_vehicles_rp")),
     ("extraction_rp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_rp")),
     ("daily_events_rp", os.path.join(BASE_DIR, "daily_world_events_addon", "daily_events_rp")),
     ("natural_disasters_rp", os.path.join(BASE_DIR, "natural_disasters_standalone_addon", "standalone_disasters_rp")),
     ("test_guns_rp", os.path.join(BASE_DIR, "test_guns_2d_addon", "test_guns_rp")),
+    ("dark_fantasy_visuals_rp", os.path.join(BASE_DIR, "dark_fantasy_visuals_rp")),
 ]
 
 def get_pack_info(pack_path):
@@ -35,9 +56,14 @@ def get_pack_info(pack_path):
     with open(manifest_path, "r", encoding="utf-8-sig") as f:
         data = json.load(f)
     header = data.get("header", {})
+    raw_ver = header.get("version", [1, 0, 0])
+    if isinstance(raw_ver, str):
+        ver = [int(x) for x in raw_ver.split(".") if x.isdigit()]
+    else:
+        ver = list(raw_ver)
     return {
         "pack_id": header.get("uuid"),
-        "version": header.get("version", [1, 0, 0])
+        "version": ver
     }
 
 def main():
@@ -54,6 +80,8 @@ def main():
     # Generate world_resource_packs.json
     world_rp = []
     for name, path in RESOURCE_PACKS:
+        if not os.path.exists(path):
+            continue
         info = get_pack_info(path)
         world_rp.append(info)
         print(f"  + Added RP: {name} (UUID: {info['pack_id']}, v{info['version']})")
@@ -78,8 +106,14 @@ def main():
                 if name in ("world_behavior_packs.json", "world_resource_packs.json", "levelname.txt"):
                     continue
                 
-                # Copy original file
+                # Copy original file with deferred graphics enabled in level.dat
                 data = src_zip.read(name)
+                if name in ("level.dat", "level.dat_old"):
+                    try:
+                        data = enable_deferred(data)
+                        print(f"[*] Enabled 灵动视效 (deferred_technical_preview) in {name}")
+                    except Exception as e:
+                        print(f"[!] Warning: failed to update {name}: {e}")
                 dst_zip.writestr(item, data)
 
             # 2. Write new levelname and pack activation configs
@@ -103,6 +137,8 @@ def main():
             # 4. Embed all active Resource Packs
             print("[*] Embedding Resource Packs...")
             for rp_name, rp_path in RESOURCE_PACKS:
+                if not os.path.exists(rp_path):
+                    continue
                 for root, dirs, files in os.walk(rp_path):
                     if any(x in root for x in [".git", "node_modules", ".gemini", "__pycache__"]):
                         continue

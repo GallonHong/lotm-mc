@@ -1,0 +1,1160 @@
+{
+  "namespace": "server_form",
+  "third_party_server_screen@common.base_screen": {
+    "$screen_content": "server_form.main_screen_content",
+    "button_mappings": [
+      {
+        "from_button_id": "button.menu_cancel",
+        "to_button_id": "button.menu_exit",
+        "mapping_type": "global"
+      }
+    ]
+  },
+  "main_screen_content": {
+    "type": "panel",
+    "size": [
+      0,
+      0
+    ],
+    "controls": [
+      {
+        "server_form_factory": {
+          "type": "factory",
+          "control_ids": {
+            "long_form": "@server_form.long_form",
+            "custom_form": "@server_form.custom_form"
+          }
+        }
+      }
+    ]
+  },
+  "dynamic_button": {
+    "type": "stack_panel",
+    "size": [
+      "100%",
+      32
+    ],
+    "orientation": "horizontal",
+    "controls": [
+      {
+        "panel_name": {
+          "type": "panel",
+          "size": [
+            34,
+            "100%c"
+          ],
+          "bindings": [
+            {
+              "binding_type": "view",
+              "source_control_name": "image",
+              "resolve_sibling_scope": true,
+              "source_property_name": "(not (#texture = ''))",
+              "target_property_name": "#visible"
+            }
+          ],
+          "controls": [
+            {
+              "image": {
+                "type": "image",
+                "layer": 2,
+                "size": [
+                  32,
+                  32
+                ],
+                "offset": [
+                  0,
+                  0
+                ],
+                "bindings": [
+                  {
+                    "binding_name": "#form_button_texture",
+                    "binding_name_override": "#texture",
+                    "binding_type": "collection",
+                    "binding_collection_name": "form_buttons"
+                  },
+                  {
+                    "binding_name": "#form_button_texture_file_system",
+                    "binding_name_override": "#texture_file_system",
+                    "binding_type": "collection",
+                    "binding_collection_name": "form_buttons"
+                  },
+                  {
+                    "binding_type": "view",
+                    "source_property_name": "(not ((#texture = '') or (#texture = 'loading')))",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            },
+            {
+              "progress@progress.progress_loading_bars": {
+                "size": [
+                  30,
+                  4
+                ],
+                "offset": [
+                  -2,
+                  16
+                ],
+                "bindings": [
+                  {
+                    "binding_type": "view",
+                    "source_control_name": "image",
+                    "resolve_sibling_scope": true,
+                    "source_property_name": "(#texture = 'loading')",
+                    "target_property_name": "#visible"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "form_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.form_button_click",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [
+            "fill",
+            32
+          ],
+          "$button_text": "#form_button_text",
+          "$button_text_binding_type": "collection",
+          "$button_text_grid_collection_name": "form_buttons",
+          "$button_text_max_size": [
+            "100%",
+            20
+          ],
+          "bindings": [
+            {
+              "binding_type": "collection_details",
+              "binding_collection_name": "form_buttons"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "dynamic_label@settings_common.option_group_spaced_label": {
+    "$text": "#form_button_text",
+    "$text_bindings": [
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      }
+    ]
+  },
+  "dynamic_header@settings_common.option_group_spaced_header": {
+    "$text": "#form_button_text",
+    "$text_bindings": [
+      {
+        "binding_name": "#form_button_text",
+        "binding_type": "collection",
+        "binding_collection_name": "form_buttons"
+      }
+    ]
+  },
+  "custom_form@common_dialogs.main_panel_no_buttons": {
+    "$title_panel": "common_dialogs.standard_title_label",
+    "$title_size": [
+      "100% - 15px",
+      10
+    ],
+    "$title_max_size": [
+      "100% - 15px",
+      10
+    ],
+    "size": [
+      225,
+      200
+    ],
+    "$text_name": "#title_text",
+    "$title_text_binding_type": "none",
+    "$child_control": "server_form.custom_form_panel",
+    "layer": 2
+  },
+  "custom_form_panel@common.scrolling_panel": {
+    "anchor_to": "top_left",
+    "anchor_from": "top_left",
+    "$show_background": false,
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "$scrolling_content": "server_form.custom_form_scrolling_content",
+    "$scroll_size": [
+      5,
+      "100% - 4px"
+    ],
+    "$scrolling_pane_size": [
+      "100% - 4px",
+      "100% - 2px"
+    ],
+    "$scrolling_pane_offset": [
+      2,
+      0
+    ],
+    "$scroll_bar_right_padding_size": [
+      0,
+      0
+    ]
+  },
+  "generated_contents": {
+    "type": "stack_panel",
+    "size": [
+      "100%",
+      "100%c"
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "factory": {
+      "name": "buttons",
+      "control_ids": {
+        "label": "@server_form.custom_label",
+        "toggle": "@server_form.custom_toggle",
+        "slider": "@server_form.custom_slider",
+        "step_slider": "@server_form.custom_step_slider",
+        "dropdown": "@server_form.custom_dropdown",
+        "input": "@server_form.custom_input",
+        "header": "@server_form.custom_header",
+        "divider": "@settings_common.option_group_section_divider"
+      }
+    },
+    "collection_name": "custom_form",
+    "bindings": [
+      {
+        "binding_name": "#custom_form_length",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+  "custom_form_scrolling_content": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "offset": [
+      2,
+      0
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "generated_form@server_form.generated_contents": {}
+      },
+      {
+        "submit_button@common_buttons.light_text_button": {
+          "$pressed_button_name": "button.submit_custom_form",
+          "anchor_from": "top_left",
+          "anchor_to": "top_left",
+          "size": [
+            "100%",
+            32
+          ],
+          "$button_text": "#submit_text",
+          "$button_text_binding_type": "global",
+          "$button_binding_condition": "once",
+          "bindings": [
+            {
+              "binding_name": "#submit_button_visible",
+              "binding_name_override": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "custom_label@settings_common.option_group_label": {
+    "$text": "#custom_text",
+    "$text_bindings": [
+      {
+        "binding_name": "#custom_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+  "custom_header@settings_common.option_group_header": {
+    "$text": "#custom_text",
+    "$text_bindings": [
+      {
+        "binding_name": "#custom_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+  "custom_toggle@settings_common.option_toggle": {
+    "$option_label": "#custom_text",
+    "$toggle_name": "custom_toggle",
+    "$toggle_state_binding_name": "#custom_toggle_state",
+    "$option_binding_name": "#custom_toggle_state",
+    "$toggle_binding_type": "collection",
+    "$toggle_enabled_binding_name": "#custom_toggle_enabled",
+    "$toggle_enabled_binding_type": "collection",
+    "$toggle_grid_collection_name": "custom_form",
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
+    "$label_bindings": [
+      {
+        "binding_name": "#custom_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+  "custom_slider@settings_common.option_slider": {
+    "$option_label": "#custom_slider_text",
+    "$slider_name": "custom_slider",
+    "$slider_value_binding_name": "#custom_slider_value",
+    "$slider_tts_text_value": "#custom_slider_text_value",
+    "$slider_binding_type": "collection",
+    "$slider_collection_name": "custom_form",
+    "$slider_enabled_binding_name": "#custom_slider_enabled",
+    "$slider_enabled_binding_type": "collection",
+    "$slider_timeout_binding_type": "collection",
+    "$slider_timeout_binding_name": "#custom_slider_timeout",
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
+    "$label_bindings": [
+      {
+        "binding_name": "#custom_slider_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+  "custom_step_slider@server_form.custom_slider": {
+    "$option_label": "#custom_slider_step_text",
+    "$slider_name": "custom_slider_step",
+    "$slider_value_binding_name": "#custom_slider_step_value",
+    "$slider_tts_text_value": "#custom_slider_step_text_value",
+    "$slider_steps_binding_type": "collection",
+    "$slider_steps_binding_name": "#custom_slider_steps",
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
+    "$label_bindings": [
+      {
+        "binding_name": "#custom_slider_step_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+  "custom_dropdown": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%c"
+    ],
+    "layer": 2,
+    "controls": [
+      {
+        "dropdown@settings_common.option_dropdown": {
+          "$option_label": "#custom_text",
+          "$dropdown_content": "server_form.custom_dropdown_content",
+          "$dropdown_area": "inside_header_panel",
+          "$dropdown_name": "custom_dropdown",
+          "$toggle_binding_type": "collection",
+          "$toggle_grid_collection_name": "custom_form",
+          "$options_dropdown_toggle_label_binding": "#dropdown_option_text",
+          "$options_dropdown_toggle_label_binding_type": "collection",
+          "$options_dropdown_toggle_label_binding_collection_name": "custom_form",
+          "$option_tooltip_binding_type": "collection",
+          "$option_tooltip_collection_name": "custom_form",
+          "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+          "$option_tooltip_area": "inside_header_panel",
+          "$dropdown_scroll_content_size": [
+            "100%",
+            "200%"
+          ],
+          "$label_bindings": [
+            {
+              "binding_name": "#custom_text",
+              "binding_type": "collection",
+              "binding_collection_name": "custom_form"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "custom_dropdown_content@settings_common.option_radio_dropdown_group": {
+    "$radio_buttons": [],
+    "$toggle_focus_id_binding_type": "collection",
+    "$toggle_focus_id_collection_name": "custom_form",
+    "$toggle_focus_id_binding_name": "#custom_toggle_focus_id",
+    "$radio_factory": {
+      "name": "buttons",
+      "control_name": "server_form.custom_dropdown_radio"
+    },
+    "$radio_collection_name": "custom_dropdown",
+    "$radio_bindings": [
+      {
+        "binding_name": "#custom_dropdown_length",
+        "binding_type": "collection",
+        "binding_name_override": "#collection_length",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+  "custom_dropdown_radio@settings_common.radio_with_label": {
+    "$toggle_name": "custom_dropdown_radio_toggle",
+    "$toggle_state_binding_name": "#custom_radio_toggled",
+    "$toggle_binding_type": "collection",
+    "$toggle_grid_collection_name": "custom_dropdown",
+    "$toggle_collection_details_type": "collection_details",
+    "$radio_label_text": "#custom_radio_text",
+    "$radio_label_bindings": [
+      {
+        "binding_name": "#custom_radio_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_dropdown"
+      },
+      {
+        "binding_type": "collection_details"
+      }
+    ]
+  },
+  "custom_input@settings_common.option_text_edit": {
+    "$option_label": "#custom_text",
+    "$option_place_holder_text": "#custom_placeholder_text",
+    "$text_edit_box_placeholder_content_binding_name": "$option_place_holder_text",
+    "$text_edit_box_placeholder_content_binding_type": "collection",
+    "$text_edit_box_grid_collection_name": "custom_form",
+    "$max_text_edit_length": 100,
+    "$text_edit_box_content_binding_type": "collection",
+    "$text_edit_box_content_binding_name": "#custom_input_text",
+    "$option_binding_name": "#custom_input_text",
+    "$text_box_enabled_binding_name": "#custom_input_enabled",
+    "$text_box_name": "custom_input",
+    "$option_tooltip_binding_type": "collection",
+    "$option_tooltip_collection_name": "custom_form",
+    "$option_tooltip_text_binding_name": "#custom_tooltip_text",
+    "$option_tooltip_area": "inside_header_panel",
+    "$label_bindings": [
+      {
+        "binding_name": "#custom_text",
+        "binding_type": "collection",
+        "binding_collection_name": "custom_form"
+      }
+    ]
+  },
+  "long_form": {
+    "type": "panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "controls": [
+      {
+        "default_long_form@common_dialogs.main_panel_no_buttons": {
+          "$title_panel": "common_dialogs.standard_title_label",
+          "$title_size": [
+            "100% - 15px",
+            10
+          ],
+          "$title_max_size": [
+            "100% - 15px",
+            10
+          ],
+          "size": [
+            225,
+            200
+          ],
+          "$text_name": "#title_text",
+          "$title_text_binding_type": "none",
+          "$child_control": "server_form.long_form_panel",
+          "layer": 2,
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "(not ((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r')))",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      },
+      {
+        "apoc_survival_form@common_dialogs.main_panel_no_buttons": {
+          "$title_panel": "common_dialogs.standard_title_label",
+          "$title_size": [
+            "100% - 14px",
+            14
+          ],
+          "size": [
+            364,
+            244
+          ],
+          "$text_name": "#title_text",
+          "$title_text_binding_type": "none",
+          "$child_control": "server_form.apoc_survival_panel",
+          "layer": 3,
+          "bindings": [
+            {
+              "binding_name": "#title_text"
+            },
+            {
+              "binding_type": "view",
+              "source_property_name": "((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r'))",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "long_form_panel": {
+    "type": "stack_panel",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "orientation": "vertical",
+    "layer": 1,
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "scrolling_panel@common.scrolling_panel": {
+          "anchor_to": "top_left",
+          "anchor_from": "top_left",
+          "$show_background": false,
+          "size": [
+            "100%",
+            "100%"
+          ],
+          "$scrolling_content": "server_form.long_form_scrolling_content",
+          "$scroll_size": [
+            5,
+            "100% - 4px"
+          ],
+          "$scrolling_pane_size": [
+            "100% - 4px",
+            "100% - 2px"
+          ],
+          "$scrolling_pane_offset": [
+            2,
+            0
+          ],
+          "$scroll_bar_right_padding_size": [
+            0,
+            0
+          ]
+        }
+      }
+    ]
+  },
+  "long_form_scrolling_content": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_left",
+    "anchor_to": "top_left",
+    "controls": [
+      {
+        "label_offset_panel": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100%c"
+          ],
+          "controls": [
+            {
+              "main_label": {
+                "type": "label",
+                "offset": [
+                  2,
+                  2
+                ],
+                "color": "$main_header_text_color",
+                "size": [
+                  "100%",
+                  "default"
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "text": "#form_text"
+              }
+            }
+          ]
+        }
+      },
+      {
+        "padding": {
+          "type": "panel",
+          "size": [
+            "100%",
+            4
+          ]
+        }
+      },
+      {
+        "wrapping_panel": {
+          "type": "panel",
+          "size": [
+            "100%",
+            "100%c"
+          ],
+          "controls": [
+            {
+              "long_form_dynamic_buttons_panel@server_form.long_form_dynamic_buttons_panel": {}
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "long_form_dynamic_buttons_panel": {
+    "type": "stack_panel",
+    "size": [
+      "100% - 4px",
+      "100%c"
+    ],
+    "offset": [
+      2,
+      0
+    ],
+    "orientation": "vertical",
+    "anchor_from": "top_middle",
+    "anchor_to": "top_middle",
+    "factory": {
+      "name": "buttons",
+      "control_ids": {
+        "button": "server_form.dynamic_button",
+        "label": "@server_form.dynamic_label",
+        "header": "@server_form.dynamic_header",
+        "divider": "@settings_common.option_group_section_divider"
+      }
+    },
+    "collection_name": "form_buttons",
+    "bindings": [
+      {
+        "binding_name": "#form_button_contents",
+        "binding_name_override": "#collection_length"
+      }
+    ]
+  },
+  "apoc_survival_panel": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": [
+      "100%",
+      "100%"
+    ],
+    "collection_name": "form_buttons",
+    "controls": [
+      {
+        "apoc_status_bar": {
+          "type": "panel",
+          "size": [
+            354,
+            18
+          ],
+          "controls": [
+            {
+              "apoc_status_bg": {
+                "type": "image",
+                "texture": "textures/ui/apocalypse/scrim",
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "alpha": 0.5,
+                "layer": 4
+              }
+            },
+            {
+              "apoc_status_label": {
+                "type": "label",
+                "text": "#form_text",
+                "size": [
+                  "100% - 6px",
+                  16
+                ],
+                "offset": [
+                  3,
+                  1
+                ],
+                "anchor_from": "top_left",
+                "anchor_to": "top_left",
+                "color": [
+                  1.0,
+                  1.0,
+                  1.0
+                ],
+                "font_size": "small",
+                "shadow": true,
+                "layer": 5,
+                "bindings": [
+                  {
+                    "binding_name": "#form_text"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "apoc_top_section": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [
+            354,
+            102
+          ],
+          "offset": [
+            0,
+            2
+          ],
+          "collection_name": "form_buttons",
+          "controls": [
+            {
+              "apoc_top_left_quad": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [
+                  102,
+                  102
+                ],
+                "collection_name": "form_buttons",
+                "controls": [
+                  {
+                    "apoc_left_row_1": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "size": [
+                        102,
+                        50
+                      ],
+                      "collection_name": "form_buttons",
+                      "controls": [
+                        {
+                          "apoc_shop@server_form.apoc_picture_tile": {
+                            "$texture": "textures/ui/apocalypse/shop",
+                            "$label": "全球商店",
+                            "$slot": [
+                              51,
+                              50
+                            ],
+                            "$button": [
+                              49,
+                              48
+                            ],
+                            "collection_index": 7
+                          }
+                        },
+                        {
+                          "apoc_lottery@server_form.apoc_picture_tile": {
+                            "$texture": "textures/ui/apocalypse/lottery",
+                            "$label": "幸运转盘",
+                            "$slot": [
+                              51,
+                              50
+                            ],
+                            "$button": [
+                              49,
+                              48
+                            ],
+                            "collection_index": 9
+                          }
+                        }
+                      ]
+                    }
+                  },
+                  {
+                    "apoc_left_row_2": {
+                      "type": "stack_panel",
+                      "orientation": "horizontal",
+                      "size": [
+                        102,
+                        50
+                      ],
+                      "offset": [
+                        0,
+                        2
+                      ],
+                      "collection_name": "form_buttons",
+                      "controls": [
+                        {
+                          "apoc_bank@server_form.apoc_picture_tile": {
+                            "$texture": "textures/ui/apocalypse/bank",
+                            "$label": "联盟银行",
+                            "$slot": [
+                              51,
+                              50
+                            ],
+                            "$button": [
+                              49,
+                              48
+                            ],
+                            "collection_index": 6
+                          }
+                        },
+                        {
+                          "apoc_market@server_form.apoc_picture_tile": {
+                            "$texture": "textures/ui/apocalypse/market",
+                            "$label": "玩家寄卖",
+                            "$slot": [
+                              51,
+                              50
+                            ],
+                            "$button": [
+                              49,
+                              48
+                            ],
+                            "collection_index": 10
+                          }
+                        }
+                      ]
+                    }
+                  }
+                ]
+              }
+            },
+            {
+              "apoc_world_event@server_form.apoc_picture_tile": {
+                "$texture": "textures/ui/apocalypse/world_event",
+                "$label": "商队委托 · 世界事件",
+                "$slot": [
+                  146,
+                  102
+                ],
+                "$button": [
+                  144,
+                  100
+                ],
+                "collection_index": 3,
+                "offset": [
+                  2,
+                  0
+                ]
+              }
+            },
+            {
+              "apoc_top_right_col": {
+                "type": "stack_panel",
+                "orientation": "vertical",
+                "size": [
+                  102,
+                  102
+                ],
+                "offset": [
+                  2,
+                  0
+                ],
+                "collection_name": "form_buttons",
+                "controls": [
+                  {
+                    "apoc_welfare@server_form.apoc_picture_tile": {
+                      "$texture": "textures/ui/apocalypse/welfare",
+                      "$label": "每日补给",
+                      "$slot": [
+                        102,
+                        50
+                      ],
+                      "$button": [
+                        100,
+                        48
+                      ],
+                      "collection_index": 2
+                    }
+                  },
+                  {
+                    "apoc_dungeon@server_form.apoc_picture_tile": {
+                      "$texture": "textures/ui/apocalypse/dungeon",
+                      "$label": "副本封锁区",
+                      "$slot": [
+                        102,
+                        50
+                      ],
+                      "$button": [
+                        100,
+                        48
+                      ],
+                      "collection_index": 4,
+                      "offset": [
+                        0,
+                        2
+                      ]
+                    }
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "apoc_bottom_row": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [
+            354,
+            58
+          ],
+          "offset": [
+            0,
+            3
+          ],
+          "collection_name": "form_buttons",
+          "controls": [
+            {
+              "apoc_public_warp@server_form.apoc_picture_tile": {
+                "$texture": "textures/ui/apocalypse/teleport",
+                "$label": "公共传送",
+                "$slot": [
+                  88,
+                  58
+                ],
+                "$button": [
+                  86,
+                  56
+                ],
+                "collection_index": 0
+              }
+            },
+            {
+              "apoc_personal@server_form.apoc_picture_tile": {
+                "$texture": "textures/ui/apocalypse/home",
+                "$label": "个人避难所",
+                "$slot": [
+                  88,
+                  58
+                ],
+                "$button": [
+                  86,
+                  56
+                ],
+                "collection_index": 1,
+                "offset": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "apoc_land@server_form.apoc_picture_tile": {
+                "$texture": "textures/ui/apocalypse/land",
+                "$label": "营地庄园",
+                "$slot": [
+                  88,
+                  58
+                ],
+                "$button": [
+                  86,
+                  56
+                ],
+                "collection_index": 8,
+                "offset": [
+                  1,
+                  0
+                ]
+              }
+            },
+            {
+              "apoc_extraction@server_form.apoc_picture_tile": {
+                "$texture": "textures/ui/apocalypse/extraction",
+                "$label": "末日摸金都市",
+                "$slot": [
+                  88,
+                  58
+                ],
+                "$button": [
+                  86,
+                  56
+                ],
+                "collection_index": 5,
+                "offset": [
+                  1,
+                  0
+                ]
+              }
+            }
+          ]
+        }
+      },
+      {
+        "apoc_more_footer@server_form.apoc_picture_tile": {
+          "$texture": "textures/ui/apocalypse/more",
+          "$label": "📻 便携终端 · 营地排行 · 幸存者秘典 · 盟约管理",
+          "$slot": [
+            354,
+            22
+          ],
+          "$button": [
+            352,
+            20
+          ],
+          "collection_index": 11,
+          "offset": [
+            0,
+            3
+          ]
+        }
+      }
+    ]
+  },
+  "apoc_picture_tile": {
+    "$texture|default": "textures/ui/apocalypse/more",
+    "$label|default": "功能",
+    "$slot|default": [
+      50,
+      48
+    ],
+    "$button|default": [
+      48,
+      46
+    ],
+    "type": "panel",
+    "size": "$slot",
+    "controls": [
+      {
+        "apoc_tile_inner": {
+          "type": "panel",
+          "size": "$button",
+          "anchor_from": "center",
+          "anchor_to": "center",
+          "controls": [
+            {
+              "apoc_tile_art": {
+                "type": "image",
+                "texture": "$texture",
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 2,
+                "propagate_alpha": true
+              }
+            },
+            {
+              "apoc_tile_scrim": {
+                "type": "image",
+                "texture": "textures/ui/apocalypse/scrim",
+                "size": [
+                  "100%",
+                  15
+                ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "alpha": 0.72,
+                "layer": 3
+              }
+            },
+            {
+              "apoc_tile_label": {
+                "type": "label",
+                "text": "$label",
+                "size": [
+                  "100% - 2px",
+                  14
+                ],
+                "anchor_from": "bottom_middle",
+                "anchor_to": "bottom_middle",
+                "offset": [
+                  0,
+                  -1
+                ],
+                "text_alignment": "center",
+                "color": [
+                  0.98,
+                  0.96,
+                  0.9
+                ],
+                "font_size": "small",
+                "shadow": true,
+                "layer": 4
+              }
+            },
+            {
+              "apoc_tile_click": {
+                "type": "button",
+                "size": [
+                  "100%",
+                  "100%"
+                ],
+                "layer": 10,
+                "default_control": "default",
+                "hover_control": "hover",
+                "pressed_control": "pressed",
+                "sound_name": "random.click",
+                "controls": [
+                  {
+                    "default": {
+                      "type": "panel",
+                      "size": [
+                        "100%",
+                        "100%"
+                      ]
+                    }
+                  },
+                  {
+                    "hover": {
+                      "type": "image",
+                      "texture": "textures/ui/apocalypse/highlight",
+                      "alpha": 0.22,
+                      "size": [
+                        "100%",
+                        "100%"
+                      ]
+                    }
+                  },
+                  {
+                    "pressed": {
+                      "type": "image",
+                      "texture": "textures/ui/apocalypse/scrim",
+                      "alpha": 0.38,
+                      "size": [
+                        "100%",
+                        "100%"
+                      ]
+                    }
+                  }
+                ],
+                "bindings": [
+                  {
+                    "binding_type": "collection_details",
+                    "binding_collection_name": "form_buttons"
+                  }
+                ],
+                "button_mappings": [
+                  {
+                    "from_button_id": "button.menu_select",
+                    "to_button_id": "button.form_button_click",
+                    "mapping_type": "pressed",
+                    "button_up": true
+                  },
+                  {
+                    "from_button_id": "button.menu_ok",
+                    "to_button_id": "button.form_button_click",
+                    "mapping_type": "focused"
+                  }
+                ]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

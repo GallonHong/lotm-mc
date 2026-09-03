@@ -23,6 +23,9 @@ links = [
     (os.path.abspath('daily_world_events_addon/daily_events_bp'), os.path.join(dev_bp_dir, 'daily_events_bp')),
     (os.path.abspath('daily_world_events_addon/daily_events_rp'), os.path.join(dev_rp_dir, 'daily_events_rp')),
     (os.path.abspath('apocalypse_ui_addon/apocalypse_ui_rp'), os.path.join(dev_rp_dir, 'apocalypse_ui_rp')),
+    (os.path.abspath('sapi_server_addon/sapi_server_bp'), os.path.join(dev_bp_dir, 'sapi_server_bp')),
+    (os.path.abspath('sapi_server_addon/sapi_server_rp'), os.path.join(dev_rp_dir, 'sapi_server_rp')),
+    (os.path.abspath('dark_fantasy_visuals_rp'), os.path.join(dev_rp_dir, 'dark_fantasy_visuals_rp')),
 ]
 
 for src, dst in links:

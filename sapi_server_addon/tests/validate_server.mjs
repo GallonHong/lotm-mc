@@ -40,7 +40,7 @@ assert.match(build, /sapi_server_bp/);
 assert.equal(manifest.header.version.join("."), "2.9.2");
 assert.equal(resourceManifest.header.version.join("."), "2.9.2");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
-assert.match(menu, /§l§2末日生存联盟§r/);
+assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);

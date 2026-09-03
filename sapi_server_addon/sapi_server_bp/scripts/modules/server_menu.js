@@ -20,26 +20,34 @@ export class ServerMenuManager {
         const balance = EconomyManager.getBalance(player);
         const { chunkX, chunkZ } = Utils.getChunkCoords(player.location);
         const currentZone = Integration.resolveCurrentZone(player.dimension.id, player.location);
+        let zoneDisplay = "";
+        if (currentZone.type === "safe") {
+            zoneDisplay = `§a🛡️安全区 · ${currentZone.name}§r`;
+        } else if (currentZone.type === "law") {
+            zoneDisplay = `§e⚖️法制区 · ${currentZone.name}§r`;
+        } else {
+            zoneDisplay = `§c⚔️危险区 · ${currentZone.name}§r`;
+        }
+
         const actions = [];
         // Keep this title stable: the optional Apocalypse UI resource pack uses
         // it as a JSON UI skin gate. Without that pack this remains a normal,
         // fully functional ActionForm.
         const form = new ActionFormData()
-            .title("§l§2末日生存联盟§r")
+            .title("§l§2幸存者联盟§r")
             .body(
-                `§8══════════════════════════════\n` +
-                `§0玩家: §e${player.name}\n` +
-                `§0资产: ${Utils.formatCurrency(balance)}\n` +
-                `§0当前区域: ${currentZone.color}${currentZone.name} §8(${currentZone.type.toUpperCase()})\n` +
-                `§0区块: §8[${chunkX}, ${chunkZ}]\n` +
-                `§8══════════════════════════════`
+                `👤 §e${player.name}  §8│  💰 §6${Utils.formatCurrency(balance)}  §8│  📍 ${zoneDisplay}\n` +
+                `§8──────────────────────────────\n` +
+                `§0当前区域: ${zoneDisplay}\n` +
+                `§0区块坐标: §8[${chunkX}, ${chunkZ}]   §0维度: §8${player.dimension.id.replace("minecraft:", "")}\n` +
+                `§8──────────────────────────────`
             );
 
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点\n§r§8前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
         add("§l§a🏠 个人传送\n§r§8Home、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
         add("§l§e🎁 每日福利\n§r§8签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
-        add("§l§6📋 生存联盟委托\n§r§8日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
+        add("§l§6📋 幸存者联盟委托\n§r§8日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
         add("§l§c⚔ 副本行动\n§r§8进入多建筑封锁小镇副本", "textures/ui/warning_alex", () => Integration.send(player, "daily:dungeon"));
         add("§l§4☣ 末日摸金都市\n§r§8随机进入高危城市并寻找撤离点", "textures/ui/warning_alex", () => {
             Integration.openExtractionMenu(player);
