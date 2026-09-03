@@ -30,10 +30,13 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 16, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 16, 0]);
+assert.deepEqual(manifest.header.version, [0, 16, 1]);
+assert.deepEqual(rpManifest.header.version, [0, 16, 1]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
+for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {
+  assert.equal(json(join(rp, "particles", file)).particle_effect.description.identifier, identifier, `missing particle ${identifier}`);
+}
 
 const questSource = readFileSync(join(bp, "scripts/daily/dailyQuests.js"), "utf8");
 for (const type of ["inventory", "kill", "world_event", "dungeon", "craft_group", "loot_crate", "boss_kill"]) assert(questSource.includes(`type: \"${type}\"`));
@@ -217,7 +220,7 @@ for (const template of Object.values(dungeonTemplates.DUNGEON_TEMPLATES)) {
 assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 4);
 assert(dungeonTemplates.DUNGEON_SLOTS.every(slot => slot.origin.y === 250), "dungeon slots should remain in isolated high-altitude arenas");
 const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js"), "utf8");
-for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "spawnDungeonBosses", "missingBosses", "Apocalypse Boss 生成失败", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "RewardManager.grantDungeon", "dungeonRewardMultiplier", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
+for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "spawnDungeonBosses", "missingBosses", "Apocalypse Boss 生成失败", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "daily_events:objective_beacon", "daily_events:objective_trail", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "RewardManager.grantDungeon", "dungeonRewardMultiplier", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
 for (const marker of ["startGroup", "participantIds", "returnLocation", "this.bindPlayer(participant", "daily_in_dungeon"]) {

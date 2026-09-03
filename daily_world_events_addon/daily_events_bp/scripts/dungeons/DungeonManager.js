@@ -504,9 +504,12 @@ export class DungeonManager {
     const dimension = world.getDimension(instance.slot.dimension);
     const target = absolutePoint(instance.slot.origin, checkpoint.offset);
 
-    // 目标点上方持续生成高亮竖向信标；玩家与目标之间每 4 格补一颗火焰路标。
-    for (let y = 0.4; y <= 5.4; y += 1) {
-      try { dimension.spawnParticle("minecraft:totem_particle", { x: target.x, y: target.y + y, z: target.z }); } catch {}
+    // 自定义全亮粒子保证在灵动视效下仍清晰；原版粒子作为未加载 RP 时的兼容回退。
+    // 目标光柱从地面延伸到 8 格高，建筑遮挡时仍能看到上半段。
+    for (let y = 0.5; y <= 8.5; y += 1) {
+      const location = { x: target.x, y: target.y + y, z: target.z };
+      try { dimension.spawnParticle("daily_events:objective_beacon", location); } catch {}
+      try { dimension.spawnParticle("minecraft:totem_particle", location); } catch {}
     }
     for (const id of instance.participantIds) {
       const player = onlinePlayer(id);
@@ -515,15 +518,17 @@ export class DungeonManager {
       const dz = target.z - player.location.z;
       const horizontal = Math.hypot(dx, dz);
       if (horizontal < 5) continue;
-      const markers = Math.min(12, Math.floor(horizontal / 4));
+      const markers = Math.min(18, Math.floor(horizontal / 3));
       for (let index = 1; index <= markers; index++) {
-        const ratio = Math.min(0.88, (index * 4) / horizontal);
+        const ratio = Math.min(0.92, (index * 3) / horizontal);
+        const location = {
+          x: player.location.x + dx * ratio,
+          y: player.location.y + 1.15,
+          z: player.location.z + dz * ratio
+        };
+        try { dimension.spawnParticle("daily_events:objective_trail", location); } catch {}
         try {
-          dimension.spawnParticle("minecraft:basic_flame_particle", {
-            x: player.location.x + dx * ratio,
-            y: player.location.y + 0.35,
-            z: player.location.z + dz * ratio
-          });
+          dimension.spawnParticle("minecraft:basic_flame_particle", location);
         } catch {}
       }
     }
