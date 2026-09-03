@@ -30,7 +30,7 @@ export const STANDALONE_CONFIG = Object.freeze({
 
   // 安全区永远不会成为自动灾害目标。
   safeRegions: Object.freeze([
-    Object.freeze({ id: "safe_zone_1", name: "安全区 1", dimension: "minecraft:overworld", minX: 2349, maxX: 2635, minZ: 1863, maxZ: 2069 }),
+    Object.freeze({ id: "safe_zone_1", name: "安全区 1", dimension: "minecraft:overworld", minX: 1949, maxX: 3035, minZ: 1463, maxZ: 2469 }),
     Object.freeze({ id: "safe_zone_2", name: "安全区 2", dimension: "minecraft:overworld", minX: 2352, maxX: 2585, minZ: 1165, maxZ: 1303 }),
     Object.freeze({ id: "safe_zone_3", name: "安全区 3", dimension: "minecraft:overworld", minX: 1942, maxX: 2087, minZ: 1273, maxZ: 1465 }),
   ]),

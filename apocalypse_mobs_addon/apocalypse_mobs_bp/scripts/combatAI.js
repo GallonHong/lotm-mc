@@ -28,6 +28,7 @@ function isSoftBlock(block) {
 
 export function hasLineOfSight(dimension, from, to) {
   const direction = vector(from, to);
+  if (direction.distance < 1.5) return true;
   const steps = Math.max(1, Math.floor(direction.distance * 2));
   for (let step = 2; step < steps - 1; step++) {
     const distance = step * 0.5;
@@ -56,7 +57,8 @@ export function isFlashDisabled(entity) {
 }
 
 /**
- * 通用存活玩家索敌（特感感染者使用）
+ * 通用存活玩家索敌（特感感染者与掠夺者共用）
+ * 仅过滤旁观模式(spectator)，创造模式与生存模式均可被锁定与射击
  */
 export function findTarget(entity, maxDistance) {
   const players = entity.dimension.getPlayers({ location: entity.location, maxDistance });
@@ -65,9 +67,8 @@ export function findTarget(entity, maxDistance) {
   for (const player of players) {
     try {
       const mode = String(player.getGameMode()).toLowerCase();
-      if (mode === "creative" || mode === "spectator") continue;
+      if (mode === "spectator") continue;
     } catch {}
-    if (ZoneRegistry.isSafe(player.dimension.id, player.location)) continue;
     const distance = vector(entity.location, player.location).distance;
     if (distance < best) { target = player; best = distance; }
   }
@@ -75,10 +76,24 @@ export function findTarget(entity, maxDistance) {
 }
 
 /**
- * 掠夺者索敌：搜索有效玩家以及避难所守卫
+ * 掠夺者索敌：
+ * 1. 优先反击伤害自己的目标（被谁打就打谁，绝不受气）
+ * 2. 其次锁定射程内玩家
+ * 3. 再次锁定避难所守卫
+ * 4. 再次反击附近的丧尸或敌对怪物
  */
 export function findRaiderTarget(entity, maxDistance) {
+  // 1. 反击被攻击目标
+  const retal = CombatAI.retaliationTargets.get(entity.id);
+  if (retal && system.currentTick < retal.expireTick && valid(retal.target)) {
+    const d = vector(entity.location, retal.target.location).distance;
+    if (d <= maxDistance) return retal.target;
+  }
+
+  // 2. 搜索有效玩家
   let target = findTarget(entity, maxDistance);
+
+  // 3. 搜索避难所守卫
   if (!target) {
     const guards = entity.dimension.getEntities({ type: "apoc:shelter_guard", location: entity.location, maxDistance });
     let best = Infinity;
@@ -88,6 +103,20 @@ export function findRaiderTarget(entity, maxDistance) {
       if (distance < best) { target = g; best = distance; }
     }
   }
+
+  // 4. 周围感染者或怪物反击
+  if (!target) {
+    const monsters = entity.dimension.getEntities({ location: entity.location, maxDistance: 16 });
+    let best = Infinity;
+    for (const m of monsters) {
+      if (!valid(m) || m.id === entity.id || m.typeId === "apoc:raider_rifleman") continue;
+      if (m.typeId.startsWith("apoc:infected_") || m.hasTag("apoc_hostile") || m.hasTag("monster")) {
+        const distance = vector(entity.location, m.location).distance;
+        if (distance < best) { target = m; best = distance; }
+      }
+    }
+  }
+
   return target;
 }
 
@@ -95,6 +124,15 @@ export function findRaiderTarget(entity, maxDistance) {
  * 避难所守卫索敌：警戒并消灭丧尸、变异体、暴君以及敌对掠夺者（绝不攻击玩家）
  */
 export function findGuardTarget(guard, maxDistance) {
+  // 1. 优先反击伤害守卫的实体（严禁误伤玩家）
+  const retal = CombatAI.retaliationTargets.get(guard.id);
+  if (retal && system.currentTick < retal.expireTick && valid(retal.target)) {
+    if (retal.target.typeId !== "minecraft:player") {
+      const d = vector(guard.location, retal.target.location).distance;
+      if (d <= maxDistance) return retal.target;
+    }
+  }
+
   const nearby = guard.dimension.getEntities({ location: guard.location, maxDistance });
   let target = null;
   let best = Infinity;
@@ -167,6 +205,39 @@ export class CombatAI {
   static guards = new Map();
   static guardAnchors = new Map();
   static spitters = new Map();
+  static retaliationTargets = new Map();
+
+  static handleEntityHurt(event) {
+    try {
+      const hurt = event.hurtEntity;
+      const attacker = event.damageSource?.damagingEntity;
+      if (!valid(hurt) || !valid(attacker)) return;
+      if (hurt.typeId !== "apoc:raider_rifleman" && hurt.typeId !== "apoc:shelter_guard") return;
+
+      // 守卫绝不报复攻击玩家
+      if (hurt.typeId === "apoc:shelter_guard" && attacker.typeId === "minecraft:player") return;
+
+      // 记录仇恨目标（持续 10 秒）
+      CombatAI.retaliationTargets.set(hurt.id, {
+        target: attacker,
+        expireTick: system.currentTick + 200
+      });
+
+      // 立即转身面向攻击者
+      face(hurt, head(attacker, 1.45));
+
+      // 受到攻击时立刻激活射击就绪状态，无视瞄准延迟直接反击！
+      const map = hurt.typeId === "apoc:raider_rifleman" ? CombatAI.raiders : CombatAI.guards;
+      const state = map.get(hurt.id) || {};
+      map.set(hurt.id, {
+        ...state,
+        targetId: attacker.id,
+        state: "burst",
+        burstLeft: Math.max(state.burstLeft || 0, 3),
+        nextTick: system.currentTick
+      });
+    } catch {}
+  }
 
   static resetDisabled(entity, map) {
     const previous = map.get(entity.id) || {};
@@ -201,7 +272,7 @@ export class CombatAI {
     const origin = head(entity);
     const targetHead = head(target, 1.4);
     const shot = vector(origin, targetHead);
-    if (shot.distance < 7 || !hasLineOfSight(entity.dimension, origin, targetHead)) {
+    if (!hasLineOfSight(entity.dimension, origin, targetHead)) {
       this.spitters.set(entity.id, { state: "search", nextTick: now + 10 });
       return;
     }
@@ -260,8 +331,8 @@ export class CombatAI {
     const shot = vector(origin, targetHead);
     face(entity, targetHead);
 
-    if (shot.distance < profile.minRange || !hasLineOfSight(entity.dimension, origin, targetHead)) {
-      this.raiders.set(entity.id, { ...state, state: "reposition", nextTick: now + 10, burstLeft: 0 });
+    if (!hasLineOfSight(entity.dimension, origin, targetHead)) {
+      this.raiders.set(entity.id, { ...state, state: "reposition", nextTick: now + 6, burstLeft: 0 });
       return;
     }
 
@@ -275,9 +346,12 @@ export class CombatAI {
       return;
     }
 
+    // 近距离目标（小于 4 格）无须瞄准延迟，直接开火；远距离目标则播放准星准备
+    const aimDelay = shot.distance < 4 ? 0 : profile.aimTicks;
+
     if (state.state !== "burst" || state.burstLeft <= 0 || state.targetId !== target.id) {
-      telegraph(entity, "aim");
-      this.raiders.set(entity.id, { ...state, state: "burst", targetId: target.id, burstLeft: profile.burst, nextTick: now + profile.aimTicks });
+      if (aimDelay > 0) telegraph(entity, "aim");
+      this.raiders.set(entity.id, { ...state, state: "burst", targetId: target.id, burstLeft: profile.burst, nextTick: now + aimDelay });
       return;
     }
 
@@ -330,8 +404,8 @@ export class CombatAI {
     const shot = vector(origin, targetHead);
     face(entity, targetHead);
 
-    if (shot.distance < profile.minRange || !hasLineOfSight(entity.dimension, origin, targetHead)) {
-      this.guards.set(entity.id, { ...state, state: "reposition", nextTick: now + 8, burstLeft: 0 });
+    if (!hasLineOfSight(entity.dimension, origin, targetHead)) {
+      this.guards.set(entity.id, { ...state, state: "reposition", nextTick: now + 6, burstLeft: 0 });
       return;
     }
 
@@ -345,9 +419,12 @@ export class CombatAI {
       return;
     }
 
+    // 贴脸目标秒射
+    const aimDelay = shot.distance < 4 ? 0 : profile.aimTicks;
+
     if (state.state !== "burst" || state.burstLeft <= 0 || state.targetId !== target.id) {
-      telegraph(entity, "aim");
-      this.guards.set(entity.id, { ...state, state: "burst", targetId: target.id, burstLeft: profile.burst, nextTick: now + profile.aimTicks });
+      if (aimDelay > 0) telegraph(entity, "aim");
+      this.guards.set(entity.id, { ...state, state: "burst", targetId: target.id, burstLeft: profile.burst, nextTick: now + aimDelay });
       return;
     }
 
@@ -410,5 +487,6 @@ export class CombatAI {
     for (const [id, state] of this.raiders) if (system.currentTick - Number(state.nextTick || 0) > 1200) this.raiders.delete(id);
     for (const [id, state] of this.guards) if (system.currentTick - Number(state.nextTick || 0) > 1200) this.guards.delete(id);
     for (const [id, state] of this.spitters) if (system.currentTick - Number(state.nextTick || 0) > 1200) this.spitters.delete(id);
+    for (const [id, retal] of this.retaliationTargets) if (system.currentTick > retal.expireTick) this.retaliationTargets.delete(id);
   }
 }

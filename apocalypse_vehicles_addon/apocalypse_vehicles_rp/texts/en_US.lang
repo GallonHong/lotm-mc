@@ -58,3 +58,14 @@ item.ab_ve:splint.name=Emergency Splint
 
 tile.ab_ve:vending_machine.name=Vending Machine
 item.ab_ve:vending_machine.name=Vending Machine
+
+item.ab_ve:canned_beans.name=Canned Baked Beans
+item.ab_ve:canned_ham.name=Canned Luncheon Ham
+item.ab_ve:canned_fruit.name=Canned Fruit Cocktail
+item.ab_ve:canned_sardine.name=Canned Sardines
+item.ab_ve:canned_spaghetti.name=Canned Spaghetti
+item.ab_ve:ramen_cup.name=Beef Instant Ramen
+item.ab_ve:granola_bar.name=Granola Energy Bar
+item.ab_ve:meat_jerky.name=Peppered Beef Jerky
+item.ab_ve:chip_potato.name=Crispy Potato Chips
+item.ab_ve:tactical_sandwich.name=Tactical Field Sandwich

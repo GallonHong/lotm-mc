@@ -73,7 +73,7 @@ export class ArcEngine {
       this.drawLightningBeam(dim, muzzleLoc, primaryHitPos);
 
       const hitSet = new Set([player.id]);
-      const baseDamage = gun.stats?.damage || 24;
+      const baseDamage = gun.stats?.damage || 16;
       const chainRadius = gun.stats?.chainRadius || 8.0;
       const maxChains = gun.stats?.maxChains || 4;
       const decayRate = gun.stats?.decayRate || 0.20;

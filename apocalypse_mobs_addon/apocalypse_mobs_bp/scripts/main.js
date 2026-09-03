@@ -59,6 +59,10 @@ subscribe(world.afterEvents?.projectileHitEntity, "projectileHitEntity", event =
   } catch {}
 });
 
+subscribe(world.afterEvents?.entityHurt, "entityHurt", event => {
+  try { CombatAI.handleEntityHurt(event); } catch (err) { console.warn(`[Apocalypse][AI] entityHurt error: ${err}`); }
+});
+
 subscribe(world.afterEvents?.entityDie, "entityDie", event => {
   const dead = event.deadEntity;
   const killer = event.damageSource?.damagingEntity;

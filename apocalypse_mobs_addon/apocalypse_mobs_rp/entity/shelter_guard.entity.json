@@ -15,6 +15,9 @@
         "attack": "animation.humanoid.attack.rotations"
       },
       "scripts": {
+        "pre_animation": [
+          "variable.tcos0 = (math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / 1.0) * 57.3;"
+        ],
         "animate": ["base", "move", "look", "hold", "attack"]
       },
       "render_controllers": ["controller.render.default"],

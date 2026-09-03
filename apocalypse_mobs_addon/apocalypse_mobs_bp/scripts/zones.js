@@ -27,8 +27,8 @@ export const PRESET_ZONES = Object.freeze([
     name: "安全区 1",
     type: "safe",
     dimension: "minecraft:overworld",
-    min: { x: 2349, y: -64, z: 1863 },
-    max: { x: 2635, y: 320, z: 2069 },
+    min: { x: 1949, y: -64, z: 1463 },
+    max: { x: 3035, y: 320, z: 2469 },
     priority: 500
   },
   {

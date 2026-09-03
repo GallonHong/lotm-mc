@@ -4,7 +4,7 @@
     "description": {
       "identifier": "ab_ve:canned_tomato",
       "menu_category": {
-        "category": "nature"
+        "category": "items"
       }
     },
     "components": {

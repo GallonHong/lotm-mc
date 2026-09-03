@@ -58,3 +58,14 @@ item.ab_ve:splint.name=§6骨折应急夹板§r
 
 tile.ab_ve:vending_machine.name=§l§6【自动售货机】§r
 item.ab_ve:vending_machine.name=§l§6【自动售货机】§r
+
+item.ab_ve:canned_beans.name=§6茄汁烘豆罐头§r
+item.ab_ve:canned_ham.name=§6精选午餐肉罐头§r
+item.ab_ve:canned_fruit.name=§6糖水什锦水果罐头§r
+item.ab_ve:canned_sardine.name=§6油浸沙丁鱼罐头§r
+item.ab_ve:canned_spaghetti.name=§6意式肉酱通心粉罐头§r
+item.ab_ve:ramen_cup.name=§e红烧牛肉桶装泡面§r
+item.ab_ve:granola_bar.name=§a高能燕麦坚果棒§r
+item.ab_ve:meat_jerky.name=§c风干黑椒牛肉干§r
+item.ab_ve:chip_potato.name=§e香脆烧烤味薯片§r
+item.ab_ve:tactical_sandwich.name=§l§e【战术真空三明治】§r

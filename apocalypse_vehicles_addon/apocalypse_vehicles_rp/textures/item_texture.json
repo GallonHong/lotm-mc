@@ -20,9 +20,6 @@
     "ab_ve:wrench": {
       "textures": "textures/asiagobagels/vehicles/items/wrench.png"
     },
-    "ab_ve:menu": {
-      "textures": "textures/asiagobagels/vehicles/items/menu.png"
-    },
     "survival_vehicle:blueprint_truck": {
       "textures": "textures/items/blueprints/blueprint_truck.png"
     },
@@ -127,6 +124,36 @@
     },
     "ab_ve:vending_machine": {
       "textures": "textures/items/misc/vending_popsi_icon"
+    },
+    "ab_ve:canned_beans": {
+      "textures": "textures/items/food/canned_beans.png"
+    },
+    "ab_ve:canned_ham": {
+      "textures": "textures/items/food/canned_ham.png"
+    },
+    "ab_ve:canned_fruit": {
+      "textures": "textures/items/food/canned_fruit.png"
+    },
+    "ab_ve:canned_sardine": {
+      "textures": "textures/items/food/canned_sardine.png"
+    },
+    "ab_ve:canned_spaghetti": {
+      "textures": "textures/items/food/canned_spaghetti.png"
+    },
+    "ab_ve:ramen_cup": {
+      "textures": "textures/items/food/ramen_cup.png"
+    },
+    "ab_ve:granola_bar": {
+      "textures": "textures/items/food/granola_bar.png"
+    },
+    "ab_ve:meat_jerky": {
+      "textures": "textures/items/food/meat_jerky.png"
+    },
+    "ab_ve:chip_potato": {
+      "textures": "textures/items/food/chip_potato.png"
+    },
+    "ab_ve:tactical_sandwich": {
+      "textures": "textures/items/food/tactical_sandwich.png"
     }
   }
 }

@@ -80,7 +80,7 @@ for (const button of commissionerDialogue["minecraft:npc_dialogue"].scenes[0].bu
   assert(button.commands.some(command => command.includes("scriptevent daily:")), `NPC button is missing daily scriptevent: ${button.name}`);
 }
 assert.equal(merchantDialogue["minecraft:npc_dialogue"].scenes.length, 4);
-assert(files(bp).some(path => path.endsWith("scripts/merchants/merchantConfig.js")));
+assert(files(bp).some(path => path.replace(/\\/g, "/").endsWith("scripts/merchants/merchantConfig.js")));
 const dailyMenu = readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8");
 assert(dailyMenu.includes("isUserBusy") && dailyMenu.includes("attempt < 8"), "daily forms must retry after native NPC UserBusy");
 

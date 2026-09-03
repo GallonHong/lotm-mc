@@ -21,6 +21,9 @@
       }
     },
     "components": {
+      "minecraft:custom_components": [
+        "ab_ve:vending_interact"
+      ],
       "minecraft:destructible_by_mining": {
         "seconds_to_destroy": 2.5
       },

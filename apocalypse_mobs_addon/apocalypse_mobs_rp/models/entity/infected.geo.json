@@ -30,11 +30,10 @@
 				},
 				{
 					"name": "rightItem",
-					"parent": "body",
-					"pivot": [-3, 15, 3],
-					"rotation": [0, -90, -37.5],
+					"parent": "rightArm",
+					"pivot": [-6, 15, 1],
 					"locators": {
-						"lead_hold": [-3, 15, 3]
+						"lead_hold": [-6, 15, 1]
 					}
 				},
 				{

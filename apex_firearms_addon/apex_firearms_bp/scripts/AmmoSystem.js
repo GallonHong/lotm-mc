@@ -87,7 +87,7 @@ export const GUN_CONFIGS = {
     name: "特斯拉电弧枪",
     caliberName: "聚能微型电池",
     magSize: 20,
-    baseDamage: 24,
+    baseDamage: 16,
     headshotMultiplier: 1.5,
     armorPiercing: 1.0,
     maxRange: 32,

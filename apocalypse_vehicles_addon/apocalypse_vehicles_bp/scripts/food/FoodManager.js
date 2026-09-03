@@ -87,6 +87,64 @@ export class FoodManager {
                     player.playSound("random.eat", { volume: 0.8, pitch: 1.2 });
                     break;
 
+                case "ab_ve:canned_beans":
+                    player.onScreenDisplay?.setActionBar?.("§6[罐头] 茄汁烘豆饱腹甘甜！饱食度恢复。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.0 });
+                    break;
+
+                case "ab_ve:canned_ham":
+                    player.onScreenDisplay?.setActionBar?.("§6[罐头] 厚切午餐肉香气扑鼻！饱食度大幅恢复。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.0 });
+                    break;
+
+                case "ab_ve:canned_fruit":
+                    if (health) health.setCurrentValue(Math.min(health.effectiveMax, health.currentValue + 4));
+                    player.onScreenDisplay?.setActionBar?.("§6[罐头] 糖水黄桃水果罐头！清甜解渴并恢复 4 HP。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.1 });
+                    break;
+
+                case "ab_ve:canned_sardine":
+                    player.onScreenDisplay?.setActionBar?.("§6[罐头] 油浸沙丁鱼罐头！优质蛋白质补充完毕。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.0 });
+                    break;
+
+                case "ab_ve:canned_spaghetti":
+                    player.onScreenDisplay?.setActionBar?.("§6[罐头] 意式肉酱通心粉！能量充沛。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.0 });
+                    break;
+
+                case "ab_ve:ramen_cup":
+                    try { player.addEffect("regeneration", 200, { amplifier: 0 }); } catch {}
+                    player.onScreenDisplay?.setActionBar?.("§e[食品] 热气腾腾的红烧牛肉泡面！驱散严寒并温和愈合。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.0 });
+                    break;
+
+                case "ab_ve:granola_bar":
+                    try { player.addEffect("speed", 300, { amplifier: 0 }); } catch {}
+                    player.onScreenDisplay?.setActionBar?.("§a[食品] 燕麦坚果能量棒！提供持续体力。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.2 });
+                    break;
+
+                case "ab_ve:meat_jerky":
+                    try { player.addEffect("strength", 400, { amplifier: 0 }); } catch {}
+                    player.onScreenDisplay?.setActionBar?.("§c[食品] 风干黑椒牛肉干！富有嚼劲，获得力量强化。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 0.9 });
+                    break;
+
+                case "ab_ve:chip_potato":
+                    player.onScreenDisplay?.setActionBar?.("§e[食品] 香脆烘烤薯片！咔哧作响。§r");
+                    player.playSound("random.eat", { volume: 0.8, pitch: 1.3 });
+                    break;
+
+                case "ab_ve:tactical_sandwich":
+                    try {
+                        player.addEffect("regeneration", 600, { amplifier: 0 });
+                        player.addEffect("resistance", 600, { amplifier: 0 });
+                    } catch {}
+                    player.onScreenDisplay?.setActionBar?.("§l§e【战术三明治】大口满足！体能抗性与持续生命恢复。§r");
+                    player.playSound("random.burp", { volume: 1.0, pitch: 1.0 });
+                    break;
+
                 // ==================== 2. 战术废土饮品 ====================
                 case "ab_ve:energy_drink":
                     // 功能饮料：速度 II (30s) + 急迫 I (30s)

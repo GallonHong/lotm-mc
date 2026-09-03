@@ -14,7 +14,7 @@ const HEARTBEAT_MAX_AGE_MS = 15000;
 const APOCALYPSE_FALLBACK_SAFE_RADIUS = 64;
 
 const APOCALYPSE_PRESET_ZONES = Object.freeze([
-    { name: "安全区 1", type: "safe", dimension: "minecraft:overworld", minX: 2349, maxX: 2635, minZ: 1863, maxZ: 2069, priority: 500 },
+    { name: "安全区 1", type: "safe", dimension: "minecraft:overworld", minX: 1949, maxX: 3035, minZ: 1463, maxZ: 2469, priority: 500 },
     { name: "安全区 2", type: "safe", dimension: "minecraft:overworld", minX: 2352, maxX: 2585, minZ: 1165, maxZ: 1303, priority: 500 },
     { name: "安全区 3", type: "safe", dimension: "minecraft:overworld", minX: 1942, maxX: 2087, minZ: 1273, maxZ: 1465, priority: 500 },
     { name: "法制区 1", type: "law", dimension: "minecraft:overworld", minX: 3450, maxX: 3869, minZ: 2033, maxZ: 2478, priority: 300 },

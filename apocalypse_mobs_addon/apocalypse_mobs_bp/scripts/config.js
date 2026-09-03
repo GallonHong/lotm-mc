@@ -31,7 +31,7 @@ export const MOB_PROFILES = Object.freeze({
   basic: { typeId: "apoc:infected_basic", weight: 46, tier: 1, armorEligible: true, health: { law: 20, outlaw: 28, extraction: 40 } },
   runner: { typeId: "apoc:infected_runner", weight: 24, tier: 1, armorEligible: true, health: { law: 30, outlaw: 42, extraction: 54 } },
   spitter: { typeId: "apoc:infected_spitter", weight: 12, tier: 2, armorEligible: true, health: { law: 50, outlaw: 66, extraction: 86 } },
-  shrieker: { typeId: "apoc:infected_shrieker", weight: 5, tier: 2, armorEligible: true, health: { law: 45, outlaw: 61, extraction: 85 } },
+  shrieker: { typeId: "apoc:infected_shrieker", weight: 2, tier: 2, armorEligible: true, health: { law: 45, outlaw: 61, extraction: 85 } },
   charger: { typeId: "apoc:infected_charger", weight: 3, tier: 2, armorEligible: true, health: { law: 70, outlaw: 98, extraction: 138 } },
   hunter: { typeId: "apoc:infected_hunter", weight: 3, tier: 2, armorEligible: true, health: { law: 60, outlaw: 80, extraction: 116 } },
   mutant: { typeId: "apoc:infected_mutant", weight: 5, tier: 3, armorEligible: true, health: { law: 100, outlaw: 132, extraction: 172 } },
@@ -45,11 +45,11 @@ export const MOB_PROFILES = Object.freeze({
 export const ZONE_POOLS = Object.freeze({
   law: {
     maxPerPlayer: 10,
-    pool: { basic: 46, runner: 24, spitter: 12, shrieker: 5, charger: 3, hunter: 3, mutant: 5, heavy: 2, tyrant: 0, broodmother: 0, raider: 0, guard: 0 }
+    pool: { basic: 46, runner: 24, spitter: 12, shrieker: 2, charger: 3, hunter: 3, mutant: 5, heavy: 2, tyrant: 0, broodmother: 0, raider: 0, guard: 0 }
   },
   outlaw: {
     maxPerPlayer: 14,
-    pool: { basic: 20, runner: 18, spitter: 12, shrieker: 9, charger: 9, hunter: 9, mutant: 10, heavy: 7, tyrant: 2, broodmother: 0, raider: 8, guard: 0 }
+    pool: { basic: 24, runner: 20, spitter: 12, shrieker: 3, charger: 9, hunter: 9, mutant: 10, heavy: 7, tyrant: 2, broodmother: 0, raider: 8, guard: 0 }
   }
 });
 
@@ -93,7 +93,7 @@ export const NPC_WEAPONS = Object.freeze({
     aimTicks: 15,
     magazine: 30,
     reloadTicks: 45,
-    minRange: 4,
+    minRange: 0,
     maxRange: 35,
     accuracy: 0.75
   },
@@ -109,7 +109,7 @@ export const NPC_WEAPONS = Object.freeze({
     aimTicks: 12,
     magazine: 8,
     reloadTicks: 50,
-    minRange: 2,
+    minRange: 0,
     maxRange: 18,
     accuracy: 0.65
   },
@@ -125,7 +125,7 @@ export const NPC_WEAPONS = Object.freeze({
     aimTicks: 10,
     magazine: 45,
     reloadTicks: 40,
-    minRange: 3,
+    minRange: 0,
     maxRange: 25,
     accuracy: 0.70
   },
@@ -141,7 +141,7 @@ export const NPC_WEAPONS = Object.freeze({
     aimTicks: 8,
     magazine: 20,
     reloadTicks: 30,
-    minRange: 2,
+    minRange: 0,
     maxRange: 22,
     accuracy: 0.70
   }

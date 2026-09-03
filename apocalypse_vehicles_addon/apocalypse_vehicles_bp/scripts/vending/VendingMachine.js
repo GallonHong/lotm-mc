@@ -16,7 +16,7 @@ function subscribeAfterEvent(eventName, handler) {
     }
 }
 
-// 商品价格与定义表
+// 扩展全量末日食品与价格表
 const VENDING_ITEMS = {
     food: [
         { typeId: "ab_ve:canned_beef_stew", name: "牛肉炖肉罐头", price: 80, count: 1, icon: "textures/items/food/canned_beef_stew" },
@@ -24,8 +24,18 @@ const VENDING_ITEMS = {
         { typeId: "ab_ve:canned_chicken", name: "鲜嫩鸡肉罐头", price: 60, count: 1, icon: "textures/items/food/canned_chicken" },
         { typeId: "ab_ve:canned_tuna", name: "金枪鱼罐头", price: 60, count: 1, icon: "textures/items/food/canned_tuna" },
         { typeId: "ab_ve:canned_tomato", name: "茄汁番茄罐头", price: 60, count: 1, icon: "textures/items/food/canned_tomato" },
-        { typeId: "ab_ve:mre", name: "MRE军用单兵口粮", price: 250, count: 1, icon: "textures/items/food/mre" },
-        { typeId: "ab_ve:chocolate_bar", name: "高能黑巧克力棒", price: 50, count: 1, icon: "textures/items/food/chocolate_bar" }
+        { typeId: "ab_ve:canned_ham", name: "精选午餐肉罐头", price: 75, count: 1, icon: "textures/items/food/canned_ham" },
+        { typeId: "ab_ve:canned_beans", name: "茄汁烘豆罐头", price: 60, count: 1, icon: "textures/items/food/canned_beans" },
+        { typeId: "ab_ve:canned_fruit", name: "糖水什锦水果罐头", price: 50, count: 1, icon: "textures/items/food/canned_fruit" },
+        { typeId: "ab_ve:canned_sardine", name: "油浸沙丁鱼罐头", price: 65, count: 1, icon: "textures/items/food/canned_sardine" },
+        { typeId: "ab_ve:canned_spaghetti", name: "意式肉酱通心粉", price: 70, count: 1, icon: "textures/items/food/canned_spaghetti" },
+        { typeId: "ab_ve:ramen_cup", name: "红烧牛肉桶装泡面", price: 55, count: 1, icon: "textures/items/food/ramen_cup" },
+        { typeId: "ab_ve:meat_jerky", name: "风干黑椒牛肉干", price: 85, count: 1, icon: "textures/items/food/meat_jerky" },
+        { typeId: "ab_ve:tactical_sandwich", name: "真空战术三明治", price: 120, count: 1, icon: "textures/items/food/tactical_sandwich" },
+        { typeId: "ab_ve:chocolate_bar", name: "高能黑巧克力棒", price: 50, count: 1, icon: "textures/items/food/chocolate_bar" },
+        { typeId: "ab_ve:granola_bar", name: "高能燕麦坚果棒", price: 40, count: 1, icon: "textures/items/food/granola_bar" },
+        { typeId: "ab_ve:chip_potato", name: "香脆烧烤味薯片", price: 35, count: 1, icon: "textures/items/food/chip_potato" },
+        { typeId: "ab_ve:mre", name: "MRE军用单兵口粮", price: 250, count: 1, icon: "textures/items/food/mre" }
     ],
     drink: [
         { typeId: "ab_ve:energy_drink", name: "战术能量饮料", price: 100, count: 1, icon: "textures/items/drink/energy_drink" },
@@ -48,7 +58,25 @@ export class VendingMachine {
     static init() {
         console.warn("[ApocalypseVending] VendingMachine initializing...");
 
-        // 1. 售货机手动摆放联动（自动生成 2 格高的上半部分）
+        // 1. 售货机自定义方块组件（防止玩家手持物品时事件被吃掉）
+        try {
+            world.beforeEvents.worldInitialize.subscribe((event) => {
+                event.blockComponentRegistry.registerCustomComponent(
+                    "ab_ve:vending_interact",
+                    {
+                        onPlayerInteract(e) {
+                            const player = e.player;
+                            if (!player || !player.isValid()) return;
+                            system.run(() => {
+                                VendingMachine.openMainMenu(player);
+                            });
+                        }
+                    }
+                );
+            });
+        } catch {}
+
+        // 2. 售货机手动摆放联动（自动生成 2 格高的上半部分）
         subscribeAfterEvent("playerPlaceBlock", (event) => {
             const { block, player } = event;
             if (!block || block.typeId !== "ab_ve:vending_machine") return;
@@ -69,7 +97,7 @@ export class VendingMachine {
             }
         });
 
-        // 2. 售货机破坏联动（上下双格同时销毁并掉落售货机）
+        // 3. 售货机破坏联动（上下双格同时销毁并掉落售货机）
         subscribeAfterEvent("playerBreakBlock", (event) => {
             const { block, brokenBlockPermutation } = event;
             if (!brokenBlockPermutation || brokenBlockPermutation.type.id !== "ab_ve:vending_machine") return;
@@ -92,17 +120,45 @@ export class VendingMachine {
             }
         });
 
-        // 3. 玩家右键交互售货机唤出 UI 菜单
+        // 4. 双重保障：玩家右键交互售货机唤出 UI 菜单
         subscribeAfterEvent("playerInteractWithBlock", (event) => {
             const { block, player } = event;
             if (!block || block.typeId !== "ab_ve:vending_machine") return;
             if (!player || !player.isValid() || player.typeId !== "minecraft:player") return;
 
-            // 打开售货机主菜单
             system.run(() => {
                 VendingMachine.openMainMenu(player);
             });
         });
+    }
+
+    static lastOpenTick = new Map();
+
+    /**
+     * 解决客户端 UserBusy 延迟弹窗与界面争抢的安全调用
+     */
+    static showFormSafe(player, form, onSelect, retries = 5) {
+        if (!player || !player.isValid()) return;
+        system.runTimeout(() => {
+            if (!player || !player.isValid()) return;
+            form.show(player).then((res) => {
+                if (res.canceled) {
+                    const reason = String(res.cancelationReason || "").toLowerCase();
+                    if ((reason.includes("userbusy") || reason.includes("user busy")) && retries > 0) {
+                        system.runTimeout(() => {
+                            VendingMachine.showFormSafe(player, form, onSelect, retries - 1);
+                        }, 3);
+                    }
+                    return;
+                }
+                // 关键点：在独立 tick 步进中触发后续界面，杜绝上一级界面关闭动画导致的点击丢失与 UserBusy
+                system.runTimeout(() => {
+                    if (player && player.isValid()) {
+                        onSelect(res);
+                    }
+                }, 1);
+            }).catch(() => {});
+        }, 1);
     }
 
     /**
@@ -141,17 +197,20 @@ export class VendingMachine {
     static openMainMenu(player) {
         if (!player || !player.isValid()) return;
 
+        // 8 刻防重入去抖，彻底防止同一交互被方块组件与通用交互双重唤出
+        const last = VendingMachine.lastOpenTick.get(player.id) || 0;
+        if (system.currentTick - last < 8) return;
+        VendingMachine.lastOpenTick.set(player.id, system.currentTick);
+
         const money = VendingMachine.getMoney(player);
         const form = new ActionFormData()
             .title("§l§6[ 废土自动售货机 ]§r")
-            .body(`§e💰 您的账户钱包: §a${money.toLocaleString()} 金币§r\n§7请选择需要采购的废土物资类型：§r`)
-            .button("🍞 便携战术食品\n§8炖肉、培根罐头、MRE口粮§r", "textures/items/food/mre")
-            .button("🥤 废土冷热饮品\n§8能量饮料、波普可乐、烈酒§r", "textures/items/drink/energy_drink")
-            .button("💉 战地急救医疗\n§8止血绷带、急救包、强心针§r", "textures/items/medic/first_aid");
+            .body(`§e💰 您的账户钱包: §a${money.toLocaleString()} 金币§r\n§7全息感应已激活，请选择采购物资类别：§r`)
+            .button("🍞 便携战术食品 (17种)\n§8罐头、泡面、牛肉干、MRE口粮§r", "textures/items/food/mre")
+            .button("🥤 废土冷热饮品 (5种)\n§8能量饮料、波普可乐、烈酒§r", "textures/items/drink/energy_drink")
+            .button("💉 战地急救医疗 (6种)\n§8止血绷带、急救包、强心针§r", "textures/items/medic/first_aid");
 
-        form.show(player).then((res) => {
-            if (res.canceled) return;
-
+        VendingMachine.showFormSafe(player, form, (res) => {
             if (res.selection === 0) {
                 VendingMachine.openCategoryMenu(player, "food", "🍞 便携战术食品");
             } else if (res.selection === 1) {
@@ -173,61 +232,67 @@ export class VendingMachine {
 
         const form = new ActionFormData()
             .title(`§l§6${title}§r`)
-            .body(`§e💰 钱包余额: §a${money.toLocaleString()} 金币§r\n§7点击商品即可直接购买：§r`);
+            .body(`§e💰 账户余额: §a${money.toLocaleString()} 金币§r\n§7点击对应物资即可直接完成购买与出货：§r`);
 
-        for (const item of items) {
-            form.button(`${item.name}\n§6售价: ${item.price} 金币§r`, item.icon);
-        }
-        form.button("⬅ 返回主菜单", "textures/ui/refresh_light");
+        items.forEach((item) => {
+            form.button(`${item.name}\n§e${item.price} 金币§r`, item.icon);
+        });
+        form.button("§c⬅ 返回分类主页§r");
 
-        form.show(player).then((res) => {
-            if (res.canceled) return;
-
-            // 点击了返回主菜单
+        VendingMachine.showFormSafe(player, form, (res) => {
             if (res.selection === items.length) {
                 VendingMachine.openMainMenu(player);
                 return;
             }
+            const selected = items[res.selection];
+            if (!selected) return;
 
-            const chosen = items[res.selection];
-            if (chosen) {
-                VendingMachine.handlePurchase(player, chosen, categoryKey, title);
-            }
+            VendingMachine.openPurchaseConfirm(player, selected, categoryKey, title);
         });
     }
 
     /**
-     * 处理购买结算与发货
+     * 购买确认与出货交付窗口
      */
-    static handlePurchase(player, item, categoryKey, title) {
+    static openPurchaseConfirm(player, item, categoryKey, parentTitle) {
         if (!player || !player.isValid()) return;
 
         const currentMoney = VendingMachine.getMoney(player);
-        if (currentMoney < item.price) {
-            player.sendMessage(`§c[自动售货机] 购买失败：金币不足！当前余额: §e${currentMoney}§c，需要: §e${item.price}§c。§r`);
-            player.playSound("note.bass", { volume: 1.0, pitch: 0.8 });
-            return;
-        }
+        const canAfford = currentMoney >= item.price;
 
-        // 扣款
-        if (!VendingMachine.deductMoney(player, item.price)) {
-            player.sendMessage("§c[自动售货机] 交易失败：扣款异常，请重试。§r");
-            return;
-        }
+        const form = new ActionFormData()
+            .title(`§l§2采购物资: ${item.name}§r`)
+            .body(
+                `§7══════════════════════════════§r\n` +
+                `§f商品单价: §e${item.price} 金币§r\n` +
+                `§f当前钱包: §a${currentMoney.toLocaleString()} 金币§r\n` +
+                `§f出货数量: §b×${item.count} 件§r\n` +
+                (canAfford ? `§a✔ 余额充裕，点击下方按钮确认付款。§r` : `§c✘ 资金不足！还差 ${item.price - currentMoney} 金币。§r`) +
+                `\n§7══════════════════════════════§r`
+            )
+            .button(canAfford ? "§l§2确认付款出货§r" : "§7余额不足§r", item.icon)
+            .button("§c返回上一页§r");
 
-        // 发货
-        try {
-            player.runCommandAsync(`give @s ${item.typeId} ${item.count}`);
-            player.playSound("random.orb", { volume: 1.0, pitch: 1.5 });
-            player.playSound("random.pop", { volume: 0.8, pitch: 1.8 });
-            player.onScreenDisplay?.setActionBar?.(`§a[售货机] 购买成功！获得 ${item.name}，花费 §e${item.price}§a 金币。§r`);
-        } catch (e) {
-            console.error(`[ApocalypseVending] Give item error: ${e}`);
-        }
-
-        // 保持界面顺畅：0.2秒后重新打开菜单，显示最新余额
-        system.runTimeout(() => {
-            VendingMachine.openCategoryMenu(player, categoryKey, title);
-        }, 4);
+        VendingMachine.showFormSafe(player, form, (res) => {
+            if (res.selection === 0 && canAfford) {
+                // 扣除金额
+                if (VendingMachine.deductMoney(player, item.price)) {
+                    // 发放物品到玩家背包或脚下
+                    try {
+                        const remaining = currentMoney - item.price;
+                        player.runCommandAsync(`give @s ${item.typeId} ${item.count}`);
+                        player.runCommandAsync("playsound random.levelup @s ~~~ 0.8 1.4");
+                        player.runCommandAsync("playsound random.pop @s ~~~ 1.0 1.2");
+                        player.sendMessage(`§a[售货机] 采购成功！获得 ${item.name} ×${item.count}，剩余钱包: §e${remaining.toLocaleString()} 金币§a。`);
+                    } catch (e) {
+                        player.sendMessage(`§c[售货机] 出货异常，请联系管理员。`);
+                    }
+                } else {
+                    player.sendMessage(`§c[售货机] 扣款失败，请稍后再试。`);
+                }
+            } else if (res.selection === 1 || (res.selection === 0 && !canAfford)) {
+                VendingMachine.openCategoryMenu(player, categoryKey, parentTitle);
+            }
+        });
     }
 }

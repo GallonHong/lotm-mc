@@ -20,7 +20,7 @@ function contains(region, dimensionId, location) {
 // Mirrors the built-in zones exported by Apocalypse Mobs. Administrator-created
 // zones are still loaded from the shared dynamic property and take precedence.
 const APOCALYPSE_PRESET_ZONES = Object.freeze([
-  { name: "安全区 1", type: "safe", dimension: "minecraft:overworld", min: { x: 2349, y: -64, z: 1863 }, max: { x: 2635, y: 320, z: 2069 }, priority: 500 },
+  { name: "安全区 1", type: "safe", dimension: "minecraft:overworld", min: { x: 1949, y: -64, z: 1463 }, max: { x: 3035, y: 320, z: 2469 }, priority: 500 },
   { name: "安全区 2", type: "safe", dimension: "minecraft:overworld", min: { x: 2352, y: -64, z: 1165 }, max: { x: 2585, y: 320, z: 1303 }, priority: 500 },
   { name: "安全区 3", type: "safe", dimension: "minecraft:overworld", min: { x: 1942, y: -64, z: 1273 }, max: { x: 2087, y: 320, z: 1465 }, priority: 500 },
   { name: "法制区 1", type: "law", dimension: "minecraft:overworld", min: { x: 3450, y: -64, z: 2033 }, max: { x: 3869, y: 320, z: 2478 }, priority: 300 },

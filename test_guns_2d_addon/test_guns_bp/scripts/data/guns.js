@@ -420,7 +420,7 @@ export const GUNS = [
     skillName: 'EMP过载风暴',
     skillCooldownSec: 25,
     skillDurationSec: 1.0,
-    stats: { damage: 24.0, chainRadius: 8.0, maxChains: 4, decayRate: 0.20, armorPenetration: 0.40, maxRange: 25, knockback: { x: 0.3, y: 0.15 } }
+    stats: { damage: 16.0, chainRadius: 8.0, maxChains: 4, decayRate: 0.20, armorPenetration: 0.40, maxRange: 25, knockback: { x: 0.3, y: 0.15 } }
   }
 ];
 

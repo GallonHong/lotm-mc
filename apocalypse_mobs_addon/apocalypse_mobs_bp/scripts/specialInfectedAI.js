@@ -49,11 +49,26 @@ function tickShrieker(entity, now) {
   face(entity, target.location);
   if (state.phase !== "scream") {
     warn(entity, "mob.warden.roar");
-    try { target.sendMessage("§c尖啸者正在呼叫尸群——尽快打断它！"); } catch {}
-    return setState(entity, { phase: "scream", nextTick: now + 40 });
+    try { target.sendMessage("§c尖啸者正在长声蓄力呼叫尸群——尽快集火打断！"); } catch {}
+    return setState(entity, { phase: "scream", nextTick: now + 70 });
   }
-  summon(entity, zoneType(entity) === "law" ? 3 : 5, "apoc_shrieker_reinforcement");
-  setState(entity, { phase: "cooldown", nextTick: now + 260 });
+
+  // 附近丧尸数量上限防护：若 16 格内已有 5 只以上感染者，不再继续暴兵
+  try {
+    const nearbyInfected = entity.dimension.getEntities({
+      location: entity.location,
+      maxDistance: 16,
+      tags: ["apoc_hostile"]
+    });
+    if (nearbyInfected.length < 5) {
+      summon(entity, zoneType(entity) === "law" ? 2 : 3, "apoc_shrieker_reinforcement");
+    }
+  } catch {
+    summon(entity, 2, "apoc_shrieker_reinforcement");
+  }
+
+  // 冷却延长至 36 秒 (720 ticks)
+  setState(entity, { phase: "cooldown", nextTick: now + 720 });
 }
 
 function tickCharger(entity, now) {

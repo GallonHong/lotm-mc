@@ -24,7 +24,7 @@ export class ShootManager {
     } else {
       this.playerLastUseTick.delete(player.id);
       const charge = this.arcChargeTicks.get(player.id) || 0;
-      if (charge > 0 && charge < 20) {
+      if (charge > 0 && charge < 8) {
         this.arcChargeTicks.delete(player.id);
         updateActionBar(player, '§7[⚡ 蓄能中断 / Charge Cancelled]§r');
       }
@@ -145,10 +145,13 @@ export class ShootManager {
       return;
     }
 
+    // 关键修复：长按蓄力期间持续刷新看门狗心跳，杜绝超时误杀导致的“一直蓄力中断”！
+    this.refreshTriggerHeartbeat(player);
+
     const currentTicks = (this.arcChargeTicks.get(player.id) || 0) + 1;
     this.arcChargeTicks.set(player.id, currentTicks);
 
-    const CHARGE_MAX = 20; // 1.0 秒 = 20 ticks
+    const CHARGE_MAX = 8; // 蓄力时长从 20 刻 (1.0秒) 缩减至 8 刻 (0.4秒) 迅捷蓄能
     const progress = Math.min(1.0, currentTicks / CHARGE_MAX);
     const percent = Math.floor(progress * 100);
 
@@ -169,14 +172,14 @@ export class ShootManager {
       };
 
       player.dimension.spawnParticle('test_gun:arc_spark', muzzle);
-      if (currentTicks % 4 === 0) {
+      if (currentTicks % 2 === 0) {
         player.dimension.spawnParticle('minecraft:endrod', muzzle);
-        const pitch = 0.8 + (currentTicks / CHARGE_MAX) * 1.2;
+        const pitch = 0.9 + (currentTicks / CHARGE_MAX) * 1.1;
         player.dimension.playSound('random.orb', pLoc, { volume: 0.7, pitch: pitch });
       }
     } catch {}
 
-    // 蓄满 1.0 秒 (20 ticks) -> 释放高能电弧闪电
+    // 蓄满 0.4 秒 (8 ticks) -> 释放高能电弧闪电
     if (currentTicks >= CHARGE_MAX) {
       this.arcChargeTicks.delete(player.id);
 

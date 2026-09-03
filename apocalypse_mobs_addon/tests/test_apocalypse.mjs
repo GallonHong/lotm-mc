@@ -105,7 +105,7 @@ for (const name of ["infected_spitter", "infected_shrieker", "infected_charger",
 
 const zones = readFileSync(join(bp, "scripts/zones.js"), "utf8");
 assert(zones.includes("sapiRegionsKey") && zones.includes("allowHostileSpawn"), "SAPI safe-zone compatibility missing");
-for (const marker of ["apoc_zone_safe_1", "2349", "2635", "1863", "2069"]) assert(zones.includes(marker), `missing built-in safe-zone marker: ${marker}`);
+for (const marker of ["apoc_zone_safe_1", "1949", "3035", "1463", "2469"]) assert(zones.includes(marker), `missing built-in safe-zone marker: ${marker}`);
 assert(zones.includes('type: "outlaw", name: "非法制荒原"'), "unassigned locations must default to outlaw");
 const spawnDirector = readFileSync(join(bp, "scripts/spawnDirector.js"), "utf8");
 assert(spawnDirector.includes('typeof entity.isValid === "function"') && spawnDirector.includes("const dimensionId = entity.dimension.id"), "spawn listener must validate entities before reading dimension");

@@ -4,7 +4,7 @@
     "description": {
       "identifier": "ab_ve:painkiller",
       "menu_category": {
-        "category": "equipment"
+        "category": "items"
       }
     },
     "components": {

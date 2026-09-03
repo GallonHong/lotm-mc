@@ -1,75 +1,66 @@
 {
-	"format_version": "1.10.0",
-	"minecraft:client_entity": {
-		"description": {
-			"identifier": "ab_ve:ambulance",
-			"materials": {
-				"default": "entity_alphatest",
-				"light": "entity_emissive_alpha",
-				"sirene": "entity_emissive_alpha",
-				"cracks": "entity_alphablend"
-			},
-			"textures": {
-				"default": "textures/asiagobagels/vehicles/entity/ambulance/default",
-				"sirene_0": "textures/asiagobagels/vehicles/entity/ambulance/sirene_0",
-				"sirene_1": "textures/asiagobagels/vehicles/entity/ambulance/sirene_1",
-				"crack_0": "textures/asiagobagels/vehicles/overlay/invisible",
-				"crack_1": "textures/asiagobagels/vehicles/overlay/512/crack_0",
-				"crack_2": "textures/asiagobagels/vehicles/overlay/512/crack_1",
-				"crack_3": "textures/asiagobagels/vehicles/overlay/512/crack_2"
-			},
-			"geometry": {
-				"default": "geometry.ab_ve.ambulance",
-				"cracks": "geometry.ab_ve.crack.ambulance",
-				"sirene": "geometry.ab_ve.ambulance.sirene"
-			},
-			"animations": {
-				"wheels": "animation.ab_ve.ambulance.wheels",
-				"wobble": "animation.ab_ve.ambulance.wobble",
-				"light": "animation.ab_ve.ambulance.lights",
-				"speed_lines": "animation.ab_ve.speed_lines",
-				"spawn": "animation.ab_ve.spawn",
-				"spawning":"controller.animation.ab_ve.spawn_animation",
-				"speed_lines_controller": "controller.animation.ab_ve.speed_lines"
-			},
-			"scripts": {
-				"initialize": [
-					"variable.speed = 0;",
-					"variable.wheel_turns = Math.random(-80, 80);",
-					"variable.shake_dir = 1;",
-					"variable.sirene = 0;"
-				],
-				"pre_animation": [
-					"variable.speed = query.ground_speed;",
-					"variable.wheel_turns = (variable.wheel_turns + query.yaw_speed) / 2;"
-				],
-				"animate": [
-					{
-						"wheels": "query.modified_move_speed"
-					},
-					{
-						"wobble": "query.modified_move_speed"
-					},
-					{
-						"light": "query.property('ab_ve:light')"
-					},
-					"spawning",
-					"speed_lines_controller"
-				]
-			},
-			"particle_effects": {
-				"headlight": "ab_ve:headlight",
-				"backlight": "ab_ve:backlight",
-				"speed_lines": "ab_ve:speed_lines",
-				"aura_0": "ab_ve:heal_aura_0",
-				"aura_1": "ab_ve:heal_aura_1",
-				"aura_2": "ab_ve:heal_aura_2"
-			},
-			"render_controllers": [
-				"controller.render.ab_ve.vehicles.default",
-				"controller.render.ab_ve.vehicles.sirene",
-				"controller.render.ab_ve.vehicles.crack"
-			]
-		}
-	}
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ab_ve:ambulance",
+      "materials": {
+        "default": "entity_alphatest",
+        "light": "entity_emissive_alpha",
+        "sirene": "entity_emissive_alpha",
+        "cracks": "entity_alphablend"
+      },
+      "textures": {
+        "default": "textures/asiagobagels/vehicles/entity/ambulance/default",
+        "sirene_0": "textures/asiagobagels/vehicles/entity/ambulance/sirene_0",
+        "sirene_1": "textures/asiagobagels/vehicles/entity/ambulance/sirene_1",
+        "crack_0": "textures/asiagobagels/vehicles/overlay/invisible",
+        "crack_1": "textures/asiagobagels/vehicles/overlay/512/crack_0",
+        "crack_2": "textures/asiagobagels/vehicles/overlay/512/crack_1",
+        "crack_3": "textures/asiagobagels/vehicles/overlay/512/crack_2"
+      },
+      "geometry": {
+        "default": "geometry.ab_ve.ambulance",
+        "cracks": "geometry.ab_ve.crack.ambulance",
+        "sirene": "geometry.ab_ve.ambulance.sirene"
+      },
+      "animations": {
+        "wheels": "animation.ab_ve.ambulance.wheels",
+        "wobble": "animation.ab_ve.ambulance.wobble",
+        "light": "animation.ab_ve.ambulance.lights",
+        "speed_lines": "animation.ab_ve.speed_lines",
+        "spawn": "animation.ab_ve.spawn",
+        "spawning": "controller.animation.ab_ve.spawn_animation",
+        "speed_lines_controller": "controller.animation.ab_ve.speed_lines"
+      },
+      "scripts": {
+        "initialize": [
+          "variable.speed = 0;",
+          "variable.wheel_turns = Math.random(-80, 80);",
+          "variable.shake_dir = 1;",
+          "variable.sirene = 0;"
+        ],
+        "pre_animation": [
+          "variable.speed = query.ground_speed;",
+          "variable.wheel_turns = (variable.wheel_turns + query.yaw_speed) / 2;"
+        ],
+        "animate": [
+          {
+            "wheels": "query.modified_move_speed"
+          },
+          {
+            "wobble": "query.modified_move_speed"
+          },
+          {
+            "light": "query.property('ab_ve:light')"
+          },
+          "spawning"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.ab_ve.vehicles.default",
+        "controller.render.ab_ve.vehicles.sirene",
+        "controller.render.ab_ve.vehicles.crack"
+      ]
+    }
+  }
 }
