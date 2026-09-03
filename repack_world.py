@@ -19,6 +19,7 @@ BEHAVIOR_PACKS = [
 ]
 
 RESOURCE_PACKS = [
+    ("apocalypse_ui_rp", os.path.join(BASE_DIR, "apocalypse_ui_addon", "apocalypse_ui_rp")),
     ("apocalypse_mobs_rp", os.path.join(BASE_DIR, "apocalypse_mobs_addon", "apocalypse_mobs_rp")),
     ("apocalypse_vehicles_rp", os.path.join(BASE_DIR, "apocalypse_vehicles_addon", "apocalypse_vehicles_rp")),
     ("extraction_rp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_rp")),
