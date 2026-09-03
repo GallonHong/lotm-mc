@@ -10,10 +10,31 @@ import { Integration } from "./integration.js";
  * 支持分类浏览、批量购买与出售回收
  */
 export class ShopManager {
+    static dailyStateKey = "sapi:shop:daily:v1";
+
+    static dayKey() {
+        const offset = Number(Config.operations.timezoneOffsetMinutes || 0) * 60000;
+        return new Date(Date.now() + offset).toISOString().slice(0, 10);
+    }
+
+    static getDailyState(player) {
+        try {
+            const parsed = JSON.parse(player.getDynamicProperty(this.dailyStateKey) || "{}");
+            if (parsed.dayKey === this.dayKey()) {
+                parsed.vanillaSoldCoins = Math.max(0, Number(parsed.vanillaSoldCoins || 0));
+                if (!parsed.purchases || typeof parsed.purchases !== "object") parsed.purchases = {};
+                return parsed;
+            }
+        } catch {}
+        return { dayKey: this.dayKey(), vanillaSoldCoins: 0, purchases: {} };
+    }
+
+    static saveDailyState(player, state) {
+        try { player.setDynamicProperty(this.dailyStateKey, JSON.stringify(state)); } catch {}
+    }
+
     static getVisibleCategories() {
-        return Config.shop.categories.filter(category =>
-            !["lotm", "sealed_artifacts"].includes(category.id) || Integration.isLotmAvailable()
-        );
+        return Config.shop.categories;
     }
 
     static openCategoryById(player, categoryId, onBack = null) {
@@ -34,6 +55,7 @@ export class ShopManager {
      */
     static openShopCategoryUI(player, onBack = null) {
         const balance = EconomyManager.getBalance(player);
+        const daily = this.getDailyState(player);
         const form = new ActionFormData()
             .title("§l§6🛒 全球综合商店")
             .body(
@@ -72,18 +94,22 @@ export class ShopManager {
      */
     static openCategoryItemsUI(player, category, onBack = null) {
         const balance = EconomyManager.getBalance(player);
+        const daily = this.getDailyState(player);
         const form = new ActionFormData()
             .title(`§l${category.name}`)
             .body(
                 `§8═════════════════════════\n` +
                 `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
                 `§8点击商品即可进入购买或出售界面\n` +
+                `§8今日原版物资回收: §e${daily.vanillaSoldCoins}/${Config.shop.vanillaDailySellCap}\n` +
                 `§8═════════════════════════`
             );
 
         const items = category.items;
         for (const item of items) {
-            const buyText = item.buyPrice ? `§a买: §e${item.buyPrice}` : "§8不可买";
+            const bought = Number(daily.purchases?.[item.id] || 0);
+            const limitText = item.dailyLimit ? ` §8(${bought}/${item.dailyLimit})` : "";
+            const buyText = item.buyPrice ? `§a买: §e${item.buyPrice}${limitText}` : "§8不可买";
             const sellText = item.sellPrice ? `§c卖: §e${item.sellPrice}` : "§8不可卖";
             form.button(`${item.name}\n${buyText} §8| ${sellText}`, item.icon);
         }
@@ -108,13 +134,9 @@ export class ShopManager {
      * @param {Function} [onBack] 
      */
     static openItemTradeUI(player, item, onBack = null) {
-        if (item.id.startsWith("lotm:") && !Integration.isLotmAvailable()) {
-            Utils.tell(player, "§cLOTM Pathways 当前未连接，非凡商品交易已暂停。");
-            if (onBack) onBack();
-            return;
-        }
         const balance = EconomyManager.getBalance(player);
         const bagCount = Utils.countItem(player, item.id);
+        const daily = this.getDailyState(player);
 
         const tradeOptions = [];
         if (item.buyPrice) tradeOptions.push(`§a购买 (单价: ${item.buyPrice} 金币)`);
@@ -141,10 +163,20 @@ export class ShopManager {
             const selectedText = tradeOptions[typeIndex];
             const isBuy = selectedText.includes("购买");
 
-            const count = Math.floor(quantity);
+            let count = Math.floor(quantity);
             if (count <= 0) return;
 
             if (isBuy) {
+                if (item.dailyLimit) {
+                    const bought = Math.max(0, Number(daily.purchases[item.id] || 0));
+                    const remaining = Math.max(0, Number(item.dailyLimit) - bought);
+                    if (!remaining) {
+                        Utils.tell(player, "§c该商品今日购买次数已经用完。");
+                        Utils.sound.fail(player);
+                        return;
+                    }
+                    count = Math.min(count, remaining);
+                }
                 // 执行购买
                 const totalCost = (item.buyPrice || 0) * count;
                 if (!EconomyManager.hasBalance(player, totalCost)) {
@@ -153,11 +185,33 @@ export class ShopManager {
                     return;
                 }
 
+                const amount = count * Math.max(1, Number(item.bundleAmount || 1));
+                if (!Utils.giveItem(player, item.id, amount)) {
+                    Utils.tell(player, "§c物品发放失败，未扣除金币。请确认相关 Addon 已启用。");
+                    Utils.sound.fail(player);
+                    return;
+                }
                 EconomyManager.removeBalance(player, totalCost);
-                Utils.giveItem(player, item.id, count);
-                Utils.tell(player, `§a成功购买 §e${item.name} §ax${count}，花费 ${Utils.formatCurrency(totalCost)}！`);
+                if (item.dailyLimit) {
+                    daily.purchases[item.id] = Math.max(0, Number(daily.purchases[item.id] || 0)) + count;
+                    this.saveDailyState(player, daily);
+                }
+                Utils.tell(player, `§a成功购买 §e${item.name} §ax${count}，获得物品 ${amount} 个，花费 ${Utils.formatCurrency(totalCost)}！`);
                 Utils.sound.buy(player);
             } else {
+                if (item.sellGroup === "vanilla") {
+                    const cap = Math.max(0, Number(Config.shop.vanillaDailySellCap || 0));
+                    const remainingCoins = Math.max(0, cap - Number(daily.vanillaSoldCoins || 0));
+                    const maxCount = Math.floor(remainingCoins / Math.max(1, Number(item.sellPrice || 0)));
+                    if (maxCount <= 0) {
+                        Utils.tell(player, `§e今日原版物资回收额度 ${cap} 金币已用完；NPC 不会收走你的物品。`);
+                        return;
+                    }
+                    if (count > maxCount) {
+                        count = maxCount;
+                        Utils.tell(player, `§e受今日回收额度限制，本次自动调整为出售 ${count} 个。`);
+                    }
+                }
                 // 执行出售
                 const actualInBag = Utils.countItem(player, item.id);
                 if (actualInBag < count) {
@@ -175,6 +229,10 @@ export class ShopManager {
                 }
 
                 EconomyManager.addBalance(player, totalEarn);
+                if (item.sellGroup === "vanilla") {
+                    daily.vanillaSoldCoins = Number(daily.vanillaSoldCoins || 0) + totalEarn;
+                    this.saveDailyState(player, daily);
+                }
                 Integration.recordDailySale(player.name, totalEarn);
                 Utils.tell(player, `§a成功出售 §e${item.name} §ax${count}，获得 ${Utils.formatCurrency(totalEarn)}！`);
                 Utils.sound.success(player);

@@ -1,6 +1,7 @@
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { RewardManager } from "./RewardManager.js";
+import { DailyQuestManager } from "../daily/DailyQuestManager.js";
 import { LOOT_CRATE_BLOCKS, LOOT_CRATE_POOLS } from "./lootCratePools.js";
 
 function hash(value) {
@@ -56,13 +57,17 @@ export class LootCrateManager {
   static bundle(tier) {
     const pool = LOOT_CRATE_POOLS[tier];
     const items = [];
-    for (let roll = 0; roll < pool.rolls; roll++) {
+    const rolls = Array.isArray(pool.rolls) ? randomInt(pool.rolls[0], pool.rolls[1]) : Math.max(0, Number(pool.rolls) || 0);
+    for (let roll = 0; roll < rolls; roll++) {
       const entry = chooseWeighted(pool.entries);
       if (!entry) continue;
       const amount = randomInt(entry.min, entry.max);
       const existing = items.find(item => item.id === entry.id && String(item.name || "") === String(entry.name || ""));
       if (existing) existing.amount = Math.min(64, existing.amount + amount);
       else items.push({ id: entry.id, amount, ...(entry.name ? { name: entry.name } : {}) });
+    }
+    if (Number(pool.bonusKeyChance || 0) > 0 && Math.random() < Number(pool.bonusKeyChance)) {
+      items.push({ id: "daily:mythic_supply_key", amount: 1, name: "§d神话补给密钥" });
     }
     return { id: `loot_crate_${tier}`, coins: randomInt(pool.coins[0], pool.coins[1]), items };
   }
@@ -82,8 +87,9 @@ export class LootCrateManager {
       const held = container?.getItem(slot);
       const requiredName = String(requiredKey.name || "").replace(/§./g, "");
       const heldName = String(held?.nameTag || "").replace(/§./g, "");
-      if (!held || held.typeId !== requiredKey.id || (requiredName && heldName !== requiredName)) {
-        player.sendMessage(`§d神话物资箱需要手持 §f${requiredKey.name || requiredKey.id} §d才能开启。§8当前 MVP 使用回响碎片。`);
+      const legacyKey = held?.typeId === "minecraft:echo_shard" && heldName === "神话补给卡（MVP）";
+      if (!held || (!legacyKey && held.typeId !== requiredKey.id) || (!legacyKey && requiredName && heldName && heldName !== requiredName)) {
+        player.sendMessage(`§d神话物资箱需要手持并消耗 1 个 §f${requiredKey.name || requiredKey.id}§d。密钥只能通过抽奖或 Epic 以上物资箱获得。`);
         return false;
       }
       if (held.amount > 1) {
@@ -131,6 +137,7 @@ export class LootCrateManager {
     this.states.set(coordinateKey, next);
     try { world.setDynamicProperty(propertyKey, JSON.stringify(next)); } catch {}
     RewardManager.grantBundle(player, this.bundle(tier), `crate:${coordinateKey}:${readyAt}`, `loot_crate:${tier}`);
+    DailyQuestManager.onLootCrateOpened(player, tier);
     return true;
   }
 

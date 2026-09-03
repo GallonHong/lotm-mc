@@ -38,10 +38,10 @@ function show(player, form, callback, attempt = 0) {
 
 function targetText(quest) {
   const names = {
-    logs: "原木", iron: "铁矿/铁类资源", herbs: "药草",
-    basic: "普通感染者", runner: "疾行感染者", mutant: "变异感染者", heavy: "重型感染者", elite: "精英怪",
-    any: "任意动态事件", money: "金币成交额",
-    "minecraft:map": "地图（普通蓝图占位）", "minecraft:arrow": "箭（弹药占位）"
+    logs: "任务接取后新获得的原木", rotten: "任务接取后新获得的腐肉", slime: "任务接取后新获得的粘液球",
+    leather: "任务接取后新获得的皮革", bones: "任务接取后新获得的骨头",
+    hostile: "敌对怪物", t2plus: "T2 以上怪物", elite: "精英怪物",
+    any: "任意目标", ammo: "枪械弹药", weapon: "枪械武器"
   };
   return names[quest.targetId] || quest.targetId;
 }
@@ -57,7 +57,6 @@ export class DailyMenu {
       .button("§l§6查看活跃度奖励", "textures/ui/Trade2")
       .button("§l§6联盟每日新闻", "textures/ui/infobulb")
       .button("§l§c进入副本行动", "textures/ui/warning_alex")
-      .button("§l§d提交制造成果", "textures/ui/icon_recipe_item")
       .button("§l§a领取待发物资", "textures/ui/inventory_icon")
       .button("§l§7任务说明", "textures/ui/infobulb");
     show(player, form, result => {
@@ -70,10 +69,6 @@ export class DailyMenu {
       else if (result.selection === 3) this.openNews(player);
       else if (result.selection === 4) DungeonMenu.open(player, () => this.open(player));
       else if (result.selection === 5) {
-        const response = DailyQuestManager.submitCraftPlaceholder(player);
-        player.sendMessage(`${response.ok ? "§a" : "§c"}${response.message}`);
-        this.open(player);
-      } else if (result.selection === 6) {
         const count = RewardManager.claimPending(player);
         player.sendMessage(count ? `§a已补发 ${count} 项物资。` : "§7暂无可补发物资，或背包空间仍不足。");
         this.open(player);
@@ -131,7 +126,7 @@ export class DailyMenu {
   }
 
   static openHelp(player) {
-    const body = "§f每天固定生成：\n§a1 个采集任务\n§c1 个击杀任务\n§d1 个动态事件任务\n§61 个随机任务\n\n§7采集只统计亲手破坏方块，旧库存不能刷进度。击杀按 30 格内、最近 15 秒参与伤害计算。动态事件只奖励实际参战或防守的玩家。\n\n§eMVP 占位：地图=普通枪械蓝图，箭=弹药，红石=研究数据，紫水晶=Epic 数据，命名牌=Epic Ticket。";
+    const body = "§f每天固定生成：\n§a1 个采集任务\n§c1 个击杀任务\n§d1 个动态事件任务\n§61 个综合任务\n\n§7采集只统计接取任务后背包中新获得的数量，旧库存不能刷进度。制造任务由制造事件自动记录；击杀与事件奖励只计算实际参与者。\n\n§e完成四项委托共得 4000 金币，100 活跃度额外领取 2000 金币。";
     const form = new MessageFormData().title("§l任务说明").body(body).button1("§a知道了").button2("§7返回");
     show(player, form, () => this.open(player));
   }

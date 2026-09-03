@@ -1,74 +1,15 @@
 {
   "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:netherite_ingot",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:totem_of_undying",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:blueprint_m82",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "test_gun:blueprint_katana",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:part_exo_core",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:ammo_50cal",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 32
-            }
-          ]
-        }
-      ]
-    }
+    { "rolls": 1, "entries": [{ "type": "item", "name": "minecraft:ender_pearl", "functions": [{ "function": "set_count", "count": { "min": 6, "max": 12 } }] }] },
+    { "rolls": 2, "entries": [
+      { "type": "item", "name": "test_gun:part_exo_core", "weight": 2 },
+      { "type": "item", "name": "test_gun:part_deflection_generator", "weight": 2 },
+      { "type": "item", "name": "test_gun:ammo_50cal", "weight": 4, "functions": [{ "function": "set_count", "count": { "min": 10, "max": 20 } }] },
+      { "type": "item", "name": "minecraft:diamond", "weight": 3, "functions": [{ "function": "set_count", "count": { "min": 1, "max": 4 } }] }
+    ] },
+    { "conditions": [{ "condition": "random_chance", "chance": 0.015 }], "rolls": 1, "entries": [
+      { "type": "item", "name": "test_gun:blueprint_m82", "weight": 1 },
+      { "type": "item", "name": "test_gun:blueprint_katana", "weight": 1 }
+    ] }
   ]
 }

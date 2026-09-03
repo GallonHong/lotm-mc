@@ -1,4 +1,4 @@
-import { world, system, ItemStack } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { SpawnDirector } from "./spawnDirector.js";
 import { CombatAI } from "./combatAI.js";
@@ -16,22 +16,6 @@ function subscribe(signal, label, handler) {
   }
   try { signal.subscribe(handler); return true; }
   catch (error) { console.warn(`[Apocalypse] ${label} subscribe failed: ${error}`); return false; }
-}
-
-function drop(dead) {
-  const chance = Math.random();
-  try {
-    if (dead.typeId === "apoc:raider_rifleman") {
-      dead.dimension.spawnItem(new ItemStack("minecraft:gunpowder", 2 + Math.floor(Math.random() * 4)), dead.location);
-      if (chance < 0.2) {
-        try { dead.dimension.spawnItem(new ItemStack("test_gun:ammo_rifle", 8 + Math.floor(Math.random() * 9)), dead.location); }
-        catch { dead.dimension.spawnItem(new ItemStack("minecraft:iron_ingot", 2), dead.location); }
-      }
-    } else if (dead.hasTag("apoc_hostile")) {
-      if (chance < 0.35) dead.dimension.spawnItem(new ItemStack("minecraft:rotten_flesh", 1 + Math.floor(Math.random() * 3)), dead.location);
-      if (chance < 0.08) dead.dimension.spawnItem(new ItemStack("minecraft:iron_nugget", 1 + Math.floor(Math.random() * 3)), dead.location);
-    }
-  } catch {}
 }
 
 SpawnDirector.registerVanillaSuppression();
@@ -77,7 +61,7 @@ subscribe(world.afterEvents?.entityDie, "entityDie", event => {
     } catch {}
   }
 
-  drop(dead);
+  try { LootManager.handleMobDeath(dead); } catch (error) { console.warn(`[Apocalypse][Loot] mob drop error: ${error}`); }
 });
 
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {

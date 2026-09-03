@@ -1,8 +1,10 @@
 entity.daily:commissioner.name=生存联盟委托专员
 entity.daily:survivor.name=受困幸存者
 entity.daily:convoy_marker.name=坠毁运输车
+tile.daily:loot_crate_scavenger.name=废墟物资箱
 tile.daily:loot_crate_common.name=普通物资箱
 tile.daily:loot_crate_rare.name=稀有物资箱
 tile.daily:loot_crate_epic.name=史诗物资箱
 tile.daily:loot_crate_legendary.name=传奇物资箱
 tile.daily:loot_crate_mythic.name=神话物资箱
+item.daily:mythic_supply_key.name=§d神话补给密钥§r

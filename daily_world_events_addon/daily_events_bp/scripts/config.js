@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.12.1",
+  version: "0.14.0",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,
@@ -11,6 +11,12 @@ export const CONFIG = Object.freeze({
   lootCrateStatePrefix: "daily:loot_crate:v1:",
   lootCrateResetScanTicks: 100,
   lootCratePlayerSafeRadius: 8,
+  spawnerScanChunkRadius: 1,
+  spawnerScanMinY: -64,
+  spawnerScanMaxY: 319,
+  spawnerScanLayerHeight: 32,
+  spawnerScanQueueLimit: 512,
+  spawnerScanRememberChunks: 4096,
   eventNodesKey: "daily:event_nodes:v1",
   newsArchiveKey: "daily:news_archive:v1",
   playerNewsSeenKey: "daily:news_seen_day:v1",
@@ -34,22 +40,22 @@ export const CONFIG = Object.freeze({
 });
 
 export const ACTIVITY_MILESTONES = Object.freeze([
-  { value: 20, rewardId: "activity_20" },
-  { value: 50, rewardId: "activity_50" },
-  { value: 80, rewardId: "activity_80" },
   { value: 100, rewardId: "activity_100" }
 ]);
 
 export const COLLECT_GROUPS = Object.freeze({
   logs: ["minecraft:oak_log", "minecraft:spruce_log", "minecraft:birch_log", "minecraft:jungle_log", "minecraft:acacia_log", "minecraft:dark_oak_log", "minecraft:mangrove_log", "minecraft:cherry_log"],
-  iron: ["minecraft:iron_ore", "minecraft:deepslate_iron_ore", "minecraft:raw_iron_block"],
-  herbs: ["minecraft:wheat", "minecraft:dandelion", "minecraft:poppy", "minecraft:azure_bluet", "minecraft:cornflower"]
+  rotten: ["minecraft:rotten_flesh"], slime: ["minecraft:slime_ball"], leather: ["minecraft:leather"], bones: ["minecraft:bone"],
+  gun_parts: ["test_gun:part_barrel", "test_gun:part_receiver", "test_gun:part_stock", "test_gun:part_drum_mag", "test_gun:part_heavy_barrel", "test_gun:part_ceramic_plate", "test_gun:part_kevlar_sheet", "test_gun:part_plasma_core", "test_gun:part_exo_core", "test_gun:part_ion_thruster", "test_gun:part_deflection_generator", "test_gun:part_military_fcu", "test_gun:part_tungsten_bolt"]
 });
 
 export const MOB_TARGETS = Object.freeze({
-  basic: ["apoc:infected_basic", "minecraft:zombie"],
-  runner: ["apoc:infected_runner", "minecraft:husk"],
-  mutant: ["apoc:infected_mutant"],
-  heavy: ["apoc:infected_heavy"],
+  hostile: ["apoc:infected_basic", "apoc:infected_runner", "apoc:infected_spitter", "apoc:infected_shrieker", "apoc:infected_charger", "apoc:infected_hunter", "apoc:infected_mutant", "apoc:infected_heavy", "minecraft:zombie", "minecraft:husk", "minecraft:skeleton", "minecraft:spider", "minecraft:creeper"],
+  t2plus: ["apoc:infected_runner", "apoc:infected_spitter", "apoc:infected_shrieker", "apoc:infected_charger", "apoc:infected_hunter", "apoc:infected_mutant", "apoc:infected_heavy", "apoc:infected_tyrant", "apoc:infected_broodmother"],
   elite: ["apoc:infected_mutant", "apoc:infected_heavy", "apoc:infected_spitter", "apoc:infected_shrieker", "apoc:infected_charger", "apoc:infected_hunter", "apoc:infected_tyrant", "apoc:infected_broodmother"]
+});
+
+export const CRAFT_GROUPS = Object.freeze({
+  ammo: ["test_gun:ammo_45acp", "test_gun:ammo_rifle", "test_gun:ammo_shotgun", "test_gun:ammo_belt_100", "test_gun:ammo_50cal", "test_gun:ammo_battery", "test_gun:ammo_40mm", "test_gun:ammo_rocket"],
+  weapon: ["test_gun:ak47", "test_gun:ak74u", "test_gun:glock", "test_gun:deagle", "test_gun:scarh", "test_gun:arx", "test_gun:svd", "test_gun:m82", "test_gun:shotgun", "test_gun:m1897", "test_gun:m1014", "test_gun:m1014_ward", "test_gun:usas12", "test_gun:vector", "test_gun:p90", "test_gun:bizon", "test_gun:pkm", "test_gun:rpg", "test_gun:m79", "test_gun:mgl", "test_gun:arc_emitter"]
 });

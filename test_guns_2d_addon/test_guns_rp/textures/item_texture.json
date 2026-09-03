@@ -294,7 +294,7 @@
       "textures": "textures/guns/m1014_ward"
     },
     "test_gun_ammo_belt_100": {
-      "textures": "textures/ammo/ammo_belt_100"
+      "textures": "textures/ammo/ammo_belt_100_generated"
     },
     "test_gun_blueprint_pkm": {
       "textures": "textures/blueprints/blueprint_epic"
@@ -303,6 +303,9 @@
       "textures": "textures/blueprints/blueprint_rare"
     },
     "test_gun_blueprint_m1014_ward": {
+      "textures": "textures/blueprints/blueprint_epic"
+    },
+    "test_gun_blueprint_usas12": {
       "textures": "textures/blueprints/blueprint_epic"
     }
   }

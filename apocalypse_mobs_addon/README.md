@@ -1,8 +1,8 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.6.1 保留 v0.6.0 的荒原持枪掠夺者与避难所驻守护卫，并为 World Events 主城叛军入侵增加严格的安全区例外：只有同时带有 `daily_event_entity` 和 `daily_allow_safe_zone` 的事件敌人可以暂时留在安全区，事件结束后由 World Events 清理；其他自然生成或普通事件敌人仍会被安全区守卫删除。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.7.0 新增按 T1–T5 分级的原版材料、枪械半成品与极低概率 Epic 蓝图掉落，并统一移除 Boss 的 Legendary 蓝图直掉。主城叛军入侵仍采用严格安全区例外：只有同时带有 `daily_event_entity` 和 `daily_allow_safe_zone` 的事件敌人可以暂时留在安全区，事件结束后由 World Events 清理；其他自然生成或普通事件敌人仍会被安全区守卫删除。
 
-摸金都市可低概率生成召唤母体，并按冷却随机触发三波尸潮。护甲优先复用原版物品；启用 Test Guns 时还会随机使用其轻型/重型背心、战术头盔与泰坦胸甲。本包没有修改 Test Guns 文件。
+摸金都市可低概率生成召唤母体，并按冷却随机触发三波尸潮。护甲优先复用原版物品；启用 Test Guns 时还会随机使用其轻型/重型背心、战术头盔与泰坦胸甲。
 
 ## 已实现
 
@@ -19,13 +19,14 @@
 - Test Guns 联动：掠夺者会在主手装备并显示 `test_gun:ak47`；`test_gun:flash_shield` 的致盲/黑暗/高等级减速会立即中断毒液怪和步枪手的瞄准与射击；NPC 伤害会进入玩家盾牌减伤事件。
 - LootNode：管理员人工登记补给箱，支持刷新冷却。
 - 动态事件：野外感染者伏击，完成后向参战玩家发放金币或物资。
+- 分级掉落：T1/T2/T3 普通半成品概率约 6.5%/12.5%/22.5%；T3 Epic 蓝图约 0.04%，T4 约 0.15%，T5 约 1%，均不掉 Legendary。
 - 原版敌对生物抑制开关，避免自然怪物绕过 SpawnDirector。
 
 ## 安装
 
 导入根目录生成的 `Apocalypse_Mobs_Addon.mcaddon`，为世界同时启用行为包与资源包。脚本 API 使用稳定版 `@minecraft/server 1.19.0`。
 
-SAPI Server 是可选包。持枪掠夺者现在依赖 Test Guns 2D v3.9.0，导入怪物 Addon 时应同时启用 Test Guns 的行为包和资源包；本次修复没有修改 Test Guns 文件。
+SAPI Server 是可选包。持枪掠夺者和高级掉落依赖 Test Guns 2D v3.10.0，导入怪物 Addon 时应同时启用 Test Guns 的行为包和资源包。
 
 ## 管理
 

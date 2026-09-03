@@ -1,99 +1,17 @@
 {
   "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:netherite_ingot",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 12,
-                "max": 24
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:blueprint_arc",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "test_gun:blueprint_m82",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:part_ion_thruster",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "test_gun:part_deflection_generator",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:ammo_battery",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 32
-            }
-          ]
-        },
-        {
-          "type": "item",
-          "name": "test_gun:ammo_50cal",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 48
-            }
-          ]
-        }
-      ]
-    }
+    { "rolls": 1, "entries": [{ "type": "item", "name": "minecraft:diamond", "functions": [{ "function": "set_count", "count": { "min": 2, "max": 6 } }] }] },
+    { "rolls": 1, "entries": [{ "type": "item", "name": "minecraft:amethyst_shard", "functions": [{ "function": "set_count", "count": { "min": 8, "max": 16 } }] }] },
+    { "rolls": 2, "entries": [
+      { "type": "item", "name": "test_gun:part_ion_thruster", "weight": 3 },
+      { "type": "item", "name": "test_gun:part_deflection_generator", "weight": 3 },
+      { "type": "item", "name": "test_gun:part_plasma_core", "weight": 2 },
+      { "type": "item", "name": "test_gun:ammo_battery", "weight": 4, "functions": [{ "function": "set_count", "count": { "min": 12, "max": 24 } }] }
+    ] },
+    { "conditions": [{ "condition": "random_chance", "chance": 0.02 }], "rolls": 1, "entries": [
+      { "type": "item", "name": "test_gun:blueprint_m82", "weight": 1 },
+      { "type": "item", "name": "test_gun:blueprint_rpg", "weight": 1 },
+      { "type": "item", "name": "test_gun:blueprint_riot_shield", "weight": 1 }
+    ] }
   ]
 }

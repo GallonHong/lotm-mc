@@ -2,6 +2,8 @@
 
 可选的 Minecraft Bedrock JSON UI 资源包，为 SAPI Server 的主菜单提供末日生存像素磁贴外观。
 
+v1.0.1 改为增量注入 `server_form`：不再覆盖原版 ActionForm、ModalForm 与 DDUI `CustomForm` 工厂，修复 DDUI 页面只有半透明空白背景的问题。
+
 ## 兼容原则
 
 - 该项目只有资源包，不包含行为包，也不保存任何经济或玩法数据。

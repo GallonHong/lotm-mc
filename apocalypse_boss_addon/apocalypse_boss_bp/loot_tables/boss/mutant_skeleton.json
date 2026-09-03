@@ -1,89 +1,15 @@
 {
   "pools": [
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:diamond",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 6,
-                "max": 12
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "minecraft:enchanted_golden_apple",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 1
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:blueprint_svd",
-          "weight": 1
-        },
-        {
-          "type": "item",
-          "name": "test_gun:blueprint_scarh",
-          "weight": 1
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:part_heavy_barrel",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": {
-                "min": 1,
-                "max": 2
-              }
-            }
-          ]
-        }
-      ]
-    },
-    {
-      "rolls": 1,
-      "entries": [
-        {
-          "type": "item",
-          "name": "test_gun:ammo_50cal",
-          "weight": 1,
-          "functions": [
-            {
-              "function": "set_count",
-              "count": 24
-            }
-          ]
-        }
-      ]
-    }
+    { "rolls": 1, "entries": [{ "type": "item", "name": "minecraft:bone_block", "functions": [{ "function": "set_count", "count": { "min": 4, "max": 8 } }] }] },
+    { "rolls": 2, "entries": [
+      { "type": "item", "name": "test_gun:part_heavy_barrel", "weight": 3 },
+      { "type": "item", "name": "test_gun:part_tungsten_bolt", "weight": 2 },
+      { "type": "item", "name": "test_gun:ammo_50cal", "weight": 4, "functions": [{ "function": "set_count", "count": { "min": 8, "max": 16 } }] },
+      { "type": "item", "name": "minecraft:diamond", "weight": 2, "functions": [{ "function": "set_count", "count": { "min": 1, "max": 3 } }] }
+    ] },
+    { "conditions": [{ "condition": "random_chance", "chance": 0.015 }], "rolls": 1, "entries": [
+      { "type": "item", "name": "test_gun:blueprint_m82", "weight": 1 },
+      { "type": "item", "name": "test_gun:blueprint_katana", "weight": 1 }
+    ] }
   ]
 }

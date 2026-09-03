@@ -1,4 +1,4 @@
-import { world, ItemStack } from "@minecraft/server";
+import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
 import { Utils } from "../utils.js";
@@ -7,6 +7,7 @@ import { Integration } from "./integration.js";
 
 const CUSTOM_POOLS_KEY = "sapi:lottery:custom_pools:v1";
 const PLAYER_PITY_KEY = "sapi:lottery:pity:v1";
+const FEATURED_LEGENDARY_KEY = "sapi:lottery:legendary_featured:v1";
 const RARITY_IDS = ["common", "rare", "epic", "legendary", "mythic"];
 
 /**
@@ -32,7 +33,17 @@ export class LotteryManager {
     }
 
     static getPools() {
-        const builtIn = Config.lottery.pools.map(pool => ({ ...pool, builtIn: true }));
+        const builtIn = Config.lottery.pools.map(pool => {
+            if (pool.pityMode !== "featured") return { ...pool, builtIn: true };
+            const featured = this.getFeaturedLegendary(pool);
+            return {
+                ...pool,
+                builtIn: true,
+                activeFeatured: featured,
+                items: [{ ...featured, weight: Number(pool.featuredWeight || 2), isPityTarget: true }, ...pool.items],
+                name: `§6限定军备箱·${featured.name.replace(/§./g, "")}`,
+            };
+        });
         const custom = this.getCustomPools().filter(pool => pool.enabled !== false && Array.isArray(pool.items) && pool.items.length > 0);
         return [...builtIn, ...custom];
     }
@@ -53,9 +64,23 @@ export class LotteryManager {
 
     static getPityStatus(player, pool) {
         const threshold = Math.max(0, Math.floor(pool.pityThreshold || 0));
-        if (!threshold || !pool.pityPrizeKey) return null;
+        if (!threshold || (!pool.pityPrizeKey && !pool.pityMode)) return null;
         const current = Math.max(0, Math.floor(this.getPityMap(player)[pool.id] || 0));
         return { current, threshold, remaining: Math.max(1, threshold - current) };
+    }
+
+    static getFeaturedLegendary(pool = Config.lottery.pools.find(value => value.pityMode === "featured")) {
+        const candidates = pool?.featuredCandidates || [];
+        let key = pool?.defaultFeaturedKey;
+        try { key = String(world.getDynamicProperty(FEATURED_LEGENDARY_KEY) || key); } catch {}
+        return candidates.find(value => value.key === key) || candidates[0];
+    }
+
+    static setFeaturedLegendary(key) {
+        const pool = Config.lottery.pools.find(value => value.pityMode === "featured");
+        const candidate = pool?.featuredCandidates?.find(value => value.key === key);
+        if (!candidate) return false;
+        try { world.setDynamicProperty(FEATURED_LEGENDARY_KEY, candidate.key); return true; } catch { return false; }
     }
 
     static prizeKey(pool, item, index) {
@@ -119,11 +144,12 @@ export class LotteryManager {
                 `§8═════════════════════════\n` +
                 `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
                 `§8奖池说明: §0${pool.description}\n` +
-                (pity ? `§0保底进度: §d${pity.current}/${pity.threshold} §8（再抽 ${pity.remaining} 次必出指定奖品）\n` : "§8该奖池未启用保底\n") +
+                (pool.activeFeatured ? `§0本期 UP: §6${pool.activeFeatured.name}\n` : "") +
+                (pity ? `§0保底进度: §d${pity.current}/${pity.threshold} §8（再抽 ${pity.remaining} 次必出保底蓝图）\n` : "§8该奖池未启用保底\n") +
                 `§8═════════════════════════`
             )
             .button(`§l§a🎯 单抽 1 次\n§r§8消耗 ${pool.singleCost} 金币`, "textures/ui/generic_single_coin")
-            .button(`§l§6🌟 十连抽取\n§r§8消耗 ${pool.tenCost} 金币 (特惠)`, "textures/ui/generic_ten_coins")
+            .button(`§l§6🌟 十连抽取\n§r§8消耗 ${pool.tenCost} 金币`, "textures/ui/generic_ten_coins")
             .button(`§l§b📜 奖池内容与概率\n§r§8查看全部可抽取物品`, "textures/ui/book_metas_default");
 
         if (onBack) {
@@ -178,11 +204,11 @@ export class LotteryManager {
         const pityMap = this.getPityMap(player);
         let pityCount = Math.max(0, Math.floor(pityMap[pool.id] || 0));
         const pityThreshold = Math.max(0, Math.floor(pool.pityThreshold || 0));
-        const pityPrize = pityThreshold > 0 ? items.find(item => item.key === pool.pityPrizeKey) : null;
+        const pityTargets = pityThreshold > 0 ? items.filter(item => item.isPityTarget || item.key === pool.pityPrizeKey) : [];
 
         for (let i = 0; i < count; i++) {
-            const forcedPity = !!pityPrize && pityCount + 1 >= pityThreshold;
-            let chosen = pityPrize;
+            const forcedPity = pityTargets.length > 0 && pityCount + 1 >= pityThreshold;
+            let chosen = forcedPity ? pityTargets[Math.floor(Math.random() * pityTargets.length)] : null;
             if (!forcedPity) {
                 let rnd = Math.random() * totalWeight;
                 chosen = items[0];
@@ -195,8 +221,8 @@ export class LotteryManager {
                 }
             }
 
-            if (pityPrize && chosen.key === pityPrize.key) pityCount = 0;
-            else if (pityPrize) pityCount += 1;
+            if (pityTargets.some(target => target.key === chosen.key)) pityCount = 0;
+            else if (pityTargets.length) pityCount += 1;
             results.push({ item: chosen, forcedPity });
 
             // 发放物品
@@ -213,16 +239,9 @@ export class LotteryManager {
                 }
             }
         }
-        if (pityPrize) {
+        if (pityTargets.length) {
             pityMap[pool.id] = pityCount;
             this.savePityMap(player, pityMap);
-        }
-
-        // 播放音效
-        if (hasRareOrAbove) {
-            Utils.sound.rareWin(player);
-        } else {
-            Utils.sound.buy(player);
         }
 
         // 展示抽奖结果视窗
@@ -235,19 +254,37 @@ export class LotteryManager {
         resultText += `\n§8═══════════════════════════════════\n`;
         resultText += `§a已自动将获得的物品发放至你的背包！`;
 
-        const form = new ActionFormData()
-            .title("§l§6🎁 抽奖结果揭晓！")
-            .body(resultText)
-            .button("§l§a再来一次", "textures/ui/refresh")
-            .button("§l§e返回奖池", "textures/ui/cancel");
-
-        Utils.showForm(player, form, (res) => {
-            if (res.selection === 0) {
-                this.executeDraw(player, pool, count, onComplete);
-            } else if (onComplete) {
-                onComplete();
-            }
+        const rarityRank = { common: 0, rare: 1, epic: 2, legendary: 3, mythic: 4 };
+        const highest = results.reduce((best, result) => rarityRank[result.item.rarity] > rarityRank[best] ? result.item.rarity : best, "common");
+        this.playDrawAnimation(player, highest, results.some(result => result.forcedPity), () => {
+            const form = new ActionFormData()
+                .title("§l§6🎁 抽奖结果揭晓！")
+                .body(resultText)
+                .button("§l§a再来一次", "textures/ui/refresh")
+                .button("§l§e返回奖池", "textures/ui/cancel");
+            Utils.showForm(player, form, (res) => {
+                if (res.selection === 0) this.executeDraw(player, pool, count, onComplete);
+                else if (onComplete) onComplete();
+            });
         });
+    }
+
+    static playDrawAnimation(player, rarity, forcedPity, onDone) {
+        const steps = [
+            { tick: 0, sound: "random.click", pitch: 0.75 },
+            { tick: 8, sound: "random.click", pitch: 0.95 },
+            { tick: 16, sound: "random.click", pitch: 1.2 },
+            { tick: 24, sound: rarity === "legendary" || rarity === "mythic" ? "random.totem" : rarity === "epic" ? "random.levelup" : "random.orb", pitch: forcedPity ? 0.8 : 1.15 },
+        ];
+        try { player.sendMessage(forcedPity ? "§d✦ 保底信号锁定，军备箱正在解封……" : "§8▣ 军备箱正在解锁……"); } catch {}
+        for (const step of steps) system.runTimeout(() => {
+            try { player.playSound(step.sound, { volume: 0.8, pitch: step.pitch }); } catch {}
+            try {
+                const particle = rarity === "legendary" || rarity === "mythic" ? "minecraft:totem_particle" : rarity === "epic" ? "minecraft:dragon_destroy_block" : "minecraft:basic_smoke_particle";
+                player.dimension.spawnParticle(particle, { x: player.location.x, y: player.location.y + 1.1, z: player.location.z });
+            } catch {}
+        }, step.tick);
+        system.runTimeout(() => onDone?.(), 34);
     }
 
     /**
@@ -267,9 +304,10 @@ export class LotteryManager {
             content += `[${rarityInfo.color}${rarityInfo.name}§r] ${it.name} §8- 概率: §e${chance}%\n`;
         }
         if (!eligibleItems.length) content += "§8当前没有可用奖品。\n";
-        const pityPrize = eligibleItems.find(item => item.key === pool.pityPrizeKey);
-        if (pityPrize && pool.pityThreshold > 0) {
-            content += `\n§d保底规则：若前 ${Math.max(0, pool.pityThreshold - 1)} 抽未获得 ${pityPrize.name}，第 ${pool.pityThreshold} 抽必定获得。\n`;
+        const pityTargets = eligibleItems.filter(item => item.isPityTarget || item.key === pool.pityPrizeKey);
+        if (pityTargets.length && pool.pityThreshold > 0) {
+            const targetText = pool.pityMode === "random_target" ? "随机限定 Epic 蓝图" : pool.activeFeatured?.name || pityTargets[0].name;
+            content += `\n§d保底规则：若前 ${Math.max(0, pool.pityThreshold - 1)} 抽未获得保底目标，第 ${pool.pityThreshold} 抽必定获得 ${targetText}。\n`;
         }
         content += `\n§8══════════════════════════════`;
 
@@ -322,8 +360,11 @@ export class LotteryManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§d🎰 自定义奖池管理")
-            .body(`§0自定义奖池: §e${pools.length}/20\n§8内置奖池保持只读；自定义奖池可独立设置奖品、权重、价格与指定奖品保底。`);
+            .body(`§0自定义奖池: §e${pools.length}/20\n§8可在这里切换 Legendary 当期 UP；自定义奖池仍可独立配置。`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+        const featuredPool = Config.lottery.pools.find(value => value.pityMode === "featured");
+        const featured = this.getFeaturedLegendary(featuredPool);
+        add(`§l§6🎯 切换 Legendary 当期蓝图\n§r§8当前：${featured?.name || "未配置"}`, "textures/items/nether_star", () => this.openFeaturedLegendaryAdmin(player, () => this.openAdminPoolManager(player, onBack)));
         for (const pool of pools) {
             const pity = pool.pityThreshold > 0 && pool.pityPrizeKey ? `保底${pool.pityThreshold}抽` : "无保底";
             add(
@@ -335,6 +376,24 @@ export class LotteryManager {
         if (pools.length < 20) add("§l§a＋ 创建自定义奖池", "textures/ui/gift_square", () => this.openCreatePoolUI(player, () => this.openAdminPoolManager(player, onBack)));
         add("§l§8⬅ 返回管理员菜单", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
+    }
+
+    static openFeaturedLegendaryAdmin(player, onBack = null) {
+        if (!Utils.isAdmin(player)) return;
+        const pool = Config.lottery.pools.find(value => value.pityMode === "featured");
+        const current = this.getFeaturedLegendary(pool);
+        const candidates = pool?.featuredCandidates || [];
+        const form = new ModalFormData()
+            .title("§l§6切换 Legendary 当期卡池")
+            .dropdown("当期唯一 Legendary 蓝图（同时也是 30 抽保底）", candidates.map(value => value.name), Math.max(0, candidates.findIndex(value => value.key === current?.key)));
+        Utils.showForm(player, form, res => {
+            if (!res.canceled) {
+                const selected = candidates[Number(res.formValues?.[0]) || 0];
+                if (selected && this.setFeaturedLegendary(selected.key)) Utils.broadcast(`§6[限定军备] 当期 UP 已切换为：${selected.name}`);
+                else Utils.tell(player, "§c当期卡池切换失败。");
+            }
+            onBack?.();
+        });
     }
 
     static openCreatePoolUI(player, onBack = null) {

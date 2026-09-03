@@ -1,25 +1,28 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.12.1 将“发布联盟每日新闻”移到 Daily 管理菜单首项，并新增 `daily:news_admin` 直达入口供 SAPI 管理员控制台调用。v0.12 系列同时把副本 Boss 统一接入 Apocalypse Mobs 的真实 Boss 实体，并新增五个多阶段 Boss 副本。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.14.0 新增无品质“废墟物资箱”，并分片扫描玩家探索到的主世界区块，将原版刷怪笼替换成这种可反复刷新的物资箱。v0.13.0 接入单金币经济、四类固定日常、分难度副本收益递减、正式神话补给密钥与 Epic 蓝图掉落。每日新闻管理入口仍位于 Daily 管理菜单首项，并可由 SAPI 管理员控制台通过 `daily:news_admin` 直达。副本 Boss 统一使用 Apocalypse Boss 中的真实实体。
 
 ## 可复用物资箱
 
+- `daily:loot_crate_scavenger`：无品质废墟物资箱，30 分钟刷新；每次获得 1–1000 金币和 2–4 组随机物品，主要为原版破烂，极低概率获得可合成 Epic 图纸或神话补给密钥；
 - `daily:loot_crate_common`：15 分钟刷新；
 - `daily:loot_crate_rare`：30 分钟刷新；
 - `daily:loot_crate_epic`：60 分钟刷新；
-- `daily:loot_crate_legendary`：120 分钟刷新。
+- `daily:loot_crate_legendary`：120 分钟刷新；
 - `daily:loot_crate_mythic`：240 分钟刷新，必须手持“神话补给卡”开启。
 
-神话补给卡暂用原版回响碎片 `minecraft:echo_shard` 代替。神话箱固定开出一张 Test Gun 图纸：70% 为 `test_gun:blueprint_mgl`，30% 为 `test_gun:blueprint_riot_shield`。本包只引用物品标识，不修改 Test Gun；未安装 Test Gun 时不要投放神话箱。
+神话箱需要正式物品 `daily:mythic_supply_key`（神话补给密钥）。该物品没有任何合成配方，只能从 SAPI 的 Epic/Legendary 金币奖池，以及 Epic、Legendary 物资箱的额外掉落中获得；神话箱自身还有 15% 概率返还密钥。旧版已发放并命名为“神话补给卡（MVP）”的回响碎片仍可兼容使用。神话箱固定随机开出一张限定 Epic 蓝图，不会产出 Legendary 蓝图。
 
 奖池、钥匙和刷新时间集中在 `scripts/rewards/lootCratePools.js`。World Event、摸金都市与主世界地图均可直接放置这些方块；交互按“玩家 + 箱子坐标”独立去重，已开启箱子在附近有玩家时不会突然复原。
+
+主世界刷怪笼替换由 `scripts/rewards/SpawnerReplacementManager.js` 执行。系统只处理玩家附近已加载的主世界区块，并把每个区块按 32 格高度分片扫描，不会一次遍历全地图或未加载区块；玩家继续探索时，新遇到的遗迹、地牢和矿井刷怪笼也会被替换。
 
 ## 联动关系
 
 - **SAPI Server**：服务器主菜单自动出现“生存联盟委托”；奖励写入 `money`；商店回收与玩家寄卖成交额自动推进出售任务；商人 NPC 可直接打开指定 SAPI 商店分类。
 - **Apocalypse Mobs**：事件刷怪通过 `apoc:spawn_requests:v1` 请求队列交给原有 `SpawnDirector`；本包不会复制怪物伤害或 AI 配置。主城入侵时，只有同时带 `daily_event_entity` 和 `daily_allow_safe_zone` 的事件敌人可暂时留在安全区，普通敌人仍会被清理。
-- **Test Guns**：枪械造成的伤害会进入击杀参与判定；制造事件可自动记录，若当前 Script API 没有该事件则可提交原版占位物。本包不会修改 Test Guns。
-- 普通事件和普通副本敌人在联动 Addon 缺失时仍可回退原版实体、绿宝石和原版材料；Boss 副本不会使用原版怪物冒充 Boss，必须启用 Apocalypse Mobs BP/RP。
+- **Test Guns**：枪械造成的伤害会进入击杀参与判定；制造武器、制造弹药和获得枪械半成品可推进综合日常。
+- 普通事件和普通副本敌人在联动 Addon 缺失时仍可回退原版实体、绿宝石和原版材料；Boss 副本不会使用原版怪物冒充 Boss，必须启用 Apocalypse Boss BP/RP。
 
 ## 每日日常
 
@@ -28,22 +31,13 @@
 1. 采集任务；
 2. 击杀任务；
 3. 完成一次动态事件；
-4. 制造、出售或精英击杀中的随机任务。
+4. 副本、制造弹药、制造武器、获得半成品、开箱或击杀 Boss 中的随机综合任务。
 
-采集只统计玩家亲手破坏方块。击杀采用“30 格内且最近 15 秒参与伤害”的共享归属，不要求最后一击。
+采集按接取任务后背包中新获得的目标物品计数，已有库存不会立即完成任务。击杀采用“30 格内且最近 15 秒参与伤害”的共享归属，不要求最后一击。四项奖励依次为 800、900、1,100、1,200 金币，全部完成额外奖励 2,000 金币，每日合计 6,000。
 
-## MVP 原版占位物
+## 副本经济
 
-| 未来物品 | 当前原版占位 |
-|---|---|
-| 普通枪械蓝图 | 地图 `minecraft:map` |
-| 弹药 | 箭 `minecraft:arrow` |
-| 机械研究数据 | 红石 `minecraft:redstone` |
-| 枪械维修材料 | 铁锭 `minecraft:iron_ingot` |
-| Epic 研究数据 | 紫水晶碎片 `minecraft:amethyst_shard` |
-| Epic Research Ticket | 重命名命名牌 `minecraft:name_tag` |
-
-后期只修改 `scripts/rewards/rewards.js` 与任务注册表即可替换为正式物品。
+Normal / Hard / Nightmare 首次完成分别奖励 2,000 / 3,500 / 5,000 金币，重复完成分别奖励 1,200 / 2,000 / 2,500。每日前两次奖励 100%，第 3–4 次 75%，第 5 次起 50%；Hard 与 Nightmare 另有 0.5% / 1.5% Epic 蓝图概率。
 
 ## 动态事件
 
@@ -117,7 +111,7 @@
 - `defend`：按时间表生成多波敌人；
 - `disaster`：副本内局部雷暴避险，不修改外部灾害包。
 
-普通敌人优先生成 Apocalypse Mobs 实体，不存在时回退原版实体。`boss` 阶段通过独立的 `bossKey` 严格生成 Apocalypse Boss，不允许原版回退；当前副本池使用重装暴君、雾中人、山羊人、警笛头、变异僵尸、变异骷髅、变异溺尸、变异投掷者、变异末影人、变异铁傀儡和召唤母体。若真实 Boss 无法生成，副本会停止并明确提示检查 Apocalypse Mobs，而不会把仅有杂兵的阶段判为完成。载具使用正式 Apocalypse Vehicles 中存在的 `ab_ve:motorcycle` / `ab_ve:truck`，未安装载具包时回退任务标记且路线仍可步行完成。
+普通敌人优先生成 Apocalypse Mobs 实体，不存在时回退原版实体。`boss` 阶段通过独立的 `bossKey` 严格生成 Apocalypse Boss，不允许原版回退；当前副本池使用重装暴君、雾中人、山羊人、警笛头、变异僵尸、变异骷髅、变异溺尸、变异投掷者、变异末影人、变异铁傀儡和召唤母体。若真实 Boss 无法生成，副本会停止并明确提示检查 Apocalypse Boss，而不会把仅有杂兵的阶段判为完成。载具使用正式 Apocalypse Vehicles 中存在的 `ab_ve:motorcycle` / `ab_ve:truck`，未安装载具包时回退任务标记且路线仍可步行完成。
 
 ## 使用
 
@@ -132,10 +126,10 @@
 
 委托专员使用原生 NPC 对话界面显示完成度、活跃度和可领取奖励。管理菜单还可以放置四种商人：
 
-- 生存物资商人；
-- 武器装备商人；
-- 医疗补给商人；
-- 研究物资商人。
+- 杂货商；
+- 军火商；
+- 高级军备商；
+- 载具商。
 
 商人类型与分类映射集中在 `daily_events_bp/scripts/merchants/merchantConfig.js`；显示名称、对话正文和按钮集中在 `daily_events_bp/dialogue/merchant_dialogues.json`，后续可直接修改。原生 NPC 对话不可用时会回退到 Script API 菜单。
 

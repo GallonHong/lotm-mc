@@ -34,7 +34,7 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、新闻与事件完整管理/);
 assert.match(menu, /新闻按钮仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.7.4");
+assert.equal(manifest.header.version.join("."), "2.8.0");
 assert.match(menu, /§l§2末日生存联盟§r/);
 assert.match(menu, /openMoreMenu/);
 assert.match(land, /isApocalypseSafeChunk/);
@@ -71,6 +71,19 @@ assert.match(read("sapi_server_bp/scripts/modules/shop.js"), /openCategoryById/)
 const lottery = read("sapi_server_bp/scripts/modules/lottery.js");
 assert.match(lottery, /if \(res\.canceled\) return;/);
 assert.match(lottery, /res\.selection === pools\.length/);
+assert.match(lottery, /playDrawAnimation/);
+assert.match(lottery, /spawnParticle/);
+assert.match(lottery, /openFeaturedLegendaryAdmin/);
+const lotteryPools = await import(new URL("../sapi_server_bp/scripts/data/lotteryPools.js", import.meta.url));
+const epicPool = lotteryPools.BUILT_IN_LOTTERY_POOLS.find(pool => pool.id === "epic_armory");
+const legendaryPool = lotteryPools.BUILT_IN_LOTTERY_POOLS.find(pool => pool.id === "legendary_featured");
+assert.deepEqual([epicPool.singleCost, epicPool.tenCost, epicPool.pityThreshold], [1200, 12000, 20]);
+assert.equal(epicPool.items.filter(item => item.isPityTarget).reduce((sum, item) => sum + item.weight, 0), 5);
+assert.deepEqual([legendaryPool.singleCost, legendaryPool.tenCost, legendaryPool.pityThreshold], [2000, 20000, 30]);
+assert.equal(legendaryPool.defaultFeaturedKey, "legendary_mp7");
+assert.equal(legendaryPool.items.reduce((sum, item) => sum + item.weight, 0) + legendaryPool.featuredWeight, 100);
+assert.match(read("sapi_server_bp/scripts/modules/shop.js"), /vanillaDailySellCap/);
+assert.match(read("sapi_server_bp/scripts/modules/shop.js"), /dailyLimit/);
 
 const uiSources = fs.readdirSync(new URL("../sapi_server_bp/scripts/", import.meta.url), { recursive: true })
   .filter(path => String(path).endsWith(".js"))
@@ -82,4 +95,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.7.4 validation passed.");
+console.log("SAPI Server v2.8.0 validation passed.");

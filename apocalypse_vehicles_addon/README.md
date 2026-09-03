@@ -18,6 +18,8 @@
 
 ## 2. 车辆蓝图与工业半成品配件
 
+v1.2.0 起，摩托车与冲锋快艇蓝图仍可由玩家合成；皮卡、救护车和军用直升机蓝图取消工作台配方，改由 SAPI 载具商以 25,000 / 40,000 / 80,000 金币出售。
+
 ### 2.1 车辆制造蓝图 (Blueprints)
 - `survival_vehicle:blueprint_truck`（皮卡制造蓝图）
 - `survival_vehicle:blueprint_motorcycle`（摩托车制造蓝图）
@@ -67,6 +69,11 @@
 在当前目录下直接运行：
 ```powershell
 .\build_apocalypse_vehicles.ps1
+```
+或在 Linux/macOS 使用：
+
+```bash
+bash apocalypse_vehicles_addon/build.sh
 ```
 会自动生成：
 - `Apocalypse_Vehicles_BP.mcpack`

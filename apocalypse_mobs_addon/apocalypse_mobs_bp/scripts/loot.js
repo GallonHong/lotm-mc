@@ -1,5 +1,16 @@
 import { world, ItemStack } from "@minecraft/server";
-import { CONFIG } from "./config.js";
+import { CONFIG, MOB_PROFILES } from "./config.js";
+
+const PROFILE_BY_TYPE = new Map(Object.values(MOB_PROFILES).map(profile => [profile.typeId, profile]));
+const BASIC_PARTS = ["test_gun:part_barrel", "test_gun:part_receiver", "test_gun:part_stock"];
+const ADVANCED_PARTS = ["test_gun:part_heavy_barrel", "test_gun:part_ceramic_plate", "test_gun:part_kevlar_sheet"];
+const EPIC_BLUEPRINTS = [
+  "test_gun:blueprint_m82",
+  "test_gun:blueprint_rpg",
+  "test_gun:blueprint_riot_shield",
+  "test_gun:blueprint_katana",
+  "test_gun:blueprint_kukri_machete"
+];
 
 function parseNodes() {
   try {
@@ -23,7 +34,44 @@ function give(player, typeId, amount) {
   } catch { return false; }
 }
 
+function random(values) { return values[Math.floor(Math.random() * values.length)]; }
+
+function spawn(dead, typeId, amount = 1) {
+  try {
+    dead.dimension.spawnItem(new ItemStack(typeId, Math.max(1, Math.min(64, Math.floor(amount)))), dead.location);
+    return true;
+  } catch { return false; }
+}
+
 export class LootManager {
+  static handleMobDeath(dead) {
+    const profile = PROFILE_BY_TYPE.get(dead?.typeId);
+    if (!profile || dead.hasTag?.("apoc_no_rewards")) return false;
+    const tier = Math.max(1, Number(profile.tier || 1));
+
+    if (dead.typeId === "apoc:raider_rifleman") {
+      spawn(dead, "minecraft:gunpowder", 2 + Math.floor(Math.random() * 4));
+      if (Math.random() < 0.2 && !spawn(dead, "test_gun:ammo_rifle", 8 + Math.floor(Math.random() * 9))) spawn(dead, "minecraft:iron_ingot", 2);
+    } else if (tier === 1) {
+      if (Math.random() < 0.70) spawn(dead, random(["minecraft:rotten_flesh", "minecraft:bone", "minecraft:string"]), 1 + Math.floor(Math.random() * 3));
+      if (Math.random() < 0.20) spawn(dead, random(["minecraft:gunpowder", "minecraft:oak_log"]), 1);
+      if (Math.random() < 0.065) spawn(dead, random(BASIC_PARTS), 1);
+    } else if (tier === 2) {
+      spawn(dead, random(["minecraft:rotten_flesh", "minecraft:gunpowder"]), 1 + Math.floor(Math.random() * 3));
+      if (Math.random() < 0.45) spawn(dead, random(["minecraft:iron_nugget", "minecraft:copper_ingot"]), 1 + Math.floor(Math.random() * 2));
+      if (Math.random() < 0.125) spawn(dead, random(BASIC_PARTS), 1);
+    } else if (tier === 3) {
+      spawn(dead, random(["minecraft:iron_ingot", "minecraft:redstone", "minecraft:gunpowder", "minecraft:emerald"]), 1 + Math.floor(Math.random() * 3));
+      if (Math.random() < 0.225) spawn(dead, random(BASIC_PARTS), 1);
+      if (Math.random() < 0.0004) spawn(dead, random(EPIC_BLUEPRINTS), 1);
+    } else {
+      spawn(dead, random(["minecraft:iron_ingot", "minecraft:gold_ingot", "minecraft:redstone", "minecraft:diamond"]), tier >= 5 ? 3 + Math.floor(Math.random() * 4) : 2 + Math.floor(Math.random() * 3));
+      spawn(dead, random(ADVANCED_PARTS), tier >= 5 ? 2 : 1);
+      if (Math.random() < (tier >= 5 ? 0.01 : 0.0015)) spawn(dead, random(EPIC_BLUEPRINTS), 1);
+    }
+    return true;
+  }
+
   static getNodes() { return parseNodes(); }
 
   static saveNodes(nodes) {
@@ -132,4 +180,3 @@ export class LootManager {
     return false;
   }
 }
-

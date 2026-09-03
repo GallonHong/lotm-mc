@@ -88,6 +88,7 @@ item.test_gun:ak47_commander.name=AK-47 · 战术指挥官 §6[传说]§r
 item.test_gun:blueprint_ak47_commander.name=武器图纸: AK-47 战术指挥官 §6[传说]§r
 
 item.test_gun:usas12.name=USAS-12「嗜血狂潮」§5[史诗·20发全自动吸血连喷]§r
+item.test_gun:blueprint_usas12.name=USAS-12「嗜血狂潮」设计图 §5[史诗·限定·不可合成]§r
 
 # === 裁缝与防弹半成品 ===
 item.test_gun:part_fabric_rag.name=🧵 粗制纤维布匹 §f[普通·基础材料]§r

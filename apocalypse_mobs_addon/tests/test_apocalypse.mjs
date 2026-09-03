@@ -22,8 +22,8 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [0, 6, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 6, 1]);
+assert.deepEqual(bpManifest.header.version, [0, 7, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 7, 0]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -136,6 +136,11 @@ const special = readFileSync(join(bp, "scripts/specialInfectedAI.js"), "utf8");
 for (const marker of ["tickShrieker", "tickCharger", "tickHunter", "tickTyrant", "tickBroodmother", "isFlashDisabled", "builderMaxBlocksPerMob", 'zone.type !== "outlaw"']) assert(special.includes(marker), `missing special infected behavior: ${marker}`);
 const loot = readFileSync(join(bp, "scripts/loot.js"), "utf8");
 assert(loot.includes('getObjective("money")'), "SAPI economy reward bridge missing");
+for (const marker of ["handleMobDeath", "0.065", "0.125", "0.225", "0.0004", "0.0015", "EPIC_BLUEPRINTS"]) assert(loot.includes(marker), `tiered mob drop marker missing: ${marker}`);
+for (const path of files(join(bp, "loot_tables", "boss")).filter(path => path.endsWith(".json"))) {
+  const source = readFileSync(path, "utf8");
+  for (const forbidden of ["blueprint_arc", "blueprint_mgl", "blueprint_mp7", "blueprint_ak47_commander", "blueprint_jetpack"]) assert.equal(source.includes(forbidden), false, `Legendary blueprint remains in ${path}`);
+}
 
 const main = readFileSync(join(bp, "scripts/main.js"), "utf8");
 for (const moduleName of ["SpawnDirector", "CombatAI", "SpecialInfectedAI", "LootManager", "WorldEventDirector", "AdminMenu"]) assert(main.includes(moduleName));

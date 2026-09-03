@@ -9,12 +9,17 @@ const manifest = JSON.parse(fs.readFileSync(path.join(rp, "manifest.json"), "utf
 const ui = JSON.parse(fs.readFileSync(path.join(rp, "ui/server_form.json"), "utf8"));
 
 assert.equal(manifest.modules[0].type, "resources");
-assert.equal(manifest.header.version.join("."), "1.0.0");
+assert.equal(manifest.header.version.join("."), "1.0.1");
 assert.equal(ui.namespace, "server_form");
+assert.ok(Array.isArray(ui.long_form?.modifications), "vanilla long_form must be modified incrementally");
+assert.ok(Array.isArray(ui.main_screen_content?.modifications), "custom factory must be injected into the vanilla form root");
+assert.equal(Object.hasOwn(ui, "custom_form"), false, "DDUI CustomForm must remain owned by vanilla server_form.json");
+assert.equal(Object.hasOwn(ui, "modal_dialog"), false, "vanilla ModalForm must not be replaced");
 
 const raw = JSON.stringify(ui);
 assert.match(raw, /§l§2末日生存联盟§r/);
-assert.match(raw, /server_form\.long_form_panel/);
+assert.match(raw, /server_form_factory/);
+assert.match(raw, /server_form\.apoc_survival_form/);
 for (let index = 0; index < 12; index++) {
   assert.match(raw, new RegExp(`"collection_index":${index}(?:[,}])`), `missing tile index ${index}`);
 }
@@ -26,4 +31,4 @@ for (const texture of [
   assert.ok(fs.existsSync(path.join(rp, `textures/ui/apocalypse/${texture}.png`)), `missing texture ${texture}`);
 }
 
-console.log("Apocalypse Survival UI v1.0.0 validation passed.");
+console.log("Apocalypse Survival UI v1.0.1 validation passed.");

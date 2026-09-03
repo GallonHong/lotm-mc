@@ -106,7 +106,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       ] },
       { type: "checkpoint", name: "防线撤离", checkpoint: "exit", hint: "防线已稳定，前往南侧撤离门。" }
     ],
-    rewardId: "dungeon_outpost_defense", minimumContribution: 12
+    rewardId: "dungeon_outpost_defense", rewardTier: "normal", minimumContribution: 12
   },
 
   storm_rescue: {
@@ -149,7 +149,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       ] },
       { type: "boss", name: "重装暴君", groups: [{ bossKey: "tyrant", count: 1, spawnPoint: "boss" }, { mobKey: "runner", count: 2, spawnPoint: "storm" }] }
     ],
-    rewardId: "dungeon_storm_rescue", minimumContribution: 14, timeoutTicks: 36000
+    rewardId: "dungeon_storm_rescue", rewardTier: "hard", minimumContribution: 14, timeoutTicks: 36000
   },
 
   convoy_escort: {
@@ -193,7 +193,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       ] },
       { type: "checkpoint", name: "确认交付", checkpoint: "route_5", hint: "到车队终点完成药品交付。" }
     ],
-    rewardId: "dungeon_convoy_escort", minimumContribution: 12
+    rewardId: "dungeon_convoy_escort", rewardTier: "normal", minimumContribution: 12
   },
 
   abandoned_clinic: {
@@ -226,7 +226,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "checkpoint", name: "抵达最终封锁线", checkpoint: "garage_gate", hint: "离开市场，到维修车库集合。" },
       { type: "eliminate", name: "车库最终清剿", groups: [{ mobKey: "heavy", count: 1, spawnPoint: "garage_center" }, { mobKey: "mutant", count: 2, spawnPoint: "garage_flank" }, { mobKey: "raider", count: 2, spawnPoint: "garage_center" }] }
     ],
-    rewardId: "dungeon_abandoned_clinic", minimumContribution: 10
+    rewardId: "dungeon_abandoned_clinic", rewardTier: "normal", minimumContribution: 10
   },
 
   fogbound_hospital: {
@@ -257,7 +257,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "checkpoint", name: "追踪地下信号", checkpoint: "morgue_gate", hint: "雾暂时散开，追踪异常心跳信号到地下病区入口。" },
       { type: "boss", name: "零号变异病患", groups: [{ bossKey: "mutant_zombie", count: 1, spawnPoint: "morgue" }, { mobKey: "spitter", count: 3, spawnPoint: "street" }] }
     ],
-    rewardId: "dungeon_fogbound_hospital", minimumContribution: 16, timeoutTicks: 36000
+    rewardId: "dungeon_fogbound_hospital", rewardTier: "nightmare", minimumContribution: 16, timeoutTicks: 36000
   },
 
   redhorn_industrial: {
@@ -288,7 +288,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "checkpoint", name: "开启炼钢厂闸门", checkpoint: "factory_gate", hint: "进入炼钢厂，切断异常能源核心。" },
       { type: "boss", name: "失控钢铁巨像", groups: [{ bossKey: "mutant_iron_golem", count: 1, spawnPoint: "forge" }, { mobKey: "raider", count: 3, spawnPoint: "warehouse" }] }
     ],
-    rewardId: "dungeon_redhorn_industrial", minimumContribution: 18, timeoutTicks: 36000
+    rewardId: "dungeon_redhorn_industrial", rewardTier: "nightmare", minimumContribution: 18, timeoutTicks: 36000
   },
 
   siren_blackout: {
@@ -320,7 +320,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "checkpoint", name: "进入露天诱导区", checkpoint: "open_ground", hint: "警笛声正在接近，立即转移到露天街区。" },
       { type: "boss", name: "警笛头", groups: [{ bossKey: "siren_head", count: 1, spawnPoint: "siren_field" }, { mobKey: "shrieker", count: 2, spawnPoint: "tower" }] }
     ],
-    rewardId: "dungeon_siren_blackout", minimumContribution: 20, timeoutTicks: 42000
+    rewardId: "dungeon_siren_blackout", rewardTier: "nightmare", minimumContribution: 20, timeoutTicks: 42000
   },
 
   drowned_pumpstation: {
@@ -352,7 +352,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "checkpoint", name: "登上水塔", checkpoint: "tower", hint: "投掷物来自水塔方向，前往检修梯。" },
       { type: "boss", name: "腐化投掷者", groups: [{ bossKey: "mutant_lobber", count: 1, spawnPoint: "tower" }, { mobKey: "charger", count: 2, spawnPoint: "spillway" }] }
     ],
-    rewardId: "dungeon_drowned_pumpstation", minimumContribution: 18, timeoutTicks: 36000
+    rewardId: "dungeon_drowned_pumpstation", rewardTier: "nightmare", minimumContribution: 18, timeoutTicks: 36000
   },
 
   mutation_gauntlet: {
@@ -389,7 +389,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "checkpoint", name: "开启母体培养舱", checkpoint: "nest", hint: "反应堆已过载，前往最终培养舱。" },
       { type: "boss", name: "召唤母体", groups: [{ bossKey: "broodmother", count: 1, spawnPoint: "nest" }, { mobKey: "shrieker", count: 2, spawnPoint: "rift" }] }
     ],
-    rewardId: "dungeon_mutation_gauntlet", minimumContribution: 26, timeoutTicks: 48000, maxDeathsPerPlayer: 1
+    rewardId: "dungeon_mutation_gauntlet", rewardTier: "nightmare", minimumContribution: 26, timeoutTicks: 48000, maxDeathsPerPlayer: 1
   }
 });
 

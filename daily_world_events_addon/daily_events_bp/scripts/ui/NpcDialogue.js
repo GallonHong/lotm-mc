@@ -68,11 +68,14 @@ export class MerchantMenu {
   static open(player, merchant) {
     const form = new ActionFormData().title(merchant.name).body(`§f${merchant.description}\n\n§7商人对话与按钮可在行为包 dialogue/merchant_dialogues.json 中修改。`);
     for (const category of merchant.categories) form.button(`§l§e打开 ${category} 商品`, "textures/ui/MCStore_Gold_large");
+    if (merchant.id === "research") form.button("§l§d打开军备抽奖", "textures/ui/gift_square");
     form.button("§l§6打开综合商店", "textures/ui/Trade2");
     form.show(player).then(result => {
       if (result.canceled) return;
       const category = merchant.categories[result.selection];
-      this.openCategory(player, category || "all");
+      if (category) return this.openCategory(player, category);
+      if (merchant.id === "research" && result.selection === merchant.categories.length) return this.openLottery(player);
+      this.openCategory(player, "all");
     }).catch(() => {});
   }
 
@@ -80,6 +83,11 @@ export class MerchantMenu {
     if (!sapiAlive()) return player.sendMessage("§c[SAPI] 服务器经济 Addon 未连接，商店暂不可用。");
     const message = String(category || "all").replace(/[^a-z0-9_-]/gi, "");
     system.runTimeout(() => nativeCommand(player, `scriptevent sapi:shop ${message}`), 2);
+  }
+
+  static openLottery(player) {
+    if (!sapiAlive()) return player.sendMessage("§c[SAPI] 服务器经济 Addon 未连接，军备抽奖暂不可用。");
+    system.runTimeout(() => nativeCommand(player, "scriptevent sapi:lottery"), 2);
   }
 
   static values() { return Object.values(MERCHANTS); }

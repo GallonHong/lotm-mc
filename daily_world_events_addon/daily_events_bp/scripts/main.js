@@ -12,12 +12,14 @@ import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
+import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.12.1 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.14.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
+const recognizedBosses = new Set(["apoc:infected_tyrant", "apoc:infected_broodmother", "apoc_boss:fog_man", "apoc_boss:goatman", "apoc_boss:siren_head", "apoc_boss:mutant_drowned", "apoc_boss:mutant_zombie", "apoc_boss:mutant_skeleton", "apoc_boss:mutant_lobber", "apoc_boss:mutant_enderman", "apoc_boss:mutant_iron_golem"]);
 
 function subscribe(signal, label, handler) {
   if (!signal || typeof signal.subscribe !== "function") {
@@ -126,6 +128,7 @@ function handleEntityDeath(event) {
     if (!valid(player) || player.dimension.id !== dead.dimension.id) continue;
     try { if (Math.hypot(player.location.x - dead.location.x, player.location.y - dead.location.y, player.location.z - dead.location.z) > 30) continue; } catch { continue; }
     if (recognizedMobs.has(dead.typeId)) DailyQuestManager.onKillCredit(player, dead.typeId);
+    if (recognizedBosses.has(dead.typeId)) DailyQuestManager.onBossKill(player, dead.typeId);
     WorldEventManager.recordCombat(dead, player, 0, true);
     DungeonManager.recordCombat(dead, player, 0, true);
   }
@@ -147,15 +150,15 @@ function handleCommand(player, raw) {
     if (parts[1] === "give" || parts.length === 1) {
       try {
         const inv = player.getComponent("minecraft:inventory")?.container;
+        inv?.addItem(new ItemStack("daily:loot_crate_scavenger", 4));
         inv?.addItem(new ItemStack("daily:loot_crate_common", 4));
         inv?.addItem(new ItemStack("daily:loot_crate_rare", 4));
         inv?.addItem(new ItemStack("daily:loot_crate_epic", 4));
         inv?.addItem(new ItemStack("daily:loot_crate_legendary", 4));
         inv?.addItem(new ItemStack("daily:loot_crate_mythic", 2));
-        const supplyCards = new ItemStack("minecraft:echo_shard", 2);
-        supplyCards.nameTag = "§d神话补给卡（MVP）";
+        const supplyCards = new ItemStack("daily:mythic_supply_key", 2);
         inv?.addItem(supplyCards);
-        return player.sendMessage("§a[物资箱] 已获得四种常规物资箱、2 个神话物资箱和 2 张神话补给卡！普通箱可空手打开，神话箱必须手持补给卡。");
+        return player.sendMessage("§a[物资箱] 已获得废墟箱、四种品质物资箱、2 个神话物资箱和 2 个神话补给密钥！除神话箱外均可空手打开。");
       } catch (e) {
         return player.sendMessage(`§c给予失败: ${e}`);
       }
@@ -225,7 +228,7 @@ const craftedSubscribed = subscribe(world.afterEvents?.playerCraftedItem, "playe
     if (event.player && item) DailyQuestManager.onCraft(event.player, item.typeId, item.amount || 1);
   } catch {}
 });
-if (!craftedSubscribed) console.warn("[DailyEvents] Craft progress can be submitted from the Daily menu using the vanilla placeholder item.");
+if (!craftedSubscribed) console.warn("[DailyEvents] playerCraftedItem is unavailable; craft-group daily tasks cannot advance on this server build.");
 
 const interactAfter = subscribe(world.afterEvents?.playerInteractWithEntity, "after playerInteractWithEntity", event => {
   handleNpcInteraction(event.player, event.target);
@@ -300,8 +303,16 @@ system.runInterval(() => {
 }, CONFIG.lootCrateResetScanTicks);
 
 system.runInterval(() => {
+  try { SpawnerReplacementManager.enqueueAroundPlayers(); } catch (error) { console.warn(`[DailyEvents] spawner scan queue failed: ${error}`); }
+}, 100);
+
+system.runInterval(() => {
+  try { SpawnerReplacementManager.tick(); } catch (error) { console.warn(`[DailyEvents] spawner replacement failed: ${error}`); }
+}, 10);
+
+system.runInterval(() => {
   for (const player of world.getAllPlayers()) {
-    try { DailyQuestManager.pollSales(player); NpcDialogue.syncPlayer(player); } catch {}
+    try { DailyQuestManager.pollInventory(player); DailyQuestManager.pollSales(player); NpcDialogue.syncPlayer(player); } catch {}
   }
 }, 100);
 

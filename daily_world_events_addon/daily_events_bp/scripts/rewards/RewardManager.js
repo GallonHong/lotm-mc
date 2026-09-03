@@ -1,6 +1,6 @@
 import { world, ItemStack } from "@minecraft/server";
 import { CONFIG } from "../config.js";
-import { REWARD_REGISTRY } from "./rewards.js";
+import { REWARD_REGISTRY, DUNGEON_TIER_REWARDS, DUNGEON_EPIC_BLUEPRINTS } from "./rewards.js";
 
 function parse(value, fallback) {
   try { return typeof value === "string" ? JSON.parse(value) : fallback; } catch { return fallback; }
@@ -101,6 +101,27 @@ export class RewardManager {
     for (const item of items) this.giveOrQueue(player, item);
     this.log(player, uniqueId, bundle.id || "custom_bundle", source, coinResult);
     player.sendMessage(`§6[物资箱] 获得 ${coins} 金币与 ${items.length} 类物资。`);
+    return true;
+  }
+
+  static grantDungeon(player, rewardId, uniqueId, tier = "normal", firstClear = false, multiplier = 1) {
+    const reward = REWARD_REGISTRY[rewardId];
+    const rule = DUNGEON_TIER_REWARDS[tier] || DUNGEON_TIER_REWARDS.normal;
+    if (!reward || !this.reserve(player, uniqueId)) return false;
+    const baseCoins = firstClear ? rule.firstCoins : rule.repeatCoins;
+    const coins = Math.max(0, Math.floor(baseCoins * Math.max(0, Number(multiplier) || 0)));
+    const rewardMultiplier = Math.max(0, Number(multiplier) || 0);
+    const items = (reward.items || []).map(item => ({
+      ...item,
+      amount: Math.max(1, Math.floor(Math.max(1, Number(item.amount) || 1) * rewardMultiplier))
+    }));
+    if (Math.random() < Number(rule.epicBlueprintChance || 0) * rewardMultiplier) {
+      items.push(DUNGEON_EPIC_BLUEPRINTS[Math.floor(Math.random() * DUNGEON_EPIC_BLUEPRINTS.length)]);
+    }
+    const coinResult = this.addCoins(player, coins);
+    for (const item of items) this.giveOrQueue(player, item);
+    this.log(player, uniqueId, `${rewardId}:${tier}`, "dungeon", coinResult);
+    player.sendMessage(`§6[副本奖励] ${firstClear ? "首次" : "重复"}通关获得 ${coins} 金币与 ${items.length} 类物资（本日收益倍率 ${Math.round(multiplier * 100)}%）。`);
     return true;
   }
 

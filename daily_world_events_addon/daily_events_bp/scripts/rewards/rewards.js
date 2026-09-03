@@ -1,39 +1,33 @@
 export const REWARD_REGISTRY = Object.freeze({
-  daily_collect: { coins: 600, items: [{ id: "minecraft:redstone", amount: 2, name: "机械研究数据（MVP）" }] },
-  daily_kill: { coins: 700, items: [{ id: "minecraft:iron_ingot", amount: 2, name: "枪械维修材料（MVP）" }] },
-  daily_event: { coins: 800, items: [{ id: "minecraft:amethyst_shard", amount: 2, name: "Epic 研究数据（MVP）" }] },
-  daily_craft: { coins: 650, items: [{ id: "minecraft:paper", amount: 4, name: "蓝图研究纸（MVP）" }] },
-  daily_repair: { coins: 650, items: [{ id: "minecraft:iron_ingot", amount: 3, name: "维修材料（MVP）" }] },
-  daily_sell: { coins: 800, items: [{ id: "minecraft:emerald", amount: 2, name: "贸易凭证（MVP）" }] },
-  daily_elite: { coins: 900, items: [{ id: "minecraft:amethyst_shard", amount: 2, name: "精英研究数据（MVP）" }] },
-  activity_20: { coins: 0, items: [{ id: "minecraft:iron_ingot", amount: 3, name: "基础材料包（MVP）" }, { id: "minecraft:string", amount: 4 }] },
-  activity_50: { coins: 300, items: [{ id: "minecraft:iron_ingot", amount: 4, name: "维修材料（MVP）" }] },
-  activity_80: { coins: 400, items: [{ id: "minecraft:amethyst_shard", amount: 3, name: "Epic 研究数据（MVP）" }] },
-  activity_100: { coins: 600, items: [{ id: "minecraft:name_tag", amount: 1, name: "Epic Research Ticket（MVP）" }] },
+  daily_collect: { coins: 800, items: [] },
+  daily_kill: { coins: 900, items: [] },
+  daily_event: { coins: 1100, items: [] },
+  daily_comprehensive: { coins: 1200, items: [] },
+  activity_100: { coins: 2000, items: [] },
   event_infected_attack: { coins: 700, items: [{ id: "minecraft:rotten_flesh", amount: 4 }, { id: "minecraft:iron_nugget", amount: 6 }] },
-  event_infected_attack_outlaw: { coins: 1200, items: [{ id: "minecraft:iron_ingot", amount: 4 }, { id: "minecraft:redstone", amount: 4 }] },
+  event_infected_attack_outlaw: { coins: 900, items: [{ id: "minecraft:iron_ingot", amount: 4 }, { id: "minecraft:redstone", amount: 4 }] },
   event_survivor_rescue: { coins: 800, items: [{ id: "minecraft:honey_bottle", amount: 2 }, { id: "minecraft:bread", amount: 3 }] },
-  event_survivor_rescue_outlaw: { coins: 1300, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:honey_bottle", amount: 3 }] },
+  event_survivor_rescue_outlaw: { coins: 1000, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:honey_bottle", amount: 3 }] },
   event_raider_ambush: { coins: 1000, items: [{ id: "minecraft:arrow", amount: 16, name: "弹药（MVP）" }, { id: "minecraft:iron_ingot", amount: 3 }] },
-  event_raider_ambush_outlaw: { coins: 1700, items: [{ id: "minecraft:arrow", amount: 32, name: "弹药（MVP）" }, { id: "minecraft:iron_block", amount: 1 }] },
-  event_crashed_convoy: { coins: 1200, items: [{ id: "minecraft:amethyst_shard", amount: 2 }, { id: "minecraft:redstone", amount: 5 }] },
-  event_crashed_convoy_outlaw: { coins: 2200, items: [{ id: "minecraft:amethyst_shard", amount: 5 }, { id: "minecraft:diamond", amount: 1 }] },
+  event_raider_ambush_outlaw: { coins: 1000, items: [{ id: "test_gun:ammo_rifle", amount: 32, name: "步枪弹药" }, { id: "minecraft:iron_block", amount: 1 }] },
+  event_crashed_convoy: { coins: 900, items: [{ id: "minecraft:amethyst_shard", amount: 2 }, { id: "minecraft:redstone", amount: 5 }] },
+  event_crashed_convoy_outlaw: { coins: 1000, items: [{ id: "minecraft:amethyst_shard", amount: 5 }, { id: "minecraft:diamond", amount: 1 }] },
   event_roadblock_clearance: { coins: 850, items: [{ id: "minecraft:iron_ingot", amount: 3 }, { id: "minecraft:coal", amount: 8 }] },
-  event_roadblock_clearance_outlaw: { coins: 1450, items: [{ id: "minecraft:iron_block", amount: 1 }, { id: "minecraft:arrow", amount: 24 }] },
+  event_roadblock_clearance_outlaw: { coins: 1000, items: [{ id: "minecraft:iron_block", amount: 1 }, { id: "test_gun:ammo_rifle", amount: 24 }] },
   event_toxic_outbreak: { coins: 900, items: [{ id: "minecraft:honey_bottle", amount: 2 }, { id: "minecraft:redstone", amount: 3 }] },
-  event_toxic_outbreak_outlaw: { coins: 1550, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 3 }] },
-  event_mutant_nest_outlaw: { coins: 2000, items: [{ id: "minecraft:diamond", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 4 }] },
-  event_mercenary_blockade_outlaw: { coins: 2100, items: [{ id: "minecraft:arrow", amount: 32 }, { id: "minecraft:gold_ingot", amount: 4 }] },
-  event_fog_man_hunt: { coins: 2600, items: [{ id: "minecraft:echo_shard", amount: 1, name: "雾中人残留物（MVP）" }, { id: "minecraft:amethyst_shard", amount: 5 }] },
-  event_goatman_hunt: { coins: 2800, items: [{ id: "minecraft:goat_horn", amount: 1, name: "山羊人调查证物（MVP）" }, { id: "minecraft:gold_ingot", amount: 5 }] },
-  event_siren_head_hunt: { coins: 3200, items: [{ id: "minecraft:echo_shard", amount: 2, name: "异常广播记录（MVP）" }, { id: "minecraft:diamond", amount: 1 }] },
-  event_rebel_invasion: { coins: 2400, items: [{ id: "minecraft:iron_block", amount: 1, name: "主城防卫物资（MVP）" }, { id: "minecraft:arrow", amount: 32, name: "回收弹药（MVP）" }] },
+  event_toxic_outbreak_outlaw: { coins: 1000, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 3 }] },
+  event_mutant_nest_outlaw: { coins: 1000, items: [{ id: "minecraft:diamond", amount: 1 }, { id: "test_gun:part_barrel", amount: 1 }] },
+  event_mercenary_blockade_outlaw: { coins: 1000, items: [{ id: "test_gun:ammo_rifle", amount: 32 }, { id: "minecraft:gold_ingot", amount: 4 }] },
+  event_fog_man_hunt: { coins: 1000, items: [{ id: "test_gun:part_kevlar_sheet", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 5 }] },
+  event_goatman_hunt: { coins: 1000, items: [{ id: "test_gun:part_heavy_barrel", amount: 1 }, { id: "minecraft:gold_ingot", amount: 5 }] },
+  event_siren_head_hunt: { coins: 1000, items: [{ id: "test_gun:part_ion_thruster", amount: 1 }, { id: "minecraft:diamond", amount: 1 }] },
+  event_rebel_invasion: { coins: 1000, items: [{ id: "minecraft:iron_block", amount: 1, name: "主城防卫物资" }, { id: "test_gun:ammo_rifle", amount: 32, name: "回收弹药" }] },
   dungeon_abandoned_clinic: {
-    coins: 1800,
+    coins: 1200,
     items: [
       { id: "minecraft:golden_apple", amount: 1, name: "医院急救物资（MVP）" },
-      { id: "minecraft:amethyst_shard", amount: 4, name: "副本研究数据（MVP）" },
-      { id: "minecraft:iron_ingot", amount: 6, name: "武器维护材料（MVP）" }
+      { id: "test_gun:part_stock", amount: 1, name: "枪托" },
+      { id: "test_gun:ammo_45acp", amount: 30, name: "冲锋枪弹药" }
     ]
   },
   dungeon_newcomer_valley: {
@@ -43,60 +37,75 @@ export const REWARD_REGISTRY = Object.freeze({
     ]
   },
   dungeon_outpost_defense: {
-    coins: 1800,
+    coins: 1200,
     items: [
-      { id: "minecraft:iron_ingot", amount: 8, name: "防线维修材料（MVP）" },
-      { id: "minecraft:arrow", amount: 32, name: "通用弹药物资（MVP）" }
+      { id: "test_gun:part_receiver", amount: 1, name: "机匣" },
+      { id: "test_gun:ammo_rifle", amount: 30, name: "步枪弹药" }
     ]
   },
   dungeon_storm_rescue: {
-    coins: 2600,
+    coins: 2000,
     items: [
       { id: "minecraft:golden_apple", amount: 2, name: "黑雨医院医疗箱（MVP）" },
-      { id: "minecraft:amethyst_shard", amount: 6, name: "高级感染研究数据（MVP）" }
+      { id: "test_gun:part_kevlar_sheet", amount: 2, name: "军规凯夫拉" },
+      { id: "test_gun:ammo_shotgun", amount: 24, name: "霰弹药包" }
     ]
   },
   dungeon_convoy_escort: {
-    coins: 2200,
+    coins: 1200,
     items: [
-      { id: "minecraft:iron_block", amount: 1, name: "车队机械零件箱（MVP）" },
-      { id: "minecraft:redstone", amount: 12, name: "车辆电气组件（MVP）" }
+      { id: "survival_vehicle:scrap_metal", amount: 4, name: "载具金属零件" },
+      { id: "survival_vehicle:vehicle_battery", amount: 1, name: "载具电池" }
     ]
   },
   dungeon_fogbound_hospital: {
-    coins: 3200,
+    coins: 2500,
     items: [
-      { id: "minecraft:echo_shard", amount: 2, name: "白雾异常样本（MVP）" },
-      { id: "minecraft:golden_apple", amount: 2, name: "封锁区医疗补给（MVP）" }
+      { id: "test_gun:part_ceramic_plate", amount: 2, name: "复合陶瓷插板" },
+      { id: "test_gun:ammo_50cal", amount: 20, name: ".50 弹药" }
     ]
   },
   dungeon_redhorn_industrial: {
-    coins: 3500,
+    coins: 2500,
     items: [
-      { id: "minecraft:goat_horn", amount: 1, name: "赤角猎杀证物（MVP）" },
-      { id: "minecraft:iron_block", amount: 2, name: "巨像装甲残片（MVP）" }
+      { id: "test_gun:part_heavy_barrel", amount: 2, name: "重型加固合金枪管" },
+      { id: "minecraft:iron_block", amount: 2, name: "工业区精炼铁块" }
     ]
   },
   dungeon_siren_blackout: {
-    coins: 4000,
+    coins: 2500,
     items: [
-      { id: "minecraft:echo_shard", amount: 3, name: "异常广播记录（MVP）" },
-      { id: "minecraft:diamond", amount: 2, name: "制高点行动奖励（MVP）" }
+      { id: "test_gun:part_ion_thruster", amount: 1, name: "离子推进器" },
+      { id: "test_gun:ammo_battery", amount: 32, name: "能量电池" }
     ]
   },
   dungeon_drowned_pumpstation: {
-    coins: 3400,
+    coins: 2500,
     items: [
-      { id: "minecraft:heart_of_the_sea", amount: 1, name: "深水变异核心（MVP）" },
-      { id: "minecraft:amethyst_shard", amount: 8, name: "腐化组织样本（MVP）" }
+      { id: "minecraft:heart_of_the_sea", amount: 1, name: "海洋之心" },
+      { id: "test_gun:part_plasma_core", amount: 1, name: "特殊等离子核心" }
     ]
   },
   dungeon_mutation_gauntlet: {
-    coins: 5500,
+    coins: 2500,
     items: [
-      { id: "minecraft:nether_star", amount: 1, name: "终极样本证明（MVP）" },
-      { id: "minecraft:diamond", amount: 3, name: "黑箱实验场结算（MVP）" },
-      { id: "minecraft:amethyst_shard", amount: 12, name: "母体研究数据（MVP）" }
+      { id: "test_gun:part_exo_core", amount: 1, name: "外骨骼伺服核心" },
+      { id: "minecraft:diamond", amount: 3, name: "实验场高价值材料" },
+      { id: "test_gun:ammo_rocket", amount: 2, name: "高爆火箭" }
     ]
   }
 });
+
+export const DUNGEON_TIER_REWARDS = Object.freeze({
+  normal: { firstCoins: 2000, repeatCoins: 1200, epicBlueprintChance: 0 },
+  hard: { firstCoins: 3500, repeatCoins: 2000, epicBlueprintChance: 0.005 },
+  nightmare: { firstCoins: 5000, repeatCoins: 2500, epicBlueprintChance: 0.015 }
+});
+
+export const DUNGEON_EPIC_BLUEPRINTS = Object.freeze([
+  { id: "test_gun:blueprint_m82", amount: 1, name: "§5M82 Epic 蓝图" },
+  { id: "test_gun:blueprint_rpg", amount: 1, name: "§5RPG-7 Epic 蓝图" },
+  { id: "test_gun:blueprint_riot_shield", amount: 1, name: "§5战术反甲防暴盾 Epic 蓝图" },
+  { id: "test_gun:blueprint_katana", amount: 1, name: "§5武士刀 Epic 蓝图" },
+  { id: "test_gun:blueprint_kukri_machete", amount: 1, name: "§5弯刀 Epic 蓝图" }
+]);

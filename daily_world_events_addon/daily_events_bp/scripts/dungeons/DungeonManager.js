@@ -6,6 +6,7 @@ import { DailyQuestManager } from "../daily/DailyQuestManager.js";
 import { DUNGEON_SLOTS, absolutePoint, dungeonTemplate } from "./dungeonTemplates.js";
 
 const PLAYER_STATE_KEY = "daily:dungeon_player:v1";
+const PLAYER_ECONOMY_KEY = "daily:dungeon_economy:v1";
 const DUNGEON_ENTITY_TAG = "daily_dungeon_entity";
 const DUNGEON_ENEMY_TAG = "daily_dungeon_enemy";
 
@@ -26,6 +27,25 @@ function readPlayerState(player) {
 
 function writePlayerState(player, value) {
   try { player.setDynamicProperty(PLAYER_STATE_KEY, value ? JSON.stringify(value) : undefined); } catch {}
+}
+
+function dungeonEconomyState(player) {
+  let value = null;
+  try { value = JSON.parse(player.getDynamicProperty(PLAYER_ECONOMY_KEY) || "null"); } catch {}
+  const dayKey = DailyQuestManager.getDayKey();
+  if (!value || typeof value !== "object") value = { dayKey, dailyRuns: 0, lifetimeFirstClears: {} };
+  if (value.dayKey !== dayKey) value = { ...value, dayKey, dailyRuns: 0, lifetimeFirstClears: value.lifetimeFirstClears || {} };
+  return value;
+}
+
+function saveDungeonEconomyState(player, value) {
+  try { player.setDynamicProperty(PLAYER_ECONOMY_KEY, JSON.stringify(value)); } catch {}
+}
+
+function dungeonRewardMultiplier(completedToday) {
+  if (completedToday < 2) return 1;
+  if (completedToday < 4) return 0.75;
+  return 0.5;
 }
 
 function onlinePlayer(id) {
@@ -820,13 +840,24 @@ export class DungeonManager {
       if (success && score >= Number(template.minimumContribution || 0)) {
         const completed = template.oneTimeReward && this.hasCompleted(player, template.id);
         const uniqueId = template.oneTimeReward ? `dungeon-once:${template.id}:v1` : `dungeon:${instance.instanceId}:${id}`;
-        const granted = completed ? false : RewardManager.grant(player, template.rewardId, uniqueId, `dungeon:${template.id}`);
+        const economyState = dungeonEconomyState(player);
+        const firstClear = !economyState.lifetimeFirstClears?.[template.id];
+        const multiplier = dungeonRewardMultiplier(Number(economyState.dailyRuns || 0));
+        const granted = completed ? false : template.oneTimeReward
+          ? RewardManager.grant(player, template.rewardId, uniqueId, `dungeon:${template.id}`)
+          : RewardManager.grantDungeon(player, template.rewardId, uniqueId, template.rewardTier || "normal", firstClear, multiplier);
+        if (granted && !template.oneTimeReward) {
+          economyState.dailyRuns = Number(economyState.dailyRuns || 0) + 1;
+          economyState.lifetimeFirstClears ||= {};
+          economyState.lifetimeFirstClears[template.id] = true;
+          saveDungeonEconomyState(player, economyState);
+        }
         if (template.oneTimeReward && granted) {
           try { player.setDynamicProperty(template.completionKey, true); } catch {}
         } else if (template.oneTimeReward && completed) {
           player.sendMessage("§e新手教程可以重玩，但 2000 元与优良图纸每名玩家只能领取一次。此次不重复发奖。");
         }
-        DailyQuestManager.onWorldEventSuccess(player, template.id);
+        DailyQuestManager.onDungeonSuccess(player, template.id);
         player.sendMessage(`§a☑ 副本通关：${template.name}（贡献 ${score.toFixed(1)}）`);
       } else if (success) {
         player.sendMessage(`§e副本已通关，但贡献 ${score.toFixed(1)} 未达到 ${template.minimumContribution}，不发放完整奖励。`);

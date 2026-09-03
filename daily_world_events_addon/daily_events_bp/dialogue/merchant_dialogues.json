@@ -4,38 +4,38 @@
     "scenes": [
       {
         "scene_tag": "daily_merchant_supplies",
-        "npc_name": "生存物资商人",
-        "text": "联盟仓库今天刚到一批物资。木材、矿石和建材都在这里，需要什么自己挑。",
+        "npc_name": "杂货商",
+        "text": "食物、医疗品和基础资源都在这里。原版物资每日最多回收 3000 金币。",
         "buttons": [
-          { "name": "建筑材料", "commands": ["/execute as @initiator run scriptevent daily:merchant building"] },
-          { "name": "矿石资源", "commands": ["/execute as @initiator run scriptevent daily:merchant minerals"] },
+          { "name": "打开杂货商店", "commands": ["/execute as @initiator run scriptevent daily:merchant supplies"] },
           { "name": "打开综合商店", "commands": ["/execute as @initiator run scriptevent daily:merchant all"] }
         ]
       },
       {
         "scene_tag": "daily_merchant_weapons",
-        "npc_name": "武器装备商人",
-        "text": "城外可不太平。这里先供应原版战斗装备和弹药占位物，后续可以接入新的枪械商品。",
+        "npc_name": "军火商",
+        "text": "这里供应弹药、常规半成品和普通、Rare 蓝图。",
         "buttons": [
-          { "name": "战斗装备", "commands": ["/execute as @initiator run scriptevent daily:merchant equipment"] },
+          { "name": "打开军火商店", "commands": ["/execute as @initiator run scriptevent daily:merchant armory"] },
           { "name": "打开综合商店", "commands": ["/execute as @initiator run scriptevent daily:merchant all"] }
         ]
       },
       {
         "scene_tag": "daily_merchant_medical",
-        "npc_name": "医疗补给商人",
-        "text": "进入感染区之前先把食物和恢复用品准备好。活着回来，比带回多少物资都重要。",
+        "npc_name": "载具商",
+        "text": "摩托车和冲锋快艇可自行研究；皮卡、救护车和直升机蓝图由这里指定供应。",
         "buttons": [
-          { "name": "医疗与食物", "commands": ["/execute as @initiator run scriptevent daily:merchant food"] },
+          { "name": "打开载具商店", "commands": ["/execute as @initiator run scriptevent daily:merchant vehicles"] },
           { "name": "打开综合商店", "commands": ["/execute as @initiator run scriptevent daily:merchant all"] }
         ]
       },
       {
         "scene_tag": "daily_merchant_research",
-        "npc_name": "研究物资商人",
-        "text": "研究数据、蓝图占位物和稀有材料都需要登记。现阶段使用原版物品表示，后续可以直接更换商品配置。",
+        "npc_name": "高级军备商",
+        "text": "限定 Epic 蓝图与高级半成品可指定购买，也可以进入 Epic、Legendary 军备奖池。",
         "buttons": [
-          { "name": "研究与珍品", "commands": ["/execute as @initiator run scriptevent daily:merchant special"] },
+          { "name": "高级军备", "commands": ["/execute as @initiator run scriptevent daily:merchant advanced_armory"] },
+          { "name": "军备抽奖", "commands": ["/execute as @initiator run scriptevent sapi:lottery"] },
           { "name": "打开综合商店", "commands": ["/execute as @initiator run scriptevent daily:merchant all"] }
         ]
       }

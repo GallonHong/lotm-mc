@@ -30,16 +30,16 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 12, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 12, 1]);
+assert.deepEqual(manifest.header.version, [0, 14, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 14, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
 const questSource = readFileSync(join(bp, "scripts/daily/dailyQuests.js"), "utf8");
-for (const type of ["collect", "kill", "world_event", "craft", "sell"]) assert(questSource.includes(`type: \"${type}\"`));
+for (const type of ["inventory", "kill", "world_event", "dungeon", "craft_group", "loot_crate", "boss_kill"]) assert(questSource.includes(`type: \"${type}\"`));
 assert.equal(questSource.includes('type: "repair"'), false, "repair quest must remain removed");
 const managerSource = readFileSync(join(bp, "scripts/daily/DailyQuestManager.js"), "utf8");
-assert(managerSource.includes("QUEST_POOLS.collect") && managerSource.includes("QUEST_POOLS.random"));
+assert(managerSource.includes("QUEST_POOLS.collect") && managerSource.includes("QUEST_POOLS.comprehensive"));
 assert(managerSource.includes("system.currentTick") === false, "daily persistence must not derive day identity from ticks");
 
 const eventSource = readFileSync(join(bp, "scripts/events/templates/eventTemplates.js"), "utf8");
@@ -71,10 +71,9 @@ const newsManager = readFileSync(join(bp, "scripts/events/DailyNewsManager.js"),
 for (const marker of ["newsArchiveKey", "publishEventStart", "publishEventResult", "notifyDailySummary", "listToday", "coordinateText", "联盟每日新闻"]) assert(newsManager.includes(marker), `missing daily news behavior: ${marker}`);
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
-const rewardIds = [...rewards.matchAll(/id: \"([^\"]+)\"/g)].map(match => match[1]);
-assert(rewardIds.length > 0 && rewardIds.every(id => id.startsWith("minecraft:") || id === "test_gun:blueprint_deagle"), "only the requested tutorial blueprint may use an external item id");
 assert(rewards.includes('id: "test_gun:blueprint_deagle"') && rewards.includes("coins: 2000"), "one-time tutorial reward must use the real blue-quality Test Gun blueprint and 2000 coins");
-assert(rewards.includes("minecraft:name_tag") && rewards.includes("minecraft:amethyst_shard"));
+for (const marker of ["daily_collect", "coins: 800", "daily_kill", "coins: 900", "daily_event", "coins: 1100", "daily_comprehensive", "coins: 1200", "activity_100", "coins: 2000", "DUNGEON_TIER_REWARDS"]) assert(rewards.includes(marker), `missing economy reward marker: ${marker}`);
+for (const removed of ["research_token", "研究币"]) assert.equal(rewards.includes(removed), false, `obsolete currency remains: ${removed}`);
 
 const integration = readFileSync(join(bp, "scripts/integration/IntegrationBridge.js"), "utf8");
 assert(integration.includes("apoc:spawn_requests:v1") === false, "integration key should come from configurable config.js");
@@ -111,19 +110,30 @@ const crateManager = readFileSync(join(bp, "scripts/rewards/LootCrateManager.js"
 assert.equal(crateManager.includes("event.isFirstEvent === false"), false, "global isFirstEvent gate must not lock other crates");
 assert(crateManager.includes("interactionKey") && crateManager.includes("player.id") && crateManager.includes("coordinateKey"), "crate interaction debounce must be scoped to player and coordinate");
 assert(crateManager.includes("lootCrateStatePrefix") && crateManager.includes("readyAt"), "crate cooldown must persist across restart");
-assert(crateManager.includes("consumeRequiredKey") && crateManager.includes("selectedSlotIndex"), "mythic supply-card gate missing");
-assert(crateManager.includes("held?.nameTag") && crateManager.includes("heldName !== requiredName"), "ordinary echo shards must not open mythic crates");
+assert(crateManager.includes("consumeRequiredKey") && crateManager.includes("selectedSlotIndex"), "mythic supply-key gate missing");
+assert(crateManager.includes("legacyKey") && crateManager.includes("神话补给卡（MVP）"), "old named supply-card compatibility is missing");
 const cratePools = readFileSync(join(bp, "scripts/rewards/lootCratePools.js"), "utf8");
-assert(cratePools.includes('"test_gun:blueprint_mgl"') && cratePools.includes('weight: 70'), "70% MGL blueprint reward missing");
-assert(cratePools.includes('"test_gun:blueprint_riot_shield"') && cratePools.includes('weight: 30'), "30% riot shield blueprint reward missing");
-assert(cratePools.includes('requiredKey: { id: "minecraft:echo_shard"'), "vanilla supply-card placeholder missing");
-for (const tier of ["common", "rare", "epic", "legendary", "mythic"]) {
+assert(cratePools.includes('requiredKey: { id: "daily:mythic_supply_key"'), "custom mythic supply key missing");
+assert(cratePools.includes("bonusKeyChance") && cratePools.includes('"test_gun:blueprint_usas12"'), "Epic+ key drops or mythic limited-Epic pool missing");
+assert.equal(cratePools.includes('"test_gun:blueprint_mgl"'), false, "Legendary blueprint must not drop from world crates");
+const cratePoolsModule = await import(`file://${join(bp, "scripts/rewards/lootCratePools.js")}`);
+const scavenger = cratePoolsModule.LOOT_CRATE_POOLS.scavenger;
+assert.deepEqual(scavenger.coins, [1, 1000], "scavenger crate must always roll 1-1000 coins");
+assert.deepEqual(scavenger.rolls, [2, 4], "scavenger crate item-roll range changed unexpectedly");
+assert.equal(scavenger.resetMinutes, 30, "scavenger crate refresh interval changed unexpectedly");
+assert.equal(scavenger.entries.reduce((sum, entry) => sum + entry.weight, 0), 10000, "scavenger weights must retain the documented denominator");
+const scavengerEpicIds = ["blueprint_m82", "blueprint_rpg", "blueprint_riot_shield", "blueprint_katana", "blueprint_kukri_machete"];
+for (const id of scavengerEpicIds) assert(scavenger.entries.some(entry => entry.id === `test_gun:${id}`), `scavenger Epic drop missing: ${id}`);
+assert(scavenger.entries.some(entry => entry.id === "daily:mythic_supply_key"), "scavenger mythic-key chance missing");
+assert.equal(json(join(bp, "items/mythic_supply_key.json"))["minecraft:item"].description.identifier, "daily:mythic_supply_key");
+for (const tier of ["scavenger", "common", "rare", "epic", "legendary", "mythic"]) {
   assert.equal(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].description.identifier, `daily:loot_crate_${tier}`);
   assert(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].components["minecraft:custom_components"].includes("daily:loot_crate_interact"));
 }
 assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_common);
+assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_scavenger);
 assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_mythic);
-for (const texture of ["common", "rare", "epic", "legendary", "opened"]) {
+for (const texture of ["scavenger", "common", "rare", "epic", "legendary", "opened"]) {
   const png = readFileSync(join(rp, `textures/blocks/daily_crate_${texture}.png`));
   assert.equal(png.readUInt32BE(16), 32, `${texture} crate texture width must be 32`);
   assert.equal(png.readUInt32BE(20), 32, `${texture} crate texture height must be 32`);
@@ -200,7 +210,7 @@ for (const template of Object.values(dungeonTemplates.DUNGEON_TEMPLATES)) {
 assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 4);
 assert(dungeonTemplates.DUNGEON_SLOTS.every(slot => slot.origin.y === 250), "dungeon slots should remain in isolated high-altitude arenas");
 const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js"), "utf8");
-for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "spawnDungeonBosses", "isApocalypseAvailable", "missingBosses", "Apocalypse Boss 生成失败", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
+for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "spawnDungeonBosses", "isApocalypseAvailable", "missingBosses", "Apocalypse Boss 生成失败", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "RewardManager.grantDungeon", "dungeonRewardMultiplier", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
 assert.equal(dungeonManager.includes("正在重新部署"), false, "dungeon must use direct confirmed spawning instead of two async retries");
@@ -217,6 +227,11 @@ const dailyMain = readFileSync(join(bp, "scripts/main.js"), "utf8");
 assert(dailyMain.includes("DungeonManager.tick"));
 assert(dailyMain.includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
 assert(dailyMain.includes('id === "daily:news_admin"') && dailyMain.includes("DailyAdminMenu.startNewsEvent(player)"), "SAPI news-admin direct route missing");
+assert(dailyMain.includes("SpawnerReplacementManager.enqueueAroundPlayers") && dailyMain.includes("SpawnerReplacementManager.tick"), "overworld spawner replacement scheduler missing");
+const spawnerReplacement = readFileSync(join(bp, "scripts/rewards/SpawnerReplacementManager.js"), "utf8");
+for (const marker of ["minecraft:overworld", "minecraft:mob_spawner", "daily:loot_crate_scavenger", "spawnerScanLayerHeight", "this.scanned.add(job.key)"]) {
+  assert(spawnerReplacement.includes(marker), `spawner replacement behavior missing: ${marker}`);
+}
 const eventNodes = readFileSync(join(bp, "scripts/events/EventNodeRegistry.js"), "utf8");
 assert(eventNodes.includes("addAt") && eventNodes.includes("normalizeLocation") && eventNodes.includes("resolveGround"), "manual event coordinates and ground validation missing");
 assert(dailyMenu.includes("联盟每日新闻") && dailyMenu.includes("startNewsEvent") && dailyMenu.includes("configureNewsEvent") && dailyMenu.includes("X 坐标") && dailyMenu.includes("Z 坐标"), "daily news/manual coordinate UI missing");

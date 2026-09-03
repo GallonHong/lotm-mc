@@ -1,0 +1,9 @@
+{
+  "resource_pack_name": "survival_daily_events",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "daily_mythic_supply_key": {
+      "textures": "textures/blocks/daily_crate_legendary"
+    }
+  }
+}

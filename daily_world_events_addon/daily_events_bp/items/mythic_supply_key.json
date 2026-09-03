@@ -1,0 +1,15 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "daily:mythic_supply_key",
+      "menu_category": { "category": "items" }
+    },
+    "components": {
+      "minecraft:max_stack_size": 16,
+      "minecraft:icon": "daily_mythic_supply_key",
+      "minecraft:display_name": { "value": "§d神话补给密钥§r" },
+      "minecraft:glint": true
+    }
+  }
+}

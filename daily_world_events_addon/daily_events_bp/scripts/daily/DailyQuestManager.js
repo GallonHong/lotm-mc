@@ -1,4 +1,4 @@
-import { CONFIG, ACTIVITY_MILESTONES, COLLECT_GROUPS, MOB_TARGETS } from "../config.js";
+import { CONFIG, ACTIVITY_MILESTONES, COLLECT_GROUPS, MOB_TARGETS, CRAFT_GROUPS } from "../config.js";
 import { DAILY_QUEST_REGISTRY, QUEST_POOLS } from "./dailyQuests.js";
 import { RewardManager } from "../rewards/RewardManager.js";
 import { IntegrationBridge } from "../integration/IntegrationBridge.js";
@@ -43,10 +43,7 @@ export class DailyQuestManager {
 
   static generate(player) {
     const dayKey = this.getDayKey();
-    const history = this.getHistory(player);
-    const killPool = player.hasTag("daily_t4_unlocked") || history.totalKills >= 50 ? QUEST_POOLS.killHigh :
-      history.totalKills >= 20 ? QUEST_POOLS.killMid : QUEST_POOLS.killNew;
-    const keys = [pick(QUEST_POOLS.collect), pick(killPool), "world_event", pick(QUEST_POOLS.random)];
+    const keys = [pick(QUEST_POOLS.collect), pick(QUEST_POOLS.kill), "world_event", pick(QUEST_POOLS.comprehensive)];
     return {
       dayKey,
       quests: keys.map(key => this.makeQuest(key, dayKey)),
@@ -71,12 +68,6 @@ export class DailyQuestManager {
       this.saveState(player, state);
       player.sendMessage(`§6[生存联盟] 已生成 ${dayKey} 的 4 项日常委托。`);
     }
-    if (state.quests.some(quest => quest.type === "repair")) {
-      const replacements = QUEST_POOLS.random.filter(key => DAILY_QUEST_REGISTRY[key]?.type !== "repair");
-      state.quests = state.quests.map(quest => quest.type === "repair" ? this.makeQuest(pick(replacements), dayKey) : quest);
-      this.saveState(player, state);
-      player.sendMessage("§e[生存联盟] 维修委托已取消，并自动替换为新的随机委托。");
-    }
     return state;
   }
 
@@ -85,8 +76,9 @@ export class DailyQuestManager {
   }
 
   static matchesTarget(quest, value) {
-    if (quest.type === "collect") return (COLLECT_GROUPS[quest.targetId] || []).includes(value);
+    if (quest.type === "inventory") return (COLLECT_GROUPS[quest.targetId] || []).includes(value);
     if (quest.type === "kill") return (MOB_TARGETS[quest.targetId] || []).includes(value);
+    if (quest.type === "craft_group") return (CRAFT_GROUPS[quest.targetId] || []).includes(value);
     return quest.targetId === "any" || quest.targetId === value;
   }
 
@@ -111,14 +103,48 @@ export class DailyQuestManager {
         player.sendMessage(`§a✓ 每日委托完成：${quest.title} §7（活跃度 +${quest.activity}）`);
         try { player.playSound("random.orb", { volume: 0.7, pitch: 1.3 }); } catch {}
       }
-      try { player.onScreenDisplay.setActionBar(`§6[每日委托] §f${label || quest.title} §e${quest.progress}/${quest.required}`); } catch {}
+      player.sendMessage(`§6[每日委托] §f${label || quest.title} §e${quest.progress}/${quest.required}`);
     }
     if (changed) this.saveState(player, state);
     return changed;
   }
 
   static onBlockCollected(player, typeId) {
-    this.advance(player, quest => quest.type === "collect" && this.matchesTarget(quest, typeId), 1);
+    // 采集类统一由背包正增量统计，避免破坏方块与拾取事件重复计数。
+  }
+
+  static inventoryCount(player, itemIds) {
+    try {
+      const container = player.getComponent("minecraft:inventory")?.container;
+      let total = 0;
+      for (let slot = 0; container && slot < container.size; slot++) {
+        const item = container.getItem(slot);
+        if (item && itemIds.includes(item.typeId)) total += item.amount;
+      }
+      return total;
+    } catch { return 0; }
+  }
+
+  static pollInventory(player) {
+    const state = this.ensureState(player);
+    const gains = [];
+    let changed = false;
+    for (const quest of state.quests) {
+      if (quest.completed || quest.type !== "inventory") continue;
+      const current = this.inventoryCount(player, COLLECT_GROUPS[quest.targetId] || []);
+      if (!Number.isFinite(Number(quest.inventorySeen))) {
+        quest.inventorySeen = current;
+        changed = true;
+        continue;
+      }
+      const previous = Number(quest.inventorySeen || 0);
+      quest.inventorySeen = current;
+      changed = true;
+      const gained = Math.max(0, current - previous);
+      if (gained > 0) gains.push({ id: quest.id, amount: gained, title: quest.title });
+    }
+    if (changed) this.saveState(player, state);
+    for (const gain of gains) this.advance(player, value => value.id === gain.id, gain.amount, gain.title);
   }
 
   static onKillCredit(player, typeId) {
@@ -133,8 +159,20 @@ export class DailyQuestManager {
     this.advance(player, quest => quest.type === "world_event" && (quest.targetId === "any" || quest.targetId === templateId), 1, "完成动态事件");
   }
 
+  static onDungeonSuccess(player, templateId) {
+    this.advance(player, quest => quest.type === "dungeon" && (quest.targetId === "any" || quest.targetId === templateId), 1, "完成副本");
+  }
+
+  static onLootCrateOpened(player, tier) {
+    this.advance(player, quest => quest.type === "loot_crate" && (quest.targetId === "any" || quest.targetId === tier), 1, "开启物资箱");
+  }
+
+  static onBossKill(player, typeId) {
+    this.advance(player, quest => quest.type === "boss_kill", 1, "击杀 Boss");
+  }
+
   static onCraft(player, itemId, amount = 1) {
-    this.advance(player, quest => quest.type === "craft" && quest.targetId === itemId, amount);
+    this.advance(player, quest => quest.type === "craft_group" && this.matchesTarget(quest, itemId), amount);
   }
 
   static pollSales(player) {
@@ -198,13 +236,9 @@ export class DailyQuestManager {
   }
 
   static submitCraftPlaceholder(player) {
-    const state = this.ensureState(player);
-    const quest = state.quests.find(entry => entry.type === "craft" && !entry.completed);
+    const quest = this.ensureState(player).quests.find(entry => entry.type === "craft_group" && !entry.completed);
     if (!quest) return { ok: false, message: "今日没有待完成的制造任务。" };
-    const needed = Math.max(1, quest.required - quest.progress);
-    if (!this.removeItem(player, quest.targetId, needed)) return { ok: false, message: `需要提交 ${quest.targetId} ×${needed}。` };
-    this.onCraft(player, quest.targetId, needed);
-    return { ok: true, message: "已提交制造成果；支持制造事件的版本会自动记录，无需提交。" };
+    return { ok: false, message: "制造任务会从接取后自动统计，不能用背包存量提交。" };
   }
 
   static summary(player) {
