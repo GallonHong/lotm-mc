@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 15, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 15, 0]);
+assert.deepEqual(manifest.header.version, [0, 15, 1]);
+assert.deepEqual(rpManifest.header.version, [0, 15, 1]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -261,6 +261,12 @@ assert.deepEqual([
 assert.equal(naturalCrateFeature["minecraft:single_block_feature"].places_block[0].block, "daily:loot_crate_scavenger");
 assert.deepEqual(naturalCrateRule["minecraft:feature_rules"].distribution.scatter_chance, { numerator: 1, denominator: 6 });
 assert.equal(naturalCrateRule["minecraft:feature_rules"].conditions.placement_pass, "after_surface_pass");
+const legacyBackfill = readFileSync(join(bp, "scripts/rewards/LegacyCrateBackfillManager.js"), "utf8");
+for (const marker of ["selectedChunk", "% 6 === 0", "getTopmostBlock", "NATURAL_SUPPORT", "ARTIFICIAL_MARKERS", "LOOT_CRATE_BLOCKS", "crateBackfillProcessedKey", "saveProcessed", "placeCandidate"]) {
+  assert(legacyBackfill.includes(marker), `legacy crate backfill behavior missing: ${marker}`);
+}
+assert(dailyMain.includes("LegacyCrateBackfillManager.initialize()"), "legacy backfill state initialization missing");
+assert(dailyMain.includes('action === "backfill"') && dailyMain.includes('mode === "on"') && dailyMain.includes('mode === "off"'), "backfill admin command missing");
 const eventNodes = readFileSync(join(bp, "scripts/events/EventNodeRegistry.js"), "utf8");
 assert(eventNodes.includes("addAt") && eventNodes.includes("normalizeLocation") && eventNodes.includes("resolveGround"), "manual event coordinates and ground validation missing");
 assert(dailyMenu.includes("联盟每日新闻") && dailyMenu.includes("startNewsEvent") && dailyMenu.includes("configureNewsEvent") && dailyMenu.includes("X 坐标") && dailyMenu.includes("Z 坐标"), "daily news/manual coordinate UI missing");

@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.15.0 让无品质废墟物资箱以 `1/6` 区块概率在主世界陆地新区块自然生成（长期平均位于每 4～8 个区块一个的目标范围）；刷怪笼替换改为地表上下 6 格和玩家上 6/下 12 格两段扫描，其余高度完全不扫描。v0.14.2 的跨行为包主动探测/应答继续用于 SAPI 管理控制台连接。每日新闻管理入口仍位于 Daily 管理菜单首项。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.15.1 新增管理员控制的旧区块补生成器：按与新区块相同的 `1/6` 密度选择候选区块，确认没有现存物资箱后，只在自然地面放置并避开明显人造建筑；候选处理记录会跨重启保存。v0.15.0 的原生 Feature 继续负责新区块，刷怪笼替换继续只扫描地表上下 6 格和玩家上 6/下 12 格。
 
 ## 可复用物资箱
 
@@ -18,6 +18,8 @@
 主世界刷怪笼替换由 `scripts/rewards/SpawnerReplacementManager.js` 执行。系统只处理玩家附近已加载的主世界区块，每 tick 最多检查 1024 个方块，通过 `BlockPermutation` 直接替换 `mob_spawner`/`monster_spawner`；刷怪笼内部配置的僵尸、蜘蛛等实体类型不会影响识别。系统不会一次遍历全地图或强制加载区块，玩家继续探索时，新遇到的遗迹、地牢和矿井刷怪笼也会被替换。
 
 管理员站在刷怪笼附近输入 `/scriptevent daily:crate scan`，可强制把周围 3×3 区块重新加入扫描队列；请保持这些区块加载数秒。测试发放物资箱使用 `/scriptevent daily:crate give`，不提供 `!crate`/`!box` 聊天命令。
+
+旧地图补箱使用 `/scriptevent daily:crate backfill on` 开启，随后在需要补充物资箱的已探索区域移动；用 `/scriptevent daily:crate backfill status` 查看状态，完成后必须用 `/scriptevent daily:crate backfill off` 关闭，避免在迁移期间探索新区块造成原生 Feature 与补生成器同时尝试放置。
 
 ## 联动关系
 

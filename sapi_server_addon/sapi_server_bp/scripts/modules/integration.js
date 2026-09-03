@@ -95,8 +95,6 @@ export class Integration {
      * 包含内置安全区、管理员动态安全区和主城出生点 64 格保险范围。
      */
     static isApocalypseSafeChunk(dimensionId, chunkX, chunkZ) {
-        if (!this.isApocalypseAvailable()) return false;
-
         const dimension = normalizeDimension(dimensionId);
         const chunk = {
             minX: Math.floor(Number(chunkX)) * 16,

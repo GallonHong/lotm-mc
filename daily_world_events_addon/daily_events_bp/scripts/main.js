@@ -13,9 +13,10 @@ import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
+import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.15.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.15.1 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -135,13 +136,29 @@ function handleEntityDeath(event) {
 }
 
 function handleCrateCommand(player, rawAction = "give") {
-  const action = String(rawAction || "give").trim().toLowerCase();
+  const parts = String(rawAction || "give").trim().toLowerCase().split(/\s+/);
+  const action = parts[0];
+  if (action === "backfill") {
+    if (!isAdmin(player)) return player.sendMessage("§c仅管理员可控制旧区块补生成。");
+    const mode = parts[1] || "status";
+    if (mode === "on") {
+      LegacyCrateBackfillManager.setEnabled(true);
+      const queued = LegacyCrateBackfillManager.enqueueAroundPlayers();
+      return player.sendMessage(`§a[旧地图补箱] 已开启，当前加入 ${queued} 个候选区块。请在需要补箱的旧区域移动探索，完成后务必输入 /scriptevent daily:crate backfill off。`);
+    }
+    if (mode === "off") {
+      LegacyCrateBackfillManager.setEnabled(false);
+      return player.sendMessage("§e[旧地图补箱] 已关闭；新区块继续使用原生 Feature 生成。");
+    }
+    const state = LegacyCrateBackfillManager.status();
+    return player.sendMessage(`§6[旧地图补箱] ${state.enabled ? "§a运行中" : "§c已关闭"} §8| 队列 ${state.queued} | 已处理候选区块 ${state.processed}`);
+  }
   if (action === "scan") {
     if (!isAdmin(player)) return player.sendMessage("§c仅管理员可强制重扫刷怪笼。");
     const queued = SpawnerReplacementManager.enqueueAroundPlayer(player, true);
     return player.sendMessage(`§a[废墟箱] 已强制把附近 ${queued} 个区块加入重扫队列；请在刷怪笼附近停留数秒。`);
   }
-  if (action !== "give") return player.sendMessage("§7用法：/scriptevent daily:crate give 或 /scriptevent daily:crate scan");
+  if (action !== "give") return player.sendMessage("§7用法：/scriptevent daily:crate give、scan，或 backfill on/off/status");
   try {
     const inv = player.getComponent("minecraft:inventory")?.container;
     inv?.addItem(new ItemStack("daily:loot_crate_scavenger", 4));
@@ -191,6 +208,7 @@ function handleCommand(player, raw) {
 
 try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
 IntegrationBridge.cleanupStaleDailySpawnRequests();
+LegacyCrateBackfillManager.initialize();
 WorldEventManager.initializeCleanup();
 DungeonManager.initializeCleanup();
 LootCrateManager.initialize();
@@ -315,11 +333,17 @@ system.runInterval(() => {
 }, CONFIG.lootCrateResetScanTicks);
 
 system.runInterval(() => {
-  try { SpawnerReplacementManager.enqueueAroundPlayers(); } catch (error) { console.warn(`[DailyEvents] spawner scan queue failed: ${error}`); }
+  try {
+    SpawnerReplacementManager.enqueueAroundPlayers();
+    LegacyCrateBackfillManager.enqueueAroundPlayers();
+  } catch (error) { console.warn(`[DailyEvents] surface scan queue failed: ${error}`); }
 }, 100);
 
 system.runInterval(() => {
-  try { SpawnerReplacementManager.tick(); } catch (error) { console.warn(`[DailyEvents] spawner replacement failed: ${error}`); }
+  try {
+    SpawnerReplacementManager.tick();
+    LegacyCrateBackfillManager.tick();
+  } catch (error) { console.warn(`[DailyEvents] surface migration tick failed: ${error}`); }
 }, 1);
 
 system.runInterval(() => {

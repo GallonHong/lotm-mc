@@ -10,6 +10,13 @@ const CODES_KEY = "sapi:ops:codes:v1";
 const DAILY_KEY = "sapi:ops:daily:v1";
 const REDEEMED_KEY = "sapi:ops:redeemed:v1";
 const PENDING_KEY = "sapi:ops:pending:v1";
+const LEGACY_DAILY_MONEY = Object.freeze([200, 250, 300, 350, 400, 500, 800]);
+const INTERIM_DAILY_MONEY = Object.freeze([400, 500, 600, 700, 800, 1000, 1600]);
+const TENFOLD_DAILY_MONEY = Object.freeze([4000, 5000, 6000, 7000, 8000, 10000, 16000]);
+
+function sameMoneySchedule(left, right) {
+    return Array.isArray(left) && Array.isArray(right) && left.length === right.length && left.every((value, index) => Number(value) === Number(right[index]));
+}
 
 /** 每日签到、兑换码和待领取奖励。 */
 export class OperationsManager {
@@ -21,7 +28,8 @@ export class OperationsManager {
             dailyEnabled: Config.operations?.dailyEnabled !== false,
             redeemEnabled: Config.operations?.redeemEnabled !== false,
             timezoneOffsetMinutes: Number(Config.operations?.timezoneOffsetMinutes) || 480,
-            dailyMoney: Array.isArray(Config.operations?.dailyMoney) ? Config.operations.dailyMoney.slice(0, 7) : [200, 250, 300, 350, 400, 500, 800],
+            dailyRewardRevision: Math.max(1, Number(Config.operations?.dailyRewardRevision) || 1),
+            dailyMoney: Array.isArray(Config.operations?.dailyMoney) ? Config.operations.dailyMoney.slice(0, 7) : [2000, 2500, 3000, 3500, 4000, 5000, 8000],
             daySevenItem: Config.operations?.daySevenItem || "minecraft:diamond",
             daySevenAmount: Number(Config.operations?.daySevenAmount) || 1
         };
@@ -33,6 +41,14 @@ export class OperationsManager {
             const saved = typeof raw === "string" ? JSON.parse(raw) : {};
             const defaults = this.defaults();
             const merged = { ...defaults, ...(saved || {}) };
+            // 只迁移仍使用旧内置签到表的服务器；管理员自定义数值保持不变。
+            if (Number(saved?.dailyRewardRevision || 0) < defaults.dailyRewardRevision) {
+                if (!Array.isArray(saved?.dailyMoney) || sameMoneySchedule(saved.dailyMoney, LEGACY_DAILY_MONEY) || sameMoneySchedule(saved.dailyMoney, INTERIM_DAILY_MONEY) || sameMoneySchedule(saved.dailyMoney, TENFOLD_DAILY_MONEY)) {
+                    merged.dailyMoney = defaults.dailyMoney.slice();
+                }
+                merged.dailyRewardRevision = defaults.dailyRewardRevision;
+                try { world.setDynamicProperty(SETTINGS_KEY, JSON.stringify(merged)); } catch {}
+            }
             if (!Array.isArray(merged.dailyMoney)) merged.dailyMoney = defaults.dailyMoney;
             return merged;
         } catch { return this.defaults(); }
@@ -321,7 +337,7 @@ export class OperationsManager {
             .toggle("启用每日签到", settings.dailyEnabled)
             .toggle("启用兑换码", settings.redeemEnabled)
             .textField("服务器时区（UTC 小时，如 8）", "8", String(settings.timezoneOffsetMinutes / 60))
-            .textField("第1～7天金币，用英文逗号分隔", "200,250,300,350,400,500,800", settings.dailyMoney.join(","))
+            .textField("第1～7天金币，用英文逗号分隔", "2000,2500,3000,3500,4000,5000,8000", settings.dailyMoney.join(","))
             .textField("第7天额外物品 ID", "minecraft:diamond", settings.daySevenItem)
             .textField("第7天物品数量", "1", String(settings.daySevenAmount));
         Utils.showForm(admin, form, response => {

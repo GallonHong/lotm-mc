@@ -44,8 +44,8 @@ export class ServerMenuManager {
         add("§l§4☣ 末日摸金都市\n§r§8随机进入高危城市并寻找撤离点", "textures/ui/warning_alex", () => {
             Integration.openExtractionMenu(player);
         });
-        add("§l§6🏦 个人银行\n§r§8资产查询与玩家转账", "textures/ui/Trade2", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
-        add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/ui/MCStore_Gold_large", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
+        add("§l§6🏦 个人银行\n§r§8资产查询与玩家转账", "textures/items/gold_ingot", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
+        add("§l§a🛒 全球商店\n§r§8基础物资与可选联动商品", "textures/items/emerald", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
         add("§l§d🎁 幸运抽奖\n§r§8按已安装内容动态生成奖池", "textures/ui/gift_square", () => LotteryManager.openLotteryMainUI(player, () => this.openMainMenu(player)));
         add("§l§6🏪 玩家寄卖行\n§r§8自由定价交易，成交收取10%费率", "textures/ui/MCStore_Gold_large", () => MarketManager.openMainUI(player, () => this.openMainMenu(player)));

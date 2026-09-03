@@ -5,7 +5,7 @@ import { MERCHANT_CATEGORIES, VANILLA_DAILY_SELL_CAP } from "./data/merchantConf
 export const Config = {
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.9.1",
+        version: "2.9.2",
         adminTag: "admin",
         menuItem: "minecraft:compass",
         menuItemName: "§r§l§6快捷导航菜单 §8(右键使用)",
@@ -20,7 +20,8 @@ export const Config = {
     operations: {
         tpaEnabled: true, tpaToEnabled: true, tpaHereEnabled: true, dailyEnabled: true, redeemEnabled: true,
         timezoneOffsetMinutes: 480,
-        dailyMoney: [200, 250, 300, 350, 400, 500, 800],
+        dailyRewardRevision: 4,
+        dailyMoney: [2000, 2500, 3000, 3500, 4000, 5000, 8000],
         daySevenItem: "minecraft:diamond", daySevenAmount: 1, maxCodes: 50,
     },
     regions: {
