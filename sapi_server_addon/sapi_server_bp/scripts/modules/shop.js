@@ -45,7 +45,30 @@ export class ShopManager {
             Utils.tell(player, `§c商店分类 ${id} 不存在或当前未启用。`);
             return this.openShopCategoryUI(player, onBack);
         }
-        this.openCategoryItemsUI(player, category, () => this.openShopCategoryUI(player, onBack));
+        this.openCategoryUI(player, category, () => this.openShopCategoryUI(player, onBack));
+    }
+
+    static openCategoryUI(player, category, onBack = null) {
+        if (Array.isArray(category.subcategories) && category.subcategories.length) {
+            return this.openSubcategoryUI(player, category, onBack);
+        }
+        return this.openCategoryItemsUI(player, category, onBack);
+    }
+
+    static openSubcategoryUI(player, category, onBack = null) {
+        const balance = EconomyManager.getBalance(player);
+        const groups = category.subcategories || [];
+        const form = new ActionFormData()
+            .title(`§l${category.name} · 商品分类`)
+            .body(`§8═════════════════════════\n§0当前资产: ${Utils.formatCurrency(balance)}\n§8请选择需要购买或回收的物资类别：`);
+        for (const group of groups) form.button(`${group.name}\n§r§8${group.description}`, group.icon);
+        form.button("§l§c🔙 返回商场\n§r§8选择其他商人", "textures/ui/cancel");
+        Utils.showForm(player, form, res => {
+            if (res.selection < groups.length) {
+                const group = groups[res.selection];
+                this.openCategoryItemsUI(player, group, () => this.openSubcategoryUI(player, category, onBack));
+            } else if (onBack) onBack();
+        });
     }
 
     /**
@@ -79,7 +102,7 @@ export class ShopManager {
 
             if (res.selection < categories.length) {
                 const selectedCat = categories[res.selection];
-                this.openCategoryItemsUI(player, selectedCat, () => this.openShopCategoryUI(player, onBack));
+                this.openCategoryUI(player, selectedCat, () => this.openShopCategoryUI(player, onBack));
             } else if (onBack) {
                 onBack();
             }
