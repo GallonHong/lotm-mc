@@ -20,6 +20,11 @@
     "result": {
       "item": "ab_ve:wrench",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

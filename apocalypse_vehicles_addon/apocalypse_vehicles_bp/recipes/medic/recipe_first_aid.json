@@ -21,6 +21,11 @@
     "result": {
       "item": "ab_ve:first_aid",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

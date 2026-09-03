@@ -24,6 +24,11 @@
     "result": {
       "item": "ab_ve:mre",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

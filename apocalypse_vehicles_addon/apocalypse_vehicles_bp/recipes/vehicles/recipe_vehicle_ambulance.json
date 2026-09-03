@@ -35,6 +35,11 @@
     "result": {
       "item": "ab_ve:ambulance_spawner",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

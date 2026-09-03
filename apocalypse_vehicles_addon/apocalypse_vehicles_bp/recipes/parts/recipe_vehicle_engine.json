@@ -29,6 +29,11 @@
     "result": {
       "item": "survival_vehicle:vehicle_engine",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

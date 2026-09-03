@@ -23,6 +23,11 @@
     "result": {
       "item": "survival_vehicle:heli_tail_rotor",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

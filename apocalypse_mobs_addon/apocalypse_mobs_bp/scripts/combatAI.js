@@ -56,9 +56,9 @@ export function isFlashDisabled(entity) {
 }
 
 /**
- * 掠夺者索敌：搜索有效玩家以及避难所守卫
+ * 通用存活玩家索敌（特感感染者使用）
  */
-export function findRaiderTarget(entity, maxDistance) {
+export function findTarget(entity, maxDistance) {
   const players = entity.dimension.getPlayers({ location: entity.location, maxDistance });
   let target = null;
   let best = Infinity;
@@ -71,8 +71,17 @@ export function findRaiderTarget(entity, maxDistance) {
     const distance = vector(entity.location, player.location).distance;
     if (distance < best) { target = player; best = distance; }
   }
+  return target;
+}
+
+/**
+ * 掠夺者索敌：搜索有效玩家以及避难所守卫
+ */
+export function findRaiderTarget(entity, maxDistance) {
+  let target = findTarget(entity, maxDistance);
   if (!target) {
     const guards = entity.dimension.getEntities({ type: "apoc:shelter_guard", location: entity.location, maxDistance });
+    let best = Infinity;
     for (const g of guards) {
       if (!valid(g)) continue;
       const distance = vector(entity.location, g.location).distance;

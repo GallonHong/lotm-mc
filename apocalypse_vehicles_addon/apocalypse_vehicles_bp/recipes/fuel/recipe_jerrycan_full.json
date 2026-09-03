@@ -24,6 +24,11 @@
     "result": {
       "item": "survival_vehicle:jerrycan_full",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

@@ -26,6 +26,11 @@
     "result": {
       "item": "survival_vehicle:medical_box_module",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

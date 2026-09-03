@@ -23,6 +23,11 @@
     "result": {
       "item": "survival_vehicle:scrap_metal",
       "count": 4
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

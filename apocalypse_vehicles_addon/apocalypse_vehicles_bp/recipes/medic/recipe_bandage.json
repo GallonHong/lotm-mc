@@ -18,6 +18,11 @@
     "result": {
       "item": "ab_ve:bandage",
       "count": 2
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

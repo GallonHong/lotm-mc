@@ -101,6 +101,19 @@ try {
             "ab_ve:entity_spawner",
             EntitySpawner
         );
+        event.itemComponentRegistry.registerCustomComponent(
+            "ab_ve:menu",
+            {
+                onUse(e) {
+                    try {
+                        const player = e.source;
+                        if (player) {
+                            player.sendMessage("§e[末日载具指南] §f手持扳手右键载具可打开改装升级界面，手持油桶可为载具加注燃油。");
+                        }
+                    } catch {}
+                }
+            }
+        );
     });
 } catch {}
 

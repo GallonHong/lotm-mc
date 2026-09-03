@@ -26,6 +26,11 @@
     "result": {
       "item": "survival_vehicle:vehicle_battery",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

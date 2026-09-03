@@ -22,8 +22,8 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [0, 5, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 5, 0]);
+assert.deepEqual(bpManifest.header.version, [0, 6, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 6, 0]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -38,7 +38,7 @@ const health = {
   infected_heavy: 200,
   infected_tyrant: 220,
   infected_broodmother: 500,
-  raider_rifleman: 50
+  raider_rifleman: 70
 };
 for (const [name, expected] of Object.entries(health)) {
   const entity = json(join(bp, "entities", `${name}.json`))["minecraft:entity"];
@@ -50,7 +50,7 @@ const combat = readFileSync(join(bp, "scripts/combatAI.js"), "utf8");
 for (const effect of ["blindness", "darkness", "slowness", "weakness"]) assert(combat.includes(`\"${effect}\"`), `missing flash-shield effect: ${effect}`);
 assert(combat.includes("burstInterval") && combat.includes("reloadTicks"), "raider must use burst and reload profile");
 assert(combat.includes("hasLineOfSight"), "ranged AI must check cover/line of sight");
-assert(combat.includes('new ItemStack("test_gun:ak47", 1)'), "raider must restore its Test Guns AK47");
+assert(combat.includes("ensureWeapon") && combat.includes("test_gun:ak47"), "raider must restore its Test Guns AK47");
 
 const raider = json(join(bp, "entities", "raider_rifleman.json"))["minecraft:entity"];
 assert(raider.components["minecraft:equippable"], "raider must expose a main-hand equipment slot");

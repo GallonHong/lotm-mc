@@ -26,6 +26,11 @@
     "result": {
       "item": "ab_ve:vending_machine",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

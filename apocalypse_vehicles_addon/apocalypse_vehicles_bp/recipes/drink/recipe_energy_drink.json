@@ -21,6 +21,11 @@
     "result": {
       "item": "ab_ve:energy_drink",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

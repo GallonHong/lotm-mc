@@ -29,6 +29,11 @@
     "result": {
       "item": "ab_ve:motorcycle_spawner",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

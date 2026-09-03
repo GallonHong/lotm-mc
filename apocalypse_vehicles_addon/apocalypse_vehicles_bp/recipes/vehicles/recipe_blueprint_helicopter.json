@@ -29,6 +29,11 @@
     "result": {
       "item": "survival_vehicle:blueprint_helicopter",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

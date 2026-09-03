@@ -18,6 +18,11 @@
     "result": {
       "item": "ab_ve:canned_chicken",
       "count": 1
-    }
+    },
+    "unlock": [
+      {
+        "item": "minecraft:iron_ingot"
+      }
+    ]
   }
 }

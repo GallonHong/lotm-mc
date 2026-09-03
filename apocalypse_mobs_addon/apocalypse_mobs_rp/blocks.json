@@ -1,7 +1,6 @@
 {
   "format_version": [1, 1, 0],
   "apoc:loot_crate": {
-    "sound": "wood",
-    "textures": "apoc_loot_crate"
+    "sound": "wood"
   }
 }
