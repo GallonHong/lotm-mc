@@ -21,8 +21,11 @@ export class ServerMenuManager {
         const { chunkX, chunkZ } = Utils.getChunkCoords(player.location);
         const currentZone = Integration.resolveCurrentZone(player.dimension.id, player.location);
         const actions = [];
+        // Keep this title stable: the optional Apocalypse UI resource pack uses
+        // it as a JSON UI skin gate. Without that pack this remains a normal,
+        // fully functional ActionForm.
         const form = new ActionFormData()
-            .title(`§l${Config.system.serverName} §r§8- 服务器菜单`)
+            .title("§l§2末日生存联盟§r")
             .body(
                 `§8══════════════════════════════\n` +
                 `§0玩家: §e${player.name}\n` +
@@ -32,7 +35,6 @@ export class ServerMenuManager {
                 `§8══════════════════════════════`
             );
 
-        const lotmReady = Integration.isLotmAvailable();
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🧭 公共传送点\n§r§8前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
         add("§l§a🏠 个人传送\n§r§8Home、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
@@ -47,15 +49,30 @@ export class ServerMenuManager {
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
         add("§l§d🎁 幸运抽奖\n§r§8按已安装内容动态生成奖池", "textures/ui/gift_square", () => LotteryManager.openLotteryMainUI(player, () => this.openMainMenu(player)));
         add("§l§6🏪 玩家寄卖行\n§r§8自由定价交易，成交收取10%费率", "textures/ui/MCStore_Gold_large", () => MarketManager.openMainUI(player, () => this.openMainMenu(player)));
-        if (lotmReady) {
+        // All 12 entries stay fixed so the optional tile UI can bind
+        // collection indexes safely on every world and for every player.
+        add("§l§8📻 更多功能\n§r§8排行、秘典与管理入口", "textures/ui/settings_glyph_color_2x", () => this.openMoreMenu(player));
+
+        Utils.showForm(player, form, (res) => actions[res.selection]?.());
+    }
+
+    static openMoreMenu(player) {
+        if (!Utils.isValid(player)) return;
+        const actions = [];
+        const form = new ActionFormData()
+            .title("§l§8更多功能")
+            .body("§8服务器扩展功能与管理入口");
+        const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+
+        add("§l§e🏆 财富排行\n§r§8查看服务器富豪排行榜", "textures/ui/achievements", () => EconomyManager.openLeaderboardUI(player, () => this.openMoreMenu(player)));
+        if (Integration.isLotmAvailable()) {
             add("§l§5🔮 诡秘非凡秘典\n§r§8查看途径、序列与能力", "textures/items/potion_seer", () => Integration.send(player, "lotm:open"));
         }
-        add("§l§e🏆 财富排行\n§r§8查看服务器富豪排行榜", "textures/ui/achievements", () => EconomyManager.openLeaderboardUI(player, () => this.openMainMenu(player)));
         if (Utils.isAdmin(player)) {
-            add("§l§c⚙️ 管理员控制台\n§r§8服务器与联动管理", "textures/ui/op", () => this.openAdminPanel(player, () => this.openMainMenu(player)));
+            add("§l§c⚙️ 管理员控制台\n§r§8服务器与联动管理", "textures/ui/op", () => this.openAdminPanel(player, () => this.openMoreMenu(player)));
         }
+        add("§l§2⬅ 返回主菜单", "textures/ui/undo", () => this.openMainMenu(player));
         add("§l§8✖ 关闭菜单", "textures/ui/cancel", () => {});
-
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }
 

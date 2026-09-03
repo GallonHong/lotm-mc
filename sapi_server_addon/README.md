@@ -1,6 +1,6 @@
 # SAPI Server Addon
 
-独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.7.3 在管理员控制台顶部增加独立的“发布联盟每日新闻”入口，可直达 Daily Events 新闻预设和手填坐标页面；即使 Daily Events 未连接也保留按钮并显示安装提示。灾害控制器入口继续保留。
+独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.7.4 为可选的 Apocalypse Survival UI 固定主菜单标题与 12 个按钮索引，并把排行、秘典和管理员入口收进“更多功能”；不安装 UI 资源包时仍使用完整的原版 ActionForm 菜单。v2.7.3 增加管理员每日新闻入口。灾害控制器入口继续保留。
 
 ## 目录
 
