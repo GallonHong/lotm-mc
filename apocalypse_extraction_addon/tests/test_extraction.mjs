@@ -14,8 +14,8 @@ for (const path of files(bp).filter(path => path.endsWith(".json"))) assert.does
 const manifest = json(join(bp, "manifest.json"));
 const resourceManifest = json(join(rp, "manifest.json"));
 const bootstrapManifest = json(join(bootstrap, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 10, 6]);
-assert.deepEqual(resourceManifest.header.version, [0, 10, 6]);
+assert.deepEqual(manifest.header.version, [0, 10, 7]);
+assert.deepEqual(resourceManifest.header.version, [0, 10, 7]);
 assert.deepEqual(manifest.header.min_engine_version, [1, 21, 120]);
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
 assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
@@ -87,4 +87,5 @@ assert(!main.includes('spawnEntity("minecraft:ravager"'), "bosses must not silen
 const fog = json(join(rp, "fogs/extraction_dusk.json"));
 assert.equal(fog["minecraft:fog_settings"].description.identifier, "apoc_extract:dusk_fog");
 assert(!processors.includes("chiseled_deepslste") && !processors.includes('"minecraft:deepslate_slab"'), "invalid RandS deepslate blocks remain");
-console.log("Apocalypse Extraction City v0.10.6 validation passed.");
+assert.deepEqual(json(join(rp, "manifest.json")).capabilities, ["pbr"]);
+console.log("Apocalypse Extraction City v0.10.7 validation passed.");

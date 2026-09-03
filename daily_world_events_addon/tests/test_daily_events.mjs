@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 15, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 15, 1]);
+assert.deepEqual(manifest.header.version, [0, 16, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 16, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -220,6 +220,9 @@ const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js
 for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "spawnDungeonBosses", "missingBosses", "Apocalypse Boss 生成失败", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "RewardManager.grantDungeon", "dungeonRewardMultiplier", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
+for (const marker of ["startGroup", "participantIds", "returnLocation", "this.bindPlayer(participant", "daily_in_dungeon"]) {
+  assert(dungeonManager.includes(marker), `missing group dungeon behavior: ${marker}`);
+}
 assert.equal(dungeonManager.includes("正在重新部署"), false, "dungeon must use direct confirmed spawning instead of two async retries");
 assert(integration.includes("spawnDungeonMobs") && integration.includes("spawnExact"), "direct confirmed dungeon spawning missing");
 assert(rewards.includes("dungeon_abandoned_clinic"), "clinic reward is missing");
@@ -230,12 +233,17 @@ const dungeonMenu = readFileSync(join(bp, "scripts/ui/DungeonMenu.js"), "utf8");
 assert(dungeonMenu.includes("isUserBusy") && dungeonMenu.includes("result.canceled") && dungeonMenu.includes("attempt < 8"), "dungeon menu must retry UserBusy cancellation results");
 assert(dungeonMenu.includes("Object.values(DUNGEON_TEMPLATES)") && dungeonMenu.includes("首次奖励已领·可重玩"), "dungeon menu must list every template and one-time completion state");
 assert(dungeonMenu.includes("不再使用心跳阻止创建"), "dungeon menu must explain runtime boss spawning");
+for (const marker of ["readySessions", "openTeam", "beginTeamReady", "receiveReady", "completeReady", "showDecision", "startGroup", "600"]) {
+  assert(dungeonMenu.includes(marker), `missing team Ready behavior: ${marker}`);
+}
 assert.equal(dungeonManager.includes("!IntegrationBridge.isApocalypseAvailable()"), false, "stale heartbeat must never block dungeon creation");
 const dailyMain = readFileSync(join(bp, "scripts/main.js"), "utf8");
 assert(dailyMain.includes("DungeonManager.tick"));
 assert(dailyMain.includes('id === "sapi:daily_probe"') && dailyMain.includes("sapi:daily_pong"), "SAPI/Daily active ping-pong bridge missing");
 assert(dailyMain.includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
 assert(dailyMain.includes('id === "daily:news_admin"') && dailyMain.includes("DailyAdminMenu.startNewsEvent(player)"), "SAPI news-admin direct route missing");
+assert(dailyMain.includes('id === "daily:dungeon_team"') && dailyMain.includes("DungeonMenu.openTeam"), "SAPI team dungeon route missing");
+for (const marker of ["sapi_team_", "closeEnoughForTeamCredit", "credited"]) assert(dailyMain.includes(marker), `team shared contribution missing: ${marker}`);
 assert(dailyMain.includes("SpawnerReplacementManager.enqueueAroundPlayers") && dailyMain.includes("SpawnerReplacementManager.tick"), "overworld spawner replacement scheduler missing");
 assert(dailyMain.includes('id === "daily:crate"') && dailyMain.includes("handleCrateCommand(player, message") && dailyMain.includes("enqueueAroundPlayer(player, true)"), "slash scriptevent forced spawner rescan command missing");
 assert.equal(dailyMain.includes('lower.startsWith("!crate")'), false, "legacy !crate chat syntax must remain removed");

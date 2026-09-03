@@ -22,6 +22,7 @@
     "components": {
       "minecraft:type_family": { "family": ["sapi_safe", "inanimate"] },
       "minecraft:collision_box": { "width": 1.0, "height": 1.35 },
+      "minecraft:is_collidable": {},
       "minecraft:health": { "value": 1000000, "max": 1000000 },
       "minecraft:fire_immune": {},
       "minecraft:knockback_resistance": { "value": 1.0 },

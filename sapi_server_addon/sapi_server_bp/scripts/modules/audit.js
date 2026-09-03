@@ -64,7 +64,11 @@ export class AuditManager {
             code_delete: "删除兑换码", code_redeem: "兑换礼包码", pending_claim: "领取暂存奖励", pending_admin: "管理暂存奖励",
             tpa_receive: "TPA 接收设置", tpa_admin: "TPA 管理设置",
             safe_place: "放置保险箱", safe_open: "打开保险箱", safe_deposit: "存入保险箱",
-            safe_withdraw: "取出保险箱", safe_password: "修改保险箱密码", safe_breach: "攻破保险箱", safe_recover: "回收保险箱"
+            safe_withdraw: "取出保险箱", safe_password: "修改保险箱密码", safe_breach: "攻破保险箱", safe_recover: "回收保险箱",
+            item_cleanup: "清理掉落物", item_cleanup_settings: "掉落物清理设置",
+            land_visitor_point: "设置领地访客点", land_visit: "好友领地观光", team_dissolve: "解散队伍",
+            guild_create: "创建公会", guild_join: "加入公会", guild_leave: "退出公会", guild_kick: "移除公会成员",
+            guild_transfer: "移交会长", guild_disband: "解散公会", guild_edit: "编辑公会", guild_base_set: "设置公会基地", guild_base_visit: "前往公会基地"
         };
         return labels[type] || type;
     }

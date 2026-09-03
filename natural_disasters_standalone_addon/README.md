@@ -1,8 +1,8 @@
-# Natural Disasters Standalone v1.3.2
+# Natural Disasters Standalone v1.3.3
 
 完全独立的自然灾害 Addon，不依赖 SAPI Server、摸金都市、怪物或枪械 Addon。只保留龙卷风、陨石雨和雷暴。
 
-v1.3.2 不再在灾害结束后的冷却期持续显示 `SAFE TIME`。预警与灾害进行中的 Action Bar 保留，冷却期则让出显示位置给枪械 HUD 和每日任务提示。
+v1.3.3 为包含陨石 MER 材质集的资源包声明 `capabilities: ["pbr"]`，使客户端能够按灵动视效规范识别资源包；最低引擎版本继续保持官方要求的 1.21.120。v1.3.2 不再在灾害结束后的冷却期持续显示 `SAFE TIME`。
 
 v1.3.1 支持从 SAPI Server v2.7.2 管理员控制台直接打开本包的控制器页面；跨包事件即使没有携带 `sourceEntity`，也会通过信封中的玩家名恢复发起者。自动灾害按区域分别安排：
 

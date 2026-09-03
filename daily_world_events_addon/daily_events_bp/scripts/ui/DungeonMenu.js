@@ -1,4 +1,4 @@
-import { system } from "@minecraft/server";
+import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { DungeonManager } from "../dungeons/DungeonManager.js";
 import { DUNGEON_TEMPLATES, DUNGEON_SLOTS } from "../dungeons/dungeonTemplates.js";
@@ -27,7 +27,31 @@ function show(player, form, callback, attempt = 0) {
   }), attempt === 0 ? 3 : 5);
 }
 
+function showDecision(player, form, callback, attempt = 0) {
+  system.runTimeout(() => form.show(player).then(result => {
+    if (isUserBusy(result) && attempt < 8) return showDecision(player, form, callback, attempt + 1);
+    callback(result);
+  }).catch(error => {
+    if (isUserBusy(error) && attempt < 8) return showDecision(player, form, callback, attempt + 1);
+    callback({ canceled: true, selection: 1 });
+  }), attempt === 0 ? 3 : 5);
+}
+
+function onlineByName(name) {
+  const normalized = String(name || "").trim().toLowerCase();
+  return world.getAllPlayers().find(player => player.name.toLowerCase() === normalized) || null;
+}
+
+function alive(player) {
+  try {
+    const health = player.getComponent("minecraft:health") || player.getComponent("health");
+    return !health || Number(health.currentValue) > 0;
+  } catch { return true; }
+}
+
 export class DungeonMenu {
+  static readySessions = new Map();
+
   static open(player, onBack = null) {
     const own = DungeonManager.playerInstance(player);
     if (own) return this.openCurrent(player, own, onBack);
@@ -69,6 +93,108 @@ export class DungeonMenu {
       if (started?.instanceId) player.sendMessage("§a副本实例创建成功。");
       else player.sendMessage("§c创建失败：你已在副本中或当前没有空闲场地。");
     });
+  }
+
+  static openTeam(player, rawPayload, onBack = null) {
+    let payload = null;
+    try { payload = typeof rawPayload === "string" ? JSON.parse(rawPayload) : rawPayload; } catch {}
+    const names = [...new Set((payload?.members || []).map(String).filter(Boolean))].slice(0, 4);
+    if (!names.some(name => name.toLowerCase() === player.name.toLowerCase())) names.unshift(player.name);
+    if (names.length < 2) return this.open(player, onBack);
+    const own = DungeonManager.playerInstance(player);
+    if (own) return this.openCurrent(player, own, onBack);
+    const actions = [];
+    const form = new ActionFormData().title("§l§4队伍副本 · 全员 Ready")
+      .body(`§0队长：§e${player.name}\n§0队员：§e${names.join("、")}\n§8选择副本后，其余队员必须在30秒内全部确认。`);
+    const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+    for (const template of Object.values(DUNGEON_TEMPLATES)) {
+      const firstReward = template.oneTimeReward
+        ? (DungeonManager.hasCompleted(player, template.id) ? "§8首次奖励已领·可重玩" : "§a首次奖励可领")
+        : `§8${template.difficulty}`;
+      add(`§l§c${template.name}\n§r${firstReward} §8| ${template.recommendedPlayers}`, ICONS[template.category] || ICONS.combat, () => this.confirmTeamStart(player, template, names, onBack));
+    }
+    add("§8返回", "textures/ui/undo", () => onBack?.());
+    show(player, form, result => actions[result.selection]?.());
+  }
+
+  static confirmTeamStart(leader, template, names, onBack) {
+    const form = new MessageFormData().title(`§l${template.name} · 队伍准备`)
+      .body(`§0队伍人数：§e${names.length}/${template.maxPlayers}\n§0难度：§e${template.difficulty}\n§0推荐：§e${template.recommendedPlayers}\n§0限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n\n§8确认后向所有队员发送 Ready 请求。全部同意才会统一创建和传送副本。`)
+      .button1("§a发起全队准备").button2("§8返回");
+    show(leader, form, result => {
+      if (result.selection === 0) this.beginTeamReady(leader, template, names, onBack);
+      else this.openTeam(leader, { members: names }, onBack);
+    });
+  }
+
+  static beginTeamReady(leader, template, names, onBack) {
+    const players = names.map(onlineByName);
+    const offline = names.filter((_, index) => !players[index]);
+    if (offline.length) {
+      leader.sendMessage(`§c[队伍副本] 以下队员已经离线：${offline.join("、")}`);
+      return this.openTeam(leader, { members: names }, onBack);
+    }
+    if (players.length > Number(template.maxPlayers || 4)) {
+      leader.sendMessage(`§c[队伍副本] ${template.name} 最多允许 ${template.maxPlayers} 人。`);
+      return this.openTeam(leader, { members: names }, onBack);
+    }
+    const busy = players.filter(player => DungeonManager.playerInstance(player));
+    const dead = players.filter(player => !alive(player));
+    if (busy.length || dead.length) {
+      leader.sendMessage(`§c[队伍副本] 进入检查失败。副本中：${busy.map(value => value.name).join("、") || "无"}；死亡状态：${dead.map(value => value.name).join("、") || "无"}。`);
+      return this.openTeam(leader, { members: names }, onBack);
+    }
+
+    const id = `ready_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`;
+    const session = { id, active: true, leader, template, names, players, ready: new Set([leader.name.toLowerCase()]), onBack };
+    this.readySessions.set(id, session);
+    leader.sendMessage(`§a[队伍副本] 已发起 ${template.name}，等待 ${players.length - 1} 名队员确认。`);
+
+    for (const member of players) {
+      if (member.id === leader.id) continue;
+      const form = new MessageFormData().title("§l§4队伍副本准备")
+        .body(`§0队长 §e${leader.name} §0准备进入：\n§c${template.name}\n§0难度：§e${template.difficulty}\n§0推荐人数：§e${template.recommendedPlayers}\n\n§8请在30秒内确认。`)
+        .button1("§a准备").button2("§c拒绝");
+      showDecision(member, form, result => this.receiveReady(id, member, result.selection === 0 && !result.canceled));
+    }
+    system.runTimeout(() => {
+      const current = this.readySessions.get(id);
+      if (!current?.active) return;
+      this.cancelReady(current, "等待超时，队伍副本已取消。");
+    }, 600);
+    if (players.length === 1) this.completeReady(session);
+  }
+
+  static receiveReady(id, member, accepted) {
+    const session = this.readySessions.get(id);
+    if (!session?.active) return;
+    if (!accepted) return this.cancelReady(session, `${member.name} 拒绝或关闭了准备确认。`);
+    session.ready.add(member.name.toLowerCase());
+    for (const player of session.players) player.sendMessage(`§a[队伍副本] ${member.name} 已准备（${session.ready.size}/${session.players.length}）。`);
+    if (session.ready.size >= session.players.length) this.completeReady(session);
+  }
+
+  static completeReady(session) {
+    if (!session?.active) return;
+    session.active = false;
+    this.readySessions.delete(session.id);
+    const validPlayers = session.names.map(onlineByName);
+    if (validPlayers.some(player => !player || DungeonManager.playerInstance(player) || !alive(player))) {
+      return this.cancelReady({ ...session, active: true }, "最终检查失败：有队员离线、死亡或进入了其他副本。");
+    }
+    const started = DungeonManager.startGroup(session.leader, validPlayers, session.template.id);
+    for (const player of validPlayers) player.sendMessage(started?.instanceId
+      ? `§a[队伍副本] 全员 Ready，正在进入 ${session.template.name}。`
+      : "§c[队伍副本] 创建失败：当前没有空闲场地或状态已经变化。");
+  }
+
+  static cancelReady(session, reason) {
+    if (!session) return;
+    session.active = false;
+    this.readySessions.delete(session.id);
+    for (const player of session.players || []) {
+      try { player.sendMessage(`§c[队伍副本] ${reason}`); } catch {}
+    }
   }
 
   static openCurrent(player, instance, onBack) {

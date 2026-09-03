@@ -994,21 +994,49 @@
         }
       },
       {
-        "apoc_more_footer@server_form.apoc_picture_tile": {
-          "$texture": "textures/ui/apocalypse/more",
-          "$label": "📻 便携终端 · 营地排行 · 幸存者秘典 · 盟约管理",
-          "$slot": [
+        "apoc_social_footer": {
+          "type": "stack_panel",
+          "orientation": "horizontal",
+          "size": [
             354,
             22
           ],
-          "$button": [
-            352,
-            20
-          ],
-          "collection_index": 11,
           "offset": [
             0,
             3
+          ],
+          "collection_name": "form_buttons",
+          "controls": [
+            {
+              "apoc_social@server_form.apoc_picture_tile": {
+                "$texture": "textures/ui/FriendsIcon",
+                "$label": "👥 社交 · 好友 · 队伍 · 公会",
+                "$slot": [
+                  177,
+                  22
+                ],
+                "$button": [
+                  175,
+                  20
+                ],
+                "collection_index": 11
+              }
+            },
+            {
+              "apoc_more_footer@server_form.apoc_picture_tile": {
+                "$texture": "textures/ui/apocalypse/more",
+                "$label": "📻 便携终端 · 更多",
+                "$slot": [
+                  177,
+                  22
+                ],
+                "$button": [
+                  175,
+                  20
+                ],
+                "collection_index": 12
+              }
+            }
           ]
         }
       }

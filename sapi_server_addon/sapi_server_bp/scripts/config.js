@@ -5,7 +5,7 @@ import { MERCHANT_CATEGORIES, VANILLA_DAILY_SELL_CAP } from "./data/merchantConf
 export const Config = {
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.9.2",
+        version: "2.10.0",
         adminTag: "admin",
         menuItem: "minecraft:compass",
         menuItemName: "§r§l§6快捷导航菜单 §8(右键使用)",
@@ -17,6 +17,8 @@ export const Config = {
         maxHomes: 3, tpaExpirySeconds: 60, consumeDeathBack: true,
     },
     audit: { maxEntries: 200 },
+    itemCleanup: { enabled: true, intervalMinutes: 10, warningSeconds: [60, 30, 10] },
+    social: { maxFriends: 50, teamMaxPlayers: 4, guildCreateCost: 15000, guildMaxMembers: 30 },
     operations: {
         tpaEnabled: true, tpaToEnabled: true, tpaHereEnabled: true, dailyEnabled: true, redeemEnabled: true,
         timezoneOffsetMinutes: 480,

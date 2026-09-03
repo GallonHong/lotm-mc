@@ -16,7 +16,7 @@ import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.j
 import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.15.1 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.16.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -98,6 +98,17 @@ function recordContributor(entity, player) {
 
 function findOnline(id) { return world.getAllPlayers().find(player => player.id === id) || null; }
 
+function sapiTeamTag(player) {
+  try { return player.getTags().find(tag => tag.startsWith("sapi_team_")) || ""; }
+  catch { return ""; }
+}
+
+function closeEnoughForTeamCredit(player, dead) {
+  if (!valid(player) || player.dimension.id !== dead.dimension.id) return false;
+  try { return Math.hypot(player.location.x - dead.location.x, player.location.y - dead.location.y, player.location.z - dead.location.z) <= 40; }
+  catch { return false; }
+}
+
 function handleNpcInteraction(player, target) {
   if (!player || !target) return false;
   let commissioner = target.typeId === "daily:commissioner";
@@ -123,11 +134,20 @@ function handleEntityDeath(event) {
   if (direct) recordContributor(dead, direct);
   const map = contributors.get(dead.id) || {};
   contributors.delete(dead.id);
+  const credited = new Map();
   for (const [playerId, tick] of Object.entries(map)) {
     if (system.currentTick - Number(tick) > 300) continue;
     const player = findOnline(playerId);
-    if (!valid(player) || player.dimension.id !== dead.dimension.id) continue;
-    try { if (Math.hypot(player.location.x - dead.location.x, player.location.y - dead.location.y, player.location.z - dead.location.z) > 30) continue; } catch { continue; }
+    if (!closeEnoughForTeamCredit(player, dead)) continue;
+    credited.set(player.id, player);
+    const teamTag = sapiTeamTag(player);
+    if (teamTag) {
+      for (const teammate of world.getAllPlayers()) {
+        if (sapiTeamTag(teammate) === teamTag && closeEnoughForTeamCredit(teammate, dead)) credited.set(teammate.id, teammate);
+      }
+    }
+  }
+  for (const player of credited.values()) {
     if (recognizedMobs.has(dead.typeId)) DailyQuestManager.onKillCredit(player, dead.typeId);
     if (recognizedBosses.has(dead.typeId)) DailyQuestManager.onBossKill(player, dead.typeId);
     WorldEventManager.recordCombat(dead, player, 0, true);
@@ -304,6 +324,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (id === "daily:news_admin" && isAdmin(player)) system.runTimeout(() => DailyAdminMenu.startNewsEvent(player), 2);
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, message || "all");
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
+  else if (id === "daily:dungeon_team") system.runTimeout(() => DungeonMenu.openTeam(player, message), 3);
   else if (id === "daily:crate") handleCrateCommand(player, message || "give");
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }

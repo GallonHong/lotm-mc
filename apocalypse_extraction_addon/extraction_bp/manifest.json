@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Extraction City BP v0.10.6",
+    "name": "Apocalypse Extraction City BP v0.10.7",
     "description": "RandS street-grid extraction city, insured loadout, Apocalypse enemies, loot crates and extraction points.",
     "uuid": "3ba398b1-341e-44b9-a426-21734cdf1180",
     "version": [
       0,
       10,
-      6
+      7
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         10,
-        6
+        7
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         0,
         10,
-        6
+        7
       ],
       "entry": "scripts/main.js"
     }

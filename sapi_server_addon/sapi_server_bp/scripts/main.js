@@ -13,6 +13,8 @@ import { RegionManager } from "./modules/region.js";
 import { AuditManager } from "./modules/audit.js";
 import { OperationsManager } from "./modules/operations.js";
 import { SafeManager } from "./modules/safe.js";
+import { ItemCleanupManager } from "./modules/item_cleanup.js";
+import { SocialManager } from "./modules/social.js";
 
 const compassMenuTicks = new Map();
 
@@ -34,7 +36,8 @@ function initServerSystem() {
     LandManager.registerProtectionEvents();
     TeleportManager.registerEvents();
     Integration.startServerHeartbeat();
-    console.warn("[SAPI Server] Economy, Shop, Safe, Land, Lottery, Market, free Warps/Home/TPA/DeathBack, Regions and Audit initialized.");
+    ItemCleanupManager.start();
+    console.warn("[SAPI Server] Economy, Shop, Safe, Land, Lottery, Market, Social, item cleanup, free Warps/Home/TPA/DeathBack, Regions and Audit initialized.");
 }
 
 system.run(initServerSystem);
@@ -43,6 +46,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     if (!Utils.isValid(player)) return;
     system.runTimeout(() => Integration.probeDailyEvents(player), 20);
     EconomyManager.getBalance(player);
+    SocialManager.initializePlayer(player);
     MarketManager.claimPendingPayout(player, initialSpawn);
     TeleportManager.handlePlayerSpawn(player);
     if (!initialSpawn) return;
@@ -55,9 +59,10 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 
 const playerLeave = world.afterEvents?.playerLeave;
 if (playerLeave && typeof playerLeave.subscribe === "function") {
-    playerLeave.subscribe(({ playerId }) => {
+    playerLeave.subscribe(({ playerId, playerName }) => {
         compassMenuTicks.delete(playerId);
         TeleportManager.cooldowns.delete(playerId);
+        if (playerName) SocialManager.onPlayerLeave(playerName);
         for (const [id, request] of TeleportManager.requests) {
             if (request.fromId === playerId || request.toId === playerId) TeleportManager.requests.delete(id);
         }
@@ -104,7 +109,7 @@ function handleChat(event) {
         "!back": () => TeleportManager.returnToDeath(player),
         "!返回": () => TeleportManager.returnToDeath(player),
         "!daily": () => OperationsManager.openPlayerMenu(player),
-        "!dungeon": () => Integration.send(player, "daily:dungeon"),
+        "!dungeon": () => SocialManager.openDungeon(player),
         "!签到": () => OperationsManager.openPlayerMenu(player),
         "!redeem": () => OperationsManager.openRedeemModal(player),
         "!兑换码": () => OperationsManager.openRedeemModal(player),
@@ -145,8 +150,10 @@ if (scriptEvents?.subscribe) {
         else if (["system:tpa", "tpa:open"].includes(id)) TeleportManager.openTpaMenu(player);
         else if (["system:back", "death:back"].includes(id)) TeleportManager.returnToDeath(player);
         else if (["system:daily", "daily:open", "system:redeem"].includes(id)) OperationsManager.openPlayerMenu(player);
-        else if (["system:dungeon", "dungeon:open"].includes(id)) Integration.send(player, "daily:dungeon");
+        else if (["system:dungeon", "dungeon:open"].includes(id)) SocialManager.openDungeon(player);
         else if (["system:region", "region:admin"].includes(id)) RegionManager.openAdminMenu(player);
         else if (["system:audit", "audit:admin"].includes(id)) AuditManager.openAdminUI(player);
+        else if (id === "system:cleanup") ItemCleanupManager.handleCommand(player, message);
+        else if (["system:social", "social:open"].includes(id)) SocialManager.openSocialMenu(player);
     });
 }

@@ -11,8 +11,9 @@ const json = file => JSON.parse(read(file));
 const bpManifest = json(path.join(bp, "manifest.json"));
 const rpManifest = json(path.join(rp, "manifest.json"));
 
-assert.deepEqual(bpManifest.header.version, [1, 3, 2]);
-assert.deepEqual(rpManifest.header.version, [1, 3, 2]);
+assert.deepEqual(bpManifest.header.version, [1, 3, 3]);
+assert.deepEqual(rpManifest.header.version, [1, 3, 3]);
+assert.deepEqual(rpManifest.capabilities, ["pbr"]);
 assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
 assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
 const resourceDependency = bpManifest.dependencies.find(dep => dep.uuid);
@@ -44,4 +45,4 @@ for (const directory of [bp, rp]) {
     }
   }
 }
-console.log("Natural Disasters Standalone v1.3.2 validation passed.");
+console.log("Natural Disasters Standalone v1.3.3 validation passed.");

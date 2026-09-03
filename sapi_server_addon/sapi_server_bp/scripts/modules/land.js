@@ -259,6 +259,7 @@ export class LandManager {
         } else if (currentPlot.ownerId === player.id || Utils.isAdmin(player)) {
             form.button("§l§3⚙️ 当前领地设置\n§r§8修改权限与领地名称", "textures/ui/gear");
             form.button("§l§9👥 信任成员管理\n§r§8添加或移除好友共建", "textures/ui/FriendsIcon");
+            form.button(`§l§6📍 设置访客出生点\n§r§8${currentPlot.visitorPoint ? "覆盖现有观光传送点" : "好友观光只传送，不授予权限"}`, "textures/ui/map_icon");
             form.button("§l§c💰 出售当前领地\n§r§8按 70% 比例返还金币", "textures/ui/trade_icon");
         }
 
@@ -287,6 +288,11 @@ export class LandManager {
                     return;
                 }
                 if (res.selection === btnIndex++) {
+                    this.setVisitorPoint(player, currentPlot);
+                    this.openPlotMainUI(player, onBack);
+                    return;
+                }
+                if (res.selection === btnIndex++) {
                     this.openSellConfirmUI(player, currentPlot, () => this.openPlotMainUI(player, onBack));
                     return;
                 }
@@ -304,6 +310,27 @@ export class LandManager {
                 onBack();
             }
         });
+    }
+
+    /** 设置好友领地观光的传送点；不改变任何领地权限。 */
+    static setVisitorPoint(player, plot) {
+        if (!plot || (plot.ownerId !== player.id && plot.ownerName !== player.name && !Utils.isAdmin(player))) return false;
+        const { chunkX, chunkZ } = Utils.getChunkCoords(player.location);
+        if (player.dimension.id !== plot.dimension || chunkX !== plot.chunkX || chunkZ !== plot.chunkZ) {
+            Utils.tell(player, "§c请站在该领地区块内设置访客出生点。");
+            return false;
+        }
+        plot.visitorPoint = {
+            dimension: player.dimension.id,
+            x: Number(player.location.x),
+            y: Number(player.location.y),
+            z: Number(player.location.z),
+        };
+        this.savePlot(plot);
+        AuditManager.log("land_visitor_point", player, plot.name, `${plot.dimension} ${Math.floor(plot.visitorPoint.x)},${Math.floor(plot.visitorPoint.y)},${Math.floor(plot.visitorPoint.z)}`);
+        Utils.tell(player, "§a领地访客出生点已设置。好友接受观光邀请后会传送到这里，但不会获得建造或容器权限。");
+        Utils.sound.success(player);
+        return true;
     }
 
     /**

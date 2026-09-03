@@ -12,6 +12,9 @@ const market = read("sapi_server_bp/scripts/modules/market.js");
 const integration = read("sapi_server_bp/scripts/modules/integration.js");
 const shop = read("sapi_server_bp/scripts/modules/shop.js");
 const safe = read("sapi_server_bp/scripts/modules/safe.js");
+const itemCleanup = read("sapi_server_bp/scripts/modules/item_cleanup.js");
+const social = read("sapi_server_bp/scripts/modules/social.js");
+const socialStore = read("sapi_server_bp/scripts/data/socialStore.js");
 const build = read("build.sh");
 const manifest = JSON.parse(read("sapi_server_bp/manifest.json"));
 const resourceManifest = JSON.parse(read("sapi_server_rp/manifest.json"));
@@ -37,11 +40,13 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、新闻与事件完整管理/);
 assert.match(menu, /新闻按钮仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.9.2");
-assert.equal(resourceManifest.header.version.join("."), "2.9.2");
+assert.equal(manifest.header.version.join("."), "2.10.0");
+assert.equal(resourceManifest.header.version.join("."), "2.10.0");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
+assert.match(menu, /SocialManager\.openSocialMenu/);
+assert.match(menu, /好友、在线玩家、队伍与公会/);
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
@@ -127,10 +132,39 @@ assert.match(safe, /restoreNativeHealth/);
 assert.match(safe, /world\.afterEvents\?\.entityHurt/);
 assert.match(safe, /allowUnknownSource/);
 assert.match(main, /SafeManager\.registerEvents\(\)/);
+assert.match(main, /ItemCleanupManager\.start\(\)/);
+assert.match(main, /id === "system:cleanup"/);
+assert.deepEqual(serverConfig.Config.itemCleanup, { enabled: true, intervalMinutes: 10, warningSeconds: [60, 30, 10] });
+assert.match(itemCleanup, /getEntities\(\{ type: "minecraft:item" \}\)/);
+assert.match(itemCleanup, /entity\.remove\(\)/);
+assert.match(itemCleanup, /minecraft:overworld/);
+assert.match(itemCleanup, /minecraft:nether/);
+assert.match(itemCleanup, /minecraft:the_end/);
+assert.match(itemCleanup, /\[60, 30, 10\]/);
+assert.match(itemCleanup, /玩家死亡掉落、蓝图、武器和任务奖励/);
+assert.match(menu, /ItemCleanupManager\.openAdminMenu/);
+assert.deepEqual(serverConfig.Config.social, { maxFriends: 50, teamMaxPlayers: 4, guildCreateCost: 15000, guildMaxMembers: 30 });
+for (const marker of [
+  "openSocialMenu", "openFriends", "openFriendRequests", "openOnlinePlayers", "openPlayerCard",
+  "openPrivateMessage", "openLandVisitInvite", "createTeam", "inviteToTeam", "teamMaxPlayers",
+  "openTeamChat", "daily:dungeon_team", "openGuild", "openCreateGuild", "guildCreateCost",
+  "guildMaxMembers", "baseLocation", "Leader", "Member"
+]) assert.match(social, new RegExp(marker.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")), `missing social behavior: ${marker}`);
+for (const marker of ["DIRECTORY_KEY", "profilePropertyKey", "GUILD_DIRECTORY_KEY", "guildPropertyKey", "requestFriend", "acceptFriend", "saveGuild", "setPlayerGuild"]) {
+  assert.match(socialStore, new RegExp(marker), `missing social persistence behavior: ${marker}`);
+}
+assert.match(main, /system:social/);
+assert.match(main, /SocialManager\.initializePlayer/);
+assert.match(main, /SocialManager\.onPlayerLeave/);
+assert.match(land, /setVisitorPoint/);
+assert.match(land, /visitorPoint/);
+assert.match(social, /不会获得破坏、放置、容器、保险箱或载具权限/);
 const safeEntity = JSON.parse(read("sapi_server_bp/entities/secure_safe.json"));
 assert.equal(safeEntity["minecraft:entity"].description.identifier, "sapi:secure_safe");
 assert.equal(safeEntity["minecraft:entity"].components["minecraft:inventory"].inventory_size, 27);
 assert.equal(safeEntity["minecraft:entity"].components["minecraft:health"].max, 1000000);
+assert.deepEqual(safeEntity["minecraft:entity"].components["minecraft:is_collidable"], {});
+assert.deepEqual(safeEntity["minecraft:entity"].components["minecraft:collision_box"], { width: 1.0, height: 1.35 });
 assert.equal(safeEntity["minecraft:entity"].component_groups["sapi:breached_visual"]["minecraft:nameable"].always_show, true);
 assert(safeEntity["minecraft:entity"].events["sapi:breach"].add.component_groups.includes("sapi:breached_visual"));
 const safeItemDefinition = JSON.parse(read("sapi_server_bp/items/secure_safe_deployer.json"));
@@ -162,4 +196,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.9.2 validation passed.");
+console.log("SAPI Server v2.10.0 validation passed.");

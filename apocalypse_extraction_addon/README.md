@@ -1,10 +1,10 @@
-# Apocalypse Extraction City v0.10.6
+# Apocalypse Extraction City v0.10.7
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.6 对整个 768×768 城市路面执行分区承托与空气洞扫描，修复旧世界中整段道路坠入虚空的问题；所有物资箱统一按概率独立抽取品质，不再固定传说/神话箱数量。City 不使用 title、subtitle 或 action bar，只在进入时及之后每 60 秒通过左上角聊天汇总导航。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.7 为资源包声明 `capabilities: ["pbr"]`，使客户端能够按灵动视效规范识别黄昏雾资源；最低引擎版本保持 1.21.120。v0.10.6 对整个 768×768 城市路面执行分区承托与空气洞扫描，修复旧世界中整段道路坠入虚空的问题。
 
 ## 安装与联动
 
-- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.6`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
+- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.7`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
 - 推荐联动：Daily World Events v0.11.0（提供统一物资箱、神话箱和每日新闻）、Apocalypse Mobs v0.6.1（提供区域强化感染者、持枪掠夺者、避难所守卫、Boss 与主城入侵安全区例外）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Guns 保持原样，并独占 action bar 显示弹药、换弹与技能信息；City 不再写入该区域。

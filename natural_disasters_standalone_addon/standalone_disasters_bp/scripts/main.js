@@ -18,7 +18,7 @@ const SETTINGS_KEY = "sando_standalone:settings:v5";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.3.2 initializing; cooldown Action Bar disabled...");
+console.warn("[NaturalDisastersStandalone] v1.3.3 initializing; PBR/Vibrant Visuals capability enabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: STANDALONE_CONFIG.enabled,
@@ -984,7 +984,7 @@ world.afterEvents.playerSpawn.subscribe(ev => {
       } catch (_) {}
     }
     if (ev.initialSpawn && isAdmin(p)) {
-      try { p.sendMessage("§a[独立自然灾害] v1.3.2 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；灾害冷却期不再占用 Action Bar。"); } catch (_) {}
+      try { p.sendMessage("§a[独立自然灾害] v1.3.3 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；资源包已声明灵动视效兼容。"); } catch (_) {}
     }
   });
 });

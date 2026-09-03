@@ -4,7 +4,7 @@
     "name": "Apocalypse Survival UI",
     "description": "可选的末日生存联盟像素磁贴菜单；未安装时 SAPI Server 继续使用原版表单",
     "uuid": "ef5cdb7a-68f1-49db-9d61-844278a2227b",
-    "version": [1, 0, 2],
+    "version": [1, 1, 0],
     "min_engine_version": [1, 20, 70]
   },
   "modules": [
@@ -12,7 +12,7 @@
       "description": "Apocalypse JSON UI resources",
       "type": "resources",
       "uuid": "1f690c39-7aeb-48b5-a64f-78b3b55c5532",
-      "version": [1, 0, 2]
+      "version": [1, 1, 0]
     }
   ],
   "metadata": {

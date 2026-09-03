@@ -168,22 +168,32 @@ export class DungeonManager {
   }
 
   static start(player, templateId = "abandoned_clinic") {
-    if (!valid(player) || readPlayerState(player)) return false;
+    return this.startGroup(player, [player], templateId);
+  }
+
+  /** 创建一个已完成 SAPI Ready 确认的多人副本实例。 */
+  static startGroup(leader, players, templateId = "abandoned_clinic") {
+    if (!valid(leader)) return false;
     const template = dungeonTemplate(templateId);
     const slot = this.availableSlot();
     if (!template || !slot || !sameDimension(template.dimension, slot.dimension)) return false;
+    const participants = [...new Map((players || []).filter(valid).map(player => [player.id, player])).values()];
+    if (!participants.some(player => player.id === leader.id)) participants.unshift(leader);
+    if (!participants.length || participants.length > Number(template.maxPlayers || 4)) return false;
+    if (participants.some(player => readPlayerState(player))) return false;
     const shortId = `${Date.now().toString(36)}${Math.floor(Math.random() * 9999).toString(36)}`.slice(-12);
+    const participantIds = participants.map(player => player.id);
     const instance = {
       instanceId: `dungeon_${shortId}`,
       templateId,
       tag: `daily_dng_${shortId}`,
       state: "preparing",
       slot,
-      ownerId: player.id,
-      ownerName: player.name,
-      participantIds: [player.id],
-      participantScores: { [player.id]: 0 },
-      deaths: { [player.id]: 0 },
+      ownerId: leader.id,
+      ownerName: leader.name,
+      participantIds,
+      participantScores: Object.fromEntries(participantIds.map(id => [id, 0])),
+      deaths: Object.fromEntries(participantIds.map(id => [id, 0])),
       stageIndex: -1,
       respawnOffset: template.entryOffset,
       stageHadEnemies: false,
@@ -192,8 +202,10 @@ export class DungeonManager {
       waitUntil: system.currentTick + 80
     };
     this.active.set(instance.instanceId, instance);
-    this.bindPlayer(player, instance);
-    player.sendMessage(`§e[副本] 正在准备 ${template.name}，请稍候……`);
+    for (const participant of participants) {
+      this.bindPlayer(participant, instance);
+      participant.sendMessage(`§e[副本] 队长 ${leader.name} 正在准备 ${template.name}，请稍候……`);
+    }
 
     this.addTickingArea(slot);
     system.runTimeout(() => this.loadAndEnter(instance), 20);

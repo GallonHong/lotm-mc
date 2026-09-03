@@ -12,6 +12,8 @@ import { TeleportManager } from "./teleport.js";
 import { RegionManager } from "./region.js";
 import { AuditManager } from "./audit.js";
 import { OperationsManager } from "./operations.js";
+import { ItemCleanupManager } from "./item_cleanup.js";
+import { SocialManager } from "./social.js";
 
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
 export class ServerMenuManager {
@@ -48,7 +50,7 @@ export class ServerMenuManager {
         add("§l§a🏠 个人传送\n§r§8Home、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
         add("§l§e🎁 每日福利\n§r§8签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
         add("§l§6📋 幸存者联盟委托\n§r§8日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
-        add("§l§c⚔ 副本行动\n§r§8进入多建筑封锁小镇副本", "textures/ui/warning_alex", () => Integration.send(player, "daily:dungeon"));
+        add("§l§c⚔ 副本行动\n§r§8单人进入或由队长发起全队 Ready", "textures/ui/warning_alex", () => SocialManager.openDungeon(player));
         add("§l§4☣ 末日摸金都市\n§r§8随机进入高危城市并寻找撤离点", "textures/ui/warning_alex", () => {
             Integration.openExtractionMenu(player);
         });
@@ -57,8 +59,8 @@ export class ServerMenuManager {
         add("§l§2🛡️ 地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
         add("§l§d🎁 幸运抽奖\n§r§8按已安装内容动态生成奖池", "textures/ui/gift_square", () => LotteryManager.openLotteryMainUI(player, () => this.openMainMenu(player)));
         add("§l§6🏪 玩家寄卖行\n§r§8自由定价交易，成交收取10%费率", "textures/ui/MCStore_Gold_large", () => MarketManager.openMainUI(player, () => this.openMainMenu(player)));
-        // All 12 entries stay fixed so the optional tile UI can bind
-        // collection indexes safely on every world and for every player.
+        add("§l§b👥 社交\n§r§8好友、在线玩家、队伍与公会", "textures/ui/FriendsIcon", () => SocialManager.openSocialMenu(player, () => this.openMainMenu(player)));
+        // The optional tile UI binds these stable collection indexes.
         add("§l§8📻 更多功能\n§r§8排行、秘典与管理入口", "textures/ui/settings_glyph_color_2x", () => this.openMoreMenu(player));
 
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
@@ -99,6 +101,7 @@ export class ServerMenuManager {
         add("§l§b🧭 公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§e📋 管理与审计日志", "textures/ui/achievements", () => AuditManager.openAdminUI(player, () => this.openAdminPanel(player, onBack)));
+        add("§l§c🧹 掉落物清理管理\n§r§8十分钟自动清理、开关与立即清理", "textures/ui/trash", () => ItemCleanupManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§d🎛 服务器运营管理", "textures/ui/op", () => OperationsManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§c🌪 打开灾害控制器\n§r§8直接进入独立灾害管理页面", "textures/ui/warning_alex", () => this.openDisasterController(player));
         add("§l§6🎛 获取灾害遥控器物品\n§r§8页面无法打开时的备用入口", "textures/ui/op", () => this.giveDisasterController(player, () => this.openAdminPanel(player, onBack)));
