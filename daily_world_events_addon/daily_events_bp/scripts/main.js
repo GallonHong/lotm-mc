@@ -15,7 +15,7 @@ import { LootCrateManager } from "./rewards/LootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.14.2 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.15.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -139,7 +139,7 @@ function handleCrateCommand(player, rawAction = "give") {
   if (action === "scan") {
     if (!isAdmin(player)) return player.sendMessage("§c仅管理员可强制重扫刷怪笼。");
     const queued = SpawnerReplacementManager.enqueueAroundPlayer(player, true);
-    return player.sendMessage(`§a[废墟箱] 已强制把附近 ${queued} 个区块加入重扫队列；请在刷怪笼附近停留约一分钟。`);
+    return player.sendMessage(`§a[废墟箱] 已强制把附近 ${queued} 个区块加入重扫队列；请在刷怪笼附近停留数秒。`);
   }
   if (action !== "give") return player.sendMessage("§7用法：/scriptevent daily:crate give 或 /scriptevent daily:crate scan");
   try {

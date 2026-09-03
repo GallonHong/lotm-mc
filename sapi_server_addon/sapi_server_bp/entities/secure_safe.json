@@ -14,11 +14,16 @@
         }
       }
     },
-    "component_groups": {},
+    "component_groups": {
+      "sapi:breached_visual": {
+        "minecraft:nameable": { "always_show": true, "allow_name_tag_renaming": false }
+      }
+    },
     "components": {
       "minecraft:type_family": { "family": ["sapi_safe", "inanimate"] },
       "minecraft:collision_box": { "width": 1.0, "height": 1.35 },
-      "minecraft:health": { "value": 2000, "max": 2000 },
+      "minecraft:health": { "value": 1000000, "max": 1000000 },
+      "minecraft:fire_immune": {},
       "minecraft:knockback_resistance": { "value": 1.0 },
       "minecraft:physics": { "has_collision": true, "has_gravity": true },
       "minecraft:pushable": { "is_pushable": false, "is_pushable_by_piston": false },
@@ -43,6 +48,7 @@
     "events": {
       "sapi:interacted": {},
       "sapi:breach": {
+        "add": { "component_groups": ["sapi:breached_visual"] },
         "set_property": { "sapi:breached": true }
       }
     }

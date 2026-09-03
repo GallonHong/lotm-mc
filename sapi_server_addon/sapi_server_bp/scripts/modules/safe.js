@@ -19,6 +19,7 @@ const PROP_BREACHED = "sapi:safe_breached";
 export class SafeManager {
     static attempts = new Map();
     static damageNotices = new Map();
+    static nativeDamageTicks = new Map();
     static transactionLocks = new Set();
     static registered = false;
 
@@ -58,10 +59,31 @@ export class SafeManager {
         if (hurt?.subscribe) {
             hurt.subscribe(event => {
                 if (event.hurtEntity?.typeId !== SAFE_TYPE) return;
+                this.nativeDamageTicks.set(event.hurtEntity.id, system.currentTick);
                 event.cancel = true;
                 system.run(() => this.applyVirtualDamage(event.hurtEntity, event.damageSource, event.damage));
             });
         }
+
+        // 某些稳定版没有可取消的 beforeEvents.entityHurt；after 事件配合
+        // 百万原生生命仍可记录伤害并立刻回满，不让容器实体进入死亡流程。
+        const hurtAfter = world.afterEvents?.entityHurt;
+        if (hurtAfter?.subscribe) {
+            hurtAfter.subscribe(event => {
+                const safe = event.hurtEntity;
+                if (safe?.typeId !== SAFE_TYPE) return;
+                if (this.nativeDamageTicks.get(safe.id) === system.currentTick) return;
+                this.nativeDamageTicks.set(safe.id, system.currentTick);
+                system.run(() => {
+                    this.restoreNativeHealth(safe);
+                    this.applyVirtualDamage(safe, event.damageSource, event.damage);
+                });
+            });
+        }
+
+        // Test Gun 等 Addon 可能直接修改 health，完全绕过 hurt 事件。
+        // 每 tick 检测百万原生生命的差值，把差值换算成保险箱耐久伤害后回满。
+        system.runInterval(() => this.watchdog(), Math.max(1, Number(this.settings.watchdogTicks || 1)));
     }
 
     static validSafe(safe) {
@@ -226,12 +248,44 @@ export class SafeManager {
         return (this.settings.specialWeaponIds || []).includes(this.heldItemId(player));
     }
 
-    static applyVirtualDamage(safe, damageSource, rawDamage) {
+    static restoreNativeHealth(safe) {
+        if (!this.validSafe(safe)) return 0;
+        try {
+            const health = safe.getComponent("minecraft:health") || safe.getComponent("health");
+            if (!health) return 0;
+            const maximum = Math.max(1, Number(health.effectiveMax || health.defaultValue || this.settings.nativeHealth || 1000000));
+            const missing = Math.max(0, maximum - Number(health.currentValue || 0));
+            if (missing > 0) health.setCurrentValue(maximum);
+            return missing;
+        } catch { return 0; }
+    }
+
+    static watchdog() {
+        const tick = system.currentTick;
+        for (const [id, damagedAt] of this.nativeDamageTicks) {
+            if (tick - Number(damagedAt) > 4) this.nativeDamageTicks.delete(id);
+        }
+        for (const dimensionId of ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"]) {
+            let safes = [];
+            try { safes = world.getDimension(dimensionId).getEntities({ type: SAFE_TYPE }); }
+            catch { continue; }
+            for (const safe of safes) {
+                const missing = this.restoreNativeHealth(safe);
+                if (missing <= 0 || this.isBreached(safe)) continue;
+                const eventTick = Number(this.nativeDamageTicks.get(safe.id) ?? -1000);
+                if (tick - eventTick <= 1) continue;
+                // 没有伤害事件却出现生命差值，说明其他 Addon 直接写入了 health。
+                this.applyVirtualDamage(safe, null, missing, true);
+            }
+        }
+    }
+
+    static applyVirtualDamage(safe, damageSource, rawDamage, allowUnknownSource = false) {
         if (!this.validSafe(safe) || this.isBreached(safe)) return;
         const attacker = this.damagingPlayer(damageSource);
-        if (!attacker) return;
+        if (!attacker && !allowUnknownSource) return;
 
-        const special = this.isSpecialWeapon(attacker);
+        const special = attacker ? this.isSpecialWeapon(attacker) : false;
         const reduction = Math.max(0, Math.min(0.99, Number(this.settings.normalDamageReduction ?? 0.90)));
         const applied = calculateSafeDamage(rawDamage, special, reduction);
         if (applied <= 0) return;
@@ -246,8 +300,8 @@ export class SafeManager {
             safe.dimension.playSound("random.anvil_land", safe.location, { volume: 0.55, pitch: special ? 0.75 : 1.35 });
         } catch {}
 
-        const lastNotice = Number(this.damageNotices.get(attacker.id) || -1000);
-        if (system.currentTick - lastNotice >= 40) {
+        const lastNotice = Number(this.damageNotices.get(attacker?.id) || -1000);
+        if (attacker && system.currentTick - lastNotice >= 40) {
             this.damageNotices.set(attacker.id, system.currentTick);
             Utils.tell(attacker, special
                 ? `§c特殊枪械造成 §e${applied.toFixed(1)} §c点保险箱伤害，剩余 §e${Math.ceil(remaining)}/2000§c。`
@@ -267,10 +321,12 @@ export class SafeManager {
             safe.dimension.playSound("random.break", safe.location, { volume: 1.6, pitch: 0.55 });
             safe.dimension.spawnParticle("minecraft:huge_explosion_emitter", safe.location);
         } catch {}
-        AuditManager.log("safe_breach", attacker, safe.id, `owner=${this.ownerName(safe)}`);
-        Utils.tell(attacker, "§c保险箱已彻底报废，现在任何人都能免密码打开，且无法回收。");
+        AuditManager.log("safe_breach", attacker || "external_weapon", safe.id, `owner=${this.ownerName(safe)}`);
+        if (attacker) Utils.tell(attacker, "§c保险箱已彻底报废，现在任何人都能免密码打开，且无法回收。");
         const owner = world.getAllPlayers().find(player => player.name === this.ownerName(safe));
-        if (owner && owner.id !== attacker.id) Utils.tell(owner, `§c你的保险箱已被 §e${attacker.name} §c攻破！`);
+        if (owner && owner.id !== attacker?.id) Utils.tell(owner, attacker
+            ? `§c你的保险箱已被 §e${attacker.name} §c攻破！`
+            : "§c你的保险箱已被外部武器系统攻破！");
     }
 
     static attemptKey(player, safe) {

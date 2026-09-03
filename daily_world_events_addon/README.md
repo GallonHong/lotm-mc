@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.14.2 新增跨行为包的 `scriptevent` 主动探测/应答，让 SAPI 管理控制台不再因动态属性隔离而误报“未连接”。v0.14.1 取消副本创建前的心跳硬阻断，Boss 在对应阶段直接尝试生成；刷怪笼替换也改为 Script API 逐块设置，不再依赖 `fill` 命令。v0.14.0 新增无品质“废墟物资箱”。每日新闻管理入口仍位于 Daily 管理菜单首项，并可由 SAPI 管理员控制台通过 `daily:news_admin` 直达。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.15.0 让无品质废墟物资箱以 `1/6` 区块概率在主世界陆地新区块自然生成（长期平均位于每 4～8 个区块一个的目标范围）；刷怪笼替换改为地表上下 6 格和玩家上 6/下 12 格两段扫描，其余高度完全不扫描。v0.14.2 的跨行为包主动探测/应答继续用于 SAPI 管理控制台连接。每日新闻管理入口仍位于 Daily 管理菜单首项。
 
 ## 可复用物资箱
 
@@ -17,7 +17,7 @@
 
 主世界刷怪笼替换由 `scripts/rewards/SpawnerReplacementManager.js` 执行。系统只处理玩家附近已加载的主世界区块，每 tick 最多检查 1024 个方块，通过 `BlockPermutation` 直接替换 `mob_spawner`/`monster_spawner`；刷怪笼内部配置的僵尸、蜘蛛等实体类型不会影响识别。系统不会一次遍历全地图或强制加载区块，玩家继续探索时，新遇到的遗迹、地牢和矿井刷怪笼也会被替换。
 
-管理员站在刷怪笼附近输入 `/scriptevent daily:crate scan`，可强制把周围 3×3 区块重新加入扫描队列；请保持这些区块加载约一分钟。测试发放物资箱使用 `/scriptevent daily:crate give`，不提供 `!crate`/`!box` 聊天命令。
+管理员站在刷怪笼附近输入 `/scriptevent daily:crate scan`，可强制把周围 3×3 区块重新加入扫描队列；请保持这些区块加载数秒。测试发放物资箱使用 `/scriptevent daily:crate give`，不提供 `!crate`/`!box` 聊天命令。
 
 ## 联动关系
 

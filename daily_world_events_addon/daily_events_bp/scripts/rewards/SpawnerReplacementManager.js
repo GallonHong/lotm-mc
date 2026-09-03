@@ -5,37 +5,47 @@ function overworld(dimensionId) {
   return String(dimensionId || "").replace("minecraft:", "") === "overworld";
 }
 
+function orderedChunkOffsets(radius) {
+  const offsets = [];
+  for (let dx = -radius; dx <= radius; dx++) {
+    for (let dz = -radius; dz <= radius; dz++) offsets.push({ dx, dz });
+  }
+  return offsets.sort((a, b) => (a.dx * a.dx + a.dz * a.dz) - (b.dx * b.dx + b.dz * b.dz));
+}
+
 /**
- * 分片扫描玩家实际探索到的主世界区块，把遗迹/地牢中已有的原版刷怪笼
- * 换成无品质废墟物资箱。直接读取方块并设置 permutation，不依赖 fill 命令、
- * 管理员权限或刷怪笼内部保存的实体类型。
+ * 只扫描最可能出现刷怪笼的两个窄层：地表上下 6 格，以及玩家
+ * 上方 6 格/下方 12 格。其余高度完全不访问。高度带会按玩家所在
+ * 的 12 格分段分别记忆，因此玩家以后深入地下仍会触发一次新扫描。
  */
 export class SpawnerReplacementManager {
   static jobs = [];
   static queued = new Set();
   static scanned = new Set();
 
-  static chunkKey(chunkX, chunkZ) {
-    return `${chunkX}:${chunkZ}`;
+  static chunkKey(chunkX, chunkZ, playerY) {
+    return `${chunkX}:${chunkZ}:${Math.floor(Number(playerY) / 12)}`;
   }
 
   static enqueueAroundPlayer(player, force = false) {
     if (!player || !overworld(player.dimension?.id)) return 0;
     const centerX = Math.floor(Number(player.location.x) / 16);
     const centerZ = Math.floor(Number(player.location.z) / 16);
+    const playerY = Math.floor(Number(player.location.y));
     let added = 0;
-    for (let dx = -CONFIG.spawnerScanChunkRadius; dx <= CONFIG.spawnerScanChunkRadius; dx++) {
-      for (let dz = -CONFIG.spawnerScanChunkRadius; dz <= CONFIG.spawnerScanChunkRadius; dz++) {
-        const chunkX = centerX + dx;
-        const chunkZ = centerZ + dz;
-        const key = this.chunkKey(chunkX, chunkZ);
-        if (force) this.scanned.delete(key);
-        if (this.scanned.has(key) || this.queued.has(key)) continue;
-        if (this.jobs.length >= CONFIG.spawnerScanQueueLimit) return added;
-        this.queued.add(key);
-        this.jobs.push({ key, chunkX, chunkZ, cursor: 0, retries: 0, replaced: 0 });
-        added++;
-      }
+    for (const { dx, dz } of orderedChunkOffsets(CONFIG.spawnerScanChunkRadius)) {
+      const chunkX = centerX + dx;
+      const chunkZ = centerZ + dz;
+      const key = this.chunkKey(chunkX, chunkZ, playerY);
+      if (force) this.scanned.delete(key);
+      if (this.scanned.has(key) || this.queued.has(key)) continue;
+      if (this.jobs.length >= CONFIG.spawnerScanQueueLimit) return added;
+      this.queued.add(key);
+      this.jobs.push({
+        key, chunkX, chunkZ, playerY, phase: "surface", cursor: 0,
+        retries: 0, replaced: 0, surfaceY: new Array(256)
+      });
+      added++;
     }
     return added;
   }
@@ -44,39 +54,72 @@ export class SpawnerReplacementManager {
     for (const player of world.getAllPlayers()) this.enqueueAroundPlayer(player, false);
   }
 
+  static finish(job) {
+    this.queued.delete(job.key);
+    this.scanned.add(job.key);
+    if (job.replaced > 0) console.warn(`[DailyEvents] replaced ${job.replaced} spawner(s) in overworld chunk ${job.key}.`);
+    if (this.scanned.size > CONFIG.spawnerScanRememberChunks) this.scanned.clear();
+  }
+
+  static replaceIfSpawner(dimension, cratePermutation, x, y, z) {
+    const block = dimension.getBlock({ x, y, z });
+    if (!block) throw new Error("chunk unavailable");
+    if (block.typeId !== "minecraft:mob_spawner" && block.typeId !== "minecraft:monster_spawner") return 0;
+    block.setPermutation(cratePermutation);
+    return 1;
+  }
+
   static tick() {
     const job = this.jobs.shift();
     if (!job) return;
     let dimension;
-    try { dimension = world.getDimension("minecraft:overworld"); }
-    catch {
+    let cratePermutation;
+    try {
+      dimension = world.getDimension("minecraft:overworld");
+      cratePermutation = BlockPermutation.resolve("daily:loot_crate_scavenger");
+    } catch {
       this.queued.delete(job.key);
       return;
     }
+
     const x1 = job.chunkX * 16;
     const z1 = job.chunkZ * 16;
-    const height = CONFIG.spawnerScanMaxY - CONFIG.spawnerScanMinY + 1;
-    const volume = 16 * 16 * height;
+    const surfaceDepth = CONFIG.spawnerSurfaceAbove + CONFIG.spawnerSurfaceBelow + 1;
+    const playerDepth = CONFIG.spawnerPlayerAbove + CONFIG.spawnerPlayerBelow + 1;
+    const volume = 256 * (job.phase === "surface" ? surfaceDepth : playerDepth);
     const end = Math.min(volume, job.cursor + CONFIG.spawnerScanBlocksPerTick);
     let unavailable = false;
-    let cratePermutation;
-    try { cratePermutation = BlockPermutation.resolve("daily:loot_crate_scavenger"); }
-    catch { unavailable = true; }
-    for (let index = job.cursor; !unavailable && index < end; index++) {
-      const localX = index % 16;
-      const localZ = Math.floor(index / 16) % 16;
-      const y = CONFIG.spawnerScanMinY + Math.floor(index / 256);
+
+    for (let index = job.cursor; index < end; index++) {
+      const depth = job.phase === "surface" ? surfaceDepth : playerDepth;
+      const column = Math.floor(index / depth);
+      const localX = column % 16;
+      const localZ = Math.floor(column / 16);
+      const x = x1 + localX;
+      const z = z1 + localZ;
+      let y;
       try {
-        const block = dimension.getBlock({ x: x1 + localX, y, z: z1 + localZ });
-        if (!block) { unavailable = true; break; }
-        if (block.typeId === "minecraft:mob_spawner" || block.typeId === "minecraft:monster_spawner") {
-          block.setPermutation(cratePermutation);
-          job.replaced++;
+        if (job.phase === "surface") {
+          if (!Number.isFinite(job.surfaceY[column])) {
+            const top = dimension.getTopmostBlock({ x, z });
+            if (!top) throw new Error("surface unavailable");
+            job.surfaceY[column] = Math.floor(top.location.y);
+          }
+          y = job.surfaceY[column] - CONFIG.spawnerSurfaceBelow + (index % depth);
+        } else {
+          y = job.playerY - CONFIG.spawnerPlayerBelow + (index % depth);
+          const surfaceY = Number(job.surfaceY[column]);
+          if (Number.isFinite(surfaceY) && y >= surfaceY - CONFIG.spawnerSurfaceBelow && y <= surfaceY + CONFIG.spawnerSurfaceAbove) continue;
         }
-      } catch { unavailable = true; }
+        job.replaced += this.replaceIfSpawner(dimension, cratePermutation, x, y, z);
+      } catch {
+        unavailable = true;
+        break;
+      }
     }
+
     if (unavailable) {
-      job.retries = Number(job.retries || 0) + 1;
+      job.retries++;
       if (job.retries <= 20) this.jobs.push(job);
       else this.queued.delete(job.key);
       return;
@@ -87,9 +130,12 @@ export class SpawnerReplacementManager {
       this.jobs.push(job);
       return;
     }
-    this.queued.delete(job.key);
-    this.scanned.add(job.key);
-    if (job.replaced > 0) console.warn(`[DailyEvents] replaced ${job.replaced} spawner(s) in overworld chunk ${job.key}.`);
-    if (this.scanned.size > CONFIG.spawnerScanRememberChunks) this.scanned.clear();
+    if (job.phase === "surface") {
+      job.phase = "player";
+      job.cursor = 0;
+      this.jobs.push(job);
+      return;
+    }
+    this.finish(job);
   }
 }

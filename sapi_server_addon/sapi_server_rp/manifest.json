@@ -4,14 +4,14 @@
     "name": "SAPI Server Resources",
     "description": "SAPI Server secure safe models, textures and interface assets",
     "uuid": "8c1208dd-1abd-4ba1-a574-985cff553798",
-    "version": [2, 9, 0],
+    "version": [2, 9, 1],
     "min_engine_version": [1, 20, 80]
   },
   "modules": [
     {
       "type": "resources",
       "uuid": "51156dbb-5098-4e00-aac2-e81c978892b1",
-      "version": [2, 9, 0]
+      "version": [2, 9, 1]
     }
   ]
 }

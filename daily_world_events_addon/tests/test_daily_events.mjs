@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 14, 2]);
-assert.deepEqual(rpManifest.header.version, [0, 14, 2]);
+assert.deepEqual(manifest.header.version, [0, 15, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 15, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -131,8 +131,11 @@ for (const id of scavengerEpicIds) assert(scavenger.entries.some(entry => entry.
 assert(scavenger.entries.some(entry => entry.id === "daily:mythic_supply_key"), "scavenger mythic-key chance missing");
 assert.equal(json(join(bp, "items/mythic_supply_key.json"))["minecraft:item"].description.identifier, "daily:mythic_supply_key");
 for (const tier of ["scavenger", "common", "rare", "epic", "legendary", "mythic"]) {
-  assert.equal(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].description.identifier, `daily:loot_crate_${tier}`);
-  assert(json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"].components["minecraft:custom_components"].includes("daily:loot_crate_interact"));
+  const crateBlock = json(join(bp, `blocks/loot_crate_${tier}.json`))["minecraft:block"];
+  assert.equal(crateBlock.description.identifier, `daily:loot_crate_${tier}`);
+  assert(crateBlock.components["minecraft:custom_components"].includes("daily:loot_crate_interact"));
+  assert.equal(crateBlock.components["minecraft:destructible_by_mining"], false, `${tier} crate must be survival-proof`);
+  assert.equal(crateBlock.components["minecraft:destructible_by_explosion"], false, `${tier} crate must be explosion-proof`);
 }
 assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_common);
 assert(json(join(rp, "textures/terrain_texture.json")).texture_data.daily_crate_scavenger);
@@ -241,6 +244,23 @@ const spawnerReplacement = readFileSync(join(bp, "scripts/rewards/SpawnerReplace
 for (const marker of ["BlockPermutation.resolve", "minecraft:overworld", "minecraft:mob_spawner", "minecraft:monster_spawner", "daily:loot_crate_scavenger", "spawnerScanBlocksPerTick", "block.setPermutation", "this.scanned.add(job.key)"]) {
   assert(spawnerReplacement.includes(marker), `spawner replacement behavior missing: ${marker}`);
 }
+for (const marker of ["getTopmostBlock", 'phase: "surface"', 'job.phase = "player"', "spawnerSurfaceAbove", "spawnerSurfaceBelow", "spawnerPlayerAbove", "spawnerPlayerBelow"]) {
+  assert(spawnerReplacement.includes(marker), `surface/player-band spawner scan missing: ${marker}`);
+}
+assert.equal(spawnerReplacement.includes("spawnerScanMinY"), false, "full-height minimum scan must remain removed");
+assert.equal(spawnerReplacement.includes("spawnerScanMaxY"), false, "full-height maximum scan must remain removed");
+const naturalCrateFeature = json(join(bp, "features/scavenger_crate_surface_feature.json"));
+const naturalCrateRule = json(join(bp, "feature_rules/scavenger_crate_surface_feature_rule.json"));
+const dailyConfig = await import(`file://${join(bp, "scripts/config.js")}`);
+assert.deepEqual([
+  dailyConfig.CONFIG.spawnerSurfaceAbove,
+  dailyConfig.CONFIG.spawnerSurfaceBelow,
+  dailyConfig.CONFIG.spawnerPlayerAbove,
+  dailyConfig.CONFIG.spawnerPlayerBelow
+], [6, 6, 6, 12]);
+assert.equal(naturalCrateFeature["minecraft:single_block_feature"].places_block[0].block, "daily:loot_crate_scavenger");
+assert.deepEqual(naturalCrateRule["minecraft:feature_rules"].distribution.scatter_chance, { numerator: 1, denominator: 6 });
+assert.equal(naturalCrateRule["minecraft:feature_rules"].conditions.placement_pass, "after_surface_pass");
 const eventNodes = readFileSync(join(bp, "scripts/events/EventNodeRegistry.js"), "utf8");
 assert(eventNodes.includes("addAt") && eventNodes.includes("normalizeLocation") && eventNodes.includes("resolveGround"), "manual event coordinates and ground validation missing");
 assert(dailyMenu.includes("联盟每日新闻") && dailyMenu.includes("startNewsEvent") && dailyMenu.includes("configureNewsEvent") && dailyMenu.includes("X 坐标") && dailyMenu.includes("Z 坐标"), "daily news/manual coordinate UI missing");
