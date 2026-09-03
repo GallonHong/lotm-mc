@@ -22,8 +22,8 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [0, 6, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 6, 0]);
+assert.deepEqual(bpManifest.header.version, [0, 6, 1]);
+assert.deepEqual(rpManifest.header.version, [0, 6, 1]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -46,11 +46,21 @@ for (const [name, expected] of Object.entries(health)) {
   assert(entity.components["minecraft:type_family"].family.includes("apoc_hostile"));
 }
 
+const guard = json(join(bp, "entities", "shelter_guard.json"))["minecraft:entity"];
+assert.equal(guard.components["minecraft:health"].max, 150, "shelter_guard HP mismatch");
+assert(guard.components["minecraft:type_family"].family.includes("shelter_guard"));
+assert(guard.components["minecraft:persistent"], "shelter guard must remain at its assigned shelter");
+assert(guard.components["minecraft:equippable"], "shelter guard must expose a main-hand equipment slot");
+
 const combat = readFileSync(join(bp, "scripts/combatAI.js"), "utf8");
 for (const effect of ["blindness", "darkness", "slowness", "weakness"]) assert(combat.includes(`\"${effect}\"`), `missing flash-shield effect: ${effect}`);
 assert(combat.includes("burstInterval") && combat.includes("reloadTicks"), "raider must use burst and reload profile");
 assert(combat.includes("hasLineOfSight"), "ranged AI must check cover/line of sight");
-assert(combat.includes("ensureWeapon") && combat.includes("test_gun:ak47"), "raider must restore its Test Guns AK47");
+assert(combat.includes('function ensureWeapon(entity, defaultGun = "test_gun:ak47")') && combat.includes("new ItemStack(defaultGun, 1)"), "NPCs must restore a valid Test Guns weapon");
+assert(combat.includes("export function findTarget"), "shared hostile target finder must remain exported");
+for (const marker of ["findGuardTarget", "tickGuard", "guardAnchors", "apoc:shelter_guard"]) {
+  assert(combat.includes(marker), `missing shelter guard combat behavior: ${marker}`);
+}
 
 const raider = json(join(bp, "entities", "raider_rifleman.json"))["minecraft:entity"];
 assert(raider.components["minecraft:equippable"], "raider must expose a main-hand equipment slot");
@@ -65,6 +75,15 @@ assert.equal(raiderClient.geometry.item_in_hand, undefined, "held-item rendering
 assert.equal(raiderClient.materials.item_in_hand, undefined, "held-item rendering must use the equipped item's attachable material");
 assert.equal(raiderClient.enable_attachables, true, "raider must enable the Test Guns AK47 attachable");
 assert(!raiderClient.render_controllers.includes("controller.render.item_in_hand"), "attachable must not be rendered through the entity geometry controller");
+
+const guardClient = json(join(rp, "entity", "shelter_guard.entity.json"))["minecraft:client_entity"].description;
+assert.equal(guardClient.geometry.default, "geometry.apoc.infected", "shelter guard must use the namespaced humanoid geometry");
+assert.equal(guardClient.enable_attachables, true, "shelter guard must render its Test Guns weapon attachable");
+assert.equal(
+  json(join(bp, "loot_tables", "entities", "shelter_guard_gear.json")).pools[0].entries[0].name,
+  "test_gun:ak47",
+  "shelter guard equipment table must include the Test Guns AK47"
+);
 
 const infectedGeometry = json(join(rp, "models", "entity", "infected.geo.json"))["minecraft:geometry"];
 assert(infectedGeometry.some(value => value.description.identifier === "geometry.apoc.infected"), "namespaced humanoid geometry missing");
@@ -110,6 +129,7 @@ assert(zones.includes('type: "outlaw", name: "非法制荒原"'), "unassigned lo
 const spawnDirector = readFileSync(join(bp, "scripts/spawnDirector.js"), "utf8");
 assert(spawnDirector.includes('typeof entity.isValid === "function"') && spawnDirector.includes("const dimensionId = entity.dimension.id"), "spawn listener must validate entities before reading dimension");
 for (const marker of ["health_boost", "EquipmentSlot", "ARMOR_POOLS", "apoc_zone_${zoneType}", "registerSpawnConfiguration", "apoc:appearance", "VANILLA_ARMOR_FALLBACKS", "equippedPieces"]) assert(spawnDirector.includes(marker), `missing regional spawn configuration: ${marker}`);
+assert(spawnDirector.includes("allowedSafeZoneEvent") && spawnDirector.includes("daily_allow_safe_zone") && spawnDirector.includes("daily_event_entity"), "tag-scoped safe-zone invasion exemption missing");
 const config = readFileSync(join(bp, "scripts/config.js"), "utf8");
 for (const marker of ["ZONE_DIFFICULTY", "armorChance", "test_gun:armor_titan_chest", "broodmother", "tyrant"]) assert(config.includes(marker), `missing regional balance config: ${marker}`);
 const special = readFileSync(join(bp, "scripts/specialInfectedAI.js"), "utf8");

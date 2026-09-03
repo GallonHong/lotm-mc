@@ -12,8 +12,9 @@ import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
+import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.10.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.11.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -134,6 +135,7 @@ function handleCommand(player, raw) {
   const text = String(raw || "").trim();
   const lower = text.toLowerCase();
   if (lower === "!daily") return DailyMenu.open(player);
+  if (lower === "!news") return DailyMenu.openNews(player);
   if (lower === "!daily reset") {
     if (!isAdmin(player)) return player.sendMessage("§c仅管理员可重置日常。");
     DailyQuestManager.ensureState(player, true);
@@ -175,7 +177,7 @@ function handleCommand(player, raw) {
     const templateId = parts[2] || "infected_attack";
     if (!EVENT_TEMPLATES[templateId]) return player.sendMessage(`§c未知模板。可用：${Object.keys(EVENT_TEMPLATES).join(", ")}`);
     const node = { id: `debug_${Date.now().toString(36)}`, name: "调试节点", dimension: player.dimension.id, location: { ...player.location }, allowedEvents: [templateId], cooldownUntil: 0, cooldownMinutes: 1 };
-    return player.sendMessage(WorldEventManager.start(node, templateId, player) ? `§a已启动 ${templateId}。` : "§c启动失败；安全区内不能启动事件。");
+    return player.sendMessage(WorldEventManager.start(node, templateId, player) ? `§a已启动 ${templateId}。` : "§c启动失败；区域规则不兼容、实体包缺失或已有事件。");
   }
   DailyAdminMenu.open(player);
 }
@@ -193,6 +195,7 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
     try {
       DailyQuestManager.ensureState(event.player);
       DungeonManager.handlePlayerSpawn(event.player);
+      DailyNewsManager.notifyDailySummary(event.player);
       const pending = RewardManager.pendingCount(event.player);
       if (pending) event.player.sendMessage(`§e[生存联盟] 你有 ${pending} 项待发物资，可在委托菜单重试领取。`);
     } catch {}
@@ -264,6 +267,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     player.sendMessage(count ? `§a已补发 ${count} 项物资。` : "§7暂无可补发物资，或背包空间仍不足。");
   }, 2);
   else if (id === "daily:help") system.runTimeout(() => DailyMenu.openHelp(player), 2);
+  else if (id === "daily:news") system.runTimeout(() => DailyMenu.openNews(player), 2);
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, message || "all");
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
   else if (id === "daily:crate" || id === "daily:box") handleCommand(player, "!crate give");
@@ -274,7 +278,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
 
 subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
   const lower = String(event.message || "").trim().toLowerCase();
-  if (!lower.startsWith("!daily") && !lower.startsWith("!event") && !lower.startsWith("!dungeon") && !lower.startsWith("!crate") && !lower.startsWith("!box")) return;
+  if (!lower.startsWith("!daily") && !lower.startsWith("!news") && !lower.startsWith("!event") && !lower.startsWith("!dungeon") && !lower.startsWith("!crate") && !lower.startsWith("!box")) return;
   event.cancel = true;
   const player = event.sender;
   const message = event.message;
@@ -307,4 +311,4 @@ system.runInterval(() => {
   }
 }, 100);
 
-console.warn(`[DailyEvents] DailyQuestManager, RewardManager, LootCrateManager, DungeonManager and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);
+console.warn(`[DailyEvents] DailyQuestManager, DailyNewsManager, RewardManager, LootCrateManager, DungeonManager and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);

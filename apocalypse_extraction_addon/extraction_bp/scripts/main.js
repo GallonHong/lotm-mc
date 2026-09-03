@@ -12,6 +12,7 @@ const deathHandled = new Set();
 const pendingReturn = new Map();
 const backpackSnapshots = new Map();
 const insuredReturns = new Map();
+const navigationChatTicks = new Map();
 let mobSpawnFailureNoticeTick = -1200;
 let cityBuildPromise = null;
 let cityReadyInSession = false;
@@ -67,6 +68,7 @@ const CRATE_PAD_BY_TIER = Object.freeze({
 });
 
 const LEGENDARY_CRATE_DISTRICTS = Object.freeze([0, 6, 12, 18, 24]);
+const PREMIUM_CRATE_TIERS = Object.freeze(["legendary", "mythic"]);
 
 // These are the exact X/Z footprints of the nine RandS landmark structures.
 // The original add-on lets Jigsaw reserve these cells. In the runtime void
@@ -564,7 +566,8 @@ async function placeLootCrates(dimension) {
   try { existingNodes = parse(world.getDynamicProperty(CONFIG.lootNodesKey), []); } catch {}
   const fallbackNodes = Array.isArray(existingNodes) ? existingNodes.slice() : [];
   let placed = 0;
-  const placedByTier = { common: 0, rare: 0, epic: 0, legendary: 0, mythic: 0 };
+  const placedByTier = { common: 0, rare: 0, epic: 0, legendary: 0, mythic: 0, fallback: 0 };
+  const premiumCratePoints = [];
   for (let districtIndex = 0; districtIndex < CONFIG.districtCenters.length; districtIndex++) {
     const center = CONFIG.districtCenters[districtIndex];
     await withTickingArea(
@@ -579,8 +582,10 @@ async function placeLootCrates(dimension) {
           try { location = prepareCratePad(dimension, center, crate); } catch { continue; }
           const block = dimension.getBlock(location);
           if (!block) continue;
+          let placedAsRequestedTier = false;
           try {
             block.setType(CRATE_BLOCK_BY_TIER[crate.tier] || CRATE_BLOCK_BY_TIER.common);
+            placedAsRequestedTier = true;
           } catch {
             try {
               block.setType("apoc:loot_crate");
@@ -588,7 +593,20 @@ async function placeLootCrates(dimension) {
             } catch { continue; }
           }
           placed++;
-          placedByTier[crate.tier]++;
+          if (placedAsRequestedTier) {
+            placedByTier[crate.tier]++;
+            if (PREMIUM_CRATE_TIERS.includes(crate.tier)) {
+              premiumCratePoints.push({
+                id: `${crate.tier}_${districtIndex}_${location.x}_${location.z}`,
+                name: crate.tier === "mythic" ? "神话物资箱" : "传说物资箱",
+                tier: crate.tier,
+                dimension: CONFIG.dimensionId,
+                x: location.x,
+                y: location.y,
+                z: location.z
+              });
+            }
+          } else placedByTier.fallback++;
         }
         await waitTicks(1);
       }
@@ -597,6 +615,7 @@ async function placeLootCrates(dimension) {
   try { world.setDynamicProperty(CONFIG.lootNodesKey, JSON.stringify(fallbackNodes.slice(-300))); } catch {}
   try { world.setDynamicProperty("apoc_extract:crate_count:v1", placed); } catch {}
   try { world.setDynamicProperty("apoc_extract:crate_tiers:v1", JSON.stringify(placedByTier)); } catch {}
+  try { world.setDynamicProperty(CONFIG.premiumCratePointsKey, JSON.stringify(premiumCratePoints)); } catch {}
   return placed;
 }
 
@@ -614,6 +633,7 @@ async function placeExtractionMarkers(dimension) {
         const floorY = CONFIG.cityBaseY + 1;
         const y = floorY + 1;
         try {
+          buildExtractionOutpost(dimension, point);
           dimension.runCommand(`fill ${x - 4} ${floorY} ${z - 4} ${x + 4} ${floorY} ${z + 4} minecraft:lime_concrete`);
           dimension.runCommand(`fill ${x - 1} ${floorY} ${z - 1} ${x + 1} ${floorY} ${z + 1} minecraft:iron_block`);
           dimension.runCommand(`fill ${x - 2} ${y} ${z - 2} ${x + 2} ${y + 3} ${z + 2} minecraft:air`);
@@ -629,6 +649,45 @@ async function placeExtractionMarkers(dimension) {
     );
   }
   return placed;
+}
+
+function buildExtractionOutpost(dimension, point) {
+  const x = Math.floor(point.x), z = Math.floor(point.z);
+  const floorY = CONFIG.cityBaseY + 1;
+  const northSouth = Math.abs(z) >= Math.abs(x);
+  dimension.runCommand(`fill ${x - 11} ${floorY - 1} ${z - 11} ${x + 11} ${floorY} ${z + 11} minecraft:deepslate_tiles`);
+
+  const booths = northSouth
+    ? [
+        { minX: x - 10, maxX: x - 4, minZ: z - 7, maxZ: z + 7, door: `fill ${x - 4} ${floorY + 1} ${z - 1} ${x - 4} ${floorY + 3} ${z + 1} minecraft:air` },
+        { minX: x + 4, maxX: x + 10, minZ: z - 7, maxZ: z + 7, door: `fill ${x + 4} ${floorY + 1} ${z - 1} ${x + 4} ${floorY + 3} ${z + 1} minecraft:air` }
+      ]
+    : [
+        { minX: x - 7, maxX: x + 7, minZ: z - 10, maxZ: z - 4, door: `fill ${x - 1} ${floorY + 1} ${z - 4} ${x + 1} ${floorY + 3} ${z - 4} minecraft:air` },
+        { minX: x - 7, maxX: x + 7, minZ: z + 4, maxZ: z + 10, door: `fill ${x - 1} ${floorY + 1} ${z + 4} ${x + 1} ${floorY + 3} ${z + 4} minecraft:air` }
+      ];
+
+  for (const booth of booths) {
+    dimension.runCommand(`fill ${booth.minX} ${floorY + 1} ${booth.minZ} ${booth.maxX} ${floorY + 6} ${booth.maxZ} minecraft:polished_deepslate`);
+    dimension.runCommand(`fill ${booth.minX + 1} ${floorY + 1} ${booth.minZ + 1} ${booth.maxX - 1} ${floorY + 5} ${booth.maxZ - 1} minecraft:air`);
+    dimension.runCommand(booth.door);
+    dimension.runCommand(`fill ${booth.minX + 1} ${floorY + 3} ${booth.minZ} ${booth.maxX - 1} ${floorY + 4} ${booth.minZ} minecraft:lime_stained_glass`);
+    dimension.runCommand(`fill ${booth.minX + 1} ${floorY + 3} ${booth.maxZ} ${booth.maxX - 1} ${floorY + 4} ${booth.maxZ} minecraft:lime_stained_glass`);
+    dimension.runCommand(`setblock ${booth.minX + 1} ${floorY + 2} ${booth.minZ + 1} minecraft:sea_lantern`);
+    dimension.runCommand(`setblock ${booth.maxX - 1} ${floorY + 2} ${booth.maxZ - 1} minecraft:sea_lantern`);
+  }
+
+  if (northSouth) {
+    dimension.runCommand(`fill ${x - 3} ${floorY + 6} ${z - 4} ${x + 3} ${floorY + 6} ${z + 4} minecraft:iron_block`);
+    dimension.runCommand(`fill ${x - 2} ${floorY + 6} ${z - 3} ${x + 2} ${floorY + 6} ${z + 3} minecraft:lime_stained_glass`);
+    dimension.runCommand(`fill ${x - 11} ${floorY + 1} ${z - 11} ${x - 11} ${floorY + 3} ${z + 11} minecraft:iron_bars`);
+    dimension.runCommand(`fill ${x + 11} ${floorY + 1} ${z - 11} ${x + 11} ${floorY + 3} ${z + 11} minecraft:iron_bars`);
+  } else {
+    dimension.runCommand(`fill ${x - 4} ${floorY + 6} ${z - 3} ${x + 4} ${floorY + 6} ${z + 3} minecraft:iron_block`);
+    dimension.runCommand(`fill ${x - 3} ${floorY + 6} ${z - 2} ${x + 3} ${floorY + 6} ${z + 2} minecraft:lime_stained_glass`);
+    dimension.runCommand(`fill ${x - 11} ${floorY + 1} ${z - 11} ${x + 11} ${floorY + 3} ${z - 11} minecraft:iron_bars`);
+    dimension.runCommand(`fill ${x - 11} ${floorY + 1} ${z + 11} ${x + 11} ${floorY + 3} ${z + 11} minecraft:iron_bars`);
+  }
 }
 
 async function buildCity(dimension) {
@@ -669,6 +728,7 @@ async function buildCity(dimension) {
     world.setDynamicProperty(CONFIG.cityReadyBackupKey, Date.now());
     world.setDynamicProperty("apoc_extract:exit_count:v1", exits);
     world.setDynamicProperty("apoc_extract:crate_count:v1", crates);
+    world.setDynamicProperty(CONFIG.extractionOutpostVersionKey, CONFIG.extractionOutpostVersion);
     world.setDynamicProperty(CONFIG.cityLayoutVersionKey, CONFIG.cityLayoutVersion);
     cityReadyInSession = true;
     cityServicesCheckedInSession = true;
@@ -716,18 +776,24 @@ function cityPhysicallyPresent(dimension) {
 async function ensureCityServices(dimension) {
   if (cityServicesCheckedInSession) return;
   cityServicesCheckedInSession = true;
-  let recordedExits = 0, recordedCrates = 0;
+  let recordedExits = 0, recordedCrates = 0, premiumCrates = [], outpostVersion = 0;
   try {
     recordedExits = Number(world.getDynamicProperty("apoc_extract:exit_count:v1") || 0);
     recordedCrates = Number(world.getDynamicProperty("apoc_extract:crate_count:v1") || 0);
+    premiumCrates = parse(world.getDynamicProperty(CONFIG.premiumCratePointsKey), []);
+    outpostVersion = Number(world.getDynamicProperty(CONFIG.extractionOutpostVersionKey) || 0);
   } catch {}
-  if (recordedExits >= CONFIG.extractionPoints.length && recordedCrates > 0) return;
+  const expectedCrates = CONFIG.districtCenters.reduce((count, _center, index) => count + districtCrateLayout(index).length, 0);
+  const expectedPremiumCrates = LEGENDARY_CRATE_DISTRICTS.length + 1;
+  if (recordedExits >= CONFIG.extractionPoints.length && recordedCrates >= expectedCrates &&
+      premiumCrates.length >= expectedPremiumCrates && outpostVersion >= CONFIG.extractionOutpostVersion) return;
   console.warn("[ExtractionCity] city exists; repairing exit markers and loot crates without rebuilding districts...");
   const exits = await placeExtractionMarkers(dimension);
   const crates = await placeLootCrates(dimension);
   try {
     world.setDynamicProperty("apoc_extract:exit_count:v1", exits);
     world.setDynamicProperty("apoc_extract:crate_count:v1", crates);
+    world.setDynamicProperty(CONFIG.extractionOutpostVersionKey, CONFIG.extractionOutpostVersion);
   } catch {}
   console.warn(`[ExtractionCity] city service repair complete: ${exits} exits, ${crates} crates.`);
 }
@@ -767,6 +833,7 @@ function returnPlayer(player, reason = "已离开摸金都市。") {
     player.setDynamicProperty(CONFIG.activeStateKey, undefined);
     player.setDynamicProperty(CONFIG.returnKey, undefined);
     backpackSnapshots.delete(player.id);
+    navigationChatTicks.delete(player.id);
     try { player.runCommand(`fog @s remove ${CONFIG.fogStackId}`); } catch {}
     player.sendMessage(`§a[撤离] ${reason}`);
   } catch (error) { player.sendMessage(`§c撤离失败：${error}`); }
@@ -838,13 +905,9 @@ async function enter(player) {
       applyExtractionEnvironment(player);
       snapshotBackpack(player);
       const exit = nearestExit(player);
-      try {
-        player.onScreenDisplay.setTitle("§a撤离点导航已锁定", {
-          subtitle: `§f${exit?.name || "未知"} §e${Math.floor(exit?.distance || 0)}m`,
-          fadeInDuration: 10, stayDuration: 70, fadeOutDuration: 20
-        });
-      } catch {}
-      player.sendMessage(`§6[摸金都市] 已在 ${point.name} 上空投放，并获得 60 秒缓降。最近撤离点：§a${exit?.name || "未知"} §8(${Math.floor(exit?.distance || 0)}m，${exit?.x || 0}, ${exit?.z || 0})§6。跟随屏幕撤离向导，进入撤离点 ${CONFIG.extractionRadius} 格范围后会自动开始倒计时。`);
+      player.sendMessage(`§6[摸金都市] 已在 ${point.name} 上空投放，并获得 60 秒缓降。City 不占用枪械 HUD；左上角聊天每 60 秒更新一次导航。进入撤离点 ${CONFIG.extractionRadius} 格范围后会自动开始倒计时。`);
+      publishNavigationChat(player, exit, nearestLegendaryCrate(player));
+      navigationChatTicks.set(player.id, system.currentTick);
     } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
     system.runTimeout(() => { try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {} }, 100);
   }, 30);
@@ -855,14 +918,24 @@ function nearestExit(player) {
 }
 
 function legendaryCratePoints() {
-  return LEGENDARY_CRATE_DISTRICTS.map(districtIndex => {
-    const center = CONFIG.districtCenters[districtIndex];
-    return { id: `legendary_${districtIndex}`, name: "传说物资箱", x: center.x + 4, z: center.z + 20 };
-  });
+  try {
+    const points = parse(world.getDynamicProperty(CONFIG.premiumCratePointsKey), []);
+    return points.filter(point => point?.id && PREMIUM_CRATE_TIERS.includes(point.tier) &&
+      point.dimension === CONFIG.dimensionId && [point.x, point.y, point.z].every(Number.isFinite));
+  } catch { return []; }
 }
 
 function nearestLegendaryCrate(player) {
-  return legendaryCratePoints().map(point => ({ ...point, distance: distance2D(player.location, point) })).sort((a, b) => a.distance - b.distance)[0] || null;
+  return legendaryCratePoints()
+    .map(point => ({ ...point, distance: distance2D(player.location, point) }))
+    .sort((a, b) => a.distance - b.distance)
+    .find(point => {
+      if (point.distance > 96) return true;
+      try {
+        const expected = CRATE_BLOCK_BY_TIER[point.tier];
+        return player.dimension.getBlock({ x: point.x, y: point.y, z: point.z })?.typeId === expected;
+      } catch { return true; }
+    }) || null;
 }
 
 function navigationDirection(player, point) {
@@ -890,15 +963,13 @@ function navigationDirection(player, point) {
   return `${relative}·${northSouth}${eastWest || (northSouth ? "" : "原地")}`;
 }
 
-function publishNavigationTitle(player, title, subtitle, stayDuration = 45) {
-  try {
-    player.onScreenDisplay.setTitle(String(title || ""), {
-      subtitle: String(subtitle || ""),
-      fadeInDuration: 3,
-      stayDuration,
-      fadeOutDuration: 8
-    });
-  } catch {}
+function publishNavigationChat(player, exit, premium) {
+  const lines = [
+    `§6[摸金导航] §a撤离：§f${exit?.name || "未知"} §e${Math.floor(exit?.distance || 0)}m §b${exit ? navigationDirection(player, exit) : ""} §8(${exit?.x || 0}, ${exit?.z || 0})`
+  ];
+  if (premium) lines.push(`§6高价值目标：§f${premium.name} §e${Math.floor(premium.distance)}m §b${navigationDirection(player, premium)} §8(${premium.x}, ${premium.y}, ${premium.z})`);
+  else lines.push("§7附近没有已确认存在的传说或神话物资箱。");
+  try { player.sendMessage(lines.join("\n")); } catch {}
 }
 
 function startExtraction(player) {
@@ -1273,31 +1344,23 @@ system.runInterval(() => {
       const acknowledged = Number(player.getDynamicProperty(CONFIG.menuAckKey) || 0);
       if (requestId && requestId !== acknowledged) acknowledgeMenuRequest(player, requestId);
     } catch {}
-    if (player.dimension.id !== CONFIG.dimensionId) continue;
+    if (player.dimension.id !== CONFIG.dimensionId) {
+      navigationChatTicks.delete(player.id);
+      continue;
+    }
     snapshotBackpack(player);
     if (system.currentTick % 100 === 0) applyExtractionEnvironment(player);
     const point = nearestExit(player);
+    if (!navigationChatTicks.has(player.id)) navigationChatTicks.set(player.id, system.currentTick);
+    const lastNavigationChat = Number(navigationChatTicks.get(player.id));
+    if (system.currentTick - lastNavigationChat >= CONFIG.navigationChatIntervalTicks) {
+      const premium = nearestLegendaryCrate(player);
+      publishNavigationChat(player, point, premium);
+      navigationChatTicks.set(player.id, system.currentTick);
+    }
     if (point && point.distance <= CONFIG.extractionRadius && !extractionJobs.has(player.id)) {
       startExtraction(player);
       continue;
-    }
-    if (point && !extractionJobs.has(player.id) && system.currentTick % 80 === 0) {
-      const showLegendary = system.currentTick % 160 >= 80;
-      const legendary = nearestLegendaryCrate(player);
-      if (showLegendary && legendary) {
-        publishNavigationTitle(
-          player,
-          `§6传说箱向导 §e${Math.floor(legendary.distance)}m §b${navigationDirection(player, legendary)}`,
-          `§f${legendary.name} §8(${legendary.x}, ${legendary.z})`
-        );
-      } else {
-        const near = point.distance <= 32 ? "§a已接近" : "§a撤离向导";
-        publishNavigationTitle(
-          player,
-          `${near} §e${Math.floor(point.distance)}m §b${navigationDirection(player, point)}`,
-          `§f${point.name} §8(${point.x}, ${point.z})`
-        );
-      }
     }
     const job = extractionJobs.get(player.id);
     if (!job) continue;
@@ -1306,11 +1369,6 @@ system.runInterval(() => {
       extractionJobs.delete(player.id); player.sendMessage("§c[撤离] 已离开撤离点，倒计时取消。"); continue;
     }
     const elapsed = system.currentTick - job.startedTick;
-    const remaining = CONFIG.extractionSeconds - Math.floor(elapsed / 20);
-    if (remaining !== job.lastRemaining) {
-      job.lastRemaining = remaining;
-      publishNavigationTitle(player, `§e撤离倒计时 ${Math.max(0, remaining)}秒`, `§a留在 ${activePoint.name} 范围内`, 22);
-    }
     if (elapsed >= CONFIG.extractionSeconds * 20) { extractionJobs.delete(player.id); returnPlayer(player, "撤离成功，已保全全部携带物资。"); }
   }
 }, 10);

@@ -61,7 +61,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "disaster", name: "电磁风暴避险", disasterId: "lightning", difficulty: 0, durationTicks: 300, messages: ["§d林岚：§f‘自然灾害会随机发生。雷暴来临时远离高处和开阔地，寻找实体屋顶。’"] },
       { type: "checkpoint", name: "启动撤离电台", checkpoint: "tower", hint: "到电台发出撤离信号。" },
       { type: "briefing", name: "摸金模式说明", durationTicks: 140, messages: [
-        "§6林岚：§f‘摸金都市可随时进入：随机出生、搜刮不同品质箱子，再按屏幕标题与绿色光柱前往撤离点。’",
+        "§6林岚：§f‘摸金都市可随时进入：随机出生、搜刮不同品质箱子，再按左上角定时导航与绿色光柱前往撤离点。’",
         "§7摸金都市死亡会损失非保险物资；撤离成功才把战利品安全带回。副本按各自规则结算。"
       ] },
       { type: "checkpoint", name: "完成第一次撤离", checkpoint: "evac", hint: "前往最后的道路撤离标记。" }

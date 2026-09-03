@@ -172,6 +172,32 @@ export class IntegrationBridge {
     return this.spawnFallback(dimension, center, mobKey, count, tags, minDistance, maxDistance);
   }
 
+  /** 安全区入侵专用：绕过普通区域拒绝，但只给显式事件标签的单位使用。 */
+  static spawnSafeZoneEventMobs(dimension, center, mobKey, count, tags, minDistance = 7, maxDistance = 16) {
+    let spawned = 0;
+    for (let index = 0; index < count; index++) {
+      const angle = Math.random() * Math.PI * 2;
+      const radius = minDistance + Math.random() * Math.max(1, maxDistance - minDistance);
+      const location = findFallbackGround(dimension, center, angle, radius);
+      if (!location) continue;
+      let entity = null;
+      try { entity = dimension.spawnEntity(APOCALYPSE_MOBS[mobKey] || APOCALYPSE_MOBS.basic, location); } catch {}
+      try { entity ||= dimension.spawnEntity(VANILLA_MOBS[mobKey] || VANILLA_MOBS.basic, location); } catch {}
+      if (!entity) continue;
+      try {
+        for (const tag of tags) entity.addTag(tag);
+        entity.addTag("daily_event_entity");
+        entity.addTag("daily_allow_safe_zone");
+        if (String(entity.typeId).startsWith("apoc:")) {
+          entity.addTag("apoc_hostile");
+          entity.addTag("apoc_director");
+        }
+        spawned++;
+      } catch {}
+    }
+    return spawned;
+  }
+
   /**
    * 副本坐标由地图模板人工验证。副本必须立即知道实际生成数量，
    * 因此不经过异步请求队列，直接尝试生成 Apocalypse 实体并以原版实体兜底。

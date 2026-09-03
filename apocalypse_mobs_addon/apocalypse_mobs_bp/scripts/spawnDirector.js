@@ -63,6 +63,11 @@ function valid(entity) {
   try { return !!entity && (typeof entity.isValid !== "function" || entity.isValid()); } catch { return false; }
 }
 
+function allowedSafeZoneEvent(entity) {
+  try { return entity.hasTag("daily_event_entity") && entity.hasTag("daily_allow_safe_zone"); }
+  catch { return false; }
+}
+
 function choose(list) { return list[Math.floor(Math.random() * list.length)]; }
 
 export class SpawnDirector {
@@ -258,14 +263,14 @@ export class SpawnDirector {
     const entities = overworld.getEntities({ tags: ["apoc_hostile"] });
     for (const entity of entities) {
       try {
-        if (ZoneRegistry.isSafe(entity.dimension.id, entity.location)) entity.remove();
+        if (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity)) entity.remove();
       } catch {}
     }
     if (CONFIG.suppressVanillaHostiles) {
       for (const typeId of VANILLA_HOSTILES) {
         for (const entity of overworld.getEntities({ type: typeId })) {
           try {
-            if (ZoneRegistry.isSafe(entity.dimension.id, entity.location)) entity.remove();
+            if (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity)) entity.remove();
           } catch {}
         }
       }

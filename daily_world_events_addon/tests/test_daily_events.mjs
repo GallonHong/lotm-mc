@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 10, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 10, 0]);
+assert.deepEqual(manifest.header.version, [0, 11, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 11, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -43,22 +43,32 @@ assert(managerSource.includes("QUEST_POOLS.collect") && managerSource.includes("
 assert(managerSource.includes("system.currentTick") === false, "daily persistence must not derive day identity from ticks");
 
 const eventSource = readFileSync(join(bp, "scripts/events/templates/eventTemplates.js"), "utf8");
-for (const id of ["infected_attack", "survivor_rescue", "raider_ambush", "crashed_convoy", "roadblock_clearance", "toxic_outbreak", "mutant_nest", "mercenary_blockade"]) assert(eventSource.includes(`${id}:`));
+for (const id of ["infected_attack", "survivor_rescue", "raider_ambush", "crashed_convoy", "roadblock_clearance", "toxic_outbreak", "mutant_nest", "mercenary_blockade", "fog_man_hunt", "goatman_hunt", "siren_head_hunt", "rebel_invasion"]) assert(eventSource.includes(`${id}:`));
 assert(eventSource.includes("outlawWaves") && eventSource.includes('zones: ["outlaw"]'), "law/outlaw event difficulty split missing");
 for (const key of ["shrieker", "charger", "hunter", "tyrant"]) assert(eventSource.includes(`mobKey: "${key}"`), `world events missing special infected: ${key}`);
 const templatesModule = await import(`file://${join(bp, "scripts/events/templates/eventTemplates.js")}`);
-assert.equal(Object.keys(templatesModule.EVENT_TEMPLATES).length, 8, "expected eight event templates");
+assert.equal(Object.keys(templatesModule.EVENT_TEMPLATES).length, 12, "expected twelve event templates");
 for (let index = 0; index < 100; index++) {
   const selected = templatesModule.chooseTemplate(null, "law");
   assert(!["mutant_nest", "mercenary_blockade"].includes(selected), "law zone selected outlaw-only event");
 }
+for (let index = 0; index < 20; index++) assert.equal(templatesModule.chooseTemplate(null, "safe"), "rebel_invasion", "safe zones may only select rebel invasion");
+for (const id of ["fog_man_hunt", "goatman_hunt", "siren_head_hunt"]) assert.equal(templatesModule.EVENT_TEMPLATES[id].mode, "boss", `${id} boss mode missing`);
+assert.equal(templatesModule.EVENT_TEMPLATES.rebel_invasion.allowSafeZone, true, "rebel invasion must explicitly allow safe-zone enemies");
 const worldEvents = readFileSync(join(bp, "scripts/events/WorldEventManager.js"), "utf8");
 assert(worldEvents.includes("EventNodeRegistry") && worldEvents.includes("participantScores"));
 assert(worldEvents.includes("eventMaxEntities") && worldEvents.includes("setCooldown"));
 assert(worldEvents.includes("zoneType") && worldEvents.includes("outlawRewardId"), "zone-scaled event rewards missing");
 assert(worldEvents.includes("disqualifiedPlayerIds") && worldEvents.includes("static onPlayerDeath(player)"), "event death disqualification missing");
 assert(worldEvents.includes("instance.disqualifiedPlayerIds.includes(player.id)"), "dead participants must be excluded from scoring and rewards");
+for (const marker of ["DailyNewsManager.publishEventStart", "DailyNewsManager.publishEventResult", "template.mode === \"boss\"", "spawnSafeZoneEventMobs", "allowSafeZone", 'state: options.waitForPlayers === true ? "announced"', "arrivalDeadlineTick"]) assert(worldEvents.includes(marker), `missing news/event integration: ${marker}`);
 assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("WorldEventManager.onPlayerDeath(dead)"), "player deaths must reach WorldEventManager");
+const newsPresets = await import(`file://${join(bp, "scripts/events/templates/newsPresets.js")}`);
+assert(Object.keys(newsPresets.NEWS_PRESETS).length >= 13, "daily news preset library is too small");
+for (const templateId of Object.keys(templatesModule.EVENT_TEMPLATES)) assert(newsPresets.presetsForTemplate(templateId).length > 0, `event template has no news preset: ${templateId}`);
+for (const id of ["mass_horde_surface", "fog_man_sighting", "goatman_sighting", "siren_head_sighting", "rebel_city_assault"]) assert(newsPresets.NEWS_PRESETS[id], `missing news preset: ${id}`);
+const newsManager = readFileSync(join(bp, "scripts/events/DailyNewsManager.js"), "utf8");
+for (const marker of ["newsArchiveKey", "publishEventStart", "publishEventResult", "notifyDailySummary", "listToday", "coordinateText", "联盟每日新闻"]) assert(newsManager.includes(marker), `missing daily news behavior: ${marker}`);
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
 const rewardIds = [...rewards.matchAll(/id: \"([^\"]+)\"/g)].map(match => match[1]);
@@ -69,6 +79,7 @@ assert(rewards.includes("minecraft:name_tag") && rewards.includes("minecraft:ame
 const integration = readFileSync(join(bp, "scripts/integration/IntegrationBridge.js"), "utf8");
 assert(integration.includes("apoc:spawn_requests:v1") === false, "integration key should come from configurable config.js");
 assert(integration.includes("enqueueSpawn") && integration.includes("spawnFallback"));
+assert(integration.includes("spawnSafeZoneEventMobs") && integration.includes("daily_allow_safe_zone"), "safe-zone invasion spawn bridge missing");
 assert(integration.includes("resolveZone") && integration.includes('"outlaw"'), "zone resolver missing");
 for (const marker of ["安全区 1", "法制区 1", "非法制荒原"]) assert(integration.includes(marker), `missing Apocalypse preset/default zone: ${marker}`);
 
@@ -162,12 +173,16 @@ assert.equal(dungeonManager.includes("正在重新部署"), false, "dungeon must
 assert(integration.includes("spawnDungeonMobs") && integration.includes("spawnExact"), "direct confirmed dungeon spawning missing");
 assert(rewards.includes("dungeon_abandoned_clinic"), "clinic reward is missing");
 for (const reward of ["dungeon_newcomer_valley", "dungeon_outpost_defense", "dungeon_storm_rescue", "dungeon_convoy_escort"]) assert(rewards.includes(reward), `missing dungeon reward: ${reward}`);
+for (const reward of ["event_fog_man_hunt", "event_goatman_hunt", "event_siren_head_hunt", "event_rebel_invasion"]) assert(rewards.includes(reward), `missing news event reward: ${reward}`);
 assert(readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8").includes("进入副本行动"));
 const dungeonMenu = readFileSync(join(bp, "scripts/ui/DungeonMenu.js"), "utf8");
 assert(dungeonMenu.includes("isUserBusy") && dungeonMenu.includes("result.canceled") && dungeonMenu.includes("attempt < 8"), "dungeon menu must retry UserBusy cancellation results");
 assert(dungeonMenu.includes("Object.values(DUNGEON_TEMPLATES)") && dungeonMenu.includes("首次奖励已领·可重玩"), "dungeon menu must list every template and one-time completion state");
 assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.tick"));
 assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
+const eventNodes = readFileSync(join(bp, "scripts/events/EventNodeRegistry.js"), "utf8");
+assert(eventNodes.includes("addAt") && eventNodes.includes("normalizeLocation") && eventNodes.includes("resolveGround"), "manual event coordinates and ground validation missing");
+assert(dailyMenu.includes("联盟每日新闻") && dailyMenu.includes("startNewsEvent") && dailyMenu.includes("configureNewsEvent") && dailyMenu.includes("X 坐标") && dailyMenu.includes("Z 坐标"), "daily news/manual coordinate UI missing");
 
 const sapiIntegration = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/integration.js"), "utf8");
 const sapiMenu = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/server_menu.js"), "utf8");

@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.10.0",
+  version: "0.11.0",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,
@@ -12,6 +12,10 @@ export const CONFIG = Object.freeze({
   lootCrateResetScanTicks: 100,
   lootCratePlayerSafeRadius: 8,
   eventNodesKey: "daily:event_nodes:v1",
+  newsArchiveKey: "daily:news_archive:v1",
+  playerNewsSeenKey: "daily:news_seen_day:v1",
+  newsArchiveLimit: 60,
+  newsArrivalGraceTicks: 2400,
   apocalypseHeartbeatKey: "apoc:heartbeat",
   apocalypseSpawnQueueKey: "apoc:spawn_requests:v1",
   sapiRegionsKey: "sapi:server:regions:v1",
