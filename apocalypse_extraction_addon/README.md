@@ -1,10 +1,10 @@
-# Apocalypse Extraction City v0.10.7
+# Apocalypse Extraction City v0.10.8
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.7 为资源包声明 `capabilities: ["pbr"]`，使客户端能够按灵动视效规范识别黄昏雾资源；最低引擎版本保持 1.21.120。v0.10.6 对整个 768×768 城市路面执行分区承托与空气洞扫描，修复旧世界中整段道路坠入虚空的问题。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.8 将撤离点从12个增加到20个，外围坐标向城区内缩，使用可验证的7×7固定标记，并增加灵动视效兼容的绿色全亮粒子；旧版突出平台会在进入城市时迁移一次。v0.10.7 为资源包声明 `capabilities: ["pbr"]`。
 
 ## 安装与联动
 
-- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.7`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
+- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.8`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。主 BP 继续只强制依赖维度 Bootstrap；缺少 RP 时仍可运行，并回退显示原版粒子。
 - 推荐联动：Daily World Events v0.11.0（提供统一物资箱、神话箱和每日新闻）、Apocalypse Mobs v0.6.1（提供区域强化感染者、持枪掠夺者、避难所守卫、Boss 与主城入侵安全区例外）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Guns 保持原样，并独占 action bar 显示弹药、换弹与技能信息；City 不再写入该区域。
@@ -19,7 +19,7 @@
 - 管理员使用 `/scriptevent extract:rebuild` 修复承托层、扩建城区并重新布置物资箱。
 - 当前服务器没有 `chatSend` 事件时，`!extract` 不可用，请使用上述 `/scriptevent` 指令或 SAPI 主菜单。
 - 每次进入从主要城区中随机选择空投点，在城市上空获得 60 秒缓降；不会生成孤立石头出生台。
-- 默认 12 个撤离点，每处都有双岗亭、顶棚、围墙、照明、32 格高绿色玻璃信标柱和 9×9 绿色地面标记；进入都市时自动锁定最近撤离点。进入时以及之后每 60 秒，左上角聊天会汇总最近撤离点与最近实际存在的传说/神话箱方向、距离和坐标。进入 9 格范围会自动开始 10 秒撤离倒计时，离开范围则取消，重新进入可再次启动。`/scriptevent extract:exit` 仍作为手动备用入口。
+- 默认20个撤离点，包括12个外围出口和8个城区内部出口。每处使用7×7黑绿警戒地面、四角照明、中央信标与绿色全亮粒子；粒子只在玩家96格内刷新。进入都市时自动锁定最近撤离点，之后每60秒在左上角聊天汇总最近撤离点与高价值箱方向。进入9格范围会自动开始10秒撤离倒计时，离开范围则取消。`/scriptevent extract:exit` 仍作为手动备用入口。
 - 管理员站在摸金维度内执行 `!extract point add 名称` 可增加撤离点，最多保存 32 个。
 - `!extract point reset` 恢复默认撤离点。
 - 快捷栏槽位 1-9、主手/副手与穿戴护甲受保险保护；普通背包槽位 10-36 在摸金维度死亡时掉落。
@@ -45,6 +45,6 @@
 - `Apocalypse Extraction Dimension Bootstrap` 使用官方 `DimensionRegistry.registerCustomDimension` 注册虚空维度；稳定核心通过原版 `/structure load` 和 `/tickingarea` 命令建设城区。
 - 请删除旧的 v0.1.x 行为包/资源包后重新导入，避免 Minecraft 继续读取缓存的旧维度 JSON。
 
-从 v0.10.5 或更早版本更新到 v0.10.6 后，第一次进入不会重建 25 个城区；系统只会重新铺设四层承托、逐段填补街面空气洞、补建 12 个撤离检查站，并按新概率刷新所有已识别箱位。该迁移只运行一次，过程中不要重复点击入口。若旧世界没有自动升级，管理员执行一次 `/scriptevent extract:rebuild`。
+从 v0.10.7 更新到 v0.10.8 后，第一次进入不会重建25个城区；系统会撤除位于 `±352` 的12个旧岗亭和信号柱、保留承托层并恢复普通地面，然后在固定安全坐标生成20个新撤离标记。管理员添加的自定义撤离点会与默认点合并保留。该迁移只运行一次，若旧世界没有自动升级，管理员执行一次 `/scriptevent extract:rebuild`。
 
 本版的自定义维度和 RandS Jigsaw 组合属于测试功能；首次上线请用新世界或完整备份验证。

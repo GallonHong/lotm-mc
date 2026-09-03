@@ -13,12 +13,20 @@ const pendingReturn = new Map();
 const backpackSnapshots = new Map();
 const insuredReturns = new Map();
 const navigationChatTicks = new Map();
+const extractionMarkerTicks = new Map();
 let mobSpawnFailureNoticeTick = -1200;
 let cityBuildPromise = null;
 let cityReadyInSession = false;
 let cityServicesCheckedInSession = false;
 let activeHorde = null;
 let nextHordeAllowedTick = 0;
+
+const LEGACY_EXTRACTION_POINTS = Object.freeze([
+  { x: -256, z: -352 }, { x: 0, z: -352 }, { x: 256, z: -352 },
+  { x: -352, z: -256 }, { x: -352, z: 0 }, { x: -352, z: 256 },
+  { x: 352, z: -256 }, { x: 352, z: 0 }, { x: 352, z: 256 },
+  { x: -256, z: 352 }, { x: 0, z: 352 }, { x: 256, z: 352 }
+]);
 
 const APOCALYPSE_MOBS = Object.freeze({
   basic: "apoc:infected_basic",
@@ -202,9 +210,13 @@ function extractionDimension() {
 
 function distance2D(a, b) { return Math.hypot(Number(a.x) - Number(b.x), Number(a.z) - Number(b.z)); }
 
-function points() {
+function customPoints() {
   const saved = parse(world.getDynamicProperty(CONFIG.pointsKey), null);
-  return Array.isArray(saved) && saved.length ? saved : CONFIG.extractionPoints;
+  return Array.isArray(saved) ? saved.filter(point => String(point?.id || "").startsWith("custom_")) : [];
+}
+
+function points() {
+  return [...CONFIG.extractionPoints, ...customPoints()].slice(0, 32);
 }
 
 function weighted(entries) {
@@ -760,29 +772,21 @@ async function placeLootCrates(dimension, structureSummary = null) {
 
 async function placeExtractionMarkers(dimension) {
   let placed = 0;
-  for (let index = 0; index < CONFIG.extractionPoints.length; index++) {
-    const point = CONFIG.extractionPoints[index];
+  const exitPoints = points();
+  for (let index = 0; index < exitPoints.length; index++) {
+    const point = exitPoints[index];
     await withTickingArea(
       dimension,
       `extract_exit_${index}`,
-      { x: point.x - 16, y: 56, z: point.z - 16 },
-      { x: point.x + 16, y: 192, z: point.z + 16 },
+      { x: point.x - 8, y: 56, z: point.z - 8 },
+      { x: point.x + 8, y: 96, z: point.z + 8 },
       async () => {
-        const x = Math.floor(point.x), z = Math.floor(point.z);
-        const floorY = CONFIG.cityBaseY + 1;
-        const y = floorY + 1;
         try {
-          buildExtractionOutpost(dimension, point);
-          dimension.runCommand(`fill ${x - 4} ${floorY} ${z - 4} ${x + 4} ${floorY} ${z + 4} minecraft:lime_concrete`);
-          dimension.runCommand(`fill ${x - 1} ${floorY} ${z - 1} ${x + 1} ${floorY} ${z + 1} minecraft:iron_block`);
-          dimension.runCommand(`fill ${x - 2} ${y} ${z - 2} ${x + 2} ${y + 3} ${z + 2} minecraft:air`);
-          dimension.runCommand(`setblock ${x} ${y} ${z} minecraft:beacon`);
-          dimension.runCommand(`fill ${x} ${y + 1} ${z} ${x} ${y + 31} ${z} minecraft:lime_stained_glass`);
-          for (const lightY of [y + 6, y + 14, y + 22, y + 30]) {
-            dimension.runCommand(`setblock ${x + 1} ${lightY} ${z} minecraft:sea_lantern`);
-          }
+          await buildExtractionMarker(dimension, point);
           placed++;
-        } catch {}
+        } catch (error) {
+          console.warn(`[ExtractionCity] exit marker ${point.id} failed: ${error}`);
+        }
         await waitTicks(1);
       }
     );
@@ -790,42 +794,38 @@ async function placeExtractionMarkers(dimension) {
   return placed;
 }
 
-function buildExtractionOutpost(dimension, point) {
+async function buildExtractionMarker(dimension, point) {
   const x = Math.floor(point.x), z = Math.floor(point.z);
   const floorY = CONFIG.cityBaseY + 1;
-  const northSouth = Math.abs(z) >= Math.abs(x);
-  dimension.runCommand(`fill ${x - 11} ${floorY - 1} ${z - 11} ${x + 11} ${floorY} ${z + 11} minecraft:deepslate_tiles`);
-
-  const booths = northSouth
-    ? [
-        { minX: x - 10, maxX: x - 4, minZ: z - 7, maxZ: z + 7, door: `fill ${x - 4} ${floorY + 1} ${z - 1} ${x - 4} ${floorY + 3} ${z + 1} minecraft:air` },
-        { minX: x + 4, maxX: x + 10, minZ: z - 7, maxZ: z + 7, door: `fill ${x + 4} ${floorY + 1} ${z - 1} ${x + 4} ${floorY + 3} ${z + 1} minecraft:air` }
-      ]
-    : [
-        { minX: x - 7, maxX: x + 7, minZ: z - 10, maxZ: z - 4, door: `fill ${x - 1} ${floorY + 1} ${z - 4} ${x + 1} ${floorY + 3} ${z - 4} minecraft:air` },
-        { minX: x - 7, maxX: x + 7, minZ: z + 4, maxZ: z + 10, door: `fill ${x - 1} ${floorY + 1} ${z + 4} ${x + 1} ${floorY + 3} ${z + 4} minecraft:air` }
-      ];
-
-  for (const booth of booths) {
-    dimension.runCommand(`fill ${booth.minX} ${floorY + 1} ${booth.minZ} ${booth.maxX} ${floorY + 6} ${booth.maxZ} minecraft:polished_deepslate`);
-    dimension.runCommand(`fill ${booth.minX + 1} ${floorY + 1} ${booth.minZ + 1} ${booth.maxX - 1} ${floorY + 5} ${booth.maxZ - 1} minecraft:air`);
-    dimension.runCommand(booth.door);
-    dimension.runCommand(`fill ${booth.minX + 1} ${floorY + 3} ${booth.minZ} ${booth.maxX - 1} ${floorY + 4} ${booth.minZ} minecraft:lime_stained_glass`);
-    dimension.runCommand(`fill ${booth.minX + 1} ${floorY + 3} ${booth.maxZ} ${booth.maxX - 1} ${floorY + 4} ${booth.maxZ} minecraft:lime_stained_glass`);
-    dimension.runCommand(`setblock ${booth.minX + 1} ${floorY + 2} ${booth.minZ + 1} minecraft:sea_lantern`);
-    dimension.runCommand(`setblock ${booth.maxX - 1} ${floorY + 2} ${booth.maxZ - 1} minecraft:sea_lantern`);
+  const markerY = floorY + 1;
+  await dimension.runCommand(`fill ${x - 3} ${markerY} ${z - 3} ${x + 3} ${markerY + 8} ${z + 3} minecraft:air`);
+  await dimension.runCommand(`fill ${x - 3} ${floorY} ${z - 3} ${x + 3} ${floorY} ${z + 3} minecraft:black_concrete`);
+  await dimension.runCommand(`fill ${x - 2} ${floorY} ${z - 2} ${x + 2} ${floorY} ${z + 2} minecraft:lime_concrete`);
+  await dimension.runCommand(`fill ${x - 1} ${floorY} ${z - 1} ${x + 1} ${floorY} ${z + 1} minecraft:iron_block`);
+  await dimension.runCommand(`setblock ${x} ${markerY} ${z} minecraft:beacon`);
+  for (const [lightX, lightZ] of [[x - 3, z - 3], [x + 3, z - 3], [x - 3, z + 3], [x + 3, z + 3]]) {
+    await dimension.runCommand(`setblock ${lightX} ${markerY} ${lightZ} minecraft:sea_lantern`);
   }
+  const marker = dimension.getBlock({ x, y: markerY, z });
+  if (marker?.typeId !== "minecraft:beacon") throw new Error(`verification expected beacon, got ${marker?.typeId || "missing block"}`);
+}
 
-  if (northSouth) {
-    dimension.runCommand(`fill ${x - 3} ${floorY + 6} ${z - 4} ${x + 3} ${floorY + 6} ${z + 4} minecraft:iron_block`);
-    dimension.runCommand(`fill ${x - 2} ${floorY + 6} ${z - 3} ${x + 2} ${floorY + 6} ${z + 3} minecraft:lime_stained_glass`);
-    dimension.runCommand(`fill ${x - 11} ${floorY + 1} ${z - 11} ${x - 11} ${floorY + 3} ${z + 11} minecraft:iron_bars`);
-    dimension.runCommand(`fill ${x + 11} ${floorY + 1} ${z - 11} ${x + 11} ${floorY + 3} ${z + 11} minecraft:iron_bars`);
-  } else {
-    dimension.runCommand(`fill ${x - 4} ${floorY + 6} ${z - 3} ${x + 4} ${floorY + 6} ${z + 3} minecraft:iron_block`);
-    dimension.runCommand(`fill ${x - 3} ${floorY + 6} ${z - 2} ${x + 3} ${floorY + 6} ${z + 2} minecraft:lime_stained_glass`);
-    dimension.runCommand(`fill ${x - 11} ${floorY + 1} ${z - 11} ${x + 11} ${floorY + 3} ${z - 11} minecraft:iron_bars`);
-    dimension.runCommand(`fill ${x - 11} ${floorY + 1} ${z + 11} ${x + 11} ${floorY + 3} ${z + 11} minecraft:iron_bars`);
+async function cleanupLegacyExtractionOutposts(dimension) {
+  const surfaceY = CONFIG.cityBaseY + 1;
+  for (let index = 0; index < LEGACY_EXTRACTION_POINTS.length; index++) {
+    const point = LEGACY_EXTRACTION_POINTS[index];
+    await withTickingArea(
+      dimension,
+      `extract_legacy_exit_${index}`,
+      { x: point.x - 12, y: 56, z: point.z - 12 },
+      { x: point.x + 12, y: 104, z: point.z + 12 },
+      async () => {
+        // 只撤除旧岗亭和信号柱，不挖掉承托层，避免迁移制造新的虚空洞。
+        await dimension.runCommand(`fill ${point.x - 11} ${surfaceY + 1} ${point.z - 11} ${point.x + 11} ${surfaceY + 33} ${point.z + 11} minecraft:air`);
+        await dimension.runCommand(`fill ${point.x - 11} ${surfaceY} ${point.z - 11} ${point.x + 11} ${surfaceY} ${point.z + 11} minecraft:stone_bricks`);
+      }
+    );
+    await waitTicks(1);
   }
 }
 
@@ -929,6 +929,10 @@ async function ensureCityServices(dimension) {
       crateDistributionVersion >= CONFIG.crateDistributionVersion) return;
   console.warn("[ExtractionCity] city exists; repairing surface voids, exits and probability-based loot crates without rebuilding districts...");
   if (roadRepairVersion < CONFIG.roadRepairVersion) await repairCitySurfaceVoids(dimension);
+  if (outpostVersion > 0 && outpostVersion < CONFIG.extractionOutpostVersion) {
+    console.warn("[ExtractionCity] removing twelve detached legacy extraction platforms...");
+    await cleanupLegacyExtractionOutposts(dimension);
+  }
   const exits = await placeExtractionMarkers(dimension);
   const structureCrates = await refreshStructureCrateDistribution(dimension);
   const crates = await placeLootCrates(dimension, structureCrates);
@@ -978,6 +982,7 @@ function returnPlayer(player, reason = "已离开摸金都市。") {
     player.setDynamicProperty(CONFIG.returnKey, undefined);
     backpackSnapshots.delete(player.id);
     navigationChatTicks.delete(player.id);
+    extractionMarkerTicks.delete(player.id);
     try { player.runCommand(`fog @s remove ${CONFIG.fogStackId}`); } catch {}
     player.sendMessage(`§a[撤离] ${reason}`);
   } catch (error) { player.sendMessage(`§c撤离失败：${error}`); }
@@ -1114,6 +1119,24 @@ function publishNavigationChat(player, exit, premium) {
   if (premium) lines.push(`§6高价值目标：§f${premium.name} §e${Math.floor(premium.distance)}m §b${navigationDirection(player, premium)} §8(${premium.x}, ${premium.y}, ${premium.z})`);
   else lines.push("§7附近没有已确认存在的传说或神话物资箱。");
   try { player.sendMessage(lines.join("\n")); } catch {}
+}
+
+function emitNearbyExtractionMarkers(player) {
+  const lastTick = Number(extractionMarkerTicks.get(player.id) ?? -20);
+  if (system.currentTick - lastTick < 20) return;
+  extractionMarkerTicks.set(player.id, system.currentTick);
+  const nearby = points()
+    .map(point => ({ ...point, distance: distance2D(player.location, point) }))
+    .filter(point => point.distance <= 96)
+    .sort((a, b) => a.distance - b.distance)
+    .slice(0, 3);
+  for (const point of nearby) {
+    for (let height = 1.5; height <= 9.5; height += 2) {
+      const location = { x: point.x + 0.5, y: CONFIG.cityBaseY + height, z: point.z + 0.5 };
+      try { player.dimension.spawnParticle("apoc_extract:extraction_marker", location); } catch {}
+      try { player.dimension.spawnParticle("minecraft:totem_particle", location); } catch {}
+    }
+  }
 }
 
 function startExtraction(player) {
@@ -1358,10 +1381,14 @@ function command(player, message) {
   if (args[1] === "enter") enter(player);
   else if (args[1] === "exit") startExtraction(player);
   else if (args[1] === "point" && args[2] === "add" && isAdmin(player) && player.dimension.id === CONFIG.dimensionId) {
-    const list = points().slice();
+    const list = customPoints();
+    if (CONFIG.extractionPoints.length + list.length >= 32) {
+      player.sendMessage("§c撤离点已达到32个上限。");
+      return true;
+    }
     const id = `custom_${Date.now().toString(36)}`;
     list.push({ id, name: args.slice(3).join(" ") || `自定义撤离点 ${list.length + 1}`, x: Math.floor(player.location.x), z: Math.floor(player.location.z) });
-    world.setDynamicProperty(CONFIG.pointsKey, JSON.stringify(list.slice(-32)));
+    world.setDynamicProperty(CONFIG.pointsKey, JSON.stringify(list));
     player.sendMessage("§a已将当前位置加入撤离点列表。");
   } else if (args[1] === "point" && args[2] === "reset" && isAdmin(player)) {
     world.setDynamicProperty(CONFIG.pointsKey, undefined); player.sendMessage("§a撤离点已恢复默认配置。");
@@ -1451,11 +1478,12 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (event.id === "extract:status" && isAdmin(player)) system.run(() => {
     const ready = world.getDynamicProperty(CONFIG.cityReadyKey) === true;
     const heartbeat = Number(world.getDynamicProperty(CONFIG.apocalypseHeartbeatKey) || 0);
+    const exits = Number(world.getDynamicProperty("apoc_extract:exit_count:v1") || 0);
     const crates = Number(world.getDynamicProperty("apoc_extract:crate_count:v1") || 0);
     const crateTiers = parse(world.getDynamicProperty("apoc_extract:crate_tiers:v1"), {});
     const dimension = extractionDimension();
     const bosses = dimension ? dimension.getEntities({ tags: ["apoc_extraction_boss"] }).length : 0;
-    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates} §8(普通 ${crateTiers.common || 0} / 稀有 ${crateTiers.rare || 0} / 史诗 ${crateTiers.epic || 0} / 传奇 ${crateTiers.legendary || 0} / 神话 ${crateTiers.mythic || 0})\n§0当前 Boss：§e${bosses}`);
+    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0撤离点：§e${exits}/${points().length}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates} §8(普通 ${crateTiers.common || 0} / 稀有 ${crateTiers.rare || 0} / 史诗 ${crateTiers.epic || 0} / 传奇 ${crateTiers.legendary || 0} / 神话 ${crateTiers.mythic || 0})\n§0当前 Boss：§e${bosses}`);
   });
   else if (event.id === "extract:boss" && isAdmin(player)) system.run(() => {
     if (player.dimension.id !== CONFIG.dimensionId) return player.sendMessage("§c请先进入摸金都市再测试 Boss。");
@@ -1471,6 +1499,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     player.sendMessage("§e正在一次性升级 25 个混合城区：清理旧重复高楼、部署 RandS 地标与 11 类建筑、铺设连续道路并加固双层承托面。预计 3～6 分钟，请勿重复执行……");
     try {
       world.setDynamicProperty(CONFIG.cityReadyKey, undefined);
+      await cleanupLegacyExtractionOutposts(dimension);
       await ensureCityReady(dimension, true);
       player.sendMessage("§a摸金都市扩建与修复完成。");
     } catch (error) {
@@ -1490,10 +1519,12 @@ system.runInterval(() => {
     } catch {}
     if (player.dimension.id !== CONFIG.dimensionId) {
       navigationChatTicks.delete(player.id);
+      extractionMarkerTicks.delete(player.id);
       continue;
     }
     snapshotBackpack(player);
     if (system.currentTick % 100 === 0) applyExtractionEnvironment(player);
+    emitNearbyExtractionMarkers(player);
     const point = nearestExit(player);
     if (!navigationChatTicks.has(player.id)) navigationChatTicks.set(player.id, system.currentTick);
     const lastNavigationChat = Number(navigationChatTicks.get(player.id));
