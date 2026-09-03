@@ -31,7 +31,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       dz("radio_tower", "radio_tower", 46, 72, 18, 25, 12), rs("corner1", "corner1", 24, 83),
       rs("streetlights", "streetlights", 41, 36, 1, 8, 9), rs("cars1", "cars", 29, 48, 7, 4, 3, 1)
     ],
-    spawnPoints: [sp("clinic", 14, 11), sp("road", 31, 28), sp("station", 55, 45), sp("garage", 11, 44), sp("horde_left", 17, 62), sp("horde_right", 34, 61), sp("tower", 55, 78), sp("final", 31, 91)],
+    spawnPoints: [sp("clinic", 14, 11), sp("road", 31, 28), sp("station", 55, 45), sp("garage", 11, 44), sp("defense_center", 31, 74), sp("horde_left", 24, 68), sp("horde_right", 38, 68), sp("tower", 55, 78), sp("final", 31, 91)],
     checkpoints: [
       cp("workbench", "废弃工坊", 31, 28), cp("crate", "公路物资箱", 31, 42), cp("garage", "车库", 12, 46),
       cp("drive_1", "坠毁路口", 31, 58, 6), cp("drive_2", "加油站外沿", 31, 74, 6),
@@ -54,14 +54,14 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "interact", name: "开启普通物资箱", checkpoint: "crate", crateTier: "common", hint: "点击脚下生成的普通物资箱；每名玩家奖励独立结算。" },
       { type: "checkpoint", name: "抵达车库", checkpoint: "garage", hint: "到车库寻找还能启动的载具。" },
       { type: "route", name: "载具转移", route: ["drive_1", "drive_2"], vehicleId: "ab_ve:motorcycle", vehicleSpawnPoint: "garage", hint: "驾驶生存摩托依次通过两个标记；未安装载具包时可步行完成。" },
-      { type: "defend", name: "最低强度尸潮", durationTicks: 360, waves: [
+      { type: "defend", name: "最低强度尸潮", durationTicks: 360, defensePoint: "defense_center", defenseLeashRadius: 24, waves: [
         { atTicks: 0, groups: [{ mobKey: "basic", count: 3, spawnPoint: "horde_left" }] },
         { atTicks: 140, groups: [{ mobKey: "basic", count: 4, spawnPoint: "horde_right" }, { mobKey: "runner", count: 1, spawnPoint: "horde_left" }] }
       ] },
       { type: "disaster", name: "电磁风暴避险", disasterId: "lightning", difficulty: 0, durationTicks: 300, messages: ["§d林岚：§f‘自然灾害会随机发生。雷暴来临时远离高处和开阔地，寻找实体屋顶。’"] },
       { type: "checkpoint", name: "启动撤离电台", checkpoint: "tower", hint: "到电台发出撤离信号。" },
       { type: "briefing", name: "摸金模式说明", durationTicks: 140, messages: [
-        "§6林岚：§f‘摸金都市可随时进入：随机出生、搜刮不同品质箱子，再按 Action Bar 向导前往撤离点。’",
+        "§6林岚：§f‘摸金都市可随时进入：随机出生、搜刮不同品质箱子，再按屏幕标题与绿色光柱前往撤离点。’",
         "§7摸金都市死亡会损失非保险物资；撤离成功才把战利品安全带回。副本按各自规则结算。"
       ] },
       { type: "checkpoint", name: "完成第一次撤离", checkpoint: "evac", hint: "前往最后的道路撤离标记。" }
@@ -89,17 +89,17 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       rs("road4", "road4", 40, 68), dz("radio_tower", "radio", 65, 77, 18, 25, 12),
       rs("cars2", "cars", 45, 48, 7, 4, 3, 1)
     ],
-    spawnPoints: [sp("north", 47, 8), sp("east", 80, 38), sp("west", 20, 48), sp("south", 47, 80), sp("boss", 47, 68)],
+    spawnPoints: [sp("defense_center", 72, 82), sp("north", 72, 69), sp("east", 84, 82), sp("west", 60, 82), sp("south", 72, 95), sp("boss", 72, 73)],
     checkpoints: [cp("relay", "防线中继器", 72, 82, 7), cp("exit", "灰港撤离门", 47, 91, 7)],
     stages: [
       { type: "briefing", name: "接管灰港防线", durationTicks: 80, messages: ["§b守备队：§f‘电网只剩最后一组电池。守住中继器，天亮前不能让感染者越线。’"] },
       { type: "checkpoint", name: "启动中继器", checkpoint: "relay", hint: "穿过警局和施工区，到无线电塔下启动中继器。" },
-      { type: "defend", name: "北侧缺口", durationTicks: 420, waves: [
+      { type: "defend", name: "北侧缺口", durationTicks: 420, defensePoint: "defense_center", defenseLeashRadius: 28, waves: [
         { atTicks: 0, groups: [{ mobKey: "basic", count: 5, spawnPoint: "north" }] },
         { atTicks: 120, groups: [{ mobKey: "runner", count: 3, spawnPoint: "east" }] },
         { atTicks: 240, groups: [{ mobKey: "basic", count: 5, spawnPoint: "west" }, { mobKey: "spitter", count: 1, spawnPoint: "south" }] }
       ] },
-      { type: "defend", name: "最后尸潮", durationTicks: 480, waves: [
+      { type: "defend", name: "最后尸潮", durationTicks: 480, defensePoint: "defense_center", defenseLeashRadius: 28, waves: [
         { atTicks: 0, groups: [{ mobKey: "basic", count: 6, spawnPoint: "south" }, { mobKey: "runner", count: 2, spawnPoint: "east" }] },
         { atTicks: 180, groups: [{ mobKey: "charger", count: 1, spawnPoint: "north" }, { mobKey: "spitter", count: 2, spawnPoint: "west" }] },
         { atTicks: 320, groups: [{ mobKey: "heavy", count: 1, spawnPoint: "boss" }] }
@@ -137,10 +137,16 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "briefing", name: "失联医生", durationTicks: 100, messages: ["§b联盟指挥部：§f‘黑雨医院的周医生掌握感染样本。进入隔离楼，找到他并沿东侧道路撤离。’"] },
       { type: "eliminate", name: "肃清医院", groups: [{ mobKey: "basic", count: 5, spawnPoint: "ward" }, { mobKey: "hunter", count: 1, spawnPoint: "ward" }] },
       { type: "checkpoint", name: "确认幸存者", checkpoint: "ward", hint: "在医院隔离病房确认周医生位置。" },
-      { type: "route", name: "护送医生穿越街区", route: ["route_1", "route_2"], escortEntity: "daily:survivor", escortSpawnPoint: "ward", hint: "靠近医生才能让他移动；护送至超市路口与施工区。" },
+      { type: "route", name: "护送医生穿越街区", route: ["route_1", "route_2"], escortEntity: "daily:survivor", escortSpawnPoint: "ward", hint: "靠近医生才能让他移动；护送至超市路口与施工区。", routeWaves: [
+        { routeIndex: 0, groups: [{ mobKey: "basic", count: 7, spawnPoint: "market" }, { mobKey: "runner", count: 3, spawnPoint: "ambush" }] },
+        { routeIndex: 1, groups: [{ mobKey: "basic", count: 8, spawnPoint: "ambush" }, { mobKey: "spitter", count: 2, spawnPoint: "market" }, { mobKey: "hunter", count: 1, spawnPoint: "ambush" }] }
+      ] },
       { type: "eliminate", name: "掠夺者阻击", groups: [{ mobKey: "raider", count: 3, spawnPoint: "ambush" }, { mobKey: "spitter", count: 1, spawnPoint: "market" }] },
       { type: "disaster", name: "黑雨雷暴", disasterId: "lightning", difficulty: 3, durationTicks: 420, messages: ["§d气象台：§f‘强雷暴覆盖撤离道路。利用建筑和车辆残骸掩护，等待最强放电过去。’"] },
-      { type: "route", name: "穿越黑雨街口", route: ["route_3", "evac"], escortEntity: "daily:survivor", reuseEscort: true, hint: "继续护送医生到直升机信标。" },
+      { type: "route", name: "穿越黑雨街口", route: ["route_3", "evac"], escortEntity: "daily:survivor", reuseEscort: true, hint: "继续护送医生到直升机信标。", routeWaves: [
+        { routeIndex: 0, groups: [{ mobKey: "basic", count: 9, spawnPoint: "storm" }, { mobKey: "runner", count: 4, spawnPoint: "ambush" }] },
+        { routeIndex: 1, groups: [{ mobKey: "basic", count: 9, spawnPoint: "boss" }, { mobKey: "runner", count: 4, spawnPoint: "storm" }, { mobKey: "charger", count: 1, spawnPoint: "boss" }] }
+      ] },
       { type: "boss", name: "重装暴君", groups: [{ mobKey: "tyrant", count: 1, spawnPoint: "boss" }, { mobKey: "runner", count: 2, spawnPoint: "storm" }] }
     ],
     rewardId: "dungeon_storm_rescue", minimumContribution: 14, timeoutTicks: 36000
@@ -164,20 +170,26 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       rs("corner1", "corner1", 36, 66), dz("industrial_0_1", "factory", 58, 72, 33, 25, 19),
       rs("road4", "road4", 36, 82), rs("cars4", "cars", 41, 46, 7, 4, 3, 1)
     ],
-    spawnPoints: [sp("start", 22, 24), sp("roadblock", 43, 43), sp("garage", 13, 53), sp("flank", 67, 56), sp("factory", 72, 82), sp("final", 43, 91)],
+    spawnPoints: [sp("start", 22, 24), sp("roadblock", 43, 43), sp("garage", 13, 53), sp("flank", 67, 56), sp("factory", 72, 82), sp("final", 43, 91), sp("defense_center", 43, 82), sp("defense_north", 43, 70), sp("defense_east", 54, 82), sp("defense_west", 32, 82), sp("defense_south", 43, 94)],
     checkpoints: [
       cp("route_1", "加油站出口", 43, 26, 6), cp("route_2", "仓库路口", 43, 43, 6),
       cp("route_3", "维修车库", 43, 59, 6), cp("route_4", "工业区入口", 43, 75, 6), cp("route_5", "车队终点", 43, 91, 7)
     ],
     stages: [
       { type: "briefing", name: "补给车发车", durationTicks: 80, messages: ["§b车队长：§f‘这批药品必须送到工业区。驾驶卡车或紧跟车辆，别让公路上的东西拖住我们。’"] },
-      { type: "route", name: "穿过加油站", route: ["route_1", "route_2"], vehicleId: "ab_ve:truck", vehicleSpawnPoint: "start", hint: "乘坐或跟随补给卡车通过前两个道路节点。" },
+      { type: "route", name: "穿过加油站", route: ["route_1", "route_2"], vehicleId: "ab_ve:truck", vehicleSpawnPoint: "start", hint: "乘坐或跟随补给卡车通过前两个道路节点。", routeWaves: [
+        { routeIndex: 0, groups: [{ mobKey: "basic", count: 7, spawnPoint: "roadblock" }, { mobKey: "runner", count: 3, spawnPoint: "flank" }] },
+        { routeIndex: 1, groups: [{ mobKey: "basic", count: 8, spawnPoint: "flank" }, { mobKey: "runner", count: 4, spawnPoint: "roadblock" }, { mobKey: "spitter", count: 1, spawnPoint: "roadblock" }] }
+      ] },
       { type: "eliminate", name: "清除武装路障", groups: [{ mobKey: "raider", count: 3, spawnPoint: "roadblock" }, { mobKey: "basic", count: 3, spawnPoint: "flank" }] },
-      { type: "route", name: "通过维修区", route: ["route_3", "route_4"], reuseVehicle: true, hint: "保护车辆继续通过车库和工业区入口。" },
-      { type: "defend", name: "终点卸货", durationTicks: 480, waves: [
-        { atTicks: 0, groups: [{ mobKey: "basic", count: 5, spawnPoint: "factory" }] },
-        { atTicks: 160, groups: [{ mobKey: "runner", count: 3, spawnPoint: "garage" }, { mobKey: "spitter", count: 1, spawnPoint: "flank" }] },
-        { atTicks: 320, groups: [{ mobKey: "heavy", count: 1, spawnPoint: "final" }, { mobKey: "raider", count: 2, spawnPoint: "factory" }] }
+      { type: "route", name: "通过维修区", route: ["route_3", "route_4"], reuseVehicle: true, hint: "保护车辆继续通过车库和工业区入口。", routeWaves: [
+        { routeIndex: 0, groups: [{ mobKey: "basic", count: 8, spawnPoint: "garage" }, { mobKey: "runner", count: 4, spawnPoint: "flank" }] },
+        { routeIndex: 1, groups: [{ mobKey: "basic", count: 10, spawnPoint: "factory" }, { mobKey: "runner", count: 4, spawnPoint: "flank" }, { mobKey: "charger", count: 1, spawnPoint: "factory" }] }
+      ] },
+      { type: "defend", name: "终点卸货", durationTicks: 480, defensePoint: "defense_center", defenseLeashRadius: 26, waves: [
+        { atTicks: 0, groups: [{ mobKey: "basic", count: 5, spawnPoint: "defense_north" }] },
+        { atTicks: 160, groups: [{ mobKey: "runner", count: 3, spawnPoint: "defense_west" }, { mobKey: "spitter", count: 1, spawnPoint: "defense_east" }] },
+        { atTicks: 320, groups: [{ mobKey: "heavy", count: 1, spawnPoint: "defense_south" }, { mobKey: "raider", count: 2, spawnPoint: "defense_north" }] }
       ] },
       { type: "checkpoint", name: "确认交付", checkpoint: "route_5", hint: "到车队终点完成药品交付。" }
     ],

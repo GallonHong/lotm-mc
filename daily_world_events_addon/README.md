@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.9.0 提供新手剧情、防守、营救、护送和清剿五类副本，并继续接入 Apocalypse Mobs、SAPI Server、Test Guns 与可选载具包。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.10.0 为检查点、交互点和护送路线加入竖向信标与沿路粒子；防守怪群改为在防守圈附近集中刷新并自动召回游荡单位；营救和车队护送加入类似《求生之路》的节点尸潮。继续接入 Apocalypse Mobs、SAPI Server、Test Guns 与可选载具包。
 
 ## 可复用物资箱
 

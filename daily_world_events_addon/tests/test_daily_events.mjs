@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 9, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 9, 0]);
+assert.deepEqual(manifest.header.version, [0, 10, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 10, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -129,6 +129,20 @@ for (const type of ["briefing", "eliminate", "checkpoint", "interact", "route", 
 assert(dungeonTemplates.DUNGEON_TEMPLATES.storm_rescue.stages.some(stage => stage.type === "boss" && stage.groups.some(group => group.mobKey === "tyrant")), "rescue boss missing");
 assert(dungeonTemplates.DUNGEON_TEMPLATES.storm_rescue.stages.some(stage => stage.escortEntity === "daily:survivor"), "rescue path escort missing");
 assert(dungeonTemplates.DUNGEON_TEMPLATES.convoy_escort.stages.some(stage => stage.vehicleId === "ab_ve:truck"), "vehicle integration missing");
+const routeWaveStages = Object.values(dungeonTemplates.DUNGEON_TEMPLATES).flatMap(template => template.stages).filter(stage => stage.type === "route" && stage.routeWaves?.length);
+assert(routeWaveStages.length >= 4, "escort routes must include Left 4 Dead-style checkpoint hordes");
+assert(routeWaveStages.flatMap(stage => stage.routeWaves).flatMap(wave => wave.groups).reduce((sum, group) => sum + group.count, 0) >= 80, "escort horde volume is too low");
+for (const template of Object.values(dungeonTemplates.DUNGEON_TEMPLATES)) {
+  const spawnPoints = new Map(template.spawnPoints.map(point => [point.id, point.offset]));
+  for (const stage of template.stages.filter(value => value.type === "defend")) {
+    assert(stage.defensePoint, `${template.id}/${stage.name} defense center missing`);
+    const center = spawnPoints.get(stage.defensePoint);
+    for (const group of stage.waves.flatMap(wave => wave.groups)) {
+      const point = spawnPoints.get(group.spawnPoint);
+      assert(Math.hypot(point.x - center.x, point.z - center.z) <= stage.defenseLeashRadius, `${template.id}/${stage.name} spawn is too far from defense center`);
+    }
+  }
+}
 assert(Object.values(dungeonTemplates.DUNGEON_TEMPLATES).slice(0, 4).every(template => template.structures.length >= 13), "new dungeons must be multi-structure maps");
 for (const template of Object.values(dungeonTemplates.DUNGEON_TEMPLATES)) {
   for (const component of template.structures) {
@@ -141,7 +155,7 @@ for (const template of Object.values(dungeonTemplates.DUNGEON_TEMPLATES)) {
 assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 4);
 assert(dungeonTemplates.DUNGEON_SLOTS.every(slot => slot.origin.y === 250), "dungeon slots should remain in isolated high-altitude arenas");
 const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js"), "utf8");
-for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "checkpointReached", "tickDefense", "tickRoute", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
+for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
 assert.equal(dungeonManager.includes("正在重新部署"), false, "dungeon must use direct confirmed spawning instead of two async retries");

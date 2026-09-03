@@ -766,7 +766,6 @@ function returnPlayer(player, reason = "已离开摸金都市。") {
     player.removeTag(CONFIG.activeTag);
     player.setDynamicProperty(CONFIG.activeStateKey, undefined);
     player.setDynamicProperty(CONFIG.returnKey, undefined);
-    player.setDynamicProperty(CONFIG.navigationHudKey, undefined);
     backpackSnapshots.delete(player.id);
     try { player.runCommand(`fog @s remove ${CONFIG.fogStackId}`); } catch {}
     player.sendMessage(`§a[撤离] ${reason}`);
@@ -839,12 +838,6 @@ async function enter(player) {
       applyExtractionEnvironment(player);
       snapshotBackpack(player);
       const exit = nearestExit(player);
-      if (exit) {
-        player.setDynamicProperty(
-          CONFIG.navigationHudKey,
-          `§a撤离 ${navigationDirection(player, exit)} §e${Math.floor(exit.distance)}m §8(${exit.x},${exit.z})`
-        );
-      }
       try {
         player.onScreenDisplay.setTitle("§a撤离点导航已锁定", {
           subtitle: `§f${exit?.name || "未知"} §e${Math.floor(exit?.distance || 0)}m`,
@@ -897,9 +890,15 @@ function navigationDirection(player, point) {
   return `${relative}·${northSouth}${eastWest || (northSouth ? "" : "原地")}`;
 }
 
-function publishNavigationHud(player, text) {
-  try { player.setDynamicProperty(CONFIG.navigationHudKey, String(text || "")); } catch {}
-  try { player.onScreenDisplay.setActionBar(String(text || "")); } catch {}
+function publishNavigationTitle(player, title, subtitle, stayDuration = 45) {
+  try {
+    player.onScreenDisplay.setTitle(String(title || ""), {
+      subtitle: String(subtitle || ""),
+      fadeInDuration: 3,
+      stayDuration,
+      fadeOutDuration: 8
+    });
+  } catch {}
 }
 
 function startExtraction(player) {
@@ -1282,14 +1281,22 @@ system.runInterval(() => {
       startExtraction(player);
       continue;
     }
-    if (point && !extractionJobs.has(player.id) && system.currentTick % 40 === 0) {
-      const showLegendary = system.currentTick % 80 >= 40;
+    if (point && !extractionJobs.has(player.id) && system.currentTick % 80 === 0) {
+      const showLegendary = system.currentTick % 160 >= 80;
       const legendary = nearestLegendaryCrate(player);
       if (showLegendary && legendary) {
-        publishNavigationHud(player, `§6传说箱向导 §e${Math.floor(legendary.distance)}m §b${navigationDirection(player, legendary)} §8(${legendary.x},${legendary.z})`);
+        publishNavigationTitle(
+          player,
+          `§6传说箱向导 §e${Math.floor(legendary.distance)}m §b${navigationDirection(player, legendary)}`,
+          `§f${legendary.name} §8(${legendary.x}, ${legendary.z})`
+        );
       } else {
         const near = point.distance <= 32 ? "§a已接近" : "§a撤离向导";
-        publishNavigationHud(player, `${near} §f${point.name} §e${Math.floor(point.distance)}m §b${navigationDirection(player, point)} §8(${point.x},${point.z})`);
+        publishNavigationTitle(
+          player,
+          `${near} §e${Math.floor(point.distance)}m §b${navigationDirection(player, point)}`,
+          `§f${point.name} §8(${point.x}, ${point.z})`
+        );
       }
     }
     const job = extractionJobs.get(player.id);
@@ -1300,7 +1307,10 @@ system.runInterval(() => {
     }
     const elapsed = system.currentTick - job.startedTick;
     const remaining = CONFIG.extractionSeconds - Math.floor(elapsed / 20);
-    publishNavigationHud(player, `§e撤离倒计时：${Math.max(0, remaining)}秒`);
+    if (remaining !== job.lastRemaining) {
+      job.lastRemaining = remaining;
+      publishNavigationTitle(player, `§e撤离倒计时 ${Math.max(0, remaining)}秒`, `§a留在 ${activePoint.name} 范围内`, 22);
+    }
     if (elapsed >= CONFIG.extractionSeconds * 20) { extractionJobs.delete(player.id); returnPlayer(player, "撤离成功，已保全全部携带物资。"); }
   }
 }, 10);

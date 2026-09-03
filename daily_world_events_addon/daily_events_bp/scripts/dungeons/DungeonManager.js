@@ -445,6 +445,45 @@ export class DungeonManager {
     return requested;
   }
 
+  static objectiveCheckpoint(instance, stage) {
+    if (stage.type === "checkpoint" || stage.type === "interact") return this.checkpoint(instance, stage.checkpoint);
+    if (stage.type !== "route") return null;
+    const route = Array.isArray(stage.route) ? stage.route : [];
+    return this.checkpoint(instance, route[Number(instance.stageData?.routeIndex || 0)]);
+  }
+
+  static emitObjectiveGuide(instance, stage) {
+    if (system.currentTick % 10 !== 0) return;
+    const checkpoint = this.objectiveCheckpoint(instance, stage);
+    if (!checkpoint) return;
+    const dimension = world.getDimension(instance.slot.dimension);
+    const target = absolutePoint(instance.slot.origin, checkpoint.offset);
+
+    // 目标点上方持续生成高亮竖向信标；玩家与目标之间每 4 格补一颗火焰路标。
+    for (let y = 0.4; y <= 5.4; y += 1) {
+      try { dimension.spawnParticle("minecraft:totem_particle", { x: target.x, y: target.y + y, z: target.z }); } catch {}
+    }
+    for (const id of instance.participantIds) {
+      const player = onlinePlayer(id);
+      if (!player || !sameDimension(player.dimension.id, instance.slot.dimension)) continue;
+      const dx = target.x - player.location.x;
+      const dz = target.z - player.location.z;
+      const horizontal = Math.hypot(dx, dz);
+      if (horizontal < 5) continue;
+      const markers = Math.min(12, Math.floor(horizontal / 4));
+      for (let index = 1; index <= markers; index++) {
+        const ratio = Math.min(0.88, (index * 4) / horizontal);
+        try {
+          dimension.spawnParticle("minecraft:basic_flame_particle", {
+            x: player.location.x + dx * ratio,
+            y: player.location.y + 0.35,
+            z: player.location.z + dz * ratio
+          });
+        } catch {}
+      }
+    }
+  }
+
   static checkpoint(instance, checkpointId) {
     const template = dungeonTemplate(instance.templateId);
     return template.checkpoints.find(value => value.id === checkpointId) || null;
@@ -502,6 +541,7 @@ export class DungeonManager {
 
     const stage = template.stages[instance.stageIndex];
     if (!stage) return this.finish(instance, true);
+    if (["checkpoint", "interact", "route"].includes(stage.type)) this.emitObjectiveGuide(instance, stage);
     if (stage.type === "checkpoint") {
       if (system.currentTick >= instance.waitUntil && this.checkpointReached(instance, stage)) this.beginStage(instance, instance.stageIndex + 1);
       return;
@@ -545,6 +585,22 @@ export class DungeonManager {
       instance.stageHadEnemies ||= count > 0;
       this.sendStageMessages(instance, [`§c[副本] 新一波敌人抵达（${count}）`]);
     }
+    if (stage.defensePoint && elapsed % 40 === 0) {
+      const anchor = this.spawnPoint(instance, stage.defensePoint);
+      const leashRadiusSq = Number(stage.defenseLeashRadius || 30) ** 2;
+      let offset = 0;
+      for (const enemy of this.enemies(instance)) {
+        if (distanceSquared(enemy.location, anchor) <= leashRadiusSq) continue;
+        const angle = (offset++ % 8) * Math.PI / 4;
+        try {
+          enemy.teleport({
+            x: anchor.x + Math.cos(angle) * 8,
+            y: anchor.y,
+            z: anchor.z + Math.sin(angle) * 8
+          });
+        } catch {}
+      }
+    }
     if (elapsed % 100 === 0) {
       const remain = Math.max(0, Math.ceil((stageTicks(stage) - elapsed) / 20));
       for (const id of instance.participantIds) {
@@ -560,6 +616,7 @@ export class DungeonManager {
     const checkpoint = this.checkpoint(instance, route[index]);
     if (!checkpoint) return true;
     const target = absolutePoint(instance.slot.origin, checkpoint.offset);
+    this.tickRouteWaves(instance, stage, index);
     const radiusSq = Number(checkpoint.radius || 5) ** 2;
     const nearby = instance.participantIds.map(onlinePlayer).find(player => player && sameDimension(player.dimension.id, instance.slot.dimension) && distanceSquared(player.location, target) <= radiusSq);
     const support = this.entityById(instance, instance.stageData.supportId) ||
@@ -591,6 +648,19 @@ export class DungeonManager {
       onlinePlayer(id)?.sendMessage(`§a✓ 路线节点 ${index + 1}/${route.length}：${checkpoint.name}`);
     }
     return index + 1 >= route.length;
+  }
+
+  static tickRouteWaves(instance, stage, routeIndex) {
+    for (let waveIndex = 0; waveIndex < (stage.routeWaves || []).length; waveIndex++) {
+      const wave = stage.routeWaves[waveIndex];
+      if (Number(wave.routeIndex || 0) !== routeIndex) continue;
+      const key = `route:${routeIndex}:${waveIndex}`;
+      if (instance.stageData.spawnedWaves.includes(key)) continue;
+      const count = this.spawnStageGroups(instance, wave, false);
+      instance.stageData.spawnedWaves.push(key);
+      instance.stageHadEnemies ||= count > 0;
+      this.sendStageMessages(instance, [`§4[尸潮] §c噪声引来了 ${count} 名感染者，保持移动，不必停下清场！`]);
+    }
   }
 
   static tickDisaster(instance, stage) {

@@ -1,22 +1,9 @@
 import { countAmmoInInventory, isCreativePlayer } from './utils/inventoryUtils.js';
 import { EquipmentSlot } from '@minecraft/server';
 
-const EXTRACTION_DIMENSION = 'apoc_extract:city';
-const EXTRACTION_NAVIGATION_HUD = 'interop:apoc_extraction_navigation:v1';
-
-function extractionNavigation(player) {
-  try {
-    if (player.dimension?.id !== EXTRACTION_DIMENSION) return '';
-    return String(player.getDynamicProperty(EXTRACTION_NAVIGATION_HUD) || '').trim();
-  } catch {
-    return '';
-  }
-}
-
 export function updateActionBar(player, text) {
   try {
-    const navigation = extractionNavigation(player);
-    player.onScreenDisplay.setActionBar(navigation ? `${text} §8||§r ${navigation}` : text);
+    player.onScreenDisplay.setActionBar(text);
   } catch {}
 }
 
