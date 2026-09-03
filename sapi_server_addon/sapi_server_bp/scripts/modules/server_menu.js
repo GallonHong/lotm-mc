@@ -61,11 +61,16 @@ export class ServerMenuManager {
 
     static openAdminPanel(player, onBack = null) {
         if (!Utils.isAdmin(player)) return;
+        const dailyEventsReady = Integration.isDailyEventsAvailable();
         const actions = [];
         const form = new ActionFormData()
             .title("§l§c⚙️ 服务器管理员控制台")
-            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${Integration.isDailyEventsAvailable() ? "§a已连接" : "§8未连接"}`);
+            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${dailyEventsReady ? "§a已连接" : "§c未连接（新闻按钮仍保留）"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+        add(`§l§6📢 发布联盟每日新闻\n§r§8${dailyEventsReady ? "选择预设并手填事件坐标" : "需要启用 Daily Events BP"}`, "textures/ui/infobulb", () => {
+            if (!Integration.isDailyEventsAvailable()) return Utils.tell(player, "§cDaily Events 未连接。请启用最新 Survival Daily & World Events BP，并退出世界后重新进入。");
+            Integration.send(player, "daily:news_admin");
+        });
         add("§l§b🧭 公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6🏰 主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§e📋 管理与审计日志", "textures/ui/achievements", () => AuditManager.openAdminUI(player, () => this.openAdminPanel(player, onBack)));
@@ -80,9 +85,10 @@ export class ServerMenuManager {
         if (Integration.isLotmAvailable()) {
             add("§l§5🔮 LOTM 调试控制台", "textures/items/potion_magician", () => Integration.send(player, "lotm:admin"));
         }
-        if (Integration.isDailyEventsAvailable()) {
-            add("§l§6📋 日常与事件管理", "textures/ui/achievements", () => Integration.send(player, "daily:admin"));
-        }
+        add(`§l§6📋 日常、新闻与事件完整管理\n§r§8${dailyEventsReady ? "已连接" : "需要启用 Daily Events BP"}`, "textures/ui/achievements", () => {
+            if (!Integration.isDailyEventsAvailable()) return Utils.tell(player, "§cDaily Events 未连接。请启用最新 Survival Daily & World Events BP，并退出世界后重新进入。");
+            Integration.send(player, "daily:admin");
+        });
         add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, (res) => actions[res.selection]?.());
     }

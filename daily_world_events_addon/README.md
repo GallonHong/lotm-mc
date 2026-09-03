@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.12.0 将副本 Boss 统一接入 Apocalypse Mobs 的真实 Boss 实体，并新增五个多阶段 Boss 副本；继续包含联盟每日新闻、14 套报道预设、全服突发通报、事件战报和可手填坐标的事件系统。继续接入 SAPI Server、Test Guns 与可选载具包。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.12.1 将“发布联盟每日新闻”移到 Daily 管理菜单首项，并新增 `daily:news_admin` 直达入口供 SAPI 管理员控制台调用。v0.12 系列同时把副本 Boss 统一接入 Apocalypse Mobs 的真实 Boss 实体，并新增五个多阶段 Boss 副本。
 
 ## 可复用物资箱
 

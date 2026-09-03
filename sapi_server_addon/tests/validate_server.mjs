@@ -29,8 +29,12 @@ for (const route of ["!daily", "!dungeon", "!redeem", "!tpa", "!audit"]) assert.
 assert.match(menu, /每日福利/);
 assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
+assert.match(menu, /发布联盟每日新闻/);
+assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
+assert.match(menu, /日常、新闻与事件完整管理/);
+assert.match(menu, /新闻按钮仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.7.2");
+assert.equal(manifest.header.version.join("."), "2.7.3");
 assert.match(land, /isApocalypseSafeChunk/);
 assert.match(integration, /apoc:zones:v1/);
 assert.match(integration, /apoc:heartbeat/);
@@ -43,7 +47,7 @@ assert.match(menu, /give @s sando_standalone:disaster_controller 1/);
 assert.match(menu, /\/give @p sando_standalone:disaster_controller/);
 assert.match(menu, /Integration\.send\(player, "sando_standalone:menu"\)/);
 assert.match(menu, /打开灾害控制器/);
-for (const coordinate of [2349, 2635, 2352, 2585, 1942, 2087]) assert.ok(integration.includes(String(coordinate)), `missing safe-zone coordinate ${coordinate}`);
+for (const coordinate of [1949, 3035, 1463, 2469, 2352, 2585, 1942, 2087]) assert.ok(integration.includes(String(coordinate)), `missing safe-zone coordinate ${coordinate}`);
 assert.match(market, /durability\?\.damage/);
 assert.match(market, /仅允许上架耐久未损耗、尚未使用的武器/);
 assert.doesNotMatch(market, /带耐久组件的装备暂不支持寄卖/);
@@ -76,4 +80,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.7.2 validation passed.");
+console.log("SAPI Server v2.7.3 validation passed.");

@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 12, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 12, 0]);
+assert.deepEqual(manifest.header.version, [0, 12, 1]);
+assert.deepEqual(rpManifest.header.version, [0, 12, 1]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -102,6 +102,7 @@ assert.equal(merchantDialogue["minecraft:npc_dialogue"].scenes.length, 4);
 assert(files(bp).some(path => path.replace(/\\/g, "/").endsWith("scripts/merchants/merchantConfig.js")));
 const dailyMenu = readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8");
 assert(dailyMenu.includes("isUserBusy") && dailyMenu.includes("attempt < 8"), "daily forms must retry after native NPC UserBusy");
+assert(dailyMenu.indexOf("发布联盟每日新闻") < dailyMenu.indexOf("放置委托专员"), "news publishing must be the first Daily admin action");
 
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));
@@ -212,8 +213,10 @@ const dungeonMenu = readFileSync(join(bp, "scripts/ui/DungeonMenu.js"), "utf8");
 assert(dungeonMenu.includes("isUserBusy") && dungeonMenu.includes("result.canceled") && dungeonMenu.includes("attempt < 8"), "dungeon menu must retry UserBusy cancellation results");
 assert(dungeonMenu.includes("Object.values(DUNGEON_TEMPLATES)") && dungeonMenu.includes("首次奖励已领·可重玩"), "dungeon menu must list every template and one-time completion state");
 assert(dungeonMenu.includes("Boss 依赖") && dungeonMenu.includes("Apocalypse Mobs BP/RP"), "boss dependency must be visible before creating a dungeon");
-assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.tick"));
-assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
+const dailyMain = readFileSync(join(bp, "scripts/main.js"), "utf8");
+assert(dailyMain.includes("DungeonManager.tick"));
+assert(dailyMain.includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
+assert(dailyMain.includes('id === "daily:news_admin"') && dailyMain.includes("DailyAdminMenu.startNewsEvent(player)"), "SAPI news-admin direct route missing");
 const eventNodes = readFileSync(join(bp, "scripts/events/EventNodeRegistry.js"), "utf8");
 assert(eventNodes.includes("addAt") && eventNodes.includes("normalizeLocation") && eventNodes.includes("resolveGround"), "manual event coordinates and ground validation missing");
 assert(dailyMenu.includes("联盟每日新闻") && dailyMenu.includes("startNewsEvent") && dailyMenu.includes("configureNewsEvent") && dailyMenu.includes("X 坐标") && dailyMenu.includes("Z 坐标"), "daily news/manual coordinate UI missing");

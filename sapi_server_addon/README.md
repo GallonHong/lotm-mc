@@ -1,6 +1,6 @@
 # SAPI Server Addon
 
-独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.7.2 的管理员控制台可直接打开 Natural Disasters Standalone v1.3.1 的控制器页面，同时保留“获取灾害遥控器物品”备用入口；SAPI 仍不检测或控制灾害运行状态。
+独立的 Minecraft Bedrock 服务器基础系统，源码、测试、构建脚本和安装包全部位于本目录，不再与 LOTM Pathways 源码混放。v2.7.3 在管理员控制台顶部增加独立的“发布联盟每日新闻”入口，可直达 Daily Events 新闻预设和手填坐标页面；即使 Daily Events 未连接也保留按钮并显示安装提示。灾害控制器入口继续保留。
 
 ## 目录
 

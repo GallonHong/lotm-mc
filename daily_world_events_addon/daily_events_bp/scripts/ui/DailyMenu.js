@@ -140,30 +140,28 @@ export class DailyMenu {
 export class DailyAdminMenu {
   static open(player) {
     if (!isAdmin(player)) return player.sendMessage("§c仅管理员可使用此菜单。");
+    const actions = [];
     const form = new ActionFormData().title("§l§c日常与动态事件管理")
-      .body(`§f事件节点：§e${EventNodeRegistry.getNodes().length}\n§f运行事件：§e${WorldEventManager.list().length}`)
-      .button("§a放置委托专员", "textures/ui/FriendsIcon")
-      .button("§6放置商人 NPC", "textures/ui/MCStore_Gold_large")
-      .button("§6创建/手填事件节点", "textures/ui/World")
-      .button("§c删除附近事件节点", "textures/ui/trash")
-      .button("§4当前位置测试事件", "textures/ui/warning_alex")
-      .button("§4发布新闻并启动事件", "textures/ui/infobulb")
-      .button("§e查看运行事件", "textures/ui/magnifyingGlass")
-      .button("§c停止附近事件", "textures/ui/cancel")
-      .button("§d重置自己的今日任务", "textures/ui/refresh")
-      .button("§7打开玩家委托菜单", "textures/ui/undo");
-    show(player, form, result => {
-      if (result.selection === 0) this.spawnCommissioner(player);
-      else if (result.selection === 1) this.openMerchantSpawner(player);
-      else if (result.selection === 2) this.createNode(player);
-      else if (result.selection === 3) this.deleteNearbyNode(player);
-      else if (result.selection === 4) this.startDebugEvent(player);
-      else if (result.selection === 5) this.startNewsEvent(player);
-      else if (result.selection === 6) this.listEvents(player);
-      else if (result.selection === 7) { player.sendMessage(WorldEventManager.stopNear(player) ? "§a已停止附近事件。" : "§7附近没有运行事件。"); this.open(player); }
-      else if (result.selection === 8) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a已重新生成自己的今日任务。" ); this.open(player); }
-      else DailyMenu.open(player);
+      .body(`§f事件节点：§e${EventNodeRegistry.getNodes().length}\n§f运行事件：§e${WorldEventManager.list().length}\n§7每日新闻发布支持预设、地点名称、维度及手填 X/Y/Z。`);
+    const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+    add("§l§6📢 发布联盟每日新闻\n§r§8选择预设并手填事件坐标", "textures/ui/infobulb", () => this.startNewsEvent(player));
+    add("§a放置委托专员", "textures/ui/FriendsIcon", () => this.spawnCommissioner(player));
+    add("§6放置商人 NPC", "textures/ui/MCStore_Gold_large", () => this.openMerchantSpawner(player));
+    add("§6创建/手填事件节点", "textures/ui/World", () => this.createNode(player));
+    add("§c删除附近事件节点", "textures/ui/trash", () => this.deleteNearbyNode(player));
+    add("§4当前位置测试事件", "textures/ui/warning_alex", () => this.startDebugEvent(player));
+    add("§e查看运行事件", "textures/ui/magnifyingGlass", () => this.listEvents(player));
+    add("§c停止附近事件", "textures/ui/cancel", () => {
+      player.sendMessage(WorldEventManager.stopNear(player) ? "§a已停止附近事件。" : "§7附近没有运行事件。");
+      this.open(player);
     });
+    add("§d重置自己的今日任务", "textures/ui/refresh", () => {
+      DailyQuestManager.ensureState(player, true);
+      player.sendMessage("§a已重新生成自己的今日任务。");
+      this.open(player);
+    });
+    add("§7打开玩家委托菜单", "textures/ui/undo", () => DailyMenu.open(player));
+    show(player, form, result => actions[result.selection]?.());
   }
 
   static spawnCommissioner(player) {
