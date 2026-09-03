@@ -421,6 +421,26 @@ export const GUNS = [
     skillCooldownSec: 25,
     skillDurationSec: 1.0,
     stats: { damage: 16.0, chainRadius: 8.0, maxChains: 4, decayRate: 0.20, armorPenetration: 0.40, maxRange: 25, knockback: { x: 0.3, y: 0.15 } }
+  },
+  {
+    id: 'test_gun:dbss',
+    name: 'DBSS 裁决者',
+    tier: 'legendary',
+    type: 'shotgun',
+    mode: FireMode.SHOTGUN,
+    maxAmmo: 2,
+    fireRate: 8,
+    shootPower: 11.0,
+    recoil: 0.65,
+    reloadTime: 36,
+    shootSound: 'mob.ghast.fireball',
+    ammoTypeId: 'test_gun:ammo_shotgun',
+    projectileTypeId: 'test_gun:bullet_shotgun',
+    hasSkill: true,
+    skillName: '红莲龙息·锁敌',
+    skillCooldownSec: 90,
+    skillDurationSec: 30.0,
+    stats: { damage: 12.0, headshotMultiplier: 1.6, armorPenetration: 0.40, damageDropOff: 0.03, maxRange: 100, knockback: { x: 0.9, y: 0.4 } }
   }
 ];
 

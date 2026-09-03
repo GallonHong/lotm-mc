@@ -19,6 +19,7 @@ item.test_gun:armor_titan_chest.name=Titan Exoskeleton Suit [12 Armor·Strength]
 item.test_gun:vector.name=HK MP7 Tactical SMG [Legendary·Overdrive]
 item.test_gun:mgl.name=MGL 40mm Rotary Grenade Launcher [Saturation]
 item.test_gun:arc_emitter.name=Tesla Arc Emitter [EMP Shockwave]
+item.test_gun:dbss.name=DBSS Arbitrator Shotgun [Legendary·Inferno]
 item.test_gun:jetpack.name=Tactical Ion Jetpack [Double Jump·Boost]
 
 item.test_gun:armor_vest_light.name=Kevlar Light Tactical Vest
@@ -46,6 +47,7 @@ item.test_gun:blueprint_flash_shield.name=Armor Blueprint: G52 Flash Shield §5[
 
 item.test_gun:ak47_commander.name=AK-47 Tactical Commander §6[Legendary]§r
 item.test_gun:blueprint_ak47_commander.name=Weapon Blueprint: AK-47 Commander §6[Legendary]§r
+item.test_gun:blueprint_dbss.name=DBSS Arbitrator Blueprint [Legendary Limited·Uncraftable]
 
 item.test_gun:usas12.name=USAS-12 Blood Frenzy [Epic Shotgun]
 item.test_gun:blueprint_usas12.name=USAS-12 Blood Frenzy Blueprint [Epic Limited·Uncraftable]

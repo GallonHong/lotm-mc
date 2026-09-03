@@ -247,6 +247,8 @@ export class ShootManager {
       RocketEngine.launchRocket(player, gun);
     } else if (gun.isGrenadeLauncher) {
       GrenadeEngine.launchGrenade(player, gun);
+    } else if (SkillManager.isSmartAimActive(player, gun)) {
+      SkillManager.executeSmartAimShot(player, gun);
     } else {
       fireBullet(player, gun);
     }

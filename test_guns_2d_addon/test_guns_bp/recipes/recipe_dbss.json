@@ -1,0 +1,43 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_dbss"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BNF",
+      "HSG",
+      " R "
+    ],
+    "key": {
+      "B": {
+        "item": "test_gun:blueprint_dbss"
+      },
+      "N": {
+        "item": "minecraft:netherite_ingot"
+      },
+      "F": {
+        "item": "minecraft:fire_charge"
+      },
+      "H": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "S": {
+        "item": "test_gun:shotgun"
+      },
+      "G": {
+        "item": "minecraft:gold_block"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      }
+    },
+    "result": {
+      "item": "test_gun:dbss",
+      "count": 1
+    }
+  }
+}

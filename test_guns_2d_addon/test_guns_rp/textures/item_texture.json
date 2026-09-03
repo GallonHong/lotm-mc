@@ -50,6 +50,9 @@
     "test_gun_arc_emitter": {
       "textures": "textures/guns/arc_emitter_actual"
     },
+    "test_gun_dbss": {
+      "textures": "textures/guns/dbss"
+    },
     "test_gun_jetpack": {
       "textures": "textures/items/jetpack"
     },
@@ -307,6 +310,9 @@
     },
     "test_gun_blueprint_usas12": {
       "textures": "textures/blueprints/blueprint_epic"
+    },
+    "test_gun_blueprint_dbss": {
+      "textures": "textures/blueprints/blueprint_legendary"
     }
   }
 }

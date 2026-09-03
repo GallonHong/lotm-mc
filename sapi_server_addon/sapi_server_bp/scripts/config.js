@@ -55,8 +55,8 @@ export const Config = {
         passwordMaxLength: 8,
         maxPasswordAttempts: 3,
         passwordLockSeconds: 30,
-        // 特殊枪械穿透保险箱减伤的预留白名单；当前为空。
-        specialWeaponIds: [],
+        // 特殊枪械穿透保险箱减伤白名单：DBSS 裁决者无视 90% 减伤，造成 100% 满额真实伤害
+        specialWeaponIds: ["test_gun:dbss"],
     },
     weapon: {
         id: "lotm:death_knell", fallbackId: "minecraft:blaze_rod",

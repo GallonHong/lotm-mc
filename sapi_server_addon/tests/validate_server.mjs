@@ -115,7 +115,7 @@ const safeItem = supplyItems.find(item => item.id === "sapi:secure_safe_deployer
 assert.deepEqual([safeItem.buyPrice, safeItem.dailyLimit], [15000, 1]);
 assert.deepEqual([serverConfig.Config.safe.maxDurability, serverConfig.Config.safe.normalDamageReduction], [2000, 0.90]);
 assert.equal(serverConfig.Config.safe.nativeHealth, 1000000);
-assert.deepEqual(serverConfig.Config.safe.specialWeaponIds, [], "special safe weapon placeholder must remain empty");
+assert.deepEqual(serverConfig.Config.safe.specialWeaponIds, ["test_gun:dbss"]);
 assert.equal(safeRules.calculateSafeDamage(100, false, 0.90), 10);
 assert.equal(safeRules.calculateSafeDamage(100, true, 0.90), 100);
 for (const weaponId of serverConfig.Config.safe.specialWeaponIds) {

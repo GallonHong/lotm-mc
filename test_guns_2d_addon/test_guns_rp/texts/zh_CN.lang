@@ -19,6 +19,7 @@ item.test_gun:armor_titan_chest.name=泰坦动力外骨骼装甲 §5[史诗·12�
 item.test_gun:vector.name=HK MP7 战术冲锋枪 §6[传说·暴走狂潮]§r
 item.test_gun:mgl.name=MGL 40mm 自动榴弹炮 §6[传说·饱和轰炸]§r
 item.test_gun:arc_emitter.name=特斯拉高能电弧发射器 §6[传说·EMP电磁风暴]§r
+item.test_gun:dbss.name=DBSS 裁决者 双管霰弹枪 §6[传说·红莲龙息]§r
 item.test_gun:jetpack.name=战术离子喷气背包 §6[传说·双跳飞升·缓降]§r
 
 item.test_gun:armor_vest_light.name=凯夫拉轻型防弹衣 §f[普通·4点护甲]§r
@@ -71,6 +72,7 @@ item.test_gun:blueprint_mp7.name=HK MP7 暴走狂潮核心设计图 §6[传说·
 item.test_gun:blueprint_mgl.name=MGL 40mm 自动榴弹炮核心设计图 §6[传说·不可合成]§r
 item.test_gun:blueprint_arc.name=特斯拉高能电弧风暴核心图纸 §6[传说·不可合成]§r
 item.test_gun:blueprint_jetpack.name=战术离子喷气背包结构图 §6[传说·不可合成]§r
+item.test_gun:blueprint_dbss.name=DBSS「裁决者」设计图 §6[传说·限定·不可合成]§r
 
 action.hint.exit.test_gun=测试军火库 Add-on 已就绪
 
