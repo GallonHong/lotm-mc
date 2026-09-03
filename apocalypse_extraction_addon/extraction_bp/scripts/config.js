@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.10.5",
+  version: "0.10.6",
   dimensionId: "apoc_extract:city",
   heartbeatKey: "interop:apoc_extraction_heartbeat",
   menuRequestKey: "interop:apoc_extraction_menu_request:v1",
@@ -23,6 +23,11 @@ export const CONFIG = Object.freeze({
   premiumCratePointsKey: "apoc_extract:premium_crate_points:v1",
   extractionOutpostVersionKey: "apoc_extract:outpost_version:v1",
   extractionOutpostVersion: 1,
+  roadRepairVersionKey: "apoc_extract:road_repair_version:v1",
+  roadRepairVersion: 1,
+  crateDistributionVersionKey: "apoc_extract:crate_distribution_version:v1",
+  crateDistributionVersion: 2,
+  crateTierWeights: { common: 60, rare: 25, epic: 10, legendary: 4, mythic: 1 },
   navigationChatIntervalTicks: 1200,
   apocalypseHeartbeatKey: "apoc:heartbeat",
   fogId: "apoc_extract:dusk_fog",

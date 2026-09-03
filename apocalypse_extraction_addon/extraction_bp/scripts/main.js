@@ -42,13 +42,13 @@ const VANILLA_HOSTILES = new Set([
 ]);
 
 const CRATE_LAYOUT = Object.freeze([
-  // All four locations sit on the permanent two-cell road cross. They are
-  // deliberately not resolved with safeGround: that could move a crate onto
-  // a roof or into an interior and made higher tiers almost impossible to see.
-  { dx: -4, dz: -20, tier: "common" },
-  { dx: 12, dz: 20, tier: "common" },
-  { dx: -20, dz: 4, tier: "rare" },
-  { dx: 20, dz: -4, tier: "epic" }
+  // All four locations sit on the permanent two-cell road cross. Every slot
+  // independently rolls the same city-wide quality pool; no tier has a global
+  // count cap or a district allow-list.
+  { dx: -4, dz: -20 },
+  { dx: 12, dz: 20 },
+  { dx: -20, dz: 4 },
+  { dx: 20, dz: -4 }
 ]);
 
 const CRATE_BLOCK_BY_TIER = Object.freeze({
@@ -67,7 +67,6 @@ const CRATE_PAD_BY_TIER = Object.freeze({
   mythic: "minecraft:magenta_concrete"
 });
 
-const LEGENDARY_CRATE_DISTRICTS = Object.freeze([0, 6, 12, 18, 24]);
 const PREMIUM_CRATE_TIERS = Object.freeze(["legendary", "mythic"]);
 
 // These are the exact X/Z footprints of the nine RandS landmark structures.
@@ -332,6 +331,42 @@ async function buildCityFoundationLayer(dimension) {
   }
 }
 
+async function repairCitySurfaceVoids(dimension) {
+  // Rebuild the four support layers first, then close every remaining air hole
+  // at street level. This repairs existing worlds without reloading or
+  // overwriting any RandS building above the surface.
+  await buildCityFoundationLayer(dimension);
+  const half = CONFIG.cityHalfSize;
+  const size = CONFIG.cityTileSize;
+  const surfaceY = CONFIG.cityBaseY + 1;
+  let tileIndex = 0;
+  for (let minX = -half; minX < half; minX += size) {
+    for (let minZ = -half; minZ < half; minZ += size) {
+      const maxX = Math.min(half - 1, minX + size - 1);
+      const maxZ = Math.min(half - 1, minZ + size - 1);
+      await withTickingArea(
+        dimension,
+        `extract_surface_repair_${tileIndex++}`,
+        { x: minX, y: CONFIG.cityBaseY - 3, z: minZ },
+        { x: maxX, y: surfaceY + 2, z: maxZ },
+        async () => {
+          for (let x = minX; x <= maxX; x += 32) {
+            for (let z = minZ; z <= maxZ; z += 32) {
+              const x2 = Math.min(maxX, x + 31);
+              const z2 = Math.min(maxZ, z + 31);
+              for (const emptyBlock of ["minecraft:air", "minecraft:cave_air", "minecraft:void_air"]) {
+                try { dimension.runCommand(`fill ${x} ${surfaceY} ${z} ${x2} ${surfaceY} ${z2} minecraft:stone_bricks replace ${emptyBlock}`); } catch {}
+              }
+            }
+            await waitTicks(1);
+          }
+        }
+      );
+    }
+  }
+  try { world.setDynamicProperty(CONFIG.roadRepairVersionKey, CONFIG.roadRepairVersion); } catch {}
+}
+
 async function buildCityFoundation(dimension) {
   const half = CONFIG.cityHalfSize;
   await buildCityFoundationLayer(dimension);
@@ -347,21 +382,33 @@ async function buildCityFoundation(dimension) {
   }
 }
 
-function structureMarkerCrateTier(districtIndex, row, column, markerIndex, isLandmark = false) {
-  const salt = 0x4c00f00d ^ Math.imul(markerIndex + 1, 0x45d9f3b);
-  const roll = deterministicIndex(districtIndex, row, column, 1000, salt);
-  if (isLandmark && roll < 250) return "legendary";
-  if (roll < 1) return "mythic";
-  if (roll < 11) return "legendary";
-  if (roll < 91) return "epic";
-  if (roll < 321) return "rare";
+function deterministicCrateTier(districtIndex, row, column, slotIndex, salt = 0) {
+  const entries = Object.entries(CONFIG.crateTierWeights).filter(([, weight]) => Number(weight) > 0);
+  const scale = 100;
+  const total = entries.reduce((sum, [, weight]) => sum + Math.round(Number(weight) * scale), 0);
+  if (total <= 0) return "common";
+  let roll = deterministicIndex(
+    districtIndex,
+    row,
+    column,
+    total,
+    salt ^ Math.imul(slotIndex + 1, 0x45d9f3b)
+  );
+  for (const [tier, weight] of entries) {
+    roll -= Math.round(Number(weight) * scale);
+    if (roll < 0) return tier;
+  }
   return "common";
 }
 
-function mixedStructureCrateTiers(districtIndex, row, column, markerCount, isLandmark = false) {
+function structureMarkerCrateTier(districtIndex, row, column, markerIndex) {
+  return deterministicCrateTier(districtIndex, row, column, markerIndex, 0x4c00f00d);
+}
+
+function mixedStructureCrateTiers(districtIndex, row, column, markerCount) {
   const tiers = Array.from(
     { length: markerCount },
-    (_value, markerIndex) => structureMarkerCrateTier(districtIndex, row, column, markerIndex, isLandmark)
+    (_value, markerIndex) => structureMarkerCrateTier(districtIndex, row, column, markerIndex)
   );
   if (tiers.length > 1 && tiers.every(tier => tier === tiers[0])) {
     const index = deterministicIndex(districtIndex, row, column, tiers.length, 0x6d2b79f5);
@@ -371,10 +418,10 @@ function mixedStructureCrateTiers(districtIndex, row, column, markerCount, isLan
   return tiers;
 }
 
-function replaceRandSMarkers(dimension, x, z, footprint, structureName, districtIndex, row, column, isLandmark = false) {
+function replaceRandSMarkers(dimension, x, z, footprint, structureName, districtIndex, row, column) {
   const structureY = CONFIG.cityBaseY + 1 - Number(footprint.groundOffset || 0);
   const markers = RANDS_SPAWNER_MARKERS[structureName] || [];
-  const tiers = mixedStructureCrateTiers(districtIndex, row, column, markers.length, isLandmark);
+  const tiers = mixedStructureCrateTiers(districtIndex, row, column, markers.length);
   for (let markerIndex = 0; markerIndex < markers.length; markerIndex++) {
     const [dx, dy, dz] = markers[markerIndex];
     const block = dimension.getBlock({ x: x + dx, y: structureY + dy, z: z + dz });
@@ -486,7 +533,7 @@ async function placeDistrict(dimension, center, index) {
       const landmarkZ = gridOriginZ + anchor.row * CONFIG.districtCellSize;
       const landmarkY = CONFIG.cityBaseY + 1 - footprint.groundOffset;
       placePackStructure(dimension, `village:custom/houses/${landmark}`, { x: landmarkX, y: landmarkY, z: landmarkZ });
-      replaceRandSMarkers(dimension, landmarkX, landmarkZ, footprint, landmark, index, anchor.row, anchor.column, true);
+      replaceRandSMarkers(dimension, landmarkX, landmarkZ, footprint, landmark, index, anchor.row, anchor.column);
       for (let dx = 0; dx < footprint.xCells; dx++) {
         for (let dz = 0; dz < footprint.zCells; dz++) {
           occupied[anchor.row + dz][anchor.column + dx] = true;
@@ -527,25 +574,116 @@ async function placeDistrict(dimension, center, index) {
   );
 }
 
+function districtStructureCrateMarkers(districtIndex) {
+  const center = CONFIG.districtCenters[districtIndex];
+  const gridOriginX = center.x + CONFIG.districtGridOrigin;
+  const gridOriginZ = center.z + CONFIG.districtGridOrigin;
+  const markers = [];
+  const occupied = Array.from({ length: 8 }, () => Array(8).fill(false));
+
+  function append(structureName, x, z, footprint, row, column) {
+    const savedMarkers = RANDS_SPAWNER_MARKERS[structureName] || [];
+    const tiers = mixedStructureCrateTiers(districtIndex, row, column, savedMarkers.length);
+    const structureY = CONFIG.cityBaseY + 1 - Number(footprint.groundOffset || 0);
+    for (let markerIndex = 0; markerIndex < savedMarkers.length; markerIndex++) {
+      const [dx, dy, dz] = savedMarkers[markerIndex];
+      markers.push({
+        id: `structure_${districtIndex}_${row}_${column}_${markerIndex}`,
+        tier: tiers[markerIndex],
+        location: { x: x + dx, y: structureY + dy, z: z + dz }
+      });
+    }
+  }
+
+  const landmark = RANDS_LANDMARKS[(districtIndex * 5) % RANDS_LANDMARKS.length];
+  const footprint = RANDS_BUILDING_FOOTPRINTS[landmark];
+  const anchor = LANDMARK_ANCHORS[districtIndex % LANDMARK_ANCHORS.length];
+  const landmarkX = gridOriginX + anchor.column * CONFIG.districtCellSize;
+  const landmarkZ = gridOriginZ + anchor.row * CONFIG.districtCellSize;
+  append(landmark, landmarkX, landmarkZ, footprint, anchor.row, anchor.column);
+  for (let dx = 0; dx < footprint.xCells; dx++) {
+    for (let dz = 0; dz < footprint.zCells; dz++) occupied[anchor.row + dz][anchor.column + dx] = true;
+  }
+
+  for (let row = 0; row < 8; row++) {
+    for (let column = 0; column < 8; column++) {
+      if (occupied[row][column] || isDistrictRoadCell(row, column)) continue;
+      const structureName = RANDS_SMALL_HOUSES[deterministicIndex(districtIndex, row, column, RANDS_SMALL_HOUSES.length, 0x19a4c3)];
+      append(
+        structureName,
+        gridOriginX + column * CONFIG.districtCellSize,
+        gridOriginZ + row * CONFIG.districtCellSize,
+        { xCells: 1, zCells: 1, height: structureName === "house11" ? 19 : 16 },
+        row,
+        column
+      );
+    }
+  }
+  return markers;
+}
+
+async function refreshStructureCrateDistribution(dimension) {
+  const summary = {
+    placed: 0,
+    counts: { common: 0, rare: 0, epic: 0, legendary: 0, mythic: 0, fallback: 0 },
+    premiumPoints: []
+  };
+  for (let districtIndex = 0; districtIndex < CONFIG.districtCenters.length; districtIndex++) {
+    const center = CONFIG.districtCenters[districtIndex];
+    await withTickingArea(
+      dimension,
+      `extract_structure_crates_${districtIndex}`,
+      { x: center.x - 64, y: 56, z: center.z - 64 },
+      { x: center.x + 64, y: 192, z: center.z + 64 },
+      async () => {
+        for (const marker of districtStructureCrateMarkers(districtIndex)) {
+          let block;
+          try { block = dimension.getBlock(marker.location); } catch { continue; }
+          const typeId = String(block?.typeId || "");
+          const recognized = typeId === "minecraft:mob_spawner" || typeId === "minecraft:chest" ||
+            typeId === "apoc:loot_crate" || typeId.startsWith("daily:loot_crate_");
+          if (!block || !recognized) continue;
+          try {
+            block.setType(CRATE_BLOCK_BY_TIER[marker.tier] || CRATE_BLOCK_BY_TIER.common);
+            summary.placed++;
+            summary.counts[marker.tier]++;
+            if (PREMIUM_CRATE_TIERS.includes(marker.tier)) {
+              summary.premiumPoints.push({
+                id: marker.id,
+                name: marker.tier === "mythic" ? "神话物资箱" : "传说物资箱",
+                tier: marker.tier,
+                dimension: CONFIG.dimensionId,
+                ...marker.location
+              });
+            }
+          } catch { summary.counts.fallback++; }
+        }
+        await waitTicks(1);
+      }
+    );
+  }
+  return summary;
+}
+
 function addFallbackLootNode(nodes, location, tier) {
   const x = Math.floor(location.x), y = Math.floor(location.y), z = Math.floor(location.z);
   if (nodes.some(node => node.dimension === CONFIG.dimensionId && node.x === x && node.y === y && node.z === z)) return;
   nodes.push({
     id: `extract_loot_${x}_${y}_${z}`,
-    type: tier === "epic" || tier === "legendary" ? "military" : tier === "rare" ? "medical" : "tools",
+    type: tier === "epic" || PREMIUM_CRATE_TIERS.includes(tier) ? "military" : tier === "rare" ? "medical" : "tools",
     dimension: CONFIG.dimensionId,
     x, y, z,
-    respawnMinutes: tier === "legendary" ? 120 : tier === "epic" ? 60 : tier === "rare" ? 30 : 15,
+    respawnMinutes: tier === "mythic" ? 180 : tier === "legendary" ? 120 : tier === "epic" ? 60 : tier === "rare" ? 30 : 15,
     lastLooted: 0,
     createdBy: "Apocalypse Extraction City"
   });
 }
 
 function districtCrateLayout(districtIndex) {
-  const layout = [...CRATE_LAYOUT];
-  if (LEGENDARY_CRATE_DISTRICTS.includes(districtIndex)) layout.push({ dx: 4, dz: 20, tier: "legendary" });
-  if (districtIndex === 12) layout.push({ dx: 4, dz: -20, tier: "mythic" });
-  return layout;
+  return CRATE_LAYOUT.map((crate, slotIndex) => ({
+    ...crate,
+    tier: deterministicCrateTier(districtIndex, 9, slotIndex, slotIndex, 0x72ad)
+  }));
 }
 
 function prepareCratePad(dimension, center, crate) {
@@ -561,13 +699,13 @@ function prepareCratePad(dimension, center, crate) {
   return { x, y: crateY, z };
 }
 
-async function placeLootCrates(dimension) {
+async function placeLootCrates(dimension, structureSummary = null) {
   let existingNodes = [];
   try { existingNodes = parse(world.getDynamicProperty(CONFIG.lootNodesKey), []); } catch {}
   const fallbackNodes = Array.isArray(existingNodes) ? existingNodes.slice() : [];
-  let placed = 0;
-  const placedByTier = { common: 0, rare: 0, epic: 0, legendary: 0, mythic: 0, fallback: 0 };
-  const premiumCratePoints = [];
+  let placed = Number(structureSummary?.placed || 0);
+  const placedByTier = { common: 0, rare: 0, epic: 0, legendary: 0, mythic: 0, fallback: 0, ...(structureSummary?.counts || {}) };
+  const premiumCratePoints = [...(structureSummary?.premiumPoints || [])];
   for (let districtIndex = 0; districtIndex < CONFIG.districtCenters.length; districtIndex++) {
     const center = CONFIG.districtCenters[districtIndex];
     await withTickingArea(
@@ -616,6 +754,7 @@ async function placeLootCrates(dimension) {
   try { world.setDynamicProperty("apoc_extract:crate_count:v1", placed); } catch {}
   try { world.setDynamicProperty("apoc_extract:crate_tiers:v1", JSON.stringify(placedByTier)); } catch {}
   try { world.setDynamicProperty(CONFIG.premiumCratePointsKey, JSON.stringify(premiumCratePoints)); } catch {}
+  try { world.setDynamicProperty(CONFIG.crateDistributionVersionKey, CONFIG.crateDistributionVersion); } catch {}
   return placed;
 }
 
@@ -717,12 +856,12 @@ async function buildCity(dimension) {
   if (generated !== expectedBuildings || streets !== expectedStreets) {
     throw new Error(`Dense city placement incomplete: buildings ${generated}/${expectedBuildings}, streets ${streets}/${expectedStreets}. The city was not marked ready and will retry next entry.`);
   }
-  // Run the deck again after all structures. This cannot overwrite buildings
-  // because they begin one block above it, and it repairs any foundation tile
-  // that a custom-dimension chunk did not persist during the first pass.
-  await buildCityFoundationLayer(dimension);
+  // Close every street-level air hole after all structures have finished
+  // writing saved air. Existing non-air building floors remain untouched.
+  await repairCitySurfaceVoids(dimension);
   const exits = await placeExtractionMarkers(dimension);
-  const crates = await placeLootCrates(dimension);
+  const structureCrates = await refreshStructureCrateDistribution(dimension);
+  const crates = await placeLootCrates(dimension, structureCrates);
   try {
     world.setDynamicProperty(CONFIG.cityReadyKey, true);
     world.setDynamicProperty(CONFIG.cityReadyBackupKey, Date.now());
@@ -776,24 +915,29 @@ function cityPhysicallyPresent(dimension) {
 async function ensureCityServices(dimension) {
   if (cityServicesCheckedInSession) return;
   cityServicesCheckedInSession = true;
-  let recordedExits = 0, recordedCrates = 0, premiumCrates = [], outpostVersion = 0;
+  let recordedExits = 0, recordedCrates = 0, outpostVersion = 0, roadRepairVersion = 0, crateDistributionVersion = 0;
   try {
     recordedExits = Number(world.getDynamicProperty("apoc_extract:exit_count:v1") || 0);
     recordedCrates = Number(world.getDynamicProperty("apoc_extract:crate_count:v1") || 0);
-    premiumCrates = parse(world.getDynamicProperty(CONFIG.premiumCratePointsKey), []);
     outpostVersion = Number(world.getDynamicProperty(CONFIG.extractionOutpostVersionKey) || 0);
+    roadRepairVersion = Number(world.getDynamicProperty(CONFIG.roadRepairVersionKey) || 0);
+    crateDistributionVersion = Number(world.getDynamicProperty(CONFIG.crateDistributionVersionKey) || 0);
   } catch {}
-  const expectedCrates = CONFIG.districtCenters.reduce((count, _center, index) => count + districtCrateLayout(index).length, 0);
-  const expectedPremiumCrates = LEGENDARY_CRATE_DISTRICTS.length + 1;
+  const expectedCrates = CONFIG.districtCenters.length * CRATE_LAYOUT.length;
   if (recordedExits >= CONFIG.extractionPoints.length && recordedCrates >= expectedCrates &&
-      premiumCrates.length >= expectedPremiumCrates && outpostVersion >= CONFIG.extractionOutpostVersion) return;
-  console.warn("[ExtractionCity] city exists; repairing exit markers and loot crates without rebuilding districts...");
+      outpostVersion >= CONFIG.extractionOutpostVersion && roadRepairVersion >= CONFIG.roadRepairVersion &&
+      crateDistributionVersion >= CONFIG.crateDistributionVersion) return;
+  console.warn("[ExtractionCity] city exists; repairing surface voids, exits and probability-based loot crates without rebuilding districts...");
+  if (roadRepairVersion < CONFIG.roadRepairVersion) await repairCitySurfaceVoids(dimension);
   const exits = await placeExtractionMarkers(dimension);
-  const crates = await placeLootCrates(dimension);
+  const structureCrates = await refreshStructureCrateDistribution(dimension);
+  const crates = await placeLootCrates(dimension, structureCrates);
   try {
     world.setDynamicProperty("apoc_extract:exit_count:v1", exits);
     world.setDynamicProperty("apoc_extract:crate_count:v1", crates);
     world.setDynamicProperty(CONFIG.extractionOutpostVersionKey, CONFIG.extractionOutpostVersion);
+    world.setDynamicProperty(CONFIG.roadRepairVersionKey, CONFIG.roadRepairVersion);
+    world.setDynamicProperty(CONFIG.crateDistributionVersionKey, CONFIG.crateDistributionVersion);
   } catch {}
   console.warn(`[ExtractionCity] city service repair complete: ${exits} exits, ${crates} crates.`);
 }

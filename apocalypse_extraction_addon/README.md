@@ -1,10 +1,10 @@
-# Apocalypse Extraction City v0.10.5
+# Apocalypse Extraction City v0.10.6
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.5 保留道路虚空修复和房屋内独立箱子品质，City 不使用 title、subtitle 或 action bar，只在进入时及之后每 60 秒通过左上角聊天汇总导航；传说/神话箱导航只读取实际成功放置的登记坐标。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.6 对整个 768×768 城市路面执行分区承托与空气洞扫描，修复旧世界中整段道路坠入虚空的问题；所有物资箱统一按概率独立抽取品质，不再固定传说/神话箱数量。City 不使用 title、subtitle 或 action bar，只在进入时及之后每 60 秒通过左上角聊天汇总导航。
 
 ## 安装与联动
 
-- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.5`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
+- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.6`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
 - 推荐联动：Daily World Events v0.11.0（提供统一物资箱、神话箱和每日新闻）、Apocalypse Mobs v0.6.1（提供区域强化感染者、持枪掠夺者、避难所守卫、Boss 与主城入侵安全区例外）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Guns 保持原样，并独占 action bar 显示弹药、换弹与技能信息；City 不再写入该区域。
@@ -30,8 +30,8 @@
 - 首次加载 v0.10.2 或更高版本时会一次性生成 5×5 共 25 个城区；布局版本和钻石块哨兵必须同时有效才会复用已有城市，避免只剩一个哨兵时错误跳过修复。
 - 虚空维度按每区 8×8 的 16 格网格加载 RandS 建筑与街道。每区保留双格十字道路，非道路格混合 11 类小型建筑，并轮换 9 类大型地标。
 - 每个城区加载前按 32×32×32 小块清理旧布局；全部建筑和街道加载后，在仍保持区块激活时再次填补十字道路下方四层承托，并逐格检查路面空气孔洞。路面修复只替换空气，不覆盖已有建筑和道路装饰。
-- 城市 Structure 中的每个原版刷怪笼会单独稳定转换为 Common/Rare/Epic/Legendary/Mythic 物资箱；同一栋多箱房至少混合两种品质，也不会留下刷怪笼。
-- 每个城区道路固定补给台放置 2 个 Common、1 个 Rare、1 个 Epic；五个对角城区额外各有 1 个 Legendary，中央城区另有 1 个 Mythic。补给台地面颜色与品质对应，奖励、补给卡校验和恢复时间由 Daily Events 的 `LootCrateManager` 管理。
+- 城市 Structure 中的每个原版刷怪笼和每个道路补给台都会先独立抽取 Common/Rare/Epic/Legendary/Mythic；默认概率为普通 60%、精良 25%、Epic 10%、传说 4%、神话 1%。若同一栋多箱房恰好全部抽中同一品质，会对其中一个箱位做品质校正，保证至少混合两种品质，也不会留下刷怪笼。
+- Epic、传说和神话箱没有全城数量上限，也不再限定到指定城区；实际数量完全由所有箱位的独立概率决定。补给台地面颜色与品质对应，奖励、补给卡校验和恢复时间由 Daily Events 的 `LootCrateManager` 管理。
 - 摸金维度会移除自然生成的原版敌对怪，只直接生成 Apocalypse Mobs 中的高难感染者、远程感染者、重型感染者和持枪掠夺者。
 - 进入都市的玩家会获得暖灰色黄昏雾效。Bedrock 的时间是世界级而非维度级，因此本版不强制修改全服时间，避免摸金都市玩家把主世界也锁在黄昏。
 
@@ -45,6 +45,6 @@
 - `Apocalypse Extraction Dimension Bootstrap` 使用官方 `DimensionRegistry.registerCustomDimension` 注册虚空维度；稳定核心通过原版 `/structure load` 和 `/tickingarea` 命令建设城区。
 - 请删除旧的 v0.1.x 行为包/资源包后重新导入，避免 Minecraft 继续读取缓存的旧维度 JSON。
 
-从 v0.10.1 或更早版本更新后第一次进入会自动执行一次混合箱和四层承托升级，预计需要 3～6 分钟；完成后不再重建。v0.10.3/0.10.4 更新到 v0.10.5 不会重建 25 个城区，只会自动补建 12 个撤离检查站、修复物资箱，并登记实际存在的传说/神话箱坐标。若旧世界没有自动升级，管理员执行一次 `/scriptevent extract:rebuild`。升级期间不要重复点击入口或重复执行重建。
+从 v0.10.5 或更早版本更新到 v0.10.6 后，第一次进入不会重建 25 个城区；系统只会重新铺设四层承托、逐段填补街面空气洞、补建 12 个撤离检查站，并按新概率刷新所有已识别箱位。该迁移只运行一次，过程中不要重复点击入口。若旧世界没有自动升级，管理员执行一次 `/scriptevent extract:rebuild`。
 
 本版的自定义维度和 RandS Jigsaw 组合属于测试功能；首次上线请用新世界或完整备份验证。
