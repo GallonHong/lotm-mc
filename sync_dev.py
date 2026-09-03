@@ -18,6 +18,10 @@ links = [
     (os.path.abspath('apocalypse_vehicles_addon/apocalypse_vehicles_rp'), os.path.join(dev_rp_dir, 'apocalypse_vehicles_rp')),
     (os.path.abspath('apocalypse_mobs_addon/apocalypse_mobs_bp'), os.path.join(dev_bp_dir, 'apocalypse_mobs_bp')),
     (os.path.abspath('apocalypse_mobs_addon/apocalypse_mobs_rp'), os.path.join(dev_rp_dir, 'apocalypse_mobs_rp')),
+    (os.path.abspath('apocalypse_extraction_addon/extraction_bp'), os.path.join(dev_bp_dir, 'extraction_bp')),
+    (os.path.abspath('apocalypse_extraction_addon/extraction_rp'), os.path.join(dev_rp_dir, 'extraction_rp')),
+    (os.path.abspath('daily_world_events_addon/daily_events_bp'), os.path.join(dev_bp_dir, 'daily_events_bp')),
+    (os.path.abspath('daily_world_events_addon/daily_events_rp'), os.path.join(dev_rp_dir, 'daily_events_rp')),
 ]
 
 for src, dst in links:
