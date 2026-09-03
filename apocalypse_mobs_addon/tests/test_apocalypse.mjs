@@ -134,6 +134,8 @@ for (const marker of ["health_boost", "EquipmentSlot", "ARMOR_POOLS", "apoc_zone
 assert(spawnDirector.includes("allowedSafeZoneEvent") && spawnDirector.includes("daily_allow_safe_zone") && spawnDirector.includes("daily_event_entity"), "tag-scoped safe-zone invasion exemption missing");
 const config = readFileSync(join(bp, "scripts/config.js"), "utf8");
 for (const marker of ["ZONE_DIFFICULTY", "armorChance", "test_gun:armor_titan_chest", "broodmother", "tyrant"]) assert(config.includes(marker), `missing regional balance config: ${marker}`);
+assert(config.includes("shrieker: 0"), "shrieker must have 0 spawn weight in law zone");
+assert(spawnDirector.includes('entity.typeId === "apoc:infected_shrieker"') && spawnDirector.includes('.type === "law"'), "spawn director must guard law zones against shrieker");
 const special = readFileSync(join(bp, "scripts/specialInfectedAI.js"), "utf8");
 for (const marker of ["tickShrieker", "tickCharger", "tickHunter", "tickTyrant", "tickBroodmother", "isFlashDisabled", "builderMaxBlocksPerMob", 'zone.type !== "outlaw"']) assert(special.includes(marker), `missing special infected behavior: ${marker}`);
 const loot = readFileSync(join(bp, "scripts/loot.js"), "utf8");

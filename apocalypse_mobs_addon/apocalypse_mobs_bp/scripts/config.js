@@ -45,7 +45,7 @@ export const MOB_PROFILES = Object.freeze({
 export const ZONE_POOLS = Object.freeze({
   law: {
     maxPerPlayer: 10,
-    pool: { basic: 46, runner: 24, spitter: 12, shrieker: 2, charger: 3, hunter: 3, mutant: 5, heavy: 2, tyrant: 0, broodmother: 0, raider: 0, guard: 0 }
+    pool: { basic: 48, runner: 24, spitter: 12, shrieker: 0, charger: 3, hunter: 3, mutant: 5, heavy: 2, tyrant: 0, broodmother: 0, raider: 0, guard: 0 }
   },
   outlaw: {
     maxPerPlayer: 14,

@@ -156,7 +156,18 @@ export class SpawnDirector {
     const signal = world.afterEvents?.entitySpawn;
     if (!signal || typeof signal.subscribe !== "function") return;
     signal.subscribe(event => system.run(() => {
-      try { this.configureEntity(event.entity); } catch {}
+      try {
+        const entity = event.entity;
+        if (!valid(entity)) return;
+        if (entity.typeId === "apoc:infected_shrieker") {
+          const zone = ZoneRegistry.resolve(entity.dimension.id, entity.location);
+          if (zone.type === "law") {
+            entity.remove();
+            return;
+          }
+        }
+        this.configureEntity(entity);
+      } catch {}
     }));
   }
   /** 可选跨包总线：由 Daily & Events Addon 请求，仍由本 SpawnDirector 落地实体。 */
@@ -218,6 +229,8 @@ export class SpawnDirector {
   static spawnAt(dimension, location, mobKey, tags = [], forcedZoneType = null) {
     const profile = MOB_PROFILES[mobKey];
     if (!profile || ZoneRegistry.isSafe(dimension.id, location)) return null;
+    const targetZoneType = forcedZoneType || ZoneRegistry.resolve(dimension.id, location).type;
+    if (mobKey === "shrieker" && targetZoneType === "law") return null;
     try {
       const entity = dimension.spawnEntity(profile.typeId, location);
       entity.addTag("apoc_hostile");
@@ -237,8 +250,9 @@ export class SpawnDirector {
     if (zone.type === "safe") return null;
     const pool = ZONE_POOLS[zone.type] || ZONE_POOLS.law;
     const key = mobKey || chooseWeighted(pool.pool);
+    if (key === "shrieker" && zone.type === "law") return null;
     const location = this.findGround(player.dimension, player.location, minDistance, maxDistance);
-    return location ? this.spawnAt(player.dimension, location, key, tags) : null;
+    return location ? this.spawnAt(player.dimension, location, key, tags, zone.type) : null;
   }
 
   static tick() {
@@ -263,7 +277,11 @@ export class SpawnDirector {
     const entities = overworld.getEntities({ tags: ["apoc_hostile"] });
     for (const entity of entities) {
       try {
-        if (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity)) entity.remove();
+        if (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity)) {
+          entity.remove();
+        } else if (entity.typeId === "apoc:infected_shrieker" && ZoneRegistry.resolve(entity.dimension.id, entity.location).type === "law") {
+          entity.remove();
+        }
       } catch {}
     }
     if (CONFIG.suppressVanillaHostiles) {
