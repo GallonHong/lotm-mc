@@ -5,6 +5,7 @@ import { EventNodeRegistry } from "./EventNodeRegistry.js";
 import { IntegrationBridge } from "../integration/IntegrationBridge.js";
 import { RewardManager } from "../rewards/RewardManager.js";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
+import { DailyNewsManager } from "./DailyNewsManager.js";
 
 function valid(entity) {
   try { return !!entity && entity.isValid(); } catch { return false; }
@@ -44,13 +45,13 @@ export class WorldEventManager {
     return false;
   }
 
-  static start(node, templateId = null, triggeringPlayer = null) {
+  static start(node, templateId = null, triggeringPlayer = null, options = {}) {
     if (!node || this.active.has(node.id) || Number(node.cooldownUntil || 0) > Date.now()) return false;
+    if ([...this.active.values()].some(value => value.dimension === node.dimension && distance(value.center, node.location) < 80)) return false;
     const zone = IntegrationBridge.resolveZone(node.dimension, node.location);
-    if (zone.type === "safe") return false;
     const id = templateId && EVENT_TEMPLATES[templateId] ? templateId : chooseTemplate(node.allowedEvents, zone.type);
     const template = EVENT_TEMPLATES[id];
-    if (!template) return false;
+    if (!template || (zone.type === "safe" && template.allowSafeZone !== true) || (template.zones && !template.zones.includes(zone.type))) return false;
     let dimension;
     try { dimension = world.getDimension(node.dimension); } catch { return false; }
     const shortId = `${Date.now().toString(36)}${Math.floor(Math.random() * 999).toString(36)}`.slice(-12);
@@ -58,7 +59,7 @@ export class WorldEventManager {
       instanceId: `event_${shortId}`,
       templateId: id,
       nodeId: node.id,
-      state: "triggered",
+      state: options.waitForPlayers === true ? "announced" : "triggered",
       tag: `daily_ev_${shortId}`,
       dimension: node.dimension,
       center: { ...node.location },
@@ -72,15 +73,46 @@ export class WorldEventManager {
       participantScores: {},
       disqualifiedPlayerIds: [],
       specialEntityId: null,
-      triggerPlayerId: triggeringPlayer?.id || null
+      triggerPlayerId: triggeringPlayer?.id || null,
+      newsPresetId: options.newsPresetId || null,
+      locationName: String(options.locationName || node.name || zone.name || "事件区域"),
+      newsPublished: false,
+      arrivalDeadlineTick: system.currentTick + Number(CONFIG.newsArrivalGraceTicks || 2400)
     };
     this.active.set(node.id, instance);
+    if (instance.state === "announced") {
+      DailyNewsManager.publishEventStart(instance, template);
+      instance.newsPublished = true;
+      return instance;
+    }
+    return this.activate(instance, template);
+  }
+
+  static activate(instance, template) {
+    let dimension;
+    try { dimension = world.getDimension(instance.dimension); }
+    catch { return false; }
+    instance.state = "triggered";
+    instance.startTick = system.currentTick;
+    instance.lastPlayerTick = system.currentTick;
     if (template.mode === "rescue") this.spawnSpecial(instance, "daily:survivor", "§a受困幸存者");
-    if (template.mode === "defense") this.spawnSpecial(instance, "daily:convoy_marker", "§6坠毁运输车");
-    if (template.mode !== "defense") this.spawnWave(instance, wavesFor(template, instance.zoneType)[0]);
+    if (template.mode === "defense") this.spawnSpecial(instance, template.objectiveEntityId || "daily:convoy_marker", template.objectiveName || "§6坠毁运输车");
+    if (template.mode === "boss") {
+      const boss = this.spawnSpecial(instance, template.bossEntityId, template.bossName || `§4${template.name}`);
+      if (!boss) {
+        if (instance.newsPublished) this.finish(instance, false, "目标实体生成失败");
+        else this.active.delete(instance.nodeId);
+        return false;
+      }
+    }
+    if (template.mode !== "defense" && template.mode !== "boss") this.spawnWave(instance, wavesFor(template, instance.zoneType)[0]);
     instance.state = "active";
-    for (const player of dimension.getPlayers({ location: node.location, maxDistance: 80 })) {
-      const zoneLabel = instance.zoneType === "outlaw" ? "§4非法制区·高危" : "§e法制区·常规";
+    if (!instance.newsPublished) {
+      DailyNewsManager.publishEventStart(instance, template);
+      instance.newsPublished = true;
+    }
+    for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 80 })) {
+      const zoneLabel = instance.zoneType === "outlaw" ? "§4非法制区·高危" : instance.zoneType === "safe" ? "§a安全区·入侵事件" : "§e法制区·常规";
       player.sendMessage(`§4⚠ [动态事件] ${template.name} 已开始！§7（${zoneLabel}§7）`);
       try { player.onScreenDisplay.setTitle(`§4${template.name}`, { subtitle: `${zoneLabel} §7| §e参与战斗可获得个人奖励`, fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 10 }); } catch {}
     }
@@ -94,8 +126,10 @@ export class WorldEventManager {
       entity.addTag(instance.tag);
       entity.addTag("daily_event_entity");
       entity.addTag("daily_event_special");
+      if (instance.zoneType === "safe") entity.addTag("daily_allow_safe_zone");
       instance.specialEntityId = entity.id;
-    } catch (error) { console.warn(`[DailyEvents] 特殊实体生成失败: ${error}`); }
+      return entity;
+    } catch (error) { console.warn(`[DailyEvents] 特殊实体生成失败: ${error}`); return null; }
   }
 
   static spawnWave(instance, wave) {
@@ -104,7 +138,9 @@ export class WorldEventManager {
     for (const group of wave || []) {
       if (requested >= CONFIG.eventMaxEntities) break;
       const count = Math.min(Number(group.count || 1), CONFIG.eventMaxEntities - requested);
-      requested += IntegrationBridge.spawnEventMobs(dimension, instance.center, group.mobKey, count, [instance.tag], 7, 16);
+      requested += instance.zoneType === "safe"
+        ? IntegrationBridge.spawnSafeZoneEventMobs(dimension, instance.center, group.mobKey, count, [instance.tag], 7, 16)
+        : IntegrationBridge.spawnEventMobs(dimension, instance.center, group.mobKey, count, [instance.tag], 7, 16);
     }
     instance.spawnedWaves++;
     instance.waitUntil = system.currentTick + 40;
@@ -130,10 +166,15 @@ export class WorldEventManager {
   static tickInstance(instance) {
     const template = EVENT_TEMPLATES[instance.templateId];
     if (!template) return this.finish(instance, false, "模板不存在");
-    if (system.currentTick - instance.startTick > CONFIG.eventTimeoutTicks) return this.finish(instance, false, "事件超时");
     let dimension;
     try { dimension = world.getDimension(instance.dimension); } catch { return this.finish(instance, false, "维度不可用"); }
     const nearby = dimension.getPlayers({ location: instance.center, maxDistance: CONFIG.eventJoinRadius });
+    if (instance.state === "announced") {
+      if (nearby.length) this.activate(instance, template);
+      else if (system.currentTick >= Number(instance.arrivalDeadlineTick || 0)) this.finish(instance, false, "限时内无人抵达");
+      return;
+    }
+    if (system.currentTick - instance.startTick > CONFIG.eventTimeoutTicks) return this.finish(instance, false, "事件超时");
     if (nearby.length) instance.lastPlayerTick = system.currentTick;
     else if (system.currentTick - instance.lastPlayerTick > 600) return this.finish(instance, false, "参与者已离开区域");
 
@@ -166,6 +207,11 @@ export class WorldEventManager {
           try { survivor.applyDamage(1); } catch {}
         }
       }
+    }
+
+    if (template.mode === "boss") {
+      if (!valid(this.getSpecial(instance))) return this.finish(instance, true);
+      return;
     }
 
     if (system.currentTick < instance.waitUntil) return;
@@ -236,6 +282,7 @@ export class WorldEventManager {
     for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 80 })) {
       if (!success) player.sendMessage(`§c✘ 动态事件失败：${template?.name || instance.templateId}${reason ? `（${reason}）` : ""}`);
     }
+    DailyNewsManager.publishEventResult(instance, template, success, reason);
     EventNodeRegistry.setCooldown(instance.nodeId);
     this.active.delete(instance.nodeId);
   }
@@ -244,7 +291,6 @@ export class WorldEventManager {
     const nodes = EventNodeRegistry.getNodes();
     for (const node of nodes) {
       if (this.active.has(node.id) || Number(node.cooldownUntil || 0) > Date.now()) continue;
-      if (IntegrationBridge.resolveZone(node.dimension, node.location).type === "safe") continue;
       let dimension;
       try { dimension = world.getDimension(node.dimension); } catch { continue; }
       const players = dimension.getPlayers({ location: node.location, maxDistance: Number(node.triggerRadius || 35) });

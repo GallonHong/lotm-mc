@@ -38,6 +38,29 @@ export const EVENT_TEMPLATES = Object.freeze({
   mercenary_blockade: {
     name: "武装封锁线", rewardId: "event_mercenary_blockade_outlaw", weight: 9, zones: ["outlaw"], mode: "waves",
     waves: [[{ mobKey: "raider", count: 5 }], [{ mobKey: "raider", count: 6 }, { mobKey: "heavy", count: 1 }]]
+  },
+  fog_man_hunt: {
+    name: "雾中人调查", rewardId: "event_fog_man_hunt", weight: 3, zones: ["law", "outlaw"], mode: "boss",
+    bossEntityId: "apoc_boss:fog_man", bossName: "§8雾中人", waves: []
+  },
+  goatman_hunt: {
+    name: "山羊人调查", rewardId: "event_goatman_hunt", weight: 3, zones: ["law", "outlaw"], mode: "boss",
+    bossEntityId: "apoc_boss:goatman", bossName: "§4山羊人", waves: []
+  },
+  siren_head_hunt: {
+    name: "警笛头调查", rewardId: "event_siren_head_hunt", weight: 2, zones: ["law", "outlaw"], mode: "boss",
+    bossEntityId: "apoc_boss:siren_head", bossName: "§4警笛头", waves: []
+  },
+  rebel_invasion: {
+    name: "叛军进攻主城", rewardId: "event_rebel_invasion", weight: 1, zones: ["safe"], allowSafeZone: true, mode: "defense",
+    objectiveEntityId: "daily:convoy_marker", objectiveName: "§a主城防线",
+    defenseTicks: 1800, waveAtTicks: [20, 420, 900, 1320],
+    waves: [
+      [{ mobKey: "raider", count: 6 }],
+      [{ mobKey: "raider", count: 8 }, { mobKey: "runner", count: 3 }],
+      [{ mobKey: "raider", count: 8 }, { mobKey: "heavy", count: 2 }],
+      [{ mobKey: "raider", count: 10 }, { mobKey: "charger", count: 2 }, { mobKey: "heavy", count: 2 }]
+    ]
   }
 });
 
@@ -46,7 +69,7 @@ const LEGACY_ALL = ["infected_attack", "survivor_rescue", "raider_ambush", "cras
 export function chooseTemplate(allowedIds, zoneType = "law") {
   const requested = !allowedIds || LEGACY_ALL.every(id => allowedIds.includes(id)) ? Object.keys(EVENT_TEMPLATES) : allowedIds;
   const entries = requested.map(id => [id, EVENT_TEMPLATES[id]])
-    .filter(([, value]) => value && (!value.zones || value.zones.includes(zoneType)));
+    .filter(([, value]) => value && (zoneType !== "safe" || value.allowSafeZone === true) && (!value.zones || value.zones.includes(zoneType)));
   const total = entries.reduce((sum, [, value]) => sum + Number(value.weight || 1), 0);
   if (total <= 0) return null;
   let roll = Math.random() * total;

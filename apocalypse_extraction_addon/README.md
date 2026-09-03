@@ -1,13 +1,13 @@
-# Apocalypse Extraction City v0.10.3
+# Apocalypse Extraction City v0.10.5
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.3 保留 v0.10.2 的道路虚空修复和房屋内独立箱子品质，并将撤离点、传说箱和撤离倒计时导航移到原生屏幕标题，不再读取或修改 Test Guns。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.5 保留道路虚空修复和房屋内独立箱子品质，City 不使用 title、subtitle 或 action bar，只在进入时及之后每 60 秒通过左上角聊天汇总导航；传说/神话箱导航只读取实际成功放置的登记坐标。
 
 ## 安装与联动
 
-- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.3`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
-- 推荐联动：Daily World Events v0.10.0（提供统一物资箱和神话箱）、Apocalypse Mobs v0.5.0（提供区域强化感染者、掠夺者和 Boss）；缺少时入口仍会响应，但对应内容不会生成。
+- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.5`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。启用主 BP 时会声明 Bootstrap 依赖。
+- 推荐联动：Daily World Events v0.11.0（提供统一物资箱、神话箱和每日新闻）、Apocalypse Mobs v0.6.1（提供区域强化感染者、持枪掠夺者、避难所守卫、Boss 与主城入侵安全区例外）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
-- Test Guns v3.9.3 会把摸金导航附加到弹药 HUD 后方，避免射击时覆盖撤离提示；枪械致盲等效果继续由原 Add-on 处理。
+- Test Guns 保持原样，并独占 action bar 显示弹药、换弹与技能信息；City 不再写入该区域。
 - 城市测试素材复制自仓库内 `RandS Overgrown Cities 1.3`。不要再同时启用原 RandS 包，避免 `jigsaw:*` 标识冲突。
 
 ## 规则
@@ -19,7 +19,7 @@
 - 管理员使用 `/scriptevent extract:rebuild` 修复承托层、扩建城区并重新布置物资箱。
 - 当前服务器没有 `chatSend` 事件时，`!extract` 不可用，请使用上述 `/scriptevent` 指令或 SAPI 主菜单。
 - 每次进入从主要城区中随机选择空投点，在城市上空获得 60 秒缓降；不会生成孤立石头出生台。
-- 默认 12 个撤离点，现场使用 32 格高绿色玻璃信标柱、海晶灯和 9×9 绿色地面标记；进入都市时自动锁定最近撤离点。Actionbar 每 2 秒轮换显示最近撤离点与最近传说物资箱的相对方向、距离和坐标。进入 9 格范围会自动开始 10 秒撤离倒计时，离开范围则取消，重新进入可再次启动。`/scriptevent extract:exit` 仍作为手动备用入口。
+- 默认 12 个撤离点，每处都有双岗亭、顶棚、围墙、照明、32 格高绿色玻璃信标柱和 9×9 绿色地面标记；进入都市时自动锁定最近撤离点。进入时以及之后每 60 秒，左上角聊天会汇总最近撤离点与最近实际存在的传说/神话箱方向、距离和坐标。进入 9 格范围会自动开始 10 秒撤离倒计时，离开范围则取消，重新进入可再次启动。`/scriptevent extract:exit` 仍作为手动备用入口。
 - 管理员站在摸金维度内执行 `!extract point add 名称` 可增加撤离点，最多保存 32 个。
 - `!extract point reset` 恢复默认撤离点。
 - 快捷栏槽位 1-9、主手/副手与穿戴护甲受保险保护；普通背包槽位 10-36 在摸金维度死亡时掉落。
@@ -45,6 +45,6 @@
 - `Apocalypse Extraction Dimension Bootstrap` 使用官方 `DimensionRegistry.registerCustomDimension` 注册虚空维度；稳定核心通过原版 `/structure load` 和 `/tickingarea` 命令建设城区。
 - 请删除旧的 v0.1.x 行为包/资源包后重新导入，避免 Minecraft 继续读取缓存的旧维度 JSON。
 
-从 v0.10.1 或更早版本更新后第一次进入会自动执行一次混合箱和四层承托升级，预计需要 3～6 分钟；完成后不再重建。v0.10.2 更新到 v0.10.3 不会重建城市。若旧世界没有自动升级，管理员执行一次 `/scriptevent extract:rebuild`。升级期间不要重复点击入口或重复执行重建。
+从 v0.10.1 或更早版本更新后第一次进入会自动执行一次混合箱和四层承托升级，预计需要 3～6 分钟；完成后不再重建。v0.10.3/0.10.4 更新到 v0.10.5 不会重建 25 个城区，只会自动补建 12 个撤离检查站、修复物资箱，并登记实际存在的传说/神话箱坐标。若旧世界没有自动升级，管理员执行一次 `/scriptevent extract:rebuild`。升级期间不要重复点击入口或重复执行重建。
 
 本版的自定义维度和 RandS Jigsaw 组合属于测试功能；首次上线请用新世界或完整备份验证。

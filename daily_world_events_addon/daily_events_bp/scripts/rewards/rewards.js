@@ -24,6 +24,10 @@ export const REWARD_REGISTRY = Object.freeze({
   event_toxic_outbreak_outlaw: { coins: 1550, items: [{ id: "minecraft:golden_apple", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 3 }] },
   event_mutant_nest_outlaw: { coins: 2000, items: [{ id: "minecraft:diamond", amount: 1 }, { id: "minecraft:amethyst_shard", amount: 4 }] },
   event_mercenary_blockade_outlaw: { coins: 2100, items: [{ id: "minecraft:arrow", amount: 32 }, { id: "minecraft:gold_ingot", amount: 4 }] },
+  event_fog_man_hunt: { coins: 2600, items: [{ id: "minecraft:echo_shard", amount: 1, name: "雾中人残留物（MVP）" }, { id: "minecraft:amethyst_shard", amount: 5 }] },
+  event_goatman_hunt: { coins: 2800, items: [{ id: "minecraft:goat_horn", amount: 1, name: "山羊人调查证物（MVP）" }, { id: "minecraft:gold_ingot", amount: 5 }] },
+  event_siren_head_hunt: { coins: 3200, items: [{ id: "minecraft:echo_shard", amount: 2, name: "异常广播记录（MVP）" }, { id: "minecraft:diamond", amount: 1 }] },
+  event_rebel_invasion: { coins: 2400, items: [{ id: "minecraft:iron_block", amount: 1, name: "主城防卫物资（MVP）" }, { id: "minecraft:arrow", amount: 32, name: "回收弹药（MVP）" }] },
   dungeon_abandoned_clinic: {
     coins: 1800,
     items: [

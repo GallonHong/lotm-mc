@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs RP v0.6.0",
-    "description": "末日生物与人类阵营资源包：新增荒原掠夺者与避难所驻守护卫战术模型、战术持枪姿势与音效动作。",
+    "name": "Apocalypse Mobs RP v0.6.1",
+    "description": "末日生物与人类阵营资源包：荒原掠夺者与避难所驻守护卫战术模型、持枪姿势、音效与 World Events 联动。",
     "uuid": "03db80ee-e322-46ce-8787-7efab344707c",
     "version": [
       0,
       6,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         6,
-        0
+        1
       ]
     }
   ],
