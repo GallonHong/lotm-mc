@@ -16,7 +16,6 @@ BEHAVIOR_PACKS = [
     ("apocalypse_mobs_bp", os.path.join(BASE_DIR, "apocalypse_mobs_addon", "apocalypse_mobs_bp")),
     ("extraction_bp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_bp")),
     ("daily_events_bp", os.path.join(BASE_DIR, "daily_world_events_addon", "daily_events_bp")),
-    ("apex_boss_bp", os.path.join(BASE_DIR, "apex_boss_addon", "apex_boss_bp")),
 ]
 
 RESOURCE_PACKS = [
@@ -24,7 +23,6 @@ RESOURCE_PACKS = [
     ("apocalypse_vehicles_rp", os.path.join(BASE_DIR, "apocalypse_vehicles_addon", "apocalypse_vehicles_rp")),
     ("extraction_rp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_rp")),
     ("daily_events_rp", os.path.join(BASE_DIR, "daily_world_events_addon", "daily_events_rp")),
-    ("apex_boss_rp", os.path.join(BASE_DIR, "apex_boss_addon", "apex_boss_rp")),
     ("natural_disasters_rp", os.path.join(BASE_DIR, "natural_disasters_standalone_addon", "standalone_disasters_rp")),
     ("test_guns_rp", os.path.join(BASE_DIR, "test_guns_2d_addon", "test_guns_rp")),
 ]
