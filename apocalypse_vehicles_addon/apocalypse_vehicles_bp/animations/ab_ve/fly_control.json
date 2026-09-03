@@ -2,46 +2,20 @@
   "format_version": "1.8.0",
   "animations": {
     "animation.ab_ve.fly_default": {
-      "loop": false,
-      "animation_length": 0.1,
-      "timeline": {
-        "0.0": [
-          "/effect @s levitation 1 1 true",
-          "/effect @s slow_falling 2 1 true",
-          "@s gravity_false"
-        ]
-      }
+      "loop": true,
+      "animation_length": 1.0
     },
     "animation.ab_ve.fly_up": {
       "loop": true,
-      "animation_length": 1.0,
-      "timeline": {
-        "0.0": [
-          "/effect @s levitation 1 1 true"
-        ]
-      }
+      "animation_length": 1.0
     },
     "animation.ab_ve.fly_idle": {
       "loop": true,
-      "animation_length": 1.3,
-      "timeline": {
-        "0.0": [
-          "/effect @s slow_falling 2 1 true"
-        ],
-        "1.0": [
-          "/effect @s levitation 1 1 true"
-        ]
-      }
+      "animation_length": 1.0
     },
     "animation.ab_ve.fly_down": {
       "loop": true,
-      "animation_length": 1.0,
-      "timeline": {
-        "0.0": [
-          "@s gravity_true",
-          "/effect @s slow_falling 1 1 true"
-        ]
-      }
+      "animation_length": 1.0
     }
   }
 }

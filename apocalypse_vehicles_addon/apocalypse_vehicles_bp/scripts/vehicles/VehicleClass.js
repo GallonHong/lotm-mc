@@ -125,7 +125,14 @@ export class VehicleClass {
             const riders = ridingComp.getRiders();
             const rider = riders.length > 0 ? riders[0] : null;
 
-            if (!rider) return;
+            if (!rider) {
+                try {
+                    entity.removeEffect("levitation");
+                    entity.removeEffect("slow_falling");
+                    entity.triggerEvent("gravity_true");
+                } catch {}
+                return;
+            }
 
             const velocity = entity.getVelocity();
             const viewDir = entity.getViewDirection();
@@ -139,37 +146,45 @@ export class VehicleClass {
             // 更新燃油与 HUD
             const hasFuel = FuelManager.updateFuelAndHud(entity, rider, isMoving);
 
+            // 彻底清除任何残留的 levitation 药水效果，防止外界或旧动画指令残留
+            try {
+                entity.removeEffect("levitation");
+            } catch {}
+
             if (!hasFuel) {
                 try {
+                    entity.triggerEvent("gravity_true");
                     entity.addEffect("slow_falling", 20, { amplifier: 1, showParticles: false });
                 } catch {}
                 return;
             }
 
-            // 直升机垂直升降控制：
-            // 1. 抬头 (pitch < -5) 或 按住空格跳跃键 (isJumping): 垂直腾空爬升！
-            if (isJumping || pitch < -5) {
-                const climbForce = isJumping ? 0.22 : Math.min(0.28, Math.abs(pitch) * 0.005 + 0.12);
-                entity.applyImpulse({ x: 0, y: climbForce, z: 0 });
-                try {
-                    entity.addEffect("levitation", 5, { amplifier: 1, showParticles: false });
-                } catch {}
+            // 直升机垂直升降与稳定悬停控制系统：
+            // 1. 爬升 (按住跳跃/空格键 或 明显仰头 pitch < -15)
+            if (isJumping || pitch < -15) {
+                // 向上升空：设定最大垂直爬升速度上限 0.28 (~5.6格/秒)，平滑到达后不再无限累加
+                if (velocity.y < 0.28) {
+                    const climbForce = isJumping ? 0.15 : Math.min(0.20, (Math.abs(pitch) - 15) * 0.005 + 0.10);
+                    entity.applyImpulse({ x: 0, y: climbForce, z: 0 });
+                }
             }
-            // 2. 低头俯视 (pitch > 8): 缓降着陆
-            else if (pitch > 8) {
-                try {
-                    entity.removeEffect("levitation");
-                    entity.addEffect("slow_falling", 10, { amplifier: 0, showParticles: false });
-                } catch {}
+            // 2. 下降/着陆 (明显低头俯视 pitch > 15)
+            else if (pitch > 15) {
+                // 向下降落：设定平稳下沉速度上限 -0.22 (~4.4格/秒)，避免坠毁
+                if (velocity.y > -0.22) {
+                    const sinkForce = Math.max(-0.15, -((pitch - 15) * 0.005 + 0.08));
+                    entity.applyImpulse({ x: 0, y: sinkForce, z: 0 });
+                }
             }
-            // 3. 平视 (-5 <= pitch <= 8): 空中稳定悬停
+            // 3. 悬停 / 水平巡航 (-15 <= pitch <= 15 且未按跳跃键)
             else {
-                try {
-                    entity.removeEffect("levitation");
-                    entity.addEffect("slow_falling", 10, { amplifier: 2, showParticles: false });
-                } catch {}
-                if (velocity.y < -0.05) {
-                    entity.applyImpulse({ x: 0, y: 0.08, z: 0 });
+                // 彻底解决“一直向上飞无法停止”：
+                // 如果当前还有向上冲的惯性速度，主动施加反向阻尼，在 2-3 tick 内迅速刹车并悬停
+                if (velocity.y > 0.02) {
+                    entity.applyImpulse({ x: 0, y: -velocity.y * 0.5, z: 0 });
+                } else if (velocity.y < -0.04) {
+                    // 如果因为轻微重力有下坠趋势，施加微弱向上浮力托住
+                    entity.applyImpulse({ x: 0, y: -velocity.y * 0.5, z: 0 });
                 }
             }
 

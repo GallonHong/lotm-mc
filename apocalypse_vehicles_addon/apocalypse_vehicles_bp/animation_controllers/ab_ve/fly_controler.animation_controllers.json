@@ -158,7 +158,7 @@
         },
         "activate": {
           "on_exit": [
-            "@s gravity_false",
+            "@s gravity_true",
             "/camera @a[r=5] clear"
           ],
           "transitions": [
