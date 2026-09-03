@@ -9,4 +9,6 @@ Thumbs.db
 
 # Build output (keep packaged mcaddons or ignore large temp builds)
 *.ps1
+*.mcworld
 deploy_*.js
+
