@@ -2,7 +2,7 @@ import os
 import zipfile
 import shutil
 
-base_dir = r'c:\Users\10973\Desktop\mcaddon\test_guns_2d_addon'
+base_dir = os.path.dirname(os.path.abspath(__file__))
 bp_dir = os.path.join(base_dir, 'test_guns_bp')
 rp_dir = os.path.join(base_dir, 'test_guns_rp')
 
