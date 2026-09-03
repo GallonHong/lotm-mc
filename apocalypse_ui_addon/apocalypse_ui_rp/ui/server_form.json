@@ -1169,8 +1169,7 @@
                   {
                     "from_button_id": "button.menu_select",
                     "to_button_id": "button.form_button_click",
-                    "mapping_type": "pressed",
-                    "button_up": true
+                    "mapping_type": "pressed"
                   },
                   {
                     "from_button_id": "button.menu_ok",
