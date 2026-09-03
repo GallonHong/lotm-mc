@@ -152,6 +152,9 @@ export class DungeonManager {
     const template = dungeonTemplate(templateId);
     const slot = this.availableSlot();
     if (!template || !slot || !sameDimension(template.dimension, slot.dimension)) return false;
+    if (template.stages.some(stage => stage.type === "boss") && !IntegrationBridge.isApocalypseAvailable()) {
+      return { error: "missing_apocalypse_boss" };
+    }
 
     const shortId = `${Date.now().toString(36)}${Math.floor(Math.random() * 9999).toString(36)}`.slice(-12);
     const instance = {
@@ -338,6 +341,11 @@ export class DungeonManager {
       this.sendStageMessages(instance, stage.messages);
       instance.stageData.nextDisasterPulse = system.currentTick + 40;
     }
+    if (stage.type === "boss" && instance.stageData.missingBosses?.length) {
+      const missing = [...new Set(instance.stageData.missingBosses)].join("、");
+      this.sendStageMessages(instance, [`§c[Boss 副本] Apocalypse Boss 生成失败：${missing}。请确认 Apocalypse Mobs BP/RP 已启用且版本匹配。`]);
+      return this.finish(instance, false, `Apocalypse Boss 生成失败：${missing}`);
+    }
     instance.expectedEnemies = requested;
     instance.waitUntil = system.currentTick + ((stage.type === "eliminate" || stage.type === "boss") ? Number(template.spawnConfirmTicks || 80) : 20);
     const checkpoint = stage.type === "checkpoint" || stage.type === "interact" ? this.checkpoint(instance, stage.checkpoint) : null;
@@ -433,14 +441,23 @@ export class DungeonManager {
     const dimension = world.getDimension(instance.slot.dimension);
     let requested = 0;
     for (const group of stage.groups || []) {
-      const method = force ? "forceDungeonMobs" : "spawnDungeonMobs";
-      requested += IntegrationBridge[method](
+      const boss = typeof group.bossKey === "string" && group.bossKey.length > 0;
+      const method = boss
+        ? (force ? "forceDungeonBosses" : "spawnDungeonBosses")
+        : (force ? "forceDungeonMobs" : "spawnDungeonMobs");
+      const expected = Math.max(0, Math.floor(Number(group.count) || 0));
+      const spawned = IntegrationBridge[method](
         dimension,
         this.spawnPoint(instance, group.spawnPoint),
-        group.mobKey,
-        group.count,
+        boss ? group.bossKey : group.mobKey,
+        expected,
         [instance.tag, DUNGEON_ENTITY_TAG, DUNGEON_ENEMY_TAG]
       );
+      requested += spawned;
+      if (boss && spawned < expected) {
+        instance.stageData.missingBosses ||= [];
+        instance.stageData.missingBosses.push(group.bossKey);
+      }
     }
     return requested;
   }

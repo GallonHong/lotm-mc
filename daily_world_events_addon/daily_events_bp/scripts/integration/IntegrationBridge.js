@@ -41,6 +41,23 @@ const APOCALYPSE_MOBS = Object.freeze({
   raider: "apoc:raider_rifleman"
 });
 
+// Dedicated dungeon bosses. These keys never fall back to vanilla entities:
+// a boss stage must use the real Apocalypse Mobs entity and its native AI,
+// boss bar, skills and loot table.
+const APOCALYPSE_DUNGEON_BOSSES = Object.freeze({
+  tyrant: "apoc:infected_tyrant",
+  broodmother: "apoc:infected_broodmother",
+  fog_man: "apoc_boss:fog_man",
+  goatman: "apoc_boss:goatman",
+  siren_head: "apoc_boss:siren_head",
+  mutant_drowned: "apoc_boss:mutant_drowned",
+  mutant_zombie: "apoc_boss:mutant_zombie",
+  mutant_skeleton: "apoc_boss:mutant_skeleton",
+  mutant_lobber: "apoc_boss:mutant_lobber",
+  mutant_enderman: "apoc_boss:mutant_enderman",
+  mutant_iron_golem: "apoc_boss:mutant_iron_golem"
+});
+
 const VANILLA_MOBS = Object.freeze({
   basic: "minecraft:zombie",
   runner: "minecraft:husk",
@@ -203,15 +220,23 @@ export class IntegrationBridge {
    * 因此不经过异步请求队列，直接尝试生成 Apocalypse 实体并以原版实体兜底。
    */
   static spawnDungeonMobs(dimension, center, mobKey, count, tags) {
-    return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true);
+    return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true, false);
   }
 
   /** 最后的确认性补刷：优先直接生成 Apocalypse 实体，避免异步总线丢包导致空阶段。 */
   static forceDungeonMobs(dimension, center, mobKey, count, tags) {
-    return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true);
+    return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true, false);
   }
 
-  static spawnExact(dimension, center, mobKey, count, tags, preferApocalypse) {
+  static spawnDungeonBosses(dimension, center, bossKey, count, tags) {
+    return this.spawnExact(dimension, center, bossKey, count, [...tags, "daily_event_entity"], true, true);
+  }
+
+  static forceDungeonBosses(dimension, center, bossKey, count, tags) {
+    return this.spawnExact(dimension, center, bossKey, count, [...tags, "daily_event_entity"], true, true);
+  }
+
+  static spawnExact(dimension, center, mobKey, count, tags, preferApocalypse, apocalypseBossOnly = false) {
     let spawned = 0;
     for (let index = 0; index < count; index++) {
       const location = {
@@ -221,13 +246,14 @@ export class IntegrationBridge {
       };
       let entity = null;
       if (preferApocalypse) {
-        try { entity = dimension.spawnEntity(APOCALYPSE_MOBS[mobKey] || APOCALYPSE_MOBS.basic, location); } catch {}
+        const apocalypseId = apocalypseBossOnly ? APOCALYPSE_DUNGEON_BOSSES[mobKey] : (APOCALYPSE_MOBS[mobKey] || APOCALYPSE_MOBS.basic);
+        if (apocalypseId) try { entity = dimension.spawnEntity(apocalypseId, location); } catch {}
       }
-      try { entity ||= dimension.spawnEntity(VANILLA_MOBS[mobKey] || VANILLA_MOBS.basic, location); } catch {}
+      if (!apocalypseBossOnly) try { entity ||= dimension.spawnEntity(VANILLA_MOBS[mobKey] || VANILLA_MOBS.basic, location); } catch {}
       if (!entity) continue;
       try {
         for (const tag of tags) entity.addTag(tag);
-        if (String(entity.typeId).startsWith("apoc:")) {
+        if (String(entity.typeId).startsWith("apoc:") || String(entity.typeId).startsWith("apoc_boss:")) {
           entity.addTag("apoc_hostile");
           entity.addTag("apoc_director");
         }

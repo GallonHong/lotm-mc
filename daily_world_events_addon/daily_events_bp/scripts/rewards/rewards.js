@@ -62,5 +62,41 @@ export const REWARD_REGISTRY = Object.freeze({
       { id: "minecraft:iron_block", amount: 1, name: "车队机械零件箱（MVP）" },
       { id: "minecraft:redstone", amount: 12, name: "车辆电气组件（MVP）" }
     ]
+  },
+  dungeon_fogbound_hospital: {
+    coins: 3200,
+    items: [
+      { id: "minecraft:echo_shard", amount: 2, name: "白雾异常样本（MVP）" },
+      { id: "minecraft:golden_apple", amount: 2, name: "封锁区医疗补给（MVP）" }
+    ]
+  },
+  dungeon_redhorn_industrial: {
+    coins: 3500,
+    items: [
+      { id: "minecraft:goat_horn", amount: 1, name: "赤角猎杀证物（MVP）" },
+      { id: "minecraft:iron_block", amount: 2, name: "巨像装甲残片（MVP）" }
+    ]
+  },
+  dungeon_siren_blackout: {
+    coins: 4000,
+    items: [
+      { id: "minecraft:echo_shard", amount: 3, name: "异常广播记录（MVP）" },
+      { id: "minecraft:diamond", amount: 2, name: "制高点行动奖励（MVP）" }
+    ]
+  },
+  dungeon_drowned_pumpstation: {
+    coins: 3400,
+    items: [
+      { id: "minecraft:heart_of_the_sea", amount: 1, name: "深水变异核心（MVP）" },
+      { id: "minecraft:amethyst_shard", amount: 8, name: "腐化组织样本（MVP）" }
+    ]
+  },
+  dungeon_mutation_gauntlet: {
+    coins: 5500,
+    items: [
+      { id: "minecraft:nether_star", amount: 1, name: "终极样本证明（MVP）" },
+      { id: "minecraft:diamond", amount: 3, name: "黑箱实验场结算（MVP）" },
+      { id: "minecraft:amethyst_shard", amount: 12, name: "母体研究数据（MVP）" }
+    ]
   }
 });

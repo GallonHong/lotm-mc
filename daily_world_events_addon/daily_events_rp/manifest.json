@@ -1,12 +1,12 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Survival Daily & World Events RP v0.11.0",
+    "name": "Survival Daily & World Events RP v0.12.0",
     "description": "Client resources for the Survival Alliance commissioner.",
     "uuid": "a62ce956-662d-43c4-863b-020a42563552",
     "version": [
       0,
-      11,
+      12,
       0
     ],
     "min_engine_version": [
@@ -21,7 +21,7 @@
       "uuid": "72420433-a7bf-4f96-ab14-d8ed91a034d3",
       "version": [
         0,
-        11,
+        12,
         0
       ]
     }

@@ -14,7 +14,7 @@ import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.11.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.12.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());

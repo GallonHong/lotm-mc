@@ -147,7 +147,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
         { routeIndex: 0, groups: [{ mobKey: "basic", count: 9, spawnPoint: "storm" }, { mobKey: "runner", count: 4, spawnPoint: "ambush" }] },
         { routeIndex: 1, groups: [{ mobKey: "basic", count: 9, spawnPoint: "boss" }, { mobKey: "runner", count: 4, spawnPoint: "storm" }, { mobKey: "charger", count: 1, spawnPoint: "boss" }] }
       ] },
-      { type: "boss", name: "重装暴君", groups: [{ mobKey: "tyrant", count: 1, spawnPoint: "boss" }, { mobKey: "runner", count: 2, spawnPoint: "storm" }] }
+      { type: "boss", name: "重装暴君", groups: [{ bossKey: "tyrant", count: 1, spawnPoint: "boss" }, { mobKey: "runner", count: 2, spawnPoint: "storm" }] }
     ],
     rewardId: "dungeon_storm_rescue", minimumContribution: 14, timeoutTicks: 36000
   },
@@ -227,6 +227,169 @@ export const DUNGEON_TEMPLATES = Object.freeze({
       { type: "eliminate", name: "车库最终清剿", groups: [{ mobKey: "heavy", count: 1, spawnPoint: "garage_center" }, { mobKey: "mutant", count: 2, spawnPoint: "garage_flank" }, { mobKey: "raider", count: 2, spawnPoint: "garage_center" }] }
     ],
     rewardId: "dungeon_abandoned_clinic", minimumContribution: 10
+  },
+
+  fogbound_hospital: {
+    ...rules,
+    id: "fogbound_hospital", name: "白雾医院·无面病区", category: "boss",
+    difficulty: "噩梦", recommendedPlayers: "2–4 人",
+    description: "封锁被异常白雾吞没的医院街区，击败雾中人与盘踞地下病区的变异感染者。Boss 只使用 Apocalypse Mobs 实体。",
+    structureSize: { x: 104, y: 30, z: 116 },
+    arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 106, y: 38, z: 118 } },
+    platform: { min: { x: -1, z: -1 }, max: { x: 104, z: 116 }, block: "minecraft:deepslate_tiles" },
+    entryOffset: { x: 8, y: 1, z: 8 },
+    structures: [
+      dz("hospital", "hospital", 3, 3, 29, 25, 42), rs("road1", "road1", 36, 3),
+      rs("house11", "ward_annex", 56, 3, 16, 19, 16), rs("road2", "road2", 36, 19),
+      dz("police_station", "police", 57, 24, 16, 15, 16), rs("cross1", "cross", 36, 35),
+      dz("clinic", "clinic", 3, 51, 18, 10, 15), rs("road3", "road3", 36, 51),
+      rs("house5", "house", 57, 51, 16, 16, 16), rs("road4", "road4", 36, 67),
+      dz("radio_tower", "radio", 58, 76, 18, 25, 12), rs("corner2", "corner", 36, 83),
+      rs("cars1", "wrecks", 41, 48, 7, 4, 3, 1)
+    ],
+    spawnPoints: [sp("entry", 14, 14), sp("ward", 16, 28), sp("street", 44, 56), sp("fog_court", 44, 76), sp("morgue", 44, 98)],
+    checkpoints: [cp("hospital_gate", "医院封锁门", 32, 46, 6), cp("fog_gate", "白雾隔离线", 44, 68, 7), cp("morgue_gate", "地下病区入口", 44, 90, 7)],
+    stages: [
+      { type: "briefing", name: "失控的隔离病区", durationTicks: 100, messages: ["§8联盟调查员：§f‘监控里的人影没有脸。清空病区，切勿长时间盯着白雾中的轮廓。’"] },
+      { type: "eliminate", name: "肃清住院部", groups: [{ mobKey: "basic", count: 7, spawnPoint: "ward" }, { mobKey: "hunter", count: 2, spawnPoint: "ward" }] },
+      { type: "checkpoint", name: "穿过医院封锁门", checkpoint: "hospital_gate", hint: "离开住院部，沿残骸道路前往白雾隔离线。" },
+      { type: "boss", name: "白雾中的注视", groups: [{ bossKey: "fog_man", count: 1, spawnPoint: "fog_court" }, { mobKey: "runner", count: 4, spawnPoint: "street" }] },
+      { type: "checkpoint", name: "追踪地下信号", checkpoint: "morgue_gate", hint: "雾暂时散开，追踪异常心跳信号到地下病区入口。" },
+      { type: "boss", name: "零号变异病患", groups: [{ bossKey: "mutant_zombie", count: 1, spawnPoint: "morgue" }, { mobKey: "spitter", count: 3, spawnPoint: "street" }] }
+    ],
+    rewardId: "dungeon_fogbound_hospital", minimumContribution: 16, timeoutTicks: 36000
+  },
+
+  redhorn_industrial: {
+    ...rules,
+    id: "redhorn_industrial", name: "赤角工厂·猎杀之夜", category: "boss",
+    difficulty: "噩梦", recommendedPlayers: "2–4 人",
+    description: "穿过废弃加油站与工业厂房追猎山羊人，最终摧毁被感染核心控制的变异铁傀儡。",
+    structureSize: { x: 112, y: 30, z: 116 },
+    arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 114, y: 38, z: 118 } },
+    platform: { min: { x: -1, z: -1 }, max: { x: 112, z: 116 }, block: "minecraft:stone" },
+    entryOffset: { x: 10, y: 1, z: 10 },
+    structures: [
+      dz("gas_station", "gas", 3, 3, 31, 20, 36), rs("road1", "road1", 38, 3),
+      dz("werehouse_0", "warehouse", 58, 3, 23, 15, 22), rs("road2", "road2", 38, 19),
+      rs("house3a", "house", 84, 3, 16, 16, 16), rs("cross4", "cross", 38, 35),
+      dz("garage_0", "garage", 4, 49, 21, 6, 14), rs("road3", "road3", 38, 51),
+      dz("construction_0", "construction", 59, 46, 19, 15, 19), rs("road4", "road4", 38, 67),
+      dz("industrial_0_1", "factory", 58, 76, 33, 25, 19), rs("corner1", "corner", 38, 83),
+      rs("cars2", "wrecks", 43, 48, 7, 4, 3, 1)
+    ],
+    spawnPoints: [sp("station", 18, 22), sp("warehouse", 69, 15), sp("hunt", 46, 60), sp("goat_ring", 46, 78), sp("forge", 74, 91)],
+    checkpoints: [cp("track", "染血蹄印", 46, 45, 6), cp("factory_gate", "炼钢厂闸门", 46, 88, 7)],
+    stages: [
+      { type: "briefing", name: "赤角目击报告", durationTicks: 90, messages: ["§4猎杀队：§f‘它会借助建筑遮挡冲锋。跟随蹄印推进，不要单独进入厂房。’"] },
+      { type: "eliminate", name: "清理外围巢穴", groups: [{ mobKey: "runner", count: 8, spawnPoint: "station" }, { mobKey: "charger", count: 2, spawnPoint: "warehouse" }] },
+      { type: "checkpoint", name: "确认追猎路线", checkpoint: "track", hint: "在主路中央检查染血蹄印。" },
+      { type: "boss", name: "赤角猎杀者", groups: [{ bossKey: "goatman", count: 1, spawnPoint: "goat_ring" }, { mobKey: "hunter", count: 3, spawnPoint: "hunt" }] },
+      { type: "checkpoint", name: "开启炼钢厂闸门", checkpoint: "factory_gate", hint: "进入炼钢厂，切断异常能源核心。" },
+      { type: "boss", name: "失控钢铁巨像", groups: [{ bossKey: "mutant_iron_golem", count: 1, spawnPoint: "forge" }, { mobKey: "raider", count: 3, spawnPoint: "warehouse" }] }
+    ],
+    rewardId: "dungeon_redhorn_industrial", minimumContribution: 18, timeoutTicks: 36000
+  },
+
+  siren_blackout: {
+    ...rules,
+    id: "siren_blackout", name: "失声城区·最后广播", category: "boss",
+    difficulty: "灾厄", recommendedPlayers: "3–4 人",
+    description: "重启城区广播中继器，引出占据制高点的变异骷髅，并在露天街区对抗警笛头。",
+    structureSize: { x: 108, y: 34, z: 120 },
+    arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 110, y: 42, z: 122 } },
+    platform: { min: { x: -1, z: -1 }, max: { x: 108, z: 120 }, block: "minecraft:gray_concrete" },
+    entryOffset: { x: 8, y: 1, z: 8 },
+    structures: [
+      dz("police_station", "police", 3, 3, 16, 15, 16), rs("road1", "road1", 28, 3),
+      rs("house10", "residence", 50, 3, 16, 16, 16), rs("road2", "road2", 28, 19),
+      dz("supermarket_0", "market", 68, 3, 30, 20, 33), rs("cross1", "cross", 28, 35),
+      dz("construction_0", "construction", 3, 49, 19, 15, 19), rs("road3", "road3", 28, 51),
+      rs("house1c", "house", 50, 51, 16, 16, 16), rs("road4", "road4", 28, 67),
+      dz("radio_tower", "radio", 62, 73, 18, 25, 12), rs("corner2", "corner", 28, 83),
+      rs("streetlights", "lights", 45, 69, 1, 8, 9), rs("cars3", "wrecks", 33, 48, 7, 4, 3, 1)
+    ],
+    spawnPoints: [sp("police", 12, 12), sp("rooftop", 58, 29), sp("relay", 42, 72), sp("tower", 70, 82), sp("siren_field", 42, 101)],
+    checkpoints: [cp("relay", "静默广播中继器", 42, 70, 7), cp("broadcast", "紧急广播控制台", 70, 80, 7), cp("open_ground", "露天诱导区", 42, 96, 8)],
+    stages: [
+      { type: "briefing", name: "全城失声", durationTicks: 100, messages: ["§c广播员：§f‘城区所有扬声器在同一秒发出尖啸，然后彻底失声。恢复中继器，把源头引到开阔地。’"] },
+      { type: "eliminate", name: "夺回中继道路", groups: [{ mobKey: "basic", count: 8, spawnPoint: "police" }, { mobKey: "spitter", count: 3, spawnPoint: "relay" }] },
+      { type: "checkpoint", name: "恢复中继器", checkpoint: "relay", hint: "前往道路中继器，让城市广播重新上线。" },
+      { type: "boss", name: "制高点狙击者", groups: [{ bossKey: "mutant_skeleton", count: 1, spawnPoint: "rooftop" }, { mobKey: "spitter", count: 3, spawnPoint: "relay" }] },
+      { type: "checkpoint", name: "发送诱导广播", checkpoint: "broadcast", hint: "到广播塔发送最大功率诱导信号。" },
+      { type: "checkpoint", name: "进入露天诱导区", checkpoint: "open_ground", hint: "警笛声正在接近，立即转移到露天街区。" },
+      { type: "boss", name: "警笛头", groups: [{ bossKey: "siren_head", count: 1, spawnPoint: "siren_field" }, { mobKey: "shrieker", count: 2, spawnPoint: "tower" }] }
+    ],
+    rewardId: "dungeon_siren_blackout", minimumContribution: 20, timeoutTicks: 42000
+  },
+
+  drowned_pumpstation: {
+    ...rules,
+    id: "drowned_pumpstation", name: "沉没泵站·深水回声", category: "boss",
+    difficulty: "噩梦", recommendedPlayers: "2–4 人",
+    description: "调查被洪水隔绝的泵站与仓库，消灭变异溺尸和从高处投掷感染物的变异投掷者。",
+    structureSize: { x: 104, y: 30, z: 112 },
+    arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 106, y: 38, z: 114 } },
+    platform: { min: { x: -1, z: -1 }, max: { x: 104, z: 112 }, block: "minecraft:dark_prismarine" },
+    entryOffset: { x: 8, y: 1, z: 8 },
+    structures: [
+      dz("werehouse_0", "warehouse", 3, 3, 23, 15, 22), rs("road1", "road1", 31, 3),
+      dz("garage_0", "garage", 52, 3, 21, 6, 14), rs("road2", "road2", 31, 19),
+      rs("house4", "pump_house", 77, 3, 16, 16, 16), rs("cross4", "cross", 31, 35),
+      dz("industrial_0_1", "pumpworks", 52, 40, 33, 25, 19), rs("road3", "road3", 31, 51),
+      dz("construction_0", "spillway", 3, 53, 19, 15, 19), rs("road4", "road4", 31, 67),
+      dz("radio_tower", "water_tower", 59, 75, 18, 25, 12), rs("corner1", "corner", 31, 83),
+      rs("cars4", "wrecks", 36, 48, 7, 4, 3, 1)
+    ],
+    spawnPoints: [sp("warehouse", 14, 14), sp("spillway", 14, 62), sp("basin", 39, 75), sp("tower", 67, 82), sp("deep_end", 39, 99)],
+    checkpoints: [cp("valve", "主排水阀", 39, 45, 6), cp("basin", "蓄水池边缘", 39, 69, 7), cp("tower", "水塔检修梯", 67, 78, 6)],
+    stages: [
+      { type: "briefing", name: "水下求救信号", durationTicks: 90, messages: ["§3水务站：§f‘泵站已经断电，但水下仍有规律敲击声。开启主阀后，所有人离开低洼区域。’"] },
+      { type: "eliminate", name: "清理泵站仓库", groups: [{ mobKey: "basic", count: 7, spawnPoint: "warehouse" }, { mobKey: "spitter", count: 2, spawnPoint: "spillway" }] },
+      { type: "checkpoint", name: "开启主排水阀", checkpoint: "valve", hint: "沿道路到中央阀门平台。" },
+      { type: "checkpoint", name: "检查蓄水池", checkpoint: "basin", hint: "排水后进入蓄水池边缘调查敲击声。" },
+      { type: "boss", name: "深水变异体", groups: [{ bossKey: "mutant_drowned", count: 1, spawnPoint: "deep_end" }, { mobKey: "basic", count: 5, spawnPoint: "basin" }] },
+      { type: "checkpoint", name: "登上水塔", checkpoint: "tower", hint: "投掷物来自水塔方向，前往检修梯。" },
+      { type: "boss", name: "腐化投掷者", groups: [{ bossKey: "mutant_lobber", count: 1, spawnPoint: "tower" }, { mobKey: "charger", count: 2, spawnPoint: "spillway" }] }
+    ],
+    rewardId: "dungeon_drowned_pumpstation", minimumContribution: 18, timeoutTicks: 36000
+  },
+
+  mutation_gauntlet: {
+    ...rules,
+    id: "mutation_gauntlet", name: "黑箱实验场·终极样本", category: "boss",
+    difficulty: "炼狱", recommendedPlayers: "4 人",
+    description: "最高难度连续 Boss 副本：穿越实验区，击败空间变异体与召唤母体。适合装备成型的小队。",
+    structureSize: { x: 116, y: 34, z: 122 },
+    arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 118, y: 42, z: 124 } },
+    platform: { min: { x: -1, z: -1 }, max: { x: 116, z: 122 }, block: "minecraft:blackstone" },
+    entryOffset: { x: 10, y: 1, z: 10 },
+    structures: [
+      dz("clinic", "intake", 3, 3, 18, 10, 15), rs("road1", "road1", 28, 3),
+      dz("hospital", "laboratory", 52, 3, 29, 25, 42), rs("road2", "road2", 28, 19),
+      dz("police_station", "security", 85, 3, 16, 15, 16), rs("cross1", "cross", 28, 35),
+      dz("construction_0", "breach", 3, 49, 19, 15, 19), rs("road3", "road3", 28, 51),
+      dz("industrial_0_1", "reactor", 52, 49, 33, 25, 19), rs("road4", "road4", 28, 67),
+      rs("house11", "containment", 87, 50, 16, 19, 16), rs("corner2", "corner", 28, 83),
+      dz("radio_tower", "observation", 59, 83, 18, 25, 12), rs("cars1", "wrecks", 33, 48, 7, 4, 3, 1)
+    ],
+    spawnPoints: [sp("intake", 12, 12), sp("breach", 14, 58), sp("rift", 43, 70), sp("reactor", 68, 60), sp("reactor_north", 68, 48), sp("reactor_east", 80, 60), sp("reactor_west", 56, 60), sp("reactor_south", 68, 72), sp("nest", 43, 103)],
+    checkpoints: [cp("lab", "黑箱实验室", 43, 44, 7), cp("reactor", "异常反应堆", 68, 68, 7), cp("nest", "母体培养舱", 43, 95, 8)],
+    stages: [
+      { type: "briefing", name: "终极样本失控", durationTicks: 110, messages: ["§5研究主管：§f‘实验场封锁协议已失效。空间读数不稳定；如果母体完成孵化，整个城区都会被感染。’"] },
+      { type: "eliminate", name: "突破安保隔离", groups: [{ mobKey: "mutant", count: 5, spawnPoint: "intake" }, { mobKey: "raider", count: 4, spawnPoint: "breach" }] },
+      { type: "checkpoint", name: "进入黑箱实验室", checkpoint: "lab", hint: "穿过隔离门，进入异常样本区。" },
+      { type: "boss", name: "空间撕裂者", groups: [{ bossKey: "mutant_enderman", count: 1, spawnPoint: "rift" }, { mobKey: "hunter", count: 3, spawnPoint: "breach" }] },
+      { type: "checkpoint", name: "过载反应堆", checkpoint: "reactor", hint: "在母体苏醒前过载异常反应堆。" },
+      { type: "defend", name: "反应堆过载", durationTicks: 420, defensePoint: "reactor", defenseLeashRadius: 24, waves: [
+        { atTicks: 0, groups: [{ mobKey: "runner", count: 7, spawnPoint: "reactor_north" }] },
+        { atTicks: 140, groups: [{ mobKey: "spitter", count: 3, spawnPoint: "reactor_west" }, { mobKey: "charger", count: 2, spawnPoint: "reactor_east" }] },
+        { atTicks: 280, groups: [{ mobKey: "heavy", count: 2, spawnPoint: "reactor_south" }] }
+      ] },
+      { type: "checkpoint", name: "开启母体培养舱", checkpoint: "nest", hint: "反应堆已过载，前往最终培养舱。" },
+      { type: "boss", name: "召唤母体", groups: [{ bossKey: "broodmother", count: 1, spawnPoint: "nest" }, { mobKey: "shrieker", count: 2, spawnPoint: "rift" }] }
+    ],
+    rewardId: "dungeon_mutation_gauntlet", minimumContribution: 26, timeoutTicks: 48000, maxDeathsPerPlayer: 1
   }
 });
 

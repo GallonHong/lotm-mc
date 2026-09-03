@@ -8,7 +8,8 @@ const ICONS = Object.freeze({
   defense: "textures/ui/icon_shield",
   rescue: "textures/ui/icon_recipe_nature",
   escort: "textures/ui/icon_trailer",
-  combat: "textures/ui/warning_alex"
+  combat: "textures/ui/warning_alex",
+  boss: "textures/ui/warning_alex"
 });
 
 function isUserBusy(value) {
@@ -57,13 +58,17 @@ export class DungeonMenu {
     const rewardText = template.oneTimeReward
       ? (DungeonManager.hasCompleted(player, template.id) ? "首次奖励已领取，本次可重玩但不重复发奖" : "首次通关 2000 元 + §9沙漠之鹰 .50 [优良] 图纸")
       : "按个人贡献独立结算";
+    const bossRequirement = template.stages.some(stage => stage.type === "boss") ? "\n§fBoss 依赖：§cApocalypse Mobs BP/RP" : "";
     const form = new MessageFormData().title(`§l${template.name}`)
-      .body(`§7${template.description}\n\n§f类型：§e${template.category} §8| §f难度：§e${template.difficulty}\n§f地图：§e${template.structureSize.x}×${template.structureSize.y}×${template.structureSize.z}\n§fStructure：§e${template.structures.length} 个\n§f阶段：§e${template.stages.length}\n§f复活：§e每人 ${template.maxDeathsPerPlayer} 次\n§f限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n§f奖励：§e${rewardText}`)
+      .body(`§7${template.description}\n\n§f类型：§e${template.category} §8| §f难度：§e${template.difficulty}\n§f地图：§e${template.structureSize.x}×${template.structureSize.y}×${template.structureSize.z}\n§fStructure：§e${template.structures.length} 个\n§f阶段：§e${template.stages.length}\n§f复活：§e每人 ${template.maxDeathsPerPlayer} 次\n§f限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟${bossRequirement}\n§f奖励：§e${rewardText}`)
       .button1("§a创建副本")
       .button2("§8返回");
     show(player, form, result => {
       if (result.selection !== 0) return this.open(player, onBack);
-      player.sendMessage(DungeonManager.start(player, template.id) ? "§a副本实例创建成功。" : "§c创建失败：你已在副本中或当前没有空闲场地。");
+      const started = DungeonManager.start(player, template.id);
+      if (started?.instanceId) player.sendMessage("§a副本实例创建成功。");
+      else if (started?.error === "missing_apocalypse_boss") player.sendMessage("§c创建失败：未检测到 Apocalypse Mobs，请启用对应 BP/RP 后再创建包含 Boss 的副本。");
+      else player.sendMessage("§c创建失败：你已在副本中或当前没有空闲场地。");
     });
   }
 
