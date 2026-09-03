@@ -34,3 +34,27 @@ item.survival_vehicle:jerrycan_full.name=§l§6【满装汽油桶】§r
 item.survival_vehicle:jerrycan_empty.name=§7空油桶§r
 
 action.interact.ride.car=驾驶 / 乘坐
+
+item.ab_ve:canned_beef_stew.name=§6牛肉炖肉罐头§r
+item.ab_ve:canned_bacon.name=§6培根猪肉罐头§r
+item.ab_ve:canned_chicken.name=§6熟鸡肉罐头§r
+item.ab_ve:canned_tuna.name=§6金枪鱼罐头§r
+item.ab_ve:canned_tomato.name=§6茄汁番茄罐头§r
+item.ab_ve:mre.name=§l§c【军用自热口粮 MRE】§r
+item.ab_ve:chocolate_bar.name=§6高能黑巧克力棒§r
+
+item.ab_ve:energy_drink.name=§e战术能量饮料§r
+item.ab_ve:popsi_cola.name=§b波普可乐 (Popsi)§r
+item.ab_ve:exp_coke.name=§c特调经典可乐§r
+item.ab_ve:vodka.name=§f伏特加烈酒§r
+item.ab_ve:bottle_water.name=§b纯净瓶装水§r
+
+item.ab_ve:bandage.name=§f无菌止血绷带§r
+item.ab_ve:first_aid.name=§l§a【战术急救包 IFAK】§r
+item.ab_ve:painkiller.name=§e战术止痛药片§r
+item.ab_ve:adrenaline.name=§l§c【肾上腺素自注射针】§r
+item.ab_ve:antidote.name=§a广谱解毒血清§r
+item.ab_ve:splint.name=§6骨折应急夹板§r
+
+tile.ab_ve:vending_machine.name=§l§6【自动售货机】§r
+item.ab_ve:vending_machine.name=§l§6【自动售货机】§r

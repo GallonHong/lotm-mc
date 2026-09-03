@@ -1,0 +1,24 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc:shelter_guard",
+      "enable_attachables": true,
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/shelter_guard" },
+      "geometry": { "default": "geometry.apoc.infected" },
+      "animations": {
+        "base": "animation.humanoid.base_pose",
+        "move": "animation.humanoid.move",
+        "look": "animation.humanoid.look_at_target.default",
+        "hold": "animation.guns.hold_npc",
+        "attack": "animation.humanoid.attack.rotations"
+      },
+      "scripts": {
+        "animate": ["base", "move", "look", "hold", "attack"]
+      },
+      "render_controllers": ["controller.render.default"],
+      "spawn_egg": { "base_color": "#2C3E50", "overlay_color": "#27AE60" }
+    }
+  }
+}

@@ -40,3 +40,13 @@ entity.apoc_boss:fog_man.name=雾中人 · 阴影潜行者 (The Fog Man)
 item.spawn_egg.entity.apoc_boss:fog_man.name=雾中人刷怪蛋
 entity.apoc_boss:goatman.name=山羊人 · 血夜恶灵 (The Goatman)
 item.spawn_egg.entity.apoc_boss:goatman.name=山羊人刷怪蛋
+
+entity.apoc:raider_rifleman.name=§c荒原持枪掠夺者§r
+item.spawn_egg.entity.apoc:raider_rifleman.name=荒原掠夺者刷怪蛋
+entity.apoc:shelter_guard.name=§a避难所驻守护卫§r
+item.spawn_egg.entity.apoc:shelter_guard.name=避难所驻守护卫刷怪蛋
+
+entity.apoc:raider_rifleman.name=§c荒原持枪掠夺者§r
+item.spawn_egg.entity.apoc:raider_rifleman.name=荒原掠夺者刷怪蛋
+entity.apoc:shelter_guard.name=§a避难所驻守护卫§r
+item.spawn_egg.entity.apoc:shelter_guard.name=避难所驻守护卫刷怪蛋

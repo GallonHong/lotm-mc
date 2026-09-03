@@ -81,6 +81,20 @@ export class SpawnDirector {
     entity.addTag(`apoc_zone_${zoneType}`);
     if (entity.typeId.startsWith("apoc:infected_")) {
       try { entity.setProperty("apoc:appearance", Math.floor(Math.random() * 8)); } catch {}
+    } else if (entity.typeId === "apoc:raider_rifleman") {
+      const guns = ["test_gun:ak47", "test_gun:bizon", "test_gun:shotgun", "test_gun:glock"];
+      const randomGun = guns[Math.floor(Math.random() * guns.length)];
+      try {
+        const equippable = entity.getComponent("minecraft:equippable");
+        if (equippable) equippable.setEquipment("Mainhand", new ItemStack(randomGun, 1));
+      } catch {}
+    } else if (entity.typeId === "apoc:shelter_guard") {
+      const guardGuns = ["test_gun:ak47", "test_gun:shotgun"];
+      const randomGun = guardGuns[Math.floor(Math.random() * guardGuns.length)];
+      try {
+        const equippable = entity.getComponent("minecraft:equippable");
+        if (equippable) equippable.setEquipment("Mainhand", new ItemStack(randomGun, 1));
+      } catch {}
     }
 
     const targetHealth = Number(profile.health?.[zoneType] || profile.health?.law || 20);

@@ -1,0 +1,16 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:recipe_furnace": {
+    "description": {
+      "identifier": "ab_ve:boil_bottle_water"
+    },
+    "tags": [
+      "furnace",
+      "smoker",
+      "campfire",
+      "soul_campfire"
+    ],
+    "input": "minecraft:potion",
+    "output": "ab_ve:bottle_water"
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "ab_ve:craft_painkiller"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:sugar"
+      },
+      {
+        "item": "minecraft:brown_mushroom"
+      },
+      {
+        "item": "minecraft:paper"
+      }
+    ],
+    "result": {
+      "item": "ab_ve:painkiller",
+      "count": 2
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "ab_ve:craft_first_aid"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "ab_ve:bandage"
+      },
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "item": "minecraft:glistering_melon_slice"
+      }
+    ],
+    "result": {
+      "item": "ab_ve:first_aid",
+      "count": 1
+    }
+  }
+}

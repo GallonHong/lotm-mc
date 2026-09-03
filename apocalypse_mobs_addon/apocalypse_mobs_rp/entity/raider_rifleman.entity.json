@@ -1,20 +1,24 @@
 {
   "format_version": "1.10.0",
-  "minecraft:client_entity": { "description": {
-    "identifier": "apoc:raider_rifleman",
-    "enable_attachables": true,
-    "materials": { "default": "entity_alphatest" },
-    "textures": { "default": "textures/entity/raider" },
-    "geometry": { "default": "geometry.apoc.infected" },
-    "animations": {
-      "base": "animation.humanoid.base_pose",
-      "move": "animation.humanoid.move",
-      "look": "animation.humanoid.look_at_target.default",
-      "hold": "animation.humanoid.holding",
-      "attack": "animation.skeleton.attack"
-    },
-    "scripts": { "animate": ["base", "move", "look", "hold", "attack"] },
-    "render_controllers": ["controller.render.default"],
-    "spawn_egg": { "base_color": "#3A4036", "overlay_color": "#7E6A45" }
-  } }
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc:raider_rifleman",
+      "enable_attachables": true,
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/entity/raider" },
+      "geometry": { "default": "geometry.apoc.infected" },
+      "animations": {
+        "base": "animation.humanoid.base_pose",
+        "move": "animation.humanoid.move",
+        "look": "animation.humanoid.look_at_target.default",
+        "hold": "animation.guns.hold_npc",
+        "attack": "animation.humanoid.attack.rotations"
+      },
+      "scripts": {
+        "animate": ["base", "move", "look", "hold", "attack"]
+      },
+      "render_controllers": ["controller.render.default"],
+      "spawn_egg": { "base_color": "#3A4036", "overlay_color": "#7E6A45" }
+    }
+  }
 }

@@ -38,17 +38,18 @@ export const MOB_PROFILES = Object.freeze({
   heavy: { typeId: "apoc:infected_heavy", weight: 2, tier: 4, armorEligible: true, health: { law: 200, outlaw: 260, extraction: 340 } },
   tyrant: { typeId: "apoc:infected_tyrant", weight: 0, tier: 4, armorEligible: true, health: { law: 220, outlaw: 320, extraction: 480 } },
   broodmother: { typeId: "apoc:infected_broodmother", weight: 0, tier: 5, armorEligible: true, health: { law: 500, outlaw: 652, extraction: 852 } },
-  raider: { typeId: "apoc:raider_rifleman", weight: 0, tier: 2, armorEligible: false, health: { law: 50, outlaw: 62, extraction: 78 } }
+  raider: { typeId: "apoc:raider_rifleman", weight: 0, tier: 2, armorEligible: false, health: { law: 50, outlaw: 70, extraction: 80 } },
+  guard: { typeId: "apoc:shelter_guard", weight: 0, tier: 3, armorEligible: false, health: { law: 150, outlaw: 150, extraction: 150 } }
 });
 
 export const ZONE_POOLS = Object.freeze({
   law: {
     maxPerPlayer: 10,
-    pool: { basic: 46, runner: 24, spitter: 12, shrieker: 5, charger: 3, hunter: 3, mutant: 5, heavy: 2, tyrant: 0, broodmother: 0, raider: 0 }
+    pool: { basic: 46, runner: 24, spitter: 12, shrieker: 5, charger: 3, hunter: 3, mutant: 5, heavy: 2, tyrant: 0, broodmother: 0, raider: 0, guard: 0 }
   },
   outlaw: {
     maxPerPlayer: 14,
-    pool: { basic: 20, runner: 18, spitter: 12, shrieker: 9, charger: 9, hunter: 9, mutant: 10, heavy: 7, tyrant: 2, broodmother: 0, raider: 4 }
+    pool: { basic: 20, runner: 18, spitter: 12, shrieker: 9, charger: 9, hunter: 9, mutant: 10, heavy: 7, tyrant: 2, broodmother: 0, raider: 8, guard: 0 }
   }
 });
 
@@ -80,16 +81,69 @@ export const ARMOR_POOLS = Object.freeze({
 });
 
 export const NPC_WEAPONS = Object.freeze({
-  raider_rifle: {
-    damage: 3.5,
+  "test_gun:ak47": {
+    gunId: "test_gun:ak47",
+    projectileId: "test_gun:bullet_rifle",
+    shootSound: "test_gun.ak47_shoot",
+    damage: 15.0,
+    speed: 3.5,
     burst: 4,
     burstInterval: 3,
-    cooldown: 30,
-    aimTicks: 20,
-    magazine: 16,
-    reloadTicks: 50,
-    minRange: 7,
+    cooldown: 25,
+    aimTicks: 15,
+    magazine: 30,
+    reloadTicks: 45,
+    minRange: 4,
     maxRange: 35,
-    accuracy: 0.55
+    accuracy: 0.75
+  },
+  "test_gun:shotgun": {
+    gunId: "test_gun:shotgun",
+    projectileId: "test_gun:bullet_shotgun",
+    shootSound: "test_gun.m870_shoot",
+    damage: 7.5,
+    speed: 2.8,
+    burst: 1,
+    burstInterval: 1,
+    cooldown: 20,
+    aimTicks: 12,
+    magazine: 8,
+    reloadTicks: 50,
+    minRange: 2,
+    maxRange: 18,
+    accuracy: 0.65
+  },
+  "test_gun:bizon": {
+    gunId: "test_gun:bizon",
+    projectileId: "test_gun:bullet_smg",
+    shootSound: "test_gun.bizon_shoot",
+    damage: 4.5,
+    speed: 3.2,
+    burst: 6,
+    burstInterval: 2,
+    cooldown: 20,
+    aimTicks: 10,
+    magazine: 45,
+    reloadTicks: 40,
+    minRange: 3,
+    maxRange: 25,
+    accuracy: 0.70
+  },
+  "test_gun:glock": {
+    gunId: "test_gun:glock",
+    projectileId: "test_gun:bullet_smg",
+    shootSound: "test_gun.glock_shoot",
+    damage: 4.5,
+    speed: 3.0,
+    burst: 3,
+    burstInterval: 3,
+    cooldown: 18,
+    aimTicks: 8,
+    magazine: 20,
+    reloadTicks: 30,
+    minRange: 2,
+    maxRange: 22,
+    accuracy: 0.70
   }
 });
+

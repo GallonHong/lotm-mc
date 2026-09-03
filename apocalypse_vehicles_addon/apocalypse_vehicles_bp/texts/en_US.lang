@@ -34,3 +34,27 @@ item.survival_vehicle:jerrycan_full.name=§l§6[Full Jerry Can]§r
 item.survival_vehicle:jerrycan_empty.name=§7Empty Jerry Can§r
 
 action.interact.ride.car=Drive / Ride
+
+item.ab_ve:canned_beef_stew.name=Canned Beef Stew
+item.ab_ve:canned_bacon.name=Canned Bacon
+item.ab_ve:canned_chicken.name=Canned Chicken
+item.ab_ve:canned_tuna.name=Canned Tuna
+item.ab_ve:canned_tomato.name=Canned Tomato
+item.ab_ve:mre.name=Military MRE Ration
+item.ab_ve:chocolate_bar.name=Energy Chocolate Bar
+
+item.ab_ve:energy_drink.name=Tactical Energy Drink
+item.ab_ve:popsi_cola.name=Popsi Cola
+item.ab_ve:exp_coke.name=Classic Coke
+item.ab_ve:vodka.name=Vodka
+item.ab_ve:bottle_water.name=Purified Bottled Water
+
+item.ab_ve:bandage.name=Sterilized Bandage
+item.ab_ve:first_aid.name=Tactical First Aid Kit
+item.ab_ve:painkiller.name=Painkillers
+item.ab_ve:adrenaline.name=Adrenaline Auto-Injector
+item.ab_ve:antidote.name=Antidote Serum
+item.ab_ve:splint.name=Emergency Splint
+
+tile.ab_ve:vending_machine.name=Vending Machine
+item.ab_ve:vending_machine.name=Vending Machine

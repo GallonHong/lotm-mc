@@ -85,7 +85,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (id === "apoc:event") {
     player.sendMessage(WorldEventDirector.trigger(player, true) ? "§a动态伏击已触发。" : "§c触发失败，请离开安全区或等待当前事件完成。");
   } else if (id === "apoc:spawn") {
-    const key = ["basic", "runner", "spitter", "shrieker", "charger", "hunter", "mutant", "heavy", "tyrant", "broodmother", "raider"].includes(message) ? message : "basic";
+    const key = ["basic", "runner", "spitter", "shrieker", "charger", "hunter", "mutant", "heavy", "tyrant", "broodmother", "raider", "guard"].includes(message) ? message : "basic";
     player.sendMessage(SpawnDirector.spawnNearPlayer(player, key, ["apoc_admin_spawn"], 5, 8) ? `§a已生成 ${key}。` : "§c生成失败。");
   }
 });

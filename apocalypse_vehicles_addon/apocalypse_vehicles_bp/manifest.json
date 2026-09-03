@@ -1,10 +1,10 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Vehicles BP v1.0.3",
-    "description": "末日生存载具行为包（枪械射击命中判定、投射物破甲扣血、真实碰撞箱修复、爆炸瞬爆、彻底销毁零掉落物、皮卡/越野摩托/救护车/快艇/军用直升机、蓝图与工业半成品装配、动态燃油、SAPI经济金币改装）",
+    "name": "Apocalypse Vehicles BP v1.1.0",
+    "description": "末日生存载具系统与后勤补给行为包（载具系统、末日罐头食品、饮品与战地医疗、手动放置自动售货机与SAPI金币交易、纯原版配方合成）",
     "uuid": "bfab646c-b627-4312-adec-ec8b34af5061",
-    "version": [1, 0, 3],
+    "version": [1, 1, 0],
     "min_engine_version": [1, 21, 40]
   },
   "modules": [
@@ -12,21 +12,21 @@
       "description": "Data Module",
       "type": "data",
       "uuid": "ed6f538b-eb15-480e-92f6-9a5f23dd6f6d",
-      "version": [1, 0, 3]
+      "version": [1, 1, 0]
     },
     {
       "description": "Script Module",
       "type": "script",
       "language": "javascript",
       "uuid": "150149c4-5cf8-4481-9faf-4ff46dc39a0b",
-      "version": [1, 0, 3],
+      "version": [1, 1, 0],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
     {
       "uuid": "f179a256-053b-4d7f-9c03-d92f26ffb083",
-      "version": [1, 0, 3]
+      "version": [1, 1, 0]
     },
     {
       "module_name": "@minecraft/server",

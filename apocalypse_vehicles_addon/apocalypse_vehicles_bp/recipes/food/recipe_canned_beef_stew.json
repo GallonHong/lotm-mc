@@ -1,0 +1,26 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "ab_ve:craft_canned_beef_stew"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "item": "minecraft:beef"
+      },
+      {
+        "item": "minecraft:carrot"
+      }
+    ],
+    "result": {
+      "item": "ab_ve:canned_beef_stew",
+      "count": 1
+    }
+  }
+}

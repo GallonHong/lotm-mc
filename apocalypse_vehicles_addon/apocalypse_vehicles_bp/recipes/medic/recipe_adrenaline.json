@@ -1,0 +1,26 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "ab_ve:craft_adrenaline"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:glass_bottle"
+      },
+      {
+        "item": "minecraft:blaze_powder"
+      },
+      {
+        "item": "minecraft:sugar"
+      }
+    ],
+    "result": {
+      "item": "ab_ve:adrenaline",
+      "count": 1
+    }
+  }
+}

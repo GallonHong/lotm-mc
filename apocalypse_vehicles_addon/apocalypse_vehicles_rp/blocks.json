@@ -1,0 +1,6 @@
+{
+  "ab_ve:vending_machine": {
+    "textures": "vending_popsi",
+    "sound": "metal"
+  }
+}

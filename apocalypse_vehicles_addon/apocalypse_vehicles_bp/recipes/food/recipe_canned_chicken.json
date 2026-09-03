@@ -1,0 +1,23 @@
+{
+  "format_version": "1.17.41",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "ab_ve:craft_canned_chicken"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "minecraft:iron_ingot"
+      },
+      {
+        "item": "minecraft:chicken"
+      }
+    ],
+    "result": {
+      "item": "ab_ve:canned_chicken",
+      "count": 1
+    }
+  }
+}

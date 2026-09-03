@@ -2,9 +2,15 @@ import { system, world, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { VehicleClass } from "./vehicles/VehicleClass.js";
 import { VehicleMenu } from "./vehicles/VehicleMenu.js";
 import { FuelManager } from "./vehicles/FuelManager.js";
+import { FoodManager } from "./food/FoodManager.js";
+import { VendingMachine } from "./vending/VendingMachine.js";
 import * as VC from "./vehicles/VehicleConstants.js";
 
-console.warn("[ApocalypseVehicles] Addon initializing v1.0.2 with Real Health & Explosions...");
+console.warn("[ApocalypseVehicles] Addon initializing with Vehicles, Foods, Medics & Vending Machines...");
+
+// 初始化食物与医疗品、自动售货机系统
+FoodManager.init();
+VendingMachine.init();
 
 /**
  * 健壮的事件订阅方法 (遵循 for-gemini.md 规范)
