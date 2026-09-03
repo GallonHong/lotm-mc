@@ -6,10 +6,13 @@ import { fileURLToPath } from "node:url";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const rp = path.join(root, "apocalypse_ui_rp");
 const manifest = JSON.parse(fs.readFileSync(path.join(rp, "manifest.json"), "utf8"));
-const ui = JSON.parse(fs.readFileSync(path.join(rp, "ui/server_form.json"), "utf8"));
+const ui = JSON.parse(fs.readFileSync(path.join(rp, "ui/apocalypse_server_form.json"), "utf8"));
+const uiDefs = JSON.parse(fs.readFileSync(path.join(rp, "ui/_ui_defs.json"), "utf8"));
 
 assert.equal(manifest.modules[0].type, "resources");
-assert.equal(manifest.header.version.join("."), "1.0.1");
+assert.equal(manifest.header.version.join("."), "1.0.2");
+assert.deepEqual(uiDefs.ui_defs, ["ui/apocalypse_server_form.json"]);
+assert.equal(fs.existsSync(path.join(rp, "ui/server_form.json")), false, "pack must never shadow vanilla/DDUI server_form.json by path");
 assert.equal(ui.namespace, "server_form");
 assert.ok(Array.isArray(ui.long_form?.modifications), "vanilla long_form must be modified incrementally");
 assert.ok(Array.isArray(ui.main_screen_content?.modifications), "custom factory must be injected into the vanilla form root");
@@ -31,4 +34,4 @@ for (const texture of [
   assert.ok(fs.existsSync(path.join(rp, `textures/ui/apocalypse/${texture}.png`)), `missing texture ${texture}`);
 }
 
-console.log("Apocalypse Survival UI v1.0.1 validation passed.");
+console.log("Apocalypse Survival UI v1.0.2 validation passed.");

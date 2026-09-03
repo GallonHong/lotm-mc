@@ -2,7 +2,7 @@
 
 可选的 Minecraft Bedrock JSON UI 资源包，为 SAPI Server 的主菜单提供末日生存像素磁贴外观。
 
-v1.0.1 改为增量注入 `server_form`：不再覆盖原版 ActionForm、ModalForm 与 DDUI `CustomForm` 工厂，修复 DDUI 页面只有半透明空白背景的问题。
+v1.0.2 将注入定义迁移到独立的 `ui/apocalypse_server_form.json`，通过 `_ui_defs.json` 加载；资源包内不再存在会遮蔽原版或 DDUI 的 `ui/server_form.json` 路径。v1.0.1 已将完整覆盖改成增量注入。
 
 ## 兼容原则
 
@@ -16,7 +16,7 @@ v1.0.1 改为增量注入 `server_form`：不再覆盖原版 ActionForm、ModalF
 
 1. 安装 `Apocalypse_UI.mcpack`。
 2. 在世界资源包中启用 **Apocalypse Survival UI**。
-3. 如果同时启用了其他修改 `ui/server_form.json` 的资源包，将本资源包放在更高优先级。
+3. DDUI 可保持原有资源包顺序；本包不再占用它依赖的原版 `ui/server_form.json` 文件路径。
 
 ## 素材
 

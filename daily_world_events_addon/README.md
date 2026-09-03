@@ -1,10 +1,10 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.14.0 新增无品质“废墟物资箱”，并分片扫描玩家探索到的主世界区块，将原版刷怪笼替换成这种可反复刷新的物资箱。v0.13.0 接入单金币经济、四类固定日常、分难度副本收益递减、正式神话补给密钥与 Epic 蓝图掉落。每日新闻管理入口仍位于 Daily 管理菜单首项，并可由 SAPI 管理员控制台通过 `daily:news_admin` 直达。副本 Boss 统一使用 Apocalypse Boss 中的真实实体。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.14.1 取消副本创建前的心跳硬阻断，Boss 在对应阶段直接尝试生成；刷怪笼替换也改为 Script API 逐块设置，不再依赖 `fill` 命令。v0.14.0 新增无品质“废墟物资箱”。v0.13.0 接入单金币经济、四类固定日常、分难度副本收益递减、正式神话补给密钥与 Epic 蓝图掉落。每日新闻管理入口仍位于 Daily 管理菜单首项，并可由 SAPI 管理员控制台通过 `daily:news_admin` 直达。
 
 ## 可复用物资箱
 
-- `daily:loot_crate_scavenger`：无品质废墟物资箱，30 分钟刷新；每次获得 1–1000 金币和 2–4 组随机物品，主要为原版破烂，极低概率获得可合成 Epic 图纸或神话补给密钥；
+- `daily:loot_crate_scavenger`：无品质废墟物资箱，30 分钟刷新；每次获得 1–1000 金币和 2–4 组随机物品。金币中位数为 150，金额越高越罕见；物品权重中至少 40% 为 Addon 食品、饮料、医疗用品、子弹、枪械半成品和载具零件，并保留极低概率 Epic 图纸与神话补给密钥；
 - `daily:loot_crate_common`：15 分钟刷新；
 - `daily:loot_crate_rare`：30 分钟刷新；
 - `daily:loot_crate_epic`：60 分钟刷新；
@@ -15,7 +15,9 @@
 
 奖池、钥匙和刷新时间集中在 `scripts/rewards/lootCratePools.js`。World Event、摸金都市与主世界地图均可直接放置这些方块；交互按“玩家 + 箱子坐标”独立去重，已开启箱子在附近有玩家时不会突然复原。
 
-主世界刷怪笼替换由 `scripts/rewards/SpawnerReplacementManager.js` 执行。系统只处理玩家附近已加载的主世界区块，并把每个区块按 32 格高度分片扫描，不会一次遍历全地图或未加载区块；玩家继续探索时，新遇到的遗迹、地牢和矿井刷怪笼也会被替换。
+主世界刷怪笼替换由 `scripts/rewards/SpawnerReplacementManager.js` 执行。系统只处理玩家附近已加载的主世界区块，每 tick 最多检查 1024 个方块，通过 `BlockPermutation` 直接替换 `mob_spawner`/`monster_spawner`；刷怪笼内部配置的僵尸、蜘蛛等实体类型不会影响识别。系统不会一次遍历全地图或强制加载区块，玩家继续探索时，新遇到的遗迹、地牢和矿井刷怪笼也会被替换。
+
+管理员站在刷怪笼附近输入 `/scriptevent daily:crate scan`，可强制把周围 3×3 区块重新加入扫描队列；请保持这些区块加载约一分钟。测试发放物资箱使用 `/scriptevent daily:crate give`，不提供 `!crate`/`!box` 聊天命令。
 
 ## 联动关系
 

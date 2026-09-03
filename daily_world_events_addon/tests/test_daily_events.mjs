@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 14, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 14, 0]);
+assert.deepEqual(manifest.header.version, [0, 14, 1]);
+assert.deepEqual(rpManifest.header.version, [0, 14, 1]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 
@@ -118,10 +118,14 @@ assert(cratePools.includes("bonusKeyChance") && cratePools.includes('"test_gun:b
 assert.equal(cratePools.includes('"test_gun:blueprint_mgl"'), false, "Legendary blueprint must not drop from world crates");
 const cratePoolsModule = await import(`file://${join(bp, "scripts/rewards/lootCratePools.js")}`);
 const scavenger = cratePoolsModule.LOOT_CRATE_POOLS.scavenger;
-assert.deepEqual(scavenger.coins, [1, 1000], "scavenger crate must always roll 1-1000 coins");
+assert.equal(scavenger.coins.reduce((sum, range) => sum + range.weight, 0), 10000, "scavenger coin weights must retain the documented denominator");
+assert.deepEqual([scavenger.coins[0].min, scavenger.coins.at(-1).max], [1, 1000], "scavenger coin range must remain 1-1000");
+assert.equal(scavenger.coins.filter(range => range.max <= 150).reduce((sum, range) => sum + range.weight, 0), 5000, "scavenger coin median must remain 150");
 assert.deepEqual(scavenger.rolls, [2, 4], "scavenger crate item-roll range changed unexpectedly");
 assert.equal(scavenger.resetMinutes, 30, "scavenger crate refresh interval changed unexpectedly");
 assert.equal(scavenger.entries.reduce((sum, entry) => sum + entry.weight, 0), 10000, "scavenger weights must retain the documented denominator");
+assert(scavenger.entries.filter(entry => !entry.id.startsWith("minecraft:")).reduce((sum, entry) => sum + entry.weight, 0) >= 4000, "addon supplies must occupy at least 40% of scavenger item weight");
+for (const prefix of ["ab_ve:", "test_gun:ammo_", "test_gun:part_", "survival_vehicle:"]) assert(scavenger.entries.some(entry => entry.id.startsWith(prefix)), `scavenger addon category missing: ${prefix}`);
 const scavengerEpicIds = ["blueprint_m82", "blueprint_rpg", "blueprint_riot_shield", "blueprint_katana", "blueprint_kukri_machete"];
 for (const id of scavengerEpicIds) assert(scavenger.entries.some(entry => entry.id === `test_gun:${id}`), `scavenger Epic drop missing: ${id}`);
 assert(scavenger.entries.some(entry => entry.id === "daily:mythic_supply_key"), "scavenger mythic-key chance missing");
@@ -210,7 +214,7 @@ for (const template of Object.values(dungeonTemplates.DUNGEON_TEMPLATES)) {
 assert.equal(dungeonTemplates.DUNGEON_SLOTS.length, 4);
 assert(dungeonTemplates.DUNGEON_SLOTS.every(slot => slot.origin.y === 250), "dungeon slots should remain in isolated high-altitude arenas");
 const dungeonManager = readFileSync(join(bp, "scripts/dungeons/DungeonManager.js"), "utf8");
-for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "spawnDungeonBosses", "isApocalypseAvailable", "missingBosses", "Apocalypse Boss 生成失败", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "RewardManager.grantDungeon", "dungeonRewardMultiplier", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
+for (const marker of ["structure load", "loadStructureSet", "prepareArena", "spawnDungeonMobs", "spawnDungeonBosses", "missingBosses", "Apocalypse Boss 生成失败", "checkpointReached", "tickDefense", "tickRoute", "tickRouteWaves", "emitObjectiveGuide", "minecraft:totem_particle", "minecraft:basic_flame_particle", "defenseLeashRadius", "tickDisaster", "onBlockInteract", "oneTimeReward", "completionKey", "RewardManager.grant", "RewardManager.grantDungeon", "dungeonRewardMultiplier", "minimumContribution", "daily_in_dungeon", "returnLocation"]) {
   assert(dungeonManager.includes(marker), `missing dungeon behavior: ${marker}`);
 }
 assert.equal(dungeonManager.includes("正在重新部署"), false, "dungeon must use direct confirmed spawning instead of two async retries");
@@ -222,14 +226,18 @@ assert(readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8").includes("进�
 const dungeonMenu = readFileSync(join(bp, "scripts/ui/DungeonMenu.js"), "utf8");
 assert(dungeonMenu.includes("isUserBusy") && dungeonMenu.includes("result.canceled") && dungeonMenu.includes("attempt < 8"), "dungeon menu must retry UserBusy cancellation results");
 assert(dungeonMenu.includes("Object.values(DUNGEON_TEMPLATES)") && dungeonMenu.includes("首次奖励已领·可重玩"), "dungeon menu must list every template and one-time completion state");
-assert(dungeonMenu.includes("Boss 依赖") && dungeonMenu.includes("Apocalypse Mobs BP/RP"), "boss dependency must be visible before creating a dungeon");
+assert(dungeonMenu.includes("不再使用心跳阻止创建"), "dungeon menu must explain runtime boss spawning");
+assert.equal(dungeonManager.includes("!IntegrationBridge.isApocalypseAvailable()"), false, "stale heartbeat must never block dungeon creation");
 const dailyMain = readFileSync(join(bp, "scripts/main.js"), "utf8");
 assert(dailyMain.includes("DungeonManager.tick"));
 assert(dailyMain.includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
 assert(dailyMain.includes('id === "daily:news_admin"') && dailyMain.includes("DailyAdminMenu.startNewsEvent(player)"), "SAPI news-admin direct route missing");
 assert(dailyMain.includes("SpawnerReplacementManager.enqueueAroundPlayers") && dailyMain.includes("SpawnerReplacementManager.tick"), "overworld spawner replacement scheduler missing");
+assert(dailyMain.includes('id === "daily:crate"') && dailyMain.includes("handleCrateCommand(player, message") && dailyMain.includes("enqueueAroundPlayer(player, true)"), "slash scriptevent forced spawner rescan command missing");
+assert.equal(dailyMain.includes('lower.startsWith("!crate")'), false, "legacy !crate chat syntax must remain removed");
+assert.equal(dailyMain.includes('lower.startsWith("!box")'), false, "legacy !box chat syntax must remain removed");
 const spawnerReplacement = readFileSync(join(bp, "scripts/rewards/SpawnerReplacementManager.js"), "utf8");
-for (const marker of ["minecraft:overworld", "minecraft:mob_spawner", "daily:loot_crate_scavenger", "spawnerScanLayerHeight", "this.scanned.add(job.key)"]) {
+for (const marker of ["BlockPermutation.resolve", "minecraft:overworld", "minecraft:mob_spawner", "minecraft:monster_spawner", "daily:loot_crate_scavenger", "spawnerScanBlocksPerTick", "block.setPermutation", "this.scanned.add(job.key)"]) {
   assert(spawnerReplacement.includes(marker), `spawner replacement behavior missing: ${marker}`);
 }
 const eventNodes = readFileSync(join(bp, "scripts/events/EventNodeRegistry.js"), "utf8");

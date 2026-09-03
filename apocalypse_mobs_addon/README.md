@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.7.0 新增按 T1–T5 分级的原版材料、枪械半成品与极低概率 Epic 蓝图掉落，并统一移除 Boss 的 Legendary 蓝图直掉。主城叛军入侵仍采用严格安全区例外：只有同时带有 `daily_event_entity` 和 `daily_allow_safe_zone` 的事件敌人可以暂时留在安全区，事件结束后由 World Events 清理；其他自然生成或普通事件敌人仍会被安全区守卫删除。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.7.1 移除对 Test Guns 具体版本的 Manifest 硬依赖，避免旧枪械包导致整个怪物脚本无法启动；相关枪械功能仍在安装 Test Guns 时自动使用。v0.7.0 新增按 T1–T5 分级的原版材料、枪械半成品与极低概率 Epic 蓝图掉落，并统一移除 Boss 的 Legendary 蓝图直掉。主城叛军入侵仍采用严格安全区例外：只有同时带有 `daily_event_entity` 和 `daily_allow_safe_zone` 的事件敌人可以暂时留在安全区，事件结束后由 World Events 清理；其他自然生成或普通事件敌人仍会被安全区守卫删除。
 
 摸金都市可低概率生成召唤母体，并按冷却随机触发三波尸潮。护甲优先复用原版物品；启用 Test Guns 时还会随机使用其轻型/重型背心、战术头盔与泰坦胸甲。
 
@@ -26,7 +26,7 @@
 
 导入根目录生成的 `Apocalypse_Mobs_Addon.mcaddon`，为世界同时启用行为包与资源包。脚本 API 使用稳定版 `@minecraft/server 1.19.0`。
 
-SAPI Server 是可选包。持枪掠夺者和高级掉落依赖 Test Guns 2D v3.10.0，导入怪物 Addon 时应同时启用 Test Guns 的行为包和资源包。
+SAPI Server 与 Test Guns 都是可选联动包，不再通过 Manifest 版本号阻止 Apocalypse Mobs 启动。未安装 Test Guns 时怪物系统仍能运行，但持枪掠夺者装备、真实弹道和枪械物品掉落不可用；需要这些功能时请同时启用 Test Guns 的行为包和资源包。
 
 ## 管理
 

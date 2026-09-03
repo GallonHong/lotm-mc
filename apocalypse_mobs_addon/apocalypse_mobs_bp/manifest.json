@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs BP v0.7.0",
+    "name": "Apocalypse Mobs BP v0.7.1",
     "description": "末日生物与人类阵营行为包：荒原持枪掠夺者、避难所驻守护卫，并支持 World Events 严格标记的主城叛军入侵。",
     "uuid": "714f16b3-b6ad-47f3-af06-dd93095da201",
     "version": [
       0,
       7,
-      0
+      1
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         7,
-        0
+        1
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         0,
         7,
-        0
+        1
       ],
       "entry": "scripts/main.js"
     }
@@ -51,15 +51,7 @@
       "version": [
         0,
         7,
-        0
-      ]
-    },
-    {
-      "uuid": "f47a1111-e222-4333-8444-555555550001",
-      "version": [
-        3,
-        10,
-        0
+        1
       ]
     }
   ]

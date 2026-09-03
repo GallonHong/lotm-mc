@@ -172,10 +172,6 @@ export class DungeonManager {
     const template = dungeonTemplate(templateId);
     const slot = this.availableSlot();
     if (!template || !slot || !sameDimension(template.dimension, slot.dimension)) return false;
-    if (template.stages.some(stage => stage.type === "boss") && !IntegrationBridge.isApocalypseAvailable()) {
-      return { error: "missing_apocalypse_boss" };
-    }
-
     const shortId = `${Date.now().toString(36)}${Math.floor(Math.random() * 9999).toString(36)}`.slice(-12);
     const instance = {
       instanceId: `dungeon_${shortId}`,

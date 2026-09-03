@@ -15,7 +15,7 @@ import { LootCrateManager } from "./rewards/LootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.14.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.14.1 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -134,6 +134,29 @@ function handleEntityDeath(event) {
   }
 }
 
+function handleCrateCommand(player, rawAction = "give") {
+  const action = String(rawAction || "give").trim().toLowerCase();
+  if (action === "scan") {
+    if (!isAdmin(player)) return player.sendMessage("§c仅管理员可强制重扫刷怪笼。");
+    const queued = SpawnerReplacementManager.enqueueAroundPlayer(player, true);
+    return player.sendMessage(`§a[废墟箱] 已强制把附近 ${queued} 个区块加入重扫队列；请在刷怪笼附近停留约一分钟。`);
+  }
+  if (action !== "give") return player.sendMessage("§7用法：/scriptevent daily:crate give 或 /scriptevent daily:crate scan");
+  try {
+    const inv = player.getComponent("minecraft:inventory")?.container;
+    inv?.addItem(new ItemStack("daily:loot_crate_scavenger", 4));
+    inv?.addItem(new ItemStack("daily:loot_crate_common", 4));
+    inv?.addItem(new ItemStack("daily:loot_crate_rare", 4));
+    inv?.addItem(new ItemStack("daily:loot_crate_epic", 4));
+    inv?.addItem(new ItemStack("daily:loot_crate_legendary", 4));
+    inv?.addItem(new ItemStack("daily:loot_crate_mythic", 2));
+    inv?.addItem(new ItemStack("daily:mythic_supply_key", 2));
+    return player.sendMessage("§a[物资箱] 已获得废墟箱、四种品质物资箱、2 个神话物资箱和 2 个神话补给密钥！除神话箱外均可空手打开。");
+  } catch (error) {
+    return player.sendMessage(`§c给予失败: ${error}`);
+  }
+}
+
 function handleCommand(player, raw) {
   const text = String(raw || "").trim();
   const lower = text.toLowerCase();
@@ -145,25 +168,6 @@ function handleCommand(player, raw) {
     return player.sendMessage("§a已重新生成自己的今日任务。");
   }
   if (lower === "!dungeon") return DungeonMenu.open(player);
-  if (lower.startsWith("!crate") || lower.startsWith("!box")) {
-    const parts = lower.split(/\s+/);
-    if (parts[1] === "give" || parts.length === 1) {
-      try {
-        const inv = player.getComponent("minecraft:inventory")?.container;
-        inv?.addItem(new ItemStack("daily:loot_crate_scavenger", 4));
-        inv?.addItem(new ItemStack("daily:loot_crate_common", 4));
-        inv?.addItem(new ItemStack("daily:loot_crate_rare", 4));
-        inv?.addItem(new ItemStack("daily:loot_crate_epic", 4));
-        inv?.addItem(new ItemStack("daily:loot_crate_legendary", 4));
-        inv?.addItem(new ItemStack("daily:loot_crate_mythic", 2));
-        const supplyCards = new ItemStack("daily:mythic_supply_key", 2);
-        inv?.addItem(supplyCards);
-        return player.sendMessage("§a[物资箱] 已获得废墟箱、四种品质物资箱、2 个神话物资箱和 2 个神话补给密钥！除神话箱外均可空手打开。");
-      } catch (e) {
-        return player.sendMessage(`§c给予失败: ${e}`);
-      }
-    }
-  }
   if (!lower.startsWith("!event")) return;
   if (!isAdmin(player)) return player.sendMessage("§c事件调试命令仅管理员可用。");
   const parts = lower.split(/\s+/);
@@ -274,7 +278,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (id === "daily:news_admin" && isAdmin(player)) system.runTimeout(() => DailyAdminMenu.startNewsEvent(player), 2);
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, message || "all");
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
-  else if (id === "daily:crate" || id === "daily:box") handleCommand(player, "!crate give");
+  else if (id === "daily:crate") handleCrateCommand(player, message || "give");
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }
   else if (id === "daily:event" && isAdmin(player)) handleCommand(player, `!event ${message || ""}`);
@@ -282,7 +286,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
 
 subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
   const lower = String(event.message || "").trim().toLowerCase();
-  if (!lower.startsWith("!daily") && !lower.startsWith("!news") && !lower.startsWith("!event") && !lower.startsWith("!dungeon") && !lower.startsWith("!crate") && !lower.startsWith("!box")) return;
+  if (!lower.startsWith("!daily") && !lower.startsWith("!news") && !lower.startsWith("!event") && !lower.startsWith("!dungeon")) return;
   event.cancel = true;
   const player = event.sender;
   const message = event.message;
@@ -308,7 +312,7 @@ system.runInterval(() => {
 
 system.runInterval(() => {
   try { SpawnerReplacementManager.tick(); } catch (error) { console.warn(`[DailyEvents] spawner replacement failed: ${error}`); }
-}, 10);
+}, 1);
 
 system.runInterval(() => {
   for (const player of world.getAllPlayers()) {

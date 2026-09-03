@@ -29,6 +29,14 @@ function chooseWeighted(entries) {
   return entries[entries.length - 1];
 }
 
+function rollCoins(coins) {
+  if (Array.isArray(coins) && coins.length === 2 && coins.every(value => Number.isFinite(Number(value)))) {
+    return randomInt(coins[0], coins[1]);
+  }
+  const range = chooseWeighted(Array.isArray(coins) ? coins : []);
+  return range ? randomInt(range.min, range.max) : 0;
+}
+
 export class LootCrateManager {
   static states = new Map();
   static interactionTicks = new Map();
@@ -69,7 +77,7 @@ export class LootCrateManager {
     if (Number(pool.bonusKeyChance || 0) > 0 && Math.random() < Number(pool.bonusKeyChance)) {
       items.push({ id: "daily:mythic_supply_key", amount: 1, name: "§d神话补给密钥" });
     }
-    return { id: `loot_crate_${tier}`, coins: randomInt(pool.coins[0], pool.coins[1]), items };
+    return { id: `loot_crate_${tier}`, coins: rollCoins(pool.coins), items };
   }
 
   static setOpened(block, opened) {

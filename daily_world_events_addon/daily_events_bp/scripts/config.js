@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.14.0",
+  version: "0.14.1",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,
@@ -14,7 +14,7 @@ export const CONFIG = Object.freeze({
   spawnerScanChunkRadius: 1,
   spawnerScanMinY: -64,
   spawnerScanMaxY: 319,
-  spawnerScanLayerHeight: 32,
+  spawnerScanBlocksPerTick: 1024,
   spawnerScanQueueLimit: 512,
   spawnerScanRememberChunks: 4096,
   eventNodesKey: "daily:event_nodes:v1",
