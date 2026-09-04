@@ -24,15 +24,6 @@ export class JetpackEngine {
       } catch {}
 
       if (!isJetpackEquipped) {
-        try {
-          const held = player.getComponent('minecraft:equippable')?.getEquipment(EquipmentSlot.Mainhand);
-          if (held && (held.typeId === 'test_gun:jetpack' || held.typeId === 'apex:jetpack')) {
-            isJetpackEquipped = true;
-          }
-        } catch {}
-      }
-
-      if (!isJetpackEquipped) {
         this.playerJumpStates.delete(player.id);
         continue;
       }
@@ -99,9 +90,46 @@ export class JetpackEngine {
         player.addEffect('slow_falling', 70, { amplifier: 0, showParticles: false });
       } catch {}
 
-      updateActionBar(player, '§3⚡【离子喷气推进】升空飞升已激活!§r');
+      const broke = this.deductDurability(player);
+      if (!broke) {
+        updateActionBar(player, '§3⚡【离子喷气推进】升空飞升已激活!§r');
+      }
     } catch (e) {
       console.warn('JetpackEngine error:', e);
+    }
+  }
+
+  /**
+   * 每次成功推进消耗 1 点耐久。只处理穿在胸甲槽的喷气背包，
+   * 不计算耐久附魔的减免概率。
+   */
+  static deductDurability(player) {
+    try {
+      const equippable = player.getComponent('minecraft:equippable');
+      if (!equippable) return false;
+
+      const chest = equippable.getEquipment(EquipmentSlot.Chest);
+      if (!chest || (chest.typeId !== 'test_gun:jetpack' && chest.typeId !== 'apex:jetpack')) {
+        return false;
+      }
+
+      const durability = chest.getComponent('minecraft:durability');
+      if (!durability) return false;
+
+      const nextDamage = (durability.damage || 0) + 1;
+      if (nextDamage >= durability.maxDurability) {
+        equippable.setEquipment(EquipmentSlot.Chest, undefined);
+        player.dimension.playSound('random.break', player.location, { volume: 1.2, pitch: 0.85 });
+        updateActionBar(player, '§c⚠ 你的【战术离子喷气背包】耐久耗尽，已损坏!§r');
+        return true;
+      }
+
+      durability.damage = nextDamage;
+      equippable.setEquipment(EquipmentSlot.Chest, chest);
+      return false;
+    } catch (e) {
+      console.warn('JetpackEngine durability error:', e);
+      return false;
     }
   }
 }
