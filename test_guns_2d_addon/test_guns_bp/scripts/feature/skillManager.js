@@ -172,9 +172,17 @@ export class SkillManager {
           if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb' || ent.typeId === 'sapi:secure_safe') continue;
           if (ent.typeId === 'minecraft:player') continue;
           markCount++;
-          try { dim.spawnParticle('minecraft:mobflame_single', { x: ent.location.x, y: ent.location.y + 1.2, z: ent.location.z }); } catch {}
+          const el = ent.location;
+          try {
+            dim.spawnParticle('test_gun:enemy_mark', { x: el.x, y: el.y + 2.2, z: el.z });
+            dim.spawnParticle('test_gun:enemy_mark_beacon', { x: el.x, y: el.y + 2.2, z: el.z });
+            dim.spawnParticle('minecraft:totem_particle', { x: el.x, y: el.y + 1.2, z: el.z });
+          } catch {}
         }
-        updateActionBar(player, `§6🔥【红莲龙息】烈焰喷射！已锁定周围 ${markCount} 个目标！30s 自瞄攻击激活！§r`);
+        try {
+          dim.playSound('beacon.activate', pLoc, { volume: 2.0, pitch: 1.4 });
+        } catch {}
+        updateActionBar(player, `§6🔥【红莲龙息】烈焰喷射！已扫描标记周围 ${markCount} 个目标！30s 自瞄锁定中！§r`);
       } catch (err) {
         console.warn('[DBSS Skill] error:', err);
       }
@@ -296,6 +304,66 @@ export class SkillManager {
         if (smartAim.remainingTicks % 20 === 0) {
           updateActionBar(player, `§6🔥【红莲龙息·自瞄打击中】(剩余 ${sec}s) · 100格锁定中§r`);
         }
+
+        // 每 5 ticks (0.25秒) 持续渲染周围标记敌人的发光战术标识
+        if (smartAim.remainingTicks % 5 === 0) {
+          try {
+            const dim = player.dimension;
+            const pLoc = player.location;
+            const head = player.getHeadLocation();
+            const view = player.getViewDirection();
+            const targets = dim.getEntities({ location: pLoc, maxDistance: 100 });
+
+            let bestTarget = null;
+            let bestScore = -Infinity;
+
+            for (const ent of targets) {
+              if (!ent || !ent.isValid() || ent.id === player.id) continue;
+              if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb' || ent.typeId === 'sapi:secure_safe') continue;
+              if (ent.typeId === 'minecraft:player') continue;
+
+              const el = ent.location;
+              const dx = el.x - head.x;
+              const dy = el.y - head.y;
+              const dz = el.z - head.z;
+              const dist = Math.hypot(dx, dy, dz);
+              if (dist < 0.2 || dist > 100) continue;
+
+              const dot = (dx * view.x + dy * view.y + dz * view.z) / dist;
+              const score = dot * 60 - dist * 0.4;
+              if (score > bestScore) {
+                bestScore = score;
+                bestTarget = ent;
+              }
+
+              // 在所有被锁定的敌人头顶持续生成发光红色菱形标记
+              dim.spawnParticle('test_gun:enemy_mark', {
+                x: el.x,
+                y: el.y + 2.2,
+                z: el.z
+              });
+
+              if (smartAim.remainingTicks % 15 === 0) {
+                dim.spawnParticle('test_gun:enemy_mark_beacon', {
+                  x: el.x,
+                  y: el.y + 2.4,
+                  z: el.z
+                });
+              }
+            }
+
+            // 对当前第一优先级的锁定目标渲染醒目的金色锁定准星
+            if (bestTarget && bestTarget.isValid()) {
+              const bLoc = bestTarget.location;
+              dim.spawnParticle('test_gun:enemy_locked_mark', {
+                x: bLoc.x,
+                y: bLoc.y + 2.2,
+                z: bLoc.z
+              });
+            }
+          } catch {}
+        }
+
         if (smartAim.remainingTicks <= 0) {
           this.activeSmartAim.delete(player.id);
           updateActionBar(player, '§7[红莲锁敌自瞄结束 - 枪管冷却中]§r');

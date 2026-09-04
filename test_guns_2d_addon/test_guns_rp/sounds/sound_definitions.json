@@ -43,6 +43,12 @@
         "sounds/guns/m1014_shoot"
       ]
     },
+    "test_gun.dbss_shoot": {
+      "category": "player",
+      "sounds": [
+        "sounds/guns/dbss_shoot"
+      ]
+    },
     "test_gun.bizon_shoot": {
       "category": "player",
       "sounds": [

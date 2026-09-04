@@ -28,9 +28,11 @@ export function getSpawnLocation(player) {
 export function spawnMuzzleFlash(dimension, muzzleLoc, gun) {
   if (!dimension || !muzzleLoc) return;
   try {
-    dimension.spawnParticle('minecraft:basic_flame_particle', muzzleLoc);
-    if (gun.id === 'test_gun:m82' || gun.type === 'sniper' || gun.type === 'shotgun') {
-      dimension.spawnParticle('minecraft:crit', muzzleLoc);
+    const isHeavy = gun.id === 'test_gun:m82' || gun.type === 'sniper' || gun.type === 'shotgun' || gun.ammoTypeId === 'test_gun:ammo_50cal' || gun.id === 'test_gun:deagle';
+    if (isHeavy) {
+      dimension.spawnParticle('test_gun:muzzle_flash_heavy', muzzleLoc);
+    } else {
+      dimension.spawnParticle('test_gun:muzzle_flash_circle', muzzleLoc);
     }
   } catch {}
 }
@@ -56,25 +58,42 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
   const totalDist = Math.hypot(dx, dy, dz);
   if (totalDist < 0.1 || !Number.isFinite(totalDist)) return;
 
-  // 全枪系专属全向高亮弹道粒子
   let particleId = "test_gun:bullet_tracer";
-  let stepSize = 0.35;
+  let stepSize = 0.75;
+  let maxSteps = 55;
 
-  if (gun.id === 'test_gun:m82' || gun.type === 'sniper' || gun.id === 'test_gun:svd') {
+  // 1. 重型弹头 / .50口径 (Barrett M82, SVD, Deagle 沙漠之鹰)
+  if (gun.id === 'test_gun:m82' || gun.type === 'sniper' || gun.id === 'test_gun:svd' || gun.ammoTypeId === 'test_gun:ammo_50cal' || gun.id === 'test_gun:deagle') {
     particleId = "test_gun:heavy_tracer";
-    stepSize = 0.35;
-  } else if (gun.type === 'smg' || gun.type === 'pistol' || gun.id === 'test_gun:vector' || gun.id === 'test_gun:p90' || gun.id === 'test_gun:bizon' || gun.id === 'test_gun:glock') {
-    particleId = "test_gun:vector_tracer";
-    stepSize = 0.30;
-  } else if (gun.type === 'shotgun') {
+    stepSize = 0.70;
+    maxSteps = 70;
+  }
+  // 2. PKM 烈焰重机枪专属燃烧曳光
+  else if (gun.isIncendiaryDot || gun.id === 'test_gun:pkm') {
+    particleId = "test_gun:pkm_burn";
+    stepSize = 0.75;
+    maxSteps = 55;
+  }
+  // 3. 霰弹枪多弹丸
+  else if (gun.type === 'shotgun' || gun.mode === FireMode.SHOTGUN) {
     particleId = "test_gun:shotgun_tracer";
-    stepSize = 0.40;
-  } else {
+    stepSize = 1.20;
+    maxSteps = 16;
+  }
+  // 4. 冲锋枪与轻型手枪
+  else if (gun.type === 'smg' || gun.type === 'pistol') {
+    particleId = "test_gun:vector_tracer";
+    stepSize = 0.80;
+    maxSteps = 40;
+  }
+  // 5. 突击步枪
+  else {
     particleId = "test_gun:bullet_tracer";
-    stepSize = 0.35;
+    stepSize = 0.75;
+    maxSteps = 55;
   }
 
-  const steps = Math.max(3, Math.min(Math.floor(totalDist / stepSize), 150));
+  const steps = Math.max(2, Math.min(Math.floor(totalDist / stepSize), maxSteps));
 
   for (let i = 1; i <= steps; i++) {
     const frac = i / steps;
@@ -160,14 +179,17 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     }
   } catch {}
 
-  spawnMuzzleFlash(dimension, spawnLoc, gun);
   drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
 
   if (hitEntity) {
     DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc);
   } else if (hitBlock) {
     try {
-      dimension.spawnParticle('minecraft:crit', impactLoc);
+      dimension.spawnParticle('test_gun:bullet_hit_spark', impactLoc);
+      dimension.spawnParticle('test_gun:bullet_hit_smoke', impactLoc);
+      if (gun.ammoTypeId === 'test_gun:ammo_50cal' || gun.type === 'sniper' || gun.id === 'test_gun:deagle') {
+        dimension.spawnParticle('test_gun:bullet_hit_heavy_flash', impactLoc);
+      }
     } catch {}
   }
 
@@ -219,6 +241,9 @@ export function fireBullet(player, gun) {
   const viewDir = player.getViewDirection();
   const maxRange = (gun.stats && gun.stats.maxRange) ? gun.stats.maxRange : 60;
   const isADS = Boolean(player.isSneaking);
+
+  // 枪口火焰直接生成在玩家视线正前方 0.2 格处
+  spawnMuzzleFlash(player.dimension, spawnLoc, gun);
 
   if (gun.mode === FireMode.SHOTGUN || gun.type === 'shotgun') {
     const PELLETS = (gun.stats && gun.stats.pelletCount) ? gun.stats.pelletCount : 8;

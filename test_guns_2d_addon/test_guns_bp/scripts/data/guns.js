@@ -433,7 +433,7 @@ export const GUNS = [
     shootPower: 11.0,
     recoil: 0.65,
     reloadTime: 36,
-    shootSound: 'mob.ghast.fireball',
+    shootSound: 'test_gun.dbss_shoot',
     ammoTypeId: 'test_gun:ammo_shotgun',
     projectileTypeId: 'test_gun:bullet_shotgun',
     hasSkill: true,

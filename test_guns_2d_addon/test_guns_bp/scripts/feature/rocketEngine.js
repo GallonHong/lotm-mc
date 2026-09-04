@@ -163,11 +163,10 @@ export class RocketEngine {
           continue;
         }
 
-        // 飞行火箭尾烟与推进火光渲染
+        // 飞行火箭尾烟与推进火光渲染 (轻量化 RPG 涡流尾烟)
         try {
-          dim.spawnParticle('test_gun:he_tracer', nextPos);
+          dim.spawnParticle('test_gun:rpg_smoke_lean', nextPos);
           dim.spawnParticle('minecraft:basic_flame_particle', nextPos);
-          dim.spawnParticle('minecraft:basic_smoke_particle', nextPos);
         } catch {}
 
         r.pos = nextPos;
