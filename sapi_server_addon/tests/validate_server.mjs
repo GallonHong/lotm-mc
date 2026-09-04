@@ -40,8 +40,8 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、新闻与事件完整管理/);
 assert.match(menu, /新闻按钮仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.10.0");
-assert.equal(resourceManifest.header.version.join("."), "2.10.0");
+assert.equal(manifest.header.version.join("."), "2.10.1");
+assert.equal(resourceManifest.header.version.join("."), "2.10.1");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
@@ -115,6 +115,7 @@ const safeItem = supplyItems.find(item => item.id === "sapi:secure_safe_deployer
 assert.deepEqual([safeItem.buyPrice, safeItem.dailyLimit], [15000, 1]);
 assert.deepEqual([serverConfig.Config.safe.maxDurability, serverConfig.Config.safe.normalDamageReduction], [2000, 0.90]);
 assert.equal(serverConfig.Config.safe.nativeHealth, 1000000);
+assert.equal(serverConfig.Config.safe.interactionDistance, 2);
 assert.deepEqual(serverConfig.Config.safe.specialWeaponIds, ["test_gun:dbss"]);
 assert.equal(safeRules.calculateSafeDamage(100, false, 0.90), 10);
 assert.equal(safeRules.calculateSafeDamage(100, true, 0.90), 100);
@@ -131,6 +132,12 @@ assert.match(safe, /static watchdog\(\)/);
 assert.match(safe, /restoreNativeHealth/);
 assert.match(safe, /world\.afterEvents\?\.entityHurt/);
 assert.match(safe, /allowUnknownSource/);
+assert.match(safe, /static isWithinInteractionDistance\(player, safe\)/);
+assert.match(safe, /static requireInteractionDistance\(player, safe\)/);
+for (const method of ["requestAccess", "openSafeMenu", "openDepositMenu", "openWithdrawMenu", "transferStack", "openChangePassword", "confirmRecovery"]) {
+  const start = safe.indexOf(`static ${method}(`);
+  assert(start >= 0 && safe.slice(start, start + 500).includes("requireInteractionDistance"), `${method} must enforce the two-block safe distance`);
+}
 assert.match(main, /SafeManager\.registerEvents\(\)/);
 assert.match(main, /ItemCleanupManager\.start\(\)/);
 assert.match(main, /id === "system:cleanup"/);
@@ -196,4 +203,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.10.0 validation passed.");
+console.log("SAPI Server v2.10.1 validation passed.");

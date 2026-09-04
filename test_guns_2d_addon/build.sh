@@ -5,7 +5,7 @@ addon_dir="$(cd "$(dirname "$0")" && pwd)"
 bp_pack="$addon_dir/Test_Guns_2D_BP.mcpack"
 rp_pack="$addon_dir/Test_Guns_2D_RP.mcpack"
 addon="$addon_dir/Test_Guns_2D_Addon.mcaddon"
-versioned_addon="$addon_dir/Test_Guns_2D_Addon_v3.10.0.mcaddon"
+versioned_addon="$addon_dir/Test_Guns_2D_Addon_v3.10.1.mcaddon"
 
 rm -f "$bp_pack" "$rp_pack" "$addon" "$versioned_addon"
 (cd "$addon_dir/test_guns_bp" && zip -qr "$bp_pack" .)

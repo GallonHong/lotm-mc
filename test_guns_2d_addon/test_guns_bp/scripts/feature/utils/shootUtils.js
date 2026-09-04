@@ -5,6 +5,7 @@ import { MathUtils } from './mathUtils.js';
 import { DamageHandler } from '../damageHandler.js';
 import { FireMode } from '../../data/types.js';
 import { EntityDamageCause } from '@minecraft/server';
+import { resolveBlockRaycastHit } from './raycastUtils.js';
 
 export function getSpawnLocation(player) {
   const headPos = player.getHeadLocation();
@@ -137,17 +138,10 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
 
     if (blockHit) {
       hitBlock = true;
-      if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
-        impactLoc = {
-          x: blockHit.faceLocation.x,
-          y: blockHit.faceLocation.y,
-          z: blockHit.faceLocation.z
-        };
-        blockDist = Math.hypot(impactLoc.x - hx, impactLoc.y - hy, impactLoc.z - hz);
-      } else if (blockHit.block) {
-        const bl = blockHit.block.location;
-        impactLoc = { x: bl.x + 0.5, y: bl.y + 0.5, z: bl.z + 0.5 };
-        blockDist = Math.hypot(impactLoc.x - hx, impactLoc.y - hy, impactLoc.z - hz);
+      const resolved = resolveBlockRaycastHit(blockHit, dir);
+      if (resolved) {
+        impactLoc = resolved.visual;
+        blockDist = Math.hypot(resolved.surface.x - hx, resolved.surface.y - hy, resolved.surface.z - hz);
       }
     }
   } catch {}

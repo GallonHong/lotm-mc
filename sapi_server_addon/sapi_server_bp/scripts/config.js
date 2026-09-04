@@ -5,7 +5,7 @@ import { MERCHANT_CATEGORIES, VANILLA_DAILY_SELL_CAP } from "./data/merchantConf
 export const Config = {
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.10.0",
+        version: "2.10.1",
         adminTag: "admin",
         menuItem: "minecraft:compass",
         menuItemName: "§r§l§6快捷导航菜单 §8(右键使用)",
@@ -49,6 +49,7 @@ export const Config = {
     safe: {
         maxDurability: 2000,
         nativeHealth: 1000000,
+        interactionDistance: 2,
         watchdogTicks: 1,
         normalDamageReduction: 0.90,
         passwordMinLength: 4,

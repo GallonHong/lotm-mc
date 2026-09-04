@@ -11,9 +11,9 @@ function files(directory) { return readdirSync(directory).flatMap(name => { cons
 for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".json"))) assert.doesNotThrow(() => json(path), `invalid JSON: ${path}`);
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [3, 10, 0]);
-assert.deepEqual(rpManifest.header.version, [3, 10, 0]);
-assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 10, 0]);
+assert.deepEqual(bpManifest.header.version, [3, 10, 1]);
+assert.deepEqual(rpManifest.header.version, [3, 10, 1]);
+assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 10, 1]);
 assert.equal(json(join(bp, "items/blueprint_usas12.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_usas12");
 assert(readFileSync(join(bp, "recipes/recipe_usas12.json"), "utf8").includes("test_gun:blueprint_usas12"));
 assert.equal(json(join(bp, "items/blueprint_dbss.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_dbss");
@@ -25,4 +25,14 @@ assert.equal(textureMap.texture_data.test_gun_ammo_belt_100.textures, "textures/
 const png = readFileSync(join(rp, "textures/ammo/ammo_belt_100_generated.png"));
 assert.equal(png.readUInt32BE(16), 32);
 assert.equal(png.readUInt32BE(20), 32);
-console.log("Test Guns 2D v3.10.0 validation passed.");
+const raycastUtils = await import(new URL("../test_guns_bp/scripts/feature/utils/raycastUtils.js", import.meta.url));
+const blockHit = { block: { location: { x: 260, y: 70, z: 276 } }, faceLocation: { x: 0.3, y: 0.7, z: 0 } };
+const resolvedHit = raycastUtils.resolveBlockRaycastHit(blockHit, { x: 0, y: 0, z: 1 });
+assert.deepEqual(resolvedHit.surface, { x: 260.3, y: 70.7, z: 276 });
+assert.equal(resolvedHit.visual.z, 275.97, "block impact particle must be offset outside the surface");
+const shootUtils = readFileSync(join(bp, "scripts/feature/utils/shootUtils.js"), "utf8");
+const arcEngine = readFileSync(join(bp, "scripts/feature/arcEngine.js"), "utf8");
+assert(shootUtils.includes("resolveBlockRaycastHit(blockHit, dir)"));
+assert(arcEngine.includes("resolveBlockRaycastHit(blockHit, viewDir)"));
+assert.equal(/impactLoc\s*=\s*\{[\s\S]{0,180}blockHit\.faceLocation\.x/.test(shootUtils), false, "local block hit coordinates must never be used as world coordinates");
+console.log("Test Guns 2D v3.10.1 validation passed.");

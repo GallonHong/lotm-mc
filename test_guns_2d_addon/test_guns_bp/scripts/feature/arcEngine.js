@@ -1,5 +1,6 @@
 import { world, EntityDamageCause } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
+import { resolveBlockRaycastHit } from './utils/raycastUtils.js';
 
 export class ArcEngine {
   static fireArc(player, gun) {
@@ -40,13 +41,10 @@ export class ArcEngine {
           includeLiquidBlocks: false
         });
         if (blockHit) {
-          if (blockHit.faceLocation && Number.isFinite(blockHit.faceLocation.x)) {
-            primaryHitPos = blockHit.faceLocation;
-            blockDist = Math.hypot(primaryHitPos.x - hx, primaryHitPos.y - hy, primaryHitPos.z - hz);
-          } else if (blockHit.block) {
-            const bl = blockHit.block.location;
-            primaryHitPos = { x: bl.x + 0.5, y: bl.y + 0.5, z: bl.z + 0.5 };
-            blockDist = Math.hypot(primaryHitPos.x - hx, primaryHitPos.y - hy, primaryHitPos.z - hz);
+          const resolved = resolveBlockRaycastHit(blockHit, viewDir);
+          if (resolved) {
+            primaryHitPos = resolved.visual;
+            blockDist = Math.hypot(resolved.surface.x - hx, resolved.surface.y - hy, resolved.surface.z - hz);
           }
         }
       } catch {}
