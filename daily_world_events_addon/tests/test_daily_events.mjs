@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 16, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 16, 1]);
+assert.deepEqual(manifest.header.version, [0, 16, 2]);
+assert.deepEqual(rpManifest.header.version, [0, 16, 2]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {
@@ -246,6 +246,8 @@ assert(dailyMain.includes('id === "sapi:daily_probe"') && dailyMain.includes("sa
 assert(dailyMain.includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
 assert(dailyMain.includes('id === "daily:news_admin"') && dailyMain.includes("DailyAdminMenu.startNewsEvent(player)"), "SAPI news-admin direct route missing");
 assert(dailyMain.includes('id === "daily:dungeon_team"') && dailyMain.includes("DungeonMenu.openTeam"), "SAPI team dungeon route missing");
+assert(dailyMain.includes('id === "daily:dungeon_start"') && dailyMain.includes("DungeonManager.start(player, templateId)"), "Story direct dungeon route missing");
+assert(dungeonManager.includes("scriptevent story:dungeon_complete"), "Story completion callback missing");
 for (const marker of ["sapi_team_", "closeEnoughForTeamCredit", "credited"]) assert(dailyMain.includes(marker), `team shared contribution missing: ${marker}`);
 assert(dailyMain.includes("SpawnerReplacementManager.enqueueAroundPlayers") && dailyMain.includes("SpawnerReplacementManager.tick"), "overworld spawner replacement scheduler missing");
 assert(dailyMain.includes('id === "daily:crate"') && dailyMain.includes("handleCrateCommand(player, message") && dailyMain.includes("enqueueAroundPlayer(player, true)"), "slash scriptevent forced spawner rescan command missing");

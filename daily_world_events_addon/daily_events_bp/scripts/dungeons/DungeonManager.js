@@ -871,6 +871,7 @@ export class DungeonManager {
           player.sendMessage("§e新手教程可以重玩，但 2000 元与优良图纸每名玩家只能领取一次。此次不重复发奖。");
         }
         DailyQuestManager.onDungeonSuccess(player, template.id);
+        try { player.runCommand(`scriptevent story:dungeon_complete ${template.id}`); } catch {}
         player.sendMessage(`§a☑ 副本通关：${template.name}（贡献 ${score.toFixed(1)}）`);
       } else if (success) {
         player.sendMessage(`§e副本已通关，但贡献 ${score.toFixed(1)} 未达到 ${template.minimumContribution}，不发放完整奖励。`);

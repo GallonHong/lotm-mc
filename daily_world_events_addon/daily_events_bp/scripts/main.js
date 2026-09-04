@@ -16,7 +16,7 @@ import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.j
 import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.16.1 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.16.2 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -325,6 +325,12 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, message || "all");
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
   else if (id === "daily:dungeon_team") system.runTimeout(() => DungeonMenu.openTeam(player, message), 3);
+  else if (id === "daily:dungeon_start") system.runTimeout(() => {
+    const templateId = String(message || "newcomer_valley").trim().toLowerCase().replace(/[^a-z0-9_-]/g, "");
+    const started = DungeonManager.start(player, templateId);
+    if (started?.instanceId) player.sendMessage("§a[副本] 剧情行动已创建，正在部署场景……");
+    else player.sendMessage("§c[副本] 创建失败：副本不存在、你已在副本中，或当前没有空闲实例槽位。");
+  }, 2);
   else if (id === "daily:crate") handleCrateCommand(player, message || "give");
   else if (id === "daily:admin" && isAdmin(player)) DailyAdminMenu.open(player);
   else if (id === "daily:reset" && isAdmin(player)) { DailyQuestManager.ensureState(player, true); player.sendMessage("§a日常已重置。"); }
