@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_immortal_pants",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§9特警耐磨作战裤 [优良]§r\n§7被动: 5点护甲，【滑步机动】疾跑状态下获得移动速度增益§r"
+        "value": "§9特警耐磨作战裤 [优良]§r\n§7被动: 5点护甲，【滑步机动】疾跑状态下获得移动速度增益§r\n§8§o“轻便贴身的高机动剪裁，专为在失控街区穿梭跃进的突击队员设计。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.legs",

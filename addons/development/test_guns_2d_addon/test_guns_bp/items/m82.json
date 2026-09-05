@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m82",
       "minecraft:display_name": {
-        "value": "§5巴雷特 M82 .50 反器材重狙 [史诗]§r\n§7被动: 【穿甲高爆】动能穿透掩体，命中产生高爆音爆音速冲击波§r"
+        "value": "§5巴雷特 M82 .50 反器材重狙 [史诗]§r\n§7被动: 【穿甲高爆】动能穿透掩体，命中产生高爆音爆音速冲击波§r\n§8§o“雷鸣般的击发声回荡在整座荒原，它击碎的不仅是重甲，还有猎物的狂妄。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

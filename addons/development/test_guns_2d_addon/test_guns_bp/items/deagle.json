@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_deagle",
       "minecraft:display_name": {
-        "value": "§9沙漠之鹰 .50 战术手枪 [优良]§r\n§7被动: 【快拔手炮】.50马格南重弹，近身极限爆发与重度受击硬直§r"
+        "value": "§9沙漠之鹰 .50 战术手枪 [优良]§r\n§7被动: 【快拔手炮】.50马格南重弹，近身极限爆发与重度受击硬直§r\n§8§o“枪膛中压入的不是普通子弹，而是一枚足以掀翻狂暴感染者的微型炮弹。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

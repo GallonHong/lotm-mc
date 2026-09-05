@@ -1,20 +1,20 @@
-item.test_gun:ak47.name=AK-47 Assault Rifle (Classic)
-item.test_gun:ak74u.name=AK-74U Compact Rifle (High Mobility)
-item.test_gun:shotgun.name=Remington M870 Shotgun (Pump-Action)
-item.test_gun:m1897.name=Winchester M1897 Trench Shotgun
-item.test_gun:bizon.name=PP-19 Bizon SMG (64-Round Drum)
-item.test_gun:glock.name=Glock-18 Tactical Pistol (Full-Auto)
+item.test_gun:ak47.name=AK-47 Assault Rifle (Classic)\n§8§o"Even soaked in swamp mud and choked with grit, it roars with fury when you pull the trigger."§r
+item.test_gun:ak74u.name=AK-74U Compact Rifle (High Mobility)\n§8§o"A close-quarters edge in tight train cars and derelict ruins; initials are carved into the stock."§r
+item.test_gun:shotgun.name=Remington M870 Shotgun (Pump-Action)\n§8§o"The sharp clack of pumping a shell into the chamber is the most comforting sound in a bleak night."§r
+item.test_gun:m1897.name=Winchester M1897 Trench Shotgun\n§8§o"Wait until they charge within three meters before firing—saves ammo, and you can hear the bones shatter."§r
+item.test_gun:bizon.name=PP-19 Bizon SMG (64-Round Drum)\n§8§o"A massive helical magazine is your only steady confidence when standing alone against an infected horde."§r
+item.test_gun:glock.name=Glock-18 Tactical Pistol (Full-Auto)\n§8§o"The last line of defense on your hip; its instantaneous burst of lead has turned the tide countless times."§r
 
-item.test_gun:scarh.name=SCAR-H Heavy Battle Rifle [Rare]
-item.test_gun:arx.name=ARX-160 Modern Rifle [Low Recoil]
-item.test_gun:p90.name=FN P90 Tactical SMG [Suppression]
-item.test_gun:deagle.name=Desert Eagle .50 Pistol [Hand Cannon]
-item.test_gun:svd.name=SVD Dragunov Sniper [Target Tracker]
-item.test_gun:m1014.name=Benelli M1014 Rapid Shotgun [Semi-Auto]
+item.test_gun:scarh.name=SCAR-H Heavy Battle Rifle [Rare]\n§8§o"Standard heavy rifle of Selection City guards; 7.62mm AP rounds easily shatter hardened chitin."§r
+item.test_gun:arx.name=ARX-160 Modern Rifle [Low Recoil]\n§8§o"Superior ergonomics and polymer build ensure even an untrained survivor can keep a flat trajectory."§r
+item.test_gun:p90.name=FN P90 Tactical SMG [Suppression]\n§8§o"Translucent magazine feeding high-velocity AP rounds; engineered for brutal indoor breach-and-clear."§r
+item.test_gun:deagle.name=Desert Eagle .50 Pistol [Hand Cannon]\n§8§o"Chambered not with common bullets, but miniature cannon rounds capable of leveling raging beasts."§r
+item.test_gun:svd.name=SVD Dragunov Sniper [Target Tracker]\n§8§o"An obituary penned by highland snipers; whatever enters its crosshairs never sees tomorrow's sun."§r
+item.test_gun:m1014.name=Benelli M1014 Rapid Shotgun [Semi-Auto]\n§8§o"A tempest of semi-automatic buckshot capable of purging a narrow corridor clean in three seconds."§r
 
-item.test_gun:m82.name=Barrett M82 .50 Anti-Materiel Sniper [Epic]
-item.test_gun:riot_shield.name=Tactical Spiked Riot Shield [50% Reflect]
-item.test_gun:armor_titan_chest.name=Titan Exoskeleton Suit [12 Armor·Strength]
+item.test_gun:m82.name=Barrett M82 .50 Anti-Materiel Sniper [Epic]\n§8§o"Thunderous crack echoing across the barrens; shattering heavy armor and the arrogance of monsters."§r
+item.test_gun:riot_shield.name=Tactical Spiked Riot Shield [50% Reflect]\n§8§o"The harder you strike, the deeper the lead bites back. — Masterpiece of an underground armorer"§r
+item.test_gun:armor_titan_chest.name=Titan Exoskeleton Suit [12 Armor·Strength]\n§8§o"The ultimate roar of heavy industry; hydraulic servomotors give soldiers the strength to grapple giants."§r
 
 item.test_gun:vector.name=HK MP7 Tactical SMG [Legendary·Overdrive]
 item.test_gun:mgl.name=MGL 40mm Rotary Grenade Launcher [Saturation]
@@ -22,9 +22,9 @@ item.test_gun:arc_emitter.name=Tesla Arc Emitter [EMP Shockwave]
 item.test_gun:dbss.name=DBSS Arbitrator Shotgun [Legendary·Inferno]
 item.test_gun:jetpack.name=Tactical Ion Jetpack [Double Jump·Boost]
 
-item.test_gun:armor_vest_light.name=Kevlar Light Tactical Vest
-item.test_gun:armor_vest_heavy.name=Tactical Heavy Assault Vest
-item.test_gun:armor_helmet_tactical.name=Tactical Ballistic Helmet
+item.test_gun:armor_vest_light.name=Kevlar Light Tactical Vest\n§8§o"A crudely refurbished civilian ballistic vest; every patched stitch tells a survivor's desperate tale."§r
+item.test_gun:armor_vest_heavy.name=Tactical Heavy Assault Vest\n§8§o"Rigged with heavy ballistic plates; cumbersome, yet keeps you breathing through lethal firefights."§r
+item.test_gun:armor_helmet_tactical.name=Tactical Ballistic Helmet\n§8§o"Rail-mounted riot helmet; the deep gouge on the brim bears witness to lethal skirmishes survived."§r
 
 item.test_gun:ammo_rifle.name=Rifle Ammo (Universal)
 item.test_gun:ammo_shotgun.name=Shotgun Ammo (Universal)
@@ -35,26 +35,26 @@ item.test_gun:ammo_battery.name=High-Energy Battery (Universal)
 
 action.hint.exit.test_gun=Test Guns Arsenal Active
 
-item.test_gun:m79.name=M79 Grenade Launcher §9[Rare]§r
+item.test_gun:m79.name=M79 Grenade Launcher §9[Rare]§r\n§8§o"The venerable 'Thumper'—when a grenade cannot reach, this is pocket artillery for the foot soldier."§r
 item.test_gun:blueprint_m79.name=Blueprint: M79 Grenade Launcher §9[Rare]§r
 
-item.test_gun:rpg.name=RPG-7 Rocket Launcher §5[Epic]§r
+item.test_gun:rpg.name=RPG-7 Rocket Launcher §5[Epic]§r\n§8§o"The purest expression of wasteland violence; wherever backblast erupts, behemoths crumble into dust."§r
 item.test_gun:ammo_rocket.name=PG-7V High-Explosive Rocket §5[Epic]§r
 item.test_gun:blueprint_rpg.name=Weapon Blueprint: RPG-7 §5[Epic]§r
 
-item.test_gun:flash_shield.name=G52 Tactical Flash Shield §5[Epic]§r
+item.test_gun:flash_shield.name=G52 Tactical Flash Shield §5[Epic]§r\n§8§o"Not just an impassable bulwark, but a blinding lightning bolt piercing through pitch-black despair."§r
 item.test_gun:blueprint_flash_shield.name=Armor Blueprint: G52 Flash Shield §5[Epic]§r
 
 item.test_gun:ak47_commander.name=AK-47 Tactical Commander §6[Legendary]§r
 item.test_gun:blueprint_ak47_commander.name=Weapon Blueprint: AK-47 Commander §6[Legendary]§r
 item.test_gun:blueprint_dbss.name=DBSS Arbitrator Blueprint [Legendary Limited·Uncraftable]
 
-item.test_gun:usas12.name=USAS-12 Blood Frenzy [Epic Shotgun]
+item.test_gun:usas12.name=USAS-12 Blood Frenzy [Epic Shotgun]\n§8§o"[Infected Specimen X-9]: An eerie biological pulse throbs in the action, feeding upon spilled blood."§r
 item.test_gun:blueprint_usas12.name=USAS-12 Blood Frenzy Blueprint [Epic Limited·Uncraftable]
 
-item.test_gun:pkm.name=PKM Incendiary GPMG §5[Epic·Molten DOT]§r
-item.test_gun:rpk.name=RPK Squad LMG §9[Rare·Suppression]§r
-item.test_gun:m1014_ward.name=M1014 Titan Ward §5[Epic·Armor-Scale]§r
+item.test_gun:pkm.name=PKM Incendiary GPMG §5[Epic·Molten DOT]§r\n§8§o"The barrel glows cherry red, spitting a tempest of hellfire that reduces all to ash and cinders."§r
+item.test_gun:rpk.name=RPK Squad LMG §9[Rare·Suppression]§r\n§8§o"An iron sentinel on a bipod; one determined gunner alone held down the ruined bridge for hours."§r
+item.test_gun:m1014_ward.name=M1014 Titan Ward §5[Epic·Armor-Scale]§r\n§8§o"Scientia heavy prototype; kinetic armor energy feeds the action—the firmer the line, the deadlier the fire."§r
 item.test_gun:ammo_belt_100.name=100-Round 7.62mm Belt Box §5[GPMG Ammo]§r
 item.test_gun:blueprint_pkm.name=Weapon Blueprint: PKM GPMG §5[Epic]§r
 item.test_gun:blueprint_rpk.name=Weapon Blueprint: RPK LMG §9[Rare]§r
@@ -62,41 +62,48 @@ item.test_gun:blueprint_m1014_ward.name=Weapon Blueprint: M1014 Ward §5[Epic]§
 
 ## === LifeAfter Tactical Armor & Gear ===
 ## Legendary - Fortress Juggernaut
-item.test_gun:armor_mob_chest.name=Fortress Heavy Juggernaut Armor §6[Legendary·9 Armor]§r
+item.test_gun:armor_mob_chest.name=Fortress Heavy Juggernaut Armor §6[Legendary·9 Armor]§r\n§8§o"The freezing gales of Mount Dopei never broke the 7th Line; shattered armor was recast into this plate."§r
 item.test_gun:blueprint_armor_mob_chest.name=Blueprint: Fortress Heavy Armor §6[Legendary Limited]§r
-item.test_gun:armor_mob_pants.name=Fortress Heavy Leg Guards §6[Legendary·6 Armor]§r
+item.test_gun:armor_mob_pants.name=Fortress Heavy Leg Guards §6[Legendary·6 Armor]§r\n§8§o"As long as one soldier stands, the line holds. — Imperial infantry motto etched inside the knee guard"§r
 item.test_gun:blueprint_armor_mob_pants.name=Blueprint: Fortress Heavy Leg Guards §6[Legendary Limited]§r
-item.test_gun:armor_mob_mask.name=Fortress Heavy Full-Face Helmet §6[Legendary·4 Armor]§r
+item.test_gun:armor_mob_mask.name=Fortress Heavy Full-Face Helmet §6[Legendary·4 Armor]§r\n§8§o"Behind this impenetrable visor dwell eyes that have never wavered through blizzard and crossfire."§r
 item.test_gun:blueprint_armor_mob_mask.name=Blueprint: Fortress Heavy Full-Face Helmet §6[Legendary Limited]§r
 
 ## Epic - NVG & Field Rig
-item.test_gun:armor_night_vision.name=Tactical Recon NVG §5[Epic·3 Armor·Night Vision]§r
+item.test_gun:armor_night_vision.name=Tactical Recon NVG §5[Epic·3 Armor·Night Vision]§r\n§8§o"[Scientia File #402]: On a pitch-black night in Redwood, the screen crawls with heat signatures. Don't fire."§r
 item.test_gun:blueprint_armor_night_vision.name=Blueprint: Tactical Recon NVG §5[Epic]§r
-item.test_gun:armor_wasp_rig.name=Tactical Chest Rig Vest §5[Epic·6 Armor·Fast Reload]§r
+item.test_gun:armor_wasp_rig.name=Tactical Chest Rig Vest §5[Epic·6 Armor·Fast Reload]§r\n§8§o"In lawless Farstar City, four extra loaded magazines are far more trustworthy than a comrade's oath."§r
 item.test_gun:blueprint_armor_wasp_rig.name=Blueprint: Tactical Chest Rig Vest §5[Epic]§r
-item.test_gun:armor_wasp_pants.name=Field Riot Protection Pants §5[Epic·4 Armor]§r
+item.test_gun:armor_wasp_pants.name=Field Riot Protection Pants §5[Epic·4 Armor]§r\n§8§o"Aramid fabric caked in motor oil and dried mud; carried its wearer crawling out of the abyss."§r
 item.test_gun:blueprint_armor_wasp_pants.name=Blueprint: Field Riot Protection Pants §5[Epic]§r
-item.test_gun:armor_wasp_boots.name=Heavy Field Combat Boots §5[Epic·3 Armor]§r
+item.test_gun:armor_wasp_boots.name=Heavy Field Combat Boots §5[Epic·3 Armor]§r\n§8§o"Heavy combat boots that trampled highland scree and ruins, treads packed with gravel from the long road home."§r
 item.test_gun:blueprint_armor_wasp_boots.name=Blueprint: Heavy Field Combat Boots §5[Epic]§r
-item.test_gun:armor_wasp_mask.name=Multi-function Dust Face Mask §5[Epic·2 Armor]§r
+item.test_gun:armor_wasp_mask.name=Multi-function Dust Face Mask §5[Epic·2 Armor]§r\n§8§o"Activated charcoal laced with wild mint—the sole anchor of sanity amid toxic marsh vapors."§r
 item.test_gun:blueprint_armor_wasp_mask.name=Blueprint: Multi-function Dust Face Mask §5[Epic]§r
 
 ## Rare - SWAT Ops
-item.test_gun:armor_immortal_vest.name=SWAT Tactical Body Armor §9[Rare·7 Armor]§r
+item.test_gun:armor_immortal_vest.name=SWAT Tactical Body Armor §9[Rare·7 Armor]§r\n§8§o"Ceramic plate stamped with a worn badge; in the early hours of collapse, they fought for order."§r
 item.test_gun:blueprint_armor_immortal_vest.name=Blueprint: SWAT Tactical Body Armor §9[Rare]§r
-item.test_gun:armor_immortal_pants.name=SWAT Tactical Combat Pants §9[Rare·5 Armor]§r
+item.test_gun:armor_immortal_pants.name=SWAT Tactical Combat Pants §9[Rare·5 Armor]§r\n§8§o"Lightweight, high-mobility tailoring engineered for operatives dashing through besieged ruins."§r
 item.test_gun:blueprint_armor_immortal_pants.name=Blueprint: SWAT Tactical Combat Pants §9[Rare]§r
-item.test_gun:armor_immortal_mask.name=Special Ops Dust Mask §9[Rare·2 Armor]§r
+item.test_gun:armor_immortal_mask.name=Special Ops Dust Mask §9[Rare·2 Armor]§r\n§8§o"Don't breathe the fluorescent spore dust! — The final radio broadcast crackling from a fallen patrol."§r
 item.test_gun:blueprint_armor_immortal_mask.name=Blueprint: Special Ops Dust Mask §9[Rare]§r
-item.test_gun:armor_analyzer.name=Tactical Bio-Scanner HUD §9[Rare·2 Armor]§r
+item.test_gun:armor_analyzer.name=Tactical Bio-Scanner HUD §9[Rare·2 Armor]§r\n§8§o"Fluctuating bio-readings along the lens edge warn that civilization is separated from ruin by a thread."§r
 item.test_gun:blueprint_armor_analyzer.name=Blueprint: Tactical Bio-Scanner HUD §9[Rare]§r
-item.test_gun:armor_tech.name=Pioneer Tactical Helmet §9[Rare·4 Armor]§r
+item.test_gun:armor_tech.name=Pioneer Tactical Helmet §9[Rare·4 Armor]§r\n§8§o"Standard issue for Coalition caravan vanguards; deflected countless stray bullets and ambushes."§r
 item.test_gun:blueprint_armor_tech.name=Blueprint: Pioneer Tactical Helmet §9[Rare]§r
 
 ## Common
-item.test_gun:armor_fraternity.name=Polarized Tactical Sunglasses §f[Common·1 Armor]§r
+item.test_gun:armor_fraternity.name=Polarized Tactical Sunglasses §f[Common·1 Armor]§r\n§8§o"Even in a collapsed wasteland where civilization crumbled, someone still needs to look damn good."§r
 item.test_gun:blueprint_armor_fraternity.name=Blueprint: Polarized Tactical Sunglasses §f[Common]§r
 
 ## Components
 item.test_gun:part_tech_data.name=Tech Research Data §5[Advanced Component]§r
 item.test_gun:part_mech_chip.name=Mechanical Data Chip §5[Advanced Component]§r
+
+## === 近战格斗冷兵器 ===
+item.test_gun:combat_knife.name=§fCombat Knife [Common]§r\n§7Passive: Rapid melee assassinations with no stamina cost§r\n§8§o"A silent blade slipped into the throat; far more dependable than firearms when silence is life."§r
+item.test_gun:tactical_axe.name=§9Tactical Assault Axe [Rare]§r\n§7Passive: Armor shredding heavy chop that breaks enemy guard§r\n§8§o"Equally adept at breaching reinforced bunker doors or cleaving through dense mutant bones."§r
+item.test_gun:tactical_shovel.name=§9Trench Entrenching Shovel [Rare]§r\n§7Passive: Blunt impact with strong knockback and shield break§r\n§8§o"Digging foxholes through the bitter day; brawling hand-to-hand in muddy trenches through the dark."§r
+item.test_gun:katana.name=§5Tactical Cold Steel Katana [Epic]§r\n§7Passive: Razor strikes bypassing 50% enemy defense§r\n§eActive: Shadow Iaijutsu 360-degree slash (10s CD)§r\n§8§o"When the firing pin strikes empty and ammo runs dry, cold forged steel is the only thing that never jams."§r
+item.test_gun:kukri_machete.name=§5Gurkha Kukri Machete [Epic]§r\n§7Passive: Cleaving attacks causing heavy bleed wounds§r\n§eActive: Tactical lunging sweep attack (8s CD)§r\n§8§o"A ruthless executioner with a recurved blade, cleanly shearing through muscle, bone, and life."§r

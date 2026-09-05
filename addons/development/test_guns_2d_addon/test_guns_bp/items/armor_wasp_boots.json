@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_wasp_boots",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§5重型野战军靴 [史诗]§r\n§7被动: 3点护甲，鞋底蜂窝气垫缓冲吸收 60% 跌落跌倒冲击§r"
+        "value": "§5重型野战军靴 [史诗]§r\n§7被动: 3点护甲，鞋底蜂窝气垫缓冲吸收 60% 跌落跌倒冲击§r\n§8§o“踏过高地碎石与感染废墟的重靴，鞋底花纹深深嵌着归途的沙砾。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.feet",

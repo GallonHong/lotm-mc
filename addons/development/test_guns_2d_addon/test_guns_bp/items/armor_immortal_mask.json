@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_immortal_mask",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§9特战防尘过滤口罩 [优良]§r\n§7被动: 提供 2 点头部护甲，阻隔粉尘与飞溅物§r"
+        "value": "§9特战防尘过滤口罩 [优良]§r\n§7被动: 提供 2 点头部护甲，阻隔粉尘与飞溅物§r\n§8§o“‘别吸入那些带荧光的孢子粉尘！’——巡逻小队最后的无线电警告”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head",

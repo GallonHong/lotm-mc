@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_flash_shield",
       "minecraft:display_name": {
-        "value": "§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面持盾格挡吸收 70% 枪械与近战物理伤害§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r"
+        "value": "§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面持盾格挡吸收 70% 枪械与近战物理伤害§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r\n§8§o“不仅是一道无法跨越的高墙，也是刺破黑暗绝境的一道灼眼闪电。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.weapon.offhand"

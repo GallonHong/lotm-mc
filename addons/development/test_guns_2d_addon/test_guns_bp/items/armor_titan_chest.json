@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_titan_chest",
       "minecraft:display_name": {
-        "value": "§5泰坦动力外骨骼装甲 [史诗]§r\n§7被动: 12点满额护甲，钛合金护甲层吸收 35% 枪械终伤§r"
+        "value": "§5泰坦动力外骨骼装甲 [史诗]§r\n§7被动: 12点满额护甲，钛合金护甲层吸收 35% 枪械终伤§r\n§8§o“重工业文明的终极咆哮，伺服液压电机嗡鸣间赋予单兵徒手撼动暴君的力量。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.chest",

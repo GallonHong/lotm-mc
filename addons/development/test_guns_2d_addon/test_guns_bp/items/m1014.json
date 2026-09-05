@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m1014",
       "minecraft:display_name": {
-        "value": "§9伯奈利 M1014 连发霰弹枪 [优良]§r\n§7被动: 【急速连喷】导气式半自动结构，无需手动拉栓泵动极速连射§r"
+        "value": "§9伯奈利 M1014 连发霰弹枪 [优良]§r\n§7被动: 【急速连喷】导气式半自动结构，无需手动拉栓泵动极速连射§r\n§8§o“狂风暴雨般的半自动霰弹轰鸣，能在三秒内将狭窄走廊清扫一空。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

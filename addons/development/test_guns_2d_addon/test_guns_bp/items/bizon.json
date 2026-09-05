@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_bizon",
       "minecraft:display_name": {
-        "value": "§fPP-19 野牛冲锋枪 [普通]§r\n§7被动: 64发大容量螺旋弹筒，提供持久不间断的火力压制泼水§r"
+        "value": "§fPP-19 野牛冲锋枪 [普通]§r\n§7被动: 64发大容量螺旋弹筒，提供持久不间断的火力压制泼水§r\n§8§o“大容量螺旋弹筒，是独自面对蜂拥尸潮时唯一不需频繁换弹的底气。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

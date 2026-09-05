@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_shotgun",
       "minecraft:display_name": {
-        "value": "§f雷明顿 M870 霰弹枪 [普通]§r\n§7被动: 经典泵动霰弹枪，近身多弹丸高爆发并附带强力击退冲击§r"
+        "value": "§f雷明顿 M870 霰弹枪 [普通]§r\n§7被动: 经典泵动霰弹枪，近身多弹丸高爆发并附带强力击退冲击§r\n§8§o“‘咔嚓’一声泵动上膛，是在荒野长夜里最让人心安的声音。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_wasp_rig",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§5战术携行携弹胸挂 [史诗]§r\n§7被动: 6点护甲，战术快装槽使所有步枪与霰弹枪换弹时间缩减 20%§r"
+        "value": "§5战术携行携弹胸挂 [史诗]§r\n§7被动: 6点护甲，战术快装槽使所有步枪与霰弹枪换弹时间缩减 20%§r\n§8§o“在混乱的远星城，多带四个压满子弹的弹匣，比相信同伴的誓言更靠谱。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.chest",

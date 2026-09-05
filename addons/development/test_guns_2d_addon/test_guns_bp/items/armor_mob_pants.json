@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_mob_pants",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§6堡垒重型防暴腿甲 [传说·限定]§r\n§7被动: 6点护甲，下蹲架枪掩体减伤20%，下蹲射击后坐力大幅降低35%§r"
+        "value": "§6堡垒重型防暴腿甲 [传说·限定]§r\n§7被动: 6点护甲，下蹲架枪掩体减伤20%，下蹲射击后坐力大幅降低35%§r\n§8§o“‘只要还有一人站着，阵地就没丢。’——刻在护膝内侧的帝国步兵军箴”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.legs",

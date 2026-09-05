@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_svd",
       "minecraft:display_name": {
-        "value": "§9SVD 德拉贡诺夫狙击步枪 [优良]§r\n§7被动: 【连击标记】半自动高精度狙击，命中目标施加发光战术标记§r"
+        "value": "§9SVD 德拉贡诺夫狙击步枪 [优良]§r\n§7被动: 【连击标记】半自动高精度狙击，命中目标施加发光战术标记§r\n§8§o“高地狙击手的死亡讣告，目镜十字准星里锁定的目标从没见过明天的太阳。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

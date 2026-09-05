@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_tech",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§9先锋战术头盔 [优良]§r\n§7被动: 提供 4 点头部护甲，轻量化凯夫拉高强度头部防护§r"
+        "value": "§9先锋战术头盔 [优良]§r\n§7被动: 提供 4 点头部护甲，轻量化凯夫拉高强度头部防护§r\n§8§o“遴选城商队先锋护卫的制式防具，挡下过不知多少支荒野冷箭与流弹。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head",

@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m79",
       "minecraft:display_name": {
-        "value": "§9M79 单发榴弹发射器 [优良]§r\n§7被动: 单发曲射 40mm 高爆弹，产生大范围破片震荡轰炸伤害§r"
+        "value": "§9M79 单发榴弹发射器 [优良]§r\n§7被动: 单发曲射 40mm 高爆弹，产生大范围破片震荡轰炸伤害§r\n§8§o“古老的‘重击者’，当破片手雷扔不够远时，它就是步兵口袋里的重火炮。”§r"
       },
       "minecraft:durability": {
         "max_durability": 80

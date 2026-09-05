@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_riot_shield",
       "minecraft:display_name": {
-        "value": "§5战术反甲防暴盾 [史诗]§r\n§7被动: 【动能反伤】正面吸收70%枪械伤害，并将50%动能反弹给攻击者§r"
+        "value": "§5战术反甲防暴盾 [史诗]§r\n§7被动: 【动能反伤】正面吸收70%枪械伤害，并将50%动能反弹给攻击者§r\n§8§o“‘你打我有多狠，子弹咬回你就有多疼。’——黑市改装大师的得意之作”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.weapon.offhand"

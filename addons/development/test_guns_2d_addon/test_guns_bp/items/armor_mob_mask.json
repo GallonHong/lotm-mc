@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_mob_mask",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§6堡垒重装全覆式头盔 [传说·限定]§r\n§7被动: 4点护甲，全覆面甲阻断爆头重创伤害，偏光滤镜免疫强光致盲§r"
+        "value": "§6堡垒重装全覆式头盔 [传说·限定]§r\n§7被动: 4点护甲，全覆面甲阻断爆头重创伤害，偏光滤镜免疫强光致盲§r\n§8§o“厚重的防弹面罩后，只有一双在硝烟与暴风雪中未曾退缩的眼睛。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head",

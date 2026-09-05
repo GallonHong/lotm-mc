@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_glock",
       "minecraft:display_name": {
-        "value": "§f格洛克 Glock-18 手枪 [普通]§r\n§7被动: 全自动击发手枪，单手轻便快拔，近身急速自卫泼水§r"
+        "value": "§f格洛克 Glock-18 手枪 [普通]§r\n§7被动: 全自动击发手枪，单手轻便快拔，近身急速自卫泼水§r\n§8§o“插在腰间的最后一道保险，瞬间泼洒的暴烈弹雨曾无数次逆转生死。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

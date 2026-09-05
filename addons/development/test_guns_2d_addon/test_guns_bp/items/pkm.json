@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_pkm",
       "minecraft:display_name": {
-        "value": "§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，子弹持续点燃目标并引发熔火爆燃撕裂§r"
+        "value": "§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，子弹持续点燃目标并引发熔火爆燃撕裂§r\n§8§o“枪管打得赤红发烫，喷吐出灼热的火雨，将眼前的一切化作焦炭与余烬。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_arx",
       "minecraft:display_name": {
-        "value": "§9ARX-160 现代突击步枪 [优良]§r\n§7被动: 【极低后坐】优异人机工效，全自动连发射击弹道极度平稳密集§r"
+        "value": "§9ARX-160 现代突击步枪 [优良]§r\n§7被动: 【极低后坐】优异人机工效，全自动连发射击弹道极度平稳密集§r\n§8§o“优异人机工效与现代聚合材料，即使是缺乏训练的幸存者也能打出平稳弹道。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

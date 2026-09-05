@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_helmet_tactical",
       "minecraft:display_name": {
-        "value": "§9特警防暴防弹头盔 [优良]§r\n§7被动: 提供 3 点头部护甲，吸收 45% 爆头额外伤害§r"
+        "value": "§9特警防暴防弹头盔 [优良]§r\n§7被动: 提供 3 点头部护甲，吸收 45% 爆头额外伤害§r\n§8§o“加装战术导轨的军警防暴头盔，帽檐上的凹痕见证了数次致命交火。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head",

@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_ak47",
       "minecraft:display_name": {
-        "value": "§fAK-47 突击步枪 [普通]§r\n§7被动: 经典苏系全威力突击步枪，中近距离全自动强力穿透扫射§r"
+        "value": "§fAK-47 突击步枪 [普通]§r\n§7被动: 经典苏系全威力突击步枪，中近距离全自动强力穿透扫射§r\n§8§o“哪怕泡过沼泽泥水、枪机挂满沙砾，扣动扳机时依然狂怒咆哮。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

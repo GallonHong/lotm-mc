@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m1897",
       "minecraft:display_name": {
-        "value": "§f温彻斯特 M1897 霰弹枪 [普通]§r\n§7被动: 经典战壕喷，超大弹丸散射范围，提供大范围近身面杀伤§r"
+        "value": "§f温彻斯特 M1897 霰弹枪 [普通]§r\n§7被动: 经典战壕喷，超大弹丸散射范围，提供大范围近身面杀伤§r\n§8§o“‘等感染者冲到三米内再扣扳机，既省子弹，也能听清骨头碎裂的声音。’”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

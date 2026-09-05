@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_p90",
       "minecraft:display_name": {
-        "value": "§9FN P90 战术冲锋枪 [优良]§r\n§7被动: 【火力压制】50发大弹匣高速穿甲弹，子弹命中施加迟缓减速§r"
+        "value": "§9FN P90 战术冲锋枪 [优良]§r\n§7被动: 【火力压制】50发大弹匣高速穿甲弹，子弹命中施加迟缓减速§r\n§8§o“透明弹匣内高速旋转的穿甲弹头，为室内突防与清剿坑道而生。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

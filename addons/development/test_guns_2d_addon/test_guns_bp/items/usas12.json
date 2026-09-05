@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_usas12",
       "minecraft:display_name": {
-        "value": "§5USAS-12「嗜血狂潮」[史诗]§r\n§7被动: 【鲜血盛宴】20发弹鼓全自动吸血，吸取18%伤害恢复生命，满血转吸收护盾§r"
+        "value": "§5USAS-12「嗜血狂潮」[史诗]§r\n§7被动: 【鲜血盛宴】20发弹鼓全自动吸血，吸取18%伤害恢复生命，满血转吸收护盾§r\n§8§o“【受污染样本X-9】：枪机内部涌动着诡异的活性脉动，以杀戮之血滋养生机。”§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

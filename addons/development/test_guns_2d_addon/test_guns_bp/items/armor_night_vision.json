@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_night_vision",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§5战术侦察夜视仪 [史诗]§r\n§7被动: 3点护甲，佩戴自动激活微光夜视，无粒子视觉干扰§r"
+        "value": "§5战术侦察夜视仪 [史诗]§r\n§7被动: 3点护甲，佩戴自动激活微光夜视，无粒子视觉干扰§r\n§8§o“【科技会档案#402】：在红杉镇无月的死夜里，荧光屏上全是热源反应。别开火。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head",

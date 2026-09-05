@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_wasp_pants",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§5野战防护防暴裤 [史诗]§r\n§7被动: 4点护甲，工兵重层防磨纤维，高强度防刮抗扑§r"
+        "value": "§5野战防护防暴裤 [史诗]§r\n§7被动: 4点护甲，工兵重层防磨纤维，高强度防刮抗扑§r\n§8§o“粗粝的芳纶纤维浸透了机油与干涸的泥浆，曾在尸潮围攻下支撑他爬出泥潭。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.legs",

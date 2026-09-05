@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_wasp_mask",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§5多功能防尘护目面罩 [史诗]§r\n§7被动: 2点护甲，恶劣天气抗性，持续自动消除中毒与致命剧毒§r"
+        "value": "§5多功能防尘护目面罩 [史诗]§r\n§7被动: 2点护甲，恶劣天气抗性，持续自动消除中毒与致命剧毒§r\n§8§o“活性炭滤芯里混合着薄荷草的味道，是沼泽恶臭毒障中唯一的清醒。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head",

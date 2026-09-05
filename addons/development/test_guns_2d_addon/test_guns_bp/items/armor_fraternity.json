@@ -12,7 +12,7 @@
       "minecraft:icon": "test_gun_armor_fraternity",
       "minecraft:max_stack_size": 1,
       "minecraft:display_name": {
-        "value": "§f护目偏光战术墨镜 [普通]§r\n§7被动: 提供 1 点基础头部护甲，遮光偏振防护§r"
+        "value": "§f护目偏光战术墨镜 [普通]§r\n§7被动: 提供 1 点基础头部护甲，遮光偏振防护§r\n§8§o“哪怕身处文明崩解的末日废土，也总得有人负责保持帅气。”§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.head",
