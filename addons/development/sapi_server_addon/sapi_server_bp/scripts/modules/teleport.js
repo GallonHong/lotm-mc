@@ -65,10 +65,10 @@ export const DEFAULT_WARPS = Object.freeze([
         createdBy: "system",
         createdAt: 0
     },
-    // [等级 1 · 初级协议资源区]
+    // [等级 1 · 初级法制区]
     {
         id: "warp_fall_forest",
-        name: "秋日森林--协议区",
+        name: "秋日森林--法制区",
         icon: "textures/ui/World",
         dimension: "minecraft:overworld",
         x: 3641.00,
@@ -80,7 +80,7 @@ export const DEFAULT_WARPS = Object.freeze([
     },
     {
         id: "warp_sand_castle",
-        name: "沙石堡--协议区",
+        name: "沙石堡--法制区",
         icon: "textures/ui/World",
         dimension: "minecraft:overworld",
         x: 1123.00,
@@ -90,10 +90,10 @@ export const DEFAULT_WARPS = Object.freeze([
         createdBy: "system",
         createdAt: 0
     },
-    // [等级 2 · 中高级协议资源区]
+    // [等级 2 · 进阶法制区]
     {
         id: "warp_white_tree",
-        name: "白树高地--协议区",
+        name: "白树高地--法制区",
         icon: "textures/ui/World",
         dimension: "minecraft:overworld",
         x: 3310.00,
@@ -105,7 +105,7 @@ export const DEFAULT_WARPS = Object.freeze([
     },
     {
         id: "warp_mouth_swamp",
-        name: "茅斯沼泽--协议区",
+        name: "茅斯沼泽--法制区",
         icon: "textures/ui/World",
         dimension: "minecraft:overworld",
         x: 2041.01,
@@ -117,7 +117,7 @@ export const DEFAULT_WARPS = Object.freeze([
     },
     {
         id: "warp_dobe_snow",
-        name: "多贝雪山--协议区",
+        name: "多贝雪山--法制区",
         icon: "textures/ui/World",
         dimension: "minecraft:overworld",
         x: 3373.00,
@@ -127,10 +127,10 @@ export const DEFAULT_WARPS = Object.freeze([
         createdBy: "system",
         createdAt: 0
     },
-    // [等级 3 · 感染团队副本重灾区]
+    // [等级 3 · 感染团队副本非法制区]
     {
         id: "warp_miska_uni",
-        name: "密斯卡大学--副本区",
+        name: "密斯卡大学--非法制区",
         icon: "textures/ui/warning_alex",
         dimension: "minecraft:overworld",
         x: 2705.10,
@@ -140,10 +140,10 @@ export const DEFAULT_WARPS = Object.freeze([
         createdBy: "system",
         createdAt: 0
     },
-    // [等级 4 · 交火争夺与重度辐射危险区]
+    // [等级 4 · 交火争夺非法制区]
     {
         id: "warp_farstar_lighthouse",
-        name: "远星城-灯塔--交火区",
+        name: "远星城-灯塔--非法制区",
         icon: "textures/items/iron_sword",
         dimension: "minecraft:overworld",
         x: 3149.00,
@@ -155,7 +155,7 @@ export const DEFAULT_WARPS = Object.freeze([
     },
     {
         id: "warp_charles_town",
-        name: "夏尔镇--交火区",
+        name: "夏尔镇--非法制区",
         icon: "textures/items/iron_sword",
         dimension: "minecraft:overworld",
         x: 2470.29,
@@ -167,7 +167,7 @@ export const DEFAULT_WARPS = Object.freeze([
     },
     {
         id: "warp_charles_pier",
-        name: "夏尔镇码头--交火区",
+        name: "夏尔镇码头--非法制区",
         icon: "textures/items/iron_sword",
         dimension: "minecraft:overworld",
         x: 1196.00,
@@ -179,7 +179,7 @@ export const DEFAULT_WARPS = Object.freeze([
     },
     {
         id: "warp_charles_powerplant",
-        name: "夏尔镇核电站--交火区",
+        name: "夏尔镇核电站--非法制区",
         icon: "textures/ui/warning_alex",
         dimension: "minecraft:overworld",
         x: 2024.00,
@@ -218,6 +218,19 @@ export class TeleportManager {
                 const merged = [...DEFAULT_WARPS.map(warp => ({ ...warp })), ...valid];
                 this.saveWarps(merged);
                 return merged;
+            }
+            let updated = false;
+            const updatedWarps = valid.map(warp => {
+                const preset = DEFAULT_WARPS.find(d => d.id === warp.id);
+                if (preset && (warp.name !== preset.name || warp.icon !== preset.icon)) {
+                    updated = true;
+                    return { ...warp, name: preset.name, icon: preset.icon };
+                }
+                return warp;
+            });
+            if (updated) {
+                this.saveWarps(updatedWarps);
+                return updatedWarps;
             }
             return valid;
         } catch (error) {
@@ -707,16 +720,13 @@ export class TeleportManager {
             let color = "§0";
             if (warp.name.includes("--安全区")) {
                 color = "§2";
-                subtitle = "§8安全生活区 · 免费传送";
-            } else if (warp.name.includes("--协议区")) {
-                color = "§1";
-                subtitle = "§8协议探索区 · 免费传送";
-            } else if (warp.name.includes("--副本区")) {
-                color = "§5";
-                subtitle = "§8高危团队副本 · 免费传送";
-            } else if (warp.name.includes("--交火区")) {
+                subtitle = "§8🛡️ 安全生活区 · 免费传送";
+            } else if (warp.name.includes("--法制区")) {
+                color = "§e";
+                subtitle = "§8⚖️ 法制秩序区 · 免费传送";
+            } else if (warp.name.includes("--非法制区")) {
                 color = "§c";
-                subtitle = "§8交火危险区 · 免费传送";
+                subtitle = "§8⚔️ 非法制危险区 · 免费传送";
             }
             form.button(`§l${color}${warp.name}\n${subtitle}`, warp.icon || "textures/ui/World");
         }

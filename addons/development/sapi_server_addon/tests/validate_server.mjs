@@ -38,20 +38,20 @@ const expectedWarpNames = [
   "101开发区--安全区",
   "营地开发区--安全区",
   "科技会--安全区",
-  "秋日森林--协议区",
-  "沙石堡--协议区",
-  "白树高地--协议区",
-  "茅斯沼泽--协议区",
-  "多贝雪山--协议区",
-  "密斯卡大学--副本区",
-  "远星城-灯塔--交火区",
-  "夏尔镇--交火区",
-  "夏尔镇码头--交火区",
-  "夏尔镇核电站--交火区",
+  "秋日森林--法制区",
+  "沙石堡--法制区",
+  "白树高地--法制区",
+  "茅斯沼泽--法制区",
+  "多贝雪山--法制区",
+  "密斯卡大学--非法制区",
+  "远星城-灯塔--非法制区",
+  "夏尔镇--非法制区",
+  "夏尔镇码头--非法制区",
+  "夏尔镇核电站--非法制区",
 ];
 let lastWarpIndex = -1;
 for (const warpName of expectedWarpNames) {
-  assert.match(warpName, /^.+--.+区$/, `warp name format must be 地点--xx区: ${warpName}`);
+  assert.match(warpName, /^.+--(安全区|法制区|非法制区)$/, `warp name format must be 地点--(安全区|法制区|非法制区): ${warpName}`);
   const idx = teleport.indexOf(`"${warpName}"`);
   assert.ok(idx > lastWarpIndex, `preset warp ${warpName} missing or out of difficulty order`);
   lastWarpIndex = idx;
