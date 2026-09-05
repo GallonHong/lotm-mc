@@ -60,6 +60,8 @@ export class SocialStore {
             name: String(name || "未知玩家").slice(0, 32),
             title: "幸存者",
             wanted: "正常",
+            wantedPoints: 0,
+            wantedUpdatedAt: 0,
             friends: [],
             friendRequests: [],
             guildId: "",
@@ -79,6 +81,7 @@ export class SocialStore {
         profile.name = knownName || profile.name;
         profile.friends = Array.isArray(profile.friends) ? [...new Set(profile.friends.map(String))].slice(0, 50) : [];
         profile.friendRequests = Array.isArray(profile.friendRequests) ? profile.friendRequests.slice(-50) : [];
+        profile.wantedPoints = Math.max(0, Math.floor(Number(profile.wantedPoints || 0)));
         return profile;
     }
 

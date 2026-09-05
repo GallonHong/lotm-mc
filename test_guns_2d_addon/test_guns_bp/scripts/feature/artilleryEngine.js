@@ -1,5 +1,6 @@
 import { world, system, EntityDamageCause } from '@minecraft/server';
 import { ActionFormData } from '@minecraft/server-ui';
+import { isProtectedTeammate } from './utils/teamRules.js';
 
 export class ArtilleryEngine {
   static cooldowns = new Map(); // playerId -> remainingTicks
@@ -339,6 +340,7 @@ export class ArtilleryEngine {
       for (const ent of entities) {
         if (!ent || !ent.isValid()) continue;
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+        if (isProtectedTeammate(shooter, ent)) continue;
         // 无差别地毯轰炸：自身进入轰炸区同样受到迫击炮溅射伤害与击退
 
         try {

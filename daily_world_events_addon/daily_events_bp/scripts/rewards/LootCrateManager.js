@@ -3,6 +3,7 @@ import { CONFIG } from "../config.js";
 import { RewardManager } from "./RewardManager.js";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
 import { LOOT_CRATE_BLOCKS, LOOT_CRATE_POOLS } from "./lootCratePools.js";
+import { HopePostManager } from "../events/HopePostManager.js";
 
 function hash(value) {
   let result = 2166136261;
@@ -157,6 +158,7 @@ export class LootCrateManager {
     try { world.setDynamicProperty(propertyKey, JSON.stringify(next)); } catch {}
     RewardManager.grantBundle(player, this.bundle(tier), `crate:${coordinateKey}:${readyAt}`, `loot_crate:${tier}`);
     DailyQuestManager.onLootCrateOpened(player, tier);
+    HopePostManager.record(player, "crates", 1);
     return true;
   }
 

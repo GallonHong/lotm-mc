@@ -6,6 +6,7 @@ import { DamageHandler } from '../damageHandler.js';
 import { FireMode } from '../../data/types.js';
 import { EntityDamageCause } from '@minecraft/server';
 import { resolveBlockRaycastHit } from './raycastUtils.js';
+import { isProtectedTeammate } from './teamRules.js';
 
 export function getSpawnLocation(player) {
   const headPos = player.getHeadLocation();
@@ -210,6 +211,7 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
         if (!vic || !vic.isValid() || (player && vic.id === player.id)) continue;
         if (vic.typeId === 'minecraft:item' || vic.typeId === 'minecraft:xp_orb') continue;
         if (hitEntity && vic.id === hitEntity.id) continue;
+        if (isProtectedTeammate(player, vic)) continue;
 
         const vl = vic.location;
         const d = Math.hypot(vl.x - blastLoc.x, vl.y - blastLoc.y, vl.z - blastLoc.z);

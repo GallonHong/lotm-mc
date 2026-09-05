@@ -5,7 +5,7 @@ import { MERCHANT_CATEGORIES, VANILLA_DAILY_SELL_CAP } from "./data/merchantConf
 export const Config = {
     system: {
         serverName: "§l§ePixel§bWorld§r",
-        version: "2.10.1",
+        version: "2.11.1",
         adminTag: "admin",
         menuItem: "minecraft:compass",
         menuItemName: "§r§l§6快捷导航菜单 §8(右键使用)",
@@ -38,6 +38,8 @@ export const Config = {
         initialBalance: 1000, minTransferAmount: 1, maxTransferAmount: 10000000,
     },
     market: { feeRate: 0.10, maxListings: 200, maxListingsPerPlayer: 10, maxUnitPrice: 100000000, maxListingNameLength: 32 },
+    wanted: { tradeRestrictionPoints: 20, blacklistThreshold: 50, decayMinutes: 10, bailPerPoint: 3000, minimumBail: 60000 },
+    vending: { buyPrice: 15000, cityPlacementFee: 5000, maxMachinesPerPlayer: 2, maxListings: 9, maxUnitPrice: 100000000, insurancePrice: 10000 },
     land: {
         pricePerChunk: 3000, sellRefundRate: 0.7, maxPlotsPerPlayer: 5, maxPlotsForAdmin: 999,
         particleBorderType: "minecraft:villager_happy", borderParticleSeconds: 8,

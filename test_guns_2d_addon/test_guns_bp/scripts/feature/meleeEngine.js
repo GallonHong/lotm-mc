@@ -1,4 +1,5 @@
 import { world, system, EntityDamageCause } from '@minecraft/server';
+import { isProtectedTeammate } from './utils/teamRules.js';
 
 /**
  * 战术近战冷兵器引擎 (Melee Combat Engine)
@@ -44,6 +45,7 @@ export class MeleeEngine {
    */
   static handleEntityHit(player, target) {
     if (!player || !player.isValid() || !target || !target.isValid()) return;
+    if (isProtectedTeammate(player, target)) return;
 
     try {
       const equ = player.getComponent('minecraft:equippable');
@@ -133,6 +135,7 @@ export class MeleeEngine {
       for (const ent of nearby) {
         if (!ent || !ent.isValid() || ent.id === player.id || ent.id === primaryTarget?.id) continue;
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+        if (isProtectedTeammate(player, ent)) continue;
 
         const eLoc = ent.location;
         const dx = eLoc.x - pLoc.x;
@@ -206,6 +209,7 @@ export class MeleeEngine {
         for (const ent of targets) {
           if (!ent || !ent.isValid() || ent.id === player.id) continue;
           if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+          if (isProtectedTeammate(player, ent)) continue;
 
           try {
             ent.applyDamage(18.0, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
@@ -257,6 +261,7 @@ export class MeleeEngine {
         for (const ent of targets) {
           if (!ent || !ent.isValid() || ent.id === player.id) continue;
           if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+          if (isProtectedTeammate(player, ent)) continue;
 
           try {
             ent.applyDamage(22.0, { cause: EntityDamageCause.entityAttack, damagingEntity: player });

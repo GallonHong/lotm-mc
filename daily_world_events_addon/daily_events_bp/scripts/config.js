@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.16.3",
+  version: "0.17.0",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,
@@ -29,6 +29,7 @@ export const CONFIG = Object.freeze({
   playerNewsSeenKey: "daily:news_seen_day:v1",
   newsArchiveLimit: 60,
   newsArrivalGraceTicks: 2400,
+  hopePostPublicationFee: 10000,
   apocalypseHeartbeatKey: "apoc:heartbeat",
   apocalypseSpawnQueueKey: "apoc:spawn_requests:v1",
   sapiRegionsKey: "sapi:server:regions:v1",

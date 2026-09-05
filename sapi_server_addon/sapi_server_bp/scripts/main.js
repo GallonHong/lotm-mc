@@ -15,11 +15,15 @@ import { OperationsManager } from "./modules/operations.js";
 import { SafeManager } from "./modules/safe.js";
 import { ItemCleanupManager } from "./modules/item_cleanup.js";
 import { SocialManager } from "./modules/social.js";
+import { CombatManager } from "./modules/combat.js";
+import { WantedManager } from "./modules/wanted.js";
+import { PlayerVendingManager } from "./modules/player_vending.js";
 
 const compassMenuTicks = new Map();
 
 // 自定义物品组件必须在 startup/worldInitialize 阶段订阅，不能延迟到 system.run。
 SafeManager.registerEvents();
+PlayerVendingManager.registerEvents();
 
 function requestCompassMenu(player) {
     if (!Utils.isValid(player)) return;
@@ -32,11 +36,13 @@ function requestCompassMenu(player) {
 function initServerSystem() {
     console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
     try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
+    CombatManager.registerEvents();
     RegionManager.registerProtectionEvents();
     LandManager.registerProtectionEvents();
     TeleportManager.registerEvents();
     Integration.startServerHeartbeat();
     ItemCleanupManager.start();
+    system.runInterval(() => WantedManager.tickDecay(), 200);
     console.warn("[SAPI Server] Economy, Shop, Safe, Land, Lottery, Market, Social, item cleanup, free Warps/Home/TPA/DeathBack, Regions and Audit initialized.");
 }
 
@@ -44,10 +50,12 @@ system.run(initServerSystem);
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     if (!Utils.isValid(player)) return;
+    if (WantedManager.enforceBlacklist(player)) return;
     system.runTimeout(() => Integration.probeDailyEvents(player), 20);
     EconomyManager.getBalance(player);
     SocialManager.initializePlayer(player);
     MarketManager.claimPendingPayout(player, initialSpawn);
+    PlayerVendingManager.claimInsuranceCompensation(player, initialSpawn);
     TeleportManager.handlePlayerSpawn(player);
     if (!initialSpawn) return;
     Utils.tell(player, `§a欢迎来到 ${Config.system.serverName} §a服务器！`);
@@ -57,10 +65,16 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
     }
 });
 
+const playerDie = world.afterEvents?.entityDie;
+if (playerDie?.subscribe) playerDie.subscribe(event => {
+    if (event.deadEntity?.typeId === "minecraft:player") CombatManager.onPlayerDeath(event.deadEntity);
+});
+
 const playerLeave = world.afterEvents?.playerLeave;
 if (playerLeave && typeof playerLeave.subscribe === "function") {
     playerLeave.subscribe(({ playerId, playerName }) => {
         compassMenuTicks.delete(playerId);
+        WantedManager.onPlayerLeave(playerId);
         TeleportManager.cooldowns.delete(playerId);
         if (playerName) SocialManager.onPlayerLeave(playerName);
         for (const [id, request] of TeleportManager.requests) {
@@ -155,5 +169,6 @@ if (scriptEvents?.subscribe) {
         else if (["system:audit", "audit:admin"].includes(id)) AuditManager.openAdminUI(player);
         else if (id === "system:cleanup") ItemCleanupManager.handleCommand(player, message);
         else if (["system:social", "social:open"].includes(id)) SocialManager.openSocialMenu(player);
+        else if (["system:wanted", "wanted:open"].includes(id)) WantedManager.openPlayerMenu(player);
     });
 }

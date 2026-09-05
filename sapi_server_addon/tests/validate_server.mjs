@@ -15,6 +15,9 @@ const safe = read("sapi_server_bp/scripts/modules/safe.js");
 const itemCleanup = read("sapi_server_bp/scripts/modules/item_cleanup.js");
 const social = read("sapi_server_bp/scripts/modules/social.js");
 const socialStore = read("sapi_server_bp/scripts/data/socialStore.js");
+const wanted = read("sapi_server_bp/scripts/modules/wanted.js");
+const combat = read("sapi_server_bp/scripts/modules/combat.js");
+const playerVending = read("sapi_server_bp/scripts/modules/player_vending.js");
 const build = read("build.sh");
 const manifest = JSON.parse(read("sapi_server_bp/manifest.json"));
 const resourceManifest = JSON.parse(read("sapi_server_rp/manifest.json"));
@@ -35,13 +38,13 @@ for (const route of ["!daily", "!dungeon", "!redeem", "!tpa", "!audit"]) assert.
 assert.match(menu, /每日福利/);
 assert.match(menu, /副本行动/);
 assert.match(menu, /服务器运营管理/);
-assert.match(menu, /发布联盟每日新闻/);
+assert.match(menu, /发布每日突发事件/);
 assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
-assert.match(menu, /日常、新闻与事件完整管理/);
-assert.match(menu, /新闻按钮仍保留/);
+assert.match(menu, /日常、希望报与事件管理/);
+assert.match(menu, /突发事件入口仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.10.1");
-assert.equal(resourceManifest.header.version.join("."), "2.10.1");
+assert.equal(manifest.header.version.join("."), "2.11.1");
+assert.equal(resourceManifest.header.version.join("."), "2.11.1");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
@@ -192,6 +195,19 @@ assert.equal(legendaryPool.defaultFeaturedKey, "legendary_mp7");
 assert.equal(legendaryPool.items.reduce((sum, item) => sum + item.weight, 0) + legendaryPool.featuredWeight, 100);
 assert.match(shop, /vanillaDailySellCap/);
 assert.match(shop, /dailyLimit/);
+assert.match(combat, /areTeammates/);
+assert.match(combat, /event\.cancel = true/);
+assert.match(wanted, /tradeRestrictionPoints/);
+assert.match(wanted, /一键拉黑高危玩家/);
+assert.match(playerVending, /破坏玩家贩卖机/);
+assert.match(playerVending, /dropRandomProduct/);
+assert.match(playerVending, /buyInsurance/);
+assert.match(playerVending, /queueInsuranceItems/);
+assert.match(playerVending, /claimInsuranceCompensation/);
+assert.doesNotMatch(playerVending, /insurancePayout/);
+assert.match(social, /openGuildChat/);
+assert.match(social, /recentMessages/);
+assert.equal(JSON.parse(read("sapi_server_bp/blocks/player_vending_machine.json"))["minecraft:block"].components["minecraft:destructible_by_mining"].seconds_to_destroy, 100);
 
 const uiSources = fs.readdirSync(new URL("../sapi_server_bp/scripts/", import.meta.url), { recursive: true })
   .filter(path => String(path).endsWith(".js"))
@@ -203,4 +219,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.10.1 validation passed.");
+console.log("SAPI Server v2.11.1 validation passed.");

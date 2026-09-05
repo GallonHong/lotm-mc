@@ -11,6 +11,7 @@ import { NpcDialogue } from "./NpcDialogue.js";
 import { IntegrationBridge } from "../integration/IntegrationBridge.js";
 import { DungeonMenu } from "./DungeonMenu.js";
 import { DailyNewsManager } from "../events/DailyNewsManager.js";
+import { HopePostManager } from "../events/HopePostManager.js";
 
 const EVENT_DIMENSIONS = ["minecraft:overworld", "minecraft:nether", "minecraft:the_end"];
 const EVENT_DIMENSION_NAMES = ["主世界", "下界", "末地"];
@@ -55,7 +56,8 @@ export class DailyMenu {
       .button("§l§e查看今日任务", "textures/ui/achievements")
       .button("§l§a领取全部已完成奖励", "textures/ui/gift_square")
       .button("§l§6查看活跃度奖励", "textures/ui/Trade2")
-      .button("§l§6联盟每日新闻", "textures/ui/infobulb")
+      .button("§l§6希望报", "textures/ui/icon_book_writable")
+      .button("§l§4每日突发事件", "textures/ui/infobulb")
       .button("§l§c进入副本行动", "textures/ui/warning_alex")
       .button("§l§a领取待发物资", "textures/ui/inventory_icon")
       .button("§l§7任务说明", "textures/ui/infobulb");
@@ -66,9 +68,10 @@ export class DailyMenu {
         player.sendMessage(count ? `§a已领取 ${count} 项任务奖励。` : "§7没有可领取的任务奖励。完成任务后再来看看。\n");
         this.open(player);
       } else if (result.selection === 2) this.openActivity(player);
-      else if (result.selection === 3) this.openNews(player);
-      else if (result.selection === 4) DungeonMenu.open(player, () => this.open(player));
-      else if (result.selection === 5) {
+      else if (result.selection === 3) HopePostManager.open(player, () => this.open(player), isAdmin(player));
+      else if (result.selection === 4) this.openNews(player);
+      else if (result.selection === 5) DungeonMenu.open(player, () => this.open(player));
+      else if (result.selection === 6) {
         const count = RewardManager.claimPending(player);
         player.sendMessage(count ? `§a已补发 ${count} 项物资。` : "§7暂无可补发物资，或背包空间仍不足。");
         this.open(player);
@@ -78,7 +81,7 @@ export class DailyMenu {
 
   static openNews(player) {
     const entries = DailyNewsManager.listRecent(30);
-    const form = new ActionFormData().title("§l§6联盟每日新闻")
+    const form = new ActionFormData().title("§l§4每日突发事件")
       .body(entries.length ? `§f今日报道：§e${DailyNewsManager.listToday().length}\n§7选择新闻查看事件坐标和详情。` : "§7当前还没有新闻报道。");
     for (const entry of entries) {
       const state = entry.phase === "active" ? "§c进行中" : entry.phase === "success" ? "§a已解决" : "§8已失败";
@@ -137,9 +140,10 @@ export class DailyAdminMenu {
     if (!isAdmin(player)) return player.sendMessage("§c仅管理员可使用此菜单。");
     const actions = [];
     const form = new ActionFormData().title("§l§c日常与动态事件管理")
-      .body(`§f事件节点：§e${EventNodeRegistry.getNodes().length}\n§f运行事件：§e${WorldEventManager.list().length}\n§7每日新闻发布支持预设、地点名称、维度及手填 X/Y/Z。`);
+      .body(`§f事件节点：§e${EventNodeRegistry.getNodes().length}\n§f运行事件：§e${WorldEventManager.list().length}\n§7突发事件支持预设、地点名称、维度及手填 X/Y/Z。`);
     const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-    add("§l§6📢 发布联盟每日新闻\n§r§8选择预设并手填事件坐标", "textures/ui/infobulb", () => this.startNewsEvent(player));
+    add("§l§4📢 发布每日突发事件\n§r§8选择预设并手填事件坐标", "textures/ui/infobulb", () => this.startNewsEvent(player));
+    add("§l§6编辑希望报\n§r§8发布次日服务器公告", "textures/ui/icon_book_writable", () => HopePostManager.open(player, () => this.open(player), true));
     add("§a放置委托专员", "textures/ui/FriendsIcon", () => this.spawnCommissioner(player));
     add("§6放置商人 NPC", "textures/ui/MCStore_Gold_large", () => this.openMerchantSpawner(player));
     add("§6创建/手填事件节点", "textures/ui/World", () => this.createNode(player));
@@ -222,7 +226,7 @@ export class DailyAdminMenu {
 
   static startNewsEvent(player) {
     const presets = DailyNewsManager.presetList();
-    const form = new ActionFormData().title("§l§4选择新闻预设").body("§7选择报道和事件类型，下一步可手动填写地点名称及完整坐标。");
+    const form = new ActionFormData().title("§l§4选择突发事件预设").body("§7选择通报和事件类型，下一步可手动填写地点名称及完整坐标。");
     for (const value of presets) {
       const template = EVENT_TEMPLATES[value.eventTemplateId];
       const scope = template?.zones?.includes("safe") ? "仅安全区" : template?.zones?.length === 1 && template.zones[0] === "outlaw" ? "仅非法制区" : "法制区/荒野";

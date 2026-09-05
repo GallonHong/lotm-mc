@@ -1,5 +1,6 @@
 import { EntityDamageCause, EquipmentSlot } from '@minecraft/server';
 import { MathUtils } from './utils/mathUtils.js';
+import { isProtectedTeammate } from './utils/teamRules.js';
 
 export const ARMOR_PIECE_VALUES = {
   // Vanilla Armors
@@ -97,6 +98,7 @@ export class DamageHandler {
   static handleHit(projectile, shooter, target, gun, impactLocation) {
     if (!target || !target.isValid()) return;
     if (shooter && target.id === shooter.id) return;
+    if (isProtectedTeammate(shooter, target)) return;
     if (!gun) return;
 
     const stats = gun.stats || { damage: 10, armorPenetration: 0.25, maxRange: 60 };

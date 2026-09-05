@@ -5,6 +5,7 @@ import { fireBullet } from './utils/shootUtils.js';
 import { GrenadeEngine } from './grenadeEngine.js';
 import { ArcEngine } from './arcEngine.js';
 import { EntityDamageCause } from '@minecraft/server';
+import { isProtectedTeammate } from './utils/teamRules.js';
 
 export class SkillManager {
   static skillCooldowns = new Map();
@@ -97,6 +98,7 @@ export class SkillManager {
         for (const ent of nearby) {
           if (!ent || !ent.isValid() || ent.id === player.id) continue;
           if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+          if (isProtectedTeammate(player, ent)) continue;
 
           try {
             ent.addEffect('slowness', 60, { amplifier: 4, showParticles: true });
@@ -158,6 +160,7 @@ export class SkillManager {
           if (dist > 12) continue;
           const dot = (dx * view.x + dy * view.y + dz * view.z) / (dist || 1);
           if (dot >= 0.35) {
+            if (isProtectedTeammate(player, ent)) continue;
             try { ent.setOnFire(5, true); } catch {}
             try { ent.applyDamage(35, { damagingEntity: player, cause: EntityDamageCause.fireTick }); } catch {}
             try { dim.spawnParticle('minecraft:lava_particle', ent.location); } catch {}
@@ -231,6 +234,7 @@ export class SkillManager {
     // 瞬间直结全额霰弹伤害（无实体弹道）
     const pelletCount = 8;
     const totalDamage = Number(gun.stats?.damage || 12.0) * pelletCount;
+    if (isProtectedTeammate(player, bestTarget)) return;
     try {
       bestTarget.applyDamage(totalDamage, { damagingEntity: player, cause: EntityDamageCause.entityAttack });
     } catch {}

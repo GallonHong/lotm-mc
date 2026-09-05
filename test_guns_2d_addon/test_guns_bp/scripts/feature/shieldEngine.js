@@ -1,4 +1,5 @@
 import { world, system, EntityDamageCause } from '@minecraft/server';
+import { isProtectedTeammate } from './utils/teamRules.js';
 
 export class ShieldEngine {
   static flashCooldowns = new Map(); // playerId -> remainingTicks
@@ -253,6 +254,7 @@ export class ShieldEngine {
         } catch {}
 
         const reflectDmg = Math.max(2.0, damage * 0.50);
+        if (isProtectedTeammate(player, realTarget)) return;
         try {
           realTarget.applyDamage(reflectDmg, {
             cause: EntityDamageCause.thorns,

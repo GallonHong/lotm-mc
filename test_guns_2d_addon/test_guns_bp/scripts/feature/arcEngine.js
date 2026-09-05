@@ -1,6 +1,7 @@
 import { world, EntityDamageCause } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
 import { resolveBlockRaycastHit } from './utils/raycastUtils.js';
+import { isProtectedTeammate } from './utils/teamRules.js';
 
 export class ArcEngine {
   static fireArc(player, gun) {
@@ -128,6 +129,7 @@ export class ArcEngine {
 
   static applyElectricDamage(attacker, target, hitLoc, damage, gun) {
     if (!target || !target.isValid()) return;
+    if (isProtectedTeammate(attacker, target)) return;
 
     try {
       const dim = target.dimension;

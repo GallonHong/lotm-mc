@@ -68,7 +68,9 @@ export class AuditManager {
             item_cleanup: "清理掉落物", item_cleanup_settings: "掉落物清理设置",
             land_visitor_point: "设置领地访客点", land_visit: "好友领地观光", team_dissolve: "解散队伍",
             guild_create: "创建公会", guild_join: "加入公会", guild_leave: "退出公会", guild_kick: "移除公会成员",
-            guild_transfer: "移交会长", guild_disband: "解散公会", guild_edit: "编辑公会", guild_base_set: "设置公会基地", guild_base_visit: "前往公会基地"
+            guild_transfer: "移交会长", guild_disband: "解散公会", guild_edit: "编辑公会", guild_base_set: "设置公会基地", guild_base_visit: "前往公会基地",
+            guild_chat: "公会聊天", wanted_change: "通缉值变化", wanted_bail: "支付保释", blacklist_add: "加入黑名单", blacklist_remove: "移出黑名单",
+            vending_place: "放置玩家贩卖机", vending_list: "贩卖机上架", vending_sale: "贩卖机成交", vending_collect: "领取营业额", vending_break: "破坏贩卖机", vending_insure: "购买联盟保险", vending_recover: "回收贩卖机"
         };
         return labels[type] || type;
     }

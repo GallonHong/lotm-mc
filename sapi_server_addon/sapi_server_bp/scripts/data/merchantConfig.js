@@ -65,6 +65,7 @@ export const MERCHANT_CATEGORIES = Object.freeze([
                     { id: "minecraft:flint", name: "燧石", buyPrice: 8, sellPrice: 4, sellGroup: "vanilla" },
                     { id: "minecraft:firework_rocket", name: "烟花火箭", buyPrice: 18, sellPrice: 7, sellGroup: "vanilla" },
                     { id: "sapi:secure_safe_deployer", name: "加固密码保险箱", icon: "textures/items/secure_safe", buyPrice: 15000, sellPrice: 0, dailyLimit: 1 },
+                    { id: "sapi:player_vending_machine_deployer", name: "玩家实体贩卖机", icon: "textures/items/player_vending_machine", buyPrice: 15000, sellPrice: 0, dailyLimit: 1 },
                 ],
             },
             {

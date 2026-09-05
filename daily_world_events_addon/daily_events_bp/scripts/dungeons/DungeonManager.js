@@ -4,6 +4,7 @@ import { IntegrationBridge } from "../integration/IntegrationBridge.js";
 import { RewardManager } from "../rewards/RewardManager.js";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
 import { DUNGEON_SLOTS, absolutePoint, dungeonTemplate } from "./dungeonTemplates.js";
+import { HopePostManager } from "../events/HopePostManager.js";
 
 const PLAYER_STATE_KEY = "daily:dungeon_player:v1";
 const PLAYER_ECONOMY_KEY = "daily:dungeon_economy:v1";
@@ -871,6 +872,7 @@ export class DungeonManager {
           player.sendMessage("§e新手教程可以重玩，但 2000 元与优良图纸每名玩家只能领取一次。此次不重复发奖。");
         }
         DailyQuestManager.onDungeonSuccess(player, template.id);
+        HopePostManager.record(player, "dungeons", 1);
         try { player.runCommand(`scriptevent story:dungeon_complete ${template.id}`); } catch {}
         player.sendMessage(`§a☑ 副本通关：${template.name}（贡献 ${score.toFixed(1)}）`);
       } else if (success) {

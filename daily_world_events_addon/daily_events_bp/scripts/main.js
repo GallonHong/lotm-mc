@@ -15,8 +15,9 @@ import { LootCrateManager } from "./rewards/LootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
 import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
+import { HopePostManager } from "./events/HopePostManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.16.3 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.17.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -148,8 +149,14 @@ function handleEntityDeath(event) {
     }
   }
   for (const player of credited.values()) {
-    if (recognizedMobs.has(dead.typeId)) DailyQuestManager.onKillCredit(player, dead.typeId);
-    if (recognizedBosses.has(dead.typeId)) DailyQuestManager.onBossKill(player, dead.typeId);
+    if (recognizedMobs.has(dead.typeId)) {
+      DailyQuestManager.onKillCredit(player, dead.typeId);
+      HopePostManager.record(player, "kills", 1);
+    }
+    if (recognizedBosses.has(dead.typeId)) {
+      DailyQuestManager.onBossKill(player, dead.typeId);
+      HopePostManager.record(player, "bosses", 1);
+    }
     WorldEventManager.recordCombat(dead, player, 0, true);
     DungeonManager.recordCombat(dead, player, 0, true);
   }
@@ -241,6 +248,7 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
       DailyQuestManager.ensureState(event.player);
       DungeonManager.handlePlayerSpawn(event.player);
       DailyNewsManager.notifyDailySummary(event.player);
+      HopePostManager.ensureIssue();
       const pending = RewardManager.pendingCount(event.player);
       if (pending) event.player.sendMessage(`§e[生存联盟] 你有 ${pending} 项待发物资，可在委托菜单重试领取。`);
     } catch {}
@@ -251,6 +259,7 @@ subscribe(world.afterEvents?.playerBreakBlock, "playerBreakBlock", event => {
   try {
     const typeId = event.brokenBlockPermutation?.type?.id || event.brokenBlockPermutation?.typeId || event.block?.typeId;
     if (typeId) DailyQuestManager.onBlockCollected(event.player, typeId);
+    if (typeId) HopePostManager.recordCollection(event.player, typeId);
   } catch {}
 });
 
@@ -321,6 +330,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   }, 2);
   else if (id === "daily:help") system.runTimeout(() => DailyMenu.openHelp(player), 2);
   else if (id === "daily:news") system.runTimeout(() => DailyMenu.openNews(player), 2);
+  else if (id === "daily:hope_post") system.runTimeout(() => HopePostManager.open(player, () => DailyMenu.open(player), isAdmin(player)), 2);
   else if (id === "daily:news_admin" && isAdmin(player)) system.runTimeout(() => DailyAdminMenu.startNewsEvent(player), 2);
   else if (id === "daily:merchant") MerchantMenu.openCategory(player, message || "all");
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);

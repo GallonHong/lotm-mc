@@ -14,6 +14,7 @@ import { AuditManager } from "./audit.js";
 import { OperationsManager } from "./operations.js";
 import { ItemCleanupManager } from "./item_cleanup.js";
 import { SocialManager } from "./social.js";
+import { WantedManager } from "./wanted.js";
 
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
 export class ServerMenuManager {
@@ -75,6 +76,7 @@ export class ServerMenuManager {
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
 
         add("§l§e🏆 财富排行\n§r§8查看服务器富豪排行榜", "textures/ui/achievements", () => EconomyManager.openLeaderboardUI(player, () => this.openMoreMenu(player)));
+        add(`§l§c⚖ 通缉与保释\n§r§8当前通缉值 ${WantedManager.points(player)}`, "textures/ui/warning_alex", () => WantedManager.openPlayerMenu(player, () => this.openMoreMenu(player)));
         if (Integration.isLotmAvailable()) {
             add("§l§5🔮 诡秘非凡秘典\n§r§8查看途径、序列与能力", "textures/items/potion_seer", () => Integration.send(player, "lotm:open"));
         }
@@ -92,9 +94,9 @@ export class ServerMenuManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§c⚙️ 服务器管理员控制台")
-            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${dailyEventsReady ? "§a已连接" : "§c未连接（新闻按钮仍保留）"}`);
+            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${dailyEventsReady ? "§a已连接" : "§c未连接（突发事件入口仍保留）"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-        add(`§l§6📢 发布联盟每日新闻\n§r§8${dailyEventsReady ? "选择预设并手填事件坐标" : "需要启用 Daily Events BP"}`, "textures/ui/infobulb", () => {
+        add(`§l§6📢 发布每日突发事件\n§r§8${dailyEventsReady ? "选择预设并手填事件坐标" : "需要启用 Daily Events BP"}`, "textures/ui/infobulb", () => {
             if (!Integration.isDailyEventsAvailable()) return Utils.tell(player, "§cDaily Events 未连接。请启用最新 Survival Daily & World Events BP，并退出世界后重新进入。");
             Integration.send(player, "daily:news_admin");
         });
@@ -106,6 +108,7 @@ export class ServerMenuManager {
         add("§l§c🌪 打开灾害控制器\n§r§8直接进入独立灾害管理页面", "textures/ui/warning_alex", () => this.openDisasterController(player));
         add("§l§6🎛 获取灾害遥控器物品\n§r§8页面无法打开时的备用入口", "textures/ui/op", () => this.giveDisasterController(player, () => this.openAdminPanel(player, onBack)));
         add("§l§6💵 玩家金币管理", "textures/ui/Trade2", () => this.openPlayerMoneyAdmin(player, onBack));
+        add("§l§4⚖ 通缉与黑名单管理\n§r§8清除通缉或一键拉黑高危玩家", "textures/ui/cancel", () => WantedManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
         add("§l§4🗑️ 强制删除当前地皮", "textures/ui/trash", () => this.forceDeleteCurrentPlot(player, onBack));
         add("§l§e📢 发布全服公告", "textures/ui/accessibility_glyph_color", () => this.openBroadcastModal(player, onBack));
         add("§l§a🎁 全服发放福利金币", "textures/ui/gift_square", () => this.openGiftAllModal(player, onBack));
@@ -113,7 +116,7 @@ export class ServerMenuManager {
         if (Integration.isLotmAvailable()) {
             add("§l§5🔮 LOTM 调试控制台", "textures/items/potion_magician", () => Integration.send(player, "lotm:admin"));
         }
-        add(`§l§6📋 日常、新闻与事件完整管理\n§r§8${dailyEventsReady ? "已连接" : "需要启用 Daily Events BP"}`, "textures/ui/achievements", () => {
+        add(`§l§6📋 日常、希望报与事件管理\n§r§8${dailyEventsReady ? "已连接" : "需要启用 Daily Events BP"}`, "textures/ui/achievements", () => {
             if (!Integration.isDailyEventsAvailable()) return Utils.tell(player, "§cDaily Events 未连接。请启用最新 Survival Daily & World Events BP，并退出世界后重新进入。");
             Integration.send(player, "daily:admin");
         });

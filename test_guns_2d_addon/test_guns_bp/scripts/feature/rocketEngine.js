@@ -1,5 +1,6 @@
 import { world, EntityDamageCause } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
+import { isProtectedTeammate } from './utils/teamRules.js';
 
 export class RocketEngine {
   static activeRockets = [];
@@ -247,6 +248,7 @@ export class RocketEngine {
         if (shooter && ent.id === shooter.id) continue;
         if (directHitEntity && ent.id === directHitEntity.id) continue;
         if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb') continue;
+        if (isProtectedTeammate(shooter, ent)) continue;
 
         const el = ent.location;
         const dist = Math.hypot(el.x - validLoc.x, el.y - validLoc.y, el.z - validLoc.z);

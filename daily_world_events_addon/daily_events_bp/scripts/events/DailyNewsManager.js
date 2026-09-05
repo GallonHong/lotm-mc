@@ -155,7 +155,7 @@ export class DailyNewsManager {
     } catch {}
     const entries = this.listToday();
     const active = entries.filter(entry => entry.phase === "active" && !entries.some(result => result.instanceId === entry.instanceId && result.phase !== "active")).length;
-    try { player.sendMessage(`§6[联盟每日新闻] §f今日已发布 §e${entries.length}§f 条报道，当前仍有 §c${active}§f 起事件。可在每日委托菜单查看坐标。`); } catch {}
+    try { player.sendMessage(`§4[每日突发事件] §f今日已发布 §e${entries.length}§f 条通报，当前仍有 §c${active}§f 起事件。可在每日委托菜单查看坐标。`); } catch {}
     return true;
   }
 

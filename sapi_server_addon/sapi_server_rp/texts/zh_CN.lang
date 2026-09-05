@@ -1,3 +1,5 @@
 item.sapi:secure_safe_deployer.name=加固密码保险箱
 entity.sapi:secure_safe.name=加固密码保险箱
 action.interact.sapi:secure_safe=打开保险箱
+item.sapi:player_vending_machine_deployer.name=玩家实体贩卖机
+tile.sapi:player_vending_machine.name=玩家实体贩卖机

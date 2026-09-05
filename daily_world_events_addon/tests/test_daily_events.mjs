@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 16, 3]);
-assert.deepEqual(rpManifest.header.version, [0, 16, 3]);
+assert.deepEqual(manifest.header.version, [0, 17, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 17, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {
@@ -71,7 +71,7 @@ assert(Object.keys(newsPresets.NEWS_PRESETS).length >= 13, "daily news preset li
 for (const templateId of Object.keys(templatesModule.EVENT_TEMPLATES)) assert(newsPresets.presetsForTemplate(templateId).length > 0, `event template has no news preset: ${templateId}`);
 for (const id of ["mass_horde_surface", "fog_man_sighting", "goatman_sighting", "siren_head_sighting", "rebel_city_assault"]) assert(newsPresets.NEWS_PRESETS[id], `missing news preset: ${id}`);
 const newsManager = readFileSync(join(bp, "scripts/events/DailyNewsManager.js"), "utf8");
-for (const marker of ["newsArchiveKey", "publishEventStart", "publishEventResult", "notifyDailySummary", "listToday", "coordinateText", "联盟每日新闻"]) assert(newsManager.includes(marker), `missing daily news behavior: ${marker}`);
+for (const marker of ["newsArchiveKey", "publishEventStart", "publishEventResult", "notifyDailySummary", "listToday", "coordinateText", "每日突发事件"]) assert(newsManager.includes(marker), `missing breaking-news behavior: ${marker}`);
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
 assert(rewards.includes('id: "test_gun:blueprint_deagle"') && rewards.includes("coins: 2000"), "one-time tutorial reward must use the real blue-quality Test Gun blueprint and 2000 coins");
@@ -104,7 +104,7 @@ assert.equal(merchantDialogue["minecraft:npc_dialogue"].scenes.length, 4);
 assert(files(bp).some(path => path.replace(/\\/g, "/").endsWith("scripts/merchants/merchantConfig.js")));
 const dailyMenu = readFileSync(join(bp, "scripts/ui/DailyMenu.js"), "utf8");
 assert(dailyMenu.includes("isUserBusy") && dailyMenu.includes("attempt < 8"), "daily forms must retry after native NPC UserBusy");
-assert(dailyMenu.indexOf("发布联盟每日新闻") < dailyMenu.indexOf("放置委托专员"), "news publishing must be the first Daily admin action");
+assert(dailyMenu.indexOf("发布每日突发事件") < dailyMenu.indexOf("放置委托专员"), "breaking event publishing must be the first Daily admin action");
 
 const rewardManager = readFileSync(join(bp, "scripts/rewards/RewardManager.js"), "utf8");
 assert(rewardManager.includes("reserve(player, uniqueId)") && rewardManager.includes("pendingRewardsKey"));
@@ -285,7 +285,10 @@ assert(dailyMain.includes("LegacyCrateBackfillManager.initialize()"), "legacy ba
 assert(dailyMain.includes('action === "backfill"') && dailyMain.includes('mode === "on"') && dailyMain.includes('mode === "off"'), "backfill admin command missing");
 const eventNodes = readFileSync(join(bp, "scripts/events/EventNodeRegistry.js"), "utf8");
 assert(eventNodes.includes("addAt") && eventNodes.includes("normalizeLocation") && eventNodes.includes("resolveGround"), "manual event coordinates and ground validation missing");
-assert(dailyMenu.includes("联盟每日新闻") && dailyMenu.includes("startNewsEvent") && dailyMenu.includes("configureNewsEvent") && dailyMenu.includes("X 坐标") && dailyMenu.includes("Z 坐标"), "daily news/manual coordinate UI missing");
+assert(dailyMenu.includes("每日突发事件") && dailyMenu.includes("startNewsEvent") && dailyMenu.includes("configureNewsEvent") && dailyMenu.includes("X 坐标") && dailyMenu.includes("Z 坐标"), "breaking event/manual coordinate UI missing");
+const hopePost = readFileSync(join(bp, "scripts/events/HopePostManager.js"), "utf8");
+for (const marker of ["hopePostPublicationFee", "automaticArticle", "10000", "publishDay", "希望报编辑部"]) assert(hopePost.includes(marker), `Hope Post behavior missing: ${marker}`);
+assert(dailyMenu.includes("希望报") && dailyMenu.includes("HopePostManager.open"), "Hope Post menu entry missing");
 
 const sapiIntegration = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/integration.js"), "utf8");
 const sapiMenu = readFileSync(join(repo, "sapi_server_addon/sapi_server_bp/scripts/modules/server_menu.js"), "utf8");

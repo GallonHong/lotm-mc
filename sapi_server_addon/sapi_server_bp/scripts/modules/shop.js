@@ -4,6 +4,7 @@ import { Config } from "../config.js";
 import { Utils } from "../utils.js";
 import { EconomyManager } from "./economy.js";
 import { Integration } from "./integration.js";
+import { WantedManager } from "./wanted.js";
 
 /**
  * 商店系统管理器
@@ -38,6 +39,7 @@ export class ShopManager {
     }
 
     static openCategoryById(player, categoryId, onBack = null) {
+        if (!WantedManager.requireOfficialTrade(player)) return onBack?.();
         const id = String(categoryId || "").trim().toLowerCase();
         if (!id || id === "all") return this.openShopCategoryUI(player, onBack);
         const category = this.getVisibleCategories().find(value => value.id === id);
@@ -77,6 +79,7 @@ export class ShopManager {
      * @param {Function} [onBack] 
      */
     static openShopCategoryUI(player, onBack = null) {
+        if (!WantedManager.requireOfficialTrade(player)) return onBack?.();
         const balance = EconomyManager.getBalance(player);
         const daily = this.getDailyState(player);
         const form = new ActionFormData()
@@ -157,6 +160,7 @@ export class ShopManager {
      * @param {Function} [onBack] 
      */
     static openItemTradeUI(player, item, onBack = null) {
+        if (!WantedManager.requireOfficialTrade(player)) return onBack?.();
         const balance = EconomyManager.getBalance(player);
         const bagCount = Utils.countItem(player, item.id);
         const daily = this.getDailyState(player);
@@ -190,6 +194,7 @@ export class ShopManager {
             if (count <= 0) return;
 
             if (isBuy) {
+                if (!WantedManager.requireOfficialTrade(player)) return;
                 if (item.dailyLimit) {
                     const bought = Math.max(0, Number(daily.purchases[item.id] || 0));
                     const remaining = Math.max(0, Number(item.dailyLimit) - bought);
@@ -222,6 +227,7 @@ export class ShopManager {
                 Utils.tell(player, `§a成功购买 §e${item.name} §ax${count}，获得物品 ${amount} 个，花费 ${Utils.formatCurrency(totalCost)}！`);
                 Utils.sound.buy(player);
             } else {
+                if (!WantedManager.requireOfficialTrade(player)) return;
                 if (item.sellGroup === "vanilla") {
                     const cap = Math.max(0, Number(Config.shop.vanillaDailySellCap || 0));
                     const remainingCoins = Math.max(0, cap - Number(daily.vanillaSoldCoins || 0));

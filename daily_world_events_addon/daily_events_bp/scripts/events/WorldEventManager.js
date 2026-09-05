@@ -6,6 +6,7 @@ import { IntegrationBridge } from "../integration/IntegrationBridge.js";
 import { RewardManager } from "../rewards/RewardManager.js";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
 import { DailyNewsManager } from "./DailyNewsManager.js";
+import { HopePostManager } from "./HopePostManager.js";
 
 function valid(entity) {
   try { return !!entity && entity.isValid(); } catch { return false; }
@@ -275,6 +276,7 @@ export class WorldEventManager {
         const rewardId = instance.zoneType === "outlaw" && template.outlawRewardId ? template.outlawRewardId : template.rewardId;
         RewardManager.grant(player, rewardId, `event:${instance.instanceId}:${player.id}`, `world_event:${instance.templateId}:${instance.zoneType}`);
         DailyQuestManager.onWorldEventSuccess(player, instance.templateId);
+        HopePostManager.record(player, "events", 1);
         player.sendMessage(`§a☑ 动态事件完成：${template.name}（参与分 ${score.toFixed(1)}）`);
       }
       try { dimension.spawnParticle("minecraft:totem_particle", instance.center); } catch {}

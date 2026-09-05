@@ -40,6 +40,7 @@ function isAlive(player) {
 export class SocialManager {
     static teams = new Map();
     static playerTeams = new Map();
+    static guildChatTicks = new Map();
 
     static get settings() {
         return Config.social || {};
@@ -476,7 +477,7 @@ export class SocialManager {
                 id, name, tag, description: description || "这个公会还没有填写简介。",
                 leaderName: player.name,
                 members: [{ name: player.name, role: "leader", joinedAt: Date.now() }],
-                applications: [], baseLocation: null, createdAt: Date.now(),
+                applications: [], recentMessages: [], baseLocation: null, createdAt: Date.now(),
             };
             SocialStore.saveGuild(guild);
             SocialStore.setPlayerGuild(player.name, id);
@@ -551,6 +552,7 @@ export class SocialManager {
             `§0会长：§e${current.leaderName}\n§0成员：§e${current.members.length}/${this.settings.guildMaxMembers || 30}\n§0在线：§a${onlineCount}\n§0职位：§e${leader ? "Leader" : "Member"}`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+        add(`§l§d公会频道\n§r§8查看消息或发送信息`, "textures/ui/chat_send", () => this.openGuildChat(player, current, onBack));
         add("§l§b公会成员", "textures/ui/FriendsIcon", () => this.openGuildMembers(player, current, onBack));
         add(`§l§a公会基地\n§r§8${current.baseLocation ? "传送或查看位置" : "尚未设置"}`, "textures/ui/map_icon", () => this.openGuildBase(player, current, onBack));
         add("§l§6公会信息", "textures/ui/icon_book_writable", () => this.openGuildInfo(player, current, onBack));
@@ -560,6 +562,51 @@ export class SocialManager {
         } else add("§l§c退出公会", "textures/ui/cancel", () => this.confirmLeaveGuild(player, current, onBack));
         add("§l§8返回", "textures/ui/undo", () => onBack?.());
         Utils.showForm(player, form, response => actions[response.selection]?.());
+    }
+
+    static openGuildChat(player, guild, onBack) {
+        const current = SocialStore.getGuild(guild.id);
+        if (!current?.members?.some(member => normalizePlayerName(member.name) === normalizePlayerName(player.name))) {
+            return this.openGuild(player, onBack);
+        }
+        const messages = Array.isArray(current.recentMessages) ? current.recentMessages.slice(-20) : [];
+        const body = messages.length
+            ? messages.map(message => `§8${new Date(message.createdAt).toLocaleTimeString()} §e${message.sender}§8：§0${message.message}`).join("\n")
+            : "§8公会频道还没有消息。";
+        const form = new ActionFormData().title(`§l§d[${current.tag}] 公会频道`).body(body)
+            .button("§l§a发送消息", "textures/ui/chat_send")
+            .button("§l§8返回", "textures/ui/undo");
+        Utils.showForm(player, form, response => {
+            if (response.selection === 0) this.openGuildChatCompose(player, current, onBack);
+            else this.openGuildHome(player, current, onBack);
+        });
+    }
+
+    static openGuildChatCompose(player, guild, onBack) {
+        const previous = Number(this.guildChatTicks.get(player.name) ?? -1000);
+        if (system.currentTick - previous < 40) {
+            Utils.tell(player, "§c公会消息发送得太快，请稍后再试。");
+            return this.openGuildChat(player, guild, onBack);
+        }
+        const form = new ModalFormData().title("§l发送公会消息").textField("消息（最多 200 字）", "今晚一起打副本吗？");
+        Utils.showForm(player, form, response => {
+            if (response.canceled) return this.openGuildChat(player, guild, onBack);
+            const current = SocialStore.getGuild(guild.id);
+            const member = current?.members?.some(entry => normalizePlayerName(entry.name) === normalizePlayerName(player.name));
+            if (!current || !member) return Utils.tell(player, "§c你已经不在这个公会中。");
+            const message = cleanText(response.formValues?.[0], 200);
+            if (!message) return this.openGuildChat(player, current, onBack);
+            this.guildChatTicks.set(player.name, system.currentTick);
+            current.recentMessages = Array.isArray(current.recentMessages) ? current.recentMessages : [];
+            current.recentMessages.push({ sender: player.name, message, createdAt: Date.now() });
+            current.recentMessages = current.recentMessages.slice(-20);
+            SocialStore.saveGuild(current);
+            for (const guildMember of current.members) {
+                const target = onlinePlayer(guildMember.name);
+                if (target) Utils.tell(target, `§d[公会] §e${player.name}§8：§0${message}`);
+            }
+            AuditManager.log("guild_chat", player, current.id, `members=${current.members.length}`);
+        });
     }
 
     static openGuildMembers(player, guild, onBack) {

@@ -11,9 +11,9 @@ function files(directory) { return readdirSync(directory).flatMap(name => { cons
 for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".json"))) assert.doesNotThrow(() => json(path), `invalid JSON: ${path}`);
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [3, 10, 1]);
-assert.deepEqual(rpManifest.header.version, [3, 10, 1]);
-assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 10, 1]);
+assert.deepEqual(bpManifest.header.version, [3, 11, 0]);
+assert.deepEqual(rpManifest.header.version, [3, 11, 0]);
+assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 11, 0]);
 assert.equal(json(join(bp, "items/blueprint_usas12.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_usas12");
 assert(readFileSync(join(bp, "recipes/recipe_usas12.json"), "utf8").includes("test_gun:blueprint_usas12"));
 assert.equal(json(join(bp, "items/blueprint_dbss.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_dbss");
@@ -35,4 +35,9 @@ const arcEngine = readFileSync(join(bp, "scripts/feature/arcEngine.js"), "utf8")
 assert(shootUtils.includes("resolveBlockRaycastHit(blockHit, dir)"));
 assert(arcEngine.includes("resolveBlockRaycastHit(blockHit, viewDir)"));
 assert.equal(/impactLoc\s*=\s*\{[\s\S]{0,180}blockHit\.faceLocation\.x/.test(shootUtils), false, "local block hit coordinates must never be used as world coordinates");
-console.log("Test Guns 2D v3.10.1 validation passed.");
+const teamRules = readFileSync(join(bp, "scripts/feature/utils/teamRules.js"), "utf8");
+assert(teamRules.includes("sapi_team_") && teamRules.includes("isProtectedTeammate"), "SAPI team friendly-fire contract missing");
+for (const file of ["damageHandler.js", "rocketEngine.js", "grenadeEngine.js", "arcEngine.js", "artilleryEngine.js", "meleeEngine.js", "skillManager.js", "shieldEngine.js"]) {
+  assert(readFileSync(join(bp, "scripts/feature", file), "utf8").includes("isProtectedTeammate"), `friendly-fire guard missing: ${file}`);
+}
+console.log("Test Guns 2D v3.11.0 validation passed.");

@@ -19,7 +19,7 @@
           { "name": "查看今日任务", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:quests"] },
           { "name": "领取任务奖励", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:claim"] },
           { "name": "查看活跃奖励", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:activity"] },
-          { "name": "联盟每日新闻", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:news"] },
+          { "name": "每日突发事件", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:news"] },
           { "name": "提交制造成果", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:craft"] },
           { "name": "领取待发物资", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:pending"] },
           { "name": "任务说明", "commands": ["/dialogue close @initiator", "/execute as @initiator run scriptevent daily:help"] }
