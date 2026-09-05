@@ -1,0 +1,73 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.ab_ve.spawn_animation": {
+			"states": {
+				"default": {
+					"animations": [
+						"spawn"
+					],
+					"transitions": [
+						{
+							"finished": "query.is_alive && query.any_animation_finished"
+						}
+					]
+				},
+				"finished": {}
+			}
+		},
+		"controller.animation.ab_ve.speed_lines": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"speed": "variable.speed > 15 && query.has_rider && math.abs(variable.wheel_turns) < 30"
+						}
+					]
+				},
+				"speed": {
+					"animations": [
+						"speed_lines"
+					],
+					"transitions": [
+						{
+							"default": "variable.speed < 15 || !query.has_rider || math.abs(variable.wheel_turns) > 30"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.ab_ve.wheel_control": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"attempt_flight": "q.target_x_rotation < -5 && query.ground_speed > 7 || !q.is_on_ground"
+						}
+					]
+				},
+				"attempt_flight": {
+					"animations": [
+						"lift_off"
+					],
+					"transitions": [
+						{
+							"landing": "q.is_on_ground && q.target_x_rotation > -5 || query.ground_speed < 1"
+						}
+					]
+				},
+				"landing": {
+					"animations": [
+						"land"
+					],
+					"transitions": [
+						{
+							"default": "q.any_animation_finished"
+						}
+					]
+				}
+			}
+		}
+	}
+}

@@ -565,7 +565,7 @@
                 "text": "§l§6希望报  HOPE POST",
                 "size": ["100%", 22],
                 "color": [1.0, 0.84, 0.42],
-                "alignment": "center",
+                "text_alignment": "center",
                 "shadow": true
               }
             },
@@ -575,7 +575,7 @@
                 "text": "§7记录灯火仍未熄灭的每一天",
                 "size": ["100%", 12],
                 "color": [0.94, 0.89, 0.75],
-                "alignment": "center"
+                "text_alignment": "center"
               }
             },
             {

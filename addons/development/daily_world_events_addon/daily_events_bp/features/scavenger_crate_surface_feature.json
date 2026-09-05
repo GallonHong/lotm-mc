@@ -13,7 +13,7 @@
     "may_attach_to": {
       "auto_rotate": false,
       "min_sides_must_attach": 1,
-      "down": [
+      "bottom": [
         "minecraft:grass_block",
         "minecraft:dirt",
         "minecraft:coarse_dirt",

@@ -105,10 +105,19 @@ function sapiTeamTag(player) {
   catch { return ""; }
 }
 
-function closeEnoughForTeamCredit(player, dead) {
-  if (!valid(player) || player.dimension.id !== dead.dimension.id) return false;
-  try { return Math.hypot(player.location.x - dead.location.x, player.location.y - dead.location.y, player.location.z - dead.location.z) <= 40; }
-  catch { return false; }
+function closeEnoughForTeamCredit(player, dead, deadDimId, deadLoc) {
+  if (!valid(player)) return false;
+  try {
+    const pDim = player.dimension?.id;
+    const targetDim = deadDimId || dead?.dimension?.id;
+    if (!pDim || !targetDim || pDim !== targetDim) return false;
+    const pLoc = player.location;
+    const tLoc = deadLoc || dead?.location;
+    if (!pLoc || !tLoc) return false;
+    return Math.hypot(pLoc.x - tLoc.x, pLoc.y - tLoc.y, pLoc.z - tLoc.z) <= 40;
+  } catch {
+    return false;
+  }
 }
 
 function handleNpcInteraction(player, target) {
@@ -128,6 +137,12 @@ function handleNpcInteraction(player, target) {
 function handleEntityDeath(event) {
   const dead = event.deadEntity;
   if (!dead) return;
+  let deadDimId = null;
+  let deadLoc = null;
+  try {
+    deadDimId = dead.dimension?.id || null;
+    deadLoc = dead.location ? { x: dead.location.x, y: dead.location.y, z: dead.location.z } : null;
+  } catch {}
   if (dead.typeId === "minecraft:player") {
     WorldEventManager.onPlayerDeath(dead);
     DungeonManager.onPlayerDeath(dead);
@@ -140,12 +155,12 @@ function handleEntityDeath(event) {
   for (const [playerId, tick] of Object.entries(map)) {
     if (system.currentTick - Number(tick) > 300) continue;
     const player = findOnline(playerId);
-    if (!closeEnoughForTeamCredit(player, dead)) continue;
+    if (!closeEnoughForTeamCredit(player, dead, deadDimId, deadLoc)) continue;
     credited.set(player.id, player);
     const teamTag = sapiTeamTag(player);
     if (teamTag) {
       for (const teammate of world.getAllPlayers()) {
-        if (sapiTeamTag(teammate) === teamTag && closeEnoughForTeamCredit(teammate, dead)) credited.set(teammate.id, teammate);
+        if (sapiTeamTag(teammate) === teamTag && closeEnoughForTeamCredit(teammate, dead, deadDimId, deadLoc)) credited.set(teammate.id, teammate);
       }
     }
   }

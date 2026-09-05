@@ -6,7 +6,15 @@
     "textures": { "default": "textures/entity/alex" },
     "geometry": { "default": "geometry.humanoid" },
     "animations": { "base": "animation.humanoid.base_pose", "move": "animation.humanoid.move", "look": "animation.humanoid.look_at_target.default" },
-    "scripts": { "animate": ["base", "move", "look"] },
+    "scripts": {
+      "initialize": [
+        "variable.tcos0 = 0.0;"
+      ],
+      "pre_animation": [
+        "variable.tcos0 = (query.modified_move_speed * 38.17);"
+      ],
+      "animate": ["base", "move", "look"]
+    },
     "render_controllers": ["controller.render.default"]
   } }
 }
