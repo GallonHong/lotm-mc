@@ -18,6 +18,7 @@ const socialStore = read("sapi_server_bp/scripts/data/socialStore.js");
 const wanted = read("sapi_server_bp/scripts/modules/wanted.js");
 const combat = read("sapi_server_bp/scripts/modules/combat.js");
 const playerVending = read("sapi_server_bp/scripts/modules/player_vending.js");
+const merchantSource = read("sapi_server_bp/scripts/data/merchantConfig.js");
 const vendingItem = JSON.parse(read("sapi_server_bp/items/player_vending_machine_deployer.json"))["minecraft:item"];
 const vendingGeometry = JSON.parse(read("sapi_server_rp/models/blocks/player_vending_machine.geo.json"))["minecraft:geometry"];
 const itemAtlas = JSON.parse(read("sapi_server_rp/textures/item_texture.json"));
@@ -47,8 +48,8 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、希望报与事件管理/);
 assert.match(menu, /突发事件入口仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.11.4");
-assert.equal(resourceManifest.header.version.join("."), "2.11.4");
+assert.equal(manifest.header.version.join("."), "2.12.1");
+assert.equal(resourceManifest.header.version.join("."), "2.12.1");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
@@ -226,11 +227,29 @@ assert.equal(vendingItem.components["minecraft:icon"].textures.default, "sapi_pl
 assert.equal(itemAtlas.texture_data.sapi_player_vending_machine.textures, "textures/items/player_vending_machine");
 assert.equal(terrainAtlas.texture_data.sapi_player_vending_machine.textures, "textures/blocks/player_vending_machine");
 assert(vendingGeometry.some(entry => entry.description.identifier === "geometry.vendmachine1" && entry.bones.some(bone => bone.name === "vendingmachine")));
+assert(vendingGeometry.some(entry => entry.bones.some(bone => bone.name === "dark_interior")), "transparent display must have an opaque dark backing");
+for (const [direction, rotation] of [["north", 90], ["south", 270], ["east", 180], ["west", 0]]) {
+  const permutation = vendingBlock.permutations.find(entry => entry.condition.includes(`== '${direction}'`));
+  assert.equal(permutation.components["minecraft:transformation"].rotation[1], rotation, `${direction} placement rotation is incorrect`);
+}
+for (const marker of [
+  'if (state.ownerName === player.name) this.openOwner',
+  '.textField("上架数量", "请输入 1～当前持有数量", "1")',
+  '.textField("每件售价", "请输入金币单价", "100")',
+  'const nextState = { ...latestState, listings:',
+  '物品已经完整退回背包'
+]) assert(playerVending.includes(marker), `vending fix missing: ${marker}`);
+assert.equal(playerVending.includes("state.ownerName === player.name || Utils.isAdmin(player)"), false, "admins must not receive another owner's settings UI");
+assert.match(combat, /world\.afterEvents\?\.entityHurt/);
+assert.equal(combat.includes("!attacker || !victim || Utils.isAdmin(attacker)"), false, "admin attacks must still accrue wanted points");
 assert.notDeepEqual(
   fs.readFileSync(new URL("../sapi_server_rp/textures/items/player_vending_machine.png", import.meta.url)),
   fs.readFileSync(new URL("../sapi_server_rp/textures/blocks/player_vending_machine.png", import.meta.url)),
   "inventory icon must not reuse the block-model UV atlas"
 );
+for (const itemId of ["ab_ve:medical_station_spawner", "ab_ve:training_target_spawner"]) {
+  assert.match(merchantSource, new RegExp(itemId.replace(":", "\\:")), `life facility missing from merchant: ${itemId}`);
+}
 
 const uiSources = fs.readdirSync(new URL("../sapi_server_bp/scripts/", import.meta.url), { recursive: true })
   .filter(path => String(path).endsWith(".js"))
@@ -242,4 +261,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.11.4 validation passed.");
+console.log("SAPI Server v2.12.1 validation passed.");

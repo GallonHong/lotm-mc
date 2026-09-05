@@ -1,0 +1,23 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ab_ve:medical_station",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": { "family": ["ab_ve.furniture", "ab_ve.medical_station"] },
+      "minecraft:health": { "value": 200, "max": 200 },
+      "minecraft:collision_box": { "width": 1.0, "height": 1.35 },
+      "minecraft:physics": { "has_gravity": true, "has_collision": true },
+      "minecraft:pushable": { "is_pushable": false, "is_pushable_by_piston": false },
+      "minecraft:knockback_resistance": { "value": 1.0 },
+      "minecraft:persistent": {},
+      "minecraft:fire_immune": true,
+      "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": "no" }] },
+      "minecraft:interact": { "interactions": [{ "interact_text": "action.interact.medical_station" }] }
+    }
+  }
+}

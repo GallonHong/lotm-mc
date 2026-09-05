@@ -5,6 +5,8 @@ import { FuelManager } from "./vehicles/FuelManager.js";
 import { FoodManager } from "./food/FoodManager.js";
 import { VendingMachine } from "./vending/VendingMachine.js";
 import { PianoSystem } from "./piano/PianoSystem.js";
+import { MedicalStation } from "./furniture/MedicalStation.js";
+import { TrainingTarget } from "./furniture/TrainingTarget.js";
 import * as VC from "./vehicles/VehicleConstants.js";
 import { Config } from "./config.js";
 
@@ -14,6 +16,7 @@ console.warn("[ApocalypseLife] Addon initializing with Vehicles, Foods, Medics, 
 FoodManager.init();
 VendingMachine.init();
 PianoSystem.init();
+TrainingTarget.init();
 
 /**
  * 健壮的事件订阅方法 (遵循 for-gemini.md 规范)
@@ -75,6 +78,9 @@ const EntitySpawner = {
             const spawnedEntity = world.getDimension(player.dimension.id).spawnEntity(entityType, location);
             spawnedEntity.setRotation(player.getRotation());
 
+            if (entityType === "ab_ve:training_target") spawnedEntity.nameTag = "§l§e枪械训练靶§r\n§7射击后显示单次伤害与 5 秒 DPS";
+            if (entityType === "ab_ve:medical_station") spawnedEntity.nameTag = "§l§a联盟医疗站§r";
+
             // 还原车辆属性
             for (const [key, value] of Object.entries(properties)) {
                 try {
@@ -83,7 +89,7 @@ const EntitySpawner = {
             }
 
             // 还原燃油
-            FuelManager.setFuel(spawnedEntity, savedFuel);
+            if (!entityType.includes("medical_station") && !entityType.includes("training_target")) FuelManager.setFuel(spawnedEntity, savedFuel);
 
             // 扣除手持物品
             const equippable = player.getComponent("minecraft:equippable");
@@ -99,7 +105,8 @@ const EntitySpawner = {
 };
 
 try {
-    world.beforeEvents.worldInitialize.subscribe((event) => {
+    const itemRegistrySignal = system.beforeEvents?.startup || world.beforeEvents?.worldInitialize;
+    itemRegistrySignal?.subscribe((event) => {
         event.itemComponentRegistry.registerCustomComponent(
             "ab_ve:entity_spawner",
             EntitySpawner
@@ -111,6 +118,8 @@ try {
 subscribeAfterEvent("playerInteractWithEntity", (event) => {
     const { player, target } = event;
     if (!player || !target || !target.isValid()) return;
+
+    if (MedicalStation.handleInteraction(player, target)) return;
 
     // 加注燃油处理
     if (FuelManager.tryRefuel(target, player)) {

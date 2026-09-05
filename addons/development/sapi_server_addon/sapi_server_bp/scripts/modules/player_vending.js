@@ -66,13 +66,23 @@ export class PlayerVendingManager {
     static get(id) {
         try {
             const state = JSON.parse(world.getDynamicProperty(this.stateKey(id)) || "null");
-            return state?.id === id ? state : null;
+            if (state?.id !== id) return null;
+            if (!Array.isArray(state.listings)) state.listings = [];
+            state.pendingCoins = Math.max(0, Math.floor(Number(state.pendingCoins || 0)));
+            return state;
         } catch { return null; }
     }
 
     static save(state) {
-        world.setDynamicProperty(this.stateKey(state.id), JSON.stringify(state));
-        this.saveIndex([state.id, ...this.index()]);
+        try {
+            world.setDynamicProperty(this.stateKey(state.id), JSON.stringify(state));
+        } catch (error) {
+            console.warn(`[PlayerVending] state save failed for ${state?.id}: ${error}`);
+            return false;
+        }
+        try { this.saveIndex([state.id, ...this.index()]); }
+        catch (error) { console.warn(`[PlayerVending] index refresh failed for ${state.id}: ${error}`); }
+        return true;
     }
 
     static remove(id) {
@@ -178,7 +188,12 @@ export class PlayerVendingManager {
             location: { x: lower.location.x, y: lower.location.y, z: lower.location.z }, direction,
             listings: [], pendingCoins: 0, insured: false, createdAt: Date.now()
         };
-        this.save(state);
+        if (!this.save(state)) {
+            try { lower.setType("minecraft:air"); upper.setType("minecraft:air"); } catch {}
+            Utils.giveItem(player, ITEM_ID, 1);
+            if (cityFee > 0) EconomyManager.addBalance(player, cityFee);
+            return Utils.tell(player, "§c贩卖机登记失败，方块、部署器与主城经营费均已回滚。");
+        }
         AuditManager.log("vending_place", player, id, `${state.dimension} ${state.location.x},${state.location.y},${state.location.z} cityFee=${cityFee}`);
         Utils.tell(player, `§a玩家贩卖机部署成功${cityFee ? `，已支付 ${Utils.formatCurrency(cityFee)} 主城经营费` : ""}。`);
         this.openRename(player, state, true);
@@ -193,7 +208,8 @@ export class PlayerVendingManager {
         const previous = Number(this.openTicks.get(key) ?? -1000);
         if (system.currentTick - previous < 8) return;
         this.openTicks.set(key, system.currentTick);
-        if (state.ownerName === player.name || Utils.isAdmin(player)) this.openOwner(player, state);
+        // 管理员查看其他玩家的机器时也必须进入顾客页，不能获得店主操作权限。
+        if (state.ownerName === player.name) this.openOwner(player, state);
         else this.openBuyer(player, state);
     }
 
@@ -215,7 +231,7 @@ export class PlayerVendingManager {
 
     static requireOwnerAccess(player, state) {
         const current = this.reload(state);
-        if (!current || (current.ownerName !== player.name && !Utils.isAdmin(player))) return null;
+        if (!current || current.ownerName !== player.name) return null;
         if (!this.requirePhysicalAccess(player, current)) return null;
         if (!WantedManager.requireOfficialTrade(player)) return null;
         return current;
@@ -243,7 +259,7 @@ export class PlayerVendingManager {
         const current = this.requireOwnerAccess(player, state);
         if (!current) return;
         if (current.listings.length >= Number(this.settings().maxListings || 9)) return Utils.tell(player, "§c商品种类已经达到上限。");
-        const container = player.getComponent("inventory")?.container;
+        const container = player.getComponent("minecraft:inventory")?.container || player.getComponent("inventory")?.container;
         const entries = [];
         for (let slot = 0; slot < (container?.size || 0); slot++) {
             const item = container.getItem(slot);
@@ -252,8 +268,8 @@ export class PlayerVendingManager {
         if (!entries.length) return Utils.tell(player, "§8背包里没有可以上架的商品。");
         const form = new ModalFormData().title("§l上架贩卖机商品")
             .dropdown("选择背包物品", entries.map(entry => `槽位${entry.slot + 1} | ${MarketManager.getDisplayName(entry.item)} ×${entry.item.amount}`))
-            .textField("上架数量", "1")
-            .textField("每件售价", "100");
+            .textField("上架数量", "请输入 1～当前持有数量", "1")
+            .textField("每件售价", "请输入金币单价", "100");
         Utils.showForm(player, form, response => {
             if (response.canceled) return this.openOwner(player, current);
             const entry = entries[Number(response.formValues?.[0])];
@@ -276,11 +292,16 @@ export class PlayerVendingManager {
             }
             const snapshot = MarketManager.snapshotItem(latestItem);
             if (!MarketManager.removeFromSlot(player, entry.slot, amount, latestItem.typeId)) return Utils.tell(player, "§c物品托管失败，背包未变化。");
-            latestState.listings.push({ id: `item_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 5)}`, ...snapshot, amount, unitPrice });
-            this.save(latestState);
+            const listing = { id: `item_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 5)}`, ...snapshot, amount, unitPrice };
+            const nextState = { ...latestState, listings: [...latestState.listings, listing] };
+            if (!this.save(nextState)) {
+                const restored = MarketManager.giveListingItem(player, listing, amount);
+                Utils.tell(player, restored ? "§c贩卖机保存失败，物品已经完整退回背包。" : "§4贩卖机保存失败且物品自动退回失败，请立即联系管理员查看日志。");
+                return;
+            }
             AuditManager.log("vending_list", player, latestState.id, `${snapshot.typeId} x${amount} price=${unitPrice}`);
             Utils.tell(player, "§a商品已经放入贩卖机。");
-            this.openOwner(player, latestState);
+            this.openOwner(player, nextState);
         });
     }
 

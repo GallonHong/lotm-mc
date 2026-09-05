@@ -162,6 +162,8 @@ export const MERCHANT_CATEGORIES = Object.freeze([
         id: "vehicles", name: "§6生活与载具商", icon: "textures/items/minecart_normal", description: "载具蓝图、组件与末日生活设施。",
         items: [
             { id: "xypiano:piano_item", name: "钢琴", icon: "textures/items/piano_item", buyPrice: 20000, sellPrice: 0 },
+            { id: "ab_ve:medical_station_spawner", name: "联盟医疗站", icon: "textures/items/medic/first_aid", buyPrice: 12000, sellPrice: 0 },
+            { id: "ab_ve:training_target_spawner", name: "枪械训练靶", icon: "textures/blocks/target_side", buyPrice: 5000, sellPrice: 0 },
             { id: "survival_vehicle:blueprint_truck", name: "皮卡蓝图", buyPrice: 25000, dailyLimit: 1 },
             { id: "survival_vehicle:blueprint_ambulance", name: "救护车蓝图", buyPrice: 40000, dailyLimit: 1 },
             { id: "survival_vehicle:blueprint_helicopter", name: "军用直升机蓝图", buyPrice: 80000, dailyLimit: 1 },

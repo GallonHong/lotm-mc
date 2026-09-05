@@ -15,13 +15,13 @@ const walk = directory => readdirSync(directory, { withFileTypes: true }).flatMa
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [1, 3, 0]);
-assert.deepEqual(rpManifest.header.version, [1, 3, 0]);
+assert.deepEqual(bpManifest.header.version, [1, 4, 0]);
+assert.deepEqual(rpManifest.header.version, [1, 4, 0]);
 assert.equal(bpManifest.header.uuid, "bfab646c-b627-4312-adec-ec8b34af5061", "BP UUID must preserve old worlds");
 assert.equal(rpManifest.header.uuid, "f179a256-053b-4d7f-9c03-d92f26ffb083", "RP UUID must preserve old worlds");
 assert.ok(bpManifest.header.name.includes("Apocalypse Life"));
 assert.ok(rpManifest.header.name.includes("Apocalypse Life"));
-assert.ok(bpManifest.dependencies.some(value => value.uuid === rpManifest.header.uuid && value.version.join(".") === "1.3.0"));
+assert.ok(bpManifest.dependencies.some(value => value.uuid === rpManifest.header.uuid && value.version.join(".") === "1.4.0"));
 
 const recipe = name => join(bp, "recipes/vehicles", `recipe_blueprint_${name}.json`);
 for (const craftable of ["motorcycle", "speedboat"]) assert(existsSync(recipe(craftable)), `${craftable} blueprint must remain craftable`);
@@ -51,6 +51,18 @@ for (const marker of ["xypiano:placer", "xypiano:piano_block", "openKeyboard", "
 }
 assert.equal(pianoSystem.includes("CustomForm"), false, "unstable DDUI must not be imported into Apocalypse Life");
 assert.equal(pianoSystem.includes("Observable"), false, "unstable DDUI observables must not be imported");
+
+for (const furniture of ["medical_station", "training_target"]) {
+    assert.ok(existsSync(join(bp, "entities/ab_ve", `${furniture}.json`)), `missing ${furniture} server entity`);
+    assert.ok(existsSync(join(bp, "items/ab_ve", `${furniture}_spawner.json`)), `missing ${furniture} deployer`);
+    assert.ok(existsSync(join(rp, "entity/ab_ve", `${furniture}.json`)), `missing ${furniture} client entity`);
+    assert.ok(existsSync(join(rp, "models/entity/ab_ve", `${furniture}.geo.json`)), `missing ${furniture} geometry`);
+}
+assert.match(main, /MedicalStation\.handleInteraction/);
+assert.match(main, /TrainingTarget\.init\(\)/);
+const targetScript = readFileSync(join(bp, "scripts/furniture/TrainingTarget.js"), "utf8");
+assert.match(targetScript, /5秒DPS/);
+assert.doesNotMatch(targetScript, /actionBar|setActionBar/);
 
 const songsDir = join(bp, "scripts/piano/songs");
 const songIndex = readFileSync(join(songsDir, "index.js"), "utf8");
@@ -89,6 +101,6 @@ for (const [id, definition] of pianoSounds) {
 
 assert.ok(existsSync(join(repo, "addons/reference/钢琴_原始包_v1.3.0.mcaddon")), "uploaded source piano archive must be preserved");
 const build = readFileSync(join(root, "build.sh"), "utf8");
-for (const marker of ["apocalypse_life_bp", "apocalypse_life_rp", "Apocalypse_Life_Addon_v1.3.0.mcaddon"]) assert.ok(build.includes(marker));
+for (const marker of ["apocalypse_life_bp", "apocalypse_life_rp", "Apocalypse_Life_Addon_v1.4.0.mcaddon"]) assert.ok(build.includes(marker));
 assert.equal(build.includes("Apocalypse_Vehicles"), false);
-console.log("Apocalypse Life v1.3.0 validation passed.");
+console.log("Apocalypse Life v1.4.0 validation passed.");

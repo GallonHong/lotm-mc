@@ -7,7 +7,7 @@ rp_dir="${addon_dir}/sapi_server_rp"
 bp_pack="${addon_dir}/SAPI_Server_BP.mcpack"
 rp_pack="${addon_dir}/SAPI_Server_RP.mcpack"
 addon="${addon_dir}/SAPI_Server_Addon.mcaddon"
-versioned_addon="${addon_dir}/SAPI_Server_Addon_v2.11.4.mcaddon"
+versioned_addon="${addon_dir}/SAPI_Server_Addon_v2.12.1.mcaddon"
 bundle_dir="$(mktemp -d)"
 trap 'rm -rf "${bundle_dir}"' EXIT
 

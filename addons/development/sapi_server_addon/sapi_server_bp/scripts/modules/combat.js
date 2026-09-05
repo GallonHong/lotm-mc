@@ -30,7 +30,7 @@ export class CombatManager {
     }
 
     static recordProtectedAttack(attacker, victim) {
-        if (!attacker || !victim || Utils.isAdmin(attacker)) return;
+        if (!attacker || !victim) return;
         const zoneA = Integration.resolveCurrentZone(attacker.dimension.id, attacker.location);
         const zoneV = Integration.resolveCurrentZone(victim.dimension.id, victim.location);
         const protectedType = zoneA.type === "safe" || zoneV.type === "safe" ? "safe"
@@ -52,6 +52,25 @@ export class CombatManager {
             if (victim?.typeId !== "minecraft:player" || !attacker) return;
             if (this.areTeammates(attacker, victim)) {
                 event.cancel = true;
+                return;
+            }
+            this.recordProtectedAttack(attacker, victim);
+        });
+        // 部分稳定版没有 beforeEvents.entityHurt；after 事件用于记录实际命中的攻击。
+        // 若两个事件都存在，crimeTicks 会在同一秒内去重，不会重复增加通缉值。
+        const hurtAfter = world.afterEvents?.entityHurt;
+        if (hurtAfter?.subscribe) hurtAfter.subscribe(event => {
+            const victim = event.hurtEntity;
+            const attacker = attackingPlayer(event.damageSource);
+            if (victim?.typeId !== "minecraft:player" || !attacker) return;
+            if (this.areTeammates(attacker, victim)) {
+                system.run(() => {
+                    try {
+                        if (!victim.isValid()) return;
+                        const health = victim.getComponent("minecraft:health") || victim.getComponent("health");
+                        if (health) health.setCurrentValue(Math.min(health.effectiveMax, health.currentValue + Math.max(0, Number(event.damage || 0))));
+                    } catch {}
+                });
                 return;
             }
             this.recordProtectedAttack(attacker, victim);

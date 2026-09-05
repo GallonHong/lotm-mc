@@ -187,7 +187,7 @@ export class MarketManager {
 
     static removeFromSlot(player, slot, amount, expectedTypeId) {
         try {
-            const container = player.getComponent("inventory")?.container;
+            const container = player.getComponent("minecraft:inventory")?.container || player.getComponent("inventory")?.container;
             const item = container?.getItem(slot);
             if (!container || !item || item.typeId !== expectedTypeId || item.amount < amount) return false;
             if (item.amount === amount) container.setItem(slot, undefined);

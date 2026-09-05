@@ -484,7 +484,7 @@
             },
             {
               "binding_type": "view",
-              "source_property_name": "(not ((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r')))",
+              "source_property_name": "(not ((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r') or (#title_text = '§l§6希望报')))",
               "target_property_name": "#visible"
             }
           ]
@@ -515,6 +515,120 @@
               "target_property_name": "#visible"
             }
           ]
+        }
+      },
+      {
+        "hope_post_form@common_dialogs.main_panel_no_buttons": {
+          "$title_panel": "common_dialogs.standard_title_label",
+          "$title_size": ["100% - 14px", 14],
+          "size": [364, 244],
+          "$text_name": "#title_text",
+          "$title_text_binding_type": "none",
+          "$child_control": "server_form.hope_post_panel",
+          "layer": 4,
+          "bindings": [
+            { "binding_name": "#title_text" },
+            {
+              "binding_type": "view",
+              "source_property_name": "(#title_text = '§l§6希望报')",
+              "target_property_name": "#visible"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "hope_post_panel": {
+    "type": "panel",
+    "size": ["100%", "100%"],
+    "controls": [
+      {
+        "paper_background": {
+          "type": "image",
+          "texture": "textures/ui/apocalypse/hope_post_newspaper",
+          "size": ["100%", "100%"],
+          "alpha": 1.0,
+          "layer": 1
+        }
+      },
+      {
+        "newspaper_content": {
+          "type": "stack_panel",
+          "orientation": "vertical",
+          "size": ["100% - 12px", "100% - 8px"],
+          "offset": [0, 2],
+          "layer": 2,
+          "controls": [
+            {
+              "masthead": {
+                "type": "label",
+                "text": "§l§6希望报  HOPE POST",
+                "size": ["100%", 22],
+                "color": [1.0, 0.84, 0.42],
+                "alignment": "center",
+                "shadow": true
+              }
+            },
+            {
+              "motto": {
+                "type": "label",
+                "text": "§7记录灯火仍未熄灭的每一天",
+                "size": ["100%", 12],
+                "color": [0.94, 0.89, 0.75],
+                "alignment": "center"
+              }
+            },
+            {
+              "hero_gap": {
+                "type": "panel",
+                "size": ["100%", 34]
+              }
+            },
+            {
+              "rule": {
+                "type": "image",
+                "texture": "textures/ui/apocalypse/scrim",
+                "size": ["100%", 1],
+                "color": [0.95, 0.68, 0.2],
+                "alpha": 1.0
+              }
+            },
+            {
+              "hope_scroll@common.scrolling_panel": {
+                "$show_background": false,
+                "size": ["100%", "fill"],
+                "$scrolling_content": "server_form.hope_post_scrolling_content",
+                "$scroll_size": [5, "100% - 4px"],
+                "$scrolling_pane_size": ["100% - 4px", "100% - 2px"],
+                "$scrolling_pane_offset": [2, 0],
+                "$scroll_bar_right_padding_size": [0, 0]
+              }
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "hope_post_scrolling_content": {
+    "type": "stack_panel",
+    "orientation": "vertical",
+    "size": ["100% - 4px", "100%c"],
+    "controls": [
+      {
+        "edition_text": {
+          "type": "label",
+          "text": "#form_text",
+          "size": ["100% - 4px", "default"],
+          "offset": [2, 3],
+          "color": [0.18, 0.14, 0.09],
+          "shadow": false,
+          "bindings": [{ "binding_name": "#form_text" }]
+        }
+      },
+      { "gap": { "type": "panel", "size": ["100%", 7] } },
+      {
+        "hope_buttons@server_form.long_form_dynamic_buttons_panel": {
+          "size": ["100% - 4px", "100%c"]
         }
       }
     ]
