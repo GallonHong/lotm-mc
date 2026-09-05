@@ -149,6 +149,13 @@ const pianoItem = lifeMerchant?.items.find(item => item.id === "xypiano:piano_it
 assert.deepEqual(pianoItem, { id: "xypiano:piano_item", name: "钢琴", icon: "textures/items/piano_item", buyPrice: 20000, sellPrice: 0 });
 const safeItem = supplyItems.find(item => item.id === "sapi:secure_safe_deployer");
 assert.deepEqual([safeItem.buyPrice, safeItem.dailyLimit], [15000, 1]);
+for (const category of merchantConfig.MERCHANT_CATEGORIES) {
+  const items = category.subcategories ? category.subcategories.flatMap(sub => sub.items) : category.items;
+  for (const item of items) {
+    assert.equal(item.id.includes("blueprint_dbss"), false, "DBSS legendary blueprint must not be sold in shop");
+    assert.equal(String(item.name || "").includes("传说"), false, `legendary item must not be sold in shop: ${item.id}`);
+  }
+}
 assert.deepEqual([serverConfig.Config.safe.maxDurability, serverConfig.Config.safe.normalDamageReduction], [2000, 0.90]);
 assert.equal(serverConfig.Config.safe.nativeHealth, 1000000);
 assert.equal(serverConfig.Config.safe.interactionDistance, 2);

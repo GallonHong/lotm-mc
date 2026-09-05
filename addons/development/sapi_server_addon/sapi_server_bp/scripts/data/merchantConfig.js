@@ -147,7 +147,6 @@ export const MERCHANT_CATEGORIES = Object.freeze([
         items: [
             { id: "test_gun:blueprint_pkm", name: "PKM 烈焰重机枪蓝图", buyPrice: 30000, dailyLimit: 1 },
             { id: "test_gun:blueprint_usas12", name: "USAS-12 嗜血狂潮蓝图", buyPrice: 32000, dailyLimit: 1 },
-            { id: "test_gun:blueprint_dbss", name: "DBSS 裁决者传说蓝图", buyPrice: 48000, dailyLimit: 1 },
             { id: "test_gun:blueprint_m1014_ward", name: "M1014 泰坦壁垒蓝图", buyPrice: 28000, dailyLimit: 1 },
             { id: "test_gun:blueprint_flash_shield", name: "G52 闪光盾蓝图", buyPrice: 26000, dailyLimit: 1 },
             { id: "test_gun:blueprint_titan_chest", name: "泰坦外骨骼蓝图", buyPrice: 36000, dailyLimit: 1 },
