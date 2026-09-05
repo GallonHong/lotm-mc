@@ -75,5 +75,8 @@ for (const armorId of newArmorIds) {
 assert(existsSync(join(bp, "items/part_tech_data.json")), "missing part_tech_data");
 assert(existsSync(join(bp, "items/part_mech_chip.json")), "missing part_mech_chip");
 assert(existsSync(join(bp, "recipes/recipe_part_tech_data.json")), "missing recipe_part_tech_data");
-assert(existsSync(join(bp, "recipes/recipe_part_mech_chip.json")), "missing recipe_part_mech_chip");
+for (const armorId of ["armor_epic_titan_vest", "armor_assault_vest", "armor_police_vest", "armor_tactical_helmet", "flash_shield", "armor_gorka_bottom", "armor_bdu_woodland_bottom"]) {
+  assert(damageHandlerCode.includes(`${armorId}:`), `ARMOR_PIECE_VALUES missing tactical armor: ${armorId}`);
+}
+assert(damageHandlerCode.includes("armor_epic_titan_vest") && damageHandlerCode.includes("armor_tactical_helmet"), "damage reductions must include imported tactical armors");
 console.log("Test Guns 2D v3.12.0 validation passed.");

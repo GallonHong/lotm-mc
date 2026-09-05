@@ -3,7 +3,7 @@ import { MathUtils } from './utils/mathUtils.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
 
 export const ARMOR_PIECE_VALUES = {
-  // Vanilla Armors
+  // 原版原貌装甲 (Vanilla Armors)
   leather_helmet: 1, leather_chestplate: 3, leather_leggings: 2, leather_boots: 1,
   golden_helmet: 2, golden_chestplate: 5, golden_leggings: 3, golden_boots: 1,
   chainmail_helmet: 2, chainmail_chestplate: 5, chainmail_leggings: 4, chainmail_boots: 1,
@@ -12,15 +12,33 @@ export const ARMOR_PIECE_VALUES = {
   netherite_helmet: 3, netherite_chestplate: 8, netherite_leggings: 6, netherite_boots: 3,
   turtle_helmet: 2,
 
-  // Custom Tactical Armors & Equipment
-  armor_vest_light: 4,
-  armor_vest_heavy: 7,
-  armor_helmet_tactical: 3,
+  // 动力外骨骼与重型防弹胸甲 (Exoskeletons & Heavy Tactical Vests)
   armor_titan_chest: 12,
-  jetpack: 5,
-  riot_shield: 4,
+  armor_epic_titan_vest: 12,
+  armor_assault_vest: 7,
+  armor_vest_heavy: 7,
+  armor_police_vest: 5,
+  armor_vest_light: 4,
+  armor_epic_ghillie_suit: 6,
+  armor_bdu_woodland_top: 4,
+  armor_hazmat_top: 4,
 
-  // New LifeAfter Tactical Armors
+  // 战术防暴头盔与面罩 (Helmets & Masks)
+  armor_tactical_helmet: 4,
+  armor_helmet_tactical: 3,
+  armor_gasmask: 3,
+  armor_night_goggles: 2,
+
+  // 作战裤与护腿 (Tactical Pants & Leggings)
+  armor_gorka_bottom: 5,
+  armor_bdu_woodland_bottom: 4,
+
+  // 特殊机动装备与战术盾牌 (Mobility & Shields)
+  jetpack: 6,
+  riot_shield: 4,
+  flash_shield: 4,
+
+  // 明日之后风格专属战术防具 (LifeAfter Tactical Armors)
   armor_mob_chest: 9,
   armor_mob_pants: 6,
   armor_mob_mask: 4,
@@ -34,12 +52,31 @@ export const ARMOR_PIECE_VALUES = {
   armor_immortal_mask: 2,
   armor_analyzer: 2,
   armor_tech: 4,
-  armor_fraternity: 1
+  armor_fraternity: 1,
+
+  // 便服与作战常服 (Casual Wear & Clothes)
+  cloth_hunting_vest: 2,
+  cloth_leather_black: 3,
+  cloth_cargo_tan: 2,
+  cloth_jean_blue: 2,
+  cloth_overall_blue: 2,
+  cloth_puffer_blue: 2,
+  cloth_hoodie_black: 2,
+  cloth_flannel_red: 2,
+  cloth_varsity_red: 2,
+  cloth_ushanka: 2,
+  cloth_beanie_black: 1,
+  cloth_boonie_woodland: 1,
+  cloth_cowboy_brown: 1,
+  cloth_hawaiian_red: 1,
+  cloth_shemagh_tan: 1,
+  cloth_sweater_white: 1,
+  cloth_trackpants_black: 1
 };
 
 export class DamageHandler {
   /**
-   * 估算目标实体的综合护甲点数 (0 ~ 20+)
+   * 估算目标实体的综合护甲点数 (0 ~ 24+)
    */
   static estimateArmorPoints(entity) {
     if (!entity || !entity.isValid()) return 0;
@@ -59,9 +96,21 @@ export class DamageHandler {
       for (const slot of slots) {
         const item = equippable.getEquipment(slot);
         if (item && item.typeId) {
-          const rawName = item.typeId.replace(/^(minecraft|test_gun):/, '').toLowerCase();
-          if (ARMOR_PIECE_VALUES[rawName]) {
+          const rawName = item.typeId.includes(':') ? item.typeId.split(':')[1].toLowerCase() : item.typeId.toLowerCase();
+          if (ARMOR_PIECE_VALUES[rawName] !== undefined) {
             points += ARMOR_PIECE_VALUES[rawName];
+          } else {
+            // 智能启发式兜底：按关键词与装备槽智能推算护甲，确保未来装备或联动装备绝对生效
+            if (rawName.includes('titan') || rawName.includes('mob_chest')) points += 10;
+            else if (rawName.includes('chest') || rawName.includes('vest') || rawName.includes('rig') || rawName.includes('top')) points += 6;
+            else if (rawName.includes('pants') || rawName.includes('bottom') || rawName.includes('leggings')) points += 4;
+            else if (rawName.includes('helmet') || rawName.includes('mask') || rawName.includes('head') || rawName.includes('goggles')) points += 3;
+            else if (rawName.includes('boots') || rawName.includes('feet')) points += 2;
+            else if (rawName.includes('shield')) points += 4;
+            else if (slot === EquipmentSlot.Chest) points += 4;
+            else if (slot === EquipmentSlot.Legs) points += 3;
+            else if (slot === EquipmentSlot.Head) points += 2;
+            else if (slot === EquipmentSlot.Feet) points += 1;
           }
         }
       }
@@ -148,8 +197,8 @@ export class DamageHandler {
         if (target.typeId === 'minecraft:player') {
           target.onScreenDisplay?.setActionBar?.('§6🛡【堡垒防暴面罩】重装面甲完全阻断爆头加成伤害！§r');
         }
-      } else if (headItem && headItem.typeId.includes('armor_helmet_tactical')) {
-        hsMult = Math.max(1.15, hsMult - 0.45); // 特警头盔吸收 45% 爆头额外伤害
+      } else if (headItem && (headItem.typeId.includes('armor_helmet_tactical') || headItem.typeId.includes('armor_tactical_helmet') || headItem.typeId.includes('armor_tech'))) {
+        hsMult = Math.max(1.15, hsMult - 0.45); // 战术防暴头盔吸收 45% 爆头额外伤害
       }
       currentDamage *= hsMult;
     }
@@ -158,13 +207,13 @@ export class DamageHandler {
     if (chestItem) {
       if (chestItem.typeId.includes('armor_mob_chest')) {
         currentDamage *= 0.50; // 堡垒重装防弹衣 50% 终伤吸收 (传说级硬核防御)
-      } else if (chestItem.typeId.includes('armor_titan_chest')) {
-        currentDamage *= 0.65; // 泰坦动力甲 35% 终伤吸收
-      } else if (chestItem.typeId.includes('armor_immortal_vest')) {
-        currentDamage *= 0.80; // 特警特训防弹衣 20% 终伤吸收
-      } else if (chestItem.typeId.includes('armor_vest_heavy')) {
-        currentDamage *= 0.75; // 重装防弹衣 25% 终伤吸收
-      } else if (chestItem.typeId.includes('armor_vest_light')) {
+      } else if (chestItem.typeId.includes('armor_titan_chest') || chestItem.typeId.includes('armor_epic_titan_vest')) {
+        currentDamage *= 0.65; // 泰坦动力外骨骼装甲 35% 终伤吸收
+      } else if (chestItem.typeId.includes('armor_immortal_vest') || chestItem.typeId.includes('armor_police_vest')) {
+        currentDamage *= 0.80; // 特警特训防弹衣 / 警用防弹衣 20% 终伤吸收
+      } else if (chestItem.typeId.includes('armor_vest_heavy') || chestItem.typeId.includes('armor_assault_vest')) {
+        currentDamage *= 0.75; // 重装突击防弹衣 25% 终伤吸收
+      } else if (chestItem.typeId.includes('armor_vest_light') || chestItem.typeId.includes('armor_bdu_woodland_top') || chestItem.typeId.includes('armor_hazmat_top')) {
         currentDamage *= 0.85; // 轻型防弹衣 15% 终伤吸收
       }
     }
