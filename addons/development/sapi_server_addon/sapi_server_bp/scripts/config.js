@@ -4,7 +4,7 @@ import { MERCHANT_CATEGORIES, VANILLA_DAILY_SELL_CAP } from "./data/merchantConf
 
 export const Config = {
     system: {
-        serverName: "§l§ePixel§bWorld§r",
+        serverName: "§l§e我的§b明日§r",
         version: "2.12.1",
         adminTag: "admin",
         menuItem: "minecraft:compass",

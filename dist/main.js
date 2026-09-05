@@ -7,7 +7,7 @@ var Config = {
   // 基础与系统配置
   // -------------------------------------------------------------
   system: {
-    serverName: "\xA7l\xA7ePixel\xA7bWorld\xA7r",
+    serverName: "\xA7l\xA7e\u6211\u7684\xA7b\u660E\u65E5\xA7r",
     version: "1.1.1",
     adminTag: "admin",
     // 拥有此 tag 或 op 的玩家拥有管理员权限
