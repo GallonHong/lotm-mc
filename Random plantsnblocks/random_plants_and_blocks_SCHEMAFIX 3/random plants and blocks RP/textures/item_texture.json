@@ -1,0 +1,78 @@
+{
+  "resource_pack_name": "random plants and blocks",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "waterfountain1": {
+      "textures": "textures/blocks/waterf1"
+    },
+    "vendmachine1": {
+      "textures": "textures/blocks/vendmach"
+    },
+    "storeshelf4": {
+      "textures": "textures/blocks/storeshelf4"
+    },
+    "storeshelf3": {
+      "textures": "textures/blocks/storeshelf3"
+    },
+    "storeshelf2": {
+      "textures": "textures/blocks/storeshelf2"
+    },
+    "storeshelf1": {
+      "textures": "textures/blocks/storeshelf1"
+    },
+    "storecooler1": {
+      "textures": "textures/blocks/storecooler"
+    },
+    "skiball2": {
+      "textures": "textures/blocks/skiball2"
+    },
+    "skiball1": {
+      "textures": "textures/blocks/skiball1"
+    },
+    "satelite": {
+      "textures": "textures/blocks/satelight"
+    },
+    "portapotty": {
+      "textures": "textures/blocks/portapotty"
+    },
+    "pepsivendingmachine": {
+      "textures": "textures/blocks/vendingmachine2pep"
+    },
+    "glasspiece": {
+      "textures": "textures/blocks/glasspiece"
+    },
+    "gaspump2": {
+      "textures": "textures/blocks/pump2"
+    },
+    "gaspump1": {
+      "textures": "textures/blocks/pump1"
+    },
+    "cokevendingmachine": {
+      "textures": "textures/blocks/cokevendingmachine"
+    },
+    "chuckecheese2": {
+      "textures": "textures/blocks/chuckecheese2"
+    },
+    "chuckecheese1": {
+      "textures": "textures/blocks/chuckecheese3"
+    },
+    "chefpp": {
+      "textures": "textures/blocks/chefpp"
+    },
+    "cactus4": {
+      "textures": "textures/blocks/plant_90"
+    },
+    "cactus3": {
+      "textures": "textures/blocks/plant_100"
+    },
+    "cactus2": {
+      "textures": "textures/blocks/c2"
+    },
+    "cactus1": {
+      "textures": "textures/blocks/cactus1"
+    },
+    "c5": {
+      "textures": "textures/blocks/plant_96"
+    }
+  }
+}

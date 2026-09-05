@@ -1,0 +1,17 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:item": {
+    "description": {
+      "identifier": "bridge:cactus3",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:icon": "cactus3",
+      "minecraft:block_placer": {
+        "block": "bridge:cactus3"
+      }
+    }
+  }
+}

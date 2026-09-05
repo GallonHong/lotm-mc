@@ -1,0 +1,88 @@
+{
+	"format_version": [
+		1,
+		1,
+		0
+	],
+	"bridge:cactus1": {
+		"sound": "stone"
+	},
+	"bridge:cactus2": {
+		"sound": "stone"
+	},
+	"bridge:cactus4": {
+		"sound": "stone"
+	},
+	"bridge:c5": {
+		"sound": "stone"
+	},
+	"bridge:cactus3": {
+		"sound": "stone"
+	},
+	"bridge:vendmachine": {
+		"sound": "stone"
+	},
+	"bridge:vendingmac": {
+		"sound": "stone"
+	},
+	"bridge:vendmachine1": {
+		"sound": "stone"
+	},
+	"bridge:waterfountain1": {
+		"sound": "stone"
+	},
+	"bridge:gaspump1": {
+		"sound": "stone"
+	},
+	"bridge:gaspump2": {
+		"sound": "stone"
+	},
+	"bridge:pepsivendingmachine": {
+		"sound": "stone"
+	},
+	"bridge:hollywoodstar": {
+		"sound": "stone"
+	},
+	"bridge:storecooler1": {
+		"sound": "stone"
+	},
+	"bridge:satelite": {
+		"sound": "stone"
+	},
+	"bridge:cokevendingmachine": {
+		"sound": "stone"
+	},
+	"bridge:chuckecheese1": {
+		"sound": "stone"
+	},
+	"bridge:chefpp": {
+		"sound": "stone"
+	},
+	"bridge:chuckecheese2": {
+		"sound": "stone"
+	},
+	"bridge:storeshelf1": {
+		"sound": "stone"
+	},
+	"bridge:glasspiece": {
+		"sound": "stone"
+	},
+	"bridge:storeshelf2": {
+		"sound": "stone"
+	},
+	"bridge:storeshelf3": {
+		"sound": "stone"
+	},
+	"bridge:storeshelf4": {
+		"sound": "stone"
+	},
+	"bridge:skiball1": {
+		"sound": "stone"
+	},
+	"bridge:skiball2": {
+		"sound": "stone"
+	},
+	"bridge:portapotty": {
+		"sound": "stone"
+	}
+}

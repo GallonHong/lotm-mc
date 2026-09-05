@@ -1,0 +1,17 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:item": {
+    "description": {
+      "identifier": "bridge:pepsivendingmachine",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:icon": "pepsivendingmachine",
+      "minecraft:block_placer": {
+        "block": "bridge:pepsivendingmachine"
+      }
+    }
+  }
+}

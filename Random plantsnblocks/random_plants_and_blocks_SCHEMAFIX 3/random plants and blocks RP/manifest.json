@@ -1,0 +1,44 @@
+{
+  "format_version": 2,
+  "metadata": {
+    "authors": [
+      "kaybreazy"
+    ]
+  },
+  "header": {
+    "name": "pack.name",
+    "description": "pack.description",
+    "min_engine_version": [
+      1,
+      21,
+      90
+    ],
+    "uuid": "37205f13-9d1d-456c-864c-4982bd87c83d",
+    "version": [
+      2,
+      0,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "98bf5d1a-0963-49b5-be32-44bcd12d95a4",
+      "version": [
+        2,
+        0,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "2e071aca-65fc-4285-a936-8f570a8d22f6",
+      "version": [
+        1,
+        0,
+        0
+      ]
+    }
+  ]
+}

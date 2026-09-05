@@ -1,0 +1,17 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:item": {
+    "description": {
+      "identifier": "bridge:glasspiece",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:icon": "glasspiece",
+      "minecraft:block_placer": {
+        "block": "bridge:glasspiece"
+      }
+    }
+  }
+}

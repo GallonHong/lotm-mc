@@ -1,0 +1,89 @@
+{
+	"num_mip_levels": 4,
+	"padding": 8,
+	"resource_pack_name": "random plants and blocks",
+	"texture_name": "atlas.terrain",
+	"texture_data": {
+		"bridge_cactus1": {
+			"textures": "textures/blocks/cactus1"
+		},
+		"bridge_cactus2": {
+			"textures": "textures/blocks/c2"
+		},
+		"bridge_cactus4": {
+			"textures": "textures/blocks/plant_90"
+		},
+		"bridge_c5": {
+			"textures": "textures/blocks/plant_96"
+		},
+		"bridge_cactus3": {
+			"textures": "textures/blocks/plant_100"
+		},
+		"bridge_vendmachine": {
+			"textures": "textures/blocks/vendmach"
+		},
+		"bridge_vendingmac": {
+			"textures": "textures/blocks/vendmach"
+		},
+		"bridge_vendmachine1": {
+			"textures": "textures/blocks/vendmach"
+		},
+		"bridge_waterfountain1": {
+			"textures": "textures/blocks/waterf1"
+		},
+		"bridge_gaspump1": {
+			"textures": "textures/blocks/pump1"
+		},
+		"bridge_gaspump2": {
+			"textures": "textures/blocks/pump2"
+		},
+		"bridge_pepsivendingmachine": {
+			"textures": "textures/blocks/vendingmachine2pep"
+		},
+		"bridge_hollywoodstar": {
+			"textures": "textures/blocks/star"
+		},
+		"bridge_storecooler1": {
+			"textures": "textures/blocks/storecooler"
+		},
+		"bridge_satelite": {
+			"textures": "textures/blocks/satelight"
+		},
+		"bridge_cokevendingmachine": {
+			"textures": "textures/blocks/cokevendingmachine"
+		},
+		"bridge_chuckecheese1": {
+			"textures": "textures/blocks/chuckecheese3"
+		},
+		"bridge_chefpp": {
+			"textures": "textures/blocks/chefpp"
+		},
+		"bridge_chuckecheese2": {
+			"textures": "textures/blocks/chuckecheese2"
+		},
+		"bridge_storeshelf1": {
+			"textures": "textures/blocks/storeshelf1"
+		},
+		"bridge_glasspiece": {
+			"textures": "textures/blocks/glasspiece"
+		},
+		"bridge_storeshelf2": {
+			"textures": "textures/blocks/storeshelf2"
+		},
+		"bridge_storeshelf3": {
+			"textures": "textures/blocks/storeshelf3"
+		},
+		"bridge_storeshelf4": {
+			"textures": "textures/blocks/storeshelf4"
+		},
+		"bridge_skiball1": {
+			"textures": "textures/blocks/skiball1"
+		},
+		"bridge_skiball2": {
+			"textures": "textures/blocks/skiball2"
+		},
+		"bridge_portapotty": {
+			"textures": "textures/blocks/portapotty"
+		}
+	}
+}
