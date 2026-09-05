@@ -15,7 +15,7 @@ const TPA_RECEIVE_KEY = "sapi:tpa_receive:v1";
  * 格式严格遵循：地点--xx区
  */
 export const DEFAULT_WARPS = Object.freeze([
-    // [等级 0 · 安全生活区]
+    // [等级 0 · 安全生活区 (游戏内命中安全区 1/2/3)]
     {
         id: "spawn",
         isSpawn: true,
@@ -53,19 +53,7 @@ export const DEFAULT_WARPS = Object.freeze([
         createdBy: "system",
         createdAt: 0
     },
-    {
-        id: "warp_tech_council",
-        name: "科技会--安全区",
-        icon: "textures/ui/icon_recipe_nature",
-        dimension: "minecraft:overworld",
-        x: 1275.00,
-        y: 70.00,
-        z: 1066.00,
-        rotation: { x: 0, y: 0 },
-        createdBy: "system",
-        createdAt: 0
-    },
-    // [等级 1 · 初级法制区]
+    // [等级 1 · 法制资源区 (游戏内命中法制区 1/2)]
     {
         id: "warp_fall_forest",
         name: "秋日森林--法制区",
@@ -74,31 +62,6 @@ export const DEFAULT_WARPS = Object.freeze([
         x: 3641.00,
         y: 22.00,
         z: 2278.00,
-        rotation: { x: 0, y: 0 },
-        createdBy: "system",
-        createdAt: 0
-    },
-    {
-        id: "warp_sand_castle",
-        name: "沙石堡--法制区",
-        icon: "textures/ui/World",
-        dimension: "minecraft:overworld",
-        x: 1123.00,
-        y: 31.00,
-        z: 1462.00,
-        rotation: { x: 0, y: 0 },
-        createdBy: "system",
-        createdAt: 0
-    },
-    // [等级 2 · 进阶法制区]
-    {
-        id: "warp_white_tree",
-        name: "白树高地--法制区",
-        icon: "textures/ui/World",
-        dimension: "minecraft:overworld",
-        x: 3310.00,
-        y: 96.00,
-        z: 429.00,
         rotation: { x: 0, y: 0 },
         createdBy: "system",
         createdAt: 0
@@ -115,9 +78,46 @@ export const DEFAULT_WARPS = Object.freeze([
         createdBy: "system",
         createdAt: 0
     },
+    // [等级 2 · 初中级非法制区 (按游戏底层坐标未在安全/法制区包围盒，默认全为非法制区)]
+    {
+        id: "warp_tech_council",
+        name: "科技会--非法制区",
+        icon: "textures/ui/icon_recipe_nature",
+        dimension: "minecraft:overworld",
+        x: 1275.00,
+        y: 70.00,
+        z: 1066.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_sand_castle",
+        name: "沙石堡--非法制区",
+        icon: "textures/ui/World",
+        dimension: "minecraft:overworld",
+        x: 1123.00,
+        y: 31.00,
+        z: 1462.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_white_tree",
+        name: "白树高地--非法制区",
+        icon: "textures/ui/World",
+        dimension: "minecraft:overworld",
+        x: 3310.00,
+        y: 96.00,
+        z: 429.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
     {
         id: "warp_dobe_snow",
-        name: "多贝雪山--法制区",
+        name: "多贝雪山--非法制区",
         icon: "textures/ui/World",
         dimension: "minecraft:overworld",
         x: 3373.00,
@@ -127,7 +127,7 @@ export const DEFAULT_WARPS = Object.freeze([
         createdBy: "system",
         createdAt: 0
     },
-    // [等级 3 · 感染团队副本非法制区]
+    // [等级 3 · 感染团队副本高危非法制区]
     {
         id: "warp_miska_uni",
         name: "密斯卡大学--非法制区",
