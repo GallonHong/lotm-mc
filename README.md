@@ -2,6 +2,15 @@
 
 服务器部署、管理员命令、旧地图补箱与故障处理见 [服务器运营手册](docs/服务器运营手册.md)。
 
+## 📁 仓库目录
+
+- `addons/development/`：当前持续开发、测试和发布的 Add-on，包括 Apocalypse 系列、SAPI Server、Test Guns、独立自然灾害、每日事件和 LOTM Pathways。
+- `addons/reference/`：只用于模型、贴图、音效或实现方式参考的原始素材包；服务器不应直接从这里安装开发版功能。
+- `releases/legacy/`：整理前位于仓库根目录的历史安装包快照，不代表最新版。
+- `tools/`：世界重打包、开发目录同步及兼容构建工具。
+
+详细分类与依赖边界见 [Add-on 目录说明](addons/README.md)。
+
 项目已拆分为两个可独立启用、同时安装时自动联动的 Add-on：
 
 - **SAPI Server Economy 2.10.0**：经济、商店、密码保险箱、领地、寄卖、传送、签到、保护区、审计与社交系统。社交菜单包含持久化好友、公会、领地访客点，以及重启后解散的四人队伍；队长可发起全队 Ready 后统一进入副本。
@@ -9,7 +18,7 @@
 
 两个包之间只通过心跳动态属性与 `scriptevent` 公共接口通讯，不互相导入脚本文件，因此任一包缺失时仍可独立启动。联合启用时，服务器菜单会自动出现“诡秘非凡秘典”，商店和抽奖也会自动加入 LOTM 商品；LOTM 的非凡伤害会继续遵守服务器领地权限。
 
-另提供独立可选包 **Apocalypse Mobs v0.7.1**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode、分级怪物掉落和 SpawnDirector 跨包刷怪接口。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能、盾牌减伤及枪械半成品掉落。源码与安装包位于 `apocalypse_mobs_addon/`。
+另提供独立可选包 **Apocalypse Mobs v0.7.1**：实现主世界区域刷怪、五类感染者、持枪掠夺者、LootNode、分级怪物掉落和 SpawnDirector 跨包刷怪接口。它可独立运行；与 SAPI Server 同时启用时自动将管理保护区视为安全区并接入 `money` 经济，与 Test Guns 同时启用时支持闪盾致盲/失能、盾牌减伤及枪械半成品掉落。源码与安装包位于 `addons/development/apocalypse_mobs_addon/`。
 
 新增独立可选包 **Survival Daily & World Events v0.16.0**：每天生成采集、击杀、动态事件和综合四类委托，提供每日新闻、原生 NPC 对话、四类可配置商人、区域事件、多副本及神话物资箱密钥。与 SAPI 2.10.0 同时启用时支持四人队伍 Ready、全队统一进入副本，以及附近队友共享击杀、事件和 Boss 贡献。无品质废墟物资箱会以约每 6 个新区块一个的概率自然生成；管理员也可临时开启旧区块补生成，处理已经探索的地图。
 
@@ -126,17 +135,17 @@
 
 ## 🛠️ 安装与使用指南
 
-1. 下载并双击导入 `sapi_server_addon/SAPI_Server_Addon.mcaddon` 与根目录的 `LOTM_Pathways_Addon.mcaddon`。
+1. 下载并双击导入 `addons/development/sapi_server_addon/SAPI_Server_Addon.mcaddon` 与 `addons/development/lotm_pathways_addon/LOTM_Pathways_Addon.mcaddon`。
 2. 创建或编辑世界，在行为包中启用 `SAPI Server Economy` 与 `LOTM Pathways`；LOTM 资源包会由依赖自动启用。
 3. 确保世界设置中的 **Beta API（测试版 API）** 选项已开启。
 4. 进入世界后手持罗盘右键打开服务器菜单；只安装 LOTM 时，罗盘会直接打开非凡秘典。
 
 也可以按需求单独安装：
 
-- 纯生存经济服务器：只安装 `sapi_server_addon/SAPI_Server_Addon.mcaddon`。
-- 纯诡秘玩法世界：只安装 `LOTM_Pathways_Addon.mcaddon`。
+- 纯生存经济服务器：只安装 `addons/development/sapi_server_addon/SAPI_Server_Addon.mcaddon`。
+- 纯诡秘玩法世界：只安装 `addons/development/lotm_pathways_addon/LOTM_Pathways_Addon.mcaddon`。
 - 完整联动服务器：两个 `.mcaddon` 都安装并启用。
-- 末日主世界：在 SAPI 基础上额外安装 `Test_Guns_2D_Addon.mcaddon`、`Apocalypse_Mobs_Addon.mcaddon` 与 `Survival_Daily_Events_Addon.mcaddon`；后三者仍可按需单独启用。
+- 末日主世界：在 SAPI 基础上，从各自的 `addons/development/<项目>/` 目录安装 Test Guns、Apocalypse Mobs 与 Survival Daily Events；三者仍可按需单独启用。
 
 > Script API 1.19.0 稳定版没有公开 `chatSend` 事件，因此该版本请使用罗盘或
 > `/scriptevent system:menu` 打开菜单；聊天快捷指令只会在运行时提供聊天事件时启用。
@@ -161,7 +170,7 @@
 
 ## ⚙️ 自定义配置指南
 
-所有商品、价格、抽奖掉落、地皮单价均可在 [sapi_server_addon/sapi_server_bp/scripts/config.js](sapi_server_addon/sapi_server_bp/scripts/config.js) 中轻松修改：
+所有商品、价格、抽奖掉落、地皮单价均可在 [addons/development/sapi_server_addon/sapi_server_bp/scripts/config.js](addons/development/sapi_server_addon/sapi_server_bp/scripts/config.js) 中轻松修改：
 - **修改货币名称**：`Config.economy.currencyName`
 - **修改地皮价格**：`Config.land.pricePerChunk`
 - **新增商店商品**：在 `Config.shop.categories` 的 `items` 数组中添加物品 ID、名称与买卖价格。
@@ -172,25 +181,25 @@
 修改源码后，在 macOS 或 Linux 中运行：
 
 ```bash
-bash scripts/build-packages.sh
+bash addons/development/lotm_pathways_addon/scripts/build-packages.sh
 ```
 
 只构建 SAPI Server 时运行：
 
 ```bash
-bash sapi_server_addon/build.sh
+bash addons/development/sapi_server_addon/build.sh
 ```
 
 脚本会生成并校验：
 
-- `sapi_server_addon/SAPI_Server_BP.mcpack`、`sapi_server_addon/SAPI_Server_Addon.mcaddon`
-- `LOTM_Pathways_BP.mcpack`、`LOTM_Pathways_RP.mcpack`、`LOTM_Pathways_Addon.mcaddon`
+- `addons/development/sapi_server_addon/SAPI_Server_BP.mcpack`、`addons/development/sapi_server_addon/SAPI_Server_Addon.mcaddon`
+- `addons/development/lotm_pathways_addon/LOTM_Pathways_BP.mcpack`、`LOTM_Pathways_RP.mcpack`、`LOTM_Pathways_Addon.mcaddon`
 
 末日生存可选包分别运行：
 
 ```bash
-bash apocalypse_mobs_addon/build.sh
-bash daily_world_events_addon/build.sh
+bash addons/development/apocalypse_mobs_addon/build.sh
+bash addons/development/daily_world_events_addon/build.sh
 ```
 
 旧的单体 `SAPI_System_Addon.mcaddon` 会在构建时删除，避免玩家同时启用新旧入口导致事件重复订阅。
