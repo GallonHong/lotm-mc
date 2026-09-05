@@ -6,7 +6,7 @@ const NATURAL_SUPPORT = new Set([
   "minecraft:grass_block", "minecraft:dirt", "minecraft:coarse_dirt", "minecraft:podzol",
   "minecraft:mycelium", "minecraft:moss_block", "minecraft:mud", "minecraft:stone",
   "minecraft:deepslate", "minecraft:sand", "minecraft:red_sand", "minecraft:gravel",
-  "minecraft:terracotta"
+  "minecraft:hardened_clay", "minecraft:terracotta"
 ]);
 
 const ARTIFICIAL_MARKERS = [
