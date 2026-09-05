@@ -207,7 +207,7 @@ assert.match(combat, /areTeammates/);
 assert.match(combat, /event\.cancel = true/);
 assert.match(wanted, /tradeRestrictionPoints/);
 assert.match(wanted, /一键拉黑高危玩家/);
-assert.match(wanted, /static tickDecay\(\) \{[\s\S]*?\n\s{8}\}\n\s{4}\}\n\n\s{4}static onPlayerLeave/, "tickDecay must close its loop and method before onPlayerLeave");
+assert.match(wanted, /static tickDecay\(\) \{[\s\S]*?\r?\n\s{8}\}\r?\n\s{4}\}\r?\n\r?\n\s{4}static onPlayerLeave/, "tickDecay must close its loop and method before onPlayerLeave");
 assert.match(playerVending, /破坏玩家贩卖机/);
 assert.match(playerVending, /dropRandomProduct/);
 assert.match(playerVending, /buyInsurance/);

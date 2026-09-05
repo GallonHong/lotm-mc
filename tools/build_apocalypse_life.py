@@ -10,6 +10,8 @@ rp_pack = os.path.join(addon_dir, 'Apocalypse_Life_RP.mcpack')
 addon = os.path.join(addon_dir, 'Apocalypse_Life_Addon.mcaddon')
 
 def zip_folder(folder_path, output_path):
+    if os.path.exists(output_path):
+        os.remove(output_path)
     with zipfile.ZipFile(output_path, 'w', zipfile.ZIP_DEFLATED) as zipf:
         for root, dirs, files in os.walk(folder_path):
             if any(x in root for x in [".git", "node_modules", ".gemini", "__pycache__"]):
@@ -26,6 +28,8 @@ print("Building Apocalypse Life RP pack...")
 zip_folder(rp_dir, rp_pack)
 
 print("Building combined Apocalypse Life .mcaddon...")
+if os.path.exists(addon):
+    os.remove(addon)
 with zipfile.ZipFile(addon, 'w', zipfile.ZIP_DEFLATED) as zipf:
     zipf.write(bp_pack, os.path.basename(bp_pack))
     zipf.write(rp_pack, os.path.basename(rp_pack))
