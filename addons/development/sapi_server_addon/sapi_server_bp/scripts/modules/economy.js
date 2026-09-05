@@ -151,8 +151,8 @@ export class EconomyManager {
             .title("§l§6🏦 个人银行与资产")
             .body(
                 `§8═════════════════════════\n` +
-                `§0玩家姓名: §e${player.name}\n` +
-                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§e玩家姓名: §e${player.name}\n` +
+                `§e当前资产: ${Utils.formatCurrency(balance)}\n` +
                 `§8═════════════════════════\n` +
                 `§8请选择你要进行的资金操作：`
             )
@@ -201,8 +201,8 @@ export class EconomyManager {
 
         const form = new ModalFormData()
             .title("§l§2💸 玩家转账")
-            .dropdown(`§0选择收款人:\n§8(你的当前余额: ${Utils.formatCurrency(balance)})`, playerNames)
-            .textField("§0转账金额:", "请输入转账金币数量 (例如: 100)");
+            .dropdown(`§e选择收款人:\n§8(你的当前余额: ${Utils.formatCurrency(balance)})`, playerNames)
+            .textField("§e转账金额:", "请输入转账金币数量 (例如: 100)");
 
         Utils.showForm(player, form, (res) => {
             if (res.canceled) {
@@ -250,12 +250,12 @@ export class EconomyManager {
         const medals = ["§6🥇 第 1 名", "§8🥈 第 2 名", "§c🥉 第 3 名"];
 
         playerStats.slice(0, 10).forEach((item, index) => {
-            const rankLabel = medals[index] || `§0[第 ${index + 1} 名]`;
+            const rankLabel = medals[index] || `§e[第 ${index + 1} 名]`;
             content += `${rankLabel} §e${item.name} §r- ${Utils.formatCurrency(item.balance)}\n`;
         });
 
         content += `\n§8══════════════════════════════\n`;
-        content += `§0你的当前资产: ${Utils.formatCurrency(this.getBalance(player))}`;
+        content += `§e你的当前资产: ${Utils.formatCurrency(this.getBalance(player))}`;
 
         const form = new ActionFormData()
             .title("§l§e🏆 财富排行榜")

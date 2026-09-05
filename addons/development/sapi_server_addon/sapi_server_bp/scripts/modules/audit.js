@@ -88,13 +88,13 @@ export class AuditManager {
         ).slice(0, 30);
         const actions = [];
         const form = new ActionFormData().title("§l§c📋 服务器审计").body(
-            `§0总记录: §e${this.getLogs().length}§0 条\n§0当前筛选: §8${needle || "无"}\n§8仅显示最近 30 条匹配记录`
+            `§e总记录: §e${this.getLogs().length}§e 条\n§e当前筛选: §8${needle || "无"}\n§8仅显示最近 30 条匹配记录`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b🔎 搜索日志", "textures/ui/magnifyingGlass", () => this.openFilterModal(player, onBack));
         add("§l§8✖ 清除筛选", "textures/ui/cancel", () => this.openAdminUI(player, onBack));
         for (const entry of logs) {
-            add(`§0${this.label(entry.type)} §8| §e${entry.actor}\n§r§8${this.formatTime(entry.time)}`, "textures/ui/achievements", () => this.openEntry(player, entry, onBack, needle));
+            add(`§e${this.label(entry.type)} §8| §e${entry.actor}\n§r§8${this.formatTime(entry.time)}`, "textures/ui/achievements", () => this.openEntry(player, entry, onBack, needle));
         }
         add("§l§6📤 输出到内容日志", "textures/ui/op", () => {
             console.warn(`[Audit Export] ${JSON.stringify(this.getLogs())}`);
@@ -116,7 +116,7 @@ export class AuditManager {
 
     static openEntry(player, entry, onBack, filter) {
         const form = new MessageFormData().title(`§l${this.label(entry.type)}`).body(
-            `§0时间: §8${this.formatTime(entry.time)}\n§0操作者: §e${entry.actor}\n§0目标: §b${entry.target || "无"}\n§0详情: §8${entry.detail || "无"}\n§8ID: ${entry.id}`
+            `§e时间: §8${this.formatTime(entry.time)}\n§e操作者: §e${entry.actor}\n§e目标: §b${entry.target || "无"}\n§e详情: §8${entry.detail || "无"}\n§8ID: ${entry.id}`
         ).button1("§8返回日志").button2("§8关闭");
         Utils.showForm(player, form, response => {
             if (response.selection === 0) this.openAdminUI(player, onBack, filter);

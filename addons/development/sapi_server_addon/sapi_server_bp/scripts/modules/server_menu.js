@@ -41,8 +41,8 @@ export class ServerMenuManager {
             .body(
                 `👤 §e${player.name}  §8│  💰 §6${Utils.formatCurrency(balance)}  §8│  📍 ${zoneDisplay}\n` +
                 `§8──────────────────────────────\n` +
-                `§0当前区域: ${zoneDisplay}\n` +
-                `§0区块坐标: §8[${chunkX}, ${chunkZ}]   §0维度: §8${player.dimension.id.replace("minecraft:", "")}\n` +
+                `§e当前区域: ${zoneDisplay}\n` +
+                `§e区块坐标: §8[${chunkX}, ${chunkZ}]   §e维度: §8${player.dimension.id.replace("minecraft:", "")}\n` +
                 `§8──────────────────────────────`
             );
 
@@ -94,7 +94,7 @@ export class ServerMenuManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§c⚙️ 服务器管理员控制台")
-            .body(`§0在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${dailyEventsReady ? "§a已连接" : "§c未连接（突发事件入口仍保留）"}`);
+            .body(`§e在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§8未连接"}\n§8日常事件联动: ${dailyEventsReady ? "§a已连接" : "§c未连接（突发事件入口仍保留）"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add(`§l§6📢 发布每日突发事件\n§r§8${dailyEventsReady ? "选择预设并手填事件坐标" : "需要启用 Daily Events BP"}`, "textures/ui/infobulb", () => {
             if (!Integration.isDailyEventsAvailable()) return Utils.tell(player, "§cDaily Events 未连接。请启用最新 Survival Daily & World Events BP，并退出世界后重新进入。");
@@ -145,9 +145,9 @@ export class ServerMenuManager {
         const players = world.getAllPlayers();
         const form = new ModalFormData()
             .title("§l§6💵 玩家金币调控")
-            .dropdown("选择玩家", players.map(p => p.name))
-            .dropdown("操作", ["增加", "扣除", "设定"])
-            .textField("金额", "1000");
+            .dropdown("§e选择玩家", players.map(p => p.name))
+            .dropdown("§e操作", ["§e增加", "§e扣除", "§e设定"])
+            .textField("§e金额", "1000");
         Utils.showForm(player, form, (res) => {
             if (res.canceled) return onBack?.();
             const [playerIndex, operation, rawAmount] = res.formValues;
@@ -173,7 +173,7 @@ export class ServerMenuManager {
             Utils.tell(player, "§8当前区块没有地皮。");
             return onBack?.();
         }
-        const form = new MessageFormData().title("§l§4确认删除地皮").body(`§0${plot.name}\n§8[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§8取消");
+        const form = new MessageFormData().title("§l§4确认删除地皮").body(`§e${plot.name}\n§8[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§8取消");
         Utils.showForm(player, form, (res) => {
             if (res.selection === 0) {
                 LandManager.deletePlot(dimension, chunkX, chunkZ);
@@ -184,11 +184,11 @@ export class ServerMenuManager {
     }
 
     static openBroadcastModal(player, onBack = null) {
-        const form = new ModalFormData().title("§l§e📢 发布公告").textField("内容", "服务器公告");
+        const form = new ModalFormData().title("§l§e📢 发布公告").textField("§e内容", "服务器公告");
         Utils.showForm(player, form, (res) => {
             const content = res.formValues?.[0]?.trim();
             if (content) {
-                Utils.broadcast(`§e[管理员 ${player.name}] §0${content}`);
+                Utils.broadcast(`§e[管理员 ${player.name}] §e${content}`);
                 AuditManager.log("admin_broadcast", player, "all", content);
             }
             onBack?.();
@@ -196,7 +196,7 @@ export class ServerMenuManager {
     }
 
     static openGiftAllModal(player, onBack = null) {
-        const form = new ModalFormData().title("§l§a🎁 全服福利").textField("每人金币", "1000");
+        const form = new ModalFormData().title("§l§a🎁 全服福利").textField("§e每人金币", "1000");
         Utils.showForm(player, form, (res) => {
             const amount = Math.floor(Number(res.formValues?.[0]));
             if (Number.isFinite(amount) && amount > 0) {

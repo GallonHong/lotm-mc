@@ -1154,8 +1154,8 @@ function openMenu(player) {
   const point = inside ? nearestExit(player) : null;
   const form = new ActionFormData().title("§l§6末日摸金都市")
     .body(inside
-      ? `§0快捷栏 1-9 与穿戴装备受保险保护。\n§4背包槽位 10-36 死亡时全部掉落。\n\n§0最近撤离点：§e${point?.name || "无"} §8(${Math.floor(point?.distance || 0)}格)\n§0进入 ${CONFIG.extractionRadius} 格范围会自动开始撤离；下方按钮与命令仅作为备用。\n§e/scriptevent extract:exit`
-      : "§0这是持续开放的最高风险区域，不需要创建战局。\n§025 个密集城区组成约 768×768 的废弃都市；首次升级只生成一次。\n§0都市传说 Boss 会低概率出现。")
+      ? `§e快捷栏 1-9 与穿戴装备受保险保护。\n§4背包槽位 10-36 死亡时全部掉落。\n\n§e最近撤离点：§e${point?.name || "无"} §8(${Math.floor(point?.distance || 0)}格)\n§e进入 ${CONFIG.extractionRadius} 格范围会自动开始撤离；下方按钮与命令仅作为备用。\n§e/scriptevent extract:exit`
+      : "§e这是持续开放的最高风险区域，不需要创建战局。\n§e25 个密集城区组成约 768×768 的废弃都市；首次升级只生成一次。\n§e都市传说 Boss 会低概率出现。")
     .button(inside ? "§a开始撤离" : "§6随机进入都市", inside ? "textures/ui/confirm" : "textures/ui/World")
     .button("§8关闭", "textures/ui/cancel");
   form.show(player).then(result => {
@@ -1473,7 +1473,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   else if (event.id === "extract:exits") system.run(() => {
     if (player.dimension.id !== CONFIG.dimensionId) return player.sendMessage("§c请先进入摸金都市。");
     const nearest = points().map(point => ({ ...point, distance: distance2D(player.location, point) })).sort((a, b) => a.distance - b.distance).slice(0, 5);
-    player.sendMessage(`§6[撤离点]\n${nearest.map(point => `§e${point.name} §8- ${Math.floor(point.distance)}m §0(${point.x}, ${point.z})`).join("\n")}\n§0寻找绿色信标，进入 ${CONFIG.extractionRadius} 格范围会自动开始撤离。`);
+    player.sendMessage(`§6[撤离点]\n${nearest.map(point => `§e${point.name} §8- ${Math.floor(point.distance)}m §e(${point.x}, ${point.z})`).join("\n")}\n§e寻找绿色信标，进入 ${CONFIG.extractionRadius} 格范围会自动开始撤离。`);
   });
   else if (event.id === "extract:status" && isAdmin(player)) system.run(() => {
     const ready = world.getDynamicProperty(CONFIG.cityReadyKey) === true;
@@ -1483,7 +1483,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
     const crateTiers = parse(world.getDynamicProperty("apoc_extract:crate_tiers:v1"), {});
     const dimension = extractionDimension();
     const bosses = dimension ? dimension.getEntities({ tags: ["apoc_extraction_boss"] }).length : 0;
-    player.sendMessage(`§6[摸金都市状态] §0v${CONFIG.version}\n§0扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§0撤离点：§e${exits}/${points().length}\n§0Apocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§0已布置物资箱：§e${crates} §8(普通 ${crateTiers.common || 0} / 稀有 ${crateTiers.rare || 0} / 史诗 ${crateTiers.epic || 0} / 传奇 ${crateTiers.legendary || 0} / 神话 ${crateTiers.mythic || 0})\n§0当前 Boss：§e${bosses}`);
+    player.sendMessage(`§6[摸金都市状态] §ev${CONFIG.version}\n§e扩展城区：${ready ? "§a已生成" : "§c未生成"}\n§e撤离点：§e${exits}/${points().length}\n§eApocalypse Mobs：${heartbeat && Date.now() - heartbeat < 30000 ? "§a已连接" : "§c未连接"}\n§e已布置物资箱：§e${crates} §8(普通 ${crateTiers.common || 0} / 稀有 ${crateTiers.rare || 0} / 史诗 ${crateTiers.epic || 0} / 传奇 ${crateTiers.legendary || 0} / 神话 ${crateTiers.mythic || 0})\n§e当前 Boss：§e${bosses}`);
   });
   else if (event.id === "extract:boss" && isAdmin(player)) system.run(() => {
     if (player.dimension.id !== CONFIG.dimensionId) return player.sendMessage("§c请先进入摸金都市再测试 Boss。");

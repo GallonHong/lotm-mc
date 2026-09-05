@@ -208,9 +208,9 @@ export class MarketManager {
         const form = new ActionFormData()
             .title("§l§6🏪 玩家交易寄卖行")
             .body(
-                `§0在售商品: §e${listings.length}\n` +
-                `§0我的寄卖: §b${mine} §8/ ${Config.market?.maxListingsPerPlayer ?? 10}\n` +
-                `§0成交手续费: §c${Math.round(this.feeRate * 100)}%\n` +
+                `§e在售商品: §e${listings.length}\n` +
+                `§e我的寄卖: §b${mine} §8/ ${Config.market?.maxListingsPerPlayer ?? 10}\n` +
+                `§e成交手续费: §c${Math.round(this.feeRate * 100)}%\n` +
                 `§8卖家实收成交价的 ${Math.round((1 - this.feeRate) * 100)}%，离线成交款上线自动到账。`
             )
             .button("§l§a🛒 浏览寄卖商品\n§r§8购买其他玩家上架的物品", "textures/ui/MCStore_Gold_large")
@@ -339,7 +339,7 @@ export class MarketManager {
             const originalName = this.getOriginalDisplayName(listing);
             const customLabel = listing.listingName ? `§8实际: ${originalName} | ` : "";
             add(
-                `§0${this.getDisplayName(listing)} x${listing.amount}\n${customLabel}§e${listing.unitPrice}/件 §8| ${listing.sellerName}`,
+                `§e${this.getDisplayName(listing)} x${listing.amount}\n${customLabel}§e${listing.unitPrice}/件 §8| ${listing.sellerName}`,
                 "textures/items/emerald",
                 () => this.openBuyUI(player, listing.id, () => this.openBrowseUI(player, onBack, currentPage))
             );
@@ -409,7 +409,7 @@ export class MarketManager {
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const listing of listings.slice(0, Config.market?.maxListingsPerPlayer ?? 10)) {
             add(
-                `§0${this.getDisplayName(listing)} x${listing.amount}\n§e${listing.unitPrice}/件 §8| 点击撤回`,
+                `§e${this.getDisplayName(listing)} x${listing.amount}\n§e${listing.unitPrice}/件 §8| 点击撤回`,
                 "textures/items/emerald",
                 () => this.openCancelListingUI(player, listing.id, () => this.openMyListingsUI(player, onBack))
             );
@@ -427,7 +427,7 @@ export class MarketManager {
         }
         const form = new MessageFormData()
             .title("§l§c撤回寄卖商品")
-            .body(`§0${this.getDisplayName(listing)} x${listing.amount}\n§8撤回不收取手续费。`)
+            .body(`§e${this.getDisplayName(listing)} x${listing.amount}\n§8撤回不收取手续费。`)
             .button1("§a确认撤回")
             .button2("§8取消");
         Utils.showForm(player, form, (res) => {

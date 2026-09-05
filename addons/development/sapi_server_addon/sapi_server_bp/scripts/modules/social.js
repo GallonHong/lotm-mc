@@ -71,10 +71,10 @@ export class SocialManager {
         const guild = SocialStore.guildForPlayer(player.name);
         const actions = [];
         const form = new ActionFormData().title("§l§b👥 社交").body(
-            `§0好友：§e${onlineFriends}/${friends.length} 在线 §8| 上限 ${this.settings.maxFriends || 50}\n` +
-            `§0在线玩家：§e${world.getAllPlayers().length}\n` +
-            `§0队伍：§e${team ? `${team.members.length}/${this.settings.teamMaxPlayers || 4}` : "未加入"}\n` +
-            `§0公会：§e${guild ? `[${guild.tag}] ${guild.name}` : "未加入"}`
+            `§e好友：§e${onlineFriends}/${friends.length} 在线 §8| 上限 ${this.settings.maxFriends || 50}\n` +
+            `§e在线玩家：§e${world.getAllPlayers().length}\n` +
+            `§e队伍：§e${team ? `${team.members.length}/${this.settings.teamMaxPlayers || 4}` : "未加入"}\n` +
+            `§e公会：§e${guild ? `[${guild.tag}] ${guild.name}` : "未加入"}`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add(`§l§c❤️ 我的好友\n§r§8${onlineFriends}/${friends.length} 在线`, "textures/ui/FriendsIcon", () => this.openFriends(player, () => this.openSocialMenu(player, onBack)));
@@ -92,10 +92,10 @@ export class SocialManager {
         const profile = SocialStore.touchPlayer(player);
         const friends = [...(profile.friends || [])].sort((a, b) => Number(!!onlinePlayer(b)) - Number(!!onlinePlayer(a)) || a.localeCompare(b));
         const actions = [];
-        const form = new ActionFormData().title("§l§c❤️ 我的好友").body(`§0我的好友：§e${friends.length}/${this.settings.maxFriends || 50}`);
+        const form = new ActionFormData().title("§l§c❤️ 我的好友").body(`§e我的好友：§e${friends.length}/${this.settings.maxFriends || 50}`);
         for (const name of friends) {
             const target = onlinePlayer(name);
-            form.button(`${target ? "§a●" : "§8○"} §0${name}\n§r§8${target ? `在线 · ${dimensionStatus(target)}` : "离线"}`, "textures/ui/FriendsIcon");
+            form.button(`${target ? "§a●" : "§8○"} §e${name}\n§r§8${target ? `在线 · ${dimensionStatus(target)}` : "离线"}`, "textures/ui/FriendsIcon");
             actions.push(() => this.openPlayerCard(player, name, () => this.openFriends(player, onBack)));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -107,9 +107,9 @@ export class SocialManager {
         const profile = SocialStore.touchPlayer(player);
         const requests = [...(profile.friendRequests || [])].reverse();
         const actions = [];
-        const form = new ActionFormData().title("§l§e📨 好友申请").body(`§0待处理：§e${requests.length}`);
+        const form = new ActionFormData().title("§l§e📨 好友申请").body(`§e待处理：§e${requests.length}`);
         for (const request of requests) {
-            form.button(`§0${request.from}\n§r§8申请添加你为好友`, "textures/ui/invite_base");
+            form.button(`§e${request.from}\n§r§8申请添加你为好友`, "textures/ui/invite_base");
             actions.push(() => this.openFriendRequestDecision(player, request.from, onBack));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -118,7 +118,7 @@ export class SocialManager {
     }
 
     static openFriendRequestDecision(player, fromName, onBack) {
-        const form = new MessageFormData().title("§l好友申请").body(`§e${fromName} §0希望添加你为好友。`)
+        const form = new MessageFormData().title("§l好友申请").body(`§e${fromName} §e希望添加你为好友。`)
             .button1("§a接受").button2("§c拒绝");
         Utils.showForm(player, form, response => {
             if (response.selection === 0) {
@@ -137,10 +137,10 @@ export class SocialManager {
     static openOnlinePlayers(player, onBack = null) {
         const players = [...world.getAllPlayers()].sort((a, b) => a.name.localeCompare(b.name));
         const actions = [];
-        const form = new ActionFormData().title("§l§b🌐 在线玩家").body(`§0当前在线：§e${players.length}`);
+        const form = new ActionFormData().title("§l§b🌐 在线玩家").body(`§e当前在线：§e${players.length}`);
         for (const target of players) {
             const guild = SocialStore.guildForPlayer(target.name);
-            form.button(`§0${target.name}${guild ? ` §6[${guild.tag}]` : ""}\n§r§8${dimensionStatus(target)}`, "textures/ui/icon_steve");
+            form.button(`§e${target.name}${guild ? ` §6[${guild.tag}]` : ""}\n§r§8${dimensionStatus(target)}`, "textures/ui/icon_steve");
             actions.push(() => this.openPlayerCard(player, target.name, () => this.openOnlinePlayers(player, onBack)));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -157,10 +157,10 @@ export class SocialManager {
         const self = normalizePlayerName(viewer.name) === normalizePlayerName(targetProfile.name);
         const actions = [];
         const form = new ActionFormData().title(`§l§b${targetProfile.name}`).body(
-            `§0公会：§e${guild ? `[${guild.tag}] ${guild.name}` : "无"}\n` +
-            `§0称号：§e${targetProfile.title || "幸存者"}\n` +
-            `§0状态：${target ? `§a在线 · ${dimensionStatus(target)}` : "§8离线"}\n` +
-            `§0通缉：§a${targetProfile.wanted || "正常"}`
+            `§e公会：§e${guild ? `[${guild.tag}] ${guild.name}` : "无"}\n` +
+            `§e称号：§e${targetProfile.title || "幸存者"}\n` +
+            `§e状态：${target ? `§a在线 · ${dimensionStatus(target)}` : "§8离线"}\n` +
+            `§e通缉：§a${targetProfile.wanted || "正常"}`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         if (!self && target) add("§l§b私聊", "textures/ui/icon_book_writable", () => this.openPrivateMessage(viewer, targetProfile.name, onBack));
@@ -185,8 +185,8 @@ export class SocialManager {
             const message = cleanText(response.formValues?.[0], 200);
             const target = onlinePlayer(targetName);
             if (!response.canceled && message && target) {
-                target.sendMessage(`§d[私聊] §e${sender.name}§0：${message}`);
-                sender.sendMessage(`§d[私聊给 ${target.name}] §0${message}`);
+                target.sendMessage(`§d[私聊] §e${sender.name}§e：${message}`);
+                sender.sendMessage(`§d[私聊给 ${target.name}] §e${message}`);
             } else if (!response.canceled && message) Utils.tell(sender, "§c对方已经离线，消息未发送。");
             onBack?.();
         });
@@ -222,9 +222,9 @@ export class SocialManager {
             return onBack?.();
         }
         const actions = [];
-        const form = new ActionFormData().title("§l§6邀请领地观光").body(`§0选择邀请 §e${target.name} §0参观的领地。观光不会授予建造、容器或保险箱权限。`);
+        const form = new ActionFormData().title("§l§6邀请领地观光").body(`§e选择邀请 §e${target.name} §e参观的领地。观光不会授予建造、容器或保险箱权限。`);
         for (const plot of plots) {
-            form.button(`§0${plot.name}\n§r§8访客点已设置`, "textures/ui/map_icon");
+            form.button(`§e${plot.name}\n§r§8访客点已设置`, "textures/ui/map_icon");
             actions.push(() => this.sendLandVisitInvite(owner, target, plot, onBack));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -235,7 +235,7 @@ export class SocialManager {
     static sendLandVisitInvite(owner, target, plot, onBack = null) {
         Utils.tell(owner, `§a已邀请 ${target.name} 参观领地 ${plot.name}。`);
         const form = new MessageFormData().title("§l§6领地观光邀请").body(
-            `§e${owner.name} §0邀请你参观他的领地：§e${plot.name}\n\n§8接受后只会传送到访客点，不会获得破坏、放置、容器、保险箱或载具权限。`
+            `§e${owner.name} §e邀请你参观他的领地：§e${plot.name}\n\n§8接受后只会传送到访客点，不会获得破坏、放置、容器、保险箱或载具权限。`
         ).button1("§a接受").button2("§c拒绝");
         Utils.showForm(target, form, response => {
             if (response.selection !== 0) {
@@ -283,7 +283,7 @@ export class SocialManager {
     static broadcastTeam(team, message) {
         for (const name of team.members) {
             const member = onlinePlayer(name);
-            if (member) member.sendMessage(`§a[队伍] §0${message}`);
+            if (member) member.sendMessage(`§a[队伍] §e${message}`);
         }
     }
 
@@ -295,7 +295,7 @@ export class SocialManager {
         if (this.teamOf(target.name)) return Utils.tell(inviter, "§c对方已经加入其他队伍。");
         Utils.tell(inviter, `§a已向 ${target.name} 发送组队邀请。`);
         const teamId = team.id;
-        const form = new MessageFormData().title("§l§a组队邀请").body(`§e${inviter.name} §0邀请你加入队伍。\n§0当前人数：§e${team.members.length}/${this.settings.teamMaxPlayers || 4}`).button1("§a加入").button2("§c拒绝");
+        const form = new MessageFormData().title("§l§a组队邀请").body(`§e${inviter.name} §e邀请你加入队伍。\n§e当前人数：§e${team.members.length}/${this.settings.teamMaxPlayers || 4}`).button1("§a加入").button2("§c拒绝");
         Utils.showForm(target, form, response => {
             const current = this.teams.get(teamId);
             if (response.selection !== 0) return Utils.tell(inviter, `§8${target.name} 拒绝了组队邀请。`);
@@ -303,7 +303,7 @@ export class SocialManager {
             current.members.push(target.name);
             this.playerTeams.set(normalizePlayerName(target.name), current.id);
             this.applyTeamTag(target, current);
-            this.broadcastTeam(current, `§e${target.name} §0加入了队伍。`);
+            this.broadcastTeam(current, `§e${target.name} §e加入了队伍。`);
         });
     }
 
@@ -319,7 +319,7 @@ export class SocialManager {
             return;
         }
         if (normalizePlayerName(team.leaderName) === normalized) team.leaderName = team.members[0];
-        if (!disconnected) this.broadcastTeam(team, `§e${memberName} §0离开了队伍。`);
+        if (!disconnected) this.broadcastTeam(team, `§e${memberName} §e离开了队伍。`);
     }
 
     static dissolveTeam(team, actor = "system") {
@@ -339,7 +339,7 @@ export class SocialManager {
     static openTeam(player, onBack = null) {
         const team = this.teamOf(player.name);
         if (!team) {
-            const form = new MessageFormData().title("§l§a👥 我的队伍").body("§0你当前没有加入队伍。普通队伍最多 4 人，服务器重启后自动解散。")
+            const form = new MessageFormData().title("§l§a👥 我的队伍").body("§e你当前没有加入队伍。普通队伍最多 4 人，服务器重启后自动解散。")
                 .button1("§a创建队伍").button2("§8返回");
             return Utils.showForm(player, form, response => {
                 if (response.selection === 0) {
@@ -351,8 +351,8 @@ export class SocialManager {
         }
         const leader = team.leaderName === player.name;
         const actions = [];
-        const memberLines = team.members.map(name => `${name === team.leaderName ? "§6👑" : "§8•"} §0${name}${onlinePlayer(name) ? " §a在线" : " §8离线"}`).join("\n");
-        const form = new ActionFormData().title("§l§a👥 我的队伍").body(`§0队伍人数：§e${team.members.length}/${this.settings.teamMaxPlayers || 4}\n${memberLines}`);
+        const memberLines = team.members.map(name => `${name === team.leaderName ? "§6👑" : "§8•"} §e${name}${onlinePlayer(name) ? " §a在线" : " §8离线"}`).join("\n");
+        const form = new ActionFormData().title("§l§a👥 我的队伍").body(`§e队伍人数：§e${team.members.length}/${this.settings.teamMaxPlayers || 4}\n${memberLines}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         if (leader) add("§l§a邀请在线玩家", "textures/ui/plus", () => this.openTeamInviteList(player, team, onBack));
         add("§l§b队伍聊天", "textures/ui/icon_book_writable", () => this.openTeamChat(player, team, onBack));
@@ -369,9 +369,9 @@ export class SocialManager {
     static openTeamInviteList(player, team, onBack) {
         const candidates = world.getAllPlayers().filter(target => target.name !== player.name && !this.teamOf(target.name));
         const actions = [];
-        const form = new ActionFormData().title("§l邀请组队").body(candidates.length ? "§0选择在线玩家。" : "§8没有可邀请的在线玩家。");
+        const form = new ActionFormData().title("§l邀请组队").body(candidates.length ? "§e选择在线玩家。" : "§8没有可邀请的在线玩家。");
         for (const target of candidates) {
-            form.button(`§0${target.name}\n§r§8${dimensionStatus(target)}`, "textures/ui/invite_base");
+            form.button(`§e${target.name}\n§r§8${dimensionStatus(target)}`, "textures/ui/invite_base");
             actions.push(() => { this.inviteToTeam(player, target); this.openTeam(player, onBack); });
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -383,7 +383,7 @@ export class SocialManager {
         const form = new ModalFormData().title("§l队伍聊天").textField("发送给当前队伍", "最多 200 字");
         Utils.showForm(player, form, response => {
             const message = cleanText(response.formValues?.[0], 200);
-            if (!response.canceled && message && this.teamOf(player.name)?.id === team.id) this.broadcastTeam(team, `§e${player.name}§0：${message}`);
+            if (!response.canceled && message && this.teamOf(player.name)?.id === team.id) this.broadcastTeam(team, `§e${player.name}§e：${message}`);
             this.openTeam(player, onBack);
         });
     }
@@ -395,7 +395,7 @@ export class SocialManager {
             const target = candidates[response.formValues?.[0]];
             if (!response.canceled && target && this.teamOf(player.name)?.id === team.id && team.leaderName === player.name) {
                 team.leaderName = target;
-                this.broadcastTeam(team, `§e${target} §0成为新队长。`);
+                this.broadcastTeam(team, `§e${target} §e成为新队长。`);
             }
             this.openTeam(player, onBack);
         });
@@ -418,7 +418,7 @@ export class SocialManager {
     static confirmLeaveTeam(player, team, onBack) {
         const leader = team.leaderName === player.name;
         const form = new MessageFormData().title(leader ? "§l§4解散队伍" : "§l离开队伍")
-            .body(leader ? "§c解散后所有成员退出队伍，确定继续？" : "§0确定离开当前队伍？")
+            .body(leader ? "§c解散后所有成员退出队伍，确定继续？" : "§e确定离开当前队伍？")
             .button1(leader ? "§4解散" : "§c离开").button2("§8取消");
         Utils.showForm(player, form, response => {
             if (response.selection === 0) {
@@ -443,7 +443,7 @@ export class SocialManager {
         if (guild) return this.openGuildHome(player, guild, onBack);
         const actions = [];
         const applications = SocialStore.getGuilds().filter(value => value.applications?.some(entry => normalizePlayerName(entry.name) === normalizePlayerName(player.name)));
-        const form = new ActionFormData().title("§l§6🏴 公会").body("§0你当前没有加入公会。");
+        const form = new ActionFormData().title("§l§6🏴 公会").body("§e你当前没有加入公会。");
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add(`§l§6创建公会\n§r§8花费 ${Utils.formatCurrency(this.settings.guildCreateCost || 15000)}`, "textures/ui/plus", () => this.openCreateGuild(player, onBack));
         add("§l§b查找公会", "textures/ui/magnifyingGlass", () => this.openGuildBrowser(player, onBack));
@@ -492,11 +492,11 @@ export class SocialManager {
         const guilds = SocialStore.getGuilds().filter(guild => !needle || guild.name.toLowerCase().includes(needle) || guild.tag.toLowerCase().includes(needle))
             .sort((a, b) => (b.members?.length || 0) - (a.members?.length || 0));
         const actions = [];
-        const form = new ActionFormData().title("§l§b查找公会").body(`§0找到 §e${guilds.length} §0个公会。`);
+        const form = new ActionFormData().title("§l§b查找公会").body(`§e找到 §e${guilds.length} §e个公会。`);
         form.button("§l§b按名称搜索", "textures/ui/magnifyingGlass");
         actions.push(() => this.openGuildSearch(player, onBack));
         for (const guild of guilds.slice(0, 50)) {
-            form.button(`§6[${guild.tag}] §0${guild.name}\n§r§8${guild.members?.length || 0}/${this.settings.guildMaxMembers || 30} · 会长 ${guild.leaderName}`, "textures/ui/icon_steve");
+            form.button(`§6[${guild.tag}] §e${guild.name}\n§r§8${guild.members?.length || 0}/${this.settings.guildMaxMembers || 30} · 会长 ${guild.leaderName}`, "textures/ui/icon_steve");
             actions.push(() => this.openGuildDetail(player, guild, () => this.openGuildBrowser(player, onBack, filter)));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -515,7 +515,7 @@ export class SocialManager {
         if (SocialStore.guildForPlayer(player.name)?.id === current.id) return this.openGuildHome(player, current, onBack);
         const applied = current.applications?.some(entry => normalizePlayerName(entry.name) === normalizePlayerName(player.name));
         const form = new MessageFormData().title(`§l§6[${current.tag}] ${current.name}`).body(
-            `§0成员：§e${current.members.length}/${this.settings.guildMaxMembers || 30}\n§0会长：§e${current.leaderName}\n\n§0简介：\n§8${current.description}`
+            `§e成员：§e${current.members.length}/${this.settings.guildMaxMembers || 30}\n§e会长：§e${current.leaderName}\n\n§e简介：\n§8${current.description}`
         ).button1(applied ? "§8已申请" : "§a申请加入").button2("§8返回");
         Utils.showForm(player, form, response => {
             if (response.selection === 0 && !applied) {
@@ -534,7 +534,7 @@ export class SocialManager {
 
     static openMyGuildApplications(player, onBack) {
         const guilds = SocialStore.getGuilds().filter(guild => guild.applications?.some(entry => normalizePlayerName(entry.name) === normalizePlayerName(player.name)));
-        const form = new ActionFormData().title("§l§e我的公会申请").body(guilds.length ? guilds.map(guild => `§6[${guild.tag}] §0${guild.name}`).join("\n") : "§8当前没有待审核申请。");
+        const form = new ActionFormData().title("§l§e我的公会申请").body(guilds.length ? guilds.map(guild => `§6[${guild.tag}] §e${guild.name}`).join("\n") : "§8当前没有待审核申请。");
         form.button("§l§8返回", "textures/ui/undo");
         Utils.showForm(player, form, () => this.openGuild(player, onBack));
     }
@@ -549,7 +549,7 @@ export class SocialManager {
         const onlineCount = current.members.filter(member => onlinePlayer(member.name)).length;
         const actions = [];
         const form = new ActionFormData().title(`§l§6🏴 [${current.tag}] ${current.name}`).body(
-            `§0会长：§e${current.leaderName}\n§0成员：§e${current.members.length}/${this.settings.guildMaxMembers || 30}\n§0在线：§a${onlineCount}\n§0职位：§e${leader ? "Leader" : "Member"}`
+            `§e会长：§e${current.leaderName}\n§e成员：§e${current.members.length}/${this.settings.guildMaxMembers || 30}\n§e在线：§a${onlineCount}\n§e职位：§e${leader ? "Leader" : "Member"}`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add(`§l§d公会频道\n§r§8查看消息或发送信息`, "textures/ui/chat_send", () => this.openGuildChat(player, current, onBack));
@@ -571,7 +571,7 @@ export class SocialManager {
         }
         const messages = Array.isArray(current.recentMessages) ? current.recentMessages.slice(-20) : [];
         const body = messages.length
-            ? messages.map(message => `§8${new Date(message.createdAt).toLocaleTimeString()} §e${message.sender}§8：§0${message.message}`).join("\n")
+            ? messages.map(message => `§8${new Date(message.createdAt).toLocaleTimeString()} §e${message.sender}§8：§e${message.message}`).join("\n")
             : "§8公会频道还没有消息。";
         const form = new ActionFormData().title(`§l§d[${current.tag}] 公会频道`).body(body)
             .button("§l§a发送消息", "textures/ui/chat_send")
@@ -603,7 +603,7 @@ export class SocialManager {
             SocialStore.saveGuild(current);
             for (const guildMember of current.members) {
                 const target = onlinePlayer(guildMember.name);
-                if (target) Utils.tell(target, `§d[公会] §e${player.name}§8：§0${message}`);
+                if (target) Utils.tell(target, `§d[公会] §e${player.name}§8：§e${message}`);
             }
             AuditManager.log("guild_chat", player, current.id, `members=${current.members.length}`);
         });
@@ -612,10 +612,10 @@ export class SocialManager {
     static openGuildMembers(player, guild, onBack) {
         const members = [...guild.members].sort((a, b) => Number(b.role === "leader") - Number(a.role === "leader") || a.name.localeCompare(b.name));
         const actions = [];
-        const form = new ActionFormData().title(`§l§b${guild.name} · 成员`).body(`§0成员：§e${members.length}`);
+        const form = new ActionFormData().title(`§l§b${guild.name} · 成员`).body(`§e成员：§e${members.length}`);
         for (const member of members) {
             const online = onlinePlayer(member.name);
-            form.button(`${member.role === "leader" ? "§6👑" : "§8•"} §0${member.name}\n§r§8${member.role === "leader" ? "Leader" : "Member"} · ${online ? "§a在线" : "§8离线"}`, "textures/ui/icon_steve");
+            form.button(`${member.role === "leader" ? "§6👑" : "§8•"} §e${member.name}\n§r§8${member.role === "leader" ? "Leader" : "Member"} · ${online ? "§a在线" : "§8离线"}`, "textures/ui/icon_steve");
             actions.push(() => this.openPlayerCard(player, member.name, () => this.openGuildMembers(player, guild, onBack)));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -626,7 +626,7 @@ export class SocialManager {
     static openGuildInfo(player, guild, onBack) {
         const leader = normalizePlayerName(guild.leaderName) === normalizePlayerName(player.name);
         const form = new MessageFormData().title(`§l§6[${guild.tag}] ${guild.name}`).body(
-            `§0创建时间：§8${new Date(guild.createdAt).toLocaleDateString()}\n§0会长：§e${guild.leaderName}\n\n§0简介：\n§8${guild.description}`
+            `§e创建时间：§8${new Date(guild.createdAt).toLocaleDateString()}\n§e会长：§e${guild.leaderName}\n\n§e简介：\n§8${guild.description}`
         ).button1(leader ? "§a编辑简介" : "§8返回").button2("§8关闭");
         Utils.showForm(player, form, response => {
             if (response.selection === 0 && leader) this.openEditGuildDescription(player, guild, onBack);
@@ -651,7 +651,7 @@ export class SocialManager {
         const actions = [];
         const location = guild.baseLocation;
         const form = new ActionFormData().title("§l§a公会基地").body(location
-            ? `§0维度：§e${location.dimension}\n§0位置：§e${Math.floor(location.x)}, ${Math.floor(location.y)}, ${Math.floor(location.z)}\n§8基地位置只是传送点，不会自动创建公会领地。`
+            ? `§e维度：§e${location.dimension}\n§e位置：§e${Math.floor(location.x)}, ${Math.floor(location.y)}, ${Math.floor(location.z)}\n§8基地位置只是传送点，不会自动创建公会领地。`
             : "§8公会尚未设置基地位置。基地位置只是传送点，不会自动创建公会领地。"
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
@@ -676,9 +676,9 @@ export class SocialManager {
     static openGuildApplications(player, guild, onBack) {
         const applications = guild.applications || [];
         const actions = [];
-        const form = new ActionFormData().title("§l§e公会申请").body(`§0待审核：§e${applications.length}`);
+        const form = new ActionFormData().title("§l§e公会申请").body(`§e待审核：§e${applications.length}`);
         for (const application of applications) {
-            form.button(`§0${application.name}\n§r§8申请加入公会`, "textures/ui/invite_base");
+            form.button(`§e${application.name}\n§r§8申请加入公会`, "textures/ui/invite_base");
             actions.push(() => this.openGuildApplicationDecision(player, guild, application.name, onBack));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -687,7 +687,7 @@ export class SocialManager {
     }
 
     static openGuildApplicationDecision(player, guild, applicantName, onBack) {
-        const form = new MessageFormData().title("§l公会申请审核").body(`§e${applicantName} §0申请加入 §6[${guild.tag}] ${guild.name}§0。`).button1("§a批准").button2("§c拒绝");
+        const form = new MessageFormData().title("§l公会申请审核").body(`§e${applicantName} §e申请加入 §6[${guild.tag}] ${guild.name}§e。`).button1("§a批准").button2("§c拒绝");
         Utils.showForm(player, form, response => {
             const current = SocialStore.getGuild(guild.id);
             if (!current || normalizePlayerName(current.leaderName) !== normalizePlayerName(player.name)) return;
@@ -725,9 +725,9 @@ export class SocialManager {
     static openGuildInviteList(player, guild, onBack) {
         const candidates = world.getAllPlayers().filter(target => target.name !== player.name && !SocialStore.guildForPlayer(target.name));
         const actions = [];
-        const form = new ActionFormData().title("§l邀请加入公会").body(candidates.length ? "§0选择在线玩家。" : "§8没有可邀请的在线玩家。");
+        const form = new ActionFormData().title("§l邀请加入公会").body(candidates.length ? "§e选择在线玩家。" : "§8没有可邀请的在线玩家。");
         for (const target of candidates) {
-            form.button(`§0${target.name}\n§r§8${dimensionStatus(target)}`, "textures/ui/invite_base");
+            form.button(`§e${target.name}\n§r§8${dimensionStatus(target)}`, "textures/ui/invite_base");
             actions.push(() => this.sendGuildInvite(player, target, guild, onBack));
         }
         form.button("§l§8返回", "textures/ui/undo");
@@ -737,7 +737,7 @@ export class SocialManager {
 
     static sendGuildInvite(leader, target, guild, onBack) {
         Utils.tell(leader, `§a已邀请 ${target.name} 加入公会。`);
-        const form = new MessageFormData().title("§l§6公会邀请").body(`§e${leader.name} §0邀请你加入 §6[${guild.tag}] ${guild.name}§0。`).button1("§a加入").button2("§c拒绝");
+        const form = new MessageFormData().title("§l§6公会邀请").body(`§e${leader.name} §e邀请你加入 §6[${guild.tag}] ${guild.name}§e。`).button1("§a加入").button2("§c拒绝");
         Utils.showForm(target, form, response => {
             const current = SocialStore.getGuild(guild.id);
             if (response.selection !== 0) return Utils.tell(leader, `§8${target.name} 拒绝了公会邀请。`);

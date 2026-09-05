@@ -281,7 +281,7 @@ export class OperationsManager {
         const state = this.getDailyState(player);
         const pending = this.getPending(player);
         const actions = [];
-        const form = new ActionFormData().title("§l§e🎁 每日福利").body(`§0服务器日期: §e${date}\n§0连续签到: §a${state.streak} 天 §8| 累计 ${state.total} 天\n§0待领取奖励: §e${pending.length}`);
+        const form = new ActionFormData().title("§l§e🎁 每日福利").body(`§e服务器日期: §e${date}\n§e连续签到: §a${state.streak} 天 §8| 累计 ${state.total} 天\n§e待领取奖励: §e${pending.length}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add(`§l§a📅 今日签到\n§r§8${settings.dailyEnabled ? "领取七日循环奖励" : "管理员已关闭"}`, "textures/ui/gift_square", () => { this.claimDaily(player); this.openPlayerMenu(player, onBack); });
         add(`§l§6🎟 输入兑换码\n§r§8${settings.redeemEnabled ? "领取服务器活动奖励" : "管理员已关闭"}`, "textures/ui/Trade2", () => this.openRedeemModal(player, onBack));
@@ -306,7 +306,7 @@ export class OperationsManager {
         const actions = [];
         const form = new ActionFormData().title("§l§b📦 待领取奖励").body(pending.length ? "§8点击一项尝试重新领取。" : "§8没有待领取奖励。");
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-        for (const entry of pending) add(`§0${entry.source}\n§r§8${this.rewardText(entry.reward)}`, "textures/ui/gift_square", () => {
+        for (const entry of pending) add(`§e${entry.source}\n§r§8${this.rewardText(entry.reward)}`, "textures/ui/gift_square", () => {
             if (this.grantReward(player, entry.reward)) {
                 this.setPlayerJson(player, PENDING_KEY, this.getPending(player).filter(item => item.id !== entry.id));
                 Utils.tell(player, `§a已领取：§e${this.rewardText(entry.reward)}`);
@@ -322,7 +322,7 @@ export class OperationsManager {
         if (!Utils.isAdmin(admin)) return;
         const settings = this.getSettings();
         const actions = [];
-        const form = new ActionFormData().title("§l§c🎛 服务器运营管理").body(`§0每日签到: ${settings.dailyEnabled ? "§a开启" : "§c关闭"}\n§0兑换码: ${settings.redeemEnabled ? "§a开启" : "§c关闭"}\n§0兑换码数量: §e${this.getCodes().length}`);
+        const form = new ActionFormData().title("§l§c🎛 服务器运营管理").body(`§e每日签到: ${settings.dailyEnabled ? "§a开启" : "§c关闭"}\n§e兑换码: ${settings.redeemEnabled ? "§a开启" : "§c关闭"}\n§e兑换码数量: §e${this.getCodes().length}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a📅 签到配置", "textures/ui/gift_square", () => this.openDailyAdmin(admin, onBack));
         add("§l§6🎟 兑换码管理", "textures/ui/Trade2", () => this.openCodeAdmin(admin, onBack));
@@ -358,7 +358,7 @@ export class OperationsManager {
     static openCodeAdmin(admin, onBack = null) {
         const codes = this.getCodes();
         const actions = [];
-        const form = new ActionFormData().title("§l§6🎟 兑换码管理").body(`§0当前兑换码: §e${codes.length}/${Config.operations?.maxCodes || 50}`);
+        const form = new ActionFormData().title("§l§6🎟 兑换码管理").body(`§e当前兑换码: §e${codes.length}/${Config.operations?.maxCodes || 50}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a➕ 创建兑换码", "textures/ui/plus", () => this.openCreateCode(admin, onBack));
         for (const code of codes) add(`${code.enabled ? "§a" : "§8"}${code.name}\n§r§8${this.maskCode(code.code)} · ${code.used}/${code.maxUses || "∞"}`, "textures/ui/Trade2", () => this.openCodeActions(admin, code.id, onBack));
@@ -395,7 +395,7 @@ export class OperationsManager {
         const codes = this.getCodes();
         const code = codes.find(entry => entry.id === codeId);
         if (!code) return this.openCodeAdmin(admin, onBack);
-        const form = new MessageFormData().title(`§l${code.name}`).body(`§0兑换码: §e${code.code}\n§0状态: ${code.enabled ? "§a启用" : "§c停用"}\n§0奖励: §e${this.rewardText(code.reward)}\n§0使用: §e${code.used}/${code.maxUses || "∞"}\n§0每人: §e${code.perPlayer} 次\n§0到期: §8${code.expiresAt ? new Date(code.expiresAt).toLocaleString("zh-CN") : "永久"}\n\n§8选择切换状态，或进入删除确认。`).button1(code.enabled ? "§c停用" : "§a启用").button2("§4删除…");
+        const form = new MessageFormData().title(`§l${code.name}`).body(`§e兑换码: §e${code.code}\n§e状态: ${code.enabled ? "§a启用" : "§c停用"}\n§e奖励: §e${this.rewardText(code.reward)}\n§e使用: §e${code.used}/${code.maxUses || "∞"}\n§e每人: §e${code.perPlayer} 次\n§e到期: §8${code.expiresAt ? new Date(code.expiresAt).toLocaleString("zh-CN") : "永久"}\n\n§8选择切换状态，或进入删除确认。`).button1(code.enabled ? "§c停用" : "§a启用").button2("§4删除…");
         Utils.showForm(admin, form, response => {
             if (response.canceled) return this.openCodeAdmin(admin, onBack);
             if (response.selection === 0) {
@@ -436,7 +436,7 @@ export class OperationsManager {
         const pending = this.getPending(target);
         const actions = [];
         const details = pending.slice(0, 8).map(entry => `§8- ${entry.source}: ${this.rewardText(entry.reward)}`).join("\n");
-        const form = new ActionFormData().title(`§l管理 ${target.name} 的奖励`).body(`§0待领取: §e${pending.length} 项\n${details || "§8无待领取奖励"}`);
+        const form = new ActionFormData().title(`§l管理 ${target.name} 的奖励`).body(`§e待领取: §e${pending.length} 项\n${details || "§8无待领取奖励"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a📤 尝试发放全部", "textures/ui/gift_square", () => {
             const failed = [];

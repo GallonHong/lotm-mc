@@ -1190,7 +1190,7 @@ function openControllerMenu(player) {
   const activeText = gameStarted ? `${disaster.name} §8· §f${phase} §8· §f${remaining}s` : "§a当前无灾害";
   const form = new ActionFormData()
     .title("§l§c独立自然灾害控制器")
-    .body(`§0本版本完全独立运行；摸金都市存在时可直接识别其维度。\n§0状态：${activeText}\n§0自动灾害：${settings.autoEnabled ? "§a开启" : "§c关闭"}\n§0法制区间隔：§e20～40 分钟\n§0非法制区间隔：§e10～20 分钟\n§0摸金都市间隔：§e20～40 分钟\n§0已排除：§a${STANDALONE_CONFIG.safeRegions.map(region => region.name).join("、")}\n§0下次目标：§e${scheduledAutoRegion?.type === "law" ? "法制区" : scheduledAutoRegion?.type === "outlaw" ? "非法制区" : scheduledAutoRegion?.type === "city" ? "摸金都市" : "等待区域玩家"}\n§0下次检查：§e${Number.isFinite(nextAutoTick) ? Math.max(0, Math.ceil((nextAutoTick - system.currentTick) / 20)) : "--"} 秒\n§0手动释放：以管理员当前位置为中心 ${STANDALONE_CONFIG.manualRadius} 格`)
+    .body(`§e本版本完全独立运行；摸金都市存在时可直接识别其维度。\n§e状态：${activeText}\n§e自动灾害：${settings.autoEnabled ? "§a开启" : "§c关闭"}\n§e法制区间隔：§e20～40 分钟\n§e非法制区间隔：§e10～20 分钟\n§e摸金都市间隔：§e20～40 分钟\n§e已排除：§a${STANDALONE_CONFIG.safeRegions.map(region => region.name).join("、")}\n§e下次目标：§e${scheduledAutoRegion?.type === "law" ? "法制区" : scheduledAutoRegion?.type === "outlaw" ? "非法制区" : scheduledAutoRegion?.type === "city" ? "摸金都市" : "等待区域玩家"}\n§e下次检查：§e${Number.isFinite(nextAutoTick) ? Math.max(0, Math.ceil((nextAutoTick - system.currentTick) / 20)) : "--"} 秒\n§e手动释放：以管理员当前位置为中心 ${STANDALONE_CONFIG.manualRadius} 格`)
     .button("§6随机灾害")
     .button("§f龙卷风")
     .button("§c陨石雨")

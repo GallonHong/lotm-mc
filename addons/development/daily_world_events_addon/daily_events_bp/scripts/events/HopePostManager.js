@@ -110,9 +110,9 @@ export class HopePostManager {
     const quizStatus = quizState.dayKey === dayKey() && quizState.answered
       ? (quizState.correct ? "今日已答对" : "今日已作答")
       : "答对奖励 1,000 金币";
-    const form = new ActionFormData().title("§l§6希望报").body(`§l§0第 ${issue.issueNo} 期  ·  ${issue.dayKey}\n§8在废土上，消息有时比子弹更早救人。`);
+    const form = new ActionFormData().title("§l§6希望报").body(`§l§e第 ${issue.issueNo} 期  ·  ${issue.dayKey}\n§8在废土上，消息有时比子弹更早救人。`);
     for (const article of issue.articles) {
-      form.button(`§0${article.title}\n§r§8${article.type === "admin" ? "联盟公告" : article.type === "player" ? `幸存者投稿 · ${article.author}` : article.author}`, "textures/ui/infobulb");
+      form.button(`§e${article.title}\n§r§8${article.type === "admin" ? "联盟公告" : article.type === "player" ? `幸存者投稿 · ${article.author}` : article.author}`, "textures/ui/infobulb");
       actions.push(() => this.openArticle(player, issue, article, onBack, admin));
     }
     form.button(`§l§6编辑部真假情报\n§r§8${quizStatus}`, "textures/ui/icon_book_writable");
@@ -178,7 +178,7 @@ export class HopePostManager {
       try { if (player.getDynamicProperty(FIRST_OPEN_KEY)) return; } catch {}
       const issue = this.ensureIssue();
       const form = new ActionFormData().title("§l§6希望报")
-        .body(`§l§0欢迎来到幸存者联盟\n§8第 ${issue.issueNo} 期  ·  ${issue.dayKey}\n\n§0希望报每天记录聚居地发生的事，也会刊登幸存者投稿。先读报，再决定今天往哪走。`)
+        .body(`§l§e欢迎来到幸存者联盟\n§8第 ${issue.issueNo} 期  ·  ${issue.dayKey}\n\n§e希望报每天记录聚居地发生的事，也会刊登幸存者投稿。先读报，再决定今天往哪走。`)
         .button("§l§6阅读本期希望报", "textures/ui/infobulb")
         .button("§l§e编辑部真假情报\n§r§8答对奖励 1,000 金币", "textures/ui/icon_book_writable")
         .button("§8稍后再看");
@@ -196,7 +196,7 @@ export class HopePostManager {
   }
 
   static openArticle(player, issue, article, onBack, admin) {
-    const form = new MessageFormData().title(article.title).body(`§8撰稿：${article.author}\n\n§0${article.body}`).button1("§a返回本期").button2("§8返回菜单");
+    const form = new MessageFormData().title(article.title).body(`§8撰稿：${article.author}\n\n§e${article.body}`).button1("§a返回本期").button2("§8返回菜单");
     show(player, form, result => result.selection === 0 ? this.open(player, onBack, admin) : onBack?.());
   }
 

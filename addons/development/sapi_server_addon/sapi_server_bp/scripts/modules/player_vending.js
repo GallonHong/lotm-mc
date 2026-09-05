@@ -242,12 +242,12 @@ export class PlayerVendingManager {
         if (!current) return;
         const actions = [];
         const form = new ActionFormData().title(`§l§6${current.shopName}`).body(
-            `§0店主：§e${current.ownerName}\n§0商品：§e${current.listings.length}/${this.settings().maxListings || 9}\n` +
-            `§0待领取营业额：${Utils.formatCurrency(current.pendingCoins)}\n§0联盟保险：${current.insured ? "§a已投保" : "§8未投保"}`
+            `§e店主：§e${current.ownerName}\n§e商品：§e${current.listings.length}/${this.settings().maxListings || 9}\n` +
+            `§e待领取营业额：${Utils.formatCurrency(current.pendingCoins)}\n§e联盟保险：${current.insured ? "§a已投保" : "§8未投保"}`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a上架背包商品", "textures/ui/plus", () => this.openAddListing(player, current));
-        for (const listing of current.listings) add(`§0${MarketManager.getDisplayName(listing)} ×${listing.amount}\n§r§8单价 ${listing.unitPrice}，点击下架`, "textures/items/chest", () => this.confirmRemoveListing(player, current, listing.id));
+        for (const listing of current.listings) add(`§e${MarketManager.getDisplayName(listing)} ×${listing.amount}\n§r§8单价 ${listing.unitPrice}，点击下架`, "textures/items/chest", () => this.confirmRemoveListing(player, current, listing.id));
         add(`§l§6领取营业额\n§r§8${current.pendingCoins} 金币`, "textures/items/gold_ingot", () => this.collect(player, current));
         add("§l§e修改店铺名称\n§r§8费用 1,000 金币", "textures/ui/icon_book_writable", () => this.openRename(player, current, false));
         if (!current.insured) add(`§l§b购买联盟保险\n§r§8${this.settings().insurancePrice || 10000} 金币，赔偿遇袭丢失的库存`, "textures/ui/icon_lock", () => this.buyInsurance(player, current));
@@ -309,7 +309,7 @@ export class PlayerVendingManager {
         const current = this.requireOwnerAccess(player, state);
         const listing = current?.listings.find(value => value.id === listingId);
         if (!current || !listing) return;
-        const form = new MessageFormData().title("§l下架商品").body(`§0下架 ${MarketManager.getDisplayName(listing)} ×${listing.amount}？`).button1("§a下架").button2("§8取消");
+        const form = new MessageFormData().title("§l下架商品").body(`§e下架 ${MarketManager.getDisplayName(listing)} ×${listing.amount}？`).button1("§a下架").button2("§8取消");
         Utils.showForm(player, form, response => {
             const latest = this.requireOwnerAccess(player, current);
             const selected = latest?.listings.find(value => value.id === listingId);
@@ -328,12 +328,12 @@ export class PlayerVendingManager {
         if (!current) return;
         if (!this.requirePhysicalAccess(player, current)) return;
         const actions = [];
-        const form = new ActionFormData().title(`§l§6${current.shopName}`).body(`§0店主：§e${current.ownerName}\n§0你的金币：${Utils.formatCurrency(EconomyManager.getBalance(player))}\n§8通缉玩家仍可在其他玩家的实体店购物。`);
+        const form = new ActionFormData().title(`§l§6${current.shopName}`).body(`§e店主：§e${current.ownerName}\n§e你的金币：${Utils.formatCurrency(EconomyManager.getBalance(player))}\n§8通缉玩家仍可在其他玩家的实体店购物。`);
         for (const listing of current.listings) {
-            form.button(`§0${MarketManager.getDisplayName(listing)} ×${listing.amount}\n§r§e${listing.unitPrice} 金币/件`, "textures/items/chest");
+            form.button(`§e${MarketManager.getDisplayName(listing)} ×${listing.amount}\n§r§e${listing.unitPrice} 金币/件`, "textures/items/chest");
             actions.push(() => this.openPurchase(player, current, listing.id));
         }
-        if (!current.listings.length) form.body(`§0店主：§e${current.ownerName}\n§8这台贩卖机暂时没有商品。`);
+        if (!current.listings.length) form.body(`§e店主：§e${current.ownerName}\n§8这台贩卖机暂时没有商品。`);
         Utils.showForm(player, form, response => actions[response.selection]?.());
     }
 
@@ -413,7 +413,7 @@ export class PlayerVendingManager {
         const current = this.requireOwnerAccess(player, state);
         if (!current || current.ownerName !== player.name) return;
         if (current.listings.length || Number(current.pendingCoins || 0) > 0) return Utils.tell(player, "§c请先下架全部商品并领取营业额。");
-        const form = new MessageFormData().title("§l回收玩家贩卖机").body("§0正常回收会返还部署器；已经购买的联盟保险不会返还。").button1("§a回收").button2("§8取消");
+        const form = new MessageFormData().title("§l回收玩家贩卖机").body("§e正常回收会返还部署器；已经购买的联盟保险不会返还。").button1("§a回收").button2("§8取消");
         Utils.showForm(player, form, response => {
             if (response.selection !== 0) return this.openOwner(player, current);
             const latest = this.requireOwnerAccess(player, current);
@@ -559,6 +559,6 @@ export class PlayerVendingManager {
         }
         if (event.player) WantedManager.addPoints(event.player, 50, "破坏玩家贩卖机");
         AuditManager.log("vending_break", event.player || "unknown", state.id, `owner=${state.ownerName} drop=${loss.dropped} insuredItems=${insuredItems} coinsLost=${state.pendingCoins} insured=${state.insured}`);
-        try { world.sendMessage(`§4[治安通报] §0${event.player?.name || "未知人员"} 破坏了 ${state.ownerName} 的贩卖机，通缉值增加 50。`); } catch {}
+        try { world.sendMessage(`§4[治安通报] §e${event.player?.name || "未知人员"} 破坏了 ${state.ownerName} 的贩卖机，通缉值增加 50。`); } catch {}
     }
 }

@@ -186,8 +186,8 @@ export class SafeManager {
         const min = Math.max(4, Number(this.settings.passwordMinLength || 4));
         const max = Math.max(min, Number(this.settings.passwordMaxLength || 8));
         const form = new ModalFormData().title("§l§6设置保险箱密码")
-            .textField(`§0请输入 ${min}～${max} 位数字密码`, "不会保存明文密码")
-            .textField("§0再次输入密码", "重复密码");
+            .textField(`§e请输入 ${min}～${max} 位数字密码`, "不会保存明文密码")
+            .textField("§e再次输入密码", "重复密码");
         Utils.showForm(player, form, response => {
             if (response.canceled) return;
             const [password, confirmation] = response.formValues || [];
@@ -366,7 +366,7 @@ export class SafeManager {
         }
 
         const form = new ModalFormData().title("§l§6保险箱密码验证")
-            .textField(`§0拥有者：§e${this.ownerName(safe)}\n§0请输入密码`, "4～8 位数字");
+            .textField(`§e拥有者：§e${this.ownerName(safe)}\n§e请输入密码`, "4～8 位数字");
         Utils.showForm(player, form, response => {
             if (response.canceled || !this.validSafe(safe)) return;
             if (!this.requireInteractionDistance(player, safe)) return;
@@ -405,7 +405,7 @@ export class SafeManager {
         const breached = this.isBreached(safe);
         const actions = [];
         const form = new ActionFormData().title(breached ? "§l§c报废保险箱" : "§l§6加固密码保险箱")
-            .body(`§0拥有者：§e${this.ownerName(safe)}\n§0状态：${breached ? "§c已报废，密码失效" : `§a完好 §8(${Math.ceil(this.durability(safe))}/2000)`}\n§0容量：§e${occupied}/27`);
+            .body(`§e拥有者：§e${this.ownerName(safe)}\n§e状态：${breached ? "§c已报废，密码失效" : `§a完好 §8(${Math.ceil(this.durability(safe))}/2000)`}\n§e容量：§e${occupied}/27`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a存入物品\n§r§8从背包选择整组物品", "textures/ui/arrow_dark_down", () => this.openDepositMenu(player, safe));
         add("§l§b取出物品\n§r§8查看并取出整组物品", "textures/ui/arrow_dark_up", () => this.openWithdrawMenu(player, safe));
@@ -450,7 +450,7 @@ export class SafeManager {
             .body(stacks.length ? "§8点击后会存入该格的整组物品。" : "§8背包中没有可存入的物品。");
         for (const { index, item } of stacks) {
             const signature = this.itemSignature(item);
-            form.button(`§0${this.itemLabel(item)}\n§r§8数量：${item.amount}`);
+            form.button(`§e${this.itemLabel(item)}\n§r§8数量：${item.amount}`);
             actions.push(() => {
                 const current = playerContainer.getItem(index);
                 if (!current || this.itemSignature(current) !== signature) {
@@ -477,7 +477,7 @@ export class SafeManager {
             .body(stacks.length ? "§8点击后会取出该格的整组物品。" : "§8保险箱目前为空。");
         for (const { index, item } of stacks) {
             const signature = this.itemSignature(item);
-            form.button(`§0${this.itemLabel(item)}\n§r§8数量：${item.amount}`);
+            form.button(`§e${this.itemLabel(item)}\n§r§8数量：${item.amount}`);
             actions.push(() => {
                 const current = safeContainer.getItem(index);
                 if (!current || this.itemSignature(current) !== signature) {
@@ -529,8 +529,8 @@ export class SafeManager {
         const min = Math.max(4, Number(this.settings.passwordMinLength || 4));
         const max = Math.max(min, Number(this.settings.passwordMaxLength || 8));
         const form = new ModalFormData().title("§l§e修改保险箱密码")
-            .textField(`§0新密码（${min}～${max} 位数字）`, "新密码")
-            .textField("§0再次输入", "重复新密码");
+            .textField(`§e新密码（${min}～${max} 位数字）`, "新密码")
+            .textField("§e再次输入", "重复新密码");
         Utils.showForm(player, form, response => {
             if (response.canceled || !this.validSafe(safe)) return this.openSafeMenu(player, safe);
             if (!this.requireInteractionDistance(player, safe)) return;
@@ -557,7 +557,7 @@ export class SafeManager {
             return this.openSafeMenu(player, safe);
         }
         const form = new MessageFormData().title("§l§6回收保险箱")
-            .body("§0回收后密码和当前耐久会清除。再次放置时重新设置密码，并恢复为 2000 满耐久。")
+            .body("§e回收后密码和当前耐久会清除。再次放置时重新设置密码，并恢复为 2000 满耐久。")
             .button1("§a确认回收")
             .button2("§8取消");
         Utils.showForm(player, form, response => {

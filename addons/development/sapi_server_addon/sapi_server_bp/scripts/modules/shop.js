@@ -62,7 +62,7 @@ export class ShopManager {
         const groups = category.subcategories || [];
         const form = new ActionFormData()
             .title(`§l${category.name} · 商品分类`)
-            .body(`§8═════════════════════════\n§0当前资产: ${Utils.formatCurrency(balance)}\n§8请选择需要购买或回收的物资类别：`);
+            .body(`§8═════════════════════════\n§e当前资产: ${Utils.formatCurrency(balance)}\n§8请选择需要购买或回收的物资类别：`);
         for (const group of groups) form.button(`${group.name}\n§r§8${group.description}`, group.icon);
         form.button("§l§c🔙 返回商场\n§r§8选择其他商人", "textures/ui/cancel");
         Utils.showForm(player, form, res => {
@@ -86,7 +86,7 @@ export class ShopManager {
             .title("§l§6🛒 全球综合商店")
             .body(
                 `§8═════════════════════════\n` +
-                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§e当前资产: ${Utils.formatCurrency(balance)}\n` +
                 `§8═════════════════════════\n` +
                 `§8请选择你要浏览的商品分类：`
             );
@@ -125,7 +125,7 @@ export class ShopManager {
             .title(`§l${category.name}`)
             .body(
                 `§8═════════════════════════\n` +
-                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§e当前资产: ${Utils.formatCurrency(balance)}\n` +
                 `§8点击商品即可进入购买或出售界面\n` +
                 `§8今日原版物资回收: §e${daily.vanillaSoldCoins}/${Config.shop.vanillaDailySellCap}\n` +
                 `§8═════════════════════════`
@@ -177,8 +177,8 @@ export class ShopManager {
 
         const form = new ModalFormData()
             .title(`§l交易: ${item.name}`)
-            .dropdown(`§0你的金币: ${Utils.formatCurrency(balance)}\n§0背包库存: §b${bagCount} §0个\n\n§8请选择交易类型:`, tradeOptions)
-            .slider("§0交易数量 (1 - 64):", 1, 64, 1);
+            .dropdown(`§e你的金币: ${Utils.formatCurrency(balance)}\n§e背包库存: §b${bagCount} §e个\n\n§8请选择交易类型:`, tradeOptions)
+            .slider("§e交易数量 (1 - 64):", 1, 64, 1);
 
         Utils.showForm(player, form, (res) => {
             if (res.canceled) {

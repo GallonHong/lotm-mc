@@ -194,7 +194,7 @@ export class RegionManager {
         const point = value => value ? `${value.x}, ${value.y}, ${value.z}` : "未设置";
         const actions = [];
         const form = new ActionFormData().title("§l§c🏰 主城与保护区管理").body(
-            `§0保护区: §e${this.getRegions().length}§0 个\n§0选点 A: §8${point(selection.a)}\n§0选点 B: §8${point(selection.b)}`
+            `§e保护区: §e${this.getRegions().length}§e 个\n§e选点 A: §8${point(selection.a)}\n§e选点 B: §8${point(selection.b)}`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a📍 设置选点 A", "textures/ui/World", () => { this.setPoint(player, "a"); this.openAdminMenu(player, onBack); });
@@ -231,7 +231,7 @@ export class RegionManager {
         Utils.showForm(player, form, res => {
             const region = regions[res.selection];
             if (!region) return this.openAdminMenu(player, onBack);
-            const confirm = new MessageFormData().title("§l§c确认删除").body(`§0确定删除 §e${region.name}§0？`).button1("§c删除").button2("§8取消");
+            const confirm = new MessageFormData().title("§l§c确认删除").body(`§e确定删除 §e${region.name}§e？`).button1("§c删除").button2("§8取消");
             Utils.showForm(player, confirm, answer => {
                 if (answer.selection === 0 && this.removeRegion(region.id, player)) Utils.tell(player, `§a已删除保护区：§e${region.name}`);
                 this.openAdminMenu(player, onBack);

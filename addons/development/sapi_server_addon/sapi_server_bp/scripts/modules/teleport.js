@@ -659,7 +659,7 @@ export class TeleportManager {
         const incoming = [...this.requests.values()].filter(request => request.toId === player.id).length;
         const actions = [];
         const form = new ActionFormData().title("§l§b🧭 个人传送").body(
-            `§0Home: §e${this.getHomes(player).length}/${Config.teleport?.maxHomes || 3}\n§0待处理 TPA: §e${incoming}\n§0死亡返回: ${this.getDeathLocation(player) ? "§a可用" : "§8无"}\n§a全部传送免费`
+            `§eHome: §e${this.getHomes(player).length}/${Config.teleport?.maxHomes || 3}\n§e待处理 TPA: §e${incoming}\n§e死亡返回: ${this.getDeathLocation(player) ? "§a可用" : "§8无"}\n§a全部传送免费`
         );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a🏠 Home 管理", "textures/ui/icon_recipe_nature", () => this.openHomeMenu(player, () => this.openPlayerMenu(player, onBack)));
@@ -676,7 +676,7 @@ export class TeleportManager {
         const actions = [];
         const form = new ActionFormData().title("§l§a🏠 Home").body(`§8可设置 ${Config.teleport?.maxHomes || 3} 个私人传送点，全部免费。`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-        for (const home of homes) add(`§l§0${home.name}\n§r§8${home.dimension} · ${Math.floor(home.x)}, ${Math.floor(home.y)}, ${Math.floor(home.z)}`, "textures/ui/icon_recipe_nature", () => this.performTeleport(player, home, home.name, "home_use", home.name));
+        for (const home of homes) add(`§l§e${home.name}\n§r§8${home.dimension} · ${Math.floor(home.x)}, ${Math.floor(home.y)}, ${Math.floor(home.z)}`, "textures/ui/icon_recipe_nature", () => this.performTeleport(player, home, home.name, "home_use", home.name));
         add("§l§a➕ 设置/覆盖 Home", "textures/ui/plus", () => this.openSetHomeModal(player, onBack));
         add("§l§c🗑️ 删除 Home", "textures/ui/trash", () => this.openDeleteHomeMenu(player, onBack));
         add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
@@ -715,7 +715,7 @@ export class TeleportManager {
         const incoming = [...this.requests.values()].filter(request => request.toId === player.id);
         const outgoing = [...this.requests.values()].filter(request => request.fromId === player.id);
         const actions = [];
-        const form = new ActionFormData().title("§l§b👥 TPA 玩家传送").body(`§0全局状态: ${settings.tpaEnabled ? "§a开启" : "§c关闭"}\n§0接收请求: ${receives ? "§a开启" : "§8关闭"}\n§0收到: §e${incoming.length} §0| 已发送: §e${outgoing.length}\n§8请求必须由对方明确接受，过期时间 ${Config.teleport?.tpaExpirySeconds || 60} 秒。`);
+        const form = new ActionFormData().title("§l§b👥 TPA 玩家传送").body(`§e全局状态: ${settings.tpaEnabled ? "§a开启" : "§c关闭"}\n§e接收请求: ${receives ? "§a开启" : "§8关闭"}\n§e收到: §e${incoming.length} §e| 已发送: §e${outgoing.length}\n§8请求必须由对方明确接受，过期时间 ${Config.teleport?.tpaExpirySeconds || 60} 秒。`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         for (const request of incoming) {
             const label = request.direction === "here" ? `${request.fromName} 邀请你过去` : `${request.fromName} 请求过来`;
@@ -752,7 +752,7 @@ export class TeleportManager {
     }
 
     static openTpaResponse(player, request, onBack = null) {
-        const text = request.direction === "here" ? `§e${request.fromName} §0邀请你传送到其身边。` : `§e${request.fromName} §0请求传送到你身边。`;
+        const text = request.direction === "here" ? `§e${request.fromName} §e邀请你传送到其身边。` : `§e${request.fromName} §e请求传送到你身边。`;
         const form = new MessageFormData().title("§l§b处理 TPA").body(`${text}\n\n§8只有点击接受后才会执行免费传送。`).button1("§a接受").button2("§c拒绝");
         Utils.showForm(player, form, response => {
             if (!response.canceled) this.respondTpa(player, request.id, response.selection === 0);
@@ -767,7 +767,7 @@ export class TeleportManager {
             .body(warps.length ? "§8全部公共传送均免费。已按区域危险程度由低到高排列：" : "§8管理员尚未创建公共传送点。");
         for (const warp of warps) {
             let subtitle = "§8免费传送";
-            let color = "§0";
+            let color = "§e";
             if (warp.name.includes("--安全区")) {
                 color = "§2";
                 subtitle = "§8🛡️ 安全生活区 · 免费传送";
@@ -790,7 +790,7 @@ export class TeleportManager {
     static openAdminMenu(player, onBack = null) {
         if (!Utils.isAdmin(player)) return;
         const actions = [];
-        const form = new ActionFormData().title("§l§c🧭 传送点管理").body(`§0公共传送点: §e${this.getWarps().length}§0 个\n§a所有传送均免费`);
+        const form = new ActionFormData().title("§l§c🧭 传送点管理").body(`§e公共传送点: §e${this.getWarps().length}§e 个\n§a所有传送均免费`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§a➕ 在当前位置创建传送点", "textures/ui/plus", () => this.openCreateWarpModal(player, onBack));
         add("§l§6🏰 设置当前位置为主城出生点", "textures/ui/icon_recipe_nature", () => {
@@ -865,7 +865,7 @@ export class TeleportManager {
         Utils.showForm(player, form, (res) => {
             const warp = warps[res.selection];
             if (!warp) return this.openAdminMenu(player, onBack);
-            const confirm = new MessageFormData().title("§l§c确认删除").body(`§0确定删除传送点 §e${warp.name}§0？`).button1("§c删除").button2("§8取消");
+            const confirm = new MessageFormData().title("§l§c确认删除").body(`§e确定删除传送点 §e${warp.name}§e？`).button1("§c删除").button2("§8取消");
             Utils.showForm(player, confirm, (result) => {
                 if (result.selection === 0 && this.deleteWarp(warp.id, player)) Utils.tell(player, `§a已删除传送点：§e${warp.name}`);
                 this.openAdminMenu(player, onBack);
@@ -888,7 +888,7 @@ export class TeleportManager {
     static openPlayerDataActions(admin, target, onBack = null) {
         if (!Utils.isValid(target)) return this.openPlayerDataAdmin(admin, onBack);
         const actions = [];
-        const form = new ActionFormData().title(`§l管理 ${target.name}`).body(`§0Home: §e${this.getHomes(target).length}\n§0死亡点: ${this.getDeathLocation(target) ? "§a有" : "§8无"}`);
+        const form = new ActionFormData().title(`§l管理 ${target.name}`).body(`§eHome: §e${this.getHomes(target).length}\n§e死亡点: ${this.getDeathLocation(target) ? "§a有" : "§8无"}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§b➡ 免费传送到该玩家", "textures/ui/World", () => {
             this.performTeleport(admin, this.snapshot(target, target.name), target.name, "warp_use", `admin->${target.name}`);

@@ -104,7 +104,7 @@ export class LotteryManager {
             .title("§l§d🎁 幸运抽奖大厅")
             .body(
                 `§8═════════════════════════\n` +
-                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§e当前资产: ${Utils.formatCurrency(balance)}\n` +
                 `§8选择你感兴趣的神秘奖池，测测今日欧气！\n` +
                 `§8═════════════════════════`
             );
@@ -142,10 +142,10 @@ export class LotteryManager {
             .title(`§l${pool.name}`)
             .body(
                 `§8═════════════════════════\n` +
-                `§0当前资产: ${Utils.formatCurrency(balance)}\n` +
-                `§8奖池说明: §0${pool.description}\n` +
-                (pool.activeFeatured ? `§0本期 UP: §6${pool.activeFeatured.name}\n` : "") +
-                (pity ? `§0保底进度: §d${pity.current}/${pity.threshold} §8（再抽 ${pity.remaining} 次必出保底蓝图）\n` : "§8该奖池未启用保底\n") +
+                `§e当前资产: ${Utils.formatCurrency(balance)}\n` +
+                `§8奖池说明: §e${pool.description}\n` +
+                (pool.activeFeatured ? `§e本期 UP: §6${pool.activeFeatured.name}\n` : "") +
+                (pity ? `§e保底进度: §d${pity.current}/${pity.threshold} §8（再抽 ${pity.remaining} 次必出保底蓝图）\n` : "§8该奖池未启用保底\n") +
                 `§8═════════════════════════`
             )
             .button(`§l§a🎯 单抽 1 次\n§r§8消耗 ${pool.singleCost} 金币`, "textures/ui/generic_single_coin")
@@ -249,7 +249,7 @@ export class LotteryManager {
         for (let i = 0; i < results.length; i++) {
             const { item: it, forcedPity } = results[i];
             const rarityInfo = Config.lottery.rarities[it.rarity] || { name: "普通", color: "§8" };
-            resultText += `§0[${i + 1}] [${rarityInfo.color}${rarityInfo.name}§0] ${it.name}${forcedPity ? " §d【保底】" : ""}\n`;
+            resultText += `§e[${i + 1}] [${rarityInfo.color}${rarityInfo.name}§e] ${it.name}${forcedPity ? " §d【保底】" : ""}\n`;
         }
         resultText += `\n§8═══════════════════════════════════\n`;
         resultText += `§a已自动将获得的物品发放至你的背包！`;
@@ -360,7 +360,7 @@ export class LotteryManager {
         const actions = [];
         const form = new ActionFormData()
             .title("§l§d🎰 自定义奖池管理")
-            .body(`§0自定义奖池: §e${pools.length}/20\n§8可在这里切换 Legendary 当期 UP；自定义奖池仍可独立配置。`);
+            .body(`§e自定义奖池: §e${pools.length}/20\n§8可在这里切换 Legendary 当期 UP；自定义奖池仍可独立配置。`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         const featuredPool = Config.lottery.pools.find(value => value.pityMode === "featured");
         const featured = this.getFeaturedLegendary(featuredPool);
@@ -441,10 +441,10 @@ export class LotteryManager {
         const form = new ActionFormData()
             .title(`§l§d${pool.name}`)
             .body(
-                `§0状态: ${pool.enabled === false ? "§8未发布" : "§a已发布"}\n` +
-                `§0价格: §e${pool.singleCost} / ${pool.tenCost}\n` +
-                `§0奖品: §b${pool.items?.length || 0}/40\n` +
-                `§0保底: ${pityPrize && pool.pityThreshold > 0 ? `§d${pool.pityThreshold}抽必出 ${pityPrize.name}` : "§8未启用"}`
+                `§e状态: ${pool.enabled === false ? "§8未发布" : "§a已发布"}\n` +
+                `§e价格: §e${pool.singleCost} / ${pool.tenCost}\n` +
+                `§e奖品: §b${pool.items?.length || 0}/40\n` +
+                `§e保底: ${pityPrize && pool.pityThreshold > 0 ? `§d${pool.pityThreshold}抽必出 ${pityPrize.name}` : "§8未启用"}`
             );
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         add("§l§e✏ 编辑名称、说明与价格", "textures/items/book_writable", () => this.openEditPoolBasicsUI(player, poolId, () => this.openCustomPoolEditor(player, poolId, onBack)));
@@ -553,7 +553,7 @@ export class LotteryManager {
         if (!prize) return onBack?.();
         const form = new ActionFormData()
             .title(`§l${prize.name}`)
-            .body(`§0ID: §8${prize.id}\n§0数量: §e${prize.amount}\n§0权重: §e${prize.weight}\n§0稀有度: §d${prize.rarity}`)
+            .body(`§eID: §8${prize.id}\n§e数量: §e${prize.amount}\n§e权重: §e${prize.weight}\n§e稀有度: §d${prize.rarity}`)
             .button("§l§e✏ 编辑奖品", "textures/items/book_writable")
             .button("§l§4🗑 删除奖品", "textures/ui/trash")
             .button("§l§8⬅ 返回", "textures/ui/undo");

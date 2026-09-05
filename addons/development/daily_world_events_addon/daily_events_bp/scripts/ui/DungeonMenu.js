@@ -105,7 +105,7 @@ export class DungeonMenu {
     if (own) return this.openCurrent(player, own, onBack);
     const actions = [];
     const form = new ActionFormData().title("§l§4队伍副本 · 全员 Ready")
-      .body(`§0队长：§e${player.name}\n§0队员：§e${names.join("、")}\n§8选择副本后，其余队员必须在30秒内全部确认。`);
+      .body(`§e队长：§e${player.name}\n§e队员：§e${names.join("、")}\n§8选择副本后，其余队员必须在30秒内全部确认。`);
     const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
     for (const template of Object.values(DUNGEON_TEMPLATES)) {
       const firstReward = template.oneTimeReward
@@ -119,7 +119,7 @@ export class DungeonMenu {
 
   static confirmTeamStart(leader, template, names, onBack) {
     const form = new MessageFormData().title(`§l${template.name} · 队伍准备`)
-      .body(`§0队伍人数：§e${names.length}/${template.maxPlayers}\n§0难度：§e${template.difficulty}\n§0推荐：§e${template.recommendedPlayers}\n§0限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n\n§8确认后向所有队员发送 Ready 请求。全部同意才会统一创建和传送副本。`)
+      .body(`§e队伍人数：§e${names.length}/${template.maxPlayers}\n§e难度：§e${template.difficulty}\n§e推荐：§e${template.recommendedPlayers}\n§e限时：§e${Math.floor(template.timeoutTicks / 1200)} 分钟\n\n§8确认后向所有队员发送 Ready 请求。全部同意才会统一创建和传送副本。`)
       .button1("§a发起全队准备").button2("§8返回");
     show(leader, form, result => {
       if (result.selection === 0) this.beginTeamReady(leader, template, names, onBack);
@@ -153,7 +153,7 @@ export class DungeonMenu {
     for (const member of players) {
       if (member.id === leader.id) continue;
       const form = new MessageFormData().title("§l§4队伍副本准备")
-        .body(`§0队长 §e${leader.name} §0准备进入：\n§c${template.name}\n§0难度：§e${template.difficulty}\n§0推荐人数：§e${template.recommendedPlayers}\n\n§8请在30秒内确认。`)
+        .body(`§e队长 §e${leader.name} §e准备进入：\n§c${template.name}\n§e难度：§e${template.difficulty}\n§e推荐人数：§e${template.recommendedPlayers}\n\n§8请在30秒内确认。`)
         .button1("§a准备").button2("§c拒绝");
       showDecision(member, form, result => this.receiveReady(id, member, result.selection === 0 && !result.canceled));
     }

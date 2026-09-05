@@ -80,9 +80,9 @@ export class WantedManager {
         const restricted = this.isTradeRestricted(player);
         const cost = this.bailCost(player);
         const form = new MessageFormData().title("§l§c⚖ 通缉与保释").body(
-            `§0当前通缉值：§e${points}\n§0状态：${this.label(points)}\n§0商业限制：${restricted ? "§c已限制" : "§a未限制"}\n\n` +
+            `§e当前通缉值：§e${points}\n§e状态：${this.label(points)}\n§e商业限制：${restricted ? "§c已限制" : "§a未限制"}\n\n` +
             `§8在线每 10 分钟自动降低 1 点。达到 20 点后不能使用全球商店或管理自己的贩卖机。\n\n` +
-            `§0全额保释：${Utils.formatCurrency(cost)}`
+            `§e全额保释：${Utils.formatCurrency(cost)}`
         ).button1(points > 0 ? "§a支付保释" : "§8无需保释").button2("§8返回");
         Utils.showForm(player, form, response => {
             if (response.selection === 0 && points > 0) {
@@ -162,7 +162,7 @@ export class WantedManager {
         const profiles = SocialStore.allProfiles().filter(profile => Number(profile.wantedPoints || 0) > 0)
             .sort((a, b) => Number(b.wantedPoints || 0) - Number(a.wantedPoints || 0));
         const actions = [];
-        const form = new ActionFormData().title("§l§4通缉与黑名单管理").body(`§0通缉玩家：§e${profiles.length}\n§0黑名单：§c${this.blacklist().length}`);
+        const form = new ActionFormData().title("§l§4通缉与黑名单管理").body(`§e通缉玩家：§e${profiles.length}\n§e黑名单：§c${this.blacklist().length}`);
         const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
         const high = profiles.filter(profile => Number(profile.wantedPoints || 0) >= Number(Config.wanted?.blacklistThreshold || 50));
         add(`§l§4一键拉黑高危玩家\n§r§8当前符合 ${high.length} 人（≥${Config.wanted?.blacklistThreshold || 50}）`, "textures/ui/cancel", () => {
@@ -170,8 +170,8 @@ export class WantedManager {
             Utils.tell(player, `§a已将 ${high.length} 名高危通缉玩家加入黑名单。`);
             this.openAdminMenu(player, onBack);
         });
-        for (const profile of profiles.slice(0, 40)) add(`${this.label(profile.wantedPoints)} §0${profile.name}\n§r§8通缉值 ${profile.wantedPoints}`, "textures/ui/warning_alex", () => this.openAdminPlayer(player, profile.name, onBack));
-        for (const entry of this.blacklist().slice(-20).reverse()) add(`§4黑名单 §0${entry.name}\n§r§8点击移出`, "textures/ui/minus", () => {
+        for (const profile of profiles.slice(0, 40)) add(`${this.label(profile.wantedPoints)} §e${profile.name}\n§r§8通缉值 ${profile.wantedPoints}`, "textures/ui/warning_alex", () => this.openAdminPlayer(player, profile.name, onBack));
+        for (const entry of this.blacklist().slice(-20).reverse()) add(`§4黑名单 §e${entry.name}\n§r§8点击移出`, "textures/ui/minus", () => {
             this.removeBlacklist(entry.name, player);
             this.openAdminMenu(player, onBack);
         });
@@ -181,7 +181,7 @@ export class WantedManager {
 
     static openAdminPlayer(admin, name, onBack) {
         const points = this.points(name);
-        const form = new MessageFormData().title(`§l管理 ${name}`).body(`§0当前通缉值：§e${points}\n§0左侧清零，右侧加入黑名单。`)
+        const form = new MessageFormData().title(`§l管理 ${name}`).body(`§e当前通缉值：§e${points}\n§e左侧清零，右侧加入黑名单。`)
             .button1("§a清除通缉").button2("§4加入黑名单");
         Utils.showForm(admin, form, response => {
             if (response.selection === 0) this.setPoints(name, 0, "管理员清除", admin);

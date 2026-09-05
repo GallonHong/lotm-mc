@@ -117,7 +117,7 @@ export class ItemCleanupManager {
         const countdown = settings.enabled
             ? `${Math.floor(remaining / 60)}分${remaining % 60}秒`
             : "已停用";
-        return `§0自动清理：${settings.enabled ? "§a开启" : "§c关闭"}\n§0清理周期：§e${settings.intervalMinutes} 分钟\n§0下次清理：§e${countdown}\n§c清理范围包含玩家死亡掉落和所有 Addon 物品。`;
+        return `§e自动清理：${settings.enabled ? "§a开启" : "§c关闭"}\n§e清理周期：§e${settings.intervalMinutes} 分钟\n§e下次清理：§e${countdown}\n§c清理范围包含玩家死亡掉落和所有 Addon 物品。`;
     }
 
     static openAdminMenu(admin, onBack = null) {

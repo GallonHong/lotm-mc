@@ -237,7 +237,7 @@ export class LandManager {
 
         let statusText = "";
         if (!currentPlot) {
-            statusText = `§8当前位置: §0[${chunkX}, ${chunkZ}] §a(未认领荒地)\n§0认领价格: ${Utils.formatCurrency(Config.land.pricePerChunk)}`;
+            statusText = `§8当前位置: §e[${chunkX}, ${chunkZ}] §a(未认领荒地)\n§e认领价格: ${Utils.formatCurrency(Config.land.pricePerChunk)}`;
         } else {
             const isOwner = currentPlot.ownerId === player.id || currentPlot.ownerName === player.name;
             const isMember = currentPlot.members && currentPlot.members.includes(player.name);
@@ -250,7 +250,7 @@ export class LandManager {
             .body(
                 `§8═════════════════════════\n` +
                 `${statusText}\n` +
-                `§0已占领地: §e${playerPlots.length} §8/ §0${Utils.isAdmin(player) ? Config.land.maxPlotsForAdmin : Config.land.maxPlotsPerPlayer}\n` +
+                `§e已占领地: §e${playerPlots.length} §8/ §e${Utils.isAdmin(player) ? Config.land.maxPlotsForAdmin : Config.land.maxPlotsPerPlayer}\n` +
                 `§8═════════════════════════`
             );
 
@@ -394,12 +394,12 @@ export class LandManager {
 
         const form = new ModalFormData()
             .title(`§l领地设置: ${plot.name}`)
-            .textField(`§0修改领地名称 (当前: ${plot.name}):`, "输入地皮新名称 (留空则不修改)")
-            .toggle("§0允许访客破坏方块 (不推荐):", flags.allowBreak ?? false)
-            .toggle("§0允许访客放置方块:", flags.allowPlace ?? false)
-            .toggle("§0允许访客打开箱子/门/拉杆:", flags.allowInteract ?? false)
-            .toggle("§0允许领地内发生爆炸破坏:", flags.allowExplosion ?? false)
-            .toggle("§0允许访客攻击领地内动物/实体:", flags.allowAttackEntity ?? false);
+            .textField(`§e修改领地名称 (当前: ${plot.name}):`, "输入地皮新名称 (留空则不修改)")
+            .toggle("§e允许访客破坏方块 (不推荐):", flags.allowBreak ?? false)
+            .toggle("§e允许访客放置方块:", flags.allowPlace ?? false)
+            .toggle("§e允许访客打开箱子/门/拉杆:", flags.allowInteract ?? false)
+            .toggle("§e允许领地内发生爆炸破坏:", flags.allowExplosion ?? false)
+            .toggle("§e允许访客攻击领地内动物/实体:", flags.allowAttackEntity ?? false);
 
         Utils.showForm(player, form, (res) => {
             if (res.canceled) {
@@ -436,7 +436,7 @@ export class LandManager {
         const members = plot.members || [];
         const form = new ActionFormData()
             .title(`§l👥 信任成员 - ${plot.name}`)
-            .body(`§8当前信任成员列表 (${members.length} 人)：\n§0${members.length > 0 ? members.join(", ") : "§8(暂无信任成员)"}`)
+            .body(`§8当前信任成员列表 (${members.length} 人)：\n§e${members.length > 0 ? members.join(", ") : "§8(暂无信任成员)"}`)
             .button("§l§a➕ 添加在线玩家为成员", "textures/ui/plus")
             .button("§l§c➖ 移除已有信任成员", "textures/ui/minus")
             .button("§l§8🔙 返回", "textures/ui/cancel");
@@ -454,7 +454,7 @@ export class LandManager {
 
                 const addForm = new ModalFormData()
                     .title("§l添加信任成员")
-                    .dropdown("§0选择要添加的在线玩家:", candidates.map(p => p.name));
+                    .dropdown("§e选择要添加的在线玩家:", candidates.map(p => p.name));
 
                 Utils.showForm(player, addForm, (addRes) => {
                     if (addRes.canceled) {
@@ -482,7 +482,7 @@ export class LandManager {
 
                 const removeForm = new ModalFormData()
                     .title("§l移除信任成员")
-                    .dropdown("§0选择要移除的成员:", members);
+                    .dropdown("§e选择要移除的成员:", members);
 
                 Utils.showForm(player, removeForm, (remRes) => {
                     if (remRes.canceled) {
@@ -512,7 +512,7 @@ export class LandManager {
         const refund = Math.floor(Config.land.pricePerChunk * Config.land.sellRefundRate);
         const form = new MessageFormData()
             .title("§l§c⚠️ 确认出售地皮？")
-            .body(`§0确定要出售领地 §e${plot.name} §0吗？\n\n§8出售后将返还 §e${Utils.formatCurrency(refund)}§8，该领地保护将立刻失效！`)
+            .body(`§e确定要出售领地 §e${plot.name} §e吗？\n\n§8出售后将返还 §e${Utils.formatCurrency(refund)}§8，该领地保护将立刻失效！`)
             .button1("§l§c确认出售")
             .button2("§l§a取消返回");
 
