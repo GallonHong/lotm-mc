@@ -386,8 +386,11 @@ subscribe(world.beforeEvents?.chatSend, "chatSend", event => {
 
 system.runInterval(() => {
   try { WorldEventManager.tick(); } catch (error) { console.warn(`[DailyEvents] event tick failed: ${error}`); }
-  try { DungeonManager.tick(); } catch (error) { console.warn(`[DailyEvents] dungeon tick failed: ${error}`); }
 }, CONFIG.eventTickTicks);
+
+system.runInterval(() => {
+  try { DungeonManager.tick(); } catch (error) { console.warn(`[DailyEvents] dungeon tick failed: ${error}`); }
+}, 10);
 
 system.runInterval(() => {
   try { WorldEventManager.scanNodes(); } catch (error) { console.warn(`[DailyEvents] node scan failed: ${error}`); }

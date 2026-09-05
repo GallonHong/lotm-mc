@@ -499,7 +499,8 @@ export class DungeonManager {
   }
 
   static emitObjectiveGuide(instance, stage) {
-    if (system.currentTick % 10 !== 0) return;
+    if (system.currentTick - Number(instance.lastGuideTick || 0) < 10) return;
+    instance.lastGuideTick = system.currentTick;
     const checkpoint = this.objectiveCheckpoint(instance, stage);
     if (!checkpoint) return;
     const dimension = world.getDimension(instance.slot.dimension);
@@ -516,6 +517,7 @@ export class DungeonManager {
       const player = onlinePlayer(id);
       if (!player || !sameDimension(player.dimension.id, instance.slot.dimension)) continue;
       const dx = target.x - player.location.x;
+      const dy = target.y - player.location.y;
       const dz = target.z - player.location.z;
       const horizontal = Math.hypot(dx, dz);
       if (horizontal < 5) continue;
@@ -524,7 +526,7 @@ export class DungeonManager {
         const ratio = Math.min(0.92, (index * 3) / horizontal);
         const location = {
           x: player.location.x + dx * ratio,
-          y: player.location.y + 1.15,
+          y: player.location.y + 1.15 + dy * ratio,
           z: player.location.z + dz * ratio
         };
         try { dimension.spawnParticle("daily_events:objective_trail", location); } catch {}
@@ -673,7 +675,8 @@ export class DungeonManager {
     const support = this.entityById(instance, instance.stageData.supportId) ||
       (stage.escortEntity ? this.entityById(instance, instance.escortEntityId) : this.entityById(instance, instance.vehicleEntityId));
 
-    if (stage.escortEntity && support && system.currentTick % 20 === 0) {
+    if (stage.escortEntity && support && (system.currentTick - Number(instance.stageData.lastEscortTick || 0) >= 20)) {
+      instance.stageData.lastEscortTick = system.currentTick;
       const escorting = instance.participantIds.map(onlinePlayer).some(player => player && sameDimension(player.dimension.id, instance.slot.dimension) && distanceSquared(player.location, support.location) <= 18 * 18);
       if (escorting) {
         const dx = target.x - support.location.x;
@@ -682,7 +685,8 @@ export class DungeonManager {
         try { support.teleport({ x: support.location.x + dx / length * Math.min(1.5, length), y: target.y, z: support.location.z + dz / length * Math.min(1.5, length) }); } catch {}
       }
     }
-    if (system.currentTick % 40 === 0) {
+    if (system.currentTick - Number(instance.stageData.lastActionBarTick || 0) >= 20) {
+      instance.stageData.lastActionBarTick = system.currentTick;
       for (const id of instance.participantIds) {
         const player = onlinePlayer(id);
         if (!player) continue;
