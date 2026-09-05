@@ -23,6 +23,7 @@ def enable_deferred(raw_bytes):
     nbt_file["experiments"]["upcoming_creator_features"] = nbtlib.Byte(1)
     nbt_file["experiments"]["experimental_creator_cameras"] = nbtlib.Byte(1)
     nbt_file["experiments"]["data_driven_biomes"] = nbtlib.Byte(1)
+    nbt_file["experiments"]["jigsaw_structures"] = nbtlib.Byte(1)
     nbt_file["commandsEnabled"] = nbtlib.Byte(1)
     nbt_file["cheatsEnabled"] = nbtlib.Byte(1)
     nbt_file["LevelName"] = nbtlib.String("明日之后 (LifeAfter)")
@@ -52,6 +53,7 @@ BEHAVIOR_PACKS = [
     ("natural_disasters_bp", os.path.join(BASE_DIR, "natural_disasters_standalone_addon", "standalone_disasters_bp")),
     ("apocalypse_life_bp", os.path.join(BASE_DIR, "apocalypse_life_addon", "apocalypse_life_bp")),
     ("apocalypse_mobs_bp", os.path.join(BASE_DIR, "apocalypse_mobs_addon", "apocalypse_mobs_bp")),
+    ("extraction_dimension_bootstrap_bp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_dimension_bootstrap_bp")),
     ("extraction_bp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_bp")),
     ("daily_events_bp", os.path.join(BASE_DIR, "daily_world_events_addon", "daily_events_bp")),
 ]
