@@ -65,7 +65,7 @@ RESOURCE_PACKS = [
     ("daily_events_rp", os.path.join(BASE_DIR, "daily_world_events_addon", "daily_events_rp")),
     ("natural_disasters_rp", os.path.join(BASE_DIR, "natural_disasters_standalone_addon", "standalone_disasters_rp")),
     ("test_guns_rp", os.path.join(BASE_DIR, "test_guns_2d_addon", "test_guns_rp")),
-    ("dark_fantasy_visuals_rp", os.path.join(BASE_DIR, "dark_fantasy_visuals_rp")),
+    ("dark_fantasy_visuals_rp", os.path.join(REPO_DIR, "dark_fantasy_visuals_rp")),
 ]
 
 def get_pack_info(pack_path):

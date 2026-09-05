@@ -257,13 +257,13 @@ assert.match(social, /openGuildChat/);
 assert.match(social, /recentMessages/);
 const vendingBlock = JSON.parse(read("sapi_server_bp/blocks/player_vending_machine.json"))["minecraft:block"];
 assert.equal(vendingBlock.components["minecraft:destructible_by_mining"].seconds_to_destroy, 100);
-assert(vendingBlock.permutations.some(permutation => permutation.condition.includes("sapi:part") && permutation.components["minecraft:geometry"] === "geometry.vendmachine1"));
-assert(vendingBlock.permutations.some(permutation => permutation.condition.includes("upper") && permutation.components["minecraft:geometry"] === "geometry.sapi_empty"), "upper multiblock part must define empty geometry to avoid rendering default fallback cube");
+const geo = vendingBlock.components["minecraft:geometry"];
+assert.equal(typeof geo === "object" ? geo.identifier : geo, "geometry.vendmachine1");
+assert.match(geo?.bone_visibility?.vendingmachine || "", /lower/);
 assert.equal(vendingItem.components["minecraft:icon"].textures.default, "sapi_player_vending_machine");
 assert.equal(itemAtlas.texture_data.sapi_player_vending_machine.textures, "textures/items/player_vending_machine");
 assert.equal(terrainAtlas.texture_data.sapi_player_vending_machine.textures, "textures/blocks/player_vending_machine");
 assert(vendingGeometry.some(entry => entry.description.identifier === "geometry.vendmachine1" && entry.bones.some(bone => bone.name === "vendingmachine")));
-assert(vendingGeometry.some(entry => entry.description.identifier === "geometry.sapi_empty"), "empty geometry for upper multiblock part missing");
 assert(vendingGeometry.some(entry => entry.bones.some(bone => bone.name === "dark_interior")), "transparent display must have an opaque dark backing");
 for (const [direction, rotation] of [["north", 90], ["south", 270], ["east", 180], ["west", 0]]) {
   const permutation = vendingBlock.permutations.find(entry => entry.condition.includes(`== '${direction}'`));

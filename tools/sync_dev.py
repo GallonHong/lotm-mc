@@ -35,6 +35,7 @@ links = [
     (development('apocalypse_ui_addon/apocalypse_ui_rp'), os.path.join(dev_rp_dir, 'apocalypse_ui_rp')),
     (development('sapi_server_addon/sapi_server_bp'), os.path.join(dev_bp_dir, 'sapi_server_bp')),
     (development('sapi_server_addon/sapi_server_rp'), os.path.join(dev_rp_dir, 'sapi_server_rp')),
+    (os.path.join(repo_dir, 'dark_fantasy_visuals_rp'), os.path.join(dev_rp_dir, 'dark_fantasy_visuals_rp')),
 ]
 
 for src, dst in links:
