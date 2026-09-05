@@ -18,6 +18,10 @@ const socialStore = read("sapi_server_bp/scripts/data/socialStore.js");
 const wanted = read("sapi_server_bp/scripts/modules/wanted.js");
 const combat = read("sapi_server_bp/scripts/modules/combat.js");
 const playerVending = read("sapi_server_bp/scripts/modules/player_vending.js");
+const vendingItem = JSON.parse(read("sapi_server_bp/items/player_vending_machine_deployer.json"))["minecraft:item"];
+const vendingGeometry = JSON.parse(read("sapi_server_rp/models/blocks/player_vending_machine.geo.json"))["minecraft:geometry"];
+const itemAtlas = JSON.parse(read("sapi_server_rp/textures/item_texture.json"));
+const terrainAtlas = JSON.parse(read("sapi_server_rp/textures/terrain_texture.json"));
 const build = read("build.sh");
 const manifest = JSON.parse(read("sapi_server_bp/manifest.json"));
 const resourceManifest = JSON.parse(read("sapi_server_rp/manifest.json"));
@@ -43,8 +47,8 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、希望报与事件管理/);
 assert.match(menu, /突发事件入口仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.11.3");
-assert.equal(resourceManifest.header.version.join("."), "2.11.3");
+assert.equal(manifest.header.version.join("."), "2.11.4");
+assert.equal(resourceManifest.header.version.join("."), "2.11.4");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
@@ -209,9 +213,24 @@ assert.match(playerVending, /buyInsurance/);
 assert.match(playerVending, /queueInsuranceItems/);
 assert.match(playerVending, /claimInsuranceCompensation/);
 assert.doesNotMatch(playerVending, /insurancePayout/);
+assert.match(playerVending, /system\.beforeEvents\?\.startup\?\.subscribe/);
+assert.match(playerVending, /world\.beforeEvents\?\.worldInitialize\?\.subscribe/);
+assert.match(playerVending, /itemComponentRegistered/);
+assert.match(playerVending, /blockComponentRegistered/);
 assert.match(social, /openGuildChat/);
 assert.match(social, /recentMessages/);
-assert.equal(JSON.parse(read("sapi_server_bp/blocks/player_vending_machine.json"))["minecraft:block"].components["minecraft:destructible_by_mining"].seconds_to_destroy, 100);
+const vendingBlock = JSON.parse(read("sapi_server_bp/blocks/player_vending_machine.json"))["minecraft:block"];
+assert.equal(vendingBlock.components["minecraft:destructible_by_mining"].seconds_to_destroy, 100);
+assert(vendingBlock.permutations.some(permutation => permutation.condition.includes("sapi:part") && permutation.components["minecraft:geometry"] === "geometry.vendmachine1"));
+assert.equal(vendingItem.components["minecraft:icon"].textures.default, "sapi_player_vending_machine");
+assert.equal(itemAtlas.texture_data.sapi_player_vending_machine.textures, "textures/items/player_vending_machine");
+assert.equal(terrainAtlas.texture_data.sapi_player_vending_machine.textures, "textures/blocks/player_vending_machine");
+assert(vendingGeometry.some(entry => entry.description.identifier === "geometry.vendmachine1" && entry.bones.some(bone => bone.name === "vendingmachine")));
+assert.notDeepEqual(
+  fs.readFileSync(new URL("../sapi_server_rp/textures/items/player_vending_machine.png", import.meta.url)),
+  fs.readFileSync(new URL("../sapi_server_rp/textures/blocks/player_vending_machine.png", import.meta.url)),
+  "inventory icon must not reuse the block-model UV atlas"
+);
 
 const uiSources = fs.readdirSync(new URL("../sapi_server_bp/scripts/", import.meta.url), { recursive: true })
   .filter(path => String(path).endsWith(".js"))
@@ -223,4 +242,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.11.3 validation passed.");
+console.log("SAPI Server v2.11.4 validation passed.");

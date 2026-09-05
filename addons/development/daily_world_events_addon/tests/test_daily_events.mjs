@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 17, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 17, 0]);
+assert.deepEqual(manifest.header.version, [0, 18, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 18, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {
@@ -133,7 +133,10 @@ assert.equal(scavenger.entries.reduce((sum, entry) => sum + entry.weight, 0), 10
 assert(scavenger.entries.filter(entry => !entry.id.startsWith("minecraft:")).reduce((sum, entry) => sum + entry.weight, 0) >= 4000, "addon supplies must occupy at least 40% of scavenger item weight");
 for (const prefix of ["ab_ve:", "test_gun:ammo_", "test_gun:part_", "survival_vehicle:"]) assert(scavenger.entries.some(entry => entry.id.startsWith(prefix)), `scavenger addon category missing: ${prefix}`);
 const scavengerEpicIds = ["blueprint_m82", "blueprint_rpg", "blueprint_riot_shield", "blueprint_katana", "blueprint_kukri_machete"];
-for (const id of scavengerEpicIds) assert(scavenger.entries.some(entry => entry.id === `test_gun:${id}`), `scavenger Epic drop missing: ${id}`);
+assert.equal(scavenger.bonusEpicBlueprintChance, 0.01, "scavenger crate must have an exact independent 1% Epic blueprint roll");
+assert.equal(scavenger.entries.some(entry => entry.id.startsWith("test_gun:blueprint_")), false, "scavenger entries must not add a second hidden Epic chance");
+const rewardModule = await import(`file://${join(bp, "scripts/rewards/rewards.js")}`);
+for (const id of scavengerEpicIds) assert(rewardModule.DUNGEON_EPIC_BLUEPRINTS.some(entry => entry.id === `test_gun:${id}`), `shared random Epic pool missing: ${id}`);
 assert(scavenger.entries.some(entry => entry.id === "daily:mythic_supply_key"), "scavenger mythic-key chance missing");
 assert.equal(json(join(bp, "items/mythic_supply_key.json"))["minecraft:item"].description.identifier, "daily:mythic_supply_key");
 for (const tier of ["scavenger", "common", "rare", "epic", "legendary", "mythic"]) {
@@ -150,6 +153,47 @@ for (const texture of ["scavenger", "common", "rare", "epic", "legendary", "open
   const png = readFileSync(join(rp, `textures/blocks/daily_crate_${texture}.png`));
   assert.equal(png.readUInt32BE(16), 32, `${texture} crate texture width must be 32`);
   assert.equal(png.readUInt32BE(20), 32, `${texture} crate texture height must be 32`);
+}
+
+const entityCrateSource = readFileSync(join(bp, "scripts/rewards/EntityLootCrateManager.js"), "utf8");
+const configModule = await import(`file://${join(bp, "scripts/config.js")}`);
+const entityPools = cratePoolsModule.ENTITY_LOOT_CRATE_POOLS;
+assert.deepEqual(Object.keys(entityPools), ["common", "advanced"]);
+for (const [tier, median] of [["common", 60], ["advanced", 120]]) {
+  const pool = entityPools[tier];
+  assert.equal(pool.coins.reduce((sum, range) => sum + range.weight, 0), 10000, `${tier} entity crate coin denominator changed`);
+  assert.equal(pool.coins.filter(range => range.max <= median).reduce((sum, range) => sum + range.weight, 0), 5000, `${tier} entity crate median must be ${median}`);
+  assert.equal(pool.entries.reduce((sum, entry) => sum + entry.weight, 0), 10000, `${tier} entity crate item denominator changed`);
+  assert(Math.max(...pool.rollCounts.map(rule => rule.count)) <= pool.maxItems, `${tier} entity crate exceeds its item cap`);
+}
+assert.equal(entityPools.common.maxItems, 2);
+assert.equal(entityPools.advanced.maxItems, 3);
+assert.equal(entityPools.advanced.bonusEpicBlueprintChance, 0.01, "advanced entity crate must have an exact 1% Epic blueprint roll");
+assert.equal(configModule.CONFIG.entityCrateInteractionDistance, 1, "entity crates must reject interaction beyond one block");
+assert(entityPools.common.entries.some(entry => entry.id.startsWith("minecraft:")), "common entity crate vanilla junk missing");
+assert(entityPools.common.entries.some(entry => entry.id.startsWith("test_gun:ammo_")), "common entity crate ammo missing");
+assert(entityPools.common.entries.some(entry => entry.id.startsWith("test_gun:part_")), "common entity crate gun parts missing");
+assert(entityPools.common.entries.some(entry => entry.id.startsWith("test_gun:blueprint_")), "common entity crate blue blueprint missing");
+for (const marker of ["entityCrateInteractionDistance ** 2", "<= CONFIG.entityCrateInteractionDistance", "daily_entity_crate_claimed", "items.slice(0, itemLimit)", "sameOverworld", '=== "overworld"', "zoneType === \"outlaw\"", "% 20 === 0", "% 6 === 0", "spawnItem", "entity.remove()"] ) {
+  assert(entityCrateSource.includes(marker), `entity crate behavior missing: ${marker}`);
+}
+for (const [file, id] of [["random_crate_common.json", "daily:random_crate_common"], ["random_crate_advanced.json", "daily:random_crate_advanced"]]) {
+  const entity = json(join(bp, "entities", file))["minecraft:entity"];
+  assert.equal(entity.description.identifier, id);
+  assert.equal(entity.components["minecraft:damage_sensor"].triggers[0].deals_damage, "no");
+  assert.equal(entity.components["minecraft:pushable"].is_pushable, false);
+  assert(entity.components["minecraft:interact"]);
+}
+const entityCrateGeometry = json(join(rp, "models/entity/random_crate.geo.json"))["minecraft:geometry"];
+assert(entityCrateGeometry.some(entry => entry.description.identifier === "geometry.daily.random_crate"));
+for (const [file, id, texture] of [
+  ["random_crate_common.entity.json", "daily:random_crate_common", "textures/blocks/daily_crate_scavenger"],
+  ["random_crate_advanced.entity.json", "daily:random_crate_advanced", "textures/blocks/daily_crate_epic"]
+]) {
+  const client = json(join(rp, "entity", file))["minecraft:client_entity"].description;
+  assert.equal(client.identifier, id);
+  assert.equal(client.geometry.default, "geometry.daily.random_crate");
+  assert.equal(client.textures.default, texture);
 }
 
 const dungeonTemplates = await import(`file://${join(bp, "scripts/dungeons/dungeonTemplates.js")}`);
@@ -245,6 +289,9 @@ for (const marker of ["readySessions", "openTeam", "beginTeamReady", "receiveRea
 assert.equal(dungeonManager.includes("!IntegrationBridge.isApocalypseAvailable()"), false, "stale heartbeat must never block dungeon creation");
 const dailyMain = readFileSync(join(bp, "scripts/main.js"), "utf8");
 assert(dailyMain.includes("DungeonManager.tick"));
+for (const marker of ["EntityLootCrateManager.initialize()", "EntityLootCrateManager.scanAndSpawn()", 'world.afterEvents?.entityHitEntity', "EntityLootCrateManager.interact(event.player, event.target)"]) {
+  assert(dailyMain.includes(marker), `entity crate main hook missing: ${marker}`);
+}
 assert(dailyMain.includes('id === "sapi:daily_probe"') && dailyMain.includes("sapi:daily_pong"), "SAPI/Daily active ping-pong bridge missing");
 assert(dailyMain.includes("DungeonManager.onBlockInteract"), "dungeon crate interaction must be forwarded from both interaction paths");
 assert(dailyMain.includes('id === "daily:news_admin"') && dailyMain.includes("DailyAdminMenu.startNewsEvent(player)"), "SAPI news-admin direct route missing");

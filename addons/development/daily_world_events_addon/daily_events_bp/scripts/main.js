@@ -12,12 +12,13 @@ import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
+import { EntityLootCrateManager } from "./rewards/EntityLootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
 import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 import { HopePostManager } from "./events/HopePostManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.17.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.18.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -239,6 +240,7 @@ LegacyCrateBackfillManager.initialize();
 WorldEventManager.initializeCleanup();
 DungeonManager.initializeCleanup();
 LootCrateManager.initialize();
+EntityLootCrateManager.initialize();
 
 subscribe(world.afterEvents?.entityLoad, "entityLoad", event => WorldEventManager.cleanupIfStale(event.entity));
 
@@ -282,15 +284,25 @@ const craftedSubscribed = subscribe(world.afterEvents?.playerCraftedItem, "playe
 if (!craftedSubscribed) console.warn("[DailyEvents] playerCraftedItem is unavailable; craft-group daily tasks cannot advance on this server build.");
 
 const interactAfter = subscribe(world.afterEvents?.playerInteractWithEntity, "after playerInteractWithEntity", event => {
+  if (EntityLootCrateManager.interact(event.player, event.target)) return;
   handleNpcInteraction(event.player, event.target);
 });
 if (!interactAfter) {
   subscribe(world.beforeEvents?.playerInteractWithEntity, "before playerInteractWithEntity", event => {
     const player = event.player;
     const target = event.target;
-    system.run(() => handleNpcInteraction(player, target));
+    system.run(() => {
+      if (EntityLootCrateManager.interact(player, target)) return;
+      handleNpcInteraction(player, target);
+    });
   });
 }
+
+subscribe(world.afterEvents?.entityHitEntity, "entityHitEntity", event => {
+  const player = event.damagingEntity;
+  if (player?.typeId !== "minecraft:player") return;
+  EntityLootCrateManager.interact(player, event.hitEntity);
+});
 
 subscribe(world.afterEvents?.playerInteractWithBlock, "playerInteractWithBlock", event => {
   try {
@@ -370,6 +382,10 @@ system.runInterval(() => {
 }, CONFIG.lootCrateResetScanTicks);
 
 system.runInterval(() => {
+  try { EntityLootCrateManager.scanAndSpawn(); } catch (error) { console.warn(`[DailyEvents] entity loot crate scan failed: ${error}`); }
+}, CONFIG.entityCrateSpawnScanTicks);
+
+system.runInterval(() => {
   try {
     SpawnerReplacementManager.enqueueAroundPlayers();
     LegacyCrateBackfillManager.enqueueAroundPlayers();
@@ -396,4 +412,4 @@ system.runInterval(() => {
   }
 }, 100);
 
-console.warn(`[DailyEvents] DailyQuestManager, DailyNewsManager, RewardManager, LootCrateManager, DungeonManager and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);
+console.warn(`[DailyEvents] DailyQuestManager, DailyNewsManager, RewardManager, LootCrateManager, EntityLootCrateManager, DungeonManager and ${Object.keys(EVENT_TEMPLATES).length} event templates initialized.`);

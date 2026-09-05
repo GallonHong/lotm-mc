@@ -1,0 +1,26 @@
+{
+  "format_version": "1.21.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "daily:random_crate_common",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": { "family": ["daily_random_crate"] },
+      "minecraft:nameable": { "always_show": false, "allow_name_tag_renaming": false },
+      "minecraft:health": { "value": 1000, "max": 1000 },
+      "minecraft:collision_box": { "width": 0.9, "height": 0.9 },
+      "minecraft:physics": { "has_gravity": true, "has_collision": true },
+      "minecraft:pushable": { "is_pushable": false, "is_pushable_by_piston": false },
+      "minecraft:despawn": { "despawn_from_distance": { "min_distance": 96, "max_distance": 128 } },
+      "minecraft:damage_sensor": { "triggers": [{ "cause": "all", "deals_damage": "no" }] },
+      "minecraft:interact": { "interactions": [{
+        "on_interact": { "filters": { "test": "is_family", "subject": "other", "value": "player" }, "event": "daily:crate_touched", "target": "self" },
+        "interact_text": "action.interact.opencontainer"
+      }] }
+    },
+    "events": { "daily:crate_touched": {} }
+  }
+}

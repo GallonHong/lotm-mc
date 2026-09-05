@@ -45,6 +45,8 @@ function directionFor(player) {
 
 export class PlayerVendingManager {
     static openTicks = new Map();
+    static itemComponentRegistered = false;
+    static blockComponentRegistered = false;
 
     static settings() { return Config.vending || {}; }
 
@@ -98,18 +100,38 @@ export class PlayerVendingManager {
     }
 
     static registerEvents() {
-        try {
-            system.beforeEvents.startup.subscribe(event => {
+        const registerComponents = event => {
+            if (!this.itemComponentRegistered) {
                 try {
                     event.itemComponentRegistry.registerCustomComponent("sapi:player_vending_deployer", {
                         onUseOn: interaction => system.run(() => this.deploy(interaction.source, interaction.block))
                     });
+                    this.itemComponentRegistered = true;
+                } catch (error) { console.warn(`[PlayerVending] item component registration failed: ${error}`); }
+            }
+            if (!this.blockComponentRegistered) {
+                try {
                     event.blockComponentRegistry.registerCustomComponent("sapi:player_vending_interact", {
                         onPlayerInteract: interaction => system.run(() => this.interact(interaction.player, interaction.block))
                     });
-                } catch (error) { console.warn(`[PlayerVending] component registration failed: ${error}`); }
-            });
+                    this.blockComponentRegistered = true;
+                } catch (error) { console.warn(`[PlayerVending] block component registration failed: ${error}`); }
+            }
+        };
+        let registrationEventAvailable = false;
+        try {
+            if (system.beforeEvents?.startup?.subscribe) {
+                system.beforeEvents.startup.subscribe(registerComponents);
+                registrationEventAvailable = true;
+            }
         } catch (error) { console.warn(`[PlayerVending] startup event unavailable: ${error}`); }
+        try {
+            if (world.beforeEvents?.worldInitialize?.subscribe) {
+                world.beforeEvents.worldInitialize.subscribe(registerComponents);
+                registrationEventAvailable = true;
+            }
+        } catch (error) { console.warn(`[PlayerVending] worldInitialize event unavailable: ${error}`); }
+        if (!registrationEventAvailable) console.warn("[PlayerVending] no custom component registration event is available");
 
         const interact = world.afterEvents?.playerInteractWithBlock;
         if (interact?.subscribe) interact.subscribe(event => {

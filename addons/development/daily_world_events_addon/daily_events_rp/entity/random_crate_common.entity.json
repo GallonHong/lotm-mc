@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "daily:random_crate_common",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/blocks/daily_crate_scavenger" },
+      "geometry": { "default": "geometry.daily.random_crate" },
+      "render_controllers": ["controller.render.default"]
+    }
+  }
+}

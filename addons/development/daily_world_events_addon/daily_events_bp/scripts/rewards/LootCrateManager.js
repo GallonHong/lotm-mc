@@ -3,6 +3,7 @@ import { CONFIG } from "../config.js";
 import { RewardManager } from "./RewardManager.js";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
 import { LOOT_CRATE_BLOCKS, LOOT_CRATE_POOLS } from "./lootCratePools.js";
+import { DUNGEON_EPIC_BLUEPRINTS } from "./rewards.js";
 import { HopePostManager } from "../events/HopePostManager.js";
 
 function hash(value) {
@@ -77,6 +78,9 @@ export class LootCrateManager {
     }
     if (Number(pool.bonusKeyChance || 0) > 0 && Math.random() < Number(pool.bonusKeyChance)) {
       items.push({ id: "daily:mythic_supply_key", amount: 1, name: "§d神话补给密钥" });
+    }
+    if (Number(pool.bonusEpicBlueprintChance || 0) > 0 && Math.random() < Number(pool.bonusEpicBlueprintChance) && DUNGEON_EPIC_BLUEPRINTS.length) {
+      items.push({ ...DUNGEON_EPIC_BLUEPRINTS[Math.floor(Math.random() * DUNGEON_EPIC_BLUEPRINTS.length)] });
     }
     return { id: `loot_crate_${tier}`, coins: rollCoins(pool.coins), items };
   }
