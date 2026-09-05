@@ -222,9 +222,9 @@ export class TeleportManager {
             let updated = false;
             const updatedWarps = valid.map(warp => {
                 const preset = DEFAULT_WARPS.find(d => d.id === warp.id);
-                if (preset && (warp.name !== preset.name || warp.icon !== preset.icon)) {
+                if (preset && (warp.name !== preset.name || warp.icon !== preset.icon || warp.x !== preset.x || warp.y !== preset.y || warp.z !== preset.z)) {
                     updated = true;
-                    return { ...warp, name: preset.name, icon: preset.icon };
+                    return { ...warp, name: preset.name, icon: preset.icon, x: preset.x, y: preset.y, z: preset.z, dimension: preset.dimension };
                 }
                 return warp;
             });
@@ -327,16 +327,33 @@ export class TeleportManager {
         return saved;
     }
 
+    static isHazard(block) {
+        if (!block) return false;
+        const id = String(block.typeId || "").toLowerCase();
+        return id.includes("lava") || id.includes("fire") || id.includes("magma") ||
+            id.includes("campfire") || id.includes("cactus") || id.includes("sweet_berry") ||
+            id.includes("wither_rose") || id.includes("powder_snow");
+    }
+
     static isPassable(block) {
         if (!block) return false;
-        const id = String(block.typeId || "");
-        return id === "minecraft:air" || id === "minecraft:cave_air" || id === "minecraft:void_air" ||
-            id.includes("tallgrass") || id.includes("short_grass") || id.includes("snow_layer") ||
-            id.includes("flower") || id.includes("torch");
+        if (block.isAir) return true;
+        const id = String(block.typeId || "").toLowerCase();
+        if (id.endsWith("_air")) return true;
+        if (this.isHazard(block)) return false;
+        return id.includes("grass") || id.includes("fern") || id.includes("flower") ||
+            id.includes("torch") || id.includes("lantern") || id.includes("snow") ||
+            id.includes("carpet") || id.includes("sign") || id.includes("banner") ||
+            id.includes("rail") || id.includes("wire") || id.includes("tripwire") ||
+            id.includes("lever") || id.includes("button") || id.includes("plate") ||
+            id.includes("vine") || id.includes("lichen") || id.includes("deadbush") ||
+            id.includes("sapling") || id.includes("rod") || id.includes("chain") ||
+            id.includes("candle") || id.includes("scaffolding") || id.includes("structure_void") ||
+            id.includes("light_block");
     }
 
     static isLiquid(block) {
-        const id = String(block?.typeId || "");
+        const id = String(block?.typeId || "").toLowerCase();
         return id.includes("water") || id.includes("lava");
     }
 
@@ -345,17 +362,50 @@ export class TeleportManager {
             const below = dimension.getBlock({ x, y: y - 1, z });
             const feet = dimension.getBlock({ x, y, z });
             const head = dimension.getBlock({ x, y: y + 1, z });
-            return !!below && !this.isPassable(below) && !this.isLiquid(below) &&
-                this.isPassable(feet) && this.isPassable(head);
+            if (!below || !feet || !head) return null;
+            if (this.isHazard(below) || this.isHazard(feet) || this.isHazard(head)) return false;
+            if (this.isPassable(below) || this.isLiquid(below)) return false;
+            return this.isPassable(feet) && this.isPassable(head);
         } catch {
             return null;
         }
     }
 
+    static getFallbackLocation(dimension, location) {
+        if (!location) return null;
+        const x = Number(location.x);
+        const y = Number(location.y);
+        const z = Number(location.z);
+        if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) return null;
+
+        try {
+            const blockX = Math.floor(x);
+            const blockZ = Math.floor(z);
+            const checkY = Math.round(y);
+            const feet = dimension.getBlock({ x: blockX, y: checkY, z: blockZ });
+            if (feet) {
+                if (this.isHazard(feet) || (!this.isPassable(feet) && !this.isLiquid(feet))) {
+                    for (let dy = 1; dy <= 8; dy++) {
+                        const testY = checkY + dy;
+                        const f = dimension.getBlock({ x: blockX, y: testY, z: blockZ });
+                        const h = dimension.getBlock({ x: blockX, y: testY + 1, z: blockZ });
+                        if (f && h && this.isPassable(f) && this.isPassable(h)) {
+                            return { x, y: testY, z };
+                        }
+                    }
+                }
+            }
+        } catch {
+            // 未加载区块或查询异常直接返回原目标坐标
+        }
+        const clampedY = Math.max(-60, Math.min(319, y));
+        return { x, y: clampedY, z };
+    }
+
     static findSafeLocation(dimension, location) {
         const x = Math.floor(Number(location.x)) + 0.5;
         const z = Math.floor(Number(location.z)) + 0.5;
-        const baseY = Math.floor(Number(location.y));
+        const baseY = Math.round(Number(location.y));
         const radius = Math.max(1, Math.min(32, Number(Config.teleport?.safeSearchRadiusY) || 16));
         const offsets = [0];
         for (let step = 1; step <= radius; step++) offsets.push(step, -step);
@@ -375,7 +425,7 @@ export class TeleportManager {
                 }
             }
         }
-        // 未加载区块无法预读方块时保留目标坐标；已加载但没有安全点时拒绝传送。
+        // 未加载区块无法预读方块时保留目标坐标；已加载但未匹配到安全点时返回 null 交由兜底位置处理。
         return readable ? null : { x: Number(location.x), y: Number(location.y), z: Number(location.z) };
     }
 
@@ -459,9 +509,9 @@ export class TeleportManager {
         }
         try {
             const dimension = world.getDimension(location.dimension);
-            const destination = this.findSafeLocation(dimension, location);
+            const destination = this.findSafeLocation(dimension, location) || this.getFallbackLocation(dimension, location);
             if (!destination) {
-                Utils.tell(player, "§c目标附近没有安全落点，传送已取消。");
+                Utils.tell(player, "§c目标坐标无效，传送已取消。");
                 return false;
             }
             player.teleport(destination, { dimension, rotation: location.rotation || undefined });

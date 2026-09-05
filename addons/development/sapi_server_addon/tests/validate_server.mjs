@@ -32,6 +32,9 @@ assert.match(teleport, /tpaEnabled/);
 assert.match(teleport, /TPA_RECEIVE_KEY/);
 assert.match(teleport, /openTpaAdminSettings/);
 assert.match(teleport, /restoreDefaultWarps/);
+assert.match(teleport, /isHazard/);
+assert.match(teleport, /getFallbackLocation/);
+assert.match(teleport, /if \(!below \|\| !feet \|\| !head\) return null;/);
 
 const expectedWarpNames = [
   "快乐101--安全区",
