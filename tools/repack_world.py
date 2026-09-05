@@ -1,4 +1,5 @@
 import os
+import sys
 import zipfile
 import json
 import shutil
@@ -13,18 +14,35 @@ def enable_deferred(raw_bytes):
     nbt_bytes = raw_bytes[8:]
     f = io.BytesIO(nbt_bytes)
     nbt_file = nbtlib.File.parse(f, byteorder="little")
-    if "experiments" not in nbt_file:
+    if "experiments" not in nbt_file or nbt_file["experiments"] is None:
         nbt_file["experiments"] = nbtlib.Compound()
     nbt_file["experiments"]["deferred_technical_preview"] = nbtlib.Byte(1)
     nbt_file["experiments"]["experiments_ever_used"] = nbtlib.Byte(1)
     nbt_file["experiments"]["saved_with_toggled_experiments"] = nbtlib.Byte(1)
+    nbt_file["experiments"]["gametest"] = nbtlib.Byte(1)
+    nbt_file["experiments"]["upcoming_creator_features"] = nbtlib.Byte(1)
+    nbt_file["experiments"]["experimental_creator_cameras"] = nbtlib.Byte(1)
+    nbt_file["experiments"]["data_driven_biomes"] = nbtlib.Byte(1)
+    nbt_file["commandsEnabled"] = nbtlib.Byte(1)
+    nbt_file["cheatsEnabled"] = nbtlib.Byte(1)
+    nbt_file["LevelName"] = nbtlib.String("明日之后 (LifeAfter)")
     out_f = io.BytesIO()
     nbt_file.write(out_f, byteorder="little")
     new_nbt_bytes = out_f.getvalue()
     return struct.pack("<II", ver, len(new_nbt_bytes)) + new_nbt_bytes
 
-SRC_MCWORLD = r"c:\Users\10973\Documents\WeChat Files\wxid_p0qzgqeqkla022\FileStorage\File\2025-04\MRZH SURVIVE -------- V2 (1).mcworld"
 REPO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DESKTOP_DIR = os.path.join(os.path.expanduser("~"), "Desktop")
+DEFAULT_DESKTOP_ZIP = os.path.join(DESKTOP_DIR, "《明日之后：幸存者》.zip")
+WECHAT_SRC = r"c:\Users\10973\Documents\WeChat Files\wxid_p0qzgqeqkla022\FileStorage\File\2025-04\MRZH SURVIVE -------- V2 (1).mcworld"
+
+if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
+    SRC_MCWORLD = sys.argv[1]
+elif os.path.exists(DEFAULT_DESKTOP_ZIP):
+    SRC_MCWORLD = DEFAULT_DESKTOP_ZIP
+else:
+    SRC_MCWORLD = WECHAT_SRC
+
 OUT_MCWORLD = os.path.join(REPO_DIR, "明日之后.mcworld")
 BASE_DIR = os.path.join(REPO_DIR, "addons", "development")
 
@@ -97,25 +115,38 @@ def main():
 
     print(f"[*] Repackaging into: {OUT_MCWORLD} ...")
     with zipfile.ZipFile(SRC_MCWORLD, "r") as src_zip:
+        # Detect prefix (e.g. "MRZH SURVIVE/") if present
+        prefix = ""
+        for name in src_zip.namelist():
+            if name.endswith("level.dat") and not ("behavior_packs" in name or "resource_packs" in name):
+                if "/" in name:
+                    prefix = name[:name.rfind("level.dat")]
+                break
+        if prefix:
+            print(f"[*] Detected world directory prefix in archive: '{prefix}'")
+
         with zipfile.ZipFile(temp_out, "w", zipfile.ZIP_DEFLATED) as dst_zip:
             # 1. Copy original world data (db, level.dat, icons, etc.) but exclude old behavior_packs and resource_packs
             for item in src_zip.infolist():
-                name = item.filename
+                raw_name = item.filename
+                name = raw_name[len(prefix):] if prefix and raw_name.startswith(prefix) else raw_name
+                if not name or name.endswith("/"):
+                    continue
                 # Skip old embedded packs and old world pack lists
                 if name.startswith("behavior_packs/") or name.startswith("resource_packs/"):
                     continue
                 if name in ("world_behavior_packs.json", "world_resource_packs.json", "levelname.txt"):
                     continue
                 
-                # Copy original file with deferred graphics enabled in level.dat
-                data = src_zip.read(name)
+                # Copy original file with deferred graphics & experiments enabled in level.dat
+                data = src_zip.read(raw_name)
                 if name in ("level.dat", "level.dat_old"):
                     try:
                         data = enable_deferred(data)
-                        print(f"[*] Enabled 灵动视效 (deferred_technical_preview) in {name}")
+                        print(f"[*] Enabled 灵动视效 & 创作者实验在 {name}")
                     except Exception as e:
                         print(f"[!] Warning: failed to update {name}: {e}")
-                dst_zip.writestr(item, data)
+                dst_zip.writestr(name, data, compress_type=zipfile.ZIP_DEFLATED)
 
             # 2. Write new levelname and pack activation configs
             dst_zip.writestr("levelname.txt", levelname_content)
@@ -157,6 +188,18 @@ def main():
     elapsed = time.time() - start_time
     print(f"\n[SUCCESS] Packaged {OUT_MCWORLD} successfully in {elapsed:.2f}s!")
     print(f"Total Size: {size_mb:.2f} MB")
+
+    # Also copy to Desktop for convenient access
+    desktop_targets = [
+        os.path.join(DESKTOP_DIR, "《明日之后：幸存者》.mcworld"),
+        os.path.join(DESKTOP_DIR, "明日之后.mcworld"),
+    ]
+    for target in desktop_targets:
+        try:
+            shutil.copy2(OUT_MCWORLD, target)
+            print(f"[SUCCESS] Copied to Desktop: {target}")
+        except Exception as e:
+            print(f"[!] Warning: Could not copy to {target}: {e}")
 
 if __name__ == "__main__":
     main()
