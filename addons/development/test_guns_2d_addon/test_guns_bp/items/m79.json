@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m79",
       "minecraft:display_name": {
-        "value": "\u00a79M79 \u5355\u53d1\u69b4\u5f39\u53d1\u5c04\u5668 [\u4f18\u826f]\u00a7r"
+        "value": "§9M79 单发榴弹发射器 [优良]§r\n§7被动: 单发曲射 40mm 高爆弹，产生大范围破片震荡轰炸伤害§r"
       },
       "minecraft:durability": {
         "max_durability": 80

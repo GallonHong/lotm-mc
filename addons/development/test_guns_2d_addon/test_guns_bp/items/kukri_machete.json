@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_kukri_machete",
       "minecraft:display_name": {
-        "value": "\u00a75\u5c3c\u6cca\u5c14\u5e93\u514b\u9510\u5f2f\u5200 [\u53f2\u8bd7\u00b712\u70b9\u4f24\u00b7\u6a2a\u626b\u6d41\u8840]\u00a7r"
+        "value": "§5尼泊尔库克锐弯刀 [史诗]§r\n§7被动: 【横扫撕裂】12点近战重伤，连续攻击造成强力流血创伤§r\n§e主动: 【战术突刺】按右键蓄力向前突刺横斩破敌 (8s CD)§r"
       },
       "minecraft:damage": {
         "value": 12

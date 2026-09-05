@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_bizon",
       "minecraft:display_name": {
-        "value": "\u00a7fPP-19 \u91ce\u725b\u51b2\u950b\u67aa [\u666e\u901a\u00b764\u53d1\u5927\u5f39\u7b52]\u00a7r"
+        "value": "§fPP-19 野牛冲锋枪 [普通]§r\n§7被动: 64发大容量螺旋弹筒，提供持久不间断的火力压制泼水§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

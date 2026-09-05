@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_m1014_ward",
       "minecraft:display_name": {
-        "value": "§5M1014 泰坦壁垒 [史诗·重装过载]§r"
+        "value": "§5M1014 泰坦壁垒 [史诗]§r\n§7被动: 【重装过载】自身护甲越厚威力越强，每点护甲增伤 3% (最高+72%)§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

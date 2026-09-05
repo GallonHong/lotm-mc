@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_vest_light",
       "minecraft:display_name": {
-        "value": "\u00a7f\u51ef\u592b\u62c9\u8f7b\u578b\u9632\u5f39\u8863 [\u666e\u901a\u00b74\u70b9\u62a4\u7532]\u00a7r"
+        "value": "§f凯夫拉轻型防弹衣 [普通]§r\n§7被动: 提供 4 点基础护甲，吸收 15% 枪械终伤§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.chest",

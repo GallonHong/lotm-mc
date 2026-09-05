@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_immortal_mask",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_immortal_mask",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9特战防尘过滤口罩 [优良]§r\n§7被动: 提供 2 点头部护甲，阻隔粉尘与飞溅物§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 2
+      },
+      "minecraft:durability": {
+        "max_durability": 250
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 100
+          }
+        ]
+      }
+    }
+  }
+}

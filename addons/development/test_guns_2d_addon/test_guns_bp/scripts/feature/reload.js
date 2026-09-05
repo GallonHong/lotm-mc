@@ -1,3 +1,4 @@
+import { EquipmentSlot } from '@minecraft/server';
 import { countAmmoInInventory, consumeAmmoFromInventory, isCreativePlayer } from './utils/inventoryUtils.js';
 import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { showReloadingHUD, showAmmoHUD, updateActionBar } from './ui.js';
@@ -35,10 +36,17 @@ export class ReloadManager {
       return false;
     }
 
+    let totalTicks = gun.reloadTime || 45;
+    const equ = player.getComponent?.('minecraft:equippable');
+    const chest = equ?.getEquipment(EquipmentSlot.Chest);
+    if (chest && chest.typeId.includes('armor_wasp_rig')) {
+      totalTicks = Math.max(10, Math.round(totalTicks * 0.8)); // 携弹胸挂装填时间 -20%
+    }
+
     this.reloadingPlayers.set(player.id, {
       gunId: gun.id,
       currentTick: 0,
-      totalTicks: gun.reloadTime || 45
+      totalTicks: totalTicks
     });
 
     try {

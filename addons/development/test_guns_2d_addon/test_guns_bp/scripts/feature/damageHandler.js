@@ -18,7 +18,23 @@ export const ARMOR_PIECE_VALUES = {
   armor_helmet_tactical: 3,
   armor_titan_chest: 12,
   jetpack: 5,
-  riot_shield: 4
+  riot_shield: 4,
+
+  // New LifeAfter Tactical Armors
+  armor_mob_chest: 9,
+  armor_mob_pants: 6,
+  armor_mob_mask: 4,
+  armor_night_vision: 3,
+  armor_wasp_rig: 6,
+  armor_wasp_pants: 4,
+  armor_wasp_boots: 3,
+  armor_wasp_mask: 2,
+  armor_immortal_vest: 7,
+  armor_immortal_pants: 5,
+  armor_immortal_mask: 2,
+  armor_analyzer: 2,
+  armor_tech: 4,
+  armor_fraternity: 1
 };
 
 export class DamageHandler {
@@ -122,7 +138,17 @@ export class DamageHandler {
     const headshot = this.isHeadshot(impactLocation, target);
     if (headshot) {
       let hsMult = stats.headshotMultiplier || 1.75;
-      if (headItem && headItem.typeId.includes('armor_helmet_tactical')) {
+      if (headItem && headItem.typeId.includes('armor_mob_mask')) {
+        // 堡垒重装防暴面罩：完全阻断爆头加成
+        hsMult = 1.0;
+        try {
+          target.dimension.playSound('random.anvil_land', targetLoc, { volume: 0.9, pitch: 2.0 });
+          target.dimension.spawnParticle('minecraft:crit', (impactLocation && Number.isFinite(impactLocation.x)) ? impactLocation : targetLoc);
+        } catch {}
+        if (target.typeId === 'minecraft:player') {
+          target.onScreenDisplay?.setActionBar?.('§6🛡【堡垒防暴面罩】重装面甲完全阻断爆头加成伤害！§r');
+        }
+      } else if (headItem && headItem.typeId.includes('armor_helmet_tactical')) {
         hsMult = Math.max(1.15, hsMult - 0.45); // 特警头盔吸收 45% 爆头额外伤害
       }
       currentDamage *= hsMult;
@@ -130,12 +156,25 @@ export class DamageHandler {
 
     // 2.2 防弹衣额外减伤
     if (chestItem) {
-      if (chestItem.typeId.includes('armor_titan_chest')) {
+      if (chestItem.typeId.includes('armor_mob_chest')) {
+        currentDamage *= 0.50; // 堡垒重装防弹衣 50% 终伤吸收 (传说级硬核防御)
+      } else if (chestItem.typeId.includes('armor_titan_chest')) {
         currentDamage *= 0.65; // 泰坦动力甲 35% 终伤吸收
+      } else if (chestItem.typeId.includes('armor_immortal_vest')) {
+        currentDamage *= 0.80; // 特警特训防弹衣 20% 终伤吸收
       } else if (chestItem.typeId.includes('armor_vest_heavy')) {
         currentDamage *= 0.75; // 重装防弹衣 25% 终伤吸收
       } else if (chestItem.typeId.includes('armor_vest_light')) {
         currentDamage *= 0.85; // 轻型防弹衣 15% 终伤吸收
+      }
+    }
+
+    // 2.2.1 堡垒重装防暴裤：下蹲架枪掩体减伤 20%
+    const legsItem = targetEquip?.getEquipment(EquipmentSlot.Legs);
+    if (target.isSneaking && legsItem && legsItem.typeId.includes('armor_mob_pants')) {
+      currentDamage *= 0.80; // 下蹲架枪掩体吸收 20% 冲击
+      if (target.typeId === 'minecraft:player') {
+        target.onScreenDisplay?.setActionBar?.('§6🛡【堡垒防暴裤】下蹲架枪掩体姿态吸收 20% 冲击伤害！§r');
       }
     }
 
@@ -326,8 +365,9 @@ export class DamageHandler {
     // 7. 唤醒仇恨
     this.triggerMobAggro(target, shooter);
 
-    // 8. 施加物理击退
-    if (stats.knockback && shooter && shooter.isValid()) {
+    // 8. 施加物理击退 (堡垒重装防弹衣 100% 击退免疫)
+    const hasMobChest = chestItem && chestItem.typeId.includes('armor_mob_chest');
+    if (stats.knockback && shooter && shooter.isValid() && !hasMobChest) {
       try {
         const dir = shooter.getViewDirection();
         target.applyKnockback(

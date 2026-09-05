@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_rpg",
       "minecraft:display_name": {
-        "value": "\u00a75RPG-7 \u5355\u5175\u706b\u7bad\u7b52 [\u53f2\u8bd7]\u00a7r"
+        "value": "§5RPG-7 单兵火箭筒 [史诗]§r\n§7被动: 聚能破甲火箭弹，直射强力毁灭性重装大范围爆炸§r"
       },
       "minecraft:durability": {
         "max_durability": 150

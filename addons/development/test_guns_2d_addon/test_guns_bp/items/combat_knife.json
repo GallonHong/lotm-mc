@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_combat_knife",
       "minecraft:display_name": {
-        "value": "\u00a7f\u519b\u7528\u683c\u6597\u5315\u9996 [\u666e\u901a\u00b76\u70b9\u4f24\u00b7\u6781\u901f\u523a\u6740]\u00a7r"
+        "value": "§f军用格斗匕首 [普通]§r\n§7被动: 极速近战刺杀，无耐力消耗快速连续刺击敌人§r"
       },
       "minecraft:damage": {
         "value": 6

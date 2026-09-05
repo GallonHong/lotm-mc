@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_tactical_axe",
       "minecraft:display_name": {
-        "value": "\u00a79\u6218\u672f\u7a81\u51fb\u7834\u969c\u65a7 [\u7a00\u6709\u00b710\u70b9\u4f24\u00b7\u91cd\u5288\u7834\u7532]\u00a7r"
+        "value": "§9战术突击破障斧 [优良]§r\n§7被动: 【重劈破甲】10点近战重伤，强力重劈大幅瓦解护甲防线§r"
       },
       "minecraft:damage": {
         "value": 10

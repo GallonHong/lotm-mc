@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_wasp_boots",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.boots"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_wasp_boots",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§5重型野战军靴 [史诗]§r\n§7被动: 3点护甲，鞋底蜂窝气垫缓冲吸收 60% 跌落跌倒冲击§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet",
+        "protection": 3
+      },
+      "minecraft:durability": {
+        "max_durability": 450
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 180
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_armor_mob_mask"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BPB",
+      "THT",
+      " I "
+    ],
+    "key": {
+      "B": {
+        "item": "test_gun:blueprint_armor_mob_mask"
+      },
+      "P": {
+        "item": "test_gun:part_ceramic_plate"
+      },
+      "T": {
+        "item": "test_gun:part_tungsten_bolt"
+      },
+      "H": {
+        "item": "test_gun:armor_helmet_tactical"
+      },
+      "I": {
+        "item": "minecraft:netherite_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:armor_mob_mask",
+      "count": 1
+    }
+  }
+}

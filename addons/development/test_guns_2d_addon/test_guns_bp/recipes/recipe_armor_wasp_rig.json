@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_armor_wasp_rig"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BPB",
+      "RVR",
+      "FRF"
+    ],
+    "key": {
+      "B": {
+        "item": "test_gun:blueprint_armor_wasp_rig"
+      },
+      "P": {
+        "item": "test_gun:part_drum_mag"
+      },
+      "R": {
+        "item": "test_gun:part_fabric_rag"
+      },
+      "V": {
+        "item": "test_gun:armor_vest_heavy"
+      },
+      "F": {
+        "item": "minecraft:iron_ingot"
+      }
+    },
+    "result": {
+      "item": "test_gun:armor_wasp_rig",
+      "count": 1
+    }
+  }
+}

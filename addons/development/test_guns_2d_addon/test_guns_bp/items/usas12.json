@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_usas12",
       "minecraft:display_name": {
-        "value": "\u00a7dUSAS-12\u300c\u55dc\u8840\u72c2\u6f6e\u300d\u00a7r\n\u00a75[\u53f2\u8bd7\u00b720\u53d1\u5168\u81ea\u52a8\u5f39\u9f13\u5438\u8840\u8fde\u55b7]\u00a7r\n\u00a7c\u88ab\u52a8: \u9c9c\u8840\u76db\u5bb4 (\u5438\u53d618%\u4f24\u5bb3\u4e3a\u751f\u547d\u503c+\u8fc7\u91cf\u62a4\u76fe)\u00a7r"
+        "value": "§5USAS-12「嗜血狂潮」[史诗]§r\n§7被动: 【鲜血盛宴】20发弹鼓全自动吸血，吸取18%伤害恢复生命，满血转吸收护盾§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

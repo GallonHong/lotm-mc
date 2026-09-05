@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_glock",
       "minecraft:display_name": {
-        "value": "\u00a7f\u683c\u6d1b\u514b Glock-18 \u624b\u67aa [\u666e\u901a\u00b7\u5168\u81ea\u52a8]\u00a7r"
+        "value": "§f格洛克 Glock-18 手枪 [普通]§r\n§7被动: 全自动击发手枪，单手轻便快拔，近身急速自卫泼水§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_mob_pants",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.leggings"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_mob_pants",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§6堡垒重型防暴腿甲 [传说·限定]§r\n§7被动: 6点护甲，下蹲架枪掩体减伤20%，下蹲射击后坐力大幅降低35%§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.legs",
+        "protection": 6
+      },
+      "minecraft:durability": {
+        "max_durability": 800
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 320
+          }
+        ]
+      }
+    }
+  }
+}

@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_deagle",
       "minecraft:display_name": {
-        "value": "\u00a79\u6c99\u6f20\u4e4b\u9e70 .50 \u6218\u672f\u624b\u67aa [\u4f18\u826f\u00b7\u5feb\u62d4\u624b\u70ae]\u00a7r"
+        "value": "§9沙漠之鹰 .50 战术手枪 [优良]§r\n§7被动: 【快拔手炮】.50马格南重弹，近身极限爆发与重度受击硬直§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

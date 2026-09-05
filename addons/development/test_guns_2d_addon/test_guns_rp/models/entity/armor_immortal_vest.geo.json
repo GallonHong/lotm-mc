@@ -1,0 +1,154 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:geometry": [
+    {
+      "description": {
+        "identifier": "geometry.ewo_armor_immortal3",
+        "texture_width": 64,
+        "texture_height": 32,
+        "visible_bounds_width": 3,
+        "visible_bounds_height": 3,
+        "visible_bounds_offset": [
+          0,
+          1.5,
+          0
+        ]
+      },
+      "bones": [
+        {
+          "name": "body",
+          "pivot": [
+            0,
+            24,
+            0
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -4,
+                12,
+                -2
+              ],
+              "size": [
+                8,
+                12,
+                4
+              ],
+              "uv": [
+                16,
+                16
+              ],
+              "inflate": 0.6
+            },
+            {
+              "origin": [
+                -4,
+                12,
+                -2
+              ],
+              "size": [
+                8,
+                12,
+                4
+              ],
+              "uv": [
+                20,
+                0
+              ],
+              "inflate": 0.65
+            }
+          ]
+        },
+        {
+          "name": "rightArm",
+          "pivot": [
+            -5,
+            22,
+            0.1
+          ],
+          "cubes": [
+            {
+              "origin": [
+                -8,
+                12,
+                -1.9
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                40,
+                16
+              ],
+              "inflate": 0.6
+            },
+            {
+              "origin": [
+                -8,
+                12,
+                -1.9
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                44,
+                0
+              ],
+              "inflate": 0.65
+            }
+          ]
+        },
+        {
+          "name": "leftArm",
+          "pivot": [
+            5,
+            22,
+            0
+          ],
+          "mirror": true,
+          "cubes": [
+            {
+              "origin": [
+                4,
+                12,
+                -1.9
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                40,
+                16
+              ],
+              "inflate": 0.6
+            },
+            {
+              "origin": [
+                4,
+                12,
+                -1.9
+              ],
+              "size": [
+                4,
+                12,
+                4
+              ],
+              "uv": [
+                44,
+                0
+              ],
+              "inflate": 0.65
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

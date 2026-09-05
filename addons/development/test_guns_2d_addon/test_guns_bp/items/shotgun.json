@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_shotgun",
       "minecraft:display_name": {
-        "value": "\u00a7f\u96f7\u660e\u987f M870 \u9730\u5f39\u67aa [\u666e\u901a\u00b7\u6cf5\u52a8\u5f0f]\u00a7r"
+        "value": "§f雷明顿 M870 霰弹枪 [普通]§r\n§7被动: 经典泵动霰弹枪，近身多弹丸高爆发并附带强力击退冲击§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

@@ -1,4 +1,4 @@
-import { world, system, EntityDamageCause } from '@minecraft/server';
+import { world, system, EntityDamageCause, EquipmentSlot } from '@minecraft/server';
 import { isProtectedTeammate } from './utils/teamRules.js';
 
 export class ShieldEngine {
@@ -78,6 +78,16 @@ export class ShieldEngine {
         if (dot >= 0.25) {
           // 命中正面扇形！
           try {
+            // 检查目标是否佩戴【堡垒重装防暴面罩】(免疫闪光致盲与定身)
+            const targetEqu = target.getComponent?.('minecraft:equippable');
+            const targetHead = targetEqu?.getEquipment(EquipmentSlot.Head);
+            if (targetHead && targetHead.typeId.includes('armor_mob_mask')) {
+              if (target.typeId === 'minecraft:player') {
+                target.onScreenDisplay?.setActionBar?.('§6🛡【堡垒防暴面罩】遮光滤镜完全阻断强光致盲！§r');
+              }
+              continue;
+            }
+
             // 1. 原版视觉效果 (对玩家有效)
             target.addEffect('blindness', 70, { amplifier: 0, showParticles: false });
             target.addEffect('darkness', 70, { amplifier: 0, showParticles: false });

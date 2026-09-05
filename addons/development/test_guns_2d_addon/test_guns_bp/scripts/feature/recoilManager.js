@@ -1,3 +1,5 @@
+import { EquipmentSlot } from '@minecraft/server';
+
 export class RecoilManager {
   static sprayHeat = new Map();
 
@@ -22,7 +24,10 @@ export class RecoilManager {
 
       let stabilityFactor = 1.0;
       if (player.isSneaking) {
-        stabilityFactor = 0.55;
+        const equ = player.getComponent?.('minecraft:equippable');
+        const legs = equ?.getEquipment(EquipmentSlot.Legs);
+        const isMobPants = legs && legs.typeId.includes('armor_mob_pants');
+        stabilityFactor = isMobPants ? (0.55 * 0.65) : 0.55; // 堡垒防暴裤下蹲架枪后坐力额外 -35%
       } else if (player.isSprinting) {
         stabilityFactor = 1.40;
       } else if (player.isFalling || player.isClimbing) {

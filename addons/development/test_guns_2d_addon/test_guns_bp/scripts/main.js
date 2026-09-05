@@ -11,6 +11,7 @@ import { ReloadManager } from './feature/reload.js';
 import { SkillManager } from './feature/skillManager.js';
 import { GrenadeEngine } from './feature/grenadeEngine.js';
 import { JetpackEngine } from './feature/jetpackEngine.js';
+import { ArmorEngine } from './feature/armorEngine.js';
 import { DamageHandler } from './feature/damageHandler.js';
 import { getGunById } from './data/guns.js';
 
@@ -199,6 +200,7 @@ class AddonController {
         const hurtEntity = event.hurtEntity;
         if (hurtEntity && hurtEntity.typeId === 'minecraft:player') {
           ShieldEngine.handleDamageReduction(hurtEntity, event.damageSource, event.damage);
+          ArmorEngine.handleHurt(hurtEntity, event.damageSource, event.damage);
         }
       } catch (err) {
         console.warn('Error in entityHurt:', err);
@@ -234,6 +236,7 @@ class AddonController {
       ReloadManager.reloadingPlayers.delete(event.playerId);
       SkillManager.clearPlayer(event.playerId);
       JetpackEngine.playerJumpStates.delete(event.playerId);
+      ArmorEngine.clearPlayer(event.playerId);
       this.lastHeldItem.delete(event.playerId);
     });
   }
@@ -249,6 +252,10 @@ class AddonController {
 
       const players = world.getAllPlayers();
       for (const player of players) {
+        if (this.auraTick % 10 === 0) {
+          ArmorEngine.tick(player);
+        }
+
         const held = getHeldGun(player);
         const lastItemId = this.lastHeldItem.get(player.id);
         const currentItemId = held ? held.item.typeId : null;

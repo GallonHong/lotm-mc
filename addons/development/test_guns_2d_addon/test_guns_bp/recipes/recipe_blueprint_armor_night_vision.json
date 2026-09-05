@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "test_gun:recipe_blueprint_armor_night_vision"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "test_gun:blueprint_blank"
+      },
+      {
+        "item": "test_gun:part_tech_data"
+      },
+      {
+        "item": "test_gun:part_mech_chip"
+      },
+      {
+        "item": "minecraft:amethyst_shard"
+      }
+    ],
+    "result": {
+      "item": "test_gun:blueprint_armor_night_vision",
+      "count": 1
+    }
+  }
+}

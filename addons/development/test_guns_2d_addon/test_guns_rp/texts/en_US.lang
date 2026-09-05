@@ -59,3 +59,44 @@ item.test_gun:ammo_belt_100.name=100-Round 7.62mm Belt Box §5[GPMG Ammo]§r
 item.test_gun:blueprint_pkm.name=Weapon Blueprint: PKM GPMG §5[Epic]§r
 item.test_gun:blueprint_rpk.name=Weapon Blueprint: RPK LMG §9[Rare]§r
 item.test_gun:blueprint_m1014_ward.name=Weapon Blueprint: M1014 Ward §5[Epic]§r
+
+## === LifeAfter Tactical Armor & Gear ===
+## Legendary - Fortress Juggernaut
+item.test_gun:armor_mob_chest.name=Fortress Heavy Juggernaut Armor §6[Legendary·9 Armor]§r
+item.test_gun:blueprint_armor_mob_chest.name=Blueprint: Fortress Heavy Armor §6[Legendary Limited]§r
+item.test_gun:armor_mob_pants.name=Fortress Heavy Leg Guards §6[Legendary·6 Armor]§r
+item.test_gun:blueprint_armor_mob_pants.name=Blueprint: Fortress Heavy Leg Guards §6[Legendary Limited]§r
+item.test_gun:armor_mob_mask.name=Fortress Heavy Full-Face Helmet §6[Legendary·4 Armor]§r
+item.test_gun:blueprint_armor_mob_mask.name=Blueprint: Fortress Heavy Full-Face Helmet §6[Legendary Limited]§r
+
+## Epic - NVG & Field Rig
+item.test_gun:armor_night_vision.name=Tactical Recon NVG §5[Epic·3 Armor·Night Vision]§r
+item.test_gun:blueprint_armor_night_vision.name=Blueprint: Tactical Recon NVG §5[Epic]§r
+item.test_gun:armor_wasp_rig.name=Tactical Chest Rig Vest §5[Epic·6 Armor·Fast Reload]§r
+item.test_gun:blueprint_armor_wasp_rig.name=Blueprint: Tactical Chest Rig Vest §5[Epic]§r
+item.test_gun:armor_wasp_pants.name=Field Riot Protection Pants §5[Epic·4 Armor]§r
+item.test_gun:blueprint_armor_wasp_pants.name=Blueprint: Field Riot Protection Pants §5[Epic]§r
+item.test_gun:armor_wasp_boots.name=Heavy Field Combat Boots §5[Epic·3 Armor]§r
+item.test_gun:blueprint_armor_wasp_boots.name=Blueprint: Heavy Field Combat Boots §5[Epic]§r
+item.test_gun:armor_wasp_mask.name=Multi-function Dust Face Mask §5[Epic·2 Armor]§r
+item.test_gun:blueprint_armor_wasp_mask.name=Blueprint: Multi-function Dust Face Mask §5[Epic]§r
+
+## Rare - SWAT Ops
+item.test_gun:armor_immortal_vest.name=SWAT Tactical Body Armor §9[Rare·7 Armor]§r
+item.test_gun:blueprint_armor_immortal_vest.name=Blueprint: SWAT Tactical Body Armor §9[Rare]§r
+item.test_gun:armor_immortal_pants.name=SWAT Tactical Combat Pants §9[Rare·5 Armor]§r
+item.test_gun:blueprint_armor_immortal_pants.name=Blueprint: SWAT Tactical Combat Pants §9[Rare]§r
+item.test_gun:armor_immortal_mask.name=Special Ops Dust Mask §9[Rare·2 Armor]§r
+item.test_gun:blueprint_armor_immortal_mask.name=Blueprint: Special Ops Dust Mask §9[Rare]§r
+item.test_gun:armor_analyzer.name=Tactical Bio-Scanner HUD §9[Rare·2 Armor]§r
+item.test_gun:blueprint_armor_analyzer.name=Blueprint: Tactical Bio-Scanner HUD §9[Rare]§r
+item.test_gun:armor_tech.name=Pioneer Tactical Helmet §9[Rare·4 Armor]§r
+item.test_gun:blueprint_armor_tech.name=Blueprint: Pioneer Tactical Helmet §9[Rare]§r
+
+## Common
+item.test_gun:armor_fraternity.name=Polarized Tactical Sunglasses §f[Common·1 Armor]§r
+item.test_gun:blueprint_armor_fraternity.name=Blueprint: Polarized Tactical Sunglasses §f[Common]§r
+
+## Components
+item.test_gun:part_tech_data.name=Tech Research Data §5[Advanced Component]§r
+item.test_gun:part_mech_chip.name=Mechanical Data Chip §5[Advanced Component]§r

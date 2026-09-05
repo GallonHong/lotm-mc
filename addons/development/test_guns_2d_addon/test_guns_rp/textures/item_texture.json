@@ -313,6 +313,54 @@
     },
     "test_gun_blueprint_dbss": {
       "textures": "textures/blueprints/blueprint_legendary"
+    },
+    "test_gun_armor_night_vision": {
+      "textures": "textures/items/armor_night_vision"
+    },
+    "test_gun_armor_analyzer": {
+      "textures": "textures/items/armor_analyzer"
+    },
+    "test_gun_armor_fraternity": {
+      "textures": "textures/items/armor_fraternity"
+    },
+    "test_gun_armor_tech": {
+      "textures": "textures/items/armor_tech"
+    },
+    "test_gun_armor_immortal_vest": {
+      "textures": "textures/items/armor_immortal_vest"
+    },
+    "test_gun_armor_immortal_pants": {
+      "textures": "textures/items/armor_immortal_pants"
+    },
+    "test_gun_armor_immortal_mask": {
+      "textures": "textures/items/armor_immortal_mask"
+    },
+    "test_gun_armor_wasp_rig": {
+      "textures": "textures/items/armor_wasp_rig"
+    },
+    "test_gun_armor_wasp_pants": {
+      "textures": "textures/items/armor_wasp_pants"
+    },
+    "test_gun_armor_wasp_boots": {
+      "textures": "textures/items/armor_wasp_boots"
+    },
+    "test_gun_armor_wasp_mask": {
+      "textures": "textures/items/armor_wasp_mask"
+    },
+    "test_gun_armor_mob_chest": {
+      "textures": "textures/items/armor_mob_chest"
+    },
+    "test_gun_armor_mob_pants": {
+      "textures": "textures/items/armor_mob_pants"
+    },
+    "test_gun_armor_mob_mask": {
+      "textures": "textures/items/armor_mob_mask"
+    },
+    "test_gun_part_tech_data": {
+      "textures": "textures/items/part_tech_data"
+    },
+    "test_gun_part_mech_chip": {
+      "textures": "textures/items/part_mech_chip"
     }
   }
 }

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "test_gun:recipe_part_mech_chip"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "test_gun:part_receiver"
+      },
+      {
+        "item": "test_gun:part_barrel"
+      },
+      {
+        "item": "test_gun:ammo_battery"
+      },
+      {
+        "item": "minecraft:redstone"
+      }
+    ],
+    "result": {
+      "item": "test_gun:part_mech_chip",
+      "count": 2
+    }
+  }
+}

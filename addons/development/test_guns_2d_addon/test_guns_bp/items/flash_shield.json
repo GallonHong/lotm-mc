@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_flash_shield",
       "minecraft:display_name": {
-        "value": "\u00a75G52-\u6218\u672f\u95ea\u5149\u9632\u66b4\u76fe [\u53f2\u8bd7]\u00a7r"
+        "value": "§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面持盾格挡吸收 70% 枪械与近战物理伤害§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r"
       },
       "minecraft:wearable": {
         "slot": "slot.weapon.offhand"

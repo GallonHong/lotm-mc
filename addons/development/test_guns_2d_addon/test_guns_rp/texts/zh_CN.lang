@@ -1,20 +1,20 @@
-item.test_gun:ak47.name=AK-47 突击步枪 §f[普通·经典实木]§r
-item.test_gun:ak74u.name=AK-74U 短突击步枪 §f[普通·高机动]§r
-item.test_gun:shotgun.name=雷明顿 M870 霰弹枪 §f[普通·泵动式]§r
-item.test_gun:m1897.name=温彻斯特 M1897 霰弹枪 §f[普通·战壕喷]§r
-item.test_gun:bizon.name=PP-19 野牛冲锋枪 §f[普通·64发大弹筒]§r
-item.test_gun:glock.name=格洛克 Glock-18 手枪 §f[普通·全自动]§r
+item.test_gun:ak47.name=§fAK-47 突击步枪 [普通]§r\n§7被动: 经典苏系全威力突击步枪，中近距离全自动强力穿透扫射§r
+item.test_gun:ak74u.name=§fAK-74U 短突击步枪 [普通]§r\n§7被动: 短管紧凑枪身设计，超高持枪机动性与极快开镜反应速度§r
+item.test_gun:shotgun.name=§f雷明顿 M870 霰弹枪 [普通]§r\n§7被动: 经典泵动霰弹枪，近身多弹丸高爆发并附带强力击退冲击§r
+item.test_gun:m1897.name=§f温彻斯特 M1897 霰弹枪 [普通]§r\n§7被动: 经典战壕喷，超大弹丸散射范围，提供大范围近身面杀伤§r
+item.test_gun:bizon.name=§fPP-19 野牛冲锋枪 [普通]§r\n§7被动: 64发大容量螺旋弹筒，提供持久不间断的火力压制泼水§r
+item.test_gun:glock.name=§f格洛克 Glock-18 手枪 [普通]§r\n§7被动: 全自动击发手枪，单手轻便快拔，近身急速自卫泼水§r
 
-item.test_gun:scarh.name=SCAR-H 战术重步枪 §9[优良·精准重击]§r
-item.test_gun:arx.name=ARX-160 现代突击步枪 §9[优良·极低后坐]§r
-item.test_gun:p90.name=FN P90 战术冲锋枪 §9[优良·火力压制]§r
-item.test_gun:deagle.name=沙漠之鹰 .50 战术手枪 §9[优良·快拔手炮]§r
-item.test_gun:svd.name=SVD 德拉贡诺夫狙击步枪 §9[优良·连击标记]§r
-item.test_gun:m1014.name=伯奈利 M1014 连发霰弹枪 §9[优良·急速连喷]§r
+item.test_gun:scarh.name=§9SCAR-H 战术重步枪 [优良]§r\n§7被动: 【精准重击】大口径穿甲弹，连续命中附带 +15% 破甲穿透§r
+item.test_gun:arx.name=§9ARX-160 现代突击步枪 [优良]§r\n§7被动: 【极低后坐】优异人机工效，全自动连发射击弹道极度平稳密集§r
+item.test_gun:p90.name=§9FN P90 战术冲锋枪 [优良]§r\n§7被动: 【火力压制】50发大弹匣高速穿甲弹，子弹命中施加迟缓减速§r
+item.test_gun:deagle.name=§9沙漠之鹰 .50 战术手枪 [优良]§r\n§7被动: 【快拔手炮】.50马格南重弹，近身极限爆发与重度受击硬直§r
+item.test_gun:svd.name=§9SVD 德拉贡诺夫狙击步枪 [优良]§r\n§7被动: 【连击标记】半自动高精度狙击，命中目标施加发光战术标记§r
+item.test_gun:m1014.name=§9伯奈利 M1014 连发霰弹枪 [优良]§r\n§7被动: 【急速连喷】导气式半自动结构，无需手动拉栓泵动极速连射§r
 
-item.test_gun:m82.name=巴雷特 M82 .50 反器材重狙 §5[史诗·穿甲高爆]§r
-item.test_gun:riot_shield.name=战术反甲防暴盾 §5[史诗·50%荆棘反伤]§r
-item.test_gun:armor_titan_chest.name=泰坦动力外骨骼装甲 §5[史诗·12点满护甲·力量增幅]§r
+item.test_gun:m82.name=§5巴雷特 M82 .50 反器材重狙 [史诗]§r\n§7被动: 【穿甲高爆】动能穿透掩体，命中产生高爆音爆音速冲击波§r
+item.test_gun:riot_shield.name=§5战术反甲防暴盾 [史诗]§r\n§7被动: 【动能反伤】正面吸收70%枪械伤害，并将50%动能反弹给攻击者§r
+item.test_gun:armor_titan_chest.name=§5泰坦动力外骨骼装甲 [史诗]§r\n§7被动: 12点满额护甲，钛合金护甲层吸收 35% 枪械终伤§r
 
 item.test_gun:vector.name=HK MP7 战术冲锋枪 §6[传说·暴走狂潮]§r
 item.test_gun:mgl.name=MGL 40mm 自动榴弹炮 §6[传说·饱和轰炸]§r
@@ -22,9 +22,9 @@ item.test_gun:arc_emitter.name=特斯拉高能电弧发射器 §6[传说·EMP电
 item.test_gun:dbss.name=DBSS 裁决者 双管霰弹枪 §6[传说·红莲龙息]§r
 item.test_gun:jetpack.name=战术离子喷气背包 §6[传说·双跳飞升·缓降]§r
 
-item.test_gun:armor_vest_light.name=凯夫拉轻型防弹衣 §f[普通·4点护甲]§r
-item.test_gun:armor_vest_heavy.name=战术突击重装防弹衣 §9[优良·7点护甲·防击退]§r
-item.test_gun:armor_helmet_tactical.name=特警防暴防弹头盔 §9[优良·3点护甲·防爆头]§r
+item.test_gun:armor_vest_light.name=§f凯夫拉轻型防弹衣 [普通]§r\n§7被动: 提供 4 点基础护甲，吸收 15% 枪械终伤§r
+item.test_gun:armor_vest_heavy.name=§9战术突击重装防弹衣 [优良]§r\n§7被动: 提供 7 点高额护甲，吸收 25% 枪械终伤§r
+item.test_gun:armor_helmet_tactical.name=§9特警防暴防弹头盔 [优良]§r\n§7被动: 提供 3 点头部护甲，吸收 45% 爆头额外伤害§r
 
 item.test_gun:ammo_rifle.name=突击步枪子弹 (通用)
 item.test_gun:ammo_shotgun.name=霰弹枪子弹 (通用)
@@ -76,30 +76,30 @@ item.test_gun:blueprint_dbss.name=DBSS「裁决者」设计图 §6[传说·限�
 
 action.hint.exit.test_gun=测试军火库 Add-on 已就绪
 
-item.test_gun:m79.name=M79 单发榴弹发射器 §9[优良]§r
+item.test_gun:m79.name=§9M79 单发榴弹发射器 [优良]§r\n§7被动: 单发曲射 40mm 高爆弹，产生大范围破片震荡轰炸伤害§r
 item.test_gun:blueprint_m79.name=制造蓝图: M79 单发榴弹发射器 §9[优良]§r
 
-item.test_gun:rpg.name=RPG-7 单兵火箭筒 §5[史诗]§r
+item.test_gun:rpg.name=§5RPG-7 单兵火箭筒 [史诗]§r\n§7被动: 聚能破甲火箭弹，直射强力毁灭性重装大范围爆炸§r
 item.test_gun:ammo_rocket.name=PG-7V 高爆破甲火箭弹 §5[史诗]§r
 item.test_gun:blueprint_rpg.name=武器图纸: RPG-7 火箭筒 §5[史诗]§r
 
-item.test_gun:flash_shield.name=G52-战术闪光防暴盾 §5[史诗]§r
+item.test_gun:flash_shield.name=§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面持盾格挡吸收 70% 枪械与近战物理伤害§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r
 item.test_gun:blueprint_flash_shield.name=防具图纸: G52 战术闪光盾 §5[史诗]§r
 
 item.test_gun:ak47_commander.name=AK-47 · 战术指挥官 §6[传说]§r
 item.test_gun:blueprint_ak47_commander.name=武器图纸: AK-47 战术指挥官 §6[传说]§r
 
-item.test_gun:usas12.name=USAS-12「嗜血狂潮」§5[史诗·20发全自动吸血连喷]§r
+item.test_gun:usas12.name=§5USAS-12「嗜血狂潮」[史诗]§r\n§7被动: 【鲜血盛宴】20发弹鼓全自动吸血，吸取18%伤害恢复生命，满血转吸收护盾§r
 item.test_gun:blueprint_usas12.name=USAS-12「嗜血狂潮」设计图 §5[史诗·限定·不可合成]§r
 
-# === 裁缝与防弹半成品 ===
+## === 裁缝与防弹半成品 ===
 item.test_gun:part_fabric_rag.name=🧵 粗制纤维布匹 §f[普通·基础材料]§r
 item.test_gun:part_sewing_kit.name=🪡 战术针线包 §a[优良·缝纫修补]§r
 item.test_gun:part_kevlar_sheet.name=🛡️ 军规凯夫拉防弹纤维 §9[优良·防弹强化]§r
 item.test_gun:part_ceramic_plate.name=🧱 复合陶瓷防弹插板 §9[优良·抗弹插板]§r
 item.test_gun:part_exo_core.name=⚡ 战术外骨骼伺服核心 §5[史诗·动力核心]§r
 
-# === 民用普通衣物 ===
+## === 民用普通衣物 ===
 item.test_gun:cloth_beanie_black.name=黑色保暖冷帽 §f[普通·头部]§r
 item.test_gun:cloth_cowboy_brown.name=荒野牛仔帽 §f[普通·头部]§r
 item.test_gun:cloth_shemagh_tan.name=沙漠战术方巾 §f[普通·头部]§r
@@ -118,7 +118,7 @@ item.test_gun:cloth_cargo_tan.name=卡其色多口袋工装裤 §f[普通·下�
 item.test_gun:cloth_overall_blue.name=经典背带牛仔工装裤 §f[普通·下装]§r
 item.test_gun:cloth_trackpants_black.name=黑色三条杠运动卫裤 §f[普通·下装]§r
 
-# === 军警与特种战术装备 ===
+## === 军警与特种战术装备 ===
 item.test_gun:armor_tactical_helmet.name=FAST 战术导轨头盔 §9[优良·防爆头]§r
 item.test_gun:armor_gasmask.name=M40 军用防毒面具 §9[优良·防剧毒]§r
 item.test_gun:armor_night_goggles.name=四眼全景夜视仪 §9[优良·夜视]§r
@@ -129,14 +129,55 @@ item.test_gun:armor_hazmat_top.name=生化防化服上装 §9[优良·防腐蚀]
 item.test_gun:armor_bdu_woodland_bottom.name=丛林特种 BDU 迷彩战术裤 §9[优良·高机动]§r
 item.test_gun:armor_gorka_bottom.name=高尔卡重型防风裤 §9[优良·耐磨]§r
 
-# === 史诗 (Epic) 蜕变战甲 ===
+## === 史诗 (Epic) 蜕变战甲 ===
 item.test_gun:armor_epic_titan_vest.name=【泰坦重工】动力外骨骼装甲 §5[史诗·极高护甲+防击退]§r
 item.test_gun:armor_epic_ghillie_suit.name=【幽灵幻影】超导隐匿吉利战袍 §5[史诗·战术伪装+静音]§r
 
-item.test_gun:pkm.name=PKM 烈焰重机枪 §5[史诗·熔火撕裂]§r
-item.test_gun:rpk.name=RPK 班用轻机枪 §9[稀有·火力压制]§r
-item.test_gun:m1014_ward.name=M1014 泰坦壁垒 §5[史诗·重装过载]§r
+item.test_gun:pkm.name=§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，子弹持续点燃目标并引发熔火爆燃撕裂§r
+item.test_gun:rpk.name=§9RPK 班用轻机枪 [优良]§r\n§7被动: 【火力压制】重型加长枪管，持续火力压制命中对目标施加迟缓减速§r
+item.test_gun:m1014_ward.name=§5M1014 泰坦壁垒 [史诗]§r\n§7被动: 【重装过载】自身护甲越厚威力越强，每点护甲增伤 3% (最高+72%)§r
 item.test_gun:ammo_belt_100.name=100发 7.62mm 弹链箱 §5[重机枪专用]§r
 item.test_gun:blueprint_pkm.name=PKM 烈焰重机枪设计图 §5[史诗]§r
 item.test_gun:blueprint_rpk.name=RPK 班用轻机枪设计图 §9[稀有]§r
 item.test_gun:blueprint_m1014_ward.name=M1014 泰坦壁垒设计图 §5[史诗]§r
+
+## === 明日之后风格：战术防具与单兵携行装具 ===
+## 传说 (Legendary) - 堡垒重型防暴套装
+item.test_gun:armor_mob_chest.name=§6堡垒重型防暴护甲 [传说·限定]§r\n§7被动: 9点护甲，硬核吸收50%枪伤，100%防击退，濒死(≤6HP)激活4颗金心护盾§r
+item.test_gun:blueprint_armor_mob_chest.name=堡垒重型防暴护甲设计图 §6[传说·限定]§r
+item.test_gun:armor_mob_pants.name=§6堡垒重型防暴腿甲 [传说·限定]§r\n§7被动: 6点护甲，下蹲架枪掩体减伤20%，下蹲射击后坐力大幅降低35%§r
+item.test_gun:blueprint_armor_mob_pants.name=堡垒重型防暴腿甲设计图 §6[传说·限定]§r
+item.test_gun:armor_mob_mask.name=§6堡垒重装全覆式头盔 [传说·限定]§r\n§7被动: 4点护甲，全覆面甲阻断爆头重创伤害，偏光滤镜免疫强光致盲§r
+item.test_gun:blueprint_armor_mob_mask.name=堡垒重装全覆式头盔设计图 §6[传说·限定]§r
+
+## 史诗 (Epic) - 战术侦察夜视仪 & 野战工兵携弹套
+item.test_gun:armor_night_vision.name=§5战术侦察夜视仪 [史诗]§r\n§7被动: 3点护甲，佩戴自动激活微光夜视，无粒子视觉干扰§r
+item.test_gun:blueprint_armor_night_vision.name=战术侦察夜视仪设计图 §5[史诗]§r
+item.test_gun:armor_wasp_rig.name=§5战术携行携弹胸挂 [史诗]§r\n§7被动: 6点护甲，战术快装槽使所有步枪与霰弹枪换弹时间缩减 20%§r
+item.test_gun:blueprint_armor_wasp_rig.name=战术携行携弹胸挂设计图 §5[史诗]§r
+item.test_gun:armor_wasp_pants.name=§5野战防护防暴裤 [史诗]§r\n§7被动: 4点护甲，工兵重层防磨纤维，高强度防刮抗扑§r
+item.test_gun:blueprint_armor_wasp_pants.name=野战防护防暴裤设计图 §5[史诗]§r
+item.test_gun:armor_wasp_boots.name=§5重型野战军靴 [史诗]§r\n§7被动: 3点护甲，鞋底蜂窝气垫缓冲吸收 60% 跌落跌倒冲击§r
+item.test_gun:blueprint_armor_wasp_boots.name=重型野战军靴设计图 §5[史诗]§r
+item.test_gun:armor_wasp_mask.name=§5多功能防尘护目面罩 [史诗]§r\n§7被动: 2点护甲，恶劣天气抗性，持续自动消除中毒与致命剧毒§r
+item.test_gun:blueprint_armor_wasp_mask.name=多功能防尘护目面罩设计图 §5[史诗]§r
+
+## 优良 (Rare) - 特警作战套 & 侦察头装
+item.test_gun:armor_immortal_vest.name=§9特警特训防弹衣 [优良]§r\n§7被动: 7点护甲，吸收 20% 枪械终伤，破片拦截吸收 30% 爆炸伤害§r
+item.test_gun:blueprint_armor_immortal_vest.name=特警特训防弹衣设计图 §9[优良]§r
+item.test_gun:armor_immortal_pants.name=§9特警耐磨作战裤 [优良]§r\n§7被动: 5点护甲，【滑步机动】疾跑状态下获得移动速度增益§r
+item.test_gun:blueprint_armor_immortal_pants.name=特警耐磨作战裤设计图 §9[优良]§r
+item.test_gun:armor_immortal_mask.name=§9特战防尘过滤口罩 [优良]§r\n§7被动: 提供 2 点头部护甲，阻隔粉尘与飞溅物§r
+item.test_gun:blueprint_armor_immortal_mask.name=特战防尘过滤口罩设计图 §9[优良]§r
+item.test_gun:armor_analyzer.name=§9战术生物扫描目镜 [优良]§r\n§7被动: 提供 2 点头部护甲，战术环境侦测目镜§r
+item.test_gun:blueprint_armor_analyzer.name=战术生物扫描目镜设计图 §9[优良]§r
+item.test_gun:armor_tech.name=§9先锋战术头盔 [优良]§r\n§7被动: 提供 4 点头部护甲，轻量化凯夫拉高强度头部防护§r
+item.test_gun:blueprint_armor_tech.name=先锋战术头盔设计图 §9[优良]§r
+
+## 普通 (Common) - 民用与基础战术
+item.test_gun:armor_fraternity.name=§f护目偏光战术墨镜 [普通]§r\n§7被动: 提供 1 点基础头部护甲，遮光偏振防护§r
+item.test_gun:blueprint_armor_fraternity.name=护目偏光战术墨镜设计图 §f[普通]§r
+
+## 高阶研发半成品
+item.test_gun:part_tech_data.name=电子科技资料 §5[高阶研发组件]§r
+item.test_gun:part_mech_chip.name=机械数据芯片 §5[高阶研发组件]§r

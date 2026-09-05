@@ -1,0 +1,20 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:part_tech_data",
+      "menu_category": {
+        "category": "items",
+        "group": "itemGroup.name.rawMaterials"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_part_tech_data",
+      "minecraft:max_stack_size": 64,
+      "minecraft:display_name": {
+        "value": "电子科技资料 §5[高级研发组件]§r"
+      },
+      "minecraft:hand_equipped": false
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "test_gun:recipe_blueprint_armor_wasp_rig"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "test_gun:blueprint_blank"
+      },
+      {
+        "item": "test_gun:part_tech_data"
+      },
+      {
+        "item": "test_gun:part_mech_chip"
+      },
+      {
+        "item": "test_gun:part_fabric_rag"
+      }
+    ],
+    "result": {
+      "item": "test_gun:blueprint_armor_wasp_rig",
+      "count": 1
+    }
+  }
+}

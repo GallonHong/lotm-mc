@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_mob_chest",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_mob_chest",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§6堡垒重型防暴护甲 [传说·限定]§r\n§7被动: 9点护甲，硬核吸收50%枪伤，100%防击退，濒死(≤6HP)激活4颗金心护盾§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 9
+      },
+      "minecraft:durability": {
+        "max_durability": 900
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 360
+          }
+        ]
+      }
+    }
+  }
+}

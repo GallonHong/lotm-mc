@@ -17,7 +17,7 @@
       },
       "minecraft:icon": "test_gun_armor_titan_chest",
       "minecraft:display_name": {
-        "value": "\u00a75\u6cf0\u5766\u52a8\u529b\u5916\u9aa8\u9abc\u88c5\u7532 [\u53f2\u8bd7\u00b712\u70b9\u6ee1\u62a4\u7532\u00b7\u529b\u91cf\u589e\u5e45]\u00a7r"
+        "value": "§5泰坦动力外骨骼装甲 [史诗]§r\n§7被动: 12点满额护甲，钛合金护甲层吸收 35% 枪械终伤§r"
       },
       "minecraft:wearable": {
         "slot": "slot.armor.chest",

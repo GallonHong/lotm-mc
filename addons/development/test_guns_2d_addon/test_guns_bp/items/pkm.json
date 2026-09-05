@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_pkm",
       "minecraft:display_name": {
-        "value": "§5PKM 烈焰重机枪 [史诗·熔火撕裂]§r"
+        "value": "§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，子弹持续点燃目标并引发熔火爆燃撕裂§r"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

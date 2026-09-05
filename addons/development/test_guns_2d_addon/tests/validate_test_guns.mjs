@@ -19,7 +19,7 @@ assert(readFileSync(join(bp, "recipes/recipe_usas12.json"), "utf8").includes("te
 assert.equal(json(join(bp, "items/blueprint_dbss.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_dbss");
 assert.equal(json(join(bp, "items/dbss.json"))["minecraft:item"].description.identifier, "test_gun:dbss");
 assert(readFileSync(join(bp, "recipes/recipe_dbss.json"), "utf8").includes("test_gun:blueprint_dbss"));
-for (const id of ["ak47_commander", "pkm", "m1014_ward", "flash_shield", "titan_chest", "dbss"]) assert.equal(existsSync(join(bp, "recipes", `recipe_blueprint_${id}.json`)), false, `${id} limited blueprint recipe remains`);
+for (const id of ["ak47_commander", "pkm", "m1014_ward", "flash_shield", "titan_chest", "dbss", "armor_mob_chest", "armor_mob_pants", "armor_mob_mask"]) assert.equal(existsSync(join(bp, "recipes", `recipe_blueprint_${id}.json`)), false, `${id} limited blueprint recipe remains`);
 const textureMap = json(join(rp, "textures/item_texture.json"));
 assert.equal(textureMap.texture_data.test_gun_ammo_belt_100.textures, "textures/ammo/ammo_belt_100_generated");
 const png = readFileSync(join(rp, "textures/ammo/ammo_belt_100_generated.png"));
@@ -57,4 +57,23 @@ assert(teamRules.includes("sapi_team_") && teamRules.includes("isProtectedTeamma
 for (const file of ["damageHandler.js", "rocketEngine.js", "grenadeEngine.js", "arcEngine.js", "artilleryEngine.js", "meleeEngine.js", "skillManager.js", "shieldEngine.js"]) {
   assert(readFileSync(join(bp, "scripts/feature", file), "utf8").includes("isProtectedTeammate"), `friendly-fire guard missing: ${file}`);
 }
+const newArmorIds = [
+  "armor_mob_chest", "armor_mob_pants", "armor_mob_mask",
+  "armor_night_vision", "armor_wasp_rig", "armor_wasp_pants", "armor_wasp_boots", "armor_wasp_mask",
+  "armor_immortal_vest", "armor_immortal_pants", "armor_immortal_mask",
+  "armor_analyzer", "armor_tech", "armor_fraternity"
+];
+const damageHandlerCode = readFileSync(join(bp, "scripts/feature/damageHandler.js"), "utf8");
+for (const armorId of newArmorIds) {
+  assert(existsSync(join(bp, "items", `${armorId}.json`)), `missing item: ${armorId}`);
+  assert(existsSync(join(bp, "items", `blueprint_${armorId}.json`)), `missing blueprint item: blueprint_${armorId}`);
+  assert(existsSync(join(bp, "recipes", `recipe_${armorId}.json`)), `missing armor recipe: recipe_${armorId}`);
+  const armorRecipe = readFileSync(join(bp, "recipes", `recipe_${armorId}.json`), "utf8");
+  assert(armorRecipe.includes(`test_gun:blueprint_${armorId}`), `armor recipe ${armorId} must require blueprint`);
+  assert(damageHandlerCode.includes(`${armorId}:`), `ARMOR_PIECE_VALUES missing ${armorId}`);
+}
+assert(existsSync(join(bp, "items/part_tech_data.json")), "missing part_tech_data");
+assert(existsSync(join(bp, "items/part_mech_chip.json")), "missing part_mech_chip");
+assert(existsSync(join(bp, "recipes/recipe_part_tech_data.json")), "missing recipe_part_tech_data");
+assert(existsSync(join(bp, "recipes/recipe_part_mech_chip.json")), "missing recipe_part_mech_chip");
 console.log("Test Guns 2D v3.12.0 validation passed.");

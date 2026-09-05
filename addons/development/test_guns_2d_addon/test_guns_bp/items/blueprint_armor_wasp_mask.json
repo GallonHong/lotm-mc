@@ -1,0 +1,23 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:blueprint_armor_wasp_mask",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 16
+      },
+      "minecraft:icon": "test_gun_blueprint_epic",
+      "minecraft:display_name": {
+        "value": "多功能防尘护目面罩设计图 §5[史诗]§r"
+      },
+      "minecraft:hand_equipped": {
+        "value": false
+      }
+    }
+  }
+}

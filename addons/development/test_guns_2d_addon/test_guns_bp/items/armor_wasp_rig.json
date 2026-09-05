@@ -1,0 +1,37 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_wasp_rig",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_wasp_rig",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§5战术携行携弹胸挂 [史诗]§r\n§7被动: 6点护甲，战术快装槽使所有步枪与霰弹枪换弹时间缩减 20%§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 6
+      },
+      "minecraft:durability": {
+        "max_durability": 600
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 240
+          }
+        ]
+      }
+    }
+  }
+}
