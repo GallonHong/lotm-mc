@@ -195,6 +195,8 @@ def main():
     desktop_targets = [
         os.path.join(DESKTOP_DIR, "《明日之后：幸存者》.mcworld"),
         os.path.join(DESKTOP_DIR, "明日之后.mcworld"),
+        os.path.join(DESKTOP_DIR, "mrzh.zip"),
+        os.path.join(DESKTOP_DIR, "明日之后.zip"),
     ]
     for target in desktop_targets:
         try:
