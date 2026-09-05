@@ -9,7 +9,7 @@
 | `apocalypse_mobs_addon` | 末日怪物、刷怪导演与掉落 |
 | `apocalypse_story_addon` | 主世界剧情 / 副本新手教程 MVP |
 | `apocalypse_ui_addon` | 可选 UI 资源包 |
-| `apocalypse_vehicles_addon` | Apocalypse 载具 |
+| `apocalypse_life_addon` | Apocalypse 生活系统：载具、补给、贩卖机与钢琴 |
 | `daily_world_events_addon` | 日常委托、世界事件、副本与物资箱 |
 | `lotm_pathways_addon` | LOTM 途径系统及资源 |
 | `natural_disasters_standalone_addon` | 独立自然灾害包 |
@@ -27,6 +27,7 @@
 | `RandS Overgrown Cities 1.3`、`Ranzie Rise and Survive 1.2` | 城市生成参考 |
 | `Random plantsnblocks` | 植被、方块和 vendmach 自动贩卖机素材 |
 | `Vehicles Add-On` | 载具与方块式贩卖机参考 |
+| `钢琴_原始包_v1.3.0.mcaddon` | 钢琴上传原包；稳定兼容实现已并入 Apocalypse Life |
 | `Old DLC`、`OldAssGunA`、`ACE战斗装备1.0测试` | 旧枪械与战斗装备素材 |
 | `apex_boss_addon`、`apex_firearms_addon`、`survival_firearms_addon` | 已被当前 Apocalypse / Test Guns 路线取代的原型工程 |
 

@@ -1,0 +1,162 @@
+{
+  "resource_pack_name": "survival_vehicles",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "ab_ve:truck": {
+      "textures": "textures/asiagobagels/vehicles/items/truck.png"
+    },
+    "ab_ve:motorcycle": {
+      "textures": "textures/asiagobagels/vehicles/items/motorcycle.png"
+    },
+    "ab_ve:ambulance": {
+      "textures": "textures/asiagobagels/vehicles/items/ambulance.png"
+    },
+    "ab_ve:speedboat": {
+      "textures": "textures/asiagobagels/vehicles/items/speedboat.png"
+    },
+    "ab_ve:helicopter": {
+      "textures": "textures/asiagobagels/vehicles/items/helicopter.png"
+    },
+    "ab_ve:wrench": {
+      "textures": "textures/asiagobagels/vehicles/items/wrench.png"
+    },
+    "survival_vehicle:blueprint_truck": {
+      "textures": "textures/items/blueprints/blueprint_truck.png"
+    },
+    "survival_vehicle:blueprint_motorcycle": {
+      "textures": "textures/items/blueprints/blueprint_motorcycle.png"
+    },
+    "survival_vehicle:blueprint_ambulance": {
+      "textures": "textures/items/blueprints/blueprint_ambulance.png"
+    },
+    "survival_vehicle:blueprint_speedboat": {
+      "textures": "textures/items/blueprints/blueprint_speedboat.png"
+    },
+    "survival_vehicle:blueprint_helicopter": {
+      "textures": "textures/items/blueprints/blueprint_helicopter.png"
+    },
+    "survival_vehicle:scrap_metal": {
+      "textures": "textures/items/parts/scrap_metal.png"
+    },
+    "survival_vehicle:vehicle_tire": {
+      "textures": "textures/items/parts/vehicle_tire.png"
+    },
+    "survival_vehicle:vehicle_chassis": {
+      "textures": "textures/items/parts/vehicle_chassis.png"
+    },
+    "survival_vehicle:vehicle_engine": {
+      "textures": "textures/items/parts/vehicle_engine.png"
+    },
+    "survival_vehicle:vehicle_battery": {
+      "textures": "textures/items/parts/vehicle_battery.png"
+    },
+    "survival_vehicle:heli_rotor": {
+      "textures": "textures/items/parts/heli_rotor.png"
+    },
+    "survival_vehicle:heli_tail_rotor": {
+      "textures": "textures/items/parts/heli_tail_rotor.png"
+    },
+    "survival_vehicle:boat_propeller": {
+      "textures": "textures/items/parts/boat_propeller.png"
+    },
+    "survival_vehicle:medical_box_module": {
+      "textures": "textures/items/parts/medical_box_module.png"
+    },
+    "survival_vehicle:jerrycan_full": {
+      "textures": "textures/items/fuel/jerrycan_full.png"
+    },
+    "survival_vehicle:jerrycan_empty": {
+      "textures": "textures/items/fuel/jerrycan_empty.png"
+    },
+    "ab_ve:canned_beef_stew": {
+      "textures": "textures/items/food/canned_beef_stew"
+    },
+    "ab_ve:canned_bacon": {
+      "textures": "textures/items/food/canned_bacon"
+    },
+    "ab_ve:canned_chicken": {
+      "textures": "textures/items/food/canned_chicken"
+    },
+    "ab_ve:canned_tuna": {
+      "textures": "textures/items/food/canned_tuna"
+    },
+    "ab_ve:canned_tomato": {
+      "textures": "textures/items/food/canned_tomato"
+    },
+    "ab_ve:mre": {
+      "textures": "textures/items/food/mre"
+    },
+    "ab_ve:chocolate_bar": {
+      "textures": "textures/items/food/chocolate_bar"
+    },
+    "ab_ve:energy_drink": {
+      "textures": "textures/items/drink/energy_drink"
+    },
+    "ab_ve:popsi_cola": {
+      "textures": "textures/items/drink/popsi_cola"
+    },
+    "ab_ve:exp_coke": {
+      "textures": "textures/items/drink/exp_coke"
+    },
+    "ab_ve:vodka": {
+      "textures": "textures/items/drink/vodka"
+    },
+    "ab_ve:bottle_water": {
+      "textures": "textures/items/drink/bottle_water"
+    },
+    "ab_ve:bandage": {
+      "textures": "textures/items/medic/bandage"
+    },
+    "ab_ve:first_aid": {
+      "textures": "textures/items/medic/first_aid"
+    },
+    "ab_ve:painkiller": {
+      "textures": "textures/items/medic/painkiller"
+    },
+    "ab_ve:adrenaline": {
+      "textures": "textures/items/medic/adrenaline"
+    },
+    "ab_ve:antidote": {
+      "textures": "textures/items/medic/antidote"
+    },
+    "ab_ve:splint": {
+      "textures": "textures/items/medic/splint"
+    },
+    "ab_ve:vending_machine": {
+      "textures": "textures/items/misc/vending_popsi_icon"
+    },
+    "ab_ve:canned_beans": {
+      "textures": "textures/items/food/canned_beans.png"
+    },
+    "ab_ve:canned_ham": {
+      "textures": "textures/items/food/canned_ham.png"
+    },
+    "ab_ve:canned_fruit": {
+      "textures": "textures/items/food/canned_fruit.png"
+    },
+    "ab_ve:canned_sardine": {
+      "textures": "textures/items/food/canned_sardine.png"
+    },
+    "ab_ve:canned_spaghetti": {
+      "textures": "textures/items/food/canned_spaghetti.png"
+    },
+    "ab_ve:ramen_cup": {
+      "textures": "textures/items/food/ramen_cup.png"
+    },
+    "ab_ve:granola_bar": {
+      "textures": "textures/items/food/granola_bar.png"
+    },
+    "ab_ve:meat_jerky": {
+      "textures": "textures/items/food/meat_jerky.png"
+    },
+    "ab_ve:chip_potato": {
+      "textures": "textures/items/food/chip_potato.png"
+    },
+    "ab_ve:tactical_sandwich": {
+      "textures": "textures/items/food/tactical_sandwich.png"
+    },
+    "piano:piano_item": {
+      "textures": "textures/items/piano_item"
+    }
+  }
+}

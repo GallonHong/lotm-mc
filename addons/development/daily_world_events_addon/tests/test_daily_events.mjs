@@ -168,7 +168,7 @@ assert.equal(tutorial.maxPlayers, 1);
 assert.equal(tutorial.rewardId, "dungeon_newcomer_valley");
 assert(tutorial.stages.some(stage => stage.loadout?.some(item => item.id === "test_gun:ak74u")), "tutorial common AK74U loadout missing");
 assert(tutorial.stages.some(stage => stage.loadout?.some(item => item.id === "test_gun:ammo_rifle")), "tutorial rifle ammo missing");
-assert(tutorial.stages.some(stage => stage.vehicleId === "ab_ve:motorcycle"), "tutorial must use the current Apocalypse Vehicles motorcycle id");
+assert(tutorial.stages.some(stage => stage.vehicleId === "ab_ve:motorcycle"), "tutorial must use the current Apocalypse Life motorcycle id");
 for (const type of ["briefing", "eliminate", "checkpoint", "interact", "route", "defend", "disaster"]) assert(tutorial.stages.some(stage => stage.type === type), `tutorial stage type missing: ${type}`);
 assert(dungeonTemplates.DUNGEON_TEMPLATES.storm_rescue.stages.some(stage => stage.type === "boss" && stage.groups.some(group => group.bossKey === "tyrant")), "strict rescue boss missing");
 assert(dungeonTemplates.DUNGEON_TEMPLATES.storm_rescue.stages.some(stage => stage.escortEntity === "daily:survivor"), "rescue path escort missing");

@@ -119,7 +119,7 @@ Normal / Hard / Nightmare 首次完成分别奖励 2,000 / 3,500 / 5,000 金币�
 - `defend`：按时间表生成多波敌人；
 - `disaster`：副本内局部雷暴避险，不修改外部灾害包。
 
-普通敌人优先生成 Apocalypse Mobs 实体，不存在时回退原版实体。`boss` 阶段通过独立的 `bossKey` 严格生成 Apocalypse Boss，不允许原版回退；当前副本池使用重装暴君、雾中人、山羊人、警笛头、变异僵尸、变异骷髅、变异溺尸、变异投掷者、变异末影人、变异铁傀儡和召唤母体。若真实 Boss 无法生成，副本会停止并明确提示检查 Apocalypse Boss，而不会把仅有杂兵的阶段判为完成。载具使用正式 Apocalypse Vehicles 中存在的 `ab_ve:motorcycle` / `ab_ve:truck`，未安装载具包时回退任务标记且路线仍可步行完成。
+普通敌人优先生成 Apocalypse Mobs 实体，不存在时回退原版实体。`boss` 阶段通过独立的 `bossKey` 严格生成 Apocalypse Boss，不允许原版回退；当前副本池使用重装暴君、雾中人、山羊人、警笛头、变异僵尸、变异骷髅、变异溺尸、变异投掷者、变异末影人、变异铁傀儡和召唤母体。若真实 Boss 无法生成，副本会停止并明确提示检查 Apocalypse Boss，而不会把仅有杂兵的阶段判为完成。载具使用正式 Apocalypse Life 中保留的 `ab_ve:motorcycle` / `ab_ve:truck`，未安装生活包时回退任务标记且路线仍可步行完成。
 
 ## 使用
 

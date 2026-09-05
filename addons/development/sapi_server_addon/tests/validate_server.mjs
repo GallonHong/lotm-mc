@@ -43,8 +43,8 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、希望报与事件管理/);
 assert.match(menu, /突发事件入口仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.11.2");
-assert.equal(resourceManifest.header.version.join("."), "2.11.2");
+assert.equal(manifest.header.version.join("."), "2.11.3");
+assert.equal(resourceManifest.header.version.join("."), "2.11.3");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
@@ -114,6 +114,9 @@ for (const itemId of [
   "minecraft:sugar",
 ]) assert.ok(supplyItems.some(item => item.id === itemId), `missing supplies item ${itemId}`);
 assert.equal(new Set(supplyItems.map(item => item.id)).size, supplyItems.length, "duplicate supplies item id");
+const lifeMerchant = merchantConfig.MERCHANT_CATEGORIES.find(category => category.id === "vehicles");
+const pianoItem = lifeMerchant?.items.find(item => item.id === "xypiano:piano_item");
+assert.deepEqual(pianoItem, { id: "xypiano:piano_item", name: "钢琴", icon: "textures/items/piano_item", buyPrice: 20000, sellPrice: 0 });
 const safeItem = supplyItems.find(item => item.id === "sapi:secure_safe_deployer");
 assert.deepEqual([safeItem.buyPrice, safeItem.dailyLimit], [15000, 1]);
 assert.deepEqual([serverConfig.Config.safe.maxDurability, serverConfig.Config.safe.normalDamageReduction], [2000, 0.90]);
@@ -220,4 +223,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.11.2 validation passed.");
+console.log("SAPI Server v2.11.3 validation passed.");
