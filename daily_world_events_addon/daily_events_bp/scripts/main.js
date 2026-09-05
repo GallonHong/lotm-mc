@@ -16,7 +16,7 @@ import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.j
 import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.16.2 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.16.3 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());

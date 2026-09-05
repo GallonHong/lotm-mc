@@ -1,5 +1,5 @@
 export const CONFIG = Object.freeze({
-  version: "0.16.2",
+  version: "0.16.3",
   timezoneOffsetHours: 8,
   heartbeatKey: "interop:daily_events_heartbeat",
   heartbeatMaxAgeMs: 30000,
@@ -10,7 +10,6 @@ export const CONFIG = Object.freeze({
   rewardLogKey: "daily:reward_log:v1",
   lootCrateStatePrefix: "daily:loot_crate:v1:",
   lootCrateResetScanTicks: 100,
-  lootCratePlayerSafeRadius: 8,
   spawnerScanChunkRadius: 1,
   spawnerSurfaceAbove: 6,
   spawnerSurfaceBelow: 6,

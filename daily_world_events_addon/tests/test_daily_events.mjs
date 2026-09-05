@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 16, 2]);
-assert.deepEqual(rpManifest.header.version, [0, 16, 2]);
+assert.deepEqual(manifest.header.version, [0, 16, 3]);
+assert.deepEqual(rpManifest.header.version, [0, 16, 3]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {
@@ -113,6 +113,9 @@ const crateManager = readFileSync(join(bp, "scripts/rewards/LootCrateManager.js"
 assert.equal(crateManager.includes("event.isFirstEvent === false"), false, "global isFirstEvent gate must not lock other crates");
 assert(crateManager.includes("interactionKey") && crateManager.includes("player.id") && crateManager.includes("coordinateKey"), "crate interaction debounce must be scoped to player and coordinate");
 assert(crateManager.includes("lootCrateStatePrefix") && crateManager.includes("readyAt"), "crate cooldown must persist across restart");
+assert(crateManager.includes("clearCooldown") && crateManager.includes("this.setOpened(block, false)"), "expired crate visuals must reset after reloading");
+assert.equal(crateManager.includes("lootCratePlayerSafeRadius"), false, "nearby players must not block expired-crate texture reset");
+assert(crateManager.includes("if (!block) continue"), "unloaded crates must keep their cooldown state until their chunk reloads");
 assert(crateManager.includes("consumeRequiredKey") && crateManager.includes("selectedSlotIndex"), "mythic supply-key gate missing");
 assert(crateManager.includes("legacyKey") && crateManager.includes("神话补给卡（MVP）"), "old named supply-card compatibility is missing");
 const cratePools = readFileSync(join(bp, "scripts/rewards/lootCratePools.js"), "utf8");

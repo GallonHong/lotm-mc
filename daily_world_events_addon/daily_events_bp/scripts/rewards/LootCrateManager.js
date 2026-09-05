@@ -87,6 +87,11 @@ export class LootCrateManager {
     } catch { return false; }
   }
 
+  static clearCooldown(coordinateKey, state) {
+    this.states.delete(coordinateKey);
+    try { world.setDynamicProperty(state?.propertyKey || this.propertyKey(coordinateKey), undefined); } catch {}
+  }
+
   static consumeRequiredKey(player, requiredKey) {
     if (!requiredKey?.id) return true;
     try {
@@ -136,6 +141,12 @@ export class LootCrateManager {
       player.sendMessage(`§8物资箱已被搜刮，约 ${Math.ceil(seconds / 60)} 分钟后刷新。`);
       return true;
     }
+    // 区块可能在到期时尚未加载。玩家回来后先惰性复原方块状态，
+    // 再按正常流程开启，避免已刷新箱子仍永久显示旧的开启贴图。
+    if (state) {
+      if (!this.setOpened(block, false)) return true;
+      this.clearCooldown(coordinateKey, state);
+    }
     const pool = LOOT_CRATE_POOLS[tier];
     if (!this.consumeRequiredKey(player, pool.requiredKey)) return true;
     const readyAt = now + pool.resetMinutes * 60000;
@@ -155,17 +166,16 @@ export class LootCrateManager {
       if (state.readyAt > now) continue;
       let dimension;
       try { dimension = world.getDimension(state.dimension); } catch { continue; }
-      if (dimension.getPlayers({ location: state.location, maxDistance: CONFIG.lootCratePlayerSafeRadius }).length) continue;
       try {
         const block = dimension.getBlock(state.location);
-        if (!block || LOOT_CRATE_BLOCKS[block.typeId] !== state.tier) {
-          this.states.delete(coordinateKey);
-          world.setDynamicProperty(state.propertyKey, undefined);
+        // 未加载区块可能返回 undefined；保留持久状态，等区块重新加载后再复原。
+        if (!block) continue;
+        if (LOOT_CRATE_BLOCKS[block.typeId] !== state.tier) {
+          this.clearCooldown(coordinateKey, state);
           continue;
         }
         if (!this.setOpened(block, false)) continue;
-        this.states.delete(coordinateKey);
-        world.setDynamicProperty(state.propertyKey, undefined);
+        this.clearCooldown(coordinateKey, state);
       } catch {}
     }
   }

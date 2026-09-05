@@ -5,6 +5,7 @@
 export const STANDALONE_CONFIG = Object.freeze({
   enabled: true,
   autoEnabled: true,
+  extractionCityEnabled: true,
   protectSpawn: false,
   blockDamage: false,
 
@@ -16,10 +17,11 @@ export const STANDALONE_CONFIG = Object.freeze({
   manualRadius: 96,
   automaticRadius: 96,
 
-  // 法制区事件较少，非法制区事件更频繁。
+  // 法制区与摸金都市采用较保守的频率，非法制区事件更频繁。
   intervalMinutes: Object.freeze({
     law: Object.freeze({ min: 20, max: 40 }),
     outlaw: Object.freeze({ min: 10, max: 20 }),
+    city: Object.freeze({ min: 20, max: 40 }),
   }),
 
   weights: Object.freeze({

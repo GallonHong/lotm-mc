@@ -18,12 +18,13 @@ const SETTINGS_KEY = "sando_standalone:settings:v5";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.3.3 initializing; PBR/Vibrant Visuals capability enabled...");
+console.warn("[NaturalDisastersStandalone] v1.3.4 initializing; Extraction City automatic disasters enabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
   enabled: STANDALONE_CONFIG.enabled,
   autoEnabled: STANDALONE_CONFIG.autoEnabled,
   overworldEnabled: true,
+  extractionCityEnabled: STANDALONE_CONFIG.extractionCityEnabled,
   protectSafeZones: STANDALONE_CONFIG.protectSpawn,
   blockDamage: STANDALONE_CONFIG.blockDamage,
   warningSeconds: STANDALONE_CONFIG.warningSeconds,
@@ -92,6 +93,7 @@ function normalizeSettings(value) {
     enabled: source.enabled !== false,
     autoEnabled: source.autoEnabled === true,
     overworldEnabled: source.overworldEnabled !== false,
+    extractionCityEnabled: source.extractionCityEnabled !== false,
     protectSafeZones: source.protectSafeZones !== false,
     blockDamage: source.blockDamage === true,
     warningSeconds: Math.floor(clamp(source.warningSeconds, 5, 300, DEFAULT_SETTINGS.warningSeconds)),
@@ -146,11 +148,15 @@ function weightedDisaster() {
 }
 
 function allowedDimensionIds() {
-  return settings.overworldEnabled ? ["minecraft:overworld"] : [];
+  const dimensions = [];
+  if (settings.overworldEnabled) dimensions.push("minecraft:overworld");
+  if (settings.extractionCityEnabled) dimensions.push("apoc_extract:city");
+  return dimensions;
 }
 
 function dimensionLabel(dimensionId) {
   if (dimensionId === "minecraft:overworld" || dimensionId === "overworld") return "主世界";
+  if (dimensionId === "apoc_extract:city") return "摸金都市";
   return String(dimensionId || "未知维度");
 }
 
@@ -166,7 +172,21 @@ function inBounds(entry, dimensionId, location) {
 
 function automaticRegionForPlayer(player) {
   try {
-    if (player.dimension.id !== "minecraft:overworld") return null;
+    if (player.dimension.id === "apoc_extract:city") {
+      if (!settings.extractionCityEnabled) return null;
+      const radius = Math.max(16, Number(STANDALONE_CONFIG.automaticRadius) || 96);
+      return {
+        id: `city_${player.name}`,
+        name: `摸金都市（${player.name}附近）`,
+        type: "city",
+        dimension: player.dimension.id,
+        minX: player.location.x - radius,
+        maxX: player.location.x + radius,
+        minZ: player.location.z - radius,
+        maxZ: player.location.z + radius,
+      };
+    }
+    if (player.dimension.id !== "minecraft:overworld" || !settings.overworldEnabled) return null;
     if (STANDALONE_CONFIG.safeRegions.some(region => inBounds(region, player.dimension.id, player.location))) return null;
     const law = STANDALONE_CONFIG.autoRegions.find(region => inBounds(region, player.dimension.id, player.location));
     if (law) return law;
@@ -984,7 +1004,7 @@ world.afterEvents.playerSpawn.subscribe(ev => {
       } catch (_) {}
     }
     if (ev.initialSpawn && isAdmin(p)) {
-      try { p.sendMessage("§a[独立自然灾害] v1.3.3 已加载。法制区 20～40 分钟、非法制区 10～20 分钟；资源包已声明灵动视效兼容。"); } catch (_) {}
+      try { p.sendMessage("§a[独立自然灾害] v1.3.4 已加载。法制区/摸金都市 20～40 分钟、非法制区 10～20 分钟；资源包已声明灵动视效兼容。"); } catch (_) {}
     }
   });
 });
@@ -1121,7 +1141,7 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
     if (!targetDimensionId) {
       activeAutoRegion = null;
       manualCenter = null;
-      try { source?.sendMessage("§c没有可用目标：主世界中至少需要一名在线玩家。"); } catch (_) {}
+      try { source?.sendMessage("§c没有可用目标：已启用的主世界或摸金都市中至少需要一名在线玩家。"); } catch (_) {}
       scheduleNextAuto();
       return;
     }
@@ -1170,7 +1190,7 @@ function openControllerMenu(player) {
   const activeText = gameStarted ? `${disaster.name} §8· §f${phase} §8· §f${remaining}s` : "§a当前无灾害";
   const form = new ActionFormData()
     .title("§l§c独立自然灾害控制器")
-    .body(`§0本版本完全独立运行，不读取其他 Addon。\n§0状态：${activeText}\n§0自动灾害：${settings.autoEnabled ? "§a开启" : "§c关闭"}\n§0法制区间隔：§e20～40 分钟\n§0非法制区间隔：§e10～20 分钟\n§0已排除：§a${STANDALONE_CONFIG.safeRegions.map(region => region.name).join("、")}\n§0下次目标：§e${scheduledAutoRegion?.type === "law" ? "法制区" : scheduledAutoRegion?.type === "outlaw" ? "非法制区" : "等待区域玩家"}\n§0下次检查：§e${Number.isFinite(nextAutoTick) ? Math.max(0, Math.ceil((nextAutoTick - system.currentTick) / 20)) : "--"} 秒\n§0手动释放：以管理员当前位置为中心 ${STANDALONE_CONFIG.manualRadius} 格`)
+    .body(`§0本版本完全独立运行；摸金都市存在时可直接识别其维度。\n§0状态：${activeText}\n§0自动灾害：${settings.autoEnabled ? "§a开启" : "§c关闭"}\n§0法制区间隔：§e20～40 分钟\n§0非法制区间隔：§e10～20 分钟\n§0摸金都市间隔：§e20～40 分钟\n§0已排除：§a${STANDALONE_CONFIG.safeRegions.map(region => region.name).join("、")}\n§0下次目标：§e${scheduledAutoRegion?.type === "law" ? "法制区" : scheduledAutoRegion?.type === "outlaw" ? "非法制区" : scheduledAutoRegion?.type === "city" ? "摸金都市" : "等待区域玩家"}\n§0下次检查：§e${Number.isFinite(nextAutoTick) ? Math.max(0, Math.ceil((nextAutoTick - system.currentTick) / 20)) : "--"} 秒\n§0手动释放：以管理员当前位置为中心 ${STANDALONE_CONFIG.manualRadius} 格`)
     .button("§6随机灾害")
     .button("§f龙卷风")
     .button("§c陨石雨")
@@ -1181,7 +1201,7 @@ function openControllerMenu(player) {
   form.show(player).then(result => {
     if (result.canceled || result.selection === 6) return;
     const ids = ["", "tornado", "meteors", "lightning"];
-    if (result.selection <= 3) return startGame(player, ids[result.selection], "minecraft:overworld", settings.difficulty);
+    if (result.selection <= 3) return startGame(player, ids[result.selection], player.dimension.id, settings.difficulty);
     if (result.selection === 4) {
       settings.autoEnabled = !settings.autoEnabled;
       saveSettings();
@@ -1255,7 +1275,7 @@ try {
     const source = resolveScriptEventPlayer(ev, envelope);
     if (!source || !isAdmin(source)) return;
     if (ev.id === "sando_standalone:menu") system.run(() => openControllerMenu(source));
-    else if (ev.id === "sando_standalone:start") system.run(() => startGame(source, envelope.data.trim(), "minecraft:overworld", settings.difficulty));
+    else if (ev.id === "sando_standalone:start") system.run(() => startGame(source, envelope.data.trim(), source.dimension.id, settings.difficulty));
     else if (ev.id === "sando_standalone:stop") system.run(() => stopGame(source));
   });
 } catch (_) {}
