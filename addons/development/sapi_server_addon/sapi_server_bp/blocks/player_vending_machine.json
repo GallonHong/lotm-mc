@@ -42,7 +42,10 @@
       "minecraft:geometry": {
         "identifier": "geometry.vendmachine1",
         "bone_visibility": {
-          "vendingmachine": "q.block_state('sapi:part') == 'lower'"
+          "vendingmachine": "q.block_state('sapi:part') == 'lower'",
+          "dark_interior": "q.block_state('sapi:part') == 'lower'",
+          "drinks": "q.block_state('sapi:part') == 'lower'",
+          "screen": "q.block_state('sapi:part') == 'lower'"
         }
       },
       "minecraft:material_instances": {

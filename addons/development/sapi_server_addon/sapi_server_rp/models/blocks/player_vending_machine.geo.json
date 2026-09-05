@@ -989,6 +989,7 @@
 				},
 				{
 					"name": "dark_interior",
+					"parent": "vendingmachine",
 					"pivot": [
 						0,
 						0,
@@ -1019,6 +1020,7 @@
 				},
 				{
 					"name": "drinks",
+					"parent": "vendingmachine",
 					"pivot": [
 						0,
 						0,
@@ -2213,6 +2215,7 @@
 				},
 				{
 					"name": "screen",
+					"parent": "vendingmachine",
 					"pivot": [
 						0,
 						0,
