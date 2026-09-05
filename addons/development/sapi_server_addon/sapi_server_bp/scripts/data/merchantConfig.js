@@ -122,7 +122,7 @@ export const MERCHANT_CATEGORIES = Object.freeze([
         ],
     },
     {
-        id: "armory", name: "§c军火商", icon: "textures/items/iron_sword", description: "弹药、常规半成品和普通/Rare 蓝图。",
+        id: "armory", name: "§c军火商", icon: "textures/items/iron_sword", description: "弹药与常规武器半成品。",
         items: [
             { id: "test_gun:ammo_45acp", name: "手枪/冲锋枪弹 ×50", buyPrice: 180, bundleAmount: 50 },
             { id: "test_gun:ammo_rifle", name: "步枪弹 ×30", buyPrice: 180, bundleAmount: 30 },
@@ -136,20 +136,12 @@ export const MERCHANT_CATEGORIES = Object.freeze([
             { id: "test_gun:part_receiver", name: "机匣", buyPrice: 220, sellPrice: 100, sellGroup: "controlled" },
             { id: "test_gun:part_stock", name: "枪托", buyPrice: 140, sellPrice: 60, sellGroup: "controlled" },
             { id: "test_gun:part_drum_mag", name: "弹鼓", buyPrice: 260, sellPrice: 120, sellGroup: "controlled" },
-            { id: "test_gun:blueprint_ak47", name: "AK-47 普通蓝图", buyPrice: 3500 },
-            { id: "test_gun:blueprint_scarh", name: "SCAR-H Rare 蓝图", buyPrice: 9000 },
-            { id: "test_gun:blueprint_svd", name: "SVD Rare 蓝图", buyPrice: 10000 },
-            { id: "test_gun:blueprint_p90", name: "P90 Rare 蓝图", buyPrice: 8500 },
         ],
     },
     {
-        id: "advanced_armory", name: "§5高级军备商", icon: "textures/items/nether_star", description: "限定 Epic 蓝图和高级半成品；抽奖从主菜单进入。",
+        id: "advanced_armory", name: "§5高级军备商", icon: "textures/items/nether_star", description: "限定 G52 战术闪光盾蓝图与高级防暴半成品；抽奖从主菜单进入。",
         items: [
-            { id: "test_gun:blueprint_pkm", name: "PKM 烈焰重机枪蓝图", buyPrice: 30000, dailyLimit: 1 },
-            { id: "test_gun:blueprint_usas12", name: "USAS-12 嗜血狂潮蓝图", buyPrice: 32000, dailyLimit: 1 },
-            { id: "test_gun:blueprint_m1014_ward", name: "M1014 泰坦壁垒蓝图", buyPrice: 28000, dailyLimit: 1 },
             { id: "test_gun:blueprint_flash_shield", name: "G52 闪光盾蓝图", buyPrice: 26000, dailyLimit: 1 },
-            { id: "test_gun:blueprint_titan_chest", name: "泰坦外骨骼蓝图", buyPrice: 36000, dailyLimit: 1 },
             { id: "test_gun:part_heavy_barrel", name: "重型加固合金枪管", buyPrice: 1200, sellPrice: 500, sellGroup: "controlled" },
             { id: "test_gun:part_ceramic_plate", name: "复合陶瓷插板", buyPrice: 1000, sellPrice: 450, sellGroup: "controlled" },
             { id: "test_gun:part_kevlar_sheet", name: "军规凯夫拉", buyPrice: 900, sellPrice: 400, sellGroup: "controlled" },
