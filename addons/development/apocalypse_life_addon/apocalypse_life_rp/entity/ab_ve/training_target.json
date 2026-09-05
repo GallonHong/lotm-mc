@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ab_ve:training_target",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/blocks/target_side" },
+      "geometry": { "default": "geometry.ab_ve.training_target" },
+      "render_controllers": ["controller.render.default"]
+    }
+  }
+}

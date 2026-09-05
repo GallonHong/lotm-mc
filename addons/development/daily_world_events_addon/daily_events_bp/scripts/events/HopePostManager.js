@@ -1,10 +1,15 @@
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { CONFIG } from "../config.js";
+import { RewardManager } from "../rewards/RewardManager.js";
+import { quizForDay } from "./hopePostQuiz.js";
 
 const STATS_KEY = "daily:hope_post_stats:v1";
 const QUEUE_KEY = "daily:hope_post_queue:v1";
 const ISSUES_KEY = "daily:hope_post_issues:v1";
+const FIRST_OPEN_KEY = "daily:hope_post_first_open:v1";
+const QUIZ_KEY = "daily:hope_post_quiz:v1";
+const QUIZ_REWARD = 1000;
 
 function read(key, fallback) {
   try { return JSON.parse(world.getDynamicProperty(key) || JSON.stringify(fallback)); } catch { return fallback; }
@@ -31,8 +36,21 @@ function charge(player, amount) {
   if (!score || !identity || balance(player) < amount) return false;
   try { score.addScore(identity, -amount); return true; } catch { return false; }
 }
-function show(player, form, callback) {
-  system.runTimeout(() => form.show(player).then(result => { if (!result.canceled) callback(result); }).catch(() => {}), 2);
+function isUserBusy(value) {
+  const reason = String(value?.cancelationReason || value?.cancellationReason || value?.message || value || "").toLowerCase();
+  return reason.includes("userbusy") || reason.includes("user busy");
+}
+function show(player, form, callback, attempt = 0) {
+  system.runTimeout(() => form.show(player).then(result => {
+    if (!result.canceled) return callback(result);
+    if (isUserBusy(result) && attempt < 8) show(player, form, callback, attempt + 1);
+  }).catch(error => {
+    if (isUserBusy(error) && attempt < 8) show(player, form, callback, attempt + 1);
+  }), attempt === 0 ? 2 : 5);
+}
+
+function valid(player) {
+  try { return !!player && player.isValid(); } catch { return !!player; }
 }
 
 export class HopePostManager {
@@ -88,11 +106,17 @@ export class HopePostManager {
   static open(player, onBack, admin = false) {
     const issue = this.ensureIssue();
     const actions = [];
-    const form = new ActionFormData().title(`§l§6希望报 · 第 ${issue.issueNo} 期`).body(`§0${issue.dayKey}\n§8在废土上，消息有时比子弹更早救人。`);
+    const quizState = this.quizState(player);
+    const quizStatus = quizState.dayKey === dayKey() && quizState.answered
+      ? (quizState.correct ? "今日已答对" : "今日已作答")
+      : "答对奖励 1,000 金币";
+    const form = new ActionFormData().title("§l§6希望报").body(`§l§0第 ${issue.issueNo} 期  ·  ${issue.dayKey}\n§8在废土上，消息有时比子弹更早救人。`);
     for (const article of issue.articles) {
       form.button(`§0${article.title}\n§r§8${article.type === "admin" ? "联盟公告" : article.type === "player" ? `幸存者投稿 · ${article.author}` : article.author}`, "textures/ui/infobulb");
       actions.push(() => this.openArticle(player, issue, article, onBack, admin));
     }
+    form.button(`§l§6编辑部真假情报\n§r§8${quizStatus}`, "textures/ui/icon_book_writable");
+    actions.push(() => this.openQuiz(player, onBack, admin));
     form.button(`§l§e我要登刊\n§r§8次日刊登 · ${CONFIG.hopePostPublicationFee || 10000} 金币`, "textures/ui/icon_book_writable");
     actions.push(() => this.openSubmission(player, onBack, admin));
     if (admin) {
@@ -102,6 +126,73 @@ export class HopePostManager {
     form.button("§l§8返回", "textures/ui/undo");
     actions.push(() => onBack?.());
     show(player, form, result => actions[result.selection]?.());
+  }
+
+  static quizState(player) {
+    try {
+      const value = JSON.parse(player.getDynamicProperty(QUIZ_KEY) || "{}");
+      return value && typeof value === "object" ? value : {};
+    } catch { return {}; }
+  }
+
+  static setQuizState(player, value) {
+    try { player.setDynamicProperty(QUIZ_KEY, JSON.stringify(value)); } catch {}
+  }
+
+  static openQuiz(player, onBack, admin = false) {
+    const today = dayKey();
+    const state = this.quizState(player);
+    const quiz = quizForDay(today);
+    if (state.dayKey === today && state.answered) {
+      const form = new MessageFormData().title("§l编辑部真假情报")
+        .body(`${state.correct ? "§a今日判断正确，1,000 金币已发放。" : "§c今日判断错误，明天再来。"}\n\n§7情报复盘：${quiz.explanation}`)
+        .button1("§6返回希望报").button2("§8关闭");
+      return show(player, form, result => { if (result.selection === 0) this.open(player, onBack, admin); });
+    }
+    const form = new ActionFormData().title("§l编辑部真假情报")
+      .body(`§7每期一次正式判断。选出可信情报，答对奖励 §61000 金币§7。\n\n§f${quiz.prompt}`);
+    for (let index = 0; index < quiz.options.length; index++) form.button(`§f${index + 1}. ${quiz.options[index]}`);
+    form.button("§8先返回看看报纸", "textures/ui/undo");
+    show(player, form, result => {
+      if (result.selection >= quiz.options.length) return this.open(player, onBack, admin);
+      const correct = result.selection === quiz.answer;
+      if (correct && RewardManager.reserve(player, `hope_post_quiz:${today}`)) {
+        const coinResult = RewardManager.addCoins(player, QUIZ_REWARD);
+        RewardManager.log(player, `hope_post_quiz:${today}`, "hope_post_quiz", "hope_post", coinResult);
+        player.sendMessage("§6[希望报] 情报判断正确，获得 1,000 金币！");
+        try { player.playSound("random.levelup", { volume: 0.8, pitch: 1.15 }); } catch {}
+      } else if (!correct) {
+        player.sendMessage("§c[希望报] 情报判断错误，本期没有奖励。");
+        try { player.playSound("note.bass", { volume: 0.7, pitch: 0.8 }); } catch {}
+      }
+      this.setQuizState(player, { dayKey: today, answered: true, correct, answeredAt: Date.now() });
+      system.run(() => this.openQuiz(player, onBack, admin));
+    });
+  }
+
+  static onPlayerInitialSpawn(player, initialSpawn) {
+    if (initialSpawn === false || !valid(player)) return;
+    try { if (player.getDynamicProperty(FIRST_OPEN_KEY)) return; } catch {}
+    const attempt = remaining => {
+      if (!valid(player)) return;
+      try { if (player.getDynamicProperty(FIRST_OPEN_KEY)) return; } catch {}
+      const issue = this.ensureIssue();
+      const form = new ActionFormData().title("§l§6希望报")
+        .body(`§l§0欢迎来到幸存者联盟\n§8第 ${issue.issueNo} 期  ·  ${issue.dayKey}\n\n§0希望报每天记录聚居地发生的事，也会刊登幸存者投稿。先读报，再决定今天往哪走。`)
+        .button("§l§6阅读本期希望报", "textures/ui/infobulb")
+        .button("§l§e编辑部真假情报\n§r§8答对奖励 1,000 金币", "textures/ui/icon_book_writable")
+        .button("§8稍后再看");
+      form.show(player).then(result => {
+        if (result.canceled && isUserBusy(result) && remaining > 0) return system.runTimeout(() => attempt(remaining - 1), 40);
+        try { player.setDynamicProperty(FIRST_OPEN_KEY, true); } catch {}
+        if (result.canceled) return;
+        if (result.selection === 0) system.run(() => this.open(player));
+        if (result.selection === 1) system.run(() => this.openQuiz(player));
+      }).catch(error => {
+        if (remaining > 0 && isUserBusy(error)) system.runTimeout(() => attempt(remaining - 1), 40);
+      });
+    };
+    system.runTimeout(() => attempt(8), 100);
   }
 
   static openArticle(player, issue, article, onBack, admin) {

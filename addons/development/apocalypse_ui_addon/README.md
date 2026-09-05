@@ -2,7 +2,7 @@
 
 可选的 Minecraft Bedrock JSON UI 资源包，为 SAPI Server 的主菜单提供末日生存像素磁贴外观。
 
-v1.1.0 对应 SAPI Server 2.10.0 的 13 个一级磁贴，在底部加入“社交”和“更多功能”。当前版本使用 `ui/server_form.json` 提供完整 ActionForm 兼容定义，并保留普通表单与 ModalForm 所需控件。
+v1.2.0 在原有 SAPI 主菜单磁贴之外，为标题精确匹配 `§l§6希望报` 的 ActionForm 增加独立报纸版式；未安装本资源包时，希望报和小游戏仍以原版表单正常工作。当前版本继续保留普通表单与 ModalForm 所需控件。
 
 ## 兼容原则
 

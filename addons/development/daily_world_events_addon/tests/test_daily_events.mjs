@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 18, 0]);
-assert.deepEqual(rpManifest.header.version, [0, 18, 0]);
+assert.deepEqual(manifest.header.version, [0, 19, 0]);
+assert.deepEqual(rpManifest.header.version, [0, 19, 0]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {
@@ -72,6 +72,11 @@ for (const templateId of Object.keys(templatesModule.EVENT_TEMPLATES)) assert(ne
 for (const id of ["mass_horde_surface", "fog_man_sighting", "goatman_sighting", "siren_head_sighting", "rebel_city_assault"]) assert(newsPresets.NEWS_PRESETS[id], `missing news preset: ${id}`);
 const newsManager = readFileSync(join(bp, "scripts/events/DailyNewsManager.js"), "utf8");
 for (const marker of ["newsArchiveKey", "publishEventStart", "publishEventResult", "notifyDailySummary", "listToday", "coordinateText", "每日突发事件"]) assert(newsManager.includes(marker), `missing breaking-news behavior: ${marker}`);
+const hopePostSource = readFileSync(join(bp, "scripts/events/HopePostManager.js"), "utf8");
+const hopeQuiz = readFileSync(join(bp, "scripts/events/hopePostQuiz.js"), "utf8");
+for (const marker of ["FIRST_OPEN_KEY", "onPlayerInitialSpawn", 'title("§l§6希望报")', "openQuiz", "hope_post_quiz", "QUIZ_REWARD = 1000"]) assert(hopePostSource.includes(marker), `missing Hope Post feature: ${marker}`);
+assert(hopeQuiz.includes("HOPE_POST_QUIZZES") && hopeQuiz.includes("quizForDay"), "Hope Post quiz preset library missing");
+assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("HopePostManager.onPlayerInitialSpawn"), "first-join Hope Post hook missing");
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
 assert(rewards.includes('id: "test_gun:blueprint_deagle"') && rewards.includes("coins: 2000"), "one-time tutorial reward must use the real blue-quality Test Gun blueprint and 2000 coins");

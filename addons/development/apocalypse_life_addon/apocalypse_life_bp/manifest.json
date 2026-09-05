@@ -1,10 +1,10 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Life BP v1.3.0",
-    "description": "末日生活系统行为包（载具、食品、饮品、战地医疗、自动售货机与可演奏钢琴）",
+    "name": "Apocalypse Life BP v1.4.0",
+    "description": "末日生活系统行为包（载具、食品、医疗站、枪械训练靶、自动售货机与可演奏钢琴）",
     "uuid": "bfab646c-b627-4312-adec-ec8b34af5061",
-    "version": [1, 3, 0],
+    "version": [1, 4, 0],
     "min_engine_version": [1, 21, 40]
   },
   "modules": [
@@ -12,21 +12,21 @@
       "description": "Data Module",
       "type": "data",
       "uuid": "ed6f538b-eb15-480e-92f6-9a5f23dd6f6d",
-      "version": [1, 3, 0]
+      "version": [1, 4, 0]
     },
     {
       "description": "Script Module",
       "type": "script",
       "language": "javascript",
       "uuid": "150149c4-5cf8-4481-9faf-4ff46dc39a0b",
-      "version": [1, 3, 0],
+      "version": [1, 4, 0],
       "entry": "scripts/main.js"
     }
   ],
   "dependencies": [
     {
       "uuid": "f179a256-053b-4d7f-9c03-d92f26ffb083",
-      "version": [1, 3, 0]
+      "version": [1, 4, 0]
     },
     {
       "module_name": "@minecraft/server",

@@ -69,3 +69,9 @@ item.ab_ve:granola_bar.name=§a高能燕麦坚果棒§r
 item.ab_ve:meat_jerky.name=§c风干黑椒牛肉干§r
 item.ab_ve:chip_potato.name=§e香脆烧烤味薯片§r
 item.ab_ve:tactical_sandwich.name=§l§e【战术真空三明治】§r
+
+entity.ab_ve:medical_station.name=联盟医疗站
+entity.ab_ve:training_target.name=枪械训练靶
+item.ab_ve:medical_station_spawner.name=§l§a【设施】联盟医疗站§r
+item.ab_ve:training_target_spawner.name=§l§e【设施】枪械训练靶§r
+action.interact.medical_station=使用医疗站

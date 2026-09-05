@@ -125,6 +125,12 @@
     "ab_ve:vending_machine": {
       "textures": "textures/items/misc/vending_popsi_icon"
     },
+    "ab_ve:medical_station": {
+      "textures": "textures/items/medic/first_aid"
+    },
+    "ab_ve:training_target": {
+      "textures": "textures/blocks/target_side"
+    },
     "ab_ve:canned_beans": {
       "textures": "textures/items/food/canned_beans.png"
     },

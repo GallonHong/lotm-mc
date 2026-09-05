@@ -18,7 +18,7 @@ import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
 import { HopePostManager } from "./events/HopePostManager.js";
 
-console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.18.0 initializing...");
+console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.19.0 initializing...");
 
 const contributors = new Map();
 const recognizedMobs = new Set(Object.values(MOB_TARGETS).flat());
@@ -251,6 +251,7 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
       DungeonManager.handlePlayerSpawn(event.player);
       DailyNewsManager.notifyDailySummary(event.player);
       HopePostManager.ensureIssue();
+      HopePostManager.onPlayerInitialSpawn(event.player, event.initialSpawn);
       const pending = RewardManager.pendingCount(event.player);
       if (pending) event.player.sendMessage(`§e[生存联盟] 你有 ${pending} 项待发物资，可在委托菜单重试领取。`);
     } catch {}

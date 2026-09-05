@@ -1,0 +1,12 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ab_ve:medical_station",
+      "materials": { "default": "entity_alphatest" },
+      "textures": { "default": "textures/items/medic/first_aid" },
+      "geometry": { "default": "geometry.ab_ve.medical_station" },
+      "render_controllers": ["controller.render.default"]
+    }
+  }
+}
