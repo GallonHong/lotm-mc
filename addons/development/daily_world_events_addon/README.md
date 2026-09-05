@@ -11,7 +11,7 @@
 - `daily:loot_crate_legendary`：120 分钟刷新；
 - `daily:loot_crate_mythic`：240 分钟刷新，必须手持“神话补给卡”开启。
 
-神话箱需要正式物品 `daily:mythic_supply_key`（神话补给密钥）。该物品没有任何合成配方，只能从 SAPI 的 Epic/Legendary 金币奖池，以及 Epic、Legendary 物资箱的额外掉落中获得；神话箱自身还有 15% 概率返还密钥。旧版已发放并命名为“神话补给卡（MVP）”的回响碎片仍可兼容使用。神话箱固定随机开出一张限定 Epic 蓝图，不会产出 Legendary 蓝图。
+神话箱需要正式物品 `daily:mythic_supply_key`（神话补给密钥）。该物品没有任何合成配方，只能从 SAPI 的 Epic/Legendary 金币奖池，以及 Epic、Legendary 物资箱的额外掉落中获得；神话箱自身还有 15% 概率返还密钥。旧版已发放并命名为“神话补给卡（MVP）”的回响碎片仍可兼容使用。神话箱 70% 概率开出限定 Epic 蓝图，30% 概率开出电弧发射器或堡垒传说防具蓝图（不含喷气背包）。
 
 ## 实体随机箱
 

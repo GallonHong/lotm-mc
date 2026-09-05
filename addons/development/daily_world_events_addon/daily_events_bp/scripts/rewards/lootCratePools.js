@@ -132,11 +132,15 @@ export const LOOT_CRATE_POOLS = Object.freeze({
     bonusKeyChance: 0.15,
     requiredKey: { id: "daily:mythic_supply_key", name: "神话补给密钥" },
     entries: [
-      { weight: 20, id: "test_gun:blueprint_pkm", min: 1, max: 1, name: "§5【限定 Epic】PKM 蓝图" },
-      { weight: 20, id: "test_gun:blueprint_usas12", min: 1, max: 1, name: "§5【限定 Epic】USAS-12 蓝图" },
-      { weight: 20, id: "test_gun:blueprint_m1014_ward", min: 1, max: 1, name: "§5【限定 Epic】M1014 泰坦壁垒蓝图" },
-      { weight: 20, id: "test_gun:blueprint_flash_shield", min: 1, max: 1, name: "§5【限定 Epic】G52 闪光盾蓝图" },
-      { weight: 20, id: "test_gun:blueprint_titan_chest", min: 1, max: 1, name: "§5【限定 Epic】泰坦外骨骼蓝图" }
+      { weight: 28, id: "test_gun:blueprint_pkm", min: 1, max: 1, name: "§5【限定 Epic】PKM 蓝图" },
+      { weight: 28, id: "test_gun:blueprint_usas12", min: 1, max: 1, name: "§5【限定 Epic】USAS-12 蓝图" },
+      { weight: 28, id: "test_gun:blueprint_m1014_ward", min: 1, max: 1, name: "§5【限定 Epic】M1014 泰坦壁垒蓝图" },
+      { weight: 28, id: "test_gun:blueprint_flash_shield", min: 1, max: 1, name: "§5【限定 Epic】G52 闪光盾蓝图" },
+      { weight: 28, id: "test_gun:blueprint_titan_chest", min: 1, max: 1, name: "§5【限定 Epic】泰坦外骨骼蓝图" },
+      { weight: 15, id: "test_gun:blueprint_arc", min: 1, max: 1, name: "§6【传说】特斯拉高能电弧风暴核心图纸" },
+      { weight: 15, id: "test_gun:blueprint_armor_mob_mask", min: 1, max: 1, name: "§6【传说·限定】堡垒重装全覆式头盔设计图" },
+      { weight: 15, id: "test_gun:blueprint_armor_mob_chest", min: 1, max: 1, name: "§6【传说·限定】堡垒重型防暴护甲设计图" },
+      { weight: 15, id: "test_gun:blueprint_armor_mob_pants", min: 1, max: 1, name: "§6【传说·限定】堡垒重型防暴腿甲设计图" }
     ]
   }
 });
