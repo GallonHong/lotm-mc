@@ -31,6 +31,31 @@ assert.equal(/\b(EconomyManager|removeBalance|fee|cost|price)\b/.test(teleport),
 assert.match(teleport, /tpaEnabled/);
 assert.match(teleport, /TPA_RECEIVE_KEY/);
 assert.match(teleport, /openTpaAdminSettings/);
+assert.match(teleport, /restoreDefaultWarps/);
+
+const expectedWarpNames = [
+  "快乐101--安全区",
+  "101开发区--安全区",
+  "营地开发区--安全区",
+  "科技会--安全区",
+  "秋日森林--协议区",
+  "沙石堡--协议区",
+  "白树高地--协议区",
+  "茅斯沼泽--协议区",
+  "多贝雪山--协议区",
+  "密斯卡大学--副本区",
+  "远星城-灯塔--交火区",
+  "夏尔镇--交火区",
+  "夏尔镇码头--交火区",
+  "夏尔镇核电站--交火区",
+];
+let lastWarpIndex = -1;
+for (const warpName of expectedWarpNames) {
+  assert.match(warpName, /^.+--.+区$/, `warp name format must be 地点--xx区: ${warpName}`);
+  const idx = teleport.indexOf(`"${warpName}"`);
+  assert.ok(idx > lastWarpIndex, `preset warp ${warpName} missing or out of difficulty order`);
+  lastWarpIndex = idx;
+}
 assert.match(operations, /claimDaily/);
 assert.match(operations, /timezoneOffsetMinutes/);
 assert.match(operations, /先锁定全服与个人次数/);

@@ -136,7 +136,7 @@ export class Integration {
                 const location = world.getDefaultSpawnLocation();
                 spawn = { dimension: "minecraft:overworld", x: Number(location.x), z: Number(location.z) };
             } catch {
-                spawn = { dimension: "minecraft:overworld", x: 0, z: 0 };
+                spawn = { dimension: "minecraft:overworld", x: 2423.49, z: 2019.55 };
             }
         }
         if (normalizeDimension(spawn.dimension) !== dimension || !Number.isFinite(spawn.x) || !Number.isFinite(spawn.z)) return false;
@@ -188,7 +188,7 @@ export class Integration {
         // 3. 检查出生点主城安全区
         const warps = readWorldArray(SAPI_WARPS_KEY);
         const spawnWarp = warps.find(warp => warp?.id === "spawn" || warp?.isSpawn);
-        let spawn = { dimension: "minecraft:overworld", x: 0, z: 0 };
+        let spawn = { dimension: "minecraft:overworld", x: 2423.49, z: 2019.55 };
         if (spawnWarp) {
             spawn = { dimension: spawnWarp.dimension, x: Number(spawnWarp.x), z: Number(spawnWarp.z) };
         } else {

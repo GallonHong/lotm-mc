@@ -10,6 +10,187 @@ const HOMES_KEY = "sapi:homes:v1";
 const DEATH_KEY = "sapi:last_death:v1";
 const TPA_RECEIVE_KEY = "sapi:tpa_receive:v1";
 
+/**
+ * 明日之后经典地图出生点预设（按区域难度从低到高排序）。
+ * 格式严格遵循：地点--xx区
+ */
+export const DEFAULT_WARPS = Object.freeze([
+    // [等级 0 · 安全生活区]
+    {
+        id: "spawn",
+        isSpawn: true,
+        name: "快乐101--安全区",
+        icon: "textures/ui/icon_recipe_nature",
+        dimension: "minecraft:overworld",
+        x: 2423.49,
+        y: 16.94,
+        z: 2019.55,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_101_dev",
+        name: "101开发区--安全区",
+        icon: "textures/ui/village_hero_effect",
+        dimension: "minecraft:overworld",
+        x: 2369.87,
+        y: 33.00,
+        z: 1259.69,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_camp_dev",
+        name: "营地开发区--安全区",
+        icon: "textures/ui/village_hero_effect",
+        dimension: "minecraft:overworld",
+        x: 1989.54,
+        y: 22.50,
+        z: 1359.29,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_tech_council",
+        name: "科技会--安全区",
+        icon: "textures/ui/icon_recipe_nature",
+        dimension: "minecraft:overworld",
+        x: 1275.00,
+        y: 70.00,
+        z: 1066.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    // [等级 1 · 初级协议资源区]
+    {
+        id: "warp_fall_forest",
+        name: "秋日森林--协议区",
+        icon: "textures/ui/World",
+        dimension: "minecraft:overworld",
+        x: 3641.00,
+        y: 22.00,
+        z: 2278.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_sand_castle",
+        name: "沙石堡--协议区",
+        icon: "textures/ui/World",
+        dimension: "minecraft:overworld",
+        x: 1123.00,
+        y: 31.00,
+        z: 1462.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    // [等级 2 · 中高级协议资源区]
+    {
+        id: "warp_white_tree",
+        name: "白树高地--协议区",
+        icon: "textures/ui/World",
+        dimension: "minecraft:overworld",
+        x: 3310.00,
+        y: 96.00,
+        z: 429.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_mouth_swamp",
+        name: "茅斯沼泽--协议区",
+        icon: "textures/ui/World",
+        dimension: "minecraft:overworld",
+        x: 2041.01,
+        y: 17.50,
+        z: 2888.44,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_dobe_snow",
+        name: "多贝雪山--协议区",
+        icon: "textures/ui/World",
+        dimension: "minecraft:overworld",
+        x: 3373.00,
+        y: 49.00,
+        z: 1433.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    // [等级 3 · 感染团队副本重灾区]
+    {
+        id: "warp_miska_uni",
+        name: "密斯卡大学--副本区",
+        icon: "textures/ui/warning_alex",
+        dimension: "minecraft:overworld",
+        x: 2705.10,
+        y: 25.00,
+        z: 3688.32,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    // [等级 4 · 交火争夺与重度辐射危险区]
+    {
+        id: "warp_farstar_lighthouse",
+        name: "远星城-灯塔--交火区",
+        icon: "textures/items/iron_sword",
+        dimension: "minecraft:overworld",
+        x: 3149.00,
+        y: 25.00,
+        z: 4069.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_charles_town",
+        name: "夏尔镇--交火区",
+        icon: "textures/items/iron_sword",
+        dimension: "minecraft:overworld",
+        x: 2470.29,
+        y: 23.00,
+        z: 4346.04,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_charles_pier",
+        name: "夏尔镇码头--交火区",
+        icon: "textures/items/iron_sword",
+        dimension: "minecraft:overworld",
+        x: 1196.00,
+        y: 18.00,
+        z: 3705.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+    {
+        id: "warp_charles_powerplant",
+        name: "夏尔镇核电站--交火区",
+        icon: "textures/ui/warning_alex",
+        dimension: "minecraft:overworld",
+        x: 2024.00,
+        y: 42.00,
+        z: 4160.00,
+        rotation: { x: 0, y: 0 },
+        createdBy: "system",
+        createdAt: 0
+    },
+]);
+
 /** 免费公共传送点与统一安全落点服务。 */
 export class TeleportManager {
     static cooldowns = new Map();
@@ -20,17 +201,34 @@ export class TeleportManager {
     static getWarps() {
         try {
             const raw = world.getDynamicProperty(WARPS_KEY);
-            const parsed = typeof raw === "string" ? JSON.parse(raw) : [];
-            return Array.isArray(parsed) ? parsed.filter(warp => warp && warp.id && warp.dimension) : [];
+            if (typeof raw !== "string") {
+                const defaults = DEFAULT_WARPS.map(warp => ({ ...warp }));
+                this.saveWarps(defaults);
+                return defaults;
+            }
+            const parsed = JSON.parse(raw);
+            if (!Array.isArray(parsed) || parsed.length === 0) {
+                const defaults = DEFAULT_WARPS.map(warp => ({ ...warp }));
+                this.saveWarps(defaults);
+                return defaults;
+            }
+            const valid = parsed.filter(warp => warp && warp.id && warp.dimension);
+            const hasPreset = valid.some(warp => DEFAULT_WARPS.some(d => d.id === warp.id));
+            if (!hasPreset) {
+                const merged = [...DEFAULT_WARPS.map(warp => ({ ...warp })), ...valid];
+                this.saveWarps(merged);
+                return merged;
+            }
+            return valid;
         } catch (error) {
             console.warn(`[Teleport] Failed to read warps: ${error}`);
-            return [];
+            return DEFAULT_WARPS.map(warp => ({ ...warp }));
         }
     }
 
     static saveWarps(warps) {
         try {
-            const maxWarps = Math.max(1, Number(Config.teleport?.maxWarps) || 50);
+            const maxWarps = Math.max(DEFAULT_WARPS.length, Number(Config.teleport?.maxWarps) || 50);
             world.setDynamicProperty(WARPS_KEY, JSON.stringify(warps.slice(0, maxWarps)));
             return true;
         } catch (error) {
@@ -39,13 +237,22 @@ export class TeleportManager {
         }
     }
 
+    static restoreDefaultWarps(player = null) {
+        const current = this.getWarps();
+        const custom = current.filter(w => !DEFAULT_WARPS.some(d => d.id === w.id));
+        const merged = [...DEFAULT_WARPS.map(warp => ({ ...warp })), ...custom];
+        this.saveWarps(merged);
+        if (player) AuditManager.log("warp_restore", player, "default_warps", `${DEFAULT_WARPS.length} preset warps restored`);
+        return merged;
+    }
+
     static getWarp(id) {
         return this.getWarps().find(warp => warp.id === id) || null;
     }
 
     static getSpawnWarp() {
         const warps = this.getWarps();
-        return warps.find(warp => warp.id === "spawn") || warps.find(warp => warp.isSpawn) || null;
+        return warps.find(warp => warp.id === "spawn") || warps.find(warp => warp.isSpawn) || warps[0] || null;
     }
 
     static sanitizeName(name) {
@@ -83,7 +290,7 @@ export class TeleportManager {
         warps.unshift({
             id: "spawn",
             isSpawn: true,
-            name: "主城出生点",
+            name: "快乐101--安全区",
             icon: "textures/ui/icon_recipe_nature",
             dimension: player.dimension.id,
             x: Number(player.location.x.toFixed(2)),
@@ -494,8 +701,25 @@ export class TeleportManager {
         const warps = this.getWarps();
         const form = new ActionFormData()
             .title("§l§b🧭 公共传送点")
-            .body(warps.length ? "§8全部公共传送均免费。请选择目的地：" : "§8管理员尚未创建公共传送点。");
-        for (const warp of warps) form.button(`§l§0${warp.name}\n§r§8免费传送`, warp.icon || "textures/ui/World");
+            .body(warps.length ? "§8全部公共传送均免费。已按区域危险程度由低到高排列：" : "§8管理员尚未创建公共传送点。");
+        for (const warp of warps) {
+            let subtitle = "§8免费传送";
+            let color = "§0";
+            if (warp.name.includes("--安全区")) {
+                color = "§2";
+                subtitle = "§8安全生活区 · 免费传送";
+            } else if (warp.name.includes("--协议区")) {
+                color = "§1";
+                subtitle = "§8协议探索区 · 免费传送";
+            } else if (warp.name.includes("--副本区")) {
+                color = "§5";
+                subtitle = "§8高危团队副本 · 免费传送";
+            } else if (warp.name.includes("--交火区")) {
+                color = "§c";
+                subtitle = "§8交火危险区 · 免费传送";
+            }
+            form.button(`§l${color}${warp.name}\n${subtitle}`, warp.icon || "textures/ui/World");
+        }
         form.button("§l§8⬅ 返回", "textures/ui/undo");
         Utils.showForm(player, form, (res) => {
             if (res.selection < warps.length) this.teleportToWarp(player, warps[res.selection]);
@@ -511,6 +735,11 @@ export class TeleportManager {
         add("§l§a➕ 在当前位置创建传送点", "textures/ui/plus", () => this.openCreateWarpModal(player, onBack));
         add("§l§6🏰 设置当前位置为主城出生点", "textures/ui/icon_recipe_nature", () => {
             if (this.setSpawnWarp(player)) Utils.tell(player, "§a主城出生点已更新。");
+            this.openAdminMenu(player, onBack);
+        });
+        add("§l§b🔄 恢复默认明日之后出生点", "textures/ui/undo", () => {
+            this.restoreDefaultWarps(player);
+            Utils.tell(player, "§a已成功重置并补齐 14 个明日之后难度分区出生点！");
             this.openAdminMenu(player, onBack);
         });
         add("§l§c🗑️ 删除传送点", "textures/ui/trash", () => this.openDeleteWarpMenu(player, onBack));
