@@ -122,7 +122,7 @@ export const MERCHANT_CATEGORIES = Object.freeze([
         ],
     },
     {
-        id: "armory", name: "§c军火商", icon: "textures/items/iron_sword", description: "弹药与常规武器半成品。",
+        id: "armory", name: "§c军火商", icon: "textures/items/iron_sword", description: "弹药、常规半成品和普通/Rare 蓝图。",
         items: [
             { id: "test_gun:ammo_45acp", name: "手枪/冲锋枪弹 ×50", buyPrice: 180, bundleAmount: 50 },
             { id: "test_gun:ammo_rifle", name: "步枪弹 ×30", buyPrice: 180, bundleAmount: 30 },
@@ -136,6 +136,10 @@ export const MERCHANT_CATEGORIES = Object.freeze([
             { id: "test_gun:part_receiver", name: "机匣", buyPrice: 220, sellPrice: 100, sellGroup: "controlled" },
             { id: "test_gun:part_stock", name: "枪托", buyPrice: 140, sellPrice: 60, sellGroup: "controlled" },
             { id: "test_gun:part_drum_mag", name: "弹鼓", buyPrice: 260, sellPrice: 120, sellGroup: "controlled" },
+            { id: "test_gun:blueprint_ak47", name: "AK-47 普通蓝图", buyPrice: 3500 },
+            { id: "test_gun:blueprint_scarh", name: "SCAR-H Rare 蓝图", buyPrice: 9000 },
+            { id: "test_gun:blueprint_svd", name: "SVD Rare 蓝图", buyPrice: 10000 },
+            { id: "test_gun:blueprint_p90", name: "P90 Rare 蓝图", buyPrice: 8500 },
         ],
     },
     {
