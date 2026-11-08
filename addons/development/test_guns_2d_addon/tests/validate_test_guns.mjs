@@ -79,4 +79,9 @@ for (const armorId of ["armor_epic_titan_vest", "armor_assault_vest", "armor_pol
   assert(damageHandlerCode.includes(`${armorId}:`), `ARMOR_PIECE_VALUES missing tactical armor: ${armorId}`);
 }
 assert(damageHandlerCode.includes("armor_epic_titan_vest") && damageHandlerCode.includes("armor_tactical_helmet"), "damage reductions must include imported tactical armors");
+assert(existsSync(join(rp, "particles/test_gun_damage_pop.particle.json")), "missing test_gun_damage_pop particle");
+assert(existsSync(join(rp, "textures/particle/damage_font_mc.png")), "missing damage_font_mc texture");
+assert(existsSync(join(bp, "scripts/feature/damageIndicator.js")), "missing damageIndicator script");
+const mainCode = readFileSync(join(bp, "scripts/main.js"), "utf8");
+assert(mainCode.includes("DamageIndicator.handleEntityHurt"), "main.js missing DamageIndicator hook");
 console.log("Test Guns 2D v3.12.4 validation passed.");

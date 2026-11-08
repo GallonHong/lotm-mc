@@ -14,6 +14,7 @@ import { GrenadeEngine } from './feature/grenadeEngine.js';
 import { JetpackEngine } from './feature/jetpackEngine.js';
 import { ArmorEngine } from './feature/armorEngine.js';
 import { DamageHandler } from './feature/damageHandler.js';
+import { DamageIndicator } from './feature/damageIndicator.js';
 import { getGunById } from './data/guns.js';
 
 console.warn('=== [Test Guns 2D Addon] Initializing (Left-Click Reload + Shift-Right-Click ADS/Skill) ===');
@@ -198,6 +199,7 @@ class AddonController {
 
     subscribeAfter(world.afterEvents, 'entityHurt', (event) => {
       try {
+        DamageIndicator.handleEntityHurt(event);
         const hurtEntity = event.hurtEntity;
         if (hurtEntity && hurtEntity.typeId === 'minecraft:player') {
           ShieldEngine.handleDamageReduction(hurtEntity, event.damageSource, event.damage);

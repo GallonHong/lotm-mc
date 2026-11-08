@@ -1,6 +1,7 @@
 import { EntityDamageCause, EquipmentSlot } from '@minecraft/server';
 import { MathUtils } from './utils/mathUtils.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
+import { DamageIndicator } from './damageIndicator.js';
 
 export const ARMOR_PIECE_VALUES = {
   // 原版原貌装甲 (Vanilla Armors)
@@ -186,6 +187,7 @@ export class DamageHandler {
     // 2.1 爆头判定与爆头头盔减伤
     const headshot = this.isHeadshot(impactLocation, target);
     if (headshot) {
+      DamageIndicator.markHeadshot(target.id);
       let hsMult = stats.headshotMultiplier || 1.75;
       if (headItem && headItem.typeId.includes('armor_mob_mask')) {
         // 堡垒重装防暴面罩：完全阻断爆头加成
