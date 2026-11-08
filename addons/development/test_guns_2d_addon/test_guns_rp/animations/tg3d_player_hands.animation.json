@@ -1,0 +1,56 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.tg3d.player_right_hand": {
+      "loop": true,
+      "override_previous_animation": true,
+      "bones": {
+        "rightArm": {
+          "position": [
+            "(6.187527009) * 1 + (-5.000000000) * variable.tg3d_hand_aim",
+            "(-5.875080847) * 1 + (3.000000000) * variable.tg3d_hand_aim + (-2.125000000) * variable.tg3d_hand_reload + (-0.850000000) * variable.tg3d_hand_run",
+            "(9.837823013) * 1 + (-1.700000000) * variable.tg3d_hand_reload + (-1.275000000) * variable.tg3d_hand_kick + (-1.275000000) * variable.tg3d_hand_run"
+          ],
+          "rotation": [
+            95,
+            -45,
+            115
+          ],
+          "scale": 1
+        },
+        "rightItem": {
+          "position": [
+            "(1.987138850) * 1 + (0.428387953) * variable.tg3d_hand_aim + (-0.159738284) * variable.tg3d_hand_reload + (0.901561146) * variable.tg3d_hand_kick + (0.356833221) * variable.tg3d_hand_run",
+            "(-1.796114431) * 1 + (-0.078692660) * variable.tg3d_hand_aim + (-2.475873503) * variable.tg3d_hand_reload + (-0.898130434) * variable.tg3d_hand_kick + (-1.409476937) * variable.tg3d_hand_run",
+            "(7.245452124) * 1 + (5.814661747) * variable.tg3d_hand_aim + (-1.118105128) * variable.tg3d_hand_reload + (-0.078576231) * variable.tg3d_hand_kick + (-0.483910959) * variable.tg3d_hand_run"
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": 1
+        }
+      }
+    },
+    "animation.tg3d.player_support_hand": {
+      "loop": true,
+      "override_previous_animation": true,
+      "bones": {
+        "leftArm": {
+          "position": [
+            "(3.812472991) * 1 + (-5.000000000) * variable.tg3d_hand_aim",
+            "(-4.375080847) * 1 + (3.000000000) * variable.tg3d_hand_aim + (-2.125000000) * variable.tg3d_hand_reload + (-0.850000000) * variable.tg3d_hand_run",
+            "(16.837823013) * 1 + (-1.700000000) * variable.tg3d_hand_reload + (-1.275000000) * variable.tg3d_hand_kick + (-1.275000000) * variable.tg3d_hand_run - (variable.is_holding_pistol ? 6 : 0)"
+          ],
+          "rotation": [
+            95,
+            45,
+            -115
+          ],
+          "scale": 1
+        }
+      }
+    }
+  }
+}

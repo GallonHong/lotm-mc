@@ -1,0 +1,53 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.tg_shield.player_main_fp": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-6 - 12 * v.tg3d_guard",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.tg_shield.player_main_tpp": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-40 - 15 * v.tg3d_guard",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.tg_shield.player_off_fp": {
+      "loop": true,
+      "bones": {
+        "leftArm": {
+          "rotation": [
+            "-6 - 12 * v.tg3d_guard",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.tg_shield.player_off_tpp": {
+      "loop": true,
+      "bones": {
+        "leftArm": {
+          "rotation": [
+            "-40 - 15 * v.tg3d_guard",
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

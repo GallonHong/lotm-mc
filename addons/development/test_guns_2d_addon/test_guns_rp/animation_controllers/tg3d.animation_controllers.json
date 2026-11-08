@@ -1,0 +1,112 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.tg3d.muzzle": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "transitions": [
+            {
+              "flash": "variable.tg3d_valid && variable.tg3d_owner_kind == 1 && variable.tg3d_shot != variable.tg3d_seen_shot"
+            }
+          ]
+        },
+        "flash": {
+          "on_entry": [
+            "variable.tg3d_seen_shot = variable.tg3d_shot;"
+          ],
+          "particle_effects": [
+            {
+              "effect": "muzzle_flash",
+              "locator": "muzzle",
+              "bind_to_actor": true
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "1.0"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.tg3d.pose": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "reload": "variable.tg3d_reloading"
+            },
+            {
+              "aim": "!variable.tg3d_reloading && variable.tg3d_sneaking"
+            },
+            {
+              "sprint": "!variable.tg3d_reloading && !variable.tg3d_sneaking && variable.tg3d_sprinting && !variable.tg3d_using"
+            }
+          ]
+        },
+        "sprint": {
+          "animations": [
+            "sprint"
+          ],
+          "blend_transition": 0.15,
+          "transitions": [
+            {
+              "reload": "variable.tg3d_reloading"
+            },
+            {
+              "aim": "!variable.tg3d_reloading && variable.tg3d_sneaking"
+            },
+            {
+              "idle": "!variable.tg3d_reloading && !variable.tg3d_sneaking && (!variable.tg3d_sprinting || variable.tg3d_using)"
+            }
+          ]
+        },
+        "reload": {
+          "animations": [
+            "still"
+          ],
+          "blend_transition": 0.08,
+          "transitions": [
+            {
+              "aim": "!variable.tg3d_reloading && variable.tg3d_sneaking"
+            },
+            {
+              "sprint": "!variable.tg3d_reloading && !variable.tg3d_sneaking && variable.tg3d_sprinting && !variable.tg3d_using"
+            },
+            {
+              "idle": "!variable.tg3d_reloading && !variable.tg3d_sneaking && (!variable.tg3d_sprinting || variable.tg3d_using)"
+            }
+          ]
+        },
+        "aim": {
+          "animations": [
+            {
+              "aim_first": "context.is_first_person"
+            },
+            {
+              "aim_third": "!context.is_first_person"
+            }
+          ],
+          "blend_transition": 0.12,
+          "transitions": [
+            {
+              "reload": "variable.tg3d_reloading"
+            },
+            {
+              "sprint": "!variable.tg3d_reloading && !variable.tg3d_sneaking && variable.tg3d_sprinting && !variable.tg3d_using"
+            },
+            {
+              "idle": "!variable.tg3d_reloading && !variable.tg3d_sneaking && (!variable.tg3d_sprinting || variable.tg3d_using)"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,3 +1,4 @@
+import { getMuzzle, clipSegment } from './utils/muzzleUtils.js';
 import { RecoilManager } from './recoilManager.js';
 import { ShootManager } from './shoot.js';
 import { updateActionBar } from './ui.js';
@@ -231,6 +232,15 @@ export class SkillManager {
       return;
     }
 
+    const muzzle = getMuzzle(player, gun);
+    const targetLoc = bestTarget.location;
+    const targetPoint = { x: targetLoc.x, y: targetLoc.y + 1, z: targetLoc.z };
+    if (muzzle.blocked || clipSegment(dim, head, targetPoint).blocked ||
+        clipSegment(dim, muzzle.location, targetPoint).blocked) {
+      fireBullet(player, gun);
+      return;
+    }
+
     // 瞬间直结全额霰弹伤害（无实体弹道）
     const pelletCount = 8;
     const totalDamage = Number(gun.stats?.damage || 12.0) * pelletCount;
@@ -242,11 +252,11 @@ export class SkillManager {
     // 原版火焰与暴击粒子连线
     const tLoc = bestTarget.location;
     const steps = 18;
-    for (let i = 1; i <= steps; i++) {
+    for (let i = 0; i <= steps; i++) {
       const ratio = i / steps;
-      const px = head.x + (tLoc.x - head.x) * ratio;
-      const py = (head.y - 0.15) + ((tLoc.y + 1.0) - (head.y - 0.15)) * ratio;
-      const pz = head.z + (tLoc.z - head.z) * ratio;
+      const px = muzzle.location.x + (tLoc.x - muzzle.location.x) * ratio;
+      const py = muzzle.location.y + ((tLoc.y + 1.0) - muzzle.location.y) * ratio;
+      const pz = muzzle.location.z + (tLoc.z - muzzle.location.z) * ratio;
       try {
         dim.spawnParticle('minecraft:basic_flame_particle', { x: px, y: py, z: pz });
         if (i % 3 === 0) dim.spawnParticle('minecraft:crit', { x: px, y: py, z: pz });

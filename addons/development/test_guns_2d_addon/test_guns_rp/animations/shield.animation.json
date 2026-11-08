@@ -6,14 +6,14 @@
       "bones": {
         "shield": {
           "position": [
-            "query.is_sneaking ? 1.2 : -4.5",
-            "query.is_sneaking ? -6.8 : 1.5",
-            "query.is_sneaking ? -3.8 : 2.0"
+            "-4.5 + 1.71 * v.tgs_guard",
+            "1.5 - 2.49 * v.tgs_guard - 1.5 * v.tgs_run",
+            "2 - 1.74 * v.tgs_guard"
           ],
           "rotation": [
-            "query.is_sneaking ? 42.0 : -18.0",
-            "query.is_sneaking ? -10.0 : 25.0",
-            "query.is_sneaking ? 8.0 : -14.0"
+            "-18 + 15 * v.tgs_guard + 8 * v.tgs_run",
+            "25 - 8.75 * v.tgs_guard",
+            "-14 + 5.5 * v.tgs_guard + 5 * v.tgs_run"
           ]
         }
       }
@@ -23,14 +23,14 @@
       "bones": {
         "shield": {
           "position": [
-            0.0,
-            "query.is_sneaking ? 1.5 : 0.0",
-            "query.is_sneaking ? -2.0 : 0.0"
+            0,
+            "1.5 * v.tgs_guard",
+            "-2 * v.tgs_guard"
           ],
           "rotation": [
-            "query.is_sneaking ? -15.0 : 0.0",
-            "query.is_sneaking ? 15.0 : 0.0",
-            0.0
+            "-15 * v.tgs_guard + 8 * v.tgs_run",
+            "15 * v.tgs_guard",
+            "5 * v.tgs_run"
           ]
         }
       }

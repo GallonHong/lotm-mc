@@ -8,24 +8,8 @@ import { EntityDamageCause } from '@minecraft/server';
 import { resolveBlockRaycastHit } from './raycastUtils.js';
 import { isProtectedTeammate } from './teamRules.js';
 
-export function getSpawnLocation(player) {
-  const headPos = player.getHeadLocation();
-  const viewDir = player.getViewDirection();
-
-  const hx = Number(headPos?.x) || 0;
-  const hy = Number(headPos?.y) || 0;
-  const hz = Number(headPos?.z) || 0;
-  const vx = Number(viewDir?.x) || 0;
-  const vy = Number(viewDir?.y) || 0;
-  const vz = Number(viewDir?.z) || 0;
-
-  // 使用紧凑安全的 0.20 格偏移，确保在任何方向（南/北/东/西/俯仰）都不会穿入方块
-  return {
-    x: hx + vx * 0.20,
-    y: hy + vy * 0.20 - 0.05,
-    z: hz + vz * 0.20
-  };
-}
+export { getMuzzleLocation as getSpawnLocation } from './muzzleUtils.js';
+import { getMuzzle, clipSegment } from './muzzleUtils.js';
 
 export function spawnMuzzleFlash(dimension, muzzleLoc, gun) {
   if (!dimension || !muzzleLoc) return;
@@ -97,7 +81,7 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
 
   const steps = Math.max(2, Math.min(Math.floor(totalDist / stepSize), maxSteps));
 
-  for (let i = 1; i <= steps; i++) {
+  for (let i = 0; i <= steps; i++) {
     const frac = i / steps;
     const px = sx + dx * frac;
     const py = sy + dy * frac;
@@ -109,8 +93,9 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
   }
 }
 
-function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
+function processBulletRay(player, gun, dir, muzzle, maxRange) {
   const dimension = player.dimension;
+  const spawnLoc = muzzle.location;
   const headPos = player.getHeadLocation();
 
   const hx = Number(headPos.x) || 0;
@@ -174,6 +159,14 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
     }
   } catch {}
 
+  // Preserve crosshair aim and spread, but the barrel must also have a clear
+  // path to the selected impact. Covers eye-visible targets behind low cover.
+  const barrelPath = muzzle.blocked ? muzzle : clipSegment(dimension, spawnLoc, impactLoc);
+  if (barrelPath.blocked) {
+    impactLoc = barrelPath.location;
+    hitEntity = null;
+    hitBlock = true;
+  }
   drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
 
   if (hitEntity) {
@@ -233,63 +226,25 @@ function processBulletRay(player, gun, dir, spawnLoc, maxRange) {
 }
 
 export function fireBullet(player, gun) {
-  const spawnLoc = getSpawnLocation(player);
+  const muzzle = getMuzzle(player, gun);
   const viewDir = player.getViewDirection();
   const maxRange = (gun.stats && gun.stats.maxRange) ? gun.stats.maxRange : 60;
-  const isADS = Boolean(player.isSneaking);
 
-  // 枪口火焰直接生成在玩家视线正前方 0.2 格处
-  spawnMuzzleFlash(player.dimension, spawnLoc, gun);
+  // Muzzle flash is emitted by the animated attachable locator in both views.
 
   if (gun.mode === FireMode.SHOTGUN || gun.type === 'shotgun') {
     const PELLETS = (gun.stats && gun.stats.pelletCount) ? gun.stats.pelletCount : 8;
-    // 战术开镜瞄准时散布极度收拢 (0.02 vs 0.075)
-    const spreadFactor = isADS ? 0.022 : 0.075;
-
-    const vx = Number(viewDir.x) || 0;
-    const vy = Number(viewDir.y) || 0;
-    const vz = Number(viewDir.z) || 0;
-
-    let rx = -vz;
-    let rz = vx;
-    const rLen = Math.hypot(rx, rz);
-    if (rLen < 1e-4) {
-      rx = 1;
-      rz = 0;
-    } else {
-      rx /= rLen;
-      rz /= rLen;
-    }
-
-    const ux = vy * rz;
-    const uy = vz * rx - vx * rz;
-    const uz = -vy * rx;
-
+    const profile = RecoilManager.beginShot(player, gun);
     for (let i = 0; i < PELLETS; i++) {
-      const offsetX = (Math.random() - 0.5) * 2 * spreadFactor;
-      const offsetY = (Math.random() - 0.5) * 2 * spreadFactor;
-
-      const px = vx + rx * offsetX + ux * offsetY;
-      const py = vy + uy * offsetY;
-      const pz = vz + rz * offsetX + uz * offsetY;
-      const pLen = Math.hypot(px, py, pz) || 1;
-
-      const spreadDir = { x: px / pLen, y: py / pLen, z: pz / pLen };
-      processBulletRay(player, gun, spreadDir, spawnLoc, maxRange);
+      const spreadDir = RecoilManager.getShotDirection(player, gun, viewDir, profile, true);
+      processBulletRay(player, gun, spreadDir, muzzle, maxRange);
     }
   } else {
     let finalDir = viewDir;
     if (!SkillManager.isOverdriveActive(player)) {
-      const offset = RecoilManager.getSprayOffset(player.id, gun.recoil);
-      // 开镜状态下散布减小 75%
-      const spreadMult = isADS ? 0.25 : 1.0;
-      const sx = (Number(viewDir.x) || 0) + offset.x * spreadMult;
-      const sy = (Number(viewDir.y) || 0) + offset.y * spreadMult;
-      const sz = (Number(viewDir.z) || 0) + offset.z * spreadMult;
-      const sLen = Math.hypot(sx, sy, sz) || 1;
-      finalDir = { x: sx / sLen, y: sy / sLen, z: sz / sLen };
+      finalDir = RecoilManager.getShotDirection(player, gun, viewDir);
     }
 
-    processBulletRay(player, gun, finalDir, spawnLoc, maxRange);
+    processBulletRay(player, gun, finalDir, muzzle, maxRange);
   }
 }

@@ -1,3 +1,5 @@
+import { RecoilManager } from './recoilManager.js';
+import { getMuzzle, clipSegment } from './utils/muzzleUtils.js';
 import { world, EntityDamageCause } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
 import { resolveBlockRaycastHit } from './utils/raycastUtils.js';
@@ -10,7 +12,7 @@ export class ArcEngine {
     try {
       const dim = player.dimension;
       const headPos = player.getHeadLocation();
-      const viewDir = player.getViewDirection();
+      const viewDir = RecoilManager.getShotDirection(player, gun, player.getViewDirection());
       const maxRange = gun.stats?.maxRange || 25;
 
       const hx = Number(headPos.x) || 0;
@@ -20,11 +22,8 @@ export class ArcEngine {
       const dy = Number(viewDir.y) || 0;
       const dz = Number(viewDir.z) || 0;
 
-      const muzzleLoc = {
-        x: hx + dx * 0.8,
-        y: hy + dy * 0.8 - 0.1,
-        z: hz + dz * 0.8
-      };
+      const muzzle = getMuzzle(player, gun);
+      const muzzleLoc = muzzle.location;
 
       try {
         dim.spawnParticle('test_gun:arc_spark', muzzleLoc);
@@ -69,6 +68,11 @@ export class ArcEngine {
         }
       } catch {}
 
+      const barrelPath = muzzle.blocked ? muzzle : clipSegment(dim, muzzleLoc, primaryHitPos);
+      if (barrelPath.blocked) {
+        primaryTarget = null;
+        primaryHitPos = barrelPath.location;
+      }
       this.drawLightningBeam(dim, muzzleLoc, primaryHitPos);
 
       const hitSet = new Set([player.id]);

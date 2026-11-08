@@ -1,0 +1,33 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.tg3d.player_hands": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": false
+        },
+        {
+          "rightArm": "variable.is_holding_gun || variable.tg3d_shield_main"
+        },
+        {
+          "rightSleeve": "variable.is_holding_gun || variable.tg3d_shield_main"
+        },
+        {
+          "leftArm": "(variable.is_holding_gun && variable.tg3d_free_offhand) || variable.tg3d_shield_off"
+        },
+        {
+          "leftSleeve": "(variable.is_holding_gun && variable.tg3d_free_offhand) || variable.tg3d_shield_off"
+        }
+      ]
+    }
+  }
+}

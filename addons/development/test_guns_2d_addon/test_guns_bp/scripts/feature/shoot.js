@@ -1,3 +1,5 @@
+import { getMuzzleLocation } from './utils/muzzleUtils.js';
+import { GunVisuals } from './gunVisuals.js';
 import { RocketEngine } from './rocketEngine.js';
 import { RecoilManager } from './recoilManager.js';
 import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
@@ -60,6 +62,7 @@ export class ShootManager {
     this.playerCooldowns.delete(pId);
     this.playerLastUseTick.delete(pId);
     this.arcChargeTicks.delete(pId);
+    RecoilManager.clearPlayer(pId);
   }
 
   static playerShotCounts = new Map();
@@ -163,13 +166,7 @@ export class ShootManager {
 
     try {
       const pLoc = player.location;
-      const head = player.getHeadLocation();
-      const view = player.getViewDirection();
-      const muzzle = {
-        x: head.x + view.x * 0.45,
-        y: head.y + view.y * 0.45 - 0.08,
-        z: head.z + view.z * 0.45
-      };
+      const muzzle = getMuzzleLocation(player, gun);
 
       player.dimension.spawnParticle('test_gun:arc_spark', muzzle);
       if (currentTicks % 2 === 0) {
@@ -188,7 +185,7 @@ export class ShootManager {
 
       this.deductDurability(player, gun);
       ArcEngine.fireArc(player, gun);
-      RecoilManager.applyRecoil(player, gun);
+      GunVisuals.fire(player, gun);
 
       try {
         player.dimension.playSound('ambient.weather.thunder', player.location, { volume: 2.0, pitch: 1.1 });
@@ -253,7 +250,7 @@ export class ShootManager {
       fireBullet(player, gun);
     }
 
-    RecoilManager.applyRecoil(player, gun);
+    GunVisuals.fire(player, gun);
 
     if (gun.shootSound) {
       try {

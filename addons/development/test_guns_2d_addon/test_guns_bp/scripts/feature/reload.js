@@ -1,3 +1,4 @@
+import { GunVisuals } from './gunVisuals.js';
 import { EquipmentSlot } from '@minecraft/server';
 import { countAmmoInInventory, consumeAmmoFromInventory, isCreativePlayer } from './utils/inventoryUtils.js';
 import { getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
@@ -13,6 +14,7 @@ export class ReloadManager {
   static cancelReload(player) {
     if (this.reloadingPlayers.has(player.id)) {
       this.reloadingPlayers.delete(player.id);
+      GunVisuals.reset(player);
     }
   }
 
@@ -49,6 +51,8 @@ export class ReloadManager {
       totalTicks: totalTicks
     });
 
+    GunVisuals.reload(player, gun, totalTicks);
+
     try {
       player.dimension.playSound('random.door_open', player.location, { volume: 0.8, pitch: 1.0 });
     } catch {}
@@ -76,6 +80,7 @@ export class ReloadManager {
 
   static completeReload(player, gun) {
     this.reloadingPlayers.delete(player.id);
+    GunVisuals.reset(player);
 
     const currentAmmo = getCurrentAmmo(player, gun);
     const needAmmo = gun.maxAmmo - currentAmmo;

@@ -1,3 +1,5 @@
+import { RecoilManager } from './recoilManager.js';
+import { getMuzzle } from './utils/muzzleUtils.js';
 import { world, EntityDamageCause } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
@@ -11,7 +13,7 @@ export class GrenadeEngine {
     try {
       const dim = player.dimension;
       const headLoc = player.getHeadLocation();
-      const viewDir = player.getViewDirection();
+      const viewDir = RecoilManager.getShotDirection(player, gun, player.getViewDirection());
       const pLoc = player.location;
 
       const hx = Number(headLoc?.x) || Number(pLoc?.x) || 0;
@@ -28,11 +30,12 @@ export class GrenadeEngine {
         z: vz * baseSpeed
       };
 
-      const startPos = {
-        x: hx + vx * 0.45,
-        y: hy + vy * 0.45 - 0.08,
-        z: hz + vz * 0.45
-      };
+      const muzzle = getMuzzle(player, gun);
+      const startPos = muzzle.location;
+      if (muzzle.blocked) {
+        this.explode(dim, startPos, player.id, gun, null, null);
+        return;
+      }
 
       this.activeGrenades.push({
         shooterId: player.id,

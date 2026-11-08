@@ -1,3 +1,4 @@
+import { GunVisuals } from './feature/gunVisuals.js';
 import { ItemStack } from '@minecraft/server';
 import { MeleeEngine } from './feature/meleeEngine.js';
 import { ArtilleryEngine } from './feature/artilleryEngine.js';
@@ -231,6 +232,7 @@ class AddonController {
     });
 
     subscribeAfter(world.afterEvents, 'playerLeave', (event) => {
+      GunVisuals.clearPlayer(event.playerId);
       ShootManager.playerShooting.delete(event.playerId);
       ShootManager.playerCooldowns.delete(event.playerId);
       ReloadManager.reloadingPlayers.delete(event.playerId);

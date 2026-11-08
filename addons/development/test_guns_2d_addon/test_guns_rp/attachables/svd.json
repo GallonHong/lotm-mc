@@ -8,28 +8,61 @@
         "enchanted": "entity_alphatest_glint"
       },
       "textures": {
-        "default": "textures/guns/svd_dz",
+        "default": "textures/entity/tg3d/smooth/svd_default",
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
-        "first": "geometry.sword.first_person",
-        "third": "geometry.sword.third_person"
+        "default": "geometry.tg3d.svd"
       },
       "animations": {
-        "wield": "animation.cso.wield",
-        "shoot": "animation.cso.wield_first_person_pull"
+        "hold_first": "animation.tg3d.hold_first",
+        "hold_third": "animation.tg3d.hold_third",
+        "idle": "animation.tg3d.idle",
+        "sprint": "animation.tg3d.sprint",
+        "pose": "controller.animation.tg3d.pose",
+        "aim_first": "animation.tg3d.aim_first",
+        "aim_third": "animation.tg3d.aim_third",
+        "still": "animation.tg3d.still",
+        "weapon_action": "animation.tg3d.weapon_action",
+        "muzzle": "controller.animation.tg3d.muzzle"
       },
       "scripts": {
         "animate": [
-          "wield",
           {
-            "shoot": "q.is_using_item && c.is_first_person"
-          }
+            "hold_first": "context.is_first_person"
+          },
+          {
+            "hold_third": "!context.is_first_person"
+          },
+          "pose",
+          "weapon_action",
+          "muzzle"
+        ],
+        "pre_animation": [
+          "variable.tg3d_sneaking = (context.owning_entity -> query.is_sneaking) ?? 0;",
+          "variable.tg3d_sprinting = (context.owning_entity -> query.is_sprinting) ?? 0;",
+          "variable.tg3d_using = (context.owning_entity -> query.is_using_item) ?? 0;",
+          "variable.tg3d_owner_age = (context.owning_entity -> query.life_time) ?? 0;",
+          "variable.tg3d_shot = (context.owning_entity -> variable.tg3d_shot) ?? 0;",
+          "variable.tg3d_stamp = (context.owning_entity -> variable.tg3d_stamp) ?? -100;",
+          "variable.tg3d_owner_gun = (context.owning_entity -> variable.tg3d_gun) ?? 0;",
+          "variable.tg3d_owner_kind = (context.owning_entity -> variable.tg3d_kind) ?? 0;",
+          "variable.tg3d_progress = math.clamp((context.owning_entity -> variable.tg3d_progress) ?? 0, 0, 1);",
+          "variable.tg3d_valid = context.item_slot == 'main_hand' && variable.tg3d_owner_gun == 11 && variable.tg3d_owner_age >= variable.tg3d_stamp && variable.tg3d_owner_age - variable.tg3d_stamp < 0.3;",
+          "variable.tg3d_reloading = variable.tg3d_valid && variable.tg3d_owner_kind == 2;",
+          "variable.tg3d_kick = variable.tg3d_valid && variable.tg3d_owner_kind == 1 ? math.clamp(math.min(variable.tg3d_progress / 0.2, (1 - variable.tg3d_progress) / 0.8), 0, 1) : 0;",
+          "variable.tg3d_reload_shape = variable.tg3d_reloading ? math.sin(variable.tg3d_progress * 180) : 0;"
+        ],
+        "initialize": [
+          "variable.tg3d_seen_shot = 0;"
         ]
       },
       "render_controllers": [
-        "controller.render.tg_gun"
-      ]
+        "controller.render.tg3d.original"
+      ],
+      "particle_effects": {
+        "muzzle_flash": "test_gun:muzzle_flash_heavy"
+      }
     }
   }
 }

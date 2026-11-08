@@ -11,9 +11,9 @@ function files(directory) { return readdirSync(directory).flatMap(name => { cons
 for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".json"))) assert.doesNotThrow(() => json(path), `invalid JSON: ${path}`);
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [3, 12, 0]);
-assert.deepEqual(rpManifest.header.version, [3, 12, 0]);
-assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 12, 0]);
+assert.deepEqual(bpManifest.header.version, [3, 12, 4]);
+assert.deepEqual(rpManifest.header.version, [3, 12, 4]);
+assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 12, 4]);
 assert.equal(json(join(bp, "items/blueprint_usas12.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_usas12");
 assert(readFileSync(join(bp, "recipes/recipe_usas12.json"), "utf8").includes("test_gun:blueprint_usas12"));
 assert.equal(json(join(bp, "items/blueprint_dbss.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_dbss");
@@ -79,4 +79,4 @@ for (const armorId of ["armor_epic_titan_vest", "armor_assault_vest", "armor_pol
   assert(damageHandlerCode.includes(`${armorId}:`), `ARMOR_PIECE_VALUES missing tactical armor: ${armorId}`);
 }
 assert(damageHandlerCode.includes("armor_epic_titan_vest") && damageHandlerCode.includes("armor_tactical_helmet"), "damage reductions must include imported tactical armors");
-console.log("Test Guns 2D v3.12.0 validation passed.");
+console.log("Test Guns 2D v3.12.4 validation passed.");

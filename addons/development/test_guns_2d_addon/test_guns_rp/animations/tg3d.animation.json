@@ -1,0 +1,141 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.tg3d.hold_first": {
+      "loop": true,
+      "bones": {
+        "root": {
+          "rotation": [
+            82.636095,
+            61.260361,
+            -51.574206
+          ],
+          "position": [
+            -2.307567,
+            25.495322,
+            -6.483884
+          ],
+          "scale": 0.85
+        }
+      }
+    },
+    "animation.tg3d.hold_third": {
+      "loop": true,
+      "bones": {
+        "root": {
+          "rotation": [
+            85,
+            0,
+            0
+          ],
+          "position": [
+            0,
+            24,
+            2
+          ],
+          "scale": 0.85
+        }
+      }
+    },
+    "animation.tg3d.idle": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "position": [
+            0,
+            "math.sin(query.life_time * 90) * 0.035",
+            0
+          ]
+        }
+      }
+    },
+    "animation.tg3d.sprint": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "rotation": [
+            15,
+            -18,
+            -18
+          ],
+          "position": [
+            0,
+            "math.sin(query.life_time * 720) * 0.12 - 1",
+            1.5
+          ]
+        }
+      }
+    },
+    "animation.tg3d.aim_first": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "position": [
+            5.882353,
+            3.529412,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.tg3d.aim_third": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            -3,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.tg3d.signal_a": {
+      "loop": true,
+      "animation_length": 1.0
+    },
+    "animation.tg3d.signal_b": {
+      "loop": true,
+      "animation_length": 1.0
+    },
+    "animation.tg3d.still": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "position": [
+            0,
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.tg3d.weapon_action": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "rotation": [
+            "-8 * variable.tg3d_kick + 22 * variable.tg3d_reload_shape",
+            "-12 * variable.tg3d_reload_shape",
+            "-2 * variable.tg3d_kick - 25 * variable.tg3d_reload_shape"
+          ],
+          "position": [
+            0,
+            "-2.5 * variable.tg3d_reload_shape",
+            "1.5 * variable.tg3d_kick + 2 * variable.tg3d_reload_shape"
+          ]
+        }
+      }
+    }
+  }
+}

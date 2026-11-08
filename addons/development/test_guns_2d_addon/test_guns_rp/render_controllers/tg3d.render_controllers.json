@@ -1,0 +1,94 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.tg3d.original": {
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "texture.default"
+      ]
+    },
+    "controller.render.tg3d.ak47_commander": {
+      "arrays": {
+        "textures": {
+          "array.tg_frames": [
+            "texture.f1",
+            "texture.f2",
+            "texture.f3",
+            "texture.f4",
+            "texture.f5",
+            "texture.f6",
+            "texture.f7",
+            "texture.f8",
+            "texture.f9",
+            "texture.f10",
+            "texture.f11",
+            "texture.f12",
+            "texture.f13"
+          ]
+        },
+        "geometries": {
+          "array.tg_shapes": [
+            "geometry.f1",
+            "geometry.f2",
+            "geometry.f3",
+            "geometry.f4",
+            "geometry.f5",
+            "geometry.f6",
+            "geometry.f7",
+            "geometry.f8",
+            "geometry.f9",
+            "geometry.f10",
+            "geometry.f11",
+            "geometry.f12",
+            "geometry.f13"
+          ]
+        }
+      },
+      "geometry": "array.tg_shapes[math.mod(math.floor(query.anim_time * 8), 13)]",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "array.tg_frames[math.mod(math.floor(query.anim_time * 8), 13)]"
+      ]
+    },
+    "controller.render.tg3d.vector": {
+      "arrays": {
+        "textures": {
+          "array.tg_frames": [
+            "texture.f1",
+            "texture.f2",
+            "texture.f3",
+            "texture.f4",
+            "texture.f5"
+          ]
+        },
+        "geometries": {
+          "array.tg_shapes": [
+            "geometry.f1",
+            "geometry.f2",
+            "geometry.f3",
+            "geometry.f4",
+            "geometry.f5"
+          ]
+        }
+      },
+      "geometry": "array.tg_shapes[math.mod(math.floor(query.anim_time * 8), 5)]",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "array.tg_frames[math.mod(math.floor(query.anim_time * 8), 5)]"
+      ]
+    }
+  }
+}

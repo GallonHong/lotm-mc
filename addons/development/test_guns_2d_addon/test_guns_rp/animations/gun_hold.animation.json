@@ -13,9 +13,9 @@
         },
         "leftArm": {
           "rotation": [
-            "-80.0 - query.target_x_rotation",
-            35.0,
-            10.0
+            "variable.tg3d_free_offhand ? (-80.0 - query.target_x_rotation) : 0",
+            "variable.tg3d_free_offhand ? (35.0) : 0",
+            "variable.tg3d_free_offhand ? (10.0) : 0"
           ]
         }
       }
@@ -32,9 +32,9 @@
         },
         "leftArm": {
           "rotation": [
-            "-82.0 - query.target_x_rotation",
-            24.0,
-            5.0
+            "variable.tg3d_free_offhand ? (-82.0 - query.target_x_rotation) : 0",
+            "variable.tg3d_free_offhand ? (24.0) : 0",
+            "variable.tg3d_free_offhand ? (5.0) : 0"
           ]
         }
       }
