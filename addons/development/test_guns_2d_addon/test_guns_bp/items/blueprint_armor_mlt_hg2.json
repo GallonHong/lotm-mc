@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:blueprint_armor_mlt_hg2",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_blueprint_armor_mlt_hg2",
+      "minecraft:max_stack_size": 64,
+      "minecraft:display_name": {
+        "value": "§6军用科技 HG2 全身重甲 [传说]§r 设计图纸 §6[神话·绝密蓝图]§r"
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:blueprint_armor_emr_6b13",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_blueprint_armor_emr_6b13",
+      "minecraft:max_stack_size": 64,
+      "minecraft:display_name": {
+        "value": "§96B13 EMR 迷彩防弹衣 [精良]§r 设计图纸 §9[精良·军用蓝图]§r"
+      }
+    }
+  }
+}

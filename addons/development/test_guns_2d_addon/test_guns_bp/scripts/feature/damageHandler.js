@@ -13,50 +13,81 @@ export const ARMOR_PIECE_VALUES = {
   netherite_helmet: 3, netherite_chestplate: 8, netherite_leggings: 6, netherite_boots: 3,
   turtle_helmet: 2,
 
-  // 动力外骨骼与重型防弹胸甲 (Exoskeletons & Heavy Tactical Vests)
-  armor_titan_chest: 12,
-  armor_epic_titan_vest: 12,
-  armor_assault_vest: 7,
-  armor_vest_heavy: 7,
-  armor_police_vest: 5,
-  armor_vest_light: 4,
-  armor_epic_ghillie_suit: 6,
-  armor_bdu_woodland_top: 4,
-  armor_hazmat_top: 4,
+  // 【先进战术装备 ATG】新增高科技与特种防具 (Advanced Tactical Armors)
+  // 金色传说品质 (Gold / Legendary)
+  armor_mlt_hg2: 16,
+  armor_mlt_hg2_desert: 16,
+  armor_killa_6b13: 14,
+  armor_ocf_gpnvg18: 6,
+  armor_ocf_gpnvg18_desert: 6,
+  armor_ocf_gpnvg18_up: 6,
+
+  // 紫色史诗品质 (Purple / Epic)
+  armor_mch_fc: 6,
+  armor_mch_fc_desert: 6,
+  armor_mch_fc_up: 6,
+  armor_ca_pvs31: 5,
+  armor_ca_pvs31_desert: 5,
+  armor_ca_pvs_31_up: 5,
+  armor_jpc_2: 8,
+  armor_jpc_2_desert: 8,
+
+  // 蓝色精良品质 (Blue / Rare)
+  armor_emr_6b13: 10,
+  armor_ala_spc: 8,
+  armor_oc_amp: 4,
+  armor_black_ghillie: 5,
+  armor_m50: 4,
+
+  // 绿色优秀品质 (Green / Uncommon)
+  armor_oak_ghillie: 4,
+  armor_goggles_black: 3,
+  armor_goggles_red: 3,
+
+  // 原有装甲大幅补偿加强 (Original Armors - Compensated & Generously Buffed)
+  armor_titan_chest: 14,        // 泰坦动力胸甲 (原 12 -> 14)
+  armor_epic_titan_vest: 14,    // 史诗泰坦背心 (原 12 -> 14)
+  armor_mob_chest: 12,          // 堡垒重装胸甲 (原 9 -> 12)
+  armor_assault_vest: 9,        // 重装突击背心 (原 7 -> 9)
+  armor_vest_heavy: 9,          // 重型防弹背心 (原 7 -> 9)
+  armor_police_vest: 7,         // 警用防弹衣 (原 5 -> 7)
+  armor_vest_light: 5,          // 轻型防弹背心 (原 4 -> 5)
+  armor_epic_ghillie_suit: 7,   // 史诗潜行吉利服 (原 6 -> 7)
+  armor_bdu_woodland_top: 5,    // 林地作战服上身 (原 4 -> 5)
+  armor_hazmat_top: 5,          // 防化服上身 (原 4 -> 5)
 
   // 战术防暴头盔与面罩 (Helmets & Masks)
-  armor_tactical_helmet: 4,
-  armor_helmet_tactical: 3,
-  armor_gasmask: 3,
-  armor_night_goggles: 2,
+  armor_tactical_helmet: 6,     // 战术防暴头盔 (原 4 -> 6)
+  armor_helmet_tactical: 6,     // 战术防弹头盔 (原 3 -> 6)
+  armor_gasmask: 4,             // 军用防毒面具 (原 3 -> 4)
+  armor_night_goggles: 3,       // 便携夜视风镜 (原 2 -> 3)
+  armor_night_vision: 4,        // 战术夜视仪 (原 3 -> 4)
+  armor_mob_mask: 6,            // 堡垒防暴面罩 (原 4 -> 6)
+  armor_wasp_mask: 4,           // 黄蜂轻型面罩 (原 2 -> 4)
+  armor_immortal_mask: 4,       // 不朽者防毒面罩 (原 2 -> 4)
+  armor_analyzer: 3,            // 战术分析仪 (原 2 -> 3)
+  armor_tech: 5,                // 科技战术头盔 (原 4 -> 5)
+  armor_fraternity: 3,          // 兄弟会战术面具 (原 1 -> 3)
 
   // 作战裤与护腿 (Tactical Pants & Leggings)
-  armor_gorka_bottom: 5,
-  armor_bdu_woodland_bottom: 4,
+  armor_mob_pants: 7,           // 堡垒重装防暴裤 (原 6 -> 7)
+  armor_gorka_bottom: 6,        // 廓尔喀战斗裤 (原 5 -> 6)
+  armor_bdu_woodland_bottom: 5, // 林地作战裤 (原 4 -> 5)
+  armor_wasp_pants: 5,          // 黄蜂轻量作战裤 (原 4 -> 5)
+  armor_immortal_pants: 6,      // 特警特训长裤 (原 5 -> 6)
+
+  // 作战靴 (Tactical Boots)
+  armor_wasp_boots: 4,          // 工兵减震军靴 (原 3 -> 4)
 
   // 特殊机动装备与战术盾牌 (Mobility & Shields)
   jetpack: 6,
-  riot_shield: 4,
-  flash_shield: 4,
-
-  // 明日之后风格专属战术防具 (LifeAfter Tactical Armors)
-  armor_mob_chest: 9,
-  armor_mob_pants: 6,
-  armor_mob_mask: 4,
-  armor_night_vision: 3,
-  armor_wasp_rig: 6,
-  armor_wasp_pants: 4,
-  armor_wasp_boots: 3,
-  armor_wasp_mask: 2,
-  armor_immortal_vest: 7,
-  armor_immortal_pants: 5,
-  armor_immortal_mask: 2,
-  armor_analyzer: 2,
-  armor_tech: 4,
-  armor_fraternity: 1,
+  riot_shield: 5,               // 重装反甲盾 (原 4 -> 5)
+  flash_shield: 5,              // G52 战术闪光盾 (原 4 -> 5)
+  armor_wasp_rig: 8,            // 黄蜂轻型胸挂 (原 6 -> 8)
+  armor_immortal_vest: 9,       // 特警特训背心 (原 7 -> 9)
 
   // 便服与作战常服 (Casual Wear & Clothes)
-  cloth_hunting_vest: 2,
+  cloth_hunting_vest: 3,
   cloth_leather_black: 3,
   cloth_cargo_tan: 2,
   cloth_jean_blue: 2,
@@ -102,16 +133,20 @@ export class DamageHandler {
             points += ARMOR_PIECE_VALUES[rawName];
           } else {
             // 智能启发式兜底：按关键词与装备槽智能推算护甲，确保未来装备或联动装备绝对生效
-            if (rawName.includes('titan') || rawName.includes('mob_chest')) points += 10;
+            if (rawName.includes('titan') || rawName.includes('mob_chest') || rawName.includes('mlt_hg2')) points += 16;
+            else if (rawName.includes('killa')) points += 14;
+            else if (rawName.includes('6b13')) points += 10;
+            else if (rawName.includes('jpc') || rawName.includes('spc') || rawName.includes('assault') || rawName.includes('immortal_vest')) points += 8;
             else if (rawName.includes('chest') || rawName.includes('vest') || rawName.includes('rig') || rawName.includes('top')) points += 6;
-            else if (rawName.includes('pants') || rawName.includes('bottom') || rawName.includes('leggings')) points += 4;
-            else if (rawName.includes('helmet') || rawName.includes('mask') || rawName.includes('head') || rawName.includes('goggles')) points += 3;
-            else if (rawName.includes('boots') || rawName.includes('feet')) points += 2;
-            else if (rawName.includes('shield')) points += 4;
-            else if (slot === EquipmentSlot.Chest) points += 4;
-            else if (slot === EquipmentSlot.Legs) points += 3;
-            else if (slot === EquipmentSlot.Head) points += 2;
-            else if (slot === EquipmentSlot.Feet) points += 1;
+            else if (rawName.includes('gpnvg') || rawName.includes('mch_fc') || rawName.includes('mob_mask') || rawName.includes('pvs31')) points += 6;
+            else if (rawName.includes('pants') || rawName.includes('bottom') || rawName.includes('leggings')) points += 5;
+            else if (rawName.includes('helmet') || rawName.includes('mask') || rawName.includes('head') || rawName.includes('goggles')) points += 4;
+            else if (rawName.includes('boots') || rawName.includes('feet')) points += 3;
+            else if (rawName.includes('shield')) points += 5;
+            else if (slot === EquipmentSlot.Chest) points += 6;
+            else if (slot === EquipmentSlot.Legs) points += 4;
+            else if (slot === EquipmentSlot.Head) points += 4;
+            else if (slot === EquipmentSlot.Feet) points += 2;
           }
         }
       }
@@ -178,6 +213,138 @@ export class DamageHandler {
     const dropFactor = Math.max(0.3, 1.0 - distance * (stats.damageDropOff || 0.02));
     let currentDamage = baseDmg * dropFactor;
 
+    // ----------------------------------------------------
+    // 1.1 射手战术装备攻击属性与致命暴击结算 (Offensive Stats & Critical Strike)
+    // ----------------------------------------------------
+    let critRate = 0.05; // 基础 5% 暴击率
+    let critMultiplier = 1.5; // 基础 1.5x 暴击伤害倍率
+    let dmgMultiplier = 1.0; // 武器基础伤害修正
+
+    const shooterEquip = (shooter && shooter.isValid()) ? shooter.getComponent?.('minecraft:equippable') : undefined;
+    const sHead = (shooterEquip?.getEquipment(EquipmentSlot.Head)?.typeId || '').toLowerCase();
+    const sChest = (shooterEquip?.getEquipment(EquipmentSlot.Chest)?.typeId || '').toLowerCase();
+    const sLegs = (shooterEquip?.getEquipment(EquipmentSlot.Legs)?.typeId || '').toLowerCase();
+    const sFeet = (shooterEquip?.getEquipment(EquipmentSlot.Feet)?.typeId || '').toLowerCase();
+
+    const gunId = (gun.id || '').toLowerCase();
+    const gunCat = (gun.category || gun.type || '').toLowerCase();
+    const isSniper = gunId.includes('svd') || gunId.includes('m82') || gunId.includes('awp') || gunId.includes('kar98') || gunId.includes('mosin') || gunId.includes('hunting') || gunId.includes('vss') || gunCat === 'sniper';
+    const isShotgun = gunId.includes('m1014') || gunId.includes('usas12') || gunId.includes('remington') || gunId.includes('spas12') || gunId.includes('saiga12') || gunId.includes('double_barrel') || gunId.includes('shotgun') || gunCat === 'shotgun';
+    const isLmg = gunId.includes('pkm') || gunId.includes('rpk') || gunId.includes('m249') || gunId.includes('dp27') || gunId.includes('minigun') || gunId.includes('bar') || gunCat === 'lmg';
+    const isSmg = gunId.includes('p90') || gunId.includes('mp5') || gunId.includes('uzi') || gunId.includes('vector') || gunId.includes('ump45') || gunId.includes('mac10') || gunId.includes('bizon') || gunCat === 'smg';
+    const isRifle = gunId.includes('ak47') || gunId.includes('m4a1') || gunId.includes('scarh') || gunId.includes('hk416') || gunId.includes('aug') || gunId.includes('g36c') || gunId.includes('fal') || gunId.includes('galil') || gunId.includes('qbz95') || gunCat === 'rifle';
+    const isPistol = gunId.includes('glock') || gunId.includes('deagle') || gunId.includes('colt') || gunId.includes('m1911') || gunId.includes('revolver') || gunId.includes('usp') || gunId.includes('tt33') || gunId.includes('makarov') || gunCat === 'pistol';
+
+    // 头部攻击被动
+    if (sHead.includes('armor_ocf_gpnvg18')) {
+      critRate += 0.25; // GPNVG-18 全景四目夜视仪：+25% 全枪械暴击率
+      critMultiplier = 1.85; // 暴击伤害倍率提升至 1.85x
+      dmgMultiplier += 0.10; // 全局精准伤害加成 +10%
+    } else if (sHead.includes('armor_ca_pvs31') || sHead.includes('armor_ca_pvs_31')) {
+      critRate += (isSniper || isRifle) ? 0.20 : 0.15; // PVS-31: +15% 暴击率 (步枪/狙击 +20%)
+      critMultiplier = 1.65;
+      dmgMultiplier += 0.08;
+    } else if (sHead.includes('armor_mch_fc')) {
+      critRate += 0.10; // MICH 2000: +10% 暴击率
+      dmgMultiplier += 0.06;
+    } else if (sHead.includes('armor_oc_amp')) {
+      critRate += 0.08; // 战术降噪拾音耳机: +8% 暴击率
+    } else if (sHead.includes('armor_goggles_black') || sHead.includes('armor_goggles_red')) {
+      critRate += 0.08; // 战术防弹风镜: +8% 暴击率
+    } else if (sHead.includes('armor_tech') || sHead.includes('armor_analyzer')) {
+      critRate += 0.12; // 战术分析仪 / 科技头盔: +12% 暴击率
+    } else if (sHead.includes('armor_tactical_helmet') || sHead.includes('armor_helmet_tactical')) {
+      critRate += 0.08; // 战术防暴头盔: +8% 暴击率
+    } else if (sHead.includes('armor_wasp_mask')) {
+      critRate += (isSmg || isPistol) ? 0.15 : 0.06;
+    } else if (sHead.includes('armor_immortal_mask')) {
+      critRate += isShotgun ? 0.15 : 0.06;
+    }
+
+    // 胸甲攻击被动
+    if (sChest.includes('armor_killa_6b13')) {
+      critRate += 0.20; // Killa 6B13: +20% 暴击率
+      if (isSmg || isShotgun) dmgMultiplier += 0.30; // 冲锋枪/霰弹枪 +30% 伤害
+      else dmgMultiplier += 0.15;
+      try {
+        const sHp = shooter?.getComponent?.('minecraft:health');
+        if (sHp && (sHp.currentValue / sHp.effectiveMax) <= 0.4) {
+          critRate += 0.20; // 濒死残血额外狂暴 +20% 暴击率
+        }
+      } catch {}
+    } else if (sChest.includes('armor_mlt_hg2')) {
+      dmgMultiplier += isLmg ? 0.30 : 0.15; // 军用科技 HG2: 重火器 +30% 伤害，其他 +15%
+    } else if (sChest.includes('armor_jpc_2')) {
+      dmgMultiplier += 0.20; // JPC 2.0: 全武器伤害 +20%
+      critRate += 0.10;      // +10% 暴击率
+    } else if (sChest.includes('armor_emr_6b13')) {
+      dmgMultiplier += isRifle ? 0.20 : 0.10; // 6B13 EMR: 突击步枪 +20% 伤害
+      critRate += 0.08;
+    } else if (sChest.includes('armor_ala_spc')) {
+      dmgMultiplier += 0.15; // 骷髅SPC: 全枪械伤害 +15%
+      critRate += 0.08;
+    } else if (sChest.includes('armor_black_ghillie')) {
+      if (isSniper) {
+        dmgMultiplier += shooter?.isSneaking ? 0.40 : 0.25; // 暗夜狙击手：潜行时狙击枪 +40% 伤害
+        critRate += shooter?.isSneaking ? 0.30 : 0.15;
+      } else {
+        dmgMultiplier += 0.10;
+      }
+    } else if (sChest.includes('armor_oak_ghillie')) {
+      if (isSniper) {
+        dmgMultiplier += 0.25;
+        critRate += 0.15;
+      } else {
+        dmgMultiplier += 0.08;
+      }
+    } else if (sChest.includes('armor_titan_chest') || sChest.includes('armor_epic_titan_vest')) {
+      dmgMultiplier += isLmg ? 0.30 : 0.20; // 泰坦外骨骼：全枪械增伤 +20% (机枪 +30%)
+    } else if (sChest.includes('armor_assault_vest') || sChest.includes('armor_vest_heavy')) {
+      dmgMultiplier += isRifle ? 0.20 : 0.12; // 重装突击背心：步枪 +20% 伤害
+      critRate += 0.08;
+    } else if (sChest.includes('armor_police_vest')) {
+      dmgMultiplier += (isPistol || isSmg) ? 0.20 : 0.10; // 警用防弹衣：手枪/冲锋枪 +20% 伤害
+      critRate += 0.08;
+    } else if (sChest.includes('armor_wasp_rig')) {
+      dmgMultiplier += isSmg ? 0.25 : 0.12; // 黄蜂轻型胸挂：冲锋枪 +25% 伤害
+      critRate += 0.10;
+    } else if (sChest.includes('armor_immortal_vest')) {
+      dmgMultiplier += isShotgun ? 0.25 : 0.12; // 特警特训背心：霰弹枪 +25% 伤害
+      critRate += 0.10;
+    } else if (sChest.includes('armor_epic_ghillie_suit')) {
+      if (isSniper) {
+        dmgMultiplier += 0.30;
+        critRate += 0.20;
+      }
+    }
+
+    // 腿部与脚部攻击被动
+    if (sLegs.includes('armor_mob_pants') && shooter?.isSneaking) {
+      dmgMultiplier += 0.18; // 堡垒防暴裤：下蹲架枪威力提升 18%
+    }
+    if (sFeet.includes('armor_m50')) {
+      critRate += 0.05; // M50面具配件：专注瞄准 +5% 暴击率
+    }
+
+    currentDamage *= dmgMultiplier;
+
+    // 战术致命暴击判定 (Critical Strike Roll)
+    const isCritHit = Math.random() < critRate;
+    if (isCritHit) {
+      currentDamage *= critMultiplier;
+      DamageIndicator.markCritical(target.id);
+      try {
+        const pLoc = target.location;
+        const dim = target.dimension;
+        dim.spawnParticle('minecraft:critical_hit_emitter', { x: pLoc.x, y: pLoc.y + 1.2, z: pLoc.z });
+        dim.playSound('random.orb', pLoc, { volume: 0.9, pitch: 1.6 });
+        dim.playSound('firework.blast', pLoc, { volume: 0.6, pitch: 1.4 });
+      } catch {}
+      if (shooter && shooter.typeId === 'minecraft:player') {
+        shooter.onScreenDisplay?.setActionBar?.(`§c💥【战术暴击】触发致命暴击！造成 §e${critMultiplier.toFixed(2)}x§c 暴击倍率伤害！§r`);
+      }
+    }
+
     // 2. 目标防具减免被动检测 (Tactical Armor Passives)
     const targetEquip = target.getComponent?.('minecraft:equippable');
     const chestItem = targetEquip?.getEquipment(EquipmentSlot.Chest);
@@ -189,43 +356,75 @@ export class DamageHandler {
     if (headshot) {
       DamageIndicator.markHeadshot(target.id);
       let hsMult = stats.headshotMultiplier || 1.75;
-      if (headItem && headItem.typeId.includes('armor_mob_mask')) {
-        // 堡垒重装防暴面罩：完全阻断爆头加成
+      const headId = (headItem?.typeId || '').toLowerCase();
+
+      if (headId.includes('armor_mob_mask') || headId.includes('armor_mch_fc')) {
+        // 堡垒重装防暴面罩 & MICH 2000 战术防弹头盔：完全阻断爆头加成！
         hsMult = 1.0;
         try {
           target.dimension.playSound('random.anvil_land', targetLoc, { volume: 0.9, pitch: 2.0 });
           target.dimension.spawnParticle('minecraft:crit', (impactLocation && Number.isFinite(impactLocation.x)) ? impactLocation : targetLoc);
         } catch {}
         if (target.typeId === 'minecraft:player') {
-          target.onScreenDisplay?.setActionBar?.('§6🛡【堡垒防暴面罩】重装面甲完全阻断爆头加成伤害！§r');
+          const helmetName = headId.includes('armor_mch_fc') ? 'MICH 2000' : '堡垒防暴面罩';
+          target.onScreenDisplay?.setActionBar?.(`§6🛡【${helmetName}】全防护重装头盔完全阻断爆头加成伤害！§r`);
         }
-      } else if (headItem && (headItem.typeId.includes('armor_helmet_tactical') || headItem.typeId.includes('armor_tactical_helmet') || headItem.typeId.includes('armor_tech'))) {
-        hsMult = Math.max(1.15, hsMult - 0.45); // 战术防暴头盔吸收 45% 爆头额外伤害
+      } else if (headId.includes('armor_ocf_gpnvg18')) {
+        hsMult = Math.max(1.10, hsMult - 0.60); // GPNVG-18: 吸收 60% 爆头加成
+      } else if (headId.includes('armor_ca_pvs31') || headId.includes('armor_ca_pvs_31')) {
+        hsMult = Math.max(1.15, hsMult - 0.50); // PVS-31: 吸收 50% 爆头加成
+      } else if (headId.includes('armor_helmet_tactical') || headId.includes('armor_tactical_helmet') || headId.includes('armor_tech')) {
+        hsMult = Math.max(1.15, hsMult - 0.50); // 战术防暴头盔吸收 50% 爆头额外伤害
+      } else if (headId.includes('armor_oc_amp')) {
+        hsMult = Math.max(1.20, hsMult - 0.35); // AMP战术拾音降噪耳机吸收 35% 爆头震荡
+      } else if (headId.includes('armor_goggles_black') || headId.includes('armor_goggles_red')) {
+        hsMult = Math.max(1.25, hsMult - 0.25); // 防弹风镜吸收 25% 爆头加成
       }
       currentDamage *= hsMult;
     }
 
-    // 2.2 防弹衣额外减伤
+    // 2.2 防弹衣额外减伤 (大方给数值 + 补偿老装备)
     if (chestItem) {
-      if (chestItem.typeId.includes('armor_mob_chest')) {
-        currentDamage *= 0.50; // 堡垒重装防弹衣 50% 终伤吸收 (传说级硬核防御)
-      } else if (chestItem.typeId.includes('armor_titan_chest') || chestItem.typeId.includes('armor_epic_titan_vest')) {
-        currentDamage *= 0.65; // 泰坦动力外骨骼装甲 35% 终伤吸收
-      } else if (chestItem.typeId.includes('armor_immortal_vest') || chestItem.typeId.includes('armor_police_vest')) {
-        currentDamage *= 0.80; // 特警特训防弹衣 / 警用防弹衣 20% 终伤吸收
-      } else if (chestItem.typeId.includes('armor_vest_heavy') || chestItem.typeId.includes('armor_assault_vest')) {
-        currentDamage *= 0.75; // 重装突击防弹衣 25% 终伤吸收
-      } else if (chestItem.typeId.includes('armor_vest_light') || chestItem.typeId.includes('armor_bdu_woodland_top') || chestItem.typeId.includes('armor_hazmat_top')) {
-        currentDamage *= 0.85; // 轻型防弹衣 15% 终伤吸收
+      const chestId = (chestItem.typeId || '').toLowerCase();
+      if (chestId.includes('armor_mlt_hg2')) {
+        currentDamage *= 0.35; // 军用科技 HG2 全身重甲：65% 终伤吸收！(金色顶级防护)
+      } else if (chestId.includes('armor_killa_6b13')) {
+        currentDamage *= 0.50; // Killa 6B13 防弹衣：50% 终伤吸收
+        if (distance <= 8.0 || isShotgun) {
+          currentDamage *= 0.70; // 贴身近战/霰弹额外再吸收 30%！
+        }
+      } else if (chestId.includes('armor_mob_chest')) {
+        currentDamage *= 0.50; // 堡垒重装防弹衣 50% 终伤吸收
+      } else if (chestId.includes('armor_titan_chest') || chestId.includes('armor_epic_titan_vest')) {
+        currentDamage *= 0.55; // 泰坦动力外骨骼装甲 45% 终伤吸收 (buffed from 35%)
+      } else if (chestId.includes('armor_jpc_2')) {
+        currentDamage *= 0.65; // JPC 2.0 轻量特战背心 35% 终伤吸收
+      } else if (chestId.includes('armor_emr_6b13')) {
+        currentDamage *= 0.65; // 6B13 EMR 迷彩防弹衣 35% 终伤吸收
+      } else if (chestId.includes('armor_ala_spc')) {
+        currentDamage *= 0.70; // 艾斯链甲SPC背心 30% 终伤吸收
+      } else if (chestId.includes('armor_assault_vest') || chestId.includes('armor_vest_heavy')) {
+        currentDamage *= 0.70; // 重装突击防弹衣 30% 终伤吸收 (buffed from 25%)
+      } else if (chestId.includes('armor_immortal_vest') || chestId.includes('armor_police_vest')) {
+        currentDamage *= 0.75; // 特警特训 / 警用防弹衣 25% 终伤吸收 (buffed from 20%)
+      } else if (chestId.includes('armor_black_ghillie') || chestId.includes('armor_epic_ghillie_suit')) {
+        currentDamage *= 0.80; // 黑色吉利服 / 史诗吉利服 20% 终伤吸收
+      } else if (chestId.includes('armor_oak_ghillie') || chestId.includes('armor_vest_light') || chestId.includes('armor_bdu_woodland_top') || chestId.includes('armor_hazmat_top')) {
+        currentDamage *= 0.85; // 橡木吉利服 / 轻型战术背心 15% 终伤吸收
       }
     }
 
-    // 2.2.1 堡垒重装防暴裤：下蹲架枪掩体减伤 20%
+    // 2.2.1 堡垒重装防暴裤：下蹲架枪掩体减伤 30%
     const legsItem = targetEquip?.getEquipment(EquipmentSlot.Legs);
-    if (target.isSneaking && legsItem && legsItem.typeId.includes('armor_mob_pants')) {
-      currentDamage *= 0.80; // 下蹲架枪掩体吸收 20% 冲击
-      if (target.typeId === 'minecraft:player') {
-        target.onScreenDisplay?.setActionBar?.('§6🛡【堡垒防暴裤】下蹲架枪掩体姿态吸收 20% 冲击伤害！§r');
+    if (target.isSneaking && legsItem) {
+      const legsId = (legsItem.typeId || '').toLowerCase();
+      if (legsId.includes('armor_mob_pants')) {
+        currentDamage *= 0.70; // 下蹲架枪掩体吸收 30% 冲击 (buffed from 20%)
+        if (target.typeId === 'minecraft:player') {
+          target.onScreenDisplay?.setActionBar?.('§6🛡【堡垒防暴裤】下蹲架枪掩体姿态吸收 30% 冲击伤害！§r');
+        }
+      } else if (legsId.includes('armor_immortal_pants') || legsId.includes('armor_gorka_bottom')) {
+        currentDamage *= 0.85; // 特警战术裤 / 廓尔喀战斗裤：下蹲吸收 15% 伤害
       }
     }
 

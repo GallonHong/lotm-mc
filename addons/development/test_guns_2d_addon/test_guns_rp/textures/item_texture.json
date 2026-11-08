@@ -361,6 +361,120 @@
     },
     "test_gun_part_mech_chip": {
       "textures": "textures/items/part_mech_chip"
+    },
+    "test_gun_armor_mlt_hg2": {
+      "textures": "textures/items/pamobile/atg_mlt_hg2"
+    },
+    "test_gun_blueprint_armor_mlt_hg2": {
+      "textures": "textures/blueprints/blueprint_legendary"
+    },
+    "test_gun_armor_mlt_hg2_desert": {
+      "textures": "textures/items/pamobile/atg_mlt_hg2_desert"
+    },
+    "test_gun_armor_killa_6b13": {
+      "textures": "textures/items/pamobile/atg_killa_6b13"
+    },
+    "test_gun_blueprint_armor_killa_6b13": {
+      "textures": "textures/blueprints/blueprint_legendary"
+    },
+    "test_gun_armor_ocf_gpnvg18": {
+      "textures": "textures/items/pamobile/atg_ocf_gpnvg18"
+    },
+    "test_gun_blueprint_armor_ocf_gpnvg18": {
+      "textures": "textures/blueprints/blueprint_legendary"
+    },
+    "test_gun_armor_ocf_gpnvg18_desert": {
+      "textures": "textures/items/pamobile/atg_ocf_gpnvg18_desert"
+    },
+    "test_gun_armor_ocf_gpnvg18_up": {
+      "textures": "textures/items/pamobile/atg_ocf_gpnvg18_up"
+    },
+    "test_gun_armor_mch_fc": {
+      "textures": "textures/items/pamobile/atg_mch_fc"
+    },
+    "test_gun_blueprint_armor_mch_fc": {
+      "textures": "textures/blueprints/blueprint_epic"
+    },
+    "test_gun_armor_mch_fc_desert": {
+      "textures": "textures/items/pamobile/atg_mch_fc_desert"
+    },
+    "test_gun_armor_mch_fc_up": {
+      "textures": "textures/items/pamobile/atg_mch_fc_up"
+    },
+    "test_gun_armor_ca_pvs31": {
+      "textures": "textures/items/pamobile/atg_ca_pvs31"
+    },
+    "test_gun_blueprint_armor_ca_pvs31": {
+      "textures": "textures/blueprints/blueprint_epic"
+    },
+    "test_gun_armor_ca_pvs31_desert": {
+      "textures": "textures/items/pamobile/atg_ca_pvs31_desert"
+    },
+    "test_gun_armor_ca_pvs_31_up": {
+      "textures": "textures/items/pamobile/atg_ca_pvs_31_up"
+    },
+    "test_gun_armor_jpc_2": {
+      "textures": "textures/items/pamobile/atg_jpc_2"
+    },
+    "test_gun_blueprint_armor_jpc_2": {
+      "textures": "textures/blueprints/blueprint_epic"
+    },
+    "test_gun_armor_jpc_2_desert": {
+      "textures": "textures/items/pamobile/atg_jpc_2_desert"
+    },
+    "test_gun_armor_emr_6b13": {
+      "textures": "textures/items/pamobile/atg_emr_6b13"
+    },
+    "test_gun_blueprint_armor_emr_6b13": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_armor_ala_spc": {
+      "textures": "textures/items/pamobile/atg_ala_spc"
+    },
+    "test_gun_blueprint_armor_ala_spc": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_armor_oc_amp": {
+      "textures": "textures/items/pamobile/atg_oc_amp"
+    },
+    "test_gun_blueprint_armor_oc_amp": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_armor_black_ghillie": {
+      "textures": "textures/items/pamobile/atg_black_ghillie"
+    },
+    "test_gun_blueprint_armor_black_ghillie": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_armor_oak_ghillie": {
+      "textures": "textures/items/pamobile/atg_oak_ghillie"
+    },
+    "test_gun_blueprint_armor_oak_ghillie": {
+      "textures": "textures/blueprints/blueprint_common"
+    },
+    "test_gun_armor_m50": {
+      "textures": "textures/items/pamobile/atg_m50"
+    },
+    "test_gun_blueprint_armor_m50": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_armor_goggles_black": {
+      "textures": "textures/items/pamobile/atg_goggles_black"
+    },
+    "test_gun_blueprint_armor_goggles_black": {
+      "textures": "textures/blueprints/blueprint_common"
+    },
+    "test_gun_armor_goggles_red": {
+      "textures": "textures/items/pamobile/atg_goggles_red"
+    },
+    "test_gun_blueprint_armor_goggles_red": {
+      "textures": "textures/blueprints/blueprint_common"
+    },
+    "test_gun_part_armor_plate": {
+      "textures": "textures/items/pamobile/atg_armor_plate"
+    },
+    "test_gun_part_iit": {
+      "textures": "textures/items/pamobile/atg_iit"
     }
   }
 }

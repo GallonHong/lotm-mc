@@ -1,0 +1,18 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:part_iit",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_part_iit",
+      "minecraft:max_stack_size": 64,
+      "minecraft:display_name": {
+        "value": "§5图像增强管 (IIT) [史诗]§r\n§7高灵敏度微光增强核心光电倍增元件，制造双目与四目夜视仪不可或缺的尖端科技。§r"
+      }
+    }
+  }
+}

@@ -4,6 +4,7 @@ const MAX_DISPLAY_DAMAGE = 100;
 
 export class DamageIndicator {
   static headshots = new Set();
+  static crits = new Set();
 
   /**
    * 标记某实体被爆头命中（用于指示器高亮显示）
@@ -13,6 +14,17 @@ export class DamageIndicator {
     this.headshots.add(entityId);
     system.runTimeout(() => {
       this.headshots.delete(entityId);
+    }, 3);
+  }
+
+  /**
+   * 标记某实体受到战术暴击（用于指示器弹出亮红暴击数字）
+   */
+  static markCritical(entityId) {
+    if (!entityId) return;
+    this.crits.add(entityId);
+    system.runTimeout(() => {
+      this.crits.delete(entityId);
     }, 3);
   }
 
@@ -38,12 +50,16 @@ export class DamageIndicator {
     const displayDamage = Math.max(1, Math.min(MAX_DISPLAY_DAMAGE, Math.round(rawDamage)));
 
     const isHeadshot = this.headshots.has(hurtEntity.id);
+    const isCrit = this.crits.has(hurtEntity.id);
     if (isHeadshot) {
       this.headshots.delete(hurtEntity.id);
     }
+    if (isCrit) {
+      this.crits.delete(hurtEntity.id);
+    }
 
     const cause = event.damageSource?.cause;
-    const color = this.getDamageColor(cause, isHeadshot);
+    const color = this.getDamageColor(cause, isHeadshot || isCrit);
 
     try {
       const mvm = new MolangVariableMap();

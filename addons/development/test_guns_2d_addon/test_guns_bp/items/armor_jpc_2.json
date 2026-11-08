@@ -1,0 +1,38 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_jpc_2",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_jpc_2",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§5Crye JPC 2.0 战术背心 [史诗]§r\n§7被动: 8点护甲，-35%枪械终伤，全枪械伤害+20%，移动速度+10%，换弹速度加快25%§r\n§8§o“一线特战人员首选的轻量化机动携板背心，灵动与致命的结合。”§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 8
+      },
+      "minecraft:durability": {
+        "max_durability": 650
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "test_gun:part_armor_plate",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 216
+          }
+        ]
+      }
+    }
+  }
+}

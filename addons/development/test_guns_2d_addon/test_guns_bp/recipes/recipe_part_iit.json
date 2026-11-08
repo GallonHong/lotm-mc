@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_part_iit"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " S ",
+      "CMC",
+      " R "
+    ],
+    "key": {
+      "S": {
+        "item": "minecraft:spyglass"
+      },
+      "C": {
+        "item": "minecraft:amethyst_shard"
+      },
+      "M": {
+        "item": "test_gun:part_mech_chip"
+      },
+      "R": {
+        "item": "minecraft:redstone"
+      }
+    },
+    "result": {
+      "item": "test_gun:part_iit",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_mch_fc_desert",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_mch_fc_desert",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§5MICH 2000 面罩头盔 沙漠色 [史诗]§r\n§7被动: 6点护甲，-35%头部减伤，100%阻断爆头额外伤害，举镜瞄准稳定性大幅提升，腰射散布-30%§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 6
+      },
+      "minecraft:durability": {
+        "max_durability": 750
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "test_gun:part_armor_plate",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 250
+          }
+        ]
+      }
+    }
+  }
+}

@@ -84,4 +84,49 @@ assert(existsSync(join(rp, "textures/particle/damage_font_mc.png")), "missing da
 assert(existsSync(join(bp, "scripts/feature/damageIndicator.js")), "missing damageIndicator script");
 const mainCode = readFileSync(join(bp, "scripts/main.js"), "utf8");
 assert(mainCode.includes("DamageIndicator.handleEntityHurt"), "main.js missing DamageIndicator hook");
+
+const atgArmorIds = [
+  "armor_mlt_hg2", "armor_mlt_hg2_desert", "armor_killa_6b13",
+  "armor_ocf_gpnvg18", "armor_ocf_gpnvg18_desert", "armor_ocf_gpnvg18_up",
+  "armor_mch_fc", "armor_mch_fc_desert", "armor_mch_fc_up",
+  "armor_ca_pvs31", "armor_ca_pvs31_desert", "armor_ca_pvs_31_up",
+  "armor_jpc_2", "armor_jpc_2_desert",
+  "armor_emr_6b13", "armor_ala_spc", "armor_oc_amp", "armor_black_ghillie", "armor_m50",
+  "armor_oak_ghillie", "armor_goggles_black", "armor_goggles_red"
+];
+for (const armorId of atgArmorIds) {
+  assert(existsSync(join(bp, "items", `${armorId}.json`)), `missing ATG armor item: ${armorId}`);
+  assert(existsSync(join(rp, "attachables", `${armorId}.json`)), `missing ATG attachable: ${armorId}`);
+  assert(damageHandlerCode.includes(`${armorId}:`), `ARMOR_PIECE_VALUES missing ${armorId}`);
+}
+
+const uncraftableAtgBlueprints = [
+  "armor_mlt_hg2",
+  "armor_killa_6b13",
+  "armor_ocf_gpnvg18",
+  "armor_mch_fc"
+];
+for (const id of uncraftableAtgBlueprints) {
+  assert.equal(existsSync(join(bp, "recipes", `recipe_blueprint_${id}.json`)), false, `${id} must NOT have a blueprint crafting recipe`);
+}
+
+const craftableAtgBlueprints = [
+  "armor_ca_pvs31",
+  "armor_jpc_2",
+  "armor_emr_6b13",
+  "armor_ala_spc",
+  "armor_oc_amp",
+  "armor_black_ghillie",
+  "armor_oak_ghillie",
+  "armor_m50",
+  "armor_goggles_black"
+];
+for (const id of craftableAtgBlueprints) {
+  assert(existsSync(join(bp, "recipes", `recipe_blueprint_${id}.json`)), `missing craftable blueprint recipe: recipe_blueprint_${id}.json`);
+}
+
+assert(damageHandlerCode.includes("critRate"), "damageHandler missing critRate");
+assert(damageHandlerCode.includes("critMultiplier"), "damageHandler missing critMultiplier");
+assert(damageHandlerCode.includes("DamageIndicator.markCritical"), "damageHandler missing markCritical hook");
+
 console.log("Test Guns 2D v3.12.4 validation passed.");

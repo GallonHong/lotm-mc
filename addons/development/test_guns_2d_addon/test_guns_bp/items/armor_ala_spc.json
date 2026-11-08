@@ -1,0 +1,38 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_ala_spc",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_ala_spc",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9艾斯链甲骷髅战术背心 [精良]§r\n§7被动: 8点护甲，-30%枪械终伤，近战伤害+20%，反弹30%近战穿透伤害，防流血§r\n§8§o“骷髅战术印花与链甲内衬，专为残忍白刃战设计的突击背心。”§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 8
+      },
+      "minecraft:durability": {
+        "max_durability": 550
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "test_gun:part_armor_plate",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 183
+          }
+        ]
+      }
+    }
+  }
+}

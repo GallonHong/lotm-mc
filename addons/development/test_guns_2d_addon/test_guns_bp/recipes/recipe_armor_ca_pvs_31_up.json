@@ -1,0 +1,23 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_armor_ca_pvs_31_up"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B"
+    ],
+    "key": {
+      "B": {
+        "item": "test_gun:armor_ca_pvs31"
+      }
+    },
+    "result": {
+      "item": "test_gun:armor_ca_pvs_31_up",
+      "count": 1
+    }
+  }
+}

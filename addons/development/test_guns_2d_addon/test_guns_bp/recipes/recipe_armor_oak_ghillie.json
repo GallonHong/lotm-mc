@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_armor_oak_ghillie"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " B ",
+      "FLF",
+      " S "
+    ],
+    "key": {
+      "B": {
+        "item": "test_gun:blueprint_armor_oak_ghillie"
+      },
+      "F": {
+        "item": "minecraft:oak_leaves"
+      },
+      "L": {
+        "item": "minecraft:leather_leggings"
+      },
+      "S": {
+        "item": "minecraft:string"
+      }
+    },
+    "result": {
+      "item": "test_gun:armor_oak_ghillie",
+      "count": 1
+    }
+  }
+}
