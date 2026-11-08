@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_table_chest_b4653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "DBD",
+      "DCD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:paper",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_table_chest",
+      "count": 1
+    }
+  }
+}

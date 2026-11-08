@@ -1,0 +1,18 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "mythicus_sn:start_village"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_3",
+                    "projection": "terrain_matching"
+                },
+                "weight": 100
+            }
+        ]
+    }
+}

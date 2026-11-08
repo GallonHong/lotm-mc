@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_display_game_4858fe18"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BCD",
+      "EEE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:glass",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_ball_flat",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_display_game",
+      "count": 3
+    }
+  }
+}

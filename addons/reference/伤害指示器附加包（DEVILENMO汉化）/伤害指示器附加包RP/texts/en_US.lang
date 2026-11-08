@@ -1,0 +1,45 @@
+pack.name=Damage Indicators Add-On
+pack.description=by Pixelbiester
+
+###ENTITY NAMES
+entity.pb_dmgi:training_dummy.name=Target Dummy
+item.spawn_egg.entity.pb_dmgi:training_dummy.name=Target Dummy
+entity.pb_dmgi:chicken_dummy.name=Target Dummy: Chicken
+item.spawn_egg.entity.pb_dmgi:chicken_dummy.name=Target Dummy: Chicken
+entity.pb_dmgi:cow_dummy.name=Target Dummy: Cow
+item.spawn_egg.entity.pb_dmgi:cow_dummy.name=Target Dummy: Cow
+entity.pb_dmgi:dragon_dummy.name=Target Dummy: Ender Dragon
+item.spawn_egg.entity.pb_dmgi:dragon_dummy.name=Target Dummy: Ender Dragon
+entity.pb_dmgi:wither_dummy.name=Target Dummy: Wither
+item.spawn_egg.entity.pb_dmgi:wither_dummy.name=Target Dummy: Wither
+entity.pb_dmgi:skeleton_dummy.name=Target Dummy: Skeleton
+item.spawn_egg.entity.pb_dmgi:skeleton_dummy.name=Target Dummy: Skeleton
+entity.pb_dmgi:zombie_dummy.name=Target Dummy: Zombie
+item.spawn_egg.entity.pb_dmgi:zombie_dummy.name=Target Dummy: Zombie
+entity.pb_dmgi:enderman_dummy.name=Target Dummy: Zombie
+item.spawn_egg.entity.pb_dmgi:enderman_dummy.name=Target Dummy: Enderman
+
+pb_dmgi_action.interact.menu=Open Menu
+
+###ITEM NAMES
+item.pb_dmgi:guidebook=Damage Indicators Guidebook
+
+###GUIDEBOOK MAIN
+pb_dmgi.menu_main_body=Welcome to §2Damage Indicators Add-On§r!%1%1Visualize the damage you deal to mobs and customize your experience with many options.%1%1
+
+###GUIDEBOOK CREDITS
+pb_dmgi.menu_about_title=About the Add-On
+pb_dmgi.menu_about_body=§2Damage Indicators§r is created by Pixelbiester.§r%1%1Follow us:%1§3Twitter§r §o@Pixelbiester%1§r§dInstagram§r §o@pixelbiesterofficial§r%1§cYoutube§r §oPixelBiester§r%1§eWebsite§r §opixelbiester.net§r%1§sDiscord§r §opixelbiester.net/discord§r%1%1
+pb_dmgi.menu_about_version=Version
+pb_dmgi.menu_about_changelog=Changelog
+
+
+###COMPUTERS BY JIGARBOV INTEGRATION
+pb_dmgi:jig_computer.addon_stats=Damage Indicators Stats
+pb_dmgi:stat_total_damage=Total Damage Counted
+pb_dmgi:stat_max_damage=Most Damage in one Hit
+
+pb_dmgi:credits.for.computers=Damage Indicators by Pixelbiester
+
+
+

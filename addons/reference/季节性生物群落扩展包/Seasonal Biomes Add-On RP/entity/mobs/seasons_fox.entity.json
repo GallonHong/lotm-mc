@@ -1,0 +1,78 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:seasons_fox",
+            "min_engine_version": "1.8.0",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/entity/mobs/fox/fox",
+                "winter": "textures/mythicus/sn/entity/mobs/fox/fox_winter",
+                "arctic": "textures/mythicus/sn/entity/mobs/fox/arctic_fox",
+                "arctic_winter": "textures/mythicus/sn/entity/mobs/fox/arctic_fox_winter"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.seasons_fox"
+            },
+            "animations": {
+                "walk": "animation.mythicus_sn.seasons_fox.walk",
+                "crouch": "animation.mythicus_sn.seasons_fox.crouch",
+                "sit": "animation.mythicus_sn.seasons_fox.sit",
+                "sleep": "animation.mythicus_sn.seasons_fox.sleep",
+                "pounce": "animation.mythicus_sn.seasons_fox.pounce",
+                "stuck": "animation.mythicus_sn.seasons_fox.stuck",
+                "wiggle": "animation.mythicus_sn.seasons_fox.wiggle",
+                "sunbathe_transition": "animation.mythicus_sn.seasons_fox.sunbathe_transition",
+                "sunbathe": "animation.mythicus_sn.seasons_fox.sunbathe",
+                "leaf_pounce": "animation.mythicus_sn.seasons_fox.leaf_pounce",
+                "dig_down": "animation.mythicus_sn.seasons_fox.dig_down",
+                "dig_side": "animation.mythicus_sn.seasons_fox.dig_side",
+                "look_at_target": "animation.common.look_at_target",
+                "baby_transform": "animation.fox.baby_transform",
+                "movement.controller": "controller.animation.mythicus_sn.seasons_fox.movement",
+                "sunbathe.controller": "controller.animation.mythicus_sn.seasons_fox.sunbathe",
+                "leaf_play.controller": "controller.animation.mythicus_sn.seasons_fox.leaf_play",
+                "dig.controller": "controller.animation.mythicus_sn.seasons_fox.dig",
+                "cold_breath.controller": "controller.animation.mythicus_sn.seasons_fox.breath",
+                "cold_breath": "animation.mythicus_sn.generic.cold_breath",
+                "cold_breath_asleep": "animation.mythicus_sn.seasons_fox.cold_breath_asleep"
+            },
+            "scripts": {
+                "animate": [
+                    "movement.controller",
+                    "sunbathe.controller",
+                    "leaf_play.controller",
+                    "dig.controller",
+                    {
+                        "walk": "query.modified_move_speed"
+                    },
+                    "look_at_target",
+                    {
+                        "baby_transform": "query.is_baby"
+                    },
+                    "cold_breath.controller"
+                ],
+                "pre_animation": [
+                    "v.season = query.property('mythicus_sn:season_variant');",
+                    "v.is_sunbathing = query.property('mythicus_sn:is_sunbathing');",
+                    "v.is_playing_leaves = query.property('mythicus_sn:is_playing_leaves');",
+                    "v.is_digging = query.property('mythicus_sn:is_digging');",
+                    "v.is_in_den = query.property('mythicus_sn:is_in_den');",
+                    "v.fox_variant = query.property('mythicus_sn:fox_variant');"
+                ]
+            },
+            "render_controllers": [
+                "controller.render.mythicus_sn.seasons_fox"
+            ],
+            "particle_effects": {
+                "leaves_play": "mythicus_sn:orange_leaves",
+                "cold_breath": "mythicus_sn:cold_breath_mob"
+            },
+            "spawn_egg": {
+                "texture": "mythicus_sn:spawn_egg_fox"
+            }
+        }
+    }
+}

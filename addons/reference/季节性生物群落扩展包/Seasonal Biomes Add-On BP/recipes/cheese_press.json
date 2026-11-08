@@ -1,0 +1,31 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:cheese_press"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "###",
+            " # ",
+            "AAA"
+        ],
+        "key": {
+            "#": {
+                "item": "minecraft:iron_ingot"
+            },
+            "A": {
+                "item": "minecraft:oak_planks"
+            }
+        },
+        "result": {
+            "item": "mythicus_sn:cheese_press",
+            "count": 1
+        },
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        }
+    }
+}

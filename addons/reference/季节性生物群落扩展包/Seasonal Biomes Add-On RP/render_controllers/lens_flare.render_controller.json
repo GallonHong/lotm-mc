@@ -1,0 +1,121 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.lens_flare": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                { "*": true },
+                { "flare1": false },
+                { "flare3": false },
+                { "flare4": false },
+                { "flare5": false }
+            ],
+            "ignore_lighting": true,
+            "filter_lighting": true,
+            "light_color_multiplier": 1,
+            "textures": ["Texture.default"]
+        },
+        "controller.render.mythicus_sn.lens_flare1": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "arrays": {
+                "textures": {
+                    "Array.t": [
+                        "Texture.moon",
+                        "Texture.default"
+                    ]
+                }
+            },
+            "part_visibility": [
+                { "*": false },
+                { "flare1": true }
+            ],
+            "overlay_color": {
+                "a": "v.golden_hour*0.5",
+                "r": 1,
+                "g": 0.9,
+                "b": 0.5
+            },
+            "ignore_lighting": true,
+            "filter_lighting": true,
+            "light_color_multiplier": 2.5,
+            "textures": ["Array.t[v.is_sun]"]
+        },
+        "controller.render.mythicus_sn.lens_flare3": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                { "*": false },
+                { "flare3": true }
+            ],
+            "overlay_color": {
+                "a": 1,
+                "r": "v.number_by_distance_medium",
+                "g": "v.number_by_distance_medium",
+                "b": "v.number_by_distance_medium"
+            },
+            "ignore_lighting": true,
+            "filter_lighting": true,
+            "light_color_multiplier": "v.number_by_distance_medium",
+            "textures": ["Texture.default"]
+        },
+        "controller.render.mythicus_sn.lens_flare5": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                { "*": false },
+                { "flare4": false },
+                { "flare5": true }
+            ],
+            "overlay_color": {
+                "a": 1,
+                "r": "0.1 * (1-v.number_by_distance_medium)",
+                "g": "0.1 * (1-v.number_by_distance_small)",
+                "b": "0.1 * (1-v.number_by_distance_small)"
+            },
+            "ignore_lighting": true,
+            "filter_lighting": true,
+            "light_color_multiplier": "1 + (v.number_by_distance_large*1.5)",
+            "textures": ["Texture.default"]
+        },
+        "controller.render.mythicus_sn.lens_flare4": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                { "*": false },
+                { "flare5": false },
+                { "flare4": true }
+            ],
+            "ignore_lighting": true,
+            "overlay_color": {
+                "a": 1,
+                "r": "v.is_sun ? 0.1 * (1-v.number_by_distance_small) : 0.1 * (1-v.number_by_distance_large)",
+                "g": "v.is_sun ? 0.1 * (1-v.number_by_distance_small) : 0.1 * (1-v.number_by_distance_small) ",
+                "b": "v.is_sun ? 0.1 * (1-v.number_by_distance_large) : 0.1 * (1-v.number_by_distance_small)"
+            },
+            "light_color_multiplier": "1 + (v.number_by_distance_large*1.5)",
+            "textures": ["texture.default"]
+        }
+    }
+}

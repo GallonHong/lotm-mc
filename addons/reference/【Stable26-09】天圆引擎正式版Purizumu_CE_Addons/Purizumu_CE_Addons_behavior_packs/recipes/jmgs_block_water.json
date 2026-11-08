@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_water_aabbcc1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BBB",
+      "BAB",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:glass",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_water",
+      "count": 1
+    }
+  }
+}

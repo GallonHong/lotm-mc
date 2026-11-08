@@ -1,0 +1,36 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.thunderbolt_houzuo": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"setup": "query.get_equipped_item_name == 'thunderbolt' && q.is_using_item"
+						}
+					]
+				},
+				"setup": {
+					"transitions": [
+						{
+							"houzuo": "query.variant == 1"
+						}
+					]
+				},
+				"houzuo": {
+					"transitions": [
+						{
+							"default": "!q.is_using_item || query.get_equipped_item_name=='thunderbolt'"
+						}
+					],
+					"on_entry": [
+						"/execute @s ~~~ tp @s ~~~ ~~-10",
+						"/execute @s ~~~ camerashake add @s 0.1 0.1 rotational",
+						"@s l4d:remove_thunderbolt_variant"
+					]
+				}
+			}
+		}
+	}
+}

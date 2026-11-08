@@ -1,0 +1,32 @@
+{
+  "replace": false,
+  "values": [
+    "atg_ala_spc_effect",
+    "atg_black_ghillie_effect",
+    "atg_emr_6b13_effect",
+    "atg_goggles_black_effect",
+    "atg_goggles_red_effect",
+    "atg_ca_pvs_31_up_effect",
+    "atg_ca_pvs31_up_desert_effect",
+    "atg_ca_pvs31_desert_effect",
+    "atg_ca_pvs31_effect",
+    "atg_m50_effect",
+    "atg_mch_fc_effect",
+    "atg_killa_6b13_effect",
+    "atg_jpc_2_effect",
+    "atg_mch_fc_desert_effect",
+    "atg_jpc_2_desert_effect",
+    "atg_mch_fc_up_effect",
+    "atg_oc_amp_effect",
+    "atg_oak_ghillie_effect",
+    "atg_mch_fc_up_desert_effect",
+    "atg_ocf_gpnvg18_effect",
+    "atg_ocf_gpnvg18_desert_effect",
+    "atg_mlt_hg2_effect",
+    "atg_mlt_hg2_desert_effect",
+    "atg_ocf_gpnvg18_up1_effect",
+    "atg_ocf_gpnvg18_up1_desert_effect",
+    "atg_ocf_gpnvg18_up_desert_effect",
+    "atg_ocf_gpnvg18_up_effect"
+  ]
+}

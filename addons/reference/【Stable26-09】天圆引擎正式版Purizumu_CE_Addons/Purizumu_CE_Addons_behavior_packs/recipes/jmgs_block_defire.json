@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_defire_932cd003"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CDC",
+      "BDB",
+      "BAB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_defire",
+      "count": 1
+    }
+  }
+}

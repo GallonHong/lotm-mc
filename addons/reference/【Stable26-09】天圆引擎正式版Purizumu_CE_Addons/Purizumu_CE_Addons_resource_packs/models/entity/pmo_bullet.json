@@ -1,0 +1,48 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.pmo_bullet",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "waist",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "root",
+					"parent": "waist",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "bb_main",
+					"parent": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "y",
+					"parent": "bb_main",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, -1.5, -1.5], "size": [3, 3, 3], "uv": [2, 5]}
+					]
+				},
+				{
+					"name": "locators",
+					"parent": "waist",
+					"pivot": [0, 0, 0],
+					"locators": {
+						"locator_blue": [0, 0, 0],
+						"locator_red": [0, 0, 0]
+					}
+				}
+			]
+		}
+	]
+}

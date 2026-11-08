@@ -1,0 +1,90 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:role_people",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/role/pmo_role_xx",
+        "variant_2": "textures/entity/role/pmo_role_xx_2",
+        "variant_3": "textures/entity/role/pmo_role_xx_3",
+        "variant_4": "textures/entity/role/pmo_role_xx_4",
+        "variant_5": "textures/entity/role/pmo_role_xx_5",
+        "variant_6": "textures/entity/role/pmo_role_xx_6",
+        "variant_7": "textures/entity/role/pmo_role_xx_7",
+        "variant_8": "textures/entity/role/pmo_role_xx_8",
+        "variant_9": "textures/entity/role/pmo_role_xx_9",
+        "variant_10": "textures/entity/role/pmo_role_xx_10",
+        "variant_11": "textures/entity/role/pmo_role_xx_11",
+        "variant_12": "textures/entity/role/pmo_role_xx_12",
+        "variant_13": "textures/entity/role/pmo_role_xx_13",
+        "variant_14": "textures/entity/role/pmo_role_xx_14",
+        "variant_15": "textures/entity/role/pmo_role_xx_15",
+        "variant_16": "textures/entity/role/pmo_role_xx_16",
+        "variant_17": "textures/entity/role/pmo_role_xx_17",
+        "variant_18": "textures/entity/role/pmo_role_xx_18",
+        "variant_19": "textures/entity/role/pmo_role_xx_19",
+        "variant_20": "textures/entity/role/pmo_role_xx_20",
+        "variant_21": "textures/entity/role/pmo_role_xy",
+        "variant_22": "textures/entity/role/pmo_role_xy_2",
+        "variant_23": "textures/entity/role/pmo_role_xy_3",
+        "variant_24": "textures/entity/role/pmo_role_xy_4",
+        "variant_25": "textures/entity/role/pmo_role_xy_5",
+        "variant_26": "textures/entity/role/pmo_role_xy_6",
+        "variant_27": "textures/entity/role/pmo_role_xy_7",
+        "variant_28": "textures/entity/role/pmo_role_xy_8",
+        "variant_29": "textures/entity/role/pmo_role_xy_9",
+        "variant_30": "textures/entity/role/pmo_role_xy_10",
+        "variant_31": "textures/entity/role/pmo_role_xy_11",
+        "variant_32": "textures/entity/role/pmo_role_xy_12"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_npc_ysm_cc0"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "look_at_target",
+          {"sit": "query.is_riding"},
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "animations": {
+        "look_at_target": "animation.common.look_at_target",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "jump": "animation.jmgs_npc.jump",
+        "run": "animation.jmgs_npc.run",
+        "walk": "animation.jmgs_npc.walk",
+        "attacked": "animation.jmgs_npc.attacked",
+        "attack": "animation.jmgs_npc.sit",
+        "sneak": "animation.jmgs_npc.sneak",
+        "swim": "animation.jmgs_npc.swim",
+        "swim_stand": "animation.jmgs_npc_swim.stand",
+        "sit": "animation.jmgs_npc.sit",
+        "sleep": "animation.jmgs_npc.sleep",
+        "fly": "animation.jmgs_npc.fly",
+        "standby": "animation.jmgs_npc.standby",
+        "die": "animation.jmgs_npc.die",
+        "main": "controller.animation.jmgs_npc_new.npc",
+        "do": "animation.pmo.do",
+        "an1": "animation.pmo.surrender",
+        "an2": "animation.pmo.crouch",
+        "an3": "animation.pmo.subject3",
+        "an4": "animation.pmo.lie",
+        "an5": "animation.pmo.papa",
+        "an6": "animation.pmo.jump"
+      },
+      "spawn_egg": {
+        "texture": "pmo:role_people",
+        "texture_index": 0
+      },
+      "render_controllers": [
+        "controller.render.pmo_role_people"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

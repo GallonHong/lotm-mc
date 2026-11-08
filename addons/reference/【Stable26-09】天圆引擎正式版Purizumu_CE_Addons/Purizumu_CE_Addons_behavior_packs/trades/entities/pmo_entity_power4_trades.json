@@ -1,0 +1,1056 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 8,
+                "max": 10
+              }
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_lawn_mover_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:entity_car_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 15,
+                "max": 31
+              },
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:entity_car_pro_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 25,
+                "max": 55
+              },
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:entity_car_plus_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 35,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_macaron_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 40,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_macaron_edit_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 9
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_macaron_boat_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 8
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_cart_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_cart_surface_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 30,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 35,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_cherry_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 35,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_blue_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 60,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_pro_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 40,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_plus_normal_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 44
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_max_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 62
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_star_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 10
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_ultra_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 10
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_boat_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_normal_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 45
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_cyber_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 12
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_cyber_edit_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 13
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_heavy_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 12
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_armor_lite_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 28
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_ultra_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 10
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 13
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_edit_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 15
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_pro_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:entity_broom_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 56
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 14
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_edit_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 18
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_fight_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 20
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_fight_pro_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 10
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_fight_lite_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 11
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_mecha_a4_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 10,
+                "max": 16
+              }
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_mecha_a5_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 20,
+                "max": 24
+              }
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_mecha_a3_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 25,
+                "max": 45
+              }
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_mecha_a2_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 35,
+                "max": 64
+              }
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_mecha_a1_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_lead_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 2,
+                "max": 5
+              }
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_heroine2_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fight1_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 9
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fight2_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fight3_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 10
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fight4_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 12
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fight5_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 16
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_ultra_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:regulator_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:protector_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:impactor_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:sentry_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_xy_spawn_egg:0",
+              "quantity": 10
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_xx_spawn_egg:0",
+              "quantity": 10
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 20,
+                "max": 25
+              }
+            }
+          ],
+          "max_uses": 1,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_l5_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "min": 22,
+                "max": 25
+              }
+            }
+          ],
+          "max_uses": 1,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_time_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fight9_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 10
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fightx_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

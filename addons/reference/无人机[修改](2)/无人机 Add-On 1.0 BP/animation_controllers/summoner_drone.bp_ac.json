@@ -1,0 +1,38 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.summoner_drone.shoot": {
+			"initial_state": "init",
+			"states": {
+				"init": {
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				},
+
+				"default": {
+					"on_entry": [
+						"v.cooldown = q.life_time + 5;"
+					],
+					"transitions": [
+						{
+							"shoot": "q.is_charged && (v.cooldown ?? 0) < q.life_time"
+						}
+					]
+				},
+				"shoot": {
+					"on_entry": [
+						"/scriptevent makercamp_dr:summoner_drone.shoot"
+					],
+					"transitions": [
+						{
+							"default": "!q.is_charged"
+						}
+					]
+				}
+			}
+		}
+	}
+}

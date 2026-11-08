@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "projectile_cold_5bfe1aa5"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BCB",
+      "DAD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_blood",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:animal_hide",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:projectile_cold",
+      "count": 16
+    }
+  }
+}

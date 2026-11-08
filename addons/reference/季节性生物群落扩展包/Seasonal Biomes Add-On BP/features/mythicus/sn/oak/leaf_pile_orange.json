@@ -1,0 +1,12 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/leaf_pile_orange"
+        },
+        "places_block": "mythicus_sn:orange_piles_of_leaves",
+        "enforce_survivability_rules": true,
+        "enforce_placement_rules": false,
+        "may_replace": ["minecraft:air"]
+    }
+}

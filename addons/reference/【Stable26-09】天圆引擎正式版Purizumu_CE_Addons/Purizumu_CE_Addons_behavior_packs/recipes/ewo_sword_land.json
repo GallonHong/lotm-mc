@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_land_c7a496d4"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDC",
+      "EFE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:golden_sword",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_special",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:animal_blood",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_coated",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_land",
+      "count": 1
+    }
+  }
+}

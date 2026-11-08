@@ -1,0 +1,496 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_sewing:0",
+              "quantity": {
+                "min": 4,
+                "max": 6
+              }
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_artleather:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_rough:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_flax:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_banana:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_hemp:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 3,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_plain:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_ethylene:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_lycra:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_dacron:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_nylon:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_nelon:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_jylon:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_blended:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_coral:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_flannel:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 8
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_aramid:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_coated:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 7,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_fibler:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_nano_ele:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 11,
+                "max": 15
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_nano:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 10,
+                "max": 13
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_film:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_polymer:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 17,
+                "max": 22
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:cloth_si_gel:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 18,
+                "max": 22
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

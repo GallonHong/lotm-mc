@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_display_pro_ab2492ab"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BCB",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:glass",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_display_pro",
+      "count": 3
+    }
+  }
+}

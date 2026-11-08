@@ -1,0 +1,79 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "pb_dmgi:hit_stars",
+            "basic_render_parameters": {
+                "material": "particles_blend",
+                "texture": "textures/pb/dmgi/particle/star_64"
+            }
+        },
+        "components": {
+            "minecraft:emitter_initialization": {
+                "creation_expression": "variable.spawn_radius = 0.5;variable.speed_variance = 0.1;variable.speed = 4;variable.gravity = -8;variable.size_variance = 0.15;variable.size = 0.12;"
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": "3+variable.damage"
+            },
+            "minecraft:emitter_lifetime_looping": {
+                "active_time": 1
+            },
+            "minecraft:emitter_shape_point": {
+                "offset": [
+                    "(variable.particle_random_2-0.5)*variable.spawn_radius",
+                    "(variable.particle_random_4-0.5)*0.3+1",
+                    "(variable.particle_random_3-0.5)*variable.spawn_radius"
+                ]
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": "variable.particle_random_4*1.2+0.25"
+            },
+            "minecraft:particle_initial_spin": {
+                "rotation": "(variable.particle_random_3-0.5)*180",
+                "rotation_rate": "(variable.particle_random_3-0.5)*1000"
+            },
+            "minecraft:particle_initial_speed": "math.random(0,1)*variable.speed_variance+variable.speed",
+            "minecraft:particle_motion_dynamic": {
+                "linear_acceleration": [
+                    0,
+                    "variable.gravity",
+                    0
+                ],
+                "linear_drag_coefficient": 4
+            },
+            "minecraft:particle_appearance_billboard": {
+                "size": [
+                    "(variable.particle_random_1+variable.size_variance)*variable.size",
+                    "(variable.particle_random_1+variable.size_variance)*variable.size"
+                ],
+                "facing_camera_mode": "rotate_xyz",
+                "uv": {
+                    "texture_width": 16,
+                    "texture_height": 16,
+                    "uv": [
+                        0,
+                        0
+                    ],
+                    "uv_size": [
+                        16,
+                        16
+                    ]
+                }
+            },
+            "minecraft:particle_motion_collision": {
+                "coefficient_of_restitution": 1.75,
+                "collision_radius": 0.2
+            },
+            "minecraft:particle_appearance_tinting": {
+                "color": {
+                    "interpolant": "variable.particle_age / variable.particle_lifetime",
+                    "gradient": {
+                        "0.0": "#FFFFE335",
+                        "0.79": "#FFECE77F",
+                        "1.0": "#00F8F6C7"
+                    }
+                }
+            }
+        }
+    }
+}

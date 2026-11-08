@@ -1,0 +1,41 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_si_gel_17c56929"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EAB",
+      "DCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:carapace",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:slime",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:carapace_tail",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_si_gel",
+      "count": 2
+    }
+  }
+}

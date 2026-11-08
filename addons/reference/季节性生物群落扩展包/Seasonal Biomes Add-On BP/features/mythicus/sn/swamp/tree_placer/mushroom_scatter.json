@@ -1,0 +1,23 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/swamp/tree_placer/mushroom_scatter"
+        },
+        "iterations": 5,
+        "x": {
+            "distribution": "gaussian",
+            "extent": [-2, 2]
+        },
+        "y": {
+            "distribution": "gaussian",
+            "extent": [-4, 4]
+        },
+        "z": {
+            "distribution": "gaussian",
+            "extent": [-2, 2]
+        },
+        "coordinate_eval_order": "zyx",
+        "places_feature": "mythicus_sn:mythicus/sn/swamp/mushroom_group"
+    }
+}

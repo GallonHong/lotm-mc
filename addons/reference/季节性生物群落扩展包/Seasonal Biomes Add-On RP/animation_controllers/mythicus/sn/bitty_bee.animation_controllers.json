@@ -1,0 +1,35 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.bitty_bee.fly": {
+            "initial_state": "idle",
+            "states": {
+                "idle": {
+                    "animations": ["idle"],
+                    "transitions": [
+                        { "attacking": "q.is_angry && q.has_target" }
+                    ]
+                },
+                "attacking": {
+                    "animations": ["attacking_fly"],
+                    "transitions": [
+                        { "idle": "!q.is_angry || !q.has_target" }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.bitty_bee.stinger": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        { "no_stinger": "q.mark_variant == 1" }
+                    ]
+                },
+                "no_stinger": {
+                    "animations": ["lost_stinger"]
+                }
+            }
+        }
+    }
+}

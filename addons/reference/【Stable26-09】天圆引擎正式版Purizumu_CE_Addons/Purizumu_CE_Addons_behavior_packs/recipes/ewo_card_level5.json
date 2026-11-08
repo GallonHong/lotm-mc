@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "card_level5_61ebc84e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " B ",
+      "C D",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth_si_gel",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:item_book",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:card_level5",
+      "count": 1
+    }
+  }
+}

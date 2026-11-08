@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "blueprint_r_27a3ff94"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:paper",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:blueprint_r",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_boat_pro.walk": {
+			"loop": true,
+			"animation_length": 1.1667,
+			"bones": {
+				"body": {
+					"rotation": [0, 0, 0]
+				},
+				"propeller": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.5833": [0, 0, -360],
+						"1.1667": [0, 0, -720]
+					}
+				},
+				"power_tower": {
+					"rotation": [0, "math.clamp(query.yaw_speed * 1, -35, 35)", 0]
+				}
+			}
+		}
+	}
+}

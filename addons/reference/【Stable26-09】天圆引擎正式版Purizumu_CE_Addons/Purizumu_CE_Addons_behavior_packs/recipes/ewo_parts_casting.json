@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "parts_casting_ef3605fb"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DAB",
+      "CAB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:parts_casting",
+      "count": 1
+    }
+  }
+}

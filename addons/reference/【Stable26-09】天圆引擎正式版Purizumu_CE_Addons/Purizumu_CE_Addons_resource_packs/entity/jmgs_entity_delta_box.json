@@ -1,0 +1,42 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_delta_box",
+      "textures": {
+        "default": "textures/entity/jmgs_entity_delta_box"
+      },
+      "materials": {
+        "default": "entity_alphablend"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_entity_delta_box"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:entity_delta_box",
+        "texture_index": 0
+      },
+      "animations": {
+        "open": "animation.jmgs_block_chest.open"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit",
+        "me104": "me.me_104"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "open": "!query.is_alive"
+          }
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

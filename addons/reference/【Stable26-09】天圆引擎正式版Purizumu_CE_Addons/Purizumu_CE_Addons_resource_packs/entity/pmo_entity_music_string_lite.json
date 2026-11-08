@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_music_string_lite",
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_entity_music_string_lite"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_music_string_lite"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_music_string_lite",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_music.walk",
+        "idle": "animation.pmo_entity_music.idle"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "walk": "query.is_moving"
+          },
+          {
+            "idle": "!query.is_moving"
+          }
+        ]
+      }
+    }
+  }
+}

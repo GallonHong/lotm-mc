@@ -1,0 +1,2300 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_block_free.json",
+          "weight": 200
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_block_delta.json",
+          "weight": 10
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_day",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值13§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_industry",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值21.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_overhead",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值12§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_fun_overhead",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值57.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_defire_box_lite",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值22§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_clock_desktop",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_fireplace_iron",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值55§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_camera_rotate",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值24§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_camera_long",
+          "weight": 12,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值35§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_power_mobile",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值95§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_tv_mobile",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值169.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_fun_ground",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值85§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_radio",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值21§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_tv",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值105§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_defire",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值12§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_defire_box",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值63§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sign_exit",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10.3§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_fire_warning_botton",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值12§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chair_office",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值25.1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chair_leader",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值81§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_weather",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值182.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sofa",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值35§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sofa_lite",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值16§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_cola",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值220§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_microwave",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值61.75§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_steamer",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值136§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_water_heater_pro",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值128§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chest_iron",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9.25§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_mahjong",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值180§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_computer",
+          "weight": 27,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值13§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_display_air",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值90.665§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_pc_apex",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1010§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_landline",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值19.777§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sewing_mach",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值522§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_water",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值65§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chess",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值280§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sausage",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值55§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_coffee",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值355§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_scope_pro",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值985§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_stove",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值280§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_wood_key",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值16§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_lese",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值3§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_lese_lite",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_icebox",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值360§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_fan",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值210§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_washer",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值390§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_washer_pro",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值450§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_winder",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值360§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_ac_main",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值210§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_ac_main_plus",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_ac_pro",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值580§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_ac_plus",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值280§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_ac_lite",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值235§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_ac_old",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值130§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_tea",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值25§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_shelf",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_grid",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_cattree",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_doghouse",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_grill",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_toilet",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_barrier_x",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_barrier_h",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_barrier_m",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_barrier_a_lite",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_barrier_a",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_barrier_o",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:chest1_spawn_egg",
+          "weight": 35,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值0.333§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:chest2_spawn_egg",
+          "weight": 16,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:chest3_spawn_egg",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值45§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:chest4_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值320§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:chest5_spawn_egg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1000§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_pura_mecha",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值350§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_pura",
+          "weight": 11,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值300§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_black_box",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值4000§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_nas",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值910§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sound_box",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值788§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_fish_box",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值28§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light",
+          "weight": 35,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_pro",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值12§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chair_lite",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值7§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chair_game",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值91§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_lite",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_game",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值120§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_work",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_shelf",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_chest",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值12§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_toolbox",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_color",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值35§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_power",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值899§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sewing_mach",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值522§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_valve_amplifier",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1187.476§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sound_box_plus",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值608.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sound_box_pro",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值3322.988§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_power_pro",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值10240§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_pc1",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值58§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_pc2",
+          "weight": 11,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值201§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_pc3",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值141§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_pc4",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值246§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_pc5",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值104§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_pc_game",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值79§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_print",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值12§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_print_one",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值32§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_print_pro",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值39§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_display_crt",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值27.333§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_display_edge",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值30§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_display_game",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值40§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_display_duo",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_display_pro",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值38§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_display",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_router",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值28.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_file1",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值3§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_file",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值6.66§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_globe",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_art_trophy1",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_art_trophy2",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_art_trophy3",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_art_beast",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_art_amusing",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_soulban_steve",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_soulban_alex",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_ex_test_tube",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_ex_microscope",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值12.166§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_edu_table",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:block_edu_chair",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:item_start",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1250§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_act_spawn_egg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值440§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_aed_spawn_egg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值298§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:entity_lawn_mover_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值40§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:entity_cart_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值35.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:entity_cart_surface_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值11§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:entity_chair_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:entity_dice_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

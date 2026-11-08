@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mine_kyanite_7ce30faa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ADB",
+      " C "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:lapis_lazuli",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:mine_kyanite",
+      "count": 1
+    }
+  }
+}

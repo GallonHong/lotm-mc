@@ -1,0 +1,63 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:lightning_strike_drone",
+			"materials": {
+				"default": "entity_alphatest",
+				"blend": "entity_alphablend",
+				"customblend": "makercamp_dr_customblend",
+				"emissive": "entity_emissive_alpha",
+				"crosshair": "makercamp_dr_crosshair"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/lightning_strike_drone",
+				"crosshair": "textures/makercamp/dr/entity/crosshair"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.lightning_strike_drone",
+				"controlled": "geometry.makercamp_dr.empty",
+				"crosshair": "geometry.makercamp_dr.crosshair"
+			},
+			"animations": {
+				"is_controlled_by_player": "animation.makercamp_dr.drone.is_controlled_by_player",
+				"ac.fly": "controller.animation.makercamp_dr.drone.fly",
+				"ac.shoot": "controller.animation.makercamp_dr.lightning_strike_drone.shoot",
+
+				"idle": "animation.makercamp_dr.lightning_strike_drone.idle",
+				"fly": "animation.makercamp_dr.lightning_strike_drone.fly",
+
+				"energy_off": "animation.makercamp_dr.lightning_strike_drone.energy_off",
+				"shoot": "animation.makercamp_dr.lightning_strike_drone.lightning",
+
+				"crosshair": "animation.makercamp_dr.crosshair"
+			},
+			"scripts": {
+				"pre_animation": [
+					"v.active_state = q.property('makercamp_dr:state') == 'active';",
+					"v.is_controlled_by_player = q.property('makercamp_dr:controlled_by_player');",
+					"v.is_shooting = q.property('makercamp_dr:is_shooting');"
+				],
+				"animate": [
+					"crosshair",
+					"ac.shoot",
+					"ac.fly",
+					"is_controlled_by_player"
+				]
+			},
+			"spawn_egg": {
+				"texture": "makercamp_dr:lightning_strike_drone"
+			},
+			"render_controllers": [
+				{
+					"controller.render.markercamp_dr.drone.crosshair": "v.is_controlled_by_player"
+				},
+				"controller.render.markercamp_dr.drone.common",
+				"controller.render.makercamp_dr.drone.blend_bright"
+			],
+			"particle_effects": {
+				"energy": "makercamp_dr:lightning_strike_drone"
+			}
+		}
+	}
+}

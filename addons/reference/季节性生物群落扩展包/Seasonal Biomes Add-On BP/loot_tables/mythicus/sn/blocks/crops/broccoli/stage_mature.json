@@ -1,0 +1,28 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:broccoli"
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:broccoli_seed",
+                    "conditions": [
+                        {
+                            "condition": "random_chance",
+                            "chance": 0.5
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

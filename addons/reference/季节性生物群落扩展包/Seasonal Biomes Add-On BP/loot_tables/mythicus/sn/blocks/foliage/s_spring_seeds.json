@@ -1,0 +1,111 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:cauliflower_seed",
+                    "weight": 3,
+                    "functions": [
+                        {
+                            "function": "set_lore",
+                            "lore": [
+                                "§c§l■ §r§7Grows in Spring",
+                                "§c§l■ §r§7Growth time: 7 days"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:green_bean_seed",
+                    "weight": 3,
+                    "functions": [
+                        {
+                            "function": "set_lore",
+                            "lore": [
+                                "§c§l■ §r§7Grows in Spring",
+                                "§c§l■ §r§7Growth time: 5 days"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:garlic_seed",
+                    "weight": 3,
+                    "functions": [
+                        {
+                            "function": "set_lore",
+                            "lore": [
+                                "§c§l■ §r§7Grows in Spring",
+                                "§c§l■ §r§7Growth time: 9 days"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    "type": "item",
+                    "name": "minecraft:wheat_seeds",
+                    "weight": 10
+                },
+                {
+                    "type": "empty",
+                    "weight": 90
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "minecraft:match_tool_filter_none": [
+                        "minecraft:is_shears"
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:short_grass",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "minecraft:match_tool_filter_all": [
+                        "minecraft:is_shears"
+                    ],
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:short_grass",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "count": 1,
+                    "enchantments": [
+                        {
+                            "enchantment": "silk_touch",
+                            "levels": {
+                                "min": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

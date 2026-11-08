@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jpc_2_desert_aac5f151"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GBH"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:torch",
+        "data": 0
+      },
+      "B": {
+        "item": "atg:armor_plate",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:lightning_rod",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:sand",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:leather_chestplate",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:calibrated_sculk_sensor",
+        "data": 0
+      },
+      "G": {
+        "item": "minecraft:bundle",
+        "data": 0
+      },
+      "H": {
+        "item": "minecraft:noteblock",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:jpc_2_desert",
+      "count": 1
+    }
+  }
+}

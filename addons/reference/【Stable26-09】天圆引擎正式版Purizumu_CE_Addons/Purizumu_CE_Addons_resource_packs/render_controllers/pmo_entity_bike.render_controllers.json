@@ -1,0 +1,30 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.pmo_entity_bike": {
+            "arrays": {
+                "textures": {
+                    "Array.variant": [
+                        "Texture.default",
+                        "Texture.variant_2",
+                        "Texture.variant_3",
+                        "Texture.variant_4",
+                        "Texture.variant_5"
+                    ]
+                },
+                "geometries": {
+                    "Array.mark_variant": [
+                        "geometry.default",
+                        "geometry.mark_variant_2",
+                        "geometry.mark_variant_3",
+                        "geometry.mark_variant_4",
+                        "geometry.mark_variant_5"
+                    ]
+                }
+            },
+            "geometry": "Array.mark_variant[ query.mark_variant ]",
+            "materials": [ { "*": "Material.default" } ],
+            "textures": [ "Array.variant[ query.variant ]" ]
+        }
+    }
+}

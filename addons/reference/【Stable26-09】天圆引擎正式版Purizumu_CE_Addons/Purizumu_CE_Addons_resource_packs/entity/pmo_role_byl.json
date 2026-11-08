@@ -1,0 +1,59 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:role_byl",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/role/pmo_role_byl",
+        "variant_2": "textures/entity/role/pmo_role_byl_2"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_npc_ysm_cc0"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          {"sit": "query.is_riding"},
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "animations": {
+        "look_at_target": "animation.common.look_at_target",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "jump": "animation.jmgs_npc.jump",
+        "run": "animation.jmgs_npc.run",
+        "walk": "animation.jmgs_npc.walk",
+        "attacked": "animation.jmgs_npc.attacked",
+        "attack": "animation.jmgs_npc_pose.pose_defense",
+        "sneak": "animation.jmgs_npc.sneak",
+        "swim": "animation.jmgs_npc.swim",
+        "swim_stand": "animation.jmgs_npc_swim.stand",
+        "sit": "animation.jmgs_npc.sit",
+        "sleep": "animation.jmgs_npc.sleep",
+        "fly": "animation.jmgs_npc.fly",
+        "standby": "animation.jmgs_npc.standby",
+        "die": "animation.jmgs_npc.die",
+        "main": "controller.animation.jmgs_npc_new.npc",
+        "do": "animation.pmo.do",
+        "an1": "animation.pmo.surrender",
+        "an2": "animation.pmo.crouch",
+        "an3": "animation.pmo.subject3",
+        "an4": "animation.pmo.lie",
+        "an5": "animation.pmo.papa",
+        "an6": "animation.pmo.jump"
+      },
+      "spawn_egg": {
+        "texture": "pmo:role_byl",
+        "texture_index": 0
+      },
+      "render_controllers": [
+        "controller.render.pmo_role_leader"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

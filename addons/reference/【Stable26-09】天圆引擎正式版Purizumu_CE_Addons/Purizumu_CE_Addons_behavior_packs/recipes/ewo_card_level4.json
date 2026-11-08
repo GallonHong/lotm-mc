@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "card_level4_425528a3"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAC",
+      "B D",
+      " B "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_glass",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_book",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_amorphous",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:card_level4",
+      "count": 1
+    }
+  }
+}

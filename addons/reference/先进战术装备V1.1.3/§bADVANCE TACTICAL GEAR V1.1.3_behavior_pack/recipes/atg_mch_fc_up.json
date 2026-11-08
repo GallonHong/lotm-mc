@@ -1,0 +1,24 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mch_fc_up_cc36b74e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B"
+    ],
+    "key": {
+      "B": {
+        "item": "atg:mch_fc",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:mch_fc_up",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "oak_ghillie_3987cc1e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:oak_leaves",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:string",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:oak_ghillie",
+      "count": 1
+    }
+  }
+}

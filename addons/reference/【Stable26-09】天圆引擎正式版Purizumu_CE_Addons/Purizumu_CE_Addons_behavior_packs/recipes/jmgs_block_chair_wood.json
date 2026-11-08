@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_chair_wood_932cd009"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B  ",
+      "BBB",
+      "BAB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:jungle_planks",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_chair_wood",
+      "count": 1
+    }
+  }
+}

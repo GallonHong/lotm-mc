@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_print_one_94096a43"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AEA",
+      "DBD",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:dye",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_prism",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_print_one",
+      "count": 3
+    }
+  }
+}

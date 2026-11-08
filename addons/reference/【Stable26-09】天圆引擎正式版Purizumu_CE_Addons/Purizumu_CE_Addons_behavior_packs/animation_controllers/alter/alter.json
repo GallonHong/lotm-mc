@@ -1,0 +1,596 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.alter": {
+			"initial_state": "setup",
+			"states": {
+				"setup": {
+					"transitions": [
+						{
+							"alter": "q.get_equipped_item_name == 'alter'"
+						}
+					]
+				},
+				"alter": {
+					"on_entry": [
+						"/title @s actionbar §b20-20",
+						"@s alter:ammo_20"
+					],
+					"transitions": [
+						{
+							"alter_19_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						}
+					]
+				},
+				"alter_19_1": {
+					"transitions": [
+						{
+							"alter_19_2": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b19-20",
+						"@s alter:ammo_19",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_19_2": {
+					"transitions": [
+						{
+							"alter_18_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_18_1": {
+					"transitions": [
+						{
+							"alter_18_2": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b18-20",
+						"@s alter:ammo_18",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_18_2": {
+					"transitions": [
+						{
+							"alter_17_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_17_1": {
+					"transitions": [
+						{
+							"alter_17_2": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b17-20",
+						"@s alter:ammo_17",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_17_2": {
+					"transitions": [
+						{
+							"alter_16_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_16_1": {
+					"transitions": [
+						{
+							"alter_16_2": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b16-20",
+						"@s alter:ammo_16",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_16_2": {
+					"transitions": [
+						{
+							"alter_15_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_15_1": {
+					"transitions": [
+						{
+							"alter_15_2": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b15-20",
+						"@s alter:ammo_15",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_15_2": {
+					"transitions": [
+						{
+							"alter_14_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_14_1": {
+					"transitions": [
+						{
+							"alter_14_2": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b14-20",
+						"@s alter:ammo_14",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_14_2": {
+					"transitions": [
+						{
+							"alter_13_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_13_1": {
+					"transitions": [
+						{
+							"alter_13_2": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b13-20",
+						"@s alter:ammo_13",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_13_2": {
+					"transitions": [
+						{
+							"alter_12_1": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_12_1": {
+					"transitions": [
+						{
+							"alter_11_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b12-20",
+						"@s alter:ammo_12",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_11_1": {
+					"transitions": [
+						{
+							"alter_11_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_11_2": {
+					"transitions": [
+						{
+							"alter_10_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b11-20",
+						"@s alter:ammo_11",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_10_1": {
+					"transitions": [
+						{
+							"alter_10_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_10_2": {
+					"transitions": [
+						{
+							"alter_9_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b10-20",
+						"@s alter:ammo_10",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_9_1": {
+					"transitions": [
+						{
+							"alter_9_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_9_2": {
+					"transitions": [
+						{
+							"alter_8_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §69-20",
+						"@s alter:ammo_9",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_8_1": {
+					"transitions": [
+						{
+							"alter_8_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_8_2": {
+					"transitions": [
+						{
+							"alter_7_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §68-20",
+						"@s alter:ammo_8",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_7_1": {
+					"transitions": [
+						{
+							"alter_7_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_7_2": {
+					"transitions": [
+						{
+							"alter_6_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §67-20",
+						"@s alter:ammo_7",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_6_1": {
+					"transitions": [
+						{
+							"alter_6_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_6_2": {
+					"transitions": [
+						{
+							"alter_5_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §66-20",
+						"@s alter:ammo_6",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~"
+					]
+				},
+				"alter_5_1": {
+					"transitions": [
+						{
+							"alter_5_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_5_2": {
+					"transitions": [
+						{
+							"alter_4_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §65-20",
+						"@s alter:ammo_5",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"alter_4_1": {
+					"transitions": [
+						{
+							"alter_4_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_4_2": {
+					"transitions": [
+						{
+							"alter_3_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §44-20",
+						"@s alter:ammo_4",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"alter_3_1": {
+					"transitions": [
+						{
+							"alter_3_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_3_2": {
+					"transitions": [
+						{
+							"alter_2_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §43-20",
+						"@s alter:ammo_3",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"alter_2_1": {
+					"transitions": [
+						{
+							"alter_2_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_2_2": {
+					"transitions": [
+						{
+							"alter_1_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §42-20",
+						"@s alter:ammo_2",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"alter_1_1": {
+					"transitions": [
+						{
+							"alter_1_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_1_2": {
+					"transitions": [
+						{
+							"alter_0_1": "(q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §41-20",
+						"@s alter:ammo_1",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"alter_0_1": {
+					"transitions": [
+						{
+							"alter_0_2": "variable.alterinterval = 0.05; variable.previousalter = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'alter');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"alter_not_total_empty": "variable.alterreload_nt = 1.775; variable.prealterreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'alter');"
+						}
+					]
+				},
+				"alter_0_2": {
+					"transitions": [
+						{
+							"alter_empty": "variable.alterreload = 2.1667; variable.prealterreload = q.life_time; return ((q.life_time - variable.previousalter) >= variable.alterinterval && q.get_equipped_item_name == 'alter');"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-20",
+						"@s alter:ammo_0",
+						"@s jmgs:alter_shooter",
+						"/execute @s ~~~ camerashake add @s 0.02 0.1 rotational",
+						"/execute @s ~~~ playsound alter_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~",
+						"/execute @s ~~~ playsound se.se101 @a ~~~"
+					]
+				},
+				"alter_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.prealterreload) >= variable.alterreload"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:alter_empty2 1 0",
+						"@s alter:ammo_0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:alter_empty2 0 1",
+						"/give @s jmgs:alter 1 0",
+						"/scoreboard players add @s mp -10"
+					]
+				},
+				"alter_not_total_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.prealterreload_nt) >= variable.alterreload_nt"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:alter_empty1 1 0",
+						"@s alter:ammo_0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:alter_empty1 0 1",
+						"/give @s jmgs:alter 1 0"
+					]
+				}
+			}
+		}
+	}
+}

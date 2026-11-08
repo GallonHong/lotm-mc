@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_sword_purizumu_932cd090"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "  B",
+      " B ",
+      "ACD"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:netherite_sword",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:netherite_upgrade_smithing_template",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:sword_purizumu",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,79 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.thermometer.right": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                {
+                    "thermometer2_*": false
+                },
+                {
+                    "*burning1": "v.env_temp_level == 6"
+                },
+                {
+                    "*hot1": "v.env_temp_level == 5"
+                },
+                {
+                    "*warm1": "v.env_temp_level == 4"
+                },
+                {
+                    "*temperate1": "v.env_temp_level == 3"
+                },
+                {
+                    "*cool1": "v.env_temp_level == 2"
+                },
+                {
+                    "*cold1": "v.env_temp_level == 1"
+                },
+                {
+                    "*freezing1": "v.env_temp_level == 0"
+                }
+            ],
+            "textures": [
+                "Texture.default"
+            ]
+        },
+        "controller.render.mythicus_sn.thermometer.left": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                {
+                    "thermometer_*": false
+                },
+                {
+                    "*burning2": "v.env_temp_level == 6"
+                },
+                {
+                    "*hot2": "v.env_temp_level == 5"
+                },
+                {
+                    "*warm2": "v.env_temp_level == 4"
+                },
+                {
+                    "*temperate2": "v.env_temp_level == 3"
+                },
+                {
+                    "*cool2": "v.env_temp_level == 2"
+                },
+                {
+                    "*cold2": "v.env_temp_level == 1"
+                },
+                {
+                    "*freezing2": "v.env_temp_level == 0"
+                }
+            ],
+            "textures": [
+                "Texture.default"
+            ]
+        }
+    }
+}

@@ -1,0 +1,100 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:ice",
+            "states": {
+                "mythicus_sn:season_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') <= 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "ice",
+                            "render_method": "blend",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:light_emission": 0,
+                    "minecraft:map_color": "#96c9ff",
+                    "tag:mythicus_sn:remove": {}
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') >= 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "ice",
+                            "render_method": "blend",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:light_emission": 0,
+                    "minecraft:map_color": "#8ec3ff"
+                }
+            }
+        ],
+        "components": {
+            "mythicus_sn:block_remover": {},
+            "minecraft:geometry": {
+                "identifier": "geometry.mythicus_sn.full_block",
+                "culling": "mythicus_sn:culling.custom_ice",
+                "culling_layer": "minecraft:culling_layer.leaves"
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "ice",
+                    "render_method": "blend"
+                }
+            },
+            "minecraft:tick": {
+                "interval_range": [
+                    100,
+                    400
+                ],
+                "looping": true
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.5
+            },
+            "tag:mythicus_sn:seasonal_block": {},
+            "minecraft:light_emission": 0,
+            "minecraft:map_color": "#a6d5ff",
+            "minecraft:collision_box": true,
+            "minecraft:selection_box": true,
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0.5
+            },
+            "minecraft:loot": "loot_tables/empty.json",
+            "mythicus_sn:season_change": {
+                "has_season_state": true
+            }
+        }
+    }
+}

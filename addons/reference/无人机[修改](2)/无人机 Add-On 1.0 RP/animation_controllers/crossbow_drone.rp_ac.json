@@ -1,0 +1,99 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.crossbow_drone.shoot": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"prepare": "q.is_charged"
+						},
+						{
+							"shoot": "v.is_shooting"
+						}
+					],
+					"blend_transition": 0.1
+				},
+				"prepare": {
+					"animations": [
+						"shoot_prepare"
+					],
+					"transitions": [
+						{
+							"shoot": "!q.is_charged && q.property('makercamp_dr:shoot')"
+						},
+						{
+							"default": "!q.has_target"
+						}
+					],
+					"blend_transition": 0.1
+				},
+				"shoot": {
+					"animations": [
+						"shoot"
+					],
+					"transitions": [
+						{
+							"refill": "q.all_animations_finished"
+						}
+					]
+				},
+				"refill": {
+					"animations": [
+						"refill"
+					],
+					"transitions": [
+						{
+							"default": "q.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.1
+				}
+			}
+		},
+		"controller.animation.makercamp_dr.crossbow_drone.aim": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"aim": "q.has_target"
+						}
+					],
+					"blend_transition": 0.4
+				},
+				"aim": {
+					"animations": [
+						"aim"
+					],
+					"transitions": [
+						{
+							"stop_aim": "!q.has_target"
+						}
+					],
+					"on_exit": [
+						"v.target_x_rotation = query.target_x_rotation;",
+						"v.target_y_rotation = query.target_y_rotation;"
+					],
+					"blend_transition": 0.1
+				},
+				"stop_aim": {
+					"animations": [
+						"aim_last"
+					],
+					"on_entry": [
+						"v.delay = q.life_time + 0.8;"
+					],
+					"transitions": [
+						{
+							"aim": "q.has_target"
+						},
+						{
+							"default": "!q.has_target && v.delay < q.life_time"
+						}
+					],
+					"blend_transition": 0.2
+				}
+			}
+		}
+	}
+}

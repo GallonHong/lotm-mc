@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_polymer_09e89168"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B",
+      "C"
+    ],
+    "key": {
+      "B": {
+        "item": "ewo:cloth_nano",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_coated",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_polymer",
+      "count": 1
+    }
+  }
+}

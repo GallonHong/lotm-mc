@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:mining_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iRi",
+			"P#P",
+			"iDi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"R": {
+				"item": "minecraft:redstone_block"
+			},
+			"P": {
+				"item": "minecraft:piston"
+			},
+			"D": {
+				"item": "minecraft:diamond_pickaxe"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_2"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:mining_drone_spawn_egg"
+		}
+	}
+}

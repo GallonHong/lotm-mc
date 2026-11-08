@@ -1,0 +1,42 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/birch/tree_placer/tree_group"
+        },
+        "features": [
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_0", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_1", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_2", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_3", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_4", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_5", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_6", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_7", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_8", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_9", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_10", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_11", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_12", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_13", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_14", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_15", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_16", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_17", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_18", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_19", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_20", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_21", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_22", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_23", 5],
+            [
+                "mythicus_sn:mythicus/sn/birch/tree/tree_23b",
+                2
+            ],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_24", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_25", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_26", 5],
+            ["mythicus_sn:mythicus/sn/birch/tree/tree_27", 5]
+        ]
+    }
+}

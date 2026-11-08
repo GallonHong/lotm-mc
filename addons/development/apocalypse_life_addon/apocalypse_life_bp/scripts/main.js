@@ -2,6 +2,7 @@ import { system, world, EquipmentSlot, ItemStack } from "@minecraft/server";
 import { VehicleClass } from "./vehicles/VehicleClass.js";
 import { VehicleMenu } from "./vehicles/VehicleMenu.js";
 import { FuelManager } from "./vehicles/FuelManager.js";
+import { VehicleGarageManager } from "./vehicles/VehicleGarageManager.js";
 import { FoodManager } from "./food/FoodManager.js";
 import { VendingMachine } from "./vending/VendingMachine.js";
 import { PianoSystem } from "./piano/PianoSystem.js";
@@ -33,8 +34,18 @@ function subscribeAfterEvent(eventName, handler) {
     }
 }
 
-// 1. 载具生成蛋自定义组件
+// 1. 载具生成蛋自定义组件：合成后右键绑定至个人车库
 const EntitySpawner = {
+    onUse(event) {
+        const player = event.source;
+        const item = event.itemStack;
+        if (!player || player.typeId !== "minecraft:player" || !item) return;
+        const itemId = item.typeId;
+        const entityType = itemId.replace("_spawner", "");
+        if (allVehicleTypeIds.includes(entityType)) {
+            VehicleGarageManager.bindVehicleFromItem(player, item, entityType);
+        }
+    },
     onUseOn(event) {
         const player = event.source;
         const block = event.block;
@@ -50,24 +61,13 @@ const EntitySpawner = {
             return;
         }
 
-        const lore = item.getLore();
-        let properties = {};
-        let savedFuel = Config?.fuel?.defaultSpawnFuel ?? 100;
+        // 若为载具实体，执行个人车库绑定，禁止直接下蛋刷车
+        if (allVehicleTypeIds.includes(entityType)) {
+            VehicleGarageManager.bindVehicleFromItem(player, item, entityType);
+            return;
+        }
 
-        lore.forEach(line => {
-            if (line.startsWith("§eMax Speed: §f")) {
-                properties["ab_ve:max_speed"] = parseInt(line.replace("§eMax Speed: §f", ""), 10);
-            } else if (line.startsWith("§eAcceleration: §f")) {
-                properties["ab_ve:acceleration"] = parseInt(line.replace("§eAcceleration: §f", ""), 10);
-            } else if (line.startsWith("§eSpecial: §f")) {
-                properties["ab_ve:special"] = parseInt(line.replace("§eSpecial: §f", ""), 10);
-            } else if (line.startsWith("§eColor ID: §f")) {
-                properties["ab_ve:color"] = parseInt(line.replace("§eColor ID: §f", ""), 10);
-            } else if (line.startsWith("§eFuel: §f")) {
-                savedFuel = parseInt(line.replace("§eFuel: §f", ""), 10);
-            }
-        });
-
+        // 家具实体 (训练靶、医疗站) 保持原样方块放置
         const location = {
             x: block.x + 0.5,
             y: block.y + 1,
@@ -81,17 +81,6 @@ const EntitySpawner = {
             if (entityType === "ab_ve:training_target") spawnedEntity.nameTag = "§l§e枪械训练靶§r\n§7射击后显示单次伤害与 5 秒 DPS";
             if (entityType === "ab_ve:medical_station") spawnedEntity.nameTag = "§l§a联盟医疗站§r";
 
-            // 还原车辆属性
-            for (const [key, value] of Object.entries(properties)) {
-                try {
-                    spawnedEntity.setProperty(key, value);
-                } catch {}
-            }
-
-            // 还原燃油
-            if (!entityType.includes("medical_station") && !entityType.includes("training_target")) FuelManager.setFuel(spawnedEntity, savedFuel);
-
-            // 扣除手持物品
             const equippable = player.getComponent("minecraft:equippable");
             if (equippable) {
                 equippable.setEquipment(EquipmentSlot.Mainhand, null);
@@ -161,6 +150,16 @@ function explodeVehicle(vehicle) {
         const loc = vehicle.location;
         const dim = vehicle.dimension;
 
+        const ownerId = vehicle.getDynamicProperty("ownerId");
+        const vehicleTypeId = vehicle.getDynamicProperty("vehicleTypeId") || vehicle.typeId;
+        if (ownerId && vehicleTypeId) {
+            try {
+                VehicleGarageManager.onVehicleDestroyed(ownerId, vehicleTypeId);
+            } catch (e) {
+                console.warn(`[ApocalypseLife] onVehicleDestroyed error: ${e}`);
+            }
+        }
+
         // 彻底清空后备箱物品，杜绝任何掉落物残留
         try {
             const inventory = vehicle.getComponent("minecraft:inventory")?.container;
@@ -210,6 +209,16 @@ function explodeVehicle(vehicle) {
 function syncVehicleDamage(vehicle, newHp, maxHp) {
     if (!vehicle || !vehicle.isValid()) return;
     try {
+        const ownerId = vehicle.getDynamicProperty("ownerId");
+        const vehicleTypeId = vehicle.getDynamicProperty("vehicleTypeId") || vehicle.typeId;
+        if (ownerId && vehicleTypeId) {
+            try {
+                VehicleGarageManager.onVehicleDamaged(ownerId, vehicleTypeId, newHp, maxHp);
+            } catch (e) {
+                console.warn(`[ApocalypseLife] onVehicleDamaged error: ${e}`);
+            }
+        }
+
         // 车身开裂贴图同步
         const ratio = newHp / maxHp;
         let crackState = 0;
@@ -337,6 +346,42 @@ subscribeAfterEvent("entityDie", (event) => {
     if (!deadEntity || !allVehicleTypeIds.includes(deadEntity.typeId)) return;
     VehicleClass.explodeVehicle(deadEntity);
 });
+
+// 8. 玩家右键使用物品绑定兜底 (防止部分场景 onUse 未触发)
+subscribeAfterEvent("itemUse", (event) => {
+    const { source: player, itemStack: item } = event;
+    if (!player || player.typeId !== "minecraft:player" || !item) return;
+    const itemId = item.typeId;
+    if (itemId.endsWith("_spawner") && itemId.startsWith("ab_ve:")) {
+        const entityType = itemId.replace("_spawner", "");
+        if (allVehicleTypeIds.includes(entityType)) {
+            VehicleGarageManager.bindVehicleFromItem(player, item, entityType);
+        }
+    }
+});
+
+// 9. 跨包车载终端菜单联动 (从 SAPI Server 便捷终端唤起)
+if (system.afterEvents?.scriptEventReceive) {
+    system.afterEvents.scriptEventReceive.subscribe((event) => {
+        if (event.id === "vehicle:open_garage") {
+            let targetPlayer = null;
+            if (event.sourceEntity && event.sourceEntity.typeId === "minecraft:player") {
+                targetPlayer = event.sourceEntity;
+            } else if (event.message && event.message.includes("__sapi_player__=")) {
+                try {
+                    const match = event.message.match(/__sapi_player__=([^&]+)/);
+                    if (match && match[1]) {
+                        const name = decodeURIComponent(match[1]);
+                        targetPlayer = world.getAllPlayers().find(p => p.name === name);
+                    }
+                } catch {}
+            }
+            if (targetPlayer) {
+                VehicleGarageManager.openGarageMenu(targetPlayer);
+            }
+        }
+    });
+}
 
 // 6. 20 TPS 物理与动力主循环驱动
 system.runInterval(() => {

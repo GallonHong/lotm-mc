@@ -1,0 +1,29 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "pb_dmgi:chicken_dummy",
+            "materials": {
+                "default": "zombie"
+            },
+            "textures": {
+                "default": "textures/pb/dmgi/entity/chicken_dummy"
+            },
+            "geometry": {
+                "default": "geometry.pb_dmgi.chicken_dummy"
+            },
+            "animations": {
+                "hurt_1": "animation.pb_dmgi.fight_dummy.hit_1",
+                "hurt_2": "animation.pb_dmgi.fight_dummy.hit_2",
+                "hurt_3": "animation.pb_dmgi.fight_dummy.hit_3"
+            },
+            "spawn_egg": {
+                "texture": "pb_dmgi_chicken_dummy"
+            },
+            "enable_attachables": false,
+            "render_controllers": [
+                "controller.render.pb_dmgi.default"
+            ]
+        }
+    }
+}

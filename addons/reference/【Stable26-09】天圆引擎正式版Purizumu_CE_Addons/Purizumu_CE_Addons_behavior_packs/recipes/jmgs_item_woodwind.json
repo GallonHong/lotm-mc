@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_4859ca0a"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "A",
+      "B"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_nugget",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:blaze_rod",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_woodwind",
+      "count": 1
+    }
+  }
+}

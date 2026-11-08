@@ -1,0 +1,460 @@
+{
+  "id": "1652698228293",
+  "name": "drop_b3",
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:gold_block",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值45§r"
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rolls": {
+        "min": 2,
+        "max": 4
+      },
+      "entries": [
+        {
+          "type": "item",
+          "weight": 4,
+          "name": "ewo:animal_down",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "ewo:animal_pearl",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 4,
+          "name": "ewo:animal_fim",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "name": "ewo:carapace_tail",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "name": "ewo:carapace",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "name": "ewo:animal_cartialgenous",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 5,
+          "name": "ewo:animal_vertebra",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 2
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "pmo:item_muscle",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "pmo:item_prism",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值25§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 6,
+          "name": "ewo:blueprint_sr",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "ewo:blueprint_ssr",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:blueprint_r",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:blueprint_n",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_medal",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "minecraft:gold_ingot",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 16
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:projectile_sword",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 4,
+                "max": 8
+              }
+            },
+            {
+              "function": "set_data",
+              "data": "0"
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "缴获的装备"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:sword_knife",
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "缴获的装备"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:sword_cake",
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "缴获的装备"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:sword_knife2",
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "缴获的装备"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:sword_long_knife",
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "缴获的装备"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:sword_tang",
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "缴获的装备"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

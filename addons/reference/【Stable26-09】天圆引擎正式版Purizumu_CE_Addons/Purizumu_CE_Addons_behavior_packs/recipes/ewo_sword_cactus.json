@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_cactus_9b05951e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DED",
+      "DFD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_hide",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:wooden_sword",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:cactus",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_zinc",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_cactus",
+      "count": 1
+    }
+  }
+}

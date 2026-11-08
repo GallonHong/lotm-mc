@@ -1,0 +1,41 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_near_link_930cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABD",
+      "CEC"
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_muscle",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_near_link",
+      "count": 1
+    }
+  }
+}

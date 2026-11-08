@@ -1,0 +1,27 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:eva8_main3",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/items/eva8_bullet"
+      },
+      "geometry": {
+        "default": "geometry.fireball"
+      },
+      "render_controllers": [ "controller.render.fireball" ],
+      "animations": {
+        "face_player": "animation.actor.billboard"
+      },
+      "scripts": {
+        "scale": "1.0",
+        "animate": [
+          "face_player"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_sheep.leaves": {
+            "arrays": {
+                "textures": {
+                    "Array.leaves": [
+                        "Texture.leaves_1",
+                        "Texture.leaves_2",
+                        "Texture.leaves_3",
+                        "Texture.leaves_4"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": ["Array.leaves[q.property('mythicus_sn:leaves_level') - 1]"]
+        }
+    }
+}

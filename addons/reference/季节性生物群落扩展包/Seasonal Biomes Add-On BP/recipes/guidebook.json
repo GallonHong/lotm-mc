@@ -1,0 +1,30 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:season_guidebook"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "#",
+            "A"
+        ],
+        "key": {
+            "#": {
+                "item": "minecraft:book"
+            },
+            "A": {
+                "item": "minecraft:wheat_seeds"
+            }
+        },
+        "result": {
+            "item": "mythicus_sn:season_guidebook",
+            "count": 1
+        },
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        }
+    }
+}

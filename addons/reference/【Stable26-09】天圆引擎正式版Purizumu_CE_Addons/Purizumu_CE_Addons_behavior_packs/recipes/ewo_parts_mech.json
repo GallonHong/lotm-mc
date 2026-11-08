@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "parts_mech_1f94eec9"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BBB",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_6nail",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:parts_mech",
+      "count": 1
+    }
+  }
+}

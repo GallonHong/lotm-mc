@@ -1,0 +1,152 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.makercamp_dr.inventory_drone.idle": {
+			"loop": true,
+			"animation_length": 8,
+			"bones": {
+				"root": {
+					"rotation": ["-math.sin(query.anim_time*90+45)*2", "-math.sin(query.anim_time*45+45)*5", "math.sin(query.anim_time*90-45)*2"],
+					"position": [0, "math.cos(query.anim_time*180)*0.5 +1", 0]
+				},
+				"p3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p1": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p5": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p6": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				}
+			}
+		},
+		"animation.makercamp_dr.inventory_drone.fly": {
+			"loop": true,
+			"animation_length": 8,
+			"bones": {
+				"root": {
+					"rotation": ["12.5-math.sin(query.anim_time*90+45)*0.5", "-math.sin(query.anim_time*45+45)*1", "math.sin(query.anim_time*90-45)*0.5"],
+					"position": [0, "math.cos(query.anim_time*180)*0.2+2", 0]
+				},
+				"p3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p1": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p5": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p6": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				}
+			}
+		},
+		"animation.makercamp_dr.inventory_drone.open": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"bones": {
+				"root": {
+					"rotation": {
+						"0.0417": [0, 0, 0],
+						"0.375": [-7.5, 0, 0],
+						"0.625": [0.5, 0, 0],
+						"0.7917": [0, 0, 0]
+					}
+				},
+				"open": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.375": [-120.63, 0, 0],
+						"0.5": [-117.5, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "open"
+				}
+			}
+		},
+		"animation.makercamp_dr.inventory_drone.close": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.75,
+			"bones": {
+				"root": {
+					"rotation": {
+						"0.1667": [0, 0, 0],
+						"0.4583": [5, 0, 0],
+						"0.7083": [0, 0, 0]
+					},
+					"position": {
+						"0.1667": [0, 0, 0],
+						"0.375": [0, -2, 0],
+						"0.5833": [0, 0, 0]
+					}
+				},
+				"open": {
+					"rotation": {
+						"0.0": [-117.5, 0, 0],
+						"0.2917": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "close"
+				}
+			}
+		}
+	}
+}

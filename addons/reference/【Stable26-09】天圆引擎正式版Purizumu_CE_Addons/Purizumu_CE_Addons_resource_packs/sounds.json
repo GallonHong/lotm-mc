@@ -1,0 +1,598 @@
+{
+    "entity_sounds": {
+        "entities": {
+            "pmo:role_xy": {
+                "volume": 1.0,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": "mob.villager.idle",
+                    "hurt": "mob.villager.hit",
+                    "death": "se.human_death",
+                    "death.to.zombie": "mob.villager.death",
+                    "haggle": "mob.villager.haggle",
+                    "haggle.yes": "mob.villager.yes",
+                    "haggle.no": "mob.villager.no"
+                }
+            },
+            "pmo:role_paper": {
+                "volume": 1.0,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "death": "se.human_death"
+                }
+            },
+            "pmo:role_xx": {
+                "volume": 1.0,
+                "pitch": [
+                    1.0,
+                    1.0
+                ],
+                "events": {
+                    "hurt": "mob.witch.hurt",
+                    "death": "mob.witch.death"
+                }
+            },
+            "jmgs:block_act": {
+                "volume": 1,
+                "pitch": [
+                    1.0,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "se.se301",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "se.se301",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "jmgs:block_ecmo": {
+                "volume": 1,
+                "pitch": [
+                    1.0,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "se.se303",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "se.se303",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "jmgs:block_mmm": {
+                "volume": 1,
+                "pitch": [
+                    1.0,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "se.se304",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "se.se304",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "jmgs:block_ventilator": {
+                "volume": 1,
+                "pitch": [
+                    1.0,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "se.se305",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "se.se305",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "jmgs:block_crrt": {
+                "volume": 1,
+                "pitch": [
+                    1.0,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "se.se306",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "se.se306",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "ewo:imps_warrior": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_imps",
+                        "volume": 0.18,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_imps",
+                        "volume": 0.18,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_imps",
+                        "volume": 0.18,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_drowned": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_dukes",
+                        "volume": 0.2,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_dukes",
+                        "volume": 0.2,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_dukes",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_skeleton": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_imps",
+                        "volume": 0.18,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_imps",
+                        "volume": 0.18,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_imps",
+                        "volume": 0.18,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:dukes_apostles": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_dukes",
+                        "volume": 0.18,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_dukes",
+                        "volume": 0.18,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "se.monster_death",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_pillager": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.1
+                ],
+                "events": {
+                    "ambient": "mob.witch.ambient",
+                    "hurt": "mob.witch.hurt",
+                    "death": "mob.witch.death",
+                    "drink": {
+                        "sound": "mob.witch.drink",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "throw": {
+                        "sound": "mob.witch.throw",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "ambient.in.raid": {
+                        "sound": "mob.witch.ambient",
+                        "volume": 3.0,
+                        "pitch": [
+                            0.8,
+                            1.2
+                        ]
+                    },
+                    "celebrate": "mob.witch.celebrate"
+                }
+            },
+            "ewo:imps_vindicator": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.1
+                ],
+                "events": {
+                    "ambient": "mob.witch.ambient",
+                    "hurt": "mob.witch.hurt",
+                    "death": "mob.witch.death",
+                    "drink": {
+                        "sound": "mob.witch.drink",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "throw": {
+                        "sound": "mob.witch.throw",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "ambient.in.raid": {
+                        "sound": "mob.witch.ambient",
+                        "volume": 3.0,
+                        "pitch": [
+                            0.8,
+                            1.2
+                        ]
+                    },
+                    "celebrate": "mob.witch.celebrate"
+                }
+            },
+            "ewo:king_wantdodo": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_dukes",
+                        "volume": 0.18,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_dukes",
+                        "volume": 0.18,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "se.monster_death",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:king_susuhao": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_dukes",
+                        "volume": 0.18,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_dukes",
+                        "volume": 0.18,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "se.monster_death",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:king_vasika": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_dukes",
+                        "volume": 0.18,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_dukes",
+                        "volume": 0.18,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "se.monster_death",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "pmo:role_maya": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_robot",
+                        "volume": 0.25,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "mob.irongolem.hit",
+                        "volume": 0.75,
+                        "pitch": 1.0
+                    },
+                    "death": {
+                        "sound": "jmgs.death_robot",
+                        "volume": 0.5,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "ewo:boss_redstone": {
+                "volume": 1.0,
+                "pitch": [
+                    0.8,
+                    1.2
+                ],
+                "events": {
+                    "ambient": "mob.irongolem.say",
+                    "hurt": "mob.irongolem.hit",
+                    "death": "se.mecha_death",
+                    "step": {
+                        "sound": "mob.irongolem.walk",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "throw": {
+                        "sound": "mob.irongolem.throw",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "ewo:imps_iron_golem": {
+                "volume": 1.0,
+                "pitch": [
+                    0.8,
+                    1.2
+                ],
+                "events": {
+                    "ambient": "mob.irongolem.say",
+                    "hurt": "mob.irongolem.hit",
+                    "death": "mob.irongolem.death",
+                    "step": {
+                        "sound": "mob.irongolem.walk",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    },
+                    "throw": {
+                        "sound": "mob.irongolem.throw",
+                        "volume": 1.0,
+                        "pitch": 1.0
+                    }
+                }
+            },
+            "pmo:role_evilx": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_robot",
+                        "volume": 0.18,
+                        "pitch": 1.1
+                    },
+                    "hurt": {
+                        "sound": "mob.irongolem.hit",
+                        "volume": 0.75,
+                        "pitch": 1.0
+                    },
+                    "death": {
+                        "sound": "se.mecha_death",
+                        "volume": 0.7,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_zombie": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_zombie",
+                        "volume": 0.5,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_zombie1": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_zombie",
+                        "volume": 0.5,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_zombie2": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_zombie",
+                        "volume": 0.5,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_zombie3": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_zombie",
+                        "volume": 0.5,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "ewo:imps_husk": {
+                "volume": 1,
+                "pitch": [
+                    0.9,
+                    1.0
+                ],
+                "events": {
+                    "ambient": {
+                        "sound": "jmgs.idle_zombie",
+                        "volume": 0.5,
+                        "pitch": 1.0
+                    },
+                    "hurt": {
+                        "sound": "jmgs.hit_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    },
+                    "death": {
+                        "sound": "jmgs.death_zombie",
+                        "volume": 0.5,
+                        "pitch": 1
+                    }
+                }
+            },
+            "chicken": {
+                "volume": 1.0,
+                "pitch": [
+                    0.8,
+                    1.2
+                ],
+                "events": {
+                    "ambient": "mob.chicken.say",
+                    "hurt": "mob.chicken.hurt",
+                    "death": "mob.chicken.hurt",
+                    "step": {
+                        "sound": "mob.chicken.step",
+                        "volume": 0.25,
+                        "pitch": 1.0
+                    },
+                    "plop": "mob.chicken.plop"
+                }
+            }
+        }
+    }
+}

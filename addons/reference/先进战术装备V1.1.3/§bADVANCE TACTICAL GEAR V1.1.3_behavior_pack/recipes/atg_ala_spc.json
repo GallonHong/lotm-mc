@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ala_spc_969791ef"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      "DAE"
+    ],
+    "key": {
+      "A": {
+        "item": "atg:armor_plate",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:string",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:lead",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:bundle",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:black_carpet",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:ala_spc",
+      "count": 1
+    }
+  }
+}

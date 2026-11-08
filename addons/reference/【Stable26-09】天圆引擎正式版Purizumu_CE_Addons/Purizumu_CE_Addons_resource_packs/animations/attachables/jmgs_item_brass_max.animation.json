@@ -1,0 +1,37 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.jmgs_item_brass_max.first_person_hold": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1,
+			"bones": {
+				"main": {
+					"rotation": {
+						"0.0": [96.96419, -25.66063, -22.99556],
+						"1.0": [97.36137, 31.46186, -16.11011]
+					},
+					"position": {
+						"0.0": [13, 8, 3],
+						"1.0": [2, 2, 3]
+					}
+				},
+				"root": {
+					"position": [2, 24, 0]
+				}
+			}
+		},
+		"animation.jmgs_item_brass_max.third_person_hold": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.5,
+			"bones": {
+				"main": {
+					"rotation": [35, 0, 0],
+					"position": [2, -6, -1]
+				},
+				"root": {
+					"position": [0, 24, 0]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,57 @@
+{
+    "format_version": "1.17.0",
+    "minecraft:npc_dialogue": {
+        "scenes": [
+            {
+                "scene_tag": "jmgs_chat",
+                "npc_name": "重要通知",
+                "text": {
+                    "rawtext": [
+                        {"text":"您有一则来自他人的信息 \n"},
+                        {"text":"< \n"},
+                        {"text":"请注意查看："}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"查看",
+                        "commands": [
+                            "/give @initiator[lm=5] cooked_beef 64"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/give @initiator[lm=5] cooked_beef 64"
+                ],
+                "on_open_commands": [
+                    
+                ]
+            },
+            {
+                "scene_tag": "jmgs_call",
+                "npc_name": "重要来电",
+                "text": {
+                    "rawtext": [
+                        {"text":"这个人正在呼叫您 \n"},
+                        {"text":"< \n"},
+                        {"text":"请接听："}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"接听",
+                        "commands": [
+                            "/give @initiator[lm=5] cooked_beef 64"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/give @initiator[lm=5] cooked_beef 64"
+                ],
+                "on_open_commands": [
+                    
+                ]
+            }
+        ]
+    }
+}

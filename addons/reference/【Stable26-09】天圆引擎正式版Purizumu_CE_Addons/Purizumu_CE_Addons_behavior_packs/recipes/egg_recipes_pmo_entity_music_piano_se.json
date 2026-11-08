@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_48ddea66"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "GHF",
+      "DCE",
+      "ABA"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:book",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:card_sd",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_dacron",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_magnetic",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:plastics_glass",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_music_piano_se_spawn_egg",
+      "count": 1
+    }
+  }
+}

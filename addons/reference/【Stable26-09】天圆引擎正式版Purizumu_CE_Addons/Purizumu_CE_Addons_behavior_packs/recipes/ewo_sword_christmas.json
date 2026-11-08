@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_christmas_6f9133d9"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDC",
+      "FEF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:sapling",
+        "data": 1
+      },
+      "D": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:iron_sword",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_coral",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_christmas",
+      "count": 1
+    }
+  }
+}

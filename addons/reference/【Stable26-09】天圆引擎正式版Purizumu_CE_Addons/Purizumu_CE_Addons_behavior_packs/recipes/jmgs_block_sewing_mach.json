@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_sewing_mach_932cd060"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EAE",
+      "CBC",
+      "DFD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_sewing",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "E": {
+        "item": "jmgs:item_motor",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_sewing_mach",
+      "count": 1
+    }
+  }
+}

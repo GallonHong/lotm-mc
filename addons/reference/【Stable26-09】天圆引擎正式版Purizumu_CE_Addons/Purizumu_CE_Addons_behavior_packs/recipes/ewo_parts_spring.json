@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "parts_spring_0e0d30b7"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CAC",
+      "DAB"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_claw",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:parts_spring",
+      "count": 2
+    }
+  }
+}

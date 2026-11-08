@@ -1,0 +1,14 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/apple/lush_hill/hill_0"
+        },
+
+        "places_feature": "mythicus_sn:mythicus/sn/apple/lush_hill/hill_0s",
+        "iterations": 1,
+        "x": -1,
+        "z": -1,
+        "y": 0
+    }
+}

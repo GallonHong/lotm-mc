@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.ewo_armor_void2": {
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "walking": "(1.0)"
+            }
+          ],
+          "on_entry": [
+            "/function ewo_armor_void2"
+          ]
+        },
+        "walking": {
+          "transitions": [
+            {
+              "default": "query.get_equipped_item_name=='armor_void2' && query.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "/function ewo_armor_void2"
+          ]
+        }
+      }
+    }
+  }
+}

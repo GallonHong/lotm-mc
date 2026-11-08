@@ -1,0 +1,23 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/dark_oak/scatter_peony"
+        },
+        "iterations": 5,
+        "places_feature": "mythicus_sn:mythicus/sn/dark_oak/peony_aggregate",
+        "coordinate_eval_order": "zyx",
+        "x": {
+            "extent": [-8, 8],
+            "distribution": "gaussian"
+        },
+        "z": {
+            "extent": [-8, 8],
+            "distribution": "gaussian"
+        },
+        "y": {
+            "extent": [-4, 4],
+            "distribution": "gaussian"
+        }
+    }
+}

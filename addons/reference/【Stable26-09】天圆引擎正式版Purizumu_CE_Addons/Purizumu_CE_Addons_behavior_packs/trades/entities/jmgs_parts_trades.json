@@ -1,0 +1,569 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_toolbox",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_special",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_casting",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_6nail",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_hand",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_screw",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_copper",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_mech",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_spring",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_electrion",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 5,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_gun",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 10,
+                "max": 64
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_sewing",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:plastics_recycled:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:plastics_eng:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 4,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:plastics_abs:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:plastics_glass:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:powder_black:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:powder:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:paper_kralf:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_plastic:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:parts_pipe:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:ceramics_rigid:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:ceramics_bulletproof:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:ceramics_bionics:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 15,
+                "max": 21
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_junction_box:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 21
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_junction_box_pro:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 9,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_tempered_glass:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 6,
+                "max": 8
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_ti_ingot:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 40
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:entity_dice_spawn_egg:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

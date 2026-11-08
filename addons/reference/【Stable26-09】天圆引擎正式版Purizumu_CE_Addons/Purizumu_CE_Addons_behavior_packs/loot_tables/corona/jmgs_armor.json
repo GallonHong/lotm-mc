@@ -1,0 +1,1454 @@
+{
+  "id": "1652698388109",
+  "name": "jmgs_armor",
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "ewo:armor_analyzer",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:experience_bottle",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 32
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_fraternity",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_fraternity2",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_fraternity3",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god1",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god3",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god13",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god12",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god11",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_immortal",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_immortal2",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_immortal3",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_mob",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_mob2",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_mob3",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_night_vision",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_tech",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_thor",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_thro1",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_thor2",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void1",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void2",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void3",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void4",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_wasp",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_wasp1",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_wasp2",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_wasp3",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:hat_green",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_chestplate",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_boots",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_leggings",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_helmet",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_helmet",
+          "weight": 35,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_leggings",
+          "weight": 31,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_chestplate",
+          "weight": 31,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_boots",
+          "weight": 31,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_leggings",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_boots",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_chestplate",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_helmet",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_leggings",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_boots",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_chestplate",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_helmet",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:elytra",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_leggings",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_boots",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_chestplate",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_helmet",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:chainmail_leggings",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:chainmail_boots",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:chainmail_chestplate",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:chainmail_helmet",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:leather_leggings",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:leather_boots",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:leather_chestplate",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:leather_helmet",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

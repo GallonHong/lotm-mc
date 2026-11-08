@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_muscle_8ccfb05d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AA",
+      "AA",
+      " B"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:sea_pickle",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:dragon_breath",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:item_muscle",
+      "count": 2
+    }
+  }
+}

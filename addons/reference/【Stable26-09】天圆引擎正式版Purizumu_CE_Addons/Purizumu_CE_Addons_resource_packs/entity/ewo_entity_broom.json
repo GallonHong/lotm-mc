@@ -1,0 +1,39 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:entity_broom",
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_entity_broom"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.ewo_entity_broom"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "ewo:entity_broom",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_plane.fly",
+        "idle": "animation.pmo_entity_plane.idle"
+      },
+      "scripts": {
+        "animate": [
+          "root",
+          {
+            "walk": "query.is_moving"
+          },
+          {
+            "idle": "!query.is_moving"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,15 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/swamp/tall_seagrass/seagrass_aggregate"
+        },
+
+        "early_out": "first_failure",
+
+        "features": [
+            "mythicus_sn:mythicus/sn/swamp/tall_seagrass/tall_seagrass_1",
+            "mythicus_sn:mythicus/sn/swamp/tall_seagrass/tall_seagrass_offset"
+        ]
+    }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_noob_dab8bcee"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " BC",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:wooden_sword",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_6nail",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_noob",
+      "count": 1
+    }
+  }
+}

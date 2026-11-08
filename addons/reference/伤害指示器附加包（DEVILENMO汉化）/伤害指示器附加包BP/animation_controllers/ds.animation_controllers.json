@@ -1,0 +1,30 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.pb_dmgi.dummy_switch": {
+            "states": {
+                "default": {
+                    "on_entry": [
+                        "/scoreboard players add @s pb_dmgi_armor 0"
+                    ],
+                    "transitions": [
+                        {
+                            "active": "query.property('pb_dmgi:menu')"
+                        }
+                    ]
+                },
+                "active": {
+                    "on_entry": [
+                        "/execute if entity @p[r=4] run scriptevent pb_dmgi:dummy_menu @p",
+                        "/event entity @s evt:reset_menu"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.property('pb_dmgi:menu')"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

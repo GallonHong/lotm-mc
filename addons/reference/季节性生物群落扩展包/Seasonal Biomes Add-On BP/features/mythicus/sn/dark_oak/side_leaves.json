@@ -1,0 +1,17 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/dark_oak/side_leaves"
+        },
+        "places_block": "mythicus_sn:side_leaves_oak",
+        "enforce_survivability_rules": false,
+        "enforce_placement_rules": true,
+        "may_attach_to": {
+            "auto_rotate": true,
+            "min_sides_must_attach": 1,
+            "sides": ["mythicus_sn:dark_oak_leaves"]
+        },
+        "may_replace": ["minecraft:air"]
+    }
+}

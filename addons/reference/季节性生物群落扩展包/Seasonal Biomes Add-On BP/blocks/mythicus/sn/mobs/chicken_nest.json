@@ -1,0 +1,126 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:chicken_nest",
+            "menu_category": {
+                "category": "none",
+                "is_hidden_in_commands": true
+            },
+            "states": {
+                "mythicus_sn:nest_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ]
+            }
+        },
+        "components": {
+            "minecraft:geometry": "geometry.mythicus_sn.chicken_nest",
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:chicken_nest_0",
+                    "render_method": "alpha_test"
+                }
+            },
+            "mythicus_sn:chicken_nest_logic": {},
+            "minecraft:tick": {
+                "interval_range": [
+                    1200,
+                    1200
+                ],
+                "looping": true
+            },
+            "minecraft:collision_box": {
+                "origin": [
+                    -5,
+                    0,
+                    -5
+                ],
+                "size": [
+                    10,
+                    5,
+                    10
+                ]
+            },
+            "minecraft:selection_box": {
+                "origin": [
+                    -5,
+                    0,
+                    -5
+                ],
+                "size": [
+                    10,
+                    5,
+                    10
+                ]
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 1
+            },
+            "minecraft:loot": "loot_tables/empty.json",
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "query.block_state('mythicus_sn:nest_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:chicken_nest_0",
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('mythicus_sn:nest_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:chicken_nest_1",
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('mythicus_sn:nest_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:chicken_nest_2",
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('mythicus_sn:nest_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:chicken_nest_3",
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "query.block_state('mythicus_sn:nest_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:chicken_nest_4",
+                            "render_method": "alpha_test"
+                        }
+                    }
+                }
+            }
+        ]
+    }
+}

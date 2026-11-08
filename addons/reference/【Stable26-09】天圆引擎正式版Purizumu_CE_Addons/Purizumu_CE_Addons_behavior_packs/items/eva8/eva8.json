@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "jmgs:eva8",
+      "menu_category": {
+				"category": "equipment"
+			}
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "texture": "jmgs:eva8"
+      },
+      "minecraft:display_name": {
+        "value": "item.jmgs:eva8.name"
+      },
+      "minecraft:use_modifiers": {
+				"movement_modifier": 0.32,
+				"use_duration": 600
+			},
+      "minecraft:hand_equipped": true,
+      "minecraft:food": {
+        "can_always_eat": true
+      }
+    }
+  }
+}

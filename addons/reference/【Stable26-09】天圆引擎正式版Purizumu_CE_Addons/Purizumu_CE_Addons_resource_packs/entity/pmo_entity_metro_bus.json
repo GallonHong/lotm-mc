@@ -1,0 +1,59 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_metro_bus",
+      "textures": {
+        "default": "textures/entity/corona/pmo_entity_metro_bus",
+        "variant_2": "textures/entity/corona/pmo_entity_metro_brt",
+        "variant_3": "textures/entity/corona/pmo_entity_metro_bus_2",
+        "variant_4": "textures/entity/corona/pmo_entity_metro_bus_3",
+        "variant_5": "textures/entity/corona/pmo_entity_metro_bus_4"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_metro_bus",
+        "mark_variant_2": "geometry.pmo_entity_metro_brt"
+      },
+      "render_controllers": [
+        "controller.render.pmo_entity_metro_bus"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_metro_bus",
+        "texture_index": 0
+      },
+      "animations": {
+        "main": "controller.animation.pmo_entity_metro_bus.main",
+        "walk": "animation.pmo_entity_car_star_edit.walk",
+        "spawn": "animation.pmo_entity_car_star_edit.spawn",
+        "idle": "animation.pmo_entity_bus.idle",
+        "open": "animation.pmo_entity_bus.door",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "car_open": "car_open",
+        "car_start": "car_start",
+        "car_walk": "car_walk",
+        "boom": "jmgs.boom",
+        "fire": "pmo_projectile_a1_shot0",
+        "mag_out": "klb_mag_out"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+        ],
+        "animate": [
+          "main",
+          {"die": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

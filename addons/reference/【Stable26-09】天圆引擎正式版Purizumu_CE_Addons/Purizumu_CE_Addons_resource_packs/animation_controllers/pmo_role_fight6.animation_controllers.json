@@ -1,0 +1,24 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_role_fight6.main": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"animations": ["new"],
+					"transitions": [
+						{"fire": "query.has_target"}
+					],
+					"blend_transition": 0.5
+				},
+				"fire": {
+					"animations": [ "fire"],
+					"transitions": [
+						{"idle": "!query.has_target"}
+					],
+					"blend_transition": 0.5
+				}
+			}
+		}
+	}
+}

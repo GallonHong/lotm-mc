@@ -1,0 +1,25 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "ewo:armor_mob",
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_armor_mob",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.ewo_armor_mob"
+      },
+      "scripts": {
+        "parent_setup": "variable.helmet_layer_visible = 0.0;"
+      },
+      "render_controllers": [
+        "controller.render.armor"
+      ]
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:r201_ammo",
+      "materials": {
+        "default": "charged_creeper"
+      },
+      "textures": {
+        "default": "textures/entity/gunaim/pmo_bullet_light"
+      },
+      "geometry": {
+        "default": "geometry.pmo_bullet_light"
+      },
+      "render_controllers": [ "controller.render.fireball" ],
+      "animations": {
+        "face_player": "animation.actor.billboard"
+      },
+      "scripts": {
+        "scale": "1",
+        "animate": [
+          "face_player"
+        ]
+      }
+    }
+  }
+} 

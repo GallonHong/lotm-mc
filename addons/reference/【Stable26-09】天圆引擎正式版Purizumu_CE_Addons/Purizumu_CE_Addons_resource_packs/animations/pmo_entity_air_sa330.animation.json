@@ -1,0 +1,75 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_air_sa330.fly": {
+			"loop": true,
+			"animation_length": 9,
+			"bones": {
+				"chicken_yeeR": {
+					"rotation": [0, 0, -7200]
+				},
+				"chicken_yeeL": {
+					"rotation": [0, 0, 7200]
+				},
+				"jio": {
+					"rotation": [95, 0, 0],
+					"scale": 0
+				},
+				"jio2": {
+					"rotation": [0, 0, 155],
+					"scale": 0
+				},
+				"jio3": {
+					"rotation": [0, 0, -115],
+					"scale": 0
+				},
+				"root": {
+					"rotation": ["math.clamp(query.vertical_speed * -2.31, -20, 10)", 0, "math.clamp(query.yaw_speed * -1, -10, 10)"],
+					"position": {
+						"0.0": [0, 0, 0],
+						"9.0": [0, 0, 0]
+					}
+				},
+				"chibang": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"9.0": [0, 7200, 0]
+					}
+				},
+				"xiaocibang": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"9.0": [7200, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "helfly_walk"
+				}
+			}
+		},
+		"animation.pmo_entity_air_sa330.walk": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": [5, 0, 0]
+				}
+			}
+		},
+		"animation.pmo_entity_air_sa330.idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"kunkun_power": {
+					"position": [0, 7, 19]
+				},
+				"right_door": {
+					"position": [0, 0, -22]
+				},
+				"left_door": {
+					"position": [0, 0, -22]
+				}
+			}
+		}
+	}
+}

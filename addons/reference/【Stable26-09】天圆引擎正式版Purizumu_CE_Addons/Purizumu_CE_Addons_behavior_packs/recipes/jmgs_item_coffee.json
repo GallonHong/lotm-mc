@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_coffee_933cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EFE",
+      "CAD",
+      "EBE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:rulleplse",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:sage",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:rosemary",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:cocoa_beans",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:thyme",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_coffee",
+      "count": 1
+    }
+  }
+}

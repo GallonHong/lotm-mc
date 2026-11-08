@@ -1,0 +1,41 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_pura__a2653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DE "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "E": {
+        "item": "pmo:item_framework",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_pura",
+      "count": 1
+    }
+  }
+}

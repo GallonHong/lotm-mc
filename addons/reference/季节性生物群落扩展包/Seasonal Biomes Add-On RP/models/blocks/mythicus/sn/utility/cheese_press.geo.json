@@ -1,0 +1,37 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:geometry": [
+        {
+            "description": {
+                "identifier": "geometry.mythicus_sn.cheese_press",
+                "texture_width": 128,
+                "texture_height": 128,
+                "visible_bounds_width": 3,
+                "visible_bounds_height": 3.5,
+                "visible_bounds_offset": [0, 1.25, 0]
+            },
+            "bones": [
+                {
+                    "name": "root",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        { "origin": [-8, 0, -8], "size": [16, 4, 16], "uv": [0, 0] },
+                        { "origin": [-8, 15, -6], "size": [16, 3, 14], "uv": [0, 20] },
+                        { "origin": [-3, 18, -2], "size": [6, 2, 6], "uv": [64, 62] },
+                        { "origin": [-1, 13, 0], "size": [2, 9, 2], "uv": [68, 42] },
+                        { "origin": [-4, 11, -3], "size": [8, 2, 8], "inflate": 0.2, "uv": [32, 62] },
+                        { "origin": [-4, 6, -3], "size": [8, 2, 8], "inflate": 0.2, "uv": [0, 92] },
+                        { "origin": [-1, 8, 0], "size": [2, 9, 2], "uv": [36, 72] },
+                        { "origin": [-4, 6, -3], "size": [8, 5, 8], "uv": [0, 62] },
+                        { "origin": [-5, 4, -6], "size": [10, 2, 12], "uv": [60, 20] },
+                        { "origin": [-1.5, 22, -0.5], "size": [3, 5, 3], "uv": [68, 34] },
+                        { "origin": [-8.5, 24, 0], "size": [17, 2, 2], "uv": [64, 0] },
+                        { "origin": [-8, 4, -6], "size": [3, 11, 14], "uv": [0, 37] },
+                        { "origin": [5, 4, -6], "size": [3, 11, 14], "uv": [0, 37], "mirror": true },
+                        { "origin": [-5, 4, 6], "size": [10, 11, 2], "uv": [64, 4] }
+                    ]
+                }
+            ]
+        }
+    ]
+}

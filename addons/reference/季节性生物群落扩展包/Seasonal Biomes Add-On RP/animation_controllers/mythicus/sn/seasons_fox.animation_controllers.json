@@ -1,0 +1,239 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.seasons_fox.movement": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.2,
+                    "transitions": [
+                        {
+                            "sleeping": "query.is_sleeping"
+                        },
+                        {
+                            "sitting": "query.is_sitting"
+                        },
+                        {
+                            "crouching": "query.is_interested"
+                        },
+                        {
+                            "pouncing": "query.is_charged"
+                        },
+                        {
+                            "stuck": "query.is_stunned"
+                        }
+                    ]
+                },
+                "sleeping": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "sleep"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_sleeping"
+                        }
+                    ]
+                },
+                "sitting": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "sit"
+                    ],
+                    "transitions": [
+                        {
+                            "sleeping": "query.is_sleeping"
+                        },
+                        {
+                            "default": "!query.is_sitting"
+                        }
+                    ]
+                },
+                "crouching": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "crouch"
+                    ],
+                    "transitions": [
+                        {
+                            "pouncing": "query.is_charged"
+                        },
+                        {
+                            "default": "!query.is_interested"
+                        }
+                    ]
+                },
+                "pouncing": {
+                    "blend_transition": 0.1,
+                    "animations": [
+                        "pounce"
+                    ],
+                    "transitions": [
+                        {
+                            "stuck": "query.is_stunned"
+                        },
+                        {
+                            "default": "!query.is_charged"
+                        }
+                    ]
+                },
+                "stuck": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "stuck",
+                        "wiggle"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_stunned"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_fox.sunbathe": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.2,
+                    "transitions": [
+                        {
+                            "transitioning": "q.property('mythicus_sn:is_sunbathing') && q.property('mythicus_sn:season_variant') == 'summer'"
+                        }
+                    ]
+                },
+                "transitioning": {
+                    "blend_transition": 0.3,
+                    "animations": [
+                        "sunbathe_transition"
+                    ],
+                    "transitions": [
+                        {
+                            "sunbathing": "query.anim_time >= 0.5"
+                        },
+                        {
+                            "default": "!q.property('mythicus_sn:is_sunbathing')"
+                        }
+                    ]
+                },
+                "sunbathing": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "sunbathe"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_sunbathing') || q.property('mythicus_sn:season_variant') != 'summer'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_fox.leaf_play": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.2,
+                    "transitions": [
+                        {
+                            "playing": "q.property('mythicus_sn:is_playing_leaves') && q.property('mythicus_sn:season_variant') == 'fall'"
+                        }
+                    ]
+                },
+                "playing": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "leaf_pounce"
+                    ],
+                    "particle_effects": [
+                        {
+                            "effect": "leaves_play",
+                            "locator": "body"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_playing_leaves') || q.property('mythicus_sn:season_variant') != 'fall'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_fox.dig": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.2,
+                    "transitions": [
+                        {
+                            "digging": "q.property('mythicus_sn:is_digging') && q.property('mythicus_sn:season_variant') == 'winter'"
+                        },
+                        {
+                            "in_den": "q.property('mythicus_sn:is_in_den') && q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "digging": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "dig_down"
+                    ],
+                    "transitions": [
+                        {
+                            "in_den": "q.property('mythicus_sn:is_in_den')"
+                        },
+                        {
+                            "default": "!q.property('mythicus_sn:is_digging')"
+                        }
+                    ]
+                },
+                "in_den": {
+                    "blend_transition": 0.3,
+                    "animations": [
+                        "sleep"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_in_den') || q.property('mythicus_sn:season_variant') != 'winter'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_fox.breath": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "cold_awake": "q.property('mythicus_sn:season_variant') == 'winter' && !query.is_sleeping"
+                        },
+                        {
+                            "cold_asleep": "q.property('mythicus_sn:season_variant') == 'winter' && query.is_sleeping"
+                        }
+                    ]
+                },
+                "cold_awake": {
+                    "animations": [
+                        "cold_breath"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring' || query.is_sleeping"
+                        }
+                    ]
+                },
+                "cold_asleep": {
+                    "animations": [
+                        "cold_breath_asleep"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring' || !query.is_sleeping"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

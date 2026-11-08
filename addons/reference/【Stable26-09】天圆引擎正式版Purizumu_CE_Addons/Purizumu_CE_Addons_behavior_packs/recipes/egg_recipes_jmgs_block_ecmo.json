@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_ecmo_4dbb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:totem_of_undying",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:jg",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:block_pc4",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:item_motor",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:item_start",
+        "data": 0
+      },
+      "G": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "H": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "I": {
+        "item": "jmgs:item_ddr9900",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_ecmo_spawn_egg",
+      "count": 1
+    }
+  }
+}

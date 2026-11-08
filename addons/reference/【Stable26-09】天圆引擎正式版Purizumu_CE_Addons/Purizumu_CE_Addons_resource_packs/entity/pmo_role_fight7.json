@@ -1,0 +1,52 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:role_fight7",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_role_fight7"
+      },
+      "geometry": {
+        "default": "geometry.pmo_role_fight7"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "idle",
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "animations": {
+        "idle": "animation.pmo_role_fight7.idle",
+        "fire": "animation.pmo_role_fight7.fire",
+        "new": "animation.pmo_role_fight7.new",
+        "main": "controller.animation.pmo_role_fight7.main",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "spawn_egg": {
+        "texture": "pmo:role_fight7",
+        "texture_index": 0
+      },
+      "sound_effects": {
+        "fire": "pmo_projectile_a1_shot0",
+        "empty": "all_gun_empty",
+        "mag_out": "klb_mag_out",
+        "boom": "jmgs.build_boom"
+      },
+      "particle_effects": {
+        "large_explosion": "minecraft:large_explosion",
+        "jmgs_gunfiresmoke": "minecraft:egg_destroy_emitter",
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "render_controllers": [
+        "controller.render.skeleton"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

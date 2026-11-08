@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:night_vision_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iRi",
+			"G#G",
+			"iSi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"R": {
+				"item": "minecraft:redstone_lamp"
+			},
+			"G": {
+				"item": "minecraft:glowstone_dust"
+			},
+			"S": {
+				"item": "minecraft:spyglass"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_3"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:night_vision_drone_spawn_egg"
+		}
+	}
+}

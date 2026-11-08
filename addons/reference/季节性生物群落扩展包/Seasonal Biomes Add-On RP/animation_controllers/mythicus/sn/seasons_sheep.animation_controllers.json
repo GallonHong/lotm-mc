@@ -1,0 +1,137 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.seasons_sheep.growth": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "sheared": "query.is_sheared"
+                        },
+                        {
+                            "wool_summer": "q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "wool_fall": "q.property('mythicus_sn:season_variant') == 'fall' || q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "sheared": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "sheared"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_sheared && q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "wool_summer": "!query.is_sheared && q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "wool_fall": "!query.is_sheared && (q.property('mythicus_sn:season_variant') == 'fall' || q.property('mythicus_sn:season_variant') == 'winter')"
+                        }
+                    ]
+                },
+                "wool_summer": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "wool_summer"
+                    ],
+                    "transitions": [
+                        {
+                            "sheared": "query.is_sheared"
+                        },
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "wool_fall": "q.property('mythicus_sn:season_variant') == 'fall' || q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "wool_fall": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "wool_fall"
+                    ],
+                    "transitions": [
+                        {
+                            "sheared": "query.is_sheared"
+                        },
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "wool_summer": "q.property('mythicus_sn:season_variant') == 'summer'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_sheep.shake": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "shaking": "q.property('mythicus_sn:is_shaking')"
+                        }
+                    ]
+                },
+                "shaking": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "shake",
+                        {
+                            "leaf_shake": "q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "snow_shake": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_shaking') && query.any_animation_finished"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_sheep.shiver": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "shivering": "query.is_sheared && q.property('mythicus_sn:season_variant') == 'winter' && !q.property('mythicus_sn:covered_in_snow')"
+                        }
+                    ]
+                },
+                "shivering": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "shiver"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_sheared || q.property('mythicus_sn:season_variant') != 'winter' || q.property('mythicus_sn:covered_in_snow')"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

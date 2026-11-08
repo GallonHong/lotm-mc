@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_hemp_7d4e7f62"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_artleather",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_hemp",
+      "count": 1
+    }
+  }
+}

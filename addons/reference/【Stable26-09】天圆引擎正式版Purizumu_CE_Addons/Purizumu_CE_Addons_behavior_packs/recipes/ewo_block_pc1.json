@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_pc1_1369f506"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDE",
+      "FGH"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_gpu730",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:pc_cold",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_cpu9100f",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:pc_disk1",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:pc_ddr2400",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:pc_mainh110",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:pc_power",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_pc1",
+      "count": 6
+    }
+  }
+}

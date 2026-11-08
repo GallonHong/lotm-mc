@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "jmgs_block_tv",
+    "metalness_emissive_roughness": "jmgs_block_tv_mer",
+    "heightmap": "jmgs_block_tv_heightmap"
+  }
+}

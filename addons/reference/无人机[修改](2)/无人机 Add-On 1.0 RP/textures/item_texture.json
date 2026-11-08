@@ -1,0 +1,77 @@
+{
+	"texture_data": {
+		"makercamp_dr:battery": {
+			"textures": "textures/makercamp/dr/items/battery"
+		},
+		"makercamp_dr:crossbow_drone": {
+			"textures": "textures/makercamp/dr/items/crossbow_drone"
+		},
+		"makercamp_dr:drone_chip_1": {
+			"textures": "textures/makercamp/dr/items/drone_chip_1"
+		},
+		"makercamp_dr:drone_chip_2": {
+			"textures": "textures/makercamp/dr/items/drone_chip_2"
+		},
+		"makercamp_dr:drone_chip_3": {
+			"textures": "textures/makercamp/dr/items/drone_chip_3"
+		},
+		"makercamp_dr:drone_controller": {
+			"textures": "textures/makercamp/dr/items/drone_controller"
+		},
+		"makercamp_dr:fertiliser_drone": {
+			"textures": "textures/makercamp/dr/items/fertiliser_drone"
+		},
+		"makercamp_dr:freeze_drone": {
+			"textures": "textures/makercamp/dr/items/freeze_drone"
+		},
+		"makercamp_dr:guidebook": {
+			"textures": "textures/makercamp/dr/items/guidebook"
+		},
+		"makercamp_dr:healing_drone": {
+			"textures": "textures/makercamp/dr/items/healing_drone"
+		},
+		"makercamp_dr:inventory_drone": {
+			"textures": "textures/makercamp/dr/items/inventory_drone"
+		},
+		"makercamp_dr:item_collector_drone": {
+			"textures": "textures/makercamp/dr/items/item_collector_drone"
+		},
+		"makercamp_dr:laser_drone": {
+			"textures": "textures/makercamp/dr/items/laser_drone"
+		},
+		"makercamp_dr:lightning_strike_drone": {
+			"textures": "textures/makercamp/dr/items/lightning_strike_drone"
+		},
+		"makercamp_dr:mining_drone": {
+			"textures": "textures/makercamp/dr/items/mining_drone"
+		},
+		"makercamp_dr:mob_transporter_drone": {
+			"textures": "textures/makercamp/dr/items/mob_transporter_drone"
+		},
+		"makercamp_dr:night_vision_drone": {
+			"textures": "textures/makercamp/dr/items/night_vision_drone"
+		},
+		"makercamp_dr:ore_finder_drone": {
+			"textures": "textures/makercamp/dr/items/ore_finder_drone"
+		},
+		"makercamp_dr:poison_drone": {
+			"textures": "textures/makercamp/dr/items/poison_drone"
+		},
+		"makercamp_dr:race_drone": {
+			"textures": "textures/makercamp/dr/items/race_drone"
+		},
+		"makercamp_dr:spy_drone": {
+			"textures": "textures/makercamp/dr/items/spy_drone"
+		},
+		"makercamp_dr:summoner_drone": {
+			"textures": "textures/makercamp/dr/items/summoner_drone"
+		},
+		"makercamp_dr:tnt_launcher_drone": {
+			"textures": "textures/makercamp/dr/items/tnt_launcher_drone"
+		},
+		"makercamp_dr:water_drone": {
+			"textures": "textures/makercamp/dr/items/water_drone"
+		}
+	},
+	"texture_name": "atlas.items"
+}

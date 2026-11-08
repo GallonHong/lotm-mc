@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_framework_7b0e4eba"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:blaze_powder",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:bone_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:item_framework",
+      "count": 1
+    }
+  }
+}

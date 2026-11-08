@@ -1,0 +1,23 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:armor_plate",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 16,
+      "minecraft:glint": false,
+      "minecraft:icon": "atg:armor_plate",
+      "minecraft:allow_off_hand": false,
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:transform_materials"
+        ]
+      }
+    }
+  }
+}

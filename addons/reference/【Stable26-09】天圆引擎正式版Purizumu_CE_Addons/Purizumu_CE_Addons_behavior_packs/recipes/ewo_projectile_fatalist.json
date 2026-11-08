@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "projectile_fatalist_341df623"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      " CD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_amorphous",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:diamond",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:projectile_fatalist",
+      "count": 24
+    }
+  }
+}

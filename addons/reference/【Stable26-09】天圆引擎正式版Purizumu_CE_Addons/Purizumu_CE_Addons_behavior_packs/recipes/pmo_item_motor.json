@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_motor_930cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AB",
+      "AB"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:item_motor",
+      "count": 1
+    }
+  }
+}

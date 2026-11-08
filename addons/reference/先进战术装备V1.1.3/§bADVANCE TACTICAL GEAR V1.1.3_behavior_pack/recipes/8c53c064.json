@@ -1,0 +1,25 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "recipes_92bcf36b"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "atg:ocf_gpnvg18_up",
+        "data": 0
+      },
+      {
+        "item": "atg:hook",
+        "data": 0
+      }
+    ],
+    "result": {
+      "item": "atg:ocf_gpnvg18_up1",
+      "count": 1
+    }
+  }
+}

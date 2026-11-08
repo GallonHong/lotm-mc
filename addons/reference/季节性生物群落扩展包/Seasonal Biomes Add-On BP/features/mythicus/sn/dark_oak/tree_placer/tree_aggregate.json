@@ -1,0 +1,19 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/dark_oak/tree_placer/tree_aggregate"
+        },
+
+        "early_out": "first_failure",
+
+        "features": [
+            "mythicus_sn:mythicus/sn/dark_oak/tree_placer/block_0",
+            "mythicus_sn:mythicus/sn/dark_oak/tree_placer/block_1",
+            "mythicus_sn:mythicus/sn/dark_oak/tree_placer/tree_group",
+            "mythicus_sn:mythicus/sn/dark_oak/tree_placer/block_2",
+            "mythicus_sn:mythicus/sn/dark_oak/tree_placer/block_3",
+            "mythicus_sn:mythicus/sn/dark_oak/tree_placer/mushroom_scatter"
+        ]
+    }
+}

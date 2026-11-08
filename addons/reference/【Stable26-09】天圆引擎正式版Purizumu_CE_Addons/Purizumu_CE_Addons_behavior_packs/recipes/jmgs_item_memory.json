@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_memory_932cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EBE",
+      "DAD",
+      "ECE"
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_disk",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_blood",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_ti",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_memory",
+      "count": 1
+    }
+  }
+}

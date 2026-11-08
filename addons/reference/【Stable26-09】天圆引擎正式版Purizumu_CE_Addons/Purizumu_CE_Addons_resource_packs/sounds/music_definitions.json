@@ -1,0 +1,57 @@
+{
+   "creative" : {
+      "event_name" : "music.game.creative",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "credits" : {
+      "event_name" : "music.game.credits",
+      "max_delay" : 100000,
+      "min_delay" : 10000
+   },
+   "crimson_forest" : {
+      "event_name" : "music.game.crimson_forest",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "end" : {
+      "event_name" : "music.game.end",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "endboss" : {
+      "event_name" : "music.game.endboss",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "game" : {
+      "event_name" : "music.game",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "hell" : {
+      "event_name" : "music.game.nether_wastes",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "menu" : {
+      "event_name" : "music.menu",
+      "max_delay" : 30000,
+      "min_delay" : 1000
+   },
+   "nether" : {
+      "event_name" : "music.game.nether",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "soulsand_valley" : {
+      "event_name" : "music.game.soulsand_valley",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   },
+   "water" : {
+      "event_name" : "music.game.water",
+      "max_delay" : 180000,
+      "min_delay" : 60000
+   }
+}

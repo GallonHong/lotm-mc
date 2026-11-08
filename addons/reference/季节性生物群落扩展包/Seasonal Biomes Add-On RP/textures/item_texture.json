@@ -1,0 +1,360 @@
+{
+    "resource_pack_name": "Adidas Dynamic World RP",
+    "texture_name": "atlas.items",
+    "texture_data": {
+        "mythicus_sn:beet": {
+            "textures": "textures/mythicus/sn/items/crops/beet"
+        },
+        "mythicus_sn:beet_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/beet_seed"
+        },
+        "mythicus_sn:strawberry": {
+            "textures": "textures/mythicus/sn/items/crops/strawberry"
+        },
+        "mythicus_sn:blueberry": {
+            "textures": "textures/mythicus/sn/items/crops/blueberry"
+        },
+        "mythicus_sn:cranberry": {
+            "textures": "textures/mythicus/sn/items/crops/cranberry"
+        },
+        "mythicus_sn:broccoli": {
+            "textures": "textures/mythicus/sn/items/crops/broccoli"
+        },
+        "mythicus_sn:broccoli_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/broccoli_seed"
+        },
+        "mythicus_sn:cauliflower": {
+            "textures": "textures/mythicus/sn/items/crops/cauliflower"
+        },
+        "mythicus_sn:cauliflower_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/cauliflower_seed"
+        },
+        "mythicus_sn:corn": {
+            "textures": "textures/mythicus/sn/items/crops/corn"
+        },
+        "mythicus_sn:corn_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/corn_seed"
+        },
+        "mythicus_sn:eggplant": {
+            "textures": "textures/mythicus/sn/items/crops/eggplant"
+        },
+        "mythicus_sn:eggplant_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/eggplant_seed"
+        },
+        "mythicus_sn:garlic": {
+            "textures": "textures/mythicus/sn/items/crops/garlic"
+        },
+        "mythicus_sn:garlic_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/garlic_seed"
+        },
+        "mythicus_sn:green_bean": {
+            "textures": "textures/mythicus/sn/items/crops/green_bean"
+        },
+        "mythicus_sn:green_bean_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/green_bean_seed"
+        },
+        "mythicus_sn:hot_pepper": {
+            "textures": "textures/mythicus/sn/items/crops/hot_pepper"
+        },
+        "mythicus_sn:hot_pepper_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/hot_pepper_seed"
+        },
+        "mythicus_sn:tomatoes": {
+            "textures": "textures/mythicus/sn/items/crops/tomatoes"
+        },
+        "mythicus_sn:tomatoes_seed": {
+            "textures": "textures/mythicus/sn/items/seeds/tomatoes_seed"
+        },
+        "mythicus_sn:fertilizer": {
+            "textures": "textures/mythicus/sn/items/fertilizers/fertilizer"
+        },
+        "mythicus_sn:golden_fertilizer": {
+            "textures": "textures/mythicus/sn/items/fertilizers/golden_fertilizer"
+        },
+        "mythicus_sn:manure": {
+            "textures": "textures/mythicus/sn/items/fertilizers/manure"
+        },
+        "mythicus_sn:bottle_of_milk": {
+            "textures": "textures/mythicus/sn/items/bottle_of_milk"
+        },
+        "mythicus_sn:egg": {
+            "textures": "textures/mythicus/sn/items/egg"
+        },
+        "mythicus_sn:feather": {
+            "textures": "textures/mythicus/sn/items/feather"
+        },
+        "mythicus_sn:thick_pelt": {
+            "textures": "textures/mythicus/sn/items/thick_pelt"
+        },
+        "mythicus_sn:strawberry_jam": {
+            "textures": "textures/mythicus/sn/items/jam/strawberry_jam"
+        },
+        "mythicus_sn:cranberry_jam": {
+            "textures": "textures/mythicus/sn/items/jam/cranberry_jam"
+        },
+        "mythicus_sn:blueberry_jam": {
+            "textures": "textures/mythicus/sn/items/jam/blueberry_jam"
+        },
+        "mythicus_sn:fabric": {
+            "textures": "textures/mythicus/sn/items/fabric/fabric"
+        },
+        "mythicus_sn:cloth": {
+            "textures": "textures/mythicus/sn/items/fabric/cloth"
+        },
+        "mythicus_sn:quality_wool": {
+            "textures": "textures/mythicus/sn/items/quality_wool"
+        },
+        "mythicus_sn:quality_honey": {
+            "textures": "textures/mythicus/sn/items/quality_honey"
+        },
+        "mythicus_sn:carpet": {
+            "textures": "textures/mythicus/sn/items/fabric/carpet"
+        },
+        "mythicus_sn:eggplant_paste": {
+            "textures": "textures/mythicus/sn/items/paste/eggplant_paste"
+        },
+        "mythicus_sn:broccoli_paste": {
+            "textures": "textures/mythicus/sn/items/paste/broccoli_paste"
+        },
+        "mythicus_sn:green_beans_paste": {
+            "textures": "textures/mythicus/sn/items/paste/green_beans_paste"
+        },
+        "mythicus_sn:hot_pepper_paste": {
+            "textures": "textures/mythicus/sn/items/paste/hot_pepper_paste"
+        },
+        "mythicus_sn:pickled_eggplant": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_eggplant"
+        },
+        "mythicus_sn:pickled_corn": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_corn"
+        },
+        "mythicus_sn:pickled_cauliflower": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_cauliflower"
+        },
+        "mythicus_sn:pickled_broccoli": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_broccoli"
+        },
+        "mythicus_sn:pickled_beet": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_beet"
+        },
+        "mythicus_sn:pickled_green_beans": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_green_beans"
+        },
+        "mythicus_sn:pickled_garlic": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_garlic"
+        },
+        "mythicus_sn:pickled_hot_peppers": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_hot_peppers"
+        },
+        "mythicus_sn:pickled_tomato": {
+            "textures": "textures/mythicus/sn/items/pickled/pickled_tomato"
+        },
+        "mythicus_sn:dried_strawberry": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_strawberry"
+        },
+        "mythicus_sn:dried_blueberry": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_blueberry"
+        },
+        "mythicus_sn:dried_cranberry": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_cranberry"
+        },
+        "mythicus_sn:dried_beet": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_beet"
+        },
+        "mythicus_sn:dried_corn": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_corn"
+        },
+        "mythicus_sn:dried_cauliflower": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_cauliflower"
+        },
+        "mythicus_sn:dried_broccoli": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_broccoli"
+        },
+        "mythicus_sn:dried_eggplant": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_eggplant"
+        },
+        "mythicus_sn:dried_green_beans": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_green_beans"
+        },
+        "mythicus_sn:dried_garlic": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_garlic"
+        },
+        "mythicus_sn:dried_hot_peppers": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_hot_peppers"
+        },
+        "mythicus_sn:dried_tomato": {
+            "textures": "textures/mythicus/sn/items/dried_crops/dried_tomato"
+        },
+        "mythicus_sn:strawberry_juice": {
+            "textures": "textures/mythicus/sn/items/juice/strawberry_juice"
+        },
+        "mythicus_sn:blueberry_juice": {
+            "textures": "textures/mythicus/sn/items/juice/blueberry_juice"
+        },
+        "mythicus_sn:cranberry_juice": {
+            "textures": "textures/mythicus/sn/items/juice/cranberry_juice"
+        },
+        "mythicus_sn:beet_juice": {
+            "textures": "textures/mythicus/sn/items/juice/beet_juice"
+        },
+        "mythicus_sn:tomato_juice": {
+            "textures": "textures/mythicus/sn/items/juice/tomato_juice"
+        },
+        "mythicus_sn:garlic_powder": {
+            "textures": "textures/mythicus/sn/items/powder/garlic_powder"
+        },
+        "mythicus_sn:cheese": {
+            "textures": "textures/mythicus/sn/items/dairy/cheese"
+        },
+        "mythicus_sn:mayonnaise": {
+            "textures": "textures/mythicus/sn/items/dairy/mayonnaise"
+        },
+        "mythicus_sn:cauliflower_flour": {
+            "textures": "textures/mythicus/sn/items/flour/cauliflower_flour"
+        },
+        "mythicus_sn:corn_flour": {
+            "textures": "textures/mythicus/sn/items/flour/corn_flour"
+        },
+        "mythicus_sn:preserves_jar": {
+            "textures": "textures/mythicus/sn/blocks/utility/preserves_jar/preserves_jar_empty"
+        },
+        "mythicus_sn:sapling_oak": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_oak"
+        },
+        "mythicus_sn:sapling_spruce": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_spruce"
+        },
+        "mythicus_sn:sapling_birch": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_birch"
+        },
+        "mythicus_sn:sapling_cherry": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_cherry"
+        },
+        "mythicus_sn:sapling_dark_oak": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_dark_oak"
+        },
+        "mythicus_sn:truffle": {
+            "textures": "textures/mythicus/sn/items/truffle"
+        },
+        "mythicus_sn:rose": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_top/rose_0"
+        },
+        "mythicus_sn:peony": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_top/peony_0"
+        },
+        "mythicus_sn:lilac": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_top/lilac_0"
+        },
+        "mythicus_sn:large_fern": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_top/large_fern_top_0"
+        },
+        "mythicus_sn:tall_grass": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_top/1"
+        },
+        "mythicus_sn:normal_fall_boots": {
+            "textures": "textures/mythicus/sn/items/armor/fall/boots"
+        },
+        "mythicus_sn:normal_fall_chestplate": {
+            "textures": "textures/mythicus/sn/items/armor/fall/chestplate"
+        },
+        "mythicus_sn:normal_fall_leggings": {
+            "textures": "textures/mythicus/sn/items/armor/fall/leggings"
+        },
+        "mythicus_sn:normal_fall_helmet": {
+            "textures": "textures/mythicus/sn/items/armor/fall/helmet"
+        },
+        "mythicus_sn:normal_spring_boots": {
+            "textures": "textures/mythicus/sn/items/armor/spring/boots"
+        },
+        "mythicus_sn:normal_spring_chestplate": {
+            "textures": "textures/mythicus/sn/items/armor/spring/chestplate"
+        },
+        "mythicus_sn:normal_spring_leggings": {
+            "textures": "textures/mythicus/sn/items/armor/spring/leggings"
+        },
+        "mythicus_sn:normal_spring_helmet": {
+            "textures": "textures/mythicus/sn/items/armor/spring/helmet"
+        },
+        "mythicus_sn:normal_summer_boots": {
+            "textures": "textures/mythicus/sn/items/armor/summer/boots"
+        },
+        "mythicus_sn:normal_summer_chestplate": {
+            "textures": "textures/mythicus/sn/items/armor/summer/chestplate"
+        },
+        "mythicus_sn:normal_summer_leggings": {
+            "textures": "textures/mythicus/sn/items/armor/summer/leggings"
+        },
+        "mythicus_sn:normal_summer_helmet": {
+            "textures": "textures/mythicus/sn/items/armor/summer/helmet"
+        },
+        "mythicus_sn:normal_winter_boots": {
+            "textures": "textures/mythicus/sn/items/armor/winter/boots"
+        },
+        "mythicus_sn:normal_winter_chestplate": {
+            "textures": "textures/mythicus/sn/items/armor/winter/chestplate"
+        },
+        "mythicus_sn:normal_winter_leggings": {
+            "textures": "textures/mythicus/sn/items/armor/winter/leggings"
+        },
+        "mythicus_sn:normal_winter_helmet": {
+            "textures": "textures/mythicus/sn/items/armor/winter/helmet"
+        },
+        "mythicus_sn:skill_point": {
+            "textures": "textures/mythicus/sn/items/skill_points/skill_point"
+        },
+        "mythicus_sn:advance_skill_point": {
+            "textures": "textures/mythicus/sn/items/skill_points/advance_skill_point"
+        },
+        "mythicus_sn:master_skill_point": {
+            "textures": "textures/mythicus/sn/items/skill_points/master_skill_point"
+        },
+        "mythicus_sn:thermometer": {
+            "textures": "textures/mythicus/sn/items/thermometer/thermometer"
+        },
+        "mythicus_sn:season_calendar": {
+            "textures": "textures/mythicus/sn/items/calendar"
+        },
+        "mythicus_sn:season_guidebook": {
+            "textures": "textures/mythicus/sn/items/guidebook"
+        },
+        "mythicus_sn:polished_emerald": {
+            "textures": "textures/mythicus/sn/items/polished_emerald"
+        },
+        "mythicus_sn:season_clock": {
+            "textures": "textures/mythicus/sn/items/season_clock"
+        },
+        "mythicus_sn:spawn_egg_bee": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/bee"
+        },
+        "mythicus_sn:spawn_egg_bee_queen": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/bee_queen"
+        },
+        "mythicus_sn:spawn_egg_chicken": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/chicken"
+        },
+        "mythicus_sn:spawn_egg_cow": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/cow"
+        },
+        "mythicus_sn:spawn_egg_fox": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/fox"
+        },
+        "mythicus_sn:spawn_egg_pig": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/pig"
+        },
+        "mythicus_sn:spawn_egg_rabbit": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/rabbit"
+        },
+        "mythicus_sn:spawn_egg_sheep": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/sheep"
+        },
+        "mythicus_sn:spawn_egg_skill_trader": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/skill_trader"
+        },
+        "mythicus_sn:spawn_egg_villager": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/villager"
+        },
+        "mythicus_sn:spawn_egg_botanist": {
+            "textures": "textures/mythicus/sn/items/spawn_eggs/botanist"
+        }
+    }
+}

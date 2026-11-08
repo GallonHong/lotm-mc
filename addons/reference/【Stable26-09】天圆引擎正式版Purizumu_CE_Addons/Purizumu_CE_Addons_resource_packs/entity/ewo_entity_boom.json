@@ -1,0 +1,39 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:entity_boom",
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_entity_boom"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.ewo_entity_boom"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "ewo:entity_boom",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.moto.walk",
+        "idle": "animation.moto.idle"
+      },
+      "scripts": {
+        "animate": [
+          "root",
+          {
+            "walk": "query.is_moving"
+          },
+          {
+            "idle": "!query.is_moving"
+          }
+        ]
+      }
+    }
+  }
+}

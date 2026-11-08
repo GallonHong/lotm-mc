@@ -1,0 +1,22 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_sheep.base": {
+            "arrays": {
+                "textures": {
+                    "Array.season": [
+                        "Texture.default",
+                        "Texture.default",
+                        "Texture.default",
+                        "Texture.default"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": [
+                "q.property('mythicus_sn:season_variant') == 'spring' ? Texture.default : (q.property('mythicus_sn:season_variant') == 'summer' ? Texture.default : (q.property('mythicus_sn:season_variant') == 'fall' ? Texture.default : Texture.default))"
+            ]
+        }
+    }
+}

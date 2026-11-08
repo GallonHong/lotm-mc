@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ceramics_bulletproof_860d8eb7"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:ceramics_rigid",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:carapace",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:ceramics_bulletproof",
+      "count": 1
+    }
+  }
+}

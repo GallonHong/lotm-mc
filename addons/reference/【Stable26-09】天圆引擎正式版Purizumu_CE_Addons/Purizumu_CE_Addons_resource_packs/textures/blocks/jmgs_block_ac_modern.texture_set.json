@@ -1,0 +1,7 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "jmgs_block_ac_modern",
+    "metalness_emissive_roughness": "jmgs_block_ac_modern_mer"
+  }
+}

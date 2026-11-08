@@ -1,0 +1,35 @@
+{
+	"materials": {
+		"version": "1.0.0",
+		"makercamp_dr_customblend:entity_alphablend": {
+			"+states": [
+				"Blending",
+				"DisableCulling",
+				"DisableDepthWrite",
+				"DisableAlphaWrite"
+			]
+		},
+		"makercamp_dr_crosshair:entity_alphablend": {
+			"+states": [
+				"Blending",
+				"DisableCulling",
+				"DisableDepthWrite",
+				"DisableDepthTest"
+			],
+			"+defines": [
+				"ALPHA_TEST"
+			]
+		},
+		"makercamp_dr_night_vision_effect:entity_alphablend": {
+			"+defines": ["USE_EMISSIVE"],
+			"+states": [
+				"Blending",
+				"DisableCulling",
+				"DisableDepthWrite",
+				"DisableDepthTest"
+			],
+			"blendSrc": "One",
+			"blendDst": "One"
+		}
+	}
+}

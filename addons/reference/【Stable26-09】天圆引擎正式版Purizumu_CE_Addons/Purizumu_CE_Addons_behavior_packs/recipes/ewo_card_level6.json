@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "card_level6_3a80ad09"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " B ",
+      "CED",
+      " A "
+    ],
+    "key": {
+      "AB": {
+        "item": "minecraft:netherite_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_junction_box_pro",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:item_book_pro",
+        "data": 0
+      },
+      "E": {
+        "item": "jmgs:item_coin",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:card_level6",
+      "count": 1
+    }
+  }
+}

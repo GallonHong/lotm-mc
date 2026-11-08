@@ -1,0 +1,1775 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:sweetberry",
+            "states": {
+                "mythicus_sn:season_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ],
+                "mythicus_sn:grow_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_0",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            8,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            8,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            16,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            16,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            16,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            16,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_8",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            16,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_9",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            16,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_10",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            15,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_11",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            15,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_12",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -6,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            12,
+                            16,
+                            12
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_13",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -6,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            12,
+                            16,
+                            12
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_14",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -6,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            12,
+                            16,
+                            12
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.sweetberry_15",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -6,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            12,
+                            16,
+                            12
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_0",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            16,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_8",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_9",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_10",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_11",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_12",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            16,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_13",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            16,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_14",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            16,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.sweetberry_15",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            15,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_0",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            6
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            6
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_8",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_9",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_10",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_11",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_12",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_13",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_14",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.sweetberry_15",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_0",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 0 && q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3.5,
+                            0,
+                            -3.5
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.5,
+                            0,
+                            -4.5
+                        ],
+                        "size": [
+                            9,
+                            15,
+                            9
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 1 && q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            15,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_8",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            15,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_9",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            15,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_10",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            15,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 2 && q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_11",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            10,
+                            15,
+                            10
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage2.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_12",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            15,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_13",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            15,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_14",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            15,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:grow_stage') == 3 && q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.sweetberry_15",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.5,
+                            0,
+                            -5.5
+                        ],
+                        "size": [
+                            11,
+                            15,
+                            11
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage3.json"
+                }
+            }
+        ],
+        "components": {
+            "tag:mythicus_sn:environment": {},
+            "tag:mythicus_sn:non_solid": {},
+            "tag:mythicus_sn:non_blocking": {},
+            "mythicus_sn:season_change": {
+                "has_season_state": true
+            },
+            "minecraft:tick": {
+                "interval_range": [
+                    100,
+                    400
+                ],
+                "looping": true
+            },
+            "tag:mythicus_sn:seasonal_block": {},
+            "mythicus_sn:sweetberry_growable": {},
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sweetberry/stage_none.json",
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "up"
+                        ],
+                        "block_filter": [
+                            {
+                                "tags": "q.any_tag('dirt', 'grass')"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:spring.sweetberry_0",
+                    "render_method": "alpha_test",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:geometry": "geometry.mythicus_sn.custom_plant",
+            "minecraft:liquid_detection": {
+                "detection_rules": [
+                    {
+                        "on_liquid_touches": "popped"
+                    }
+                ]
+            },
+            "minecraft:collision_box": false,
+            "minecraft:selection_box": {
+                "origin": [
+                    -5.657,
+                    0,
+                    -5.657
+                ],
+                "size": [
+                    11.314,
+                    16,
+                    11.314
+                ]
+            },
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        }
+    }
+}

@@ -1,0 +1,83 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:seasons_chicken",
+            "min_engine_version": "1.8.0",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "warm": "textures/mythicus/sn/entity/mobs/chickens/chicken_temperate_clean",
+                "cold": "textures/mythicus/sn/entity/mobs/chickens/chicken_cold",
+                "warm.spring": "textures/mythicus/sn/entity/mobs/chickens/chicken_temperate_spring",
+                "cold.spring": "textures/mythicus/sn/entity/mobs/chickens/chicken_cold_spring",
+                "warm.fall": "textures/mythicus/sn/entity/mobs/chickens/chicken_temperate_fall",
+                "cold.fall": "textures/mythicus/sn/entity/mobs/chickens/chicken_cold_fall",
+                "warm.winter": "textures/mythicus/sn/entity/mobs/chickens/chicken_temperate_winter",
+                "cold.winter": "textures/mythicus/sn/entity/mobs/chickens/chicken_cold_winter"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.seasons_chicken"
+            },
+            "animations": {
+                "general": "animation.mythicus_sn.seasons_chicken.general",
+                "move": "animation.mythicus_sn.seasons_chicken.move",
+                "look_at_target": "animation.common.look_at_target",
+                "baby_transform": "animation.chicken.baby_transform",
+                "shake": "animation.mythicus_sn.seasons_chicken.bath",
+                "peck": "animation.mythicus_sn.seasons_chicken.peck",
+                "scratch": "animation.mythicus_sn.seasons_chicken.scratch",
+                "roost": "animation.mythicus_sn.seasons_chicken.roost",
+                "plump_spring": "animation.mythicus_sn.seasons_chicken.plump_spring",
+                "egg": "animation.mythicus_sn.seasons_chicken.egg",
+                "shake.controller": "controller.animation.mythicus_sn.seasons_chicken.shake",
+                "egg.controller": "controller.animation.mythicus_sn.seasons_chicken.egg",
+                "peck.controller": "controller.animation.mythicus_sn.seasons_chicken.peck",
+                "scratch.controller": "controller.animation.mythicus_sn.seasons_chicken.scratch_idle",
+                "roost.controller": "controller.animation.mythicus_sn.seasons_chicken.roost",
+                "wing_flap": "animation.mythicus_sn.seasons_chicken.wing_flap"
+            },
+            "scripts": {
+                "initialize": [
+                    "v.wing_flap = 0;"
+                ],
+                "animate": [
+                    "general",
+                    {
+                        "move": "query.modified_move_speed"
+                    },
+                    "look_at_target",
+                    { "baby_transform": "query.is_baby" },
+                    "shake.controller",
+                    "egg.controller",
+                    "peck.controller",
+                    "scratch.controller",
+                    "roost.controller",
+                    {
+                        "wing_flap": "!query.is_on_ground"
+                    }
+                ],
+                "pre_animation": [
+                    "t.variant = query.property('mythicus_sn:climate_variant');",
+                    "v.index = (t.variant == 'cold') ? 1 : 0;"
+                ]
+            },
+            "render_controllers": [
+                "controller.render.mythicus_sn.seasons_chicken.climate",
+                {
+                    "controller.render.mythicus_sn.seasons_chicken.spring": "q.property('mythicus_sn:season_variant') == 'spring'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_chicken.fall": "q.property('mythicus_sn:covered_in_leaves')"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_chicken.winter": "q.property('mythicus_sn:covered_in_snow')"
+                }
+            ],
+            "spawn_egg": {
+                "texture": "mythicus_sn:spawn_egg_chicken"
+            }
+        }
+    }
+}

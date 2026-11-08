@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_level_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "D  ",
+      "BAB",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:netherite_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_pearl",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:wimman",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_level",
+      "count": 1
+    }
+  }
+}

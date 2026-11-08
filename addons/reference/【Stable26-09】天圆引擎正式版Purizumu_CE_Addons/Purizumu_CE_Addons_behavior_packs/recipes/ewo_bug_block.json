@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "bug_block_0a86e01f"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:barrier",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:bug_block",
+      "count": 1
+    }
+  }
+}

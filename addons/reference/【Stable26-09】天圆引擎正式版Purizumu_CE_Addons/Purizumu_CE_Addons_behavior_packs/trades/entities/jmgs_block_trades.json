@@ -1,0 +1,1542 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:crafting_table",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:oak_planks",
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_shelf",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_chest",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_art_beast",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_art_amusing",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_soulban_steve",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_soulban_alex",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_clock_desktop",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_lese",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_lese_lite",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_shelf",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_grid",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_cattree",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_doghouse",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_grill",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_computer",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_work",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_ex_test_tube",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_ex_microscope",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_edu_table",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_edu_table1",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_edu_chair",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:block_globe",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_chair_lite",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_lite",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:entity_chair_pro_spawn_egg",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 6
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_chair_game",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 17,
+                "max": 21
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_chair_office",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 4,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_chair_leader",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 14,
+                "max": 17
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_game",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 20,
+                "max": 28
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_light",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 4,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_light_pro",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 5,
+                "max": 7
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_wood_key",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 3,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_tea",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 5
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_table_mahjong",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 32,
+                "max": 39
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_sofa",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 7
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_sofa_lite",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:block_file1",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:block_file",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 5,
+                "max": 7
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_water",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 13
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_toolbox",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_fish_box",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 5,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_fan",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 37,
+                "max": 46
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_fun_overhead",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 9,
+                "max": 13
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_fun_ground",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 85,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 9,
+                "max": 13
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_sausage",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 10,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_coffee",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 7,
+                "max": 9
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_stove",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 50,
+                "max": 61
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_fireplace_iron",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 9,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_icebox",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 7,
+                "max": 9
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_washer",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 7,
+                "max": 9
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_washer_pro",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_winder",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 7,
+                "max": 9
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ac_main_plus",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 36,
+                "max": 44
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ac_main",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 37,
+                "max": 46
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ac_pro",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 11,
+                "max": 15
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ac_plus",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 50,
+                "max": 61
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ac_lite",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 47,
+                "max": 58
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ac_old",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 23,
+                "max": 28
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_defire",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_defire_box",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 11,
+                "max": 13
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_defire_box_lite",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_sign_exit",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_fire_warning_botton",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_chest_iron",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 2
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_sewing_mach",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 5,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_pura",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_pura_mecha",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 3,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_power",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 9,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_power_mobile",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 16,
+                "max": 21
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_scope_pro",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_chess",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 50,
+                "max": 61
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_cola",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 39,
+                "max": 48
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_microwave",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 10,
+                "max": 13
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_steamer",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 24,
+                "max": 29
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_water_heater_pro",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 23,
+                "max": 28
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_shower_head_pro",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 3,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_toilet",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

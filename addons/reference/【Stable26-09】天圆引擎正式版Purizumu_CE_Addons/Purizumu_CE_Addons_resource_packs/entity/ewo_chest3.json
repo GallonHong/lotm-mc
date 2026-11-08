@@ -1,0 +1,40 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:chest3",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_chest3"
+      },
+      "geometry": {
+        "default": "geometry.ewo_chest3"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "ewo:chest3",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.jmgs_block_chest.idle",
+        "open": "animation.jmgs_block_chest.open"
+      },
+      "sound_effects": {
+        "chest_open": "random.enderchestopen"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:egg_destroy_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {"open": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

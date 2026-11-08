@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_weathering_f8e5a963"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DAB",
+      "CFC",
+      "CFC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_blood",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:brick",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_weathering",
+      "count": 1
+    }
+  }
+}

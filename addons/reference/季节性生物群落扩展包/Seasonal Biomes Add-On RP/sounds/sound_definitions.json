@@ -1,0 +1,1231 @@
+{
+    "format_version": "1.21.100",
+    "sound_definitions": {
+        "sound.mythicus.skillpointadd": {
+            "__use_legacy_max_distance": true,
+            "category": "player",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/random/orb"
+                }
+            ]
+        },
+        "sound.mythicus.skillfail": {
+            "category": "ui",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/block/permissions/shimmer/shimmerblock"
+                }
+            ]
+        },
+        "sound.mythicus_sn.chancexp": {
+            "__use_legacy_max_distance": true,
+            "category": "player",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/random/levelup"
+                }
+            ]
+        },
+        "sounds.mythicus.vendor.sale": {
+            "__use_legacy_max_distance": true,
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/random/orb"
+                }
+            ]
+        },
+        "season.mythicus_sn.preserve_jar.fill": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/preserves_jar_fill1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/preserves_jar_fill2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.preserve_jar.empty": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/preserves_jar_empty1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/preserves_jar_empty2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.preserve_jar.deny": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/preserve_jar_deny1",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.dehydrator.fill": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/dehydrator_fill1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/dehydrator_fill2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.dehydrator.empty": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/dehydrator_empty1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/dehydrator_empty2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.dehydrator.deny": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/dehydrator_deny1",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.keg.fill": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/keg_fill1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/keg_fill2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.keg.empty": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/keg_empty1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/keg_empty2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.keg.deny": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/keg_deny1",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.mp.fill": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mp_fill1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mp_fill2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.mp.empty": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mp_empty1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mp_empty2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.mp.deny": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mp_deny1",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.loom.fill": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/loom_fill1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/loom_fill2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.loom.empty": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/loom_empty1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/loom_empty2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.loom.deny": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/loom_deny1",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.cheese_press.fill": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/cheese_press_fill1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/cheese_press_fill2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.cheese_press.empty": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/cheese_press_empty1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/cheese_press_empty2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.cheese_press.deny": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/cheese_press_deny1",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.mayo_machine.fill": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mayo_machine_fill1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mayo_machine_fill2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.mayo_machine.empty": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mayo_machine_empty1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mayo_machine_empty2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.mayo_machine.deny": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/mayo_machine_deny1",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.vendor_block.spawn": {
+            "category": "block",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/artisan_blocks/vendor_block_spawn",
+                    "volume": 1
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_oak_forest.winter": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/winter_layer1",
+                    "volume": 1.0,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_birch_forest.winter": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/winter_layer1",
+                    "volume": 1.0,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_taiga_forest.winter": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/winter_layer1",
+                    "volume": 1.0,
+                    "is3D": false
+                }
+            ]
+        },
+        "season.mythicus_sn.winter.branch_snap.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/branch_snap1",
+                    "volume": 0.9
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/branch_snap2",
+                    "volume": 0.9
+                }
+            ]
+        },
+        "season.mythicus_sn.winter.ice_crunches.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches1",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches2",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches3",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches4",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches5",
+                    "volume": 0.8
+                }
+            ]
+        },
+        "season.mythicus_sn.winter.ice_crunches2.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches6",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches7",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches8",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches9",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_crunches10",
+                    "volume": 0.8
+                }
+            ]
+        },
+        "season.mythicus_sn.winter.ice_squeaks.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_squeaks1",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_squeaks2",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_squeaks3",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_squeaks4",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_squeaks5",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/ice_squeaks6",
+                    "volume": 0.8
+                }
+            ]
+        },
+        "season.mythicus_sn.winter.snow_falling.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/snow_falling1",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/snow_falling2",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/snow_falling3",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/snow_falling4",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/snow_falling5",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/snow_falling6",
+                    "volume": 0.8
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/snow_falling7",
+                    "volume": 0.8
+                }
+            ]
+        },
+        "season.mythicus_sn.winter.wind_bluster.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/wind_bluster1",
+                    "volume": 1.0
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/wind_bluster2",
+                    "volume": 1.0
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/wind_bluster3",
+                    "volume": 1.0
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/wind_bluster4",
+                    "volume": 1.0
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/winter/wind_bluster5",
+                    "volume": 1.0
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_oak_forest.spring": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/spring_layer1",
+                    "volume": 1,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_birch_forest.spring": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/spring_layer1",
+                    "volume": 1,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_taiga_forest.spring": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/spring_layer1",
+                    "volume": 1,
+                    "is3D": false
+                }
+            ]
+        },
+        "season.mythicus_sn.spring.bird_chirps.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/bird_chirps1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/bird_chirps2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/bird_chirps3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/bird_chirps4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/bird_chirps5",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.spring.cricket.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/cricket1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/cricket2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/cricket3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/cricket4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/cricket5",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.spring.grasshopper.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/grasshopper1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/grasshopper2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/grasshopper3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.spring.leaves.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/leaves1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/leaves2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.spring.nightingale.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/nightingale1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/nightingale2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/nightingale3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/nightingale4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/nightingale5",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/nightingale6",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.spring.sparrow.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/sparrow1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/sparrow2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.spring.wind_gusts.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/wind_gusts1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/wind_gusts2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/wind_gusts3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/wind_gusts4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/spring/wind_gusts5",
+                    "volume": 1
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_oak_forest.summer": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_layer1",
+                    "volume": 1.0,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_birch_forest.summer": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_layer1",
+                    "volume": 1.0,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_taiga_forest.summer": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_layer1",
+                    "volume": 1.0,
+                    "is3D": false
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.cicada_clicky.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_clicky1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_clicky2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_clicky3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.cicada_long.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_long1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_long2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_long3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.cicada_short.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_short1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_short2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cicada_short3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.cricket_busy.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cricket_busy1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/cricket_busy2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.crickets.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/crickets1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/crickets2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/crickets3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/crickets4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/crickets5",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.grasshopper_clicks.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/grasshopper_clicks1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/grasshopper_clicks2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/grasshopper_clicks3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.grasshopper_wings.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/grasshopper_wings1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/grasshopper_wings2",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.summer_birds1.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds1_1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds1_2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds1_3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds1_4",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.summer.summer_birds2.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds2_1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds2_2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds2_3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds2_4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/summer/summer_birds2_5",
+                    "volume": 1
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_oak_forest.fall": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/fall_layer1",
+                    "volume": 1.2,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_birch_forest.fall": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/fall_layer1",
+                    "volume": 1.2,
+                    "is3D": false
+                }
+            ]
+        },
+        "mythicus_sn.layer1.mythicus_sn:seasonal_taiga_forest.fall": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/fall_layer1",
+                    "volume": 1.2,
+                    "is3D": false
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.bird_songs.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/bird_songs1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/bird_songs2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/bird_songs3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/bird_songs4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/bird_songs5",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/bird_songs6",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.coal_bird.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/coal_bird1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/coal_bird2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/coal_bird3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.crow.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/crow1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/crow2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/crow3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.leaf_rustle.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_rustle1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_rustle2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_rustle3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_rustle4",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_rustle5",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.leaf_wind.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_wind1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_wind2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_wind3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/leaf_wind4",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.squirrel.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/squirrel1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/squirrel2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/squirrel3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.woodpecker_call.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_call1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_call2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_call3",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_call4",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.woodpecker_knock.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_knock1",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_knock2",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_knock3",
+                    "volume": 1
+                }
+            ]
+        },
+        "season.mythicus_sn.fall.woodpecker_knock2.l2": {
+            "category": "ambient",
+            "sounds": [
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_knock21",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_knock22",
+                    "volume": 1
+                },
+                {
+                    "load_on_low_memory": true,
+                    "name": "sounds/mythicus/sn/ambience/fall/woodpecker_knock23",
+                    "volume": 1
+                }
+            ]
+        }
+    }
+}

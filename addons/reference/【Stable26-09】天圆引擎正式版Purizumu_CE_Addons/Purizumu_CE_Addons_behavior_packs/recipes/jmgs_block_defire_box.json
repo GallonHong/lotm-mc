@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_defire_box_932cd004"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EDE",
+      "BDB",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:copper_block",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:glass",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_defire_box",
+      "count": 1
+    }
+  }
+}

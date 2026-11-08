@@ -1,0 +1,786 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:blueprint_n:0",
+              "quantity": {
+                "min": 3,
+                "max": 15
+              }
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:blueprint_r:0",
+              "quantity": {
+                "min": 1,
+                "max": 5
+              }
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:blueprint_sr:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:blueprint_ssr:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 8,
+                "max": 20
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:blueprint_ur:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 4,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:blueprint_apex:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 7,
+                "max": 13
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:card_level0:0",
+              "quantity": {
+                "min": 5,
+                "max": 15
+              }
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_level1:0",
+              "quantity": {
+                "min": 1,
+                "max": 4
+              }
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_level2:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 2,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_level3:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 4,
+                "max": 20
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_level4:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 2,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_level5:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 5,
+                "max": 13
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_level6:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 10,
+                "max": 30
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:card_vinyl:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 3,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_magnetic:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 3
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_gold:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 30,
+                "max": 64
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:card_sd:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 1,
+                "max": 25
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_microphone:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_bp:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "ewo:flour:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:rulleplse:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:sage:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:rosemary:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:thyme:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 18,
+                "max": 22
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coffee:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_phone:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 6,
+                "max": 9
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_family_photo:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_book:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_book_pro:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 256,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 4,
+                "max": 6
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_phone_xt:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": {
+                "min": 28,
+                "max": 33
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:arms_switch:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 17,
+                "max": 21
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:card_car:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 8,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:mp3:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:scout_plane:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 6
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_brass:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 25,
+                "max": 31
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_brass_lite:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 46,
+                "max": 56
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_brass_max:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 3,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_brass_plus:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 36,
+                "max": 44
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

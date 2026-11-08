@@ -1,0 +1,53 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:oak_ghillie",
+      "menu_category": {
+        "category": "equipment",
+        "group": "pa:itemGroup.name.ghillie"
+      }
+    },
+    "components": {
+      "minecraft:icon": "atg_oak_ghillie",
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:enchantable": {
+        "value": 10,
+        "slot": "armor_legs"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.legs",
+        "protection": 1
+      },
+      "minecraft:durability": {
+        "max_durability": 500,
+        "damage_chance": {
+          "min": 60,
+          "max": 100
+        }
+      },
+      "minecraft:mining_speed": 5,
+      "minecraft:glint": false,
+      "minecraft:hand_equipped": false,
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:oak_leaves",
+              "atg:oak_ghillie"
+            ],
+            "repair_amount": 10
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "minecraft:transformable_items",
+          "minecraft:trimmable_armors"
+        ]
+      }
+    }
+  }
+}

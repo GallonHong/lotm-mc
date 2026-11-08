@@ -1,0 +1,7 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:texture_set": {
+        "color": "mayo_dripping",
+        "metalness_emissive_roughness": "mayo_dripping_mers"
+    }
+}

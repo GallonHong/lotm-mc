@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_man_si_7b5d6c41"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDC",
+      "EBE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:stone",
+        "data": 5
+      },
+      "B": {
+        "item": "ewo:animal_claw",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:stone",
+        "data": 3
+      },
+      "D": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:stone",
+        "data": 1
+      }
+    },
+    "result": {
+      "item": "ewo:metal_man_si",
+      "count": 1
+    }
+  }
+}

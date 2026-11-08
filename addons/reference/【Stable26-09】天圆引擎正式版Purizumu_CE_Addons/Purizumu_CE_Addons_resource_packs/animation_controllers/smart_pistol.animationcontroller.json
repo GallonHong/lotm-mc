@@ -1,0 +1,156 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.smart_pistol.run": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "smart_pistol_first_person": "variable.smart_pistol"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "variable.smart_pistol && query.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope": "variable.smart_pistol && query.is_sneaking"
+                        },
+                        {
+                            "fire": "variable.smart_pistol && q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'smart_pistol_empty'"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "smart_pistol_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        {
+                            "smart_pistol_first_person_run": "q.is_on_ground && q.is_alive"
+                        },
+                        {
+                            "smart_pistol_first_person": "!q.is_on_ground && q.is_alive"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || !query.is_sprinting || !variable.smart_pistol || !q.is_alive"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'smart_pistol_empty'"
+                        },
+                        {
+                            "fire": "variable.smart_pistol && q.item_remaining_use_duration > 1"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "smart_pistol_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "scope": {
+                    "animations": [
+                        "smart_pistol_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_sneaking || !variable.smart_pistol || !q.is_alive"
+                        },
+                        {
+                            "scopehold": "query.all_animations_finished"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'smart_pistol_empty'"
+                        }
+                    ]
+                },
+                "scopehold": {
+                    "animations": [
+                        "smart_pistol_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.smart_pistol || !q.is_alive"
+                        },
+                        {
+                            "scopehold_to_default": "!query.is_sneaking"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'smart_pistol_empty'"
+                        }
+                    ]
+                },
+                "scopehold_to_default": {
+                    "animations": [
+                        "smart_pistol_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished || !q.is_alive"
+                        }
+                    ]
+                },
+                "fire": {
+                    "animations": [
+                        "smart_pistol_first_person_fire"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.smart_pistol || query.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'smart_pistol_empty'"
+                        },
+                        {
+                            "scope": "query.is_sneaking"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "smart_pistol_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold": "query.all_animations_finished"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'smart_pistol_empty'"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        "smart_pistol_first_person_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_alive || query.get_equipped_item_name == 'smart_pistol'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

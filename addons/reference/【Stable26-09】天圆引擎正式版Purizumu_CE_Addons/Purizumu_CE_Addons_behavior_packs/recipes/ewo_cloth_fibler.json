@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_fibler_bb0f8f9a"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:carapace",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_blended",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:reeds",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_fibler",
+      "count": 1
+    }
+  }
+}

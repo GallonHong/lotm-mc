@@ -1,0 +1,131 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "mythicus_sn:aurora_pink_rotated",
+            "basic_render_parameters": {
+                "material": "particles_add",
+                "texture": "textures/mythicus/sn/particle/aurora-sheet"
+            }
+        },
+        "curves": {
+            "variable.z": {
+                "type": "linear",
+                "input": "v.particle_random_1",
+                "horizontal_range": 1,
+                "nodes": [
+                    0.5,
+                    0.73,
+                    0.82,
+                    0.81,
+                    0.75,
+                    0.56,
+                    0.53,
+                    0.52,
+                    0.63
+                ]
+            },
+            "variable.y": {
+                "type": "linear",
+                "input": "v.particle_random_1",
+                "horizontal_range": 1,
+                "nodes": [
+                    0.5,
+                    0.44,
+                    0.25,
+                    0.2,
+                    0.25,
+                    0.4,
+                    0.5
+                ]
+            },
+            "variable.opacity": {
+                "type": "linear",
+                "input": "v.particle_age/v.particle_lifetime",
+                "horizontal_range": 1,
+                "nodes": [
+                    0,
+                    0.5,
+                    0.75,
+                    0.88,
+                    0.94,
+                    0.97,
+                    0.99,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0.99,
+                    0.97,
+                    0.94,
+                    0.88,
+                    0.75,
+                    0.5,
+                    0
+                ]
+            }
+        },
+        "components": {
+            "minecraft:emitter_rate_steady": {
+                "spawn_rate": "query.graphics_mode_is_any('simple','fancy') ? 32 : 8",
+                "max_particles": 128
+            },
+            "minecraft:emitter_lifetime_once": {
+                "active_time": 30
+            },
+            "minecraft:emitter_shape_point": {
+                "offset": [
+                    "(v.z-0.5)*128",
+                    "((v.y-0.5)*48) + ((v.particle_random_2-0.5)*4)",
+                    "(v.particle_random_1-0.5)*128"
+                ],
+                "direction": [
+                    0,
+                    1,
+                    0
+                ]
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": "math.random(4,8)"
+            },
+            "minecraft:particle_initial_speed": "math.random(1,2)",
+            "minecraft:particle_motion_dynamic": {},
+            "minecraft:particle_appearance_billboard": {
+                "size": [
+                    "(((0.2+variable.particle_random_2*0.2)*64)+(math.sin(v.particle_age*180)*2))*variable.opacity",
+                    "(((0.2+variable.particle_random_3*0.4)*64)-(math.sin(v.particle_age*180)*2))*variable.opacity"
+                ],
+                "facing_camera_mode": "rotate_y",
+                "uv": {
+                    "texture_width": 480,
+                    "texture_height": 160,
+                    "uv": [
+                        "math.round(variable.particle_random_4*2)*160",
+                        0
+                    ],
+                    "uv_size": [
+                        160,
+                        160
+                    ]
+                }
+            },
+            "minecraft:particle_appearance_tinting": {
+                "color": [
+                    1,
+                    0,
+                    0.7,
+                    "query.graphics_mode_is_any('simple','fancy') ? v.opacity*0.1 : v.opacity*0.005"
+                ]
+            }
+        }
+    }
+}

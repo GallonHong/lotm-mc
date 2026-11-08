@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mlt_hg2_desert_85f24693"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GBH"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:lightning_rod",
+        "data": 0
+      },
+      "B": {
+        "item": "atg:armor_plate",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:heavy_weighted_pressure_plate",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:calibrated_sculk_sensor",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:leather_chestplate",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:sand",
+        "data": 0
+      },
+      "G": {
+        "item": "minecraft:redstone_lamp",
+        "data": 0
+      },
+      "H": {
+        "item": "minecraft:compass",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:mlt_hg2_desert",
+      "count": 1
+    }
+  }
+}

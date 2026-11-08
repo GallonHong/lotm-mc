@@ -1,0 +1,17 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:structure_template_feature": {
+        "facing_direction": "south",
+        "constraints": {
+            "unburied": {},
+            "grounded": {},
+            "block_intersection": {
+                "block_allowlist": ["minecraft:air"]
+            }
+        },
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/plains/tree/tree_5s"
+        },
+        "structure_name": "mystructure:mythicus_sn/oak/oak_s_3"
+    }
+}

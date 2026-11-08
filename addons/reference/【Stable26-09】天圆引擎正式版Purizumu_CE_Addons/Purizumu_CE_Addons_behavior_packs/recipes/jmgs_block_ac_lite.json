@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_ac_lite_a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "EDC",
+      "FFF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_low",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:quartz",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_ac_lite",
+      "count": 1
+    }
+  }
+}

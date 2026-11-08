@@ -1,0 +1,31 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_entity_metro.main": {
+			"states": {
+				"default": {
+					"animations": ["idle"],
+					"transitions": [
+						{"idle": "query.has_rider == 1"}
+					],
+					"blend_transition": 1
+				},
+				"idle": {
+					"animations": ["idle", "door", "bow"],
+					"transitions": [
+						{"walking": "q.ground_speed > 1.0"},
+						{"default": "query.has_rider == 0"}
+					],
+					"blend_transition": 1.1
+				},
+				"walking": {
+					"animations": ["walk", "bow"],
+					"transitions": [
+						{"idle": "q.ground_speed < 0.5"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

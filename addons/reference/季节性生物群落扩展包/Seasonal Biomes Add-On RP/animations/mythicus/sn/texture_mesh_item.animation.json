@@ -1,0 +1,131 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.mythicus_sn.texture_mesh_right_item.wield_first_person": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [-62, 5, -160],
+                    "position": [1.6, 12, -2]
+                }
+            }
+        },
+        "animation.mythicus_sn.texture_mesh_right_item.wield_third_person": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [-1.05, 34.95, -95.5],
+                    "position": [0.4, 12.48, -8.66],
+                    "scale": 0.9347
+                }
+            }
+        },
+        "animation.mythicus_sn.ans.texture_mesh_right_item.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, -90],
+                    "position": [0, 22, 1]
+                }
+            }
+        },
+        "animation.mythicus_sn.ans.texture_mesh_pickaxe.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, -90],
+                    "position": [0, 22, 2.6]
+                }
+            }
+        },
+        "animation.mythicus_sn.ans.texture_mesh_shovel.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, 0],
+                    "position": [-1, 22, "3.5 - !c.is_first_person*0.5"]
+                }
+            }
+        },
+        "animation.mythicus_sn.ans.texture_mesh_hoe.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, -90],
+                    "position": [0, 22, "1 + !c.is_first_person"]
+                }
+            }
+        },
+        "animation.mythicus_sn.ans.texture_mesh_bow.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "position": [0.5, -2.25, 1]
+                }
+            }
+        },
+        "animation.mythicus_wa.texture_mesh_right_item.wield_first_person": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [-62, 5, -160],
+                    "position": [1.6, 12, -2]
+                }
+            }
+        },
+        "animation.mythicus_wa.texture_mesh_right_item.wield_third_person": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [-1.05, 34.95, -95.5],
+                    "position": [0.4, 12.48, -8.66],
+                    "scale": 0.9347
+                }
+            }
+        },
+        "animation.mythicus_wa.ans.texture_mesh_right_item.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, -90],
+                    "position": [0, 22, 1]
+                }
+            }
+        },
+        "animation.mythicus_wa.ans.texture_mesh_pickaxe.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, -90],
+                    "position": [0, 22, 2.6]
+                }
+            }
+        },
+        "animation.mythicus_wa.ans.texture_mesh_shovel.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, 0],
+                    "position": [-1, 22, "3.5 - !c.is_first_person*0.5"]
+                }
+            }
+        },
+        "animation.mythicus_wa.ans.texture_mesh_hoe.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "rotation": [90, 0, -90],
+                    "position": [0, 22, "1 + !c.is_first_person"]
+                }
+            }
+        },
+        "animation.mythicus_wa.ans.texture_mesh_bow.wield": {
+            "loop": true,
+            "bones": {
+                "rightitem": {
+                    "position": [0.5, -2.25, 1]
+                }
+            }
+        }
+    }
+}

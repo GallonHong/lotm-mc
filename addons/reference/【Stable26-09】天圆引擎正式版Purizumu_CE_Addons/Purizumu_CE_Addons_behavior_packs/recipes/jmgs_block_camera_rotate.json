@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_camera_rotate_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      " E "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:prismarine_crystals",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_recycled",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_motor",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_magnetic",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_camera_rotate",
+      "count": 2
+    }
+  }
+}

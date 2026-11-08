@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ceramics_rigid_de6ad91b"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BBB",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:clay_ball",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:carapace_tail",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:ceramics_rigid",
+      "count": 1
+    }
+  }
+}

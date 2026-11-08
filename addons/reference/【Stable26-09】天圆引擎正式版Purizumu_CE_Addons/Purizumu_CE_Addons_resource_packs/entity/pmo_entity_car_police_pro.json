@@ -1,0 +1,49 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_car_police_pro",
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_entity_car_police_pro"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_car_police_pro"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_car_police_pro",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_car_star_edit.walk",
+        "idle": "animation.pmo_entity_car_cherry.idle",
+        "move": "controller.animation.pmo_entity_car_star_edit.walk",
+        "open": "animation.pmo_entity_car_star_edit.open",
+        "spawn": "animation.pmo_entity_car_star_edit.spawn",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "car_open": "car_open",
+        "car_start": "car_start",
+        "car_walk": "car_walk",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "move",
+          {"die": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "chocolate_88436683"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:dye",
+        "data": 3
+      },
+      "B": {
+        "item": "minecraft:bucket",
+        "data": 1
+      }
+    },
+    "result": {
+      "item": "ewo:chocolate",
+      "count": 4
+    }
+  }
+}

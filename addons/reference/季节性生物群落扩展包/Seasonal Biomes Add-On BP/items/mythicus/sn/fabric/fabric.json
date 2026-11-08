@@ -1,0 +1,16 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mythicus_sn:fabric",
+            "menu_category": {
+                "category": "items",
+                "group": "minecraft:itemGroup.name.materials"
+            }
+        },
+        "components": {
+            "minecraft:icon": "mythicus_sn:fabric",
+            "minecraft:max_stack_size": 64
+        }
+    }
+}

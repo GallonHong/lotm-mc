@@ -1,0 +1,67 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.jg": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"charging": "variable.chargingdelay = 1.00; variable.previouschargingtime = query.life_time; return (query.get_equipped_item_name == 'jg' && q.item_remaining_use_duration > 1 && q.is_alive);"
+						}
+					],
+					"on_entry": [
+						"/execute @s ~~~ stopsound @s jg_charging"
+					]
+				},
+				"charging": {
+					"transitions": [
+						{
+							"charging_over": "(query.life_time - variable.previouschargingtime) >= variable.chargingdelay && query.get_equipped_item_name == 'jg'"
+						},
+						{
+							"default": "!q.is_alive || !q.is_using_item || query.get_equipped_item_name != 'jg'"
+						}
+					],
+					"on_entry": [
+						"/execute @s ~~~ playsound jg_charging @s ~~~"
+					]
+				},
+				"charging_over": {
+					"transitions": [
+						{
+							"shoot": "query.get_equipped_item_name == 'jg' && !q.is_using_item && q.is_alive"
+						},
+						{
+							"default": "!q.is_alive"
+						}
+					]
+				},
+				"shoot": {
+					"transitions": [
+						{
+							"after_shoot": "variable.jgdelay = 1.00; variable.previousjgtime = query.life_time; return (query.get_equipped_item_name == 'jg' && q.is_alive);"
+						},
+						{
+							"default": "!q.is_alive || !q.is_using_item || query.get_equipped_item_name != 'jg'"
+						}
+					],
+					"on_entry": [
+						"/execute @s ~~~ playsound jg_fire @a ~~~",
+						"/execute @s ~~~ camerashake add @s 0.05 0.1 rotational",
+						"@s jmgs:jg_shooter",
+						"/scoreboard players add @s mp -7",
+						"/playsound se.se103 @s"
+					]
+				},
+				"after_shoot": {
+					"transitions": [
+						{
+							"default": "(query.life_time - variable.previousjgtime) >= variable.jgdelay"
+						}
+					]
+				}
+			}
+		}
+	}
+}

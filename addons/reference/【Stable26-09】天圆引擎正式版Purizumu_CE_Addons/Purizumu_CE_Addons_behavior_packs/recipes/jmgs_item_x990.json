@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_x990_932cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DAD",
+      "FCF",
+      "EBG"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_cs_clock",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:item_disk",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:pc_cpu2990wx",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:pc_mainh110",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_x990",
+      "count": 1
+    }
+  }
+}

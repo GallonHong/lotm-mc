@@ -1,0 +1,46 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_air_mi32",
+      "textures": {
+        "default": "textures/entity/corona/pmo_entity_air_mi32"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_air_mi32"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_air_mi32",
+        "texture_index": 0
+      },
+      "animations": {
+        "fly": "animation.pmo_entity_air_mi32.fly",
+        "walk": "animation.pmo_entity_air_mi32.walk",
+        "idle": "animation.pmo_entity_air_mi32.idle",
+        "move": "controller.animation.pmo_entity_air_sa330.walk",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "helfly_walk": "helfly_walk",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "move",
+          {"die": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

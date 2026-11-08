@@ -1,0 +1,66 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.gunaim_sniper": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        "gunaim_sniper_standby"
+                    ],
+                    "transitions": [
+                        {
+                            "fire1": "q.is_using_item"
+                        },
+                        {
+                            "fire2": "q.is_sprinting"
+                        },
+                        {
+                            "fire3": "!q.is_on_ground"
+                        }
+                    ]
+                },
+                "fire1": {
+                    "animations": [
+                        "gunaim_sniper_fire"
+                    ],
+                    "transitions": [
+                        {
+                            "fire_to_default": "!q.is_using_item"
+                        }
+                    ]
+                },
+                "fire2": {
+                    "animations": [
+                        "gunaim_sniper_default_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "fire_to_default": "!q.is_sprinting"
+                        }
+                    ]
+                },
+                "fire3": {
+                    "animations": [
+                        "gunaim_sniper_default_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "fire_to_default": "q.is_on_ground"
+                        }
+                    ]
+                },
+                "fire_to_default": {
+                    "animations": [
+                        "gunaim_sniper_run_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,21 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/side_leaves"
+        },
+        "places_block": "mythicus_sn:side_leaves_oak",
+        "enforce_survivability_rules": false,
+        "enforce_placement_rules": true,
+        "may_attach_to": {
+            "auto_rotate": true,
+            "min_sides_must_attach": 1,
+            "sides": [
+                "mythicus_sn:yellow_leaves_oak",
+                "mythicus_sn:red_leaves_oak",
+                "mythicus_sn:orange_leaves_oak"
+            ]
+        },
+        "may_replace": ["minecraft:air"]
+    }
+}

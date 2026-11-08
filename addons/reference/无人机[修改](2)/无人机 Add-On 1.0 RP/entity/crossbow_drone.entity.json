@@ -1,0 +1,69 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:crossbow_drone",
+			"materials": {
+				"default": "entity_alphatest",
+				"blend": "entity_alphablend",
+				"customblend": "makercamp_dr_customblend",
+				"emissive": "entity_emissive_alpha",
+				"crosshair": "makercamp_dr_crosshair"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/crossbow_drone",
+				"crosshair": "textures/makercamp/dr/entity/crosshair"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.crossbow_drone",
+				"controlled": "geometry.makercamp_dr.empty",
+				"crosshair": "geometry.makercamp_dr.crosshair"
+			},
+			"animations": {
+				"ac.fly": "controller.animation.makercamp_dr.drone.fly",
+				"ac.shoot": "controller.animation.makercamp_dr.crossbow_drone.shoot",
+				"ac.aim": "controller.animation.makercamp_dr.crossbow_drone.aim",
+
+				"idle": "animation.makercamp_dr.crossbow_drone.idle",
+				"fly": "animation.makercamp_dr.crossbow_drone.fly",
+				"shoot_prepare": "animation.makercamp_dr.crossbow_drone.shoot_prepare",
+				"shoot": "animation.makercamp_dr.crossbow_drone.shoot",
+				"refill": "animation.makercamp_dr.crossbow_drone.refill",
+
+				"aim": "animation.makercamp_dr.crossbow_drone.aim",
+				"aim_last": "animation.makercamp_dr.crossbow_drone.aim_last",
+
+				"crosshair": "animation.makercamp_dr.crosshair"
+			},
+			"scripts": {
+				"pre_animation": [
+					"v.active_state = q.property('makercamp_dr:state') == 'active';",
+					"v.is_controlled_by_player = q.property('makercamp_dr:controlled_by_player');",
+					"v.is_shooting = q.property('makercamp_dr:is_shooting');",
+
+					"v.controlled_laser_delay = 0.05;",
+					"v.controlled_rot_x = query.property('makercamp_dr:controlled.rot.x');",
+					"v.delta_x = v.controlled_rot_x - (v.current_rot_x ?? v.controlled_rot_x);",
+					"v.delta_x = v.delta_x - (math.floor((v.delta_x + 180) / 360) * 360);",
+					"v.current_rot_x = (v.current_rot_x ?? v.controlled_rot_x) + (v.delta_x * v.controlled_laser_delay);",
+
+					"v.controlled_rot_y = query.property('makercamp_dr:controlled.rot.y');",
+					"v.delta_y = v.controlled_rot_y - (v.current_rot_y ?? v.controlled_rot_y);",
+					"v.delta_y = v.delta_y - (math.floor((v.delta_y + 180) / 360) * 360);",
+					"v.current_rot_y = (v.current_rot_y ?? v.controlled_rot_y) + (v.delta_y * v.controlled_laser_delay);"
+				],
+				"animate": ["crosshair", "ac.fly", "ac.shoot", "ac.aim"]
+			},
+			"spawn_egg": {
+				"texture": "makercamp_dr:crossbow_drone"
+			},
+			"render_controllers": [
+				{
+					"controller.render.markercamp_dr.drone.crosshair": "v.is_controlled_by_player"
+				},
+				"controller.render.markercamp_dr.drone.common",
+				"controller.render.makercamp_dr.drone.blend_bright"
+			]
+		}
+	}
+}

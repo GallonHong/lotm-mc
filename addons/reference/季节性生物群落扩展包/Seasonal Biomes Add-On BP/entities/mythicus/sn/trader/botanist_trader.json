@@ -1,0 +1,124 @@
+{
+    "format_version": "1.21.50",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "mythicus_sn:botanist_trader",
+            "is_spawnable": true,
+            "is_summonable": true,
+            "is_experimental": false,
+            "properties": {
+                "mythicus_sn:season_variant": {
+                    "type": "enum",
+                    "client_sync": true,
+                    "values": [
+                        "spring",
+                        "summer",
+                        "fall",
+                        "winter"
+                    ],
+                    "default": "spring"
+                }
+            }
+        },
+        "components": {
+            "minecraft:type_family": {
+                "family": [
+                    "mythicus_sn:merchant",
+                    "mythicus_sn",
+                    "mob"
+                ]
+            },
+            "minecraft:health": {
+                "value": 20,
+                "max": 20
+            },
+            "minecraft:home": {},
+            "minecraft:jump.static": {},
+            "minecraft:movement": {
+                "value": 0.3
+            },
+            "minecraft:movement.basic": {},
+            "minecraft:navigation.walk": {
+                "can_pass_doors": true,
+                "can_open_doors": true,
+                "avoid_water": true
+            },
+            "minecraft:physics": {},
+            "minecraft:breathable": {
+                "total_supply": 15,
+                "suffocate_time": 0
+            },
+            "minecraft:pushable": {},
+            "minecraft:behavior.float": {
+                "priority": 0
+            },
+            "minecraft:behavior.random_stroll": {
+                "priority": 4,
+                "xz_dist": 5
+            },
+            "minecraft:behavior.go_home": {
+                "priority": 5,
+                "interval": 60
+            },
+            "minecraft:behavior.look_at_player": {
+                "priority": 8
+            },
+            "minecraft:behavior.random_look_around": {
+                "priority": 9
+            },
+            "minecraft:trade_table": {
+                "display_name": "entity.mythicus_sn:botanist_trader.name",
+                "table": "trading/mythicus/sn/botanist_trades.json",
+                "new_screen": true
+            },
+            "minecraft:behavior.look_at_trading_player": {
+                "priority": 0
+            },
+            "minecraft:behavior.trade_with_player": {
+                "priority": 2
+            },
+            "minecraft:behavior.trade_interest": {
+                "priority": 5,
+                "within_radius": 6,
+                "interest_time": 45,
+                "remove_item_time": 1,
+                "carried_item_switch_time": 2,
+                "cooldown": 2
+            },
+            "minecraft:trade_resupply": {},
+            "minecraft:environment_sensor": {
+                "triggers": [
+                    {
+                        "event": "mythicus_sn:despawn",
+                        "target": "self",
+                        "filters": [
+                            {
+                                "test": "is_difficulty",
+                                "value": "peaceful"
+                            },
+                            {
+                                "test": "is_game_rule",
+                                "domain": "domobspawning",
+                                "value": false
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        "component_groups": {
+            "mythicus_sn:despawn": {
+                "minecraft:instant_despawn": {}
+            }
+        },
+        "events": {
+            "mythicus_sn:despawn": {
+                "add": {
+                    "component_groups": [
+                        "mythicus_sn:despawn"
+                    ]
+                }
+            }
+        }
+    }
+}

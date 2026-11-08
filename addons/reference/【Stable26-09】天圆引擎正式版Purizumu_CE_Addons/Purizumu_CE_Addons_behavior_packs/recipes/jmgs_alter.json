@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "alter_33c09518"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AFB",
+      "CDE",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:tripwire_hook",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:bow",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:iron_nugget",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_resistance",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:cloth_si_gel",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:alter",
+      "count": 1
+    }
+  }
+}

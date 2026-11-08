@@ -1,0 +1,49 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:poison_drone",
+			"materials": {
+				"default": "entity_alphatest",
+				"blend": "entity_alphablend",
+				"customblend": "makercamp_dr_customblend",
+				"emissive": "entity_emissive_alpha"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/poison_drone"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.poison_drone",
+				"controlled": "geometry.makercamp_dr.empty"
+			},
+			"animations": {
+				"is_controlled_by_player": "animation.makercamp_dr.drone.is_controlled_by_player",
+				"ac.fly": "controller.animation.makercamp_dr.drone.fly",
+				"ac.shoot": "controller.animation.makercamp_dr.poison_drone.shoot",
+
+				"idle": "animation.makercamp_dr.poison_drone.idle",
+				"fly": "animation.makercamp_dr.poison_drone.fly",
+
+				"shoot": "animation.makercamp_dr.poison_drone.poison"
+			},
+			"scripts": {
+				"pre_animation": [
+					"v.active_state = q.property('makercamp_dr:state') == 'active';",
+					"v.is_controlled_by_player = q.property('makercamp_dr:controlled_by_player');",
+					"v.is_shooting = q.property('makercamp_dr:is_shooting');"
+				],
+				"animate": ["ac.shoot", "ac.fly", "is_controlled_by_player"]
+			},
+			"spawn_egg": {
+				"texture": "makercamp_dr:poison_drone"
+			},
+			"render_controllers": [
+				"controller.render.markercamp_dr.drone.common",
+				"controller.render.makercamp_dr.drone.blend_bright"
+			],
+			"particle_effects": {
+				"poison_particle": "makercamp_dr:poison_drone_particle"
+			}
+		}
+	}
+}

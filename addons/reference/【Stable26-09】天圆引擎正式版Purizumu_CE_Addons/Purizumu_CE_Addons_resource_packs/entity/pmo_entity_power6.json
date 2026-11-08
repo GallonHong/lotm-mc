@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_power6",
+      "textures": {
+        "default": "textures/entity/corona/pmo_entity_power6"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_power6"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_power6",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.pmo_entity_power6.idle",
+        "idle1": "animation.pmo_entity_power1.idle",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+            "idle",
+            "idle1",
+            {"die": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

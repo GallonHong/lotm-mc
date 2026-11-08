@@ -1,0 +1,45 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_bp_c4653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABF",
+      "CDE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_resistance",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:prismarine_crystals",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_bp",
+      "count": 2
+    }
+  }
+}

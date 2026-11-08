@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_fish_box_a6653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DAD",
+      "BCB",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:glass",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_fish_box",
+      "count": 3
+    }
+  }
+}

@@ -1,0 +1,22 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_cow.spring_climate": {
+            "arrays": {
+                "textures": {
+                    "Array.textures": [
+                        "Texture.temperate_spring",
+                        "Texture.cold_spring"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.animated" }],
+            "textures": ["Array.textures[v.index]"],
+            "uv_anim": {
+                "offset": [0, "Math.mod(Math.floor(q.life_time * v.fps), v.spring_frames) / v.spring_frames"],
+                "scale": [1, "1 / v.spring_frames"]
+            }
+        }
+    }
+}

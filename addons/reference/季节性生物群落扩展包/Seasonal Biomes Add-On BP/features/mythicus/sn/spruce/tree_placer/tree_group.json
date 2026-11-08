@@ -1,0 +1,50 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/spruce/tree_placer/tree_group"
+        },
+        "features": [
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_0", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_1", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_2", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_3", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_4", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_5", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_6", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_7", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_8", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_9", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_10", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_11", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_12", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_13", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_14", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_15", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_16", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_17", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_18", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_19", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_20", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_21", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_22", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_23", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_24", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_25", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_26", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_27", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_28", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_29", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_30", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_31", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_32", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_33", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_34", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_35", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_36", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_37", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_38", 5],
+            ["mythicus_sn:mythicus/sn/spruce/tree/tree_39", 5]
+        ]
+    }
+}

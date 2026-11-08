@@ -1,0 +1,17 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/swamp/tree_water_placer/tree_group"
+        },
+        "features": [
+            ["mythicus_sn:mythicus/sn/swamp/tree/tree_0", 5],
+            ["mythicus_sn:mythicus/sn/swamp/tree/tree_1", 5],
+            ["mythicus_sn:mythicus/sn/swamp/tree/tree_2", 5],
+            ["mythicus_sn:mythicus/sn/swamp/tree/tree_3", 5],
+            ["mythicus_sn:mythicus/sn/swamp/tree/tree_4", 5],
+            ["mythicus_sn:mythicus/sn/swamp/tree/tree_5", 5],
+            ["mythicus_sn:mythicus/sn/swamp/tree/tree_6", 5]
+        ]
+    }
+}

@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "r201_1b687164"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_muscle",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_amalgam",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:metal_resistance",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:parts_pipe",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:r201",
+      "count": 1
+    }
+  }
+}

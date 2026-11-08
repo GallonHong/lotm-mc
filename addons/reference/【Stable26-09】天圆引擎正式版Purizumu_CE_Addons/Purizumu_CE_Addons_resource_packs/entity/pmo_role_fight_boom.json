@@ -1,0 +1,39 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:role_fight_boom",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/corona/pmo_role_fight_boom"
+      },
+      "geometry": {
+        "default": "geometry.pmo_role_fight_boom"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "walk": "query.is_moving"
+          },
+          {
+            "idle": "!query.is_moving"
+          }
+        ]
+      },
+      "animations": {
+        "walk": "animation.pmo_role_fight_boom.walk",
+        "idle": "animation.pmo_role_fight_boom.idle"
+      },
+      "spawn_egg": {
+        "texture": "pmo:role_fight_boom",
+        "texture_index": 0
+      },
+      "render_controllers": [
+        "controller.render.skeleton"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

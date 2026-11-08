@@ -1,0 +1,52 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_entity_mecha": {
+			"states": {
+				"default": {
+					"animations": ["spawn"],
+					"transitions": [
+						{"ease": "query.has_rider == 1"}
+					]
+				},
+				"standby": {
+					"animations": ["get_in", "standby"],
+					"sound_effects": [
+						{"effect": "mecha.idle"}
+					],
+					"transitions": [
+						{"ease": "query.has_rider == 1"}
+					],
+					"blend_transition": 1
+				},
+				"ease": {
+					"sound_effects": [
+						{"effect": "se.se107"}
+					],
+					"transitions": [
+						{"idle": "query.has_rider == 1"}
+					]
+				},
+				"idle": {
+					"animations": ["idle", "standby"],
+					"transitions": [
+						{"walk": "query.ground_speed > 1"},
+						{"standby": "query.has_rider == 0"}
+					],
+					"blend_transition": 1.1,
+					"blend_via_shortest_path": true
+				},
+				"walk": {
+					"animations": [
+						"run"
+					],
+					"transitions": [
+						{"idle": "query.ground_speed < 0.2"},
+						{"standby": "query.has_rider == 0"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

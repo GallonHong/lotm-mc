@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_steamer_932cd033"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AGD",
+      "ECB",
+      "EFB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:furnace",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:pc_led",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_steamer",
+      "count": 1
+    }
+  }
+}

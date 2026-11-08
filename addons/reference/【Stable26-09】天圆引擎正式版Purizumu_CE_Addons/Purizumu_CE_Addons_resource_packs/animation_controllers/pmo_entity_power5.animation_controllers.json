@@ -1,0 +1,38 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_entity_power5.main": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"animations": ["spawn"],
+					"transitions": [
+						{"spawn": "query.trade_tier > 1"}
+					],
+					"blend_transition": 1
+				},
+				"spawn": {
+					"animations": ["idle"],
+					"transitions": [
+						{"working": "query.trade_tier > 3"}
+					],
+					"blend_transition": 1
+				},
+				"working": {
+					"animations": ["working", "idle"],
+					"transitions": [
+						{"work": "query.trade_tier > 6"}
+					],
+					"blend_transition": 1
+				},
+				"work": {
+					"animations": ["work", "idle"],
+					"transitions": [
+						{"default": "query.trade_tier == 0"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,15 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/swamp/ground_variant"
+        },
+        "places_block": "mythicus_sn:custom_ground_variant_2",
+        "may_replace": [
+            "minecraft:grass_block",
+            "mythicus_sn:custom_ground_block"
+        ],
+        "enforce_survivability_rules": false,
+        "enforce_placement_rules": false
+    }
+}

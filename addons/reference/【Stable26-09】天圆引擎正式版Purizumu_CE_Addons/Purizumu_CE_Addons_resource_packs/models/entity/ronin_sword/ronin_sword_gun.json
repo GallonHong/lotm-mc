@@ -1,0 +1,104 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.ronin_sword_gun",
+				"texture_width": 512,
+				"texture_height": 256,
+				"visible_bounds_width": 4087,
+				"visible_bounds_height": 98,
+				"visible_bounds_offset": [0, 11, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "head",
+					"parent": "body",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "hat",
+					"parent": "head",
+					"pivot": [0, 29, -6.3]
+				},
+				{
+					"name": "cape",
+					"parent": "body",
+					"pivot": [0, 29, -3.3]
+				},
+				{
+					"name": "leftArm",
+					"parent": "body",
+					"pivot": [5, 22, 0]
+				},
+				{
+					"name": "leftSleeve",
+					"parent": "leftArm",
+					"pivot": [5, 27, -6.3]
+				},
+				{
+					"name": "leftItem",
+					"parent": "leftArm",
+					"pivot": [6, 20, -5.3]
+				},
+				{
+					"name": "rightArm",
+					"parent": "body",
+					"pivot": [-5, 22, 0]
+				},
+				{
+					"name": "rightSleeve",
+					"parent": "rightArm",
+					"pivot": [-5, 27, -6.3]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [-6, 15, 1],
+					"locators": {
+						"lead_hold": [-4, 12, -2]
+					}
+				},
+				{
+					"name": "jacket",
+					"parent": "body",
+					"pivot": [0, 29, -6.3]
+				},
+				{
+					"name": "leftLeg",
+					"parent": "root",
+					"pivot": [1.9, 12, 0]
+				},
+				{
+					"name": "leftPants",
+					"parent": "leftLeg",
+					"pivot": [1.9, 17, -6.3]
+				},
+				{
+					"name": "rightLeg",
+					"parent": "root",
+					"pivot": [-1.9, 12, 0]
+				},
+				{
+					"name": "rightPants",
+					"parent": "rightLeg",
+					"pivot": [-1.9, 17, -6.3]
+				}
+			]
+		}
+	]
+}

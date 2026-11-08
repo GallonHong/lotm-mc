@@ -1,0 +1,16 @@
+{
+  "materials": {
+    "version": "1.0.0",
+	"pb_dmgi_transparent_emissive:entity_emissive_alpha":{
+		"+states":["Blending"]
+	},
+	"pb_dmgi_outline:entity_emissive_alpha": {
+      "+states": [
+        "InvertCulling"
+      ],
+      "-states": [
+        "DisableCulling"
+      ]
+    }
+  }
+}

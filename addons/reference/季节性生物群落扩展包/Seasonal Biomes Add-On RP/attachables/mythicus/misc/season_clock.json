@@ -1,0 +1,59 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "mythicus_sn:season_clock",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/attachables/season_clock"
+            },
+            "animations": {
+                "hold.right.fp": "animation.mythicus_sn.season_clock.right.fp",
+                "hold.left.fp": "animation.mythicus_sn.season_clock.left.fp",
+                "hold.right.tp": "animation.mythicus_sn.season_clock.right.tp",
+                "hold.left.tp": "animation.mythicus_sn.season_clock.left.tp",
+                "clock_rotation": "animation.mythicus_sn.seasonal_clock.rotation"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.seasonal_clock",
+                "ans": "geometry.mythicus_sn.seasonal_clock"
+            },
+            "scripts": {
+                "initialize": [
+                    "v.days_into_season = -4;",
+                    "v.current_season = -5;",
+                    "v.season_interval = -3;",
+                    "v.season_progression = 0;"
+                ],
+                "parent_setup": "t.current_season = v.current_season ?? -5; t.days_into_season = v.days_into_season ?? -4; t.season_interval = v.season_interval ?? -3;",
+                "pre_animation": [
+                    "v.current_season = t.current_season;",
+                    "v.days_into_season = t.days_into_season;",
+                    "v.season_interval = t.season_interval;",
+                    "v.season_progression = v.days_into_season / v.season_interval;"
+                ],
+                "animate": [
+                    {
+                        "hold.right.fp": "c.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 0, 'mythicus_sn:season_clock')"
+                    },
+                    {
+                        "hold.left.fp": "c.is_first_person && query.is_item_name_any('slot.weapon.offhand', 0, 'mythicus_sn:season_clock')"
+                    },
+                    {
+                        "hold.right.tp": "!c.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 0, 'mythicus_sn:season_clock')"
+                    },
+                    {
+                        "hold.left.tp": "!c.is_first_person && query.is_item_name_any('slot.weapon.offhand', 0, 'mythicus_sn:season_clock')"
+                    },
+                    "clock_rotation"
+                ]
+            },
+            "render_controllers": [
+                { "controller.render.seasonal_clock.right": "query.is_item_name_any('slot.weapon.mainhand', 0, 'mythicus_sn:season_clock')" },
+                { "controller.render.seasonal_clock.left": "query.is_item_name_any('slot.weapon.offhand', 0, 'mythicus_sn:season_clock')" }
+            ]
+        }
+    }
+}

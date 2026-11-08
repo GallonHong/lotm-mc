@@ -1,0 +1,94 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.eva8_bullet_main_summon": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"presummon1": "variable.summon = 0.08; variable.presummon = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"presummon1": {
+					"transitions": [
+						{
+							"summon1": "(query.life_time - variable.presummon) >= variable.summon"
+						}
+					]
+				},
+				"summon1": {
+					"transitions": [
+						{
+							"hurt1": "1"
+						}
+					],
+					"on_entry": [
+						"/execute @e[family=!eva8_bullet,r=2.5] ~~~ summon jmgs:eva8_other ~~~"
+					]
+				},
+				"hurt1": {
+					"transitions": [
+						{
+							"summon1": "1"
+						}
+					],
+					"on_entry": [
+						"/execute @e[family=!eva8_bullet,r=2.5] ~~~ summon jmgs:eva8_other ~~~"
+					]
+				}
+			}
+		},
+		"controller.animation.eva8_bullet_main2_summon": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"hurt2": "1"
+						}
+					],
+					"on_entry": [
+						"/execute @e[family=!eva8_bullet,r=2.5] ~~~ summon jmgs:eva8_other2 ~~~"
+					]
+				},
+				"hurt2": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"/execute @e[family=!eva8_bullet,r=2.5] ~~~ summon jmgs:eva8_other2 ~~~"
+					]
+				}
+			}
+		},
+		"controller.animation.eva8_bullet_main3_summon": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"hurt3": "1"
+						}
+					],
+					"on_entry": [
+						"/execute @e[family=!eva8_bullet,r=2.5] ~~~ summon jmgs:eva8_other3 ~~~"
+					]
+				},
+				"hurt3": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"/execute @e[family=!eva8_bullet,r=2.5] ~~~ summon jmgs:eva8_other3 ~~~"
+					]
+				}
+			}
+		}
+	}
+}

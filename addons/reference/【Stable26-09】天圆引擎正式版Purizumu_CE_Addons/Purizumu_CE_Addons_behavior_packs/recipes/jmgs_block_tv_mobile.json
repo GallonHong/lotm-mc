@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_tv_mobile_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " C ",
+      " A ",
+      "DBE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_junction_box",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:block_display",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:card_vinyl",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_tv_mobile",
+      "count": 1
+    }
+  }
+}

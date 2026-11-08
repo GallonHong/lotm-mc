@@ -1,0 +1,7 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "jmgs_block_parcel_locker_display",
+    "metalness_emissive_roughness": "jmgs_block_parcel_locker_display_mer"
+  }
+}

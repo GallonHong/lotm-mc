@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_display_air_932cd050"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CEF",
+      "ACD",
+      "BBC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_zinc",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_spring",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:block_display_pro",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_display_air",
+      "count": 1
+    }
+  }
+}

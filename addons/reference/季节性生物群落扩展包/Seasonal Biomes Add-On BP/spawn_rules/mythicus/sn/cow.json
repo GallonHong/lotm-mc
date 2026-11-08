@@ -1,0 +1,73 @@
+{
+    "format_version": "1.8.0",
+    "minecraft:spawn_rules": {
+        "description": {
+            "identifier": "mythicus_sn:seasons_cow",
+            "population_control": "animal"
+        },
+        "conditions": [
+            {
+                "minecraft:spawns_on_surface": {},
+                "minecraft:spawns_on_block_filter": [
+                    "mythicus_sn:custom_ground_block"
+                ],
+                "minecraft:brightness_filter": {
+                    "min": 7,
+                    "max": 15,
+                    "adjust_for_weather": false
+                },
+                "minecraft:weight": {
+                    "default": 8
+                },
+                "minecraft:herd": {
+                    "min_size": 2,
+                    "max_size": 3
+                },
+                "minecraft:biome_filter": {
+                    "any_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_apple_grove"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_birch_grove"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_mixed_forest"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_oak_forest"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_plains"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_dark_oak_forest"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_taiga"
+                        },
+                        {
+                            "test": "has_biome_tag",
+                            "operator": "==",
+                            "value": "mythicus_sn_seasonal_swamp"
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+}

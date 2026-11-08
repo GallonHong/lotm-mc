@@ -1,0 +1,392 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:geometry": [
+        {
+            "description": {
+                "identifier": "geometry.mythicus_sn.thermometer_attachable",
+                "texture_width": 16,
+                "texture_height": 16,
+                "visible_bounds_width": 6,
+                "visible_bounds_height": 4,
+                "visible_bounds_offset": [0, 1, 0]
+            },
+            "bones": [
+                {
+                    "name": "root",
+                    "pivot": [0, 0, 0]
+                },
+                {
+                    "name": "rightArm",
+                    "parent": "root",
+                    "pivot": [-5, 22, 0]
+                },
+                {
+                    "name": "rightItem",
+                    "parent": "rightArm",
+                    "pivot": [1, 10, -4]
+                },
+                {
+                    "name": "thermometer",
+                    "parent": "rightItem",
+                    "pivot": [0, 10, 0],
+                    "rotation": [-70, 0, -150]
+                },
+                {
+                    "name": "thermometer_gauge",
+                    "parent": "thermometer",
+                    "pivot": [0, 4, 1],
+                    "rotation": [90, 0, 0]
+                },
+                {
+                    "name": "thermometer_burning1",
+                    "parent": "thermometer_gauge",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 14, 2],
+                            "uv": {
+                                "north": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "east": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "south": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "west": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "up": { "uv": [8, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [8, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer_hot1",
+                    "parent": "thermometer_gauge",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 12, 2],
+                            "uv": {
+                                "north": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "east": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "south": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "west": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "up": { "uv": [9, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [9, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer_warm1",
+                    "parent": "thermometer_gauge",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 10, 2],
+                            "uv": {
+                                "north": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "east": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "south": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "west": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "up": { "uv": [10, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [10, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer_temperate1",
+                    "parent": "thermometer_gauge",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 8, 2],
+                            "uv": {
+                                "north": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "east": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "south": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "west": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "up": { "uv": [11, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [11, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer_cool1",
+                    "parent": "thermometer_gauge",
+                    "pivot": [0, 4, 1],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 6, 2],
+                            "uv": {
+                                "north": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "east": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "south": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "west": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "up": { "uv": [12, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [12, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer_cold1",
+                    "parent": "thermometer_gauge",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 4, 2],
+                            "uv": {
+                                "north": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "east": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "south": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "west": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "up": { "uv": [13, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [13, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer_freezing1",
+                    "parent": "thermometer_gauge",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 2, 2],
+                            "uv": {
+                                "north": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "east": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "south": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "west": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "up": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [14, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer_base",
+                    "parent": "thermometer",
+                    "pivot": [0, 4, 0],
+                    "rotation": [90, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-2, 3, 4],
+                            "size": [4, 2, 4],
+                            "uv": {
+                                "north": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "east": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "south": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "west": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "up": { "uv": [0, 1], "uv_size": [2, 2] },
+                                "down": { "uv": [0, 3], "uv_size": [2, -2] }
+                            }
+                        },
+                        {
+                            "origin": [-2, 5, 4],
+                            "size": [4, 16, 4],
+                            "uv": {
+                                "north": { "uv": [4, 2], "uv_size": [2, 8] },
+                                "east": { "uv": [6, 2], "uv_size": [-2, 8] },
+                                "south": { "uv": [4, 2], "uv_size": [2, 8] },
+                                "west": { "uv": [8, 2], "uv_size": [-2, 8] },
+                                "up": { "uv": [4, 0], "uv_size": [2, 2] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "leftArm",
+                    "parent": "root",
+                    "pivot": [5, 22, 0]
+                },
+                {
+                    "name": "leftItem",
+                    "parent": "leftArm",
+                    "pivot": [1, 10, -4]
+                },
+                {
+                    "name": "thermometer2",
+                    "parent": "leftItem",
+                    "pivot": [0, 10, 0]
+                },
+                {
+                    "name": "thermometer2_gauge2",
+                    "parent": "thermometer2",
+                    "pivot": [0, 4, 1],
+                    "rotation": [90, 0, 0]
+                },
+                {
+                    "name": "thermometer2_burning2",
+                    "parent": "thermometer2_gauge2",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 14, 2],
+                            "uv": {
+                                "north": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "east": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "south": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "west": { "uv": [8, 0], "uv_size": [1, 7] },
+                                "up": { "uv": [8, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [8, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer2_hot2",
+                    "parent": "thermometer2_gauge2",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 12, 2],
+                            "uv": {
+                                "north": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "east": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "south": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "west": { "uv": [9, 0], "uv_size": [1, 6] },
+                                "up": { "uv": [9, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [9, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer2_warm2",
+                    "parent": "thermometer2_gauge2",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 10, 2],
+                            "uv": {
+                                "north": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "east": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "south": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "west": { "uv": [10, 0], "uv_size": [1, 5] },
+                                "up": { "uv": [10, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [10, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer2_temperate2",
+                    "parent": "thermometer2_gauge2",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 8, 2],
+                            "uv": {
+                                "north": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "east": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "south": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "west": { "uv": [11, 0], "uv_size": [1, 4] },
+                                "up": { "uv": [11, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [11, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer2_cool2",
+                    "parent": "thermometer2_gauge2",
+                    "pivot": [0, 4, 1],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 6, 2],
+                            "uv": {
+                                "north": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "east": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "south": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "west": { "uv": [12, 0], "uv_size": [1, 3] },
+                                "up": { "uv": [12, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [12, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer2_cold2",
+                    "parent": "thermometer2_gauge2",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 4, 2],
+                            "uv": {
+                                "north": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "east": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "south": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "west": { "uv": [13, 0], "uv_size": [1, 2] },
+                                "up": { "uv": [13, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [13, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer2_freezing2",
+                    "parent": "thermometer2_gauge2",
+                    "pivot": [0, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-1, 6, 6],
+                            "size": [2, 2, 2],
+                            "uv": {
+                                "north": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "east": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "south": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "west": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "up": { "uv": [14, 0], "uv_size": [1, 1] },
+                                "down": { "uv": [14, 1], "uv_size": [1, -1] }
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "thermometer2_base2",
+                    "parent": "thermometer2",
+                    "pivot": [0, 4, 0],
+                    "rotation": [90, 0, 0],
+                    "cubes": [
+                        {
+                            "origin": [-2, 3, 4],
+                            "size": [4, 2, 4],
+                            "uv": {
+                                "north": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "east": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "south": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "west": { "uv": [0, 0], "uv_size": [2, 1] },
+                                "up": { "uv": [0, 1], "uv_size": [2, 2] },
+                                "down": { "uv": [0, 3], "uv_size": [2, -2] }
+                            }
+                        },
+                        {
+                            "origin": [-2, 5, 4],
+                            "size": [4, 16, 4],
+                            "uv": {
+                                "north": { "uv": [4, 2], "uv_size": [2, 8] },
+                                "east": { "uv": [6, 2], "uv_size": [-2, 8] },
+                                "south": { "uv": [4, 2], "uv_size": [2, 8] },
+                                "west": { "uv": [8, 2], "uv_size": [-2, 8] },
+                                "up": { "uv": [4, 0], "uv_size": [2, 2] }
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

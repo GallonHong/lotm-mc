@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_food_sod_hit_water_10001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "   ",
+      "ABC",
+      "DEF"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:sand",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:glass_bottle",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:sugar",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:granite",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:tuff",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:gravel",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:food_sod_hit_water",
+      "count": 6
+    }
+  }
+}

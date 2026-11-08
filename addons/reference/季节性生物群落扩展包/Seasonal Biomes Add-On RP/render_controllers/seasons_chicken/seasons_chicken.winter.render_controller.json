@@ -1,0 +1,20 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_chicken.winter": {
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": ["Array.textures[v.index]"],
+            "arrays": {
+                "textures": {
+                    "Array.textures": [
+                        "Texture.warm.winter",
+                        "Texture.cold.winter"
+                    ]
+                }
+            },
+            "ignore_lighting": false,
+            "rebuild_animation_matrices": true
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_gold_coin_block_112caa28"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "   ",
+      " A ",
+      "   "
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_gold",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "minecraft:gold_block",
+      "count": 20
+    }
+  }
+}

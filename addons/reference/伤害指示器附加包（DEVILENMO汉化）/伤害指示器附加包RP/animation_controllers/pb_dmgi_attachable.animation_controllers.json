@@ -1,0 +1,109 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.pb_dmgi_item": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "r_click": "query.is_using_item"
+                        }
+                    ]
+                },
+                "r_click": {
+                    "animations": [
+                        "use"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.any_animation_finished && !query.is_using_item"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.pb_dmgi_item_chargeable": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "r_click": "query.is_using_item"
+                        }
+                    ]
+                },
+                "r_click": {
+                    "animations": [
+                        "charge"
+                    ],
+                    "transitions": [
+                        {
+                            "release": "!query.is_using_item"
+                        }
+                    ]
+                },
+                "release": {
+                    "animations": [
+                        "use"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.any_animation_finished"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.pb_dmgi_item_3p": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "r_click": "query.is_using_item"
+                        }
+                    ]
+                },
+                "r_click": {
+                    "animations": [
+                        "use_3p"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.any_animation_finished && !query.is_using_item"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.pb_dmgi_item_chargeable_3p": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "r_click": "query.is_using_item"
+                        }
+                    ]
+                },
+                "r_click": {
+                    "animations": [
+                        "charge_3p"
+                    ],
+                    "transitions": [
+                        {
+                            "release": "!query.is_using_item"
+                        }
+                    ]
+                },
+                "release": {
+                    "animations": [
+                        "use_3p"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.any_animation_finished"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:alter_ammo",
+      "materials": {
+        "default": "charged_creeper"
+      },
+      "textures": {
+        "default": "textures/items/epg"
+      },
+      "geometry": {
+        "default": "geometry.pmo_bullet_light"
+      },
+      "render_controllers": [ "controller.render.fireball" ],
+      "animations": {
+        "face_player": "animation.actor.billboard"
+      },
+      "scripts": {
+        "scale": "0.5",
+        "animate": [
+          "face_player"
+        ]
+      }
+    }
+  }
+} 

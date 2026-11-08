@@ -1,0 +1,91 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_bus.walk": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"tire": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"tire2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"tire3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"tire4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"white_keep": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.5": [0, 0.2, 0],
+						"1.0": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.pmo_entity_bus.door": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 5.4583,
+			"bones": {
+				"back_door": {
+					"position": {
+						"0.0": [0, 0, 11],
+						"4.4583": [0, 0, 11],
+						"5.4583": [0, 0, 0]
+					}
+				},
+				"qian_door": {
+					"position": {
+						"0.0": [0, 0, -11],
+						"4.4583": [0, 0, -11],
+						"5.4583": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "car_open"
+				},
+				"0.75": {
+					"effect": "mag_out"
+				}
+			}
+		},
+		"animation.pmo_entity_bus.idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"root": {
+					"position": [0, 0, 0]
+				}
+			}
+		},
+		"animation.pmo_entity_bus.move": {
+			"loop": true,
+			"bones": {
+				"bottom": {
+					"rotation": [
+						"variable.hurt > 0 ? -Math.sin(variable.hurt * 360 / (Math.pi * 2)) * variable.hurt * (((20 * 2 - query.structural_integrity) - query.frame_alpha) < 0 ? 0: (20 * 2 - query.structural_integrity) - query.frame_alpha) / 10 * query.hurt_direction : 0",
+						0,
+						"-variable.rail_rotation.z"
+					],
+					"position": ["variable.rail_offset.x / query.model_scale", "variable.rail_offset.y / query.model_scale", "variable.rail_offset.z / query.model_scale"]
+				}
+			}
+		}
+	}
+}

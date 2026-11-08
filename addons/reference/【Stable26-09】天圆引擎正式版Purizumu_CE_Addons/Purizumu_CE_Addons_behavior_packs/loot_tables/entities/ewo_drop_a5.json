@@ -1,0 +1,862 @@
+{
+  "id": "1652698887511",
+  "name": "drop_a5",
+  "pools": [
+    {
+      "rolls": 5,
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_other.json",
+          "weight": 2
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_phone_xt",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1350§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_phone",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值350§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_brass",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值144§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_brass_lite",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值256§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_brass_max",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值384§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_brass_plus",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值192§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:block_color",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值35§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:block_wood_key",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值16§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:block_chess",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值280§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:block_scope_pro",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 1
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值985§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:metal_ti",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:metal_amalgam",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:metal_low",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:card_level5",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值405§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:card_level6",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值900§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:metal_superalloy",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值43§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:cloth_polymer",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值98§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:cloth_film",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:card_gash2",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值500§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:card_gash1",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:mine_oil",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:mine_kyanite",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值300§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:mine_uranium",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值900§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:recipe_page",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:netherite_ingot",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:record_11",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值未收录§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:record_pigstep",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值未收录§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "pmo:item_all",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值220§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "minecraft:gold_block",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值45§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "minecraft:gold_ingot",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 10,
+                "max": 32
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "pmo:item_propeller",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "pmo:item_cpu",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值377§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:parts_gun",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值185§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "ewo:cloth_si_gel",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "jmgs:item_hp",
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值55§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_coin",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_gold",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值900§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_coffee",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值300§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 2,
+          "name": "jmgs:item_motor",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值75§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:arms_switch",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:card_car",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值998§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 3,
+          "name": "jmgs:item_medal",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_egg",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "weight": 1,
+          "name": "jmgs:item_book_pro",
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值3§r"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

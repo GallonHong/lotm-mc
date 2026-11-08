@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_646a0e27"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EFG",
+      "CDA",
+      "BHB"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:noteblock",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_plastic",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:card_magnetic",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_carbon",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:cloth_blended",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_music_drum_se_spawn_egg",
+      "count": 1
+    }
+  }
+}

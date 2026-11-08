@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_art_trophy2_d4865a95"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " B ",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:item_start",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_art_trophy2",
+      "count": 1
+    }
+  }
+}

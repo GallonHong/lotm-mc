@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_carbon2_660c6bcd"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_horns",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:coal",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_carbon2",
+      "count": 1
+    }
+  }
+}

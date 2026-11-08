@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_phone_c1653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABE",
+      "CDE",
+      " F "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:block_display",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:amethyst_shard",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_phone",
+      "count": 1
+    }
+  }
+}

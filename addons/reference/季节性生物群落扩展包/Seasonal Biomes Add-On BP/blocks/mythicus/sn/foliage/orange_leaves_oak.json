@@ -1,0 +1,316 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:orange_leaves_oak",
+            "states": {
+                "mythicus_sn:season_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ],
+                "mythicus_sn:hand_placed": [
+                    1,
+                    0
+                ],
+                "mythicus_sn:parent_block": [
+                    "c",
+                    "a",
+                    "b",
+                    "n",
+                    "e",
+                    "s",
+                    "w"
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_leaves_oak_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_leaves_oak_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_leaves_oak_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_leaves_oak_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_leaves_oak_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_leaves_oak_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_leaves_oak_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_leaves_oak_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_leaves_oak_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_leaves_oak_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_leaves_oak_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_leaves_oak_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_leaves_oak_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_leaves_oak_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_leaves_oak_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_leaves_oak_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            }
+        ],
+        "components": {
+            "tag:leaves": {},
+            "tag:mythicus_sn:environment": {},
+            "mythicus_sn:decay": {},
+            "tag:is_shears_item_destructible": {},
+            "mythicus_sn:season_change": {
+                "has_season_state": true
+            },
+            "minecraft:tick": {
+                "interval_range": [
+                    100,
+                    400
+                ],
+                "looping": true
+            },
+            "tag:mythicus_sn:seasonal_block": {},
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0.2
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/orange_leaves_oak.json",
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:spring.orange_leaves_oak_0",
+                    "render_method": "alpha_test_to_opaque",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.3,
+                "item_specific_speeds": [
+                    {
+                        "destroy_speed": 0,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shears')"
+                        }
+                    }
+                ]
+            },
+            "minecraft:liquid_detection": {
+                "detection_rules": [
+                    {
+                        "liquid_type": "water",
+                        "can_contain_liquid": true
+                    }
+                ]
+            },
+            "minecraft:flammable": {
+                "destroy_chance_modifier": 20,
+                "catch_chance_modifier": 5
+            },
+            "minecraft:light_dampening": 7,
+            "minecraft:geometry": {
+                "identifier": "geometry.mythicus_sn.full_block",
+                "culling": "mythicus_sn:culling.custom_leaves",
+                "culling_layer": "minecraft:culling_layer.leaves"
+            },
+            "tag:minecraft:is_shears_item_destructible": {},
+            "minecraft:collision_box": true,
+            "minecraft:selection_box": true,
+            "minecraft:map_color": "#caa636"
+        }
+    }
+}

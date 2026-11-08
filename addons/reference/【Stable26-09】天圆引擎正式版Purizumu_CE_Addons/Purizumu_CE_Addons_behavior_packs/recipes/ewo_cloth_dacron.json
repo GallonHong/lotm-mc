@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_dacron_03cac77a"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AA",
+      "DBB",
+      " CC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_dacron",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,61 @@
+{
+	"format_version": "1.10.0",
+	"render_controllers": {
+		"controller.render.markercamp_dr.drone.common": {
+			"geometry": "v.is_controlled_by_player ? Geometry.controlled : Geometry.default",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"part_trials*": "Material.customblend"
+				},
+				{
+					"blend_material*": "Material.blend"
+				},
+				{
+					"emissive_material*": "Material.emissive"
+				}
+			],
+			"part_visibility": [
+				{
+					"part_trials*": "(v.static ?? 0) == 0"
+				},
+				{
+					"part_bright_trials*": false
+				},
+				{
+					"blend_bright_material*": false
+				}
+			],
+			"textures": ["Texture.default"],
+			"on_fire_color": {
+				"a": "query.is_fire_immune ? 0 : 1"
+			}
+		},
+		"controller.render.makercamp_dr.drone.blend_bright": {
+			"geometry": "v.is_controlled_by_player ? Geometry.controlled : Geometry.default",
+			"materials": [
+				{
+					"*": "Material.blend"
+				},
+				{
+					"part_bright_trials*": "Material.customblend"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": false
+				},
+				{
+					"part_bright_trials*": "(v.static ?? 0) == 0"
+				},
+				{
+					"blend_bright_material*": true
+				}
+			],
+			"textures": ["Texture.default"],
+			"ignore_lighting": true
+		}
+	}
+}

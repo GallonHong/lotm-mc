@@ -1,0 +1,25 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "atg:jpc_2",
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/atg_jpc_2",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.atg_jpc_2"
+      },
+      "scripts": {
+        "parent_setup": "variable.chest_layer_visible = 0.0;"
+      },
+      "render_controllers": [
+        "controller.render.armor"
+      ]
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+    "animations": {
+        "animation.pmo_bullet.move": {
+            "bones": {
+                "body": {
+                    "rotation": [
+                        "-query.target_x_rotation-this",
+                        "-query.target_y_rotation-this",
+                        0
+                    ]
+                }
+            },
+            "loop": true
+        }
+    },
+    "format_version": "1.8.0"
+}

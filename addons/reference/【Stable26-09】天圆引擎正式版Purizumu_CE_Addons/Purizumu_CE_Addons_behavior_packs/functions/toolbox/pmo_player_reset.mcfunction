@@ -1,0 +1,22 @@
+scoreboard players set @p love 0
+scoreboard players set @p bar 2
+scoreboard players set @p mp 20
+scoreboard players set @p level 0
+scoreboard players set @p task 1
+scoreboard players set @p prestige 0
+scoreboard players set @p playtime 0
+scoreboard players set @p daily_mark 0
+scoreboard players set @p temp 0
+scoreboard players set @p coin 500
+scoreboard players set @p hair 100
+scoreboard players set @p guild 1
+scoreboard players set @p notice 0
+scoreboard players set @p effect 0
+scoreboard players set @p sound 0
+scoreboard players set @p global_hp 100
+scoreboard players set @p alert 0
+scoreboard players set @p arms1 1
+scoreboard players set @p arms2 1
+scoreboard players set @p arms3 1
+scoreboard players set @p cafe_exp 30
+tellraw @a {"rawtext":[{"text":"§e玩家数据已归零"}]}

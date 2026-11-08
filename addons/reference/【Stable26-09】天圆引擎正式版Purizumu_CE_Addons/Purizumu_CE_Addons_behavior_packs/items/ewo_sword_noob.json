@@ -1,0 +1,41 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:item": {
+        "description": {
+            "identifier": "ewo:sword_noob",
+            "menu_category": {
+                "category": "equipment",
+                "group": "itemGroup.name.sword"
+            }
+        },
+        "components": {
+            "minecraft:max_stack_size": 1,
+            "minecraft:icon": {
+                "texture": "ewo:sword_noob"
+            },
+            "minecraft:display_name": {
+                "value": "item.ewo:sword_noob.name"
+            },
+            "minecraft:damage": 7,
+            "minecraft:can_destroy_in_creative": false,
+            "minecraft:hand_equipped": true,
+            "minecraft:enchantable": {
+                "slot": "sword",
+                "value": 15
+            },
+            "minecraft:durability": {
+                "max_durability": 250
+            },
+            "minecraft:repairable": {
+                "repair_items": [
+                    {
+                        "items": [
+                            "iron_ingot"
+                        ],
+                        "repair_amount": 100
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,769 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.smart_pistol": {
+			"initial_state": "setup",
+			"states": {
+				"setup": {
+					"transitions": [
+						{
+							"smart_pistol_18_1": "query.get_equipped_item_name == 'smart_pistol'"
+						}
+					]
+				},
+				"smart_pistol_18_1": {
+					"on_entry": [
+						"/title @s actionbar §b18-18"
+					],
+					"transitions": [
+						{
+							"smart_pistol_17_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_17_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					]
+				},
+				"smart_pistol_17_2": {
+					"transitions": [
+						{
+							"smart_pistol_16_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b17-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_17_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_16_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b17-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_16_1": {
+					"transitions": [
+						{
+							"smart_pistol_16_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_16_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_16_2": {
+					"transitions": [
+						{
+							"smart_pistol_15_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b16-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_16_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_15_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b16-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_15_1": {
+					"transitions": [
+						{
+							"smart_pistol_15_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_15_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_15_2": {
+					"transitions": [
+						{
+							"smart_pistol_14_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b15-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_15_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_14_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b15-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_14_1": {
+					"transitions": [
+						{
+							"smart_pistol_14_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_14_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_14_2": {
+					"transitions": [
+						{
+							"smart_pistol_13_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b14-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_14_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_13_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b14-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_13_1": {
+					"transitions": [
+						{
+							"smart_pistol_13_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_13_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_13_2": {
+					"transitions": [
+						{
+							"smart_pistol_12_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b13-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_13_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_12_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b13-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_12_1": {
+					"transitions": [
+						{
+							"smart_pistol_12_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_12_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_12_2": {
+					"transitions": [
+						{
+							"smart_pistol_11_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §612-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_12_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_11_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §612-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_11_1": {
+					"transitions": [
+						{
+							"smart_pistol_11_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_11_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_11_2": {
+					"transitions": [
+						{
+							"smart_pistol_10_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §611-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_11_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_10_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §611-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_10_1": {
+					"transitions": [
+						{
+							"smart_pistol_10_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_10_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_10_2": {
+					"transitions": [
+						{
+							"smart_pistol_9_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §6X-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_10_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_9_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §6X-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_9_1": {
+					"transitions": [
+						{
+							"smart_pistol_9_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_9_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_9_2": {
+					"transitions": [
+						{
+							"smart_pistol_8_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §69-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_9_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_8_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §69-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_8_1": {
+					"transitions": [
+						{
+							"smart_pistol_8_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_8_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_8_2": {
+					"transitions": [
+						{
+							"smart_pistol_7_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §68-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_8_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_7_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §68-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_7_1": {
+					"transitions": [
+						{
+							"smart_pistol_7_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_7_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_7_2": {
+					"transitions": [
+						{
+							"smart_pistol_6_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §67-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_7_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_6_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §67-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_6_1": {
+					"transitions": [
+						{
+							"smart_pistol_6_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_6_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_6_2": {
+					"transitions": [
+						{
+							"smart_pistol_5_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §46-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_6_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_5_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §46-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_5_1": {
+					"transitions": [
+						{
+							"smart_pistol_5_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_5_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_5_2": {
+					"transitions": [
+						{
+							"smart_pistol_4_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §45-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_5_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_4_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §45-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_4_1": {
+					"transitions": [
+						{
+							"smart_pistol_4_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_4_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_4_2": {
+					"transitions": [
+						{
+							"smart_pistol_3_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §44-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_4_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_3_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §44-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_3_1": {
+					"transitions": [
+						{
+							"smart_pistol_3_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_3_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_3_2": {
+					"transitions": [
+						{
+							"smart_pistol_2_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §43-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_3_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_2_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §43-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_2_1": {
+					"transitions": [
+						{
+							"smart_pistol_2_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_2_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_2_2": {
+					"transitions": [
+						{
+							"smart_pistol_1_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §42-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_2_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_1_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §42-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_1_1": {
+					"transitions": [
+						{
+							"smart_pistol_1_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_1_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_1_2": {
+					"transitions": [
+						{
+							"smart_pistol_0_1": "(query.life_time - variable.previoussmart_pistoltime) >= variable.smart_pistoldelay && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §41-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_1_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_0_1": "(query.life_time - variable.previoussmart_pistoltime2) >= variable.smart_pistoldelay2 && query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §41-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_0_1": {
+					"transitions": [
+						{
+							"smart_pistol_0_2": "variable.smart_pistoldelay = 0.05; variable.previoussmart_pistoltime = query.life_time; return (!q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"smart_pistol_0_2_sn": "variable.smart_pistoldelay2 = 0.05; variable.previoussmart_pistoltime2 = query.life_time; return (q.is_sneaking && q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'smart_pistol' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"smart_pistol_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'smart_pistol' "
+						}
+					]
+				},
+				"smart_pistol_0_2": {
+					"transitions": [
+						{
+							"smart_pistol_empty": "1"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^5 execute @e[family=mob,r=5,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_0_2_sn": {
+					"transitions": [
+						{
+							"smart_pistol_empty": "1"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-18",
+						"/execute @s ~~~ playsound smart_pistol_fire @a ~~~",
+						"/execute @s ^^^10 execute @e[family=mob,r=10,c=1] ~~~ summon jmgs:smart_pistol_ammo ~~~"
+					]
+				},
+				"smart_pistol_empty": {
+					"transitions": [
+						{
+							"reload": "1"
+						},
+						{
+							"setup": "!query.is_alive || query.get_equipped_item_name == 'smart_pistol'"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:smart_pistol_empty 1 1"
+					]
+				},
+				"reload": {
+					"transitions": [
+						{
+							"reload_over": "variable.smart_pistoldelay3 = 1.0; variable.previoussmart_pistoltime3 = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"reload_over": {
+					"transitions": [
+						{
+							"setup": "(query.life_time - variable.previoussmart_pistoltime3) >= variable.smart_pistoldelay3"
+						}
+					],
+					"on_exit": [
+						"/clear @s jmgs:smart_pistol_empty 1 1",
+						"/give @s jmgs:smart_pistol 1 1",
+						"/scoreboard players add @s mp -30"
+					]
+				}
+			}
+		}
+	}
+}

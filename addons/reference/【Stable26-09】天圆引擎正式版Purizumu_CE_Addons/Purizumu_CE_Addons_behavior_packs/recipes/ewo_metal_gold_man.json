@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_gold_man_08dc7517"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      " CB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_manganese",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:gold_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_claw",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_gold_man",
+      "count": 1
+    }
+  }
+}

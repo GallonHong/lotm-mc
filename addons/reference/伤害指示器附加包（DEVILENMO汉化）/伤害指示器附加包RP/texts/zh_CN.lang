@@ -1,0 +1,44 @@
+pack.name=伤害指示器附加包（DEVILENMO汉化）
+pack.description=作者：Pixelbiester
+
+###ENTITY NAMES
+entity.pb_dmgi:training_dummy.name=目标假人
+item.spawn_egg.entity.pb_dmgi:training_dummy.name=目标假人
+entity.pb_dmgi:chicken_dummy.name=目标假人：鸡
+item.spawn_egg.entity.pb_dmgi:chicken_dummy.name=目标假人：鸡
+entity.pb_dmgi:cow_dummy.name=目标假人：牛
+item.spawn_egg.entity.pb_dmgi:cow_dummy.name=目标假人：牛
+entity.pb_dmgi:dragon_dummy.name=目标假人：末影龙
+item.spawn_egg.entity.pb_dmgi:dragon_dummy.name=目标假人：末影龙
+entity.pb_dmgi:wither_dummy.name=目标假人：凋灵
+item.spawn_egg.entity.pb_dmgi:wither_dummy.name=目标假人：凋灵
+entity.pb_dmgi:skeleton_dummy.name=目标假人：骷髅
+item.spawn_egg.entity.pb_dmgi:skeleton_dummy.name=目标假人：骷髅
+entity.pb_dmgi:zombie_dummy.name=目标假人：僵尸
+item.spawn_egg.entity.pb_dmgi:zombie_dummy.name=目标假人：僵尸
+entity.pb_dmgi:enderman_dummy.name=目标假人：僵尸
+item.spawn_egg.entity.pb_dmgi:enderman_dummy.name=目标假人：末影人
+
+pb_dmgi_action.interact.menu=打开菜单
+
+###ITEM NAMES
+item.pb_dmgi:guidebook=伤害指示器指南
+
+###GUIDEBOOK MAIN
+pb_dmgi.menu_main_body=欢迎使用§2伤害指示器附加包§r！%1%1直观显示你对生物造成的伤害，并通过多种选项自定义体验。%1%1
+
+###GUIDEBOOK CREDITS
+pb_dmgi.menu_about_title=关于附加包
+pb_dmgi.menu_about_body=§2伤害指示器§r由 Pixelbiester 创建。§r%1%1关注我们：%1§3Twitter§r §o@Pixelbiester%1§r§dInstagram§r §o@pixelbiesterofficial§r%1§cYoutube§r §oPixelBiester§r%1§e网站§r §opixelbiester.net§r%1§sDiscord§r §opixelbiester.net/discord§r%1%1
+pb_dmgi.menu_about_version=版本
+pb_dmgi.menu_about_changelog=更新日志
+
+
+###COMPUTERS BY JIGARBOV INTEGRATION
+pb_dmgi:jig_computer.addon_stats=伤害指示器统计
+pb_dmgi:stat_total_damage=累计伤害总量
+pb_dmgi:stat_max_damage=单次最高伤害
+
+pb_dmgi:credits.for.computers=伤害指示器 作者：Pixelbiester
+
+

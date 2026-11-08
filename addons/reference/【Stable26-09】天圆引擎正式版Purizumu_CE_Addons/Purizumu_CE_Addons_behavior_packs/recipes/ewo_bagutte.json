@@ -1,0 +1,24 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "bagutte_2896490a"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:bread",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:bagutte",
+      "count": 2
+    }
+  }
+}

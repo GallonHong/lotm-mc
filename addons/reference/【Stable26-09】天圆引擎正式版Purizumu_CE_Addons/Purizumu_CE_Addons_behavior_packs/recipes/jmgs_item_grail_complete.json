@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_grail_complete_932cd090"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " E ",
+      "BAC",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_grail",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:emerald_block",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:redstone_block",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:mine_kyanite",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_grail_complete",
+      "count": 1
+    }
+  }
+}

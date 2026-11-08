@@ -1,0 +1,833 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.r201": {
+			"initial_state": "setup",
+			"states": {
+				"setup": {
+					"transitions": [
+						{
+							"r201": "q.get_equipped_item_name == 'r201'"
+						}
+					]
+				},
+				"r201": {
+					"on_entry": [
+						"/title @s actionbar §b30-30"
+					],
+					"transitions": [
+						{
+							"r201_29_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						}
+					]
+				},
+				"r201_29_1": {
+					"transitions": [
+						{
+							"r201_29_2": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b29-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_29_2": {
+					"transitions": [
+						{
+							"r201_28_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_28_1": {
+					"transitions": [
+						{
+							"r201_28_2": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b28-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_28_2": {
+					"transitions": [
+						{
+							"r201_27_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_27_1": {
+					"transitions": [
+						{
+							"r201_27_2": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b27-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_27_2": {
+					"transitions": [
+						{
+							"r201_26_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_26_1": {
+					"transitions": [
+						{
+							"r201_26_2": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b26-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_26_2": {
+					"transitions": [
+						{
+							"r201_25_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_25_1": {
+					"transitions": [
+						{
+							"r201_25_2": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b25-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_25_2": {
+					"transitions": [
+						{
+							"r201_24_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_24_1": {
+					"transitions": [
+						{
+							"r201_24_2": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b24-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_24_2": {
+					"transitions": [
+						{
+							"r201_23_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_23_1": {
+					"transitions": [
+						{
+							"r201_23_2": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b23-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_23_2": {
+					"transitions": [
+						{
+							"r201_22_1": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_22_1": {
+					"transitions": [
+						{
+							"r201_21_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b22-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_21_1": {
+					"transitions": [
+						{
+							"r201_21_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_21_2": {
+					"transitions": [
+						{
+							"r201_20_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b21-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_20_1": {
+					"transitions": [
+						{
+							"r201_20_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_20_2": {
+					"transitions": [
+						{
+							"r201_19_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b20-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_19_1": {
+					"transitions": [
+						{
+							"r201_19_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_19_2": {
+					"transitions": [
+						{
+							"r201_18_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b19-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_18_1": {
+					"transitions": [
+						{
+							"r201_18_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_18_2": {
+					"transitions": [
+						{
+							"r201_17_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b18-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_17_1": {
+					"transitions": [
+						{
+							"r201_17_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_17_2": {
+					"transitions": [
+						{
+							"r201_16_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b17-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_16_1": {
+					"transitions": [
+						{
+							"r201_16_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_16_2": {
+					"transitions": [
+						{
+							"r201_15_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b16-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_15_1": {
+					"transitions": [
+						{
+							"r201_15_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_15_2": {
+					"transitions": [
+						{
+							"r201_14_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §615-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_14_1": {
+					"transitions": [
+						{
+							"r201_14_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_14_2": {
+					"transitions": [
+						{
+							"r201_13_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §614-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_13_1": {
+					"transitions": [
+						{
+							"r201_13_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_13_2": {
+					"transitions": [
+						{
+							"r201_12_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §613-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_12_1": {
+					"transitions": [
+						{
+							"r201_12_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_12_2": {
+					"transitions": [
+						{
+							"r201_11_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §612-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_11_1": {
+					"transitions": [
+						{
+							"r201_11_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_11_2": {
+					"transitions": [
+						{
+							"r201_10_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §611-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_10_1": {
+					"transitions": [
+						{
+							"r201_10_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_10_2": {
+					"transitions": [
+						{
+							"r201_9_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §610-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_9_1": {
+					"transitions": [
+						{
+							"r201_9_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_9_2": {
+					"transitions": [
+						{
+							"r201_8_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §69-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_8_1": {
+					"transitions": [
+						{
+							"r201_8_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_8_2": {
+					"transitions": [
+						{
+							"r201_7_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §68-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_7_1": {
+					"transitions": [
+						{
+							"r201_7_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_7_2": {
+					"transitions": [
+						{
+							"r201_6_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §67-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_6_1": {
+					"transitions": [
+						{
+							"r201_6_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_6_2": {
+					"transitions": [
+						{
+							"r201_5_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §66-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~"
+					]
+				},
+				"r201_5_1": {
+					"transitions": [
+						{
+							"r201_5_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_5_2": {
+					"transitions": [
+						{
+							"r201_4_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §45-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"r201_4_1": {
+					"transitions": [
+						{
+							"r201_4_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_4_2": {
+					"transitions": [
+						{
+							"r201_3_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §44-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"r201_3_1": {
+					"transitions": [
+						{
+							"r201_3_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_3_2": {
+					"transitions": [
+						{
+							"r201_2_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §43-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"r201_2_1": {
+					"transitions": [
+						{
+							"r201_2_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_2_2": {
+					"transitions": [
+						{
+							"r201_1_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §42-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"r201_1_1": {
+					"transitions": [
+						{
+							"r201_1_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_1_2": {
+					"transitions": [
+						{
+							"r201_0_1": "(q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §41-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"r201_0_1": {
+					"transitions": [
+						{
+							"r201_0_2": "variable.r201interval = 0.01; variable.previousr201 = q.life_time; return (q.is_alive && q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'r201');"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"r201_not_total_empty": "variable.r201reload_nt = 1.375; variable.prer201reload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'r201');"
+						}
+					]
+				},
+				"r201_0_2": {
+					"transitions": [
+						{
+							"r201_empty": "variable.r201reload = 1.875; variable.prer201reload = q.life_time; return ((q.life_time - variable.previousr201) >= variable.r201interval && q.get_equipped_item_name == 'r201');"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-30",
+						"@s jmgs:r201_shooter",
+						"/execute @s ~~~ camerashake add @s 0.026 0.2 rotational",
+						"/execute @s ~~~ playsound r201_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~",
+						"/playsound se.se101 @s"
+					]
+				},
+				"r201_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.prer201reload) >= variable.r201reload"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:r201_empty2 1 0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:r201_empty2 0 1",
+						"/give @s jmgs:r201 1 0",
+						"/scoreboard players add @s mp -10"
+					]
+				},
+				"r201_not_total_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.prer201reload_nt) >= variable.r201reload_nt"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:r201_empty1 1 0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:r201_empty1 0 1",
+						"/give @s jmgs:r201 1 0"
+					]
+				}
+			}
+		}
+	}
+}

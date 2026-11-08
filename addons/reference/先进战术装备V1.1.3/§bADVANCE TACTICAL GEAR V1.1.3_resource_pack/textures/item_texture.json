@@ -1,0 +1,225 @@
+{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "egg_camel": {
+      "textures": "textures/items/egg_camel"
+    },
+    "egg_lion": {
+      "textures": "textures/items/egg_lion"
+    },
+    "egg_penguin": {
+      "textures": "textures/items/egg_penguin"
+    },
+    "egg_tiger": {
+      "textures": "textures/items/egg_tiger"
+    },
+    "egg_elephant": {
+      "textures": "textures/items/egg_elephant"
+    },
+    "egg_deer": {
+      "textures": "textures/items/egg_deer"
+    },
+    "egg_panther": {
+      "textures": "textures/items/egg_panther"
+    },
+    "egg_frog": {
+      "textures": "textures/items/egg_frog"
+    },
+    "egg_crocodile": {
+      "textures": "textures/items/egg_crocodile"
+    },
+    "egg_mouse": {
+      "textures": "textures/items/egg_mouse"
+    },
+    "gallardo": {
+      "textures": "textures/items/gallardo"
+    },
+    "bench": {
+      "textures": "textures/items/bench"
+    },
+    "christmas_tree": {
+      "textures": "textures/items/christmas_tree"
+    },
+    "tivi": {
+      "textures": "textures/items/tivi"
+    },
+    "closet": {
+      "textures": "textures/items/closet"
+    },
+    "laptop": {
+      "textures": "textures/items/laptop"
+    },
+    "piano": {
+      "textures": "textures/items/piano"
+    },
+    "armchairs": {
+      "textures": "textures/items/armchairs"
+    },
+    "chair": {
+      "textures": "textures/items/chair"
+    },
+    "big_table": {
+      "textures": "textures/items/big_table"
+    },
+    "small_table": {
+      "textures": "textures/items/small_table"
+    },
+    "drone": {
+      "textures": "textures/items/drone"
+    },
+    "colorful_gifts": {
+      "textures": "textures/items/colorful_gifts"
+    },
+    "atg_black_ghillie": {
+      "textures": [
+        "textures/items/pamobile/atg_black_ghillie"
+      ]
+    },
+    "atg:armor_plate": {
+      "textures": "textures/items/pamobile/atg_armor_plate"
+    },
+    "atg_ala_spc": {
+      "textures": [
+        "textures/items/pamobile/atg_ala_spc"
+      ]
+    },
+    "atg_goggles_red": {
+      "textures": [
+        "textures/items/pamobile/atg_goggles_red"
+      ]
+    },
+    "atg_ca_pvs31_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_ca_pvs31_desert"
+      ]
+    },
+    "atg_goggles_black": {
+      "textures": [
+        "textures/items/pamobile/atg_goggles_black"
+      ]
+    },
+    "atg_ca_pvs31": {
+      "textures": [
+        "textures/items/pamobile/atg_ca_pvs31"
+      ]
+    },
+    "atg_emr_6b13": {
+      "textures": [
+        "textures/items/pamobile/atg_emr_6b13"
+      ]
+    },
+    "atg:gpnvg18": {
+      "textures": "textures/items/pamobile/atg_gpnvg18"
+    },
+    "atg_ca_pvs_31_up": {
+      "textures": [
+        "textures/items/pamobile/atg_ca_pvs_31_up"
+      ]
+    },
+    "atg_ca_pvs31_up_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_ca_pvs31_up_desert"
+      ]
+    },
+    "atg_m50": {
+      "textures": [
+        "textures/items/pamobile/atg_m50"
+      ]
+    },
+    "atg_mch_fc": {
+      "textures": [
+        "textures/items/pamobile/atg_mch_fc"
+      ]
+    },
+    "atg:hook": {
+      "textures": "textures/items/pamobile/atg_hook"
+    },
+    "atg_killa_6b13": {
+      "textures": [
+        "textures/items/pamobile/atg_killa_6b13"
+      ]
+    },
+    "atg:iit": {
+      "textures": "textures/items/pamobile/atg_iit"
+    },
+    "atg_jpc_2_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_jpc_2_desert"
+      ]
+    },
+    "atg_jpc_2": {
+      "textures": [
+        "textures/items/pamobile/atg_jpc_2"
+      ]
+    },
+    "atg_mch_fc_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_mch_fc_desert"
+      ]
+    },
+    "atg_mch_fc_up": {
+      "textures": [
+        "textures/items/pamobile/atg_mch_fc_up"
+      ]
+    },
+    "atg_oc_amp": {
+      "textures": [
+        "textures/items/pamobile/atg_oc_amp"
+      ]
+    },
+    "atg_oak_ghillie": {
+      "textures": [
+        "textures/items/pamobile/atg_oak_ghillie"
+      ]
+    },
+    "atg_mch_fc_up_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_mch_fc_up_desert"
+      ]
+    },
+    "atg_ocf_gpnvg18": {
+      "textures": [
+        "textures/items/pamobile/atg_ocf_gpnvg18"
+      ]
+    },
+    "atg_ocf_gpnvg18_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_ocf_gpnvg18_desert"
+      ]
+    },
+    "atg_mlt_hg2": {
+      "textures": [
+        "textures/items/pamobile/atg_mlt_hg2"
+      ]
+    },
+    "atg_mlt_hg2_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_mlt_hg2_desert"
+      ]
+    },
+    "atg:pvs_31": {
+      "textures": "textures/items/pamobile/atg_pvs_31"
+    },
+    "atg_ocf_gpnvg18_up1": {
+      "textures": [
+        "textures/items/pamobile/atg_ocf_gpnvg18_up1"
+      ]
+    },
+    "atg_ocf_gpnvg18_up_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_ocf_gpnvg18_up_desert"
+      ]
+    },
+    "atg_ocf_gpnvg18_up": {
+      "textures": [
+        "textures/items/pamobile/atg_ocf_gpnvg18_up"
+      ]
+    },
+    "atg_ocf_gpnvg18_up1_desert": {
+      "textures": [
+        "textures/items/pamobile/atg_ocf_gpnvg18_up1_desert"
+      ]
+    }
+  }
+}

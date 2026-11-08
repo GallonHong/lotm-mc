@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_ball_flat_578208c8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_cartialgenous",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_ball_flat",
+      "count": 1
+    }
+  }
+}

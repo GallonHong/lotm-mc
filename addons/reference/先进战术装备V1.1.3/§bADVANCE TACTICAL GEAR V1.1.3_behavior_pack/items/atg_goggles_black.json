@@ -1,0 +1,45 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:goggles_black",
+      "menu_category": {
+        "category": "equipment",
+        "group": "pa:itemGroup.name.goggles"
+      }
+    },
+    "components": {
+      "minecraft:icon": "atg_goggles_black",
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:enchantable": {
+        "value": 10,
+        "slot": "armor_feet"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet",
+        "protection": 1
+      },
+      "minecraft:durability": {
+        "max_durability": 200,
+        "damage_chance": {
+          "min": 60,
+          "max": 100
+        }
+      },
+      "minecraft:mining_speed": 5,
+      "minecraft:glint": false,
+      "minecraft:hand_equipped": false,
+      "minecraft:repairable": {
+        "repair_items": []
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "minecraft:transformable_items",
+          "minecraft:trimmable_armors"
+        ]
+      }
+    }
+  }
+}

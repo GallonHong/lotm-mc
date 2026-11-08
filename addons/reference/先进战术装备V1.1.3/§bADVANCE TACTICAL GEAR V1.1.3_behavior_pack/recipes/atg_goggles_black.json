@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "goggles_black_9d24def8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:string",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:lead",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:black_stained_glass_pane",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:black_wool",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:goggles_black",
+      "count": 1
+    }
+  }
+}

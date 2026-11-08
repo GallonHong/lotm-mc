@@ -1,0 +1,21 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:projectile_a1_ammo",
+      "materials": {
+        "default": "charged_creeper"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_projectile_a1"
+      },
+      "geometry": {
+        "default": "geometry.pmo_bullet"
+      },
+      "render_controllers": [ "controller.render.fireball" ],
+      "animations": {
+        "face_player": "animation.actor.billboard"
+      }
+    }
+  }
+} 

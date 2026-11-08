@@ -1,0 +1,13 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/leaf_pile_place_grouped"
+        },
+        "features": [
+            ["mythicus_sn:mythicus/sn/oak/leaf_pile_orange", 1],
+            ["mythicus_sn:mythicus/sn/oak/leaf_pile_red", 1],
+            ["mythicus_sn:mythicus/sn/oak/leaf_pile_yellow", 1]
+        ]
+    }
+}

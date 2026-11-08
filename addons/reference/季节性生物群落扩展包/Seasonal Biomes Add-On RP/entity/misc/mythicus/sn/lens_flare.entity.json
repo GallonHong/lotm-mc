@@ -1,0 +1,53 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:lens_flare",
+            "materials": {
+                "default": "mythicus_sn:lens_flare"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/entity/misc/lens_flare/sun",
+                "moon": "textures/mythicus/sn/entity/misc/lens_flare/moon"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.lens_flare"
+            },
+            "scripts": {
+                "scale": "15",
+                "pre_animation": [
+                    "v.camera_x = q.camera_rotation(0) + q.rotation_to_camera(0);",
+                    "v.camera_y = (q.camera_rotation(1) - (90 * (q.camera_rotation(1) > 0 ? 1 : -1))) * 0.2;",
+                    "v.lens_flare_scale = (math.sqrt(v.camera_x * v.camera_x + v.camera_y * v.camera_y) + 1);",
+                    "v.lens_flare_scale_reversed = 1 / (math.sqrt(v.camera_x * v.camera_x + v.camera_y * v.camera_y) + 1);",
+                    "v.normalized_flare_scale = 1 + ((0 - 1) / (20 - 0)) * (v.lens_flare_scale - 0);",
+                    "v.normalized_flare_scale_reversed = 1 + ((0 - 1) / (20 - 0)) * (v.lens_flare_scale_reversed - 0);",
+                    "v.rotation_to_x = query.rotation_to_camera(0);",
+                    "v.rotation_to_y = query.rotation_to_camera(1);",
+                    "v.timeof_day = query.time_of_day;",
+                    "v.number_by_distance_small = math.clamp(1 - ((v.lens_flare_scale - 6) / (9 - 6)), 0, 1);",
+                    "v.number_by_distance_medium = math.clamp(1 - ((v.lens_flare_scale - 9) / (18 - 9)), 0, 1);",
+                    "v.number_by_distance_large = math.clamp(1 - ((v.lens_flare_scale - 18) / (36 - 18)), 0, 1);",
+                    "v.is_simple = query.graphics_mode_is_any('simple');",
+                    "v.is_fancy = query.graphics_mode_is_any('fancy');",
+                    "v.is_deferred = query.graphics_mode_is_any('deferred');",
+                    "v.is_raytraced = query.graphics_mode_is_any('raytraced');",
+                    "v.golden_hour = math.max(math.max(0.0, 1.0 - (math.abs(query.time_of_day - 0.22) / 0.04)),math.max(0.0, 1.0 - (math.abs(query.time_of_day - 0.78) / 0.04)));",
+                    "v.is_sun = query.has_property('mythicus_sn:is_sun') ? query.property('mythicus_sn:is_sun') : 0;"
+                ],
+                "animate": ["default", "spawn"]
+            },
+            "animations": {
+                "default": "animation.mythicus_sn.lens_flare",
+                "spawn": "animation.mythicus_sn.lens_flare_spawn"
+            },
+            "render_controllers": [
+                { "controller.render.mythicus_sn.lens_flare": "v.is_sun" },
+                "controller.render.mythicus_sn.lens_flare1",
+                { "controller.render.mythicus_sn.lens_flare3": "v.is_sun" },
+                "controller.render.mythicus_sn.lens_flare4",
+                "controller.render.mythicus_sn.lens_flare5"
+            ]
+        }
+    }
+}

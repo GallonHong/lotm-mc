@@ -1,0 +1,31 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:preservers_jar"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "##",
+            "AA",
+            "AA"
+        ],
+        "key": {
+            "#": {
+                "item": "mythicus_sn:fabric"
+            },
+            "A": {
+                "item": "minecraft:glass"
+            }
+        },
+        "result": {
+            "item": "mythicus_sn:preservers_jar",
+            "count": 1
+        },
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        }
+    }
+}

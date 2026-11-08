@@ -1,0 +1,19 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.chestplate": {
+            "geometry": "Geometry.default",
+            "textures": ["Texture.default", "Texture.enchanted"],
+            "part_visibility": [
+                { "*": 0 },
+                { "body": 1 },
+                { "leggings": 0 },
+                { "leftarm": 1 },
+                { "rightarm": 1 }
+            ],
+            "materials": [
+                { "*": "variable.is_enchanted ? Material.enchanted : Material.default" }
+            ]
+        }
+    }
+}

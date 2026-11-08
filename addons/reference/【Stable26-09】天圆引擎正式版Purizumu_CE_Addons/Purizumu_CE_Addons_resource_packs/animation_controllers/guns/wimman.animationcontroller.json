@@ -1,0 +1,156 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.wimman.run": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "wimman_first_person": "variable.wimman"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "variable.wimman && query.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope": "variable.wimman && query.is_sneaking"
+                        },
+                        {
+                            "fire1": "variable.wimman && q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'wimman_empty'"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "wimman_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        {
+                            "wimman_first_person_run": "q.is_on_ground && q.is_alive"
+                        },
+                        {
+                            "wimman_first_person": "!q.is_on_ground && q.is_alive"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || !query.is_sprinting || !variable.wimman || !q.is_alive"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'wimman_empty'"
+                        },
+                        {
+                            "fire1": "variable.wimman && q.item_remaining_use_duration > 1"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "wimman_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "scope": {
+                    "animations": [
+                        "wimman_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_sneaking || !variable.wimman || !q.is_alive"
+                        },
+                        {
+                            "scopehold": "query.all_animations_finished"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'wimman_empty'"
+                        }
+                    ]
+                },
+                "scopehold": {
+                    "animations": [
+                        "wimman_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.wimman || !q.is_alive"
+                        },
+                        {
+                            "scopehold_to_default": "!query.is_sneaking"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'wimman_empty'"
+                        }
+                    ]
+                },
+                "scopehold_to_default": {
+                    "animations": [
+                        "wimman_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished || !q.is_alive"
+                        }
+                    ]
+                },
+                "fire1": {
+                    "animations": [
+                        "wimman_first_person_fire1"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.wimman || query.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'wimman_empty'"
+                        },
+                        {
+                            "scope": "query.is_sneaking"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "wimman_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold": "query.all_animations_finished"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'wimman_empty'"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        "wimman_first_person_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_alive || query.get_equipped_item_name == 'wimman'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

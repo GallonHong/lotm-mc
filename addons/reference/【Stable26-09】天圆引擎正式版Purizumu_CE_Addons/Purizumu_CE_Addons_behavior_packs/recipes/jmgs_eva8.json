@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "eva8_bd509913"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_book_pro",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:item_start",
+        "data": 0
+      },
+      "G": {
+        "item": "minecraft:echo_shard",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:card_level6",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:mine_kyanite",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:eva8",
+      "count": 1
+    }
+  }
+}

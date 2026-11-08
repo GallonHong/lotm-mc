@@ -1,0 +1,25 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "atg:ca_pvs_31_up",
+      "materials": {
+        "default": "armor",
+        "enchanted": "armor_enchanted"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/atg_ca_pvs_31_up",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.atg_ca_pvs_31_up"
+      },
+      "scripts": {
+        "parent_setup": "variable.helmet_layer_visible = 0.0;"
+      },
+      "render_controllers": [
+        "controller.render.armor"
+      ]
+    }
+  }
+}

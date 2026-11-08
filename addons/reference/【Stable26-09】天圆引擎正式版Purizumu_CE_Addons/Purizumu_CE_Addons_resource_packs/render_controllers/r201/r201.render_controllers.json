@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.r201_models": {
+			"textures": [
+				"Texture.r201_models"
+			],
+			"geometry": "Geometry.r201_models",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"scopestar": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire": "Material.gun_scope_aim"
+				},
+				{
+					"hwx": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire2": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

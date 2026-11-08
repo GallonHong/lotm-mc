@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_tv_932cd002"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ADF",
+      "CEC",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_mainh110",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:block_display",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:lapis_lazuli",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_tv",
+      "count": 1
+    }
+  }
+}

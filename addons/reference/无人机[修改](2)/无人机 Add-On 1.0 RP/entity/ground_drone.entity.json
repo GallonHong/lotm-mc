@@ -1,0 +1,44 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:ground_drone",
+			"materials": {
+				"default": "entity_alphatest",
+				"blend": "entity_alphablend",
+				"customblend": "makercamp_dr_customblend",
+				"emissive": "entity_emissive_alpha"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/ground_drone"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.ground_drone",
+				"controlled": "geometry.makercamp_dr.empty"
+			},
+			"animations": {
+				"ac.ground_drone": "controller.animation.makercamp_dr.ground_drone",
+
+				"idle": "animation.makercamp_dr.ground_drone.idle",
+				"walk": "animation.makercamp_dr.ground_drone.walk",
+				"attack": "animation.makercamp_dr.ground_drone.attack",
+
+				"look_at_target": "animation.common.look_at_target"
+			},
+			"scripts": {
+				"pre_animation": ["v.is_controlled_by_player = 0;"],
+				"animate": ["ac.ground_drone", "look_at_target"]
+			},
+			"sound_effects": {
+				"attack": "makercamp_dr.drone.ground_drone.attack"
+			},
+			"spawn_egg": {
+				"texture": "makercamp_dr:ground_drone"
+			},
+			"render_controllers": [
+				"controller.render.markercamp_dr.drone.common",
+				"controller.render.makercamp_dr.drone.blend_bright"
+			]
+		}
+	}
+}

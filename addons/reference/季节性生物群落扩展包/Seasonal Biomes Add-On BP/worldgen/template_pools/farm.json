@@ -1,0 +1,38 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "mythicus_sn:farm"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/f_0"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/f_1"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/f_2"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/f_3"
+                },
+                "weight": 25
+            }
+        ]
+    }
+}

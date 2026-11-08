@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "blueprint_n_424e8213"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:paper",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:blueprint_n",
+      "count": 1
+    }
+  }
+}

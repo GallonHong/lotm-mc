@@ -1,0 +1,128 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ewo:chest5",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "store"
+        ]
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:push_through": {
+        "value": 1
+      },
+      "minecraft:movement": {
+        "value": 0.0,
+        "max": 0.0
+      },
+      "minecraft:knockback_resistance": {
+        "value": 5.0,
+        "max": 5.0
+      },
+      "minecraft:navigation.walk": {},
+      "minecraft:movement.basic": {},
+      "minecraft:interact": [
+        {
+          "on_interact": {
+            "filters": {
+              "all_of": [
+                {
+                  "any_of": [
+                    {
+                      "test": "has_equipment",
+                      "subject": "other",
+                      "domain": "hand",
+                      "value": "dye:15"
+                    },
+                    {
+                      "test": "has_equipment",
+                      "subject": "other",
+                      "domain": "hand",
+                      "value": "dye:19"
+                    }
+                  ]
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "test": "has_ability",
+                  "subject": "other",
+                  "value": "instabuild"
+                }
+              ]
+            },
+            "event": "minecraft:turn_white"
+          },
+          "use_item": true
+        }
+      ],
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 1 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.02
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:on_death": {
+        "event": "on:death",
+        "target": "self"
+      },
+      "minecraft:on_hurt": {
+        "event": "on:hurt",
+        "target": "self"
+      },
+      "minecraft:on_hurt_by_player": {
+        "event": "on:hurt_by_player",
+        "target": "self"
+      },
+      "minecraft:on_ignite": {
+        "event": "on:ignite",
+        "target": "self"
+      },
+      "minecraft:on_target_acquired": {
+        "event": "on:target_acquired",
+        "target": "self"
+      },
+      "minecraft:on_target_escape": {
+        "event": "on:target_escape",
+        "target": "self"
+      },
+      "minecraft:on_wake_with_owner": {
+        "event": "on:wake_with_owner",
+        "target": "self"
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/ewo_drop_a5.json"
+      }
+    },
+    "events": {
+
+    }
+  }
+}

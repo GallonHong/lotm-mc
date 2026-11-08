@@ -1,0 +1,21 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "recipes_7d8f40b0"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "atg:mch_fc_desert",
+        "data": 0
+      }
+    ],
+    "result": {
+      "item": "atg:mch_fc_up_desert",
+      "count": 1
+    }
+  }
+}

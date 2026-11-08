@@ -1,0 +1,29 @@
+{
+    "format_version": "1.21.90",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:season_calendar"
+        },
+        "tags": ["crafting_table"],
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        },
+        "pattern": [
+            " P ",
+            "PCP",
+            " P "
+        ],
+        "key": {
+            "P": {
+                "item": "minecraft:paper"
+            },
+            "C": {
+                "item": "minecraft:compass"
+            }
+        },
+        "result": {
+            "item": "mythicus_sn:season_calendar",
+            "count": 1
+        }
+    }
+}

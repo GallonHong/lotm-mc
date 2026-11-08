@@ -1,0 +1,80 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:freeze_drone",
+			"materials": {
+				"default": "entity_alphatest",
+				"blend": "entity_alphablend",
+				"customblend": "makercamp_dr_customblend",
+				"emissive": "entity_emissive_alpha"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/freeze_drone"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.freeze_drone",
+				"controlled": "geometry.makercamp_dr.freeze_drone_controlled"
+			},
+			"animations": {
+				"ac.fly": "controller.animation.makercamp_dr.drone.fly",
+				"ac.shoot": "controller.animation.makercamp_dr.freeze_drone.shoot",
+				"ac.aim": "controller.animation.makercamp_dr.freeze_drone.aim",
+
+				"idle": "animation.makercamp_dr.freeze_drone.idle",
+				"fly": "animation.makercamp_dr.freeze_drone.fly",
+
+				"laser_hide": "animation.makercamp_dr.freeze_drone.hide_laser",
+				"laser_start": "animation.makercamp_dr.freeze_drone.laser_start",
+				"laser_loop": "animation.makercamp_dr.freeze_drone.laser_loop",
+				"laser_end": "animation.makercamp_dr.freeze_drone.laser_end",
+				"laser_aim": "animation.makercamp_dr.freeze_drone.laser_aim",
+				"laser_aim_last": "animation.makercamp_dr.freeze_drone.laser_aim_last",
+
+				"sound.beam": "animation.makercamp_dr.laser_drone.sound.beam",
+				"sound.beam.controlled": "animation.makercamp_dr.laser_drone.sound.beam.controlled",
+
+				"sound.beam.start": "animation.makercamp_dr.laser_drone.sound.beam.start",
+				"sound.beam.start.controlled": "animation.makercamp_dr.laser_drone.sound.beam.start.controlled"
+			},
+			"scripts": {
+				"should_update_bones_and_effects_offscreen": true,
+				"pre_animation": [
+					"v.active_state = q.property('makercamp_dr:state') == 'active';",
+					"v.is_controlled_by_player = q.property('makercamp_dr:controlled_by_player');",
+					"v.laser_length = q.property('makercamp_dr:laser_length') * 0.46;",
+					"v.is_shooting = q.property('makercamp_dr:is_shooting');",
+
+					"v.controlled_laser_delay = 0.05;",
+					"v.controlled_rot_x = query.property('makercamp_dr:controlled.rot.x');",
+					"v.delta_x = v.controlled_rot_x - (v.current_rot_x ?? v.controlled_rot_x);",
+					"v.delta_x = v.delta_x - (math.floor((v.delta_x + 180) / 360) * 360);",
+					"v.current_rot_x = (v.current_rot_x ?? v.controlled_rot_x) + (v.delta_x * v.controlled_laser_delay);",
+
+					"v.controlled_rot_y = query.property('makercamp_dr:controlled.rot.y');",
+					"v.delta_y = v.controlled_rot_y - (v.current_rot_y ?? v.controlled_rot_y);",
+					"v.delta_y = v.delta_y - (math.floor((v.delta_y + 180) / 360) * 360);",
+					"v.current_rot_y = (v.current_rot_y ?? v.controlled_rot_y) + (v.delta_y * v.controlled_laser_delay);"
+				],
+				"animate": [
+					{
+						"ac.fly": "!v.is_controlled_by_player"
+					},
+					"ac.shoot",
+					"ac.aim"
+				]
+			},
+			"sound_effects": {
+				"beam": "makercamp_dr.drone.freeze_beam",
+				"beam.controlled": "makercamp_dr.drone.freeze_beam.controlled"
+			},
+			"spawn_egg": {
+				"texture": "makercamp_dr:freeze_drone"
+			},
+			"render_controllers": [
+				"controller.render.markercamp_dr.drone.common",
+				"controller.render.makercamp_dr.drone.blend_bright"
+			]
+		}
+	}
+}

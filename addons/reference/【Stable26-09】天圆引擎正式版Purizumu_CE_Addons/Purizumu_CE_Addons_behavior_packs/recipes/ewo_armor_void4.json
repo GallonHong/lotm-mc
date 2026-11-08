@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_void4_84bdcbc0"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDE",
+      "FGF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_man_si",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_manganese",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_film",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:gold_block",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:netherite_block",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:cloth_nano",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_void4",
+      "count": 1
+    }
+  }
+}

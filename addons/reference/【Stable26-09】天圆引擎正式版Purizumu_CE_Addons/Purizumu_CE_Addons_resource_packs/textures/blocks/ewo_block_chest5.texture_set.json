@@ -1,0 +1,7 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "ewo_block_chest5",
+    "metalness_emissive_roughness": "ewo_block_chest5_mer"
+  }
+}

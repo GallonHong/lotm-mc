@@ -1,0 +1,29 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:iit",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 16,
+      "minecraft:glint": false,
+      "minecraft:icon": "atg:iit",
+      "minecraft:allow_off_hand": false,
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:transform_materials"
+        ]
+      },
+      "minecraft:should_despawn": false,
+      "minecraft:cooldown": {
+        "category": "iit_cooldown",
+        "duration": 0.5,
+        "type": "use"
+      }
+    }
+  }
+}

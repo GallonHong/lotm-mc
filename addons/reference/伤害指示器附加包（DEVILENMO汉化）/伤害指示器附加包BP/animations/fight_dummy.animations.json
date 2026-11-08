@@ -1,0 +1,23 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.pb_dmgi.dummy_init": {
+            "loop": false,
+            "timeline": {
+                "0.0": [
+                    "/effect @s regeneration 20 5 true"
+                ]
+            },
+            "animation_length": 1
+        },
+        "animation.pb_dmgi.dummy_regen": {
+            "loop": true,
+            "timeline": {
+                "0.0": [
+                    "/effect @s regeneration 20 5 true"
+                ]
+            },
+            "animation_length": 1
+        }
+    }
+}

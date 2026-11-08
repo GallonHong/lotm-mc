@@ -1,0 +1,633 @@
+pack.name=季节群系附加包 b站男巫汉化
+pack.description=真实的季节性群系附加包资源包。由 Mythicus Studios 制作
+
+tile.mythicus_sn:snow_layer.name=季节性雪层
+tile.mythicus_sn:ice.name=季节性冰
+tile.mythicus_sn:icicle.name=季节性冰柱
+tile.mythicus_sn:beet.name=甜菜作物
+tile.mythicus_sn:blueberry_bush.name=蓝莓灌木
+tile.mythicus_sn:broccoli.name=西兰花作物
+tile.mythicus_sn:cauliflower.name=花椰菜作物
+tile.mythicus_sn:corn.name=玉米作物
+tile.mythicus_sn:cranberry_bush.name=蔓越莓灌木
+tile.mythicus_sn:dandelion.name=季节性蒲公英
+tile.mythicus_sn:eggplant.name=茄子作物
+tile.mythicus_sn:fern.name=季节性蕨
+tile.mythicus_sn:garlic.name=大蒜作物
+tile.mythicus_sn:green_bean.name=青豆作物
+tile.mythicus_sn:ground_leaves.name=季节性地面落叶
+tile.mythicus_sn:custom_ground_block.name=季节性地面块
+tile.mythicus_sn:custom_ground_variant_1.name=季节性地面块变种 1
+tile.mythicus_sn:custom_ground_variant_2.name=季节性地面块变种 2
+tile.mythicus_sn:hot_pepper.name=辣椒作物
+tile.mythicus_sn:large_fern_bottom.name=季节性大型蕨
+tile.mythicus_sn:large_fern_top.name=季节性大型蕨
+tile.mythicus_sn:leaves_birch.name=季节性白桦树叶
+tile.mythicus_sn:leaves_spruce.name=季节性云杉树叶
+tile.mythicus_sn:lilac_top.name=季节性丁香
+tile.mythicus_sn:lilac_bottom.name=季节性丁香
+tile.mythicus_sn:orange_leaves_oak.name=季节性橙色橡树叶
+tile.mythicus_sn:orange_piles_of_leaves.name=季节性橙色落叶堆
+tile.mythicus_sn:peony_bottom.name=季节性牡丹
+tile.mythicus_sn:peony_top.name=季节性牡丹
+tile.mythicus_sn:poppy.name=季节性虞美人
+tile.mythicus_sn:tulips.name=季节性郁金香束
+tile.mythicus_sn:apples.name=季节性苹果
+tile.mythicus_sn:pine_needles.name=季节性苔藓
+tile.mythicus_sn:very_short_grass.name=季节性极短草
+tile.mythicus_sn:red_leaves_oak.name=季节性红色橡树叶
+tile.mythicus_sn:side_leaves_spruce.name=季节性云杉树松果
+tile.mythicus_sn:side_leaves_oak.name=季节性橡树花
+tile.mythicus_sn:side_leaves_birch.name=季节性白桦树花
+tile.mythicus_sn:red_piles_of_leaves.name=季节性红色落叶堆
+tile.mythicus_sn:rose_top.name=季节性玫瑰
+tile.mythicus_sn:rose_bottom.name=季节性玫瑰
+tile.mythicus_sn:short_grass.name=季节性短草
+tile.mythicus_sn:shrub.name=季节性灌木
+tile.mythicus_sn:preservers_jar.name=§b保鲜罐
+tile.mythicus_sn:dehydrator.name=§b脱水机
+tile.mythicus_sn:keg.name=§b酒桶
+tile.mythicus_sn:mortar_pestle.name=§b mortar_pestle  mortar & pestle
+tile.mythicus_sn:loom.name=§b织布机
+tile.mythicus_sn:cheese_press.name=§b奶酪压榨机
+tile.mythicus_sn:mayonnaise_machine.name=§b蛋黄酱机
+tile.mythicus_sn:strawberry_bush.name=草莓灌木
+tile.mythicus_sn:sweetberry.name=季节性甜浆果丛
+tile.mythicus_sn:tomatoes.name=番茄作物
+tile.mythicus_sn:wildflowers.name=季节性野花
+tile.mythicus_sn:yellow_leaves_oak.name=季节性黄色橡树叶
+tile.mythicus_sn:yellow_piles_of_leaves.name=季节性黄色落叶堆
+item.mythicus_sn:beet=甜菜
+item.mythicus_sn:beet_seed=甜菜种子
+item.mythicus_sn:broccoli_seed=西兰花种子
+item.mythicus_sn:cauliflower_seed=花椰菜种子
+item.mythicus_sn:corn_seed=玉米种子
+item.mythicus_sn:eggplant_seed=茄子种子
+item.mythicus_sn:garlic_seed=大蒜种子
+item.mythicus_sn:green_bean_seed=青豆种子
+item.mythicus_sn:hot_pepper_seed=辣椒种子
+item.mythicus_sn:tomatoes_seed=番茄种子
+item.mythicus_sn:blueberry=蓝莓
+item.mythicus_sn:broccoli=西兰花
+item.mythicus_sn:cauliflower=花椰菜
+item.mythicus_sn:corn=玉米
+item.mythicus_sn:cranberry=蔓越莓
+item.mythicus_sn:eggplant=茄子
+item.mythicus_sn:garlic=大蒜
+item.mythicus_sn:green_bean=青豆
+item.mythicus_sn:hot_pepper=辣椒
+item.mythicus_sn:strawberry=草莓
+item.mythicus_sn:tomatoes=番茄
+
+### 盔甲物品
+item.mythicus_sn:normal_fall_boots=秋季靴子
+item.mythicus_sn:normal_fall_chestplate=秋季胸甲
+item.mythicus_sn:normal_fall_leggings=秋季护腿
+item.mythicus_sn:normal_fall_helmet=秋季头盔
+item.mythicus_sn:normal_spring_boots=春季靴子
+item.mythicus_sn:normal_spring_chestplate=春季胸甲
+item.mythicus_sn:normal_spring_leggings=春季护腿
+item.mythicus_sn:normal_spring_helmet=春季头盔
+item.mythicus_sn:normal_winter_boots=冬季靴子
+item.mythicus_sn:normal_winter_chestplate=冬季胸甲
+item.mythicus_sn:normal_winter_leggings=冬季护腿
+item.mythicus_sn:normal_winter_helmet=冬季头盔
+item.mythicus_sn:normal_summer_boots=夏季靴子
+item.mythicus_sn:normal_summer_chestplate=夏季胸甲
+item.mythicus_sn:normal_summer_leggings=夏季护腿
+item.mythicus_sn:normal_summer_helmet=夏季头盔
+### 生物物品
+item.mythicus_sn:truffle=松露
+
+### 货币物品
+item.mythicus_sn:polished_emerald=抛光绿宝石
+
+### 生物
+item.spawn_egg.entity.mythicus_sn:seasons_pig.name=季节性猪刷怪蛋
+entity.mythicus_sn:seasons_pig.name=季节性猪
+item.spawn_egg.entity.mythicus_sn:seasons_cow.name=季节性牛刷怪蛋
+entity.mythicus_sn:seasons_cow.name=季节性牛
+item.spawn_egg.entity.mythicus_sn:seasons_chicken.name=季节性鸡刷怪蛋
+entity.mythicus_sn:seasons_chicken.name=季节性鸡
+item.spawn_egg.entity.mythicus_sn:seasons_sheep.name=季节性羊刷怪蛋
+entity.mythicus_sn:seasons_sheep.name=季节性羊
+item.spawn_egg.entity.mythicus_sn:seasons_fox.name=季节性狐狸刷怪蛋
+entity.mythicus_sn:seasons_fox.name=季节性狐狸
+item.spawn_egg.entity.mythicus_sn:seasons_rabbit.name=季节性兔子刷怪蛋
+entity.mythicus_sn:seasons_rabbit.name=季节性兔子
+
+### 季节性蜜蜂
+entity.mythicus_sn:bitty_bee.name=季节性小蜜蜂
+item.spawn_egg.entity.mythicus_sn:bitty_bee.name=季节性小蜜蜂刷怪蛋
+entity.mythicus_sn:bee_queen.name=季节性蜂后
+item.spawn_egg.entity.mythicus_sn:bee_queen.name=季节性蜂后刷怪蛋
+tile.mythicus_sn:bee_nest.name=季节性蜂巢
+
+### 商人
+item.spawn_egg.entity.mythicus_sn:botanist_trader.name=季节性植物学家商人刷怪蛋
+entity.mythicus_sn:botanist_trader.name=季节性植物学家商人
+item.spawn_egg.entity.mythicus_sn:skill_trader.name=季节性技能商人刷怪蛋
+entity.mythicus_sn:skill_trader.name=季节性技能商人
+item.spawn_egg.entity.mythicus_sn:season_villager.name=季节性村民刷怪蛋
+entity.mythicus_sn:season_villager.name=季节性村民
+
+item.mythicus_sn:fabric=§b布料
+item.mythicus_sn:cloth=§b布匹
+item.mythicus_sn:quality_wool=优质羊毛
+item.mythicus_sn:quality_honey=优质蜂蜜
+item.mythicus_sn:carpet=§d地毯
+
+item.mythicus_sn:fertilizer=肥料
+item.mythicus_sn:egg=季节性鸡蛋
+item.mythicus_sn:feather=季节性羽毛
+tile.mythicus_sn:chicken_nest.name=鸡窝
+item.mythicus_sn:thick_pelt=厚毛皮
+
+item.mythicus_sn:golden_fertilizer=§6黄金肥料
+
+item.mythicus_sn:season_calendar=季节日历
+item.mythicus_sn:season_guidebook=季节系统指南
+item.mythicus_sn:bottle_of_milk=奶瓶
+item.mythicus_sn:manure=粪肥
+
+ui.mythicus_sn.season_calendar.title=季节日历
+ui.mythicus_sn.season_calendar.world_day=世界天数
+ui.mythicus_sn.season_calendar.current_season=当前季节
+ui.mythicus_sn.season_calendar.season_progress=季节进度
+ui.mythicus_sn.season_calendar.days_until=季节更替剩余
+ui.mythicus_sn.season_calendar.day=天
+ui.mythicus_sn.season_calendar.days=天
+ui.mythicus_sn.season_calendar.summer=今日天气
+ui.mythicus_sn.season_calendar.forecast=预报
+ui.mythicus_sn.season_calendar.upcoming_season=即将到来的季节
+ui.mythicus_sn.season_calendar.features=季节特性
+ui.mythicus_sn.season_calendar.close=§l关闭
+
+ui.mythicus_sn.performance_mode.title=季节性能模式
+ui.mythicus_sn.performance_mode.description=§l§6■ §r§6根据内存等级选择季节系统更新方块的激进程度。
+ui.mythicus_sn.performance_mode.current=§l§6■ §r§6当前模式：§r
+ui.mythicus_sn.performance_mode.recommendation.player=§l§d■ §r§d您的设备推荐：§r
+ui.mythicus_sn.performance_mode.recommendation.server=§l§d■ §r§d服务器推荐：§r
+
+ui.mythicus_sn.performance_mode.label.low=~LINEBREAK~§q低内存等级§r~LINEBREAK~
+ui.mythicus_sn.performance_mode.label.medium=~LINEBREAK~§p中内存等级§r~LINEBREAK~
+ui.mythicus_sn.performance_mode.label.high=~LINEBREAK~§c高内存等级§r~LINEBREAK~
+ui.mythicus_sn.performance_mode.label.marketing=~LINEBREAK~§b展示内存等级§r~LINEBREAK~
+ 
+ui.mythicus_sn.performance_mode.summary.low=§7季节以较小的批次和半径更新。§r
+ui.mythicus_sn.performance_mode.summary.medium=§7季节以平衡的批次和半径更新。§r
+ui.mythicus_sn.performance_mode.summary.high=§7季节以较大的批次和半径更新。§r
+ui.mythicus_sn.performance_mode.summary.marketing=§7用于演示的激进设置。最大方块过渡速度。§r
+
+ui.mythicus_sn.performance_mode.button.low=§l§q低内存等级§r
+ui.mythicus_sn.performance_mode.button.medium=§l§p中内存等级§r
+ui.mythicus_sn.performance_mode.button.high=§l§c高内存等级§r
+ui.mythicus_sn.performance_mode.button.marketing=§l§b展示等级§r
+ui.mythicus_sn.performance_mode.button.close=§l关闭
+ui.mythicus_sn.performance_mode.confirm.title=§j§l应用内存等级
+ui.mythicus_sn.performance_mode.confirm.intro=§6是否要应用以下选择的性能等级？
+ui.mythicus_sn.performance_mode.confirm.yes=§l§q是，更改内存等级
+ui.mythicus_sn.performance_mode.confirm.no=§l§c否，保持当前等级
+ui.mythicus_sn.dev_performance_mode.title=季节性能模式（开发者）
+ui.mythicus_sn.dev_performance_mode.description=§l§6■ §r§6开发者配置面板。§r§f包含用于测试和演示的所有内存等级。
+ui.mythicus_sn.form.guidebook=季节群系指南
+ui.mythicus_sn.guidebook.body_1=§f欢迎来到季节群系！~LINEBREAK~此附加包由§4Mythicus Studios§r§f制作。
+ui.mythicus_sn.guidebook.body_2=要了解更多§r§F关于附加包的信息，请使用下面的按钮。~LINEBREAK~~LINEBREAK~§l§q[探索季节！]§r§f了解季节如何运作、持续时间、每个季节可种植的作物等等！~LINEBREAK~~LINEBREAK~§l§t[作物与 artisan goods artisan goods]§r§f查看所有新作物、可制作的 artisan goods artisan goods及其价值。~LINEBREAK~~LINEBREAK~§l§n[状态能力]§r§f在游戏过程中选择并升级被动能力。~LINEBREAK~~LINEBREAK~§l§j[设置]§r§f根据您的设备和偏好调整体验。~LINEBREAK~~LINEBREAK~
+ui.mythicus_sn.guidebook.button.systems=§l§q探索季节！
+ui.mythicus_sn.form.systems=§l§q探索季节！
+ui.mythicus_sn.guidebook.button.items=§l§t作物与 artisan goods artisan goods§r
+ui.mythicus_sn.guidebook.button.settings=§l§j设置§r
+ui.mythicus_sn.guidebook.button.close=§l关闭
+
+ui.mythicus_sn.form.items=§l§t作物与 artisan goods artisan goods§r
+ui.mythicus_sn.items.description=§l§6■ §r§6作物与肥料：§r§f共有12种新作物可供种植和出售。每种作物有不同的生长阶段和要求，例如它们生长的季节。~LINEBREAK~~LINEBREAK~§l§6■ §r§6 artisan goods artisan goods，§r§f由新的基础作物和物品制成！它们可以在以下设备中加工成 goods goods：~LINEBREAK~~LINEBREAK~ §o§i- 保鲜罐~LINEBREAK~ §o§i- 脱水机~LINEBREAK~ §o§i- 酒桶~LINEBREAK~ §o§i- mortar_pestle  mortar & pestle~LINEBREAK~ §o§i- 织布机~LINEBREAK~ §o§i- 奶酪压榨机~LINEBREAK~ §o§i- 蛋黄酱机~LINEBREAK~~LINEBREAK~§l§6■ §r§6 Vendor 价格：§r§f新作物、物品和 artisan goods artisan goods 可以通过 Vendor 方块出售。~LINEBREAK~~LINEBREAK~§l§6类别：~LINEBREAK~
+
+
+ui.mythicus_sn.category.crops.title=§l§j作物与肥料
+ui.mythicus_sn.content.seasonal_crops.title=§l§j作物与肥料
+ui.mythicus_sn.content.seasonal_crops.text_0=§l§6■ §r§6要开始种植新作物，§r§f首先需要获取种子。可以通过在季节群系中破坏草或与植物学家商人（在新季节村庄中找到，或通过潜行+与 Vendor 方块互动召唤）交易获得。
+ui.mythicus_sn.content.seasonal_crops.text_1=§l§6■ §r§6共有12种新作物。§r§f每种作物有不同数量的生长阶段，有些成熟速度比其他快。每个生长阶段（无论哪种作物）需要1个游戏日或20分钟（如果满足所有条件）。
+ui.mythicus_sn.content.seasonal_crops.text_2=§l§6■ §r§f作物要生长，§r§f必须处于正确的季节、有光源并靠近水源。灌木不需要水。
+ui.mythicus_sn.content.seasonal_crops.text_3=§l§c■ §r§c草莓：~LINEBREAK~ §o§i- 季节：§o§f春季~LINEBREAK~ §o§i- 生长阶段：§o§f3~LINEBREAK~ §o§i- 掉落：§o§f2-3个草莓 
+ui.mythicus_sn.content.seasonal_crops.text_4=§l§c■ §r§c花椰菜：~LINEBREAK~ §o§i- 季节：§o§f春季~LINEBREAK~ §o§i- 生长阶段：§o§f7~LINEBREAK~ §o§i- 掉落：§o§f1个花椰菜 
+ui.mythicus_sn.content.seasonal_crops.text_5=§l§c■ §r§c青豆：~LINEBREAK~ §o§i- 季节：§o§f春季~LINEBREAK~ §o§i- 生长阶段：§o§f5~LINEBREAK~ §o§i- 掉落：§o§f1个青豆
+ui.mythicus_sn.content.seasonal_crops.text_6=§l§c■ §r§c大蒜：~LINEBREAK~ §o§i- 季节：§o§f春季~LINEBREAK~ §o§i- 生长阶段：§o§f9~LINEBREAK~ §o§i- 掉落：§o§f1个大蒜
+ui.mythicus_sn.content.seasonal_crops.text_7=§l§c■ §r§c蓝莓：~LINEBREAK~ §o§i- 季节：§o§f夏季~LINEBREAK~ §o§i- 生长阶段：§o§f3~LINEBREAK~ §o§i- 掉落：§o§f2-3个蓝莓
+ui.mythicus_sn.content.seasonal_crops.text_8=§l§c■ §r§c番茄：~LINEBREAK~ §o§i- 季节：§o§f夏季~LINEBREAK~ §o§i- 生长阶段：§o§f5~LINEBREAK~ §o§i- 掉落：§o§f4个番茄
+ui.mythicus_sn.content.seasonal_crops.text_9=§l§c■ §r§c玉米：~LINEBREAK~ §o§i- 季节：§o§f夏季~LINEBREAK~ §o§i- 生长阶段：§o§f7~LINEBREAK~ §o§i- 掉落：§o§f2个玉米
+ui.mythicus_sn.content.seasonal_crops.text_10=§l§c■ §r§c辣椒：~LINEBREAK~ §o§i- 季节：§o§f夏季~LINEBREAK~ §o§i- 生长阶段：§o§f9~LINEBREAK~ §o§i- 掉落：§o§f5个辣椒
+ui.mythicus_sn.content.seasonal_crops.text_11=§l§c■ §r§c蔓越莓：~LINEBREAK~ §o§i- 季节：§o§f秋季~LINEBREAK~ §o§i- 生长阶段：§o§f7~LINEBREAK~ §o§i- 掉落：§o§f2-3个蔓越莓
+ui.mythicus_sn.content.seasonal_crops.text_12=§l§c■ §r§c西兰花：~LINEBREAK~ §o§i- 季节：§o§f秋季~LINEBREAK~ §o§i- 生长阶段：§o§f5~LINEBREAK~ §o§i- 掉落：§o§f1个西兰花
+ui.mythicus_sn.content.seasonal_crops.text_13=§l§c■ §r§c茄子：~LINEBREAK~ §o§i- 季节：§o§f秋季~LINEBREAK~ §o§i- 生长阶段：§o§f8~LINEBREAK~ §o§i- 掉落：§o§f3个茄子
+ui.mythicus_sn.content.seasonal_crops.text_14=§l§c■ §r§c甜菜：~LINEBREAK~ §o§i- 季节：§o§f秋季~LINEBREAK~ §o§i- 生长阶段：§o§f3~LINEBREAK~ §o§i- 掉落：§o§f1个甜菜
+ui.mythicus_sn.content.seasonal_crops.text_15=§l§6■ §r§f如果季节改变，§r§f作物将停止生长，并在冬季死亡。
+ui.mythicus_sn.content.seasonal_crops.text_16=§l§6■ §r§6肥料§r§f可让您在任何季节加速作物生长。~LINEBREAK~~LINEBREAK~ §o§i- 骨粉：每次使用增加0.42%%生长。~LINEBREAK~ §o§i- 肥料：每次使用增加4.17%%生长。~LINEBREAK~ §o§i- 黄金肥料：每次使用增加41.67%%生长。~LINEBREAK~~LINEBREAK~
+
+
+
+ui.mythicus_sn.category.preserverjar.title=§l§j保鲜罐 goods§r
+
+ui.mythicus_sn.content.preserverjar.title=§l§j保鲜罐 
+ui.mythicus_sn.content.preserverjar.text_0=§l§6■ §r§6保鲜罐§f§r可将基础作物转化为腌制或果酱版本，其基础价格提高3倍。
+ui.mythicus_sn.content.preserverjar.text_1=§l§6■ §r§6要开始加工，§f§r请将作物放在主手并与保鲜罐互动。加工过程需要4个游戏日（80分钟）完成。
+ui.mythicus_sn.content.preserverjar.text_2=§l§6■ §r§6可使用的作物：~LINEBREAK~~LINEBREAK~ §o§i- 草莓~LINEBREAK~ §o§i- 花椰菜~LINEBREAK~ §o§i- 青豆~LINEBREAK~ §o§i- 大蒜~LINEBREAK~ §o§i- 蓝莓~LINEBREAK~ §o§i- 番茄~LINEBREAK~ §o§i- 玉米~LINEBREAK~ §o§i- 辣椒~LINEBREAK~ §o§i- 蔓越莓~LINEBREAK~ §o§i- 西兰花~LINEBREAK~ §o§i- 茄子~LINEBREAK~ §o§i- 甜菜~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.category.dehydrator.title=§l§j脱水机 goods
+
+ui.mythicus_sn.content.dehydrator.title=§l§j脱水机§r
+ui.mythicus_sn.content.dehydrator.text_0=§l§6■ §r§6脱水机§f§r可将基础作物转化为脱水版本，其基础价格提高2倍。
+ui.mythicus_sn.content.dehydrator.text_1=§l§6■ §r§6要开始加工，§f§r请将作物放在主手并与脱水机互动。加工过程需要2个游戏日（40分钟）完成。
+ui.mythicus_sn.content.dehydrator.text_2=§l§6■ §r§6可使用的作物：~LINEBREAK~~LINEBREAK~ §o§i- 草莓~LINEBREAK~ §o§i- 花椰菜~LINEBREAK~ §o§i- 青豆~LINEBREAK~ §o§i- 大蒜~LINEBREAK~ §o§i- 蓝莓~LINEBREAK~ §o§i- 番茄~LINEBREAK~ §o§i- 玉米~LINEBREAK~ §o§i- 辣椒~LINEBREAK~ §o§i- 蔓越莓~LINEBREAK~ §o§i- 西兰花~LINEBREAK~ §o§i- 茄子~LINEBREAK~ §o§i- 甜菜~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.category.keg.title=§l§j酒桶
+
+ui.mythicus_sn.content.keg.title=§l§j酒桶
+ui.mythicus_sn.content.keg.text_0=§l§6■ §r§6酒桶§f§r可将基础作物转化为果汁版本，其基础价格提高4倍。
+ui.mythicus_sn.content.keg.text_1=§l§6■ §r§6要开始加工，§f§r请将作物放在主手并与酒桶互动。加工过程需要5个游戏日（100分钟）完成。
+ui.mythicus_sn.content.keg.text_2=§l§6■ §r§6可使用的作物：~LINEBREAK~~LINEBREAK~ §o§i- 草莓~LINEBREAK~ §o§i- 蓝莓~LINEBREAK~ §o§i- 番茄~LINEBREAK~ §o§i- 蔓越莓~LINEBREAK~ §o§i- 甜菜~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.category.mortarpestle.title=§l§j mortar_pestle  mortar & pestle goods
+
+ui.mythicus_sn.content.mortarpestle.title=§l§j mortar_pestle  mortar & pestle goods
+ui.mythicus_sn.content.mortarpestle.text_0=§l§6■ §r§6 mortar_pestle  mortar & pestle§f§r可将基础作物转化为酱、粉或面粉版本，其基础价格提高1.5倍。
+ui.mythicus_sn.content.mortarpestle.text_1=§l§6■ §r§6要开始加工，§f§r请将作物放在主手并与 mortar_pestle  mortar & pestle 互动。加工过程需要1个游戏日（20分钟）完成。
+ui.mythicus_sn.content.mortarpestle.text_2=§l§6■ §r§6可使用的作物：~LINEBREAK~~LINEBREAK~ §o§i- 花椰菜~LINEBREAK~ §o§i- 青豆~LINEBREAK~ §o§i- 大蒜~LINEBREAK~ §o§i- 玉米~LINEBREAK~ §o§i- 辣椒~LINEBREAK~ §o§i- 西兰花~LINEBREAK~ §o§i- 茄子~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.category.loom.title=§l§j织布机 goods
+
+ui.mythicus_sn.content.loom.title=§l§j织布机 goods
+ui.mythicus_sn.content.loom.text_0=§l§6■ §r§6织布机§f§r可将优质羊毛转化为布料，布料转化为布匹，布匹转化为地毯，加工次数越多，价格越高。
+ui.mythicus_sn.content.loom.text_1=§l§6■ §r§6要开始加工，§f§r请将优质羊毛、布料或布匹放在主手并与织布机互动。加工过程需要1个游戏日（20分钟）完成。
+ui.mythicus_sn.content.loom.text_2=§l§6■ §r§6可使用的物品：~LINEBREAK~~LINEBREAK~ §o§i- 优质羊毛~LINEBREAK~ §o§i- 布料~LINEBREAK~ §o§i- 布匹~LINEBREAK~  
+
+ui.mythicus_sn.category.cheesepress.title=§l§j奶酪压榨机 goods
+
+ui.mythicus_sn.content.cheesepress.title=§l§j奶酪压榨机
+ui.mythicus_sn.content.cheesepress.text_0=§l§6■ §r§6奶酪压榨机§f§r可将奶瓶转化为奶酪，价格提高3倍。
+ui.mythicus_sn.content.cheesepress.text_1=§l§6■ §r§6要开始加工，§f§r请将奶瓶放在主手并与奶酪压榨机互动。加工过程需要1个游戏日（20分钟）完成。
+ui.mythicus_sn.content.cheesepress.text_2=§l§6■ §r§6可使用的物品：~LINEBREAK~~LINEBREAK~ §o§i- 奶瓶~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.category.mayonnaisemachine.title=§l§j蛋黄酱机 goods
+
+ui.mythicus_sn.content.mayonnaisemachine.title=§l§j蛋黄酱机
+ui.mythicus_sn.content.mayonnaisemachine.text_0=§l§6■ §r§6蛋黄酱机§f§r可将鸡蛋转化为蛋黄酱，价格提高3倍。
+ui.mythicus_sn.content.mayonnaisemachine.text_1=§l§6■ §r§6要开始加工，§f§r请将鸡蛋放在主手并与蛋黄酱机互动。加工过程需要1个游戏日（20分钟）完成。
+ui.mythicus_sn.content.mayonnaisemachine.text_2=§l§6■ §r§6可使用的物品：~LINEBREAK~~LINEBREAK~ §o§i- 鸡蛋~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.category.vendor.title=§l§q Vendor 价格
+
+ui.mythicus_sn.content.vendor.title=§l§q Vendor 价格
+ui.mythicus_sn.content.vendor.text_0=§l§6■ §r§6 Vendor §r§f允许您出售任何作物或 artisan goods artisan goods 以换取抛光绿宝石。 
+ui.mythicus_sn.content.vendor.text_1=§l§6■ §r§6要出售§r§f作物或 artisan goods artisan goods，请在主手拿着它们时与 Vendor 方块互动。
+ui.mythicus_sn.content.vendor.text_2=§l§6■ §r§6每件物品的 Vendor 价格：~LINEBREAK~ §r§q抛光绿宝石 §r§i- 物品名~LINEBREAK~~LINEBREAK~§l§c■ §r§c基础作物~LINEBREAK~§r§q1  §r§i- 甜菜~LINEBREAK~§r§q1  §r§i- 蓝莓~LINEBREAK~§r§q3  §r§i- 西兰花~LINEBREAK~§r§q5  §r§i- 花椰菜~LINEBREAK~§r§q3  §r§i- 玉米~LINEBREAK~§r§q5  §r§i- 蔓越莓~LINEBREAK~§r§q4  §r§i- 茄子~LINEBREAK~§r§q10 §r§i- 大蒜~LINEBREAK~§r§q3  §r§i- 青豆~LINEBREAK~§r§q2  §r§i- 辣椒~LINEBREAK~§r§q1  §r§i- 草莓~LINEBREAK~§r§q1  §r§i- 番茄~LINEBREAK~§r§q3  §r§i- 蓝莓果酱~LINEBREAK~§r§q15 §r§i- 蔓越莓果酱~LINEBREAK~§r§q3  §r§i- 草莓果酱~LINEBREAK~~LINEBREAK~§l§c■ §r§c酒桶 goods~LINEBREAK~§r§q4  §r§i- 甜菜汁~LINEBREAK~§r§q4  §r§i- 蓝莓汁~LINEBREAK~§r§q20 §r§i- 蔓越莓汁~LINEBREAK~§r§q4  §r§i- 草莓汁~LINEBREAK~§r§q5  §r§i- 番茄汁~LINEBREAK~~LINEBREAK~§l§c■ §r§c脱水机 goods~LINEBREAK~§r§q2  §r§i- 干甜菜~LINEBREAK~§r§q2  §r§i- 干蓝莓~LINEBREAK~§r§q6  §r§i- 干西兰花~LINEBREAK~§r§q10 §r§i- 干花椰菜~LINEBREAK~§r§q6  §r§i- 干玉米~LINEBREAK~§r§q10 §r§i- 干蔓越莓~LINEBREAK~§r§q8  §r§i- 干茄子~LINEBREAK~§r§q20 §r§i- 干大蒜~LINEBREAK~§r§q6  §r§i- 干青豆~LINEBREAK~§r§q4  §r§i- 干辣椒~LINEBREAK~§r§q3  §r§i- 干草莓~LINEBREAK~§r§q2  §r§i- 干番茄~LINEBREAK~~LINEBREAK~§l§c■ §r§c保鲜罐 goods~LINEBREAK~§r§q3  §r§i- 腌甜菜~LINEBREAK~§r§q9  §r§i- 腌西兰花~LINEBREAK~§r§q15 §r§i- 腌花椰菜~LINEBREAK~§r§q9  §r§i- 腌玉米~LINEBREAK~§r§q12 §r§i- 腌茄子~LINEBREAK~§r§q30 §r§i- 腌大蒜~LINEBREAK~§r§q9  §r§i- 腌青豆~LINEBREAK~§r§q6  §r§i- 腌辣椒~LINEBREAK~§r§q4  §r§i- 腌番茄~LINEBREAK~~LINEBREAK~§l§c■ §r§c奶酪压榨机 goods~LINEBREAK~§r§q1  §r§i- 奶瓶~LINEBREAK~§r§q3  §r§i- 奶酪~LINEBREAK~~LINEBREAK~§l§c■ §r§c蛋黄酱机 goods~LINEBREAK~§r§q3  §r§i- 蛋黄酱~LINEBREAK~~LINEBREAK~§l§c■ §r§c织布机 goods~LINEBREAK~§r§q5  §r§i- 地毯~LINEBREAK~§r§q3  §r§i- 布匹~LINEBREAK~§r§q2  §r§i- 布料~LINEBREAK~§r§q1  §r§i- 优质羊毛~LINEBREAK~~LINEBREAK~§l§c■ §r§c mortar_pestle  mortar & pestle goods~LINEBREAK~§r§q5  §r§i- 西兰花酱~LINEBREAK~§r§q6  §r§i- 茄子酱~LINEBREAK~§r§q5  §r§i- 青豆酱~LINEBREAK~§r§q3  §r§i- 辣椒酱~LINEBREAK~§r§q8  §r§i- 花椰菜面粉~LINEBREAK~§r§q5  §r§i- 玉米面粉~LINEBREAK~§r§q15 §r§i- 大蒜粉~LINEBREAK~~LINEBREAK~§l§c■ §r§c杂项~LINEBREAK~§r§q3  §r§i- 松露~LINEBREAK~§r§q1  §r§i- 优质蜂蜜~LINEBREAK~§r§q1  §r§i- 厚毛皮~LINEBREAK~§r§q1  §r§i- 季节性鸡蛋~LINEBREAK~§r§q1  §r§i- 季节性羽毛  ~LINEBREAK~~LINEBREAK~
+
+
+
+
+ui.mythicus_sn.systems.description=§f§l§c■§r§c 一个完整的年度周期§f§r默认持续64天。每个季节都会给环境带来不同的变化：~LINEBREAK~~LINEBREAK~§l§c■ §r§c生物群系逐渐变化；§f§r树木和树叶改变颜色，一些植物缓慢生长和死亡。~LINEBREAK~~LINEBREAK~§l§c■ §r§c温度根据季节和天气上升或下降，§f§r使某些季节（如冬季）更难探索。~LINEBREAK~~LINEBREAK~§l§c■ §r§c新作物§f§r只在特定季节生长，一旦冬季到来就会死亡。~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.systems.first_day=第一天 
+ui.mythicus_sn.systems.spring=§l§q春季§r
+ui.mythicus_sn.systems.non-bold_spring=§q春季§r
+
+ui.mythicus_sn.content.spring.title=§l§q春季§r
+ui.mythicus_sn.content.spring.text_0=§l§q■ §r§f春季是一年周期中的第一个季节。它§o§i持续16个游戏日§r§f，总共§o§i320分钟。§r
+ui.mythicus_sn.content.spring.text_1=§l§q■ §r§f在春季，白天持续时间为§o§i10分钟§r§f，夜间持续时间为§o§i10分钟§r
+ui.mythicus_sn.content.spring.text_2=§l§q■ §r§f在春季生长的作物：§r
+ui.mythicus_sn.content.spring.text_3= §o§i- 草莓灌木~LINEBREAK~ §o§i- 花椰菜~LINEBREAK~ - 大蒜~LINEBREAK~ §o§i- 青豆~LINEBREAK~ §o§i~LINEBREAK~
+
+
+ui.mythicus_sn.systems.summer=§l§6夏季§r
+ui.mythicus_sn.systems.non-bold_summer=§6夏季§r
+
+ui.mythicus_sn.content.summer.title=§l§6夏季§r
+ui.mythicus_sn.content.summer.text_0=§l§6■ §r§f夏季是一年周期中的第二个季节。它§o§i持续16个游戏日§r§f，总共§o§i320分钟。§r
+ui.mythicus_sn.content.summer.text_1=§l§6■ §r§f在夏季，白天持续时间为§o§i10分钟§r§f，夜间持续时间为§o§i10分钟§r
+ui.mythicus_sn.content.summer.text_2=§l§6■ §r§f在夏季生长的作物：§r
+ui.mythicus_sn.content.summer.text_3= §o§i- 蓝莓灌木~LINEBREAK~ §o§i- 番茄~LINEBREAK~ §o§i- 玉米~LINEBREAK~ §o§i- 辣椒~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.systems.fall=§l§n秋季§r
+ui.mythicus_sn.systems.non-bold_fall=§n秋季§r
+
+ui.mythicus_sn.content.fall.title=§l§n秋季§r
+ui.mythicus_sn.content.fall.text_0=§l§n■ §r§f秋季是一年周期中的第三个季节。它§o§i持续16个游戏日§r§f，总共§o§i320分钟。§r
+ui.mythicus_sn.content.fall.text_1=§l§n■ §r§f在秋季，白天持续时间为§o§i10分钟§r§f，夜间持续时间为§o§i10分钟§r
+ui.mythicus_sn.content.fall.text_2=§l§n■ §r§f在秋季生长的作物：§r
+ui.mythicus_sn.content.fall.text_3= §o§i- 蔓越莓灌木~LINEBREAK~ §o§i- 西兰花~LINEBREAK~ §o§i- 茄子~LINEBREAK~ §o§i- 甜菜~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.systems.winter=§l§s冬季§r
+ui.mythicus_sn.systems.non-bold_winter=§s冬季§r
+
+ui.mythicus_sn.content.winter.title=§l§s冬季§r
+ui.mythicus_sn.content.winter.text_0=§l§s■ §r§f冬季是一年周期中的第四个季节。它§o§i持续16个游戏日§r§f，总共§o§i320分钟。§r
+ui.mythicus_sn.content.winter.text_1=§l§s■ §r§f在冬季，白天持续时间为§o§i10分钟§r§f，夜间持续时间为§o§i10分钟§r
+ui.mythicus_sn.content.winter.text_2=§l§s■ §r§f作物在冬季死亡。~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.systems.tools=§l§u季节实用物品§r
+
+ui.mythicus_sn.content.tools.title=§l§u季节实用物品§r
+ui.mythicus_sn.content.tools.text_0=§l§u■ §r§u季节日历§f§r，在主手与它互动会提供如下信息：~LINEBREAK~~LINEBREAK~§o§i- 当前季节~LINEBREAK~§o§i- 当前天气~LINEBREAK~§o§i- 天气预报~LINEBREAK~§o§i- 距离下个季节的天数~LINEBREAK~§o§i- 即将到来的季节~LINEBREAK~§o§i- 世界天数
+ui.mythicus_sn.content.tools.text_1=§l§u■ §r§u温度计§f§r，放在主手或副手时，测量您周围的温度。温度显示在生命值上方。与方块互动可将其放置。
+ui.mythicus_sn.content.tools.text_2=§l§u■ §r§u季节时钟§f§r，放在主手或副手时，会根据当前季节和进度改变外观。~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.systems.world_dynamics=§l§3世界动态§r
+
+ui.mythicus_sn.content.world_dynamics.title=§l§3世界动态§r
+ui.mythicus_sn.content.world_dynamics.text_0=§l§3■ §r§3世界动态§r§f是一个系统，通过持续监测和根据当前季节与天气条件改变世界，使环境栩栩如生。
+ui.mythicus_sn.content.world_dynamics.text_1=§l§3■ §r§3工作原理：§r§f系统扫描玩家周围的区域，检测方块和环境条件。根据发现的情况，应用真实的季节变化，例如：~LINEBREAK~~LINEBREAK~ §o§i- 冬季暴风雪期间表面积雪~LINEBREAK~ §o§i- 冰冻条件下水面结冰~LINEBREAK~ §o§i- 温度升高时冰雪融化~LINEBREAK~ §o§i- 季节性植被变化~LINEBREAK~
+ui.mythicus_sn.content.world_dynamics.text_2=§l§3■ §r§3性能影响：§r§f世界动态在后台运行，并已优化以高效工作。系统会根据当前天气调整强度——例如，在暴风雪期间会更努力地产生积雪。您可以在环境效果设置中打开或关闭此系统。
+ui.mythicus_sn.content.world_dynamics.text_3=§l§3■ §r§3视觉真实性：§r§f这个系统使季节过渡感觉自然而渐进。您不会看到瞬间变化，而是随着季节和天气演变看到世界慢慢转变，创造更沉浸和真实的体验。~LINEBREAK~~LINEBREAK~
+
+ui.mythicus_sn.systems.hot_cold=§l§v冷热系统§r
+ui.mythicus_sn.content.hot_cold.title=§l§v冷热系统§r
+ui.mythicus_sn.content.hot_cold.text_0=§l§v■ §r§v冷热系统§r§f确定您玩家的当前温度。此系统仅在季节群系内工作。
+ui.mythicus_sn.content.hot_cold.text_1=§l§v■ §r§v温度计§r§f允许您通过放在主手或副手读取当前温度。如果您在非季节群系中，温度计将显示§o§i无效§r§f。
+ui.mythicus_sn.content.hot_cold.text_2=§l§v■ §r§v温度可在以下温度等级之间动态变化：
+ui.mythicus_sn.content.hot_cold.text_3=§o§i - §d严寒~LINEBREAK~ §o§i- §1寒冷~LINEBREAK~ §o§i- §b凉爽~LINEBREAK~ §o§i- §a温和~LINEBREAK~ §o§i- §e温暖~LINEBREAK~ §o§i- §6炎热~LINEBREAK~ §o§i- §c灼热~LINEBREAK~~LINEBREAK~§l§v■ §r§v影响温度的因素：~LINEBREAK~~LINEBREAK~§o§i- 当前季节  ~LINEBREAK~§o§i- 一天中的时间~LINEBREAK~§o§i- 天气~LINEBREAK~§o§i- 发光方块。~LINEBREAK~§o§i- 是否穿着盔甲 ~LINEBREAK~§o§i- 在水中或岩浆中会使温度变化非常快。~LINEBREAK~§o§i- 处于遮蔽物下。如果头上有方块，则视为在遮蔽物下。
+ui.mythicus_sn.content.hot_cold.text_4=§l§v■ §r§v穿着盔甲§r§f可以极大地改变温度对您的影响。根据您穿的盔甲，您可能会升温或降温更快[+]或更慢[-]
+ui.mythicus_sn.content.hot_cold.text_5=~LINEBREAK~ §o§i- 皮革 §6++热 §b--冷 ~LINEBREAK~ §f保暖隔热，耐热差~LINEBREAK~~LINEBREAK~ §o§i- 锁链 §6中性 §b +冷 ~LINEBREAK~ §f平衡，轻微怕冷~LINEBREAK~~LINEBREAK~ §o§i- 金 §6+++热 §b++冷 ~LINEBREAK~ §f总体最差 - 两者都弱~LINEBREAK~~LINEBREAK~ §o§i- 铁 §6+++热 §b-冷 ~LINEBREAK~ §f锁热，轻微防寒~LINEBREAK~~LINEBREAK~ §o§i- 钻石 §6--热 §b--冷 ~LINEBREAK~ §f全面坚实防护~LINEBREAK~~LINEBREAK~ §o§i- 下界合金 §6---热 §b---冷 ~LINEBREAK~ §f最佳全面防护~LINEBREAK~~LINEBREAK~ §o§i- 秋季服装 §6+热 §b--冷 ~LINEBREAK~ §f轻度热量权衡，良好抗寒~LINEBREAK~~LINEBREAK~ §o§i- 冬季服装 §6++热 §b---冷 ~LINEBREAK~§f 最佳防寒，耐热差~LINEBREAK~~LINEBREAK~ §o§i- 春季服装 §6--热 §b+冷 ~LINEBREAK~ §f良好耐热，轻微怕冷~LINEBREAK~~LINEBREAK~ §o§i- 夏季服装 §6---热 §b++冷 ~LINEBREAK~ §f最佳耐热，防寒差~LINEBREAK~~LINEBREAK~
+
+
+ui.mythicus_sn.systems.performance=§5性能模式§r
+ui.mythicus_sn.content.performance.title=§5性能提示§r
+ui.mythicus_sn.content.performance.text_0=§f• 内存等级预设为每类设备调整批次大小、缓存持续时间和队列限制。§r
+ui.mythicus_sn.content.performance.text_1=§b• 主机可通过季节系统指南切换等级；玩家出生时会收到设备推荐。§r
+ui.mythicus_sn.content.performance.text_2=§7• 使用玩家选项切换粒子和雾效，在不失氛围的情况下流畅游玩。§r
+ui.mythicus_sn.button.back=§l返回
+ui.mythicus_sn.button.submit=§l提交
+ui.mythicus_sn.button.submit_back=§l提交并返回
+ui.mythicus_sn.button.close=§l关闭
+ui.mythicus_sn.button.status_abilities=§l§n状态能力
+ui.mythicus_sn.form.settings=设置
+ui.mythicus_sn.settings.description=§l§u■ §r§u性能设置§r§f允许您根据设备定制季节体验，您可以选择：   ~LINEBREAK~~LINEBREAK~ §o§i- 低内存等级~LINEBREAK~ §o§i- 中内存等级~LINEBREAK~ §o§i- 高内存等级~LINEBREAK~~LINEBREAK~§l§u■ §r§u环境效果§f§r设置允许您打开或关闭以下粒子： ~LINEBREAK~~LINEBREAK~ §o§i- 季节粒子~LINEBREAK~ §o§i- 季节雾~LINEBREAK~ §o§i- 镜头光晕 ~LINEBREAK~~LINEBREAK~§l§u■ §r§u季节周期§f§r设置允许您控制季节变化的速度，只有世界主机可以更改此设置。 ~LINEBREAK~~LINEBREAK~ §o§i- 极快（每4天）~LINEBREAK~ §o§i- 平衡（每8天）~LINEBREAK~ §o§i- 自然（每16天） ~LINEBREAK~ §o§i- 真实（每91天）~LINEBREAK~~LINEBREAK~
+
+
+ui.mythicus_sn.settings.performance=§u§l设置：性能§r
+ui.mythicus_sn.settings.ambience=§u§l设置：环境效果§r
+ui.mythicus_sn.settings.world_dynamics=§u§l设置：世界动态§r
+ui.mythicus_sn.settings.temperature=§u§l设置：温度§r
+ui.mythicus_sn.settings.weather=§u§l设置：天气§r
+ui.mythicus_sn.settings.cycle=§u§l设置：季节周期§r
+ui.mythicus_sn.form.ambience=环境效果
+ui.mythicus_sn.form.world_dynamics=世界动态
+ui.mythicus_sn.form.temperature=温度设置
+ui.mythicus_sn.form.weather=天气设置
+ui.mythicus_sn.form.cycle=季节周期速度
+
+
+
+
+
+ui.mythicus_sn.cycle.description=§l§u■ §r§u选择季节周期速度。§r§f此设置控制每个季节的持续时间。~LINEBREAK~~LINEBREAK~§o§3极快：§o§i16天一年，每个季节4天。~LINEBREAK~§o§t平衡：§o§i32天一年，每个季节8天。~LINEBREAK~§o§q自然：§o§i64天一年，每个季节16天。~LINEBREAK~§o§v真实：§o§i364天一年，每个季节91天。
+ui.mythicus_sn.cycle.current=§7当前激活：§r
+ui.mythicus_sn.cycle.rapid=§3§l极快§r
+ui.mythicus_sn.cycle.rapid.description=§7季节每4天变化。全年周期16天。§r
+ui.mythicus_sn.cycle.balanced=§t§l平衡§r
+ui.mythicus_sn.cycle.balanced.description=§7季节每8天变化。全年周期32天。§r
+ui.mythicus_sn.cycle.natural=§q§l自然§r
+ui.mythicus_sn.cycle.natural.description=§7季节每16天变化。全年周期64天。§r
+ui.mythicus_sn.cycle.realistic=§v§l真实§r
+ui.mythicus_sn.cycle.realistic.description=§7季节每91天变化。全年周期364天。§r
+ui.mythicus_sn.cycle.confirm.title=确认季节周期更改
+ui.mythicus_sn.cycle.confirm.body=§f您确定要将季节周期速度更改为：§r
+ui.mythicus_sn.cycle.confirm.yes=§l§q确认
+ui.mythicus_sn.cycle.confirm.no=§l§c取消
+chat.mythicus_sn.cycle_preset_set=§6季节周期速度已设置为§r
+chat.mythicus_sn.cycle_preset_denied=§c只有世界主机可以更改季节周期速度。§r
+chat.mythicus_sn.cycle_preset_same=§e季节周期速度已设置为此预设。§r
+chat.mythicus_sn.settings_denied=§c只有操作员可以更改设置。§r
+ui.mythicus_sn.category.ambience=§l§u[环境效果]§r
+ui.mythicus_sn.category.world_dynamics=§l§u[世界动态]§r
+ui.mythicus_sn.category.temperature=§l§u[温度]§r
+ui.mythicus_sn.category.weather=§l§u[天气]§r
+ui.mythicus_sn.category.performance=§l§u[性能]§r
+ui.mythicus_sn.category.cycle=§l§u[季节周期]§r
+ui.mythicus_sn.toggles.fogs=§d天气雾§r
+ui.mythicus_sn.toggles.lens=§e镜头光晕§r
+ui.mythicus_sn.toggles.ambient_sounds=§a环境音效§r
+ui.mythicus_sn.toggles.camera_shake=§d镜头抖动§r\n§7在寒冷和严寒温度下切换镜头抖动效果§r
+ui.mythicus_sn.toggles.world_dynamics=§3世界动态§r\n§7启用基于季节和天气的动态环境变换§r
+ui.mythicus_sn.toggles.world_dynamics_engine=§6世界动态引擎 - 必需§r\n§7整个世界动态系统的主开关§r
+ui.mythicus_sn.toggles.snow_accumulation=§b积雪§r\n§7启用冬季天气期间真实的积雪堆积和蔓延§r
+ui.mythicus_sn.toggles.falling_leaves=§n落叶§r\n§7启用秋季树木飘落的树叶粒子§r
+ui.mythicus_sn.toggles.temperature_engine=§6温度引擎 - 必需§r\n§7整个温度系统的主开关§r
+ui.mythicus_sn.toggles.temperature_status_effects=§c温度状态效果§r\n§7启用极端温度带来的缓慢、虚弱和伤害§r
+ui.mythicus_sn.toggles.temperature_visual_effects=§b温度视觉效果§r\n§7显示汗滴、呼出蒸汽和颤抖等粒子效果§r
+ui.mythicus_sn.toggles.weather_engine=§6天气引擎 - 必需§r\n§7整个天气系统的主开关§r
+ui.mythicus_sn.toggles.weather_particles=§b天气粒子§r\n§7显示雨雪等天气粒子效果§r
+ui.mythicus_sn.toggles.on=§a开§r
+ui.mythicus_sn.toggles.off=§c关§r
+ui.mythicus_sn.toggles.fogSettings=§6雾效：§r
+ui.mythicus_sn.toggles.lensSettings=§6镜头光晕：§r
+ui.mythicus_sn.toggles.ambientSoundsSettings=§6环境音效：§r
+ui.mythicus_sn.toggles.cameraShakeSettings=§6镜头抖动：§r
+ui.mythicus_sn.toggles.worldDynamicsSettings=§6世界动态：§r
+ui.mythicus_sn.toggles.worldDynamicsEngineSettings=§6世界动态引擎：§r
+ui.mythicus_sn.toggles.snowAccumulationSettings=§6积雪：§r
+ui.mythicus_sn.toggles.fallingLeavesSettings=§6落叶：§r
+ui.mythicus_sn.toggles.temperatureEngineSettings=§6温度引擎：§r
+ui.mythicus_sn.toggles.temperatureStatusEffectsSettings=§6温度状态效果：§r
+ui.mythicus_sn.toggles.temperatureVisualEffectsSettings=§6温度视觉效果：§r
+ui.mythicus_sn.toggles.weatherEngineSettings=§6天气引擎：§r
+ui.mythicus_sn.toggles.weatherParticlesSettings=§6天气粒子：§r
+ui.mythicus_sn.season.name.spring=春季
+ui.mythicus_sn.season.name.summer=夏季
+ui.mythicus_sn.season.name.fall=秋季
+ui.mythicus_sn.season.name.winter=冬季
+ui.mythicus_sn.season.description.spring=鲜花盛开，作物丰产
+ui.mythicus_sn.season.description.summer=白昼漫长，天气温暖，适合冒险
+ui.mythicus_sn.season.description.fall=树叶变色，收获季节开始
+ui.mythicus_sn.season.description.winter=雪花飘落，世界在冰下安歇
+ui.mythicus_sn.season.progress.early=早
+ui.mythicus_sn.season.progress.mid=中
+ui.mythicus_sn.season.progress.late=晚
+
+ui.mythicus_sn.season_calendar.weather=当前天气
+
+### 天气类型
+weather.mythicus_sn.clear=晴朗
+weather.mythicus_sn.rain=雨
+weather.mythicus_sn.storm=暴雨
+weather.mythicus_sn.sleet=冻雨
+weather.mythicus_sn.foggy=雾
+weather.mythicus_sn.flurries=小雪
+weather.mythicus_sn.snowing=下雪
+weather.mythicus_sn.blizzard=暴风雪
+
+item.mythicus_sn:season_calendar.interact.spring=§s[§s春季，第 §f%s§s 天§s]
+item.mythicus_sn:season_calendar.interact.summer=§p[§p夏季，第 §f%s§p 天§p]
+item.mythicus_sn:season_calendar.interact.fall=§n[§n秋季，第 §f%s§n 天§n]
+item.mythicus_sn:season_calendar.interact.winter=§q[§q冬季，第 §f%s§q 天§q]
+chat.mythicus_sn.performance_mode_set=§6季节性能模式已设置为§r
+chat.mythicus_sn.performance_mode_set_by=§6季节性能模式由§r设置
+chat.mythicus_sn.performance_mode_denied=§c只有世界主机可以更改季节性能模式。§r
+chat.mythicus_sn.performance_mode_unchanged=§e季节性能模式已激活：§r
+chat.mythicus_sn.performance_mode_same=§e季节性能模式已激活。§r
+
+item.mythicus_sn:strawberry_jam=§b草莓果酱
+item.mythicus_sn:cranberry_jam=§b蔓越莓果酱
+item.mythicus_sn:blueberry_jam=§b蓝莓果酱
+item.mythicus_sn:eggplant_paste=§b茄子酱
+item.mythicus_sn:broccoli_paste=§b西兰花酱
+item.mythicus_sn:green_beans_paste=§b青豆酱
+item.mythicus_sn:hot_pepper_paste=§b辣椒酱
+item.mythicus_sn:pickled_eggplant=§b腌茄子
+item.mythicus_sn:pickled_corn=§b腌玉米
+item.mythicus_sn:pickled_cauliflower=§b腌花椰菜
+item.mythicus_sn:pickled_broccoli=§b腌西兰花
+item.mythicus_sn:pickled_beet=§b腌甜菜
+item.mythicus_sn:pickled_green_beans=§b腌青豆
+item.mythicus_sn:pickled_garlic=§b腌大蒜
+item.mythicus_sn:pickled_hot_peppers=§b腌辣椒
+item.mythicus_sn:pickled_tomato=§b腌番茄
+item.mythicus_sn:dried_strawberry=§b干草莓
+item.mythicus_sn:dried_blueberry=§b干蓝莓
+item.mythicus_sn:dried_cranberry=§b干蔓越莓
+item.mythicus_sn:dried_beet=§b干甜菜
+item.mythicus_sn:dried_corn=§b干玉米
+item.mythicus_sn:dried_cauliflower=§b干花椰菜
+item.mythicus_sn:dried_broccoli=§b干西兰花
+item.mythicus_sn:dried_eggplant=§b干茄子
+item.mythicus_sn:dried_green_beans=§b干青豆
+item.mythicus_sn:dried_garlic=§b干大蒜
+item.mythicus_sn:dried_hot_peppers=§b干辣椒
+item.mythicus_sn:dried_tomato=§b干番茄
+item.mythicus_sn:strawberry_juice=§d草莓汁
+item.mythicus_sn:blueberry_juice=§d蓝莓汁
+item.mythicus_sn:cranberry_juice=§d蔓越莓汁
+item.mythicus_sn:beet_juice=§d甜菜汁
+item.mythicus_sn:tomato_juice=§d番茄汁
+item.mythicus_sn:garlic_powder=§b大蒜粉
+item.mythicus_sn:cheese=§b奶酪
+item.mythicus_sn:mayonnaise=§b蛋黄酱
+item.mythicus_sn:cauliflower_flour=§b花椰菜面粉
+item.mythicus_sn:corn_flour=§b玉米面粉
+
+
+tile.mythicus_sn:sapling_spruce.name=季节性云杉树苗
+tile.mythicus_sn:sapling_oak.name=季节性橡树树苗
+tile.mythicus_sn:sapling_birch.name=季节性白桦树苗
+tile.mythicus_sn:brown_mushroom.name=季节性棕色蘑菇
+tile.mythicus_sn:red_mushroom.name=季节性红色蘑菇
+tile.mythicus_sn:blue_orchid.name=季节性蓝兰花
+tile.mythicus_sn:lily_pad.name=季节性睡莲
+
+### artisan 方块
+artisan.block.fail1=§c你不能在此 artisan 方块中使用此物品。
+artisan.block.fail2=§c artisan 方块已经在加工一个作物。
+artisan.block.insert=§e放入合适的物品开始加工。
+artisan.block.duration=§q%s §f后加工完成。
+artisan.block.ending=§q你获得了一个 artisan good artisan good！
+
+### 状态能力系统
+ui.mythicus_sn.status_abilities.title=§l§n状态能力
+ui.mythicus_sn.status_abilities.skill_points=§b技能点： 
+ui.mythicus_sn.status_abilities.advance_skill_points=§d进阶技能点： 
+ui.mythicus_sn.status_abilities.master_skill_points=§6大师技能点： 
+ui.mythicus_sn.status_abilities.header.chance=§l§u状态能力：
+ui.mythicus_sn.status_abilities.header.increase=§l§t增强能力：
+ui.mythicus_sn.status_abilities.double_xp=几率双倍获得经验。
+ui.mythicus_sn.status_abilities.double_harvest=几率双倍收获。
+ui.mythicus_sn.status_abilities.double_loot=几率双倍生物掉落。
+ui.mythicus_sn.status_abilities.double_ore=几率双倍矿石掉落。
+ui.mythicus_sn.status_abilities.clear_negative=几率清除负面效果。
+ui.mythicus_sn.status_abilities.regeneration=几率受到攻击时获得生命恢复。
+ui.mythicus_sn.status_abilities.double_damage=几率双倍伤害。
+ui.mythicus_sn.status_abilities.increase_damage=每次攻击增加伤害。
+ui.mythicus_sn.status_abilities.increase_hearts=增加生命值。
+ui.mythicus_sn.status_abilities.increase_defense=增加防御。
+ui.mythicus_sn.status_abilities.not_implemented=（未实现）
+ui.mythicus_sn.status_abilities.button.double_xp=§l§u双倍经验获取
+ui.mythicus_sn.status_abilities.button.double_harvest=§l§u双倍收获
+ui.mythicus_sn.status_abilities.button.double_loot=§l§u双倍生物掉落
+ui.mythicus_sn.status_abilities.button.double_ore=§l§u双倍矿石掉落
+ui.mythicus_sn.status_abilities.button.clear_negative=§l§u清除负面效果
+ui.mythicus_sn.status_abilities.button.regeneration=§l§u生命恢复
+ui.mythicus_sn.status_abilities.button.double_damage=§l§t双倍伤害
+ui.mythicus_sn.status_abilities.button.increase_damage=§l§t增加伤害
+ui.mythicus_sn.status_abilities.button.increase_hearts=§l§t增加生命值
+ui.mythicus_sn.status_abilities.button.increase_defense=§l§t增加防御
+ui.mythicus_sn.status_abilities.button.locked=已锁定
+ui.mythicus_sn.status_abilities.success.point_added=技能点已添加！
+ui.mythicus_sn.status_abilities.reset_success=§a你所有的状态能力已重置！
+
+
+
+
+### 状态能力物品
+item.mythicus_sn:skill_point=§b技能点代币
+item.mythicus_sn:advance_skill_point=§d进阶技能点代币
+item.mythicus_sn:master_skill_point=§6大师技能点代币
+ui.mythicus_sn.status_abilities.error.not_implemented=此能力尚未实现。
+ui.mythicus_sn.status_abilities.error.maxed=此能力已达到最高等级。
+ui.mythicus_sn.status_abilities.error.need_skill_points=你需要更多技能点来升级此能力。
+ui.mythicus_sn.status_abilities.error.need_advance_points=你需要更多进阶技能点来升级此能力。
+ui.mythicus_sn.status_abilities.error.need_master_points=你需要更多大师技能点来升级此能力。
+ui.mythicus_sn.status_abilities.success.upgraded=能力升级成功！
+ui.mythicus_sn.status_abilities.preview.current_level=当前等级：
+ui.mythicus_sn.status_abilities.preview.current_stats=当前数值：
+ui.mythicus_sn.status_abilities.preview.next_level=下一等级：
+ui.mythicus_sn.status_abilities.preview.next_stats=下一数值：
+ui.mythicus_sn.status_abilities.preview.requires=需要：
+ui.mythicus_sn.status_abilities.preview.you_have=你拥有：
+ui.mythicus_sn.status_abilities.preview.skill_point=技能点
+ui.mythicus_sn.status_abilities.preview.advance_skill_point=进阶技能点
+ui.mythicus_sn.status_abilities.preview.master_skill_point=大师技能点
+ui.mythicus_sn.status_abilities.preview.confirm=确认升级
+ui.mythicus_sn.status_abilities.preview.cancel=取消
+
+ui.mythicus_sn.status_abilities.description=§l§u■ §r§u状态能力允许你获得在常规游戏中辅助你的被动能力。
+
+### 能力信息
+ui.mythicus_sn.status_abilities.button.abilities_info=§n§l点击此处了解更多信息！
+ui.mythicus_sn.status_abilities.abilities_info.title=§l§n能力信息
+ui.mythicus_sn.status_abilities.abilities_info.body=§l§6■ §r§6状态能力§r§f允许你永久为角色附加上被动增益。效果仅单独生效。~LINEBREAK~~LINEBREAK~§l§6■ §r§6状态能力有50级。§r§f等级越高，能力越强。增强能力有5级。~LINEBREAK~~LINEBREAK~§l§6■ §r§6要提升等级，§r§f你必须先从技能商人处购买技能点代币。~LINEBREAK~技能商人可以在季节村庄中找到，或者通过潜行+与 Vendor 方块互动召唤。需要抛光绿宝石作为支付。~LINEBREAK~~LINEBREAK~§l§6■ §r§6共有3种技能点代币，§f§r每种用于不同等级的升级。~LINEBREAK~~LINEBREAK~§o§i 等级 1 到 20 §o§f- 技能点~LINEBREAK~§o§i 等级 21 到 40 §o§f- 进阶技能点~LINEBREAK~§o§i 等级 41 到 50 §o§f- 大师技能点~LINEBREAK~~LINEBREAK~§l§6■ §r§6与技能点互动消耗它，§r§f然后你可以从§l§f[指南] §r§f-> §l§n[状态能力]§f§r中选择你想要的状态能力。~LINEBREAK~
+
+
+### Vendor 方块
+tile.mythicus_sn:vendor_block.name=§d Vendor 方块
+ui.mythicus_sn.vendor.hold_item=§e手持作物或 artisan good artisan good 来出售！
+ui.mythicus_sn.vendor.cannot_sell=§c这个 Vendor 不收购该物品！
+ui.mythicus_sn.vendor.sold_success=§a以 %s 个抛光绿宝石售出 %s 个物品！
+ui.mythicus_sn.status_abilities.add_points_success=§a已为所有类型添加100点！
+
+item.mythicus_sn:season_clock=季节时钟
+item.mythicus_sn:thermometer=温度计
+
+tile.mythicus_sn:dark_oak_leaves.name=季节性深色橡树叶
+tile.mythicus_sn:cherry_leaves.name=季节性樱花树叶
+tile.mythicus_sn:sapling_cherry.name=季节性樱花树苗
+tile.mythicus_sn:sapling_dark_oak.name=季节性深色橡树树苗
+tile.mythicus_sn:pink_petals.name=季节性粉红花瓣
+tile.mythicus_sn:tall_grass_bottom.name=季节性高草
+tile.mythicus_sn:tall_grass_top.name=季节性高草
+tile.mythicus_sn:big_pot.name=季节性大盆
+tile.mythicus_sn:house_bush.name=季节性房屋灌木
+tile.mythicus_sn:crate.name=季节性板条箱
+tile.mythicus_sn:fire_wood.name=季节性柴火
+tile.mythicus_sn:flower_box.name=季节性花箱
+tile.mythicus_sn:hanging_pot.name=季节性吊盆
+tile.mythicus_sn:pole.name=季节性杆
+tile.mythicus_sn:seasonal_barrel.name=季节性桶
+tile.mythicus_sn:seasonal_decoration.name=季节性装饰
+tile.mythicus_sn:tool_rack.name=季节性工具架
+tile.mythicus_sn:vegetable_basked.name=季节性蔬菜篮
+tile.mythicus_sn:house_vines.name=季节性房屋藤蔓
+tile.mythicus_sn:window_cloth.name=季节性窗帘布
+tile.mythicus_sn:vines.name=季节性藤蔓
+tile.mythicus_sn:vegetable_basket.name=蔬菜篮
+
+ui.mythicus_sn.vendor.cooldown=剩余 %s 分钟
+ui.mythicus_sn.vendor.traders_spawned=§a商人已生成！请在5分钟后回来。
+
+### 温度系统
+temperature.level.freezing=严寒
+temperature.level.cold=寒冷
+temperature.level.cool=凉爽
+temperature.level.temperate=温和
+temperature.level.warm=温暖
+temperature.level.hot=炎热
+temperature.level.burning=灼热
+temperature.message.invalid_reading=§7无效读数
+temperature.message.refreshed=§a§l神清气爽！ §7你感到精力充沛
+contentKey=Z0MxVUxYWGtXbHlYaE5ObWNxNzBtSHNiN1N2bE5PMTM=

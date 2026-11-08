@@ -1,0 +1,26 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.healing_drone.shoot": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"shoot": "v.is_shooting"
+						}
+					]
+				},
+				"shoot": {
+					"animations": [
+						"shoot"
+					],
+					"transitions": [
+						{
+							"default": "q.all_animations_finished"
+						}
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_thro1_b9b121f1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DED",
+      "FGH"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:diamond_chestplate",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:diamond",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_thro1",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_valve_amplifier_932cd056"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "DDD",
+      "CEC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_junction_box_pro",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:glass_bottle",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_valve_amplifier",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_toolbox_spot",
+      "materials": {
+        "default": "armor_stand"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_bottom_map"
+      },
+      "spawn_egg": {
+        "texture": "jmgs:toolbox_template",
+        "texture_index": 0
+      },
+      "animations": {
+        "white": "animation.jmgs_entity_none.white"
+      },
+      "scripts": {
+        "animate": [
+          "white"
+        ]
+      },
+      "geometry": {
+        "default": "geometry.ewo_bottom_map"
+      },
+      "particle_effects": {
+        "white_effects": "minecraft:balloon_gas_particle"
+      },
+      "render_controllers": [
+        "controller.render.armor_stand"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

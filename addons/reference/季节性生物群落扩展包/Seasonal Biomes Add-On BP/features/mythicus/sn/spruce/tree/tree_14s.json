@@ -1,0 +1,17 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:structure_template_feature": {
+        "facing_direction": "south",
+        "constraints": {
+            "unburied": {},
+            "grounded": {},
+            "block_intersection": {
+                "block_allowlist": ["minecraft:air"]
+            }
+        },
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/spruce/tree/tree_14s"
+        },
+        "structure_name": "mystructure:mythicus_sn/spruce/pine_l_8"
+    }
+}

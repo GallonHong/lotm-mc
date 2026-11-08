@@ -1,0 +1,124 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.thunderbolt": {
+			"initial_state": "setup",
+			"states": {
+				"setup": {
+					"transitions": [
+						{
+							"thunderbolt_1_1_pre": "query.get_equipped_item_name == 'thunderbolt' && query.is_sneaking && !query.is_using_item && q.is_alive"
+						},
+						{
+							"thunderbolt_2_1_pre": "variable.thunderboltdelay1 = 0.2; variable.previousthunderbolttime1 = query.life_time; return (query.get_equipped_item_name == 'thunderbolt' && !query.is_sneaking && query.is_using_item && q.is_alive);"
+						}
+					],
+					"on_exit": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:thunderbolt 1 1"
+					]
+				},
+				"thunderbolt_1_1_pre": {
+					"transitions": [
+						{
+							"thunderbolt_1_1": "variable.thunderboltdelay = 1.0; variable.previousthunderbolttime = query.life_time; return (q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'thunderbolt');"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:thunderbolt 1 1"
+					]
+				},
+				"thunderbolt_1_1": {
+					"transitions": [
+						{
+							"thunderbolt_empty": "(query.life_time - variable.previousthunderbolttime) >= variable.thunderboltdelay && query.get_equipped_item_name == 'thunderbolt'"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-1",
+						"@s jmgs:thunderbolt_shooter",
+						"@s jmgs:thunderbolt_houzuo",
+						"/execute @s ~~~ playsound thunderbolt_fire @a ~~~",
+						"/effect @s resistance 1 255 true",
+						"/playsound thunder @s"
+					]
+				},
+				"thunderbolt_2_1_pre": {
+					"transitions": [
+						{
+							"thunderbolt_2_1": "(query.life_time - variable.previousthunderbolttime1) >= variable.thunderboltdelay1 && query.get_equipped_item_name == 'thunderbolt'"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					]
+				},
+				"thunderbolt_2_1": {
+					"transitions": [
+						{
+							"thunderbolt_2_2": "variable.thunderboltdelay2 = 0.95; variable.previousthunderbolttime2 = query.life_time; return (query.get_equipped_item_name == 'thunderbolt');"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-1",
+						"@s jmgs:thunderbolt_shooter",
+						"@s jmgs:thunderbolt_houzuo",
+						"/execute @s ~~~ playsound thunderbolt_fire @a ~~~",
+						"/effect @s resistance 1 255 true",
+						"/playsound thunder @s"
+					]
+				},
+				"thunderbolt_2_2": {
+					"transitions": [
+						{
+							"thunderbolt_empty": "(query.life_time - variable.previousthunderbolttime2) >= variable.thunderboltdelay2"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					]
+				},
+				"thunderbolt_empty": {
+					"transitions": [
+						{
+							"reload": "query.get_equipped_item_name == 'thunderbolt_empty'"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					],
+					"on_entry": [
+						"/clear @s jmgs:thunderbolt 1 1",
+						"/clear @s jmgs:thunderbolt 1 1",
+						"/clear @s jmgs:thunderbolt 1 1",
+						"/give @s jmgs:thunderbolt_empty 1 1",
+						"/scoreboard players add @s mp -35",
+						"/playsound se.se105 @s"
+					]
+				},
+				"reload": {
+					"animations": [
+						"jmgs:thunderbolt_reload_sound"
+					],
+					"transitions": [
+						{
+							"setup": "!query.is_alive || query.all_animations_finished"
+						}
+					],
+					"on_exit": [
+						"/clear @s jmgs:thunderbolt_empty 1 1",
+						"/give @s jmgs:thunderbolt 1 1"
+					]
+				}
+			}
+		}
+	}
+}

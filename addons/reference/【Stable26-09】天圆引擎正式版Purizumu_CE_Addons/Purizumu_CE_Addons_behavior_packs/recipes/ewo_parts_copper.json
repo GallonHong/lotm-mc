@@ -1,0 +1,24 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "parts_copper_bad49bb4"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:parts_copper",
+      "count": 1
+    }
+  }
+}

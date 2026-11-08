@@ -1,0 +1,169 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "pmo:role_delta",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "compass:color_0": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "compass:color_1": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "lead",
+          "toy"
+        ]
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:health": {
+        "value": 200,
+        "max": 200
+      },
+      "minecraft:collision_box": {
+        "height": 1.8,
+        "width": 0.6
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:movement": {
+        "value": 0
+      },
+      "minecraft:navigation.walk": {
+      },
+      "minecraft:annotation.open_door": {},
+      "minecraft:movement.basic": {},
+      "minecraft:can_climb": {},
+      "minecraft:damage_sensor": [
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_witch"
+          },
+          "deals_damage": false
+        },
+        {
+          "on_damage": {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "husk"
+                }
+              ],
+              "all_of": [
+                {
+                  "test": "has_damage",
+                  "value": "fatal"
+                }
+              ]
+            },
+            "event": "become_zombie"
+          }
+        }
+      ],
+      "minecraft:behavior.move_indoors": {
+        "priority": 4,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.restrict_open_door": {
+        "priority": 5
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "priority": 7,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.share_items": {
+        "priority": 8,
+        "max_dist": 3,
+        "goal_radius": 2,
+        "speed_multiplier": 0.5,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "villager"
+            }
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 11,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 12,
+        "look_distance": 8,
+        "probability": 0.02
+      },
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.02
+      },
+      "minecraft:scale": {
+        "value": 0.9
+      },
+      "minecraft:knockback_resistance": {
+        "value": 5.0,
+        "max": 5.0
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/jmgs/jmgs_loot_spawn_egg.json"
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "compass:color_0"
+          ]
+        }
+      },
+      "pmo:role_skins_100": {
+        "add": {
+          "component_groups": [
+            "compass:color_0"
+          ]
+        }
+      },
+      "pmo:role_skins_101": {
+        "add": {
+          "component_groups": [
+            "compass:color_1"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_structure_e40c5063"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_vertebra",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_structure",
+      "count": 1
+    }
+  }
+}

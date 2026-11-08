@@ -1,0 +1,73 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:role_fightx",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/corona/pmo_role_fightx"
+      },
+      "geometry": {
+        "default": "geometry.pmo_role_fightx"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "standby",
+          "look_at_target",
+          "damage_mob",
+          "attack",
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "animations": {
+        "standby": "animation.pmo.standby",
+        "run": "animation.pmo_entity_mecha.run",
+        "fight": "animation.pmo_entity_mecha.fight",
+        "shoot": "animation.pmo_entity_mecha.shoot",
+        "arms": "animation.pmo_entity_mecha.arms",
+        "jump": "animation.pmo_entity_mecha.jump",
+        "get": "animation.pmo_entity_mecha.get",
+        "get_in": "animation.pmo_entity_mecha.get_in",
+        "get_out": "animation.pmo_entity_mecha.get_out",
+        "kick": "animation.pmo_entity_mecha.kick",
+        "spawn": "animation.pmo_entity_mecha.spawn",
+        "main": "controller.animation.pmo_role_fightx.main",
+        "attack": "controller.animation.humanoid.attack",
+        "attack.rotations": "animation.humanoid.attack.rotations",
+        "look_at_target_default": "animation.humanoid.look_at_target.default",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "look_at_target": "controller.animation.humanoid.look_at_target",
+        "damage_nearby_mobs": "animation.humanoid.damage_nearby_mobs",
+        "damage_mob": "controller.animation.humanoid.damage_nearby_mobs",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "spawn_egg": {
+        "texture": "pmo:role_fightx",
+        "texture_index": 0
+      },
+      "sound_effects": {
+        "fire": "pmo_projectile_a1_shot0",
+        "empty": "all_gun_empty",
+        "mag_out": "klb_mag_out",
+        "mecha.walk": "mecha.walk",
+        "mecha.idle": "mecha.idle",
+        "boom": "jmgs.build_boom"
+      },
+      "particle_effects": {
+        "large_explosion": "minecraft:egg_destroy_emitter",
+        "jmgs_gunfiresmoke": "jmgs:gunfiresmoke",
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "render_controllers": [
+        "controller.render.skeleton"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

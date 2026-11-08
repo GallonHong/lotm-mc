@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_ddr2400_c33b49a5"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:sand",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:copper_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_ddr2400",
+      "count": 1
+    }
+  }
+}

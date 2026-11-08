@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_icebox_a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EAE",
+      "BCB",
+      "DFD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_special",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_si_gel",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_low",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_icebox",
+      "count": 1
+    }
+  }
+}

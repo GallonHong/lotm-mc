@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_fraternity3_577955b0"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      "EFE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:chainmail_chestplate",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_coated",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:cloth_rough",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_aramid",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_fraternity3",
+      "count": 1
+    }
+  }
+}

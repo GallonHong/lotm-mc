@@ -1,0 +1,257 @@
+{
+    "format_version": "1.17.0",
+    "minecraft:npc_dialogue": {
+        "scenes": [
+            {
+                "scene_tag": "jmgs_ini",
+                "npc_name": "初始设置",
+                "text": {
+                    "rawtext": [
+                        {"text":"要不要进行初始设置？ \n 请选择："}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"好的",
+                        "commands": [
+                            "/setblock放红石块"
+                        ]
+                    },
+                    {
+                        "name":"稍后",
+                        "commands": [
+                            "/tp下一个场景"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/tp下一个场景"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_set",
+                "npc_name": "初始设置说明",
+                "text": {
+                    "rawtext": [
+                        {"text":"在这里，可查看以下内容： \n 材质安装测试、PBR贴图测试、常规语音音量测试、3D空间音效测试、字幕设置、旅行者语音音色选择。可粗略观看后直奔下一个选项。本作没有状态栏，所以没有状态栏相关设置。"}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"好",
+                        "commands": [
+                            "/playsound @a wind_charge.burst"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_set0",
+                "npc_name": "初始设置确认",
+                "text": {
+                    "rawtext": [
+                        {"text":"你确定你已经完成相关设置了？"}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"没错",
+                        "commands": [
+                            "/playsound @a item.book.page_turn",
+                            "/tp下一个场景"
+                        ]
+                    },
+                    {
+                        "name":"再等一下",
+                        "commands": [
+                            "/playsound @a item.book.page_turn"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_safe",
+                "npc_name": "安全守护模式声明",
+                "text": {
+                    "rawtext": [
+                        {"text":"本作默认启用「安全守护模式」： \n 将严格限制惊悚元素的出现，难度也会锁定为休闲，确保能够适应绝大多数用户，以及习惯我往期作品的老玩家。 \n "},
+                        {"text":"如果关闭，后续流程就会出现一定强度的、我的世界风格的惊悚元素，而且也会开放难度选择，后续亦可以在设置里重选。但是如果开启了安全守护模式，难度选择将无法正常生效。 \n "},
+                        {"text":"如果您正在录制视频或者是直播，建议保持默认设置。 \n "},
+                        {"text":"请选择："}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"保持默认",
+                        "commands": [
+                            "/playsound @a random.levelup",
+                            "/tp下一个场景"
+                        ]
+                    },
+                    {
+                        "name":"我要关闭",
+                        "commands": [
+                            "/playsound @a mob.ghast.charge",
+                            "/tp下一个场景"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_safe0",
+                "npc_name": "声明",
+                "text": {
+                    "rawtext": [
+                        {"text":"本作所涉及的各种设定(人物、品牌、道具、设定、地名、组织等)，除非有明确指定，否则均基于虚拟的架空世界观，请勿对号入座。 \n "},
+                        {"text":"本作严格遵守相关规定开发，但其故事情节纯属艺术设计需要，仅供娱乐。开发者不鼓励、不支持、不认同作品中所渲染的任何立场。游戏内行为严厉禁止在现实中模仿，否则产生的一切后果请自行承担。"}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"好",
+                        "commands": [
+                            "/dialogue open @s @p[r=20] jmgs_safe1"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_safe1",
+                "npc_name": "声明",
+                "text": {
+                    "rawtext": [
+                        {"text":"关闭「安全守护模式」之后，本作将呈现一定的刺激桥段，例如战斗、追逐、惊悚、幻想暴力、过激剧情。如果您是：心脑血管疾病、高血压、癫痫、心理疾病、未成年人…等不适宜游玩的情况，请不要游玩本地图，尤其是当您独自进行游戏的时候。游玩途中一旦感到不适，请立刻退出游戏。无视风险坚持游玩所产生的一切后果，由玩家本人自行承担，开发者不承担相关责任。"}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"我知道了",
+                        "commands": [
+                            "/dialogue open @s @p[r=20] jmgs_safe2"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_safe2",
+                "npc_name": "您即将关闭「安全守护模式」",
+                "text": {
+                    "rawtext": [
+                        {"text":"该模式可关闭。 \n 请确保您是完全民事行为能力人，且执行操作时神志清醒、无人胁迫、已阅读相关安全声明，知道自己在干什么，我方已履行告知义务。 \n 关闭后视为接受惊悚、过激剧情演出等元素的出现。 \n 如不接受请保持默认状态。"}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"保持默认状态",
+                        "commands": [
+                            "/tp下一个场景"
+                        ]
+                    },
+                    {
+                        "name":"我意已决关闭",
+                        "commands": [
+                            "/playsound @a item.book.page_turn"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_difficulty0",
+                "npc_name": "难度确认页面",
+                "text": {
+                    "rawtext": [
+                        {"text":"你好像选了一个难度，请确认一下你选对吗？ \n 确认之后会离开本场景："}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"我确认",
+                        "commands": [
+                            "/tp下一个场景"
+                        ]
+                    },
+                    {
+                        "name":"点错了",
+                        "commands": [
+                            "/playsound @a item.book.page_turn"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            },
+            {
+                "scene_tag": "jmgs_chaper0",
+                "npc_name": "章节确认页面",
+                "text": {
+                    "rawtext": [
+                        {"text":"你好像选了一个章节，请确认一下你选对吗？ \n 确认之后会离开本场景："}
+                    ]
+                },
+                "buttons": [
+                    {
+                        "name":"我确认",
+                        "commands": [
+                            "/tp下一个场景"
+                        ]
+                    },
+                    {
+                        "name":"点错了",
+                        "commands": [
+                            "/playsound @a item.book.page_turn"
+                        ]
+                    }
+                ],
+                "on_close_commands": [
+                    "/playsound @a item.book.page_turn"
+                ],
+                "on_open_commands": [
+                    "/playsound @a item.book.page_turn"
+                ]
+            }
+        ]
+    }
+}

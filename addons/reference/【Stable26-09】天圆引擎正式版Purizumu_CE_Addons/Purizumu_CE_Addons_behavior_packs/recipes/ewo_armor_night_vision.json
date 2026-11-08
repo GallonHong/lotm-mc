@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_night_vision_35d76fa6"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      " E "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond_helmet",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:beacon",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_night_vision",
+      "count": 1
+    }
+  }
+}

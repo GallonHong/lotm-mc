@@ -1,0 +1,32 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_color_b7653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_prism",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_color",
+      "count": 1
+    }
+  }
+}

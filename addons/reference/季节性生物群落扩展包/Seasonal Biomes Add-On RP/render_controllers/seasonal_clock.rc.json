@@ -1,0 +1,33 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.seasonal_clock.right": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                { "clock2_*": false }
+            ],
+            "textures": [
+                "Texture.default"
+            ]
+        },
+        "controller.render.seasonal_clock.left": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "part_visibility": [
+                { "clock_*": false }
+            ],
+            "textures": [
+                "Texture.default"
+            ]
+        }
+    }
+}

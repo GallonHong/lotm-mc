@@ -1,0 +1,152 @@
+{
+    "version": 1,
+    "content": [
+        {
+            "path": "animations/fight_dummy.animations.json",
+            "key": "qU2QpxIAIPMq2ozpEWmC7hz5pAChHxGt"
+        },
+        {
+            "path": "animation_controllers/ds.animation_controllers.json",
+            "key": "bP2VbQJg6Bj8HinPFuAOWoBmJ1ocAdsL"
+        },
+        {
+            "path": "entities/chicken_dummy.json",
+            "key": "qT8t305Pb00WWCPVLrpLssdO1RQ1GKb0"
+        },
+        {
+            "path": "entities/cow_dummy.json",
+            "key": "fZ3JbxF5EgzObyP9SR2Wn2wvmYcbMmUw"
+        },
+        {
+            "path": "entities/dragon_dummy.json",
+            "key": "pU8hONCfraAhgxuQyd4u7RrKFFf2tGTC"
+        },
+        {
+            "path": "entities/enderman_dummy.json",
+            "key": "tK4CC2hccbRp91ezuj4fONPMc6f2zSag"
+        },
+        {
+            "path": "entities/skeleton_dummy.json",
+            "key": "wP0wEXuqfw2v3iQ1hRUwYJNNKn08c8nX"
+        },
+        {
+            "path": "entities/training_dummy.json",
+            "key": "bK6MqK2kXjS5tASmnAHVNtcp6GgOgZuO"
+        },
+        {
+            "path": "entities/wither_dummy.json",
+            "key": "rK15C9vZol4lXaZul8zAfqpR39qHbGM7"
+        },
+        {
+            "path": "entities/zombie_dummy.json",
+            "key": "zL3pzWNHfCI4NFWrTATZ1QAAZ9B1RkvM"
+        },
+        {
+            "path": "functions/pb/dmgi/player_init.mcfunction",
+            "key": "hP5wMGRFeJmE8EJLkZAZxUnHvfXiMoOT"
+        },
+        {
+            "path": "functions/pb/dmgi/setup.mcfunction",
+            "key": "dS1INhcMcofo0uzoFARto6bqUqwiyXMA"
+        },
+        {
+            "path": "items/guidebook.item.json",
+            "key": "bF3q9xpRNESe7QtF4XhAU04QaZQF5Thq"
+        },
+        {
+            "path": "manifest.json"
+        },
+        {
+            "path": "pack_icon.png"
+        },
+        {
+            "path": "recipes/chicken_dummy.recipe.json",
+            "key": "fM7wumZnuLBq4QPMrnLTvmEb6GTLadQT"
+        },
+        {
+            "path": "recipes/cow_dummy.recipe.json",
+            "key": "uX2CpTwJvvqyMeMhgBjau6bN4HWFCgGZ"
+        },
+        {
+            "path": "recipes/dragon_dummy.recipe.json",
+            "key": "vV4ziuHZlNa2iaRHE1Loi0rcHEuf0tx3"
+        },
+        {
+            "path": "recipes/enderman_dummy.recipe.json",
+            "key": "rB2SVIzZitOEYeAT0TnnOCMLdTLlVWvb"
+        },
+        {
+            "path": "recipes/guidebook.recipe.json",
+            "key": "eK3qr39opvfwKNNLOTinrcGnGGXA797L"
+        },
+        {
+            "path": "recipes/skeleton_dummy.recipe.json",
+            "key": "cZ3pxVXuVmPzNq90wik7Pkpbr3zUMYIu"
+        },
+        {
+            "path": "recipes/training_dummy.recipe.json",
+            "key": "vW0FRfHId3ZotcYBCRGeZhJNr55aK2lX"
+        },
+        {
+            "path": "recipes/wither_dummy.recipe.json",
+            "key": "pZ7qkbnexAOOjr1lTeS3m2P4LNx08E7z"
+        },
+        {
+            "path": "recipes/zombie_dummy.recipe.json",
+            "key": "vM1zgPrCBxdNofviv5hA94IsJGWWrzRs"
+        },
+        {
+            "path": "scripts/pb_dmgi_config.js",
+            "key": "wZ3GjBWOFmQMsCmUn3w40as7VzCB6r6Z"
+        },
+        {
+            "path": "scripts/pb_dmgi_dummy_menu.js",
+            "key": "pX5NfWmY73kEHfvu0SNkorxwFR3bSg4s"
+        },
+        {
+            "path": "scripts/pb_dmgi_main.js",
+            "key": "uY83V0hEAGvJCEmiNivka8vooYwZPkVc"
+        },
+        {
+            "path": "scripts/pb_dmgi_menu.js",
+            "key": "eH7hWZM30NeV7z3tT6ZES5pGYazPxWnc"
+        },
+        {
+            "path": "texts/en_US.lang"
+        },
+        {
+            "path": "texts/zh_CN.lang"
+        },
+        {
+            "path": "texts/languages.json"
+        },
+        {
+            "path": "signatures.json",
+            "key": "kZ2a6WPzztAnUTMFj9zEBvWIF2KL4Buz"
+        },
+        {
+            "path": "animations/"
+        },
+        {
+            "path": "animation_controllers/"
+        },
+        {
+            "path": "entities/"
+        },
+        {
+            "path": "functions/pb/dmgi/"
+        },
+        {
+            "path": "items/"
+        },
+        {
+            "path": "recipes/"
+        },
+        {
+            "path": "scripts/"
+        },
+        {
+            "path": "texts/"
+        }
+    ]
+}

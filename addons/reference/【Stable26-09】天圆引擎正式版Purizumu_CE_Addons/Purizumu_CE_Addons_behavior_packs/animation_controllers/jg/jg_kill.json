@@ -1,0 +1,27 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.jg_kill": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"die": "variable.crdelay = 2.0; variable.previouscrtime = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"die": {
+					"transitions": [
+						{
+							"default": "(query.life_time - variable.previouscrtime) >= variable.crdelay"
+						}
+					],
+					"on_exit": [
+						"/kill @s"
+					]
+				}
+			}
+		}
+	}
+}

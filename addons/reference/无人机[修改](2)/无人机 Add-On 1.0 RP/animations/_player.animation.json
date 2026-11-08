@@ -1,0 +1,37 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.makercamp_dr.player.controlling_drone": {
+			"loop": false,
+			"animation_length": 1,
+			"bones": {
+				"root": {
+					"scale": "query.is_in_ui ? 0 : 1",
+					"position" : [ 0.0, "q.is_sneaking ? -1.25", "q.is_sneaking ? -9.0" ],
+					"rotation": ["q.is_sneaking ? -28.0", "(v.initial_y ?? 0) - query.body_y_rotation", 0]
+				},
+				"head": {
+					"scale": "query.is_in_ui ? 0 : 1",
+					"position" : [ 0.0, "q.is_sneaking ? 1.0", 0.0 ],
+					"rotation": ["(v.initial_x ?? 0) - query.head_x_rotation(0)", "(v.initial_y ?? 0) - query.head_y_rotation(0)", "this"]
+				},
+
+				"body" : {
+					"position" : [ 0.0, "q.is_sneaking ? 2.0", 0.0 ]
+				},
+				"leftarm" : {
+					"rotation" : [ "q.is_sneaking ? 5.7", 0.0, 0.0 ]
+				},
+				"leftleg" : {
+					"rotation" : [ "q.is_sneaking ? 28.0", "q.is_sneaking ? 0.1", "q.is_sneaking ? 0.1" ]
+				},
+				"rightarm" : {
+					"rotation" : [ "q.is_sneaking ? 5.7", 0.0, 0.0 ]
+				},
+				"rightleg" : {
+					"rotation" : [ "q.is_sneaking ? 28.0", "q.is_sneaking ? -0.1", "q.is_sneaking ? -0.1" ]
+				}
+			}
+		}
+	}
+}

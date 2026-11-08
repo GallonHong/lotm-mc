@@ -1,0 +1,19 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.helmet": {
+            "geometry": "Geometry.default",
+            "textures": ["Texture.default", "Texture.enchanted"],
+            "part_visibility": [{ "*": 0 }, { "head": 1 }],
+            "materials": [
+                { "*": "variable.is_enchanted ? Material.enchanted : Material.default" }
+            ]
+        },
+        "controller.render.mythicus_sn.miner_helmet": {
+            "geometry": "Geometry.default",
+            "textures": ["Texture.helmet"],
+            "part_visibility": [{ "*": 0 }, { "head": 1 }, { "glow": 1 }],
+            "materials": [{ "*": "Material.default" }, { "glow": "material.glow" }]
+        }
+    }
+}

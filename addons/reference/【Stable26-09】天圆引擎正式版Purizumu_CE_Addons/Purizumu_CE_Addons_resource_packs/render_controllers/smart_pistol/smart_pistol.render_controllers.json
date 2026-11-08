@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.smart_pistol_models": {
+			"textures": [
+				"Texture.smart_pistol_models"
+			],
+			"geometry": "Geometry.smart_pistol_models",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"aim_red": "Material.gun_scope_aim"
+				},
+				{
+					"aim_blue": "Material.gun_scope_aim"
+				},
+				{
+					"hwx": "Material.gun_scope_aim"
+				},
+				{
+					"scope": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,312 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 2
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_special:0",
+              "quantity": {
+                "min": 13,
+                "max": 20
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 1
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_casting:0",
+              "quantity": {
+                "min": 20,
+                "max": 25
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 1
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_6nail:0",
+              "quantity": {
+                "min": 20,
+                "max": 25
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 1
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_screw:0",
+              "quantity": {
+                "min": 20,
+                "max": 25
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 1
+            },
+            {
+              "item": "minecraft:copper_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_copper:0",
+              "quantity": {
+                "min": 20,
+                "max": 25
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 1
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_spring:0",
+              "quantity": {
+                "min": 10,
+                "max": 15
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 4
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_mech:0",
+              "quantity": {
+                "min": 10,
+                "max": 15
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 2
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:metal_alumin:0",
+              "quantity": {
+                "min": 33,
+                "max": 36
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 18
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_gun:0",
+              "quantity": {
+                "min": 10,
+                "max": 12
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 2
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_pipe:0",
+              "quantity": {
+                "min": 10,
+                "max": 12
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 2
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_toolbox:0",
+              "quantity": {
+                "min": 10,
+                "max": 15
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 9
+            },
+            {
+              "item": "minecraft:iron_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:ceramics_bionics:0",
+              "quantity": {
+                "min": 10,
+                "max": 12
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

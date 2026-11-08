@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_cs_934cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DAD",
+      "CBC",
+      "DED"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:mine_uranium",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_ti",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_weathering",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_gold_man",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_cs",
+      "count": 1
+    }
+  }
+}

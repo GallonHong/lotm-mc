@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_ct_8dbb132c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "FBG",
+      "CAD",
+      "EBE"
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:klb",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_motor",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_cs",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "E": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:block_pc4",
+        "data": 0
+      },
+      "G": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_ct_spawn_egg",
+      "count": 1
+    }
+  }
+}

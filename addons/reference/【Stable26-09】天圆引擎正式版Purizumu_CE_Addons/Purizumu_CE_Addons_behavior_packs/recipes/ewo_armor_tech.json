@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_tech_f0760bb0"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      " E "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond_helmet",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:beacon",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_cpu9100f",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:pc_led",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_tech",
+      "count": 1
+    }
+  }
+}

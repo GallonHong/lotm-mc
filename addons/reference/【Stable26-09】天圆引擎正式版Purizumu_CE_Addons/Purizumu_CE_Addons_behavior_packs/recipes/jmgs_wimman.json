@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "wimman_f680668c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "ECD",
+      "FCG"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_nugget",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_amorphous",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:wimman",
+      "count": 1
+    }
+  }
+}

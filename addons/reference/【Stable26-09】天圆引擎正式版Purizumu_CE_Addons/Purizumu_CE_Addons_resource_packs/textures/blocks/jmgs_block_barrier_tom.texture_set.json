@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "jmgs_block_barrier_tom",
+    "metalness_emissive_roughness": "jmgs_block_barrier_tom_mer",
+    "normal": "jmgs_block_barrier_tom_normal"
+  }
+}

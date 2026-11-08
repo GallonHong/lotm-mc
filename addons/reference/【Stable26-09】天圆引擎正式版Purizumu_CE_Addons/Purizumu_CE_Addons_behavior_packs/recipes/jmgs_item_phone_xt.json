@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_phone_xt_c2653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CAF",
+      "EBE",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_amalgam",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:block_display",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_nano",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_phone_xt",
+      "count": 1
+    }
+  }
+}

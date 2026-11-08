@@ -1,0 +1,53 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.gunaim_jg": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        "gunaim_jg_standby"
+                    ],
+                    "transitions": [
+                        {
+                            "charging": "variable.jgcharging_rp2 = 1.00; variable.prejgcharging_rp2 = query.life_time; return (q.item_remaining_use_duration > 1);"
+                        }
+                    ]
+                },
+                "charging": {
+                    "animations": [
+                        "gunaim_jg_standby"
+                    ],
+                    "transitions": [
+                        {
+                            "charging_over": "(query.life_time - variable.prejgcharging_rp2) >= variable.jgcharging_rp2"
+                        },
+                        {
+                            "default": "!q.is_using_item"
+                        }
+                    ]
+                },
+                "charging_over": {
+                    "animations": [
+                        "gunaim_jg_charging_over"
+                    ],
+                    "transitions": [
+                        {
+                            "charging_cd": "!q.is_using_item"
+                        }
+                    ]
+                },
+                "charging_cd": {
+                    "animations": [
+                        "gunaim_jg_standby"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "(query.life_time - variable.prejgcharging_rp2) >= variable.jgcharging_rp2"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -2,6 +2,7 @@ import { system, world } from "@minecraft/server";
 import * as VC from "./VehicleConstants.js";
 import { VehicleSpecificFunctions } from "./VehicleSpecificFunctions.js";
 import { FuelManager } from "./FuelManager.js";
+import { VehicleGarageManager } from "./VehicleGarageManager.js";
 
 export class VehicleClass {
     static crackingTimers = new Map();
@@ -272,6 +273,16 @@ export class VehicleClass {
         try {
             const loc = vehicle.location;
             const dim = vehicle.dimension;
+
+            const ownerId = vehicle.getDynamicProperty("ownerId");
+            const vehicleTypeId = vehicle.getDynamicProperty("vehicleTypeId") || vehicle.typeId;
+            if (ownerId && vehicleTypeId) {
+                try {
+                    VehicleGarageManager.onVehicleDestroyed(ownerId, vehicleTypeId);
+                } catch (e) {
+                    console.warn(`[VehicleClass] onVehicleDestroyed error: ${e}`);
+                }
+            }
 
             // 清空后备箱物品，确保零掉落
             try {

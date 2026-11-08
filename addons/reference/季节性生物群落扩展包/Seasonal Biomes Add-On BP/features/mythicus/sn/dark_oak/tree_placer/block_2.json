@@ -1,0 +1,18 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/dark_oak/tree_placer/block_2"
+        },
+
+        "places_block": "minecraft:dark_oak_log",
+        "may_attach_to": {
+            "top": "minecraft:dark_oak_log",
+            "auto_rotate": false
+        },
+
+        "enforce_placement_rules": false,
+        "enforce_survivability_rules": false,
+        "may_replace": ["minecraft:air"]
+    }
+}

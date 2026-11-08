@@ -1,0 +1,110 @@
+{
+  "format_version": "1.21.60",
+  "minecraft:crafting_items_catalog": {
+    "categories": [
+      {
+        "category_name": "equipment",
+        "groups": [
+          {
+            "group_identifier": {
+              "icon": "atg:ala_spc",
+              "name": "pa:itemGroup.name.plateCarrierBlackCamo"
+            },
+            "items": [
+              "atg:ala_spc",
+              "atg:jpc_2",
+              "atg:mlt_hg2"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:black_ghillie",
+              "name": "pa:itemGroup.name.ghillie"
+            },
+            "items": [
+              "atg:black_ghillie",
+              "atg:oak_ghillie"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:ca_pvs31",
+              "name": "pa:itemGroup.name.helmetBlackCamo"
+            },
+            "items": [
+              "atg:ca_pvs31",
+              "atg:ca_pvs_31_up",
+              "atg:mch_fc",
+              "atg:mch_fc_up",
+              "atg:ocf_gpnvg18",
+              "atg:ocf_gpnvg18_up",
+              "atg:ocf_gpnvg18_up1"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:ca_pvs31_desert",
+              "name": "pa:itemGroup.name.helmetDesertCamo"
+            },
+            "items": [
+              "atg:ca_pvs31_desert",
+              "atg:ca_pvs31_up_desert",
+              "atg:mch_fc_desert",
+              "atg:mch_fc_up_desert",
+              "atg:ocf_gpnvg18_desert",
+              "atg:ocf_gpnvg18_up1_desert",
+              "atg:ocf_gpnvg18_up_desert"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:emr_6b13",
+              "name": "pa:itemGroup.name.plateCarrierJungleCamo"
+            },
+            "items": [
+              "atg:emr_6b13"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:goggles_black",
+              "name": "pa:itemGroup.name.goggles"
+            },
+            "items": [
+              "atg:goggles_black",
+              "atg:goggles_red"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:jpc_2_desert",
+              "name": "pa:itemGroup.name.plateCarrierDesertCamo"
+            },
+            "items": [
+              "atg:jpc_2_desert",
+              "atg:mlt_hg2_desert"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:killa_6b13",
+              "name": "pa:itemGroup.name.plateCarrierSpecial"
+            },
+            "items": [
+              "atg:killa_6b13"
+            ]
+          },
+          {
+            "group_identifier": {
+              "icon": "atg:m50",
+              "name": "pa:itemGroup.name.gasmask"
+            },
+            "items": [
+              "atg:m50"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

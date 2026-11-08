@@ -1,0 +1,165 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "pmo:entity_car_macaron_edit",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "compass:color_0": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "compass:color_1": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "compass:color_2": {
+        "minecraft:variant": {
+          "value": 2
+        }
+      },
+      "compass:color_3": {
+        "minecraft:variant": {
+          "value": 3
+        }
+      },
+      "compass:color_4": {
+        "minecraft:variant": {
+          "value": 4
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "simple_car",
+          "skins"
+        ]
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:collision_box": {
+        "height": 2.0,
+        "width": 2.0
+      },
+      "minecraft:fall_damage": {
+        "value": 0
+      },
+      "minecraft:movement": {
+        "value": 0.27,
+        "max": 0.27
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/jmgs/jmgs_loot_spawn_egg.json"
+      },
+      "minecraft:nameable": {
+        "alwaysShow": true,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:inventory": {
+        "inventory_size": 9,
+        "container_type": "container",
+        "private": false
+      },
+      "minecraft:rideable": {
+        "priority": 0,
+        "seat_count": 2,
+        "crouching_skip_interact": true,
+        "family_types": [
+          "player",
+          "toy"
+        ],
+        "interact_text": "上车",
+        "seats": [
+          {
+            "position": [
+              -0.15,
+              0.2,
+              0.2
+            ]
+          },
+          {
+            "position": [
+              -1.1,
+              0.2,
+              0.2
+            ],
+            "min_rider_count": 0,
+            "max_rider_count": 2
+          }
+        ],
+        "pull_in_entities": false
+      },
+      "minecraft:input_ground_controlled": {},
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.03
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:addrider": {}
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "randomize": [
+          {
+            "add": {
+              "component_groups": [
+                "compass:color_0"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "compass:color_1"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "compass:color_2"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "compass:color_3"
+              ]
+            }
+          },
+          {
+            "add": {
+              "component_groups": [
+                "compass:color_4"
+              ]
+            }
+          }
+        ]
+      }
+    }
+  }
+}

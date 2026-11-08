@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "killa_6b13_2f556046"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " B ",
+      "CAD"
+    ],
+    "key": {
+      "A": {
+        "item": "atg:armor_plate",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:leather_chestplate",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:black_bundle",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:black_carpet",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:killa_6b13",
+      "count": 1
+    }
+  }
+}

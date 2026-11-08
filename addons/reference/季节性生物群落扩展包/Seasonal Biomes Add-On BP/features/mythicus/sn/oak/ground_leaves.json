@@ -1,0 +1,20 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/ground_leaves"
+        },
+        "places_block": "mythicus_sn:ground_leaves",
+        "enforce_survivability_rules": true,
+        "enforce_placement_rules": true,
+        "may_replace": ["minecraft:air"]
+        // "may_attach_to": {
+        //  "all": [
+        //    //"mythicus_sn:orange_piles_of_leaves",
+        //    //"mythicus_sn:red_piles_of_leaves",
+        //    //"mythicus_sn:yellow_piles_of_leaves",
+        //    "mythicus_sn:piles_of_leaves"
+        //  ]
+        // }
+    }
+}

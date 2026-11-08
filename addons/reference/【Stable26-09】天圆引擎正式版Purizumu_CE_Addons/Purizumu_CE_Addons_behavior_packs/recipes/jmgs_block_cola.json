@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_cola_932cd031"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BBB",
+      "DCD",
+      "EAE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:food_sod_hit_water",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_junction_box",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_cola",
+      "count": 1
+    }
+  }
+}

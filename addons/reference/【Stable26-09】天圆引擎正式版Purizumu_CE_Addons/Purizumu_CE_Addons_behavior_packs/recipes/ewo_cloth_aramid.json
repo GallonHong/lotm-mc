@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_aramid_deabfb84"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EAB",
+      "DCB",
+      "FDB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth_nylon",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_blended",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_sewing",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_aramid",
+      "count": 2
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_feather_duster_0757509e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ADA",
+      "ABA",
+      " C "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:feather",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:wooden_sword",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_sewing",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_feather_duster",
+      "count": 1
+    }
+  }
+}

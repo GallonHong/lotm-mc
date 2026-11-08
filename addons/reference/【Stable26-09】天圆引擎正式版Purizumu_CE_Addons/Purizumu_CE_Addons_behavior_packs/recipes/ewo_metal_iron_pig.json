@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_iron_pig_a67b1339"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AA",
+      "BAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:raw_iron",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_iron_pig",
+      "count": 4
+    }
+  }
+}

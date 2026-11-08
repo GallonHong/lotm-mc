@@ -1,0 +1,822 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:netherite_ingot",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 36,
+                "max": 44
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "ewo:recipe_page:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 36,
+                "max": 44
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "pmo:entity_music_piano_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 3,
+                "max": 4
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "pmo:entity_music_piano_lite_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 48,
+                "max": 53
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "pmo:entity_music_piano_se_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 20,
+                "max": 30
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "pmo:entity_music_drum_se_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 20,
+                "max": 30
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "pmo:entity_music_drum_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": {
+                "min": 40,
+                "max": 50
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ventilator_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_act_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_aed_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 2,
+                "max": 4
+              }
+            }
+          ]
+        },
+        
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_super_b_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 12,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_mmm_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 14,
+                "max": 18
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_crrt_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 6,
+                "max": 9
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_iabp_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 5,
+                "max": 7
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ecmo_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 9,
+                "max": 12
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_nirs_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 20,
+                "max": 24
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_nirs_display_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 4,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_server_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 10,
+                "max": 13
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_ct_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 8,
+                "max": 10
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_duv_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 30,
+                "max": 35
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_cnc_spawn_egg:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": {
+                "min": 19,
+                "max": 20
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_black_box",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 3,
+                "max": 5
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_z:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_power_pro",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_total_station",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": {
+                "min": 9,
+                "max": 11
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_network_terminal",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 8
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_neutron_star_navigator",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 12
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_power_cs",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 10
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_scope_ultra",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 18
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_mmm_lite",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 17
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_microscope_electrion",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 7
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_rtk",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 8
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_machine_money",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 7
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_machine_movie",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 4
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_machine_kuma",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_gold:0",
+              "quantity": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_chair_massage",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 20
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_tablet_graphics",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 11
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_tablet_graphics_ground",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 13
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_display_control",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 13
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_audio_mixer",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 45
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:block_dance_duo",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 43
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

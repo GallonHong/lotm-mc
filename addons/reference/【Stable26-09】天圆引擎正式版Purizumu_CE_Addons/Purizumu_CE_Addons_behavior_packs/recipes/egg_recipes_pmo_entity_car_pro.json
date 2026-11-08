@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_b5484d05"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_prism",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_motor",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_car_pro_spawn_egg",
+      "count": 1
+    }
+  }
+}

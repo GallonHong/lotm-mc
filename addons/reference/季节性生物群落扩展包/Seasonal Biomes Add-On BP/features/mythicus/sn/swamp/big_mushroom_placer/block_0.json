@@ -1,0 +1,26 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/swamp/big_mushroom_placer/block_0"
+        },
+
+        "places_block": "minecraft:emerald_block",
+
+        "enforce_placement_rules": false,
+        "enforce_survivability_rules": false,
+
+        "may_attach_to": {
+            "bottom": [
+                "mythicus_sn:custom_ground_block",
+                "mythicus_sn:custom_ground_variant_1",
+                "mythicus_sn:custom_ground_variant_2",
+                "minecraft:grass_block"
+            ]
+        },
+        "may_not_attach_to": {
+            "all": ["minecraft:farmland"],
+            "bottom": ["minecraft:grass_path", "minecraft:beetroot"]
+        }
+    }
+}

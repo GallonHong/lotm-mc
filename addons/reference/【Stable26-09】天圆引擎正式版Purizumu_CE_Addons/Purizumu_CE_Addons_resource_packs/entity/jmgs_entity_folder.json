@@ -1,0 +1,43 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_folder",
+      "textures": {
+        "default": "textures/entity/jmgs_entity_folder"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_entity_folder"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:entity_folder",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.jmgs_entity_folder.idle",
+        "spawn": "animation.jmgs_entity_folder.spawn",
+        "open": "animation.jmgs_block_chest.open"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          "spawn",
+          {"open": "!query.is_alive"}
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

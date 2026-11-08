@@ -1,0 +1,43 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.jg_models": {
+			"textures": [
+				"Texture.jg_models"
+			],
+			"geometry": "Geometry.jg_models",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"gun_body_light": "Material.gun_scope_aim"
+				},
+				{
+					"gun_body_light_red": "Material.gun_scope_aim"
+				},
+				{
+					"jg_shoot": "Material.gun_scope_aim"
+				},
+				{
+					"hwx": "Material.gun_scope_aim"
+				},
+				{
+					"jg_ball": "Material.gun_scope_aim"
+				},
+				{
+					"jg_line1": "Material.gun_scope_aim"
+				},
+				{
+					"jg_line2": "Material.gun_scope_aim"
+				},
+				{
+					"jg_line3": "Material.gun_scope_aim"
+				},
+				{
+					"jg_line4": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

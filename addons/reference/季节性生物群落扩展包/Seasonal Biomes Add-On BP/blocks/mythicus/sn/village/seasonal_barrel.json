@@ -1,0 +1,378 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:seasonal_barrel",
+            "states": {
+                "mythicus_sn:season_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            },
+            "traits": {
+                "minecraft:placement_direction": {
+                    "enabled_states": [
+                        "minecraft:cardinal_direction"
+                    ]
+                }
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.seasonal_barrel",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'north' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            180,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            270,
+                            0
+                        ]
+                    }
+                }
+            }
+        ],
+        "components": {
+            "tag:mythicus_sn:non_solid": {},
+            "tag:mythicus_sn:non_blocking": {},
+            "mythicus_sn:season_change": {
+                "has_season_state": true
+            },
+            "minecraft:tick": {
+                "interval_range": [
+                    100,
+                    400
+                ],
+                "looping": true
+            },
+            "tag:mythicus_sn:seasonal_block": {},
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/village/seasonal_barrel.json",
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:spring.seasonal_barrel",
+                    "render_method": "alpha_test",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 3,
+                "item_specific_speeds": [
+                    {
+                        "destroy_speed": 1.5,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_axe', 'minecraft:wooden_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.75,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_axe', 'minecraft:stone_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.5,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_axe', 'minecraft:iron_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.25,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_axe', 'minecraft:golden_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.4,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_axe', 'minecraft:diamond_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.35,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_axe', 'minecraft:netherite_tier')"
+                        }
+                    }
+                ]
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:geometry": "geometry.mythicus_sn.seasonal_barrel",
+            "minecraft:liquid_detection": {
+                "detection_rules": [
+                    {
+                        "on_liquid_touches": "no_reaction"
+                    }
+                ]
+            },
+            "minecraft:collision_box": true,
+            "minecraft:selection_box": true,
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        }
+    }
+}

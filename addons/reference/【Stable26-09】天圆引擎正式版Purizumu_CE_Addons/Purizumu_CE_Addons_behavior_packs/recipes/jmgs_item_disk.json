@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_disk_931cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EBE",
+      "DAD",
+      "ECE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:pc_disk3",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:echo_shard",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "E": {
+        "item": "pmo:item_muscle",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_disk",
+      "count": 1
+    }
+  }
+}

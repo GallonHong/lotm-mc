@@ -1,0 +1,66 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "minecraft:match_tool_filter_none": ["minecraft:is_shears"],
+                    "count": 1
+                }
+            ],
+            "entries": [
+                {
+                    "type": "empty",
+                    "weight": 95
+                },
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:sapling_oak",
+                    "weight": 5
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:yellow_leaves_oak",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "minecraft:match_tool_filter_all": ["minecraft:is_shears"],
+                    "count": 1
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:yellow_leaves_oak",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "count": 1,
+                    "enchantments": [
+                        {
+                            "enchantment": "silk_touch",
+                            "levels": {
+                                "min": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

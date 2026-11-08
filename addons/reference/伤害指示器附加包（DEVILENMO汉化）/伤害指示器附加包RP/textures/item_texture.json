@@ -1,0 +1,34 @@
+{
+    "texture_data": {
+        "pb_dmgi_fight_dummy": {
+            "textures": "textures/pb/dmgi/items/fight_dummy_noframe.png"
+        },
+        "pb_dmgi_chicken_dummy": {
+            "textures": "textures/pb/dmgi/items/chicken_dummy.png"
+        },
+        "pb_dmgi_cow_dummy": {
+            "textures": "textures/pb/dmgi/items/cow_dummy.png"
+        },
+        "pb_dmgi_dragon_dummy": {
+            "textures": "textures/pb/dmgi/items/dragon_dummy.png"
+        },
+        "pb_dmgi_dummy": {
+            "textures": "textures/pb/dmgi/items/dummy.png"
+        },
+        "pb_dmgi_enderman_dummy": {
+            "textures": "textures/pb/dmgi/items/enderman_dummy.png"
+        },
+        "pb_dmgi_skeleton_dummy": {
+            "textures": "textures/pb/dmgi/items/skeleton_dummy.png"
+        },
+        "pb_dmgi_wither_dummy": {
+            "textures": "textures/pb/dmgi/items/wither_dummy.png"
+        },
+        "pb_dmgi_zombie_dummy": {
+            "textures": "textures/pb/dmgi/items/zombie_dummy.png"
+        },
+        "pb_dmgi_guidebook": {
+            "textures": "textures/pb/dmgi/items/guidebook.png"
+        }
+    }
+}

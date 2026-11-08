@@ -1,0 +1,58 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "mythicus_sn:sleet_pop",
+            "basic_render_parameters": {
+                "material": "particles_alpha",
+                "texture": "textures/mythicus/sn/particle/hail"
+            }
+        },
+        "curves": {
+            "variable.size": {
+                "type": "linear",
+                "input": "v.particle_age",
+                "horizontal_range": "v.particle_lifetime",
+                "nodes": [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0.99, 0.97, 0.94, 0.88, 0.75, 0.5, 0]
+            }
+        },
+        "components": {
+            "minecraft:emitter_rate_instant": {
+                "num_particles": "math.round(math.random(1,2))"
+            },
+            "minecraft:emitter_lifetime_looping": {
+                "active_time": 1
+            },
+            "minecraft:emitter_shape_point": {
+                "direction": ["math.random(-0.5,0.5)", 1, "math.random(-0.5,0.5)"]
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": "math.random(2,4)"
+            },
+            "minecraft:particle_initial_spin": {
+                "rotation_rate": 360
+            },
+            "minecraft:particle_initial_speed": "math.random(2,4)",
+            "minecraft:particle_motion_dynamic": {
+                "linear_acceleration": [0, -9.81, 0],
+                "rotation_drag_coefficient": 1
+            },
+            "minecraft:particle_appearance_billboard": {
+                "size": ["0.1*variable.size", "0.1*variable.size"],
+                "facing_camera_mode": "rotate_xyz",
+                "uv": {
+                    "texture_width": 24,
+                    "texture_height": 8,
+                    "uv": ["8+math.round(v.particle_random_1)*8", 0],
+                    "uv_size": [8, 8]
+                }
+            },
+            "minecraft:particle_motion_collision": {
+                "collision_drag": 1,
+                "coefficient_of_restitution": 0.33,
+                "collision_radius": 0.1
+            },
+            "minecraft:particle_appearance_lighting": {}
+        }
+    }
+}

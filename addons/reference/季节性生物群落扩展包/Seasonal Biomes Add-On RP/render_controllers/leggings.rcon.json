@@ -1,0 +1,18 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.leggings": {
+            "geometry": "Geometry.default",
+            "textures": ["Texture.default", "Texture.enchanted"],
+            "part_visibility": [
+                { "*": 0 },
+                { "leftleg": 1 },
+                { "rightleg": 1 },
+                { "leggings": 1 }
+            ],
+            "materials": [
+                { "*": "variable.is_enchanted ? Material.enchanted : Material.default" }
+            ]
+        }
+    }
+}

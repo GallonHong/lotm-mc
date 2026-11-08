@@ -1,0 +1,61 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:role_sec_xx",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/corona/pmo_role_xx_edit",
+        "variant_2": "textures/entity/pamobile/ewo_armor_fraternity2"
+      },
+      "geometry": {
+        "default": "geometry.pmo_role_xx_edit",
+        "mark_variant_2": "geometry.pmo_role_xx_edit_lite",
+        "mark_variant_3": "geometry.jmgs_npc_ysm_cc0"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "look_at_target",
+          {"sit": "query.is_riding"},
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "animations": {
+        "look_at_target": "animation.common.look_at_target",
+        "jump": "animation.jmgs_npc.jump",
+        "run": "animation.jmgs_npc.run",
+        "walk": "animation.jmgs_npc.walk",
+        "attacked": "animation.jmgs_npc.attacked",
+        "attack": "animation.jmgs_npc.attack",
+        "sneak": "animation.jmgs_npc.sneak",
+        "swim": "animation.jmgs_npc.swim",
+        "swim_stand": "animation.jmgs_npc_swim.stand",
+        "sit": "animation.jmgs_npc.sit",
+        "sleep": "animation.jmgs_npc.sleep",
+        "fly": "animation.jmgs_npc.fly",
+        "standby": "animation.jmgs_npc.standby_xx",
+        "die": "animation.pmo.die",
+        "main": "controller.animation.jmgs_npc_new.npc"
+      },
+      "spawn_egg": {
+        "texture": "pmo:role_sec_xx",
+        "texture_index": 0
+      },
+      "sound_effects": {
+        "se.shoot": "smart_pistol_fire0"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "large_explosion": "jmgs:gunfiresmoke"
+      },
+      "render_controllers": [
+        "controller.render.pmo_role_maya"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

@@ -1,0 +1,508 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:orange_piles_of_leaves",
+            "states": {
+                "mythicus_sn:season_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ],
+                "mythicus_sn:pile_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:pile_stage') == 0",
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.mythicus_sn.leaves_pile_0",
+                        "culling": "mythicus_sn:culling.custom_leaves",
+                        "culling_layer": "minecraft:culling_layer.leaves"
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            2,
+                            16
+                        ]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            4,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:pile_stage') == 1",
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.mythicus_sn.leaves_pile_1",
+                        "culling": "mythicus_sn:culling.custom_leaves",
+                        "culling_layer": "minecraft:culling_layer.leaves"
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            4,
+                            16
+                        ]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            4,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:pile_stage') == 2",
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.mythicus_sn.leaves_pile_2",
+                        "culling": "mythicus_sn:culling.custom_leaves",
+                        "culling_layer": "minecraft:culling_layer.leaves"
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            6,
+                            16
+                        ]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            4,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:pile_stage') == 3",
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.mythicus_sn.leaves_pile_3",
+                        "culling": "mythicus_sn:culling.custom_leaves",
+                        "culling_layer": "minecraft:culling_layer.leaves"
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            8,
+                            16
+                        ]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            4,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:pile_stage') == 4",
+                "components": {
+                    "minecraft:geometry": {
+                        "identifier": "geometry.mythicus_sn.leaves_pile_4",
+                        "culling": "mythicus_sn:culling.custom_leaves",
+                        "culling_layer": "minecraft:culling_layer.leaves"
+                    },
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            10,
+                            16
+                        ]
+                    },
+                    "minecraft:collision_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            4,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_piles_of_leaves_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_piles_of_leaves_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_piles_of_leaves_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.orange_piles_of_leaves_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_piles_of_leaves_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_piles_of_leaves_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_piles_of_leaves_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.orange_piles_of_leaves_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_piles_of_leaves_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_piles_of_leaves_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_piles_of_leaves_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.orange_piles_of_leaves_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_piles_of_leaves_0",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_piles_of_leaves_1",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_piles_of_leaves_2",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.orange_piles_of_leaves_3",
+                            "render_method": "alpha_test_to_opaque",
+                            "ambient_occlusion": false,
+                            "face_dimming": false
+                        }
+                    }
+                }
+            }
+        ],
+        "components": {
+            "tag:mythicus_sn:non_solid": {},
+            "tag:mythicus_sn:environment": {},
+            "tag:mythicus_sn:non_blocking": {},
+            "mythicus_sn:season_change": {
+                "has_season_state": true
+            },
+            "minecraft:tick": {
+                "interval_range": [
+                    100,
+                    400
+                ],
+                "looping": true
+            },
+            "minecraft:entity_fall_on": {
+                "min_fall_distance": 0.1
+            },
+            "tag:mythicus_sn:seasonal_block": {},
+            "tag:is_shears_item_destructible": {},
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/orange_piles_of_leaves.json",
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "up"
+                        ],
+                        "block_filter": [
+                            {
+                                "tags": "q.any_tag('dirt', 'grass')"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "minecraft:liquid_detection": {
+                "detection_rules": [
+                    {
+                        "on_liquid_touches": "broken"
+                    }
+                ]
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:spring.orange_piles_of_leaves_0",
+                    "render_method": "alpha_test_to_opaque",
+                    "ambient_occlusion": false,
+                    "face_dimming": false
+                }
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:geometry": {
+                "identifier": "geometry.mythicus_sn.leaves_pile_1",
+                "culling": "mythicus_sn:culling.custom_leaf_pile",
+                "culling_layer": "mythicus_sn:culling_layer.leaf_pile"
+            },
+            "minecraft:collision_box": {
+                "origin": [
+                    -8,
+                    0,
+                    -8
+                ],
+                "size": [
+                    16,
+                    4,
+                    16
+                ]
+            },
+            "minecraft:selection_box": {
+                "origin": [
+                    -8,
+                    0,
+                    -8
+                ],
+                "size": [
+                    16,
+                    4,
+                    16
+                ]
+            },
+            "mythicus_sn:pile_growth": {},
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_light_green_b6653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:pc_led",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_light_green",
+      "count": 25
+    }
+  }
+}

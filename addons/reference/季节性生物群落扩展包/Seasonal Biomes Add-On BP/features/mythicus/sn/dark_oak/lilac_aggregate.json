@@ -1,0 +1,13 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/dark_oak/lilac_aggregate"
+        },
+        "early_out": "first_failure",
+        "features": [
+            "mythicus_sn:mythicus/sn/dark_oak/lilac_bottom",
+            "mythicus_sn:mythicus/sn/dark_oak/lilac_top_offset"
+        ]
+    }
+}

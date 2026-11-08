@@ -1,0 +1,74 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "mythicus_sn:road"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_0",
+                    "projection": "terrain_matching"
+                },
+                "weight": 88
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_1",
+                    "projection": "terrain_matching"
+                },
+                "weight": 15
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_2",
+                    "projection": "terrain_matching"
+                },
+                "weight": 15
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_4",
+                    "projection": "terrain_matching"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_5",
+                    "projection": "terrain_matching"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_6",
+                    "projection": "terrain_matching"
+                },
+                "weight": 5
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_7",
+                    "projection": "terrain_matching"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/road_empty",
+                    "projection": "terrain_matching"
+                },
+                "weight": 45
+            }
+        ]
+    }
+}

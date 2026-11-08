@@ -1,0 +1,18 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/swamp/tall_seagrass/tall_seagrass_1"
+        },
+        "places_block": {
+            "name": "minecraft:seagrass",
+            "states": {
+                "sea_grass_type": "double_bot"
+            }
+        },
+        "enforce_survivability_rules": true,
+        "enforce_placement_rules": false,
+        "may_replace": ["minecraft:water"],
+        "may_attach_to": { "bottom": ["minecraft:dirt", "minecraft:clay"] }
+    }
+}

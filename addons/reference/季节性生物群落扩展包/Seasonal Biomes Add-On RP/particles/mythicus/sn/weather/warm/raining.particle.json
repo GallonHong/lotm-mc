@@ -1,0 +1,78 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "mythicus_sn:raining",
+            "basic_render_parameters": {
+                "material": "particles_alpha",
+                "texture": "textures/mythicus/sn/particle/raining"
+            }
+        },
+        "events": {
+            "splash": {
+                "particle_effect": {
+                    "effect": "mythicus_sn:rain_splash",
+                    "type": "emitter"
+                }
+            }
+        },
+        "components": {
+            "minecraft:emitter_rate_steady": {
+                "spawn_rate": "(variable.speed.z+1)*(500/5)",
+                "max_particles": "(variable.speed.z+1)*(3500/5)"
+            },
+            "minecraft:emitter_lifetime_looping": {
+                "active_time": 1
+            },
+            "minecraft:emitter_shape_disc": {
+                "radius": 32,
+                "direction": [
+                    0,
+                    -1,
+                    0
+                ]
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": "math.random(16,32)"
+            },
+            "minecraft:particle_expire_if_not_in_blocks": [
+                "minecraft:air"
+            ],
+            "minecraft:particle_lifetime_events": {
+                "expiration_event": "splash"
+            },
+            "minecraft:particle_initial_speed": 32,
+            "minecraft:particle_motion_dynamic": {
+                "linear_acceleration": [
+                    0,
+                    -9.81,
+                    0
+                ]
+            },
+            "minecraft:particle_appearance_billboard": {
+                "size": [
+                    0.2,
+                    0.8
+                ],
+                "facing_camera_mode": "lookat_y",
+                "uv": {
+                    "texture_width": 32,
+                    "texture_height": 16,
+                    "uv": [
+                        "math.round(v.particle_random_2*7)*4",
+                        0
+                    ],
+                    "uv_size": [
+                        4,
+                        16
+                    ]
+                }
+            },
+            "minecraft:particle_motion_collision": {
+                "collision_radius": 0.15,
+                "expire_on_contact": true
+            },
+            "minecraft:particle_appearance_lighting": {}
+        }
+    }
+}

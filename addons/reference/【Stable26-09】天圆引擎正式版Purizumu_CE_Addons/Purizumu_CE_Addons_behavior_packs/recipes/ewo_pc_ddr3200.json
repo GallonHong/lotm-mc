@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_ddr3200_50780f83"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:copper_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:sand",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_ddr3200",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_wasp2_3fc1e6f2"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:golden_boots",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_artleather",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:gold_block",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_si_gel",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_wasp2",
+      "count": 1
+    }
+  }
+}

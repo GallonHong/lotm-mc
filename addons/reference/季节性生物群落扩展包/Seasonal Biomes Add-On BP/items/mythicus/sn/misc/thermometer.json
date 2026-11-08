@@ -1,0 +1,24 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mythicus_sn:thermometer",
+            "menu_category": {
+                "category": "equipment"
+            }
+        },
+        "components": {
+            "minecraft:max_stack_size": { "value": 1 },
+            "minecraft:icon": {
+                "textures": {
+                    "default": "mythicus_sn:thermometer"
+                }
+            },
+            "minecraft:block_placer": {
+                "block": "mythicus_sn:thermometer",
+                "use_on": []
+            },
+            "minecraft:allow_off_hand": true
+        }
+    }
+}

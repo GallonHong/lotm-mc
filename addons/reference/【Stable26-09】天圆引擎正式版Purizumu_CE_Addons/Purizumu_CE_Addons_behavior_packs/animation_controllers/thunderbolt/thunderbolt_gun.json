@@ -1,0 +1,39 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.thunderbolt_gun": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"give": "query.variant == 1"
+						}
+					]
+				},
+				"give": {
+					"transitions": [
+						{
+							"remove": "1"
+						}
+					],
+					"on_entry": [
+						"/effect @s invisibility 5 1 true",
+						"/kill @s",
+						"/execute @s ~~~ give @p jmgs:thunderbolt 1 1"
+					]
+				},
+				"remove": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"@s l4d:remove_thunderbolt_varient"
+					]
+				}
+			}
+		}
+	}
+}

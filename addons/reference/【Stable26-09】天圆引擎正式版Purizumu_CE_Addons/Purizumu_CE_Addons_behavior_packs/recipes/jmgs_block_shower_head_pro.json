@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_shower_head_pro_932cd042"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CDC",
+      "CAC",
+      "BDB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:lever",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_shower_head_pro",
+      "count": 1
+    }
+  }
+}

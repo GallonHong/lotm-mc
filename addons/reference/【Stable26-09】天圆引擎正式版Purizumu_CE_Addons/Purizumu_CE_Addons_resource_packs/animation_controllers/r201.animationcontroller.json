@@ -1,0 +1,229 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.r201.run": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "r201_first_person": "variable.r201"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "variable.r201 && q.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope": "variable.r201 && q.is_sneaking && q.is_alive"
+                        },
+                        {
+                            "fire": "variable.r201 && q.item_remaining_use_duration > 1 && q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'r201_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'r201_empty2'"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "r201_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "variable.r201zsrun = 3.0; variable.prer201zsrun = query.life_time; return (q.all_animations_finished);"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        "r201_first_person_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || !q.is_sprinting || !variable.r201 || !q.is_alive"
+                        },
+                        {
+                            "run_to_zsrun": "(query.life_time - variable.prer201zsrun) >= variable.r201zsrun"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'r201_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'r201_empty2'"
+                        },
+                        {
+                            "fire": "variable.r201 && q.item_remaining_use_duration > 1 && q.is_alive"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "r201_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "run_to_zsrun": {
+                    "animations": [
+                        "r201_first_person_run_to_zsrun"
+                    ],
+                    "transitions": [
+                        {
+                            "zsrun": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "zsrun": {
+                    "animations": [
+                        "r201_first_person_zsrun"
+                    ],
+                    "transitions": [
+                        {
+                            "zsrun_to_default": "!q.is_on_ground || !q.is_sprinting || !variable.r201 || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'r201_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'r201_empty2'"
+                        },
+                        {
+                            "fire": "variable.r201 && q.item_remaining_use_duration > 1 && q.is_alive"
+                        }
+                    ]
+                },
+                "zsrun_to_default": {
+                    "animations": [
+                        "r201_first_person_zsrun_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "scope": {
+                    "animations": [
+                        "r201_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_sneaking || !variable.r201 || !q.is_alive"
+                        },
+                        {
+                            "scopehold": "q.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'r201_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'r201_empty2'"
+                        }
+                    ]
+                },
+                "scopehold": {
+                    "animations": [
+                        "r201_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold_to_default": "!q.is_sneaking"
+                        },
+                        {
+                            "default": "!variable.r201 || !q.is_alive"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1 || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'r201_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'r201_empty2'"
+                        }
+                    ]
+                },
+                "scopehold_to_default": {
+                    "animations": [
+                        "r201_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished || !q.is_alive"
+                        }
+                    ]
+                },
+                "fire": {
+                    "animations": [
+                        {
+                            "r201_first_person_fire1": "variable.random_choices >= 50"
+                        },
+                        {
+                            "r201_first_person_fire2": "variable.random_choices < 50"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.r201 || !q.is_using_item || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'r201_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'r201_empty2'"
+                        },
+                        {
+                            "scope": "q.is_sneaking"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "r201_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold": "!q.is_using_item || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'r201_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'r201_empty2'"
+                        },
+                        {
+                            "scopehold_to_default": "!q.is_sneaking"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        "r201_first_person_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || q.get_equipped_item_name == 'r201'"
+                        }
+                    ]
+                },
+                "not_total_mag": {
+                    "animations": [
+                        "r201_first_person_not_total_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || q.get_equipped_item_name == 'r201'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

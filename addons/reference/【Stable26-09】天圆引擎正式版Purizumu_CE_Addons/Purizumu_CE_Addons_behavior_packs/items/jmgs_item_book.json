@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "jmgs:item_book",
+      "menu_category": {
+				"category": "items",
+				"group": "itemGroup.name.record"
+			}
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 8,
+      "minecraft:glint": false,
+      "minecraft:stack_by_data": true,
+      "minecraft:icon": {
+        "texture": "jmgs:item_book"
+      },
+      "minecraft:display_name": {
+        "value": "item.jmgs:item_book.name"
+      },
+      "minecraft:damage": 5,
+			"minecraft:fuel": {
+				"duration": 30
+			}
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "fight5_f5314b59"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DHG",
+      "FEI"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_ball_flat",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_motor",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:scout_plane",
+        "data": 0
+      },
+      "E": {
+        "item": "jmgs:item_book_pro",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "G": {
+        "item": "pmo:projectile_a1",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:metal_carbon",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:role_fight5_spawn_egg",
+      "count": 2
+    }
+  }
+}

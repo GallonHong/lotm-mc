@@ -1,0 +1,7 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:texture_set": {
+		"color": "pmo_entity_power6",
+		"metalness_emissive_roughness": "pmo_entity_power6_mer"
+	}
+}

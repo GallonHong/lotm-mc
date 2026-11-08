@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_super_hoe_15b51904"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEC",
+      "FGF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:diamond_hoe",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_low",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_super_hoe",
+      "count": 1
+    }
+  }
+}

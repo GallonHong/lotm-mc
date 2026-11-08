@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_display_duo_72163dbb"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDC",
+      "EEE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:glass",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_display_duo",
+      "count": 6
+    }
+  }
+}

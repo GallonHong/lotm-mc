@@ -1,0 +1,109 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:seasons_cow",
+            "materials": {
+                "default": "entity_alphatest",
+                "animated": "mythicus_sn_animated"
+            },
+            "textures": {
+                "temperate_spring": "textures/mythicus/sn/entity/mobs/cows/spring_cow/cow_temperate_spring",
+                "cold_spring": "textures/mythicus/sn/entity/mobs/cows/spring_cow/cow_cold_spring",
+                "warm": "textures/mythicus/sn/entity/mobs/cows/summer_cow/cow_temperate_summer",
+                "cold": "textures/mythicus/sn/entity/mobs/cows/summer_cow/cow_cold_summer",
+                "temperate_leaves_1": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_temperate_leaves_1",
+                "temperate_leaves_2": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_temperate_leaves_2",
+                "temperate_leaves_3": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_temperate_leaves_3",
+                "temperate_leaves_4": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_temperate_leaves_4",
+                "cold_leaves_1": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_cold_leaves_1",
+                "cold_leaves_2": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_cold_leaves_2",
+                "cold_leaves_3": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_cold_leaves_3",
+                "cold_leaves_4": "textures/mythicus/sn/entity/mobs/cows/fall_cow/cow_cold_leaves_4",
+                "temperate_snowy_1": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_temperate_snowy_1",
+                "temperate_snowy_2": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_temperate_snowy_2",
+                "temperate_snowy_3": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_temperate_snowy_3",
+                "temperate_snowy_4": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_temperate_snowy_4",
+                "cold_snowy_1": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_cold_snowy_1",
+                "cold_snowy_2": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_cold_snowy_2",
+                "cold_snowy_3": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_cold_snowy_3",
+                "cold_snowy_4": "textures/mythicus/sn/entity/mobs/cows/winter_cow/cow_cold_snowy_4"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.seasons_cow"
+            },
+            "animations": {
+                "walk": "animation.quadruped.walk",
+                "look_at_target": "animation.common.look_at_target",
+                "baby_transform": "animation.cow.baby_transform",
+                "shake": "animation.mythicus_sn.cow.shake",
+                "standard_udder": "animation.mythicus_sn.cow.standard_udder",
+                "udder_spring_transition": "animation.mythicus_sn.cow.udder_spring_transition",
+                "udder_spring": "animation.mythicus_sn.cow.udder_spring",
+                "grazing": "animation.mythicus_sn.cow.grazing",
+                "fertilizer": "animation.mythicus_sn.cow.fertilizer",
+                "walk.controller": "controller.animation.mythicus_sn.seasons_cow.move",
+                "shake.controller": "controller.animation.mythicus_sn.seasons_cow.shake",
+                "walking_particles.controller": "controller.animation.mythicus_sn.seasons_cow.walking_particles",
+                "fertilizer.controller": "controller.animation.mythicus_sn.seasons_cow.fertilizer",
+                "udder.controller": "controller.animation.mythicus_sn.seasons_cow.udder",
+                "cold_breath.controller": "controller.animation.mythicus_sn.generic.breath",
+                "cold_breath": "animation.mythicus_sn.generic.cold_breath",
+                "snow_shake": "animation.mythicus_sn.generic.snow_shake",
+                "leaf_shake": "animation.mythicus_sn.generic.leaf_shake"
+            },
+            "scripts": {
+                "animate": [
+                    "look_at_target",
+                    {
+                        "baby_transform": "query.is_baby"
+                    },
+                    "walk.controller",
+                    "shake.controller",
+                    "fertilizer.controller",
+                    "udder.controller",
+                    "cold_breath.controller"
+                ],
+                "initialize": [
+                    "v.milked = 0;"
+                ],
+                "pre_animation": [
+                    "t.variant = query.property('mythicus_sn:climate_variant');",
+                    "v.index = (t.variant == 'cold') ? 1 : 0;",
+                    "v.fps = 7.0;",
+                    "v.spring_frames = 5.0;",
+                    "v.fall_frames = 8.0;",
+                    "v.milked = q.property('mythicus_sn:milked');"
+                ]
+            },
+            "render_controllers": [
+                {
+                    "controller.render.mythicus_sn.seasons_cow.spring_climate": "q.property('mythicus_sn:season_variant') == 'spring'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_cow.climate": "q.property('mythicus_sn:season_variant') != 'spring'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_cow.temperate_leaves": "q.property('mythicus_sn:covered_in_leaves') && q.property('mythicus_sn:climate_variant') == 'warm'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_cow.cold_leaves": "q.property('mythicus_sn:covered_in_leaves') && q.property('mythicus_sn:climate_variant') == 'cold'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_cow.temperate_snowy": "q.property('mythicus_sn:covered_in_snow') && q.property('mythicus_sn:climate_variant') == 'warm'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_cow.cold_snowy": "q.property('mythicus_sn:covered_in_snow') && q.property('mythicus_sn:climate_variant') == 'cold'"
+                }
+            ],
+            "particle_effects": {
+                "cold_breath": "mythicus_sn:cold_breath_mob",
+                "snow_shake": "mythicus_sn:snow_shake",
+                "leaf_shake": "mythicus_sn:leaf_shake"
+            },
+            "spawn_egg": {
+                "texture": "mythicus_sn:spawn_egg_cow"
+            }
+        }
+    }
+}

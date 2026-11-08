@@ -1,0 +1,44 @@
+{
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "jmgs:item_hp",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.cookedFood"
+			}
+		},
+		"components": {
+			"minecraft:max_stack_size": 64,
+			"minecraft:icon": {
+				"texture": "jmgs:item_hp"
+			},
+			"minecraft:enchantable": {
+				"slot": "sword",
+				"value": 1
+			},
+			"minecraft:cooldown": {
+				"category": "jmgs_food",
+				"duration": 180
+			},
+			"minecraft:food": {
+				"nutrition": 4,
+				"saturation_modifier": 0.6,
+				"can_always_eat": true
+			},
+			"minecraft:display_name": {
+				"value": "item.jmgs:item_hp.name"
+			},
+			"minecraft:use_modifiers": {
+				"movement_modifier": 0.32,
+				"use_duration": 3
+			},
+			"minecraft:use_animation": "eat",
+			"minecraft:tags": {
+				"tags": [
+					"minecraft:is_food"
+				]
+			}
+		}
+	}
+}

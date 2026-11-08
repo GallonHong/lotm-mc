@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_nas_a4653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABD",
+      "ECF",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:pc_cpu9100f",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_cold",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:pc_disk1",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "E": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:pc_power",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_nas",
+      "count": 1
+    }
+  }
+}

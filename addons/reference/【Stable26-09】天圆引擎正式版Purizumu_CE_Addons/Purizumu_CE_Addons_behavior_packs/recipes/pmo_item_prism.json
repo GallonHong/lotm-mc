@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_prism_0025f259"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AA",
+      "BC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:amethyst_shard",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:item_prism",
+      "count": 2
+    }
+  }
+}

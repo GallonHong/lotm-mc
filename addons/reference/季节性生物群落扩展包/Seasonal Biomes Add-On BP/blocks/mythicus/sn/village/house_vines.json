@@ -1,0 +1,379 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:house_vines",
+            "states": {
+                "mythicus_sn:season_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            },
+            "traits": {
+                "minecraft:placement_direction": {
+                    "enabled_states": [
+                        "minecraft:cardinal_direction"
+                    ]
+                }
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:spring.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:summer.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:fall.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:winter.house_vines",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'north' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            180,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west' ",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            270,
+                            0
+                        ]
+                    }
+                }
+            }
+        ],
+        "components": {
+            "tag:mythicus_sn:non_solid": {},
+            "tag:mythicus_sn:non_blocking": {},
+            "mythicus_sn:season_change": {
+                "has_season_state": true
+            },
+            "minecraft:tick": {
+                "interval_range": [
+                    100,
+                    400
+                ],
+                "looping": true
+            },
+            "tag:mythicus_sn:seasonal_block": {},
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/village/house_vines.json",
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "side"
+                        ]
+                    }
+                ]
+            },
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:spring.house_vines",
+                    "render_method": "alpha_test",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.2,
+                "item_specific_speeds": [
+                    {
+                        "destroy_speed": 0,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shears')"
+                        }
+                    }
+                ]
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:geometry": "geometry.mythicus_sn.house_vines",
+            "minecraft:liquid_detection": {
+                "detection_rules": [
+                    {
+                        "on_liquid_touches": "no_reaction"
+                    }
+                ]
+            },
+            "minecraft:collision_box": {
+                "origin": [
+                    -7.5,
+                    0,
+                    6
+                ],
+                "size": [
+                    15,
+                    16,
+                    2
+                ]
+            },
+            "minecraft:selection_box": {
+                "origin": [
+                    -7.5,
+                    0,
+                    6
+                ],
+                "size": [
+                    15,
+                    16,
+                    2
+                ]
+            },
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        }
+    }
+}

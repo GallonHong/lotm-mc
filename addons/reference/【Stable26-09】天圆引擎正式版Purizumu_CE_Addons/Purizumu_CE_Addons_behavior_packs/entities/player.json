@@ -1,0 +1,4204 @@
+{
+  "format_version": "1.11",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "is_spawnable": false,
+      "is_summonable": false,
+      "is_experimental": false,
+      "scripts": {
+        "animate": [
+          "walk",
+          "pmo:projectile_a3",
+          "pmo:projectile_a2",
+          "pmo:projectile_a1",
+          "ewo:projectile_king",
+          "ewo:projectile_cold",
+          "ewo:projectile_fire",
+          "ewo:projectile_nyx",
+          "ewo:projectile_damage",
+          "ewo:projectile_gun_taser",
+          "ewo:projectile_slime",
+          "ewo:projectile_gun_electric",
+          "ewo:projectile_boom",
+          "ewo:projectile_sword",
+          "ewo:projectile_cannon",
+          "ewo:projectile_controller",
+          "ewo:projectile_fatalist",
+          "ewo:projectile_start",
+          "ewo:projectile_sky",
+          "controller.ctrl",
+          "controller.r201",
+          "jmgs:r201",
+          "jmgs:r201_empty",
+          "controller.xljgq",
+          "jmgs:jg",
+          "controller.klb",
+          "jmgs:klb",
+          "jmgs:klb_empty",
+          "controller.alter",
+          "jmgs:alter",
+          "jmgs:alter_empty",
+          "controller.wimman",
+          "jmgs:wimman",
+          "jmgs:wimman_empty",
+          "controller.thunderbolt",
+          "jmgs:thunderbolt",
+          "jmgs:thunderbolt_empty",
+          "jmgs:thunderbolt_houzuo",
+          "controller.eva8",
+          "jmgs:eva8",
+          "jmgs:eva8_empty",
+          "controller.dg",
+          "jmgs:dg",
+          "controller.smart_pistol",
+          "jmgs:smart_pistol",
+          "jmgs:smart_pistol_empty"
+        ]
+      },
+      "animations": {
+        "walk": "controller.animation.walk",
+        "pmo:projectile_a3": "controller.animation.pmo_projectile_a3",
+        "pmo:projectile_a2": "controller.animation.pmo_projectile_a2",
+        "pmo:projectile_a1": "controller.animation.pmo_projectile_a1",
+        "ewo:projectile_king": "controller.animation.ewo_projectile_king",
+        "ewo:projectile_cold": "controller.animation.ewo_projectile_cold",
+        "ewo:projectile_fire": "controller.animation.ewo_projectile_fire",
+        "ewo:projectile_nyx": "controller.animation.ewo_projectile_nyx",
+        "ewo:projectile_damage": "controller.animation.ewo_projectile_damage",
+        "ewo:projectile_gun_taser": "controller.animation.ewo_projectile_gun_taser",
+        "ewo:projectile_slime": "controller.animation.ewo_projectile_slime",
+        "ewo:projectile_gun_electric": "controller.animation.ewo_projectile_gun_electric",
+        "ewo:projectile_boom": "controller.animation.ewo_projectile_boom",
+        "ewo:projectile_sword": "controller.animation.ewo_projectile_sword",
+        "ewo:projectile_cannon": "controller.animation.ewo_projectile_cannon",
+        "ewo:projectile_controller": "controller.animation.ewo_projectile_controller",
+        "ewo:projectile_fatalist": "controller.animation.ewo_projectile_fatalist",
+        "ewo:projectile_start": "controller.animation.ewo_projectile_start",
+        "ewo:projectile_sky": "controller.animation.ewo_projectile_sky",
+        "controller.ctrl": "controller.animation.nrmm.ctrl",
+        "controller.r201": "controller.animation.nrmm.r201",
+        "jmgs:r201": "controller.animation.r201",
+        "jmgs:r201_empty": "controller.animation.r201_empty",
+        "controller.xljgq": "controller.animation.jg_t",
+        "jmgs:jg": "controller.animation.jg",
+        "controller.klb": "controller.animation.nrmm.klb",
+        "jmgs:klb": "controller.animation.klb",
+        "jmgs:klb_empty": "controller.animation.klb_empty",
+        "controller.alter": "controller.animation.nrmm.alter",
+        "jmgs:alter": "controller.animation.alter",
+        "jmgs:alter_empty": "controller.animation.alter_empty",
+        "controller.wimman": "controller.animation.nrmm.wimman",
+        "jmgs:wimman": "controller.animation.wimman",
+        "jmgs:wimman_empty": "controller.animation.wimman_empty",
+        "jmgs:wimman_reload_sound": "animation.wimman_reload_sound",
+        "controller.thunderbolt": "controller.animation.nrmm.thunderbolt",
+        "jmgs:thunderbolt": "controller.animation.thunderbolt",
+        "jmgs:thunderbolt_empty": "controller.animation.thunderbolt_empty",
+        "jmgs:thunderbolt_houzuo": "controller.animation.thunderbolt_houzuo",
+        "jmgs:thunderbolt_reload_sound": "animation.thunderbolt_reload_sound",
+        "controller.eva8": "controller.animation.jmgs.none",
+        "jmgs:eva8": "controller.animation.eva8",
+        "jmgs:eva8_empty": "controller.animation.eva8_empty",
+        "jmgs:dg": "controller.animation.dg",
+        "controller.smart_pistol": "controller.animation.jmgs.none",
+        "controller.dg": "controller.animation.jmgs.none",
+        "jmgs:smart_pistol": "controller.animation.smart_pistol",
+        "jmgs:smart_pistol_empty": "controller.animation.smart_pistol_empty"
+      }
+    },
+    "component_groups": {
+      "pamobile:respawn": {
+        "minecraft:mark_variant": {
+          "value": 99999
+        },
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:attack": {
+          "damage": 1
+        },
+        "minecraft:spell_effects": {
+          "remove_effects": []
+        }
+      },
+      "jmgs:r201": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:r201_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:r201_skin_default": {
+        "minecraft:skin_id": {
+          "value": 0
+        }
+      },
+      "jmgs:r201_skin_blue": {
+        "minecraft:skin_id": {
+          "value": 1
+        }
+      },
+      "jmgs:jg": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:jg_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:thunderbolt": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:thunderbolt_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:thunderbolt_timer": {
+        "minecraft:timer": {
+          "looping": false,
+          "time": 0.01,
+          "time_down_event": {
+            "event": "jmgs:thunderbolt_houzuo_change"
+          }
+        }
+      },
+      "jmgs:thunderbolt_variant": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "jmgs:thunderbolt_variant_init": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "jmgs:alter_b": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:alter_b_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:alter": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:alter_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:alter_ammo_0": {
+        "minecraft:mark_variant": {
+          "value": 0
+        }
+      },
+      "jmgs:alter_ammo_1": {
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      },
+      "jmgs:alter_ammo_2": {
+        "minecraft:mark_variant": {
+          "value": 2
+        }
+      },
+      "jmgs:alter_ammo_3": {
+        "minecraft:mark_variant": {
+          "value": 3
+        }
+      },
+      "jmgs:alter_ammo_4": {
+        "minecraft:mark_variant": {
+          "value": 4
+        }
+      },
+      "jmgs:alter_ammo_5": {
+        "minecraft:mark_variant": {
+          "value": 5
+        }
+      },
+      "jmgs:alter_ammo_6": {
+        "minecraft:mark_variant": {
+          "value": 6
+        }
+      },
+      "jmgs:alter_ammo_7": {
+        "minecraft:mark_variant": {
+          "value": 7
+        }
+      },
+      "jmgs:alter_ammo_8": {
+        "minecraft:mark_variant": {
+          "value": 8
+        }
+      },
+      "jmgs:alter_ammo_9": {
+        "minecraft:mark_variant": {
+          "value": 9
+        }
+      },
+      "jmgs:alter_ammo_10": {
+        "minecraft:mark_variant": {
+          "value": 10
+        }
+      },
+      "jmgs:alter_ammo_11": {
+        "minecraft:mark_variant": {
+          "value": 11
+        }
+      },
+      "jmgs:alter_ammo_12": {
+        "minecraft:mark_variant": {
+          "value": 12
+        }
+      },
+      "jmgs:alter_ammo_13": {
+        "minecraft:mark_variant": {
+          "value": 13
+        }
+      },
+      "jmgs:alter_ammo_14": {
+        "minecraft:mark_variant": {
+          "value": 14
+        }
+      },
+      "jmgs:alter_ammo_15": {
+        "minecraft:mark_variant": {
+          "value": 15
+        }
+      },
+      "jmgs:alter_ammo_16": {
+        "minecraft:mark_variant": {
+          "value": 16
+        }
+      },
+      "jmgs:alter_ammo_17": {
+        "minecraft:mark_variant": {
+          "value": 17
+        }
+      },
+      "jmgs:alter_ammo_18": {
+        "minecraft:mark_variant": {
+          "value": 18
+        }
+      },
+      "jmgs:alter_ammo_19": {
+        "minecraft:mark_variant": {
+          "value": 19
+        }
+      },
+      "jmgs:alter_ammo_20": {
+        "minecraft:mark_variant": {
+          "value": 20
+        }
+      },
+      "jmgs:smart_pistol": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:smart_pistol_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:smart_pistol_ammo_0": {
+        "minecraft:mark_variant": {
+          "value": 0
+        }
+      },
+      "jmgs:smart_pistol_ammo_1": {
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      },
+      "jmgs:smart_pistol_ammo_2": {
+        "minecraft:mark_variant": {
+          "value": 2
+        }
+      },
+      "jmgs:smart_pistol_ammo_3": {
+        "minecraft:mark_variant": {
+          "value": 3
+        }
+      },
+      "jmgs:smart_pistol_ammo_4": {
+        "minecraft:mark_variant": {
+          "value": 4
+        }
+      },
+      "jmgs:smart_pistol_ammo_5": {
+        "minecraft:mark_variant": {
+          "value": 5
+        }
+      },
+      "jmgs:smart_pistol_ammo_6": {
+        "minecraft:mark_variant": {
+          "value": 6
+        }
+      },
+      "jmgs:smart_pistol_ammo_7": {
+        "minecraft:mark_variant": {
+          "value": 7
+        }
+      },
+      "jmgs:smart_pistol_ammo_8": {
+        "minecraft:mark_variant": {
+          "value": 8
+        }
+      },
+      "jmgs:smart_pistol_ammo_9": {
+        "minecraft:mark_variant": {
+          "value": 9
+        }
+      },
+      "jmgs:smart_pistol_ammo_10": {
+        "minecraft:mark_variant": {
+          "value": 10
+        }
+      },
+      "jmgs:smart_pistol_ammo_11": {
+        "minecraft:mark_variant": {
+          "value": 11
+        }
+      },
+      "jmgs:smart_pistol_ammo_12": {
+        "minecraft:mark_variant": {
+          "value": 12
+        }
+      },
+      "jmgs:smart_pistol_ammo_13": {
+        "minecraft:mark_variant": {
+          "value": 13
+        }
+      },
+      "jmgs:smart_pistol_ammo_14": {
+        "minecraft:mark_variant": {
+          "value": 14
+        }
+      },
+      "jmgs:smart_pistol_ammo_15": {
+        "minecraft:mark_variant": {
+          "value": 15
+        }
+      },
+      "jmgs:smart_pistol_ammo_16": {
+        "minecraft:mark_variant": {
+          "value": 16
+        }
+      },
+      "jmgs:smart_pistol_ammo_17": {
+        "minecraft:mark_variant": {
+          "value": 17
+        }
+      },
+      "jmgs:smart_pistol_ammo_18": {
+        "minecraft:mark_variant": {
+          "value": 18
+        }
+      },
+      "jmgs:klb": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:klb_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "klb_ammo_4": {
+        "minecraft:skin_id": {
+          "value": 4
+        }
+      },
+      "klb_ammo_3": {
+        "minecraft:skin_id": {
+          "value": 3
+        }
+      },
+      "klb_ammo_2": {
+        "minecraft:skin_id": {
+          "value": 2
+        }
+      },
+      "klb_ammo_1": {
+        "minecraft:skin_id": {
+          "value": 1
+        }
+      },
+      "klb_ammo_0": {
+        "minecraft:skin_id": {
+          "value": 0
+        }
+      },
+      "jmgs:eva8": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:eva8_main",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "eva8_ammo_8": {
+        "minecraft:variant": {
+          "value": 8
+        }
+      },
+      "eva8_ammo_7": {
+        "minecraft:variant": {
+          "value": 7
+        }
+      },
+      "eva8_ammo_6": {
+        "minecraft:variant": {
+          "value": 6
+        }
+      },
+      "eva8_ammo_5": {
+        "minecraft:variant": {
+          "value": 5
+        }
+      },
+      "eva8_ammo_4": {
+        "minecraft:variant": {
+          "value": 4
+        }
+      },
+      "eva8_ammo_3": {
+        "minecraft:variant": {
+          "value": 3
+        }
+      },
+      "eva8_ammo_2": {
+        "minecraft:variant": {
+          "value": 2
+        }
+      },
+      "eva8_ammo_1": {
+        "minecraft:variant": {
+          "value": 1
+        }
+      },
+      "eva8_ammo_0": {
+        "minecraft:variant": {
+          "value": 0
+        }
+      },
+      "jmgs:dg": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:dg_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:wimman": {
+        "minecraft:spawn_entity": {
+          "entities": [
+            {
+              "min_wait_time": 0,
+              "max_wait_time": 0,
+              "single_use": true,
+              "spawn_entity": "jmgs:wimman_ammo",
+              "num_to_spawn": 1
+            }
+          ]
+        }
+      },
+      "jmgs:wimman_ammo_0": {
+        "minecraft:mark_variant": {
+          "value": 0
+        }
+      },
+      "jmgs:wimman_ammo_1": {
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      },
+      "jmgs:wimman_ammo_2": {
+        "minecraft:mark_variant": {
+          "value": 2
+        }
+      },
+      "jmgs:wimman_ammo_3": {
+        "minecraft:mark_variant": {
+          "value": 3
+        }
+      },
+      "jmgs:wimman_ammo_4": {
+        "minecraft:mark_variant": {
+          "value": 4
+        }
+      },
+      "jmgs:wimman_ammo_5": {
+        "minecraft:mark_variant": {
+          "value": 5
+        }
+      },
+      "jmgs:wimman_ammo_6": {
+        "minecraft:mark_variant": {
+          "value": 6
+        }
+      },
+      "ammo_1": {
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      },
+      "ewo:flames_sword": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_aurora": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_jealousy": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_deception": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_astro": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_obs": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:hat_green": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:telescopic_rod": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:dsgger": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_spear": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.11
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_tang": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_long_knife": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_stick": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_apocalypse": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:projectile_king_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_king",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_cold_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_cold",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_fire_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_fire",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_nyx_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_nyx",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:armor_void1": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_void2": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_void3": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_void4": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:projectile_damage_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_damage",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_gun_taser_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_gun_taser_ammo",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_slime_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_slime_ammo",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_gun_electric_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_gun_electric_ammo",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_boom_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_boom",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_sword_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_sword",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_cannon_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_cannon_ammo",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:sword_light": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_feather_duster": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_brunhild": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        },
+        "minecraft:break_blocks": {
+          "breakable_blocks": [
+            "coal_ore",
+            "diamond_ore",
+            "emerald_ore",
+            "gold_ore",
+            "iron_ore",
+            "lapis_ore",
+            "quartz_ore",
+            "redstone_ore"
+          ]
+        }
+      },
+      "ewo:sword_axe_ur": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_noob": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_mithril": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_cake": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.11
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_alien": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "pewo:sword_duo": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:projectile_controller_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_controller",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_fatalist_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_fatalist",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_start_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_start",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:projectile_sky_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "ewo:projectile_sky",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "ewo:armor_tech": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_thor2": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_thro1": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_analyzer": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_god3": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_god1": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_night_vision": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_god": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.12
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_thor": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_wasp2": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_god12": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_god11": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.12
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_wasp": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_god13": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_mob": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_wasp1": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_wasp3": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_mob2": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_fraternity2": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_mob3": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_immortal": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_immortal3": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_immortal2": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_fraternity": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:armor_fraternity3": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_knife": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_super_axe": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_super_hoe": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_fire": {
+        "minecraft:health": {
+          "value": 30,
+          "max": 30
+        },
+        "minecraft:movement": {
+          "value": 0.12
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_christmas": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_pink": {
+        "minecraft:health": {
+          "value": 28,
+          "max": 28
+        },
+        "minecraft:movement": {
+          "value": 0.09
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_knife2": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.11
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_light_g4": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_land": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_cactus": {
+        "minecraft:health": {
+          "value": 20,
+          "max": 20
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:sword_fenrir": {
+        "minecraft:health": {
+          "value": 22,
+          "max": 22
+        },
+        "minecraft:movement": {
+          "value": 0.1
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "ewo:support_stick": {
+        "minecraft:health": {
+          "value": 40,
+          "max": 40
+        },
+        "minecraft:movement": {
+          "value": 0.01
+        },
+        "minecraft:spell_effects": {
+          "add_effects": []
+        }
+      },
+      "pmo:projectile_a3_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "pmo:projectile_a3_ammo",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "pmo:projectile_a2_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "pmo:projectile_a2_ammo",
+            "num_to_spawn": 1
+          }
+        ]
+      },
+      "pmo:projectile_a1_fire": {
+        "minecraft:spawn_entity": [
+          {
+            "min_wait_time": 0,
+            "max_wait_time": 0,
+            "single_use": true,
+            "spawn_entity": "pmo:projectile_a1_ammo",
+            "num_to_spawn": 1
+          }
+        ]
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "player"
+        ]
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/empty.json"
+      },
+      "minecraft:collision_box": {
+        "width": 0.6,
+        "height": 1.8
+      },
+      "minecraft:can_climb": {},
+      "minecraft:movement": {
+        "value": 0.1
+      },
+      "minecraft:environment_sensor": [
+        {
+          "on_environment": {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "pamobile:refresh_player"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "pmo:projectile_a3"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "pmo:projectile_a2"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "pmo:projectile_a1"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:flames_sword"
+                }
+              ]
+            },
+            "event": "ewo:flames_sword_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_aurora"
+                }
+              ]
+            },
+            "event": "ewo:sword_aurora_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_jealousy"
+                }
+              ]
+            },
+            "event": "ewo:sword_jealousy_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_deception"
+                }
+              ]
+            },
+            "event": "ewo:sword_deception_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_astro"
+                }
+              ]
+            },
+            "event": "ewo:sword_astro_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_obs"
+                }
+              ]
+            },
+            "event": "ewo:sword_obs_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:hat_green"
+                }
+              ]
+            },
+            "event": "ewo:hat_green_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:telescopic_rod"
+                }
+              ]
+            },
+            "event": "ewo:telescopic_rod_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:dsgger"
+                }
+              ]
+            },
+            "event": "ewo:dsgger_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_spear"
+                }
+              ]
+            },
+            "event": "ewo:sword_spear_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_tang"
+                }
+              ]
+            },
+            "event": "ewo:sword_tang_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_long_knife"
+                }
+              ]
+            },
+            "event": "ewo:sword_long_knife_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_stick"
+                }
+              ]
+            },
+            "event": "ewo:sword_stick_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_apocalypse"
+                }
+              ]
+            },
+            "event": "ewo:sword_apocalypse_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_king"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_cold"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_fire"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_nyx"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_void1"
+                }
+              ]
+            },
+            "event": "ewo:armor_void1_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_void2"
+                }
+              ]
+            },
+            "event": "ewo:armor_void2_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_void3"
+                }
+              ]
+            },
+            "event": "ewo:armor_void3_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_void4"
+                }
+              ]
+            },
+            "event": "ewo:armor_void4_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_damage"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_gun_taser"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_slime"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_gun_electric"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_boom"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_sword"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_cannon"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_light"
+                }
+              ]
+            },
+            "event": "ewo:sword_light_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_feather_duster"
+                }
+              ]
+            },
+            "event": "ewo:sword_feather_duster_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_brunhild"
+                }
+              ]
+            },
+            "event": "ewo:sword_brunhild_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_axe_ur"
+                }
+              ]
+            },
+            "event": "ewo:sword_axe_ur_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_noob"
+                }
+              ]
+            },
+            "event": "ewo:sword_noob_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_mithril"
+                }
+              ]
+            },
+            "event": "ewo:sword_mithril_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_cake"
+                }
+              ]
+            },
+            "event": "ewo:sword_cake_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_alien"
+                }
+              ]
+            },
+            "event": "ewo:sword_alien_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "pewo:sword_duo"
+                }
+              ]
+            },
+            "event": "pewo:sword_duo_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_controller"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_fatalist"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_start"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:projectile_sky"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "self",
+                  "value": "player"
+                }
+              ]
+            },
+            "event": "ammo_1"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_tech"
+                }
+              ]
+            },
+            "event": "ewo:armor_tech_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_thor2"
+                }
+              ]
+            },
+            "event": "ewo:armor_thor2_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_thro1"
+                }
+              ]
+            },
+            "event": "ewo:armor_thro1_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_analyzer"
+                }
+              ]
+            },
+            "event": "ewo:armor_analyzer_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_god3"
+                }
+              ]
+            },
+            "event": "ewo:armor_god3_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_god1"
+                }
+              ]
+            },
+            "event": "ewo:armor_god1_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_night_vision"
+                }
+              ]
+            },
+            "event": "ewo:armor_night_vision_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_god"
+                }
+              ]
+            },
+            "event": "ewo:armor_god_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_thor"
+                }
+              ]
+            },
+            "event": "ewo:armor_thor_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_wasp2"
+                }
+              ]
+            },
+            "event": "ewo:armor_wasp2_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_god12"
+                }
+              ]
+            },
+            "event": "ewo:armor_god12_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_god11"
+                }
+              ]
+            },
+            "event": "ewo:armor_god11_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_wasp"
+                }
+              ]
+            },
+            "event": "ewo:armor_wasp_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_god13"
+                }
+              ]
+            },
+            "event": "ewo:armor_god13_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_mob"
+                }
+              ]
+            },
+            "event": "ewo:armor_mob_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_wasp1"
+                }
+              ]
+            },
+            "event": "ewo:armor_wasp1_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_wasp3"
+                }
+              ]
+            },
+            "event": "ewo:armor_wasp3_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_mob2"
+                }
+              ]
+            },
+            "event": "ewo:armor_mob2_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_fraternity2"
+                }
+              ]
+            },
+            "event": "ewo:armor_fraternity2_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_mob3"
+                }
+              ]
+            },
+            "event": "ewo:armor_mob3_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_immortal"
+                }
+              ]
+            },
+            "event": "ewo:armor_immortal_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_immortal3"
+                }
+              ]
+            },
+            "event": "ewo:armor_immortal3_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_immortal2"
+                }
+              ]
+            },
+            "event": "ewo:armor_immortal2_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_fraternity"
+                }
+              ]
+            },
+            "event": "ewo:armor_fraternity_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "armor",
+                  "value": "ewo:armor_fraternity3"
+                }
+              ]
+            },
+            "event": "ewo:armor_fraternity3_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_knife"
+                }
+              ]
+            },
+            "event": "ewo:sword_knife_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_super_axe"
+                }
+              ]
+            },
+            "event": "ewo:sword_super_axe_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_super_hoe"
+                }
+              ]
+            },
+            "event": "ewo:sword_super_hoe_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_fire"
+                }
+              ]
+            },
+            "event": "ewo:sword_fire_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_christmas"
+                }
+              ]
+            },
+            "event": "ewo:sword_christmas_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_pink"
+                }
+              ]
+            },
+            "event": "ewo:sword_pink_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_knife2"
+                }
+              ]
+            },
+            "event": "ewo:sword_knife2_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_light_g4"
+                }
+              ]
+            },
+            "event": "ewo:sword_light_g4_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_land"
+                }
+              ]
+            },
+            "event": "ewo:sword_land_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_cactus"
+                }
+              ]
+            },
+            "event": "ewo:sword_cactus_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:sword_fenrir"
+                }
+              ]
+            },
+            "event": "ewo:sword_fenrir_event"
+          }
+        },
+        {
+          "on_environment": {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "has_equipment",
+                  "subject": "self",
+                  "domain": "hand",
+                  "value": "ewo:support_stick"
+                }
+              ]
+            },
+            "event": "ewo:support_stick_event"
+          }
+        }
+      ],
+      "minecraft:player.saturation": {
+        "value": 20
+      },
+      "minecraft:player.exhaustion": {
+        "value": 0,
+        "max": 4
+      },
+      "minecraft:player.level": {
+        "value": 0,
+        "max": 24791
+      },
+      "minecraft:player.experience": {
+        "value": 0,
+        "max": 1
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": -1,
+        "inhaleTime": 3.75,
+        "generatesBubbles": false
+      },
+      "minecraft:nameable": {
+        "alwaysShow": true,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:physics": {},
+      "minecraft:insomnia": {
+        "days_until_insomnia": 3
+      },
+      "minecraft:rideable": {
+        "seat_count": 2,
+        "family_types": [
+          "parrot_tame"
+        ],
+        "pull_in_entities": true,
+        "seats": [
+          {
+            "position": [
+              0.4,
+              -0.15,
+              0.04
+            ],
+            "min_rider_count": 0,
+            "max_rider_count": 0,
+            "lock_rider_rotation": 0
+          },
+          {
+            "position": [
+              -0.4,
+              -0.15,
+              0.04
+            ],
+            "min_rider_count": 1,
+            "max_rider_count": 2,
+            "lock_rider_rotation": 0
+          }
+        ]
+      },
+      "minecraft:scaffolding_climber": {}
+    },
+    "events": {
+      "pamobile:refresh_player": {
+        "add": {
+          "component_groups": [
+            "pamobile:respawn"
+          ]
+        },
+        "remove": {
+          "component_groups": [
+            "ewo:flames_sword",
+            "ewo:sword_aurora",
+            "ewo:sword_jealousy",
+            "ewo:sword_deception",
+            "ewo:sword_astro",
+            "ewo:sword_obs",
+            "ewo:hat_green",
+            "ewo:telescopic_rod",
+            "ewo:dsgger",
+            "ewo:sword_spear",
+            "ewo:sword_tang",
+            "ewo:sword_long_knife",
+            "ewo:sword_stick",
+            "ewo:sword_apocalypse",
+            "ewo:armor_void1",
+            "ewo:armor_void2",
+            "ewo:armor_void3",
+            "ewo:armor_void4",
+            "ewo:sword_light",
+            "ewo:sword_feather_duster",
+            "ewo:sword_brunhild",
+            "ewo:sword_axe_ur",
+            "ewo:sword_noob",
+            "ewo:sword_mithril",
+            "ewo:sword_cake",
+            "ewo:sword_alien",
+            "pewo:sword_duo",
+            "ewo:armor_tech",
+            "ewo:armor_thor2",
+            "ewo:armor_thro1",
+            "ewo:armor_analyzer",
+            "ewo:armor_god3",
+            "ewo:armor_god1",
+            "ewo:armor_night_vision",
+            "ewo:armor_god",
+            "ewo:armor_thor",
+            "ewo:armor_wasp2",
+            "ewo:armor_god12",
+            "ewo:armor_god11",
+            "ewo:armor_wasp",
+            "ewo:armor_god13",
+            "ewo:armor_mob",
+            "ewo:armor_wasp1",
+            "ewo:armor_wasp3",
+            "ewo:armor_mob2",
+            "ewo:armor_fraternity2",
+            "ewo:armor_mob3",
+            "ewo:armor_immortal",
+            "ewo:armor_immortal3",
+            "ewo:armor_immortal2",
+            "ewo:armor_fraternity",
+            "ewo:armor_fraternity3",
+            "ewo:sword_knife",
+            "ewo:sword_super_axe",
+            "ewo:sword_super_hoe",
+            "ewo:sword_fire",
+            "ewo:sword_christmas",
+            "ewo:sword_pink",
+            "ewo:sword_knife2",
+            "ewo:sword_light_g4",
+            "ewo:sword_land",
+            "ewo:sword_cactus",
+            "ewo:sword_fenrir",
+            "ewo:support_stick"
+          ]
+        }
+      },
+      "jmgs:thunderbolt_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:thunderbolt",
+            "jmgs:thunderbolt_variant_init"
+          ]
+        }
+      },
+      "jmgs:thunderbolt_houzuo": {
+        "add": {
+          "component_groups": [
+            "jmgs:thunderbolt_timer"
+          ]
+        }
+      },
+      "jmgs:thunderbolt_houzuo_change": {
+        "remove": {
+          "component_groups": [
+            "jmgs:thunderbolt_timer",
+            "jmgs:thunderbolt_variant_init"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "jmgs:thunderbolt_variant"
+          ]
+        }
+      },
+      "l4d:remove_thunderbolt_variant": {
+        "remove": {
+          "component_groups": [
+            "jmgs:thunderbolt_variant"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "jmgs:thunderbolt_variant_init"
+          ]
+        }
+      },
+      "jmgs:r201_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:r201"
+          ]
+        }
+      },
+      "r201:skin_default": {
+        "add": {
+          "component_groups": [
+            "jmgs:r201_skin_default"
+          ]
+        }
+      },
+      "r201:skin_blue": {
+        "add": {
+          "component_groups": [
+            "jmgs:r201_skin_blue"
+          ]
+        }
+      },
+      "jmgs:jg_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:jg"
+          ]
+        }
+      },
+      "jmgs:klb_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:klb"
+          ]
+        }
+      },
+      "jmgs:klb_ammo_4": {
+        "add": {
+          "component_groups": [
+            "klb_ammo_4"
+          ]
+        }
+      },
+      "jmgs:klb_ammo_3": {
+        "add": {
+          "component_groups": [
+            "klb_ammo_3"
+          ]
+        }
+      },
+      "jmgs:klb_ammo_2": {
+        "add": {
+          "component_groups": [
+            "klb_ammo_2"
+          ]
+        }
+      },
+      "jmgs:klb_ammo_1": {
+        "add": {
+          "component_groups": [
+            "klb_ammo_1"
+          ]
+        }
+      },
+      "jmgs:klb_ammo_0": {
+        "add": {
+          "component_groups": [
+            "klb_ammo_0"
+          ]
+        }
+      },
+      "jmgs:alter_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter"
+          ]
+        }
+      },
+      "alter:ammo_0": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_0"
+          ]
+        }
+      },
+      "alter:ammo_1": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_1"
+          ]
+        }
+      },
+      "alter:ammo_2": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_2"
+          ]
+        }
+      },
+      "alter:ammo_3": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_3"
+          ]
+        }
+      },
+      "alter:ammo_4": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_4"
+          ]
+        }
+      },
+      "alter:ammo_5": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_5"
+          ]
+        }
+      },
+      "alter:ammo_6": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_6"
+          ]
+        }
+      },
+      "alter:ammo_7": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_7"
+          ]
+        }
+      },
+      "alter:ammo_8": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_8"
+          ]
+        }
+      },
+      "alter:ammo_9": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_9"
+          ]
+        }
+      },
+      "alter:ammo_10": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_10"
+          ]
+        }
+      },
+      "alter:ammo_11": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_11"
+          ]
+        }
+      },
+      "alter:ammo_12": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_12"
+          ]
+        }
+      },
+      "alter:ammo_13": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_13"
+          ]
+        }
+      },
+      "alter:ammo_14": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_14"
+          ]
+        }
+      },
+      "alter:ammo_15": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_15"
+          ]
+        }
+      },
+      "alter:ammo_16": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_16"
+          ]
+        }
+      },
+      "alter:ammo_17": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_17"
+          ]
+        }
+      },
+      "alter:ammo_18": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_18"
+          ]
+        }
+      },
+      "alter:ammo_19": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_19"
+          ]
+        }
+      },
+      "alter:ammo_20": {
+        "add": {
+          "component_groups": [
+            "jmgs:alter_ammo_20"
+          ]
+        }
+      },
+      "smart_pistol:ammo_0": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_0"
+          ]
+        }
+      },
+      "smart_pistol:ammo_1": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_1"
+          ]
+        }
+      },
+      "smart_pistol:ammo_2": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_2"
+          ]
+        }
+      },
+      "smart_pistol:ammo_3": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_3"
+          ]
+        }
+      },
+      "smart_pistol:ammo_4": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_4"
+          ]
+        }
+      },
+      "smart_pistol:ammo_5": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_5"
+          ]
+        }
+      },
+      "smart_pistol:ammo_6": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_6"
+          ]
+        }
+      },
+      "smart_pistol:ammo_7": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_7"
+          ]
+        }
+      },
+      "smart_pistol:ammo_8": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_8"
+          ]
+        }
+      },
+      "smart_pistol:ammo_9": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_9"
+          ]
+        }
+      },
+      "smart_pistol:ammo_10": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_10"
+          ]
+        }
+      },
+      "smart_pistol:ammo_11": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_11"
+          ]
+        }
+      },
+      "smart_pistol:ammo_12": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_12"
+          ]
+        }
+      },
+      "smart_pistol:ammo_13": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_13"
+          ]
+        }
+      },
+      "smart_pistol:ammo_14": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_14"
+          ]
+        }
+      },
+      "smart_pistol:ammo_15": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_15"
+          ]
+        }
+      },
+      "smart_pistol:ammo_16": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_16"
+          ]
+        }
+      },
+      "smart_pistol:ammo_17": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_17"
+          ]
+        }
+      },
+      "smart_pistol:ammo_18": {
+        "add": {
+          "component_groups": [
+            "jmgs:smart_pistol_ammo_18"
+          ]
+        }
+      },
+      "jmgs:wimman_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman"
+          ]
+        }
+      },
+      "jmgs:eva8_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:eva8"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_8": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_8"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_7": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_7"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_6": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_6"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_5": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_5"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_4": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_4"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_3": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_3"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_2": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_2"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_1": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_1"
+          ]
+        }
+      },
+      "jmgs:eva8_ammo_0": {
+        "add": {
+          "component_groups": [
+            "eva8_ammo_0"
+          ]
+        }
+      },
+      "jmgs:dg_shooter": {
+        "add": {
+          "component_groups": [
+            "jmgs:dg"
+          ]
+        }
+      },
+      "wimman:ammo_0": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman_ammo_0"
+          ]
+        }
+      },
+      "wimman:ammo_1": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman_ammo_1"
+          ]
+        }
+      },
+      "wimman:ammo_2": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman_ammo_2"
+          ]
+        }
+      },
+      "wimman:ammo_3": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman_ammo_3"
+          ]
+        }
+      },
+      "wimman:ammo_4": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman_ammo_4"
+          ]
+        }
+      },
+      "wimman:ammo_5": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman_ammo_5"
+          ]
+        }
+      },
+      "wimman:ammo_6": {
+        "add": {
+          "component_groups": [
+            "jmgs:wimman_ammo_6"
+          ]
+        }
+      },
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "pamobile:respawn"
+          ]
+        },
+        "remove": {}
+      },
+      "ammo_1": {
+        "remove": {
+          "component_groups": [
+            "ammo_1"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "ammo_1"
+          ]
+        }
+      },
+      "ammo_2": {
+        "remove": {
+          "component_groups": [
+            "ammo_2"
+          ]
+        },
+        "add": {
+          "component_groups": [
+            "ammo_2"
+          ]
+        }
+      },
+      "pmo:projectile_a3_fire": {
+        "add": {
+          "component_groups": [
+            "pmo:projectile_a3_fire"
+          ]
+        }
+      },
+      "pmo:projectile_a2_fire": {
+        "add": {
+          "component_groups": [
+            "pmo:projectile_a2_fire"
+          ]
+        }
+      },
+      "pmo:projectile_a1_fire": {
+        "add": {
+          "component_groups": [
+            "pmo:projectile_a1_fire"
+          ]
+        }
+      },
+      "ewo:flames_sword_event": {
+        "add": {
+          "component_groups": [
+            "ewo:flames_sword"
+          ]
+        }
+      },
+      "ewo:sword_aurora_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_aurora"
+          ]
+        }
+      },
+      "ewo:sword_jealousy_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_jealousy"
+          ]
+        }
+      },
+      "ewo:sword_deception_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_deception"
+          ]
+        }
+      },
+      "ewo:sword_astro_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_astro"
+          ]
+        }
+      },
+      "ewo:sword_obs_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_obs"
+          ]
+        }
+      },
+      "ewo:hat_green_event": {
+        "add": {
+          "component_groups": [
+            "ewo:hat_green"
+          ]
+        }
+      },
+      "ewo:telescopic_rod_event": {
+        "add": {
+          "component_groups": [
+            "ewo:telescopic_rod"
+          ]
+        }
+      },
+      "ewo:dsgger_event": {
+        "add": {
+          "component_groups": [
+            "ewo:dsgger"
+          ]
+        }
+      },
+      "ewo:sword_spear_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_spear"
+          ]
+        }
+      },
+      "ewo:sword_tang_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_tang"
+          ]
+        }
+      },
+      "ewo:sword_long_knife_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_long_knife"
+          ]
+        }
+      },
+      "ewo:sword_stick_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_stick"
+          ]
+        }
+      },
+      "ewo:sword_apocalypse_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_apocalypse"
+          ]
+        }
+      },
+      "ewo:projectile_king_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_king_fire"
+          ]
+        }
+      },
+      "ewo:projectile_cold_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_cold_fire"
+          ]
+        }
+      },
+      "ewo:projectile_fire_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_fire_fire"
+          ]
+        }
+      },
+      "ewo:projectile_nyx_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_nyx_fire"
+          ]
+        }
+      },
+      "ewo:armor_void1_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_void1"
+          ]
+        }
+      },
+      "ewo:armor_void2_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_void2"
+          ]
+        }
+      },
+      "ewo:armor_void3_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_void3"
+          ]
+        }
+      },
+      "ewo:armor_void4_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_void4"
+          ]
+        }
+      },
+      "ewo:projectile_damage_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_damage_fire"
+          ]
+        }
+      },
+      "ewo:projectile_gun_taser_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_gun_taser_fire"
+          ]
+        }
+      },
+      "ewo:projectile_slime_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_slime_fire"
+          ]
+        }
+      },
+      "ewo:projectile_gun_electric_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_gun_electric_fire"
+          ]
+        }
+      },
+      "ewo:projectile_boom_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_boom_fire"
+          ]
+        }
+      },
+      "ewo:projectile_sword_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_sword_fire"
+          ]
+        }
+      },
+      "ewo:projectile_cannon_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_cannon_fire"
+          ]
+        }
+      },
+      "ewo:sword_light_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_light"
+          ]
+        }
+      },
+      "ewo:sword_feather_duster_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_feather_duster"
+          ]
+        }
+      },
+      "ewo:sword_brunhild_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_brunhild"
+          ]
+        }
+      },
+      "ewo:sword_axe_ur_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_axe_ur"
+          ]
+        }
+      },
+      "ewo:sword_noob_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_noob"
+          ]
+        }
+      },
+      "ewo:sword_mithril_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_mithril"
+          ]
+        }
+      },
+      "ewo:sword_cake_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_cake"
+          ]
+        }
+      },
+      "ewo:sword_alien_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_alien"
+          ]
+        }
+      },
+      "pewo:sword_duo_event": {
+        "add": {
+          "component_groups": [
+            "pewo:sword_duo"
+          ]
+        }
+      },
+      "ewo:projectile_controller_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_controller_fire"
+          ]
+        }
+      },
+      "ewo:projectile_fatalist_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_fatalist_fire"
+          ]
+        }
+      },
+      "ewo:projectile_start_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_start_fire"
+          ]
+        }
+      },
+      "ewo:projectile_sky_fire": {
+        "add": {
+          "component_groups": [
+            "ewo:projectile_sky_fire"
+          ]
+        }
+      },
+      "ewo:armor_tech_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_tech"
+          ]
+        }
+      },
+      "ewo:armor_thor2_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_thor2"
+          ]
+        }
+      },
+      "ewo:armor_thro1_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_thro1"
+          ]
+        }
+      },
+      "ewo:armor_analyzer_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_analyzer"
+          ]
+        }
+      },
+      "ewo:armor_god3_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_god3"
+          ]
+        }
+      },
+      "ewo:armor_god1_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_god1"
+          ]
+        }
+      },
+      "ewo:armor_night_vision_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_night_vision"
+          ]
+        }
+      },
+      "ewo:armor_god_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_god"
+          ]
+        }
+      },
+      "ewo:armor_thor_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_thor"
+          ]
+        }
+      },
+      "ewo:armor_wasp2_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_wasp2"
+          ]
+        }
+      },
+      "ewo:armor_god12_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_god12"
+          ]
+        }
+      },
+      "ewo:armor_god11_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_god11"
+          ]
+        }
+      },
+      "ewo:armor_wasp_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_wasp"
+          ]
+        }
+      },
+      "ewo:armor_god13_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_god13"
+          ]
+        }
+      },
+      "ewo:armor_mob_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_mob"
+          ]
+        }
+      },
+      "ewo:armor_wasp1_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_wasp1"
+          ]
+        }
+      },
+      "ewo:armor_wasp3_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_wasp3"
+          ]
+        }
+      },
+      "ewo:armor_mob2_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_mob2"
+          ]
+        }
+      },
+      "ewo:armor_fraternity2_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_fraternity2"
+          ]
+        }
+      },
+      "ewo:armor_mob3_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_mob3"
+          ]
+        }
+      },
+      "ewo:armor_immortal_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_immortal"
+          ]
+        }
+      },
+      "ewo:armor_immortal3_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_immortal3"
+          ]
+        }
+      },
+      "ewo:armor_immortal2_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_immortal2"
+          ]
+        }
+      },
+      "ewo:armor_fraternity_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_fraternity"
+          ]
+        }
+      },
+      "ewo:armor_fraternity3_event": {
+        "add": {
+          "component_groups": [
+            "ewo:armor_fraternity3"
+          ]
+        }
+      },
+      "ewo:sword_knife_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_knife"
+          ]
+        }
+      },
+      "ewo:sword_super_axe_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_super_axe"
+          ]
+        }
+      },
+      "ewo:sword_super_hoe_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_super_hoe"
+          ]
+        }
+      },
+      "ewo:sword_fire_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_fire"
+          ]
+        }
+      },
+      "ewo:sword_christmas_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_christmas"
+          ]
+        }
+      },
+      "ewo:sword_pink_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_pink"
+          ]
+        }
+      },
+      "ewo:sword_knife2_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_knife2"
+          ]
+        }
+      },
+      "ewo:sword_light_g4_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_light_g4"
+          ]
+        }
+      },
+      "ewo:sword_land_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_land"
+          ]
+        }
+      },
+      "ewo:sword_cactus_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_cactus"
+          ]
+        }
+      },
+      "ewo:sword_fenrir_event": {
+        "add": {
+          "component_groups": [
+            "ewo:sword_fenrir"
+          ]
+        }
+      },
+      "ewo:support_stick_event": {
+        "add": {
+          "component_groups": [
+            "ewo:support_stick"
+          ]
+        }
+      }
+    }
+  }
+}

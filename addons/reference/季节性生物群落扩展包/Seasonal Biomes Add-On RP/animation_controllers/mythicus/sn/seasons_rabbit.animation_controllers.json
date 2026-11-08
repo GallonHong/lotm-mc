@@ -1,0 +1,155 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.rabbit.baby": {
+            "initial_state": "baby",
+            "states": {
+                "baby": {
+                    "animations": [
+                        {
+                            "baby_transform": "query.is_baby"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.rabbit.season": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "not_winter": "q.property('mythicus_sn:season_variant') != 'winter'"
+                        },
+                        {
+                            "winter": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "not_winter": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "winter": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "winter": {
+                    "animations": [
+                        "winter"
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "winter_idle": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "winter_idle": {
+                    "animations": [
+                        "winter_idle"
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "not_winter": "q.property('mythicus_sn:season_variant') != 'winter'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.rabbit.root": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        "none"
+                    ],
+                    "on_entry": [
+                        "v.timer = q.life_time + math.random_integer(3, 6);"
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "idle_0": "(q.life_time > (v.timer ?? 0)) && q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "idle_1": "(q.life_time > (v.timer ?? 0)) && q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "walk": "q.ground_speed > 0.1"
+                        }
+                    ]
+                },
+                "idle_0": {
+                    "animations": [
+                        "idle_0"
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "default": "q.any_animation_finished"
+                        },
+                        {
+                            "walk": "q.ground_speed > 0.1"
+                        }
+                    ]
+                },
+                "idle_1": {
+                    "animations": [
+                        "idle_1"
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "default": "q.any_animation_finished"
+                        },
+                        {
+                            "walk": "q.ground_speed > 0.1"
+                        }
+                    ]
+                },
+                "walk": {
+                    "animations": [
+                        "move"
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "default": "q.ground_speed < 0.1"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_rabbit.breath": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "cold": "q.property('mythicus_sn:season_variant') == 'winter' && q.ground_speed >= 3.0"
+                        }
+                    ]
+                },
+                "cold": {
+                    "animations": [
+                        "cold_breath"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring' || q.ground_speed < 3.0"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_table_work_b2653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CDC",
+      "CAC",
+      "BEB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:planks",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_plain",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_carbon",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_table_work",
+      "count": 2
+    }
+  }
+}

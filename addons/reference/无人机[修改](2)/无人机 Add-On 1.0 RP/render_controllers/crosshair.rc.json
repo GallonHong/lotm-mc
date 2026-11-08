@@ -1,0 +1,26 @@
+{
+	"format_version": "1.10.0",
+	"render_controllers": {
+		"controller.render.markercamp_dr.drone.crosshair": {
+			"geometry": "Geometry.crosshair",
+			"materials": [
+				{
+					"*": "Material.crosshair"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": "v.is_controlled_by_player"
+				}
+			],
+			"textures": ["Texture.crosshair"],
+			"ignore_lighting": true,
+			"on_fire_color": {
+				"a": 0
+			},
+			"is_hurt_color": {
+				"a": 0
+			}
+		}
+	}
+}

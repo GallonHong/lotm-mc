@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_ac_main_a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CAC",
+      "BDE",
+      ""
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_weathering",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:phantom_membrane",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_ac_main",
+      "count": 1
+    }
+  }
+}

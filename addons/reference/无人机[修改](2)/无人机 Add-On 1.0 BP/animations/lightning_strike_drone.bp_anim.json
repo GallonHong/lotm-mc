@@ -1,0 +1,12 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.makercamp_dr.lightning_strike_drone.energy": {
+			"loop": true,
+			"animation_length": 0.1,
+			"timeline": {
+				"0.05": "/playsound mob.creaking.freeze @a ~ ~ ~ 0.6 2"
+			}
+		}
+	}
+}

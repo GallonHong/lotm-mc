@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:spy_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iii",
+			" # ",
+			"EOC"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"E": {
+				"item": "minecraft:empty_map"
+			},
+			"O": {
+				"item": "minecraft:observer"
+			},
+			"C": {
+				"item": "minecraft:compass"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_3"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:spy_drone_spawn_egg"
+		}
+	}
+}

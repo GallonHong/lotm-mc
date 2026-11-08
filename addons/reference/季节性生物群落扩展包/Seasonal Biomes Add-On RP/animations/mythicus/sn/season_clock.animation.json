@@ -1,0 +1,76 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.mythicus_sn.season_clock.right.fp": {
+            "loop": true,
+            "bones": {
+                "clock": {
+                    "rotation": [300, 3.25, 200],
+                    "position": [8.6, 1.17, 2.47805],
+                    "scale": 0.9325
+                },
+                "rightItem": {
+                    "position": [0.22413, 0.28252, -0.65761]
+                }
+            }
+        },
+        "animation.mythicus_sn.season_clock.right.tp": {
+            "loop": true,
+            "bones": {
+                "clock": {
+                    "rotation": [375.66422, 20.32336, -527.12697],
+                    "position": [17, 9.67188, -1.76492],
+                    "scale": 0.6
+                },
+                "thermometer2": {
+                    "scale": 0.9375
+                }
+            }
+        },
+        "animation.mythicus_sn.season_clock.left.fp": {
+            "loop": true,
+            "bones": {
+                "clock2": {
+                    "rotation": [573.58726, -71.99347, -664.02833],
+                    "position": [-11.77916, 24.47447, 14.89857]
+                },
+                "leftItem": {
+                    "position": [0.22413, 0.28252, -0.65761]
+                },
+                "clock": {
+                    "position": [0, 0, 0]
+                }
+            }
+        },
+        "animation.mythicus_sn.season_clock.left.tp": {
+            "loop": true,
+            "bones": {
+                "clock2": {
+                    "rotation": [19.74601, -3.20187, 171.87927],
+                    "position": [12, 11.22217, -3.85355],
+                    "scale": 0.6
+                }
+            }
+        },
+        "animation.mythicus_sn.player.season_clock": {},
+        "animation.mythicus_sn.player.flashlseason_clockight.hold": {
+            "loop": true,
+            "bones": {
+                "rightArm": {
+                    "rotation": [
+                        "q.is_item_name_any('slot.weapon.mainhand',0,'mythicus_sn:season_clock') && !v.is_first_person && !q.is_swimming ? -70 - (-v.tcos0 / 2) + q.target_x_rotation : 0",
+                        "q.is_item_name_any('slot.weapon.mainhand',0,'mythicus_sn:season_clock') && !v.is_first_person && !q.is_swimming ? q.target_y_rotation : 0",
+                        "q.is_item_name_any('slot.weapon.mainhand',0,'mythicus_sn:season_clock') && !v.is_first_person && !q.is_swimming ? 16.9384 : 0"
+                    ]
+                },
+                "leftArm": {
+                    "rotation": [
+                        "q.is_item_name_any('slot.weapon.offhand',0,'mythicus_sn:season_clock') && !v.is_first_person && !q.is_swimming ? -70 - (-v.tcos0 / 2) + q.target_x_rotation : 0",
+                        "q.is_item_name_any('slot.weapon.offhand',0,'mythicus_sn:season_clock') && !v.is_first_person && !q.is_swimming ? q.target_y_rotation : 0",
+                        "q.is_item_name_any('slot.weapon.offhand',0,'mythicus_sn:season_clock') && !v.is_first_person && !q.is_swimming ? 16.9384 : 0"
+                    ]
+                }
+            }
+        }
+    }
+}

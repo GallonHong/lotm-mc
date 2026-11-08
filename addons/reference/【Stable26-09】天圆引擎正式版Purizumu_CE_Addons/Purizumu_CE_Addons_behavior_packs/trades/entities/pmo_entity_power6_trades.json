@@ -1,0 +1,523 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_bike_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_bike_pro_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_fight_boom_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 7
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_other_edit_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 8
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_other_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 20,
+              "price_multiplier": 0.05
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_boat_normal_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_calm_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_lese_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 14
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_moto_plus_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_fork_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_bulldozer_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_digger_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 8
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_su7_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_dragonfly_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_atana_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_atana_edit_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_chest_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_plus_lite_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_plus_lite_edit_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_metro_bus_lite_spawn_egg",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 99,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_car_auto_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:role_lead_pro_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_metro_bus_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_metro_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "max": 7,
+                "min": 5
+              }
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_sa330_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "max": 8,
+                "min": 6
+              }
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_mi32_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_block",
+              "quantity": {
+                "max": 13,
+                "min": 9
+              }
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:entity_air_tu160_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

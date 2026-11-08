@@ -1,0 +1,50 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.drone.fly": {
+			"states": {
+				"default": {
+					"on_entry": [
+						"v.static = 1;"
+					],
+					"on_exit": [
+						"v.static = 0;"
+					],
+					"transitions": [
+						{
+							"hover": "q.property('makercamp_dr:state') != 'standby'"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"hover": {
+					"animations": [
+						"idle"
+					],
+					"transitions": [
+						{
+							"default": "q.property('makercamp_dr:state') == 'standby' && (q.is_on_ground || q.is_in_water || !q.is_moving)"
+						},
+						{
+							"fly": "query.modified_move_speed > 0.1"
+						}
+					],
+					"blend_transition": 0.2,
+					"blend_via_shortest_path": true
+				},
+				"fly": {
+					"animations": [
+						"fly"
+					],
+					"transitions": [
+						{
+							"hover": "query.modified_move_speed < 0.1"
+						}
+					],
+					"blend_transition": 0.4,
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

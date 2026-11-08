@@ -1,0 +1,58 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "mythicus_sn:thermometer",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/attachables/thermometer_attachable"
+            },
+            "animations": {
+                "hold.right.fp": "animation.mythicus_sn.thermometer_attachable.right.fp",
+                "hold.left.fp": "animation.mythicus_sn.thermometer_attachable.left.fp",
+                "hold.right.tp": "animation.mythicus_sn.thermometer_attachable.right.tp",
+                "hold.left.tp": "animation.mythicus_sn.thermometer_attachable.left.tp"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.thermometer_attachable"
+            },
+            "scripts": {
+                "initialize": [
+                    "v.env_temperature = 50;",
+                    "v.env_temp_level = 3;",
+                    "v.temp_valid_reading = 1;"
+                ],
+                "parent_setup": "t.env_temperature = v.env_temperature ?? 50; t.env_temp_level = v.env_temp_level ?? 3; t.temp_valid_reading = v.temp_valid_reading ?? 1;",
+                "pre_animation": [
+                    "v.env_temperature = t.env_temperature;",
+                    "v.env_temp_level = t.env_temp_level;",
+                    "v.temp_valid_reading = t.temp_valid_reading;"
+                ],
+                "animate": [
+                    {
+                        "hold.right.fp": "c.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 0, 'mythicus_sn:thermometer')"
+                    },
+                    {
+                        "hold.left.fp": "c.is_first_person && query.is_item_name_any('slot.weapon.offhand', 0, 'mythicus_sn:thermometer')"
+                    },
+                    {
+                        "hold.right.tp": "!c.is_first_person && query.is_item_name_any('slot.weapon.mainhand', 0, 'mythicus_sn:thermometer')"
+                    },
+                    {
+                        "hold.left.tp": "!c.is_first_person && query.is_item_name_any('slot.weapon.offhand', 0, 'mythicus_sn:thermometer')"
+                    }
+                ]
+            },
+            "render_controllers": [
+                {
+                    "controller.render.mythicus_sn.thermometer.right": "query.is_item_name_any('slot.weapon.mainhand', 0, 'mythicus_sn:thermometer')"
+                },
+                {
+                    "controller.render.mythicus_sn.thermometer.left": "query.is_item_name_any('slot.weapon.offhand', 0, 'mythicus_sn:thermometer')"
+                }
+            ]
+        }
+    }
+}

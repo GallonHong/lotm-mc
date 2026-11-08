@@ -1,0 +1,48 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_bike",
+      "textures": {
+        "default": "textures/entity/corona/pmo_entity_bike",
+        "variant_2": "textures/entity/corona/pmo_entity_bike_2",
+        "variant_3": "textures/entity/corona/pmo_entity_bike_3",
+        "variant_4": "textures/entity/corona/pmo_entity_bike_4",
+        "variant_5": "textures/entity/corona/pmo_entity_bike_5"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_bike",
+        "mark_variant_2": "geometry.pmo_entity_bike_2",
+        "mark_variant_3": "geometry.pmo_entity_bike_3",
+        "mark_variant_4": "geometry.pmo_entity_bike_4",
+        "mark_variant_5": "geometry.pmo_entity_bike_5"
+      },
+      "render_controllers": [
+        "controller.render.pmo_entity_bike"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_bike",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_bike.walk",
+        "idle": "animation.pmo_entity_bike.idle",
+        "spawn": "animation.pmo_entity_bike.spawn",
+        "main": "controller.animation.pmo_entity_bike.main"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "main"
+        ]
+      }
+    }
+  }
+}

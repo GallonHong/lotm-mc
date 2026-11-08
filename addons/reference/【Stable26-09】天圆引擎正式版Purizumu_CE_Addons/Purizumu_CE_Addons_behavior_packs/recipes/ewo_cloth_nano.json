@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_nano_cb663293"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      " CB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth_aramid",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_fim",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_pearl",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_nano",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_chest5_2350068d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "ACA",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:netherite_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_chest5",
+      "count": 1
+    }
+  }
+}

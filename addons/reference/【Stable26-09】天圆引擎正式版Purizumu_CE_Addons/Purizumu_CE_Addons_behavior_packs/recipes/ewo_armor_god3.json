@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_god3_4d70841d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      "DEF"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond_chestplate",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:ceramics_bionics",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:ceramics_bulletproof",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_god3",
+      "count": 1
+    }
+  }
+}

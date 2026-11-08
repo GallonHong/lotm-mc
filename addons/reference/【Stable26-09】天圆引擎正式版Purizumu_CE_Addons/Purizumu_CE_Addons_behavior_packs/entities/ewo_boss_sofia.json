@@ -1,0 +1,224 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ewo:boss_sofia",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "monster",
+          "zombie",
+          "boss"
+        ]
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:health": {
+        "value": 500,
+        "max": 500
+      },
+      "minecraft:collision_box": {
+        "height": 1.8,
+        "width": 0.6
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:movement": {
+        "value": 0.43
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "can_walk": true,
+        "avoid_water": true
+      },
+      "minecraft:annotation.open_door": {},
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:damage_sensor": [
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_witch"
+          },
+          "deals_damage": false
+        },
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_zombie"
+          },
+          "deals_damage": true
+        }
+      ],
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.move_indoors": {
+        "priority": 4,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.restrict_open_door": {
+        "priority": 5
+      },
+      "minecraft:behavior.open_door": {
+        "priority": 6,
+        "close_door_after": true
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "priority": 7,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.share_items": {
+        "priority": 8,
+        "max_dist": 3,
+        "goal_radius": 2.0,
+        "speed_multiplier": 0.5,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "villager"
+            }
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 11,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 12,
+        "look_distance": 8,
+        "probability": 0.02
+      },
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 300 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.02
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:attack": {
+        "damage": 15,
+        "effect_name": "weakness",
+        "effect_duration": 30
+      },
+      "minecraft:behavior.melee_attack": {
+        "priority": 2,
+        "speed_multiplier": 1.0,
+        "target_dist": 0.0,
+        "max_dist": 3,
+        "random_stop_interval": 100,
+        "track_target": true,
+        "reach_multiplier": 1.4
+      },
+      "minecraft:follow_range": {
+        "value": 100
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "within_radius": 50,
+        "must_reach": false,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "lead"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "toy"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "villager"
+                }
+              ]
+            },
+            "max_dist": 55.0,
+            "must_see": true
+          }
+        ],
+        "must_see": true,
+        "speed_multiplier": 1.0,
+        "reselect_targets": true
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.owner_hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:equipment": {
+        "table": "loot_tables/entities/vindicator_sword.json"
+      },
+      "minecraft:behavior.owner_hurt_target": {
+        "priority": 2
+      },
+      "minecraft:fall_damage": {
+        "value": 0.0
+      },
+      "minecraft:boss": {
+        "should_darken_sky": true,
+        "hud_range": 125,
+        "name": "已经消逝的呐喊·索菲娅"
+      },
+      "minecraft:knockback_resistance": {
+        "value": 2.0,
+        "max": 3.0
+      },
+      "minecraft:equip_item": {},
+      "minecraft:behavior.leap_at_target": {
+        "priority": 4,
+        "yd": 0.4,
+        "must_be_on_ground": false,
+        "target_dist": 0.4,
+        "speed_multiplier": 1.0
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/entities/ewo_drop_b4.json"
+      }
+    },
+    "events": {
+      
+    }
+  }
+}

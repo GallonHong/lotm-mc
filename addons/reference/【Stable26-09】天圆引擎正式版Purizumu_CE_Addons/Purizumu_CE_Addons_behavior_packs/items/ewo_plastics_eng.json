@@ -1,0 +1,23 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ewo:plastics_eng",
+      "menu_category": {
+				"category": "items"
+			}
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:stack_by_data": true,
+      "minecraft:icon": {
+        "texture": "ewo:plastics_eng"
+      },
+      "minecraft:display_name": {
+        "value": "item.ewo:plastics_eng.name"
+      }
+    }
+  }
+}

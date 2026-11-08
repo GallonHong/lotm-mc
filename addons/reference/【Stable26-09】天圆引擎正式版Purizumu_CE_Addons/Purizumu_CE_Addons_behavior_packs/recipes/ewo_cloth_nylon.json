@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_nylon_06fc79a9"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AC",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_nylon",
+      "count": 1
+    }
+  }
+}

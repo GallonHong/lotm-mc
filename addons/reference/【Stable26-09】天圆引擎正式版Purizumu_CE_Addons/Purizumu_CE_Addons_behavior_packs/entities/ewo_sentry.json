@@ -1,0 +1,186 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ewo:sentry",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {},
+    "components": {
+      "minecraft:behavior.random_look_around": {
+        "priority": 7
+      },
+      "minecraft:behavior.random_stroll": {
+        "speed_multiplier": 1,
+        "priority": 6
+      },
+      "minecraft:jump.static": {},
+      "minecraft:behavior.stomp_turtle_egg": {
+        "interval": 20,
+        "search_count": 4,
+        "search_height": 3,
+        "goal_radius": 1.13,
+        "priority": 4,
+        "speed_multiplier": 1,
+        "search_range": 10
+      },
+      "minecraft:health": {
+        "max": 220,
+        "value": 200
+      },
+      "minecraft:behavior.melee_attack": {
+        "track_target": true,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.look_at_player": {
+        "look_distance": 6,
+        "probability": 0.02,
+        "priority": 7
+      },
+      "minecraft:movement": {
+        "value": 0.32
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "breathesWater": true,
+        "generatesBubbles": false,
+        "breathesAir": true,
+        "suffocateTime": -1
+      },
+      "minecraft:behavior.leap_at_target": {
+        "priority": 4,
+        "yd": 0.4,
+        "must_be_on_ground": false,
+        "target_dist": 0.4,
+        "speed_multiplier": 1
+      },
+      "minecraft:experience_reward": {
+        "on_bred": "10",
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:annotation.break_door": {
+        "break_time": 0.0,
+        "min_difficulty": "normal"
+      },
+      "minecraft:environment_sensor": {
+        "filters": {
+          "operator": "==",
+          "value": true,
+          "test": "is_underwater"
+        },
+        "event": "minecraft:start_transforming"
+      },
+      "minecraft:can_climb": {},
+      "minecraft:physics": {},
+      "minecraft:nameable": {
+        "allow_name_tag_renaming": false,
+        "always_show": false,
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:type_family": {
+        "family": [
+          "toy",
+          "lead"
+        ]
+      },
+      "minecraft:attack": {
+        "damage": 20,
+        "effect_name": "weakness",
+        "effect_duration": 30
+      },
+      "minecraft:follow_range": {
+        "value": 50
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "can_pass_doors": true,
+        "can_walk": true,
+        "can_break_doors": true,
+        "is_amphibious": true
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": false,
+        "reselect_targets": true,
+        "within_radius": 35.0,
+        "must_see_forget_duration": 17.0,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                }
+              ]
+            },
+            "max_dist": 35.0,
+            "must_see": false
+          }
+        ],
+        "must_reach": false
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:collision_box": {
+        "height": 1.8,
+        "width": 0.5
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "speed_multiplier": 1,
+        "priority": 5
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.1
+      },
+      "minecraft:inventory": {
+        "inventory_size": 2,
+        "container_type": "container"
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:behavior.owner_hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.owner_hurt_target": {
+        "priority": 2
+      },
+      "minecraft:tameable": {
+        "probability": 0.33,
+        "tameItems": [
+          "ewo:card_level0",
+          "minecraft:gold_ingot"
+        ],
+        "tame_event": {
+          "event": "minecraft:on_tame",
+          "target": "self"
+        }
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/corona/jmgs_arms.json"
+      }
+    },
+    "events": {
+      "pmo:role_armor": {
+        "queue_command": {
+          "command": [
+            "function toolbox/pmo_role_armor"
+          ]
+        }
+      }
+    }
+  }
+}

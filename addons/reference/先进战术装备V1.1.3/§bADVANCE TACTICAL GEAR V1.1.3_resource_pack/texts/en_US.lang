@@ -1,0 +1,281 @@
+pa:itemGroup.name.gasmask=防毒面具
+pa:itemGroup.name.ghillie=吉利服
+pa:itemGroup.name.goggles=护目镜
+pa:itemGroup.name.helmetBlackCamo=头盔-黑色迷彩
+pa:itemGroup.name.helmetDesertCamo=头盔-沙漠迷彩
+pa:itemGroup.name.plateCarrierBlackCamo=战术背心-黑色迷彩
+pa:itemGroup.name.plateCarrierDesertCamo=战术背心-沙漠迷彩
+pa:itemGroup.name.plateCarrierJungleCamo=战术背心-丛林迷彩
+pa:itemGroup.name.plateCarrierSpecial=战术背心-特殊
+item.atg:ala_spc.name=§2艾斯链甲骷髅战术背心
+item.atg:ala_spc=§2艾斯链甲骷髅战术背心
+item.atg:armor_plate.name=§2防弹插板
+item.atg:armor_plate=§2防弹插板
+item.atg:black_ghillie.name=§2黑色吉利服 §0(黑色)
+item.atg:black_ghillie=§2黑色吉利服 §0(黑色)
+item.atg:ca_pvs31.name=§b克莱精密航空框架 (PVS-31)
+item.atg:ca_pvs31=§b克莱精密航空框架 (PVS-31)
+item.atg:ca_pvs31_desert.name=§b克莱精密航空框架 (PVS-31) §6沙漠色
+item.atg:ca_pvs31_desert=§b克莱精密航空框架 (PVS-31) §6沙漠色
+item.atg:ca_pvs31_up_desert.name=§b克莱精密航空框架 (PVS-31) §1升级 §6沙漠色
+item.atg:ca_pvs31_up_desert=§b克莱精密航空框架 (PVS-31) §1升级 §6沙漠色
+item.atg:ca_pvs_31_up.name=§b克莱精密航空框架 (PVS-31) §1升级 §0黑色
+item.atg:ca_pvs_31_up=§b克莱精密航空框架 (PVS-31) §1升级 §0黑色
+item.atg:emr_6b13.name=§e6B13 §2EMR迷彩
+item.atg:emr_6b13=§e6B13 §2EMR迷彩
+item.atg:goggles_black.name=§2护目镜 §0(黑色面罩)
+item.atg:goggles_black=§2护目镜 §0(黑色面罩)
+item.atg:goggles_red.name=§2护目镜 §c(红色面罩)
+item.atg:goggles_red=§2护目镜 §c(红色面罩)
+item.atg:gpnvg18.name=§bGPNVG18
+item.atg:gpnvg18=§bGPNVG18
+item.atg:hook.name=§d挂钩
+item.atg:hook=§d挂钩
+item.atg:iit.name=§d图像增强管
+item.atg:iit=§d图像增强管
+item.atg:jpc_2.name=§2克莱精密 JPC 2.0 §0黑色
+item.atg:jpc_2=§2克莱精密 JPC 2.0 §0黑色
+item.atg:jpc_2_desert.name=§2克莱精密 JPC 2.0 §6沙漠色
+item.atg:jpc_2_desert=§2克莱精密 JPC 2.0 §6沙漠色
+item.atg:killa_6b13.name=§e6B13 §d基拉
+item.atg:killa_6b13=§e6B13 §d基拉
+item.atg:m50.name=§bM50
+item.atg:m50=§bM50
+item.atg:mch_fc.name=§e米奇 (防弹面罩) §0黑色
+item.atg:mch_fc=§e米奇 (防弹面罩) §0黑色
+item.atg:mch_fc_desert.name=§e米奇 (防弹面罩) §6沙漠色
+item.atg:mch_fc_desert=§e米奇 (防弹面罩) §6沙漠色
+item.atg:mch_fc_up.name=§e米奇 (防弹面罩) §1升级 §0黑色
+item.atg:mch_fc_up=§e米奇 (防弹面罩) §1升级 §0黑色
+item.atg:mch_fc_up_desert.name=§e米奇 (防弹面罩) §1升级 §6沙漠色
+item.atg:mch_fc_up_desert=§e米奇 (防弹面罩) §1升级 §6沙漠色
+item.atg:mlt_hg2.name=§4军用科技 HG2 (全身甲) §0黑色
+item.atg:mlt_hg2=§4军用科技 HG2 (全身甲) §0黑色
+item.atg:mlt_hg2_desert.name=§4军用科技 HG2 (全身甲) §6沙漠色
+item.atg:mlt_hg2_desert=§4军用科技 HG2 (全身甲) §6沙漠色
+item.atg:oak_ghillie.name=§2半身吉利服 §a(橡木)
+item.atg:oak_ghillie=§2半身吉利服 §a(橡木)
+item.atg:oc_amp.name=§2Ops Core AMP
+item.atg:oc_amp=§2Ops Core AMP
+item.atg:ocf_gpnvg18.name=§bOps-Core Fast (GPNVG18) §0黑色
+item.atg:ocf_gpnvg18=§bOps-Core Fast (GPNVG18) §0黑色
+item.atg:ocf_gpnvg18_desert.name=§bOps-Core Fast (GPNVG18) §6沙漠色
+item.atg:ocf_gpnvg18_desert=§bOps-Core Fast (GPNVG18) §6沙漠色
+item.atg:ocf_gpnvg18_up.name=§bOps-Core Fast (GPNVG18) §1升级-x §0黑色
+item.atg:ocf_gpnvg18_up=§bOps-Core Fast (GPNVG18) §1升级-x §0黑色
+item.atg:ocf_gpnvg18_up1.name=§bOps-Core Fast (GPNVG18) §1升级-y §0黑色
+item.atg:ocf_gpnvg18_up1=§bOps-Core Fast (GPNVG18) §1升级-y §0黑色
+item.atg:ocf_gpnvg18_up1_desert.name=§bOps-Core Fast (GPNVG18) §1升级-y §6沙漠色 
+item.atg:ocf_gpnvg18_up1_desert=§bOps-Core Fast (GPNVG18) §1升级-y §6沙漠色 
+item.atg:ocf_gpnvg18_up_desert.name=§bOps-Core Fast (GPNVG18) §1升级-x §6沙漠色 
+item.atg:ocf_gpnvg18_up_desert=§bOps-Core Fast (GPNVG18) §1升级-x §6沙漠色 
+item.atg:pvs_31.name=§bPVS-31
+item.atg:pvs_31=§bPVS-31
+## 注释可以放在有效行的任意位置，以 ## 开头
+##
+## 注意，行尾空格不会被修剪。如果你希望字符串结束和同一行注释开始之间留有空间，请使用制表符。
+accessibility.disableTTS=文本转语音已禁用
+accessibility.enableTTS=文本转语音已启用
+item.spawn_egg.entity.pa:fish_1.name=生成鱼 1
+item.spawn_egg.entity.pa:crab.name=生成螃蟹
+item.spawn_egg.entity.pa:fish_2.name=生成蝴蝶鱼
+item.spawn_egg.entity.pa:fish_3.name=生成鱼 3
+item.spawn_egg.entity.pa:starfish.name=生成海星
+item.spawn_egg.entity.pa:shark.name=生成鲨鱼
+item.spawn_egg.entity.pa:megalodon.name=生成巨齿鲨
+item.spawn_egg.entity.pa:octopus_red.name=生成红色章鱼
+item.spawn_egg.entity.pa:octopus.name=生成章鱼
+item.spawn_egg.entity.pa:hammerhead_shark.name=生成锤头鲨
+item.spawn_egg.entity.pa:piranha.name=生成水虎鱼
+item.spawn_egg.entity.pa:stingray.name=生成黄貂鱼
+item.spawn_egg.entity.pa:fishleon.name=生成狮子鱼
+item.spawn_egg.entity.pa:swordfish.name=生成剑鱼
+item.spawn_egg.entity.pa:jellyfish_1.name=水母 1
+item.spawn_egg.entity.pa:jellyfish_2.name=水母 2
+item.spawn_egg.entity.pa:jellyfish_3.name=水母 3
+item.spawn_egg.entity.pa:shark_2.name=生成鲨鱼 2
+item.spawn_egg.entity.pa:whale.name=生成鲸鱼
+item.spawn_egg.entity.pa:cachalote.name=生成抹香鲸
+item.spawn_egg.entity.pa:shrimp.name=生成虾
+
+item.spawn_egg.entity.pa:vulture.name=生成秃鹫
+item.spawn_egg.entity.pa:eagle.name=生成鹰
+item.spawn_egg.entity.pa:phoenix.name=生成凤凰
+item.spawn_egg.entity.pa:seagull.name=生成海鸥
+item.spawn_egg.entity.pa:villager_with_player_model.name=生成NPC
+
+entity.pa:vulture.name=秃鹫
+entity.pa:eagle.name=鹰
+entity.pa:phoenix.name=凤凰
+entity.pa:seagull.name=海鸥
+entity.pa:villager_with_player_model.name=NPC
+
+entity.lamborghini:gallardo_yellow.name=兰博基尼 Gallardo 黄色
+item.spawn_egg.entity.lamborghini:gallardo_yellow.name=兰博基尼 Gallardo 黄色
+
+entity.lamborghini:gallardo_red.name=兰博基尼 Gallardo 红色
+item.spawn_egg.entity.lamborghini:gallardo_red.name=兰博基尼 Gallardo 红色
+
+entity.lamborghini:gallardo_blue.name=兰博基尼 Gallardo 蓝色
+item.spawn_egg.entity.lamborghini:gallardo_blue.name=兰博基尼 Gallardo 蓝色
+
+entity.lamborghini:gallardo_green.name=兰博基尼 Gallardo 绿色
+item.spawn_egg.entity.lamborghini:gallardo_green.name=兰博基尼 Gallardo 绿色
+
+entity.lamborghini:gallardo_black.name=兰博基尼 Gallardo 黑色
+item.spawn_egg.entity.lamborghini:gallardo_black.name=兰博基尼 Gallardo 黑色
+
+entity.lamborghini:gallardo_white.name=兰博基尼 Gallardo 白色
+item.spawn_egg.entity.lamborghini:gallardo_white.name=兰博基尼 Gallardo 白色
+
+entity.lamborghini:gallardo_orange.name=兰博基尼 Gallardo 橙色
+item.spawn_egg.entity.lamborghini:gallardo_orange.name=兰博基尼 Gallardo 橙色
+
+entity.lamborghini:gallardo_purple.name=兰博基尼 Gallardo 紫色
+item.spawn_egg.entity.lamborghini:gallardo_purple.name=兰博基尼 Gallardo 紫色
+
+entity.lamborghini:gallardo_cyan.name=兰博基尼 Gallardo 青色
+item.spawn_egg.entity.lamborghini:gallardo_cyan.name=兰博基尼 Gallardo 青色
+
+##物品
+
+item.compound.salt.name=象牙
+item.compound.sodiumoxide.name=臭奶酪
+
+##刷怪蛋
+
+item.spawn_egg.entity.animal:bear.name=生成熊
+item.spawn_egg.entity.animal:buffalo.name=生成水牛
+item.spawn_egg.entity.animal:camel.name=生成骆驼
+item.spawn_egg.entity.animal:duck.name=生成鸭
+item.spawn_egg.entity.animal:penguin.name=生成企鹅
+item.spawn_egg.entity.animal:steve.name=生成史蒂夫 (NPC)
+item.spawn_egg.entity.animal:alex.name=生成艾利克斯 (NPC)
+item.spawn_egg.entity.animal:lion.name=生成狮子
+item.spawn_egg.entity.animal:hamster.name=生成仓鼠
+item.spawn_egg.entity.animal:hippo.name=生成河马
+item.spawn_egg.entity.animal:chameleon.name=生成变色龙
+item.spawn_egg.entity.animal:mouse.name=生成老鼠
+item.spawn_egg.entity.animal:deer.name=生成鹿
+item.spawn_egg.entity.animal:elephant.name=生成大象
+item.spawn_egg.entity.animal:frog.name=生成青蛙
+item.spawn_egg.entity.animal:bumblebee.name=生成大黄蜂
+item.spawn_egg.entity.animal:tortoise.name=生成陆龟
+item.spawn_egg.entity.animal:frozen_beast.name=生成冰霜野兽
+item.spawn_egg.entity.animal:crocodile.name=生成鳄鱼
+item.spawn_egg.entity.animal:zushroom.name=生成祖什菇
+item.spawn_egg.entity.animal:starfish.name=生成海星
+item.spawn_egg.entity.animal:panther.name=生成黑豹
+item.spawn_egg.entity.animal:brown_mooshroom.name=生成棕色哞菇
+item.spawn_egg.entity.mooshroom.name=生成红色哞菇
+item.spawn_egg.entity.animal:emerged.name=生成浮现者
+item.spawn_egg.entity.animal:corrupted_skeleton.name=生成腐化骷髅
+item.spawn_egg.entity.animal:welter.name=生成韦尔特
+item.spawn_egg.entity.animal:npc.name=生成NPC
+item.spawn_egg.entity.animal:npc_scientist.name=生成NPC科学家
+item.spawn_egg.entity.animal:nether_creeper.name=生成下界苦力怕
+item.spawn_egg.entity.animal:flea.name=生成跳蚤
+item.spawn_egg.entity.animal:bird.name=生成鸟
+item.spawn_egg.entity.animal:tiger.name=生成老虎
+item.spawn_egg.entity.animal:ender_creeper.name=生成末影苦力怕
+item.spawn_egg.entity.animal:ender_skeleton.name=生成末影骷髅
+
+##实体
+
+entity.animal:bear.name=熊
+entity.animal:buffalo.name=水牛
+entity.animal:camel.name=骆驼
+entity.animal:duck.name=鸭
+entity.animal:penguin.name=企鹅
+entity.animal:steve.name=史蒂夫
+entity.animal:alex.name=艾利克斯
+entity.animal:lion.name=狮子
+entity.animal:hamster.name=仓鼠
+entity.animal:hippo.name=河马
+entity.animal:chameleon.name=变色龙
+entity.animal:mouse.name=老鼠
+entity.animal:deer.name=鹿
+entity.animal:elephant.name=大象
+entity.animal:frog.name=青蛙
+entity.animal:bumblebee.name=大黄蜂
+entity.animal:tortoise.name=陆龟
+entity.animal:frozen_beast.name=冰霜野兽
+entity.animal:crocodile.name=鳄鱼
+entity.animal:zushroom.name=祖什菇
+entity.animal:starfish.name=海星
+entity.animal:panther.name=黑豹
+entity.animal:brown_mooshroom.name=棕色哞菇
+entity.mooshroom.name=红色哞菇
+entity.animal:emerged.name=浮现者
+entity.animal:corrupted_skeleton.name=腐化骷髅
+entity.animal:welter.name=韦尔特
+entity.animal:npc.name=NPC
+entity.animal:npc_scientist.name=NPC科学家
+entity.animal:nether_creeper.name=下界苦力怕
+entity.animal:flea.name=跳蚤
+entity.animal:bird.name=鸟
+entity.animal:tiger.name=老虎
+entity.animal:ender_creeper.name=末影苦力怕
+entity.animal:ender_skeleton.name=末影骷髅
+
+##新家具
+action.hint.exit.cat=现在你可以旋转它	#
+action.hint.exit.unknown=现在你可以旋转它	#
+action.interact.rotar=旋转	#
+action.interact.patitas=打开#
+action.interact.conducir=驾驶	#
+action.interact.sit = 坐下	#
+
+entity.unknown.name=PA 物品栏
+item.spawn_egg.entity.pa:sillagamer.name=PA-彩色游戏椅
+item.spawn_egg.entity.pa:pc.name=PA-游戏电脑
+item.spawn_egg.entity.pa:estufa.name=PA-炉灶
+item.spawn_egg.entity.pa:nevera.name=PA-冰箱
+item.spawn_egg.entity.pa:lavadero.name=PA-洗衣房
+item.spawn_egg.entity.pa:pacman.name=PA-吃豆人游戏机
+item.spawn_egg.entity.pa:tivi.name=PA-电视
+item.spawn_egg.entity.pa:retrete.name=PA-马桶
+item.spawn_egg.entity.pa:regadera.name=PA-洒水壶
+item.spawn_egg.entity.pa:christmas_tree.name=PA-圣诞树
+item.spawn_egg.entity.pa:piano.name=PA-钢琴
+item.spawn_egg.entity.pa:closet.name=PA-衣柜
+item.spawn_egg.entity.pa:banca.name=PA-公园长椅
+item.spawn_egg.entity.pa:bench.name=PA-长凳
+item.spawn_egg.entity.pa:billar.name=PA-台球桌
+item.spawn_egg.entity.pa:fuente.name=PA-水源
+item.spawn_egg.entity.pa:tumbanormal.name=PA-普通坟墓
+item.spawn_egg.entity.pa:tumbacruz.name=PA-十字架坟墓
+item.spawn_egg.entity.pa:tumbacreeper.name=PA-苦力怕坟墓
+item.spawn_egg.entity.pa:banera.name=PA-浴缸
+item.spawn_egg.entity.pa:robertcup.name=PA-罗伯特奖杯
+item.spawn_egg.entity.pa:maxcup.name=PA-马克斯奖杯
+item.spawn_egg.entity.pa:columpio.name=PA-秋千
+item.spawn_egg.entity.pa:futbolito.name=PA-桌上足球
+item.spawn_egg.entity.pa:laptop.name=PA-笔记本电脑
+item.spawn_egg.entity.pa:pcdos.name=PA-电脑
+item.spawn_egg.entity.pa:lavavo.name=PA-水槽
+item.spawn_egg.entity.pa:ventilador.name=PA-吊扇
+item.spawn_egg.entity.pa:mpeluches.name=PA-毛绒玩具机
+
+item.spawn_egg.entity.pa:pizza.name=PA-披萨
+item.spawn_egg.entity.pa:satanic.name=PA-撒旦仪式
+item.spawn_egg.entity.pa:brinca.name=PA-蹦床
+item.spawn_egg.entity.pa:micro.name=PA-微波炉
+item.spawn_egg.entity.pa:resbaladilla.name=PA-滑梯
+item.spawn_egg.entity.pa:armchairs.name=PA-扶手椅
+item.spawn_egg.entity.pa:lamparacolores.name=PA-彩灯
+item.spawn_egg.entity.pa:saltapicina.name=PA-泳池蹦床
+item.spawn_egg.entity.pa:big_table.name=PA-大桌子
+item.spawn_egg.entity.pa:small_table.name=PA-小桌子
+item.spawn_egg.entity.pa:chair.name=PA-椅子
+item.spawn_egg.entity.pa:sombrilla.name=PA-彩色遮阳伞
+item.spawn_egg.entity.pa:sillaplaya.name=PA-沙滩椅
+item.spawn_egg.entity.pa:humanos.name=PA-人类
+item.spawn_egg.entity.pa:auto.name=PA-彩色汽车
+item.spawn_egg.entity.pa:mchiclesg.name=PA-大型口香糖机
+item.spawn_egg.entity.pa:mchiclesc.name=PA-小型口香糖机
+item.spawn_egg.entity.pa:patitas.name=PA-宠物箱子
+item.spawn_egg.entity.pa:drone.name=PA-无人机
+item.spawn_egg.entity.pa:colorful_gifts.name=PA-彩色礼物
+item.spawn_egg.entity.pa:mueblestv.name=PA-电视柜
+item.spawn_egg.entity.pa:chimenea.name=PA-壁炉

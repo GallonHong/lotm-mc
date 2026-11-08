@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "parts_toolbox_44822c05"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_casting",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:parts_toolbox",
+      "count": 1
+    }
+  }
+}

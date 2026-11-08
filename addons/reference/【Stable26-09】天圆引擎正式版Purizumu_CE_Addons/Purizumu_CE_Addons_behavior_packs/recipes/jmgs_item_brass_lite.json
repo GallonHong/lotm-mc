@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_brass_lite_c6653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DDD",
+      "CBC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_coin",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:gold_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_brass_lite",
+      "count": 1
+    }
+  }
+}

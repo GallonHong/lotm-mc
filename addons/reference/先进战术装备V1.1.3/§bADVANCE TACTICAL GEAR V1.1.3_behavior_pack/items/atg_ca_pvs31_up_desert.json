@@ -1,0 +1,53 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:ca_pvs31_up_desert",
+      "menu_category": {
+        "category": "equipment",
+        "group": "pa:itemGroup.name.helmetDesertCamo"
+      }
+    },
+    "components": {
+      "minecraft:icon": "atg_ca_pvs31_up_desert",
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:enchantable": {
+        "value": 10,
+        "slot": "armor_head"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 4
+      },
+      "minecraft:durability": {
+        "max_durability": 180,
+        "damage_chance": {
+          "min": 60,
+          "max": 100
+        }
+      },
+      "minecraft:mining_speed": 5,
+      "minecraft:glint": false,
+      "minecraft:hand_equipped": false,
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:heavy_weighted_pressure_plate",
+              "atg:ca_pvs31_up_desert"
+            ],
+            "repair_amount": 10
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "minecraft:transformable_items",
+          "minecraft:trimmable_armors"
+        ]
+      }
+    }
+  }
+}

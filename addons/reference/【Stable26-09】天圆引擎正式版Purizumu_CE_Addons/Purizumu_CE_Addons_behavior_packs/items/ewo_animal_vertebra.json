@@ -1,0 +1,36 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ewo:animal_vertebra",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.miscFood"
+			}
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:stack_by_data": true,
+      "minecraft:icon": {
+        "texture": "ewo:animal_vertebra"
+      },
+      "minecraft:display_name": {
+        "value": "item.ewo:animal_vertebra.name"
+      },
+      "minecraft:food": {
+				"nutrition": 4,
+				"saturation_modifier": 0.6,
+				"can_always_eat": true
+			},
+			"minecraft:use_modifiers": {
+				"movement_modifier": 0.32,
+				"use_duration": 1.6
+			},
+			"minecraft:fuel": {
+				"duration": 1
+			}
+    }
+  }
+}

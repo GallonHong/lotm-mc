@@ -1,0 +1,2067 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_arrow.json",
+          "weight": 150
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_book.json",
+          "weight": 150
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_frying_pan",
+          "weight": 45,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:powder_black",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_sword",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 20
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_cannon",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_gun_electric",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 10,
+                "max": 30
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_slime",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 15
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_gun_taser",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 25
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:projectile_a1",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 20
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:projectile_a2",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 10
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:projectile_a3",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:powder",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bow",
+          "weight": 150,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:arrow",
+          "weight": 150,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 20
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:experience_bottle",
+          "weight": 80,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 32
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:ender_pearl",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wind_charge",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:brush",
+          "weight": 5
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_axe",
+          "weight": 200,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_sword",
+          "weight": 150,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_axe",
+          "weight": 150,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_sword",
+          "weight": 120,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stone_axe",
+          "weight": 100,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stone_sword",
+          "weight": 80,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wood_axe",
+          "weight": 60,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wood_sword",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_axe",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_hoe",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_sword",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_spear",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_spear",
+          "weight": 35,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_spear",
+          "weight": 45,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_spear",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:stone_spear",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wooden_spear",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:mace",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.4
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:trident",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_axe",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.8,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_sword",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.5
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_upgrade_smithing_template",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:parts_gun",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_n",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_r",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_sr",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_ssr",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_ur",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:recipe_page",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:item_bug_log",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_fire_wooden",
+          "weight": 80,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:r201",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:wimman",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:klb",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:jg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:thunderbolt",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:alter",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:dg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:eva8",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:smart_pistol",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:support_stick",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_alien",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.3
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_apex",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.3
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_epic",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.3
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_dragon",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.8
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_purizumu",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:dsgger",
+          "weight": 100,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_stick",
+          "weight": 99,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:telescopic_rod",
+          "weight": 98,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§b3D武器§r",
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_feather_duster",
+          "weight": 97,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_knife",
+          "weight": 96,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_noob",
+          "weight": 95,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_alien",
+          "weight": 90,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_cactus",
+          "weight": 89,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_cake",
+          "weight": 95,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_knife2",
+          "weight": 80,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_duo",
+          "weight": 79,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_long_knife",
+          "weight": 80,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_spear",
+          "weight": 70,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.2,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_tang",
+          "weight": 65,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_christmas",
+          "weight": 62,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_land",
+          "weight": 60,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_mithril",
+          "weight": 56,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_super_hoe",
+          "weight": 55,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_light",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_super_axe",
+          "weight": 45,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_pink",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:flames_sword",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_obs",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.5,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_apocalypse",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_brunhild",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_astro",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.8
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_axe_ur",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.8
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6超级斧头§r",
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_fire",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.3
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6增加半管血条§r",
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_aurora",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.3
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_deception",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.3
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_Jealousy",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.2
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6究极神兵§r",
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:crossbow",
+          "weight": 55,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.4,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

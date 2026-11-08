@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_film_e0ad3d72"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_fim",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_dacron",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:slime_ball",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_film",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mch_fc_up_desert_d7500e58"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B"
+    ],
+    "key": {
+      "B": {
+        "item": "atg:mch_fc_desert",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:mch_fc_up_desert",
+      "count": 1
+    }
+  }
+}

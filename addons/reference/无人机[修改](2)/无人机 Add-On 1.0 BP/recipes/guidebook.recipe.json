@@ -1,0 +1,27 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:guidebook"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"##",
+			"X#"
+		],
+		"key": {
+			"X": {
+				"item": "minecraft:copper_ingot"
+			},
+			"#": {
+				"item": "minecraft:paper"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:guidebook"
+		}
+	}
+}

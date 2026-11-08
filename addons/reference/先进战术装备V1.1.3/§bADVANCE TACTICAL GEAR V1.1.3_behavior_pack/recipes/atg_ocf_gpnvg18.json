@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ocf_gpnvg18_e9c95e84"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      " DE",
+      " F "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:black_carpet",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:redstone_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone_lamp",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:iron_helmet",
+        "data": 0
+      },
+      "E": {
+        "item": "atg:oc_amp",
+        "data": 0
+      },
+      "F": {
+        "item": "atg:gpnvg18",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:ocf_gpnvg18",
+      "count": 1
+    }
+  }
+}

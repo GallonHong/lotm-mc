@@ -1,0 +1,27 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.pb_dmgi_attack": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "attacking": "variable.attack_time >= 0.1 && !query.is_delayed_attacking"
+                        }
+                    ]
+                },
+                "attacking": {
+                    "blend_transition": 0.2,
+                    "animations": [
+                        "attack"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "variable.attack_time <= 0.1"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

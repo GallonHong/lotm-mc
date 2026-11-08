@@ -1,0 +1,32 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_egg_930caa28"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:card_gash3",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:card_sd",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_egg",
+      "count": 3
+    }
+  }
+}

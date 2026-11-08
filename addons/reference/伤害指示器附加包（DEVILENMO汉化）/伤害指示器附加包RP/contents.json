@@ -1,0 +1,711 @@
+{
+    "version": 1,
+    "content": [
+        {
+            "path": "animations/fight_dummy.animation.json",
+            "key": "nS6HEHXtCsSxajUhly22qoq1A2ek2dVb"
+        },
+        {
+            "path": "animation_controllers/pb_dmgi_attachable.animation_controllers.json",
+            "key": "xK0O6eWdmvkEZ9Cp56Qew5TyXMvHMivr"
+        },
+        {
+            "path": "animation_controllers/pb_dmgi_attack.animation_controllers.json",
+            "key": "bE6tIghvTLgWsYjQ17Whtv6kUNB59u7d"
+        },
+        {
+            "path": "animation_controllers/pb_dmgi_movement.animation_controllers.json",
+            "key": "kX8XukpxiCy87fAaEd2h2mg2J0EinXgV"
+        },
+        {
+            "path": "entity/chicken_dummy.json",
+            "key": "vR1eTlwjSIsOHs80yYQ9XxeeR0gQfqss"
+        },
+        {
+            "path": "entity/cow_dummy.json",
+            "key": "lJ37Ha7QZzbIiofCrRQE99X0bTMXn8pC"
+        },
+        {
+            "path": "entity/dragon_dummy.json",
+            "key": "eP4xksOTKfKH3ajnPcFZfSLwPywwznS7"
+        },
+        {
+            "path": "entity/enderman_dummy.json",
+            "key": "jT60XG4M7X0Wo9CTg3GGH33in9u4MYey"
+        },
+        {
+            "path": "entity/skeleton_dummy.json",
+            "key": "rQ7zaO8sj8EyBCu7xWc4FUlREBEj0YHd"
+        },
+        {
+            "path": "entity/training_dummy.json",
+            "key": "bG38zATfRgpAQ99z3OVJmPCuQVEc1sEa"
+        },
+        {
+            "path": "entity/wither_dummy.json",
+            "key": "oL04x7yzntM5kt8tQLV7f5IfrYnxGlRk"
+        },
+        {
+            "path": "entity/zombie_dummy.json",
+            "key": "iS8CSpBuPaBk7cVsSaRkzJF2AqBTxjFN"
+        },
+        {
+            "path": "manifest.json"
+        },
+        {
+            "path": "materials/entity.material",
+            "key": "xM9TdZdT9zsWgMqzu6Br6U94YpvFkd26"
+        },
+        {
+            "path": "models/entity/chicken_dummy.geo.json",
+            "key": "eG7enKt8B3pHYVgp9tXVKb3cL6qzIra4"
+        },
+        {
+            "path": "models/entity/cow_dummy.geo.json",
+            "key": "sZ7yGNnmnsXB9Vsh9p38LzpCxWJCFpq4"
+        },
+        {
+            "path": "models/entity/dragon_dummy.geo.json",
+            "key": "nB1JjyuGpfnF7QAJJeaxBvEF4TdQfdpL"
+        },
+        {
+            "path": "models/entity/enderman_dummy.json",
+            "key": "gW2fu4AvF8aW7rQx09ach2dULJXx1yVa"
+        },
+        {
+            "path": "models/entity/fight_dummy.geo.json",
+            "key": "vE4j3qhsZ0hoNilQHTY3YI64F70N5rU7"
+        },
+        {
+            "path": "models/entity/none.json",
+            "key": "pM5r4Kw0s1FRMyo99z9wRXkznHoRUS67"
+        },
+        {
+            "path": "models/entity/skeleton_dummy.geo.json",
+            "key": "gM1mOIiFEQJsqrUYRRFQIRfCuZx6Eck1"
+        },
+        {
+            "path": "models/entity/training_dummy.geo.json",
+            "key": "kL7Ei8Q2VpvTNgPaQ20dukh06Opfv6fh"
+        },
+        {
+            "path": "models/entity/wither_dummy.geo.json",
+            "key": "eU9QqKyv8z1NQgsLvIRJhKANVyjjU4BT"
+        },
+        {
+            "path": "models/entity/zombie_dummy.geo.json",
+            "key": "jU5OkV4BQjyFHkbpTgyXjS12rKJ24TUa"
+        },
+        {
+            "path": "pack_icon.png"
+        },
+        {
+            "path": "particles/pb/dmgi/font/1/font_1_ascend.particle.json",
+            "key": "aA7MpFCOxhoj596Pvpv3AZh4EQh7KKJF"
+        },
+        {
+            "path": "particles/pb/dmgi/font/1/font_1_freeze.particle.json",
+            "key": "pH8ehAwFShqsWu9xcQT3BThnWY4OXIby"
+        },
+        {
+            "path": "particles/pb/dmgi/font/1/font_1_gravity.particle.json",
+            "key": "bN9HmznpL9CBeQ2ma2pej3jc46kOkwVa"
+        },
+        {
+            "path": "particles/pb/dmgi/font/1/font_1_pop.particle.json",
+            "key": "dY1VRFrNNgZYFhzwStg9MhzOgHgAqLJe"
+        },
+        {
+            "path": "particles/pb/dmgi/font/1/font_1_spin.particle.json",
+            "key": "nZ5WIiXUYTjgBn4RjGz9nHWvruV7THtg"
+        },
+        {
+            "path": "particles/pb/dmgi/font/3/font_3_ascend.particle.json",
+            "key": "jX3xPpYWF0QE9dwMpqaQ8xPg7GnF3oYk"
+        },
+        {
+            "path": "particles/pb/dmgi/font/3/font_3_freeze.particle.json",
+            "key": "lS5vRSdslvFax58OrXSsYZW6o93cnY9V"
+        },
+        {
+            "path": "particles/pb/dmgi/font/3/font_3_gravity.particle.json",
+            "key": "aS0r8oKBzWXLfqP52MeW06yk4oSWwjSA"
+        },
+        {
+            "path": "particles/pb/dmgi/font/3/font_3_pop.particle.json",
+            "key": "nE2qIU8maakhrEzrcljXpRtfea0C1GsY"
+        },
+        {
+            "path": "particles/pb/dmgi/font/3/font_3_spin.particle.json",
+            "key": "wR3ZKE0Pq0l60txerveo6vPKmidxRmKw"
+        },
+        {
+            "path": "particles/pb/dmgi/font/4/font_3_ascend.particle.json",
+            "key": "vT09L3vMACkURgNMK0ayBYYmGl9ywUOH"
+        },
+        {
+            "path": "particles/pb/dmgi/font/4/font_3_freeze.particle.json",
+            "key": "cZ67pYX7YrtmbrjUodiG1TJiN8ggZO5b"
+        },
+        {
+            "path": "particles/pb/dmgi/font/4/font_3_gravity.particle.json",
+            "key": "kN92jEZ2xa7C3HwpJ141aNaChgadB5Pf"
+        },
+        {
+            "path": "particles/pb/dmgi/font/4/font_3_pop.particle.json",
+            "key": "gC7u9WUCVdlVCYYr8exEoUomBn5CpJPG"
+        },
+        {
+            "path": "particles/pb/dmgi/font/4/font_3_spin.particle.json",
+            "key": "iQ8QXs13ZKeCyjAGW8UQYELzS6pegqnX"
+        },
+        {
+            "path": "particles/pb/dmgi/font/5/font_3_ascend.particle.json",
+            "key": "cS1S7SVQ4Z1LtzWKChXdfCXEPep7UNaT"
+        },
+        {
+            "path": "particles/pb/dmgi/font/5/font_3_freeze.particle.json",
+            "key": "rN9IQFt2P7k9zOmgrwM9eJhJzsTG9e2w"
+        },
+        {
+            "path": "particles/pb/dmgi/font/5/font_3_gravity.particle.json",
+            "key": "dI5IhlIZ3RGITGGnCAOp11VOoRIJHFGQ"
+        },
+        {
+            "path": "particles/pb/dmgi/font/5/font_3_pop.particle.json",
+            "key": "fZ31V3A8EiMvWj8tqbyCzj0BmRXzQgh2"
+        },
+        {
+            "path": "particles/pb/dmgi/font/5/font_3_spin.particle.json",
+            "key": "wF4wjWdPdugRaTu4Fqu2GqAnOHmJNzu8"
+        },
+        {
+            "path": "particles/pb/dmgi/font/7/font_3_ascend.particle.json",
+            "key": "yC9IksmPV4KZMmTLVblN9SnfkNtGIPWW"
+        },
+        {
+            "path": "particles/pb/dmgi/font/7/font_3_freeze.particle.json",
+            "key": "aN5N2lH21RjB10tWeE214lq8cTVqBSHY"
+        },
+        {
+            "path": "particles/pb/dmgi/font/7/font_3_gravity.particle.json",
+            "key": "gV05ngokoHuObJrHCEeWh7xO2xv4ys4s"
+        },
+        {
+            "path": "particles/pb/dmgi/font/7/font_3_pop.particle.json",
+            "key": "lY3c8GghCW2bxnYwsAnvEHaABue773L5"
+        },
+        {
+            "path": "particles/pb/dmgi/font/7/font_3_spin.particle.json",
+            "key": "sC8mEIA6wP9jH7PpcAQ7qEE0eTSOtqyO"
+        },
+        {
+            "path": "particles/pb/dmgi/font/9/font_3_ascend.particle.json",
+            "key": "aQ3mOwCuJKPw1fUT1wYSFAVlEhyxpyOz"
+        },
+        {
+            "path": "particles/pb/dmgi/font/9/font_3_freeze.particle.json",
+            "key": "pJ7cfhLa3SmSfNq8YP64OnL0s4LEPd4g"
+        },
+        {
+            "path": "particles/pb/dmgi/font/9/font_3_gravity.particle.json",
+            "key": "rB5doK1IrHjZyC6KoK2sKtnkJUnl2Bl1"
+        },
+        {
+            "path": "particles/pb/dmgi/font/9/font_3_pop.particle.json",
+            "key": "iQ1G9cqK9hMEWjvEq70fc6tbwZ2liie6"
+        },
+        {
+            "path": "particles/pb/dmgi/font/9/font_3_spin.particle.json",
+            "key": "xF4eoimlRRTqnvyR9U5CvAPKbe9y7b2B"
+        },
+        {
+            "path": "particles/pb/dmgi/font_1.particle.json",
+            "key": "kK9aNLvlv9CZlI3bAybScWHOvKkkvYRg"
+        },
+        {
+            "path": "particles/pb/dmgi/font_3.particle.json",
+            "key": "hJ7XljwRir7iNj5tBvnBuXFOrqyyB70u"
+        },
+        {
+            "path": "particles/pb/dmgi/font_4.particle.json",
+            "key": "jT4P2OzEnPsld0zdQ9viiUYiVsGmFpS5"
+        },
+        {
+            "path": "particles/pb/dmgi/font_5.particle.json",
+            "key": "mT2f2FQPWqYduAff0Gd33Lnr3dK2gjIL"
+        },
+        {
+            "path": "particles/pb/dmgi/font_7.particle.json",
+            "key": "kK6hINv4d3zbEMiVQQ1sl1hvAewluW7A"
+        },
+        {
+            "path": "particles/pb/dmgi/font_9.particle.json",
+            "key": "fB9p8jX643CiqiFFW0ioRvEAL7r1vsH3"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/cross_hit.particle.json",
+            "key": "yZ7ImCskrcN7RSWePi9o8P0vLNsG3K7T"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/explosion.particle.json",
+            "key": "gA1m8ZpiAAQ5Y6PQ6Yu4qMssHATZuBE4"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/explosion_ember.particle.json",
+            "key": "kQ7EfEETOwlmEnvVLh60SSu0G2vFpBpR"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/explosion_sparks.particle.json",
+            "key": "iU2wh6Y0l4jIOPykm4mhxUrONoR3hox4"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/hit_cards.particle.json",
+            "key": "bK59jBqXPPUeSs079O67Wl9wvof8LHFR"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/hit_comic.particle.json",
+            "key": "dZ47cH4GNAk2YSskYkytZ6qj6x4QGYB9"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/hit_flowers.particle.json",
+            "key": "yF2X9EEsHsymiQYxjzI25sYIkaJMTh8l"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/hit_hearts.particle.json",
+            "key": "bW9vrrrLlFEsksJvv2wReTYBrASjepKT"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/hit_lightning.particle.json",
+            "key": "pU1WLULb4knlVjVbfxUk0IeeeYq006B7"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/hit_sparks.particle.json",
+            "key": "cV806jQ4c6CXBpFZTJPGquwHSY8iJ1Hq"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/hit_stars.particle.json",
+            "key": "mH1quOiaVMC9AoPSO3aP1PHQlFHQuCkE"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/none_hit.particle.json",
+            "key": "pI88XgKxAN0rvv6q57m8WlivOQdfnL0o"
+        },
+        {
+            "path": "render_controllers/default.render_controllers.json",
+            "key": "iS5PRJFctaCyvj9kQFXASytb5zxiatOt"
+        },
+        {
+            "path": "sounds/pb/dmgi/boing_1.ogg",
+            "key": "jX5ZsRZMwVVXgrHuEcYxLy08Jz0x1Lmj"
+        },
+        {
+            "path": "sounds/pb/dmgi/boing_2.ogg",
+            "key": "iN8xCPyhvTXvVh11YzKKon0EwZuaCBFI"
+        },
+        {
+            "path": "sounds/pb/dmgi/boing_3.ogg",
+            "key": "dL0RjeBV7xsWRWl455MLNJaYtHwCkt4a"
+        },
+        {
+            "path": "sounds/pb/dmgi/boing_4.ogg",
+            "key": "cN97z0tvfj9w4fuNwKmEQiPjc9HFxRMy"
+        },
+        {
+            "path": "sounds/pb/dmgi/earth_hammer_hit_1.ogg",
+            "key": "nZ8mNOaWe17xE3283lYt4TMlMJyVAItv"
+        },
+        {
+            "path": "sounds/pb/dmgi/earth_hammer_hit_2.ogg",
+            "key": "pB8XIiMn77CYJT6KtCO8h5b8Pgji2tjR"
+        },
+        {
+            "path": "sounds/pb/dmgi/earth_hammer_hit_3.ogg",
+            "key": "zN4HcL4pM9bmefqW2lr27CyhHh7lNUwn"
+        },
+        {
+            "path": "sounds/pb/dmgi/earth_hammer_hit_4.ogg",
+            "key": "bN0WkfSNbYueiCp1WRttwuLjwmroeLCK"
+        },
+        {
+            "path": "sounds/pb/dmgi/earth_hammer_hit_5.ogg",
+            "key": "yN5FYOgQXiUIo8P9Qg98bC4nikytYRZH"
+        },
+        {
+            "path": "sounds/pb/dmgi/earth_hammer_hit_6.ogg",
+            "key": "uQ0PpCPbbyPjkCuk9UZskkux8WJQWulx"
+        },
+        {
+            "path": "sounds/pb/dmgi/quack_1.ogg",
+            "key": "zY5lCeW8evm0Y1IUrUwG39aB8uRFB281"
+        },
+        {
+            "path": "sounds/pb/dmgi/quack_2.ogg",
+            "key": "gR86KnjBc16d7yNC7FEGFaJ498fEouom"
+        },
+        {
+            "path": "sounds/pb/dmgi/quack_3.ogg",
+            "key": "zJ0Utrpn2w1Poiee93Amj87MK0n0XolV"
+        },
+        {
+            "path": "sounds/pb/dmgi/quack_4.ogg",
+            "key": "dU6ytLEUdM8eCmA8dlKBGHs3kXNjwvOW"
+        },
+        {
+            "path": "sounds/pb/dmgi/quack_5.ogg",
+            "key": "iT12ZT10PohehQvRNyfhIwKFkR4e3XAs"
+        },
+        {
+            "path": "sounds/pb/dmgi/slash_1.ogg",
+            "key": "sQ7wrvR4ehIhwy4tzCv7SjvlUrn17IFy"
+        },
+        {
+            "path": "sounds/pb/dmgi/slash_2.ogg",
+            "key": "gV4baYyK0sbd4EFTyGXsqJHhlJFMk6Pk"
+        },
+        {
+            "path": "sounds/pb/dmgi/slash_3.ogg",
+            "key": "tU5UoLP9dCxALoe2cPI8cIIlZNMISUNt"
+        },
+        {
+            "path": "sounds/pb/dmgi/slash_4.ogg",
+            "key": "dX1gk1FdxTuoW3OBFznWH9jSk8mNh3Ic"
+        },
+        {
+            "path": "sounds/pb/dmgi/slash_5.ogg",
+            "key": "iF1p5fsex3WpJpwgCWBTYt6pPE6CRgRU"
+        },
+        {
+            "path": "sounds/pb/dmgi/slash_6.ogg",
+            "key": "dS8RfZojcu5fRontkSBOxmYoltCtopMG"
+        },
+        {
+            "path": "sounds/pb/dmgi/squeak_1.ogg",
+            "key": "lC4WR9Y5N3uhFqeOsyaEJRPqi8af7Y4T"
+        },
+        {
+            "path": "sounds/pb/dmgi/squeak_2.ogg",
+            "key": "bZ2Wf913KczLMlYlEq4WFte0RxVQAstU"
+        },
+        {
+            "path": "sounds/pb/dmgi/squeak_3.ogg",
+            "key": "bQ1I07gaBsE1Ow5SediISSIKHS6oBE3G"
+        },
+        {
+            "path": "sounds/pb/dmgi/squeak_4.ogg",
+            "key": "eL6L4BvsamVdE1THfV57P97HPB5zAmzd"
+        },
+        {
+            "path": "sounds/sound_definitions.json",
+            "key": "fQ94UGoJMXH9nTZEgB2LjWaRr3Ok4Wp8"
+        },
+        {
+            "path": "sounds.json",
+            "key": "bS6GmGtO5fB55SftO1b62wUjTTwS7CWL"
+        },
+        {
+            "path": "texts/en_US.lang"
+        },
+        {
+            "path": "texts/zh_CN.lang"
+        },
+        {
+            "path": "texts/languages.json"
+        },
+        {
+            "path": "textures/item_texture.json",
+            "key": "wJ0TVUVruaYoLEPwRX1ns7fIaL9S7Qj3"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/chicken_dummy.png",
+            "key": "xX8u4jP6OhEMxi5i7VTCNR8kBaW05gai"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/cow_dummy.png",
+            "key": "hW7rprTfsRjPcWkJFwZ8A1ITr0g193JX"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/dragon_dummy.png",
+            "key": "tZ9RuuTJriAYGuj22QdnjwlV32nQCCvm"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/enderman_dummy.png",
+            "key": "bN46xf9WbKIyiMCsLFsoBPSyaLgGIP3T"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/fight_dummy.png",
+            "key": "iR46ngoaywaVMlNyoVCkcROnVK8PBBor"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/skeleton_dummy.png",
+            "key": "eJ2tIm8igmLFZ2R3b0Xrk1F9MYp9wvfm"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/training_dummy.png",
+            "key": "iF5nyBGnfQcrWTlMXcja1BayZuwTa4T3"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/wither_dummy.png",
+            "key": "xJ0lxrImKqteYwFJJ4cRhIC5nznqLkS9"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/zombie_dummy.png",
+            "key": "bX2s2JHT8mINWE2iYglPxok4HL3q0zvq"
+        },
+        {
+            "path": "textures/pb/dmgi/items/about.png",
+            "key": "tO2GFaYeEZVppFiTislKiwEJFttj0Ofz"
+        },
+        {
+            "path": "textures/pb/dmgi/items/book_32.png",
+            "key": "wS3RxLtm2SvkWmHa0pQNckUPPW45iJHO"
+        },
+        {
+            "path": "textures/pb/dmgi/items/chicken_dummy.png",
+            "key": "nM8Xj2tELEIBzpNsThNlacnQfTVOMJZW"
+        },
+        {
+            "path": "textures/pb/dmgi/items/color.png",
+            "key": "aN3KxZZ3RfVdRPZKqh16xRUIIdoLim92"
+        },
+        {
+            "path": "textures/pb/dmgi/items/cow_dummy.png",
+            "key": "gG103h9tJxuMVCbQfncw3n43O5bnC2il"
+        },
+        {
+            "path": "textures/pb/dmgi/items/customize.png",
+            "key": "iK3fvZgnMFFwqi7upNFjYsZRBcepaGz8"
+        },
+        {
+            "path": "textures/pb/dmgi/items/dragon_dummy.png",
+            "key": "pH0GK3b1Cv3XzNvbxxBG7pYyTkMzi7X2"
+        },
+        {
+            "path": "textures/pb/dmgi/items/dummy.png",
+            "key": "iO7wXeM7N7WTm1je2thtr8t5JpghEiZT"
+        },
+        {
+            "path": "textures/pb/dmgi/items/effects.png",
+            "key": "iN2E5TKwPlgvY7CcOKYsENMCwUpqimYi"
+        },
+        {
+            "path": "textures/pb/dmgi/items/enderman_dummy.png",
+            "key": "bE02uqBIqEJiPWTbqg46HlmkXG7JMnMt"
+        },
+        {
+            "path": "textures/pb/dmgi/items/fight_dummy.png",
+            "key": "nK3w19WbvUZjrtkyJel44mxFEkipKvlY"
+        },
+        {
+            "path": "textures/pb/dmgi/items/fight_dummy_noframe.png",
+            "key": "xW5J4N7K5QWU3pivxJB39RqaXgfrMElQ"
+        },
+        {
+            "path": "textures/pb/dmgi/items/font.png",
+            "key": "eP7FvLO0d1IQvTGWOYuoByxprWxKvYEg"
+        },
+        {
+            "path": "textures/pb/dmgi/items/font_1.png",
+            "key": "xC4XxnEovONdhNx78jyvOs7lMn9q6dP9"
+        },
+        {
+            "path": "textures/pb/dmgi/items/font_3.png",
+            "key": "jZ0Qyt073h3PzyKCBoq56o4xW7Vpn4uy"
+        },
+        {
+            "path": "textures/pb/dmgi/items/font_4.png",
+            "key": "lO58SZAeiEY4PftmsJw9B8IhECqFSihA"
+        },
+        {
+            "path": "textures/pb/dmgi/items/font_5.png",
+            "key": "xH2GcP2TcSFtR4mb0gQoruGk5HctfJVl"
+        },
+        {
+            "path": "textures/pb/dmgi/items/font_7.png",
+            "key": "hQ8OSL554GfSOefLzUUwsTxXfZkRJiY5"
+        },
+        {
+            "path": "textures/pb/dmgi/items/font_9.png",
+            "key": "aC7s1jzsABn3HbXb7F0j0n7wb5BRO5GG"
+        },
+        {
+            "path": "textures/pb/dmgi/items/guidebook.png",
+            "key": "jF2l2k7bGYGFlYx84A9cCsUQPTsBB1bX"
+        },
+        {
+            "path": "textures/pb/dmgi/items/icon_dismantle.png",
+            "key": "nH3yjRmqOcYeL7SxxXZsRPfv7asnU552"
+        },
+        {
+            "path": "textures/pb/dmgi/items/icon_no.png",
+            "key": "mI3sHCJO224mbpWfowy9gCSMBoEm0iEr"
+        },
+        {
+            "path": "textures/pb/dmgi/items/icon_reset.png",
+            "key": "iP6ZRKsgguKQs0vAEbrExmLtcYF335eh"
+        },
+        {
+            "path": "textures/pb/dmgi/items/icon_sound.png",
+            "key": "eN1OHBvNWaesfJR8NGtu1m0IgYNbuhzi"
+        },
+        {
+            "path": "textures/pb/dmgi/items/icon_yes.png",
+            "key": "zE9HkboYdwJUd3kcNLsUlbwvvUl0m6U0"
+        },
+        {
+            "path": "textures/pb/dmgi/items/return.png",
+            "key": "gF7nzN9vNfGYopmN5og2IMmg7gNot44d"
+        },
+        {
+            "path": "textures/pb/dmgi/items/skeleton_dummy.png",
+            "key": "lE8Zym1CM29WEoYyEKvA37mZ2eyZTuni"
+        },
+        {
+            "path": "textures/pb/dmgi/items/star.png",
+            "key": "kF1EPphCT0TKSrtiWZibmZSZqWgtba0J"
+        },
+        {
+            "path": "textures/pb/dmgi/items/tutorial.png",
+            "key": "gL9uryUtzylX5n1movTIwtHP7PMKtyAz"
+        },
+        {
+            "path": "textures/pb/dmgi/items/wither_dummy.png",
+            "key": "yT1MuTb1t2EGYASP011Tubrvebygs4Bo"
+        },
+        {
+            "path": "textures/pb/dmgi/items/zombie_dummy.png",
+            "key": "eC2BrqekEp0oKMSAZrHGMActyn1TbyIV"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/comic_impact.png",
+            "key": "qG47G2C4bcIBIOgFlrGbfHkAcOXZ5BaP"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/dmgi_free_10.png",
+            "key": "gG02Hd9olV56PBamMX3JVasmHV3qipF3"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/dmgi_glue_10.png",
+            "key": "mR3AjWU68PlAJ3mxdQtC0mJzQpcirkzX"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/dmgi_hachi_10.png",
+            "key": "lN1ylr6Q9rLfcu5JqAfysNAgoOZ81V0H"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/dmgi_mc_10.png",
+            "key": "uS9x5zdBoNSB31hNyKYIRmr1yu8apBob"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/dmgi_napalm_10.png",
+            "key": "uS4LyQQViPbn6oXjlynE53rkl1lytnpI"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/dmgi_segoe_10.png",
+            "key": "vH1yt0cexFk5frdx1L21oj4VpmBNjtnk"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/explode_animated_32.png",
+            "key": "oB55P6T9A5Y0Cwq1xH7C3kyxu2t7dHsP"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/flash.png",
+            "key": "mF5Apx5JQXHRyH9BrsjT7sLQ1w8pL2Tg"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/flash_2.png",
+            "key": "iX5HtFhZAJ8kIlcpLvXvE2YfppNYOOkG"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/flowers_4.png",
+            "key": "gM3ZUyBZ3eAlWFVNHt9NyN7IhpPruouN"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/hearts_6.png",
+            "key": "yB9vnKdpSGOiStrZxYBCuRBNKQHhZsj6"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/hit_card.png",
+            "key": "pU9HzlyYwlRUmyZAU92XETsetJKMFztU"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/spark_90_2.png",
+            "key": "bV1xsRmXqbsbRpp5S7LwrTMG4U6SFoEn"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/star_64.png",
+            "key": "zU5aK3O2Lcyb9Pq6Ua0RVZtnNNidZ4mz"
+        },
+        {
+            "path": "textures/textures_list.json",
+            "key": "nN8HJmTzHoQLvC44W74iVj3EX164GEJ2"
+        },
+        {
+            "path": "signatures.json",
+            "key": "nZ8zEhpdA9FIQrLJRsWv7wZrWONUbaG3"
+        },
+        {
+            "path": "animations/"
+        },
+        {
+            "path": "animation_controllers/"
+        },
+        {
+            "path": "entity/"
+        },
+        {
+            "path": "materials/"
+        },
+        {
+            "path": "models/entity/"
+        },
+        {
+            "path": "particles/pb/dmgi/font/1/"
+        },
+        {
+            "path": "particles/pb/dmgi/font/3/"
+        },
+        {
+            "path": "particles/pb/dmgi/font/4/"
+        },
+        {
+            "path": "particles/pb/dmgi/font/5/"
+        },
+        {
+            "path": "particles/pb/dmgi/font/7/"
+        },
+        {
+            "path": "particles/pb/dmgi/font/9/"
+        },
+        {
+            "path": "particles/pb/dmgi/"
+        },
+        {
+            "path": "particles/pb/dmgi/hit/"
+        },
+        {
+            "path": "render_controllers/"
+        },
+        {
+            "path": "sounds/pb/dmgi/"
+        },
+        {
+            "path": "sounds/"
+        },
+        {
+            "path": "texts/"
+        },
+        {
+            "path": "textures/"
+        },
+        {
+            "path": "textures/pb/dmgi/entity/"
+        },
+        {
+            "path": "textures/pb/dmgi/items/"
+        },
+        {
+            "path": "textures/pb/dmgi/particle/"
+        }
+    ]
+}

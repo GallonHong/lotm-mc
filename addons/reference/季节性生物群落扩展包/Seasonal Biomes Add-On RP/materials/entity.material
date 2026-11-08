@@ -1,0 +1,22 @@
+{
+  "materials": {  
+    "version": "1.0.0",
+    "mythicus_sn:lens_flare:entity_beam_additive": {
+      "+defines": ["USE_OVERLAY"],
+      "+states": [
+        "Blending",
+        "DisableDepthWrite",
+        "DisableCulling"
+      ],
+      "blendSrc": "SourceAlpha",
+      "blendDst": "One",
+      "depthFunc": "Always"
+    },
+    "mythicus_sn_animated:entity_alphatest": {
+      "+defines": ["USE_UV_ANIM"]
+    },
+    "mythicus_sn_sheep:sheep": {
+      "+defines": ["ALPHA_TEST"]
+    }
+  }
+}

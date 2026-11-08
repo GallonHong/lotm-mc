@@ -1,0 +1,112 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "pmo:entity_boat",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {},
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "simple_car"
+        ]
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      
+      "minecraft:behavior.rise_to_liquid_level": {
+        "priority": 0,
+        "liquid_y_offset": 0.5,
+        "rise_delta": 0.05,
+        "sink_delta": 0.05
+      },
+      "minecraft:behavior.float": {
+        "priority": 0,
+        "sink_with_passengers": false,
+        "time_under_water_to_dismount_passengers": 99999
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.25
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:movement": {
+        "value": 0.15
+      },
+      "minecraft:jump.static": {},
+      "minecraft:inventory": {
+        "inventory_size": 27,
+        "container_type": "container",
+        "private": false
+      },
+      "minecraft:balloonable": {},
+      "minecraft:rideable": {
+        "seat_count": 2,
+        "interact_text": "上船",
+        "family_types": [
+          "monster",
+          "player",
+          "villager",
+          "toy"
+        ],
+        "pull_in_entities": true,
+        "seats": [
+          {
+            "position": [
+              0,
+              0.15,
+              -1
+            ],
+            "min_rider_count": 0,
+            "max_rider_count": 5
+          },
+          {
+            "position": [
+              0,
+              0.15,
+              -2.2
+            ],
+            "min_rider_count": 1,
+            "max_rider_count": 2
+          }
+        ]
+      },
+      "minecraft:input_ground_controlled": {},
+      "minecraft:behavior.controlled_by_player": {
+        "priority": 0
+      },
+      "minecraft:fall_damage": {
+        "value": 0
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/jmgs/jmgs_loot_spawn_egg.json"
+      },
+      "minecraft:collision_box": {
+        "height": 1.5,
+        "width": 2.0
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:interact": [],
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      }
+    },
+    "events": {
+
+    }
+  }
+}

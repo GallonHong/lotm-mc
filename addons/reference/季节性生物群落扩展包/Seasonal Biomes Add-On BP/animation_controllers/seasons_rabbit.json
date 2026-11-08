@@ -1,0 +1,91 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.rabbit": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "spring": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'spring' && q.life_time > 1"
+                        },
+                        {
+                            "summer": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'summer' && q.life_time > 1"
+                        },
+                        {
+                            "fall": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'fall' && q.life_time > 1"
+                        },
+                        {
+                            "winter": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'winter' && q.life_time > 1"
+                        }
+                    ]
+                },
+                "spring": {
+                    "on_entry": [
+                        "@s mythicus_sn:normal_loot"
+                    ],
+                    "transitions": [
+                        {
+                            "summer": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "fall": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "winter": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "summer": {
+                    "on_entry": [
+                        "@s mythicus_sn:reset_force_breed"
+                    ],
+                    "transitions": [
+                        {
+                            "spring": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "fall": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "winter": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "fall": {
+                    "on_entry": [
+                        "@s mythicus_sn:fall_loot",
+                        "@s mythicus_sn:remove_force_breed"
+                    ],
+                    "transitions": [
+                        {
+                            "spring": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "summer": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "winter": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "winter": {
+                    "on_entry": [
+                        "@s mythicus_sn:winter_loot"
+                    ],
+                    "transitions": [
+                        {
+                            "spring": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "summer": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "fall": "!query.is_baby && q.property('mythicus_sn:season_variant') == 'fall'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

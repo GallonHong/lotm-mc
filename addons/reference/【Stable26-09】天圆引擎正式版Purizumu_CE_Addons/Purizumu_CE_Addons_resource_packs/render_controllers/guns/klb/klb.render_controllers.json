@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.klb_models": {
+			"textures": [
+				"Texture.klb_models"
+			],
+			"geometry": "Geometry.klb_models",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"scopestar": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire": "Material.gun_scope_aim"
+				},
+				{
+					"hwx": "Material.gun_scope_aim"
+				},
+				{
+					"klb_ammo_num": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

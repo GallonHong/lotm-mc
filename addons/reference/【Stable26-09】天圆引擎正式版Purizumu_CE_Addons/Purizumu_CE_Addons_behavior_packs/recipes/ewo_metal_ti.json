@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_ti_21577d22"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CCC",
+      "DE "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_cartialgenous",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_man_si",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_tooth",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:ghast_tear",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_ti",
+      "count": 2
+    }
+  }
+}

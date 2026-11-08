@@ -1,0 +1,13 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/cherry/pink_petals"
+        },
+        "places_block": "mythicus_sn:pink_petals",
+        "enforce_survivability_rules": true,
+        "enforce_placement_rules": false,
+        "randomize_rotation": true,
+        "may_replace": ["minecraft:air"]
+    }
+}

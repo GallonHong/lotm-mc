@@ -1,0 +1,18 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_pig.mud": {
+            "arrays": {
+                "textures": {
+                    "Array.textures": [
+                        "Texture.mud.wet",
+                        "Texture.mud.dry"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": ["Array.textures[q.property('mythicus_sn:mud_state') == 'dry' ? 1 : 0]"]
+        }
+    }
+}

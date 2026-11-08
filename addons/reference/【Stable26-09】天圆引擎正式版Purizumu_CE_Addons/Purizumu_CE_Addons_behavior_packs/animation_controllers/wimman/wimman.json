@@ -1,0 +1,199 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.wimman": {
+			"initial_state": "setup",
+			"states": {
+				"setup": {
+					"transitions": [
+						{
+							"wimman_6_1": "query.get_equipped_item_name == 'wimman'"
+						}
+					]
+				},
+				"wimman_6_1": {
+					"on_entry": [
+						"/title @s actionbar §b6-6",
+						"@s wimman:ammo_6"
+					],
+					"transitions": [
+						{
+							"wimman_6_2": "variable.wimmandelay = 0.29; variable.previouswimmantime = query.life_time; return (q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'wimman' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						}
+					]
+				},
+				"wimman_6_2": {
+					"transitions": [
+						{
+							"wimman_5_1": "(query.life_time - variable.previouswimmantime) >= variable.wimmandelay && query.get_equipped_item_name == 'wimman'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b5-6",
+						"@s wimman:ammo_5",
+						"@s jmgs:wimman_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.1 rotational",
+						"/execute @s ~~~ playsound wimman_fire @a ~~~"
+					]
+				},
+				"wimman_5_1": {
+					"transitions": [
+						{
+							"wimman_5_2": "variable.wimmandelay = 0.29; variable.previouswimmantime = query.life_time; return (q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'wimman' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"wimman_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'wimman' "
+						}
+					]
+				},
+				"wimman_5_2": {
+					"transitions": [
+						{
+							"wimman_4_1": "(query.life_time - variable.previouswimmantime) >= variable.wimmandelay && query.get_equipped_item_name == 'wimman'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b4-6",
+						"@s wimman:ammo_4",
+						"@s jmgs:wimman_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.1 rotational",
+						"/execute @s ~~~ playsound wimman_fire @a ~~~"
+					]
+				},
+				"wimman_4_1": {
+					"transitions": [
+						{
+							"wimman_4_2": "variable.wimmandelay = 0.29; variable.previouswimmantime = query.life_time; return (q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'wimman' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"wimman_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'wimman' "
+						}
+					]
+				},
+				"wimman_4_2": {
+					"transitions": [
+						{
+							"wimman_3_1": "(query.life_time - variable.previouswimmantime) >= variable.wimmandelay && query.get_equipped_item_name == 'wimman'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §63-6",
+						"@s wimman:ammo_3",
+						"@s jmgs:wimman_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.1 rotational",
+						"/execute @s ~~~ playsound wimman_fire @a ~~~"
+					]
+				},
+				"wimman_3_1": {
+					"transitions": [
+						{
+							"wimman_3_2": "variable.wimmandelay = 0.29; variable.previouswimmantime = query.life_time; return (q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'wimman' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"wimman_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'wimman' "
+						}
+					]
+				},
+				"wimman_3_2": {
+					"transitions": [
+						{
+							"wimman_2_1": "(query.life_time - variable.previouswimmantime) >= variable.wimmandelay && query.get_equipped_item_name == 'wimman'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §62-6",
+						"@s wimman:ammo_2",
+						"@s jmgs:wimman_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.1 rotational",
+						"/execute @s ~~~ playsound wimman_fire @a ~~~"
+					]
+				},
+				"wimman_2_1": {
+					"transitions": [
+						{
+							"wimman_2_2": "variable.wimmandelay = 0.29; variable.previouswimmantime = query.life_time; return (q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'wimman' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"wimman_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'wimman' "
+						}
+					]
+				},
+				"wimman_2_2": {
+					"transitions": [
+						{
+							"wimman_1_1": "(query.life_time - variable.previouswimmantime) >= variable.wimmandelay && query.get_equipped_item_name == 'wimman'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §41-6",
+						"@s wimman:ammo_1",
+						"@s jmgs:wimman_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.1 rotational",
+						"/execute @s ~~~ playsound wimman_fire @a ~~~"
+					]
+				},
+				"wimman_1_1": {
+					"transitions": [
+						{
+							"wimman_1_2": "variable.wimmandelay = 0.29; variable.previouswimmantime = query.life_time; return (q.item_remaining_use_duration > 1 && query.get_equipped_item_name == 'wimman' && q.is_alive);"
+						},
+						{
+							"setup": "!query.is_alive"
+						},
+						{
+							"wimman_empty": "variable.attack_time > 0 && q.is_sneaking && query.get_equipped_item_name == 'wimman' "
+						}
+					]
+				},
+				"wimman_1_2": {
+					"transitions": [
+						{
+							"wimman_empty": "(query.life_time - variable.previouswimmantime) >= variable.wimmandelay && query.get_equipped_item_name == 'wimman'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-6",
+						"@s wimman:ammo_0",
+						"@s jmgs:wimman_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.1 rotational",
+						"/execute @s ~~~ playsound wimman_fire @a ~~~",
+						"/playsound se.se101 @s"
+					]
+				},
+				"wimman_empty": {
+					"animations": [
+						"jmgs:wimman_reload_sound"
+					],
+					"transitions": [
+						{
+							"setup": "!query.is_alive || query.all_animations_finished"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:wimman_empty 1 0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:wimman_empty 0 1",
+						"/give @s jmgs:wimman 1 0",
+						"/scoreboard players add @s mp -5"
+					]
+				}
+			}
+		}
+	}
+}

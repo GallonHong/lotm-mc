@@ -1,0 +1,530 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "mythicus_sn:seasons_cow",
+            "spawn_category": "creature",
+            "is_spawnable": true,
+            "is_summonable": true,
+            "properties": {
+                "mythicus_sn:climate_variant": {
+                    "type": "enum",
+                    "values": [
+                        "warm",
+                        "cold"
+                    ],
+                    "default": "warm",
+                    "client_sync": true
+                },
+                "mythicus_sn:season_variant": {
+                    "type": "enum",
+                    "client_sync": true,
+                    "values": [
+                        "spring",
+                        "summer",
+                        "fall",
+                        "winter"
+                    ],
+                    "default": "spring"
+                },
+                "mythicus_sn:covered_in_leaves": {
+                    "type": "bool",
+                    "default": false,
+                    "client_sync": true
+                },
+                "mythicus_sn:leaves_level": {
+                    "type": "int",
+                    "range": [
+                        0,
+                        4
+                    ],
+                    "default": 0,
+                    "client_sync": true
+                },
+                "mythicus_sn:covered_in_snow": {
+                    "type": "bool",
+                    "default": false,
+                    "client_sync": true
+                },
+                "mythicus_sn:covered_in_snow_level": {
+                    "type": "int",
+                    "range": [
+                        0,
+                        4
+                    ],
+                    "default": 0,
+                    "client_sync": true
+                },
+                "mythicus_sn:is_shaking": {
+                    "type": "bool",
+                    "default": false,
+                    "client_sync": true
+                },
+                "mythicus_sn:is_fertilizing": {
+                    "type": "bool",
+                    "default": false,
+                    "client_sync": true
+                },
+                "mythicus_sn:milked": {
+                    "type": "bool",
+                    "default": false,
+                    "client_sync": true
+                }
+            }
+        },
+        "component_groups": {
+            "minecraft:cow_baby": {
+                "minecraft:is_baby": {},
+                "minecraft:scale": {
+                    "value": 0.5
+                },
+                "minecraft:ageable": {
+                    "duration": 1200,
+                    "feed_items": "wheat",
+                    "grow_up": {
+                        "event": "minecraft:ageable_grow_up",
+                        "target": "self"
+                    }
+                },
+                "minecraft:rideable": {
+                    "seat_count": 1,
+                    "family_types": [
+                        "zombie"
+                    ],
+                    "seats": {
+                        "position": [
+                            0.0,
+                            1.0,
+                            0.0
+                        ]
+                    }
+                },
+                "minecraft:behavior.follow_parent": {
+                    "priority": 6,
+                    "speed_multiplier": 1.1
+                }
+            },
+            "mythicus_sn:milk_timer": {
+                "minecraft:timer": {
+                    "time": 5,
+                    "looping": true,
+                    "time_down_event": {
+                        "event": "mythicus_sn:reset_milk",
+                        "target": "self"
+                    }
+                }
+            },
+            "minecraft:cow_adult": {
+                "minecraft:leashable_to": {},
+                "minecraft:experience_reward": {
+                    "on_bred": "Math.Random(1,7)",
+                    "on_death": "query.last_hit_by_player ? Math.Random(1,3) : 0"
+                },
+                "minecraft:loot": {
+                    "table": "loot_tables/entities/cow.json"
+                },
+                "minecraft:rideable": {
+                    "seat_count": 1,
+                    "family_types": [
+                        "zombie"
+                    ],
+                    "seats": {
+                        "position": [
+                            0.0,
+                            1.15,
+                            0.0
+                        ]
+                    }
+                },
+                "minecraft:behavior.breed": {
+                    "priority": 3,
+                    "speed_multiplier": 1.0
+                },
+                "minecraft:breedable": {
+                    "require_tame": false,
+                    "breed_items": "wheat",
+                    "breeds_with": {
+                        "mate_type": "mythicus_sn:seasons_cow",
+                        "baby_type": "mythicus_sn:seasons_cow",
+                        "breed_event": {
+                            "event": "minecraft:entity_born",
+                            "target": "baby"
+                        }
+                    },
+                    "property_inheritance": {
+                        "mythicus_sn:season_variant": {}
+                    }
+                },
+                "minecraft:interact": {
+                    "interactions": [
+                        {
+                            "on_interact": {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "glass_bottle"
+                                        },
+                                        {
+                                            "test": "bool_property",
+                                            "domain": "mythicus_sn:milked",
+                                            "value": false
+                                        }
+                                    ]
+                                },
+                                "event": "mythicus_sn:on_milked"
+                            },
+                            "use_item": true,
+                            "transform_to_item": "mythicus_sn:bottle_of_milk",
+                            "play_sounds": "milk",
+                            "interact_text": "action.interact.milk"
+                        },
+                        {
+                            "on_interact": {
+                                "filters": {
+                                    "all_of": [
+                                        {
+                                            "test": "is_family",
+                                            "subject": "other",
+                                            "value": "player"
+                                        },
+                                        {
+                                            "test": "has_equipment",
+                                            "domain": "hand",
+                                            "subject": "other",
+                                            "value": "bucket"
+                                        }
+                                    ]
+                                }
+                            },
+                            "use_item": true,
+                            "transform_to_item": "minecraft:milk_bucket",
+                            "play_sounds": "milk",
+                            "interact_text": "action.interact.milk"
+                        }
+                    ]
+                }
+            },
+            "mythicus_sn:summer_fertilizing_timer": {
+                "minecraft:timer": {
+                    "time": 15,
+                    "looping": true,
+                    "randomInterval": false,
+                    "time_down_event": {
+                        "event": "mythicus_sn:start_fertilizing",
+                        "target": "self"
+                    }
+                }
+            },
+            "mythicus_sn:fertilizing_active": {
+                "minecraft:spawn_entity": {
+                    "entities": [
+                        {
+                            "min_wait_time": 1,
+                            "max_wait_time": 1,
+                            "spawn_sound": "plop",
+                            "spawn_item": "mythicus_sn:manure",
+                            "single_use": false,
+                            "spawn_item_event": {
+                                "event": "mythicus_sn:on_done_fertilizing",
+                                "target": "self"
+                            },
+                            "filters": [
+                                {
+                                    "test": "rider_count",
+                                    "subject": "self",
+                                    "operator": "==",
+                                    "value": 0
+                                },
+                                {
+                                    "test": "enum_property",
+                                    "subject": "self",
+                                    "domain": "mythicus_sn:season_variant",
+                                    "value": "summer"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        },
+        "components": {
+            "minecraft:is_hidden_when_invisible": {},
+            "minecraft:type_family": {
+                "family": [
+                    "cow",
+                    "mob"
+                ]
+            },
+            "minecraft:breathable": {
+                "total_supply": 15,
+                "suffocate_time": 0
+            },
+            "minecraft:navigation.walk": {
+                "can_path_over_water": true,
+                "avoid_water": true,
+                "avoid_damage_blocks": true
+            },
+            "minecraft:movement.basic": {},
+            "minecraft:jump.static": {},
+            "minecraft:can_climb": {},
+            "minecraft:collision_box": {
+                "width": 0.9,
+                "height": 1.3
+            },
+            "minecraft:nameable": {},
+            "minecraft:health": {
+                "value": 10,
+                "max": 10
+            },
+            "minecraft:hurt_on_condition": {
+                "damage_conditions": [
+                    {
+                        "filters": {
+                            "test": "in_lava",
+                            "subject": "self",
+                            "operator": "==",
+                            "value": true
+                        },
+                        "cause": "lava",
+                        "damage_per_tick": 4
+                    }
+                ]
+            },
+            "minecraft:movement": {
+                "value": 0.25
+            },
+            "minecraft:despawn": {
+                "despawn_from_distance": {}
+            },
+            "minecraft:behavior.float": {
+                "priority": 0
+            },
+            "minecraft:behavior.panic": {
+                "priority": 1,
+                "speed_multiplier": 1.25
+            },
+            "minecraft:behavior.mount_pathing": {
+                "priority": 2,
+                "speed_multiplier": 1.5,
+                "target_dist": 0.0,
+                "track_target": true
+            },
+            "minecraft:behavior.breed": {
+                "priority": 3,
+                "speed_multiplier": 1.0
+            },
+            "minecraft:behavior.tempt": {
+                "priority": 4,
+                "speed_multiplier": 1.25,
+                "items": [
+                    "wheat"
+                ]
+            },
+            "minecraft:behavior.follow_parent": {
+                "priority": 5,
+                "speed_multiplier": 1.1
+            },
+            "minecraft:behavior.random_stroll": {
+                "priority": 6,
+                "speed_multiplier": 0.8
+            },
+            "minecraft:behavior.look_at_player": {
+                "priority": 7,
+                "look_distance": 6.0,
+                "probability": 0.02
+            },
+            "minecraft:behavior.random_look_around": {
+                "priority": 9
+            },
+            "minecraft:leashable": {},
+            "minecraft:balloonable": {},
+            "minecraft:physics": {},
+            "minecraft:pushable": {
+                "is_pushable": true,
+                "is_pushable_by_piston": true
+            },
+            "minecraft:conditional_bandwidth_optimization": {}
+        },
+        "events": {
+            "minecraft:entity_spawned": {
+                "sequence": [
+                    {
+                        "randomize": [
+                            {
+                                "weight": 95,
+                                "trigger": "minecraft:spawn_adult"
+                            },
+                            {
+                                "weight": 5,
+                                "add": {
+                                    "component_groups": [
+                                        "minecraft:cow_baby"
+                                    ]
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "first_valid": [
+                            {
+                                "filters": {
+                                    "test": "has_biome_tag",
+                                    "value": "spawns_warm_variant_farm_animals"
+                                },
+                                "set_property": {
+                                    "mythicus_sn:climate_variant": "warm"
+                                }
+                            },
+                            {
+                                "filters": {
+                                    "test": "has_biome_tag",
+                                    "value": "spawns_cold_variant_farm_animals"
+                                },
+                                "set_property": {
+                                    "mythicus_sn:climate_variant": "cold"
+                                }
+                            }
+                        ]
+                    }
+                ]
+            },
+            "minecraft:entity_born": {
+                "add": {
+                    "component_groups": [
+                        "minecraft:cow_baby"
+                    ]
+                }
+            },
+            "minecraft:entity_transformed": {
+                "remove": {},
+                "add": {
+                    "component_groups": [
+                        "minecraft:cow_adult"
+                    ]
+                }
+            },
+            "minecraft:ageable_grow_up": {
+                "remove": {
+                    "component_groups": [
+                        "minecraft:cow_baby"
+                    ]
+                },
+                "add": {
+                    "component_groups": [
+                        "minecraft:cow_adult"
+                    ]
+                }
+            },
+            "minecraft:spawn_adult": {
+                "add": {
+                    "component_groups": [
+                        "minecraft:cow_adult"
+                    ]
+                }
+            },
+            "mythicus_sn:on_add_fertilize_behavior": {
+                "add": {
+                    "component_groups": [
+                        "mythicus_sn:summer_fertilizing_timer"
+                    ]
+                }
+            },
+            "mythicus_sn:on_remove_fertilize_behavior": {
+                "sequence": [
+                    {
+                        "remove": {
+                            "component_groups": [
+                                "mythicus_sn:summer_fertilizing_timer",
+                                "mythicus_sn:fertilizing_active"
+                            ]
+                        }
+                    },
+                    {
+                        "set_property": {
+                            "mythicus_sn:is_fertilizing": false
+                        }
+                    }
+                ]
+            },
+            "mythicus_sn:start_fertilizing": {
+                "randomize": [
+                    {
+                        "weight": 25,
+                        "sequence": [
+                            {
+                                "add": {
+                                    "component_groups": [
+                                        "mythicus_sn:fertilizing_active"
+                                    ]
+                                }
+                            },
+                            {
+                                "remove": {
+                                    "component_groups": [
+                                        "mythicus_sn:summer_fertilizing_timer"
+                                    ]
+                                }
+                            },
+                            {
+                                "filters": {
+                                    "test": "enum_property",
+                                    "subject": "self",
+                                    "domain": "mythicus_sn:season_variant",
+                                    "value": "summer"
+                                },
+                                "set_property": {
+                                    "mythicus_sn:is_fertilizing": true
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "weight": 75
+                    }
+                ]
+            },
+            "mythicus_sn:on_done_fertilizing": {
+                "sequence": [
+                    {
+                        "add": {
+                            "component_groups": [
+                                "mythicus_sn:summer_fertilizing_timer"
+                            ]
+                        }
+                    },
+                    {
+                        "remove": {
+                            "component_groups": [
+                                "mythicus_sn:fertilizing_active"
+                            ]
+                        }
+                    },
+                    {
+                        "set_property": {
+                            "mythicus_sn:is_fertilizing": false
+                        }
+                    }
+                ]
+            },
+            "mythicus_sn:on_milked": {
+                "set_property": {
+                    "mythicus_sn:milked": true
+                },
+                "add": {
+                    "component_groups": [
+                        "mythicus_sn:milk_timer"
+                    ]
+                }
+            },
+            "mythicus_sn:reset_milk": {}
+        }
+    }
+}

@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_pc_apex_932cd051"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABD",
+      "FEF",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_junction_box_pro",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:block_display_edge",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_glass",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_si_gel",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_pc_apex",
+      "count": 1
+    }
+  }
+}

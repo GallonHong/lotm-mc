@@ -1,0 +1,53 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:m50",
+      "menu_category": {
+        "category": "equipment",
+        "group": "pa:itemGroup.name.gasmask"
+      }
+    },
+    "components": {
+      "minecraft:icon": "atg_m50",
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:enchantable": {
+        "value": 10,
+        "slot": "armor_feet"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet",
+        "protection": 2
+      },
+      "minecraft:durability": {
+        "max_durability": 100,
+        "damage_chance": {
+          "min": 60,
+          "max": 100
+        }
+      },
+      "minecraft:mining_speed": 5,
+      "minecraft:glint": false,
+      "minecraft:hand_equipped": false,
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:wet_sponge",
+              "atg:m50"
+            ],
+            "repair_amount": 50
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "minecraft:transformable_items",
+          "minecraft:trimmable_armors"
+        ]
+      }
+    }
+  }
+}

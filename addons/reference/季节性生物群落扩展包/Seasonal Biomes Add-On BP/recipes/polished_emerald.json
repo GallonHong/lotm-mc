@@ -1,0 +1,26 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:emerald"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "#"
+        ],
+        "key": {
+            "#": {
+                "item": "mythicus_sn:polished_emerald"
+            }
+        },
+        "result": {
+            "item": "minecraft:emerald",
+            "count": 4
+        },
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        }
+    }
+}

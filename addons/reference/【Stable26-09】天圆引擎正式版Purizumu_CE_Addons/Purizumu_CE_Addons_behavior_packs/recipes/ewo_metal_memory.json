@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_memory_5e32df1a"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_man_si",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_hoof",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_tooth",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_memory",
+      "count": 1
+    }
+  }
+}

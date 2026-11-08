@@ -1,0 +1,40 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:freeze_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iOi",
+			"S#I",
+			"iRi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"O": {
+				"item": "minecraft:observer"
+			},
+			"S": {
+				"item": "minecraft:snow"
+			},
+			"I": {
+				"item": "minecraft:ice"
+			},
+			"R": {
+				"item": "minecraft:redstone_lamp"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_2"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:freeze_drone_spawn_egg"
+		}
+	}
+}

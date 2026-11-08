@@ -1,0 +1,53 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:custom_ground_block",
+                    "weight": 1,
+                    "conditions": [
+                        {
+                            "condition": "match_tool",
+                            "enchantments": [
+                                {
+                                    "enchantment": "silk_touch",
+                                    "levels": {
+                                        "min": 1
+                                    }
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "minecraft:dirt",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "inverted",
+                    "term": {
+                        "condition": "match_tool",
+                        "enchantments": [
+                            {
+                                "enchantment": "silk_touch",
+                                "levels": {
+                                    "min": 1
+                                }
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

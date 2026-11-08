@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_bde3c3ec"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDC",
+      "EFE"
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_muscle",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_motor",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "E": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "F": {
+        "item": "pmo:item_fuel",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:role_lead_spawn_egg",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "emr_6b13_75ba9881"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      "CDC",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "item": "atg:armor_plate",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:spruce_leaves",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:green_carpet",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:leather_chestplate",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:emr_6b13",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,49 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_trader.fall": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": [
+                "Texture.fall"
+            ]
+        },
+        "controller.render.mythicus_sn.seasons_trader.winter": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": [
+                "Texture.winter"
+            ]
+        },
+        "controller.render.mythicus_sn.seasons_trader.spring": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": [
+                "Texture.spring"
+            ]
+        },
+        "controller.render.mythicus_sn.seasons_trader.summer": {
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": [
+                "Texture.summer"
+            ]
+        }
+    }
+}

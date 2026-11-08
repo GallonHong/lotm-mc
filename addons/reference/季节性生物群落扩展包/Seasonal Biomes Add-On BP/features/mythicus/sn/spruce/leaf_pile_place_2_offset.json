@@ -1,0 +1,14 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/spruce/leaf_pile_place_2_offset"
+        },
+        "places_feature": "mythicus_sn:mythicus/sn/spruce/leaf_pile_spruce",
+        "x": 0,
+        "y": -3,
+        "z": 0,
+        "coordinate_eval_order": "xyz",
+        "iterations": 1
+    }
+}

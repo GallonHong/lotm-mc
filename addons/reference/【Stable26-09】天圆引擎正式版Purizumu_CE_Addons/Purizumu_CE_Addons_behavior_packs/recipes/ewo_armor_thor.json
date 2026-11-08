@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_thor_a012c236"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      " B "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond_leggings",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:diamond",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_thor",
+      "count": 1
+    }
+  }
+}

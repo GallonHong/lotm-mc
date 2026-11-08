@@ -1,0 +1,850 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "minecraft:player",
+      "materials": {
+        "default": "entity_alphatest",
+        "cape": "entity_alphatest",
+        "animated": "player_animated",
+        "gun_scope_aim": "charged_creeper"
+      },
+      "textures": {
+        "default": "textures/entity/steve",
+        "cape": "textures/entity/cape_invisible",
+        "eva8_models": "textures/entity/guns/eva8_models",
+        "gunaim": "textures/entity/gunaim/gunaim",
+        "gunaim_jg": "textures/entity/gunaim/gunaim_jg",
+        "jg_models": "textures/entity/guns/jg_models",
+        "sniper_models": "textures/entity/guns/sniper_models",
+        "r201_models": "textures/entity/r201_models",
+        "klb_models": "textures/entity/klb_models",
+        "wimman_models": "textures/entity/wimman_models",
+        "alter_models": "textures/entity/alter_models",
+        "dg_models": "textures/entity/dg_models",
+        "smart_pistol_models": "textures/entity/smart_pistol_models",
+        "mastiff_models": "textures/entity/mastiff_models",
+        "mgl_models": "textures/entity/mgl_models",
+        "wimman_elite_models": "textures/entity/wimman_elite_models",
+        "thunderbolt_models": "textures/entity/thunderbolt_models",
+        "gravity_star_models": "textures/entity/gravity_star_models",
+        "fire_star_models": "textures/entity/fire_star_models",
+        "arc_granade_models": "textures/entity/arc_granade_models",
+        "alter_b_models": "textures/entity/alter_b_models",
+        "epg_models": "textures/entity/epg_models",
+        "ronin_sword_models": "textures/entity/melee/ronin_sword",
+        "ronin_ui": "textures/entity/ronin_ui"
+      },
+      "geometry": {
+        "default": "geometry.humanoid.custom",
+        "cape": "geometry.cape",
+        "human_eva8": "geometry.human_eva8",
+        "eva8_models": "geometry.eva8_models",
+        "gunaim_eva8": "geometry.gunaim_eva8",
+        "human_jg": "geometry.human_jg",
+        "gunaim_jg": "geometry.gunaim_jg",
+        "jg_models": "geometry.jg_models",
+        "human": "geometry.human",
+        "r201_models": "geometry.r201_models",
+        "human_sniper": "geometry.human_sniper",
+        "sniper_models": "geometry.sniper_models",
+        "gunaim_sniper": "geometry.gunaim_sniper",
+        "klb_models": "geometry.klb_models",
+        "wimman_models": "geometry.wimman_models",
+        "alter_models": "geometry.alter_models",
+        "dg_models": "geometry.dg_models",
+        "smart_pistol_models": "geometry.smart_pistol_models",
+        "mastiff_models": "geometry.mastiff_models",
+        "mgl_models": "geometry.mgl_models",
+        "wimman_elite_models": "geometry.wimman_elite_models",
+        "thunderbolt_models": "geometry.thunderbolt_models",
+        "gravity_star_models": "geometry.gravity_star_models",
+        "fire_star_models": "geometry.fire_star_models",
+        "arc_granade_models": "geometry.arc_granade_models",
+        "alter_b_models": "geometry.alter_b_models",
+        "epg_models": "geometry.epg_models",
+        "human_ronin": "geometry.human_ronin",
+        "ronin_sword_models": "geometry.ronin_sword_models",
+        "ronin_ui_phase": "geometry.ronin_ui_phase",
+        "ronin_ui_arc": "geometry.ronin_ui_arc"
+      },
+      "scripts": {
+        "scale": "0.9375",
+        "initialize": [
+          "variable.is_holding_right = 0.0;",
+          "variable.is_blinking = 0.0;",
+          "variable.last_blink_time = 0.0;",
+          "variable.hand_bob = 0.0;"
+        ],
+        "pre_animation": [
+          "variable.helmet_layer_visible = 1.0;",
+          "variable.leg_layer_visible = 1.0;",
+          "variable.boot_layer_visible = 1.0;",
+          "variable.chest_layer_visible = 1.0;",
+          "variable.attack_body_rot_y = Math.sin(360*Math.sqrt(variable.attack_time)) * 5.0;",
+          "variable.tcos0 = (math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;",
+          "variable.first_person_rotation_factor = math.sin((1 - variable.attack_time) * 180.0);",
+          "variable.hand_bob = query.life_time < 0.01 ? 0.0 : variable.hand_bob + ((query.is_on_ground && query.is_alive ? math.clamp(math.sqrt(math.pow(query.position_delta(0), 2.0) + math.pow(query.position_delta(2), 2.0)), 0.0, 0.1) : 0.0) - variable.hand_bob) * 0.02;",
+          "variable.map_angle = math.clamp(1 - variable.player_x_rotation / 45.1, 0.0, 1.0);",
+          "variable.item_use_normalized = query.main_hand_item_use_duration / query.main_hand_item_max_duration;",
+          "variable.random_choices = math.random(0, 100);",
+          "variable.random_choices = math.random(0, 100);",
+          "variable.dg_full = query.get_equipped_item_name('main_hand') == 'dg';",
+          "variable.dg_empty1 = query.get_equipped_item_name('main_hand') == 'dg_empty1';",
+          "variable.dg_empty2 = query.get_equipped_item_name('main_hand') == 'dg_empty2';",
+          "variable.dg = (variable.dg_full || variable.dg_empty1 || variable.dg_empty2);",
+          "variable.jg = query.get_equipped_item_name('main_hand') == 'jg';",
+          "variable.eva8_full = query.get_equipped_item_name('main_hand') == 'eva8';",
+          "variable.eva8_empty1 = query.get_equipped_item_name('main_hand') == 'eva8_empty1';",
+          "variable.eva8_empty2 = query.get_equipped_item_name('main_hand') == 'eva8_empty2';",
+          "variable.eva8 = (variable.eva8_full || variable.eva8_empty1 || variable.eva8_empty2);",
+          "variable.r201_full = query.get_equipped_item_name('main_hand') == 'r201';",
+          "variable.r201_empty1 = query.get_equipped_item_name('main_hand') == 'r201_empty1';",
+          "variable.r201_empty2 = query.get_equipped_item_name('main_hand') == 'r201_empty2';",
+          "variable.r201 = (variable.r201_full || variable.r201_empty1 || variable.r201_empty2);",
+          "variable.sniper_full = query.get_equipped_item_name('main_hand') == 'sniper';",
+          "variable.sniper_empty1 = query.get_equipped_item_name('main_hand') == 'sniper_empty1';",
+          "variable.sniper_empty2 = query.get_equipped_item_name('main_hand') == 'sniper_empty2';",
+          "variable.sniper = (variable.sniper_full || variable.sniper_empty1 || variable.sniper_empty2);",
+          "variable.klb_full = query.get_equipped_item_name('main_hand') == 'klb';",
+          "variable.klb_empty1 = query.get_equipped_item_name('main_hand') == 'klb_empty1';",
+          "variable.klb_empty2 = query.get_equipped_item_name('main_hand') == 'klb_empty2';",
+          "variable.klb = (variable.klb_full || variable.klb_empty1 || variable.klb_empty2);",
+          "variable.alter_full = query.get_equipped_item_name('main_hand') == 'alter';",
+          "variable.alter_empty1 = query.get_equipped_item_name('main_hand') == 'alter_empty1';",
+          "variable.alter_empty2 = query.get_equipped_item_name('main_hand') == 'alter_empty2';",
+          "variable.alter = (variable.alter_full || variable.alter_empty1 || variable.alter_empty2);",
+          "variable.wimman_full = query.get_equipped_item_name('main_hand') == 'wimman';",
+          "variable.wimman_empty = query.get_equipped_item_name('main_hand') == 'wimman_empty';",
+          "variable.wimman = (variable.wimman_full || variable.wimman_empty);",
+          "variable.smart_pistol_full = query.get_equipped_item_name('main_hand') == 'smart_pistol';",
+          "variable.smart_pistol_empty = query.get_equipped_item_name('main_hand') == 'smart_pistol_empty';",
+          "variable.smart_pistol = (variable.smart_pistol_full || variable.smart_pistol_empty);",
+          "variable.mastiff1 = query.get_equipped_item_name('main_hand') == 'mastiff1';",
+          "variable.mastiff2 = query.get_equipped_item_name('main_hand') == 'mastiff2';",
+          "variable.mastiff3 = query.get_equipped_item_name('main_hand') == 'mastiff3';",
+          "variable.mastiff_full = query.get_equipped_item_name('main_hand') == 'mastiff_full';",
+          "variable.mastiff_empty = query.get_equipped_item_name('main_hand') == 'mastiff_empty';",
+          "variable.mastiff = (variable.mastiff_full || variable.mastiff1 || variable.mastiff2 || variable.mastiff3 || variable.mastiff_empty);",
+          "variable.mgl_full = query.get_equipped_item_name('main_hand') == 'mgl';",
+          "variable.mgl_empty = query.get_equipped_item_name('main_hand') == 'mgl_empty';",
+          "variable.mgl = (variable.mgl_full || variable.mgl_empty);",
+          "variable.wimman_elite_full = query.get_equipped_item_name('main_hand') == 'wimman_elite';",
+          "variable.wimman_elite_empty = query.get_equipped_item_name('main_hand') == 'wimman_elite_empty';",
+          "variable.wimman_elite = (variable.wimman_elite_full || variable.wimman_elite_empty);",
+          "variable.thunderbolt_full = query.get_equipped_item_name('main_hand') == 'thunderbolt';",
+          "variable.thunderbolt_empty = query.get_equipped_item_name('main_hand') == 'thunderbolt_empty';",
+          "variable.thunderbolt = (variable.thunderbolt_full || variable.thunderbolt_empty);",
+          "variable.gravity_star = query.get_equipped_item_name('main_hand') == 'gravity_star';",
+          "variable.fire_star = query.get_equipped_item_name('main_hand') == 'fire_star';",
+          "variable.arc_granade = query.get_equipped_item_name('main_hand') == 'arc_granade';",
+          "variable.alter_b_full = query.get_equipped_item_name('main_hand') == 'alter_b';",
+          "variable.alter_b_empty1 = query.get_equipped_item_name('main_hand') == 'alter_b_empty1';",
+          "variable.alter_b_empty2 = query.get_equipped_item_name('main_hand') == 'alter_b_empty2';",
+          "variable.alter_b = (variable.alter_b_full || variable.alter_b_empty1 || variable.alter_b_empty2);",
+          "variable.epg_full = query.get_equipped_item_name('main_hand') == 'epg';",
+          "variable.epg_empty1 = query.get_equipped_item_name('main_hand') == 'epg_empty1';",
+          "variable.epg_empty2 = query.get_equipped_item_name('main_hand') == 'epg_empty2';",
+          "variable.epg = (variable.epg_full || variable.epg_empty1 || variable.epg_empty2);",
+          "variable.ronin_sword = query.get_equipped_item_name('main_hand') == 'ronin_sword';",
+          "variable.guns = (variable.dg || variable.eva8 || variable.jg || variable.r201 || variable.klb || variable.epg || variable.alter || variable.wimman || variable.ronin_sword || variable.smart_pistol || variable.sniper || variable.mastiff || variable.mgl || variable.wimman_elite || variable.thunderbolt || variable.gravity_star || variable.fire_star || variable.arc_granade || variable.alter_b);"
+        ],
+        "animate": [
+          {
+            "player_ride": "query.is_riding && variable.is_first_person && variable.guns"
+          },
+          {
+            "root": "!variable.is_first_person || (!variable.guns || !query.is_alive)"
+          },
+          {
+            "c_gunaim_eva8": "variable.eva8 && variable.is_first_person"
+          },
+          {
+            "gunaim_eva8_tp": "variable.eva8 && !variable.is_first_person"
+          },
+          {
+            "c_eva8_first_person": "variable.is_first_person"
+          },
+          {
+            "eva8_third_person": "variable.eva8 && !variable.is_first_person"
+          },
+          {
+            "c_jg_first_person": "variable.is_first_person"
+          },
+          {
+            "c_jg_sneaking": "variable.jg"
+          },
+          {
+            "jg_sneaking_shake": "variable.jg && variable.is_first_person && q.is_sneaking"
+          },
+          {
+            "c_jg_third_person": "variable.jg && !variable.is_first_person"
+          },
+          {
+            "jg_bodylightsneaking": "variable.jg && q.is_sneaking"
+          },
+          {
+            "jg_bodylightnotsneaking": "variable.jg && !q.is_sneaking"
+          },
+          {
+            "c_gunaim_jg": "variable.jg && variable.is_first_person"
+          },
+          {
+            "gunaim_jg_tp": "variable.jg && !variable.is_first_person"
+          },
+          {
+            "c_r201_first_person_run": "variable.r201 && variable.is_first_person"
+          },
+          {
+            "r201_third_person": "variable.r201 && !variable.is_first_person"
+          },
+          {
+            "r201_ammo_30": "q.mark_variant == 30"
+          },
+          {
+            "r201_ammo_29": "q.mark_variant == 29"
+          },
+          {
+            "r201_ammo_28": "q.mark_variant == 28"
+          },
+          {
+            "r201_ammo_27": "q.mark_variant == 27"
+          },
+          {
+            "r201_ammo_26": "q.mark_variant == 26"
+          },
+          {
+            "r201_ammo_25": "q.mark_variant == 25"
+          },
+          {
+            "r201_ammo_24": "q.mark_variant == 24"
+          },
+          {
+            "r201_ammo_23": "q.mark_variant == 23"
+          },
+          {
+            "r201_ammo_22": "q.mark_variant == 22"
+          },
+          {
+            "r201_ammo_21": "q.mark_variant == 21"
+          },
+          {
+            "r201_ammo_20": "q.mark_variant == 20"
+          },
+          {
+            "r201_ammo_19": "q.mark_variant == 19"
+          },
+          {
+            "r201_ammo_18": "q.mark_variant == 18"
+          },
+          {
+            "r201_ammo_17": "q.mark_variant == 17"
+          },
+          {
+            "r201_ammo_16": "q.mark_variant == 16"
+          },
+          {
+            "r201_ammo_15": "q.mark_variant == 15"
+          },
+          {
+            "r201_ammo_14": "q.mark_variant == 14"
+          },
+          {
+            "r201_ammo_13": "q.mark_variant == 13"
+          },
+          {
+            "r201_ammo_12": "q.mark_variant == 12"
+          },
+          {
+            "r201_ammo_11": "q.mark_variant == 11"
+          },
+          {
+            "r201_ammo_10": "q.mark_variant == 10"
+          },
+          {
+            "r201_ammo_9": "q.mark_variant == 9"
+          },
+          {
+            "r201_ammo_8": "q.mark_variant == 8"
+          },
+          {
+            "r201_ammo_7": "q.mark_variant == 7"
+          },
+          {
+            "r201_ammo_6": "q.mark_variant == 6"
+          },
+          {
+            "r201_ammo_5": "q.mark_variant == 5"
+          },
+          {
+            "r201_ammo_4": "q.mark_variant == 4"
+          },
+          {
+            "r201_ammo_3": "q.mark_variant == 3"
+          },
+          {
+            "r201_ammo_2": "q.mark_variant == 2"
+          },
+          {
+            "r201_ammo_1": "q.mark_variant == 1"
+          },
+          {
+            "r201_ammo_0": "q.mark_variant == 0"
+          },
+          {
+            "eva8_ammo_num_8": "q.variant == 8"
+          },
+          {
+            "eva8_ammo_num_7": "q.variant == 7"
+          },
+          {
+            "eva8_ammo_num_6": "q.variant == 6"
+          },
+          {
+            "eva8_ammo_num_5": "q.variant == 5"
+          },
+          {
+            "eva8_ammo_num_4": "q.variant == 4"
+          },
+          {
+            "eva8_ammo_num_3": "q.variant == 3"
+          },
+          {
+            "eva8_ammo_num_2": "q.variant == 2"
+          },
+          {
+            "eva8_ammo_num_1": "q.variant == 1"
+          },
+          {
+            "eva8_ammo_num_0": "q.variant == 0"
+          },
+          {
+            "c_klb_first_person_run": "variable.klb && variable.is_first_person"
+          },
+          {
+            "klb_third_person": "variable.klb && !variable.is_first_person"
+          },
+          {
+            "klb_ammo_num_4": "q.skin_id == 4"
+          },
+          {
+            "klb_ammo_num_3": "q.skin_id == 3"
+          },
+          {
+            "klb_ammo_num_2": "q.skin_id == 2"
+          },
+          {
+            "klb_ammo_num_1": "q.skin_id == 1"
+          },
+          {
+            "klb_ammo_num_0": "q.skin_id == 0"
+          },
+          {
+            "alter_third_person": "variable.alter && !variable.is_first_person"
+          },
+          {
+            "c_alter_first_person_run": "variable.alter && variable.is_first_person"
+          },
+          {
+            "alter_ammo_20": "q.mark_variant == 20"
+          },
+          {
+            "alter_ammo_19": "q.mark_variant == 19"
+          },
+          {
+            "alter_ammo_18": "q.mark_variant == 18"
+          },
+          {
+            "alter_ammo_17": "q.mark_variant == 17"
+          },
+          {
+            "alter_ammo_16": "q.mark_variant == 16"
+          },
+          {
+            "alter_ammo_15": "q.mark_variant == 15"
+          },
+          {
+            "alter_ammo_14": "q.mark_variant == 14"
+          },
+          {
+            "alter_ammo_13": "q.mark_variant == 13"
+          },
+          {
+            "alter_ammo_12": "q.mark_variant == 12"
+          },
+          {
+            "alter_ammo_11": "q.mark_variant == 11"
+          },
+          {
+            "alter_ammo_10": "q.mark_variant == 10"
+          },
+          {
+            "alter_ammo_9": "q.mark_variant == 9"
+          },
+          {
+            "alter_ammo_8": "q.mark_variant == 8"
+          },
+          {
+            "alter_ammo_7": "q.mark_variant == 7"
+          },
+          {
+            "alter_ammo_6": "q.mark_variant == 6"
+          },
+          {
+            "alter_ammo_5": "q.mark_variant == 5"
+          },
+          {
+            "alter_ammo_4": "q.mark_variant == 4"
+          },
+          {
+            "alter_ammo_3": "q.mark_variant == 3"
+          },
+          {
+            "alter_ammo_2": "q.mark_variant == 2"
+          },
+          {
+            "alter_ammo_1": "q.mark_variant == 1"
+          },
+          {
+            "alter_ammo_0": "q.mark_variant == 0"
+          },
+          {
+            "alter_first_person_ammo_half": "q.mark_variant <= 10 && q.mark_variant > 0"
+          },
+          {
+            "alter_first_person_ammo_nothalf": "q.mark_variant > 10 || q.mark_variant == 0"
+          },
+          {
+            "c_wimman_first_person_run": "variable.wimman && variable.is_first_person"
+          },
+          {
+            "wimman_third_person": "variable.wimman && !variable.is_first_person"
+          },
+          {
+            "c_dg_first_person_run": "variable.dg && variable.is_first_person"
+          },
+          {
+            "dg_third_person": "variable.dg && !variable.is_first_person"
+          },
+          {
+            "c_smart_pistol_first_person_run": "variable.smart_pistol && variable.is_first_person"
+          },
+          {
+            "smart_pistol_third_person": "variable.smart_pistol && !variable.is_first_person"
+          },
+          {
+            "c_thunderbolt_first_person_run": "variable.thunderbolt && variable.is_first_person"
+          },
+          {
+            "thunderbolt_third_person": "variable.thunderbolt && !variable.is_first_person"
+          },
+          {
+            "alter_b_third_person": "variable.alter_b && !variable.is_first_person"
+          },
+          {
+            "c_alter_b_first_person_run": "variable.alter_b && variable.is_first_person"
+          }
+        ]
+      },
+      "animations": {
+        "root": "controller.animation.player.root",
+        "base_controller": "controller.animation.player.base",
+        "hudplayer": "controller.animation.player.hudplayer",
+        "humanoid_base_pose": "animation.humanoid.base_pose",
+        "look_at_target": "controller.animation.humanoid.look_at_target",
+        "look_at_target_ui": "animation.player.look_at_target.ui",
+        "look_at_target_default": "animation.humanoid.look_at_target.default",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "look_at_target_inverted": "animation.player.look_at_target.inverted",
+        "cape": "animation.player.cape",
+        "move.arms": "animation.player.move.arms",
+        "move.legs": "animation.player.move.legs",
+        "swimming": "animation.player.swim",
+        "swimming.legs": "animation.player.swim.legs",
+        "riding.arms": "animation.player.riding.arms",
+        "riding.legs": "animation.player.riding.legs",
+        "holding": "animation.player.holding",
+        "brandish_spear": "animation.humanoid.brandish_spear",
+        "charging": "animation.humanoid.charging",
+        "attack.positions": "animation.player.attack.positions",
+        "attack.rotations": "animation.player.attack.rotations",
+        "sneaking": "animation.player.sneaking",
+        "bob": "animation.player.bob",
+        "damage_nearby_mobs": "animation.humanoid.damage_nearby_mobs",
+        "bow_and_arrow": "animation.humanoid.bow_and_arrow",
+        "use_item_progress": "animation.humanoid.use_item_progress",
+        "skeleton_attack": "animation.skeleton.attack",
+        "sleeping": "animation.player.sleeping",
+        "first_person_base_pose": "animation.player.first_person.base_pose",
+        "first_person_empty_hand": "animation.player.first_person.empty_hand",
+        "first_person_swap_item": "animation.player.first_person.swap_item",
+        "first_person_attack_controller": "controller.animation.player.first_person_attack",
+        "first_person_attack_rotation": "animation.player.first_person.attack_rotation",
+        "first_person_vr_attack_rotation": "animation.player.first_person.vr_attack_rotation",
+        "first_person_walk": "animation.player.first_person.walk",
+        "first_person_map_controller": "controller.animation.player.first_person_map",
+        "first_person_map_hold": "animation.player.first_person.map_hold",
+        "first_person_map_hold_attack": "animation.player.first_person.map_hold_attack",
+        "first_person_map_hold_off_hand": "animation.player.first_person.map_hold_off_hand",
+        "first_person_map_hold_main_hand": "animation.player.first_person.map_hold_main_hand",
+        "first_person_crossbow_equipped": "animation.player.first_person.crossbow_equipped",
+        "third_person_crossbow_equipped": "animation.player.crossbow_equipped",
+        "third_person_bow_equipped": "animation.player.bow_equipped",
+        "crossbow_hold": "animation.player.crossbow_hold",
+        "crossbow_controller": "controller.animation.player.crossbow",
+        "shield_block_main_hand": "animation.player.shield_block_main_hand",
+        "shield_block_off_hand": "animation.player.shield_block_off_hand",
+        "blink": "controller.animation.persona.blink",
+        "fishing_rod": "animation.player.jmgs_fishing_rod",
+        "player_ride": "animation.player.ride",
+        "dg_first_person_run": "animation.dg.first_person.run",
+        "c_dg_first_person_run": "controller.animation.dg.run",
+        "dg_first_person_scope": "animation.dg.first_person.scope",
+        "dg_first_person": "animation.dg.first_person.hold",
+        "dg_first_person_hold_to_run": "animation.dg.first_person.hold_to_run",
+        "dg_first_person_run_to_hold": "animation.dg.first_person.run_to_hold",
+        "dg_third_person": "animation.dg.third_person.hold",
+        "dg_first_person_fire1": "animation.dg.first_person.fire1",
+        "dg_first_person_scopefire": "animation.dg.first_person.scopefire",
+        "dg_first_person_scopehold": "animation.dg.first_person.scopehold",
+        "dg_first_person_scopehold_to_default": "animation.dg.first_person.scopehold_to_default",
+        "dg_first_person_mag": "animation.dg.first_person.mag",
+        "dg_first_person_not_total_mag": "animation.dg.first_person.not_total_mag",
+        "c_eva8_first_person": "controller.animation.eva8_gun",
+        "eva8_first_person": "animation.eva8.first_person.hold",
+        "eva8_takeout": "animation.eva8.first_person.takeout",
+        "eva8_first_person_run": "animation.eva8.first_person.run",
+        "eva8_first_person_hold_to_run": "animation.eva8.first_person.hold_to_run",
+        "eva8_first_person_run_to_hold": "animation.eva8.first_person.run_to_hold",
+        "eva8_first_person_scope": "animation.eva8.first_person.scope",
+        "eva8_third_person": "animation.eva8.third_person.hold",
+        "eva8_first_person_fire": "animation.eva8.first_person.fire",
+        "eva8_first_person_scopefire": "animation.eva8.first_person.scopefire",
+        "eva8_first_person_scopehold": "animation.eva8.first_person.scopehold",
+        "eva8_first_person_scopehold_to_default": "animation.eva8.first_person.scopehold_to_default",
+        "eva8_first_person_mag": "animation.eva8.first_person.mag",
+        "eva8_first_person_not_total_mag": "animation.eva8.first_person.not_total_mag",
+        "c_jg_first_person": "controller.animation.jg.first_person",
+        "jg_first_person": "animation.jg.first_person.hold",
+        "jg_first_person_takeout": "animation.jg.first_person.takeout",
+        "jg_first_person_hold_to_run": "animation.jg.first_person.hold_to_run",
+        "jg_first_person_run": "animation.jg.first_person.run",
+        "jg_first_person_run_to_hold": "animation.jg.first_person.run_to_hold",
+        "jg_first_person_charging": "animation.jg.first_person.charging",
+        "jg_first_person_charging_over": "animation.jg.first_person.charging_over",
+        "c_jg_sneaking": "controller.animation.jg.sneaking",
+        "jg_default_to_sneaking": "animation.jg.default_to_sneaking",
+        "jg_sneaking": "animation.jg.sneaking",
+        "jg_sneaking_to_default": "animation.jg.sneaking_to_default",
+        "jg_sneaking_shake": "animation.jg.sneaking_shake",
+        "jg_first_person_shoot": "animation.jg.first_person.shoot",
+        "c_jg_third_person": "controller.animation.jg.third_person",
+        "jg_third_person": "animation.jg.third_person.hold",
+        "jg_third_person_charging": "animation.jg.third_person.charging",
+        "jg_third_person_charging_over": "animation.jg.third_person.charging_over",
+        "jg_third_person_shoot": "animation.jg.third_person.shoot",
+        "jg_bodylightsneaking": "animation.jg.first_person.bodylightsneaking",
+        "jg_bodylightnotsneaking": "animation.jg.first_person.bodylightnotsneaking",
+        "r201_first_person_run": "animation.r201.first_person.run",
+        "c_r201_first_person_run": "controller.animation.r201.run",
+        "r201_first_person_scope": "animation.r201.first_person.scope",
+        "r201_first_person": "animation.r201.first_person.hold",
+        "r201_first_person_hold_to_run": "animation.r201.first_person.hold_to_run",
+        "r201_first_person_run_to_hold": "animation.r201.first_person.run_to_hold",
+        "r201_third_person": "animation.r201.third_person.hold",
+        "r201_first_person_fire1": "animation.r201.first_person.fire1",
+        "r201_first_person_fire2": "animation.r201.first_person.fire2",
+        "r201_first_person_scopefire": "animation.r201.first_person.scopefire",
+        "r201_first_person_scopehold": "animation.r201.first_person.scopehold",
+        "r201_first_person_scopehold_to_default": "animation.r201.first_person.scopehold_to_default",
+        "r201_first_person_mag": "animation.r201.first_person.mag",
+        "r201_first_person_not_total_mag": "animation.r201.first_person.not_total_mag",
+        "r201_first_person_run_to_zsrun": "animation.r201.first_person.run_to_zsrun",
+        "r201_first_person_zsrun": "animation.r201.first_person.zsrun",
+        "r201_first_person_zsrun_to_default": "animation.r201.first_person.zsrun_to_default",
+        "r201_first_person_ammo_half": "animation.r201.first_person.half",
+        "r201_first_person_ammo_nothalf": "animation.r201.first_person.nothalf",
+        "r201_ammo_30": "animation.r201.ammo_num_30",
+        "r201_ammo_29": "animation.r201.ammo_num_29",
+        "r201_ammo_28": "animation.r201.ammo_num_28",
+        "r201_ammo_27": "animation.r201.ammo_num_27",
+        "r201_ammo_26": "animation.r201.ammo_num_26",
+        "r201_ammo_25": "animation.r201.ammo_num_25",
+        "r201_ammo_24": "animation.r201.ammo_num_24",
+        "r201_ammo_23": "animation.r201.ammo_num_23",
+        "r201_ammo_22": "animation.r201.ammo_num_22",
+        "r201_ammo_21": "animation.r201.ammo_num_21",
+        "r201_ammo_20": "animation.r201.ammo_num_20",
+        "r201_ammo_19": "animation.r201.ammo_num_19",
+        "r201_ammo_18": "animation.r201.ammo_num_18",
+        "r201_ammo_17": "animation.r201.ammo_num_17",
+        "r201_ammo_16": "animation.r201.ammo_num_16",
+        "r201_ammo_15": "animation.r201.ammo_num_15",
+        "r201_ammo_14": "animation.r201.ammo_num_14",
+        "r201_ammo_13": "animation.r201.ammo_num_13",
+        "r201_ammo_12": "animation.r201.ammo_num_12",
+        "r201_ammo_11": "animation.r201.ammo_num_11",
+        "r201_ammo_10": "animation.r201.ammo_num_10",
+        "r201_ammo_9": "animation.r201.ammo_num_9",
+        "r201_ammo_8": "animation.r201.ammo_num_8",
+        "r201_ammo_7": "animation.r201.ammo_num_7",
+        "r201_ammo_6": "animation.r201.ammo_num_6",
+        "r201_ammo_5": "animation.r201.ammo_num_5",
+        "r201_ammo_4": "animation.r201.ammo_num_4",
+        "r201_ammo_3": "animation.r201.ammo_num_3",
+        "r201_ammo_2": "animation.r201.ammo_num_2",
+        "r201_ammo_1": "animation.r201.ammo_num_1",
+        "r201_ammo_0": "animation.r201.ammo_num_0",
+        "c_gunaim_jg": "controller.animation.gunaim_jg",
+        "gunaim_jg_standby": "animation.gunaim_jg.standby",
+        "gunaim_jg_charging_over": "animation.gunaim_jg.charging_over",
+        "gunaim_jg_tp": "animation.gunaim_jg.tp",
+        "c_gunaim_eva8": "controller.animation.gunaim_eva8",
+        "gunaim_eva8_standby": "animation.gunaim_eva8.standby",
+        "gunaim_eva8_fire": "animation.gunaim_eva8.fire",
+        "gunaim_eva8_fire_to_default": "animation.gunaim_eva8.fire_to_default",
+        "gunaim_eva8_move": "animation.gunaim_eva8.move",
+        "gunaim_eva8_tp": "animation.gunaim_eva8.tp",
+        "eva8_ammo_num_8": "animation.eva8.ammo_num_8",
+        "eva8_ammo_num_7": "animation.eva8.ammo_num_7",
+        "eva8_ammo_num_6": "animation.eva8.ammo_num_6",
+        "eva8_ammo_num_5": "animation.eva8.ammo_num_5",
+        "eva8_ammo_num_4": "animation.eva8.ammo_num_4",
+        "eva8_ammo_num_3": "animation.eva8.ammo_num_3",
+        "eva8_ammo_num_2": "animation.eva8.ammo_num_2",
+        "eva8_ammo_num_1": "animation.eva8.ammo_num_1",
+        "eva8_ammo_num_0": "animation.eva8.ammo_num_0",
+        "klb_first_person_run": "animation.klb.first_person.run",
+        "c_klb_first_person_run": "controller.animation.klb.run",
+        "klb_first_person_scope": "animation.klb.first_person.scope",
+        "klb_first_person": "animation.klb.first_person.hold",
+        "klb_first_person_hold_to_run": "animation.klb.first_person.hold_to_run",
+        "klb_first_person_run_to_hold": "animation.klb.first_person.run_to_hold",
+        "klb_third_person": "animation.klb.third_person.hold",
+        "klb_first_person_fire": "animation.klb.first_person.fire",
+        "klb_first_person_scopefire": "animation.klb.first_person.scopefire",
+        "klb_first_person_scopehold": "animation.klb.first_person.scopehold",
+        "klb_first_person_scopehold_to_default": "animation.klb.first_person.scopehold_to_default",
+        "klb_first_person_mag": "animation.klb.first_person.mag",
+        "klb_first_person_not_total_mag": "animation.klb.first_person.not_total_mag",
+        "klb_ammo_num_4": "animation.klb.ammo_num_4",
+        "klb_ammo_num_3": "animation.klb.ammo_num_3",
+        "klb_ammo_num_2": "animation.klb.ammo_num_2",
+        "klb_ammo_num_1": "animation.klb.ammo_num_1",
+        "klb_ammo_num_0": "animation.klb.ammo_num_0",
+        "alter_first_person": "animation.alter.first_person.hold",
+        "alter_first_person_hold_to_run": "animation.alter.first_person.hold_to_run",
+        "alter_first_person_run_to_hold": "animation.alter.first_person.run_to_hold",
+        "alter_first_person_run": "animation.alter.first_person.run",
+        "c_alter_first_person_run": "controller.animation.alter.run",
+        "alter_first_person_scope": "animation.alter.first_person.scope",
+        "alter_third_person": "animation.alter.third_person.hold",
+        "alter_first_person_fire1": "animation.alter.first_person.fire1",
+        "alter_first_person_fire2": "animation.alter.first_person.fire2",
+        "alter_first_person_scopefire": "animation.alter.first_person.scopefire",
+        "alter_first_person_scopehold": "animation.alter.first_person.scopehold",
+        "alter_first_person_scopehold_to_default": "animation.alter.first_person.scopehold_to_default",
+        "alter_first_person_mag": "animation.alter.first_person.mag",
+        "alter_first_person_not_total_mag": "animation.alter.first_person.not_total_mag",
+        "alter_first_person_ammo_half": "animation.alter.first_person.half",
+        "alter_first_person_ammo_nothalf": "animation.alter.first_person.nothalf",
+        "alter_ammo_20": "animation.alter.ammo_num_20",
+        "alter_ammo_19": "animation.alter.ammo_num_19",
+        "alter_ammo_18": "animation.alter.ammo_num_18",
+        "alter_ammo_17": "animation.alter.ammo_num_17",
+        "alter_ammo_16": "animation.alter.ammo_num_16",
+        "alter_ammo_15": "animation.alter.ammo_num_15",
+        "alter_ammo_14": "animation.alter.ammo_num_14",
+        "alter_ammo_13": "animation.alter.ammo_num_13",
+        "alter_ammo_12": "animation.alter.ammo_num_12",
+        "alter_ammo_11": "animation.alter.ammo_num_11",
+        "alter_ammo_10": "animation.alter.ammo_num_10",
+        "alter_ammo_9": "animation.alter.ammo_num_9",
+        "alter_ammo_8": "animation.alter.ammo_num_8",
+        "alter_ammo_7": "animation.alter.ammo_num_7",
+        "alter_ammo_6": "animation.alter.ammo_num_6",
+        "alter_ammo_5": "animation.alter.ammo_num_5",
+        "alter_ammo_4": "animation.alter.ammo_num_4",
+        "alter_ammo_3": "animation.alter.ammo_num_3",
+        "alter_ammo_2": "animation.alter.ammo_num_2",
+        "alter_ammo_1": "animation.alter.ammo_num_1",
+        "alter_ammo_0": "animation.alter.ammo_num_0",
+        "wimman_first_person": "animation.wimman.first_person.hold",
+        "wimman_first_person_hold_to_run": "animation.wimman.first_person.hold_to_run",
+        "wimman_first_person_run_to_hold": "animation.wimman.first_person.run_to_hold",
+        "wimman_third_person": "animation.wimman.third_person.hold",
+        "wimman_first_person_run": "animation.wimman.first_person.run",
+        "c_wimman_first_person_run": "controller.animation.wimman.run",
+        "wimman_first_person_scope": "animation.wimman.first_person.scope",
+        "wimman_first_person_fire1": "animation.wimman.first_person.fire1",
+        "wimman_first_person_scopefire": "animation.wimman.first_person.scopefire",
+        "wimman_first_person_scopehold": "animation.wimman.first_person.scopehold",
+        "wimman_first_person_scopehold_to_default": "animation.wimman.first_person.scopehold_to_default",
+        "wimman_first_person_mag": "animation.wimman.first_person.mag",
+        "wimman_first_person_ammo_half": "animation.wimman.first_person.half",
+        "wimman_first_person_ammo_nothalf": "animation.wimman.first_person.nothalf",
+        "wimman_ammo_6": "animation.wimman.ammo_num_6",
+        "wimman_ammo_5": "animation.wimman.ammo_num_5",
+        "wimman_ammo_4": "animation.wimman.ammo_num_4",
+        "wimman_ammo_3": "animation.wimman.ammo_num_3",
+        "wimman_ammo_2": "animation.wimman.ammo_num_2",
+        "wimman_ammo_1": "animation.wimman.ammo_num_1",
+        "wimman_ammo_0": "animation.wimman.ammo_num_0",
+        "smart_pistol_first_person": "animation.smart_pistol.first_person.hold",
+        "smart_pistol_first_person_hold_to_run": "animation.smart_pistol.first_person.hold_to_run",
+        "smart_pistol_first_person_run_to_hold": "animation.smart_pistol.first_person.run_to_hold",
+        "smart_pistol_third_person": "animation.smart_pistol.third_person.hold",
+        "smart_pistol_first_person_run": "animation.smart_pistol.first_person.run",
+        "c_smart_pistol_first_person_run": "controller.animation.smart_pistol.run",
+        "smart_pistol_first_person_scope": "animation.smart_pistol.first_person.scope",
+        "smart_pistol_first_person_fire": "animation.smart_pistol.first_person.fire",
+        "smart_pistol_first_person_scopefire": "animation.smart_pistol.first_person.scopefire",
+        "smart_pistol_first_person_scopehold": "animation.smart_pistol.first_person.scopehold",
+        "smart_pistol_first_person_scopehold_to_default": "animation.smart_pistol.first_person.scopehold_to_default",
+        "smart_pistol_first_person_mag": "animation.smart_pistol.first_person.mag",
+        "thunderbolt_first_person": "animation.thunderbolt.first_person.hold",
+        "thunderbolt_first_person_hold_to_run": "animation.thunderbolt.first_person.hold_to_run",
+        "thunderbolt_first_person_run_to_hold": "animation.thunderbolt.first_person.run_to_hold",
+        "thunderbolt_third_person": "animation.thunderbolt.third_person.hold",
+        "thunderbolt_first_person_run": "animation.thunderbolt.first_person.run",
+        "c_thunderbolt_first_person_run": "controller.animation.thunderbolt.run",
+        "thunderbolt_first_person_scope": "animation.thunderbolt.first_person.scope",
+        "thunderbolt_first_person_scopefire": "animation.thunderbolt.first_person.scopefire",
+        "thunderbolt_first_person_scopehold": "animation.thunderbolt.first_person.scopehold",
+        "thunderbolt_first_person_scopehold_to_default": "animation.thunderbolt.first_person.scopehold_to_default",
+        "thunderbolt_first_person_mag": "animation.thunderbolt.first_person.mag",
+        "alter_b_first_person": "animation.alter_b.first_person.hold",
+        "alter_b_first_person_hold_to_run": "animation.alter_b.first_person.hold_to_run",
+        "alter_b_first_person_run_to_hold": "animation.alter_b.first_person.run_to_hold",
+        "alter_b_first_person_run": "animation.alter_b.first_person.run",
+        "c_alter_b_first_person_run": "controller.animation.alter_b.run",
+        "alter_b_first_person_scope": "animation.alter_b.first_person.scope",
+        "alter_b_third_person": "animation.alter_b.third_person.hold",
+        "alter_b_first_person_fire1": "animation.alter_b.first_person.fire1",
+        "alter_b_first_person_fire2": "animation.alter_b.first_person.fire2",
+        "alter_b_first_person_scopefire": "animation.alter_b.first_person.scopefire",
+        "alter_b_first_person_scopehold": "animation.alter_b.first_person.scopehold",
+        "alter_b_first_person_scopehold_to_default": "animation.alter_b.first_person.scopehold_to_default",
+        "alter_b_first_person_mag": "animation.alter_b.first_person.mag",
+        "alter_b_first_person_not_total_mag": "animation.alter_b.first_person.not_total_mag"
+      },
+      "sound_effects": {
+        "eva8_mag_out": "eva8_mag_out",
+        "eva8_mag_in": "eva8_mag_in",
+        "eva8_deploy": "eva8_deploy",
+        "eva8_pump": "eva8_pump",
+        "jg_down_open": "jg_down_open",
+        "jg_down_close": "jg_down_close",
+        "jg_deploy": "jg_deploy",
+        "jg_charging": "jg_charging",
+        "klb_mag_out": "klb_mag_out",
+        "klb_mag_in": "klb_mag_in",
+        "klb_slide_back": "klb_slide_back",
+        "klb_slide_forward": "klb_slide_forward",
+        "klb_deploy": "klb_deploy",
+        "alter_slideback_check": "smart_pistol_slideback",
+        "alter_slideforward_check": "smart_pistol_slideforward",
+        "alter_mag_out": "alter_mag_out",
+        "alter_mag_in": "alter_mag_in",
+        "alter_slideback": "alter_slide_back",
+        "smart_mag_out": "smart_pistol_mag_out",
+        "smart_mag_in": "smart_pistol_mag_in",
+        "smart_mag_locked": "smart_pistol_mag_locked",
+        "r201_slideforward": "rifle_slide_forward",
+        "r201_slideback": "rifle_slide_back",
+        "r201_mag_out": "rifle_mag_out",
+        "r201_mag_in": "rifle_mag_in",
+        "r201_deploy": "r201_deploy",
+        "sniper_hit": "sniper_hit",
+        "sniper_zoom": "sniper_zoom",
+        "sniper_deploy": "sniper_deploy",
+        "sniper_mag_out": "sniper_mag_out",
+        "sniper_mag_in": "sniper_mag_in",
+        "sniper_mag_locked": "sniper_mag_locked",
+        "sniper_slide_back": "sniper_slide_back",
+        "sniper_slide_forward": "sniper_slide_forward",
+        "mastiff_reload": "mastiff_reload",
+        "mastiff_empty": "mastiff_empty",
+        "mastiff_deploy": "mastiff_deploy",
+        "elite_mag_in": "wimman_elite_mag_in",
+        "elite_mag_locked": "wimman_elite_mag_locked",
+        "elite_slideback": "wimman_elite_slideback",
+        "elite_slideforward": "wimman_elite_slideforward",
+        "alter_b_slideback": "smart_pistol_slideback",
+        "alter_b_slideforward": "smart_pistol_slideforward",
+        "epg_slideback": "rifle_slide_back",
+        "epg_deploy": "epg_deploy",
+        "ronin_phase_cd": "ronin_phase_cd",
+        "ronin_arc_cd": "ronin_arc_cd"
+      },
+      "particle_effects": {
+        "gun_fire_smoke": "jmgs:gunfiresmoke",
+        "phone": "pmo:phone1"
+      },
+      "render_controllers": [
+        {
+          "controller.render.player.first_person": "variable.is_first_person && !variable.guns"
+        },
+        {
+          "controller.render.player.third_person": "!variable.is_first_person && !variable.map_face_icon"
+        },
+        {
+          "controller.render.player.first_person_bloom": "variable.is_first_person"
+        },
+        {
+          "controller.render.player.third_person_bloom": "!variable.is_first_person && !variable.map_face_icon"
+        },
+        {
+          "controller.render.player.map": "variable.map_face_icon"
+        },
+        {
+          "controller.render.eva8_models": "variable.eva8"
+        },
+        {
+          "controller.render.gunaim_eva8": "variable.eva8 && variable.is_first_person && !q.is_sneaking"
+        },
+        {
+          "controller.render.human_person_eva8": "variable.eva8 && variable.is_first_person"
+        },
+        {
+          "controller.render.jg_models": "variable.jg"
+        },
+        {
+          "controller.render.gunaim_jg": "variable.jg"
+        },
+        {
+          "controller.render.human_person_jg": "variable.jg && variable.is_first_person"
+        },
+        {
+          "controller.render.r201_models": "variable.r201"
+        },
+        {
+          "controller.render.human_person": "variable.guns && variable.is_first_person"
+        },
+        {
+          "controller.render.klb_models": "variable.klb"
+        },
+        {
+          "controller.render.alter_models": "variable.alter"
+        },
+        {
+          "controller.render.smart_pistol_models": "variable.smart_pistol"
+        },
+        {
+          "controller.render.human_person": "variable.guns && variable.is_first_person"
+        },
+        {
+          "controller.render.wimman_models": "variable.wimman"
+        },
+        {
+          "controller.render.dg_models": "variable.dg"
+        },
+        {
+          "controller.render.thunderbolt_models": "variable.thunderbolt"
+        }
+      ],
+      "enable_attachables": true
+    }
+  }
+}

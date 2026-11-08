@@ -1,0 +1,20 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:tnt_n2_ignited",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/jmgs_tnt_n2"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_tnt_n2"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ]
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:inventory_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iCi",
+			"/#/",
+			"iHi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"C": {
+				"item": "minecraft:chest"
+			},
+			"/": {
+				"item": "minecraft:stick"
+			},
+			"H": {
+				"item": "minecraft:hopper"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_2"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:inventory_drone_spawn_egg"
+		}
+	}
+}

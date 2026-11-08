@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.thunderbolt_ammo": {
+			"textures": [
+				"Texture.thunderbolt_ammo"
+			],
+			"geometry": "Geometry.thunderbolt_ammo",
+			"materials": [
+				{
+					"*": "Material.default"
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,35 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_projectile_a1.first_person_hold": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.5,
+			"bones": {
+				"root_item": {
+					"rotation": [90, 56, -32],
+					"position": [9, 18, 5]
+				},
+				"arms": {
+					"rotation": {
+						"0.0": [-79.85779, -9.88028, -1.09716],
+						"0.5": [12.64221, -9.88028, -1.09716]
+					},
+					"position": {
+						"0.0": [4, 20, 29],
+						"0.5": [4, 15, 18]
+					}
+				}
+			}
+		},
+		"animation.pmo_projectile_a1.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [61.53088, -23.79365, -6.24419],
+					"position": [-1.5, 20, -2.5],
+					"scale": 0.85
+				}
+			}
+		}
+	}
+}

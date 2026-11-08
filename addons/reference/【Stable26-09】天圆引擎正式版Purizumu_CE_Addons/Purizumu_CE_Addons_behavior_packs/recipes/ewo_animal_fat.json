@@ -1,0 +1,24 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "animal_fat_477dacd2"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:leather",
+        "data": 1
+      }
+    },
+    "result": {
+      "item": "ewo:animal_fat",
+      "count": 2
+    }
+  }
+}

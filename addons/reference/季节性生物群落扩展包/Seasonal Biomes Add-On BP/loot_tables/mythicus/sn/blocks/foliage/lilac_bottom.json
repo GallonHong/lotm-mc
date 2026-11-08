@@ -1,0 +1,14 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:lilac_bottom",
+                    "weight": 1
+                }
+            ]
+        }
+    ]
+}

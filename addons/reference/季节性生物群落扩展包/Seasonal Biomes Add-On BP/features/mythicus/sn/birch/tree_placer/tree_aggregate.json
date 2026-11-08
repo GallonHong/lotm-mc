@@ -1,0 +1,17 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/birch/tree_placer/tree_aggregate"
+        },
+
+        "early_out": "first_failure",
+
+        "features": [
+            "mythicus_sn:mythicus/sn/birch/tree_placer/block_0",
+            "mythicus_sn:mythicus/sn/birch/tree_placer/block_1",
+            "mythicus_sn:mythicus/sn/birch/tree_placer/tree_group",
+            "mythicus_sn:mythicus/sn/birch/tree_placer/block_2"
+        ]
+    }
+}

@@ -1,0 +1,27 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:smart_pistol_ammo",
+      "materials": {
+        "default": "charged_creeper"
+      },
+      "textures": {
+        "default": "textures/items/smart_pistol_bullet"
+      },
+      "geometry": {
+        "default": "geometry.fireball"
+      },
+      "render_controllers": [ "controller.render.fireball" ],
+      "animations": {
+        "face_player": "animation.actor.billboard"
+      },
+      "scripts": {
+        "scale": "0.5",
+        "animate": [
+          "face_player"
+        ]
+      }
+    }
+  }
+} 

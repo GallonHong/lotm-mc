@@ -1,0 +1,61 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:block_nirs",
+      "textures": {
+        "default": "textures/entity/jmgs_block_nirs"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_block_nirs"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:block_nirs",
+        "texture_index": 0
+      },
+      "animations": {
+        "standby": "animation.pmo.standby",
+        "run": "animation.jmgs_block_nirs.run",
+        "fight": "animation.jmgs_block_nirs.fight",
+        "shoot": "animation.jmgs_block_nirs.shoot",
+        "arms": "animation.jmgs_block_nirs.arms",
+        "jump": "animation.jmgs_block_nirs.jump",
+        "get": "animation.jmgs_block_nirs.get",
+        "idle": "animation.jmgs_block_nirs.idle",
+        "get_in": "animation.jmgs_block_nirs.get_in",
+        "get_out": "animation.jmgs_block_nirs.get_out",
+        "kick": "animation.jmgs_block_nirs.kick",
+        "spawn": "animation.jmgs_block_nirs.spawn",
+        "move": "controller.animation.pmo_entity_mecha",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit",
+        "car.walk": "car_walk",
+        "mecha.walk": "mecha_walk",
+        "mecha.idle": "mob.shulker.bullet.hit",
+        "se.se107": "se.se107",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle",
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "move",
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

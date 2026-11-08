@@ -1,0 +1,106 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:seasons_pig",
+            "min_engine_version": "1.8.0",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "warm": "textures/mythicus/sn/entity/mobs/pigs/pig_temperate_clean",
+                "mud.wet": "textures/mythicus/sn/entity/mobs/pigs/pig_wet_mud",
+                "mud.dry": "textures/mythicus/sn/entity/mobs/pigs/pig_dry_mud",
+                "warm.leaves_1": "textures/mythicus/sn/entity/mobs/pigs/pig_temperate_leaves_1",
+                "warm.leaves_2": "textures/mythicus/sn/entity/mobs/pigs/pig_temperate_leaves_2",
+                "warm.leaves_3": "textures/mythicus/sn/entity/mobs/pigs/pig_temperate_leaves_3",
+                "warm.leaves_4": "textures/mythicus/sn/entity/mobs/pigs/pig_temperate_leaves_4",
+                "cold": "textures/mythicus/sn/entity/mobs/pigs/pig_cold",
+                "cold.summer_shedding": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_summer_shedding",
+                "cold.leaves_1": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_leaves_1",
+                "cold.leaves_2": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_leaves_2",
+                "cold.leaves_3": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_leaves_3",
+                "cold.leaves_4": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_leaves_4",
+                "cold.snow_1": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_snowy_1",
+                "cold.snow_2": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_snowy_2",
+                "cold.snow_3": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_snowy_3",
+                "cold.snow_4": "textures/mythicus/sn/entity/mobs/pigs/pig_cold_snowy_4",
+                "saddle": "textures/entity/saddle_v2"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.seasons_pig"
+            },
+            "animations": {
+                "setup": "animation.pig.setup",
+                "walk": "animation.quadruped.walk",
+                "look_at_target": "animation.common.look_at_target",
+                "baby_transform": "animation.pig.baby_transform",
+                "plump_spring.transition": "animation.mythicus_sn.seasons_pig.plump_spring",
+                "plump_summer.transition": "animation.mythicus_sn.seasons_pig.plump_summer",
+                "plump_fall.transition": "animation.mythicus_sn.seasons_pig.plump_fall",
+                "plump_summer.state": "animation.mythicus_sn.seasons_pig.plump_summer",
+                "plump_fall.state": "animation.mythicus_sn.seasons_pig.plump_fall",
+                "plump_winter.state": "animation.mythicus_sn.seasons_pig.plump_winter",
+                "wallow": "animation.mythicus_sn.seasons_pig.wallow",
+                "wallow_idle": "animation.mythicus_sn.seasons_pig.wallow_idle",
+                "eat": "animation.mythicus_sn.seasons_pig.eat",
+                "search": "animation.mythicus_sn.seasons_pig.search",
+                "dig": "animation.mythicus_sn.seasons_pig.dig",
+                "shake": "animation.mythicus_sn.seasons_pig.shake",
+                "fertilizer": "animation.mythicus_sn.seasons_pig.fertilizer",
+                "season_growth.controller": "controller.animation.mythicus_sn.seasons_pig.growth",
+                "dig.controller": "controller.animation.mythicus_sn.seasons_pig.dig",
+                "wallow.controller": "controller.animation.mythicus_sn.seasons_pig.wallow",
+                "shake.controller": "controller.animation.mythicus_sn.seasons_pig.shake",
+                "cold_breath.controller": "controller.animation.mythicus_sn.generic.breath",
+                "cold_breath": "animation.mythicus_sn.generic.cold_breath",
+                "snow_shake": "animation.mythicus_sn.generic.snow_shake",
+                "leaf_shake": "animation.mythicus_sn.generic.leaf_shake"
+            },
+            "scripts": {
+                "animate": [
+                    "season_growth.controller",
+                    "dig.controller",
+                    "wallow.controller",
+                    "shake.controller",
+                    "setup",
+                    {
+                        "walk": "query.modified_move_speed"
+                    },
+                    {
+                        "look_at_target": "!q.property('mythicus_sn:is_wallowing')"
+                    },
+                    {
+                        "baby_transform": "query.is_baby"
+                    },
+                    "cold_breath.controller"
+                ],
+                "pre_animation": [
+                    "t.variant = query.property('mythicus_sn:climate_variant');",
+                    "v.index = (t.variant == 'cold') ? 1 : 0;"
+                ]
+            },
+            "render_controllers": [
+                "controller.render.saddle",
+                "controller.render.mythicus_sn.seasons_pig.climate",
+                {
+                    "controller.render.mythicus_sn.seasons_pig.mud": "q.property('mythicus_sn:covered_in_mud')"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_pig.leaves": "q.property('mythicus_sn:covered_in_leaves')"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_pig.snow": "q.property('mythicus_sn:covered_in_snow')"
+                }
+            ],
+            "particle_effects": {
+                "cold_breath": "mythicus_sn:cold_breath_mob",
+                "snow_shake": "mythicus_sn:snow_shake",
+                "leaf_shake": "mythicus_sn:leaf_shake"
+            },
+            "spawn_egg": {
+                "texture": "mythicus_sn:spawn_egg_pig"
+            }
+        }
+    }
+}

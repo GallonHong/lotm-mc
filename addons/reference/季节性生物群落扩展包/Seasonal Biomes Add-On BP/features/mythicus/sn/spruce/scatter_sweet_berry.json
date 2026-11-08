@@ -1,0 +1,23 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/spruce/scatter_sweet_berry"
+        },
+        "iterations": 80,
+        "x": {
+            "distribution": "triangle",
+            "extent": [-7, 7]
+        },
+        "y": {
+            "distribution": "triangle",
+            "extent": [-3, 3]
+        },
+        "z": {
+            "distribution": "triangle",
+            "extent": [-7, 7]
+        },
+        "coordinate_eval_order": "zyx",
+        "places_feature": "mythicus_sn:mythicus/sn/spruce/sweet_berry"
+    }
+}

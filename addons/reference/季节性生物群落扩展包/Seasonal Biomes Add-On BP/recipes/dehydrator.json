@@ -1,0 +1,30 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:dehydrator"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "#A#",
+            "###"
+        ],
+        "key": {
+            "#": {
+                "item": "minecraft:oak_log"
+            },
+            "A": {
+                "item": "minecraft:furnace"
+            }
+        },
+        "result": {
+            "item": "mythicus_sn:dehydrator",
+            "count": 1
+        },
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        }
+    }
+}

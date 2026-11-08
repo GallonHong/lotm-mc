@@ -1,0 +1,27 @@
+{
+    "format_version": "1.21.80",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mythicus_sn:leaves_spruce",
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "components": {
+            "minecraft:display_name": {
+                "value": "tile.mythicus_sn:leaves_spruce.name"
+            },
+            "minecraft:max_stack_size": 64,
+            "minecraft:block_placer": {
+                "block": "mythicus_sn:leaves_spruce",
+                "replace_block_item": true
+            },
+            "minecraft:compostable": {
+                "composting_chance": 35
+            },
+            "minecraft:liquid_clipped": {
+                "value": false
+            }
+        }
+    }
+}

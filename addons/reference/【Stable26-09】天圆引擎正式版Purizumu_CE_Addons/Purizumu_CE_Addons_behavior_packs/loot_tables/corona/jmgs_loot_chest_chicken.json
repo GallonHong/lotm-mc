@@ -1,0 +1,2018 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 2,
+        "max": 5
+      },
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_arrow.json",
+          "weight": 30
+        },
+        {
+          "type": "item",
+          "name": "minecraft:experience_bottle",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 32,
+                "max": 63
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_frying_pan",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_spear",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_apex",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.5
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_epic",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.5
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:sword_dragon",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.5
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "免费取得"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_sword",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 20
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_cannon",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:projectile_gun_electric",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 10,
+                "max": 30
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:projectile_a1",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 20
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:projectile_a2",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 5,
+                "max": 10
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:projectile_a3",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 5
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:ender_pearl",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wind_charge",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 8
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_sword",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:mace",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_axe",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_sword",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:r201",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:wimman",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:klb",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:jg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:thunderbolt",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:alter",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:dg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:eva8",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:smart_pistol",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_alien",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:dsgger",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_stick",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:telescopic_rod",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§b3D武器§r",
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_feather_duster",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_knife",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_noob",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_alien",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_cactus",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_cake",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_knife2",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_duo",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_long_knife",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:potion",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_count",
+              "count": {
+                "min": 1,
+                "max": 3
+              }
+            },
+            {
+              "function": "set_data",
+              "data": 21
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_spear",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_tang",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_christmas",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_land",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_mithril",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_super_hoe",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_light",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_super_axe",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_pink",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:flames_sword",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_obs",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_apocalypse",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_brunhild",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_astro",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_axe_ur",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_fire",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.1,
+                "max": 0.5
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6增加半管血条§r",
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_aurora",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_deception",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:sword_Jealousy",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6究极神兵§r",
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:crossbow",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.4,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:elytra",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_leggings",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_boots",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_chestplate",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_helmet",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_chestplate",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_boots",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_leggings",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_helmet",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_mob",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_mob2",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_mob3",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_night_vision",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_tech",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_thor",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_thro1",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_thor2",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void1",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void2",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void3",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_void4",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god1",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god3",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god13",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god12",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:armor_god11",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_damage",
+              "damage": {
+                "min": 0.3,
+                "max": 1.0
+              }
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "来自宝箱的馈赠"
+              ]
+            },
+            {
+              "function": "enchant_randomly",
+              "treasure": true
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

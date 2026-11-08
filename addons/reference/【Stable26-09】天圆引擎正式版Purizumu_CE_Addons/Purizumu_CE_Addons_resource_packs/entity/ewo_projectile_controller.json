@@ -1,0 +1,28 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:projectile_controller",
+      "materials": {
+        "default": "slime"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_projectile_controller"
+      },
+      "geometry": {
+        "default": "geometry.pabullet"
+      },
+      "scripts": {
+        "animate": [
+          "particles"
+        ]
+      },
+      "animations": {
+        "particles": "controller.animation.ewo_projectile_controller"
+      },
+      "render_controllers": [
+        "controller.render.slime"
+      ]
+    }
+  }
+}

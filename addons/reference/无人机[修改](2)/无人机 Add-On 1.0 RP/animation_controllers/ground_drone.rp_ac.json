@@ -1,0 +1,51 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.ground_drone": {
+			"states": {
+				"default": {
+					"animations": [
+						"idle"
+					],
+					"transitions": [
+						{
+							"attack": "q.is_delayed_attacking"
+						},
+						{
+							"walk": "q.modified_move_speed > 0.1"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"walk": {
+					"animations": [
+						"walk"
+					],
+					"transitions": [
+						{
+							"attack": "q.is_delayed_attacking"
+						},
+						{
+							"default": "q.modified_move_speed < 0.1"
+						}
+					],
+					"blend_transition": 0.2
+				},
+				"attack": {
+					"animations": [
+						"attack"
+					],
+					"transitions": [
+						{
+							"walk": "q.all_animations_finished && q.modified_move_speed > 0.1"
+						},
+						{
+							"default": "q.all_animations_finished"
+						}
+					],
+					"blend_transition": 0.2
+				}
+			}
+		}
+	}
+}

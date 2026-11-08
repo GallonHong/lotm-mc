@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_jealousy_85650d44"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AFA",
+      "ABA",
+      "CDE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:netherite_block",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:item_start",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:netherite_sword",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "F": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_jealousy",
+      "count": 1
+    }
+  }
+}

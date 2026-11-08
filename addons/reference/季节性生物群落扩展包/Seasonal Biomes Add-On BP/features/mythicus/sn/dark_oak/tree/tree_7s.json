@@ -1,0 +1,25 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:structure_template_feature": {
+        "facing_direction": "south",
+        "constraints": {
+            "unburied": {},
+            "grounded": {},
+            "block_intersection": {
+                "block_allowlist": [
+                    "minecraft:air",
+                    "minecraft:water",
+                    "minecraft:dark_oak_log",
+                    "mythicus_sn:dark_oak_leaves",
+                    "mythicus_sn:red_leaves_oak",
+                    "mythicus_sn:orange_leaves_oak",
+                    "mythicus_sn:yellow_leaves_oak"
+                ]
+            }
+        },
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/dark_oak/tree/tree_7s"
+        },
+        "structure_name": "mystructure:mythicus_sn/dark_oak/dark_oak_8"
+    }
+}

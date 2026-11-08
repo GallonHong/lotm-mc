@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_disk3_3f283283"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "A",
+      "B",
+      "C"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_disk2",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_disk3",
+      "count": 1
+    }
+  }
+}

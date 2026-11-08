@@ -1,0 +1,27 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.generic.breath": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "cold": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "cold": {
+                    "animations": [
+                        "cold_breath"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

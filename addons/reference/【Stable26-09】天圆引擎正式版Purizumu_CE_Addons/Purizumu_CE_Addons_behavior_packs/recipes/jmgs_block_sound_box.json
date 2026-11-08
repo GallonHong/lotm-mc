@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_sound_box_a5653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABD",
+      "ECF",
+      "GGG"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:noteblock",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:pc_mainh110",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_aramid",
+        "data": 0
+      },
+      "G": {
+        "item": "minecraft:planks",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_sound_box",
+      "count": 1
+    }
+  }
+}

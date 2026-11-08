@@ -1,0 +1,621 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "item",
+          "name": "pmo:entity_car_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值150§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_pro_spawn_egg",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值300§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_cherry_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值175§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_blue_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值175§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_green_spawn_egg",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_ultra_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值450§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_max_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值220§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_max_pro_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值未收录§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:entity_car_spawn_egg",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:entity_car_pro_spawn_egg",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值130§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:entity_car_plus_spawn_egg",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_power4_spawn_egg",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_plus_normal_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:entity_broom_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值25§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_moto_spawn_egg",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:entity_sea_moth_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_boat_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_time_spawn_egg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1057§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_macaron_spawn_egg",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值175§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_macaron_edit_spawn_egg",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_macaron_boat_spawn_egg",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值405§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_moto_lese_spawn_egg",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值45§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_moto_calm_spawn_egg",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值45§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_bike_spawn_egg",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_bike_pro_spawn_egg",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_car_other_spawn_egg",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值35§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_moto_plus_spawn_egg",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值70§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_moto_ultra_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值140§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:entity_mecha_a4_spawn_egg",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值58§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:role_fight_boom_spawn_egg",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:role_fight9_spawn_egg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值未收录§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:role_fight1_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值25§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:role_fight2_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值45§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:role_fight3_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值20§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:role_fight4_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "pmo:role_fight5_spawn_egg",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值60§r"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

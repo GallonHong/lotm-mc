@@ -1,0 +1,44 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_fox": {
+            "arrays": {
+                "textures": {
+                    "Array.skins": [
+                        "Texture.default",
+                        "Texture.arctic"
+                    ],
+                    "Array.winter_skins": [
+                        "Texture.winter",
+                        "Texture.arctic_winter"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": [
+                "q.property('mythicus_sn:season_variant') == 'winter' ? Array.winter_skins[q.property('mythicus_sn:fox_variant')] : Array.skins[q.property('mythicus_sn:fox_variant')]"
+            ],
+            "part_visibility": [
+                {
+                    "head_sleeping": "query.is_sleeping"
+                },
+                {
+                    "ear4": "query.is_sleeping"
+                },
+                {
+                    "ear3": "query.is_sleeping"
+                },
+                {
+                    "head": "!query.is_sleeping"
+                },
+                {
+                    "ear2": "!query.is_sleeping"
+                },
+                {
+                    "ear": "!query.is_sleeping"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,1 @@
+scoreboard objectives add cyd_mgspl_mana dummy cyd_mgspl_mana

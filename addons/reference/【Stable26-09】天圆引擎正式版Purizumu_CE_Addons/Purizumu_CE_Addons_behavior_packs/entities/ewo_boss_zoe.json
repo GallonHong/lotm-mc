@@ -1,0 +1,263 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ewo:boss_zoe",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "monster",
+          "boss"
+        ]
+      },
+      "minecraft:behavior.move_towards_home_restriction": {
+        "priority": 9
+      },
+      "minecraft:behavior.random_hover": {
+        "priority": 12,
+        "xz_dist": 8,
+        "y_dist": 8,
+        "y_offset": -1,
+        "interval": 1,
+        "hover_height": [
+          1,
+          4
+        ]
+      },
+      "minecraft:leashable": {
+        "soft_distance": 4.0,
+        "hard_distance": 6.0,
+        "max_distance": 10.0
+      },
+      "minecraft:balloonable": {
+        "mass": 0.5
+      },
+      "minecraft:behavior.float": {
+        "priority": 19
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:navigation.hover": {
+        "can_path_over_water": true,
+        "can_sink": false,
+        "can_pass_doors": false,
+        "can_path_from_air": true,
+        "avoid_water": true,
+        "avoid_damage_blocks": true,
+        "avoid_sun": false
+      },
+      "minecraft:movement.hover": {},
+      "minecraft:jump.static": {},
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:health": {
+        "value": 180,
+        "max": 180
+      },
+      "minecraft:collision_box": {
+        "height": 2,
+        "width": 1
+      },
+      "minecraft:boss": {
+        "should_darken_sky": false,
+        "hud_range": 125,
+        "name": "沾染血污的天空·佐伊"
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:movement": {
+        "value": 0.2
+      },
+      "minecraft:fall_damage": {
+        "value": 0
+      },
+      "minecraft:can_fly": {},
+      "minecraft:on_target_acquired": {
+        "event": "attacked",
+        "target": "self"
+      },
+      "minecraft:conditional_bandwidth_optimization": {},
+      "minecraft:game_event_movement_tracking": {
+        "emit_flap": true
+      },
+      "minecraft:flying_speed": {
+        "value": 0.15
+      },
+      "minecraft:damage_sensor": [
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_witch"
+          },
+          "deals_damage": false
+        },
+        {
+          "on_damage": {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "husk"
+                }
+              ],
+              "all_of": [
+                {
+                  "test": "has_damage",
+                  "value": "fatal"
+                }
+              ]
+            },
+            "event": "become_zombie"
+          }
+        }
+      ],
+      "minecraft:behavior.move_indoors": {
+        "priority": 4,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.restrict_open_door": {
+        "priority": 5
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "priority": 7,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.share_items": {
+        "priority": 8,
+        "max_dist": 3,
+        "goal_radius": 2,
+        "speed_multiplier": 0.5,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "villager"
+            }
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 11,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 12,
+        "look_distance": 8,
+        "probability": 0.02
+      },
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.02
+      },
+      "minecraft:scale": {
+        "value": 0.85
+      },
+      "minecraft:hurt_when_wet": {
+        "value": true
+      },
+      "minecraft:attack": {
+        "damage": 3
+      },
+      "minecraft:behavior.ranged_attack": {
+        "attack_interval_min": 3,
+        "attack_interval_max": 3,
+        "attack_radius": 40,
+        "burst_shots": 2,
+        "burst_interval": 0.5
+      },
+      "minecraft:shooter": {
+        "type": "苍火球魔法",
+        "def": "ewo:projectile_boom"
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "within_radius": 50,
+        "must_reach": false,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "lead"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "toy"
+                }
+              ]
+            },
+            "max_dist": 50.0,
+            "must_see": true
+          }
+        ],
+        "must_see": true,
+        "speed_multiplier": 1,
+        "reselect_targets": true
+      },
+      "minecraft:follow_range": {
+        "value": 100
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.owner_hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.owner_hurt_target": {
+        "priority": 2
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/entities/ewo_drop_b4.json"
+      }
+    },
+    "events": {
+      
+    }
+  }
+}

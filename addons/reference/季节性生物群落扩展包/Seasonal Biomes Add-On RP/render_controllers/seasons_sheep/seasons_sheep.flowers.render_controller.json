@@ -1,0 +1,26 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_sheep.flowers": {
+            "arrays": {
+                "textures": {
+                    "Array.flowers": [
+                        "Texture.flower.allium",
+                        "Texture.flower.azure_bluet",
+                        "Texture.flower.blue_orchid",
+                        "Texture.flower.cornflower",
+                        "Texture.flower.daisy",
+                        "Texture.flower.dandelion",
+                        "Texture.flower.orange_tulip",
+                        "Texture.flower.pink_tulip",
+                        "Texture.flower.poppyrose",
+                        "Texture.flower.red_tulip"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": ["Array.flowers[q.property('mythicus_sn:flower_variant') - 1]"]
+        }
+    }
+}

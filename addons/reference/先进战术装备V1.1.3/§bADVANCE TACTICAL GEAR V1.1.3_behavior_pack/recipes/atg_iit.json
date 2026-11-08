@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "iit_ad6170d3"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      "CDE",
+      " F "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:redstone_torch",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:tinted_glass",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:iron_trapdoor",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:light_blue_stained_glass_pane",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:spyglass",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:iit",
+      "count": 1
+    }
+  }
+}

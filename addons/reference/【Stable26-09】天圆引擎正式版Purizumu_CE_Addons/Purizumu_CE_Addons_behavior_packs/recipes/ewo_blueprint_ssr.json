@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "blueprint_ssr_2e910b91"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:blueprint_ssr",
+      "count": 1
+    }
+  }
+}

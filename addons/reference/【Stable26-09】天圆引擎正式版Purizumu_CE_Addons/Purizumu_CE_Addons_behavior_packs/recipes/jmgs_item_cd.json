@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_cd_934cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_cd",
+      "count": 1
+    }
+  }
+}

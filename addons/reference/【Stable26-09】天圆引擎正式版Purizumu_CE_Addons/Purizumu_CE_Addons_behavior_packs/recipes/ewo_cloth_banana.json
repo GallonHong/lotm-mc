@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_banana_209a99d6"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:leather",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_banana",
+      "count": 1
+    }
+  }
+}

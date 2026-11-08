@@ -1,0 +1,137 @@
+{
+    "format_version": "1.10.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.base_villager": {
+            "arrays": {
+                "textures": {
+                    "Array.base": ["Texture.base"]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": ["Texture.base"]
+        },
+
+        "controller.render.mythicus_sn.spring_season_villager": {
+            "arrays": {
+                "textures": {
+                    "Array.professions": [
+                        "Texture.spring_base",
+                        "Texture.spring_farmer",
+                        "Texture.spring_fisherman",
+                        "Texture.spring_shepherd",
+                        "Texture.spring_fletcher",
+                        "Texture.spring_librarian",
+                        "Texture.spring_cartographer",
+                        "Texture.spring_cleric",
+                        "Texture.spring_armorer",
+                        "Texture.spring_weapon_smith",
+                        "Texture.spring_tool_smith",
+                        "Texture.spring_butcher",
+                        "Texture.spring_leatherworker",
+                        "Texture.spring_stonemason",
+                        "Texture.spring_nitwit"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": ["Array.professions[variable.profession_index]"]
+        },
+
+        "controller.render.mythicus_sn.winter_season_villager": {
+            "arrays": {
+                "textures": {
+                    "Array.professions": [
+                        "Texture.winter_base",
+                        "Texture.winter_farmer",
+                        "Texture.winter_fisherman",
+                        "Texture.winter_shepherd",
+                        "Texture.winter_fletcher",
+                        "Texture.winter_librarian",
+                        "Texture.winter_cartographer",
+                        "Texture.winter_cleric",
+                        "Texture.winter_armorer",
+                        "Texture.winter_weapon_smith",
+                        "Texture.winter_tool_smith",
+                        "Texture.winter_butcher",
+                        "Texture.winter_leatherworker",
+                        "Texture.winter_stonemason",
+                        "Texture.winter_nitwit"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": ["Array.professions[variable.profession_index]"]
+        },
+        "controller.render.mythicus_sn.summer_season_villager": {
+            "arrays": {
+                "textures": {
+                    "Array.professions": [
+                        "Texture.summer_base",
+                        "Texture.summer_farmer",
+                        "Texture.summer_fisherman",
+                        "Texture.summer_shepherd",
+                        "Texture.summer_fletcher",
+                        "Texture.summer_librarian",
+                        "Texture.summer_cartographer",
+                        "Texture.summer_cleric",
+                        "Texture.summer_armorer",
+                        "Texture.summer_weapon_smith",
+                        "Texture.summer_tool_smith",
+                        "Texture.summer_butcher",
+                        "Texture.summer_leatherworker",
+                        "Texture.summer_stonemason",
+                        "Texture.summer_nitwit"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": ["Array.professions[variable.profession_index]"]
+        },
+        "controller.render.mythicus_sn.fall_season_villager": {
+            "arrays": {
+                "textures": {
+                    "Array.professions": [
+                        "Texture.fall_base",
+                        "Texture.fall_farmer",
+                        "Texture.fall_fisherman",
+                        "Texture.fall_shepherd",
+                        "Texture.fall_fletcher",
+                        "Texture.fall_librarian",
+                        "Texture.fall_cartographer",
+                        "Texture.fall_cleric",
+                        "Texture.fall_armorer",
+                        "Texture.fall_weapon_smith",
+                        "Texture.fall_tool_smith",
+                        "Texture.fall_butcher",
+                        "Texture.fall_leatherworker",
+                        "Texture.fall_stonemason",
+                        "Texture.fall_nitwit"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [
+                {
+                    "*": "Material.default"
+                }
+            ],
+            "textures": ["Array.professions[variable.profession_index]"]
+        }
+    }
+}

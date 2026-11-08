@@ -1,0 +1,41 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.makercamp_dr.night_vision_effect",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 59376,
+				"visible_bounds_height": 31250,
+				"visible_bounds_offset": [0, 14063, 0]
+			},
+			"bones": [
+				{
+					"name": "night_vision_effect_root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "night_vision_effect",
+					"parent": "night_vision_effect_root",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{
+							"origin": [-256, -256, -256],
+							"size": [512, 512, 512],
+							"inflate": -512,
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [64, 64]},
+								"east": {"uv": [0, 0], "uv_size": [64, 64]},
+								"south": {"uv": [0, 0], "uv_size": [64, 64]},
+								"west": {"uv": [0, 0], "uv_size": [64, 64]},
+								"up": {"uv": [64, 64], "uv_size": [-64, -64]},
+								"down": {"uv": [64, 64], "uv_size": [-64, -64]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

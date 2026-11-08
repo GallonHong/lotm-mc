@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_god11_be133501"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond_boots",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_si_gel",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_god11",
+      "count": 1
+    }
+  }
+}

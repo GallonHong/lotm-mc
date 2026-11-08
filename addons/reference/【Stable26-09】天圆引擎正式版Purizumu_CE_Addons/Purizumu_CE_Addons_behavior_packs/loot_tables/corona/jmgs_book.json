@@ -1,0 +1,782 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "knockback",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "protection",
+                  "level": 4
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "protection",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "fire_protection",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "feather_falling",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "blast_protection",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "projectile_protection",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "thorns",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "respiration",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "depth_strider",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "aqua_affinity",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "sharpness",
+                  "level": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "bane_of_arthropods",
+                  "level": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "fire_aspect",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "looting",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "efficiency",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "silk_touch",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "fortune",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "unbreaking",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "power",
+                  "level": 5
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "infinity",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "luck_of_the_sea",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "lure",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "frost_walker",
+                  "level": 2
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "mending",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "binding_curse",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "vanishing_curse",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "impaling",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "loyalty",
+                  "level": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "riptide",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "channeling",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "multishot",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "piercing",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "quick_charge",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:enchanted_book",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "从宝箱取得"
+              ]
+            },
+            {
+              "function": "specific_enchants",
+              "enchants": [
+                {
+                  "id": "qsoul_speed",
+                  "level": 1
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

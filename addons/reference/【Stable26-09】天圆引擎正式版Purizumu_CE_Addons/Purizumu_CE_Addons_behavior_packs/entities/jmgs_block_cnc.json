@@ -1,0 +1,105 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "jmgs:block_cnc",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "pmo:entity_trade": {
+        "minecraft:economy_trade_table": {
+          "display_name": "text.jmgs_cnc_trader",
+          "table": "trades/entities/jmgs_cnc_trades.json",
+          "hero_demand_discount": -4,
+          "new_screen": true
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "store"
+        ]
+      },
+      "minecraft:health": {
+        "value": 100,
+        "max": 100
+      },
+      "minecraft:behavior.trade_with_player": {
+        "priority": 1
+      },
+      "minecraft:trade_resupply": {},
+      "minecraft:movement.basic": {},
+      "minecraft:movement": {
+        "value": 0,
+        "max": 0
+      },
+      "minecraft:knockback_resistance": {
+        "value": 10.0,
+        "max": 10.0
+      },
+      "minecraft:push_through": {
+        "value": 1
+      },
+      "minecraft:fall_damage": {
+        "value": 0
+      },
+      "minecraft:scale": {
+        "value": 1.15
+      },
+      "minecraft:loot": {
+        "table": "loot_tables/jmgs/jmgs_loot_spawn_egg.json"
+      },
+      "minecraft:collision_box": {
+        "height": 1,
+        "width": 1
+      },
+      "minecraft:physics": {},
+      "minecraft:navigation.walk": {},
+      "minecraft:behavior.controlled_by_player": {
+        "priority": 0
+      },
+      "minecraft:is_stackable": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.02
+      },
+      "minecraft:damage_sensor": {
+        "triggers": [
+          {
+            "cause": "entity_attack",
+            "dodgeable": false,
+            "deals_damage": false
+          },
+          {
+            "cause": "projectile",
+            "dodgeable": false,
+            "deals_damage": false
+          },
+          {
+            "cause": "void",
+            "dodgeable": false,
+            "deals_damage": true
+          },
+          {
+            "cause": "fall",
+            "deals_damage": false
+          }
+        ]
+      }
+    },
+    "events": {
+      "minecraft:entity_spawned": {
+        "add": {
+          "component_groups": [
+            "pmo:entity_trade"
+          ]
+        }
+      }
+    }
+  }
+}

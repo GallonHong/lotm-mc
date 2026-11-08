@@ -1,0 +1,187 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.alter_b.run": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "alter_b_first_person": "variable.alter_b"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "variable.alter_b && query.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope": "variable.alter_b && query.is_sneaking"
+                        },
+                        {
+                            "fire": "variable.alter_b && q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "not_total_mag": "query.get_equipped_item_name == 'alter_b_empty1'"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'alter_b_empty2'"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "alter_b_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        "alter_b_first_person_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || !query.is_sprinting || !variable.alter_b || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "query.get_equipped_item_name == 'alter_b_empty1'"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'alter_b_empty2'"
+                        },
+                        {
+                            "fire": "variable.alter_b && q.item_remaining_use_duration > 1"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "alter_b_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "scope": {
+                    "animations": [
+                        "alter_b_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_sneaking || !variable.alter_b || !q.is_alive"
+                        },
+                        {
+                            "scopehold": "query.all_animations_finished"
+                        },
+                        {
+                            "not_total_mag": "query.get_equipped_item_name == 'alter_b_empty1'"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'alter_b_empty2'"
+                        }
+                    ]
+                },
+                "scopehold": {
+                    "animations": [
+                        "alter_b_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.alter_b || !q.is_alive"
+                        },
+                        {
+                            "scopehold_to_default": "!query.is_sneaking"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "not_total_mag": "query.get_equipped_item_name == 'alter_b_empty1'"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'alter_b_empty2'"
+                        }
+                    ]
+                },
+                "scopehold_to_default": {
+                    "animations": [
+                        "alter_b_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished || !q.is_alive"
+                        }
+                    ]
+                },
+                "fire": {
+                    "animations": [
+                        {
+                            "alter_b_first_person_fire1": " variable.random_choices >= 50"
+                        },
+                        {
+                            "alter_b_first_person_fire2": " variable.random_choices < 50"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.alter_b || !query.is_using_item || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "query.get_equipped_item_name == 'alter_b_empty1'"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'alter_b_empty2'"
+                        },
+                        {
+                            "scope": "query.is_sneaking"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "alter_b_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold": "!query.is_using_item"
+                        },
+                        {
+                            "not_total_mag": "query.get_equipped_item_name == 'alter_b_empty1'"
+                        },
+                        {
+                            "mag": "query.get_equipped_item_name == 'alter_b_empty2'"
+                        },
+                        {
+                            "scopehold_to_default": "!query.is_sneaking"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        "alter_b_first_person_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_alive || query.get_equipped_item_name == 'alter_b'"
+                        }
+                    ]
+                },
+                "not_total_mag": {
+                    "animations": [
+                        "alter_b_first_person_not_total_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_alive || query.get_equipped_item_name == 'alter_b'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

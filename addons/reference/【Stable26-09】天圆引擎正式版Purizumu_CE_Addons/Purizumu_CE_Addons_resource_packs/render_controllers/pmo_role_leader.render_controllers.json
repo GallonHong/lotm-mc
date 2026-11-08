@@ -1,0 +1,18 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.pmo_role_leader": {
+            "arrays": {
+                "textures": {
+                    "Array.variant": [
+                        "Texture.default",
+                        "Texture.variant_2"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [ { "*": "Material.default" } ],
+            "textures": [ "Array.variant[ query.variant ]" ]
+        }
+    }
+}

@@ -1,0 +1,136 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "mythicus_sn:house"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_0"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_1"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_2"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_3"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_4"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_5"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_6"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_7"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_8"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_9"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_10"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_11"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_12"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_13"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_14"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_15"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_16"
+                },
+                "weight": 25
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/h_17"
+                },
+                "weight": 25
+            }
+        ]
+    }
+}

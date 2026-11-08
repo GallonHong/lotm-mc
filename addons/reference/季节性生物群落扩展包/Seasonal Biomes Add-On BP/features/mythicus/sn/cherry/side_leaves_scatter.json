@@ -1,0 +1,23 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/cherry/side_leaves_scatter"
+        },
+        "iterations": 1,
+        "places_feature": "mythicus_sn:mythicus/sn/cherry/side_leaves",
+        "coordinate_eval_order": "zyx",
+        "x": {
+            "extent": [-1, 1],
+            "distribution": "gaussian"
+        },
+        "z": {
+            "extent": [-1, 1],
+            "distribution": "gaussian"
+        },
+        "y": {
+            "extent": [-3, 8],
+            "distribution": "gaussian"
+        }
+    }
+}

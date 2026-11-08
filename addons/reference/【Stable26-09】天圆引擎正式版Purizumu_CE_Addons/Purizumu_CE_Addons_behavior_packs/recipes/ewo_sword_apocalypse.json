@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_apocalypse_8fc5895e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      "BED"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_manganese",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:iron_sword",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_apocalypse",
+      "count": 1
+    }
+  }
+}

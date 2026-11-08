@@ -1,0 +1,28 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "jmgs:alter",
+      "menu_category": {
+				"category": "equipment"
+			}
+    },
+    "components": {
+      "minecraft:max_stack_size": 1,
+      "minecraft:icon": {
+        "texture": "jmgs:alter"
+      },
+      "minecraft:display_name": {
+        "value": "item.jmgs:alter.name"
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:use_modifiers": {
+				"movement_modifier": 0.32,
+				"use_duration": 600
+			},
+      "minecraft:hand_equipped": true
+    }
+  }
+}

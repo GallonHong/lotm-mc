@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_radio_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "   ",
+      "ACD",
+      "BBD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_radio",
+      "count": 1
+    }
+  }
+}

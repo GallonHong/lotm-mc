@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.thunderbolt_models": {
+			"textures": [
+				"Texture.thunderbolt_models"
+			],
+			"geometry": "Geometry.thunderbolt_models",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"star": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire2": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire3": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

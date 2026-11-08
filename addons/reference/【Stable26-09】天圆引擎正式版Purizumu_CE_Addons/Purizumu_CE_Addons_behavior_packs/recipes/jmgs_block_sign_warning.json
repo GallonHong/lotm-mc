@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_sign_warning_932cd005"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BA ",
+      "C  ",
+      "C  "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:yellow_dye",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_recycled",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_sign_warning",
+      "count": 2
+    }
+  }
+}

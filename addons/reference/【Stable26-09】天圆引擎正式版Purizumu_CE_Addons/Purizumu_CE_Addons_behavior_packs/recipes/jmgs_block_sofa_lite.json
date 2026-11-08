@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_sofa_lite_932cd022"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "ECE",
+      "BDB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:spruce_planks",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_artleather",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_spring",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:white_wool",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_sofa_lite",
+      "count": 1
+    }
+  }
+}

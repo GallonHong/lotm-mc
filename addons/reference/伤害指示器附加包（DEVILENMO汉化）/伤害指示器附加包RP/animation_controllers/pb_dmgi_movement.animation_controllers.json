@@ -1,0 +1,72 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.pb_dmgi_move_ground": {
+            "states": {
+                "default": {
+                    "animations": [
+                        "idle"
+                    ],
+                    "transitions": [
+                        {
+                            "moving": "query.modified_move_speed > 0.05"
+                        }
+                    ]
+                },
+                "moving": {
+                    "blend_transition": 0.1,
+                    "animations": [
+                        "walk"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.modified_move_speed <= 0.05"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.pb_dmgi_move_leap": {
+            "states": {
+                "default": {
+                    "animations": [
+                        "idle"
+                    ],
+                    "transitions": [
+                        {
+                            "leap": "!query.is_on_ground"
+                        },
+                        {
+                            "moving": "query.modified_move_speed > 0.05"
+                        }
+                    ]
+                },
+                "moving": {
+                    "blend_transition": 0.1,
+                    "animations": [
+                        "walk"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.modified_move_speed <= 0.05"
+                        },
+                        {
+                            "leap": "!query.is_on_ground"
+                        }
+                    ]
+                },
+                "leap": {
+                    "blend_transition": 0.1,
+                    "animations": [
+                        "leap"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.is_on_ground"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

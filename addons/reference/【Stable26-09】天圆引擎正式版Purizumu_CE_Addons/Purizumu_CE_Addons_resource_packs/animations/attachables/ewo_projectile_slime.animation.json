@@ -1,0 +1,32 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ewo_projectile_slime.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [90, 56, -32],
+					"position": [9, 18, 5]
+				},
+				"bone": {
+					"rotation": [0.8881, -12.46126, -5.11606],
+					"position": [5, 8, 14]
+				}
+			}
+		},
+		"animation.ewo_projectile_slime.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [25, 0, 0],
+					"position": [0.5, 19, -2.5],
+					"scale": 0.85
+				},
+				"bone": {
+					"rotation": [62.5, 0, 0],
+					"position": [0, 2, 4]
+				}
+			}
+		}
+	}
+}

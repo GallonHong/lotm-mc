@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_1a2591b1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      " C "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:string",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:oak_log",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_string",
+      "count": 1
+    }
+  }
+}

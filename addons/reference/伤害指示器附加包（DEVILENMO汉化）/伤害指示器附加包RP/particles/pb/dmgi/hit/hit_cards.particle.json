@@ -1,0 +1,73 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "pb_dmgi:hit_cards",
+            "basic_render_parameters": {
+                "material": "particles_alpha",
+                "texture": "textures/pb/dmgi/particle/hit_card"
+            }
+        },
+        "components": {
+            "minecraft:emitter_initialization": {
+                "creation_expression": "variable.size = 0.3;variable.lifetime = 0.5;variable.size_variant = 0.1;"
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": "3+variable.damage"
+            },
+            "minecraft:emitter_lifetime_once": {
+                "active_time": 1
+            },
+            "minecraft:emitter_shape_sphere": {
+                "offset": [
+                    0,
+                    1,
+                    0
+                ],
+                "radius": 0.1,
+                "surface_only": true,
+                "direction": "outwards"
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": "(variable.particle_random_1+0.3)*variable.lifetime"
+            },
+            "minecraft:particle_initial_spin": {
+                "rotation": "variable.particle_random_1*360",
+                "rotation_rate": "(variable.particle_random_2-0.5)*700"
+            },
+            "minecraft:particle_initial_speed": "(variable.particle_random_1*6)+8",
+            "minecraft:particle_motion_dynamic": {
+                "linear_acceleration": [
+                    0,
+                    -9.5,
+                    0
+                ],
+                "linear_drag_coefficient": 3.5
+            },
+            "minecraft:particle_appearance_billboard": {
+                "size": [
+                    "variable.size+(variable.size_variant*variable.particle_random_4)-(variable.particle_age*0.4)",
+                    "variable.size+(variable.size_variant*variable.particle_random_4)-(variable.particle_age*0.4)"
+                ],
+                "facing_camera_mode": "lookat_direction",
+                "uv": {
+                    "texture_width": 32,
+                    "texture_height": 128,
+                    "uv": [
+                        0,
+                        "math.floor(v.particle_random_3*4)*32"
+                    ],
+                    "uv_size": [
+                        32,
+                        32
+                    ]
+                }
+            },
+            "minecraft:particle_motion_collision": {
+                "coefficient_of_restitution": 2,
+                "collision_radius": 0.25,
+                "expire_on_contact": true
+            }
+        }
+    }
+}

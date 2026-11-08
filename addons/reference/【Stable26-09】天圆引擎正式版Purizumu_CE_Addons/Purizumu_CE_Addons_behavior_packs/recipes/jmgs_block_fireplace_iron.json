@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_fireplace_iron_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "A  ",
+      "BDC",
+      "C C"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:smoker",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:coal_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_fireplace_iron",
+      "count": 1
+    }
+  }
+}

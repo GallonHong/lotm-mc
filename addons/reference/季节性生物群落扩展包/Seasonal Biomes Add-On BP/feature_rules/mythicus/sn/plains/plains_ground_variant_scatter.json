@@ -1,0 +1,37 @@
+{
+    "format_version": "1.21.10",
+    "minecraft:feature_rules": {
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "all_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "value": "mythicus_sn_seasonal_plains",
+                            "operator": "=="
+                        }
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "identifier": "mythicus_sn:plains_ground_variant_scatter",
+            "places_feature": "mythicus_sn:mythicus/sn/plains/ground_variant"
+        },
+        "distribution": {
+            "coordinate_eval_order": "zxy",
+            "iterations": 40,
+            "scatter_chance": 50,
+            "x": {
+                "extent": [0, 15],
+                "distribution": "gaussian"
+            },
+            "y": "query.heightmap(variable.worldx, variable.worldz)-1",
+            "z": {
+                "extent": [0, 15],
+                "distribution": "gaussian"
+            }
+        }
+    }
+}

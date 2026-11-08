@@ -1,0 +1,21 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mythicus_sn:season_clock",
+            "menu_category": {
+                "category": "equipment"
+            }
+        },
+        "components": {
+            "minecraft:max_stack_size": { "value": 1 },
+            "minecraft:allow_off_hand": true,
+            "minecraft:icon": {
+                "textures": {
+                    "default": "mythicus_sn:season_clock"
+                }
+            },
+            "minecraft:allow_off_hand": true
+        }
+    }
+}

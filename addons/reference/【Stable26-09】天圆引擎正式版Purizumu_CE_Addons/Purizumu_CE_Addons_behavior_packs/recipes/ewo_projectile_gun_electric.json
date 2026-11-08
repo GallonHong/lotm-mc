@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "projectile_gun_electric_3e08756b"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      "EFE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_amorphous",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:projectile_gun_electric",
+      "count": 64
+    }
+  }
+}

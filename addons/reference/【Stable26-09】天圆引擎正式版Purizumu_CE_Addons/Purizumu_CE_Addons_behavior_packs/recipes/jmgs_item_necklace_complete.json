@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_necklace_complete_932cd090"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B C",
+      " A ",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_necklace",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:emerald_block",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:redstone_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_necklace_complete",
+      "count": 1
+    }
+  }
+}

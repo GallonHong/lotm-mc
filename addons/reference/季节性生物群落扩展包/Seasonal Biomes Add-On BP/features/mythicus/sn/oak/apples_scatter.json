@@ -1,0 +1,23 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/apples_scatter"
+        },
+        "iterations": 6,
+        "places_feature": "mythicus_sn:mythicus/sn/oak/apples",
+        "coordinate_eval_order": "zyx",
+        "x": {
+            "extent": [-8, 8],
+            "distribution": "gaussian"
+        },
+        "z": {
+            "extent": [-8, 8],
+            "distribution": "gaussian"
+        },
+        "y": {
+            "extent": [-1, 5],
+            "distribution": "gaussian"
+        }
+    }
+}

@@ -1,0 +1,261 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "pmo:role_heroine2",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "pmo:role_teammate_group": {
+        "minecraft:is_tamed": {},
+        "minecraft:tameable": {
+          "probability": 1.0,
+          "tame_items": [],
+          "tame_event": {}
+        }
+      },
+      "pmo:role_enemy_group": {
+        "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "within_radius": 100,
+        "must_reach": false,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                }
+              ]
+            },
+            "max_dist": 100.0,
+            "must_see": true
+          }
+        ],
+        "must_see": true,
+        "speed_multiplier": 1,
+        "reselect_targets": true
+      }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "lead",
+          "toy"
+        ]
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:health": {
+        "value": 150,
+        "max": 150
+      },
+      "minecraft:collision_box": {
+        "height": 3,
+        "width": 0.6
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:movement": {
+        "value": 0.25
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "can_walk": true,
+        "avoid_water": true
+      },
+      "minecraft:annotation.open_door": {},
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:damage_sensor": [
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_witch"
+          },
+          "deals_damage": false
+        },
+        {
+          "on_damage": {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "husk"
+                }
+              ],
+              "all_of": [
+                {
+                  "test": "has_damage",
+                  "value": "fatal"
+                }
+              ]
+            },
+            "event": "become_zombie"
+          }
+        }
+      ],
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+      "minecraft:behavior.move_indoors": {
+        "priority": 4,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.restrict_open_door": {
+        "priority": 5
+      },
+      "minecraft:behavior.open_door": {
+        "priority": 6,
+        "close_door_after": true
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "priority": 7,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 11,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 12,
+        "look_distance": 8,
+        "probability": 0.02
+      },
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.2
+      },
+      "minecraft:scale": {
+        "value": 0.72
+      },
+      "minecraft:hurt_when_wet": {
+        "value": false
+      },
+      "minecraft:attack": {
+        "damage": 3
+      },
+      "minecraft:behavior.ranged_attack": {
+        "attack_interval_min": 1,
+        "attack_interval_max": 1,
+        "attack_radius": 12,
+        "burst_shots": 1,
+        "burst_interval": 1,
+        "charge_charged_trigger": 0,
+        "charge_shoot_trigger": 0,
+        "priority": 2
+      },
+      "minecraft:follow_range": {
+        "value": 100
+      },
+      "minecraft:shooter": {
+        "def": "pmo:projectile_a2_ammo"
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "within_radius": 100,
+        "must_reach": false,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                }
+              ]
+            },
+            "max_dist": 100.0,
+            "must_see": true
+          }
+        ],
+        "must_see": true,
+        "speed_multiplier": 1,
+        "reselect_targets": true
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.owner_hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.owner_hurt_target": {
+        "priority": 2
+      },
+      "minecraft:tameable": {
+        "probability": 0.33,
+        "tameItems": [
+          "ewo:card_level0",
+          "ewo:card_level1",
+          "ewo:card_level2",
+          "ewo:card_level3",
+          "ewo:card_level4",
+          "ewo:card_level5",
+          "ewo:card_level6",
+          "minecraft:gold_ingot"
+        ],
+        "tame_event": {
+          "event": "minecraft:on_tame",
+          "target": "self"
+        }
+      },
+      "minecraft:knockback_resistance": {
+        "value": 50.0,
+        "max": 50.0
+      },
+      "minecraft:behavior.follow_owner": {
+        "start_distance": 10,
+        "speed_multiplier": 1,
+        "stop_distance": 2,
+        "priority": 6
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/jmgs/jmgs_loot_spawn_egg.json"
+      }
+    },
+    "events": {
+      "pmo:role_teammate": {
+        "add": {
+          "component_groups": [
+            "pmo:role_teammate_group"
+          ]
+        }
+      },
+      "pmo:role_enemy": {
+        "add": {
+          "component_groups": [
+            "pmo:role_enemy_group"
+          ]
+        }
+      }
+    }
+  }
+}

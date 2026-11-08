@@ -1,0 +1,17 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:structure_template_feature": {
+        "facing_direction": "south",
+        "constraints": {
+            "unburied": {},
+            "grounded": {},
+            "block_intersection": {
+                "block_allowlist": ["minecraft:air"]
+            }
+        },
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/apple/tree/tree_0s"
+        },
+        "structure_name": "mystructure:mythicus_sn/apple/apple_0"
+    }
+}

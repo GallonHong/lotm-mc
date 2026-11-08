@@ -1,0 +1,160 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.klb": {
+			"initial_state": "setup",
+			"states": {
+				"setup": {
+					"transitions": [
+						{
+							"klb_4_1": "q.get_equipped_item_name == 'klb'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b4-4"
+					]
+				},
+				"klb_4_1": {
+					"transitions": [
+						{
+							"klb_4_2": "variable.klbdelay = 2.0; variable.previousklbtime = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'klb' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						}
+					],
+					"on_entry": [
+						"@s jmgs:klb_ammo_4"
+					]
+				},
+				"klb_4_2": {
+					"transitions": [
+						{
+							"klb_3_1": "(q.life_time - variable.previousklbtime) >= variable.klbdelay && q.get_equipped_item_name == 'klb'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §63-4",
+						"@s jmgs:klb_ammo_3",
+						"@s jmgs:klb_shooter",
+						"/execute @s ~~~ camerashake add @s 0.2 0.1 rotational",
+						"/execute @s ~~~ playsound klb_fire @a ~~~"
+					]
+				},
+				"klb_3_1": {
+					"transitions": [
+						{
+							"klb_3_2": "variable.klbdelay = 2.0; variable.previousklbtime = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'klb' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"klb_not_total_empty": "variable.klbreload_nt = 2.8167; variable.preklbreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'klb');"
+						}
+					]
+				},
+				"klb_3_2": {
+					"transitions": [
+						{
+							"klb_2_1": "(q.life_time - variable.previousklbtime) >= variable.klbdelay && q.get_equipped_item_name == 'klb'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §62-4",
+						"@s jmgs:klb_ammo_2",
+						"@s jmgs:klb_shooter",
+						"/execute @s ~~~ camerashake add @s 0.2 0.1 rotational",
+						"/execute @s ~~~ playsound klb_fire @a ~~~"
+					]
+				},
+				"klb_2_1": {
+					"transitions": [
+						{
+							"klb_2_2": "variable.klbdelay = 2.0; variable.previousklbtime = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'klb' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"klb_not_total_empty": "variable.klbreload_nt = 2.8167; variable.preklbreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'klb');"
+						}
+					]
+				},
+				"klb_2_2": {
+					"transitions": [
+						{
+							"klb_1_1": "(q.life_time - variable.previousklbtime) >= variable.klbdelay && q.get_equipped_item_name == 'klb'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §41-4",
+						"@s jmgs:klb_ammo_1",
+						"@s jmgs:klb_shooter",
+						"/execute @s ~~~ camerashake add @s 0.2 0.1 rotational",
+						"/execute @s ~~~ playsound klb_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~"
+					]
+				},
+				"klb_1_1": {
+					"transitions": [
+						{
+							"klb_1_2": "variable.klbdelay2 = 0.5; variable.previousklbtime2 = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'klb' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"klb_not_total_empty": "variable.klbreload_nt = 2.8167; variable.preklbreload_nt = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'klb');"
+						}
+					]
+				},
+				"klb_1_2": {
+					"transitions": [
+						{
+							"klb_empty": "variable.klbreload = 3.9667; variable.preklbreload = q.life_time; return ((q.life_time - variable.previousklbtime2) >= variable.klbdelay2 && q.get_equipped_item_name == 'klb');"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-4",
+						"@s jmgs:klb_ammo_0",
+						"@s jmgs:klb_shooter",
+						"/execute @s ~~~ camerashake add @s 0.2 0.1 rotational",
+						"/execute @s ~~~ playsound klb_fire @a ~~~",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~",
+						"/playsound se.se101 @s",
+						"/scoreboard players add @s mp -20"
+					]
+				},
+				"klb_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.preklbreload) >= variable.klbreload"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:klb_empty2 1 0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:klb_empty2 0 1",
+						"/give @s jmgs:klb 1 0"
+					]
+				},
+				"klb_not_total_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.preklbreload_nt) >= variable.klbreload_nt"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:klb_empty1 1 0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:klb_empty1 0 1",
+						"/give @s jmgs:klb 1 0"
+					]
+				}
+			}
+		}
+	}
+}

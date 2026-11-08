@@ -1,0 +1,40 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:poison_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iGi",
+			"P#R",
+			"iFi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"G": {
+				"item": "minecraft:glass_bottle"
+			},
+			"P": {
+				"item": "minecraft:poisonous_potato"
+			},
+			"R": {
+				"item": "minecraft:rotten_flesh"
+			},
+			"F": {
+				"item": "minecraft:fermented_spider_eye"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_3"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:poison_drone_spawn_egg"
+		}
+	}
+}

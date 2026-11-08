@@ -1,0 +1,1843 @@
+{
+  "resource_pack_name": "vanilla",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "jmgs:group_block": {
+      "textures": "textures/items/icon/jmgs_group_block"
+    },
+    "jmgs:group_chair": {
+      "textures": "textures/items/icon/jmgs_group_chair"
+    },
+    "jmgs:group_shelf": {
+      "textures": "textures/items/icon/jmgs_group_shelf"
+    },
+    "jmgs:group_table": {
+      "textures": "textures/items/icon/jmgs_group_table"
+    },
+    "jmgs:group_barrier": {
+      "textures": "textures/items/icon/jmgs_group_barrier"
+    },
+    "jmgs:group_light": {
+      "textures": "textures/items/icon/jmgs_group_light"
+    },
+    "jmgs:group_pc": {
+      "textures": "textures/items/icon/jmgs_group_pc"
+    },
+    "jmgs:group_display": {
+      "textures": "textures/items/icon/jmgs_group_display"
+    },
+    "jmgs:r201_empty": {
+      "textures": "textures/items/weapon/ttf/empty/r201_empty"
+    },
+    "jmgs:r201": {
+      "textures": "textures/items/weapon/ttf/r201"
+    },
+    "jmgs:dg": {
+      "textures": "textures/items/weapon/ttf/dg"
+    },
+    "jmgs:wimman_empty": {
+      "textures": "textures/items/weapon/ttf/empty/wimman_empty"
+    },
+    "jmgs:wimman": {
+      "textures": "textures/items/weapon/ttf/wimman"
+    },
+    "jmgs:smart_pistol_empty": {
+      "textures": "textures/items/weapon/ttf/empty/smart_pistol_empty"
+    },
+    "jmgs:smart_pistol": {
+      "textures": "textures/items/weapon/ttf/smart_pistol"
+    },
+    "jmgs:alter_empty": {
+      "textures": "textures/items/weapon/ttf/empty/alter_empty"
+    },
+    "jmgs:alter": {
+      "textures": "textures/items/weapon/ttf/alter"
+    },
+    "jmgs:eva8_empty": {
+      "textures": "textures/items/weapon/ttf/empty/eva8_empty"
+    },
+    "jmgs:eva8": {
+      "textures": "textures/items/weapon/ttf/eva8"
+    },
+    "jmgs:klb_empty": {
+      "textures": "textures/items/weapon/ttf/empty/klb_empty"
+    },
+    "jmgs:klb": {
+      "textures": "textures/items/weapon/ttf/klb"
+    },
+    "jmgs:jg_empty": {
+      "textures": "textures/items/weapon/ttf/empty/jg_empty"
+    },
+    "jmgs:jg": {
+      "textures": "textures/items/weapon/ttf/jg"
+    },
+    "jmgs:wimman_elite": {
+      "textures": "textures/items/weapon/ttf/wimman_elite"
+    },
+    "jmgs:thunderbolt_empty": {
+      "textures": "textures/items/weapon/ttf/empty/thunderbolt_empty"
+    },
+    "jmgs:thunderbolt": {
+      "textures": "textures/items/weapon/ttf/thunderbolt"
+    },
+    "pmo:item_framework": {
+      "textures": "textures/items/pamobile/pmo_item_framework"
+    },
+    "pmo:item_propeller": {
+      "textures": "textures/items/pamobile/pmo_item_propeller"
+    },
+    "pmo:item_all": {
+      "textures": "textures/items/pamobile/pmo_item_all"
+    },
+    "pmo:item_cpu": {
+      "textures": "textures/items/pamobile/pmo_item_cpu"
+    },
+    "pmo:projectile_a3": {
+      "textures": "textures/items/pamobile/pmo_projectile_a3"
+    },
+    "pmo:projectile_a2": {
+      "textures": "textures/items/pamobile/pmo_projectile_a2"
+    },
+    "pmo:item_fuel": {
+      "textures": "textures/items/pamobile/pmo_item_fuel"
+    },
+    "pmo:projectile_a1": {
+      "textures": "textures/items/pamobile/pmo_projectile_a1"
+    },
+    "pmo:item_muscle": {
+      "textures": "textures/items/pamobile/pmo_item_muscle"
+    },
+    "pmo:item_motor": {
+      "textures": "textures/items/pamobile/pmo_item_motor"
+    },
+    "pmo:item_prism": {
+      "textures": "textures/items/pamobile/pmo_item_prism"
+    },
+    "pmo:entity_metro": {
+      "textures": "textures/items/corona/pmo_entity_metro"
+    },
+    "pmo:entity_metro_bus": {
+      "textures": "textures/items/corona/pmo_entity_metro_bus"
+    },
+    "pmo:entity_metro_bus_lite": {
+      "textures": "textures/items/corona/pmo_entity_metro_bus_lite"
+    },
+    "pmo:entity_metro_first": {
+      "textures": "textures/items/corona/pmo_entity_metro_first"
+    },
+    "pmo:entity_metro_body": {
+      "textures": "textures/items/corona/pmo_entity_metro_body"
+    },
+    "jmgs:entity_gazhua": {
+      "textures": "textures/items/corona/jmgs_entity_gazhua"
+    },
+    "jmgs:entity_oscar_mecha": {
+      "textures": "textures/items/corona/jmgs_entity_oscar_mecha"
+    },
+    "jmgs:entity_oscar_chest": {
+      "textures": "textures/items/corona/jmgs_entity_oscar_chest"
+    },
+    "jmgs:entity_oscar": {
+      "textures": "textures/items/corona/jmgs_entity_oscar"
+    },
+    "pmo:entity_air_tu160": {
+      "textures": "textures/items/corona/pmo_entity_air_tu160"
+    },
+    "pmo:entity_air_mi32": {
+      "textures": "textures/items/corona/pmo_entity_air_mi32"
+    },
+    "pmo:entity_air_sa330": {
+      "textures": "textures/items/corona/pmo_entity_air_sa330"
+    },
+    "pmo:entity_bike": {
+      "textures": "textures/items/corona/pmo_entity_bike"
+    },
+    "pmo:entity_bike_pro": {
+      "textures": "textures/items/corona/pmo_entity_bike_pro"
+    },
+    "pmo:entity_car_police": {
+      "textures": "textures/items/pamobile/pmo_entity_car_police"
+    },
+    "pmo:entity_car_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_car_pro"
+    },
+    "pmo:entity_car_l5": {
+      "textures": "textures/items/pamobile/pmo_entity_car_l5"
+    },
+    "pmo:entity_time": {
+      "textures": "textures/items/pamobile/pmo_entity_time"
+    },
+    "pmo:entity_car_macaron": {
+      "textures": "textures/items/pamobile/pmo_entity_car_macaron"
+    },
+    "pmo:entity_car_macaron_edit": {
+      "textures": "textures/items/pamobile/pmo_entity_car_macaron_edit"
+    },
+    "pmo:entity_car_macaron_boat": {
+      "textures": "textures/items/pamobile/pmo_entity_car_macaron_boat"
+    },
+    "pmo:entity_car_cyber": {
+      "textures": "textures/items/pamobile/pmo_entity_car_cyber"
+    },
+    "pmo:entity_car_cyber_edit": {
+      "textures": "textures/items/pamobile/pmo_entity_car_cyber_edit"
+    },
+    "pmo:entity_car_cherry": {
+      "textures": "textures/items/pamobile/pmo_entity_car_cherry"
+    },
+    "pmo:entity_car": {
+      "textures": "textures/items/pamobile/pmo_entity_car"
+    },
+    "pmo:entity_armor": {
+      "textures": "textures/items/pamobile/pmo_entity_armor"
+    },
+    "pmo:entity_moto_ultra": {
+      "textures": "textures/items/pamobile/pmo_entity_moto_ultra"
+    },
+    "pmo:role_xx": {
+      "textures": "textures/items/corona/pmo_role_xx"
+    },
+    "pmo:role_bai": {
+      "textures": "textures/items/corona/pmo_role_bai"
+    },
+    "pmo:role_student": {
+      "textures": "textures/items/corona/pmo_role_student"
+    },
+    "pmo:role_trades": {
+      "textures": "textures/items/corona/pmo_role_trades"
+    },
+    "pmo:role_people": {
+      "textures": "textures/items/corona/pmo_role_people"
+    },
+    "pmo:role_xy": {
+      "textures": "textures/items/corona/pmo_role_xy"
+    },
+    "pmo:role_sec_xx": {
+      "textures": "textures/items/corona/pmo_role_sec_xx"
+    },
+    "pmo:role_sec_xy": {
+      "textures": "textures/items/corona/pmo_role_sec_xy"
+    },
+    "pmo:entity_air_ultra": {
+      "textures": "textures/items/pamobile/pmo_entity_air_ultra"
+    },
+    "pmo:entity_car_star": {
+      "textures": "textures/items/pamobile/pmo_entity_car_star"
+    },
+    "pmo:entity_car_star_edit": {
+      "textures": "textures/items/pamobile/pmo_entity_car_star_edit"
+    },
+    "pmo:entity_armor_simple": {
+      "textures": "textures/items/pamobile/pmo_entity_armor_simple"
+    },
+    "pmo:entity_armor_lite": {
+      "textures": "textures/items/pamobile/pmo_entity_armor_lite"
+    },
+    "pmo:entity_armor_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_armor_pro"
+    },
+    "pmo:entity_car_blue": {
+      "textures": "textures/items/pamobile/pmo_entity_car_blue"
+    },
+    "pmo:entity_car_police_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_car_police_pro"
+    },
+    "pmo:entity_car_plus_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_car_plus_pro"
+    },
+    "pmo:entity_air_fight_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_air_fight_pro"
+    },
+    "pmo:entity_air_fight": {
+      "textures": "textures/items/pamobile/pmo_entity_air_fight"
+    },
+    "pmo:entity_car_plus_normal": {
+      "textures": "textures/items/pamobile/pmo_entity_car_plus_normal"
+    },
+    "pmo:entity_car_plus": {
+      "textures": "textures/items/pamobile/pmo_entity_car_plus"
+    },
+    "pmo:entity_air_fight_lite": {
+      "textures": "textures/items/pamobile/pmo_entity_air_fight_lite"
+    },
+    "pmo:entity_air_edit": {
+      "textures": "textures/items/pamobile/pmo_entity_air_edit"
+    },
+    "pmo:entity_air_boat": {
+      "textures": "textures/items/pamobile/pmo_entity_air_boat"
+    },
+    "pmo:entity_mecha_a1": {
+      "textures": "textures/items/pamobile/pmo_entity_mecha_a1"
+    },
+    "pmo:entity_moto_normal": {
+      "textures": "textures/items/pamobile/pmo_entity_moto_normal"
+    },
+    "pmo:entity_moto": {
+      "textures": "textures/items/pamobile/pmo_entity_moto"
+    },
+    "pmo:entity_moto_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_moto_pro"
+    },
+    "pmo:entity_moto_edit": {
+      "textures": "textures/items/pamobile/pmo_entity_moto_edit"
+    },
+    "pmo:entity_boat": {
+      "textures": "textures/items/pamobile/pmo_entity_boat"
+    },
+    "pmo:entity_boat_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_boat_pro"
+    },
+    "pmo:entity_mecha_a2": {
+      "textures": "textures/items/pamobile/pmo_entity_mecha_a2"
+    },
+    "pmo:role_evil4": {
+      "textures": "textures/items/pamobile/pmo_role_evil4"
+    },
+    "pmo:role_paper": {
+      "textures": "textures/items/pamobile/pmo_role_paper"
+    },
+    "pmo:role_heroine2": {
+      "textures": "textures/items/pamobile/pmo_role_heroine2"
+    },
+    "pmo:role_heroine3": {
+      "textures": "textures/items/pamobile/pmo_role_heroine3"
+    },
+    "pmo:entity_mecha_a4": {
+      "textures": "textures/items/pamobile/pmo_entity_mecha_a4"
+    },
+    "pmo:role_evil7": {
+      "textures": "textures/items/pamobile/pmo_role_evil7"
+    },
+    "pmo:role_evil6": {
+      "textures": "textures/items/pamobile/pmo_role_evil6"
+    },
+    "pmo:role_fight4": {
+      "textures": "textures/items/pamobile/pmo_role_fight4"
+    },
+    "pmo:role_leader": {
+      "textures": "textures/items/pamobile/pmo_role_leader"
+    },
+    "pmo:role_dai": {
+      "textures": "textures/items/pamobile/pmo_role_dai"
+    },
+    "pmo:role_fight3": {
+      "textures": "textures/items/pamobile/pmo_role_fight3"
+    },
+    "pmo:role_fight2": {
+      "textures": "textures/items/pamobile/pmo_role_fight2"
+    },
+    "pmo:role_fight7": {
+      "textures": "textures/items/pamobile/pmo_role_fight7"
+    },
+    "pmo:role_fight6": {
+      "textures": "textures/items/pamobile/pmo_role_fight6"
+    },
+    "pmo:role_evil2": {
+      "textures": "textures/items/pamobile/pmo_role_evil2"
+    },
+    "pmo:role_quan": {
+      "textures": "textures/items/pamobile/pmo_role_quan"
+    },
+    "pmo:role_mox": {
+      "textures": "textures/items/pamobile/pmo_role_mox"
+    },
+    "pmo:role_evil1": {
+      "textures": "textures/items/pamobile/pmo_role_evil1"
+    },
+    "pmo:role_lead": {
+      "textures": "textures/items/pamobile/pmo_role_lead"
+    },
+    "pmo:role_lead_pro": {
+      "textures": "textures/items/corona/pmo_role_lead_pro"
+    },
+    "pmo:role_evil3": {
+      "textures": "textures/items/pamobile/pmo_role_evil3"
+    },
+    "pmo:role_fight0": {
+      "textures": "textures/items/corona/pmo_role_fight0"
+    },
+    "pmo:role_fight1": {
+      "textures": "textures/items/pamobile/pmo_role_fight1"
+    },
+    "pmo:role_fight5": {
+      "textures": "textures/items/pamobile/pmo_role_fight5"
+    },
+    "pmo:role_evil5": {
+      "textures": "textures/items/pamobile/pmo_role_evil5"
+    },
+    "pmo:role_miko": {
+      "textures": "textures/items/pamobile/pmo_role_miko"
+    },
+    "pmo:role_alpha": {
+      "textures": "textures/items/pamobile/pmo_role_alpha"
+    },
+    "pmo:role_jiu": {
+      "textures": "textures/items/pamobile/pmo_role_jiu"
+    },
+    "pmo:role_steve": {
+      "textures": "textures/items/pamobile/pmo_role_steve"
+    },
+    "pmo:role_heroine1": {
+      "textures": "textures/items/pamobile/pmo_role_heroine1"
+    },
+    "pmo:role_beta": {
+      "textures": "textures/items/pamobile/pmo_role_beta"
+    },
+    "pmo:role_fight8": {
+      "textures": "textures/items/pamobile/pmo_role_fight8"
+    },
+    "pmo:role_fight9": {
+      "textures": "textures/items/corona/pmo_role_fight9"
+    },
+    "pmo:role_fightx": {
+      "textures": "textures/items/corona/pmo_role_fightx"
+    },
+    "pmo:role_fight_boom": {
+      "textures": "textures/items/corona/pmo_role_fight_boom"
+    },
+    "pmo:role_evil8": {
+      "textures": "textures/items/pamobile/pmo_role_evil8"
+    },
+    "pmo:role_evil9": {
+      "textures": "textures/items/corona/pmo_role_evil9"
+    },
+    "pmo:role_evilx": {
+      "textures": "textures/items/corona/pmo_role_evilx"
+    },
+    "pmo:role_evil_boom": {
+      "textures": "textures/items/corona/pmo_role_evil_boom"
+    },
+    "pmo:role_evil0": {
+      "textures": "textures/items/corona/pmo_role_evil0"
+    },
+    "pmo:role_gama": {
+      "textures": "textures/items/pamobile/pmo_role_gama"
+    },
+    "pmo:role_delta": {
+      "textures": "textures/items/pamobile/pmo_role_delta"
+    },
+    "pmo:entity_mecha_a3": {
+      "textures": "textures/items/pamobile/pmo_entity_mecha_a3"
+    },
+    "pmo:entity_air": {
+      "textures": "textures/items/pamobile/pmo_entity_air"
+    },
+    "pmo:entity_air_boat_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_air_boat_pro"
+    },
+    "pmo:entity_car_green": {
+      "textures": "textures/items/pamobile/pmo_entity_car_green"
+    },
+    "pmo:entity_car_ultra": {
+      "textures": "textures/items/pamobile/pmo_entity_car_ultra"
+    },
+    "pmo:entity_car_max": {
+      "textures": "textures/items/pamobile/pmo_entity_car_max"
+    },
+    "pmo:entity_car_heavy": {
+      "textures": "textures/items/pamobile/pmo_entity_car_heavy"
+    },
+    "pmo:entity_car_heavy_plus": {
+      "textures": "textures/items/pamobile/pmo_entity_car_heavy_plus"
+    },
+    "pmo:entity_car_max_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_car_max_pro"
+    },
+    "pmo:entity_air_boat_lite": {
+      "textures": "textures/items/pamobile/pmo_entity_air_boat_lite"
+    },
+    "pmo:entity_air_boat_normal": {
+      "textures": "textures/items/corona/pmo_entity_air_boat_normal"
+    },
+    "pmo:entity_air_dragonfly": {
+      "textures": "textures/items/corona/pmo_entity_air_dragonfly"
+    },
+    "pmo:entity_car_atana": {
+      "textures": "textures/items/corona/pmo_entity_car_atana"
+    },
+    "pmo:entity_car_auto": {
+      "textures": "textures/items/corona/pmo_entity_car_auto"
+    },
+    "pmo:entity_car_su7": {
+      "textures": "textures/items/corona/pmo_entity_car_su7"
+    },
+    "pmo:entity_car_fork": {
+      "textures": "textures/items/corona/pmo_entity_car_fork"
+    },
+    "pmo:entity_car_bulldozer": {
+      "textures": "textures/items/corona/pmo_entity_car_bulldozer"
+    },
+    "pmo:entity_car_digger": {
+      "textures": "textures/items/corona/pmo_entity_car_digger"
+    },
+    "pmo:entity_car_chest": {
+      "textures": "textures/items/corona/pmo_entity_car_chest"
+    },
+    "pmo:role_maya": {
+      "textures": "textures/items/corona/pmo_role_maya"
+    },
+    "pmo:entity_car_atana_edit": {
+      "textures": "textures/items/corona/pmo_entity_car_atana_edit"
+    },
+    "pmo:entity_car_other": {
+      "textures": "textures/items/corona/pmo_entity_car_other"
+    },
+    "pmo:entity_car_other_edit": {
+      "textures": "textures/items/corona/pmo_entity_car_other_edit"
+    },
+    "pmo:entity_car_plus_lite": {
+      "textures": "textures/items/corona/pmo_entity_car_plus_lite"
+    },
+    "pmo:entity_car_plus_lite_edit": {
+      "textures": "textures/items/corona/pmo_entity_car_plus_lite_edit"
+    },
+    "pmo:entity_moto_calm": {
+      "textures": "textures/items/corona/pmo_entity_moto_calm"
+    },
+    "pmo:entity_moto_lese": {
+      "textures": "textures/items/corona/pmo_entity_moto_lese"
+    },
+    "pmo:entity_moto_plus": {
+      "textures": "textures/items/corona/pmo_entity_moto_plus"
+    },
+    "pmo:entity_mecha_a5": {
+      "textures": "textures/items/pamobile/pmo_entity_mecha_a5"
+    },
+    "pmo:entity_mecha_a6": {
+      "textures": "textures/items/corona/pmo_entity_mecha_a6"
+    },
+    "jmgs:entity_lawn_mover": {
+      "textures": "textures/items/jmgs_entity_lawn_mover"
+    },
+    "jmgs:entity_dice": {
+      "textures": "textures/items/jmgs_entity_dice"
+    },
+    "jmgs:entity_cart_surface": {
+      "textures": "textures/items/jmgs_entity_cart_surface"
+    },
+    "jmgs:entity_cart": {
+      "textures": "textures/items/jmgs_entity_cart"
+    },
+    "jmgs:entity_chair": {
+      "textures": "textures/items/jmgs_entity_chair"
+    },
+    "jmgs:entity_chair_red": {
+      "textures": "textures/items/jmgs_entity_chair_red"
+    },
+    "jmgs:entity_container": {
+      "textures": "textures/items/jmgs_entity_container"
+    },
+    "jmgs:entity_game_cartridge": {
+      "textures": "textures/items/jmgs_entity_game_cartridge"
+    },
+    "jmgs:entity_delta_box": {
+      "textures": "textures/items/jmgs_entity_delta_box"
+    },
+    "jmgs:entity_table_operating": {
+      "textures": "textures/items/jmgs_entity_table_operating"
+    },
+    "jmgs:entity_bed_medical": {
+      "textures": "textures/items/jmgs_entity_bed_medical"
+    },
+    "jmgs:entity_folder": {
+      "textures": "textures/items/jmgs_entity_folder"
+    },
+    "jmgs:entity_box_paper": {
+      "textures": "textures/items/jmgs_entity_box_paper"
+    },
+    "jmgs:entity_corrugated_cardboard": {
+      "textures": "textures/items/jmgs_entity_corrugated_cardboard"
+    },
+    "jmgs:entity_box_wood": {
+      "textures": "textures/items/jmgs_entity_box_wood"
+    },
+    "jmgs:entity_machine_egg": {
+      "textures": "textures/items/jmgs_entity_machine_egg"
+    },
+    "pmo:entity_power": {
+      "textures": "textures/items/pamobile/pmo_entity_power"
+    },
+    "pmo:entity_power1": {
+      "textures": "textures/items/pamobile/pmo_entity_power1"
+    },
+    "pmo:entity_power2": {
+      "textures": "textures/items/pamobile/pmo_entity_power2"
+    },
+    "pmo:entity_power3": {
+      "textures": "textures/items/pamobile/pmo_entity_power3"
+    },
+    "pmo:entity_power4": {
+      "textures": "textures/items/pamobile/pmo_entity_power4"
+    },
+    "pmo:entity_power5": {
+      "textures": "textures/items/corona/pmo_entity_power5"
+    },
+    "pmo:entity_power6": {
+      "textures": "textures/items/corona/pmo_entity_power6"
+    },
+    "pmo:role_xkn": {
+      "textures": "textures/items/pamobile/pmo_role_xkn"
+    },
+    "pmo:entity_car_heavy_edit": {
+      "textures": "textures/items/pamobile/pmo_entity_car_heavy_edit"
+    },
+    "pmo:role_byl": {
+      "textures": "textures/items/pamobile/pmo_role_byl"
+    },
+    "pmo:edu1": {
+      "textures": "textures/items/pamobile/pmo_edu1"
+    },
+    "pmo:edu2": {
+      "textures": "textures/items/pamobile/pmo_edu2"
+    },
+    "pmo:edu3": {
+      "textures": "textures/items/pamobile/pmo_edu3"
+    },
+    "pmo:edu4": {
+      "textures": "textures/items/pamobile/pmo_edu4"
+    },
+    "pmo:edu6": {
+      "textures": "textures/items/pamobile/pmo_edu6"
+    },
+    "pmo:edu5": {
+      "textures": "textures/items/pamobile/pmo_edu5"
+    },
+    "pmo:entity_music_piano_se": {
+      "textures": "textures/items/pamobile/pmo_entity_music_piano_se"
+    },
+    "pmo:entity_music_piano": {
+      "textures": "textures/items/pamobile/pmo_entity_music_piano"
+    },
+    "pmo:entity_music_guitar_pro": {
+      "textures": "textures/items/pamobile/pmo_entity_music_guitar_pro"
+    },
+    "pmo:entity_music_piano_lite": {
+      "textures": "textures/items/pamobile/pmo_entity_music_piano_lite"
+    },
+    "pmo:entity_music_guitar_lite": {
+      "textures": "textures/items/pamobile/pmo_entity_music_guitar_lite"
+    },
+    "pmo:entity_music_guitar": {
+      "textures": "textures/items/pamobile/pmo_entity_music_guitar"
+    },
+    "pmo:entity_music_brass_lite": {
+      "textures": "textures/items/pamobile/pmo_entity_music_brass_lite"
+    },
+    "pmo:entity_music_brass_max": {
+      "textures": "textures/items/pamobile/pmo_entity_music_brass_max"
+    },
+    "pmo:entity_music_woodwind": {
+      "textures": "textures/items/pamobile/pmo_entity_music_woodwind"
+    },
+    "pmo:entity_music_bass": {
+      "textures": "textures/items/pamobile/pmo_entity_music_bass"
+    },
+    "pmo:entity_music_brass": {
+      "textures": "textures/items/pamobile/pmo_entity_music_brass"
+    },
+    "pmo:entity_music_brass_plus": {
+      "textures": "textures/items/pamobile/pmo_entity_music_brass_plus"
+    },
+    "pmo:entity_music_string_lite": {
+      "textures": "textures/items/pamobile/pmo_entity_music_string_lite"
+    },
+    "pmo:entity_music_string_max": {
+      "textures": "textures/items/pamobile/pmo_entity_music_string_max"
+    },
+    "pmo:entity_music_string_plus": {
+      "textures": "textures/items/pamobile/pmo_entity_music_string_plus"
+    },
+    "pmo:entity_music_string": {
+      "textures": "textures/items/pamobile/pmo_entity_music_string"
+    },
+    "pmo:entity_music_drum_se": {
+      "textures": "textures/items/pamobile/pmo_entity_music_drum_se"
+    },
+    "pmo:entity_music_drum": {
+      "textures": "textures/items/pamobile/pmo_entity_music_drum"
+    },
+    "ewo:dukes_death": {
+      "textures": "textures/items/pamobile/ewo_dukes_death"
+    },
+    "ewo:imps_skeleton": {
+      "textures": "textures/items/pamobile/ewo_imps_skeleton"
+    },
+    "ewo:hamburger": {
+      "textures": "textures/items/pamobile/ewo_hamburger"
+    },
+    "ewo:imps_creeper": {
+      "textures": "textures/items/pamobile/ewo_imps_creeper"
+    },
+    "ewo:sentry": {
+      "textures": "textures/items/pamobile/ewo_sentry"
+    },
+    "ewo:ruler_god": {
+      "textures": "textures/items/pamobile/ewo_ruler_god"
+    },
+    "ewo:ruler_sword": {
+      "textures": "textures/items/pamobile/ewo_ruler_sword"
+    },
+    "ewo:supian": {
+      "textures": "textures/items/pamobile/ewo_supian"
+    },
+    "ewo:flames_sword": {
+      "textures": "textures/items/pamobile/ewo_flames_sword"
+    },
+    "ewo:sword_aurora": {
+      "textures": "textures/items/pamobile/ewo_sword_aurora"
+    },
+    "ewo:boss_dantalion": {
+      "textures": "textures/items/pamobile/ewo_boss_dantalion"
+    },
+    "ewo:imps_slime": {
+      "textures": "textures/items/pamobile/ewo_imps_slime"
+    },
+    "ewo:imps_zombie": {
+      "textures": "textures/items/pamobile/ewo_imps_zombie"
+    },
+    "ewo:regulator": {
+      "textures": "textures/items/pamobile/ewo_regulator"
+    },
+    "ewo:protector": {
+      "textures": "textures/items/pamobile/ewo_protector"
+    },
+    "ewo:sword_jealousy": {
+      "textures": "textures/items/pamobile/ewo_sword_jealousy"
+    },
+    "ewo:sword_astro": {
+      "textures": "textures/items/pamobile/ewo_sword_astro"
+    },
+    "ewo:chocolate": {
+      "textures": "textures/items/pamobile/ewo_chocolate"
+    },
+    "ewo:sword_obs": {
+      "textures": "textures/items/pamobile/ewo_sword_obs"
+    },
+    "ewo:sword_deception": {
+      "textures": "textures/items/pamobile/ewo_sword_deception"
+    },
+    "ewo:blueprint_n": {
+      "textures": "textures/items/pamobile/ewo_blueprint_n"
+    },
+    "ewo:blueprint_r": {
+      "textures": "textures/items/pamobile/ewo_blueprint_r"
+    },
+    "ewo:blueprint_sr": {
+      "textures": "textures/items/pamobile/ewo_blueprint_sr"
+    },
+    "ewo:blueprint_ssr": {
+      "textures": "textures/items/pamobile/ewo_blueprint_ssr"
+    },
+    "ewo:blueprint_ur": {
+      "textures": "textures/items/pamobile/ewo_blueprint_ur"
+    },
+    "ewo:blueprint_apex": {
+      "textures": "textures/items/pamobile/ewo_blueprint_apex"
+    },
+    "ewo:recipe_page": {
+      "textures": "textures/items/pamobile/ewo_recipe_page"
+    },
+    "ewo:thyme": {
+      "textures": "textures/items/pamobile/ewo_thyme"
+    },
+    "ewo:bagutte": {
+      "textures": "textures/items/pamobile/ewo_bagutte"
+    },
+    "ewo:rulleplse": {
+      "textures": "textures/items/pamobile/ewo_rulleplse"
+    },
+    "ewo:rosemary": {
+      "textures": "textures/items/pamobile/ewo_rosemary"
+    },
+    "ewo:sage": {
+      "textures": "textures/items/pamobile/ewo_sage"
+    },
+    "ewo:card_level4": {
+      "textures": "textures/items/pamobile/ewo_card_level4"
+    },
+    "ewo:card_level5": {
+      "textures": "textures/items/pamobile/ewo_card_level5"
+    },
+    "ewo:card_level0": {
+      "textures": "textures/items/pamobile/ewo_card_level0"
+    },
+    "ewo:card_level1": {
+      "textures": "textures/items/pamobile/ewo_card_level1"
+    },
+    "ewo:flour": {
+      "textures": "textures/items/pamobile/ewo_flour"
+    },
+    "ewo:card_level2": {
+      "textures": "textures/items/pamobile/ewo_card_level2"
+    },
+    "ewo:card_level3": {
+      "textures": "textures/items/pamobile/ewo_card_level3"
+    },
+    "ewo:card_level6": {
+      "textures": "textures/items/pamobile/ewo_card_level6"
+    },
+    "ewo:hat_green": {
+      "textures": [
+        "textures/items/pamobile/ewo_hat_green"
+      ]
+    },
+    "ewo:card_gash3": {
+      "textures": "textures/items/pamobile/ewo_card_gash3"
+    },
+    "ewo:card_sd": {
+      "textures": "textures/items/pamobile/ewo_card_sd"
+    },
+    "ewo:card_gash2": {
+      "textures": "textures/items/pamobile/ewo_card_gash2"
+    },
+    "ewo:card_gash1": {
+      "textures": "textures/items/pamobile/ewo_card_gash1"
+    },
+    "ewo:card_gash4": {
+      "textures": "textures/items/pamobile/ewo_card_gash4"
+    },
+    "ewo:card_vinyl": {
+      "textures": "textures/items/pamobile/ewo_card_vinyl"
+    },
+    "ewo:card_gold": {
+      "textures": "textures/items/pamobile/ewo_card_gold"
+    },
+    "jmgs:card_car": {
+      "textures": "textures/items/jmgs_card_car"
+    },
+    "jmgs:card_car_pro": {
+      "textures": "textures/items/jmgs_card_car_pro"
+    },
+    "jmgs:mp3": {
+      "textures": "textures/items/jmgs_mp3"
+    },
+    "jmgs:scout_plane": {
+      "textures": "textures/items/jmgs_scout_plane"
+    },
+    "ewo:animal_hair": {
+      "textures": "textures/items/pamobile/ewo_animal_hair"
+    },
+    "ewo:animal_claw": {
+      "textures": "textures/items/pamobile/ewo_animal_claw"
+    },
+    "ewo:card_magnetic": {
+      "textures": "textures/items/pamobile/ewo_card_magnetic"
+    },
+    "ewo:animal_blood": {
+      "textures": "textures/items/pamobile/ewo_animal_blood"
+    },
+    "ewo:animal_hide": {
+      "textures": "textures/items/pamobile/ewo_animal_hide"
+    },
+    "ewo:animal_fat": {
+      "textures": "textures/items/pamobile/ewo_animal_fat"
+    },
+    "ewo:animal_tail": {
+      "textures": "textures/items/pamobile/ewo_animal_tail"
+    },
+    "ewo:animal_horns": {
+      "textures": "textures/items/pamobile/ewo_animal_horns"
+    },
+    "ewo:animal_tendon": {
+      "textures": "textures/items/pamobile/ewo_animal_tendon"
+    },
+    "ewo:animal_tooth": {
+      "textures": "textures/items/pamobile/ewo_animal_tooth"
+    },
+    "ewo:animal_hoof": {
+      "textures": "textures/items/pamobile/ewo_animal_hoof"
+    },
+    "ewo:animal_fim": {
+      "textures": "textures/items/pamobile/ewo_animal_fim"
+    },
+    "ewo:animal_vertebra": {
+      "textures": "textures/items/pamobile/ewo_animal_vertebra"
+    },
+    "ewo:carapace_tail": {
+      "textures": "textures/items/pamobile/ewo_carapace_tail"
+    },
+    "ewo:animal_cartialgenous": {
+      "textures": "textures/items/pamobile/ewo_animal_cartialgenous"
+    },
+    "ewo:carapace": {
+      "textures": "textures/items/pamobile/ewo_carapace"
+    },
+    "ewo:animal_pearl": {
+      "textures": "textures/items/pamobile/ewo_animal_pearl"
+    },
+    "ewo:parts_sewing": {
+      "textures": "textures/items/pamobile/ewo_parts_sewing"
+    },
+    "ewo:animal_down": {
+      "textures": "textures/items/pamobile/ewo_animal_down"
+    },
+    "ewo:parts_gun": {
+      "textures": "textures/items/pamobile/ewo_parts_gun"
+    },
+    "ewo:mine_oil": {
+      "textures": "textures/items/pamobile/ewo_mine_oil"
+    },
+    "ewo:parts_mech": {
+      "textures": "textures/items/pamobile/ewo_parts_mech"
+    },
+    "ewo:mine_uranium": {
+      "textures": "textures/items/pamobile/ewo_mine_uranium"
+    },
+    "ewo:mine_kyanite": {
+      "textures": "textures/items/pamobile/ewo_mine_kyanite"
+    },
+    "ewo:parts_toolbox": {
+      "textures": "textures/items/pamobile/ewo_parts_toolbox"
+    },
+    "ewo:parts_electrion": {
+      "textures": "textures/items/pamobile/ewo_parts_electrion"
+    },
+    "ewo:parts_copper": {
+      "textures": "textures/items/pamobile/ewo_parts_copper"
+    },
+    "ewo:parts_hand": {
+      "textures": "textures/items/pamobile/ewo_parts_hand"
+    },
+    "ewo:parts_casting": {
+      "textures": "textures/items/pamobile/ewo_parts_casting"
+    },
+    "ewo:parts_special": {
+      "textures": "textures/items/pamobile/ewo_parts_special"
+    },
+    "ewo:parts_6nail": {
+      "textures": "textures/items/pamobile/ewo_parts_6nail"
+    },
+    "ewo:parts_screw": {
+      "textures": "textures/items/pamobile/ewo_parts_screw"
+    },
+    "ewo:metal_iron_pig": {
+      "textures": "textures/items/pamobile/ewo_metal_iron_pig"
+    },
+    "ewo:parts_spring": {
+      "textures": "textures/items/pamobile/ewo_parts_spring"
+    },
+    "ewo:pc_ddr3200": {
+      "textures": "textures/items/pamobile/ewo_pc_ddr3200"
+    },
+    "ewo:pc_ddr2666": {
+      "textures": "textures/items/pamobile/ewo_pc_ddr2666"
+    },
+    "ewo:pc_ddr2400": {
+      "textures": "textures/items/pamobile/ewo_pc_ddr2400"
+    },
+    "ewo:pc_cpu9100f": {
+      "textures": "textures/items/pamobile/ewo_pc_cpu9100f"
+    },
+    "ewo:pc_cpu5950xt": {
+      "textures": "textures/items/pamobile/ewo_pc_cpu5950xt"
+    },
+    "ewo:pc_cpu2990wx": {
+      "textures": "textures/items/pamobile/ewo_pc_cpu2990wx"
+    },
+    "ewo:pc_mainx570": {
+      "textures": "textures/items/pamobile/ewo_pc_mainx570"
+    },
+    "ewo:pc_mainh110": {
+      "textures": "textures/items/pamobile/ewo_pc_mainh110"
+    },
+    "ewo:pc_disk1": {
+      "textures": "textures/items/pamobile/ewo_pc_disk1"
+    },
+    "ewo:pc_disk2": {
+      "textures": "textures/items/pamobile/ewo_pc_disk2"
+    },
+    "ewo:pc_disk3": {
+      "textures": "textures/items/pamobile/ewo_pc_disk3"
+    },
+    "ewo:pc_gpu730": {
+      "textures": "textures/items/pamobile/ewo_pc_gpu730"
+    },
+    "ewo:pc_disk4": {
+      "textures": "textures/items/pamobile/ewo_pc_disk4"
+    },
+    "ewo:pc_gpu2080": {
+      "textures": "textures/items/pamobile/ewo_pc_gpu2080"
+    },
+    "ewo:pc_gpu3090": {
+      "textures": "textures/items/pamobile/ewo_pc_gpu3090"
+    },
+    "ewo:pc_cold": {
+      "textures": "textures/items/pamobile/ewo_pc_cold"
+    },
+    "ewo:pc_power": {
+      "textures": "textures/items/pamobile/ewo_pc_power"
+    },
+    "ewo:cloth": {
+      "textures": "textures/items/pamobile/ewo_cloth"
+    },
+    "ewo:cloth_rough": {
+      "textures": "textures/items/pamobile/ewo_cloth_rough"
+    },
+    "ewo:cloth_flax": {
+      "textures": "textures/items/pamobile/ewo_cloth_flax"
+    },
+    "ewo:cloth_banana": {
+      "textures": "textures/items/pamobile/ewo_cloth_banana"
+    },
+    "ewo:cloth_artleather": {
+      "textures": "textures/items/pamobile/ewo_cloth_artleather"
+    },
+    "ewo:cloth_hemp": {
+      "textures": "textures/items/pamobile/ewo_cloth_hemp"
+    },
+    "ewo:cloth_plain": {
+      "textures": "textures/items/pamobile/ewo_cloth_plain"
+    },
+    "ewo:cloth_dacron": {
+      "textures": "textures/items/pamobile/ewo_cloth_dacron"
+    },
+    "ewo:cloth_nelon": {
+      "textures": "textures/items/pamobile/ewo_cloth_nelon"
+    },
+    "ewo:cloth_jylon": {
+      "textures": "textures/items/pamobile/ewo_cloth_jylon"
+    },
+    "ewo:cloth_lycra": {
+      "textures": "textures/items/pamobile/ewo_cloth_lycra"
+    },
+    "ewo:cloth_blended": {
+      "textures": "textures/items/pamobile/ewo_cloth_blended"
+    },
+    "ewo:cloth_nylon": {
+      "textures": "textures/items/pamobile/ewo_cloth_nylon"
+    },
+    "ewo:cloth_coral": {
+      "textures": "textures/items/pamobile/ewo_cloth_coral"
+    },
+    "ewo:cloth_aramid": {
+      "textures": "textures/items/pamobile/ewo_cloth_aramid"
+    },
+    "ewo:cloth_flannel": {
+      "textures": "textures/items/pamobile/ewo_cloth_flannel"
+    },
+    "ewo:cloth_fibler": {
+      "textures": "textures/items/pamobile/ewo_cloth_fibler"
+    },
+    "ewo:cloth_coated": {
+      "textures": "textures/items/pamobile/ewo_cloth_coated"
+    },
+    "ewo:cloth_film": {
+      "textures": "textures/items/pamobile/ewo_cloth_film"
+    },
+    "ewo:cloth_nano_ele": {
+      "textures": "textures/items/pamobile/ewo_cloth_nano_ele"
+    },
+    "ewo:cloth_nano": {
+      "textures": "textures/items/pamobile/ewo_cloth_nano"
+    },
+    "ewo:cloth_polymer": {
+      "textures": "textures/items/pamobile/ewo_cloth_polymer"
+    },
+    "ewo:plastics_recycled": {
+      "textures": "textures/items/pamobile/ewo_plastics_recycled"
+    },
+    "ewo:cloth_si_gel": {
+      "textures": "textures/items/pamobile/ewo_cloth_si_gel"
+    },
+    "ewo:plastics_abs": {
+      "textures": "textures/items/pamobile/ewo_plastics_abs"
+    },
+    "ewo:plastics_eng": {
+      "textures": "textures/items/pamobile/ewo_plastics_eng"
+    },
+    "ewo:powder_black": {
+      "textures": "textures/items/pamobile/ewo_powder_black"
+    },
+    "ewo:powder": {
+      "textures": "textures/items/pamobile/ewo_powder"
+    },
+    "ewo:plastics_glass": {
+      "textures": "textures/items/pamobile/ewo_plastics_glass"
+    },
+    "ewo:ceramics_rigid": {
+      "textures": "textures/items/pamobile/ewo_ceramics_rigid"
+    },
+    "ewo:paper_kralf": {
+      "textures": "textures/items/pamobile/ewo_paper_kralf"
+    },
+    "ewo:parts_plastic": {
+      "textures": "textures/items/pamobile/ewo_parts_plastic"
+    },
+    "ewo:metal_man_si": {
+      "textures": "textures/items/pamobile/ewo_metal_man_si"
+    },
+    "ewo:parts_pipe": {
+      "textures": "textures/items/pamobile/ewo_parts_pipe"
+    },
+    "ewo:metal_manganese": {
+      "textures": "textures/items/pamobile/ewo_metal_manganese"
+    },
+    "ewo:ceramics_bionics": {
+      "textures": "textures/items/pamobile/ewo_ceramics_bionics"
+    },
+    "ewo:ceramics_bulletproof": {
+      "textures": "textures/items/pamobile/ewo_ceramics_bulletproof"
+    },
+    "ewo:metal_alumin": {
+      "textures": "textures/items/pamobile/ewo_metal_alumin"
+    },
+    "ewo:metal_ti": {
+      "textures": "textures/items/pamobile/ewo_metal_ti"
+    },
+    "ewo:metal_zinc": {
+      "textures": "textures/items/pamobile/ewo_metal_zinc"
+    },
+    "ewo:metal_superalloy": {
+      "textures": "textures/items/pamobile/ewo_metal_superalloy"
+    },
+    "ewo:metal_carbon": {
+      "textures": "textures/items/pamobile/ewo_metal_carbon"
+    },
+    "ewo:metal_carbon2": {
+      "textures": "textures/items/pamobile/ewo_metal_carbon2"
+    },
+    "ewo:metal_low": {
+      "textures": "textures/items/pamobile/ewo_metal_low"
+    },
+    "ewo:metal_memory": {
+      "textures": "textures/items/pamobile/ewo_metal_memory"
+    },
+    "ewo:metal_structure": {
+      "textures": "textures/items/pamobile/ewo_metal_structure"
+    },
+    "ewo:metal_ball_flat": {
+      "textures": "textures/items/pamobile/ewo_metal_ball_flat"
+    },
+    "ewo:metal_gold_man": {
+      "textures": "textures/items/pamobile/ewo_metal_gold_man"
+    },
+    "ewo:metal_resistance": {
+      "textures": "textures/items/pamobile/ewo_metal_resistance"
+    },
+    "ewo:metal_magnetic": {
+      "textures": "textures/items/pamobile/ewo_metal_magnetic"
+    },
+    "ewo:metal_amorphous": {
+      "textures": "textures/items/pamobile/ewo_metal_amorphous"
+    },
+    "ewo:metal_amalgam": {
+      "textures": "textures/items/pamobile/ewo_metal_amalgam"
+    },
+    "ewo:metal_weathering": {
+      "textures": "textures/items/pamobile/ewo_metal_weathering"
+    },
+    "ewo:cloth_ethylene": {
+      "textures": "textures/items/pamobile/ewo_cloth_ethylene"
+    },
+    "ewo:pc_led": {
+      "textures": "textures/items/pamobile/ewo_pc_led"
+    },
+    "ewo:item_start": {
+      "textures": "textures/items/pamobile/ewo_item_start"
+    },
+    "jmgs:arms_switch": {
+      "textures": "textures/items/jmgs_arms_switch"
+    },
+    "jmgs:item_medal": {
+      "textures": "textures/items/jmgs_item_medal"
+    },
+    "jmgs:item_microphone": {
+      "textures": "textures/items/jmgs_item_microphone"
+    },
+    "jmgs:item_bp": {
+      "textures": "textures/items/jmgs_item_bp"
+    },
+    "jmgs:item_phone": {
+      "textures": "textures/items/jmgs_item_phone"
+    },
+    "jmgs:item_phone_xt": {
+      "textures": "textures/items/jmgs_item_phone_xt"
+    },
+    "jmgs:item_coin": {
+      "textures": "textures/items/jmgs_item_coin"
+    },
+    "jmgs:item_copper_coin": {
+      "textures": "textures/items/jmgs_item_copper_coin"
+    },
+    "jmgs:item_gold": {
+      "textures": "textures/items/jmgs_item_gold"
+    },
+    "jmgs:item_hp": {
+      "textures": "textures/items/jmgs_item_hp"
+    },
+    "jmgs:item_disk": {
+      "textures": "textures/items/jmgs_item_disk"
+    },
+    "jmgs:item_coffee": {
+      "textures": "textures/items/jmgs_item_coffee"
+    },
+    "jmgs:item_motor": {
+      "textures": "textures/items/jmgs_item_motor"
+    },
+    "jmgs:item_cs": {
+      "textures": "textures/items/jmgs_item_cs"
+    },
+    "jmgs:item_cs_clock": {
+      "textures": "textures/items/jmgs_item_cs_clock"
+    },
+    "jmgs:item_cd": {
+      "textures": "textures/items/jmgs_item_cd"
+    },
+    "jmgs:item_x990": {
+      "textures": "textures/items/jmgs_item_x990"
+    },
+    "jmgs:item_ddr9900": {
+      "textures": "textures/items/jmgs_item_ddr9900"
+    },
+    "jmgs:item_hero": {
+      "textures": "textures/items/jmgs_item_hero"
+    },
+    "jmgs:item_z": {
+      "textures": "textures/items/jmgs_item_z"
+    },
+    "jmgs:item_egg": {
+      "textures": "textures/items/jmgs_item_egg"
+    },
+    "jmgs:item_lab1": {
+      "textures": "textures/items/jmgs_item_lab1"
+    },
+    "jmgs:item_lab2": {
+      "textures": "textures/items/jmgs_item_lab2"
+    },
+    "jmgs:item_lab3": {
+      "textures": "textures/items/jmgs_item_lab3"
+    },
+    "jmgs:item_lab4": {
+      "textures": "textures/items/jmgs_item_lab4"
+    },
+    "jmgs:item_family_photo": {
+      "textures": "textures/items/jmgs_item_family_photo"
+    },
+    "jmgs:item_book": {
+      "textures": "textures/items/jmgs_item_book"
+    },
+    "jmgs:item_book_pro": {
+      "textures": "textures/items/jmgs_item_book_pro"
+    },
+    "jmgs:item_near_link": {
+      "textures": "textures/items/jmgs_item_near_link"
+    },
+    "jmgs:item_memroy": {
+      "textures": "textures/items/jmgs_item_memroy"
+    },
+    "jmgs:food_sod_hit_water": {
+      "textures": "textures/items/jmgs_food_sod_hit_water"
+    },
+    "jmgs:food_lunch": {
+      "textures": "textures/items/jmgs_food_lunch"
+    },
+    "jmgs:food_corn_flakes": {
+      "textures": "textures/items/jmgs_food_corn_flakes"
+    },
+    "jmgs:food_sardine": {
+      "textures": "textures/items/jmgs_food_sardine"
+    },
+    "jmgs:food_ethanol": {
+      "textures": "textures/items/jmgs_food_ethanol"
+    },
+    "jmgs:item_junction_box": {
+      "textures": "textures/items/jmgs_item_junction_box"
+    },
+    "jmgs:item_junction_box_pro": {
+      "textures": "textures/items/jmgs_item_junction_box_pro"
+    },
+    "jmgs:item_silicon_wafer": {
+      "textures": "textures/items/jmgs_item_silicon_wafer"
+    },
+    "jmgs:item_tempered_glass": {
+      "textures": "textures/items/jmgs_item_tempered_glass"
+    },
+    "jmgs:sword_frying_pan": {
+      "textures": "textures/items/jmgs_sword_frying_pan"
+    },
+    "jmgs:sword_fire_wooden": {
+      "textures": "textures/items/jmgs_sword_fire_wooden"
+    },
+    "jmgs:sword_purizumu": {
+      "textures": "textures/items/jmgs_sword_purizumu"
+    },
+    "jmgs:sword_hero_complete": {
+      "textures": "textures/items/jmgs_sword_hero_complete"
+    },
+    "jmgs:item_crown": {
+      "textures": "textures/items/jmgs_item_crown"
+    },
+    "jmgs:item_crown_complete": {
+      "textures": "textures/items/jmgs_item_crown_complete"
+    },
+    "jmgs:item_grail": {
+      "textures": "textures/items/jmgs_item_grail"
+    },
+    "jmgs:item_grail_complete": {
+      "textures": "textures/items/jmgs_item_grail_complete"
+    },
+    "jmgs:item_necklace": {
+      "textures": "textures/items/jmgs_item_necklace"
+    },
+    "jmgs:item_necklace_complete": {
+      "textures": "textures/items/jmgs_item_necklace_complete"
+    },
+    "jmgs:item_medal_complete": {
+      "textures": "textures/items/jmgs_item_medal_complete"
+    },
+    "jmgs:item_ti_ingot": {
+      "textures": "textures/items/jmgs_item_ti_ingot"
+    },
+    "jmgs:block_crrt": {
+      "textures": "textures/items/jmgs_block_crrt"
+    },
+    "jmgs:block_ecmo": {
+      "textures": "textures/items/jmgs_block_ecmo"
+    },
+    "jmgs:block_ventilator": {
+      "textures": "textures/items/jmgs_block_ventilator"
+    },
+    "jmgs:block_nirs": {
+      "textures": "textures/items/jmgs_block_nirs"
+    },
+    "jmgs:block_nirs_display": {
+      "textures": "textures/items/jmgs_block_nirs_display"
+    },
+    "jmgs:block_act": {
+      "textures": "textures/items/jmgs_block_act"
+    },
+    "jmgs:block_aed": {
+      "textures": "textures/items/jmgs_block_aed"
+    },
+    "jmgs:block_super_b": {
+      "textures": "textures/items/jmgs_block_super_b"
+    },
+    "jmgs:block_server": {
+      "textures": "textures/items/jmgs_block_server"
+    },
+    "jmgs:block_iabp": {
+      "textures": "textures/items/jmgs_block_iabp"
+    },
+    "jmgs:block_ct": {
+      "textures": "textures/items/jmgs_block_ct"
+    },
+    "jmgs:block_duv": {
+      "textures": "textures/items/jmgs_block_duv"
+    },
+    "jmgs:block_cnc": {
+      "textures": "textures/items/jmgs_block_cnc"
+    },
+    "jmgs:block_x_ray": {
+      "textures": "textures/items/jmgs_block_x_ray"
+    },
+    "jmgs:block_mmm": {
+      "textures": "textures/items/jmgs_block_mmm"
+    },
+    "jmgs:block_chest_pro": {
+      "textures": "textures/items/jmgs_block_chest_pro"
+    },
+    "jmgs:block_chest_air": {
+      "textures": "textures/items/jmgs_block_chest_air"
+    },
+    "jmgs:block_chest_chicken": {
+      "textures": "textures/items/jmgs_block_chest_chicken"
+    },
+    "jmgs:toolbox_saw": {
+      "textures": "textures/items/jmgs_toolbox_saw"
+    },
+    "jmgs:toolbox_brush": {
+      "textures": "textures/items/jmgs_toolbox_brush"
+    },
+    "jmgs:toolbox_paint": {
+      "textures": "textures/items/jmgs_toolbox_paint"
+    },
+    "jmgs:toolbox_shovel": {
+      "textures": "textures/items/jmgs_toolbox_shovel"
+    },
+    "jmgs:toolbox_clone": {
+      "textures": "textures/items/jmgs_toolbox_clone"
+    },
+    "jmgs:toolbox_spot": {
+      "textures": "textures/items/jmgs_toolbox_spot"
+    },
+    "jmgs:toolbox_line": {
+      "textures": "textures/items/jmgs_toolbox_line"
+    },
+    "jmgs:toolbox_water": {
+      "textures": "textures/items/jmgs_toolbox_water"
+    },
+    "jmgs:toolbox_template": {
+      "textures": "textures/items/jmgs_toolbox_template"
+    },
+    "jmgs:tnt_n2": {
+      "textures": "textures/items/pamobile/jmgs_tnt_n2"
+    },
+    "jmgs:sword_apex": {
+      "textures": "textures/items/jmgs_sword_apex"
+    },
+    "jmgs:sword_epic": {
+      "textures": "textures/items/jmgs_sword_epic"
+    },
+    "jmgs:sword_dragon": {
+      "textures": "textures/items/jmgs_sword_dragon"
+    },
+    "jmgs:item_brass_lite": {
+      "textures": "textures/items/jmgs_item_brass_lite"
+    },
+    "jmgs:item_brass_plus": {
+      "textures": "textures/items/jmgs_item_brass_plus"
+    },
+    "jmgs:item_brass_max": {
+      "textures": "textures/items/jmgs_item_brass_max"
+    },
+    "jmgs:item_brass": {
+      "textures": "textures/items/jmgs_item_brass"
+    },
+    "jmgs:item_bass": {
+      "textures": "textures/items/jmgs_item_bass"
+    },
+    "jmgs:item_guitar": {
+      "textures": "textures/items/jmgs_item_guitar"
+    },
+    "jmgs:item_guitar_lite": {
+      "textures": "textures/items/jmgs_item_guitar_lite"
+    },
+    "jmgs:item_guitar_pro": {
+      "textures": "textures/items/jmgs_item_guitar_pro"
+    },
+    "jmgs:item_string": {
+      "textures": "textures/items/jmgs_item_string"
+    },
+    "jmgs:item_string_lite": {
+      "textures": "textures/items/jmgs_item_string_lite"
+    },
+    "jmgs:item_string_max": {
+      "textures": "textures/items/jmgs_item_string_max"
+    },
+    "jmgs:item_string_plus": {
+      "textures": "textures/items/jmgs_item_string_plus"
+    },
+    "jmgs:item_woodwind": {
+      "textures": "textures/items/jmgs_item_woodwind"
+    },
+    "ewo:boss_evil": {
+      "textures": "textures/items/pamobile/ewo_boss_evil"
+    },
+    "ewo:entity_chair_pro": {
+      "textures": "textures/items/pamobile/ewo_entity_chair_pro"
+    },
+    "ewo:chest2": {
+      "textures": "textures/items/pamobile/ewo_chest2"
+    },
+    "ewo:chest3": {
+      "textures": "textures/items/pamobile/ewo_chest3"
+    },
+    "ewo:chest4": {
+      "textures": "textures/items/pamobile/ewo_chest4"
+    },
+    "ewo:chest1": {
+      "textures": "textures/items/pamobile/ewo_chest1"
+    },
+    "ewo:chest5": {
+      "textures": "textures/items/pamobile/ewo_chest5"
+    },
+    "ewo:imperial_guards": {
+      "textures": "textures/items/pamobile/ewo_imperial_guards"
+    },
+    "ewo:angel_grato": {
+      "textures": "textures/items/pamobile/ewo_angel_grato"
+    },
+    "ewo:sword_spear": {
+      "textures": "textures/items/pamobile/ewo_sword_spear"
+    },
+    "ewo:telescopic_rod": {
+      "textures": "textures/items/pamobile/ewo_telescopic_rod"
+    },
+    "ewo:dsgger": {
+      "textures": "textures/items/pamobile/ewo_dsgger"
+    },
+    "ewo:angel_neferty": {
+      "textures": "textures/items/pamobile/ewo_angel_neferty"
+    },
+    "ewo:angel_holder": {
+      "textures": "textures/items/pamobile/ewo_angel_holder"
+    },
+    "ewo:angel_fenrir": {
+      "textures": "textures/items/pamobile/ewo_angel_fenrir"
+    },
+    "ewo:angel_barumonge": {
+      "textures": "textures/items/pamobile/ewo_angel_barumonge"
+    },
+    "ewo:angel_gayne": {
+      "textures": "textures/items/pamobile/ewo_angel_gayne"
+    },
+    "ewo:sword_long_knife": {
+      "textures": "textures/items/pamobile/ewo_sword_long_knife"
+    },
+    "ewo:sword_apocalypse": {
+      "textures": "textures/items/pamobile/ewo_sword_apocalypse"
+    },
+    "ewo:sword_tang": {
+      "textures": "textures/items/pamobile/ewo_sword_tang"
+    },
+    "ewo:sword_stick": {
+      "textures": "textures/items/pamobile/ewo_sword_stick"
+    },
+    "ewo:boss_sofia": {
+      "textures": "textures/items/pamobile/ewo_boss_sofia"
+    },
+    "ewo:impactor": {
+      "textures": "textures/items/pamobile/ewo_impactor"
+    },
+    "ewo:boss_goldsijie": {
+      "textures": "textures/items/pamobile/ewo_boss_goldsijie"
+    },
+    "ewo:boss_zepar": {
+      "textures": "textures/items/pamobile/ewo_boss_zepar"
+    },
+    "ewo:boss_godfrey": {
+      "textures": "textures/items/pamobile/ewo_boss_godfrey"
+    },
+    "ewo:dukes_escort": {
+      "textures": "textures/items/pamobile/ewo_dukes_escort"
+    },
+    "ewo:boss_kunpeng": {
+      "textures": "textures/items/pamobile/ewo_boss_kunpeng"
+    },
+    "ewo:boss_mask": {
+      "textures": "textures/items/pamobile/ewo_boss_mask"
+    },
+    "ewo:boss_zoe": {
+      "textures": "textures/items/pamobile/ewo_boss_zoe"
+    },
+    "ewo:boss_iotew": {
+      "textures": "textures/items/pamobile/ewo_boss_iotew"
+    },
+    "ewo:boss_nyx": {
+      "textures": "textures/items/pamobile/ewo_boss_nyx"
+    },
+    "ewo:boss_berith": {
+      "textures": "textures/items/pamobile/ewo_boss_berith"
+    },
+    "ewo:item_bug_log": {
+      "textures": "textures/items/pamobile/ewo_item_bug_log"
+    },
+    "ewo:imps_bug": {
+      "textures": "textures/items/pamobile/ewo_imps_bug"
+    },
+    "ewo:king_phoenix": {
+      "textures": "textures/items/pamobile/ewo_king_phoenix"
+    },
+    "ewo:dukes_apostles": {
+      "textures": "textures/items/pamobile/ewo_dukes_apostles"
+    },
+    "ewo:king_valefor": {
+      "textures": "textures/items/pamobile/ewo_king_valefor"
+    },
+    "ewo:king_wantdodo": {
+      "textures": "textures/items/pamobile/ewo_king_wantdodo"
+    },
+    "ewo:king_susuhao": {
+      "textures": "textures/items/pamobile/ewo_king_susuhao"
+    },
+    "ewo:king_kujo": {
+      "textures": "textures/items/pamobile/ewo_king_kujo"
+    },
+    "ewo:imps_pillager": {
+      "textures": "textures/items/pamobile/ewo_imps_pillager"
+    },
+    "ewo:imps_majo": {
+      "textures": "textures/items/pamobile/ewo_imps_majo"
+    },
+    "ewo:businessman": {
+      "textures": "textures/items/pamobile/ewo_businessman"
+    },
+    "ewo:boss_redstone": {
+      "textures": "textures/items/pamobile/ewo_boss_redstone"
+    },
+    "ewo:imps_matrix": {
+      "textures": "textures/items/pamobile/ewo_imps_matrix"
+    },
+    "ewo:imps_vindicator": {
+      "textures": "textures/items/pamobile/ewo_imps_vindicator"
+    },
+    "ewo:imps_drowned": {
+      "textures": "textures/items/pamobile/ewo_imps_drowned"
+    },
+    "ewo:imps_iron_golem": {
+      "textures": "textures/items/pamobile/ewo_imps_iron_golem"
+    },
+    "ewo:projectile_king": {
+      "textures": "textures/items/pamobile/ewo_projectile_king"
+    },
+    "ewo:projectile_cold": {
+      "textures": "textures/items/pamobile/ewo_projectile_cold"
+    },
+    "ewo:projectile_fire": {
+      "textures": "textures/items/pamobile/ewo_projectile_fire"
+    },
+    "ewo:projectile_nyx": {
+      "textures": "textures/items/pamobile/ewo_projectile_nyx"
+    },
+    "ewo:armor_void1": {
+      "textures": [
+        "textures/items/pamobile/ewo_armor_void1"
+      ]
+    },
+    "ewo:armor_void4": {
+      "textures": [
+        "textures/items/pamobile/ewo_armor_void4"
+      ]
+    },
+    "ewo:armor_void2": {
+      "textures": [
+        "textures/items/pamobile/ewo_armor_void2"
+      ]
+    },
+    "ewo:armor_void3": {
+      "textures": [
+        "textures/items/pamobile/ewo_armor_void3"
+      ]
+    },
+    "ewo:projectile_gun_taser": {
+      "textures": "textures/items/pamobile/ewo_projectile_gun_taser"
+    },
+    "ewo:projectile_slime": {
+      "textures": "textures/items/pamobile/ewo_projectile_slime"
+    },
+    "ewo:projectile_damage": {
+      "textures": "textures/items/pamobile/ewo_projectile_damage"
+    },
+    "ewo:projectile_gun_electric": {
+      "textures": "textures/items/pamobile/ewo_projectile_gun_electric"
+    },
+    "ewo:projectile_boom": {
+      "textures": "textures/items/pamobile/ewo_projectile_boom"
+    },
+    "ewo:projectile_sword": {
+      "textures": "textures/items/pamobile/ewo_projectile_sword"
+    },
+    "ewo:projectile_cannon": {
+      "textures": "textures/items/pamobile/ewo_projectile_cannon"
+    },
+    "ewo:executioner": {
+      "textures": "textures/items/pamobile/ewo_executioner"
+    },
+    "ewo:sword_light": {
+      "textures": "textures/items/pamobile/ewo_sword_light"
+    },
+    "ewo:sword_feather_duster": {
+      "textures": "textures/items/pamobile/ewo_sword_feather_duster"
+    },
+    "ewo:sword_brunhild": {
+      "textures": "textures/items/pamobile/ewo_sword_brunhild"
+    },
+    "ewo:bottom_menu": {
+      "textures": "textures/items/pamobile/ewo_bottom_menu"
+    },
+    "ewo:bottom_map": {
+      "textures": "textures/items/pamobile/ewo_bottom_map"
+    },
+    "ewo:entity_boom": {
+      "textures": "textures/items/pamobile/ewo_entity_boom"
+    },
+    "ewo:entity_broom": {
+      "textures": "textures/items/pamobile/ewo_entity_broom"
+    },
+    "ewo:entity_car": {
+      "textures": "textures/items/pamobile/ewo_entity_car"
+    },
+    "ewo:sword_mithril": {
+      "textures": "textures/items/pamobile/ewo_sword_mithril"
+    },
+    "ewo:sword_alien": {
+      "textures": "textures/items/pamobile/ewo_sword_alien"
+    },
+    "ewo:sword_axe_ur": {
+      "textures": "textures/items/pamobile/ewo_sword_axe_ur"
+    },
+    "ewo:sword_noob": {
+      "textures": "textures/items/pamobile/ewo_sword_noob"
+    },
+    "ewo:sword_duo": {
+      "textures": "textures/items/pamobile/ewo_sword_duo"
+    },
+    "ewo:sword_cake": {
+      "textures": "textures/items/pamobile/ewo_sword_cake"
+    },
+    "ewo:imps_warrior": {
+      "textures": "textures/items/pamobile/ewo_imps_warrior"
+    },
+    "ewo:imps_husk": {
+      "textures": "textures/items/pamobile/ewo_imps_husk"
+    },
+    "ewo:projectile_controller": {
+      "textures": "textures/items/pamobile/ewo_projectile_controller"
+    },
+    "ewo:projectile_fatalist": {
+      "textures": "textures/items/pamobile/ewo_projectile_fatalist"
+    },
+    "ewo:projectile_start": {
+      "textures": "textures/items/pamobile/ewo_projectile_start"
+    },
+    "ewo:projectile_sky": {
+      "textures": "textures/items/pamobile/ewo_projectile_sky"
+    },
+    "ewo:armor_tech": {
+      "textures": "textures/items/pamobile/ewo_armor_tech"
+    },
+    "ewo:king_marchosias": {
+      "textures": "textures/items/pamobile/ewo_king_marchosias"
+    },
+    "ewo:dukes_dukang": {
+      "textures": "textures/items/pamobile/ewo_dukes_dukang"
+    },
+    "ewo:dukes_gazer": {
+      "textures": "textures/items/pamobile/ewo_dukes_gazer"
+    },
+    "ewo:armor_thro1": {
+      "textures": "textures/items/pamobile/ewo_armor_thro1"
+    },
+    "ewo:armor_thor2": {
+      "textures": "textures/items/pamobile/ewo_armor_thor2"
+    },
+    "ewo:armor_thor": {
+      "textures": "textures/items/pamobile/ewo_armor_thor"
+    },
+    "ewo:armor_god3": {
+      "textures": "textures/items/pamobile/ewo_armor_god3"
+    },
+    "ewo:armor_analyzer": {
+      "textures": "textures/items/pamobile/ewo_armor_analyzer"
+    },
+    "ewo:armor_god": {
+      "textures": "textures/items/pamobile/ewo_armor_god"
+    },
+    "ewo:armor_night_vision": {
+      "textures": "textures/items/pamobile/ewo_armor_night_vision"
+    },
+    "ewo:armor_god1": {
+      "textures": "textures/items/pamobile/ewo_armor_god1"
+    },
+    "ewo:armor_god11": {
+      "textures": "textures/items/pamobile/ewo_armor_god11"
+    },
+    "ewo:armor_god13": {
+      "textures": "textures/items/pamobile/ewo_armor_god13"
+    },
+    "ewo:armor_god12": {
+      "textures": "textures/items/pamobile/ewo_armor_god12"
+    },
+    "ewo:armor_wasp3": {
+      "textures": "textures/items/pamobile/ewo_armor_wasp3"
+    },
+    "ewo:armor_mob": {
+      "textures": "textures/items/pamobile/ewo_armor_mob"
+    },
+    "ewo:armor_wasp": {
+      "textures": "textures/items/pamobile/ewo_armor_wasp"
+    },
+    "ewo:armor_wasp1": {
+      "textures": "textures/items/pamobile/ewo_armor_wasp1"
+    },
+    "ewo:armor_wasp2": {
+      "textures": "textures/items/pamobile/ewo_armor_wasp2"
+    },
+    "ewo:armor_mob3": {
+      "textures": "textures/items/pamobile/ewo_armor_mob3"
+    },
+    "ewo:armor_immortal": {
+      "textures": "textures/items/pamobile/ewo_armor_immortal"
+    },
+    "ewo:armor_mob2": {
+      "textures": "textures/items/pamobile/ewo_armor_mob2"
+    },
+    "ewo:armor_immortal3": {
+      "textures": "textures/items/pamobile/ewo_armor_immortal3"
+    },
+    "ewo:armor_immortal2": {
+      "textures": "textures/items/pamobile/ewo_armor_immortal2"
+    },
+    "ewo:armor_fraternity": {
+      "textures": "textures/items/pamobile/ewo_armor_fraternity"
+    },
+    "ewo:armor_fraternity2": {
+      "textures": "textures/items/pamobile/ewo_armor_fraternity2"
+    },
+    "ewo:armor_fraternity3": {
+      "textures": "textures/items/pamobile/ewo_armor_fraternity3"
+    },
+    "ewo:sword_christmas": {
+      "textures": "textures/items/pamobile/ewo_sword_christmas"
+    },
+    "ewo:sword_pink": {
+      "textures": "textures/items/pamobile/ewo_sword_pink"
+    },
+    "ewo:sword_super_axe": {
+      "textures": "textures/items/pamobile/ewo_sword_super_axe"
+    },
+    "ewo:sword_super_hoe": {
+      "textures": "textures/items/pamobile/ewo_sword_super_hoe"
+    },
+    "ewo:sword_knife": {
+      "textures": "textures/items/pamobile/ewo_sword_knife"
+    },
+    "ewo:sword_fire": {
+      "textures": "textures/items/pamobile/ewo_sword_fire"
+    },
+    "ewo:sword_knife2": {
+      "textures": "textures/items/pamobile/ewo_sword_knife2"
+    },
+    "ewo:policeman": {
+      "textures": "textures/items/pamobile/ewo_policeman"
+    },
+    "ewo:sword_light_g4": {
+      "textures": "textures/items/pamobile/ewo_sword_light_g4"
+    },
+    "ewo:sword_cactus": {
+      "textures": "textures/items/pamobile/ewo_sword_cactus"
+    },
+    "ewo:sword_fenrir": {
+      "textures": "textures/items/pamobile/ewo_sword_fenrir"
+    },
+    "ewo:sword_land": {
+      "textures": "textures/items/pamobile/ewo_sword_land"
+    },
+    "ewo:imps_zombie2": {
+      "textures": "textures/items/pamobile/ewo_imps_zombie2"
+    },
+    "ewo:imps_zombie1": {
+      "textures": "textures/items/pamobile/ewo_imps_zombie1"
+    },
+    "ewo:imps_zombie3": {
+      "textures": "textures/items/pamobile/ewo_imps_zombie3"
+    },
+    "ewo:dukes_meranti": {
+      "textures": "textures/items/pamobile/ewo_dukes_meranti"
+    },
+    "ewo:support_stick": {
+      "textures": "textures/items/pamobile/ewo_support_stick"
+    },
+    "ewo:dukes_killer": {
+      "textures": "textures/items/pamobile/ewo_dukes_killer"
+    },
+    "ewo:entity_car_pro": {
+      "textures": "textures/items/pamobile/ewo_entity_car_pro"
+    },
+    "ewo:boss_orias": {
+      "textures": "textures/items/pamobile/ewo_boss_orias"
+    },
+    "ewo:entity_car_plus": {
+      "textures": "textures/items/pamobile/ewo_entity_car_plus"
+    },
+    "ewo:king_vasika": {
+      "textures": "textures/items/pamobile/ewo_king_vasika"
+    },
+    "ewo:entity_sea_moth": {
+      "textures": "textures/items/pamobile/ewo_entity_sea_moth"
+    },
+    "ewo:angel_gaien": {
+      "textures": "textures/items/pamobile/ewo_angel_gaien"
+    }
+  }
+}

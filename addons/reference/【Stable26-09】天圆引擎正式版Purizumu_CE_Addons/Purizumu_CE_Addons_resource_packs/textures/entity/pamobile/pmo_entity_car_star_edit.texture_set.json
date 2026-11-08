@@ -1,0 +1,7 @@
+{
+	"format_version": "1.16.100",
+	"minecraft:texture_set": {
+		"color": "pmo_entity_car_star_edit",
+		"metalness_emissive_roughness": "pmo_entity_car_star_edit_mer"
+	}
+}

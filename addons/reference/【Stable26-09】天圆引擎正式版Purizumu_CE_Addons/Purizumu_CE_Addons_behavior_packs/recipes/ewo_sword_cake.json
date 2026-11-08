@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_cake_9cc8025d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "FCF",
+      "BED"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_carbon",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:iron_sword",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:plastics_recycled",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_cake",
+      "count": 1
+    }
+  }
+}

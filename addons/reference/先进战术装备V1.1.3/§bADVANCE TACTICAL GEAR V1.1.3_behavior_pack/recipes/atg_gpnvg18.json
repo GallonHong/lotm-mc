@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "gpnvg18_4ea4c61d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "ADB",
+      "EAA"
+    ],
+    "key": {
+      "A": {
+        "item": "atg:iit",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:tripwire_hook",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:heavy_weighted_pressure_plate",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:cyan_stained_glass",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:gpnvg18",
+      "count": 1
+    }
+  }
+}

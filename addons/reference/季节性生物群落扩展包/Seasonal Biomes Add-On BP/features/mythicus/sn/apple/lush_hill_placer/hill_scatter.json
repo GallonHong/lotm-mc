@@ -1,0 +1,15 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/apple/lush_hill_placer/hill_scatter"
+        },
+        "coordinate_eval_order": "xyz",
+        "iterations": "v.pattern=q.noise(variable.worldx/60+0,variable.worldz/60+0)+1;return(v.pattern>0.6&&v.pattern<1.4)?1:0;",
+        "places_feature": "mythicus_sn:mythicus/sn/apple/lush_hill_placer/hill_aggregate",
+        "x": "0",
+        "y": "-1",
+        "z": "0",
+        "scatter_chance": 100
+    }
+}

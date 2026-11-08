@@ -1,0 +1,25 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.ewo_block_chest2",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 1.5,
+				"visible_bounds_offset": [0, 0.25, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-7, 0, -5], "size": [14, 5, 10], "uv": [4, 4]},
+						{"origin": [-7.5, 5, -5.5], "size": [15, 1, 11], "uv": [3, 21]}
+					]
+				}
+			]
+		}
+	]
+}

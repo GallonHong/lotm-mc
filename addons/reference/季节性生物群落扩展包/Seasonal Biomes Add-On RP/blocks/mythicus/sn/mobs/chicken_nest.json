@@ -1,0 +1,9 @@
+{
+    "format_version": "1.1.0",
+    "minecraft:client_blocks": {
+        "mythicus_sn:chicken_nest": {
+            "textures": "mythicus_sn:chicken_nest_0",
+            "geometry": "geometry.mythicus_sn.chicken_nest"
+        }
+    }
+}

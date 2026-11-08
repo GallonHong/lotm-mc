@@ -1,0 +1,33 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_entity_air_sa330.walk": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"animations": ["idle"],
+					"transitions": [
+						{"rider": "query.has_rider == 1"}
+					],
+					"blend_transition": 3
+				},
+				"rider": {
+					"animations": ["fly"],
+					"transitions": [
+						{"walk": "query.ground_speed > 2.0"},
+						{"idle": "query.has_rider == 0"}
+					],
+					"blend_transition": 2
+				},
+				"walk": {
+					"animations": ["fly", "walk"],
+					"transitions": [
+						{"rider": "query.ground_speed < 1.9"},
+						{"idle": "query.has_rider == 0"}
+					],
+					"blend_transition": 2
+				}
+			}
+		}
+	}
+}

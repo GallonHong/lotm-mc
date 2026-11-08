@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_print_pro_fed5136c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "FAE",
+      "BCB",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:dye",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:glow_ink_sac",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "F": {
+        "item": "pmo:item_prism",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_print_pro",
+      "count": 3
+    }
+  }
+}

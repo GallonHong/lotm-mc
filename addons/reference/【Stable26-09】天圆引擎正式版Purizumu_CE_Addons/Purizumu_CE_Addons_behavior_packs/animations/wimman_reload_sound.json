@@ -1,0 +1,15 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.wimman_reload_sound": {
+			"timeline": {
+				"0.00": "/playsound wimman_slideback @s",
+				"0.54": "/playsound wimman_mag_out @s",
+				"1.70": "/playsound wimman_mag_in @s",
+				"1.75": "/playsound wimman_mag_locked @s",
+				"1.95": "/playsound wimman_slideforward @s"
+			},
+			"animation_length": 2.3
+		}
+	}
+}

@@ -1,0 +1,47 @@
+{
+    "format_version": "1.10.0",
+    "animations": {
+        "animation.mythicus_sn.lens_flare": {
+            "loop": true,
+            "bones": {
+                "root": {
+                    "rotation": ["q.rotation_to_camera(0)", "q.rotation_to_camera(1)", 0]
+                },
+                "flare2": {
+                    "rotation": ["-v.camera_x * 2", 0, 0],
+                    "position": ["v.camera_y * 1", "v.camera_x * -1", 0],
+                    "scale": "v.number_by_distance_small*4"
+                },
+                "flare3": {
+                    "rotation": ["-math.abs(v.camera_x) * -1", 0, "math.atan2(v.camera_y, -v.camera_x)"],
+                    "position": ["v.camera_y * 2", "v.camera_x * -2", 0],
+                    "scale": "(v.number_by_distance_medium)*3"
+                },
+                "flare4": {
+                    "rotation": ["-v.camera_x * 1.5", "-v.camera_y * -1.5", 0],
+                    "position": ["v.camera_y * 2.5", "v.camera_x * -2.5", 0],
+                    "scale": "math.clamp((1 / (math.sqrt(v.camera_x * v.camera_x + v.camera_y * v.camera_y) + 1) * 20),2,15)"
+                },
+                "flare1": {
+                    "scale": "v.is_sun ? 1.5+(v.number_by_distance_large*3.5) : 0.5+(v.number_by_distance_large*2.5)"
+                },
+                "flare5": {
+                    "rotation": ["-v.camera_x * 1.5", "-v.camera_y * -1.5", 0],
+                    "position": ["v.camera_y * 6", "v.camera_x * -6", 0],
+                    "scale": "math.clamp((1 / (math.sqrt(v.camera_x * v.camera_x + v.camera_y * v.camera_y) + 1) * 20),1,10)"
+                },
+                "sunset_sunrise": {
+                    "scale": "math.clamp(v.lens_flare_scale*(v.golden_hour*0.33),0,5)"
+                }
+            }
+        },
+        "animation.mythicus_sn.lens_flare_spawn": {
+            "loop": true,
+            "bones": {
+                "root": {
+                    "scale": "math.clamp((query.life_time / 0.333),0,1)"
+                }
+            }
+        }
+    }
+}

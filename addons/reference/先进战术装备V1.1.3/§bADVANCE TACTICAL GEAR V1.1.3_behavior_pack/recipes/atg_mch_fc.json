@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "mch_fc_de2ceed1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DED",
+      "FGF"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:black_carpet",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:redstone_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone_lamp",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:heavy_weighted_pressure_plate",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:iron_helmet",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:glass_pane",
+        "data": 0
+      },
+      "G": {
+        "item": "minecraft:glass",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:mch_fc",
+      "count": 1
+    }
+  }
+}

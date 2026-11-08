@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_bdabe91e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "EBE",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:emerald",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:gold_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:comparator",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_power_spawn_egg",
+      "count": 1
+    }
+  }
+}

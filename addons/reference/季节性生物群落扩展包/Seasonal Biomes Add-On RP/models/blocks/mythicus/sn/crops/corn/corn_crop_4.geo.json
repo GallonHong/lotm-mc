@@ -1,0 +1,116 @@
+{
+    "format_version": "1.21.20",
+    "minecraft:geometry": [
+        {
+            "description": {
+                "identifier": "geometry.mythicus_sn.corn_crop_4",
+                "texture_width": 64,
+                "texture_height": 64,
+                "visible_bounds_width": 2,
+                "visible_bounds_height": 3.5,
+                "visible_bounds_offset": [0, 1.25, 0]
+            },
+            "bones": [
+                {
+                    "name": "root",
+                    "pivot": [0, 0, 0],
+                    "rotation": [0, -22.5, 0],
+                    "cubes": [
+                        { "origin": [0, 0, -6], "size": [0, 27, 12], "pivot": [0, 0, 0], "rotation": [-180, -22.5, 180], "uv": [22, -12] },
+                        { "origin": [0, 0, -6], "size": [0, 27, 11], "pivot": [0, 0, 0], "rotation": [0, 67.5, 0], "uv": [0, -11] },
+                        { "origin": [0, 0, -5], "size": [0, 27, 11], "pivot": [0, 0, 0], "rotation": [0, -22.5, 0], "uv": [0, -11] }
+                    ]
+                },
+                {
+                    "name": "corn3",
+                    "parent": "root",
+                    "pivot": [0, 5.2, 0],
+                    "rotation": [0, -157.5, 0]
+                },
+                {
+                    "name": "corn",
+                    "parent": "corn3",
+                    "pivot": [-2.29289, 11.49289, 0],
+                    "rotation": [0, 0, 45],
+                    "cubes": [
+                        { "origin": [-4.29289, 11.99289, -0.5], "size": [3, 1, 1], "uv": [0, 27] },
+                        { "origin": [-4.29289, 11.99289, -0.5], "size": [3, 1, 1], "inflate": 0.1, "uv": [0, 29] },
+                        { "origin": [-1.49289, 12.49289, -0.5], "size": [2, 0, 2], "uv": [6, 27] },
+                        { "origin": [-1.49289, 11.99289, 0], "size": [2, 0, 2], "pivot": [-0.49289, 12.49289, 0.5], "rotation": [-90, 0, 0], "uv": [6, 27] }
+                    ]
+                },
+                {
+                    "name": "corn2",
+                    "parent": "corn3",
+                    "pivot": [0.39124, 15.40665, 0],
+                    "rotation": [0, 0, 127.5],
+                    "cubes": [
+                        { "origin": [-1.60876, 15.90665, -0.5], "size": [3, 1, 1], "uv": [0, 27] },
+                        { "origin": [-1.60876, 15.90665, -0.5], "size": [3, 1, 1], "inflate": 0.1, "uv": [0, 29] },
+                        { "origin": [1.19124, 16.40665, -0.5], "size": [2, 0, 2], "uv": [6, 27] },
+                        { "origin": [1.19124, 16.40665, -0.5], "size": [2, 0, 2], "pivot": [2.19124, 16.40665, 0], "rotation": [-90, 0, 0], "uv": [6, 27] }
+                    ]
+                }
+            ],
+            "item_display_transforms": {
+                "thirdperson_righthand": {
+                    "rotation": [-15.5, 45, 0],
+                    "translation": [0, 2.5, 0],
+                    "scale": [0.375, 0.375, 0.375],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0]
+                },
+                "thirdperson_lefthand": {
+                    "rotation": [-15.5, 45, 0],
+                    "translation": [0, 2.5, 0],
+                    "scale": [0.375, 0.375, 0.375],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0]
+                },
+                "firstperson_righthand": {
+                    "rotation": [0, 45, 0],
+                    "translation": [0, 0, 0],
+                    "scale": [0.4, 0.4, 0.4],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0]
+                },
+                "firstperson_lefthand": {
+                    "rotation": [0, -135, 0],
+                    "translation": [0, 0, 0],
+                    "scale": [0.4, 0.4, 0.4],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0]
+                },
+                "ground": {
+                    "rotation": [0, 0, 0],
+                    "translation": [0, 3, 0],
+                    "scale": [0.25, 0.25, 0.25],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0]
+                },
+                "gui": {
+                    "rotation": [30, 45, 0],
+                    "translation": [0, 0, 0],
+                    "scale": [0.625, 0.625, 0.625],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0],
+                    "fit_to_frame": false
+                },
+                "head": {
+                    "rotation": [0, 0, 0],
+                    "translation": [0, 0, 0],
+                    "scale": [0, 0, 0],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0]
+                },
+                "fixed": {
+                    "rotation": [0, 0, 0],
+                    "translation": [0, 0, 0],
+                    "scale": [0.5, 0.5, 0.5],
+                    "rotation_pivot": [0, 0, 0],
+                    "scale_pivot": [0, 0, 0]
+                }
+            }
+        }
+    ]
+}

@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_water_heater_pro_932cd041"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DAD",
+      "ECG",
+      "EBF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:bucket",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_junction_box",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:flint_and_steel",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_resistance",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_water_heater_pro",
+      "count": 1
+    }
+  }
+}

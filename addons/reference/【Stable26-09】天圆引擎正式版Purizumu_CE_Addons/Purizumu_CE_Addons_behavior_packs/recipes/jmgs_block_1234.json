@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_1234_932cd062"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BBB",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:white_dye",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:white_wool",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_1234",
+      "count": 9
+    }
+  }
+}

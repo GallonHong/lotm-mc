@@ -1,0 +1,146 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.thunderbolt.run": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "thunderbolt_first_person": "variable.thunderbolt"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "variable.thunderbolt && query.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope1": "variable.thunderbolt && query.is_sneaking && !query.is_using_item"
+                        },
+                        {
+                            "scope2": "variable.thunderbolt && q.item_remaining_use_duration > 1 && !query.is_sneaking"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "thunderbolt_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        "thunderbolt_first_person_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || !query.is_sprinting || !variable.thunderbolt"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "thunderbolt_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished"
+                        }
+                    ]
+                },
+                "scope1": {
+                    "animations": [
+                        "thunderbolt_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold1": "query.all_animations_finished && q.is_sneaking"
+                        },
+                        {
+                            "default": "!query.is_sneaking || !variable.thunderbolt || !q.is_alive"
+                        }
+                    ]
+                },
+                "scope2": {
+                    "animations": [
+                        "thunderbolt_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold2": "query.all_animations_finished"
+                        },
+                        {
+                            "default": "!q.is_alive"
+                        }
+                    ]
+                },
+                "scopehold1": {
+                    "animations": [
+                        "thunderbolt_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1 || !query.is_alive"
+                        },
+                        {
+                            "scopehold_to_default": "!query.is_sneaking"
+                        },
+                        {
+                            "default": "!variable.thunderbolt || !q.is_alive"
+                        }
+                    ]
+                },
+                "scopehold_to_default": {
+                    "animations": [
+                        "thunderbolt_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished || !q.is_alive"
+                        }
+                    ]
+                },
+                "scopehold2": {
+                    "animations": [
+                        "thunderbolt_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "scopefire": "query.all_animations_finished"
+                        },
+                        {
+                            "default": "!q.is_alive"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "thunderbolt_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "mag": "query.get_equipped_item_name == 'thunderbolt_empty'"
+                        },
+                        {
+                            "default": "!q.is_alive"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        "thunderbolt_first_person_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!query.is_alive || query.get_equipped_item_name == 'thunderbolt'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

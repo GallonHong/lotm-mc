@@ -1,0 +1,26 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.pmo_role_mox": {
+            "arrays": {
+                "textures": {
+                    "Array.variant": [
+                        "Texture.default",
+                        "Texture.variant_2",
+                        "Texture.variant_3",
+                        "Texture.variant_4"
+                    ]
+                },
+                "geometries": {
+                    "Array.mark_variant": [
+                        "geometry.default",
+                        "geometry.mark_variant_2"
+                    ]
+                }
+            },
+            "geometry": "Array.mark_variant[ query.mark_variant ]",
+            "materials": [ { "*": "Material.default" } ],
+            "textures": [ "Array.variant[ query.variant ]" ]
+        }
+    }
+}

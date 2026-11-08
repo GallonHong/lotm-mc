@@ -1,0 +1,146 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "pmo:role_heroine1",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "lead",
+          "toy"
+        ]
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:health": {
+        "value": 200,
+        "max": 200
+      },
+      "minecraft:collision_box": {
+        "height": 1.8,
+        "width": 0.6
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:movement": {
+        "value": 0
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": false,
+        "can_path_over_water": false,
+        "can_pass_doors": false,
+        "can_open_doors": false,
+        "can_walk": false,
+        "avoid_water": false
+      },
+      "minecraft:annotation.open_door": {},
+      "minecraft:movement.basic": {},
+      "minecraft:can_climb": {},
+      "minecraft:damage_sensor": [
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_witch"
+          },
+          "deals_damage": false
+        },
+        {
+          "on_damage": {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "husk"
+                }
+              ],
+              "all_of": [
+                {
+                  "test": "has_damage",
+                  "value": "fatal"
+                }
+              ]
+            },
+            "event": "become_zombie"
+          }
+        }
+      ],
+      "minecraft:behavior.move_indoors": {
+        "priority": 4,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.restrict_open_door": {
+        "priority": 5
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "priority": 7,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.share_items": {
+        "priority": 8,
+        "max_dist": 3,
+        "goal_radius": 2,
+        "speed_multiplier": 0.5,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "villager"
+            }
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 11,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 12,
+        "look_distance": 8,
+        "probability": 0.02
+      },
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.0
+      },
+      "minecraft:scale": {
+        "value": 0.72
+      },
+      "minecraft:knockback_resistance": {
+        "value": 50.0,
+        "max": 50.0
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/jmgs/jmgs_loot_spawn_egg.json"
+      }
+    },
+    "events": {
+
+    }
+  }
+}

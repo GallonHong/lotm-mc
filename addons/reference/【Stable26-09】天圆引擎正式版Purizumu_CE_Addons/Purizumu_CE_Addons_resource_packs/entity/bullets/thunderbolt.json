@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:thunderbolt_ammo",
+      "materials": {
+        "default": "charged_creeper"
+      },
+      "textures": {
+        "default": "textures/items/thunderbolt_ammo"
+      },
+      "geometry": {
+        "default": "geometry.thunderbolt_ammo"
+      },
+      "render_controllers": [
+        "controller.render.fireball"
+      ],
+      "animations": {
+        "face_player": "animation.actor.billboard"
+      },
+      "scripts": {
+        "scale": "0.7",
+        "animate": [
+          "face_player"
+        ]
+      }
+    }
+  }
+}

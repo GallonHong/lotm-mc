@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_light_ground_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " B ",
+      "BCB",
+      "AD "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:paper",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone_lamp",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_casting",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_light_ground",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "projectile_sword_f453ead8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "ABA",
+      " A "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:projectile_sword",
+      "count": 16
+    }
+  }
+}

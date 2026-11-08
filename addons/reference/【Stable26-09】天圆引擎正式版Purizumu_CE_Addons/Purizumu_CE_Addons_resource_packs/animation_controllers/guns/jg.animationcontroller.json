@@ -1,0 +1,175 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.jg.first_person": {
+            "initial_state": "jg_pretakeout",
+            "states": {
+                "jg_pretakeout": {
+                    "transitions": [
+                        {
+                            "jg_takeout": "variable.jg"
+                        }
+                    ]
+                },
+                "jg_takeout": {
+                    "animations": [
+                        "jg_first_person_takeout"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        }
+                    ]
+                },
+                "default": {
+                    "animations": [
+                        "jg_first_person"
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "q.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        },
+                        {
+                            "charging": "variable.jgcharging_rp = 1.00; variable.prejgcharging_rp = query.life_time; return (q.item_remaining_use_duration > 1);"
+                        }
+                    ]
+                },
+                "charging": {
+                    "animations": [
+                        "jg_first_person_charging"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_using_item"
+                        },
+                        {
+                            "charging_over": "(query.life_time - variable.prejgcharging_rp) >= variable.jgcharging_rp"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        }
+                    ]
+                },
+                "charging_over": {
+                    "animations": [
+                        "jg_first_person_charging_over"
+                    ],
+                    "transitions": [
+                        {
+                            "shoot": "!q.is_using_item"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        }
+                    ]
+                },
+                "shoot": {
+                    "animations": [
+                        "jg_first_person_shoot"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "jg_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "q.all_animations_finished"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        "jg_first_person_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || !q.is_sprinting"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "jg_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        },
+                        {
+                            "jg_pretakeout": "!variable.jg || !q.is_alive"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.jg.third_person": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        "jg_third_person"
+                    ],
+                    "transitions": [
+                        {
+                            "charging": "variable.jgcharging_tp = 1.00; variable.prejgcharging_tp = query.life_time; return (q.item_remaining_use_duration > 1);"
+                        }
+                    ]
+                },
+                "charging": {
+                    "animations": [
+                        "jg_third_person_charging"
+                    ],
+                    "transitions": [
+                        {
+                            "charging_over": "(query.life_time - variable.prejgcharging_tp) >= variable.jgcharging_tp"
+                        },
+                        {
+                            "default": "!q.is_using_item"
+                        }
+                    ]
+                },
+                "charging_over": {
+                    "animations": [
+                        "jg_third_person_charging_over"
+                    ],
+                    "transitions": [
+                        {
+                            "shoot": "!q.is_using_item"
+                        }
+                    ]
+                },
+                "shoot": {
+                    "animations": [
+                        "jg_third_person_shoot"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ewo:projectile_gun_taser",
+      "menu_category": {
+				"category": "equipment"
+			}
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "item.ewo:projectile_gun_taser.name"
+      },
+      "minecraft:creative_category": {
+        "parent": "itemGroup.name.tools"
+      },
+      "minecraft:stacked_by_data": true,
+      "minecraft:cooldown": {
+        "category": "reload",
+        "duration": 0.6
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:use_modifiers": {
+				"movement_modifier": 0.32,
+				"use_duration": 0.6
+			},
+      "minecraft:allow_off_hand": false,
+      "minecraft:hand_equipped": true,
+      "minecraft:use_animation": "bow",
+      "minecraft:max_stack_size": 24,
+      "minecraft:icon": {
+        "texture": "ewo:projectile_gun_taser"
+      }
+    }
+  }
+}

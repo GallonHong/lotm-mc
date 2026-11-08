@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_sound_box_plus_932cd057"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ADC",
+      "BDE",
+      "FDE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_junction_box",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:spruce_planks",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:phantom_membrane",
+        "data": 0
+      },
+      "F": {
+        "item": "jmgs:item_gold",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_sound_box_plus",
+      "count": 1
+    }
+  }
+}

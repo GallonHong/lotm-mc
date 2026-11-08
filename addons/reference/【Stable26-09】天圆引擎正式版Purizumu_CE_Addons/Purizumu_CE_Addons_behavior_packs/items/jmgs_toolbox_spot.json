@@ -1,0 +1,64 @@
+{
+	"format_version": "1.20.50",
+	"minecraft:item": {
+		"description": {
+			"identifier": "jmgs:toolbox_spot",
+			"menu_category": {
+				"category": "equipment",
+				"group": "itemGroup.name.shovel"
+			}
+		},
+		"components": {
+			"minecraft:hand_equipped": false,
+			"minecraft:max_stack_size": 1,
+			"minecraft:glint": false,
+			"minecraft:stack_by_data": true,
+			"minecraft:icon": {
+				"texture": "jmgs:toolbox_spot"
+			},
+			"minecraft:display_name": {
+				"value": "item.jmgs:toolbox_spot.name"
+			},
+			"minecraft:creative_category": {
+				"parent": "itemGroup.name.axe"
+			},
+			"minecraft:enchantable": {
+				"slot": "pickaxe",
+				"value": 20
+			},
+			"minecraft:entity_placer": {
+				"entity": "jmgs:entity_toolbox_spot"
+			},
+			"minecraft:durability": {
+				"max_durability": 251
+			},
+			"minecraft:repairable": {
+				"repair_items": [
+					{
+						"items": [
+							"iron_ingot"
+						],
+						"repair_amount": 62
+					}
+				]
+			},
+			"minecraft:digger": {
+				"destroy_speeds": [
+					{
+						"speed": 7,
+						"block": {
+							"tags": "query.any_tag('wood')"
+						}
+					},
+					{
+						"speed": 7,
+						"block": {
+							"tags": "query.any_tag('metal')"
+						}
+					}
+				]
+			},
+			"minecraft:damage": 7
+		}
+	}
+}

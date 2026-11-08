@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_power_b8653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "EFD",
+      "GGG"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_book",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_motor",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_motor",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:pc_power",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "G": {
+        "item": "minecraft:netherite_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_power",
+      "count": 1
+    }
+  }
+}

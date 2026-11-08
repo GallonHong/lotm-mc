@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_chest_wood_932cd047"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "BCB",
+      "BDB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:dark_oak_planks",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:stick",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_chest_wood",
+      "count": 1
+    }
+  }
+}

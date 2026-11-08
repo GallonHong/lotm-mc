@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "parts_6nail_20802bf8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "DAC",
+      "BAB"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:parts_6nail",
+      "count": 3
+    }
+  }
+}

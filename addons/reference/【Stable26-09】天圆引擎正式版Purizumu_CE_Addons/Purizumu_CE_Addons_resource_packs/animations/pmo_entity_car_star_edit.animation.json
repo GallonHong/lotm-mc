@@ -1,0 +1,252 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_car_star_edit.fly": {
+			"loop": true,
+			"animation_length": 6,
+			"bones": {
+				"root": {
+					"rotation": ["math.clamp(query.vertical_speed * -1, -30, 30)", 0, "math.clamp(query.yaw_speed * -1, -5, 5)"],
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.25": [0, 0.5, 0],
+						"1.0": [0, 1, 0],
+						"1.25": [0, 0.5, 0],
+						"2.0": [0, 0, 0],
+						"2.25": [0, 0.5, 0],
+						"3.0": [0, 1, 0],
+						"3.25": [0, 0.5, 0],
+						"4.0": [0, 0, 0],
+						"4.25": [0, 0.5, 0],
+						"5.0": [0, 1, 0],
+						"5.25": [0, 0.5, 0],
+						"6.0": [0, 0, 0]
+					}
+				},
+				"tire": {
+					"rotation": {
+						"0.0": [0, 0, 90],
+						"6.0": [-1080, 0, 90]
+					}
+				},
+				"tire2": {
+					"rotation": {
+						"0.0": [0, 0, 90],
+						"6.0": [-1080, 0, 90]
+					}
+				},
+				"tire3": {
+					"rotation": {
+						"0.0": [0, 0, -90],
+						"6.0": [-1080, 0, -90]
+					}
+				},
+				"tire4": {
+					"rotation": {
+						"0.0": [0, 0, -90],
+						"6.0": [-1080, 0, -90]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "car_walk"
+				}
+			}
+		},
+		"animation.pmo_entity_car_star_edit.walk": {
+			"loop": true,
+			"animation_length": 5.5,
+			"bones": {
+				"tire": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"5.5": [2160, 0, 0]
+					}
+				},
+				"tire3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"5.5": [2160, 0, 0]
+					}
+				},
+				"tire4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"5.5": [2160, 0, 0]
+					}
+				},
+				"root": {
+					"rotation": ["math.clamp(query.vertical_speed * -1, -30, 30)", 0, 0]
+				},
+				"tire2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"5.5": [2160, 0, 0]
+					}
+				},
+				"power_tower": {
+					"rotation": [0, "math.clamp(query.yaw_speed * 1, -120, 120)", 0]
+				},
+				"propeller": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"5.5": [0, 0, -7200]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "car_walk"
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "jmgs_gunfiresmoke",
+					"locator": "smoke"
+				},
+				"3.0": {
+					"effect": "jmgs_gunfiresmoke",
+					"locator": "smoke"
+				}
+			}
+		},
+		"animation.pmo_entity_car_star_edit.open": {
+			"animation_length": 7.16667,
+			"bones": {
+				"door4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.25": [0, 60, 0],
+						"5.0833": [0, 60, 0],
+						"5.875": [0, 0, 0]
+					}
+				},
+				"door3": {
+					"rotation": {
+						"0.2083": [0, 0, 0],
+						"1.125": [0, -57.5, 0],
+						"4.875": [0, -57.5, 0],
+						"6.0": [0, 0, 0]
+					}
+				},
+				"door2": {
+					"rotation": {
+						"0.0833": [0, 0, 0],
+						"1.1667": [0, -67.5, 0],
+						"4.7083": [0, -67.5, 0],
+						"5.8333": [0, 0, 0]
+					}
+				},
+				"door": {
+					"rotation": {
+						"0.125": [0, 0, 0],
+						"1.375": [0, 60, 0],
+						"5.2083": [0, 60, 0],
+						"6.125": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "car_open"
+				}
+			}
+		},
+		"animation.pmo_entity_car_star_edit.spawn": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 1.79167,
+			"bones": {
+				"root": {
+					"rotation": {
+						"0.0": [-50, 0, 0],
+						"1.125": [0, 0, 0],
+						"1.2917": [7.5, 0, 0],
+						"1.4167": [0, 0, 0],
+						"1.7917": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 275],
+						"0.5833": [0, 18.11, 122.22],
+						"1.0417": [0, 2, 0],
+						"1.2917": [0, 3, -23],
+						"1.4167": [0, 0, -23],
+						"1.7917": [0, 0, 0]
+					},
+					"scale": {
+						"0.0": [0.01, 0.01, 0.01],
+						"0.9167": [1, 1, 1],
+						"1.2917": [1, 1, 1],
+						"1.4167": [1, 1, 1],
+						"1.7917": [1, 1, 1]
+					}
+				},
+				"door3": {
+					"rotation": {
+						"0.875": [0, 0, 0],
+						"1.125": [0, -60, 0],
+						"1.4167": [0, -60, 0],
+						"1.75": [0, 0, 0]
+					}
+				},
+				"door": {
+					"rotation": {
+						"0.875": [0, 0, 0],
+						"1.125": [0, 60, 0],
+						"1.4167": [0, 60, 0],
+						"1.75": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "car_start"
+				}
+			}
+		},
+		"animation.pmo_entity_car.rain": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"yue_gua": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [0, 55, 82],
+						"2.0": [0, 0, 0]
+					}
+				},
+				"yue_gua2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [0, 55, 82],
+						"2.0": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.pmo_entity_car_star_edit.idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"root": {
+					"position": [0, 0, 0]
+				}
+			}
+		},
+		"animation.pmo_entity_car_cherry.idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"root": {
+					"position": [0, 0, 0]
+				}
+			}
+		},
+		"animation.pmo_entity_car.idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"root": {
+					"position": [0, 0, 0]
+				}
+			}
+		}
+	}
+}

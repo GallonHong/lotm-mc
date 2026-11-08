@@ -1,0 +1,29 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:thermometer_display",
+            "materials": {
+                "default": "entity_custom"
+            },
+            "textures": {
+                "default": "textures/entity/armor_stand"
+            },
+            "geometry": {
+                "default": "geometry.armor_stand"
+            },
+            "scripts": {
+                "initialize": [
+                    "v.debug = 0;"
+                ]
+            },
+            "render_controllers": [
+                { "controller.render.default": "v.debug" }
+            ],
+            "spawn_egg": {
+                "base_color": "#288483",
+                "overlay_color": "#2B7135"
+            }
+        }
+    }
+}

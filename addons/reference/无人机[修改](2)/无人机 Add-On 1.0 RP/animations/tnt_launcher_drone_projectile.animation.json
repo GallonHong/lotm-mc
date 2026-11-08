@@ -1,0 +1,23 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.makercamp_dr.tnt_launcher_drone_projectile.fly": {
+			"anim_time_update": "q.modified_distance_moved*30",
+			"loop": true,
+			"bones": {
+				"root": {
+					"rotation": ["q.anim_time", 0, 0]
+				}
+			}
+		},
+		"animation.makercamp_dr.tnt_launcher_drone_projectile.particle": {
+			"animation_length": 0.02,
+			"loop": true,
+			"particle_effects": {
+				"0.0": {
+					"effect": "fly"
+				}
+			}
+		}
+	}
+}

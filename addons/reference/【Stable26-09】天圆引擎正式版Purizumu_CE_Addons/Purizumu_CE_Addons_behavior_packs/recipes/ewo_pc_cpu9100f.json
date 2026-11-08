@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_cpu9100f_d12d13ce"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BCB",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:coral_block",
+        "data": 1
+      },
+      "B": {
+        "item": "minecraft:gold_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:sand",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_cpu9100f",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,276 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:blueberry_bush",
+            "states": {
+                "mythicus_sn:growth_stage": [
+                    0,
+                    1,
+                    2,
+                    3
+                ],
+                "mythicus_sn:is_dead": [
+                    false,
+                    true
+                ],
+                "mythicus_sn:is_stuck": [
+                    false,
+                    true
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "components": {
+            "tag:mythicus_sn:environment": {},
+            "tag:mythicus_sn:non_blocking": {},
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:blueberry_bush_0",
+                    "render_method": "alpha_test",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:geometry": "geometry.mythicus_sn.bush",
+            "minecraft:collision_box": false,
+            "minecraft:selection_box": {
+                "origin": [
+                    -5.657,
+                    0,
+                    -5.657
+                ],
+                "size": [
+                    11.314,
+                    16,
+                    11.314
+                ]
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0
+            },
+            "tag:mythicus_sn:non_solid": {},
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:tick": {
+                "interval_range": [
+                    20,
+                    80
+                ],
+                "looping": true
+            },
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "up"
+                        ],
+                        "block_filter": [
+                            "minecraft:dirt",
+                            "minecraft:grass_block",
+                            "minecraft:farmland",
+                            "mythicus_sn:custom_ground_block",
+                            "mythicus_sn:custom_ground_variant_1",
+                            "mythicus_sn:custom_ground_variant_2"
+                        ]
+                    }
+                ]
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/blueberry/stage_immature.json",
+            "mythicus_sn:crop_growable": {},
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == true",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:blueberry_bush_dead",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/blueberry/stage_dead.json",
+                    "minecraft:geometry": "geometry.mythicus_sn.bush",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.657,
+                            0,
+                            -5.657
+                        ],
+                        "size": [
+                            11.314,
+                            16,
+                            11.314
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:blueberry_bush_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.bush",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.657,
+                            0,
+                            -5.657
+                        ],
+                        "size": [
+                            11.314,
+                            16,
+                            11.314
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/blueberry/stage_mature.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:blueberry_bush_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.bush",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.657,
+                            0,
+                            -5.657
+                        ],
+                        "size": [
+                            11.314,
+                            16,
+                            11.314
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:blueberry_bush_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.bush",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.657,
+                            0,
+                            -5.657
+                        ],
+                        "size": [
+                            11.314,
+                            16,
+                            11.314
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:blueberry_bush_stuck_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.bush",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.657,
+                            0,
+                            -5.657
+                        ],
+                        "size": [
+                            11.314,
+                            16,
+                            11.314
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:blueberry_bush_stuck_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.bush",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.657,
+                            0,
+                            -5.657
+                        ],
+                        "size": [
+                            11.314,
+                            16,
+                            11.314
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:blueberry_bush_stuck_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.bush",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.657,
+                            0,
+                            -5.657
+                        ],
+                        "size": [
+                            11.314,
+                            16,
+                            11.314
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

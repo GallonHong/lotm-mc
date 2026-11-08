@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_blended_621016c3"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      " AC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_nylon",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_sewing",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_blended",
+      "count": 1
+    }
+  }
+}

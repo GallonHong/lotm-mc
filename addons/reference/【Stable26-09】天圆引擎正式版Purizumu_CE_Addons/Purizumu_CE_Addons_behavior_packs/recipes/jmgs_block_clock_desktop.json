@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_clock_desktop_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "DCB",
+      "E E"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_magnetic",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:clock",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_recycled",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_clock_desktop",
+      "count": 1
+    }
+  }
+}

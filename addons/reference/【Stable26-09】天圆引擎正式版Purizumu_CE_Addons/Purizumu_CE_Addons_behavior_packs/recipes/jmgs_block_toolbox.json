@@ -1,0 +1,41 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_toolbox_b5653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AB ",
+      "CDE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_toolbox",
+      "count": 1
+    }
+  }
+}

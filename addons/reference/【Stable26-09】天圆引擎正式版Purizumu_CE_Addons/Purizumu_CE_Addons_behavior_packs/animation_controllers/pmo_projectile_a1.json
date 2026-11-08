@@ -1,0 +1,45 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.pmo_projectile_a1": {
+      "initial_state": "preshoot",
+      "states": {
+        "preshoot": {
+          "transitions": [
+            {
+              "shoot": "q.get_equipped_item_name(0) == 'projectile_a1' && q.is_using_item"
+            }
+          ]
+        },
+        "shooting": {
+          "on_entry": [
+            "v.delaytime = q.life_time;"
+          ],
+          "transitions": [
+            {
+              "preshoot": "q.get_equipped_item_name(0) != 'projectile_a1' || !q.is_using_item"
+            },
+            {
+              "shoot": "q.get_equipped_item_name(0) != 'projectile_a1' || !q.is_using_item"
+            }
+          ]
+        },
+        "shoot": {
+          "on_entry": [
+            "@s pmo:projectile_a1_fire",
+            "/playsound pmo_projectile_a1_shot"
+          ],
+          "transitions": [
+            {
+              "shooting": "1.0"
+            }
+          ],
+          "on_exit": [
+            "v.bullet_fire = q.life_time;",
+            "/clear @s pmo:projectile_a1 0 1"
+          ]
+        }
+      }
+    }
+  }
+}

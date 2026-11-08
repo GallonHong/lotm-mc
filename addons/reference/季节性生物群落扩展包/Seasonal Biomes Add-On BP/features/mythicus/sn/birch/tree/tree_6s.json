@@ -1,0 +1,19 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:structure_template_feature": {
+        "facing_direction": "south",
+        "constraints": {
+            "unburied": {},
+            "grounded": {},
+            "block_intersection": {
+                "block_allowlist": [
+                    "minecraft:air"
+                ]
+            }
+        },
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/birch/tree/tree_6s"
+        },
+        "structure_name": "mystructure:mythicus_sn/birch/birch_l_4"
+    }
+}

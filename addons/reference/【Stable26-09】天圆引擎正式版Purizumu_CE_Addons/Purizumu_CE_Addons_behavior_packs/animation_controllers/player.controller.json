@@ -1,0 +1,201 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.nrmm.ctrl": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "qx": "query.is_sneaking"
+            }
+          ],
+          "on_entry": [
+            "/effect @s slowness 0 1 true",
+            "/playsound scope @s[tag=r201_scope]",
+            "/tag @s[tag=jgfz_scope] remove jgfz_scope",
+            "/effect @s[tag=klb_scope] clear",
+            "/playsound thunderbolt_scope @s[tag=thunderbolt_scope]"
+          ]
+        },
+        "qx": {
+          "transitions": [
+            {
+              "default": "!query.is_sneaking"
+            }
+          ],
+          "on_entry": [
+            "/effect @s[tag=r201_scope] slowness 60 3 true",
+            "/playsound scope @s[tag=r201_scope]",
+            "/effect @s[tag=alter_scope] slowness 60 3 true",
+            "/effect @s[tag=klb_scope] slowness 60 5 true",
+            "/effect @s[tag=jg_scope] slowness 60 5 true",
+            "/tag @s[tag=jg_scope] add jgfz_scope",
+            "/effect @s[tag=thunderbolt_scope] slowness 60 3 true",
+            "/playsound thunderbolt_scope @s[tag=thunderbolt_scope]"
+          ]
+        }
+      }
+    },
+    "controller.animation.nrmm.r201": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "heal": "query.get_equipped_item_name == 'r201'"
+            }
+          ],
+          "on_entry": [
+            "/stopsound @s r201_deploy",
+            "/tag @s remove r201_scope"
+          ]
+        },
+        "heal": {
+          "transitions": [
+            {
+              "default": "query.get_equipped_item_name != 'r201'"
+            }
+          ],
+          "on_entry": [
+            "/playsound r201_deploy @s",
+            "/tag @s add r201_scope"
+          ]
+        }
+      }
+    },
+    "controller.animation.nrmm.wimman": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "heal": "query.get_equipped_item_name=='wimman'"
+            }
+          ],
+          "on_entry": [
+            "/stopsound @s wimman_deploy",
+            "/tag @s remove wimman_scope"
+          ]
+        },
+        "heal": {
+          "transitions": [
+            {
+              "default": "!(query.get_equipped_item_name=='wimman')"
+            }
+          ],
+          "on_entry": [
+            "/playsound wimman_deploy @s",
+            "/tag @s add wimman_scope"
+          ]
+        }
+      }
+    },
+    "controller.animation.jg_t": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "add": "q.get_equipped_item_name == 'jg'"
+            }
+          ],
+          "on_entry": [
+            "/tag @s remove jg_scope"
+          ]
+        },
+        "add": {
+          "transitions": [
+            {
+              "default": "q.get_equipped_item_name != 'jg'"
+            }
+          ],
+          "on_entry": [
+            "/tag @s add jg_scope"
+          ]
+        }
+      }
+    },
+    "controller.animation.nrmm.klb": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "heal": "query.get_equipped_item_name == 'klb'"
+            }
+          ],
+          "on_entry": [
+            "/stopsound @s klb_deploy",
+            "/tag @s remove klb_scope"
+          ]
+        },
+        "heal": {
+          "transitions": [
+            {
+              "default": "query.get_equipped_item_name != 'klb'"
+            }
+          ],
+          "on_entry": [
+            "/playsound klb_deploy @s",
+            "/tag @s add klb_scope"
+          ]
+        }
+      }
+    },
+    "controller.animation.nrmm.alter": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "heal": "query.get_equipped_item_name=='alter'"
+            }
+          ],
+          "on_entry": [
+            "/stopsound @s alter_deploy",
+            "/tag @s remove alter_scope"
+          ]
+        },
+        "heal": {
+          "transitions": [
+            {
+              "default": "!(query.get_equipped_item_name=='alter')"
+            }
+          ],
+          "on_entry": [
+            "/playsound alter_deploy @s",
+            "/tag @s add alter_scope"
+          ]
+        }
+      }
+    },
+    "controller.animation.nrmm.thunderbolt": {
+      "initial_state": "default",
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "heal": "query.get_equipped_item_name=='thunderbolt'"
+            }
+          ],
+          "on_entry": [
+            "/stopsound @s thunderbolt_deploy",
+            "/tag @s remove thunderbolt_scope"
+          ]
+        },
+        "heal": {
+          "transitions": [
+            {
+              "default": "!(query.get_equipped_item_name=='thunderbolt')"
+            }
+          ],
+          "on_entry": [
+            "/playsound thunderbolt_deploy @s",
+            "/tag @s add thunderbolt_scope"
+          ]
+        }
+      }
+    }
+  }
+}

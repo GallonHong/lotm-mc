@@ -1,0 +1,7 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "jmgs_block_display_air",
+    "metalness_emissive_roughness": "jmgs_block_display_air_mer"
+  }
+}

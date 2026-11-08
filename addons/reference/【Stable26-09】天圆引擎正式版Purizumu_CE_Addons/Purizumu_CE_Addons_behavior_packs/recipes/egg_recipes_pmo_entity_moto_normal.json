@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_ba3fadb8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_fuel",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_motor",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_moto_normal_spawn_egg",
+      "count": 1
+    }
+  }
+}

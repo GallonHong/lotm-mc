@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_file_1b7595f1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      "CBD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_file",
+      "count": 3
+    }
+  }
+}

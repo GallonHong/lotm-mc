@@ -1,0 +1,67 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "jmgs:entity_delta_box",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {},
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "store"
+        ]
+      },
+      "minecraft:collision_box": {
+        "height": 0.9,
+        "width": 0.5
+      },
+      "minecraft:movement": {
+        "value": 0,
+        "max": 0
+      },
+      "minecraft:health": {
+        "value": 20,
+        "max": 20
+      },
+      "minecraft:knockback_resistance": {
+        "value": 10.0,
+        "max": 10.0
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:inventory": {
+        "container_type": "container",
+        "inventory_size": 27
+      },
+      "minecraft:is_stackable": {
+        "value": true
+      },
+      "minecraft:persistent": {
+      },
+      "minecraft:physics": {
+      },
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:damage_sensor": [
+        {
+          "cause": "fall",
+          "deals_damage": false
+        }
+      ]
+    },
+    "events": {
+
+    }
+  }
+}

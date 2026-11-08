@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_duv_1dbb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "FDF",
+      "CEC"
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_x990",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_ddr9900",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "E": {
+        "item": "jmgs:item_hero",
+        "data": 0
+      },
+      "F": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_duv_spawn_egg",
+      "count": 1
+    }
+  }
+}

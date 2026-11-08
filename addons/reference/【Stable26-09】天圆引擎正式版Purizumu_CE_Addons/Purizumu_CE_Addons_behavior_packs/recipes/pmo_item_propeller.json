@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_propeller_616c791e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "ADC",
+      "AEC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:gunpowder",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:fireworks",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:magma_cream",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:item_propeller",
+      "count": 1
+    }
+  }
+}

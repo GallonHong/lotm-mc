@@ -1,0 +1,59 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_air_tu160.fly": {
+			"loop": true,
+			"animation_length": 9,
+			"bones": {
+				"jio": {
+					"rotation": [95, 0, 0],
+					"scale": 0
+				},
+				"jio2": {
+					"rotation": [97.5, 0, 0],
+					"scale": 0
+				},
+				"root": {
+					"rotation": ["math.clamp(query.vertical_speed * -2.31, -20, 10)", 0, "math.clamp(query.yaw_speed * -1, -10, 10)"],
+					"position": {
+						"0.0": [0, 0, 0],
+						"9.0": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "helfly_walk"
+				}
+			}
+		},
+		"animation.pmo_entity_air_tu160.walk": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"position": [0, 0, 0]
+				},
+				"chibangR": {
+					"rotation": [0, 27.5, 0]
+				},
+				"chibangL": {
+					"rotation": [0, -27.5, 0]
+				}
+			}
+		},
+		"animation.pmo_entity_air_tu160.idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"kunkun_power": {
+					"position": [0, 7, 19]
+				},
+				"right_door": {
+					"position": [0, 0, -22]
+				},
+				"left_door": {
+					"position": [0, 0, -22]
+				}
+			}
+		}
+	}
+}

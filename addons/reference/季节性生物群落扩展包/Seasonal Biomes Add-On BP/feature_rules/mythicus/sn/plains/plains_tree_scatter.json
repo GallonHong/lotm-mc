@@ -1,0 +1,37 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:feature_rules": {
+        "conditions": {
+            "placement_pass": "before_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "all_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "value": "mythicus_sn_seasonal_plains",
+                            "operator": "=="
+                        }
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "identifier": "mythicus_sn:plains_tree_scatter",
+            "places_feature": "mythicus_sn:mythicus/sn/plains/tree_placer/tree_aggregate"
+        },
+        "distribution": {
+            "coordinate_eval_order": "xyz",
+            "iterations": 2,
+            "scatter_chance": 20,
+            "x": {
+                "extent": [0, 15],
+                "distribution": "uniform"
+            },
+            "y": "query.heightmap((v.worldx??0), (v.worldz??0)) +0",
+            "z": {
+                "extent": [0, 15],
+                "distribution": "uniform"
+            }
+        }
+    }
+}

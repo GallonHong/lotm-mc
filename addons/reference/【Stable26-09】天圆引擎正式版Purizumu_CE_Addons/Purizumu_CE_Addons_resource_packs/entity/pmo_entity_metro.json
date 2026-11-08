@@ -1,0 +1,54 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_metro",
+      "textures": {
+        "default": "textures/entity/corona/pmo_entity_metro"
+      },
+      "materials": {
+        "default": "minecart"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_metro"
+      },
+      "render_controllers": [
+        "controller.render.minecart"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_metro",
+        "texture_index": 0
+      },
+      "animations": {
+        "main": "controller.animation.pmo_entity_metro.main",
+        "walk": "animation.pmo_entity_metro.walk",
+        "idle": "animation.pmo_entity_metro.idle",
+        "bow": "animation.pmo_entity_metro.bow",
+        "door": "animation.pmo_entity_metro.door",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "car_open": "car_open",
+        "car_start": "car_start",
+        "car_walk": "car_walk",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "jmgs_gunfiresmoke": "jmgs:gunfiresmoke",
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "pre_animation": [
+          "variable.hurt = query.hurt_time - query.frame_alpha;"
+        ],
+        "animate": [
+          "main",
+          {"die": "!query.is_alive"}
+        ],
+        "should_update_effects_offscreen": "1.0"
+      }
+    }
+  }
+}

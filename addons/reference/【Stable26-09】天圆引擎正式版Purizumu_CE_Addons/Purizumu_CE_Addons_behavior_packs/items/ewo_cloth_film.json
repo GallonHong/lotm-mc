@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ewo:cloth_film",
+      "category": "items"
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 64,
+      "minecraft:glint": false,
+      "minecraft:stack_by_data": true,
+      "minecraft:icon": {
+        "texture": "ewo:cloth_film"
+      },
+      "minecraft:display_name": {
+        "value": "薄膜面料"
+      }
+    }
+  }
+}

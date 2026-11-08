@@ -1,0 +1,45 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:bitty_bee",
+            "min_engine_version": "1.8.0",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/entity/mobs/bees/bitty_bee",
+                "angry": "textures/mythicus/sn/entity/mobs/bees/bitty_bee_angry",
+                "nectar": "textures/mythicus/sn/entity/mobs/bees/bitty_bee_nectar",
+                "angry_nectar": "textures/mythicus/sn/entity/mobs/bees/bitty_bee_nectar_angry"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.seasons_bitty_bee"
+            },
+            "animations": {
+                "idle": "animation.mythicus_sn.seasons_bitty_bee.idle",
+                "attack_fly": "animation.mythicus_sn.seasons_bitty_bee.attack_fly",
+                "attacking_fly": "animation.mythicus_sn.seasons_bitty_bee.attacking_fly",
+                "lost_stinger": "animation.mythicus_sn.seasons_bitty_bee.lost_stinger",
+                "fly.controller": "controller.animation.mythicus_sn.bitty_bee.fly",
+                "stinger.controller": "controller.animation.mythicus_sn.bitty_bee.stinger"
+            },
+            "scripts": {
+                "animate": [
+                    "fly.controller",
+                    "stinger.controller"
+                ],
+                "pre_animation": [
+                    "v.has_nectar = q.property('minecraft:has_nectar') ? 1 : 0;",
+                    "v.is_angry = q.is_angry ? 1 : 0;"
+                ]
+            },
+            "render_controllers": [
+                "controller.render.mythicus_sn.bitty_bee"
+            ],
+            "spawn_egg": {
+                "texture": "mythicus_sn:spawn_egg_bee"
+            }
+        }
+    }
+}

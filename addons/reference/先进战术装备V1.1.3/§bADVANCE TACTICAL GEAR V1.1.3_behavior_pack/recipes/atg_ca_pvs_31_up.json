@@ -1,0 +1,24 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ca_pvs_31_up_5f3c39aa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B"
+    ],
+    "key": {
+      "B": {
+        "item": "atg:ca_pvs31",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:ca_pvs_31_up",
+      "count": 1
+    }
+  }
+}

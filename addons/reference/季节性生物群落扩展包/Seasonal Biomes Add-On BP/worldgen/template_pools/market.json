@@ -1,0 +1,24 @@
+{
+    "format_version": "1.21.120",
+    "minecraft:template_pool": {
+        "description": {
+            "identifier": "mythicus_sn:market"
+        },
+        "elements": [
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/m_0"
+                },
+                "weight": 50
+            },
+            {
+                "element": {
+                    "element_type": "minecraft:single_pool_element",
+                    "location": "mythicus_sn/village/m_1"
+                },
+                "weight": 50
+            }
+        ]
+    }
+}

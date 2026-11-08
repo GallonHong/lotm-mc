@@ -1,0 +1,57 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:king_wantdodo",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_king_wantdodo"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_npc_ysm_cc0"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          "man",
+          "attack_swing",
+          "look_at_target",
+          {"sit": "query.is_riding"},
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "animations": {
+        "look_at_target": "animation.common.look_at_target",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "man": "animation.jmgs_npc.man",
+        "jump": "animation.jmgs_npc.jump",
+        "run": "animation.jmgs_npc.run",
+        "walk": "animation.jmgs_npc.walk",
+        "attacked": "animation.jmgs_npc.attacked",
+        "sneak": "animation.jmgs_npc.sneak",
+        "swim": "animation.jmgs_npc.swim",
+        "swim_stand": "animation.jmgs_npc_swim.stand",
+        "sit": "animation.jmgs_npc.sit",
+        "sleep": "animation.jmgs_npc.sleep",
+        "fly": "animation.jmgs_npc.fly",
+        "standby": "animation.jmgs_npc.standby",
+        "die": "animation.jmgs_npc.die",
+        "attack": "animation.jmgs_npc_pose.pose_pre",
+        "attack_swing": "controller.animation.jmgs_npc_new.attack",
+        "attacking": "animation.jmgs_npc_attack.boxing",
+        "main": "controller.animation.jmgs_npc_new.npc"
+      },
+      "spawn_egg": {
+        "texture": "ewo:king_wantdodo",
+        "texture_index": 0
+      },
+      "render_controllers": [
+        "controller.render.skeleton"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

@@ -1,0 +1,1177 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_block_free.json",
+          "weight": 300
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_block.json",
+          "weight": 200
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_ac_modern",
+          "weight": 8,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值360§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_icebox_customization",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值460§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_aed_share",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值698§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_game_old",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_game_next_era",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值510§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_dance_duo",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值4398§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_vendor",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_vendor_lite",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_network_terminal",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值7350§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_neutron_star_navigator",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值10800§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_power_cs",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值8999§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sports_spacewalk",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sports_wheel",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_audio_mixer",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值4536§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sports_equestrian",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sports_rowing",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值9§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_power_box",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_rack_newspaper",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值4§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_scope_ultra",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值16384§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_display_control",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1333§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_display_admin",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值128§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_overhead_modern",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值98§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_mmm_lite",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值15634§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_washbasin",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值39§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_bed",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值25§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_microscope_electrion",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值6580§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_rtk",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值7998§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_laser_rangefinder",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值799§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_laser_rangefinder",
+          "weight": 6,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值799§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_tablet_graphics",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1120§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_tablet_graphics_ground",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1320§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_mirror",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_fare_gate",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值105§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_mirror_ground",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_bench",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chair_massage",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2000§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chair_lab",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_food",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值4§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_square",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_stone",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_chair_tea",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_sound_player",
+          "weight": 7,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值416§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_key_old",
+          "weight": 3,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值318§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_machine_kuma",
+          "weight": 4,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2140§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_machine_movie",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值4090§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_machine_money",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值6900§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_tripod_movie",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_power_lite",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值39§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_copper_pot",
+          "weight": 45,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值15§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_bed",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值3§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_table_ware",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_parcel_locker_xl",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_parcel_locker_xs",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_parcel_locker_display",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_awning_iron",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_awning_cloth",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值7§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_drum_oil_lite",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_basket_plus",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_basket",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_drum_water",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值3§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_drum_oil",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_white",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_light_black",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_stove_electric",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值66§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:block_stove_gas",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值55§r",
+                "但是不能卖"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

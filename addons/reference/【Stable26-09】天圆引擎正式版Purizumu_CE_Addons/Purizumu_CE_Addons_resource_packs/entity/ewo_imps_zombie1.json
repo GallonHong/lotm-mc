@@ -1,0 +1,56 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:imps_zombie1",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_imps_zombie1"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_npc_ysm_cc0_man"
+      },
+      "scripts": {
+        "animate": [
+          "z_main",
+          "man",
+          "controller_look_at_target"
+        ]
+      },
+      "animations": {
+        "controller_look_at_target": "controller.animation.humanoid.look_at_target",
+        "z_main": "controller.animation.jmgs_npc_zombie.main",
+        "look_at_target": "animation.common.look_at_target",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "man": "animation.jmgs_npc.man",
+        "z_idle": "animation.jmgs_npc_zombie.z_idle",
+        "z_idle2": "animation.jmgs_npc_zombie.z_idle2",
+        "z_target": "animation.jmgs_npc_zombie.z_target",
+        "z_standby": "animation.jmgs_npc_zombie.z_standby",
+        "jump": "animation.jmgs_npc.jump",
+        "run": "animation.jmgs_npc.run",
+        "walk": "animation.jmgs_npc.walk",
+        "attacked": "animation.jmgs_npc.attacked",
+        "attack": "animation.jmgs_npc.sit",
+        "sneak": "animation.jmgs_npc.sneak",
+        "swim": "animation.jmgs_npc.swim",
+        "swim_stand": "animation.jmgs_npc_swim.stand",
+        "sleep": "animation.jmgs_npc.sleep",
+        "fly": "animation.jmgs_npc.fly",
+        "standby": "animation.jmgs_npc.standby",
+        "main": "controller.animation.jmgs_npc_new.npc"
+      },
+      "spawn_egg": {
+        "texture": "ewo:imps_zombie1",
+        "texture_index": 0
+      },
+      "render_controllers": [
+        "controller.render.skeleton"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

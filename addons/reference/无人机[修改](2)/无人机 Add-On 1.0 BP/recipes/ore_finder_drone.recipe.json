@@ -1,0 +1,40 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:ore_finder_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iOi",
+			"g#D",
+			"iEi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"O": {
+				"item": "minecraft:observer"
+			},
+			"g": {
+				"item": "minecraft:gold_ingot"
+			},
+			"D": {
+				"item": "minecraft:diamond"
+			},
+			"E": {
+				"item": "minecraft:empty_map"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_1"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:ore_finder_drone_spawn_egg"
+		}
+	}
+}

@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_stove_a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DFD",
+      "BAB",
+      "CEC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:furnace",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:card_level2",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_stove",
+      "count": 1
+    }
+  }
+}

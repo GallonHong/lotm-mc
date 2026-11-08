@@ -1,0 +1,99 @@
+{
+    "format_version": "1.10.0",
+    "particle_effect": {
+        "description": {
+            "identifier": "mythicus_sn:surface_orange_leaves",
+            "basic_render_parameters": {
+                "material": "particles_alpha",
+                "texture": "textures/mythicus/sn/particle/orange_leaf"
+            }
+        },
+        "curves": {
+            "variable.size": {
+                "type": "linear",
+                "input": "v.particle_age",
+                "horizontal_range": "v.particle_lifetime",
+                "nodes": [
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    1,
+                    0.99,
+                    0.97,
+                    0.94,
+                    0.88,
+                    0.75,
+                    0.5,
+                    0
+                ]
+            }
+        },
+        "components": {
+            "minecraft:emitter_initialization": {
+                "creation_expression": "v.season_image = (t.season_image ?? 0);"
+            },
+            "minecraft:emitter_rate_instant": {
+                "num_particles": 1
+            },
+            "minecraft:emitter_lifetime_once": {
+                "active_time": 0.1
+            },
+            "minecraft:emitter_shape_point": {
+                "offset": [
+                    0,
+                    "math.random(0,0.025)",
+                    0
+                ]
+            },
+            "minecraft:particle_lifetime_expression": {
+                "max_lifetime": 5
+            },
+            "minecraft:particle_expire_if_in_blocks": [
+                "minecraft:water"
+            ],
+            "minecraft:particle_initial_spin": {
+                "rotation": "math.Random(0,360)"
+            },
+            "minecraft:particle_initial_speed": 0,
+            "minecraft:particle_motion_dynamic": {},
+            "minecraft:particle_appearance_billboard": {
+                "size": [
+                    "0.1*variable.size",
+                    "0.1*variable.size"
+                ],
+                "facing_camera_mode": "direction_y",
+                "direction": {
+                    "mode": "custom",
+                    "custom_direction": [
+                        1,
+                        0,
+                        0
+                    ]
+                },
+                "uv": {
+                    "texture_width": 80,
+                    "texture_height": 10,
+                    "uv": [
+                        "(v.season_image ?? 0)*5",
+                        "math.round(variable.particle_random_1)*5"
+                    ],
+                    "uv_size": [
+                        4,
+                        4
+                    ]
+                }
+            },
+            "minecraft:particle_appearance_lighting": {}
+        }
+    }
+}

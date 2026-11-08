@@ -1,0 +1,21 @@
+{
+    "format_version": "1.20.41",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "mythicus_sn:normal_winter_chestplate",
+            "materials": {
+                "default": "entity_alphatest",
+                "enchanted": "entity_alphatest_glint"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/entity/armors/winter/normal",
+                "enchanted": "textures/misc/enchanted_actor_glint"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.winter_armor"
+            },
+            "scripts": {},
+            "render_controllers": ["controller.render.mythicus_sn.chestplate"]
+        }
+    }
+}

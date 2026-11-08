@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_disk1_1b4669f1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_magnetic",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:coral_block",
+        "data": 1
+      }
+    },
+    "result": {
+      "item": "ewo:pc_disk1",
+      "count": 1
+    }
+  }
+}

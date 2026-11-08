@@ -1,0 +1,19 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.makercamp_dr.healing_drone_heal.particle": {
+			"loop": true,
+			"animation_length": 1,
+			"particle_effects": {
+				"0.0": [
+					{
+						"effect": "healing_field_1"
+					},
+					{
+						"effect": "healing_field_2"
+					}
+				]
+			}
+		}
+	}
+}

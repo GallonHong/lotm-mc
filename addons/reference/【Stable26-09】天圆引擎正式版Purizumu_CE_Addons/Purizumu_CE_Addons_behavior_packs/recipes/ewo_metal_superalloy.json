@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_superalloy_62d81747"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BCB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_vertebra",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_pearl",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_superalloy",
+      "count": 1
+    }
+  }
+}

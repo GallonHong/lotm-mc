@@ -1,0 +1,45 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:role_evil8",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_role_evil8"
+      },
+      "geometry": {
+        "default": "geometry.pmo_role_evil8"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "animations": {
+        "idle": "animation.pmo_role_fight8.idle",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "spawn_egg": {
+        "texture": "pmo:role_evil8",
+        "texture_index": 0
+      },
+      "sound_effects": {
+        "boom": "jmgs.build_boom"
+      },
+      "particle_effects": {
+        "large_explosion": "minecraft:large_explosion",
+        "jmgs_gunfiresmoke": "minecraft:egg_destroy_emitter",
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "render_controllers": [
+        "controller.render.skeleton"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

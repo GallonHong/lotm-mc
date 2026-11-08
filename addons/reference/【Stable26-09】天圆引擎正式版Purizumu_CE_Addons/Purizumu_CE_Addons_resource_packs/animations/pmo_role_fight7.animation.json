@@ -1,0 +1,83 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_role_fight7.idle": {
+			"loop": true,
+			"animation_length": 3,
+			"bones": {
+				"leida2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"3.0": [0, 360, 0]
+					}
+				}
+			}
+		},
+		"animation.pmo_role_fight7.fire": {
+			"loop": true,
+			"animation_length": 3,
+			"bones": {
+				"head": {
+					"rotation": ["query.target_x_rotation-this", "query.target_y_rotation-this", 0]
+				},
+				"power_guan": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"3.0": [0, 0, 2160]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "fire"
+				},
+				"0.3333": {
+					"effect": "fire"
+				},
+				"0.625": {
+					"effect": "fire"
+				},
+				"0.9167": {
+					"effect": "fire"
+				},
+				"1.2083": {
+					"effect": "fire"
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "jmgs_gunfiresmoke",
+					"locator": "locator"
+				},
+				"0.3333": {
+					"effect": "jmgs_gunfiresmoke",
+					"locator": "locator"
+				},
+				"0.625": {
+					"effect": "jmgs_gunfiresmoke",
+					"locator": "locator"
+				},
+				"0.9167": {
+					"effect": "jmgs_gunfiresmoke",
+					"locator": "locator"
+				},
+				"1.2083": {
+					"effect": "jmgs_gunfiresmoke",
+					"locator": "locator"
+				}
+			}
+		},
+		"animation.pmo_role_fight7.new": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"waist": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"1.0": [0, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,85 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_metro.walk": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"tire": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"tire2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"tire3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"tire4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.0": [360, 0, 0]
+					}
+				},
+				"white_keep": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.5": [0, 0.2, 0],
+						"1.0": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.pmo_entity_metro.bow": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"bow": {
+					"rotation": [15, 0, 0]
+				},
+				"bow2": {
+					"rotation": [-30, 0, 0]
+				}
+			}
+		},
+		"animation.pmo_entity_metro.door": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"back_door": {
+					"position": [0, 0, 11]
+				},
+				"qian_door": {
+					"position": [0, 0, -11]
+				}
+			}
+		},
+		"animation.pmo_entity_metro.idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"root": {
+					"position": [0, 0, 0]
+				}
+			}
+		},
+		"animation.pmo_entity_metro.move": {
+			"loop": true,
+			"bones": {
+				"bottom": {
+					"rotation": [
+						"variable.hurt > 0 ? -Math.sin(variable.hurt * 360 / (Math.pi * 2)) * variable.hurt * (((20 * 2 - query.structural_integrity) - query.frame_alpha) < 0 ? 0: (20 * 2 - query.structural_integrity) - query.frame_alpha) / 10 * query.hurt_direction : 0",
+						0,
+						"-variable.rail_rotation.z"
+					],
+					"position": ["variable.rail_offset.x / query.model_scale", "variable.rail_offset.y / query.model_scale", "variable.rail_offset.z / query.model_scale"]
+				}
+			}
+		}
+	}
+}

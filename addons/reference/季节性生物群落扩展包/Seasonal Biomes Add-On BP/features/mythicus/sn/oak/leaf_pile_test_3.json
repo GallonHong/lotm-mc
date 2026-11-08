@@ -1,0 +1,26 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/leaf_pile_test_3"
+        },
+
+        "places_block": "minecraft:diamond_block",
+
+        "enforce_placement_rules": false,
+        "enforce_survivability_rules": false,
+
+        "may_attach_to": {
+            "top": ["minecraft:diamond_block"]
+        },
+        "may_not_attach_to": {
+            "bottom": ["minecraft:grass_block"],
+            "top": [
+                "mythicus_sn:red_piles_of_leaves",
+                "mythicus_sn:orange_piles_of_leaves",
+                "mythicus_sn:yellow_piles_of_leaves"
+            ]
+        },
+        "may_replace": ["minecraft:air"]
+    }
+}

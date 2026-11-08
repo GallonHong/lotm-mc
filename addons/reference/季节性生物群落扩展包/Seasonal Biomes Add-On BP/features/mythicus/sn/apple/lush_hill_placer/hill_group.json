@@ -1,0 +1,14 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:weighted_random_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/apple/lush_hill_placer/hill_group"
+        },
+        "features": [
+            ["mythicus_sn:mythicus/sn/apple/lush_hill/hill_0", 5],
+            ["mythicus_sn:mythicus/sn/apple/lush_hill/hill_1", 5],
+            ["mythicus_sn:mythicus/sn/apple/lush_hill/hill_2", 5],
+            ["mythicus_sn:mythicus/sn/apple/lush_hill/hill_3", 5]
+        ]
+    }
+}

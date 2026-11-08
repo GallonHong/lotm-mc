@@ -1,0 +1,45 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.ewo_projectile_cannon": {
+      "initial_state": "preshoot",
+      "states": {
+        "preshoot": {
+          "transitions": [
+            {
+              "shoot": "q.get_equipped_item_name(0) == 'projectile_cannon' && q.is_using_item"
+            }
+          ]
+        },
+        "shooting": {
+          "on_entry": [
+            "v.delaytime = q.life_time;"
+          ],
+          "transitions": [
+            {
+              "preshoot": "q.get_equipped_item_name(0) != 'projectile_cannon' || !q.is_using_item"
+            },
+            {
+              "shoot": "q.get_equipped_item_name(0) != 'projectile_cannon' || !q.is_using_item"
+            }
+          ]
+        },
+        "shoot": {
+          "on_entry": [
+            "@s ewo:projectile_cannon_fire",
+            "/playsound ewo_projectile_cannon_shot"
+          ],
+          "transitions": [
+            {
+              "shooting": "1.0"
+            }
+          ],
+          "on_exit": [
+            "v.bullet_fire = q.life_time;",
+            "/clear @s ewo:projectile_cannon 0 1"
+          ]
+        }
+      }
+    }
+  }
+}

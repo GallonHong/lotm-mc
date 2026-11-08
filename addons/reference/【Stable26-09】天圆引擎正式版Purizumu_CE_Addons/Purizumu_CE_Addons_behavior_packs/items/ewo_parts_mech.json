@@ -1,0 +1,21 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ewo:parts_mech",
+      "category": "items"
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 16,
+      "minecraft:glint": false,
+      "minecraft:stack_by_data": true,
+      "minecraft:icon": {
+        "texture": "ewo:parts_mech"
+      },
+      "minecraft:display_name": {
+        "value": "机械零件"
+      }
+    }
+  }
+}

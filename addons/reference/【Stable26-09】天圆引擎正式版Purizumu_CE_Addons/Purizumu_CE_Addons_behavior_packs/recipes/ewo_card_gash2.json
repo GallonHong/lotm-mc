@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "card_gash2_b1d0e78e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:card_gash2",
+      "count": 1
+    }
+  }
+}

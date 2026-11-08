@@ -1,0 +1,1423 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 2
+      },
+      "entries": [
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_11",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_13",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_5",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_blocks",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_cat",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_chirp",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_creator",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_creator_music_box",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_far",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_lava_chicken",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_mall",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_mellohi",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_otherside",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_pigstep",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_relic",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_precipice",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_stal",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_strad",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_tears",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_wait",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:music_disc_ward",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:angler_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:archer_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:arms_up_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:blade_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:brewer_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:burn_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:danger_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:explorer_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:friend_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:flow_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:guster_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:heart_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:heartbreak_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:howl_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:miner_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:mourner_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:plenty_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:prize_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:scrape_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:sheaf_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:shelter_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:skull_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:snort_pottery_sherd",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bolt_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:coast_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:dune_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:eye_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:flow_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:host_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_upgrade_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:raiser_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:rib_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:sentry_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:shaper_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:silence_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:snout_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:spire_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:tide_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:vex_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:ward_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wayfinder_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wild_armor_trim_smithing_template",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:creeper_head",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:piglin_head",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:player_head",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:zombie_head",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:skeleton_skull",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:wither_skeleton_skull",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bordure_indented_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:creeper_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:field_masoned_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:flow_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:flower_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:globe_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:guster_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:piglin_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:mojang_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:skull_banner_pattern",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:dragon_egg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:dragon_head",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:dried_ghast",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:conduit",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:heavy_core",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:sniffer_egg",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bell",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:clock",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:compass",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_golem_statue",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:nether_star",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:yellow_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:white_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:red_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:purple_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:pink_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:orange_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:magenta_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:lime_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:light_gray_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:light_blue_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:green_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:gray_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:cyan_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:brown_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:blue_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:black_bundle",
+          "weight": 1
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_horse_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_horse_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_horse_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:leather_horse_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_horse_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_horse_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:copper_nautilus_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:diamond_nautilus_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:golden_nautilus_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:iron_nautilus_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:nautilus_shell",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "minecraft:netherite_nautilus_armor",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_lore",
+              "lore": [
+                "§d纪念品§r"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

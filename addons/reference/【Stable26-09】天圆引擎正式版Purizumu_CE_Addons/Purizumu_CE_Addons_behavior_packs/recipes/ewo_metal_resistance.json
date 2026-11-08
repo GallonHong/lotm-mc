@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "metal_resistance_8bc239ac"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AA",
+      " BC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_man_si",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_horns",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:metal_resistance",
+      "count": 1
+    }
+  }
+}

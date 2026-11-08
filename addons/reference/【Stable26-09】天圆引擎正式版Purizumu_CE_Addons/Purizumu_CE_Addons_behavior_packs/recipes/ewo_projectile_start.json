@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "projectile_start_bf5b629b"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      " CD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_amorphous",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:powder_black",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:diamond",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:projectile_start",
+      "count": 48
+    }
+  }
+}

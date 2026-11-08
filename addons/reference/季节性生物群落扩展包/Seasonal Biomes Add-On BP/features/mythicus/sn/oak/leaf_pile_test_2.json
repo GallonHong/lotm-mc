@@ -1,0 +1,21 @@
+{
+    "format_version": "1.21.40",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/leaf_pile_test_2"
+        },
+
+        "places_block": "minecraft:diamond_block",
+
+        "enforce_placement_rules": false,
+        "enforce_survivability_rules": false,
+
+        "may_attach_to": {
+            "top": ["minecraft:diamond_block"]
+        },
+        "may_not_attach_to": {
+            "bottom": ["minecraft:grass_block"]
+        },
+        "may_replace": ["minecraft:air"]
+    }
+}

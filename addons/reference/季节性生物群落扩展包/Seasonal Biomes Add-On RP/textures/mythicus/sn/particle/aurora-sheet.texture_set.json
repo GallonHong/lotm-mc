@@ -1,0 +1,7 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:texture_set": {
+        "color": "aurora-sheet",
+        "metalness_emissive_roughness": "aurora-sheet_mers"
+    }
+}

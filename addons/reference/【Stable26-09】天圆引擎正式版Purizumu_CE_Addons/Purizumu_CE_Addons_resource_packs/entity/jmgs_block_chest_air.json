@@ -1,0 +1,40 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:block_chest_air",
+      "textures": {
+        "default": "textures/entity/jmgs_block_chest_air"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_block_chest_air"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:block_chest_air",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.jmgs_block_chest.idle",
+        "open": "animation.jmgs_block_chest.open"
+      },
+      "sound_effects": {
+        "chest_open": "random.enderchestopen"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:totem_particle"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {"open": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

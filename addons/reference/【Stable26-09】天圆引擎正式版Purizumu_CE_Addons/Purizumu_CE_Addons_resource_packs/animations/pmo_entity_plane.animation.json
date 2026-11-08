@@ -1,0 +1,23 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_plane.fly": {
+			"loop": true,
+			"animation_length": 9,
+			"bones": {
+				"root": {
+					"rotation": ["math.clamp(query.vertical_speed * -3.51, -40, 20)", 0, "math.clamp(query.yaw_speed * -1, -20, 20)"],
+					"position": {
+						"0.0": [0, 0, 0],
+						"9.0": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "plane_walk"
+				}
+			}
+		}
+	}
+}

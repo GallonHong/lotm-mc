@@ -1,0 +1,51 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:edu",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/edu/pmo_edu1",
+        "variant_2": "textures/entity/edu/pmo_edu2",
+        "variant_3": "textures/entity/edu/pmo_edu3",
+        "variant_4": "textures/entity/edu/pmo_edu4",
+        "variant_5": "textures/entity/edu/pmo_edu5",
+        "variant_6": "textures/entity/edu/pmo_edu6"
+      },
+      "geometry": {
+        "default": "geometry.pmo_edu1",
+        "variant_2": "geometry.pmo_edu2",
+        "variant_3": "geometry.pmo_edu3",
+        "variant_4": "geometry.pmo_edu4",
+        "variant_5": "geometry.pmo_edu5",
+        "variant_6": "geometry.pmo_edu6"
+      },
+      "render_controllers": [
+        "controller.render.pmo_edu"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:edu1",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.jmgs_block_chest.idle",
+        "open": "animation.jmgs_block_chest.open"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {"open": "!query.is_alive"}
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

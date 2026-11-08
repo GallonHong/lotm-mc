@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_table_mahjong_932cd045"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DBD",
+      "EFC",
+      "DAD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:lime_carpet",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_junction_box",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:quartz_block",
+        "data": 2
+      }
+    },
+    "result": {
+      "item": "jmgs:block_table_mahjong",
+      "count": 1
+    }
+  }
+}

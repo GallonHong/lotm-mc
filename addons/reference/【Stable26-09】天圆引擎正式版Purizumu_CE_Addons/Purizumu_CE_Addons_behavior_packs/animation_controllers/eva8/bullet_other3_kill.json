@@ -1,0 +1,27 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.eva8_bullet_other3_kill": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"die": "variable.hurtdelay3 = 0.2; variable.previoushurttime3 = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"die": {
+					"transitions": [
+						{
+							"default": "(query.life_time - variable.previoushurttime3) >= variable.hurtdelay3"
+						}
+					],
+					"on_exit": [
+						"/kill @s"
+					]
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "jmgs_block_valve_amplifier",
+    "metalness_emissive_roughness": "jmgs_block_valve_amplifier_mer",
+    "heightmap": "jmgs_block_valve_amplifier_heightmap"
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "ewo:regulator",
+      "population_control": "animal"
+    },
+    "conditions": [
+      {
+        "minecraft:spawns_on_surface": {},
+        "minecraft:brightness_filter": {
+          "min": 0,
+          "max": 15,
+          "adjust_for_weather": false
+        },
+        "minecraft:height_filter": {
+          "min": 20,
+          "max": 70
+        },
+        "minecraft:difficulty_filter": {
+          "max": "hard",
+          "min": "normal"
+        },
+        "minecraft:distance_filter": {
+          "max": 48,
+          "min": 12
+        },
+        "minecraft:time_filter": {
+          "start_time": 10000,
+          "end_time": 23000
+        },
+        "minecraft:spawns_on_block_filter": [
+          "minecraft:cobblestone",
+          "minecraft:smooth_stone_slab",
+          "minecraft:smooth_stone_double_slab",
+          "minecraft:smooth_stone",
+          "minecraft:double_stone_block_slab"
+        ],
+        "minecraft:weight": {
+          "default": 5
+        }
+      }
+    ]
+  }
+}

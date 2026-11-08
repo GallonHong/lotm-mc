@@ -1,0 +1,64 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_entity_car_star_edit.fly": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"transitions": [
+						{"fly": "query.ground_speed > 1.0"}
+					],
+					"blend_transition": 1
+				},
+				"fly": {
+					"animations": ["walk"],
+					"transitions": [
+						{"idle": "query.ground_speed == 0"}
+					],
+					"blend_transition": 1
+				}
+			}
+		},
+		"controller.animation.pmo_entity_car_star_edit.walk": {
+			"states": {
+				"default": {
+					"animations": ["spawn"],
+					"transitions": [
+						{"ease": "query.has_rider == 1"}
+					]
+				},
+				"standby": {
+					"animations": ["open"],
+					"transitions": [
+						{"ease": "query.has_rider == 1"}
+					],
+					"blend_transition": 1
+				},
+				"ease": {
+					"sound_effects": [
+						{"effect": "car_start"}
+					],
+					"transitions": [
+						{"idle": "query.has_rider == 1"}
+					]
+				},
+				"idle": {
+					"animations": ["idle"],
+					"transitions": [
+						{"walk": "query.ground_speed > 1.0"},
+						{"standby": "query.has_rider == 0"}
+					],
+					"blend_transition": 1
+				},
+				"walk": {
+					"animations": ["walk"],
+					"transitions": [
+						{"idle": "query.ground_speed == 0"},
+						{"standby": "query.has_rider == 0"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

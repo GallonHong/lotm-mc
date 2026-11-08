@@ -1,0 +1,94 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.seasons_chicken.egg": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        { "laying": "query.property('mythicus_sn:is_laying_egg')" }
+                    ]
+                },
+                "laying": {
+                    "animations": ["egg"],
+                    "transitions": [
+                        { "default": "!query.property('mythicus_sn:is_laying_egg')" }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_chicken.shake": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        { "shaking": "query.property('mythicus_sn:is_shaking')" }
+                    ]
+                },
+                "shaking": {
+                    "animations": ["shake"],
+                    "transitions": [
+                        { "default": "!query.property('mythicus_sn:is_shaking')" }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_chicken.peck": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "transitions": [
+                        {
+                            "pecking": "q.is_digging"
+                        }
+                    ]
+                },
+                "pecking": {
+                    "blend_transition": 0.1,
+                    "animations": ["peck"],
+                    "transitions": [
+                        {
+                            "default": "!q.is_digging"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_chicken.scratch_idle": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.2,
+                    "transitions": [
+                        {
+                            "scratching": "q.ground_speed < 0.1 && !q.is_digging && !query.property('mythicus_sn:is_laying_egg') && !query.property('mythicus_sn:is_shaking') && !query.property('mythicus_sn:is_roosting')"
+                        }
+                    ]
+                },
+                "scratching": {
+                    "animations": ["scratch"],
+                    "blend_transition": 0.2,
+                    "transitions": [
+                        {
+                            "default": "q.ground_speed >= 0.1 || q.is_digging || query.property('mythicus_sn:is_laying_egg') || query.property('mythicus_sn:is_shaking') || query.property('mythicus_sn:is_roosting')"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_chicken.roost": {
+            "states": {
+                "default": {
+                    "transitions": [
+                        { "roosting": "query.property('mythicus_sn:is_roosting')" }
+                    ]
+                },
+                "roosting": {
+                    "animations": ["roost"],
+                    "transitions": [
+                        { "default": "!query.property('mythicus_sn:is_roosting')" }
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_chess_a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "CDC",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:planks",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_coin",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_chess",
+      "count": 1
+    }
+  }
+}

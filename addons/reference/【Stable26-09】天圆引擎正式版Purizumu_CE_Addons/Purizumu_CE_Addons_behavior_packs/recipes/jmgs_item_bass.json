@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_bc76ccba"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " B ",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:comparator",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:blaze_powder",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_bass",
+      "count": 1
+    }
+  }
+}

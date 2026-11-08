@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:lightning_strike_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iLi",
+			"C#C",
+			"iOi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"L": {
+				"item": "minecraft:lightning_rod"
+			},
+			"C": {
+				"item": "minecraft:copper_block"
+			},
+			"O": {
+				"item": "minecraft:observer"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_1"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:lightning_strike_drone_spawn_egg"
+		}
+	}
+}

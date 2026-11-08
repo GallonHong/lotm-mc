@@ -1,0 +1,52 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:skill_trader",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "fall": "textures/mythicus/sn/entity/traders/skill_trader_fall",
+                "spring": "textures/mythicus/sn/entity/traders/skill_trader_spring",
+                "winter": "textures/mythicus/sn/entity/traders/skill_trader_winter",
+                "summer": "textures/mythicus/sn/entity/traders/skill_trader"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.skill_trader"
+            },
+            "render_controllers": [
+                {
+                    "controller.render.mythicus_sn.seasons_trader.spring": "q.property('mythicus_sn:season_variant') == 'spring'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_trader.summer": "q.property('mythicus_sn:season_variant') == 'summer'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_trader.fall": "q.property('mythicus_sn:season_variant') == 'fall'"
+                },
+                {
+                    "controller.render.mythicus_sn.seasons_trader.winter": "q.property('mythicus_sn:season_variant') == 'winter'"
+                }
+            ],
+            "scripts": {
+                "scale": "0.9375",
+                "animate": [
+                    "general",
+                    "look_at_target",
+                    {
+                        "move": "query.modified_move_speed"
+                    }
+                ]
+            },
+            "animations": {
+                "general": "animation.mythicus_sn.merchant.general",
+                "look_at_target": "animation.common.look_at_target",
+                "move": "animation.mythicus_sn.merchant.move"
+            },
+            "spawn_egg": {
+                "texture": "mythicus_sn:spawn_egg_skill_trader"
+            }
+        }
+    }
+}

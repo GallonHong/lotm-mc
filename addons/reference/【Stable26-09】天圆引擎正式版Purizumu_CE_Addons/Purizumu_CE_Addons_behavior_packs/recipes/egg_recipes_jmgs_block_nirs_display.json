@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_nirs_display_7dbb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:pc_mainh110",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_special",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:entity_car_spawn_egg",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_cpu9100f",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "G": {
+        "item": "jmgs:item_ddr9900",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:block_display",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_nirs_display_spawn_egg",
+      "count": 1
+    }
+  }
+}

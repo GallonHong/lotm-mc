@@ -1,0 +1,65 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_none",
+      "materials": {
+        "default": "charged_creeper"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_bottom_map",
+        "variant_2": "textures/entity/pamobile/pmo_projectile_a1",
+        "variant_3": "textures/entity/pamobile/pmo_projectile_a2",
+        "variant_4": "textures/entity/pamobile/ewo_bottom_map",
+        "variant_5": "textures/entity/pamobile/ewo_bottom_map",
+        "variant_6": "textures/entity/attachable/jmgs_none"
+      },
+      "spawn_egg": {
+        "texture": "ewo:bottom_map",
+        "texture_index": 0
+      },
+      "animations": {
+        "white": "animation.jmgs_entity_none.white",
+        "blue": "animation.jmgs_entity_none.blue",
+        "red": "animation.jmgs_entity_none.red",
+        "item": "animation.jmgs_entity_none.item",
+        "phone": "animation.jmgs_entity_none.phone",
+        "none": "animation.jmgs_entity_none.idle",
+        "die": "animation.jmgs_entity_none.die"
+      },
+      "scripts": {
+        "animate": [
+          {"white": "query.variant == 0"},
+          {"blue": "query.variant == 1"},
+          {"red": "query.variant == 2"},
+          {"item": "query.variant == 3"},
+          {"phone": "query.variant == 4"},
+          {"none": "query.variant == 5"},
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "geometry": {
+        "default": "geometry.ewo_bottom_map",
+        "mark_variant_2": "geometry.pmo_bullet",
+        "mark_variant_3": "geometry.pmo_bullet",
+        "mark_variant_4": "geometry.ewo_bottom_map",
+        "mark_variant_5": "geometry.ewo_bottom_map",
+        "mark_variant_6": "geometry.jmgs_none"
+      },
+      "particle_effects": {
+        "white_effects": "jmgs:balloon_gas",
+        "blue_effects": "pmo:loading",
+        "red_effects": "pmo:magic",
+        "item_effects": "jmgs:item",
+        "phone_effects": "jmgs:phone"
+      },
+       "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit"
+      },
+      "render_controllers": [
+        "controller.render.jmgs_entity_none"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

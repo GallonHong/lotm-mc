@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_bdabe92e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " B ",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:oak_log",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:blaze_rod",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:comparator",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_guitar",
+      "count": 1
+    }
+  }
+}

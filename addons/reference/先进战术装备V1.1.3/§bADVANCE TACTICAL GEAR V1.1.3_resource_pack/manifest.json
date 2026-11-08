@@ -1,0 +1,41 @@
+{
+  "format_version": 2,
+  "header": {
+    "description": "通过§4V19BT添加一些基于现实生活的战术装备，细节丰富",
+    "name": "§b现代军事装备 V1.1.3 b站男巫汉化",
+    "uuid": "30779d59-b5ab-462d-a201-469ee0a6e63c",
+    "version": [
+      0,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      17,
+      0
+    ]
+  },
+  "modules": [
+    {
+      "description": "Add some tactical gear based on the real life with high details by §4V19BT",
+      "type": "resources",
+      "uuid": "4dbed40a-7877-42ae-a230-5a8158f9539a",
+      "version": [
+        0,
+        0,
+        1
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "§4V19BT"
+    ],
+    "generated_with": {
+      "MAM": [
+        "3.6.8"
+      ]
+    },
+    "url": "https://addonsmaker.com/"
+  }
+}

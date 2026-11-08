@@ -1,0 +1,8 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "ewo_block_pc3",
+    "metalness_emissive_roughness": "ewo_block_pc3_mer",
+    "heightmap": "ewo_block_pc3_heightmap"
+  }
+}

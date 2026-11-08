@@ -1,0 +1,85 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:sapling_spruce",
+            "menu_category": {
+                "category": "none"
+            },
+            "states": {
+                "mythicus_sn:growth_stage": [
+                    0,
+                    1
+                ]
+            }
+        },
+        "components": {
+            "tag:mythicus_sn:environment": {},
+            "tag:mythicus_sn:non_solid": {},
+            "tag:mythicus_sn:non_blocking": {},
+            "tag:plant": {},
+            "mythicus_sn:sapling": {},
+            "minecraft:collision_box": false,
+            "minecraft:selection_box": {
+                "origin": [
+                    -4,
+                    0,
+                    -4
+                ],
+                "size": [
+                    8,
+                    15,
+                    8
+                ]
+            },
+            "minecraft:liquid_detection": {
+                "detection_rules": [
+                    {
+                        "on_liquid_touches": "popped"
+                    }
+                ]
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0
+            },
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:flammable": {
+                "destroy_chance_modifier": 20,
+                "catch_chance_modifier": 5
+            },
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "up"
+                        ],
+                        "block_filter": [
+                            {
+                                "tags": "q.any_tag('grass')"
+                            },
+                            {
+                                "tags": "q.any_tag('sand')"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/foliage/sapling_spruce.json",
+            "minecraft:geometry": "minecraft:geometry.cross",
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:sapling_spruce",
+                    "render_method": "alpha_test_single_sided",
+                    "face_dimming": false,
+                    "ambient_occlusion": false
+                }
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        }
+    }
+}

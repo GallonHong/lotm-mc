@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_file1_cc26e5d5"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EA ",
+      "BCC",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:flower_pot",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:book",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:planks",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:block_file1",
+      "count": 2
+    }
+  }
+}

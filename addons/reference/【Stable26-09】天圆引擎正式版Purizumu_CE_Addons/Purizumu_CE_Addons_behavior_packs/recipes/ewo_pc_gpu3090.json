@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_gpu3090_9305f008"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " B ",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:pc_cpu2990wx",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_ti",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_gpu3090",
+      "count": 1
+    }
+  }
+}

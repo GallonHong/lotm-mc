@@ -1,0 +1,66 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.gunaim_eva8": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        "gunaim_eva8_standby"
+                    ],
+                    "transitions": [
+                        {
+                            "fire1": "q.is_using_item"
+                        },
+                        {
+                            "fire2": "q.is_sprinting"
+                        },
+                        {
+                            "fire3": "!q.is_on_ground"
+                        }
+                    ]
+                },
+                "fire1": {
+                    "animations": [
+                        "gunaim_eva8_fire"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "fire2": {
+                    "animations": [
+                        "gunaim_eva8_move"
+                    ],
+                    "transitions": [
+                        {
+                            "fire_to_default": "!q.is_sprinting"
+                        }
+                    ]
+                },
+                "fire3": {
+                    "animations": [
+                        "gunaim_eva8_move"
+                    ],
+                    "transitions": [
+                        {
+                            "fire_to_default": "q.is_on_ground"
+                        }
+                    ]
+                },
+                "fire_to_default": {
+                    "animations": [
+                        "gunaim_eva8_fire_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

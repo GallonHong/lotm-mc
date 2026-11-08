@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:entity_sea_moth",
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_entity_sea_moth"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.ewo_entity_sea_moth"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "ewo:entity_sea_moth",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_boat.walk"
+      },
+      "sound_effects": {
+        "car_walk": "car_walk"
+      },
+      "scripts": {
+        "animate": [
+          "root",
+          {
+            "walk": "query.is_moving"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,182 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ewo:imps_pillager",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "height": 1.9,
+        "width": 0.6
+      },
+      "minecraft:type_family": {
+        "family": [
+          "pillager",
+          "monster"
+        ]
+      },
+      "minecraft:variant": {
+        "value": 0
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:health": {
+        "value": 30,
+        "max": 30
+      },
+      "minecraft:movement": {
+        "value": 0.35
+      },
+      "minecraft:navigation.walk": {
+        "can_path_over_water": true
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:equipment": {
+        "table": "loot_tables/entities/pillager_gear.json"
+      },
+      "minecraft:behavior.float": {
+        "priority": 0
+      },
+            "minecraft:damage_sensor": [
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_witch"
+          },
+          "deals_damage": false
+        },
+        {
+          "on_damage": {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "husk"
+                }
+              ],
+              "all_of": [
+                {
+                  "test": "has_damage",
+                  "value": "fatal"
+                }
+              ]
+            },
+            "event": "become_zombie"
+          }
+        }
+      ],
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "within_radius": 16.0,
+        "reselect_targets": true,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "toy"
+                }
+              ]
+            },
+            "max_dist": 16.0,
+            "must_see": true
+          }
+        ],
+        "must_see": true,
+        "must_reach": false
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 6,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 7,
+        "look_distance": 8
+      },
+      "minecraft:behavior.random_look_around": {
+        "priority": 7
+      },
+      "minecraft:behavior.charge_held_item": {
+        "priority": 3,
+        "items": [
+          "minecraft:arrow"
+        ]
+      },
+      "minecraft:physics": {},
+      "minecraft:follow_range": {
+        "value": 64
+      },
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 5 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.02
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:fire_immune": true,
+      "minecraft:attack": {
+        "damage": 3
+      },
+      "minecraft:behavior.ranged_attack": {
+        "priority": 1,
+        "attack_interval_min": 1,
+        "attack_interval_max": 3,
+        "attack_radius": 15,
+        "burst_shots": 2,
+        "burst_interval": 0.5
+      },
+      "minecraft:shooter": {
+        "type": "电磁休克枪",
+        "def": "ewo:projectile_gun_taser_ammo"
+      },
+      "minecraft:behavior.owner_hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.owner_hurt_target": {
+        "priority": 2
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/entities/ewo_drop_b1.json"
+      }
+    },
+    "events": {
+
+    }
+  }
+}

@@ -1,0 +1,257 @@
+{
+    "block_sounds": {
+        "mythicus_sn.chicken_nest": {
+            "events": {
+                "break": {
+                    "pitch": [
+                        0.8,
+                        1
+                    ],
+                    "sound": "block.turtle_egg.break",
+                    "volume": 0.4
+                },
+                "hit": {
+                    "pitch": 0.5,
+                    "sound": "hit.stone",
+                    "volume": 0.25
+                },
+                "fall": {
+                    "sound": "fall.egg",
+                    "volume": 0.4
+                },
+                "item.use.on": {
+                    "pitch": 1,
+                    "sound": "use.stone"
+                },
+                "place": {
+                    "pitch": [
+                        0.8,
+                        1
+                    ],
+                    "sound": "block.turtle_egg.hatch",
+                    "volume": 1
+                }
+            },
+            "pitch": 0.9,
+            "volume": 0.85
+        }
+    },
+    "entity_sounds": {
+        "entities": {
+            "mythicus_sn:seasons_pig": {
+                "events": {
+                    "ambient": "mob.pig.say",
+                    "boost": {
+                        "pitch": 1.0,
+                        "sound": "mob.pig.boost",
+                        "volume": 1.0
+                    },
+                    "death": "mob.pig.death",
+                    "death.to.zombie": {
+                        "sound": "mob.pig.death",
+                        "volume": 2.0
+                    },
+                    "eat": "",
+                    "hurt": "mob.pig.say",
+                    "step": {
+                        "pitch": 1.0,
+                        "sound": "mob.pig.step",
+                        "volume": 0.20
+                    },
+                    "unsaddle": "mob.unsaddle"
+                },
+                "pitch": [
+                    0.80,
+                    1.20
+                ],
+                "volume": 1.0
+            },
+            "mythicus_sn:botanist_trader": {
+                "events": {
+                    "ambient": "mob.villager.idle",
+                    "death": "mob.villager.death",
+                    "death.to.zombie": "mob.villager.death",
+                    "haggle": "mob.villager.haggle",
+                    "haggle.no": "mob.villager.no",
+                    "haggle.yes": "mob.villager.yes",
+                    "hurt": "mob.villager.hit"
+                },
+                "pitch": [
+                    0.80,
+                    1.20
+                ],
+                "volume": 1.0
+            },
+            "mythicus_sn:skill_trader": {
+                "events": {
+                    "ambient": "mob.villager.idle",
+                    "death": "mob.villager.death",
+                    "death.to.zombie": "mob.villager.death",
+                    "haggle": "mob.villager.haggle",
+                    "haggle.no": "mob.villager.no",
+                    "haggle.yes": "mob.villager.yes",
+                    "hurt": "mob.villager.hit"
+                },
+                "pitch": [
+                    0.80,
+                    1.20
+                ],
+                "volume": 1.0
+            },
+            "mythicus_sn:thermometer_display": {
+                "events": {
+                    "hurt": "dig.stone"
+                },
+                "pitch": [
+                    0.80,
+                    1.20
+                ],
+                "volume": 0.0
+            },
+            "mythicus_sn:seasons_cow": {
+                "events": {
+                    "ambient": "mob.cow.say",
+                    "death": "mob.cow.hurt",
+                    "eat": "",
+                    "hurt": "mob.cow.hurt",
+                    "step": {
+                        "pitch": [
+                            0.90,
+                            1.10
+                        ],
+                        "sound": "mob.cow.step",
+                        "volume": 0.650
+                    }
+                },
+                "pitch": [
+                    0.80,
+                    1.20
+                ],
+                "volume": 1.0
+            },
+            "mythicus_sn:seasons_chicken": {
+                "events": {
+                    "ambient": "mob.chicken.say",
+                    "death": "mob.chicken.hurt",
+                    "hurt": "mob.chicken.hurt",
+                    "plop": "mob.chicken.plop",
+                    "step": {
+                        "pitch": 1.0,
+                        "sound": "mob.chicken.step",
+                        "volume": 0.250
+                    }
+                },
+                "pitch": [
+                    0.80,
+                    1.20
+                ],
+                "volume": 1.0
+            },
+            "mythicus_sn:seasons_sheep": {
+                "events": {
+                    "ambient": "mob.sheep.say",
+                    "death": "mob.sheep.say",
+                    "hurt": "mob.sheep.say",
+                    "step": {
+                        "pitch": 1.0,
+                        "sound": "mob.sheep.step",
+                        "volume": 0.40
+                    }
+                },
+                "pitch": [
+                    0.80,
+                    1.20
+                ],
+                "volume": 1.0
+            },
+            "mythicus_sn:bitty_bee": {
+                "events": {
+                    "ambient.pollinate": {
+                        "sound": "mob.bee.pollinate",
+                        "volume": 0.85
+                    },
+                    "attack": {
+                        "pitch": [
+                            0.80,
+                            1.0
+                        ],
+                        "sound": "mob.bee.sting"
+                    },
+                    "death": {
+                        "pitch": [
+                            0.90,
+                            1.10
+                        ],
+                        "sound": "mob.bee.death",
+                        "volume": 0.60
+                    },
+                    "hurt": {
+                        "pitch": [
+                            0.90,
+                            1.10
+                        ],
+                        "sound": "mob.bee.hurt",
+                        "volume": 0.60
+                    }
+                },
+                "pitch": 1.0,
+                "volume": 0.60
+            },
+            "mythicus_sn:bee_queen": {
+                "events": {
+                    "ambient.pollinate": {
+                        "sound": "mob.bee.pollinate",
+                        "volume": 0.85
+                    },
+                    "attack": {
+                        "pitch": [
+                            1.0,
+                            1.2
+                        ],
+                        "sound": "mob.bee.sting"
+                    },
+                    "death": {
+                        "pitch": [
+                            1.10,
+                            1.30
+                        ],
+                        "sound": "mob.bee.death",
+                        "volume": 0.60
+                    },
+                    "hurt": {
+                        "pitch": [
+                            1.10,
+                            1.30
+                        ],
+                        "sound": "mob.bee.hurt",
+                        "volume": 0.60
+                    }
+                },
+                "pitch": 1.2,
+                "volume": 0.60
+            },
+            "mythicus_sn:egg_projectile": {
+                "events": {
+                    "death": {
+                        "pitch": [
+                            1.10,
+                            1.30
+                        ],
+                        "sound": "mob.bee.death",
+                        "volume": 0.00
+                    },
+                    "hurt": {
+                        "pitch": [
+                            1.10,
+                            1.30
+                        ],
+                        "sound": "mob.bee.hurt",
+                        "volume": 0.00
+                    }
+                },
+                "pitch": 1.2,
+                "volume": 0.00
+            }
+        }
+    }
+}

@@ -1,0 +1,198 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ewo:imps_zombie",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      
+    },
+    "components": {
+      "minecraft:behavior.random_look_around": {
+        "priority": 7
+      },
+      "minecraft:behavior.random_stroll": {
+        "speed_multiplier": 1,
+        "priority": 6
+      },
+      "minecraft:jump.static": {},
+      "minecraft:behavior.stomp_turtle_egg": {
+        "interval": 20,
+        "search_count": 4,
+        "search_height": 3,
+        "goal_radius": 1.13,
+        "priority": 4,
+        "speed_multiplier": 1,
+        "search_range": 10
+      },
+      "minecraft:health": {
+        "max": 40,
+        "value": 50
+      },
+      "minecraft:behavior.melee_attack": {
+        "track_target": false,
+        "speed_multiplier": 1
+      },
+      "minecraft:behavior.look_at_player": {
+        "look_distance": 6,
+        "probability": 0.02,
+        "priority": 7
+      },
+      "minecraft:movement": {
+        "max": 0.23,
+        "value": 0.23
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "breathesWater": true,
+        "generatesBubbles": false,
+        "breathesAir": true,
+        "suffocateTime": -1
+      },
+      "minecraft:experience_reward": {
+        "on_bred": "10",
+        "on_death": "query.last_hit_by_player ? 5 : 0"
+      },
+      "minecraft:annotation.break_door": {
+        "break_time": 0.0,
+        "min_difficulty": "normal"
+      },
+      "minecraft:environment_sensor": {
+        "filters": {
+          "operator": "==",
+          "value": true,
+          "test": "is_underwater"
+        },
+        "event": "minecraft:start_transforming"
+      },
+      "minecraft:can_climb": {},
+      "minecraft:physics": {},
+      "minecraft:type_family": {
+        "family": [
+          "zombie",
+          "monster",
+          "undead"
+        ]
+      },
+      "minecraft:attack": {
+        "damage": 8
+      },
+      "minecraft:movement.basic": {},
+      "minecraft:navigation.walk": {
+        "can_pass_doors": true,
+        "can_walk": true,
+        "can_break_doors": true,
+        "is_amphibious": true
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": false,
+        "reselect_targets": true,
+        "within_radius": 25.0,
+        "must_see_forget_duration": 17.0,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "lead"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "villager"
+                }
+              ]
+            },
+            "max_dist": 35.0,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "villager"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "wandering_trader"
+                }
+              ]
+            },
+            "max_dist": 35,
+            "must_see": false
+          },
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "baby_turtle"
+                },
+                {
+                  "test": "in_water",
+                  "subject": "other",
+                  "operator": "!=",
+                  "value": true
+                }
+              ]
+            },
+            "max_dist": 35
+          }
+        ],
+        "must_reach": false
+      },
+      "minecraft:follow_range": {
+        "value": 50
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:collision_box": {
+        "height": 1.8,
+        "width": 0.5
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "speed_multiplier": 1,
+        "priority": 5
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.02
+      },
+      "minecraft:behavior.owner_hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.owner_hurt_target": {
+        "priority": 2
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/entities/ewo_drop_b2.json"
+      }
+    },
+    "events": {
+      
+    }
+  }
+}

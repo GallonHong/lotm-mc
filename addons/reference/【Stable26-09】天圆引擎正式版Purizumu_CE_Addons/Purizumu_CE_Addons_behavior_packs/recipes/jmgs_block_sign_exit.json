@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_sign_exit_932cd006"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BA ",
+      "CDE",
+      "   "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:black_dye",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:lime_dye",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_sign_exit",
+      "count": 3
+    }
+  }
+}

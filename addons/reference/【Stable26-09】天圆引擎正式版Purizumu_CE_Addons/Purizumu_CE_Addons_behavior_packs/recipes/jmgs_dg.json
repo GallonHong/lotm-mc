@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "dg_18b0b6b5"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:projectile_cannon",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "F": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "G": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "H": {
+        "item": "jmgs:item_near_link",
+        "data": 0
+      },
+      "I": {
+        "item": "jmgs:item_cs_clock",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:dg",
+      "count": 1
+    }
+  }
+}

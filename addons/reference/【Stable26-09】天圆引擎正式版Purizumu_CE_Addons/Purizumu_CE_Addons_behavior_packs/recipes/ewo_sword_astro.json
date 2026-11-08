@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_astro_f9d0b286"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AFA",
+      "GBG",
+      "CDE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:diamond_sword",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_ti",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_astro",
+      "count": 1
+    }
+  }
+}

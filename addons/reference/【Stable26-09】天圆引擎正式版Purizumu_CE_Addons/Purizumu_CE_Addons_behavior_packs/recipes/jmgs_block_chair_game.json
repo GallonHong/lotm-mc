@@ -1,0 +1,37 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_chair_game_a9653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "CBD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_artleather",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_glass",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_chair_game",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "projectile_gun_taser_b03316a6"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      " C "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_recycled",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:pc_led",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:projectile_gun_taser",
+      "count": 24
+    }
+  }
+}

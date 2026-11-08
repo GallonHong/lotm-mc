@@ -1,0 +1,27 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:recipe_shapeless": {
+        "description": {
+            "identifier": "pb_dmgi:cow_dummy"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "ingredients": [
+            {
+                "item": "pb_dmgi:training_dummy_spawn_egg"
+            },
+            {
+                "item": "minecraft:leather"
+            }
+        ],
+        "unlock": [
+            {
+                "item": "pb_dmgi:guidebook"
+            }
+        ],
+        "result": {
+            "item": "pb_dmgi:cow_dummy_spawn_egg"
+        }
+    }
+}

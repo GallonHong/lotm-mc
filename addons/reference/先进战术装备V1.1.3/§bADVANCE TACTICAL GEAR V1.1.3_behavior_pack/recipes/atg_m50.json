@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "m50_d8c8da44"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      "DAD"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:black_carpet",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:black_stained_glass_pane",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:tinted_glass",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:wet_sponge",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:m50",
+      "count": 1
+    }
+  }
+}

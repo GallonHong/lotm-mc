@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_server_9dbb1312"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "GAH",
+      "EBF",
+      "DBD"
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_ddr9900",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_x990",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:pc_power",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:block_pc4",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:card_level6",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:parts_screw",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_server_spawn_egg",
+      "count": 1
+    }
+  }
+}

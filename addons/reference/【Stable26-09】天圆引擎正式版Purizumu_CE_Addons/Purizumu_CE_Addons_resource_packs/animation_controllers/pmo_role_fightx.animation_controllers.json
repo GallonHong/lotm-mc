@@ -1,0 +1,26 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_role_fightx.main": {
+			"states": {
+				"idle": {
+					"animations": ["idle"],
+					"transitions": [
+						{"walk": "query.ground_speed > 1"}
+					],
+					"blend_transition": 1.1,
+					"blend_via_shortest_path": true
+				},
+				"walk": {
+					"animations": [
+						"run"
+					],
+					"transitions": [
+						{"idle": "query.ground_speed < 0.2"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

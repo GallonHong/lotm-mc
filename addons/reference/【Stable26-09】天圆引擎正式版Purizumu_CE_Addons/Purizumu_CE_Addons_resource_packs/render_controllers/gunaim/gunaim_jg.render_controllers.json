@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.gunaim_jg": {
+			"textures": [
+				"Texture.gunaim_jg"
+			],
+			"geometry": "Geometry.gunaim_jg",
+			"materials": [
+				{
+					"*": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,71 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "jmgs:entity_toolbox_spot",
+      "runtime_identifier": "minecraft:armor_stand",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "armor_stand",
+          "toy"
+        ]
+      },
+      "minecraft:collision_box": {
+        "height": 1.975,
+        "width": 0.5
+      },
+      "minecraft:health": {
+        "value": 10,
+        "max": 10
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:loot": {
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:movement": {
+        "value": 0,
+        "max": 0
+      },
+      "minecraft:underwater_movement": {
+        "value": 0
+      },
+      "minecraft:scale": {
+        "value": 1
+      }
+    },
+    "events": {
+
+    },
+    "component_groups": {}
+  }
+}

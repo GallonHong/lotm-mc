@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "support_stick_2c357758"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_low",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_manganese",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_weathering",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:support_stick",
+      "count": 1
+    }
+  }
+}

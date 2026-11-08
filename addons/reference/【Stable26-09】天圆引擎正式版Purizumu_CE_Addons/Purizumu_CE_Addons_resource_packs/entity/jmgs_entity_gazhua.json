@@ -1,0 +1,43 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_gazhua",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/corona/jmgs_gazhua",
+        "variant_2": "textures/entity/corona/jmgs_gazhua_2"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_gazhua"
+      },
+      "scripts": {
+        "animate": [
+          {"fly": "query.is_on_ground == 0"},
+          {"walk": "query.is_on_ground == 1"},
+          "look_at_target",
+          "idle"
+        ]
+      },
+      "animations": {
+        "idle": "animation.jmgs_gazhua.idle",
+        "fly": "animation.jmgs_gazhua.fly",
+        "walk": "animation.jmgs_gazhua.walk",
+        "look_at_target_default": "animation.humanoid.look_at_target.default",
+        "look_at_target_gliding": "animation.humanoid.look_at_target.gliding",
+        "look_at_target_swimming": "animation.humanoid.look_at_target.swimming",
+        "look_at_target": "controller.animation.humanoid.look_at_target"
+      },
+      "spawn_egg": {
+        "texture": "jmgs:entity_gazhua",
+        "texture_index": 0
+      },
+      "render_controllers": [
+        "controller.render.pmo_role_leader"
+      ],
+      "enable_attachables": true
+    }
+  }
+}

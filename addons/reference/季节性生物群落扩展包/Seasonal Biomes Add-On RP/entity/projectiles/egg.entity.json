@@ -1,0 +1,32 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:egg_projectile",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/entity/misc/egg"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.texture_mesh"
+            },
+            "animations": {
+                "rotation_to_camera": "animation.mythicus_sn.texture_mesh.rotation_to_camera"
+            },
+            "scripts": {
+                "animate": [
+                    "rotation_to_camera"
+                ]
+            },
+            "render_controllers": [
+                "controller.render.default"
+            ],
+            "spawn_egg": {
+                "base_color": "#288483",
+                "overlay_color": "#2B7135"
+            }
+        }
+    }
+}

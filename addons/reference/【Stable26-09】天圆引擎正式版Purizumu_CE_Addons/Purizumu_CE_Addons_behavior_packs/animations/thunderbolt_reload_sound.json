@@ -1,0 +1,16 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.thunderbolt_reload_sound": {
+			"timeline": {
+				"0.00": [
+					"/playsound thunderbolt_loose @s",
+					"/playsound thunderbolt_steam @s"
+				],
+				"0.30": "/playsound thunderbolt_mag_out @s",
+				"1.69": "/playsound thunderbolt_mag_in @s"
+			},
+			"animation_length": 3
+		}
+	}
+}

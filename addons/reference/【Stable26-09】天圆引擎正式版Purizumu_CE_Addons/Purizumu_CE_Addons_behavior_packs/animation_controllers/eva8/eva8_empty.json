@@ -1,0 +1,34 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.eva8_empty": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"get": "query.get_equipped_item_name=='eva8_empty'"
+						}
+					]
+				},
+				"get": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-8"
+					]
+				}
+			}
+		},
+		"controller.animation.jmgs.none": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+				}
+			}
+		}
+	}
+}

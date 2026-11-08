@@ -1,0 +1,127 @@
+{
+    "pb_dmgi.boing": {
+        "category": "neutral",
+        "sounds": [
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/boing_1"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/boing_2"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/boing_3"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/boing_4"
+            }
+        ]
+    },
+    "pb_dmgi.woosh": {
+        "category": "neutral",
+        "sounds": [
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/earth_hammer_hit_1"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/earth_hammer_hit_2"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/earth_hammer_hit_3"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/earth_hammer_hit_4"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/earth_hammer_hit_5"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/earth_hammer_hit_6"
+            }
+        ]
+    },
+    "pb_dmgi.slash": {
+        "category": "neutral",
+        "sounds": [
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/slash_1"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/slash_2"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/slash_3"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/slash_4"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/slash_5"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/slash_6"
+            }
+        ]
+    },
+    "pb_dmgi.duck": {
+        "category": "neutral",
+        "sounds": [
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/quack_1"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/quack_2"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/quack_3"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/quack_4"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/quack_5"
+            }
+        ]
+    },
+    "pb_dmgi.squeak": {
+        "category": "neutral",
+        "sounds": [
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/squeak_1"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/squeak_2"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/squeak_3"
+            },
+            {
+                "volume": 0.4,
+                "name": "sounds/pb/dmgi/squeak_4"
+            }
+        ]
+    }
+}

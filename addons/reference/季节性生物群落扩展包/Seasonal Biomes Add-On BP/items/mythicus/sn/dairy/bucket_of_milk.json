@@ -1,0 +1,27 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mythicus_sn:bottle_of_milk",
+            "menu_category": {
+                "category": "items",
+                "group": "minecraft:itemGroup.name.food"
+            }
+        },
+        "components": {
+            "minecraft:icon": "mythicus_sn:bottle_of_milk",
+            "minecraft:max_stack_size": 16,
+            "minecraft:use_animation": "drink",
+            "minecraft:use_modifiers": {
+                "use_duration": 1.61,
+                "movement_modifier": 0.35
+            },
+            "minecraft:food": {
+                "can_always_eat": false,
+                "nutrition": 4,
+                "saturation_modifier": 0.6
+            },
+            "mythicus_sn:milk_cleanse_effects": {}
+        }
+    }
+}

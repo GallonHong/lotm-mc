@@ -1,0 +1,206 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.alter.run": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "alter_first_person": "variable.alter"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "variable.alter && q.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope": "variable.alter && q.is_sneaking"
+                        },
+                        {
+                            "fire": "variable.alter && q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'alter_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'alter_empty2'"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "alter_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        "alter_first_person_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || !q.is_sprinting || !variable.alter || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'alter_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'alter_empty2'"
+                        },
+                        {
+                            "fire": "variable.alter && q.item_remaining_use_duration > 1"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "alter_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "scope": {
+                    "animations": [
+                        "alter_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_sneaking || !variable.alter || !q.is_alive"
+                        },
+                        {
+                            "scopehold": "q.all_animations_finished"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'alter_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'alter_empty2'"
+                        }
+                    ]
+                },
+                "scopehold": {
+                    "animations": [
+                        "alter_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.alter || !q.is_alive"
+                        },
+                        {
+                            "scopehold_to_default": "!q.is_sneaking"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'alter_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'alter_empty2'"
+                        }
+                    ]
+                },
+                "scopehold_to_default": {
+                    "animations": [
+                        "alter_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished || !q.is_alive"
+                        }
+                    ]
+                },
+                "fire": {
+                    "animations": [
+                        {
+                            "alter_first_person_fire1": " variable.random_choices >= 50"
+                        },
+                        {
+                            "alter_first_person_fire2": " variable.random_choices < 50"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.alter || !q.is_using_item || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'alter_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'alter_empty2'"
+                        },
+                        {
+                            "scope": "q.is_sneaking"
+                        }
+                    ]
+                },
+                "fire2": {
+                    "animations": [
+                        "alter_first_person_fire2"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.alter || !q.is_using_item || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'alter_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'alter_empty2'"
+                        },
+                        {
+                            "scope": "q.is_sneaking"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "alter_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold": "!q.is_using_item"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'alter_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'alter_empty2'"
+                        },
+                        {
+                            "scopehold_to_default": "!q.is_sneaking"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        "alter_first_person_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || q.get_equipped_item_name == 'alter'"
+                        }
+                    ]
+                },
+                "not_total_mag": {
+                    "animations": [
+                        "alter_first_person_not_total_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || q.get_equipped_item_name == 'alter'"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

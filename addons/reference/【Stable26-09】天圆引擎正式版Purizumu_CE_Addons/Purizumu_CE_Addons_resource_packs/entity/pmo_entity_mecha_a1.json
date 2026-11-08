@@ -1,0 +1,65 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_mecha_a1",
+      "materials": {
+        "default": "skeleton"
+      },
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_entity_mecha_a1",
+        "variant_2": "textures/entity/pamobile/pmo_entity_car_heavy_edit",
+        "variant_3": "textures/entity/pamobile/pmo_entity_car_heavy_2",
+        "variant_4": "textures/entity/pamobile/pmo_entity_car_heavy_3",
+        "variant_5": "textures/entity/pamobile/pmo_entity_car_heavy_plus"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_mecha_a1",
+        "mark_variant_2": "geometry.pmo_entity_mecha_a1_level_2",
+        "mark_variant_3": "geometry.pmo_entity_mecha_a1_level_3",
+        "mark_variant_4": "geometry.pmo_entity_mecha_a1_level_4",
+        "mark_variant_5": "geometry.pmo_entity_mecha_a1_level_5"
+      },
+      "animations":{
+        "standby": "animation.pmo.standby",
+        "run": "animation.pmo_entity_mecha.run",
+        "fight": "animation.pmo_entity_mecha.fight",
+        "shoot": "animation.pmo_entity_mecha.shoot",
+        "arms": "animation.pmo_entity_mecha.arms",
+        "jump": "animation.pmo_entity_mecha.jump",
+        "get": "animation.pmo_entity_mecha.get",
+        "idle": "animation.pmo_entity_mecha.idle",
+        "get_in": "animation.pmo_entity_mecha.get_in",
+        "get_out": "animation.pmo_entity_mecha.get_out",
+        "kick": "animation.pmo_entity_mecha.kick",
+        "spawn": "animation.pmo_entity_mecha.spawn",
+        "move": "controller.animation.pmo_entity_mecha",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "render_controllers": [
+        "controller.render.pmo_entity_mecha"
+      ],
+      "sound_effects": {
+        "mecha.walk": "mecha.walk",
+        "mecha.idle": "mecha.idle",
+        "se.se107": "se.se107",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "spawn_egg": {
+        "texture": "pmo:entity_mecha_a1",
+        "texture_index": 0
+      },
+      "scripts": {
+        "animate": [
+          "move",
+          {"die": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,28 @@
+{
+    "format_version": "1.20.50",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mythicus_sn:normal_summer_boots",
+            "menu_category": {
+                "category": "equipment",
+                "group": "itemGroup.name.boots"
+            }
+        },
+        "components": {
+            "minecraft:max_stack_size": { "value": 1 },
+            "minecraft:icon": {
+                "texture": "mythicus_sn:normal_summer_boots"
+            },
+            "minecraft:enchantable": {
+                "slot": "armor_feet",
+                "value": 10
+            },
+            "minecraft:wearable": {
+                "dispensable": true,
+                "protection": 4,
+                "slot": "slot.armor.feet"
+            },
+            "minecraft:tags": { "tags": ["minecraft:is_armor"] }
+        }
+    }
+}

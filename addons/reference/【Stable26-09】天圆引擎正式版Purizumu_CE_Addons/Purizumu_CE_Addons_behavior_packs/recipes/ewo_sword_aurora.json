@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_aurora_64c24202"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDG",
+      "EFH"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:diamond_sword",
+        "data": 0
+      },
+      "G": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "H": {
+        "item": "pmo:item_prism",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_aurora",
+      "count": 1
+    }
+  }
+}

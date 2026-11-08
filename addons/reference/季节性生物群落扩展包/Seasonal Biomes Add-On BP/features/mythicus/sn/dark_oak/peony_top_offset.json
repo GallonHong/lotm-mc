@@ -1,0 +1,14 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/dark_oak/peony_top_offset"
+        },
+        "places_feature": "mythicus_sn:mythicus/sn/dark_oak/peony_top",
+        "x": 0,
+        "y": 1,
+        "z": 0,
+        "coordinate_eval_order": "xyz",
+        "iterations": 1
+    }
+}

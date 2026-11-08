@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_iabp_11bb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EBC",
+      "ADA",
+      "FGH"
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_muscle",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_pipe",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:block_pc1",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:block_pc3",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_iabp_spawn_egg",
+      "count": 1
+    }
+  }
+}

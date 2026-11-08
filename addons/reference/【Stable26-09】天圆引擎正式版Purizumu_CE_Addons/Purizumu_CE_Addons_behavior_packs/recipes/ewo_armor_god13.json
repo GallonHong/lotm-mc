@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_god13_58b7c0c8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GDA"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:diamond_chestplate",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:diamond_block",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_god13",
+      "count": 1
+    }
+  }
+}

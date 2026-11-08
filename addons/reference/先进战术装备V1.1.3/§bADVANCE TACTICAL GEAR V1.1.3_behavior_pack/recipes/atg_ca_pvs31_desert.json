@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "ca_pvs31_desert_6866f852"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      " DE",
+      " F "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:redstone_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:sand",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:iron_helmet",
+        "data": 0
+      },
+      "E": {
+        "item": "atg:oc_amp",
+        "data": 0
+      },
+      "F": {
+        "item": "atg:pvs_31",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:ca_pvs31_desert",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "projectile_damage_34761f7a"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      " E "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_hide",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_hair",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:animal_blood",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:projectile_damage",
+      "count": 32
+    }
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.pmo_entity_moto_pro.walk": {
+      "loop": true,
+      "animation_length": 0.45833,
+      "bones": {
+        "body": {
+          "position": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.2083": [
+              0,
+              1,
+              0
+            ],
+            "0.4167": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "tire1": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.4583": [
+              270,
+              0,
+              0
+            ]
+          }
+        },
+        "tire2": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.4583": [
+              270,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "entity_cart_surface_11bb132c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "",
+      "ABB",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_fat",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_carbon",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:entity_cart_surface_spawn_egg",
+      "count": 2
+    }
+  }
+}

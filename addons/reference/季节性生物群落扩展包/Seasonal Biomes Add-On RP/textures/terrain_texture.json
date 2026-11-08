@@ -1,0 +1,3252 @@
+{
+    "resource_pack_name": "Realistic Seasons Add-On",
+    "texture_name": "atlas.terrain",
+    "num_mip_levels": 4,
+    "padding": 8,
+    "texture_data": {
+        "mythicus_sn:icicle_empty": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/snow_layer/empty"
+        },
+        "mythicus_sn:spring.snow_layer_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/snow_layer/empty"
+        },
+        "mythicus_sn:spring.snow_layer_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/snow_layer/empty"
+        },
+        "mythicus_sn:spring.snow_layer_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/snow_layer/empty"
+        },
+        "mythicus_sn:spring.snow_layer_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/snow_layer/empty"
+        },
+        "mythicus_sn:summer.snow_layer_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/snow_layer/empty"
+        },
+        "mythicus_sn:summer.snow_layer_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/snow_layer/empty"
+        },
+        "mythicus_sn:summer.snow_layer_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/snow_layer/empty"
+        },
+        "mythicus_sn:summer.snow_layer_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/snow_layer/empty"
+        },
+        "mythicus_sn:fall.snow_layer_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/snow_layer/empty"
+        },
+        "mythicus_sn:fall.snow_layer_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/snow_layer/empty"
+        },
+        "mythicus_sn:fall.snow_layer_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/snow_layer/empty"
+        },
+        "mythicus_sn:fall.snow_layer_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/snow_layer/empty"
+        },
+        "mythicus_sn:winter.snow_layer_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/snow_layer/0"
+        },
+        "mythicus_sn:winter.snow_layer_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/snow_layer/0"
+        },
+        "mythicus_sn:winter.snow_layer_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/snow_layer/0"
+        },
+        "mythicus_sn:winter.snow_layer_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/snow_layer/0"
+        },
+
+        "mythicus_sn:spring.apples_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/apples/empty"
+        },
+        "mythicus_sn:spring.apples_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/apples/empty"
+        },
+        "mythicus_sn:spring.apples_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/apples/3"
+        },
+        "mythicus_sn:spring.apples_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/apples/4"
+        },
+        "mythicus_sn:summer.apples_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/apples/1"
+        },
+        "mythicus_sn:summer.apples_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/apples/2"
+        },
+        "mythicus_sn:summer.apples_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/apples/3"
+        },
+        "mythicus_sn:summer.apples_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/apples/4"
+        },
+        "mythicus_sn:fall.apples_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/apples/1"
+        },
+        "mythicus_sn:fall.apples_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/apples/2"
+        },
+        "mythicus_sn:fall.apples_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/apples/3"
+        },
+        "mythicus_sn:fall.apples_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/apples/4"
+        },
+        "mythicus_sn:winter.apples_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/apples/empty"
+        },
+        "mythicus_sn:winter.apples_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/apples/empty"
+        },
+        "mythicus_sn:winter.apples_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/apples/empty"
+        },
+        "mythicus_sn:winter.apples_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/apples/empty"
+        },
+        "mythicus_sn:spring.pine_needles_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pine_needles/1"
+        },
+        "mythicus_sn:spring.pine_needles_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pine_needles/2"
+        },
+        "mythicus_sn:spring.pine_needles_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pine_needles/3"
+        },
+        "mythicus_sn:spring.pine_needles_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pine_needles/4"
+        },
+        "mythicus_sn:summer.pine_needles_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pine_needles/1"
+        },
+        "mythicus_sn:summer.pine_needles_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pine_needles/2"
+        },
+        "mythicus_sn:summer.pine_needles_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pine_needles/3"
+        },
+        "mythicus_sn:summer.pine_needles_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pine_needles/4"
+        },
+        "mythicus_sn:fall.pine_needles_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pine_needles/1"
+        },
+        "mythicus_sn:fall.pine_needles_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pine_needles/2"
+        },
+        "mythicus_sn:fall.pine_needles_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pine_needles/3"
+        },
+        "mythicus_sn:fall.pine_needles_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pine_needles/4"
+        },
+        "mythicus_sn:winter.pine_needles_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pine_needles/1"
+        },
+        "mythicus_sn:winter.pine_needles_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pine_needles/2"
+        },
+        "mythicus_sn:winter.pine_needles_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pine_needles/3"
+        },
+        "mythicus_sn:winter.pine_needles_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pine_needles/4"
+        },
+        "mythicus_sn:spring.dandelion_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dandelion/dandelion_0"
+        },
+        "mythicus_sn:spring.dandelion_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dandelion/dandelion_1"
+        },
+        "mythicus_sn:spring.dandelion_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dandelion/dandelion_2"
+        },
+        "mythicus_sn:spring.dandelion_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dandelion/dandelion_3"
+        },
+        "mythicus_sn:spring.fern_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/fern/fern_0"
+        },
+        "mythicus_sn:spring.fern_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/fern/fern_1"
+        },
+        "mythicus_sn:spring.fern_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/fern/fern_2"
+        },
+        "mythicus_sn:spring.fern_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/fern/fern_3"
+        },
+        "mythicus_sn:spring.large_fern_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_bottom/large_fern_b_0"
+        },
+        "mythicus_sn:spring.large_fern_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_bottom/large_fern_b_1"
+        },
+        "mythicus_sn:spring.large_fern_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_bottom/large_fern_b_2"
+        },
+        "mythicus_sn:spring.large_fern_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_bottom/large_fern_b_3"
+        },
+        "mythicus_sn:spring.large_fern_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_top/large_fern_top_0"
+        },
+        "mythicus_sn:spring.large_fern_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_top/large_fern_top_1"
+        },
+        "mythicus_sn:spring.large_fern_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_top/large_fern_top_2"
+        },
+        "mythicus_sn:spring.large_fern_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/large_fern_top/large_fern_top_3"
+        },
+        "mythicus_sn:spring.leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_birch/leaves_birch_0"
+        },
+        "mythicus_sn:spring.leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_birch/leaves_birch_1"
+        },
+        "mythicus_sn:spring.leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_birch/leaves_birch_2"
+        },
+        "mythicus_sn:spring.leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_birch/leaves_birch_3"
+        },
+        "mythicus_sn:spring.leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_spruce/leaves_spruce_0"
+        },
+        "mythicus_sn:spring.leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_spruce/leaves_spruce_1"
+        },
+        "mythicus_sn:spring.leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_spruce/leaves_spruce_2"
+        },
+        "mythicus_sn:spring.leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_spruce/leaves_spruce_3"
+        },
+        "mythicus_sn:spring.lilac_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_top/lilac_0"
+        },
+        "mythicus_sn:spring.lilac_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_top/lilac_1"
+        },
+        "mythicus_sn:spring.lilac_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_top/lilac_2"
+        },
+        "mythicus_sn:spring.lilac_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_top/lilac_3"
+        },
+        "mythicus_sn:spring.lilac_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_bottom/lilac_0"
+        },
+        "mythicus_sn:spring.lilac_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_bottom/lilac_1"
+        },
+        "mythicus_sn:spring.lilac_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_bottom/lilac_2"
+        },
+        "mythicus_sn:spring.lilac_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lilac_bottom/lilac_3"
+        },
+        "mythicus_sn:spring.orange_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_0"
+        },
+        "mythicus_sn:spring.orange_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_1"
+        },
+        "mythicus_sn:spring.orange_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_2"
+        },
+        "mythicus_sn:spring.orange_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_3"
+        },
+        "mythicus_sn:spring.orange_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_0"
+        },
+        "mythicus_sn:spring.orange_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_1"
+        },
+        "mythicus_sn:spring.orange_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_2"
+        },
+        "mythicus_sn:spring.orange_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_3"
+        },
+        "mythicus_sn:spring.peony_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_top/peony_0"
+        },
+        "mythicus_sn:spring.peony_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_top/peony_1"
+        },
+        "mythicus_sn:spring.peony_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_top/peony_2"
+        },
+        "mythicus_sn:spring.peony_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_top/peony_3"
+        },
+        "mythicus_sn:spring.peony_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_bottom/peony_0"
+        },
+        "mythicus_sn:spring.peony_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_bottom/peony_1"
+        },
+        "mythicus_sn:spring.peony_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_bottom/peony_2"
+        },
+        "mythicus_sn:spring.peony_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/peony_bottom/peony_3"
+        },
+        "mythicus_sn:spring.poppy_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/poppy/poppy_0"
+        },
+        "mythicus_sn:spring.poppy_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/poppy/poppy_1"
+        },
+        "mythicus_sn:spring.poppy_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/poppy/poppy_2"
+        },
+        "mythicus_sn:spring.poppy_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/poppy/poppy_3"
+        },
+        "mythicus_sn:spring.red_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_0"
+        },
+        "mythicus_sn:spring.red_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_1"
+        },
+        "mythicus_sn:spring.red_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_2"
+        },
+        "mythicus_sn:spring.red_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_3"
+        },
+        "mythicus_sn:spring.red_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_0"
+        },
+        "mythicus_sn:spring.red_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_1"
+        },
+        "mythicus_sn:spring.red_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_2"
+        },
+        "mythicus_sn:spring.red_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_3"
+        },
+        "mythicus_sn:spring.rose_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_top/rose_0"
+        },
+        "mythicus_sn:spring.rose_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_top/rose_1"
+        },
+        "mythicus_sn:spring.rose_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_top/rose_2"
+        },
+        "mythicus_sn:spring.rose_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_top/rose_3"
+        },
+        "mythicus_sn:spring.rose_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_bottom/rose_0"
+        },
+        "mythicus_sn:spring.rose_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_bottom/rose_1"
+        },
+        "mythicus_sn:spring.rose_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_bottom/rose_2"
+        },
+        "mythicus_sn:spring.rose_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/rose_bottom/rose_3"
+        },
+        "mythicus_sn:spring.short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/short_grass/short_grass_0"
+        },
+        "mythicus_sn:spring.short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/short_grass/short_grass_1"
+        },
+        "mythicus_sn:spring.short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/short_grass/short_grass_2"
+        },
+        "mythicus_sn:spring.short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/short_grass/short_grass_3"
+        },
+        "mythicus_sn:spring.very_short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/very_short_grass/very_short_grass_0"
+        },
+        "mythicus_sn:spring.very_short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/very_short_grass/very_short_grass_1"
+        },
+        "mythicus_sn:spring.very_short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/very_short_grass/very_short_grass_2"
+        },
+        "mythicus_sn:spring.very_short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/very_short_grass/very_short_grass_3"
+        },
+        "mythicus_sn:spring.shrub_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/shrub/shrub_0"
+        },
+        "mythicus_sn:spring.shrub_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/shrub/shrub_1"
+        },
+        "mythicus_sn:spring.shrub_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/shrub/shrub_2"
+        },
+        "mythicus_sn:spring.shrub_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/shrub/shrub_3"
+        },
+        "mythicus_sn:winter.wildflowers_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/wildflowers/wildflowers_0"
+        },
+        "mythicus_sn:winter.wildflowers_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/wildflowers/wildflowers_1"
+        },
+        "mythicus_sn:winter.wildflowers_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/wildflowers/wildflowers_2"
+        },
+        "mythicus_sn:winter.wildflowers_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/wildflowers/wildflowers_3"
+        },
+        "mythicus_sn:spring.wildflowers_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/wildflowers/wildflowers_0"
+        },
+        "mythicus_sn:spring.wildflowers_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/wildflowers/wildflowers_1"
+        },
+        "mythicus_sn:spring.wildflowers_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/wildflowers/wildflowers_2"
+        },
+        "mythicus_sn:spring.wildflowers_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/wildflowers/wildflowers_3"
+        },
+        "mythicus_sn:spring.tulips_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tulips/1"
+        },
+        "mythicus_sn:spring.tulips_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tulips/2"
+        },
+        "mythicus_sn:spring.tulips_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tulips/3"
+        },
+        "mythicus_sn:spring.tulips_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tulips/4"
+        },
+        "mythicus_sn:spring.side_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_oak/side_leaves_1"
+        },
+        "mythicus_sn:spring.side_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_oak/side_leaves_2"
+        },
+        "mythicus_sn:spring.side_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_oak/side_leaves_3"
+        },
+        "mythicus_sn:spring.side_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_oak/side_leaves_4"
+        },
+        "mythicus_sn:spring.side_leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_birch/side_leaves_1"
+        },
+        "mythicus_sn:spring.side_leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_birch/side_leaves_2"
+        },
+        "mythicus_sn:spring.side_leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_birch/side_leaves_3"
+        },
+        "mythicus_sn:spring.side_leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_birch/side_leaves_4"
+        },
+        "mythicus_sn:spring.side_leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_spruce/side_leaves_0"
+        },
+        "mythicus_sn:spring.side_leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_spruce/side_leaves_empty"
+        },
+        "mythicus_sn:spring.side_leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_spruce/side_leaves_empty"
+        },
+        "mythicus_sn:spring.side_leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/side_leaves_spruce/side_leaves_empty"
+        },
+        "mythicus_sn:spring.yellow_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_0"
+        },
+        "mythicus_sn:spring.yellow_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_1"
+        },
+        "mythicus_sn:spring.yellow_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_2"
+        },
+        "mythicus_sn:spring.yellow_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/leaves_oak/leaves_oak_3"
+        },
+        "mythicus_sn:spring.yellow_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_0"
+        },
+        "mythicus_sn:spring.yellow_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_1"
+        },
+        "mythicus_sn:spring.yellow_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_2"
+        },
+        "mythicus_sn:spring.yellow_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/piles_of_leaves/piles_of_leaves_3"
+        },
+        "mythicus_sn:spring.blue_orchid_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/blue_orchid/1"
+        },
+        "mythicus_sn:spring.blue_orchid_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/blue_orchid/2"
+        },
+        "mythicus_sn:spring.blue_orchid_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/blue_orchid/3"
+        },
+        "mythicus_sn:spring.blue_orchid_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/blue_orchid/4"
+        },
+        "mythicus_sn:spring.brown_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/brown_mushroom/1"
+        },
+        "mythicus_sn:spring.brown_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/brown_mushroom/2"
+        },
+        "mythicus_sn:spring.brown_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/brown_mushroom/3"
+        },
+        "mythicus_sn:spring.brown_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/brown_mushroom/4"
+        },
+        "mythicus_sn:spring.cherry_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/cherry_leaves/1"
+        },
+        "mythicus_sn:spring.cherry_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/cherry_leaves/2"
+        },
+        "mythicus_sn:spring.cherry_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/cherry_leaves/3"
+        },
+        "mythicus_sn:spring.cherry_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/cherry_leaves/4"
+        },
+        "mythicus_sn:spring.dark_oak_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dark_oak_leaves/1"
+        },
+        "mythicus_sn:spring.dark_oak_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dark_oak_leaves/2"
+        },
+        "mythicus_sn:spring.dark_oak_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dark_oak_leaves/3"
+        },
+        "mythicus_sn:spring.dark_oak_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/dark_oak_leaves/4"
+        },
+        "mythicus_sn:spring.lily_pad_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lily_pad/1"
+        },
+        "mythicus_sn:spring.lily_pad_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lily_pad/2"
+        },
+        "mythicus_sn:spring.lily_pad_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lily_pad/3"
+        },
+        "mythicus_sn:spring.lily_pad_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/lily_pad/4"
+        },
+        "mythicus_sn:spring.pink_petals_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pink_petals/1"
+        },
+        "mythicus_sn:spring.pink_petals_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pink_petals/2"
+        },
+        "mythicus_sn:spring.pink_petals_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pink_petals/3"
+        },
+        "mythicus_sn:spring.pink_petals_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/pink_petals/4"
+        },
+        "mythicus_sn:spring.red_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/red_mushroom/1"
+        },
+        "mythicus_sn:spring.red_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/red_mushroom/2"
+        },
+        "mythicus_sn:spring.red_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/red_mushroom/3"
+        },
+        "mythicus_sn:spring.red_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/red_mushroom/4"
+        },
+        "mythicus_sn:spring.tall_grass_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_bottom/1"
+        },
+        "mythicus_sn:spring.tall_grass_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_bottom/2"
+        },
+        "mythicus_sn:spring.tall_grass_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_bottom/3"
+        },
+        "mythicus_sn:spring.tall_grass_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_bottom/4"
+        },
+        "mythicus_sn:spring.tall_grass_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_top/1"
+        },
+        "mythicus_sn:spring.tall_grass_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_top/2"
+        },
+        "mythicus_sn:spring.tall_grass_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_top/3"
+        },
+        "mythicus_sn:spring.tall_grass_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/tall_grass_top/4"
+        },
+        "mythicus_sn:spring.vines_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/vines/1"
+        },
+        "mythicus_sn:spring.vines_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/vines/2"
+        },
+        "mythicus_sn:spring.vines_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/vines/3"
+        },
+        "mythicus_sn:spring.vines_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/vines/4"
+        },
+        "mythicus_sn:summer.dandelion_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dandelion/dandelion_0"
+        },
+        "mythicus_sn:summer.dandelion_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dandelion/dandelion_1"
+        },
+        "mythicus_sn:summer.dandelion_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dandelion/dandelion_2"
+        },
+        "mythicus_sn:summer.dandelion_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dandelion/dandelion_3"
+        },
+        "mythicus_sn:summer.fern_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/fern/fern_0"
+        },
+        "mythicus_sn:summer.fern_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/fern/fern_1"
+        },
+        "mythicus_sn:summer.fern_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/fern/fern_2"
+        },
+        "mythicus_sn:summer.fern_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/fern/fern_3"
+        },
+        "mythicus_sn:summer.large_fern_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_bottom/large_fern_b_0"
+        },
+        "mythicus_sn:summer.large_fern_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_bottom/large_fern_b_1"
+        },
+        "mythicus_sn:summer.large_fern_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_bottom/large_fern_b_2"
+        },
+        "mythicus_sn:summer.large_fern_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_bottom/large_fern_b_3"
+        },
+        "mythicus_sn:summer.large_fern_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_top/large_fern_top_0"
+        },
+        "mythicus_sn:summer.large_fern_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_top/large_fern_top_1"
+        },
+        "mythicus_sn:summer.large_fern_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_top/large_fern_top_2"
+        },
+        "mythicus_sn:summer.large_fern_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/large_fern_top/large_fern_top_3"
+        },
+        "mythicus_sn:summer.leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_birch/leaves_birch_0"
+        },
+        "mythicus_sn:summer.leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_birch/leaves_birch_1"
+        },
+        "mythicus_sn:summer.leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_birch/leaves_birch_2"
+        },
+        "mythicus_sn:summer.leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_birch/leaves_birch_3"
+        },
+        "mythicus_sn:summer.leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_spruce/leaves_spruce_0"
+        },
+        "mythicus_sn:summer.leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_spruce/leaves_spruce_1"
+        },
+        "mythicus_sn:summer.leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_spruce/leaves_spruce_2"
+        },
+        "mythicus_sn:summer.leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_spruce/leaves_spruce_3"
+        },
+        "mythicus_sn:summer.lilac_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_top/lilac_0"
+        },
+        "mythicus_sn:summer.lilac_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_top/lilac_1"
+        },
+        "mythicus_sn:summer.lilac_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_top/lilac_2"
+        },
+        "mythicus_sn:summer.lilac_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_top/lilac_3"
+        },
+        "mythicus_sn:summer.lilac_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_bottom/lilac_0"
+        },
+        "mythicus_sn:summer.lilac_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_bottom/lilac_1"
+        },
+        "mythicus_sn:summer.lilac_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_bottom/lilac_2"
+        },
+        "mythicus_sn:summer.lilac_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lilac_bottom/lilac_3"
+        },
+        "mythicus_sn:summer.orange_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_oak/leaves_oak_0"
+        },
+        "mythicus_sn:summer.orange_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_oak/leaves_oak_1"
+        },
+        "mythicus_sn:summer.orange_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/orange_leaves/orange_leaves_2"
+        },
+        "mythicus_sn:summer.orange_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/orange_leaves/orange_leaves_3"
+        },
+        "mythicus_sn:summer.orange_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/piles_of_leaves/piles_of_leaves_0"
+        },
+        "mythicus_sn:summer.orange_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/piles_of_leaves/piles_of_leaves_1"
+        },
+        "mythicus_sn:summer.orange_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/orange_piles/orange_piles_2"
+        },
+        "mythicus_sn:summer.orange_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/orange_piles/orange_piles_3"
+        },
+        "mythicus_sn:summer.peony_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_top/peony_0"
+        },
+        "mythicus_sn:summer.peony_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_top/peony_1"
+        },
+        "mythicus_sn:summer.peony_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_top/peony_2"
+        },
+        "mythicus_sn:summer.peony_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_top/peony_3"
+        },
+        "mythicus_sn:summer.peony_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_bottom/peony_0"
+        },
+        "mythicus_sn:summer.peony_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_bottom/peony_1"
+        },
+        "mythicus_sn:summer.peony_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_bottom/peony_2"
+        },
+        "mythicus_sn:summer.peony_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/peony_bottom/peony_3"
+        },
+        "mythicus_sn:summer.poppy_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/poppy/poppy_0"
+        },
+        "mythicus_sn:summer.poppy_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/poppy/poppy_1"
+        },
+        "mythicus_sn:summer.poppy_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/poppy/poppy_2"
+        },
+        "mythicus_sn:summer.poppy_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/poppy/poppy_3"
+        },
+        "mythicus_sn:summer.red_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_oak/leaves_oak_0"
+        },
+        "mythicus_sn:summer.red_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_oak/leaves_oak_1"
+        },
+        "mythicus_sn:summer.red_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_leaves/red_leaves_2"
+        },
+        "mythicus_sn:summer.red_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_leaves/red_leaves_3"
+        },
+        "mythicus_sn:summer.red_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/piles_of_leaves/piles_of_leaves_0"
+        },
+        "mythicus_sn:summer.red_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/piles_of_leaves/piles_of_leaves_1"
+        },
+        "mythicus_sn:summer.red_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_piles/red_piles_2"
+        },
+        "mythicus_sn:summer.red_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_piles/red_piles_3"
+        },
+        "mythicus_sn:summer.rose_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_top/rose_0"
+        },
+        "mythicus_sn:summer.rose_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_top/rose_1"
+        },
+        "mythicus_sn:summer.rose_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_top/rose_2"
+        },
+        "mythicus_sn:summer.rose_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_top/rose_3"
+        },
+        "mythicus_sn:summer.rose_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_bottom/rose_0"
+        },
+        "mythicus_sn:summer.rose_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_bottom/rose_1"
+        },
+        "mythicus_sn:summer.rose_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_bottom/rose_2"
+        },
+        "mythicus_sn:summer.rose_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/rose_bottom/rose_3"
+        },
+        "mythicus_sn:summer.short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/short_grass/short_grass_0"
+        },
+        "mythicus_sn:summer.short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/short_grass/short_grass_1"
+        },
+        "mythicus_sn:summer.short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/short_grass/short_grass_2"
+        },
+        "mythicus_sn:summer.short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/short_grass/short_grass_3"
+        },
+        "mythicus_sn:summer.very_short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/very_short_grass/very_short_grass_0"
+        },
+        "mythicus_sn:summer.very_short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/very_short_grass/very_short_grass_1"
+        },
+        "mythicus_sn:summer.very_short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/very_short_grass/very_short_grass_2"
+        },
+        "mythicus_sn:summer.very_short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/very_short_grass/very_short_grass_3"
+        },
+        "mythicus_sn:summer.shrub_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/shrub/shrub_0"
+        },
+        "mythicus_sn:summer.shrub_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/shrub/shrub_1"
+        },
+        "mythicus_sn:summer.shrub_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/shrub/shrub_2"
+        },
+        "mythicus_sn:summer.shrub_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/shrub/shrub_3"
+        },
+        "mythicus_sn:summer.wildflowers_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/wildflowers/wildflowers_0"
+        },
+        "mythicus_sn:summer.wildflowers_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/wildflowers/wildflowers_1"
+        },
+        "mythicus_sn:summer.wildflowers_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/wildflowers/wildflowers_2"
+        },
+        "mythicus_sn:summer.wildflowers_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/wildflowers/wildflowers_3"
+        },
+        "mythicus_sn:summer.tulips_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tulips/1"
+        },
+        "mythicus_sn:summer.tulips_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tulips/2"
+        },
+        "mythicus_sn:summer.tulips_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tulips/3"
+        },
+        "mythicus_sn:summer.tulips_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tulips/4"
+        },
+        "mythicus_sn:summer.side_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_spruce/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_spruce/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_spruce/side_leaves_empty"
+        },
+        "mythicus_sn:summer.side_leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/side_leaves_spruce/side_leaves_4"
+        },
+        "mythicus_sn:summer.yellow_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_oak/leaves_oak_0"
+        },
+        "mythicus_sn:summer.yellow_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/leaves_oak/leaves_oak_1"
+        },
+        "mythicus_sn:summer.yellow_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/yellow_leaves/yellow_leaves_2"
+        },
+        "mythicus_sn:summer.yellow_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/yellow_leaves/yellow_leaves_3"
+        },
+        "mythicus_sn:summer.yellow_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/piles_of_leaves/piles_of_leaves_0"
+        },
+        "mythicus_sn:summer.yellow_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/piles_of_leaves/piles_of_leaves_1"
+        },
+        "mythicus_sn:summer.yellow_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/yellow_piles/yellow_piles_2"
+        },
+        "mythicus_sn:summer.yellow_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/yellow_piles/yellow_piles_3"
+        },
+        "mythicus_sn:summer.blue_orchid_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/blue_orchid/1"
+        },
+        "mythicus_sn:summer.blue_orchid_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/blue_orchid/2"
+        },
+        "mythicus_sn:summer.blue_orchid_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/blue_orchid/3"
+        },
+        "mythicus_sn:summer.blue_orchid_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/blue_orchid/4"
+        },
+        "mythicus_sn:summer.brown_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/brown_mushroom/1"
+        },
+        "mythicus_sn:summer.brown_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/brown_mushroom/2"
+        },
+        "mythicus_sn:summer.brown_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/brown_mushroom/3"
+        },
+        "mythicus_sn:summer.brown_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/brown_mushroom/4"
+        },
+        "mythicus_sn:summer.cherry_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/cherry_leaves/1"
+        },
+        "mythicus_sn:summer.cherry_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/cherry_leaves/2"
+        },
+        "mythicus_sn:summer.cherry_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/cherry_leaves/3"
+        },
+        "mythicus_sn:summer.cherry_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/cherry_leaves/4"
+        },
+        "mythicus_sn:summer.dark_oak_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dark_oak_leaves/1"
+        },
+        "mythicus_sn:summer.dark_oak_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dark_oak_leaves/2"
+        },
+        "mythicus_sn:summer.dark_oak_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dark_oak_leaves/3"
+        },
+        "mythicus_sn:summer.dark_oak_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/dark_oak_leaves/4"
+        },
+        "mythicus_sn:summer.lily_pad_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lily_pad/1"
+        },
+        "mythicus_sn:summer.lily_pad_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lily_pad/2"
+        },
+        "mythicus_sn:summer.lily_pad_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lily_pad/3"
+        },
+        "mythicus_sn:summer.lily_pad_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/lily_pad/4"
+        },
+        "mythicus_sn:summer.pink_petals_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pink_petals/1"
+        },
+        "mythicus_sn:summer.pink_petals_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pink_petals/2"
+        },
+        "mythicus_sn:summer.pink_petals_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pink_petals/3"
+        },
+        "mythicus_sn:summer.pink_petals_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/pink_petals/4"
+        },
+        "mythicus_sn:summer.red_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_mushroom/1"
+        },
+        "mythicus_sn:summer.red_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_mushroom/2"
+        },
+        "mythicus_sn:summer.red_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_mushroom/3"
+        },
+        "mythicus_sn:summer.red_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/red_mushroom/4"
+        },
+        "mythicus_sn:summer.tall_grass_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_bottom/1"
+        },
+        "mythicus_sn:summer.tall_grass_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_bottom/2"
+        },
+        "mythicus_sn:summer.tall_grass_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_bottom/3"
+        },
+        "mythicus_sn:summer.tall_grass_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_bottom/4"
+        },
+        "mythicus_sn:summer.tall_grass_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_top/1"
+        },
+        "mythicus_sn:summer.tall_grass_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_top/2"
+        },
+        "mythicus_sn:summer.tall_grass_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_top/3"
+        },
+        "mythicus_sn:summer.tall_grass_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/tall_grass_top/4"
+        },
+        "mythicus_sn:summer.vines_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/vines/1"
+        },
+        "mythicus_sn:summer.vines_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/vines/2"
+        },
+        "mythicus_sn:summer.vines_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/vines/3"
+        },
+        "mythicus_sn:summer.vines_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/vines/4"
+        },
+        "mythicus_sn:fall.blue_orchid_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/blue_orchid/1"
+        },
+        "mythicus_sn:fall.blue_orchid_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/blue_orchid/2"
+        },
+        "mythicus_sn:fall.blue_orchid_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/blue_orchid/3"
+        },
+        "mythicus_sn:fall.blue_orchid_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/blue_orchid/4"
+        },
+        "mythicus_sn:fall.brown_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/brown_mushroom/1"
+        },
+        "mythicus_sn:fall.brown_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/brown_mushroom/2"
+        },
+        "mythicus_sn:fall.brown_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/brown_mushroom/3"
+        },
+        "mythicus_sn:fall.brown_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/brown_mushroom/4"
+        },
+        "mythicus_sn:fall.cherry_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/cherry_leaves/1"
+        },
+        "mythicus_sn:fall.cherry_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/cherry_leaves/2"
+        },
+        "mythicus_sn:fall.cherry_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/cherry_leaves/3"
+        },
+        "mythicus_sn:fall.cherry_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/cherry_leaves/4"
+        },
+        "mythicus_sn:fall.dark_oak_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dark_oak_leaves/1"
+        },
+        "mythicus_sn:fall.dark_oak_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dark_oak_leaves/2"
+        },
+        "mythicus_sn:fall.dark_oak_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dark_oak_leaves/3"
+        },
+        "mythicus_sn:fall.dark_oak_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dark_oak_leaves/4"
+        },
+        "mythicus_sn:fall.lily_pad_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lily_pad/1"
+        },
+        "mythicus_sn:fall.lily_pad_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lily_pad/2"
+        },
+        "mythicus_sn:fall.lily_pad_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lily_pad/3"
+        },
+        "mythicus_sn:fall.lily_pad_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lily_pad/4"
+        },
+        "mythicus_sn:fall.pink_petals_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pink_petals/1"
+        },
+        "mythicus_sn:fall.pink_petals_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pink_petals/2"
+        },
+        "mythicus_sn:fall.pink_petals_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pink_petals/3"
+        },
+        "mythicus_sn:fall.pink_petals_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/pink_petals/4"
+        },
+        "mythicus_sn:fall.red_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_mushroom/1"
+        },
+        "mythicus_sn:fall.red_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_mushroom/2"
+        },
+        "mythicus_sn:fall.red_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_mushroom/3"
+        },
+        "mythicus_sn:fall.red_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_mushroom/4"
+        },
+        "mythicus_sn:fall.tall_grass_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_bottom/1"
+        },
+        "mythicus_sn:fall.tall_grass_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_bottom/2"
+        },
+        "mythicus_sn:fall.tall_grass_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_bottom/3"
+        },
+        "mythicus_sn:fall.tall_grass_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_bottom/4"
+        },
+        "mythicus_sn:fall.tall_grass_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_top/1"
+        },
+        "mythicus_sn:fall.tall_grass_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_top/2"
+        },
+        "mythicus_sn:fall.tall_grass_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_top/3"
+        },
+        "mythicus_sn:fall.tall_grass_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tall_grass_top/4"
+        },
+        "mythicus_sn:fall.vines_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/vines/1"
+        },
+        "mythicus_sn:fall.vines_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/vines/2"
+        },
+        "mythicus_sn:fall.vines_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/vines/3"
+        },
+        "mythicus_sn:fall.vines_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/vines/4"
+        },
+        "mythicus_sn:fall.dandelion_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dandelion/dandelion_0"
+        },
+        "mythicus_sn:fall.dandelion_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dandelion/dandelion_1"
+        },
+        "mythicus_sn:fall.dandelion_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dandelion/dandelion_2"
+        },
+        "mythicus_sn:fall.dandelion_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/dandelion/dandelion_3"
+        },
+        "mythicus_sn:fall.fern_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/fern/fern_0"
+        },
+        "mythicus_sn:fall.fern_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/fern/fern_1"
+        },
+        "mythicus_sn:fall.fern_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/fern/fern_2"
+        },
+        "mythicus_sn:fall.fern_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/fern/fern_3"
+        },
+        "mythicus_sn:fall.large_fern_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_bottom/large_fern_b_0"
+        },
+        "mythicus_sn:fall.large_fern_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_bottom/large_fern_b_1"
+        },
+        "mythicus_sn:fall.large_fern_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_bottom/large_fern_b_2"
+        },
+        "mythicus_sn:fall.large_fern_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_bottom/large_fern_b_3"
+        },
+        "mythicus_sn:fall.large_fern_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_top/large_fern_top_0"
+        },
+        "mythicus_sn:fall.large_fern_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_top/large_fern_top_1"
+        },
+        "mythicus_sn:fall.large_fern_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_top/large_fern_top_2"
+        },
+        "mythicus_sn:fall.large_fern_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/large_fern_top/large_fern_top_3"
+        },
+        "mythicus_sn:fall.leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_birch/leaves_birch_0"
+        },
+        "mythicus_sn:fall.leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_birch/leaves_birch_1"
+        },
+        "mythicus_sn:fall.leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_birch/leaves_birch_2"
+        },
+        "mythicus_sn:fall.leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_birch/leaves_birch_3"
+        },
+        "mythicus_sn:fall.leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_spruce/leaves_spruce_0"
+        },
+        "mythicus_sn:fall.leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_spruce/leaves_spruce_1"
+        },
+        "mythicus_sn:fall.leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_spruce/leaves_spruce_2"
+        },
+        "mythicus_sn:fall.leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/leaves_spruce/leaves_spruce_3"
+        },
+        "mythicus_sn:fall.lilac_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_top/lilac_0"
+        },
+        "mythicus_sn:fall.lilac_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_top/lilac_1"
+        },
+        "mythicus_sn:fall.lilac_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_top/lilac_2"
+        },
+        "mythicus_sn:fall.lilac_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_top/lilac_3"
+        },
+        "mythicus_sn:fall.lilac_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_bottom/lilac_0"
+        },
+        "mythicus_sn:fall.lilac_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_bottom/lilac_1"
+        },
+        "mythicus_sn:fall.lilac_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_bottom/lilac_2"
+        },
+        "mythicus_sn:fall.lilac_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/lilac_bottom/lilac_3"
+        },
+        "mythicus_sn:fall.orange_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_leaves/orange_leaves_0"
+        },
+        "mythicus_sn:fall.orange_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_leaves/orange_leaves_1"
+        },
+        "mythicus_sn:fall.orange_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_leaves/orange_leaves_2"
+        },
+        "mythicus_sn:fall.orange_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_leaves/orange_leaves_3"
+        },
+        "mythicus_sn:fall.orange_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_piles/orange_piles_0"
+        },
+        "mythicus_sn:fall.orange_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_piles/orange_piles_1"
+        },
+        "mythicus_sn:fall.orange_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_piles/orange_piles_2"
+        },
+        "mythicus_sn:fall.orange_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/orange_piles/orange_piles_3"
+        },
+        "mythicus_sn:fall.peony_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_top/peony_0"
+        },
+        "mythicus_sn:fall.peony_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_top/peony_1"
+        },
+        "mythicus_sn:fall.peony_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_top/peony_2"
+        },
+        "mythicus_sn:fall.peony_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_top/peony_3"
+        },
+        "mythicus_sn:fall.peony_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_bottom/peony_0"
+        },
+        "mythicus_sn:fall.peony_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_bottom/peony_1"
+        },
+        "mythicus_sn:fall.peony_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_bottom/peony_2"
+        },
+        "mythicus_sn:fall.peony_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/peony_bottom/peony_3"
+        },
+        "mythicus_sn:fall.poppy_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/poppy/poppy_0"
+        },
+        "mythicus_sn:fall.poppy_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/poppy/poppy_1"
+        },
+        "mythicus_sn:fall.poppy_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/poppy/poppy_2"
+        },
+        "mythicus_sn:fall.poppy_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/poppy/poppy_3"
+        },
+        "mythicus_sn:fall.red_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_leaves/red_leaves_0"
+        },
+        "mythicus_sn:fall.red_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_leaves/red_leaves_1"
+        },
+        "mythicus_sn:fall.red_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_leaves/red_leaves_2"
+        },
+        "mythicus_sn:fall.red_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_leaves/red_leaves_3"
+        },
+        "mythicus_sn:fall.red_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_piles/red_piles_0"
+        },
+        "mythicus_sn:fall.red_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_piles/red_piles_1"
+        },
+        "mythicus_sn:fall.red_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_piles/red_piles_2"
+        },
+        "mythicus_sn:fall.red_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/red_piles/red_piles_3"
+        },
+        "mythicus_sn:fall.rose_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_top/rose_0"
+        },
+        "mythicus_sn:fall.rose_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_top/rose_1"
+        },
+        "mythicus_sn:fall.rose_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_top/rose_2"
+        },
+        "mythicus_sn:fall.rose_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_top/rose_3"
+        },
+        "mythicus_sn:fall.rose_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_bottom/rose_0"
+        },
+        "mythicus_sn:fall.rose_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_bottom/rose_1"
+        },
+        "mythicus_sn:fall.rose_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_bottom/rose_2"
+        },
+        "mythicus_sn:fall.rose_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/rose_bottom/rose_3"
+        },
+        "mythicus_sn:fall.short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/short_grass/short_grass_0"
+        },
+        "mythicus_sn:fall.short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/short_grass/short_grass_1"
+        },
+        "mythicus_sn:fall.short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/short_grass/short_grass_2"
+        },
+        "mythicus_sn:fall.short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/short_grass/short_grass_3"
+        },
+        "mythicus_sn:fall.very_short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/very_short_grass/very_short_grass_0"
+        },
+        "mythicus_sn:fall.very_short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/very_short_grass/very_short_grass_1"
+        },
+        "mythicus_sn:fall.very_short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/very_short_grass/very_short_grass_2"
+        },
+        "mythicus_sn:fall.very_short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/very_short_grass/very_short_grass_3"
+        },
+        "mythicus_sn:fall.shrub_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/shrub/shrub_0"
+        },
+        "mythicus_sn:fall.shrub_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/shrub/shrub_1"
+        },
+        "mythicus_sn:fall.shrub_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/shrub/shrub_2"
+        },
+        "mythicus_sn:fall.shrub_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/shrub/shrub_3"
+        },
+        "mythicus_sn:fall.wildflowers_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/wildflowers/wildflowers_0"
+        },
+        "mythicus_sn:fall.wildflowers_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/wildflowers/wildflowers_1"
+        },
+        "mythicus_sn:fall.wildflowers_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/wildflowers/wildflowers_2"
+        },
+        "mythicus_sn:fall.wildflowers_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/wildflowers/wildflowers_3"
+        },
+        "mythicus_sn:fall.tulips_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tulips/1"
+        },
+        "mythicus_sn:fall.tulips_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tulips/empty"
+        },
+        "mythicus_sn:fall.tulips_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tulips/empty"
+        },
+        "mythicus_sn:fall.tulips_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/tulips/empty"
+        },
+        "mythicus_sn:fall.side_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:fall.side_leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_spruce/side_leaves_e"
+        },
+        "mythicus_sn:fall.side_leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_spruce/side_leaves_1"
+        },
+        "mythicus_sn:fall.side_leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_spruce/side_leaves_2"
+        },
+        "mythicus_sn:fall.side_leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/side_leaves_spruce/side_leaves_3"
+        },
+        "mythicus_sn:fall.yellow_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_leaves/yellow_leaves_0"
+        },
+        "mythicus_sn:fall.yellow_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_leaves/yellow_leaves_1"
+        },
+        "mythicus_sn:fall.yellow_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_leaves/yellow_leaves_2"
+        },
+        "mythicus_sn:fall.yellow_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_leaves/yellow_leaves_3"
+        },
+        "mythicus_sn:fall.yellow_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_piles/yellow_piles_0"
+        },
+        "mythicus_sn:fall.yellow_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_piles/yellow_piles_1"
+        },
+        "mythicus_sn:fall.yellow_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_piles/yellow_piles_2"
+        },
+        "mythicus_sn:fall.yellow_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/yellow_piles/yellow_piles_3"
+        },
+        "mythicus_sn:winter.blue_orchid_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/blue_orchid/1"
+        },
+        "mythicus_sn:winter.blue_orchid_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/blue_orchid/2"
+        },
+        "mythicus_sn:winter.blue_orchid_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/blue_orchid/3"
+        },
+        "mythicus_sn:winter.blue_orchid_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/blue_orchid/4"
+        },
+        "mythicus_sn:winter.brown_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/brown_mushroom/1"
+        },
+        "mythicus_sn:winter.brown_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/brown_mushroom/2"
+        },
+        "mythicus_sn:winter.brown_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/brown_mushroom/3"
+        },
+        "mythicus_sn:winter.brown_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/brown_mushroom/4"
+        },
+        "mythicus_sn:winter.cherry_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/cherry_leaves/1"
+        },
+        "mythicus_sn:winter.cherry_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/cherry_leaves/2"
+        },
+        "mythicus_sn:winter.cherry_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/cherry_leaves/3"
+        },
+        "mythicus_sn:winter.cherry_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/cherry_leaves/4"
+        },
+        "mythicus_sn:winter.dark_oak_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dark_oak_leaves/1"
+        },
+        "mythicus_sn:winter.dark_oak_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dark_oak_leaves/2"
+        },
+        "mythicus_sn:winter.dark_oak_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dark_oak_leaves/3"
+        },
+        "mythicus_sn:winter.dark_oak_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dark_oak_leaves/4"
+        },
+        "mythicus_sn:winter.lily_pad_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lily_pad/1"
+        },
+        "mythicus_sn:winter.lily_pad_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lily_pad/2"
+        },
+        "mythicus_sn:winter.lily_pad_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lily_pad/3"
+        },
+        "mythicus_sn:winter.lily_pad_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lily_pad/4"
+        },
+        "mythicus_sn:winter.pink_petals_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pink_petals/1"
+        },
+        "mythicus_sn:winter.pink_petals_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pink_petals/2"
+        },
+        "mythicus_sn:winter.pink_petals_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pink_petals/3"
+        },
+        "mythicus_sn:winter.pink_petals_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/pink_petals/4"
+        },
+        "mythicus_sn:winter.red_mushroom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_mushroom/1"
+        },
+        "mythicus_sn:winter.red_mushroom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_mushroom/2"
+        },
+        "mythicus_sn:winter.red_mushroom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_mushroom/3"
+        },
+        "mythicus_sn:winter.red_mushroom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_mushroom/4"
+        },
+        "mythicus_sn:winter.tall_grass_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_bottom/1"
+        },
+        "mythicus_sn:winter.tall_grass_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_bottom/2"
+        },
+        "mythicus_sn:winter.tall_grass_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_bottom/3"
+        },
+        "mythicus_sn:winter.tall_grass_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_bottom/4"
+        },
+        "mythicus_sn:winter.tall_grass_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_top/1"
+        },
+        "mythicus_sn:winter.tall_grass_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_top/2"
+        },
+        "mythicus_sn:winter.tall_grass_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_top/3"
+        },
+        "mythicus_sn:winter.tall_grass_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tall_grass_top/4"
+        },
+        "mythicus_sn:winter.vines_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/vines/1"
+        },
+        "mythicus_sn:winter.vines_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/vines/2"
+        },
+        "mythicus_sn:winter.vines_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/vines/3"
+        },
+        "mythicus_sn:winter.vines_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/vines/4"
+        },
+        "mythicus_sn:winter.dandelion_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dandelion/dandelion_0"
+        },
+        "mythicus_sn:winter.dandelion_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dandelion/dandelion_1"
+        },
+        "mythicus_sn:winter.dandelion_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dandelion/dandelion_2"
+        },
+        "mythicus_sn:winter.dandelion_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/dandelion/dandelion_3"
+        },
+        "mythicus_sn:winter.fern_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/fern/fern_0"
+        },
+        "mythicus_sn:winter.fern_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/fern/fern_1"
+        },
+        "mythicus_sn:winter.fern_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/fern/fern_2"
+        },
+        "mythicus_sn:winter.fern_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/fern/fern_3"
+        },
+        "mythicus_sn:winter.large_fern_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_bottom/large_fern_b_0"
+        },
+        "mythicus_sn:winter.large_fern_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_bottom/large_fern_b_1"
+        },
+        "mythicus_sn:winter.large_fern_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_bottom/large_fern_b_2"
+        },
+        "mythicus_sn:winter.large_fern_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_bottom/large_fern_b_3"
+        },
+        "mythicus_sn:winter.large_fern_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_top/large_fern_top_0"
+        },
+        "mythicus_sn:winter.large_fern_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_top/large_fern_top_1"
+        },
+        "mythicus_sn:winter.large_fern_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_top/large_fern_top_2"
+        },
+        "mythicus_sn:winter.large_fern_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/large_fern_top/large_fern_top_3"
+        },
+        "mythicus_sn:winter.leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_birch/leaves_birch_0"
+        },
+        "mythicus_sn:winter.leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_birch/leaves_birch_1"
+        },
+        "mythicus_sn:winter.leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_birch/leaves_birch_2"
+        },
+        "mythicus_sn:winter.leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_birch/leaves_birch_3"
+        },
+        "mythicus_sn:winter.leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_spruce/leaves_spruce_0"
+        },
+        "mythicus_sn:winter.leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_spruce/leaves_spruce_1"
+        },
+        "mythicus_sn:winter.leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_spruce/leaves_spruce_2"
+        },
+        "mythicus_sn:winter.leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_spruce/leaves_spruce_3"
+        },
+        "mythicus_sn:winter.lilac_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_top/lilac_0"
+        },
+        "mythicus_sn:winter.lilac_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_top/lilac_1"
+        },
+        "mythicus_sn:winter.lilac_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_top/lilac_2"
+        },
+        "mythicus_sn:winter.lilac_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_top/lilac_3"
+        },
+        "mythicus_sn:winter.lilac_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_bottom/lilac_0"
+        },
+        "mythicus_sn:winter.lilac_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_bottom/lilac_1"
+        },
+        "mythicus_sn:winter.lilac_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_bottom/lilac_2"
+        },
+        "mythicus_sn:winter.lilac_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/lilac_bottom/lilac_3"
+        },
+        "mythicus_sn:winter.orange_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/orange_leaves/orange_leaves_0"
+        },
+        "mythicus_sn:winter.orange_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/orange_leaves/orange_leaves_1"
+        },
+        "mythicus_sn:winter.orange_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_oak/leaves_oak_2"
+        },
+        "mythicus_sn:winter.orange_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_oak/leaves_oak_3"
+        },
+        "mythicus_sn:winter.orange_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/orange_piles/orange_piles_0"
+        },
+        "mythicus_sn:winter.orange_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/orange_piles/orange_piles_1"
+        },
+        "mythicus_sn:winter.orange_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/piles_of_leaves/piles_of_leaves_2"
+        },
+        "mythicus_sn:winter.orange_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/piles_of_leaves/piles_of_leaves_3"
+        },
+        "mythicus_sn:winter.peony_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_top/peony_0"
+        },
+        "mythicus_sn:winter.peony_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_top/peony_1"
+        },
+        "mythicus_sn:winter.peony_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_top/peony_2"
+        },
+        "mythicus_sn:winter.peony_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_top/peony_3"
+        },
+        "mythicus_sn:winter.peony_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_bottom/peony_0"
+        },
+        "mythicus_sn:winter.peony_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_bottom/peony_1"
+        },
+        "mythicus_sn:winter.peony_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_bottom/peony_2"
+        },
+        "mythicus_sn:winter.peony_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/peony_bottom/peony_3"
+        },
+        "mythicus_sn:winter.poppy_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/poppy/poppy_0"
+        },
+        "mythicus_sn:winter.poppy_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/poppy/poppy_1"
+        },
+        "mythicus_sn:winter.poppy_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/poppy/poppy_2"
+        },
+        "mythicus_sn:winter.poppy_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/poppy/poppy_3"
+        },
+        "mythicus_sn:winter.red_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_leaves/red_leaves_0"
+        },
+        "mythicus_sn:winter.red_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_leaves/red_leaves_1"
+        },
+        "mythicus_sn:winter.red_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_oak/leaves_oak_2"
+        },
+        "mythicus_sn:winter.red_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_oak/leaves_oak_3"
+        },
+        "mythicus_sn:winter.red_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_piles/red_piles_0"
+        },
+        "mythicus_sn:winter.red_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/red_piles/red_piles_1"
+        },
+        "mythicus_sn:winter.red_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/piles_of_leaves/piles_of_leaves_2"
+        },
+        "mythicus_sn:winter.red_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/piles_of_leaves/piles_of_leaves_3"
+        },
+        "mythicus_sn:winter.rose_bottom_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_bottom/rose_0"
+        },
+        "mythicus_sn:winter.rose_bottom_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_bottom/rose_1"
+        },
+        "mythicus_sn:winter.rose_bottom_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_bottom/rose_2"
+        },
+        "mythicus_sn:winter.rose_bottom_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_bottom/rose_3"
+        },
+        "mythicus_sn:winter.rose_top_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_top/rose_0"
+        },
+        "mythicus_sn:winter.rose_top_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_top/rose_1"
+        },
+        "mythicus_sn:winter.rose_top_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_top/rose_2"
+        },
+        "mythicus_sn:winter.rose_top_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/rose_top/rose_3"
+        },
+        "mythicus_sn:winter.short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/short_grass/short_grass_0"
+        },
+        "mythicus_sn:winter.short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/short_grass/short_grass_1"
+        },
+        "mythicus_sn:winter.short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/short_grass/short_grass_2"
+        },
+        "mythicus_sn:winter.short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/short_grass/short_grass_3"
+        },
+        "mythicus_sn:winter.very_short_grass_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/very_short_grass/very_short_grass_0"
+        },
+        "mythicus_sn:winter.very_short_grass_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/very_short_grass/very_short_grass_1"
+        },
+        "mythicus_sn:winter.very_short_grass_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/very_short_grass/very_short_grass_2"
+        },
+        "mythicus_sn:winter.very_short_grass_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/very_short_grass/very_short_grass_3"
+        },
+        "mythicus_sn:winter.shrub_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/shrub/shrub_0"
+        },
+        "mythicus_sn:winter.shrub_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/shrub/shrub_1"
+        },
+        "mythicus_sn:winter.shrub_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/shrub/shrub_2"
+        },
+        "mythicus_sn:winter.shrub_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/shrub/shrub_3"
+        },
+        "mythicus_sn:winter.tulips_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tulips/empty"
+        },
+        "mythicus_sn:winter.tulips_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tulips/empty"
+        },
+        "mythicus_sn:winter.tulips_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tulips/empty"
+        },
+        "mythicus_sn:winter.tulips_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/tulips/empty"
+        },
+        "mythicus_sn:winter.side_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_oak/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_birch_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_birch_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_birch_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_birch_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_birch/side_leaves_empty"
+        },
+        "mythicus_sn:winter.side_leaves_spruce_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_spruce/side_leaves_0"
+        },
+        "mythicus_sn:winter.side_leaves_spruce_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_spruce/side_leaves_1"
+        },
+        "mythicus_sn:winter.side_leaves_spruce_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_spruce/side_leaves_2"
+        },
+        "mythicus_sn:winter.side_leaves_spruce_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/side_leaves_spruce/side_leaves_3"
+        },
+        "mythicus_sn:winter.yellow_leaves_oak_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/yellow_leaves/yellow_leaves_0"
+        },
+        "mythicus_sn:winter.yellow_leaves_oak_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/yellow_leaves/yellow_leaves_1"
+        },
+        "mythicus_sn:winter.yellow_leaves_oak_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_oak/leaves_oak_2"
+        },
+        "mythicus_sn:winter.yellow_leaves_oak_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/leaves_oak/leaves_oak_3"
+        },
+        "mythicus_sn:winter.yellow_piles_of_leaves_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/yellow_piles/yellow_piles_0"
+        },
+        "mythicus_sn:winter.yellow_piles_of_leaves_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/yellow_piles/yellow_piles_1"
+        },
+        "mythicus_sn:winter.yellow_piles_of_leaves_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/piles_of_leaves/piles_of_leaves_2"
+        },
+        "mythicus_sn:winter.yellow_piles_of_leaves_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/piles_of_leaves/piles_of_leaves_3"
+        },
+        "mythicus_sn:spring.sweetberry_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_0"
+        },
+        "mythicus_sn:spring.sweetberry_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_1"
+        },
+        "mythicus_sn:spring.sweetberry_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_2"
+        },
+        "mythicus_sn:spring.sweetberry_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_3"
+        },
+        "mythicus_sn:spring.sweetberry_4": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_4"
+        },
+        "mythicus_sn:spring.sweetberry_5": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_5"
+        },
+        "mythicus_sn:spring.sweetberry_6": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_6"
+        },
+        "mythicus_sn:spring.sweetberry_7": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_7"
+        },
+        "mythicus_sn:spring.sweetberry_8": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_8"
+        },
+        "mythicus_sn:spring.sweetberry_9": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_9"
+        },
+        "mythicus_sn:spring.sweetberry_10": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_10"
+        },
+        "mythicus_sn:spring.sweetberry_11": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_11"
+        },
+        "mythicus_sn:spring.sweetberry_12": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_12"
+        },
+        "mythicus_sn:spring.sweetberry_13": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_13"
+        },
+        "mythicus_sn:spring.sweetberry_14": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_14"
+        },
+        "mythicus_sn:spring.sweetberry_15": {
+            "textures": "textures/mythicus/sn/blocks/foliage/spr/sweetberry_15"
+        },
+        "mythicus_sn:summer.sweetberry_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_0"
+        },
+        "mythicus_sn:summer.sweetberry_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_1"
+        },
+        "mythicus_sn:summer.sweetberry_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_2"
+        },
+        "mythicus_sn:summer.sweetberry_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_3"
+        },
+        "mythicus_sn:summer.sweetberry_4": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_4"
+        },
+        "mythicus_sn:summer.sweetberry_5": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_5"
+        },
+        "mythicus_sn:summer.sweetberry_6": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_6"
+        },
+        "mythicus_sn:summer.sweetberry_7": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_7"
+        },
+        "mythicus_sn:summer.sweetberry_8": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_8"
+        },
+        "mythicus_sn:summer.sweetberry_9": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_9"
+        },
+        "mythicus_sn:summer.sweetberry_10": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_10"
+        },
+        "mythicus_sn:summer.sweetberry_11": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_11"
+        },
+        "mythicus_sn:summer.sweetberry_12": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_12"
+        },
+        "mythicus_sn:summer.sweetberry_13": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_13"
+        },
+        "mythicus_sn:summer.sweetberry_14": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_14"
+        },
+        "mythicus_sn:summer.sweetberry_15": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sum/sweetberry_15"
+        },
+        "mythicus_sn:fall.sweetberry_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_0"
+        },
+        "mythicus_sn:fall.sweetberry_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_1"
+        },
+        "mythicus_sn:fall.sweetberry_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_2"
+        },
+        "mythicus_sn:fall.sweetberry_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_3"
+        },
+        "mythicus_sn:fall.sweetberry_4": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_4"
+        },
+        "mythicus_sn:fall.sweetberry_5": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_5"
+        },
+        "mythicus_sn:fall.sweetberry_6": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_6"
+        },
+        "mythicus_sn:fall.sweetberry_7": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_7"
+        },
+        "mythicus_sn:fall.sweetberry_8": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_8"
+        },
+        "mythicus_sn:fall.sweetberry_9": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_9"
+        },
+        "mythicus_sn:fall.sweetberry_10": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_10"
+        },
+        "mythicus_sn:fall.sweetberry_11": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_11"
+        },
+        "mythicus_sn:fall.sweetberry_12": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_12"
+        },
+        "mythicus_sn:fall.sweetberry_13": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_13"
+        },
+        "mythicus_sn:fall.sweetberry_14": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_14"
+        },
+        "mythicus_sn:fall.sweetberry_15": {
+            "textures": "textures/mythicus/sn/blocks/foliage/fall/sweetberry_15"
+        },
+        "mythicus_sn:winter.sweetberry_0": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_0"
+        },
+        "mythicus_sn:winter.sweetberry_1": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_1"
+        },
+        "mythicus_sn:winter.sweetberry_2": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_2"
+        },
+        "mythicus_sn:winter.sweetberry_3": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_3"
+        },
+        "mythicus_sn:winter.sweetberry_4": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_4"
+        },
+        "mythicus_sn:winter.sweetberry_5": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_5"
+        },
+        "mythicus_sn:winter.sweetberry_6": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_6"
+        },
+        "mythicus_sn:winter.sweetberry_7": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_7"
+        },
+        "mythicus_sn:winter.sweetberry_8": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_8"
+        },
+        "mythicus_sn:winter.sweetberry_9": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_9"
+        },
+        "mythicus_sn:winter.sweetberry_10": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_10"
+        },
+        "mythicus_sn:winter.sweetberry_11": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_11"
+        },
+        "mythicus_sn:winter.sweetberry_12": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_12"
+        },
+        "mythicus_sn:winter.sweetberry_13": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_13"
+        },
+        "mythicus_sn:winter.sweetberry_14": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_14"
+        },
+        "mythicus_sn:winter.sweetberry_15": {
+            "textures": "textures/mythicus/sn/blocks/foliage/win/sweetberry_15"
+        },
+        "mythicus_sn:beet_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/beet_crop_0"
+        },
+        "mythicus_sn:beet_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/beet_crop_1"
+        },
+        "mythicus_sn:beet_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/beet_crop_2"
+        },
+        "mythicus_sn:beet_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/beet_crop_3"
+        },
+        "mythicus_sn:beet_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/beet_crop_4"
+        },
+        "mythicus_sn:beet_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/beet_crop_dead"
+        },
+        "mythicus_sn:beet_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/stuck/beet_crop_stuck_0"
+        },
+        "mythicus_sn:beet_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/stuck/beet_crop_stuck_1"
+        },
+        "mythicus_sn:beet_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/stuck/beet_crop_stuck_2"
+        },
+        "mythicus_sn:beet_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/stuck/beet_crop_stuck_3"
+        },
+        "mythicus_sn:beet_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/beet/stuck/beet_crop_stuck_4"
+        },
+        "mythicus_sn:strawberry_bush_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/strawberry_bush_0"
+        },
+        "mythicus_sn:strawberry_bush_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/strawberry_bush_1"
+        },
+        "mythicus_sn:strawberry_bush_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/strawberry_bush_2"
+        },
+        "mythicus_sn:strawberry_bush_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/strawberry_bush_3"
+        },
+        "mythicus_sn:strawberry_bush_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/strawberry_bush_dead"
+        },
+        "mythicus_sn:strawberry_bush_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/stuck/strawberry_bush_stuck_0"
+        },
+        "mythicus_sn:strawberry_bush_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/stuck/strawberry_bush_stuck_1"
+        },
+        "mythicus_sn:strawberry_bush_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/stuck/strawberry_bush_stuck_2"
+        },
+        "mythicus_sn:strawberry_bush_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/strawberry/stuck/strawberry_bush_stuck_3"
+        },
+        "mythicus_sn:blueberry_bush_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/blueberry_bush_0"
+        },
+        "mythicus_sn:blueberry_bush_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/blueberry_bush_1"
+        },
+        "mythicus_sn:blueberry_bush_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/blueberry_bush_2"
+        },
+        "mythicus_sn:blueberry_bush_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/blueberry_bush_3"
+        },
+        "mythicus_sn:blueberry_bush_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/blueberry_bush_dead"
+        },
+        "mythicus_sn:blueberry_bush_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/stuck/blueberry_bush_stuck_0"
+        },
+        "mythicus_sn:blueberry_bush_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/stuck/blueberry_bush_stuck_1"
+        },
+        "mythicus_sn:blueberry_bush_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/stuck/blueberry_bush_stuck_2"
+        },
+        "mythicus_sn:blueberry_bush_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/blueberry/stuck/blueberry_bush_stuck_3"
+        },
+        "mythicus_sn:cranberry_bush_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/cranberry_bush_0"
+        },
+        "mythicus_sn:cranberry_bush_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/cranberry_bush_1"
+        },
+        "mythicus_sn:cranberry_bush_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/cranberry_bush_2"
+        },
+        "mythicus_sn:cranberry_bush_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/cranberry_bush_3"
+        },
+        "mythicus_sn:cranberry_bush_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/cranberry_bush_dead"
+        },
+        "mythicus_sn:cranberry_bush_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/stuck/cranberry_bush_stuck_0"
+        },
+        "mythicus_sn:cranberry_bush_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/stuck/cranberry_bush_stuck_1"
+        },
+        "mythicus_sn:cranberry_bush_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/stuck/cranberry_bush_stuck_2"
+        },
+        "mythicus_sn:cranberry_bush_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/cranberry/stuck/cranberry_bush_stuck_3"
+        },
+        "mythicus_sn:cauliflower_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_0"
+        },
+        "mythicus_sn:cauliflower_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_1"
+        },
+        "mythicus_sn:cauliflower_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_2"
+        },
+        "mythicus_sn:cauliflower_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_3"
+        },
+        "mythicus_sn:cauliflower_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_4"
+        },
+        "mythicus_sn:cauliflower_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_5"
+        },
+        "mythicus_sn:cauliflower_crop_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_6"
+        },
+        "mythicus_sn:cauliflower_crop_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_7"
+        },
+        "mythicus_sn:cauliflower_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/cauliflower_crop_dead"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_0"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_1"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_2"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_3"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_4"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_5"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_6"
+        },
+        "mythicus_sn:cauliflower_crop_stuck_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/cauliflower/stuck/cauliflower_crop_stuck_7"
+        },
+        "mythicus_sn:green_bean_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/green_bean_crop_0"
+        },
+        "mythicus_sn:green_bean_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/green_bean_crop_1"
+        },
+        "mythicus_sn:green_bean_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/green_bean_crop_2"
+        },
+        "mythicus_sn:green_bean_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/green_bean_crop_3"
+        },
+        "mythicus_sn:green_bean_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/green_bean_crop_4"
+        },
+        "mythicus_sn:green_bean_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/green_bean_crop_5"
+        },
+        "mythicus_sn:green_bean_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/green_bean_crop_dead"
+        },
+        "mythicus_sn:green_bean_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/stuck/green_bean_crop_stuck_0"
+        },
+        "mythicus_sn:green_bean_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/stuck/green_bean_crop_stuck_1"
+        },
+        "mythicus_sn:green_bean_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/stuck/green_bean_crop_stuck_2"
+        },
+        "mythicus_sn:green_bean_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/stuck/green_bean_crop_stuck_3"
+        },
+        "mythicus_sn:green_bean_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/stuck/green_bean_crop_stuck_4"
+        },
+        "mythicus_sn:green_bean_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/green_beans/stuck/green_bean_crop_stuck_5"
+        },
+        "mythicus_sn:garlic_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_0"
+        },
+        "mythicus_sn:garlic_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_1"
+        },
+        "mythicus_sn:garlic_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_2"
+        },
+        "mythicus_sn:garlic_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_3"
+        },
+        "mythicus_sn:garlic_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_4"
+        },
+        "mythicus_sn:garlic_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_5"
+        },
+        "mythicus_sn:garlic_crop_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_6"
+        },
+        "mythicus_sn:garlic_crop_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_7"
+        },
+        "mythicus_sn:garlic_crop_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_8"
+        },
+        "mythicus_sn:garlic_crop_9": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_9"
+        },
+        "mythicus_sn:garlic_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/garlic_crop_dead"
+        },
+        "mythicus_sn:garlic_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_0"
+        },
+        "mythicus_sn:garlic_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_1"
+        },
+        "mythicus_sn:garlic_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_2"
+        },
+        "mythicus_sn:garlic_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_3"
+        },
+        "mythicus_sn:garlic_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_4"
+        },
+        "mythicus_sn:garlic_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_5"
+        },
+        "mythicus_sn:garlic_crop_stuck_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_6"
+        },
+        "mythicus_sn:garlic_crop_stuck_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_7"
+        },
+        "mythicus_sn:garlic_crop_stuck_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_8"
+        },
+        "mythicus_sn:garlic_crop_stuck_9": {
+            "textures": "textures/mythicus/sn/blocks/crops/garlic/stuck/garlic_crop_stuck_9"
+        },
+        "mythicus_sn:broccoli_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_0"
+        },
+        "mythicus_sn:broccoli_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_1"
+        },
+        "mythicus_sn:broccoli_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_2"
+        },
+        "mythicus_sn:broccoli_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_3"
+        },
+        "mythicus_sn:broccoli_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_4"
+        },
+        "mythicus_sn:broccoli_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_5"
+        },
+        "mythicus_sn:broccoli_crop_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_6"
+        },
+        "mythicus_sn:broccoli_crop_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_7"
+        },
+        "mythicus_sn:broccoli_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/broccoli_crop_dead"
+        },
+        "mythicus_sn:broccoli_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_0"
+        },
+        "mythicus_sn:broccoli_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_1"
+        },
+        "mythicus_sn:broccoli_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_2"
+        },
+        "mythicus_sn:broccoli_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_3"
+        },
+        "mythicus_sn:broccoli_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_4"
+        },
+        "mythicus_sn:broccoli_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_5"
+        },
+        "mythicus_sn:broccoli_crop_stuck_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_6"
+        },
+        "mythicus_sn:broccoli_crop_stuck_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/broccoli/stuck/broccoli_crop_stuck_7"
+        },
+        "mythicus_sn:corn_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_0"
+        },
+        "mythicus_sn:corn_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_1"
+        },
+        "mythicus_sn:corn_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_2"
+        },
+        "mythicus_sn:corn_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_3"
+        },
+        "mythicus_sn:corn_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_4"
+        },
+        "mythicus_sn:corn_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_5"
+        },
+        "mythicus_sn:corn_crop_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_6"
+        },
+        "mythicus_sn:corn_crop_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_7"
+        },
+        "mythicus_sn:corn_crop_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_8"
+        },
+        "mythicus_sn:corn_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/corn_crop_dead"
+        },
+        "mythicus_sn:corn_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_0"
+        },
+        "mythicus_sn:corn_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_1"
+        },
+        "mythicus_sn:corn_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_2"
+        },
+        "mythicus_sn:corn_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_3"
+        },
+        "mythicus_sn:corn_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_4"
+        },
+        "mythicus_sn:corn_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_5"
+        },
+        "mythicus_sn:corn_crop_stuck_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_6"
+        },
+        "mythicus_sn:corn_crop_stuck_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_7"
+        },
+        "mythicus_sn:corn_crop_stuck_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/corn/stuck/corn_crop_stuck_8"
+        },
+        "mythicus_sn:hot_pepper_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_0"
+        },
+        "mythicus_sn:hot_pepper_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_1"
+        },
+        "mythicus_sn:hot_pepper_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_2"
+        },
+        "mythicus_sn:hot_pepper_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_3"
+        },
+        "mythicus_sn:hot_pepper_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_4"
+        },
+        "mythicus_sn:hot_pepper_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_5"
+        },
+        "mythicus_sn:hot_pepper_crop_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_6"
+        },
+        "mythicus_sn:hot_pepper_crop_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_7"
+        },
+        "mythicus_sn:hot_pepper_crop_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_8"
+        },
+        "mythicus_sn:hot_pepper_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/hot_pepper_crop_dead"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_0"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_1"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_2"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_3"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_4"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_5"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_6"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_7"
+        },
+        "mythicus_sn:hot_pepper_crop_stuck_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/hot_pepper/stuck/hot_pepper_crop_stuck_8"
+        },
+        "mythicus_sn:eggplant_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_0"
+        },
+        "mythicus_sn:eggplant_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_1"
+        },
+        "mythicus_sn:eggplant_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_2"
+        },
+        "mythicus_sn:eggplant_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_3"
+        },
+        "mythicus_sn:eggplant_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_4"
+        },
+        "mythicus_sn:eggplant_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_5"
+        },
+        "mythicus_sn:eggplant_crop_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_6"
+        },
+        "mythicus_sn:eggplant_crop_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_7"
+        },
+        "mythicus_sn:eggplant_crop_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_8"
+        },
+        "mythicus_sn:eggplant_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/eggplant_crop_dead"
+        },
+        "mythicus_sn:eggplant_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_0"
+        },
+        "mythicus_sn:eggplant_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_1"
+        },
+        "mythicus_sn:eggplant_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_2"
+        },
+        "mythicus_sn:eggplant_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_3"
+        },
+        "mythicus_sn:eggplant_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_4"
+        },
+        "mythicus_sn:eggplant_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_5"
+        },
+        "mythicus_sn:eggplant_crop_stuck_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_6"
+        },
+        "mythicus_sn:eggplant_crop_stuck_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_7"
+        },
+        "mythicus_sn:eggplant_crop_stuck_8": {
+            "textures": "textures/mythicus/sn/blocks/crops/eggplant/stuck/eggplant_crop_stuck_8"
+        },
+        "mythicus_sn:tomatoes_crop_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_0"
+        },
+        "mythicus_sn:tomatoes_crop_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_1"
+        },
+        "mythicus_sn:tomatoes_crop_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_2"
+        },
+        "mythicus_sn:tomatoes_crop_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_3"
+        },
+        "mythicus_sn:tomatoes_crop_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_4"
+        },
+        "mythicus_sn:tomatoes_crop_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_5"
+        },
+        "mythicus_sn:tomatoes_crop_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_6"
+        },
+        "mythicus_sn:tomatoes_crop_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_7"
+        },
+        "mythicus_sn:tomatoes_crop_dead": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/tomatoes_crop_dead"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_0": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_0"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_1": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_1"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_2": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_2"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_3": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_3"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_4": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_4"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_5": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_5"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_6": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_6"
+        },
+        "mythicus_sn:tomatoes_crop_stuck_7": {
+            "textures": "textures/mythicus/sn/blocks/crops/tomatoes/stuck/tomatoes_crop_stuck_7"
+        },
+        "mythicus_sn:preserves_jar_empty": {
+            "textures": "textures/mythicus/sn/blocks/utility/preserves_jar/preserves_jar_empty"
+        },
+        "mythicus_sn:preserves_jar_0": {
+            "textures": "textures/mythicus/sn/blocks/utility/preserves_jar/preserves_jar_0"
+        },
+        "mythicus_sn:preserves_jar_1": {
+            "textures": "textures/mythicus/sn/blocks/utility/preserves_jar/preserves_jar_1"
+        },
+        "mythicus_sn:preserves_jar_2": {
+            "textures": "textures/mythicus/sn/blocks/utility/preserves_jar/preserves_jar_2"
+        },
+        "mythicus_sn:preserves_jar_3": {
+            "textures": "textures/mythicus/sn/blocks/utility/preserves_jar/preserves_jar_3"
+        },
+        "mythicus_sn:preserves_jar_4": {
+            "textures": "textures/mythicus/sn/blocks/utility/preserves_jar/preserves_jar_4"
+        },
+        "mythicus_sn:dehydrator_0": {
+            "textures": "textures/mythicus/sn/blocks/utility/dehydrator/dehydrator_0"
+        },
+        "mythicus_sn:dehydrator_1": {
+            "textures": "textures/mythicus/sn/blocks/utility/dehydrator/dehydrator_1"
+        },
+        "mythicus_sn:dehydrator_2": {
+            "textures": "textures/mythicus/sn/blocks/utility/dehydrator/dehydrator_2"
+        },
+        "mythicus_sn:keg_0": {
+            "textures": "textures/mythicus/sn/blocks/utility/keg/keg_0"
+        },
+        "mythicus_sn:keg_1": {
+            "textures": "textures/mythicus/sn/blocks/utility/keg/keg_1"
+        },
+        "mythicus_sn:keg_2": {
+            "textures": "textures/mythicus/sn/blocks/utility/keg/keg_2"
+        },
+        "mythicus_sn:keg_3": {
+            "textures": "textures/mythicus/sn/blocks/utility/keg/keg_3"
+        },
+        "mythicus_sn:keg_4": {
+            "textures": "textures/mythicus/sn/blocks/utility/keg/keg_4"
+        },
+        "mythicus_sn:keg_5": {
+            "textures": "textures/mythicus/sn/blocks/utility/keg/keg_5"
+        },
+        "mythicus_sn:mortar_pestle_0": {
+            "textures": "textures/mythicus/sn/blocks/utility/mortar_and_pestle/mortar_pestle_0"
+        },
+        "mythicus_sn:mortar_pestle_1": {
+            "textures": "textures/mythicus/sn/blocks/utility/mortar_and_pestle/mortar_pestle_1"
+        },
+        "mythicus_sn:loom_0": {
+            "textures": "textures/mythicus/sn/blocks/utility/loom/loom_0"
+        },
+        "mythicus_sn:loom_1": {
+            "textures": "textures/mythicus/sn/blocks/utility/loom/loom_1"
+        },
+        "mythicus_sn:cheese_press_0": {
+            "textures": "textures/mythicus/sn/blocks/utility/cheese_press/cheese_press_0"
+        },
+        "mythicus_sn:cheese_press_1": {
+            "textures": "textures/mythicus/sn/blocks/utility/cheese_press/cheese_press_1"
+        },
+        "mythicus_sn:mayonnaise_machine_0": {
+            "textures": "textures/mythicus/sn/blocks/utility/mayonnaise_machine/mayonnaise_machine_0"
+        },
+        "mythicus_sn:mayonnaise_machine_1": {
+            "textures": "textures/mythicus/sn/blocks/utility/mayonnaise_machine/mayonnaise_machine_1"
+        },
+        "mythicus_sn:mayonnaise_machine_2": {
+            "textures": "textures/mythicus/sn/blocks/utility/mayonnaise_machine/mayonnaise_machine_2"
+        },
+        "mythicus_sn:sapling_oak": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_oak"
+        },
+        "mythicus_sn:sapling_spruce": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_spruce"
+        },
+        "mythicus_sn:sapling_birch": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_birch"
+        },
+        "mythicus_sn:sapling_cherry": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_cherry"
+        },
+        "mythicus_sn:sapling_dark_oak": {
+            "textures": "textures/mythicus/sn/blocks/foliage/sapling_dark_oak"
+        },
+        "mythicus_sn:spring.custom_ground_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground/0"
+        },
+        "mythicus_sn:spring.custom_ground_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground/1"
+        },
+        "mythicus_sn:spring.custom_ground_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground/2"
+        },
+        "mythicus_sn:spring.custom_ground_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground/3"
+        },
+        "mythicus_sn:summer.custom_ground_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground/0"
+        },
+        "mythicus_sn:summer.custom_ground_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground/1"
+        },
+        "mythicus_sn:summer.custom_ground_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground/2"
+        },
+        "mythicus_sn:summer.custom_ground_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground/3"
+        },
+        "mythicus_sn:fall.custom_ground_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground/0"
+        },
+        "mythicus_sn:fall.custom_ground_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground/1"
+        },
+        "mythicus_sn:fall.custom_ground_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground/2"
+        },
+        "mythicus_sn:fall.custom_ground_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground/3"
+        },
+        "mythicus_sn:winter.custom_ground_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground/0"
+        },
+        "mythicus_sn:winter.custom_ground_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground/1"
+        },
+        "mythicus_sn:winter.custom_ground_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground/2"
+        },
+        "mythicus_sn:winter.custom_ground_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground/3"
+        },
+        "mythicus_sn:spring.custom_ground_side_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground_side/0"
+        },
+        "mythicus_sn:spring.custom_ground_side_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground_side/1"
+        },
+        "mythicus_sn:spring.custom_ground_side_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground_side/2"
+        },
+        "mythicus_sn:spring.custom_ground_side_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/spr/ground_side/3"
+        },
+        "mythicus_sn:summer.custom_ground_side_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground_side/0"
+        },
+        "mythicus_sn:summer.custom_ground_side_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground_side/1"
+        },
+        "mythicus_sn:summer.custom_ground_side_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground_side/2"
+        },
+        "mythicus_sn:summer.custom_ground_side_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/sum/ground_side/3"
+        },
+        "mythicus_sn:fall.custom_ground_side_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground_side/0"
+        },
+        "mythicus_sn:fall.custom_ground_side_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground_side/1"
+        },
+        "mythicus_sn:fall.custom_ground_side_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground_side/2"
+        },
+        "mythicus_sn:fall.custom_ground_side_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/fall/ground_side/3"
+        },
+        "mythicus_sn:winter.custom_ground_side_block_0": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground_side/0"
+        },
+        "mythicus_sn:winter.custom_ground_side_block_1": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground_side/1"
+        },
+        "mythicus_sn:winter.custom_ground_side_block_2": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground_side/2"
+        },
+        "mythicus_sn:winter.custom_ground_side_block_3": {
+            "textures": "textures/mythicus/sn/blocks/ground/win/ground_side/3"
+        },
+        "mythicus_sn:spring.custom_ground_puddle_0": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/1_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/1_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/1_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/1_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:spring.custom_ground_puddle_1": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/2_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/2_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/2_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/2_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:spring.custom_ground_puddle_2": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/3_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/3_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/3_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/3_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:spring.custom_ground_puddle_3": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/4_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/4_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/4_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/spr/puddle/4_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:fall.custom_ground_leaves_0": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/1_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/1_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/1_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/1_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:fall.custom_ground_leaves_1": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/2_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/2_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/2_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/2_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:fall.custom_ground_leaves_2": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/3_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/3_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/3_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/3_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:fall.custom_ground_leaves_3": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/4_a",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/4_b",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/4_c",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/ground/fall/maple_leaves/4_d",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "mythicus_sn:custom_ground_bottom": {
+            "textures": "textures/mythicus/sn/blocks/ground/bottom"
+        },
+        "mythicus_sn:icicle": {
+            "textures": {
+                "variations": [
+                    {
+                        "path": "textures/mythicus/sn/blocks/winter/icicle_0",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/winter/icicle_1",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/winter/icicle_2",
+                        "weight": 10
+                    },
+                    {
+                        "path": "textures/mythicus/sn/blocks/winter/icicle_3",
+                        "weight": 10
+                    }
+                ]
+            }
+        },
+        "vendor_block": {
+            "textures": "textures/mythicus/sn/blocks/vendor_block"
+        },
+        "mythicus_sn:thermometer_block": {
+            "textures": "textures/mythicus/sn/blocks/thermometer_block"
+        },
+        "mythicus_sn:chicken_nest_0": {
+            "textures": "textures/mythicus/sn/blocks/chicken_nest/chicken_nest_0"
+        },
+        "mythicus_sn:chicken_nest_1": {
+            "textures": "textures/mythicus/sn/blocks/chicken_nest/chicken_nest_1"
+        },
+        "mythicus_sn:chicken_nest_2": {
+            "textures": "textures/mythicus/sn/blocks/chicken_nest/chicken_nest_2"
+        },
+        "mythicus_sn:chicken_nest_3": {
+            "textures": "textures/mythicus/sn/blocks/chicken_nest/chicken_nest_3"
+        },
+        "mythicus_sn:chicken_nest_4": {
+            "textures": "textures/mythicus/sn/blocks/chicken_nest/chicken_nest_4"
+        },
+        "mythicus_sn:thermometer_burning": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_burning"
+        },
+        "mythicus_sn:thermometer_hot": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_hot"
+        },
+        "mythicus_sn:thermometer_warm": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_warm"
+        },
+        "mythicus_sn:thermometer_temperate": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_temperate"
+        },
+        "mythicus_sn:thermometer_cool": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_cool"
+        },
+        "mythicus_sn:thermometer_cold": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_cold"
+        },
+        "mythicus_sn:thermometer_freezing": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_freezing"
+        },
+        "mythicus_sn:thermometer_invalid": {
+            "textures": "textures/mythicus/sn/blocks/thermometer/thermometer_invalid"
+        },
+        "mythicus_sn:spring.big_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/big_pot/1"
+        },
+        "mythicus_sn:summer.big_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/big_pot/2"
+        },
+        "mythicus_sn:fall.big_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/big_pot/3"
+        },
+        "mythicus_sn:winter.big_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/big_pot/4"
+        },
+        "mythicus_sn:spring.house_bush": {
+            "textures": "textures/mythicus/sn/blocks/village/house_bush/1"
+        },
+        "mythicus_sn:summer.house_bush": {
+            "textures": "textures/mythicus/sn/blocks/village/house_bush/2"
+        },
+        "mythicus_sn:fall.house_bush": {
+            "textures": "textures/mythicus/sn/blocks/village/house_bush/3"
+        },
+        "mythicus_sn:winter.house_bush": {
+            "textures": "textures/mythicus/sn/blocks/village/house_bush/4"
+        },
+        "mythicus_sn:spring.crate": {
+            "textures": "textures/mythicus/sn/blocks/village/crate/1"
+        },
+        "mythicus_sn:summer.crate": {
+            "textures": "textures/mythicus/sn/blocks/village/crate/2"
+        },
+        "mythicus_sn:fall.crate": {
+            "textures": "textures/mythicus/sn/blocks/village/crate/3"
+        },
+        "mythicus_sn:winter.crate": {
+            "textures": "textures/mythicus/sn/blocks/village/crate/4"
+        },
+        "mythicus_sn:spring.fire_wood": {
+            "textures": "textures/mythicus/sn/blocks/village/fire_wood/1"
+        },
+        "mythicus_sn:summer.fire_wood": {
+            "textures": "textures/mythicus/sn/blocks/village/fire_wood/2"
+        },
+        "mythicus_sn:fall.fire_wood": {
+            "textures": "textures/mythicus/sn/blocks/village/fire_wood/3"
+        },
+        "mythicus_sn:winter.fire_wood": {
+            "textures": "textures/mythicus/sn/blocks/village/fire_wood/4"
+        },
+        "mythicus_sn:spring.flower_box": {
+            "textures": "textures/mythicus/sn/blocks/village/flower_box/1"
+        },
+        "mythicus_sn:summer.flower_box": {
+            "textures": "textures/mythicus/sn/blocks/village/flower_box/2"
+        },
+        "mythicus_sn:fall.flower_box": {
+            "textures": "textures/mythicus/sn/blocks/village/flower_box/3"
+        },
+        "mythicus_sn:winter.flower_box": {
+            "textures": "textures/mythicus/sn/blocks/village/flower_box/4"
+        },
+        "mythicus_sn:spring.hanging_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/hanging_pot/1"
+        },
+        "mythicus_sn:summer.hanging_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/hanging_pot/2"
+        },
+        "mythicus_sn:fall.hanging_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/hanging_pot/3"
+        },
+        "mythicus_sn:winter.hanging_pot": {
+            "textures": "textures/mythicus/sn/blocks/village/hanging_pot/4"
+        },
+        "mythicus_sn:spring.pole": {
+            "textures": "textures/mythicus/sn/blocks/village/pole/1"
+        },
+        "mythicus_sn:summer.pole": {
+            "textures": "textures/mythicus/sn/blocks/village/pole/2"
+        },
+        "mythicus_sn:fall.pole": {
+            "textures": "textures/mythicus/sn/blocks/village/pole/3"
+        },
+        "mythicus_sn:winter.pole": {
+            "textures": "textures/mythicus/sn/blocks/village/pole/4"
+        },
+        "mythicus_sn:spring.seasonal_barrel": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_barrel/1"
+        },
+        "mythicus_sn:summer.seasonal_barrel": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_barrel/2"
+        },
+        "mythicus_sn:fall.seasonal_barrel": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_barrel/3"
+        },
+        "mythicus_sn:winter.seasonal_barrel": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_barrel/4"
+        },
+        "mythicus_sn:spring.seasonal_decoration": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_decoration/1"
+        },
+        "mythicus_sn:summer.seasonal_decoration": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_decoration/2"
+        },
+        "mythicus_sn:fall.seasonal_decoration": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_decoration/3"
+        },
+        "mythicus_sn:winter.seasonal_decoration": {
+            "textures": "textures/mythicus/sn/blocks/village/seasonal_decoration/4"
+        },
+        "mythicus_sn:spring.tool_rack": {
+            "textures": "textures/mythicus/sn/blocks/village/tool_rack/1"
+        },
+        "mythicus_sn:summer.tool_rack": {
+            "textures": "textures/mythicus/sn/blocks/village/tool_rack/2"
+        },
+        "mythicus_sn:fall.tool_rack": {
+            "textures": "textures/mythicus/sn/blocks/village/tool_rack/3"
+        },
+        "mythicus_sn:winter.tool_rack": {
+            "textures": "textures/mythicus/sn/blocks/village/tool_rack/4"
+        },
+        "mythicus_sn:spring.vegetable_basket": {
+            "textures": "textures/mythicus/sn/blocks/village/vegetable_basket/1"
+        },
+        "mythicus_sn:summer.vegetable_basket": {
+            "textures": "textures/mythicus/sn/blocks/village/vegetable_basket/2"
+        },
+        "mythicus_sn:fall.vegetable_basket": {
+            "textures": "textures/mythicus/sn/blocks/village/vegetable_basket/3"
+        },
+        "mythicus_sn:winter.vegetable_basket": {
+            "textures": "textures/mythicus/sn/blocks/village/vegetable_basket/4"
+        },
+        "mythicus_sn:spring.house_vines": {
+            "textures": "textures/mythicus/sn/blocks/village/house_vines/1"
+        },
+        "mythicus_sn:summer.house_vines": {
+            "textures": "textures/mythicus/sn/blocks/village/house_vines/2"
+        },
+        "mythicus_sn:fall.house_vines": {
+            "textures": "textures/mythicus/sn/blocks/village/house_vines/3"
+        },
+        "mythicus_sn:winter.house_vines": {
+            "textures": "textures/mythicus/sn/blocks/village/house_vines/4"
+        },
+        "mythicus_sn:spring.window_cloth": {
+            "textures": "textures/mythicus/sn/blocks/village/window_cloth/1"
+        },
+        "mythicus_sn:summer.window_cloth": {
+            "textures": "textures/mythicus/sn/blocks/village/window_cloth/2"
+        },
+        "mythicus_sn:fall.window_cloth": {
+            "textures": "textures/mythicus/sn/blocks/village/window_cloth/3"
+        },
+        "mythicus_sn:winter.window_cloth": {
+            "textures": "textures/mythicus/sn/blocks/village/window_cloth/4"
+        },
+        "mythicus_sn:bee_nest": {
+            "textures": "textures/mythicus/sn/blocks/empty"
+        }
+    }
+}

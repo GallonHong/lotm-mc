@@ -1,0 +1,238 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.seasons_pig.growth": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "plump_spring.transition": "q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "plump_summer.transition": "q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "plump_fall.transition": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "plump_spring.transition": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "plump_spring.transition"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "plump_fall.transition": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'winter'"
+                        },
+                        {
+                            "plump_summer.transition": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "plump_summer.state": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'summer'"
+                        }
+                    ]
+                },
+                "plump_summer.state": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "plump_summer.state"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "plump_summer.transition": "q.property('mythicus_sn:season_variant') == 'fall' || q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "plump_summer.transition": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "plump_summer.transition"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "plump_fall.transition": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'winter'"
+                        },
+                        {
+                            "plump_spring.transition": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "plump_fall.state": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'fall'"
+                        }
+                    ]
+                },
+                "plump_fall.state": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "plump_fall.state"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "plump_fall.transition": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        },
+                        {
+                            "plump_spring.transition": "q.property('mythicus_sn:season_variant') == 'summer'"
+                        }
+                    ]
+                },
+                "plump_fall.transition": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "plump_fall.transition"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "plump_spring.transition": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "plump_winter.state": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'winter'"
+                        },
+                        {
+                            "plump_fall.state": "query.any_animation_finished && q.property('mythicus_sn:season_variant') == 'fall'"
+                        }
+                    ]
+                },
+                "plump_winter.state": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "plump_winter.state"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.property('mythicus_sn:season_variant') == 'spring'"
+                        },
+                        {
+                            "plump_spring.transition": "q.property('mythicus_sn:season_variant') == 'summer'"
+                        },
+                        {
+                            "plump_fall.state": "q.property('mythicus_sn:season_variant') == 'fall'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_pig.dig": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "digging": "q.is_digging"
+                        }
+                    ]
+                },
+                "digging": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "dig"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_digging"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_pig.wallow": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "wallow_start": "q.property('mythicus_sn:is_wallowing')"
+                        }
+                    ]
+                },
+                "wallow_start": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "wallow"
+                    ],
+                    "transitions": [
+                        {
+                            "wallow_idle": "query.any_animation_finished && q.property('mythicus_sn:is_wallowing')"
+                        },
+                        {
+                            "default": "!q.property('mythicus_sn:is_wallowing')"
+                        }
+                    ]
+                },
+                "wallow_idle": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "wallow_idle"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_wallowing')"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_pig.shake": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "transitions": [
+                        {
+                            "shaking": "q.property('mythicus_sn:is_shaking')"
+                        }
+                    ]
+                },
+                "shaking": {
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true,
+                    "animations": [
+                        "shake",
+                        {
+                            "leaf_shake": "q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "snow_shake": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_shaking') && q.all_animations_finished"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

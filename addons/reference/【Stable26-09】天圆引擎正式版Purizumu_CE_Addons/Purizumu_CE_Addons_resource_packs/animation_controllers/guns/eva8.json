@@ -1,0 +1,249 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.eva8_gun": {
+            "initial_state": "pre_takeout",
+            "states": {
+                "pre_takeout": {
+                    "transitions": [
+                        {
+                            "takeout": "variable.eva8"
+                        }
+                    ]
+                },
+                "takeout": {
+                    "animations": [
+                        "eva8_takeout"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "scope": "q.is_sneaking"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "default": {
+                    "animations": [
+                        "eva8_first_person"
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "q.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope": "q.is_sneaking && q.is_alive"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1 && q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'eva8_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'eva8_empty2'"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "eva8_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "q.all_animations_finished"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        "eva8_first_person_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "((!q.is_on_ground || !q.is_sprinting) && !q.is_using_item) || !variable.eva8 || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'eva8_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'eva8_empty2'"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "eva8_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "scope": {
+                    "animations": [
+                        "eva8_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_sneaking || !variable.eva8 || !q.is_alive"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "scopehold": "q.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'eva8_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'eva8_empty2'"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "scopehold": {
+                    "animations": [
+                        "eva8_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold_to_default": "!q.is_sneaking"
+                        },
+                        {
+                            "default": "!variable.eva8 || !q.is_alive"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'eva8_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'eva8_empty2'"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "scopehold_to_default": {
+                    "animations": [
+                        "eva8_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "fire": {
+                    "animations": [
+                        "eva8_first_person_fire"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.eva8 || q.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'eva8_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'eva8_empty2'"
+                        },
+                        {
+                            "scope": "q.is_sneaking"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "eva8_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "scopehold": "q.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'eva8_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'eva8_empty2'"
+                        },
+                        {
+                            "scopehold_to_default": "!q.is_sneaking"
+                        },
+                        {
+                            "pre_takeout": "!variable.eva8"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        {
+                            "eva8_first_person_mag": "variable.eva8"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || (q.get_equipped_item_name == 'eva8' && q.all_animations_finished)"
+                        }
+                    ]
+                },
+                "not_total_mag": {
+                    "animations": [
+                        {
+                            "eva8_first_person_not_total_mag": "variable.eva8"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || (q.get_equipped_item_name == 'eva8' && q.all_animations_finished)"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

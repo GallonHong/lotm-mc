@@ -1,0 +1,28 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.ewo_projectile_gun_taser.first_person_hold": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [90, 56, -32],
+					"position": [9, 18, 5]
+				},
+				"bone": {
+					"rotation": [8.12118, -10.13365, -13.04481],
+					"position": [5, 11, 18]
+				}
+			}
+		},
+		"animation.ewo_projectile_gun_taser.third_person_hold": {
+			"loop": true,
+			"bones": {
+				"root_item": {
+					"rotation": [87.5, 0, 0],
+					"position": [0.5, 23, -0.5],
+					"scale": 0.85
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,48 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_dice",
+      "textures": {
+        "default": "textures/entity/jmgs_entity_dice",
+        "variant_2": "textures/entity/jmgs_entity_dice_2",
+        "variant_3": "textures/entity/jmgs_entity_dice_3",
+        "variant_4": "textures/entity/jmgs_entity_dice_4",
+        "variant_5": "textures/entity/jmgs_entity_dice_5",
+        "variant_6": "textures/entity/jmgs_entity_dice_6"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_entity_dice"
+      },
+      "render_controllers": [
+        "controller.render.jmgs_entity_dice"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:entity_dice",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.jmgs_block_chest.idle",
+        "open": "animation.jmgs_block_chest.open",
+        "spawn": "animation.jmgs_block_chest.spawn"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          "spawn",
+          {"open": "!query.is_alive"}
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

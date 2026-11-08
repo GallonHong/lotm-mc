@@ -1,0 +1,21 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:aggregate_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/spruce/leaf_pile_aggregate"
+        },
+
+        "early_out": "first_failure",
+
+        "features": [
+            "mythicus_sn:mythicus/sn/spruce/leaf_pile_test_1",
+            "mythicus_sn:mythicus/sn/spruce/air_offset_1",
+            "mythicus_sn:mythicus/sn/spruce/leaf_pile_test_2_offset",
+            "mythicus_sn:mythicus/sn/spruce/air_offset_2",
+            "mythicus_sn:mythicus/sn/spruce/leaf_pile_place_offset",
+            "mythicus_sn:mythicus/sn/spruce/leaf_pile_test_3_offset",
+            "mythicus_sn:mythicus/sn/spruce/air_offset_3",
+            "mythicus_sn:mythicus/sn/spruce/leaf_pile_place_2_offset"
+        ]
+    }
+}

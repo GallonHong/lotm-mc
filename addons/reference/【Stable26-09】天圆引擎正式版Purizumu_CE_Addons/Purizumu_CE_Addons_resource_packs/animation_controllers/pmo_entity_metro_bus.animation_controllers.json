@@ -1,0 +1,46 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.pmo_entity_metro_bus.main": {
+			"states": {
+				"default": {
+					"animations": ["spawn"],
+					"transitions": [
+						{"ease": "query.has_rider == 1"}
+					]
+				},
+				"standby": {
+					"animations": ["open"],
+					"transitions": [
+						{"ease": "query.has_rider == 1"}
+					],
+					"blend_transition": 1
+				},
+				"ease": {
+					"sound_effects": [
+						{"effect": "car_start"}
+					],
+					"transitions": [
+						{"idle": "query.has_rider == 1"}
+					]
+				},
+				"idle": {
+					"animations": ["open"],
+					"transitions": [
+						{"walk": "query.ground_speed > 1.0"},
+						{"standby": "query.has_rider == 0"}
+					],
+					"blend_transition": 1
+				},
+				"walk": {
+					"animations": ["walk"],
+					"transitions": [
+						{"idle": "query.ground_speed == 0"},
+						{"standby": "query.has_rider == 0"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

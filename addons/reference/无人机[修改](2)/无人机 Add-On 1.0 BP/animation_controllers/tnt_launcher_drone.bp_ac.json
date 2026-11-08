@@ -1,0 +1,43 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.tnt_launcher_drone.shoot": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"prepare": "q.is_charged"
+						},
+						{
+							"shoot": "q.property('makercamp_dr:is_shooting')"
+						}
+					]
+				},
+				"prepare": {
+					"transitions": [
+						{
+							"shoot": "!q.is_charged"
+						}
+					]
+				},
+				"shoot": {
+					"on_entry": [
+						"v.cooldown = q.life_time + 0.63;"
+					],
+					"transitions": [
+						{
+							"refill": "v.cooldown < q.life_time"
+						}
+					]
+				},
+				"refill": {
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

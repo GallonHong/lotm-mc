@@ -1,0 +1,41 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.jmgs_npc_new.npc": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"animations": ["standby",{"attack": "query.has_target"}],
+					"transitions": [
+						{"walking": "q.ground_speed > 0.2"},
+						{"run": "q.ground_speed > 2"}
+					],
+					"blend_transition": 0.4
+				},
+				"walking": {
+					"animations": [
+						"standby",
+						{"walk": "query.is_on_ground == 1"},
+						{"swim_stand": "query.is_in_water == 1"}
+					],
+					"transitions": [
+						{"idle": "q.ground_speed < 0.2"},
+						{"run": "q.ground_speed > 2"}
+					],
+					"blend_transition": 0.4
+				},
+				"run": {
+					"animations": [
+						"standby",
+						{"run": "query.is_on_ground == 1"},
+						{"swim": "query.is_in_water == 1"}
+					],
+					"transitions": [
+						{"walking": "q.ground_speed < 1.2"}
+					],
+					"blend_transition": 0.3
+				}
+			}
+		}
+	}
+}

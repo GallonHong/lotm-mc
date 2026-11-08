@@ -1,0 +1,87 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:geometry": [
+        {
+            "description": {
+                "identifier": "geometry.mythicus_sn.seasons_queen_bee",
+                "texture_width": 64,
+                "texture_height": 64,
+                "visible_bounds_width": 3,
+                "visible_bounds_height": 2.5,
+                "visible_bounds_offset": [0, 0.75, 0]
+            },
+            "bones": [
+                {
+                    "name": "body",
+                    "pivot": [0, 5, 0]
+                },
+                {
+                    "name": "rotate",
+                    "parent": "body",
+                    "pivot": [0, 5, 2],
+                    "cubes": [
+                        { "origin": [-4, 1, 1], "size": [8, 9, 8], "uv": [4, 36] },
+                        { "origin": [-3.5, 2, -5], "size": [7, 7, 6], "uv": [4, 4] },
+                        { "origin": [-1.5, 9, -5], "size": [3, 3, 3], "uv": [42, 11] },
+                        { "origin": [1.5, 7, -8], "size": [1, 2, 3], "uv": [2, 0] },
+                        { "origin": [-2.5, 7, -8], "size": [1, 2, 3], "uv": [2, 3] }
+                    ],
+                    "locators": {
+                        "lead": [-0.5, 4, -1],
+                        "lead_hold": [-0.5, 29, 0]
+                    }
+                },
+                {
+                    "name": "stinger",
+                    "parent": "rotate",
+                    "pivot": [0, 6, 5],
+                    "cubes": [
+                        { "origin": [0, 5, 9], "size": [0, 1, 2], "uv": [26, 7] }
+                    ]
+                },
+                {
+                    "name": "wing_right",
+                    "parent": "rotate",
+                    "pivot": [-1.5, 9, -3],
+                    "rotation": [15, -15, 0],
+                    "cubes": [
+                        { "origin": [-10.5, 9, -3], "size": [9, 0, 6], "uv": [0, 18] }
+                    ]
+                },
+                {
+                    "name": "wing_left",
+                    "parent": "rotate",
+                    "pivot": [1.5, 9, -3],
+                    "rotation": [15, 15, 0],
+                    "cubes": [
+                        { "origin": [1.5, 9, -3], "size": [9, 0, 6], "uv": [9, 24] }
+                    ]
+                },
+                {
+                    "name": "leg_front",
+                    "parent": "rotate",
+                    "pivot": [1.5, 2, -3],
+                    "cubes": [
+                        { "origin": [-3.5, 0, -3], "size": [7, 2, 0], "uv": [26, 1] }
+                    ]
+                },
+                {
+                    "name": "leg_mid",
+                    "parent": "rotate",
+                    "pivot": [1.5, 2, -2],
+                    "cubes": [
+                        { "origin": [-3.5, 0, -2], "size": [7, 2, 0], "uv": [26, 3] }
+                    ]
+                },
+                {
+                    "name": "leg_back",
+                    "parent": "rotate",
+                    "pivot": [1.5, 2, 0],
+                    "cubes": [
+                        { "origin": [-3.5, 0, 0], "size": [7, 2, 0], "uv": [26, 5] }
+                    ]
+                }
+            ]
+        }
+    ]
+}

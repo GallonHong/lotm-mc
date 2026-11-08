@@ -1,0 +1,16 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.gunaim_eva8": {
+			"textures": [
+				"Texture.gunaim"
+			],
+			"geometry": "Geometry.gunaim_eva8",
+			"materials": [
+				{
+					"*": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

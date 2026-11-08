@@ -1,0 +1,24 @@
+{
+    "format_version": "1.20.10",
+    "minecraft:recipe_shapeless": {
+        "description": {
+            "identifier": "pb_dmgi:training_dummy"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "ingredients": [
+            {
+                "item": "minecraft:armor_stand"
+            }
+        ],
+        "unlock": [
+            {
+                "item": "pb_dmgi:guidebook"
+            }
+        ],
+        "result": {
+            "item": "pb_dmgi:training_dummy_spawn_egg"
+        }
+    }
+}

@@ -1,0 +1,25 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_6119f734"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AA",
+      " AA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:leather",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth",
+      "count": 2
+    }
+  }
+}

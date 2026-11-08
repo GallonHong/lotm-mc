@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_wasp1_0f1bb342"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:golden_leggings",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_zinc",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:gold_block",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_film",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_wasp1",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,9360 @@
+{
+  "eva8_mag_out": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/eva8/mag_out",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "eva8_mag_in": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/eva8/mag_in",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "eva8_pump": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/eva8/pump",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "eva8_deploy": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/eva8/deploy",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "eva8_fire": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/pmo_projectile_a1_shot",
+        "stream": false,
+        "volume": 0.5,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是eva8的音效"
+      }
+    ]
+  },
+  "smart_pistol_deploy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/smart_pistol/smart_pistol_deploy",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "smart_pistol_fire": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/smart_pistol/smart_pistol_fire",
+        "stream": false,
+        "volume": 0.5
+      }
+    ]
+  },
+  "smart_pistol_fire0": {
+    "category": "neutral",
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/smart_pistol/smart_pistol_fire",
+        "stream": false,
+        "volume": 0.5
+      }
+    ]
+  },
+  "smart_pistol_mag_in": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/smart_pistol/mag_in",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "smart_pistol_mag_out": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/smart_pistol/mag_out",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "smart_pistol_mag_locked": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/smart_pistol/mag_locked",
+        "stream": true,
+        "volume": 0.3,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是smart轻剑的音效"
+      }
+    ]
+  },
+  "rifle_mag_in": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/rifle/mag_in",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "rifle_mag_out": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/rifle/mag_out",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "rifle_slide_back": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/rifle/slide_back",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "rifle_slide_forward": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/rifle/slide_forward",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "wimman_slideforward": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/wimman/slideforward",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "wimman_slideback": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/wimman/slideback",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "wimman_mag_in": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/wimman/mag_in",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "wimman_mag_out": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/wimman/mag_out",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "wimman_mag_locked": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/wimman/mag_locked",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "wimman_deploy": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/wimman/wimman_deploy",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "wimman_fire": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/ewo_projectile_gun_taser_shot",
+        "stream": false,
+        "volume": 0.5,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是wimman的音效"
+      }
+    ]
+  },
+  "alter_deploy": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/alter/alter_deploy",
+        "stream": true,
+        "volume": 0.4
+      }
+    ]
+  },
+  "alter_fire": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/ewo_projectile_gun_electric_shot",
+        "stream": false,
+        "volume": 0.5
+      }
+    ]
+  },
+  "alter_mag_in": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/alter/mag_in",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "alter_mag_out": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/alter/mag_out",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "alter_slide_back": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/alter/slide_back",
+        "stream": true,
+        "volume": 0.5,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是alter的音效"
+      }
+    ]
+  },
+  "klb_mag_out": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/klb/mag_out",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "klb_mag_in": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/klb/mag_in",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "klb_slide_back": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/klb/slide_back",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "klb_slide_forward": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/klb/slide_forward",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "klb_deploy": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/klb/klb_deploy",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "klb_fire": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/ewo_projectile_cannon_shot",
+        "stream": false,
+        "volume": 0.5,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是klb的音效"
+      }
+    ]
+  },
+  "r201_deploy": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/r201/r201_deploy",
+        "stream": true,
+        "volume": 0.3
+      }
+    ]
+  },
+  "r201_fire": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/pmo_projectile_a1_shot",
+        "stream": false,
+        "volume": 0.5,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是r201的音效"
+      }
+    ]
+  },
+  "all_gun_empty": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/empty",
+        "stream": true,
+        "volume": 1.0,
+        "pitch": 0.8,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，没子弹的音效"
+      }
+    ]
+  },
+  "thunder": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/thunderbolt/thunder",
+        "stream": true,
+        "volume": 1.0
+      }
+    ]
+  },
+  "thunderbolt_deploy": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/thunderbolt/thunderbolt_deploy",
+        "stream": true,
+        "volume": 1.0
+      }
+    ]
+  },
+  "thunderbolt_fire": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/weapon/ewo_projectile_cannon_shot",
+        "stream": false,
+        "volume": 0.5
+      }
+    ]
+  },
+  "thunderbolt_scope": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/thunderbolt/thunderbolt_scope",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "thunderbolt_mag_in": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/thunderbolt/thunderbolt_mag_in",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "thunderbolt_mag_out": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/thunderbolt/thunderbolt_mag_out",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "thunderbolt_steam": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/thunderbolt/thunderbolt_steam",
+        "stream": true,
+        "volume": 0.5
+      }
+    ]
+  },
+  "thunderbolt_loose": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/reload/thunderbolt/thunderbolt_loose",
+        "stream": true,
+        "volume": 0.5,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是大炮的音效"
+      }
+    ]
+  },
+  "jg_charging": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/jg/charging",
+        "stream": true,
+        "volume": 1.0
+      }
+    ]
+  },
+  "jg_fire": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/jg/fire",
+        "stream": false,
+        "volume": 1.0
+      }
+    ]
+  },
+  "jg_deploy": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/jg/deploy",
+        "stream": false,
+        "volume": 0.5
+      }
+    ]
+  },
+  "jg_down_open": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/jg/down_open",
+        "stream": false,
+        "volume": 1.0
+      }
+    ]
+  },
+  "jg_down_close": {
+    "category": "music",
+    "min_distance": 100.0,
+    "sounds": [
+      {
+        "name": "sounds/weapon/gun/jg/down_close",
+        "stream": false,
+        "volume": 1.0,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是激光的音效"
+      }
+    ]
+  },
+  "ewo_projectile_king_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_king_shot"
+    ]
+  },
+  "ewo_projectile_nyx_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_nyx_shot"
+    ]
+  },
+  "ewo_projectile_fire_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_fire_shot"
+    ]
+  },
+  "ewo_projectile_cold_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_cold_shot"
+    ]
+  },
+  "ewo_projectile_damage_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_damage_shot"
+    ]
+  },
+  "ewo_projectile_gun_taser_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_gun_taser_shot"
+    ]
+  },
+  "ewo_projectile_slime_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_slime_shot"
+    ]
+  },
+  "ewo_projectile_gun_electric_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_gun_electric_shot"
+    ]
+  },
+  "ewo_projectile_boom_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_boom_shot"
+    ]
+  },
+  "ewo_projectile_sword_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_sword_shot"
+    ]
+  },
+  "ewo_projectile_cannon_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_cannon_shot"
+    ]
+  },
+  "ewo_projectile_controller_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_controller_shot"
+    ]
+  },
+  "ewo_projectile_start_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_start_shot"
+    ]
+  },
+  "ewo_projectile_fatalist_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_fatalist_shot"
+    ]
+  },
+  "ewo_projectile_sky_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_sky_shot"
+    ]
+  },
+  "pmo_projectile_a2_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/pmo_projectile_a2_shot"
+    ]
+  },
+  "pmo_projectile_a1_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/pmo_projectile_a1_shot"
+    ]
+  },
+  "pmo_projectile_a1_shot0": {
+    "category": "neutral",
+    "sounds": [
+      "sounds/weapon/pmo_projectile_a1_shot"
+    ]
+  },
+  "pmo_projectile_a3_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/pmo_projectile_a3_shot"
+    ]
+  },
+  "pmo_projectile_a4_shot": {
+    "category": "music",
+    "sounds": [
+      "sounds/weapon/pmo_projectile_a4_shot"
+    ]
+  },
+  "pmo_projectile_a5_shot": {
+    "category": "neutral",
+    "sounds": [
+      "sounds/weapon/pmo_projectile_a4_shot"
+    ]
+  },
+  "pmo_projectile_a6_shot": {
+    "category": "neutral",
+    "sounds": [
+      "sounds/weapon/ewo_projectile_cannon_shot"
+    ]
+  },
+  "bgm.bgm_101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【模组武器音效】"
+      }
+    ]
+  },
+  "bgm.bgm_102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.bgm_102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/bgm_102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_103": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_104": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_104",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_105": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_105",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_106": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_106",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_107": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_107",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_108": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_108",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_109": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_109",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_110": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_110",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_111": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_111",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_112": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_112",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【系统音乐】"
+      }
+    ]
+  },
+  "bgm.bgm_201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_204": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_204",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_205": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_205",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_206": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_206",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_207": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_207",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_208": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_208",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_209": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_209",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_210": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_210",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_211": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_211",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_212": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_212",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_213": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_213",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_214": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_214",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【背景音乐】"
+      }
+    ]
+  },
+  "bgm.bgm_301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_303": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_303",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_304": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_304",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "作者风小云，盗图者不得善终。"
+      }
+    ]
+  },
+  "bgm.bgm_305": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_305",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_306": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_306",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_307": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_307",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_308": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_308",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_309": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_309",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【战斗音乐】"
+      }
+    ]
+  },
+  "bgm.bgm_401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_402": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_403": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_403",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_404": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_404",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_405": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_405",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_406": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_406",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_407": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_407",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_408": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_408",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_409": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_409",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_410": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_410",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_411": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_411",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【初浔计划追加曲目】"
+      }
+    ]
+  },
+  "bgm.bgm_501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_503": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_503",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【棱镜国度追加曲目】"
+      }
+    ]
+  },
+  "bgm.bgm_701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "mp3_music": {
+    "category": "music",
+    "comment": "音乐播放器",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_104",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_105",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_106",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_107",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_108",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_109",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_110",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_111",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_204",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_205",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_206",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_207",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_208",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_209",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_210",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_211",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_212",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_213",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_214",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_307",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_308",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_309",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_403",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_404",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_405",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_406",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_407",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_408",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_409",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_410",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_411",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      },
+      {
+        "name": "sounds/bgm/bgm_503",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "ost.ost_1": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ost/ost_1",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "ost.ost_8": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ost/ost_8",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "ost.ost_9": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ost/ost_9",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "ost.ost_11": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ost/ost_11",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "ost.ost_12": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ost/ost_12",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_1": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_1",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_8": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_8",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_10": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_10",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_16": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_16",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_17": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_17",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_18": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_18",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_19": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_19",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "battle.battle_20": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/battle/battle_20",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_1": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_1",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_2": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_2",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_13": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_13",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_14": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_14",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_15": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_15",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_16": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_16",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_20": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_20",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_21": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_21",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_22": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_22",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "system.system_23": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/system/system_23",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_1": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_1",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_5": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_5",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_6": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_6",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_8": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_8",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_9": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_9",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_10": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_10",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_15": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_15",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_16": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_16",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_17": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_17",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_20": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_20",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_22": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_22",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_23": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_23",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_29": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_29",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "bgm.bgm_37": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/bgm/bgm_37",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "se.se10001": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "天圆引擎初始引导",
+    "sounds": [
+      "sounds/se/se10001"
+    ]
+  },
+  "se.se10002": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "天圆引擎控制台重启",
+    "sounds": [
+      "sounds/se/se10002"
+    ]
+  },
+  "se.se10003": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "服务器用户注册",
+    "sounds": [
+      "sounds/se/se10003"
+    ]
+  },
+  "se.se10004": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "天圆引擎控制台卸载",
+    "sounds": [
+      "sounds/se/se10004"
+    ]
+  },
+  "se.se10005": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "服务器签到刷新",
+    "sounds": [
+      "sounds/se/se10005"
+    ]
+  },
+  "se.se10006": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "关服通知",
+    "sounds": [
+      "sounds/se/se10006"
+    ]
+  },
+  "se.se101": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "启动音效、换弹音效",
+    "sounds": [
+      "sounds/se/se10101",
+      "sounds/se/se10104",
+      "sounds/se/se10106",
+      "sounds/se/se10107",
+      "sounds/se/se10109",
+      "sounds/se/se10110",
+      "sounds/se/se10111",
+      "sounds/se/se10112",
+      "sounds/se/se10202",
+      "sounds/se/se10203"
+    ]
+  },
+  "se.se102": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "关闭音效",
+    "sounds": [
+      "sounds/se/se10201",
+      "sounds/se/se10204",
+      "sounds/se/se10102",
+      "sounds/se/se10103",
+      "sounds/se/se10105",
+      "sounds/se/se10108"
+    ]
+  },
+  "se.se103": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "进攻技能语音",
+    "sounds": [
+      "sounds/se/se10301",
+      "sounds/se/se10302",
+      "sounds/se/se10303",
+      "sounds/se/se10304",
+      "sounds/se/se10305",
+      "sounds/se/se10306",
+      "sounds/se/se10307",
+      "sounds/se/se10308",
+      "sounds/se/se10309",
+      "sounds/se/se10310",
+      "sounds/se/se10311",
+      "sounds/se/se10312",
+      "sounds/se/se10313",
+      "sounds/se/se10314",
+      "sounds/se/se10315",
+      "sounds/se/se10316",
+      "sounds/se/se10317",
+      "sounds/se/se10318",
+      "sounds/se/se10319",
+      "sounds/se/se10320",
+      "sounds/se/se10321",
+      "sounds/se/se10322",
+      "sounds/se/se10323",
+      "sounds/se/se10324",
+      "sounds/se/se10325",
+      "sounds/se/se10326",
+      "sounds/se/se10327",
+      "sounds/se/se10328",
+      "sounds/se/se10329",
+      "sounds/se/se10330",
+      "sounds/se/se10331",
+      "sounds/se/se10332",
+      "sounds/se/se10333",
+      "sounds/se/se10334"
+    ]
+  },
+  "se.se104": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "辅助技能语音",
+    "sounds": [
+      "sounds/se/se10401",
+      "sounds/se/se10402",
+      "sounds/se/se10403",
+      "sounds/se/se10404",
+      "sounds/se/se10405",
+      "sounds/se/se10406",
+      "sounds/se/se10407"
+    ]
+  },
+  "se.se105": {
+    "category": "music",
+    "max_distance": 128.0,
+    "comment": "大招语音",
+    "sounds": [
+      "sounds/se/se10501",
+      "sounds/se/se10502",
+      "sounds/se/se10503",
+      "sounds/se/se10504",
+      "sounds/se/se10505",
+      "sounds/se/se10506",
+      "sounds/se/se10507",
+      "sounds/se/se10508",
+      "sounds/se/se10509",
+      "sounds/se/se10510",
+      "sounds/se/se10511",
+      "sounds/se/se10512",
+      "sounds/se/se10513",
+      "sounds/se/se10514",
+      "sounds/se/se10515",
+      "sounds/se/se10516"
+    ]
+  },
+  "se.se107": {
+    "category": "neutral",
+    "max_distance": 20.0,
+    "comment": "机甲登机语音",
+    "sounds": [
+      "sounds/se/se10701",
+      "sounds/se/se10702",
+      "sounds/se/se10703",
+      "sounds/se/se10704",
+      "sounds/se/se10705",
+      "sounds/se/se10706",
+      "sounds/se/se10707",
+      "sounds/se/se10708"
+    ]
+  },
+  "se.se108": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "变身语音",
+    "sounds": [
+      "sounds/se/se10801",
+      "sounds/se/se10802",
+      "sounds/se/se10803",
+      "sounds/se/se10804",
+      "sounds/se/se10805",
+      "sounds/se/se10806",
+      "sounds/se/se10807",
+      "sounds/se/se10808",
+      "sounds/se/se10809",
+      "sounds/se/se10810",
+      "sounds/se/se10811"
+    ]
+  },
+  "se.se109": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "变身退出语音",
+    "sounds": [
+      "sounds/se/se10901",
+      "sounds/se/se10902",
+      "sounds/se/se10903",
+      "sounds/se/se10904",
+      "sounds/se/se10905",
+      "sounds/se/se10906",
+      "sounds/se/se10907",
+      "sounds/se/se10908",
+      "sounds/se/se10909"
+    ]
+  },
+  "se.se201": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "选择地图",
+    "sounds": [
+      "sounds/se/se20101",
+      "sounds/se/se20102",
+      "sounds/se/se20103",
+      "sounds/se/se20104",
+      "sounds/se/se20105",
+      "sounds/se/se20106",
+      "sounds/se/se20107",
+      "sounds/se/se20109",
+      "sounds/se/se20110"
+    ]
+  },
+  "se.se202": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "进交战区",
+    "sounds": [
+      "sounds/se/se20201",
+      "sounds/se/se20202",
+      "sounds/se/se20203",
+      "sounds/se/se20204",
+      "sounds/se/se20108",
+      "sounds/se/se20206",
+      "sounds/se/se20207",
+      "sounds/se/se20208",
+      "sounds/se/se20209",
+      "sounds/se/se20210"
+    ]
+  },
+  "se.se203": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "发现目标",
+    "sounds": [
+      "sounds/se/se20301",
+      "sounds/se/se20302",
+      "sounds/se/se20303",
+      "sounds/se/se20304",
+      "sounds/se/se20305",
+      "sounds/se/se20306"
+    ]
+  },
+  "se.se204": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "目标摧毁",
+    "sounds": [
+      "sounds/se/se20401",
+      "sounds/se/se20402",
+      "sounds/se/se20403",
+      "sounds/se/se20404",
+      "sounds/se/se20405",
+      "sounds/se/se20406"
+    ]
+  },
+  "se.se205": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "撤离中",
+    "sounds": [
+      "sounds/se/se20501",
+      "sounds/se/se20502",
+      "sounds/se/se20503",
+      "sounds/se/se20504",
+      "sounds/se/se20505",
+      "sounds/se/se20506",
+      "sounds/se/se20507",
+      "sounds/se/se20508",
+      "sounds/se/se20509",
+      "sounds/se/se20510"
+    ]
+  },
+  "se.se206": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "撤离成功",
+    "sounds": [
+      "sounds/se/se20601",
+      "sounds/se/se20602",
+      "sounds/se/se20603",
+      "sounds/se/se20605",
+      "sounds/se/se20606",
+      "sounds/se/se20607",
+      "sounds/se/se20608",
+      "sounds/se/se20405",
+      "sounds/se/se20406",
+      "sounds/se/se20609",
+      "sounds/se/se20610",
+      "sounds/se/se20611",
+      "sounds/se/se20612"
+    ]
+  },
+  "se.se207": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "撤离失败",
+    "sounds": [
+      "sounds/se/se20701",
+      "sounds/se/se20702",
+      "sounds/se/se20703",
+      "sounds/se/se20704",
+      "sounds/se/se20705",
+      "sounds/se/se20706",
+      "sounds/se/se20707",
+      "sounds/se/se20708"
+    ]
+  },
+  "se.se208": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "行动超时",
+    "sounds": [
+      "sounds/se/se20801",
+      "sounds/se/se20802",
+      "sounds/se/se20803",
+      "sounds/se/se20804",
+      "sounds/se/se20805",
+      "sounds/se/se20806"
+    ]
+  },
+  "se.se209": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "撤离取消",
+    "sounds": [
+      "sounds/se/se20901",
+      "sounds/se/se20902",
+      "sounds/se/se20903",
+      "sounds/se/se20904",
+      "sounds/se/se20905",
+      "sounds/se/se20906",
+      "sounds/se/se20907",
+      "sounds/se/se20908",
+      "sounds/se/se20909",
+      "sounds/se/se20910"
+    ]
+  },
+  "se.se301": {
+    "category": "neutral",
+    "max_distance": 32.0,
+    "comment": "输液泵、推注泵",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se301",
+      "sounds/se/se302"
+    ]
+  },
+  "se.se303": {
+    "category": "neutral",
+    "max_distance": 32.0,
+    "comment": "人工心肺",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se303"
+    ]
+  },
+  "se.se304": {
+    "category": "neutral",
+    "max_distance": 32.0,
+    "comment": "监护仪",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se304"
+    ]
+  },
+  "se.se305": {
+    "category": "neutral",
+    "max_distance": 32.0,
+    "comment": "呼吸机",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se305"
+    ]
+  },
+  "se.se306": {
+    "category": "neutral",
+    "max_distance": 32.0,
+    "comment": "血透机",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se306"
+    ]
+  },
+  "mecha.walk": {
+    "category": "neutral",
+    "max_distance": 20.0,
+    "comment": "机甲行走音效",
+    "volume": 0.5,
+    "sounds": [
+      "sounds/mecha/mecha101",
+      "sounds/mecha/mecha102",
+      "sounds/mecha/mecha103",
+      "sounds/mecha/mecha104"
+    ]
+  },
+  "mecha.idle": {
+    "category": "neutral",
+    "max_distance": 20.0,
+    "comment": "机甲停止音效",
+    "volume": 0.5,
+    "sounds": [
+      "sounds/mecha/mecha201"
+    ]
+  },
+  "jmgs.idle_imps": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "imps级怪物闲置音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_idle_1",
+      "sounds/se/jmgs_idle_2",
+      "sounds/se/jmgs_idle_3",
+      "sounds/se/jmgs_idle_4",
+      "sounds/se/jmgs_idle_5",
+      "sounds/se/jmgs_idle_6",
+      "sounds/se/jmgs_idle_7",
+      "sounds/se/jmgs_idle_8",
+      "sounds/se/jmgs_idle_9",
+      "sounds/se/jmgs_idle_10",
+      "sounds/se/jmgs_idle_11",
+      "sounds/se/jmgs_idle_12",
+      "sounds/se/jmgs_idle_13",
+      "sounds/se/jmgs_idle_14",
+      "sounds/se/jmgs_idle_15",
+      "sounds/se/jmgs_idle_16",
+      "sounds/se/jmgs_idle_17",
+      "sounds/se/jmgs_idle_18",
+      "sounds/se/jmgs_idle_19",
+      "sounds/se/jmgs_idle_20"
+    ]
+  },
+  "jmgs.hit_imps": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "imps级怪物受攻击音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_hit_1",
+      "sounds/se/jmgs_hit_2",
+      "sounds/se/jmgs_hit_3",
+      "sounds/se/jmgs_hit_4",
+      "sounds/se/jmgs_hit_5",
+      "sounds/se/jmgs_hit_6",
+      "sounds/se/jmgs_hit_7",
+      "sounds/se/jmgs_hit_8",
+      "sounds/se/jmgs_hit_9",
+      "sounds/se/jmgs_hit_10",
+      "sounds/se/jmgs_hit_11",
+      "sounds/se/jmgs_hit_12",
+      "sounds/se/jmgs_hit_13",
+      "sounds/se/jmgs_hit_14",
+      "sounds/se/jmgs_hit_15",
+      "sounds/se/jmgs_hit_16",
+      "sounds/se/jmgs_hit_17",
+      "sounds/se/jmgs_hit_18",
+      "sounds/se/jmgs_hit_19",
+      "sounds/se/jmgs_hit_20"
+    ]
+  },
+  "jmgs.death_imps": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "imps级怪物嘎了音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_death_1",
+      "sounds/se/jmgs_death_2",
+      "sounds/se/jmgs_death_3",
+      "sounds/se/jmgs_death_4",
+      "sounds/se/jmgs_death_5",
+      "sounds/se/jmgs_death_6",
+      "sounds/se/jmgs_death_7",
+      "sounds/se/jmgs_death_8",
+      "sounds/se/jmgs_death_9",
+      "sounds/se/jmgs_death_10"
+    ]
+  },
+  "jmgs.idle_dukes": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "dukes级怪物闲置音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_idle_21",
+      "sounds/se/jmgs_idle_22",
+      "sounds/se/jmgs_idle_23",
+      "sounds/se/jmgs_idle_24",
+      "sounds/se/jmgs_idle_25",
+      "sounds/se/jmgs_idle_26",
+      "sounds/se/jmgs_idle_27",
+      "sounds/se/jmgs_idle_28",
+      "sounds/se/jmgs_idle_29",
+      "sounds/se/jmgs_idle_30",
+      "sounds/se/jmgs_idle_31",
+      "sounds/se/jmgs_idle_32",
+      "sounds/se/jmgs_idle_33",
+      "sounds/se/jmgs_idle_34",
+      "sounds/se/jmgs_idle_35",
+      "sounds/se/jmgs_idle_36",
+      "sounds/se/jmgs_idle_37",
+      "sounds/se/jmgs_idle_38",
+      "sounds/se/jmgs_idle_39",
+      "sounds/se/jmgs_idle_40"
+    ]
+  },
+  "jmgs.hit_dukes": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "dukes级怪物受攻击音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_hit_21",
+      "sounds/se/jmgs_hit_22",
+      "sounds/se/jmgs_hit_23",
+      "sounds/se/jmgs_hit_24",
+      "sounds/se/jmgs_hit_25",
+      "sounds/se/jmgs_hit_26",
+      "sounds/se/jmgs_hit_27",
+      "sounds/se/jmgs_hit_28",
+      "sounds/se/jmgs_hit_29",
+      "sounds/se/jmgs_hit_30",
+      "sounds/se/jmgs_hit_31",
+      "sounds/se/jmgs_hit_32",
+      "sounds/se/jmgs_hit_33",
+      "sounds/se/jmgs_hit_34",
+      "sounds/se/jmgs_hit_35",
+      "sounds/se/jmgs_hit_36",
+      "sounds/se/jmgs_hit_37",
+      "sounds/se/jmgs_hit_38",
+      "sounds/se/jmgs_hit_39",
+      "sounds/se/jmgs_hit_40",
+      "sounds/se/jmgs_hit_6",
+      "sounds/se/jmgs_hit_7",
+      "sounds/se/jmgs_hit_8",
+      "sounds/se/jmgs_hit_9",
+      "sounds/se/jmgs_hit_10"
+    ]
+  },
+  "jmgs.death_dukes": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "dukes级怪物嘎了音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_death_11",
+      "sounds/se/jmgs_death_12",
+      "sounds/se/jmgs_death_13",
+      "sounds/se/jmgs_death_14",
+      "sounds/se/jmgs_death_15",
+      "sounds/se/jmgs_death_16",
+      "sounds/se/jmgs_death_17",
+      "sounds/se/jmgs_death_18",
+      "sounds/se/jmgs_death_19",
+      "sounds/se/jmgs_death_20"
+    ]
+  },
+  "jmgs.idle_robot": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "机器人闲置音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_idle_41",
+      "sounds/se/jmgs_idle_42",
+      "sounds/se/jmgs_idle_43",
+      "sounds/se/jmgs_idle_44",
+      "sounds/se/jmgs_idle_45",
+      "sounds/se/jmgs_idle_46",
+      "sounds/se/jmgs_idle_47",
+      "sounds/se/jmgs_idle_48",
+      "sounds/se/jmgs_idle_49",
+      "sounds/se/jmgs_idle_50",
+      "sounds/se/jmgs_hit_41",
+      "sounds/se/jmgs_hit_42",
+      "sounds/se/jmgs_hit_43",
+      "sounds/se/jmgs_hit_44",
+      "sounds/se/jmgs_hit_45",
+      "sounds/se/jmgs_hit_46",
+      "sounds/se/jmgs_hit_47",
+      "sounds/se/jmgs_hit_48",
+      "sounds/se/jmgs_hit_49",
+      "sounds/se/jmgs_hit_50"
+    ]
+  },
+  "jmgs.hit_robot": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "机器人受攻击音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_hit_41",
+      "sounds/se/jmgs_hit_42",
+      "sounds/se/jmgs_hit_43",
+      "sounds/se/jmgs_hit_44",
+      "sounds/se/jmgs_hit_45",
+      "sounds/se/jmgs_hit_46",
+      "sounds/se/jmgs_hit_47",
+      "sounds/se/jmgs_hit_48",
+      "sounds/se/jmgs_hit_49",
+      "sounds/se/jmgs_hit_50"
+    ]
+  },
+  "jmgs.death_robot": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "机器人嘎了音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_death_21",
+      "sounds/se/jmgs_death_22",
+      "sounds/se/jmgs_death_23",
+      "sounds/se/jmgs_death_24",
+      "sounds/se/jmgs_death_25",
+      "sounds/se/jmgs_death_26",
+      "sounds/se/jmgs_death_27",
+      "sounds/se/jmgs_death_28",
+      "sounds/se/jmgs_death_29",
+      "sounds/se/jmgs_death_30"
+    ]
+  },
+  "se.mecha_death": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "RPG机器人嘎了音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se_mecha_death"
+    ]
+  },
+  "se.monster_death": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "RPG怪物嘎了音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se_monster_death"
+    ]
+  },
+  "se.human_death": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "RPG村民嘎了音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se_human_death1",
+      "sounds/se/se_human_death2"
+    ]
+  },
+  "jmgs.idle_zombie": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "zombie闲置音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_idle_z1",
+      "sounds/se/jmgs_idle_z2",
+      "sounds/se/jmgs_idle_z3",
+      "sounds/se/jmgs_idle_z4",
+      "sounds/se/jmgs_idle_z5",
+      "sounds/se/jmgs_idle_z6",
+      "sounds/se/jmgs_idle_z7",
+      "sounds/se/jmgs_idle_z8",
+      "sounds/se/jmgs_idle_z9",
+      "sounds/se/jmgs_idle_z10",
+      "sounds/se/jmgs_idle_z11"
+    ]
+  },
+  "jmgs.hit_zombie": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "zombie受攻击音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_hit_z1",
+      "sounds/se/jmgs_hit_z2",
+      "sounds/se/jmgs_hit_z3",
+      "sounds/se/jmgs_hit_z4",
+      "sounds/se/jmgs_hit_z5",
+      "sounds/se/jmgs_hit_z6",
+      "sounds/se/jmgs_hit_z7",
+      "sounds/se/jmgs_hit_z8",
+      "sounds/se/jmgs_hit_z9",
+      "sounds/se/jmgs_hit_z10",
+      "sounds/se/jmgs_hit_z11",
+      "sounds/se/jmgs_hit_z12",
+      "sounds/se/jmgs_hit_z13"
+    ]
+  },
+  "jmgs.death_zombie": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "zombie嘎了音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_death_z1",
+      "sounds/se/jmgs_death_z2",
+      "sounds/se/jmgs_death_z3",
+      "sounds/se/jmgs_death_z4",
+      "sounds/se/jmgs_death_z5",
+      "sounds/se/jmgs_death_z6",
+      "sounds/se/jmgs_death_z7",
+      "sounds/se/jmgs_death_z8"
+    ]
+  },
+  "jmgs.boom": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "爆燃音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/mecha/jmgs_boom1",
+      "sounds/mecha/jmgs_boom2",
+      "sounds/mecha/jmgs_boom3",
+      "sounds/mecha/jmgs_boom4",
+      "sounds/mecha/jmgs_boom5"
+    ]
+  },
+  "jmgs.build_boom": {
+    "category": "neutral",
+    "max_distance": 50.0,
+    "comment": "建筑物爆燃音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/mecha/jmgs_build_boom1",
+      "sounds/mecha/jmgs_build_boom2",
+      "sounds/mecha/jmgs_build_boom3"
+    ]
+  },
+  "jmgs.notice": {
+    "category": "music",
+    "max_distance": 50.0,
+    "comment": "系统通知音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_notice1",
+      "sounds/se/jmgs_notice2",
+      "sounds/se/jmgs_notice3",
+      "sounds/se/jmgs_notice4"
+    ]
+  },
+  "jmgs.radio": {
+    "category": "music",
+    "max_distance": 50.0,
+    "comment": "系统广播音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/jmgs_radio"
+    ]
+  },
+  "se.plop": {
+    "category": "music",
+    "max_distance": 50.0,
+    "comment": "劲爆音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/se/se_plop"
+    ]
+  },
+  "car_open": {
+    "category": "neutral",
+    "max_distance": 20.0,
+    "comment": "汽车开关车门音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/car/car_open"
+    ]
+  },
+  "car_start": {
+    "category": "neutral",
+    "max_distance": 20.0,
+    "comment": "汽车启动音效",
+    "volume": 0.7,
+    "sounds": [
+      "sounds/car/car_start",
+      "sounds/car/car_start2"
+    ]
+  },
+  "car_walk": {
+    "category": "music",
+    "max_distance": 20.0,
+    "comment": "汽车行走音效",
+    "volume": 1,
+    "sounds": [
+      "sounds/car/car_walk",
+      "sounds/car/car_walk2",
+      "sounds/car/car_walk3",
+      "sounds/car/car_walk4",
+      "sounds/car/car_walk5",
+      "sounds/car/car_walk6",
+      "sounds/car/car_walk7",
+      "sounds/car/car_walk8",
+      "sounds/car/car_walk9",
+      "sounds/car/car_walk10"
+    ]
+  },
+  "helfly_walk": {
+    "category": "music",
+    "max_distance": 70.0,
+    "comment": "直升机飞行音效",
+    "volume": 0.3,
+    "sounds": [
+      "sounds/car/helfly_walk",
+      "sounds/car/helfly_walk2",
+      "sounds/car/helfly_walk3",
+      "sounds/car/helfly_walk4",
+      "sounds/car/helfly_walk5",
+      "sounds/car/helfly_walk6",
+      "sounds/car/helfly_walk7",
+      "sounds/car/helfly_walk8",
+      "sounds/car/helfly_walk9"
+    ]
+  },
+  "plane_walk": {
+    "category": "music",
+    "max_distance": 70.0,
+    "comment": "喷气飞机音效",
+    "volume": 0.3,
+    "sounds": [
+      "sounds/car/plane_walk",
+      "sounds/car/plane_walk2",
+      "sounds/car/plane_walk3",
+      "sounds/car/plane_walk4",
+      "sounds/car/plane_walk5",
+      "sounds/car/plane_walk6",
+      "sounds/car/plane_walk7",
+      "sounds/car/plane_walk8",
+      "sounds/car/plane_walk9"
+    ]
+  },
+  "me.me_101": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "进入交战区"
+      }
+    ]
+  },
+  "me.me_102": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "撤离音乐"
+      }
+    ]
+  },
+  "me.me_103": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "辉煌终止"
+      }
+    ]
+  },
+  "me.me_104": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_104",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "洒水车"
+      }
+    ]
+  },
+  "me.me_105": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_105",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "正确"
+      }
+    ]
+  },
+  "me.me_106": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_106",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "错误"
+      }
+    ]
+  },
+  "me.me_107": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_107",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "手机铃声"
+      }
+    ]
+  },
+  "me.me_108": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_108",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "转场出"
+      }
+    ]
+  },
+  "me.me_109": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_109",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "转场进"
+      }
+    ]
+  },
+  "me.me_110": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_110",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "章节开始"
+      }
+    ]
+  },
+  "me.me_111": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_111",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "章节完成"
+      }
+    ]
+  },
+  "me.me_112": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_111",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "任务开始"
+      }
+    ]
+  },
+  "me.me_113": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/me/me_111",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "任务完成"
+      }
+    ]
+  },
+  "au.delta10001": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10001",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令title界面语音"
+      }
+    ]
+  },
+  "au.delta10002": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10002",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令指挥中心语音"
+      }
+    ]
+  },
+  "au.delta10003": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10003",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令首次建家语音"
+      }
+    ]
+  },
+  "au.delta10101": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令后院语音"
+      }
+    ]
+  },
+  "au.delta10102": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令滨江港语音"
+      }
+    ]
+  },
+  "au.delta10103": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令米苏拉市语音"
+      }
+    ]
+  },
+  "au.delta10104": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10104",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令避难所语音"
+      }
+    ]
+  },
+  "au.delta10105": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10105",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令暗影岛语音"
+      }
+    ]
+  },
+  "au.delta10106": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10106",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令红石塔语音"
+      }
+    ]
+  },
+  "au.delta10107": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10107",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令红伞实验室语音"
+      }
+    ]
+  },
+  "au.delta10108": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10108",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令母巢语音"
+      }
+    ]
+  },
+  "au.delta10109": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta1010",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令电视台语音"
+      }
+    ]
+  },
+  "au.delta10110": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/delta10110",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "德尔塔密令黑灯工厂语音"
+      }
+    ]
+  },
+  "au.au00001": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/au00001",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "title界面语音"
+      }
+    ]
+  },
+  "au.au00002": {
+    "category": "music",
+    "max_distance": 128.0,
+    "sounds": [
+      {
+        "name": "sounds/au/au00002",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "难度选择"
+      }
+    ]
+  },
+  "au.au00003": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au00003",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "自订角色"
+      }
+    ]
+  },
+  "au.au00004xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au00004xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "音色试音xx"
+      }
+    ]
+  },
+  "au.au00004xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au00004xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "音色试音xy"
+      }
+    ]
+  },
+  "au.au00005": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au00005",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "进入游戏"
+      }
+    ]
+  },
+  "au.au00006": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au00006",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "结束语"
+      }
+    ]
+  },
+  "au.au10001": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10001",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "序幕"
+      }
+    ]
+  },
+  "au.au10101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "公寓楼顶开场剧情"
+      }
+    ]
+  },
+  "au.au10102xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10102xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "公寓内xx"
+      }
+    ]
+  },
+  "au.au10102xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10102xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "公寓内xy"
+      }
+    ]
+  },
+  "au.au10103xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10103xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "绑匪房间xx"
+      }
+    ]
+  },
+  "au.au10103xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10103xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "绑匪房间xy"
+      }
+    ]
+  },
+  "au.au10201xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10201xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10201xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10201xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10202xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10202xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10202xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10202xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10203xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10203xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10203xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10203xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10301xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10301xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10301xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10301xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10302xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10302xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10302xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10302xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10303xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10303xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10303xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10303xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10304xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10304xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10304xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10304xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10401xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10401xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10401xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10401xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10402xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10402xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10402xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10402xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10501xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10501xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10501xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10501xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10502xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10502xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10502xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10502xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10503xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10503xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10503xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10503xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10504xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10504xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10504xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10504xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10601xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10601xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10601xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10601xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10602xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10602xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10602xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10602xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10603xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10603xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10603xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10603xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10605xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10605xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10605xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10605xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10701xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10701xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10701xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10701xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10801xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10801xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10801xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10801xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10802": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10802",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10803": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10803",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10804xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10804xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10804xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10804xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10805xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10805xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10805xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10805xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10901xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10901xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10901xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10901xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10902xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10902xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10902xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10902xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10903xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10903xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10903xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10903xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10904xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10904xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10904xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10904xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11001xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11001xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11001xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11001xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11002xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11002xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11002xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11002xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11003xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11003xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11003xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11003xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11102xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11102xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au11102xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au11102xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第一集初浔计划的语音】"
+      }
+    ]
+  },
+  "au.au20001xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20001xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20001xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20001xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20102xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20102xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20102xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20102xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20201xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20201xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20201xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20201xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20202xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20202xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20202xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20202xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20203xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20203xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20203xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20203xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20402xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20402xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20402xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20402xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20501xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20501xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20501xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20501xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "edu.edu101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "圣堂花园招生语音"
+      }
+    ]
+  },
+  "edu.edu201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "战斗系统教程"
+      }
+    ]
+  },
+  "edu.edu202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "武器切换教程"
+      }
+    ]
+  },
+  "edu.edu203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "机载武器教程"
+      }
+    ]
+  },
+  "edu.edu204": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu204",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "实战教程"
+      }
+    ]
+  },
+  "edu.edu205": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu205",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "飞行教程"
+      }
+    ]
+  },
+  "au.au20606xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20606xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20606xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20606xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20607xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20607xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20607xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20607xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20702": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20702",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20703xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20703xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20703xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20703xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20801xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20801xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20801xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20801xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20802xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20802xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20802xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20802xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20803xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20803xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20803xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20803xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20901xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20901xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20901xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20901xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20902xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20902xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au20902xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au20902xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21001xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21001xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21001xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21001xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21002xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21002xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21002xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21002xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21102xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21102xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21102xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21102xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21201xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21201xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21201xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21201xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21202xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21202xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au21202xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au21202xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第二集圣堂花园的语音】"
+      }
+    ]
+  },
+  "au.au30101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30202xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30202xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30202xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30202xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30303": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30303",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30402xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30402xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30402xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30402xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30403xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30403xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30403xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30403xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30404xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30404xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30404xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30404xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30503": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30503",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30602": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30602",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30603xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30603xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30603xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30603xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30702": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30702",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30703xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30703xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30703xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30703xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30801xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30801xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30801xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30801xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30802xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30802xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30802xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30802xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30901xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30901xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30901xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30901xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30902": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30902",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30903xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30903xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30903xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30903xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30904xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30904xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au30904xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au30904xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31001xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31001xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31001xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31001xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31002": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31002",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31003": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31003",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31004xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31004xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31004xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31004xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31102xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31102xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31102xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31102xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31201xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31201xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31201xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31201xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au31202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au31202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第三集傲世铁骑的语音】"
+      }
+    ]
+  },
+  "au.au40101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40103": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40402": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40403": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40403",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40501xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40501xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40501xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40501xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40502xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40502xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40502xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40502xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40601xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40601xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40601xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40601xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40602": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40602",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40702": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40702",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40801": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40801",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40802": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40802",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40803": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40803",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40901xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40901xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40901xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40901xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40902xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40902xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40902xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40902xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40903xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40903xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40903xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40903xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40904": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40904",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40905xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40905xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40905xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40905xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au40906se": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au40906se",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41001xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41001xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41001xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41001xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41002xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41002xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41002xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41002xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41003": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41003",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41004xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41004xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41004xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41004xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41204": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41204",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41301xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41301xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41301xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41301xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41302xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41302xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41302xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41302xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41303xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41303xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41303xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41303xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41402": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41403xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41403xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41403xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41403xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41404xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41404xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au41404xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au41404xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第四集赤沙残响的语音】"
+      }
+    ]
+  },
+  "ewo.au000": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au000",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录开篇。"
+      }
+    ]
+  },
+  "ewo.au001": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au001",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录进入虚拟世界前布置任务。"
+      }
+    ]
+  },
+  "ewo.au002": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au002",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录进入虚拟世界。"
+      }
+    ]
+  },
+  "ewo.au105": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au105",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录约会。"
+      }
+    ]
+  },
+  "ewo.au201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录第二章。"
+      }
+    ]
+  },
+  "ewo.au204": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au204",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录天守阁。"
+      }
+    ]
+  },
+  "ewo.au205": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au205",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录一个打十个。"
+      }
+    ]
+  },
+  "ewo.au705": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au705",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录撒冷之战。"
+      }
+    ]
+  },
+  "ewo.au706": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/ewo/au706",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "永恒随想录初浔的诞生。"
+      }
+    ]
+  },
+  "au.au50001": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50001",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50102xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50102xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50102xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50102xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50201xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50201xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50201xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50201xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50202xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50202xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50202xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50202xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50203xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50203xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50203xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50203xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50301xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50301xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50301xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50301xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50302xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50302xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50302xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50302xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50303xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50303xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50303xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50303xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50402": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50702": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50702",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50703": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50703",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au5se01": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au5se01",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au5se02": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au5se02",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au5se03": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au5se03",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50801xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50801xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50801xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50801xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50802": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50802",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50803": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50803",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50901": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50901",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50902": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50902",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50903": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50903",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au50904": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au50904",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51001": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51001",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51002": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51002",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51003": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51003",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51203xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51203xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51203xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51203xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51302xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51302xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51302xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51302xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51401xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51401xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51401xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51401xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51503": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51503",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51504": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51504",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51505xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51505xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51505xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51505xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51506se": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51506se",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51507xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51507xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au51507xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au51507xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第五集无昼之都的语音】"
+      }
+    ]
+  },
+  "au.au60101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60202xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60202xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60202xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60202xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60302xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60302xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60302xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60302xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60303xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60303xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60303xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60303xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60305": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60305",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60501xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60501xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60501xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60501xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60602": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60602",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60603": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60603",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60701xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60701xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60701xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60701xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60801": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60801",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60802": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60802",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au60901": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au60901",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61001xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61001xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61001xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61001xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61103": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61105": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61105",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61203xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61203xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au61203xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au61203xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au6se01a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au6se01a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au6se01c": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au6se01c",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au6se02a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au6se02a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au6se02c": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au6se02c",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au6se03a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au6se03a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au6se03c": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au6se03c",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第六集鎏金和弦的语音】"
+      }
+    ]
+  },
+  "au.au70000": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70000",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70103": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70104": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70104",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70204": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70204",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70205": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70205",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70206xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70206xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70206xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70206xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70207": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70207",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70303": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70303",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70402xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70402xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70402xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70402xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70503": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70503",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70602se": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70602se",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70603se": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70603se",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70605": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70605",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70702xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70702xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70702xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70702xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70703xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70703xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70703xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70703xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70801a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70801a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70801b": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70801b",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70802xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70802xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70802xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70802xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70803xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70803xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70803xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70803xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70804": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70804",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70901xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70901xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au70901xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au70901xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71001xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71001xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71001xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71001xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71002": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71002",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71003xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71003xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71003xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71003xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71102xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71102xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71102xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71102xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71103": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71104": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71104",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71105": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71105",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71202xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71202xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71202xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71202xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71204xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71204xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71204xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71204xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71301xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71301xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71301xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71301xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71302xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71302xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71302xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71302xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71303xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71303xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71303xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71303xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71304xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71304xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71304xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71304xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71305xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71305xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au71305xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au71305xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第七集星宿重逢的语音】"
+      }
+    ]
+  },
+  "au.au80000xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80000xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80000xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80000xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80303": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80303",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80304": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80304",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80402": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80403": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80403",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80404": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80404",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80405": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80405",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80503xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80503xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80503xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80503xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80504": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80504",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80505": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80505",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80506": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80506",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "edu.edu801": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu801",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "edu.edu802": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/edu/edu802",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex103": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex103",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex203": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex203",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex402": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex403": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex403",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au8ex502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au8ex502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80602": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80602",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80603": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80603",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80603se": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80603se",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80605": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80605",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80605se": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80605se",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80606": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80606",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80607xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80607xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80607xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80607xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80608a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80608a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80608x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80608x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80609xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80609xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au80609xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au80609xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第八集曜日之诗的语音】"
+      }
+    ]
+  },
+  "au.au90101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90303": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90303",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90304": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90304",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90305": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90305",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90401a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90401a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90401x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90401x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90402a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90402a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90402x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90402x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90403": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90403",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90404": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90404",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90405": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90405",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90406": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90406",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90407": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90407",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90503": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90503",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex601a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex601a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex601x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex601x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex602a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex602a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex602x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex602x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex603a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex603a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex603x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex603x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex605a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex605a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au9ex605x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au9ex605x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90602": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90602",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90603": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90603",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90605a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90605a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90605x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90605x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90606a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90606a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90606x": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90606x",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au90607": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au90607",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【第九集天启预言的语音】"
+      }
+    ]
+  },
+  "au.au100101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100102": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100102",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100402": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100402",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100403": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100403",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100502": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100502",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100503xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100503xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100503xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100503xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100602xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100602xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100602xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100602xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100603xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100603xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100603xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100603xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100605xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100605xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100605xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100605xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex101": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex101",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex201": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex201",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex202": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex202",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex301": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex301",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex302": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex302",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex501": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex501",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex601": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex601",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex602": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex602",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex801": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex801",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au10ex802": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au10ex802",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100701": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100701",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100702a": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100702a",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100702c": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100702c",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100702d": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100702d",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100703": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100703",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100801": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100801",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100802": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100802",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100803": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100803",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100804": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100804",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100805": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100805",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100806": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100806",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100806se": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100806se",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100807": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100807",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100808xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100808xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100808xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100808xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100809": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100809",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100810": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100810",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100901d": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100901d",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100901c": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100901c",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100901bx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100901bx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100901by": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100901by",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100901ax": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100901ax",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100901ay": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100901ay",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au100902": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au100902",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au101101xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au101101xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au101101xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au101101xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au101201xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au101201xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au101201xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au101201xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au101301xx": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au101301xx",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au101301xy": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au101301xy",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true
+      }
+    ]
+  },
+  "au.au101401": {
+    "category": "music",
+    "sounds": [
+      {
+        "name": "sounds/au/au101401",
+        "stream": true,
+        "volume": 1,
+        "load_on_low_memory": true,
+        "comment": "这是一个屁用没有的键值，源代码也不需要这个，只是我用来写注释的，以上是【最终集终末礼赞的语音】"
+      }
+    ]
+  }
+}

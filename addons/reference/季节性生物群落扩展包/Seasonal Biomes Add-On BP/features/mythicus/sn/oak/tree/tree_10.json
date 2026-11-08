@@ -1,0 +1,13 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/tree/tree_10"
+        },
+        "places_feature": "mythicus_sn:mythicus/sn/oak/tree/tree_10s",
+        "iterations": 1,
+        "x": -2,
+        "z": -4,
+        "y": 0
+    }
+}

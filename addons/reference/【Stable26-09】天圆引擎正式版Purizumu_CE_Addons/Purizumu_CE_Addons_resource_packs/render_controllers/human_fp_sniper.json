@@ -1,0 +1,33 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.human_sniper_person": {
+      "geometry": "Geometry.human_sniper",
+      "materials": [
+        {
+          "*": "Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": "variable.sniper"
+        },
+        {
+          "head": "!v.is_first_person"
+        },
+        {
+          "hat": "!v.is_first_person"
+        },
+        {
+          "body": "!v.is_first_person"
+        },
+        {
+          "helmet": "!v.is_first_person"
+        }
+      ]
+    }
+  }
+}

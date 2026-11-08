@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_ca5e5b55"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDC",
+      "AEA"
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_motor",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_fuel",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "E": {
+        "item": "pmo:item_propeller",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_moto_edit_spawn_egg",
+      "count": 1
+    }
+  }
+}

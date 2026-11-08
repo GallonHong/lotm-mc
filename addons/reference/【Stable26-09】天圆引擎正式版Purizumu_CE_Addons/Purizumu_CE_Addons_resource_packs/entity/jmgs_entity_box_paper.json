@@ -1,0 +1,48 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_box_paper",
+      "textures": {
+        "default": "textures/entity/jmgs_entity_box_paper",
+        "variant_2": "textures/entity/jmgs_entity_box_paper2",
+        "variant_3": "textures/entity/jmgs_entity_box_paper3",
+        "variant_4": "textures/entity/jmgs_entity_box_paper4",
+        "variant_5": "textures/entity/jmgs_entity_box_paper5",
+        "variant_6": "textures/entity/jmgs_entity_box_paper6",
+        "variant_7": "textures/entity/jmgs_entity_box_paper7",
+        "variant_8": "textures/entity/jmgs_entity_box_paper8"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_entity_box_paper"
+      },
+      "render_controllers": [
+        "controller.render.jmgs_entity_box_paper"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:entity_box_paper",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.jmgs_entity_box_paper.idle",
+        "open": "animation.jmgs_entity_box_paper.open"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {"open": "!query.is_alive"}
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

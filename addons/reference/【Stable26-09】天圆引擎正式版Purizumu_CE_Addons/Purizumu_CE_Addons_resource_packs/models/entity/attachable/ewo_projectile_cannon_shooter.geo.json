@@ -1,0 +1,68 @@
+{
+	"format_version": "1.19.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.ewo_projectile_cannon_shooter",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "root_item",
+					"pivot": [0, 0, 0],
+					"binding": "q.item_slot_to_bone_name(c.item_slot)"
+				},
+				{
+					"name": "gun",
+					"parent": "root_item",
+					"pivot": [1, 1, -1],
+					"cubes": [
+						{"origin": [0, 6, -4], "size": [2, 2, 2], "uv": [27, 52]},
+						{"origin": [-0.5, 0, -1], "size": [3, 6, 7], "uv": [44, 43]},
+						{"origin": [-0.5, 0, -5], "size": [3, 6, 2], "uv": [49, 54]},
+						{"origin": [-0.5, 3, -10], "size": [3, 3, 2], "uv": [37, 42]},
+						{"origin": [-0.5, 3, -8], "size": [3, 3, 3], "uv": [25, 42]},
+						{"origin": [-0.5, 4, -3], "size": [3, 2, 2], "uv": [34, 55]},
+						{"origin": [-0.5, 0, -3], "size": [3, 1, 2], "uv": [36, 60]},
+						{"origin": [-0.5, 6, -7], "size": [3, 1, 1], "uv": [17, 44]},
+						{"origin": [-0.5, 6, 0], "size": [3, 1, 1], "uv": [17, 44]},
+						{"origin": [0, 3, -23], "size": [2, 2, 13], "uv": [0, 49]}
+					]
+				},
+				{
+					"name": "bone3",
+					"parent": "gun",
+					"pivot": [8, -21, 8],
+					"rotation": [0, 0, 135],
+					"cubes": [
+						{"origin": [-6, -46.5, -24], "size": [2, 1, 17], "uv": [26, 23]},
+						{"origin": [-5.5, -46, -9], "size": [1, 1, 1], "uv": [8, 7]}
+					]
+				},
+				{
+					"name": "bone2",
+					"parent": "gun",
+					"pivot": [8, -21, 8],
+					"rotation": [0, 0, -135],
+					"cubes": [
+						{"origin": [30, -36.5, -24], "size": [2, 1, 17], "uv": [26, 23]},
+						{"origin": [31, -36, -9], "size": [1, 1, 1], "uv": [8, 7]}
+					]
+				},
+				{
+					"name": "bone",
+					"parent": "gun",
+					"pivot": [8, -21, 8],
+					"cubes": [
+						{"origin": [0, 2, -24], "size": [2, 1, 17], "uv": [26, 23]},
+						{"origin": [0.5, 2.5, -9], "size": [1, 1, 1], "uv": [8, 8]}
+					]
+				}
+			]
+		}
+	]
+}

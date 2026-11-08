@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_ddr9900_915cd628"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DBD",
+      "DAD",
+      "DCD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:item_cs_clock",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_all",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_ddr9900",
+      "count": 1
+    }
+  }
+}

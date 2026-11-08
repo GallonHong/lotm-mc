@@ -1,0 +1,71 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.eva8_bullet_main_kill": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"die1": "variable.hurtdelay11 = 0.075; variable.previoushurttime11 = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"die1": {
+					"transitions": [
+						{
+							"default": "(query.life_time - variable.previoushurttime11) >= variable.hurtdelay11"
+						}
+					],
+					"on_exit": [
+						"@s jmgs:eva8_main_transform"
+					]
+				}
+			}
+		},
+		"controller.animation.eva8_bullet_main2_kill": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"die3": "variable.hurtdelay11 = 0.15; variable.previoushurttime11 = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"die3": {
+					"transitions": [
+						{
+							"default": "(query.life_time - variable.previoushurttime11) >= variable.hurtdelay11"
+						}
+					],
+					"on_exit": [
+						"@s jmgs:eva8_main2_transform"
+					]
+				}
+			}
+		},
+		"controller.animation.eva8_bullet_main3_kill": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"die5": "variable.hurtdelay11 = 0.16; variable.previoushurttime11 = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"die5": {
+					"transitions": [
+						{
+							"default": "(query.life_time - variable.previoushurttime11) >= variable.hurtdelay11"
+						}
+					],
+					"on_exit": [
+						"/kill @s"
+					]
+				}
+			}
+		}
+	}
+}

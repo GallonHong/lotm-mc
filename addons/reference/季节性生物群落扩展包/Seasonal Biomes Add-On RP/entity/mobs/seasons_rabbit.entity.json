@@ -1,0 +1,57 @@
+{
+    "format_version": "1.10.0",
+    "minecraft:client_entity": {
+        "description": {
+            "identifier": "mythicus_sn:seasons_rabbit",
+            "materials": {
+                "default": "entity_alphatest"
+            },
+            "textures": {
+                "brown": "textures/mythicus/sn/entity/mobs/rabbits/brown",
+                "white": "textures/mythicus/sn/entity/mobs/rabbits/white",
+                "black": "textures/mythicus/sn/entity/mobs/rabbits/blackrabbit",
+                "white_splotched": "textures/mythicus/sn/entity/mobs/rabbits/white_splotched",
+                "gold": "textures/mythicus/sn/entity/mobs/rabbits/gold",
+                "salt": "textures/mythicus/sn/entity/mobs/rabbits/salt",
+                "toast": "textures/mythicus/sn/entity/mobs/rabbits/toast"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.seasons_rabbit"
+            },
+            "animations": {
+                "move": "animation.mythicus_sn.seasons_rabbit.move",
+                "baby_transform": "animation.mythicus_sn.seasons_rabbit.baby_transform.seasons",
+                "winter": "animation.mythicus_sn.seasons_rabbit.plump_winter",
+                "winter_idle": "animation.mythicus_sn.seasons_rabbit.plump_winter_idle",
+                "idle_0": "animation.mythicus_sn.seasons_rabbit.eat_grass",
+                "idle_1": "animation.mythicus_sn.seasons_rabbit.eat_carrot",
+                "none": "animation.mythicus_sn.seasons_rabbit.none",
+                "baby": "controller.animation.mythicus_sn.rabbit.baby",
+                "season": "controller.animation.mythicus_sn.rabbit.season",
+                "root": "controller.animation.mythicus_sn.rabbit.root",
+                "cold_breath.controller": "controller.animation.mythicus_sn.seasons_rabbit.breath",
+                "cold_breath": "animation.mythicus_sn.seasons_rabbit.cold_breath"
+            },
+            "scripts": {
+                "initialize": [
+                    "v.idle=0;"
+                ],
+                "animate": [
+                    "baby",
+                    "root",
+                    "season",
+                    "cold_breath.controller"
+                ]
+            },
+            "spawn_egg": {
+                "texture": "mythicus_sn:spawn_egg_rabbit"
+            },
+            "particle_effects": {
+                "cold_breath": "mythicus_sn:cold_breath_mob"
+            },
+            "render_controllers": [
+                "controller.render.mythicus_sn.rabbit"
+            ]
+        }
+    }
+}

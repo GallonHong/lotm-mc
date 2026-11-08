@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_clock_ground_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DAD",
+      "ECE",
+      "BEB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:spruce_log",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:bell",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:netherite_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_clock_ground",
+      "count": 1
+    }
+  }
+}

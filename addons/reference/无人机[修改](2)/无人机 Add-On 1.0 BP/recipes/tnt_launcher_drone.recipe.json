@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:tnt_launcher_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iOi",
+			"T#T",
+			"iDi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"O": {
+				"item": "minecraft:observer"
+			},
+			"T": {
+				"item": "minecraft:tnt"
+			},
+			"D": {
+				"item": "minecraft:dispenser"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_1"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:tnt_launcher_drone_spawn_egg"
+		}
+	}
+}

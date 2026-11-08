@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_coral_af33681c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth_nelon",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:coral_block",
+        "data": 1
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_coral",
+      "count": 1
+    }
+  }
+}

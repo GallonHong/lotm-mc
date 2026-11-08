@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_void3_cc4478ac"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BCD",
+      "EFG"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth_film",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:emerald",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:netherite_block",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_sewing",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_zinc",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_void3",
+      "count": 1
+    }
+  }
+}

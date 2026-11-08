@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jg_8fc88843"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:projectile_a1",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:pc_mainx570",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "H": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "I": {
+        "item": "jmgs:item_cs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:jg",
+      "count": 1
+    }
+  }
+}

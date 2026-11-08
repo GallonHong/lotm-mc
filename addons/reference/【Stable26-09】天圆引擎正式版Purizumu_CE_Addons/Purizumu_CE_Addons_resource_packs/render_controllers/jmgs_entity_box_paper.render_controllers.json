@@ -1,0 +1,24 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.jmgs_entity_box_paper": {
+            "arrays": {
+                "textures": {
+                    "Array.variant": [
+                        "Texture.default",
+                        "Texture.variant_2",
+                        "Texture.variant_3",
+                        "Texture.variant_4",
+                        "Texture.variant_5",
+                        "Texture.variant_6",
+                        "Texture.variant_7",
+                        "Texture.variant_8"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [ { "*": "Material.default" } ],
+            "textures": [ "Array.variant[ query.variant ]" ]
+        }
+    }
+}

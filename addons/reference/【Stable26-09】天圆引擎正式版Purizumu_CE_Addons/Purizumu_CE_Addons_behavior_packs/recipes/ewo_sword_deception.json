@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_deception_b6b4f61e"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "FBG",
+      "CDE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:netherite_block",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:item_start",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:netherite_hoe",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_pipe",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:mine_kyanite",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_deception",
+      "count": 1
+    }
+  }
+}

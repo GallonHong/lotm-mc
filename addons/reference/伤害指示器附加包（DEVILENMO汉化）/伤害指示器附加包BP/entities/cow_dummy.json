@@ -1,0 +1,285 @@
+{
+    "format_version": "1.19.80",
+    "minecraft:entity": {
+        "description": {
+            "identifier": "pb_dmgi:cow_dummy",
+            "is_spawnable": true,
+            "is_summonable": true,
+            "is_experimental": false,
+            "animations": {
+                "dummy_regen": "animation.pb_dmgi.dummy_regen",
+                "control": "controller.animation.pb_dmgi.dummy_switch"
+            },
+            "scripts": {
+                "animate": [
+                    "dummy_regen",
+                    "control"
+                ]
+            },
+            "properties": {
+                "pb_dmgi:menu": {
+                    "type": "bool",
+                    "client_sync": true,
+                    "default": false
+                }
+            }
+        },
+        "component_groups": {
+            "pb:despawn": {
+                "minecraft:instant_despawn": {}
+            },
+            "pb:interact": {
+                "minecraft:interact": {
+                    "interactions": [
+                        {
+                            "on_interact": {
+                                "filters": {
+                                    "test": "is_family",
+                                    "subject": "other",
+                                    "value": "player"
+                                },
+                                "event": "evt:open_menu"
+                            },
+                            "use_item": false,
+                            "swing": true,
+                            "interact_text": "pb_dmgi_action.interact.menu"
+                        }
+                    ]
+                }
+            },
+            "pb:damage_all": {
+                "minecraft:damage_sensor": {
+                    "triggers": [
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "operator": "not",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": true,
+                            "damage_multiplier": 1.0
+                        }
+                    ]
+                }
+            },
+            "pb:damage_leather": {
+                "minecraft:damage_sensor": {
+                    "triggers": [
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "operator": "not",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": true,
+                            "damage_multiplier": 0.72
+                        }
+                    ]
+                }
+            },
+            "pb:damage_gold": {
+                "minecraft:damage_sensor": {
+                    "triggers": [
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "operator": "not",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": true,
+                            "damage_multiplier": 0.56
+                        }
+                    ]
+                }
+            },
+            "pb:damage_iron": {
+                "minecraft:damage_sensor": {
+                    "triggers": [
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "operator": "not",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": true,
+                            "damage_multiplier": 0.4
+                        }
+                    ]
+                }
+            },
+            "pb:damage_diamond": {
+                "minecraft:damage_sensor": {
+                    "triggers": [
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": false
+                        },
+                        {
+                            "on_damage": {
+                                "filters": {
+                                    "test": "has_damage",
+                                    "operator": "not",
+                                    "value": "fatal"
+                                }
+                            },
+                            "deals_damage": true,
+                            "damage_multiplier": 0.2
+                        }
+                    ]
+                }
+            }
+        },
+        "components": {
+            "minecraft:scale": {
+                "value": 1.05
+            },
+            "minecraft:collision_box": {
+                "width": 0.6,
+                "height": 2.5
+            },
+            "minecraft:physics": {},
+            "minecraft:pushable": {
+                "is_pushable": false,
+                "is_pushable_by_piston": false
+            },
+            "minecraft:knockback_resistance": {
+                "value": 1.0
+            },
+            "minecraft:type_family": {
+                "family": [
+                    "training_dummy",
+                    "mob"
+                ]
+            },
+            "minecraft:health": {
+                "value": 1000,
+                "max": 1000
+            },
+            "minecraft:nameable": {
+                "always_show": false,
+                "allow_name_tag_renaming": false
+            },
+            "minecraft:movement": {
+                "value": 0
+            },
+            "minecraft:navigation.walk": {
+                "can_float": false,
+                "avoid_water": true,
+                "avoid_damage_blocks": true
+            },
+            "minecraft:movement.basic": {},
+            "minecraft:fire_immune": false
+        },
+        "events": {
+            "minecraft:entity_spawned": {
+                "add": {
+                    "component_groups": [
+                        "pb:interact",
+                        "pb:damage_all"
+                    ]
+                }
+            },
+            "evt:despawn": {
+                "add": {
+                    "component_groups": [
+                        "pb:despawn"
+                    ]
+                }
+            },
+            "evt:open_menu": {
+                "set_property": {
+                    "pb_dmgi:menu": true
+                }
+            },
+            "evt:reset_menu": {
+                "set_property": {
+                    "pb_dmgi:menu": false
+                }
+            },
+            "evt:damage_all": {
+                "add": {
+                    "component_groups": [
+                        "pb:damage_all"
+                    ]
+                }
+            },
+            "evt:damage_leather": {
+                "add": {
+                    "component_groups": [
+                        "pb:damage_leather"
+                    ]
+                }
+            },
+            "evt:damage_gold": {
+                "add": {
+                    "component_groups": [
+                        "pb:damage_gold"
+                    ]
+                }
+            },
+            "evt:damage_iron": {
+                "add": {
+                    "component_groups": [
+                        "pb:damage_iron"
+                    ]
+                }
+            },
+            "evt:damage_diamond": {
+                "add": {
+                    "component_groups": [
+                        "pb:damage_diamond"
+                    ]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "black_ghillie_2413556d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AB",
+      "ACA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:oak_leaves",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:black_dye",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:string",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:black_ghillie",
+      "count": 1
+    }
+  }
+}

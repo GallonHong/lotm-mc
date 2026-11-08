@@ -1,0 +1,44 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.gunaim_jg.standby": {
+			"loop": true,
+			"bones": {
+				"gunaim_jg": {
+					"position": [0, 2, 370],
+					"scale": 1.1
+				},
+				"gunaim_jg_white": {
+					"scale": 2
+				},
+				"gunaim_jg_yellow": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.gunaim_jg.charging_over": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"gunaim_jg_white": {
+					"scale": 0
+				},
+				"gunaim_jg_yellow": {
+					"scale": 2
+				},
+				"gunaim_jg": {
+					"position": [0, 2, 370],
+					"scale": 1.1
+				}
+			}
+		},
+		"animation.gunaim_jg.tp": {
+			"loop": true,
+			"bones": {
+				"gunaim_jg": {
+					"scale": 0
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:pvs_31",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 1,
+      "minecraft:glint": false,
+      "minecraft:icon": "atg:pvs_31",
+      "minecraft:allow_off_hand": false,
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:transform_materials"
+        ]
+      },
+      "minecraft:should_despawn": false,
+      "minecraft:cooldown": {
+        "category": "pvs_31_cooldown",
+        "duration": 0.5,
+        "type": "use"
+      }
+    }
+  }
+}

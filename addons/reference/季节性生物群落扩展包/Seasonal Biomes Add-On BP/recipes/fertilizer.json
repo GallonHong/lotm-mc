@@ -1,0 +1,31 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:fertilizer"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            " # ",
+            "#A#",
+            " # "
+        ],
+        "key": {
+            "#": {
+                "item": "minecraft:bone_meal"
+            },
+            "A": {
+                "item": "mythicus_sn:manure"
+            }
+        },
+        "result": {
+            "item": "mythicus_sn:fertilizer",
+            "count": 1
+        },
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        }
+    }
+}

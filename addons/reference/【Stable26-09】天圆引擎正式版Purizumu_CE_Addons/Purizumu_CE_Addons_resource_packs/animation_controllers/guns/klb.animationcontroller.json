@@ -1,0 +1,191 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.klb.run": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "klb_first_person": "variable.klb"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "hold_to_run": "variable.klb && q.is_sprinting && q.is_on_ground"
+                        },
+                        {
+                            "scope": "variable.klb && q.is_sneaking && q.is_alive"
+                        },
+                        {
+                            "fire": "variable.klb && q.item_remaining_use_duration > 1 && q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'klb_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'klb_empty2'"
+                        }
+                    ]
+                },
+                "hold_to_run": {
+                    "animations": [
+                        "klb_first_person_hold_to_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run": "q.all_animations_finished"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1 && q.is_alive"
+                        }
+                    ]
+                },
+                "run": {
+                    "animations": [
+                        "klb_first_person_run"
+                    ],
+                    "transitions": [
+                        {
+                            "run_to_hold": "!q.is_on_ground || (!q.is_sprinting && !q.is_using_item) || !variable.klb || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'klb_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'klb_empty2'"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1 && q.is_alive"
+                        }
+                    ]
+                },
+                "run_to_hold": {
+                    "animations": [
+                        "klb_first_person_run_to_hold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1 && q.is_alive"
+                        }
+                    ]
+                },
+                "scopehold": {
+                    "animations": [
+                        "klb_first_person_scopehold"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.klb || !q.is_alive"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1 || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'klb_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'klb_empty2'"
+                        },
+                        {
+                            "scope_to_default": "!q.is_sneaking"
+                        }
+                    ]
+                },
+                "scope": {
+                    "animations": [
+                        "klb_first_person_scope"
+                    ],
+                    "transitions": [
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1 || !q.is_alive"
+                        },
+                        {
+                            "scopehold": "q.all_animations_finished"
+                        },
+                        {
+                            "scopefire": "q.item_remaining_use_duration > 1 || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'klb_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'klb_empty2'"
+                        },
+                        {
+                            "scope_to_default": "!q.is_sneaking"
+                        }
+                    ]
+                },
+                "scope_to_default": {
+                    "animations": [
+                        "klb_first_person_scopehold_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "fire": "q.item_remaining_use_duration > 1 && q.is_alive"
+                        }
+                    ]
+                },
+                "fire": {
+                    "animations": [
+                        "klb_first_person_fire"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!variable.klb || q.all_animations_finished || !q.is_alive"
+                        },
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'klb_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'klb_empty2'"
+                        }
+                    ]
+                },
+                "scopefire": {
+                    "animations": [
+                        "klb_first_person_scopefire"
+                    ],
+                    "transitions": [
+                        {
+                            "not_total_mag": "q.get_equipped_item_name == 'klb_empty1'"
+                        },
+                        {
+                            "mag": "q.get_equipped_item_name == 'klb_empty2'"
+                        },
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                },
+                "mag": {
+                    "animations": [
+                        "klb_first_person_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || (q.all_animations_finished && q.get_equipped_item_name == 'klb')"
+                        }
+                    ]
+                },
+                "not_total_mag": {
+                    "animations": [
+                        "klb_first_person_not_total_mag"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.is_alive || (q.all_animations_finished && q.get_equipped_item_name == 'klb')"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

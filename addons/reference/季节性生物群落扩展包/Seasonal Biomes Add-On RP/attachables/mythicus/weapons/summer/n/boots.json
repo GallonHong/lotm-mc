@@ -1,0 +1,21 @@
+{
+    "format_version": "1.20.41",
+    "minecraft:attachable": {
+        "description": {
+            "identifier": "mythicus_sn:normal_summer_boots",
+            "materials": {
+                "default": "entity_alphatest",
+                "enchanted": "entity_alphatest_glint"
+            },
+            "textures": {
+                "default": "textures/mythicus/sn/entity/armors/summer/normal",
+                "enchanted": "textures/misc/enchanted_actor_glint"
+            },
+            "geometry": {
+                "default": "geometry.mythicus_sn.summer_armor"
+            },
+            "scripts": {},
+            "render_controllers": ["controller.render.mythicus_sn.boots"]
+        }
+    }
+}

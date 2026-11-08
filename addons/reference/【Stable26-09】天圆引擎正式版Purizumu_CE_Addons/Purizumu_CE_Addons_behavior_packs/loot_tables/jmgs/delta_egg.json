@@ -1,0 +1,119 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_blok_free.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_blok_delta.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_animal.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_armor.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_arms.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_arrow.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_block.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_book.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_car.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_cloth.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_food.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_item.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_loot_chest_air.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_loot_chest_chicken.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_loot_chest_pro.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_metal.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_mine.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_other.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_parts.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_potion.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_tech.json",
+          "weight": 1
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/jmgs/jmgs_loot_book.json",
+          "weight": 1
+        }
+      ]
+    }
+  ]
+}

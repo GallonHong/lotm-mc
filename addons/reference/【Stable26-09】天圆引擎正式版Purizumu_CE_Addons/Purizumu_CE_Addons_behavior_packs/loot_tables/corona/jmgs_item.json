@@ -1,0 +1,605 @@
+{
+  "pools": [
+    {
+      "rolls": {
+        "min": 1,
+        "max": 3
+      },
+      "entries": [
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_book.json",
+          "weight": 150
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_other.json",
+          "weight": 200
+        },
+        {
+          "type": "loot_table",
+          "name": "loot_tables/corona/jmgs_loot_chest_pro.json",
+          "weight": 20
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_n",
+          "weight": 200,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_r",
+          "weight": 120,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值2.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_sr",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_ssr",
+          "weight": 30,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值50§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_ur",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值180§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:blueprint_apex",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值405§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:recipe_page",
+          "weight": 15,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值200§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_level0",
+          "weight": 200,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_level1",
+          "weight": 130,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_level2",
+          "weight": 80,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值30§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_level3",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值60§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_level4",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值180§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_level5",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值405§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_level6",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值900§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_vinyl",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值32.5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:hat_green",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_gash1",
+          "weight": 40,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值100§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_magnetic",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:item_bug_log",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§c价值未知§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:item_start",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1250§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_gash2",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值500§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_gash3",
+          "weight": 150,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值10§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_gash4",
+          "weight": 9,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值500§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_silicon_wafer",
+          "weight": 5,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_gold",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值235§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "ewo:card_sd",
+          "weight": 60,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值65§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_egg",
+          "weight": 100,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_lab1",
+          "weight": 20,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_lab2",
+          "weight": 10,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_lab3",
+          "weight": 2,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_lab4",
+          "weight": 1,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值5§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_family_photo",
+          "weight": 50,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_book",
+          "weight": 35,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值1§r"
+              ]
+            }
+          ]
+        },
+        {
+          "type": "item",
+          "name": "jmgs:item_book_pro",
+          "weight": 25,
+          "functions": [
+            {
+              "function": "set_data",
+              "data": 0
+            },
+            {
+              "function": "set_lore",
+              "lore": [
+                "§6价值3§r"
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_f89ac0cc"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_propeller",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:projectile_a2",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_air_fight_lite_spawn_egg",
+      "count": 1
+    }
+  }
+}

@@ -79,9 +79,9 @@ export class VehicleMenu {
         const form = new ActionFormData()
             .title("§l§6末日载具改装工坊§r")
             .body(
-                `§7型号: §f${typeName} §7| 颜色: §e${colorName}\n` +
-                `§7油量: §a${fuel}% §7| 钱包余额: §6${money} ${Config.economy.currencySymbol}\n\n` +
-                `§8选择升级项目以强化载具各项生存性能：`
+                `§e型号: §f${typeName} §6│ §e车漆: §f${colorName}\n` +
+                `§e油量: §a${fuel}% §6│ §e钱包: §6${money} ${Config.economy.currencySymbol}\n\n` +
+                `§f选择升级项目以强化载具各项生存性能：`
             );
 
         // 按钮 1：最高时速
@@ -157,6 +157,21 @@ export class VehicleMenu {
 
         if (this.deductPlayerMoney(player, cost)) {
             vehicle.setProperty(propKey, nextConfig.level);
+
+            // 同步保存至个人车库动态属性
+            try {
+                const rawGarage = player.getDynamicProperty("ab_ve:garage_v1");
+                if (typeof rawGarage === "string") {
+                    const garage = JSON.parse(rawGarage);
+                    if (garage[vehicle.typeId]) {
+                        if (propKey === "ab_ve:max_speed") garage[vehicle.typeId].maxSpeedLevel = nextConfig.level;
+                        if (propKey === "ab_ve:acceleration") garage[vehicle.typeId].accelerationLevel = nextConfig.level;
+                        if (propKey === "ab_ve:special") garage[vehicle.typeId].specialLevel = nextConfig.level;
+                        player.setDynamicProperty("ab_ve:garage_v1", JSON.stringify(garage));
+                    }
+                }
+            } catch {}
+
             player.sendMessage(`§a[改装成功] 消耗 §e${cost} ${Config.economy.currencySymbol}§a，已将【${title}】成功升级至 Lv.${nextConfig.level}！`);
             player.runCommandAsync("playsound random.levelup @s ~~~ 0.8 1.2");
         } else {

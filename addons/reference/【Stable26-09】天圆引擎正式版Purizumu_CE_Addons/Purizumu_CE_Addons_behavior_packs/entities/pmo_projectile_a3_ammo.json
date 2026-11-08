@@ -1,0 +1,89 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "pmo:projectile_a3_ammo",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "runtime_identifier": "minecraft:snowball"
+    },
+    "component_groups": {
+      "exploding": {
+        "minecraft:explode": {
+          "fuseLength": 2,
+          "power": 0.3,
+          "fuseLit": true,
+          "causesFire": false
+        }
+      }
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.3,
+        "height": 0.3
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "impact_damage": {
+            "damage": 22,
+            "knockback": true,
+            "semi_random_diff_damage": false,
+            "destroy_on_hit": true
+          },
+          "mob_effect": {
+            "effect": "slowness",
+            "durationeasy": 3,
+            "durationnormal": 3,
+            "durationhard": 3,
+            "amplifier": 1
+          },
+          "stick_in_ground": {
+            "shake_time": 5
+          },
+          "arrow_effect": {},
+          "definition_event": {
+            "affect_projectile": true,
+            "eventTrigger": {
+              "event": "on:hit",
+              "target": "self"
+            }
+          }
+        },
+        "hit_sound": "mob.shulker.bullet.hit",
+        "knockback":true,
+        "power": 2.5,
+        "gravity": 0,
+        "inertia": 1,
+        "anchor": 2,
+        "angle_offset": 0,
+        "offset": null,
+        "shoot_sound": "pmo_projectile_a3_shot"
+      },
+      "minecraft:physics": {
+        "has_collision": false,
+        "has_gravity": false
+      },
+      "minecraft:pushable": {
+        "is_pushable": true,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:conditional_bandwidth_optimization": {
+        "default_values": {
+          "max_optimized_distance": 100,
+          "max_dropped_ticks": 7,
+          "use_motion_prediction_hints": true
+        }
+      },
+      "minecraft:explode": {
+        "fuseLength": 1.25,
+        "power": 0.01,
+        "fuseLit": true,
+        "causesFire": false
+      }
+    },
+    "events": {
+
+    }
+  }
+}

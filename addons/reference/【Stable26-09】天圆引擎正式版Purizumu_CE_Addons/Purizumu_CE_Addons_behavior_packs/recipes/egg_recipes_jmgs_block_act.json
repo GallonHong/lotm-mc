@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_act_8dbb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABF",
+      "CDE",
+      "CDE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:block_pc3",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_pipe",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_plastic",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:pc_disk3",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_act_spawn_egg",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_duo_3dcabfbe"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      "DDD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_sword",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_duo",
+      "count": 1
+    }
+  }
+}

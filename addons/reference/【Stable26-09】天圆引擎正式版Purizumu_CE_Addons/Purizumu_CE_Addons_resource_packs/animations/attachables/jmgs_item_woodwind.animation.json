@@ -1,0 +1,22 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.jmgs_item_woodwind.hold_first_person": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"rightitem": {
+					"rotation": [9.46523, 79.56442, -125.03664],
+					"position": [-2, 0, -14]
+				}
+			}
+		},
+		"animation.jmgs_item_woodwind.hold_third_person": {
+			"loop": true,
+			"bones": {
+				"rightitem": {
+					"position": [0, -3, -6]
+				}
+			}
+		}
+	}
+}

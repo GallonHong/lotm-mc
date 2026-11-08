@@ -1,0 +1,36 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "jmgs:klb_empty1",
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/entity/attachable/jmgs_none",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_none"
+      },
+      "animations": {
+        "first_person_hold": "animation.pmo_projectile_a1.first_person_hold",
+        "third_person_hold": "animation.pmo_projectile_a1.third_person_hold"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "first_person_hold": "c.is_first_person"
+          },
+          {
+            "third_person_hold": "!c.is_first_person"
+          }
+        ]
+      }
+    }
+  }
+}

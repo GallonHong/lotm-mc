@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_winder_a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "CFE",
+      "DFG"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_motor",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:prismarine_crystals",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:cloth_fibler",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_winder",
+      "count": 1
+    }
+  }
+}

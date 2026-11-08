@@ -1,0 +1,50 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.jg.sneaking": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "default_to_sneaking": "q.is_sneaking"
+                        }
+                    ]
+                },
+                "default_to_sneaking": {
+                    "animations": [
+                        "jg_default_to_sneaking"
+                    ],
+                    "transitions": [
+                        {
+                            "sneaking": "q.all_animations_finished"
+                        },
+                        {
+                            "sneaking_to_default": "!q.is_sneaking"
+                        }
+                    ]
+                },
+                "sneaking": {
+                    "animations": [
+                        "jg_sneaking"
+                    ],
+                    "transitions": [
+                        {
+                            "sneaking_to_default": "!q.is_sneaking"
+                        }
+                    ]
+                },
+                "sneaking_to_default": {
+                    "animations": [
+                        "jg_sneaking_to_default"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.all_animations_finished"
+                        }
+                    ]
+                }
+            }
+        }
+    }
+}

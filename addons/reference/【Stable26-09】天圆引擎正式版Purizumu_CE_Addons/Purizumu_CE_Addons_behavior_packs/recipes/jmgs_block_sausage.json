@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_sausage_a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " C ",
+      "DAD",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_pipe",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_sausage",
+      "count": 2
+    }
+  }
+}

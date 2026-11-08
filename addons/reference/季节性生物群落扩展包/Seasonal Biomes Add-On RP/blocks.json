@@ -1,0 +1,261 @@
+{
+    "format_version": "1.21.40",
+    "mythicus_sn:dandelion": {
+        "sound": "grass"
+    },
+    "mythicus_sn:fern": {
+        "sound": "grass"
+    },
+    "mythicus_sn:ground_leaves": {
+        "sound": "grass"
+    },
+    "mythicus_sn:large_fern_bottom": {
+        "sound": "grass"
+    },
+    "mythicus_sn:large_fern_top": {
+        "sound": "grass"
+    },
+    "mythicus_sn:leaves_birch": {
+        "sound": "grass"
+    },
+    "mythicus_sn:leaves_spruce": {
+        "sound": "grass"
+    },
+    "mythicus_sn:lilac_bottom": {
+        "sound": "grass"
+    },
+    "mythicus_sn:lilac_top": {
+        "sound": "grass"
+    },
+    "mythicus_sn:orange_leaves_oak": {
+        "sound": "grass"
+    },
+    "mythicus_sn:orange_piles_of_leaves": {
+        "sound": "grass"
+    },
+    "mythicus_sn:preservers_jar": {
+        "sound": "glass"
+    },
+    "mythicus_sn:peony_top": {
+        "sound": "grass"
+    },
+    "mythicus_sn:peony_bottom": {
+        "sound": "grass"
+    },
+    "mythicus_sn:poppy": {
+        "sound": "grass"
+    },
+    "mythicus_sn:red_leaves_oak": {
+        "sound": "grass"
+    },
+    "mythicus_sn:red_piles_of_leaves": {
+        "sound": "grass"
+    },
+    "mythicus_sn:rose_bottom": {
+        "sound": "grass"
+    },
+    "mythicus_sn:rose_top": {
+        "sound": "grass"
+    },
+    "mythicus_sn:short_grass": {
+        "sound": "grass"
+    },
+    "mythicus_sn:shrub": {
+        "sound": "grass"
+    },
+    "mythicus_sn:wildflowers": {
+        "sound": "grass"
+    },
+    "mythicus_sn:yellow_leaves_oak": {
+        "sound": "grass"
+    },
+    "mythicus_sn:yellow_piles_of_leaves": {
+        "sound": "grass"
+    },
+    "mythicus_sn:sweetberry": {
+        "sound": "sweet_berry_bush"
+    },
+    "mythicus_sn:beet": {
+        "sound": "grass"
+    },
+    "mythicus_sn:strawberry_bush": {
+        "sound": "sweet_berry_bush"
+    },
+    "mythicus_sn:cauliflower": {
+        "sound": "grass"
+    },
+    "mythicus_sn:green_bean": {
+        "sound": "grass"
+    },
+    "mythicus_sn:garlic": {
+        "sound": "grass"
+    },
+    "mythicus_sn:blueberry_bush": {
+        "sound": "sweet_berry_bush"
+    },
+    "mythicus_sn:tomatoes": {
+        "sound": "grass"
+    },
+    "mythicus_sn:corn": {
+        "sound": "grass"
+    },
+    "mythicus_sn:hot_pepper": {
+        "sound": "grass"
+    },
+    "mythicus_sn:cranberry_bush": {
+        "sound": "sweet_berry_bush"
+    },
+    "mythicus_sn:broccoli": {
+        "sound": "grass"
+    },
+    "mythicus_sn:eggplant": {
+        "sound": "grass"
+    },
+    "mythicus_sn:custom_ground_block": {
+        "sound": "grass"
+    },
+    "mythicus_sn:custom_ground_variant_1": {
+        "sound": "grass"
+    },
+    "mythicus_sn:custom_ground_variant_2": {
+        "sound": "grass"
+    },
+    "mythicus_sn:chicken_nest": {
+        "sound": "mythicus_sn.chicken_nest"
+    },
+    "mythicus_sn:apples": {
+        "sound": "grass"
+    },
+    "mythicus_sn:cheese_press": {
+        "sound": "stone"
+    },
+    "mythicus_sn:dehydrator": {
+        "sound": "stone"
+    },
+    "mythicus_sn:icicle": {
+        "sound": "glass"
+    },
+    "mythicus_sn:keg": {
+        "sound": "wood"
+    },
+    "mythicus_sn:loom": {
+        "sound": "wood"
+    },
+    "mythicus_sn:mayonnaise_machine": {
+        "sound": "wood"
+    },
+    "mythicus_sn:mortar_pestle": {
+        "sound": "stone"
+    },
+    "mythicus_sn:sapling_birch": {
+        "sound": "grass"
+    },
+    "mythicus_sn:sapling_oak": {
+        "sound": "grass"
+    },
+    "mythicus_sn:sapling_spruce": {
+        "sound": "grass"
+    },
+    "mythicus_sn:sapling_dark_oak": {
+        "sound": "grass"
+    },
+    "mythicus_sn:sapling_cherry": {
+        "sound": "grass"
+    },
+    "mythicus_sn:side_leaves_birch": {
+        "sound": "grass"
+    },
+    "mythicus_sn:side_leaves_oak": {
+        "sound": "grass"
+    },
+    "mythicus_sn:side_leaves_spruce": {
+        "sound": "grass"
+    },
+    "mythicus_sn:very_short_grass": {
+        "sound": "grass"
+    },
+    "mythicus_sn:vendor_block": {
+        "sound": "wood"
+    },
+    "mythicus_sn:blue_orchid": {
+        "sound": "grass"
+    },
+    "mythicus_sn:brown_mushroom": {
+        "sound": "grass"
+    },
+    "mythicus_sn:cherry_leaves": {
+        "sound": "grass"
+    },
+    "mythicus_sn:dark_oak_leaves": {
+        "sound": "grass"
+    },
+    "mythicus_sn:lily_pad": {
+        "sound": "grass"
+    },
+    "mythicus_sn:pink_petals": {
+        "sound": "grass"
+    },
+    "mythicus_sn:red_mushroom": {
+        "sound": "grass"
+    },
+    "mythicus_sn:tall_grass_bottom": {
+        "sound": "grass"
+    },
+    "mythicus_sn:tall_grass_top": {
+        "sound": "grass"
+    },
+    "mythicus_sn:vines": {
+        "sound": "grass"
+    },
+    "mythicus_sn:pine_needles": {
+        "sound": "grass"
+    },
+    "mythicus_sn:tulips": {
+        "sound": "grass"
+    },
+    "mythicus_sn:snow_layer": {
+        "sound": "snow"
+    },
+    "mythicus_sn:big_pot": {
+        "sound": "stone"
+    },
+    "mythicus_sn:house_bush": {
+        "sound": "grass"
+    },
+    "mythicus_sn:crate": {
+        "sound": "wood"
+    },
+    "mythicus_sn:fire_wood": {
+        "sound": "wood"
+    },
+    "mythicus_sn:flower_box": {
+        "sound": "wood"
+    },
+    "mythicus_sn:hanging_pot": {
+        "sound": "stone"
+    },
+    "mythicus_sn:pole": {
+        "sound": "wood"
+    },
+    "mythicus_sn:seasonal_barrel": {
+        "sound": "wood"
+    },
+    "mythicus_sn:seasonal_decoration": {
+        "sound": "wood"
+    },
+    "mythicus_sn:tool_rack": {
+        "sound": "wood"
+    },
+    "mythicus_sn:vegetable_basket": {
+        "sound": "wood"
+    },
+    "mythicus_sn:house_vines": {
+        "sound": "grass"
+    },
+    "mythicus_sn:window_cloth": {
+        "sound": "cloth"
+    },
+    "mythicus_sn:bee_nest": {
+        "sound": "wood"
+    }
+}

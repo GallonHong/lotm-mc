@@ -1,0 +1,27 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "ewo:blueprint_r",
+      "menu_category": {
+				"category": "items",
+				"group": "itemGroup.name.record"
+			}
+    },
+    "components": {
+      "minecraft:hand_equipped": false,
+      "minecraft:max_stack_size": 16,
+      "minecraft:glint": false,
+      "minecraft:stack_by_data": true,
+      "minecraft:icon": {
+        "texture": "ewo:blueprint_r"
+      },
+      "minecraft:display_name": {
+        "value": "item.ewo:blueprint_r.name"
+      },
+			"minecraft:fuel": {
+				"duration": 5
+			}
+    }
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.atg_oak_ghillie": {
+      "states": {
+        "default": {
+          "transitions": [
+            {
+              "walking": "(1.0)"
+            }
+          ],
+          "on_entry": [
+            "/function atg_oak_ghillie"
+          ]
+        },
+        "walking": {
+          "transitions": [
+            {
+              "default": "query.get_equipped_item_name=='oak_ghillie' && query.is_using_item"
+            }
+          ],
+          "on_entry": [
+            "/function atg_oak_ghillie"
+          ]
+        }
+      }
+    }
+  }
+}

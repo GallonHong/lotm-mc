@@ -1,0 +1,21 @@
+{
+    "format_version": "1.21.100",
+    "minecraft:structure_set": {
+        "description": {
+            "identifier": "mythicus_sn:start_village"
+        },
+        "placement": {
+            "type": "minecraft:random_spread",
+            "salt": 39281239,
+            "separation": 15,
+            "spacing": 31,
+            "spread_type": "triangular"
+        },
+        "structures": [
+            {
+                "structure": "mythicus_sn:start_village",
+                "weight": 100
+            }
+        ]
+    }
+}

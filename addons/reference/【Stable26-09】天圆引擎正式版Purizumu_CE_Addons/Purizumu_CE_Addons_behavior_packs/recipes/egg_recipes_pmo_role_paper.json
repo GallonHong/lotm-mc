@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_e5178f44"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "AAA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:paper",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:role_paper_spawn_egg",
+      "count": 3
+    }
+  }
+}

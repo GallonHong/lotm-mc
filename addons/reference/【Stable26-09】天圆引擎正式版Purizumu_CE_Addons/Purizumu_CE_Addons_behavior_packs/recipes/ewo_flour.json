@@ -1,0 +1,25 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "flour_d79a3a22"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " AA",
+      " AA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:wheat",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:flour",
+      "count": 4
+    }
+  }
+}

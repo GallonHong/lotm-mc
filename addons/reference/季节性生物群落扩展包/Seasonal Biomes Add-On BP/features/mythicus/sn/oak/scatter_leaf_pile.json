@@ -1,0 +1,23 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/oak/scatter_leaf_pile"
+        },
+        "iterations": 18,
+        "coordinate_eval_order": "zyx",
+        "x": {
+            "extent": [-8, 8],
+            "distribution": "gaussian"
+        },
+        "z": {
+            "extent": [-8, 8],
+            "distribution": "gaussian"
+        },
+        "y": {
+            "extent": [-4, 4],
+            "distribution": "gaussian"
+        },
+        "places_feature": "mythicus_sn:mythicus/sn/oak/shrub"
+    }
+}

@@ -1,0 +1,19 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.wimman_models": {
+			"textures": [
+				"Texture.wimman_models"
+			],
+			"geometry": "Geometry.wimman_models",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"gunfire": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

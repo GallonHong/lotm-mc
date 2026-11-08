@@ -1,0 +1,35 @@
+{
+    "format_version": "1.10.0",
+    "animations": {
+        "animation.mythicus_sn.generic.cold_breath": {
+            "animation_length": 2,
+            "loop": true,
+            "particle_effects": {
+                "0.0": {
+                    "effect": "cold_breath",
+                    "locator": "breath_locator"
+                }
+            }
+        },
+        "animation.mythicus_sn.generic.snow_shake": {
+            "animation_length": 1,
+            "loop": false,
+            "particle_effects": {
+                "0.35": {
+                    "effect": "snow_shake",
+                    "locator": "shake_locator"
+                }
+            }
+        },
+        "animation.mythicus_sn.generic.leaf_shake": {
+            "animation_length": 1,
+            "loop": false,
+            "particle_effects": {
+                "0.35": {
+                    "effect": "leaf_shake",
+                    "locator": "shake_locator"
+                }
+            }
+        }
+    }
+}

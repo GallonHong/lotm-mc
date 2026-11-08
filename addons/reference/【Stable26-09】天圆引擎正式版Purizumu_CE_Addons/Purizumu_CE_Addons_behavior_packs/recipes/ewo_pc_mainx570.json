@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_mainx570_b2f329c9"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "EBD",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_man_si",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_mainx570",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,252 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:cobblestone",
+              "quantity": 6
+            },
+            {
+              "item": "minecraft:sand",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_silicon_wafer:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_silicon_wafer:0",
+              "quantity": 1
+            },
+            {
+              "item": "minecraft:amethyst_shard:0",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:echo_shard:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_silicon_wafer:0",
+              "quantity": 1
+            },
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:parts_electrion:0",
+              "quantity": {
+                "min": 10,
+                "max": 15
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_silicon_wafer:0",
+              "quantity": 1
+            },
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:pc_cpu9100f:0",
+              "quantity": {
+                "min": 10,
+                "max": 15
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_silicon_wafer:0",
+              "quantity": 1
+            },
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 13
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:pc_cpu5950xt:0",
+              "quantity": {
+                "min": 11,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_silicon_wafer:0",
+              "quantity": 2
+            },
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 40
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:pc_cpu2990wx:0",
+              "quantity": {
+                "min": 11,
+                "max": 16
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:echo_shard:0",
+              "quantity": 2
+            },
+            {
+              "item": "minecraft:netherite_ingot:0",
+              "quantity": 18
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "pmo:item_cpu:0",
+              "quantity": {
+                "min": 11,
+                "max": 16
+              }
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:echo_shard:0",
+              "quantity": 3
+            },
+            {
+              "item": "minecraft:netherite_ingot:0",
+              "quantity": 35
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_disk:0",
+              "quantity": {
+                "min": 11,
+                "max": 16
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:echo_shard:0",
+              "quantity": 8
+            },
+            {
+              "item": "minecraft:netherite_ingot:0",
+              "quantity": 26
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_x990:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:echo_shard:0",
+              "quantity": 8
+            },
+            {
+              "item": "minecraft:netherite_ingot:0",
+              "quantity": 18
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:item_ddr9900:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

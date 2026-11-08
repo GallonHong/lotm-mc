@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_void2_88ff7e98"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CDE",
+      "FGF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:ceramics_bionics",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_cpu5950xt",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_film",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:emerald",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:netherite_block",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_void2",
+      "count": 1
+    }
+  }
+}

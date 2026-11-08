@@ -1,0 +1,1 @@
+scoreboard players add @s cyd_mgspl_mana 0

@@ -1,0 +1,160 @@
+{
+	"entity_sounds": {
+		"entities": {
+			"makercamp_dr:ground_drone": {
+				"events": {
+					"ambient": "makercamp_dr.drone.ground_drone.idle",
+					"step": "makercamp_dr.drone.ground_drone.walk",
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [1.05, 1.1]
+			},
+			"makercamp_dr:crossbow_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:fertiliser_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:healing_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:freeze_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:inventory_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:item_collector_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:laser_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:lightning_strike_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:mining_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:mob_transporter_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:night_vision_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:ore_finder_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:poison_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:race_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:spy_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:summoner_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:tnt_launcher_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			},
+			"makercamp_dr:water_drone": {
+				"events": {
+					"hurt": "makercamp_dr.drone.hurt",
+					"death": "makercamp_dr.drone.death"
+				},
+				"volume": 1,
+				"pitch": [0.9, 1]
+			}
+		}
+	}
+}

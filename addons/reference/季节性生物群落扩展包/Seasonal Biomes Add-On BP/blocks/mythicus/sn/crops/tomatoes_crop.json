@@ -1,0 +1,485 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:tomatoes",
+            "tags": [
+                "minecraft:crop"
+            ],
+            "states": {
+                "mythicus_sn:growth_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7
+                ],
+                "mythicus_sn:is_dead": [
+                    false,
+                    true
+                ],
+                "mythicus_sn:is_stuck": [
+                    false,
+                    true
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "components": {
+            "tag:mythicus_sn:non_solid": {},
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:tomatoes_crop_0",
+                    "render_method": "alpha_test",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_0",
+            "minecraft:collision_box": false,
+            "minecraft:selection_box": {
+                "origin": [
+                    -0.707,
+                    0,
+                    -0.707
+                ],
+                "size": [
+                    1.414,
+                    2,
+                    1.414
+                ]
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0
+            },
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:tick": {
+                "interval_range": [
+                    20,
+                    80
+                ],
+                "looping": true
+            },
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "up"
+                        ],
+                        "block_filter": [
+                            "minecraft:farmland"
+                        ]
+                    }
+                ]
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/empty.json",
+            "mythicus_sn:crop_growable": {},
+            "tag:minecraft:crop": {},
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == true",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_dead",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/tomatoes/stage_dead.json",
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_7",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_7",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/empty.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_6",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            14,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_5",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.996,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            11.992,
+                            12,
+                            12
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_4",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.243,
+                            0,
+                            -4.243
+                        ],
+                        "size": [
+                            8.485,
+                            12,
+                            8.485
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_3",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -2.828,
+                            0,
+                            -2.828
+                        ],
+                        "size": [
+                            5.657,
+                            8,
+                            5.657
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_2",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -2.121,
+                            0,
+                            -2.121
+                        ],
+                        "size": [
+                            4.243,
+                            6,
+                            4.243
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_1",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -1.414,
+                            0,
+                            -1.414
+                        ],
+                        "size": [
+                            2.828,
+                            3,
+                            2.828
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_stuck_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_7",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_stuck_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_6",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            14,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_stuck_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_5",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5.996,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            11.992,
+                            12,
+                            12
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_stuck_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_4",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4.243,
+                            0,
+                            -4.243
+                        ],
+                        "size": [
+                            8.485,
+                            12,
+                            8.485
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_stuck_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_3",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -2.828,
+                            0,
+                            -2.828
+                        ],
+                        "size": [
+                            5.657,
+                            8,
+                            5.657
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_stuck_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_2",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -2.121,
+                            0,
+                            -2.121
+                        ],
+                        "size": [
+                            4.243,
+                            6,
+                            4.243
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:tomatoes_crop_stuck_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.tomatoes_crop_1",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -1.414,
+                            0,
+                            -1.414
+                        ],
+                        "size": [
+                            2.828,
+                            3,
+                            2.828
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

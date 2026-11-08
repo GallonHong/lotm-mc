@@ -1,0 +1,31 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.ewo_block_print_pro",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "unknown_bone",
+					"pivot": [0, 0, 0],
+					"rotation": [0, 180, 0],
+					"cubes": [
+						{"origin": [-6, 0, -7], "size": [12, 8, 13], "uv": [0, 0]},
+						{"origin": [-6, 11, -7], "size": [9, 1, 13], "uv": [20, 0]},
+						{"origin": [6, 1, -6], "size": [2, 9, 11], "uv": [0, 31]},
+						{"origin": [-6, 0, 6], "size": [11, 8, 1], "uv": [0, 22]},
+						{"origin": [-5, 8, -6], "size": [8, 3, 10], "uv": [28, 22]},
+						{"origin": [-5, 13, -6], "size": [8, 1, 10], "uv": [28, 35]},
+						{"origin": [3, 8, -7], "size": [3, 6, 13], "uv": [0, 45]}
+					]
+				}
+			]
+		}
+	]
+}

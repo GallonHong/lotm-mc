@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_mainh110_a2f705a1"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      " BD",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_copper",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_mainh110",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "plastics_glass_925a233d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AEA",
+      "BCB",
+      "DFD"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:calcite",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:quartz_block",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:tuff",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:glowstone",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:prismarine_shard",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:plastics_glass",
+      "count": 1
+    }
+  }
+}

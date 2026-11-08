@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:fertiliser_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"/C/",
+			"B#B",
+			"/D/"
+		],
+		"key": {
+			"/": {
+				"item": "minecraft:stick"
+			},
+			"C": {
+				"item": "minecraft:composter"
+			},
+			"B": {
+				"item": "minecraft:bone_meal"
+			},
+			"D": {
+				"item": "minecraft:dispenser"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_2"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:fertiliser_drone_spawn_egg"
+		}
+	}
+}

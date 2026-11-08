@@ -1,0 +1,28 @@
+{
+    "format_version": "1.21.90",
+    "minecraft:item": {
+        "description": {
+            "identifier": "mythicus_sn:egg",
+            "menu_category": {
+                "category": "items"
+            }
+        },
+        "components": {
+            "minecraft:icon": "mythicus_sn:egg",
+            "minecraft:max_stack_size": 16,
+            "minecraft:throwable": {
+                "do_swing_animation": false,
+                "min_draw_duration": 0,
+                "max_draw_duration": 0,
+                "launch_power_scale": 1.0,
+                "max_launch_power": 1.0,
+                "scale_power_by_draw_duration": false
+            },
+            "minecraft:projectile": {
+                "minimum_critical_power": 1,
+                "projectile_entity": "mythicus_sn:egg_projectile"
+            },
+            "minecraft:cooldown_category": "generic"
+        }
+    }
+}

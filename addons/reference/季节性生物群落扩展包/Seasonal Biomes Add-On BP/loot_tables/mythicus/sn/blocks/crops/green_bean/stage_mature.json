@@ -1,0 +1,28 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:green_bean"
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:green_bean_seed",
+                    "conditions": [
+                        {
+                            "condition": "random_chance",
+                            "chance": 0.5
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

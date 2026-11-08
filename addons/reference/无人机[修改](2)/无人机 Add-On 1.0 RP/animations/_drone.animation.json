@@ -1,0 +1,30 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.makercamp_dr.drone.is_controlled_by_player": {
+			"loop": true,
+			"bones": {
+				"root": {
+					"scale": "v.is_controlled_by_player ? 0 : 1"
+				}
+			}
+		},
+		"animation.makercamp_dr.drone.hit": {
+			"animation_length": 0.5,
+			"bones": {
+				"root": {
+					"rotation": [0, "-math.sin(query.anim_time * 1000) * 50 * math.exp(-query.anim_time * 8)", 0]
+				}
+			}
+		},
+		"animation.makercamp_dr.drone.sound.active.fly": {
+			"loop": true,
+			"animation_length": 0.7,
+			"sound_effects": {
+				"0.0": {
+					"effect": "passive.fly"
+				}
+			}
+		}
+	}
+}

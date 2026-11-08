@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "role_fightx_7138831c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABG",
+      "HEI",
+      "FCF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:pc_mainh110",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:sword_stick",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:entity_mecha_a5_spawn_egg",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:role_fightx_spawn_egg",
+      "count": 1
+    }
+  }
+}

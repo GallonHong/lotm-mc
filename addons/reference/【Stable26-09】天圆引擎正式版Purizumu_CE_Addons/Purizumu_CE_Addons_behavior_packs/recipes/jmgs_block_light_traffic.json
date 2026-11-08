@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_light_traffic_932cd012"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BDC",
+      "BFA",
+      "BEC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_r",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_weathering",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone_lamp",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:red_dye",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:lime_dye",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:yellow_dye",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_light_traffic",
+      "count": 3
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+	"format_version": "1.20.30",
+	"minecraft:recipe_shaped": {
+		"description": {
+			"identifier": "makercamp_dr:mob_transporter_drone"
+		},
+		"tags": [ "crafting_table" ],
+		"pattern": [
+			"iOi",
+			"S#S",
+			"iLi"
+		],
+		"key": {
+			"i": {
+				"item": "minecraft:iron_ingot"
+			},
+			"O": {
+				"item": "minecraft:observer"
+			},
+			"S": {
+				"item": "minecraft:string"
+			},
+			"L": {
+				"item": "minecraft:lead"
+			},
+			"#": {
+				"item": "makercamp_dr:drone_chip_1"
+			}
+		},
+		"unlock": {
+			"context": "AlwaysUnlocked"
+		},
+		"result": {
+			"item": "makercamp_dr:mob_transporter_drone_spawn_egg"
+		}
+	}
+}

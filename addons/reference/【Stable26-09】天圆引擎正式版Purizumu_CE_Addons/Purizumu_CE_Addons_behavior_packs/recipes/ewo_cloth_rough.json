@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_rough_647edaaa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      " C "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_hide",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_blood",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_rough",
+      "count": 1
+    }
+  }
+}

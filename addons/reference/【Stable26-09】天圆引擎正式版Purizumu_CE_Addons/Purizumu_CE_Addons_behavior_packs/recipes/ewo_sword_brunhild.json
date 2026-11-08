@@ -1,0 +1,50 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_brunhild_3daf1684"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "FAG",
+      "BCB",
+      "DED"
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_all",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_manganese",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:netherite_pickaxe",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_man_si",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_brunhild",
+      "count": 1
+    }
+  }
+}

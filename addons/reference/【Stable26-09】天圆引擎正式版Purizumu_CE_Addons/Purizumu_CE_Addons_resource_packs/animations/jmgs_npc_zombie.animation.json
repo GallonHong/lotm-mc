@@ -1,0 +1,153 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.jmgs_npc_zombie.z_idle": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"UpBody": {
+					"rotation": [2.5, 2.5, 0]
+				},
+				"UpperBody": {
+					"rotation": [12.5, 0, 0]
+				},
+				"Head": {
+					"rotation": [20, 0, 0]
+				},
+				"RightArm": {
+					"rotation": [-20, 0, 0]
+				},
+				"LeftArm": {
+					"rotation": [-27.5, 0, 0]
+				},
+				"LeftLeg": {
+					"rotation": [-15, 0, 0]
+				},
+				"LeftLowerLeg": {
+					"rotation": [15, 0, 0]
+				},
+				"RightLeg": {
+					"rotation": [0, 0, 2.5]
+				},
+				"RightLowerLeg": {
+					"rotation": [27.5, 0, 0]
+				}
+			}
+		},
+		"animation.jmgs_npc_zombie.z_idle2": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"UpBody": {
+					"rotation": [5.34367, 19.45841, 8.74826]
+				},
+				"UpperBody": {
+					"rotation": [13.79522, -11.04857, -7.71502]
+				},
+				"Head": {
+					"rotation": [20, 0, 0]
+				},
+				"RightArm": {
+					"rotation": [-95, 0, 0]
+				},
+				"LeftArm": {
+					"rotation": [-27.5, 0, 0]
+				},
+				"LeftLeg": {
+					"rotation": [2.70829, 0.22732, -4.99917]
+				},
+				"LeftLowerLeg": {
+					"rotation": [15, 0, 0]
+				},
+				"RightLeg": {
+					"rotation": [-16.77988, 15.78976, 2.83731]
+				},
+				"RightLowerLeg": {
+					"rotation": [27.5, 0, 0]
+				}
+			}
+		},
+		"animation.jmgs_npc_zombie.z_target": {
+			"loop": "hold_on_last_frame",
+			"bones": {
+				"Head": {
+					"rotation": [-33.34411, -11.31335, -16.60179]
+				},
+				"LeftArm": {
+					"rotation": [-50, 0, 0]
+				}
+			}
+		},
+		"animation.jmgs_npc_zombie.z_standby": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"body": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"2.0": [1, 0, 0],
+						"4.0": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"2.0": [0, 0, -0.3],
+						"4.0": [0, 0, 0]
+					}
+				},
+				"LeftArm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.2917": [0, 0, -2.19],
+						"2.0": [-1, 0, -2.5],
+						"2.7083": [0, 0, -2.19],
+						"4.0": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"2.0": [0, 0, 0.45],
+						"4.0": [0, 0, 0]
+					}
+				},
+				"RightArm": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"1.2917": [0, 0, 2.19],
+						"2.0": [-1, 0, 2.5],
+						"2.7083": [0, 0, 2.19],
+						"4.0": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"2.0": [0, 0, 0.3],
+						"4.0": [0, 0, 0]
+					}
+				},
+				"AllHead": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"2.0": [-2, 0, 0],
+						"4.0": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"2.0": [0, 0, 0.4],
+						"4.0": [0, 0, 0]
+					}
+				},
+				"Jacket": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"2.0": [1, 0, 0],
+						"4.0": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"2.0": [0, 0, -0.3],
+						"4.0": [0, 0, 0]
+					}
+				},
+				"UpperBody": {
+					"rotation": [0, 0, 0]
+				}
+			}
+		}
+	}
+}

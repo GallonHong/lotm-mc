@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "entity_lawn_mover_7dbb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "   ",
+      "BB ",
+      "ACD"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_carbon2",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:entity_car_spawn_egg",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:entity_lawn_mover_spawn_egg",
+      "count": 1
+    }
+  }
+}

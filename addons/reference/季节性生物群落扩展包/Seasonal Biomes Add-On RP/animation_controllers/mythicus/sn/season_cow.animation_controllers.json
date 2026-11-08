@@ -1,0 +1,174 @@
+{
+    "format_version": "1.10.0",
+    "animation_controllers": {
+        "controller.animation.mythicus_sn.seasons_cow.shake": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "shaking": "q.property('mythicus_sn:is_shaking')"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                },
+                "shaking": {
+                    "animations": [
+                        "shake",
+                        {
+                            "leaf_shake": "q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "snow_shake": "q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_shaking') && query.all_animations_finished"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_cow.udder": {
+            "initial_state": "standard_udder",
+            "states": {
+                "standard_udder": {
+                    "animations": [
+                        "standard_udder"
+                    ],
+                    "transitions": [
+                        {
+                            "udder_spring_transition": "q.property('mythicus_sn:season_variant') == 'spring' && v.milked == 0"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                },
+                "udder_spring_transition": {
+                    "animations": [
+                        "udder_spring_transition"
+                    ],
+                    "transitions": [
+                        {
+                            "udder_spring": "q.any_animation_finished && q.property('mythicus_sn:season_variant') == 'spring'"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                },
+                "udder_spring": {
+                    "animations": [
+                        "udder_spring"
+                    ],
+                    "transitions": [
+                        {
+                            "standard_udder": "q.property('mythicus_sn:season_variant') != 'spring' || v.milked == 1"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_cow.move": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "animations": [
+                        {
+                            "walk": "query.modified_move_speed"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "grazing": "query.is_grazing"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                },
+                "grazing": {
+                    "animations": [
+                        "grazing"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "query.all_animations_finished"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_cow.walking_particles": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "walking_fall": "q.ground_speed > 0.23 && q.property('mythicus_sn:season_variant') == 'fall'"
+                        },
+                        {
+                            "walking_winter": "q.ground_speed > 0.23 && q.property('mythicus_sn:season_variant') == 'winter'"
+                        }
+                    ]
+                },
+                "walking_fall": {
+                    "particle_effects": [
+                        {
+                            "effect": "walking_leaves"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.ground_speed <= 0.23 || q.property('mythicus_sn:season_variant') != 'fall'"
+                        }
+                    ]
+                },
+                "walking_winter": {
+                    "particle_effects": [
+                        {
+                            "effect": "walking_snow"
+                        }
+                    ],
+                    "transitions": [
+                        {
+                            "default": "q.ground_speed <= 0.23 || q.property('mythicus_sn:season_variant') != 'winter'"
+                        }
+                    ]
+                }
+            }
+        },
+        "controller.animation.mythicus_sn.seasons_cow.fertilizer": {
+            "initial_state": "default",
+            "states": {
+                "default": {
+                    "transitions": [
+                        {
+                            "fertilizing": "q.property('mythicus_sn:is_fertilizing')"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                },
+                "fertilizing": {
+                    "animations": [
+                        "fertilizer"
+                    ],
+                    "transitions": [
+                        {
+                            "default": "!q.property('mythicus_sn:is_fertilizing')"
+                        }
+                    ],
+                    "blend_transition": 0.1,
+                    "blend_via_shortest_path": true
+                }
+            }
+        }
+    }
+}

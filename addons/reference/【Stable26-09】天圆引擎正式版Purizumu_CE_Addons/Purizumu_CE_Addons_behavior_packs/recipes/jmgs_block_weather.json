@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_weather_932cd013"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "EFG",
+      "BCD",
+      "HAH"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_weathering",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:item_junction_box",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "F": {
+        "item": "pmo:item_prism",
+        "data": 0
+      },
+      "G": {
+        "item": "minecraft:daylight_detector",
+        "data": 0
+      },
+      "H": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_weather",
+      "count": 1
+    }
+  }
+}

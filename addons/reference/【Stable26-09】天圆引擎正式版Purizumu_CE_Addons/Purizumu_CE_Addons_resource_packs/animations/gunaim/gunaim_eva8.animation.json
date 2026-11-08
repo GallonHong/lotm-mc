@@ -1,0 +1,125 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.gunaim_eva8.standby": {
+			"loop": true,
+			"bones": {
+				"gunaim_eva8": {
+					"position": [0, 6.5, 555]
+				}
+			}
+		},
+		"animation.gunaim_eva8.fire": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.25,
+			"bones": {
+				"gunaim_eva8": {
+					"position": [0, 6.5, 555]
+				},
+				"gunaim_eva81": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.05": [20, 20, 0],
+						"0.25": [0, 0, 0]
+					}
+				},
+				"gunaim_eva82": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.05": [20, -20, 0],
+						"0.25": [0, 0, 0]
+					}
+				},
+				"gunaim_eva83": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.05": [-20, 20, 0],
+						"0.25": [0, 0, 0]
+					}
+				},
+				"gunaim_eva84": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.05": [-20, -20, 0],
+						"0.25": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.gunaim_eva8.fire_to_default": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.08333,
+			"bones": {
+				"gunaim_eva8": {
+					"position": [0, 6.5, 555]
+				},
+				"gunaim_eva81": {
+					"position": {
+						"0.0": [20, 20, 0],
+						"0.0833": [0, 0, 0]
+					}
+				},
+				"gunaim_eva82": {
+					"position": {
+						"0.0": [20, -20, 0],
+						"0.0833": [0, 0, 0]
+					}
+				},
+				"gunaim_eva83": {
+					"position": {
+						"0.0": [-20, 20, 0],
+						"0.0833": [0, 0, 0]
+					}
+				},
+				"gunaim_eva84": {
+					"position": {
+						"0.0": [-20, -20, 0],
+						"0.0833": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.gunaim_eva8.move": {
+			"loop": "hold_on_last_frame",
+			"animation_length": 0.08333,
+			"bones": {
+				"gunaim_eva8": {
+					"position": [0, 6.5, 555]
+				},
+				"gunaim_eva81": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [20, 20, 0]
+					}
+				},
+				"gunaim_eva82": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [20, -20, 0]
+					}
+				},
+				"gunaim_eva83": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [-20, 20, 0]
+					}
+				},
+				"gunaim_eva84": {
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.0833": [-20, -20, 0]
+					}
+				}
+			}
+		},
+		"animation.gunaim_eva8.tp": {
+			"loop": true,
+			"bones": {
+				"gunaim_eva8": {
+					"position": [0, 14, 291],
+					"scale": 0
+				}
+			}
+		}
+	}
+}

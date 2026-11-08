@@ -1,0 +1,38 @@
+{
+  "format_version": "1.8.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "ewo:entity_chair_pro",
+      "textures": {
+        "default": "textures/entity/pamobile/ewo_entity_chair_pro"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.ewo_entity_chair_pro"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "ewo:entity_chair_pro",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_car_star_edit.walk",
+        "idle": "animation.pmo_entity_car.idle"
+      },
+      "animation_controllers": [
+        {
+          "move": "controller.animation.pmo_entity_car_star_edit.walk"
+        }
+      ],
+      "scripts": {
+        "pre_animation": [
+          "variable.tcos0 = (Math.cos(query.modified_distance_moved * 38.17) * query.modified_move_speed / variable.gliding_speed_value) * 57.3;"
+        ]
+      }
+    }
+  }
+}

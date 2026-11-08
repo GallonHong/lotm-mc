@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_ventilator_5dbb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:totem_of_undying",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:wimman",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_resistance",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "G": {
+        "item": "jmgs:item_book_pro",
+        "data": 0
+      },
+      "H": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:block_display",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_ventilator_spawn_egg",
+      "count": 1
+    }
+  }
+}

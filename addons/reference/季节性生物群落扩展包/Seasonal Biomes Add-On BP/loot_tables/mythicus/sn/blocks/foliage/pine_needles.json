@@ -1,0 +1,61 @@
+{
+    "pools": [
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "empty",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "count": 1,
+                    "minecraft:match_tool_filter_none": ["minecraft:is_shears"]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:pine_needles",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "count": 1,
+                    "minecraft:match_tool_filter_all": ["minecraft:is_shears"]
+                }
+            ]
+        },
+        {
+            "rolls": 1,
+            "entries": [
+                {
+                    "type": "item",
+                    "name": "mythicus_sn:pine_needles",
+                    "weight": 1
+                }
+            ],
+            "conditions": [
+                {
+                    "condition": "match_tool",
+                    "count": 1,
+                    "enchantments": [
+                        {
+                            "enchantment": "silk_touch",
+                            "levels": {
+                                "min": 1
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

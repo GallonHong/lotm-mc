@@ -1,0 +1,40 @@
+{
+	"format_version": "1.8.0",
+	"render_controllers": {
+		"controller.render.alter_models": {
+			"textures": [
+				"Texture.alter_models"
+			],
+			"geometry": "Geometry.alter_models",
+			"materials": [
+				{
+					"*": "Material.default"
+				},
+				{
+					"scopestar": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire": "Material.gun_scope_aim"
+				},
+				{
+					"gunfire2": "Material.gun_scope_aim"
+				},
+				{
+					"gunammoscreen": "Material.gun_scope_aim"
+				},
+				{
+					"gunammoscreen_empty": "Material.gun_scope_aim"
+				},
+				{
+					"ammo_num": "Material.gun_scope_aim"
+				},
+				{
+					"hwx": "Material.gun_scope_aim"
+				},
+				{
+					"gunscope_jimiao": "Material.gun_scope_aim"
+				}
+			]
+		}
+	}
+}

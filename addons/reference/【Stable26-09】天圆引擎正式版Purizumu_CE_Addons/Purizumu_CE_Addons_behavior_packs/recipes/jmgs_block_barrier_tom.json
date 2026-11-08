@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_block_barrier_tom_932cd001"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "CEF",
+      "FCE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:white_dye",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:yellow_dye",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:red_dye",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_barrier_tom",
+      "count": 12
+    }
+  }
+}

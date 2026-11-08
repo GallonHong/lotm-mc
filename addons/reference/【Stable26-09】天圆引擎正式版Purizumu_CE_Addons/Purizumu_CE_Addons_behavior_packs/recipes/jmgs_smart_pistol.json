@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "smart_18b0b699"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:projectile_controller",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_ti",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "F": {
+        "item": "jmgs:item_x990",
+        "data": 0
+      },
+      "G": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "H": {
+        "item": "jmgs:item_near_link",
+        "data": 0
+      },
+      "I": {
+        "item": "jmgs:item_cs_clock",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:smart_pistol",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,24 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_cow.cold_leaves": {
+            "arrays": {
+                "textures": {
+                    "Array.textures": [
+                        "Texture.cold_leaves_1",
+                        "Texture.cold_leaves_2",
+                        "Texture.cold_leaves_3",
+                        "Texture.cold_leaves_4"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.animated" }],
+            "textures": ["Array.textures[q.property('mythicus_sn:leaves_level') - 1]"],
+            "uv_anim": {
+                "offset": [0, "Math.mod(Math.floor(q.life_time * v.fps), v.fall_frames) / v.fall_frames"],
+                "scale": [1, "1 / v.fall_frames"]
+            }
+        }
+    }
+}

@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_cnc_8dbb133c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "CCC",
+      "CEC",
+      "ABD"
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_junction_box_pro",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:block_pc_apex",
+        "data": 0
+      },
+      "C": {
+        "item": "jmgs:item_motor",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:diamond",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_cnc_spawn_egg",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_stick_3e48603d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCD",
+      " E "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_hide",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_recycled",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:metal_iron_pig",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:wooden_sword",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_stick",
+      "count": 1
+    }
+  }
+}

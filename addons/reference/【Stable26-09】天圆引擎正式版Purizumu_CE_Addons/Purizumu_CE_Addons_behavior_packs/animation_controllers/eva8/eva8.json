@@ -1,0 +1,266 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.eva8": {
+			"initial_state": "setup",
+			"states": {
+				"setup": {
+					"transitions": [
+						{
+							"eva8_8_1": "q.get_equipped_item_name == 'eva8'"
+						}
+					]
+				},
+				"eva8_8_1": {
+					"transitions": [
+						{
+							"eva8_8_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b8-8",
+						"@s jmgs:eva8_ammo_8"
+					]
+				},
+				"eva8_8_2": {
+					"transitions": [
+						{
+							"eva8_7_1": "(q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b7-8",
+						"@s jmgs:eva8_ammo_7",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~"
+					]
+				},
+				"eva8_7_1": {
+					"transitions": [
+						{
+							"eva8_7_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"eva8_not_total_empty": "variable.ntreloadeva8 = 2.5667; variable.prentreloadeva8 = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'eva8');"
+						}
+					]
+				},
+				"eva8_7_2": {
+					"transitions": [
+						{
+							"eva8_6_1": "(q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b6-8",
+						"@s jmgs:eva8_ammo_6",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~"
+					]
+				},
+				"eva8_6_1": {
+					"transitions": [
+						{
+							"eva8_6_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"eva8_not_total_empty": "variable.ntreloadeva8 = 2.5667; variable.prentreloadeva8 = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'eva8');"
+						}
+					]
+				},
+				"eva8_6_2": {
+					"transitions": [
+						{
+							"eva8_5_1": "(q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §b5-8",
+						"@s jmgs:eva8_ammo_5",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~"
+					]
+				},
+				"eva8_5_1": {
+					"transitions": [
+						{
+							"eva8_5_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"eva8_not_total_empty": "variable.ntreloadeva8 = 2.5667; variable.prentreloadeva8 = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'eva8');"
+						}
+					]
+				},
+				"eva8_5_2": {
+					"transitions": [
+						{
+							"eva8_4_1": "(q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §64-8",
+						"@s jmgs:eva8_ammo_4",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~"
+					]
+				},
+				"eva8_4_1": {
+					"transitions": [
+						{
+							"eva8_4_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"eva8_not_total_empty": "variable.ntreloadeva8 = 2.5667; variable.prentreloadeva8 = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'eva8');"
+						}
+					]
+				},
+				"eva8_4_2": {
+					"transitions": [
+						{
+							"eva8_3_1": "(q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §63-8",
+						"@s jmgs:eva8_ammo_3",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~"
+					]
+				},
+				"eva8_3_1": {
+					"transitions": [
+						{
+							"eva8_3_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"eva8_not_total_empty": "variable.ntreloadeva8 = 2.5667; variable.prentreloadeva8 = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'eva8');"
+						}
+					]
+				},
+				"eva8_3_2": {
+					"transitions": [
+						{
+							"eva8_2_1": "(q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §42-8",
+						"@s jmgs:eva8_ammo_2",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~"
+					]
+				},
+				"eva8_2_1": {
+					"transitions": [
+						{
+							"eva8_2_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"eva8_not_total_empty": "variable.ntreloadeva8 = 2.5667; variable.prentreloadeva8 = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'eva8');"
+						}
+					]
+				},
+				"eva8_2_2": {
+					"transitions": [
+						{
+							"eva8_1_1": "(q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8'"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §41-8",
+						"@s jmgs:eva8_ammo_1",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~"
+					]
+				},
+				"eva8_1_1": {
+					"transitions": [
+						{
+							"eva8_1_2": "variable.eva8delay = 0.25; variable.previouseva8time = q.life_time; return (q.item_remaining_use_duration > 1 && q.get_equipped_item_name == 'eva8' && q.is_alive);"
+						},
+						{
+							"setup": "!q.is_alive"
+						},
+						{
+							"eva8_not_total_empty": "variable.ntreloadeva8 = 2.5667; variable.prentreloadeva8 = q.life_time; return (variable.attack_time > 0 && q.is_sneaking && q.get_equipped_item_name == 'eva8');"
+						}
+					]
+				},
+				"eva8_1_2": {
+					"transitions": [
+						{
+							"eva8_empty": "variable.reloadeva8 = 3.3167; variable.prereloadeva8 = q.life_time; return ((q.life_time - variable.previouseva8time) >= variable.eva8delay && q.get_equipped_item_name == 'eva8');"
+						}
+					],
+					"on_entry": [
+						"/title @s actionbar §40-8",
+						"@s jmgs:eva8_ammo_0",
+						"@s jmgs:eva8_shooter",
+						"/execute @s ~~~ camerashake add @s 0.08 0.2 rotational",
+						"/execute @s ~~~ playsound all_gun_empty @a ~~~",
+						"/execute @s ~~~ playsound eva8_fire @a ~~~",
+						"/execute @s ~~~ playsound se.se101 @a ~~~"
+					]
+				},
+				"eva8_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.prereloadeva8) >= variable.reloadeva8"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:eva8_empty2 1 0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:eva8_empty2 0 1",
+						"/give @s jmgs:eva8 1 0",
+						"/scoreboard players add @s mp -25"
+					]
+				},
+				"eva8_not_total_empty": {
+					"transitions": [
+						{
+							"setup": "!q.is_alive || (q.life_time - variable.prentreloadeva8) >= variable.ntreloadeva8"
+						}
+					],
+					"on_entry": [
+						"/replaceitem entity @s slot.weapon.mainhand 0 jmgs:eva8_empty1 1 0"
+					],
+					"on_exit": [
+						"/clear @s jmgs:eva8_empty1 0 1",
+						"/give @s jmgs:eva8 1 0"
+					]
+				}
+			}
+		}
+	}
+}

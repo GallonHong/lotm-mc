@@ -1,0 +1,163 @@
+{
+    "tiers": [
+        {
+            "groups": [
+                {
+                    "num_to_select": 12,
+                    "trades": [
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:cauliflower_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 3 }
+                            ],
+                            "trader_exp": 5,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:green_bean_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 2 }
+                            ],
+                            "trader_exp": 4,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:garlic_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 4 }
+                            ],
+                            "trader_exp": 6,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:tomatoes_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 3 }
+                            ],
+                            "trader_exp": 5,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:corn_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 3 }
+                            ],
+                            "trader_exp": 5,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:hot_pepper_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 4 }
+                            ],
+                            "trader_exp": 6,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:broccoli_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 2 }
+                            ],
+                            "trader_exp": 4,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:eggplant_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 4 }
+                            ],
+                            "trader_exp": 6,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                { "item": "mythicus_sn:beet_seed", "quantity": 1 }
+                            ],
+                            "wants": [
+                                { "item": "minecraft:emerald", "quantity": 1 }
+                            ],
+                            "trader_exp": 3,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                {
+                                    "item": "mythicus_sn:blueberry_bush",
+                                    "quantity": 1
+                                }
+                            ],
+                            "wants": [
+                                {
+                                    "item": "mythicus_sn:polished_emerald",
+                                    "quantity": 3
+                                }
+                            ],
+                            "trader_exp": 5,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                {
+                                    "item": "mythicus_sn:strawberry_bush",
+                                    "quantity": 1
+                                }
+                            ],
+                            "wants": [
+                                {
+                                    "item": "mythicus_sn:polished_emerald",
+                                    "quantity": 3
+                                }
+                            ],
+                            "trader_exp": 5,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        },
+                        {
+                            "gives": [
+                                {
+                                    "item": "mythicus_sn:cranberry_bush",
+                                    "quantity": 1
+                                }
+                            ],
+                            "wants": [
+                                {
+                                    "item": "mythicus_sn:polished_emerald",
+                                    "quantity": 5
+                                }
+                            ],
+                            "trader_exp": 5,
+                            "max_uses": 999999,
+                            "reward_exp": true
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

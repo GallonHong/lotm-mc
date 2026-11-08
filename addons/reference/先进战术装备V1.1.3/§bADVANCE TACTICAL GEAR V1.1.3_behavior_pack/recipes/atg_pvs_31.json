@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pvs_31_3679eca8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEB",
+      " DA"
+    ],
+    "key": {
+      "A": {
+        "item": "atg:iit",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:tripwire_hook",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:cyan_stained_glass_pane",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:repeater",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:pvs_31",
+      "count": 1
+    }
+  }
+}

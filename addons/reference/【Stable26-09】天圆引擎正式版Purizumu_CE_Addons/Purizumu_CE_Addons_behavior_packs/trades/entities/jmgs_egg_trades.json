@@ -1,0 +1,553 @@
+{
+  "tiers": [
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_box_paper_spawn_egg:0",
+              "quantity": 10,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜",
+                    "§d任何东西都能出§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 2048,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_box_paper_spawn_egg:0",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜",
+                    "§d任何东西都能出§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:lime_shulker_box",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "fill_container",
+                  "loot_table": "loot_tables/entities/ewo_drop_b1.json"
+                },
+                {
+                  "function": "set_name",
+                  "name": "每日盲盒-B1"
+                },
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 4
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:blue_shulker_box",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "fill_container",
+                  "loot_table": "loot_tables/entities/ewo_drop_b2.json"
+                },
+                {
+                  "function": "set_name",
+                  "name": "每日盲盒-B2"
+                },
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 8,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:purple_shulker_box",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "fill_container",
+                  "loot_table": "loot_tables/entities/ewo_drop_b3.json"
+                },
+                {
+                  "function": "set_name",
+                  "name": "每日盲盒-B3"
+                },
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 3
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:orange_shulker_box",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "fill_container",
+                  "loot_table": "loot_tables/entities/ewo_drop_b4.json"
+                },
+                {
+                  "function": "set_name",
+                  "name": "每日盲盒-B4"
+                },
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:red_shulker_box",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "fill_container",
+                  "loot_table": "loot_tables/corona/jmgs_loot_chest_air.json"
+                },
+                {
+                  "function": "set_name",
+                  "name": "航空盲盒"
+                },
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:green_shulker_box",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "fill_container",
+                  "loot_table": "loot_tables/corona/jmgs_loot_chest_chicken.json"
+                },
+                {
+                  "function": "set_name",
+                  "name": "军需盲盒"
+                },
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_coin:0",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 32,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "minecraft:yellow_shulker_box",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "fill_container",
+                  "loot_table": "loot_tables/corona/jmgs_potion.json"
+                },
+                {
+                  "function": "set_name",
+                  "name": "独家商品-药水盲盒"
+                },
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 10
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_game_cartridge_spawn_egg:0",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜",
+                    "§d出附魔书§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 20
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_folder_spawn_egg:0",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜",
+                    "§d出文件§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:chest1_spawn_egg:0",
+              "quantity": 3
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 512,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:chest2_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 9
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:chest3_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 16,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:chest4_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 5
+            }
+          ],
+          "max_uses": 4,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "ewo:chest5_spawn_egg:0",
+              "quantity": 1
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "total_exp_required": 0,
+      "trades": [
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_corrugated_cardboard_spawn_egg:0",
+              "quantity": 2,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜",
+                    "§d出S1的家具§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 128,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_box_wood_spawn_egg:0",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜",
+                    "§d出S2的家具§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "jmgs:item_egg",
+              "quantity": 2
+            }
+          ],
+          "max_uses": 64,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_container_spawn_egg:0",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开有惊喜",
+                    "§d出小型车§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "wants": [
+            {
+              "item": "minecraft:gold_ingot:0",
+              "quantity": 1
+            }
+          ],
+          "max_uses": 1024,
+          "reward_exp": true,
+          "trader_exp": 1,
+          "gives": [
+            {
+              "item": "jmgs:entity_delta_box_spawn_egg:0",
+              "quantity": 1,
+              "functions": [
+                {
+                  "function": "set_lore",
+                  "lore": [
+                    "打开没惊喜",
+                    "§d空的§r"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

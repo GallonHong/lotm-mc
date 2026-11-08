@@ -1,0 +1,213 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.drone.land": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"flying": "q.property('makercamp_dr:state') != 'standby'"
+						}
+					]
+				},
+				"flying": {
+					"transitions": [
+						{
+							"fall": "q.property('makercamp_dr:state') == 'standby' && (!q.is_on_ground || !q.is_in_water)"
+						}
+					]
+				},
+				"fall": {
+					"on_entry": [
+						"/effect @s slowness 1000000 10 true",
+						"/effect @s slow_falling 1000000 10 true"
+					],
+					"transitions": [
+						{
+							"landed": "(q.is_on_ground || q.is_in_water) || q.property('makercamp_dr:state') != 'standby'"
+						}
+					]
+				},
+				"landed": {
+					"on_entry": [
+						"/effect @s slowness 0 0 true",
+						"/effect @s slow_falling 0 0 true"
+					],
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.makercamp_dr.drone.teleport": {
+			"initial_state": "init",
+			"states": {
+				"init": {
+					"transitions": [
+						{
+							"default": "q.property('makercamp_dr:state') == 'passive'"
+						}
+					]
+				},
+
+				"default": {
+					"on_entry": [
+						"v.last_x = q.position(0);",
+						"v.last_y = q.position(1);",
+						"v.last_z = q.position(2);",
+						"v.threshold = 16;",
+						"v.cooldown = q.life_time + 0.5;"
+					],
+					"transitions": [
+						{
+							"init": "q.property('makercamp_dr:state') != 'passive'"
+						},
+						{
+							"teleported": "math.abs(q.position(0) - v.last_x) > v.threshold || math.abs(q.position(1) - v.last_y) > v.threshold || math.abs(q.position(2) - v.last_z) > v.threshold"
+						},
+						{
+							"loop": "v.cooldown < q.life_time"
+						}
+					]
+				},
+				"loop": {
+					"transitions": [
+						{
+							"init": "q.property('makercamp_dr:state') != 'passive'"
+						},
+						{
+							"teleported": "math.abs(q.position(0) - v.last_x) > v.threshold || math.abs(q.position(1) - v.last_y) > v.threshold || math.abs(q.position(2) - v.last_z) > v.threshold"
+						},
+						{
+							"default": "1.0"
+						}
+					]
+				},
+
+				"teleported": {
+					"on_entry": [
+						"@s reset_target"
+					],
+					"transitions": [
+						{
+							"init": "q.property('makercamp_dr:state') != 'passive'"
+						},
+						{
+							"default": "1.0"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.makercamp_dr.drone.movement": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"air": "!q.is_in_water && q.property('makercamp_dr:state') == 'passive'"
+						},
+						{
+							"water": "q.is_in_water && q.property('makercamp_dr:state') == 'passive'"
+						}
+					]
+				},
+				"air": {
+					"on_entry": [
+						"@s air_movement"
+					],
+					"transitions": [
+						{
+							"default": "q.property('makercamp_dr:state') != 'passive'"
+						},
+						{
+							"water": "q.is_in_water"
+						}
+					]
+				},
+				"water": {
+					"on_entry": [
+						"@s water_movement",
+						"v.cooldown = q.life_time + 0.5;"
+					],
+					"transitions": [
+						{
+							"default": "q.property('makercamp_dr:state') != 'passive'"
+						},
+						{
+							"air": "!q.is_in_water"
+						},
+						{
+							"water_check": "q.is_in_water && v.cooldown < q.life_time"
+						}
+					]
+				},
+				"water_check": {
+					"on_entry": [
+						"/execute if block ~~1~ minecraft:air run event entity @s air_movement",
+						"v.cooldown = q.life_time + 0.5;"
+					],
+					"transitions": [
+						{
+							"default": "q.property('makercamp_dr:state') != 'passive'"
+						},
+						{
+							"air": "!q.is_in_water"
+						},
+						{
+							"water": "q.is_in_water && v.cooldown < q.life_time"
+						}
+					]
+				}
+			}
+		},
+		"controller.animation.makercamp_dr.drone.break": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"on_entry": [
+						"@s reset_hits"
+					],
+					"transitions": [
+						{
+							"hit": "q.property('makercamp_dr:hits') > 0"
+						}
+					]
+				},
+				"hit": {
+					"on_entry": [
+						"/playanimation @s animation.makercamp_dr.drone.hit",
+						"v.hits = q.property('makercamp_dr:hits');",
+						"v.cooldown = q.life_time + 2;"
+					],
+					"transitions": [
+						{
+							"break": "q.property('makercamp_dr:hits') >= 5"
+						},
+						{
+							"hit_loop": "v.hits != q.property('makercamp_dr:hits')"
+						},
+						{
+							"default": "v.cooldown < q.life_time"
+						}
+					]
+				},
+				"hit_loop": {
+					"transitions": [
+						{
+							"hit": "1.0"
+						}
+					]
+				},
+				"break": {
+					"on_entry": [
+						"/scriptevent makercamp_dr:drone.break"
+					]
+				}
+			}
+		}
+	}
+}

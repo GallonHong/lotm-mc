@@ -1,0 +1,7 @@
+{
+  "format_version": "1.16.100",
+  "minecraft:texture_set": {
+    "color": "ewo_block_display_crt",
+    "metalness_emissive_roughness": "ewo_block_display_crt_mer"
+  }
+}

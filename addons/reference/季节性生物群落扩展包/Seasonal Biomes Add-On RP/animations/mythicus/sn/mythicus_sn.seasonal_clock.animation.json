@@ -1,0 +1,16 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.mythicus_sn.seasonal_clock.rotation": {
+            "loop": true,
+            "bones": {
+                "clock_item2": {
+                    "rotation": [0, "90 - (v.current_season*90)-(v.season_progression*90)", 0]
+                },
+                "clock2_item4": {
+                    "rotation": [0, "90 - (v.current_season*90)-(v.season_progression*90)", 0]
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,44 @@
+{
+  "format_version": "1.16.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "jmgs:alter_ammo",
+      "is_spawnable": false,
+      "is_summonable": true,
+      "is_experimental": false,
+      "runtime_identifier": "minecraft:snowball"
+    },
+    "components": {
+      "minecraft:collision_box": {
+        "width": 0.3,
+        "height": 0.3
+      },
+      "minecraft:projectile": {
+        "on_hit": {
+          "impact_damage": {
+            "damage": 15
+          },
+          "remove_on_hit": {}
+        },
+        "destroy_on_hurt": true,
+        "gravity": 0.0,
+        "offset": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "power": 1.6,
+        "inertia": 20,
+        "liquid_inertia": 1,
+        "knockback": true,
+        "multiple_targets": true,
+        "hit_sound": "mob.shulker.bullet.hit"
+      },
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": false
+      }
+    }
+  }
+}

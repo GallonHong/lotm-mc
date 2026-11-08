@@ -1,0 +1,42 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.thunderbolt_damage": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"pre_damage": "variable.thunerboltdamagedelay = 0.4; variable.previousthunerboltdamagetime = query.life_time; return (q.is_alive);"
+						}
+					]
+				},
+				"pre_damage": {
+					"transitions": [
+						{
+							"damage": "(query.life_time - variable.previousthunerboltdamagetime) >= variable.thunerboltdamagedelay"
+						}
+					]
+				},
+				"damage": {
+					"transitions": [
+						{
+							"after_damage": "1"
+						}
+					],
+					"on_entry": [
+						"/execute @s ~~~ effect @a[r=2.5,tag=!inpve] wither 1 3 true",
+						"/execute @s ~~~ effect @e[type=!player,r=2.5] wither 1 3 true"
+					]
+				},
+				"after_damage": {
+					"transitions": [
+						{
+							"damage": "1"
+						}
+					]
+				}
+			}
+		}
+	}
+}

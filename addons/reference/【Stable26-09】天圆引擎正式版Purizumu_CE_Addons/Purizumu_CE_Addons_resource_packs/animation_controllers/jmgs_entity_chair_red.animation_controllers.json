@@ -1,0 +1,40 @@
+{
+	"format_version": "1.19.0",
+	"animation_controllers": {
+		"controller.animation.jmgs_entity_chair_red.main": {
+			"initial_state": "spawn",
+			"states": {
+				"spawn": {
+					"animations": ["spawn"],
+					"transitions": [
+						{"rider": "query.has_rider == 1"}
+					],
+					"blend_transition": 1
+				},
+				"rider": {
+					"animations": ["rider"],
+					"transitions": [
+						{"standby": "query.has_rider == 0"},
+						{"walk": "query.ground_speed > 1.0"}
+					],
+					"blend_transition": 1
+				},
+				"walk": {
+					"animations": ["rider", "walk"],
+					"transitions": [
+						{"rider": "query.ground_speed == 0"},
+						{"standby": "query.has_rider == 0"}
+					],
+					"blend_transition": 1
+				},
+				"standby": {
+					"animations": ["idle"],
+					"transitions": [
+						{"rider": "query.has_rider == 1"}
+					],
+					"blend_transition": 1
+				}
+			}
+		}
+	}
+}

@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "armor_wasp3_e43bedfb"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:golden_chestplate",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:gold_block",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:cloth_nano_ele",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:ceramics_bionics",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:armor_wasp3",
+      "count": 1
+    }
+  }
+}

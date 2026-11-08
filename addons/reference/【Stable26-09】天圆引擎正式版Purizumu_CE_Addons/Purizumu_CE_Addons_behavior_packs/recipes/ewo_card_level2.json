@@ -1,0 +1,34 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "card_level2_08be3a67"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B",
+      "C",
+      "A"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_magnetic",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_lycra",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:card_level2",
+      "count": 1
+    }
+  }
+}

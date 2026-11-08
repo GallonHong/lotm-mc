@@ -1,0 +1,53 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:block_nirs_display",
+      "textures": {
+        "default": "textures/entity/jmgs_block_nirs_display"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_block_nirs_display"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:block_nirs_display",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_car_star_edit.walk",
+        "idle": "animation.pmo_entity_car_star_edit.idle",
+        "main": "controller.animation.pmo_entity_car.main",
+        "open": "animation.pmo_entity_car_star_edit.open",
+        "spawn": "animation.pmo_entity_car_star_edit.spawn",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit",
+        "car_open": "mob.shulker.bullet.hit",
+        "car_start": "mob.shulker.bullet.hit",
+        "car_walk": "car_walk",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle",
+        "jmgs_gunfiresmoke": "jmgs:gunfiresmoke",
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          {"die": "!query.is_alive"}
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_crown_932cd090"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "   ",
+      " A ",
+      "   "
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_crown",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_gold",
+      "count": 2
+    }
+  }
+}

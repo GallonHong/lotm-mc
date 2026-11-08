@@ -1,0 +1,21 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shapeless": {
+    "description": {
+      "identifier": "recipes_54aed7fc"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "ingredients": [
+      {
+        "item": "atg:ca_pvs31",
+        "data": 0
+      }
+    ],
+    "result": {
+      "item": "atg:ca_pvs_31_up",
+      "count": 1
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.armor": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? Material.enchanted : Material.default"
+        }
+      ],
+      "textures": [
+        "Texture.default",
+        "Texture.enchanted"
+      ],
+      "part_visibility": [
+        {
+          "head": "query.get_equipped_item_name('main_hand') != 'ronin_sword'"
+        },
+        {
+          "body": "query.get_equipped_item_name('main_hand') != 'ronin_sword'"
+        },
+        {
+          "rightArm": "query.get_equipped_item_name('main_hand') != 'ronin_sword'"
+        },
+        {
+          "leftArm": "query.get_equipped_item_name('main_hand') != 'ronin_sword'"
+        },
+        {
+          "leftLeg": "query.get_equipped_item_name('main_hand') != 'ronin_sword'"
+        },
+        {
+          "rightLeg": "query.get_equipped_item_name('main_hand') != 'ronin_sword'"
+        }
+      ]
+    }
+  }
+}

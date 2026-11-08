@@ -1,0 +1,1212 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:spawn_rules": {
+    "description": {
+      "identifier": "ewo:chest3",
+      "population_control": "animal"
+    },
+    "conditions": [
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:spawns_on_surface": {},
+        "minecraft:brightness_filter": {
+          "min": 8.0,
+          "max": 15.0,
+          "adjust_for_weather": false
+        },
+        "minecraft:weight": {
+          "default": 15
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 1
+        },
+        "minecraft:density_limit": {
+          "surface": 8,
+          "underground": 8
+        },
+        "minecraft:biome_filter": [
+          {
+            "any_of": [
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "overworld"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "overworld_generation"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "animal"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "water_animal"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "monster"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "legacy_frozen_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "frozen_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_frozen_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_cold_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "lukewarm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_lukewarm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_warm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "river"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "frozen_river"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "beach"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "stone_beach"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_beach"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "forest_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "flower_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest_hills_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "roofed_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "roofed_forest_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_edge"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_edge_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bamboo_jungle"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bamboo_jungle_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "taiga"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "taiga_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "taiga_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_taiga"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_taiga_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_taiga_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mega_taiga"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mega_taiga_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "redwood_taiga_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "redwood_taiga_hills_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mushroom_island"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mushroom_island_shore"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "swampland"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "swampland_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna_plateau"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna_plateau_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "plains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "sunflower_plains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "desert"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "desert_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "desert_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice_plains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice_mountains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice_plains_spikes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_plus_trees"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_plus_trees_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_edge"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau_stone"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau_stone_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_bryce"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "hell"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "the_end"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warm"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warped_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "soul_sand_valley"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warped_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bamboo"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "basalt_deltas"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bee_habitat"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "crimson_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "edge"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "frozen"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "lukewarm"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mega"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mooshroom_island"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mountain"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "nether"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "nether_wastes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "netherwart_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "no_legacy_worldgen"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "plateau"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "rare"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "roofed"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "shore"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "soulsand_valley"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_endermen"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_few_piglins"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_few_zombified_piglins"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_ghast"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_magma_cubes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_many_magma_cubes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_piglin"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_zombified_piglin"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "stone"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "swamp"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "minecraft:spawns_underground": {},
+        "minecraft:brightness_filter": {
+          "min": 1,
+          "max": 15,
+          "adjust_for_weather": false
+        },
+        "minecraft:weight": {
+          "default": 15
+        },
+        "minecraft:herd": {
+          "min_size": 1,
+          "max_size": 1
+        },
+        "minecraft:density_limit": {
+          "surface": 8,
+          "underground": 8
+        },
+        "minecraft:biome_filter": [
+          {
+            "any_of": [
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "overworld"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "overworld_generation"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "animal"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "water_animal"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "monster"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "legacy_frozen_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "frozen_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_frozen_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_cold_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "lukewarm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_lukewarm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep_warm_ocean"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "river"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "frozen_river"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "beach"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "stone_beach"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_beach"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "forest_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "flower_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch_forest_hills_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "roofed_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "roofed_forest_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_edge"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "jungle_edge_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bamboo_jungle"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bamboo_jungle_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "taiga"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "taiga_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "taiga_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_taiga"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_taiga_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold_taiga_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mega_taiga"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mega_taiga_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "redwood_taiga_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "redwood_taiga_hills_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mushroom_island"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mushroom_island_shore"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "swampland"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "swampland_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna_plateau"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "savanna_plateau_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "plains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "sunflower_plains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "desert"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "desert_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "desert_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice_plains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice_mountains"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice_plains_spikes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_plus_trees"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_plus_trees_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "extreme_hills_edge"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau_stone"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_plateau_stone_mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mesa_bryce"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "hell"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "the_end"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warm"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warped_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "soul_sand_valley"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "warped_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bamboo"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "basalt_deltas"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "bee_habitat"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "birch"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "cold"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "crimson_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "deep"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "edge"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "frozen"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "hills"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "ice"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "lukewarm"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mega"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mooshroom_island"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mountain"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "mutated"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "nether"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "nether_wastes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "netherwart_forest"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "no_legacy_worldgen"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "plateau"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "rare"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "roofed"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "shore"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "soulsand_valley"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_endermen"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_few_piglins"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_few_zombified_piglins"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_ghast"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_magma_cubes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_many_magma_cubes"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_piglin"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "spawn_zombified_piglin"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "stone"
+              },
+              {
+                "test": "has_biome_tag",
+                "operator": "==",
+                "value": "swamp"
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

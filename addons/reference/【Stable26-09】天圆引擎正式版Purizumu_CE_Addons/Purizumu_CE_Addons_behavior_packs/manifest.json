@@ -1,0 +1,33 @@
+{
+  "modules": [
+    {
+      "description": "棱彩维度®天圆引擎-正式版-2026.06-服务端\n A miracle is to meet you again.\n Designer WikiHuang.",
+      "type": "data",
+      "uuid": "11662a46-5f54-48b4-aecc-53b394909c31",
+      "version": [
+        1,
+        1,
+        1
+      ]
+    }
+  ],
+  "header": {
+    "description": "棱彩维度®天圆引擎-正式版-2026.06-服务端\n A miracle is to meet you again.\n Designer WikiHuang.",
+    "name": "PurizumuCoronaEngine-Stable",
+    "uuid": "114c3e98-ee7c-4a4a-8305-97ab2e2c5291",
+    "version": [
+      1,
+      1,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      18,
+      0
+    ]
+  },
+  "format_version": 2,
+  "metadata": {
+    "product_type": "addon"
+  }
+}

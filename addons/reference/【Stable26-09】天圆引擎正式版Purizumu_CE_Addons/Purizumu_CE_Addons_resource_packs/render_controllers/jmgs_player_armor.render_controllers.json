@@ -1,0 +1,13 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.jmgs_player_armor": {
+      "geometry": "Geometry.default",
+      "materials": [ { "*": "Material.default" } ],
+      "textures": [ "Texture.default" ],
+      "part_visibility": [
+        { "*": "!query.is_item_equipped('head')" }
+      ]
+    }
+  }
+}

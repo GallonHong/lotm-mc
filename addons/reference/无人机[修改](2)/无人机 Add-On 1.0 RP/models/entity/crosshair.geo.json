@@ -1,0 +1,40 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.makercamp_dr.crosshair",
+				"texture_width": 16,
+				"texture_height": 16,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "makercamp_dr_crosshair_root",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "makercamp_dr_crosshair",
+					"parent": "makercamp_dr_crosshair_root",
+					"pivot": [0, 0, -8],
+					"cubes": [
+						{
+							"origin": [-5, -5, -8],
+							"size": [10, 10, 0],
+							"uv": {
+								"north": {"uv": [0, 0], "uv_size": [0, 0]},
+								"east": {"uv": [0, 0], "uv_size": [0, 0]},
+								"south": {"uv": [0, 0], "uv_size": [16, 16]},
+								"west": {"uv": [0, 0], "uv_size": [0, 9]},
+								"up": {"uv": [0, 0], "uv_size": [16, 0]},
+								"down": {"uv": [0, 0], "uv_size": [16, 0]}
+							}
+						}
+					]
+				}
+			]
+		}
+	]
+}

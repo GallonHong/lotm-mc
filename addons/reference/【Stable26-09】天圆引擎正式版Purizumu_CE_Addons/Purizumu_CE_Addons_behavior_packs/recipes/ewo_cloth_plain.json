@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_plain_06ab6fe8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_blood",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_plain",
+      "count": 1
+    }
+  }
+}

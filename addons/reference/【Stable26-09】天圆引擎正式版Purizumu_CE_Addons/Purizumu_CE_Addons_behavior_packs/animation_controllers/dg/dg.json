@@ -1,0 +1,30 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.dg": {
+			"initial_state": "default",
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"shoot": "q.get_equipped_item_name == 'dg' && q.item_remaining_use_duration > 1"
+						}
+					]
+				},
+				"shoot": {
+					"transitions": [
+						{
+							"default": "1"
+						}
+					],
+					"on_entry": [
+						"@s jmgs:dg_shooter",
+						"/execute @s ~ ~ ~ camerashake add @s 0.05 0.20 rotational",
+						"/execute @s ~ ~ ~ playsound pmo_projectile_a4_shot @a[r=50] ~ ~ ~",
+						"/scoreboard players add @s mp -1"
+					]
+				}
+			}
+		}
+	}
+}

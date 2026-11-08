@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "flames_sword_724c5025"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "FFF",
+      "ABA",
+      "CDE"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:blaze_rod",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:golden_sword",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:cloth_polymer",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_superalloy",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:flames_sword",
+      "count": 1
+    }
+  }
+}

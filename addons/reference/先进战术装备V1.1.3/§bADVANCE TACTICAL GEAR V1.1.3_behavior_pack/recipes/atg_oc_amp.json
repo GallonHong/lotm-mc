@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "oc_amp_ce5b2337"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "C C",
+      " DA"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_bars",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:black_wool",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:noteblock",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:calibrated_sculk_sensor",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "atg:oc_amp",
+      "count": 1
+    }
+  }
+}

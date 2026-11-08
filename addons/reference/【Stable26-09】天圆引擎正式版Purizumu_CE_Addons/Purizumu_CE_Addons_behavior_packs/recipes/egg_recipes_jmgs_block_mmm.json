@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_mmm_58bb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "pmo:item_framework",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:block_pc1",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:block_display_edge",
+        "data": 0
+      },
+      "D": {
+        "item": "jmgs:item_near_link",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:metal_resistance",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_man_si",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:parts_casting",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_mmm_spawn_egg",
+      "count": 1
+    }
+  }
+}

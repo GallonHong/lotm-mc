@@ -1,0 +1,45 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "jmgs:entity_chair_red",
+      "textures": {
+        "default": "textures/entity/jmgs_entity_chair_red"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.jmgs_entity_chair_red"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "jmgs:entity_chair_red",
+        "texture_index": 0
+      },
+      "animations": {
+        "idle": "animation.jmgs_entity_chair_red.idle",
+        "rider": "animation.jmgs_entity_chair_red.rider",
+        "spawn": "animation.jmgs_entity_chair_red.spawn",
+        "walk": "animation.jmgs_entity_chair_red.walk",
+        "open": "animation.jmgs_block_chest.open",
+        "main": "controller.animation.jmgs_entity_chair_red.main"
+      },
+      "sound_effects": {
+        "chest_open": "mob.shulker.bullet.hit"
+      },
+      "particle_effects": {
+        "chest_effect": "minecraft:knockback_roar_particle"
+      },
+      "scripts": {
+        "animate": [
+          "main",
+          {"open": "!query.is_alive"}
+        ]
+      },
+      "enable_attachables": true
+    }
+  }
+}

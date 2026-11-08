@@ -1,0 +1,31 @@
+{
+    "format_version": "1.21.0",
+    "minecraft:feature_rules": {
+        "conditions": {
+            "placement_pass": "after_surface_pass",
+            "minecraft:biome_filter": [
+                {
+                    "all_of": [
+                        {
+                            "test": "has_biome_tag",
+                            "value": "mythicus_sn_seasonal_taiga",
+                            "operator": "=="
+                        }
+                    ]
+                }
+            ]
+        },
+        "description": {
+            "identifier": "mythicus_sn:spruce_small_fern_scatter",
+            "places_feature": "mythicus_sn:mythicus/sn/spruce/scatter_small_fern"
+        },
+        "distribution": {
+            "iterations": 8,
+            "scatter_chance": 25,
+            "coordinate_eval_order": "zxy",
+            "x": 7,
+            "y": "query.heightmap(variable.worldx, variable.worldz)",
+            "z": 7
+        }
+    }
+}

@@ -1,0 +1,154 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:cheese_press",
+            "states": {
+                "mythicus_sn:processing_stage": {
+                    "values": {
+                        "min": 0,
+                        "max": 1
+                    }
+                }
+            },
+            "menu_category": {
+                "category": "construction"
+            },
+            "traits": {
+                "minecraft:placement_direction": {
+                    "enabled_states": [
+                        "minecraft:cardinal_direction"
+                    ],
+                    "y_rotation_offset": 180
+                }
+            }
+        },
+        "components": {
+            "tag:mythicus_sn:non_solid": {},
+            "minecraft:geometry": "geometry.mythicus_sn.cheese_press",
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:cheese_press_0",
+                    "render_method": "blend",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "mythicus_sn:cheese_press_component": {},
+            "minecraft:collision_box": {
+                "origin": [
+                    -8,
+                    0,
+                    -8
+                ],
+                "size": [
+                    16,
+                    16,
+                    16
+                ]
+            },
+            "minecraft:selection_box": {
+                "origin": [
+                    -8,
+                    0,
+                    -8
+                ],
+                "size": [
+                    16,
+                    16,
+                    16
+                ]
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 1
+            },
+            "minecraft:destruction_particles": {
+                "texture": "stripped_oak_wood"
+            },
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/artisan/cheese_press.json",
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:processing_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:cheese_press_0",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:processing_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:cheese_press_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'north'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            0,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'west'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            90,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'south'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            180,
+                            0
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('minecraft:cardinal_direction') == 'east'",
+                "components": {
+                    "minecraft:transformation": {
+                        "rotation": [
+                            0,
+                            -90,
+                            0
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

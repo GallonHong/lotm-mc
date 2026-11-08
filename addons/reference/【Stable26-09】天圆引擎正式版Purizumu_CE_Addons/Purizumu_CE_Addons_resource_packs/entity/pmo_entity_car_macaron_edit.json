@@ -1,0 +1,53 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_car_macaron_edit",
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_entity_car_macaron_edit",
+        "variant_2": "textures/entity/pamobile/pmo_entity_car_macaron_edit_2",
+        "variant_3": "textures/entity/pamobile/pmo_entity_car_macaron_edit_3",
+        "variant_4": "textures/entity/pamobile/pmo_entity_car_macaron_edit_4",
+        "variant_5": "textures/entity/pamobile/pmo_entity_car_macaron_edit_5"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_car_macaron_edit"
+      },
+      "render_controllers": [
+        "controller.render.pmo_entity_car_macaron_edit"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_car_macaron_edit",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_car_star_edit.walk",
+        "idle": "animation.pmo_entity_car.idle",
+        "move": "controller.animation.pmo_entity_car_star_edit.walk",
+        "open": "animation.pmo_entity_car_star_edit.open",
+        "spawn": "animation.pmo_entity_car_star_edit.spawn",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "car_open": "car_open",
+        "car_start": "car_start",
+        "car_walk": "car_walk",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "move",
+          {"die": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

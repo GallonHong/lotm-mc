@@ -1,0 +1,38 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_music_piano",
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_entity_music_piano"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_music_piano"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_music_piano",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_music.walk",
+        "idle": "animation.pmo_entity_music.idle"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "walk": "query.is_moving"
+          },
+          {
+            "idle": "!query.is_moving"
+          }
+        ]
+      }
+    }
+  }
+}

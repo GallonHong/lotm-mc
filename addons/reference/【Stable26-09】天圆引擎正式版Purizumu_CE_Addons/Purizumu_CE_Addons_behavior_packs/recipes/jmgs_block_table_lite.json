@@ -1,0 +1,42 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_table_lite_b0653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BBA",
+      "CDC",
+      "EEE"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_n",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_ingot",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:plastics_recycled",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:parts_hand",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:planks",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_table_lite",
+      "count": 2
+    }
+  }
+}

@@ -1,0 +1,45 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "pmo:entity_air_boat_lite",
+      "textures": {
+        "default": "textures/entity/pamobile/pmo_entity_air_boat_lite"
+      },
+      "materials": {
+        "default": "skeleton"
+      },
+      "geometry": {
+        "default": "geometry.pmo_entity_air_boat_lite"
+      },
+      "render_controllers": [
+        "controller.render.translucence"
+      ],
+      "spawn_egg": {
+        "texture": "pmo:entity_air_boat_lite",
+        "texture_index": 0
+      },
+      "animations": {
+        "walk": "animation.pmo_entity_air_boat_lite.fly",
+        "idle": "animation.pmo_entity_air_boat_lite.idle",
+        "move": "controller.animation.pmo_entity_air_boat_lite",
+        "die": "animation.pmo_entity_mecha.boom"
+      },
+      "sound_effects": {
+        "plane_walk": "plane_walk",
+        "boom": "jmgs.boom"
+      },
+      "particle_effects": {
+        "knockback_roar_particle": "minecraft:knockback_roar_particle",
+        "lava_particle": "minecraft:lava_particle",
+        "dragon_death_explosion_emitter": "minecraft:dragon_death_explosion_emitter"
+      },
+      "scripts": {
+        "animate": [
+          "move",
+          {"die": "!query.is_alive"}
+        ]
+      }
+    }
+  }
+}

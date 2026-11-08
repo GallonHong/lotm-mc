@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_item_ti_ingot_10014"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "ABA",
+      "AAA"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:metal_ti",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:item_ti_ingot",
+      "count": 3
+    }
+  }
+}

@@ -1,0 +1,538 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:hot_pepper",
+            "tags": [
+                "minecraft:crop"
+            ],
+            "states": {
+                "mythicus_sn:growth_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8
+                ],
+                "mythicus_sn:is_dead": [
+                    false,
+                    true
+                ],
+                "mythicus_sn:is_stuck": [
+                    false,
+                    true
+                ]
+            },
+            "menu_category": {
+                "category": "nature"
+            }
+        },
+        "components": {
+            "tag:mythicus_sn:non_solid": {},
+            "minecraft:material_instances": {
+                "*": {
+                    "texture": "mythicus_sn:hot_pepper_crop_0",
+                    "render_method": "alpha_test",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_0",
+            "minecraft:collision_box": false,
+            "minecraft:selection_box": {
+                "origin": [
+                    -2,
+                    0,
+                    -2
+                ],
+                "size": [
+                    4,
+                    3,
+                    4
+                ]
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0
+            },
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0
+            },
+            "minecraft:light_dampening": 0,
+            "minecraft:tick": {
+                "interval_range": [
+                    20,
+                    80
+                ],
+                "looping": true
+            },
+            "minecraft:placement_filter": {
+                "conditions": [
+                    {
+                        "allowed_faces": [
+                            "up"
+                        ],
+                        "block_filter": [
+                            "minecraft:farmland"
+                        ]
+                    }
+                ]
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/empty.json",
+            "mythicus_sn:crop_growable": {},
+            "tag:minecraft:crop": {},
+            "minecraft:precipitation_interactions": {
+                "precipitation_behavior": "none"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == true",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_dead",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/hot_pepper/stage_dead.json",
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_8",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_8",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_8",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    },
+                    "minecraft:loot": "loot_tables/mythicus/sn/blocks/crops/empty.json"
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_7",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_6",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -7,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            13,
+                            13,
+                            13
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_5",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            13,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_4",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -4
+                        ],
+                        "size": [
+                            9,
+                            12,
+                            9
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_3",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            9,
+                            9,
+                            9
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_2",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4,
+                            0,
+                            -4
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == false && q.block_state('mythicus_sn:growth_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_1",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3,
+                            0,
+                            -3
+                        ],
+                        "size": [
+                            6,
+                            5,
+                            6
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_8",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_8",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_7",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_7",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            16,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_6",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_6",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -7,
+                            0,
+                            -6
+                        ],
+                        "size": [
+                            13,
+                            13,
+                            13
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_5",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_5",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -8,
+                            0,
+                            -8
+                        ],
+                        "size": [
+                            16,
+                            13,
+                            16
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_4",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_4",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -5,
+                            0,
+                            -4
+                        ],
+                        "size": [
+                            9,
+                            12,
+                            9
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_3",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_3",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4,
+                            0,
+                            -5
+                        ],
+                        "size": [
+                            9,
+                            9,
+                            9
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_2",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_2",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -4,
+                            0,
+                            -4
+                        ],
+                        "size": [
+                            7,
+                            7,
+                            7
+                        ]
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:is_dead') == false && q.block_state('mythicus_sn:is_stuck') == true && q.block_state('mythicus_sn:growth_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "*": {
+                            "texture": "mythicus_sn:hot_pepper_crop_stuck_1",
+                            "render_method": "alpha_test",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    },
+                    "minecraft:geometry": "geometry.mythicus_sn.hot_pepper_crop_1",
+                    "minecraft:selection_box": {
+                        "origin": [
+                            -3,
+                            0,
+                            -3
+                        ],
+                        "size": [
+                            6,
+                            5,
+                            6
+                        ]
+                    }
+                }
+            }
+        ]
+    }
+}

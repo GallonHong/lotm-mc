@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_flannel_c388480d"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:cloth_dacron",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:animal_down",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_flannel",
+      "count": 1
+    }
+  }
+}

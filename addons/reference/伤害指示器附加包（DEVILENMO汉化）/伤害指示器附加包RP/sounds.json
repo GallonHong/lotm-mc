@@ -1,0 +1,86 @@
+{
+    "entity_sounds": {
+        "entities": {
+            "pb_dmgi:training_dummy": {
+                "events": {
+                    "hurt": "game.player.hurt"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 1
+            },
+            "pb_dmgi:chicken_dummy": {
+                "events": {
+                    "hurt": "mob.chicken.hurt"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 1
+            },
+            "pb_dmgi:cow_dummy": {
+                "events": {
+                    "hurt": "mob.cow.hurt"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 1
+            },
+            "pb_dmgi:dragon_dummy": {
+                "events": {
+                    "hurt": "mob.enderdragon.hit"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 0.7
+            },
+            "pb_dmgi:skeleton_dummy": {
+                "events": {
+                    "hurt": "mob.skeleton.hurt"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 1
+            },
+            "pb_dmgi:wither_dummy": {
+                "events": {
+                    "hurt": "mob.wither.hurt"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 1
+            },
+            "pb_dmgi:zombie_dummy": {
+                "events": {
+                    "hurt": "mob.zombie.hurt"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 1
+            },
+            "pb_dmgi:enderman_dummy": {
+                "events": {
+                    "hurt": "mob.endermen.hit"
+                },
+                "pitch": [
+                    1,
+                    1.2
+                ],
+                "volume": 1
+            }
+        }
+    }
+}

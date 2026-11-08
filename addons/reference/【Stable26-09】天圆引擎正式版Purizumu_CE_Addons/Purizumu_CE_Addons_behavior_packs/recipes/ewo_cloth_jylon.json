@@ -1,0 +1,33 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "cloth_jylon_0f2a92df"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABA",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:string",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:cloth_nylon",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:cloth_jylon",
+      "count": 1
+    }
+  }
+}

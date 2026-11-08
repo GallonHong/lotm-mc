@@ -1,0 +1,832 @@
+{
+    "format_version": "1.26.0",
+    "minecraft:block": {
+        "description": {
+            "identifier": "mythicus_sn:custom_ground_variant_1",
+            "states": {
+                "mythicus_sn:season_stage": [
+                    0,
+                    1,
+                    2,
+                    3,
+                    4,
+                    5,
+                    6,
+                    7,
+                    8,
+                    9,
+                    10,
+                    11,
+                    12,
+                    13,
+                    14,
+                    15
+                ]
+            },
+            "menu_category": {
+                "category": "none"
+            }
+        },
+        "permutations": [
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 0",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:spring.custom_ground_puddle_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 1",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:spring.custom_ground_puddle_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 2",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:spring.custom_ground_puddle_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 3",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:spring.custom_ground_puddle_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:spring.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 4",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:summer.custom_ground_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 5",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:summer.custom_ground_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 6",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:summer.custom_ground_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 7",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:summer.custom_ground_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:summer.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 8",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:fall.custom_ground_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 9",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:fall.custom_ground_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 10",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:fall.custom_ground_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 11",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:fall.custom_ground_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:fall.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 12",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:winter.custom_ground_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_0",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 13",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:winter.custom_ground_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_1",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 14",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:winter.custom_ground_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_2",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            },
+            {
+                "condition": "q.block_state('mythicus_sn:season_stage') == 15",
+                "components": {
+                    "minecraft:material_instances": {
+                        "up": {
+                            "texture": "mythicus_sn:winter.custom_ground_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "north": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "south": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "east": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "west": {
+                            "texture": "mythicus_sn:winter.custom_ground_side_block_3",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        },
+                        "down": {
+                            "texture": "mythicus_sn:custom_ground_bottom",
+                            "render_method": "opaque",
+                            "ambient_occlusion": true,
+                            "face_dimming": true
+                        }
+                    }
+                }
+            }
+        ],
+        "components": {
+            "tag:mythicus_sn:custom_ground_block": {},
+            "tag:dirt": {},
+            "tag:fertilize_area": {},
+            "tag:grass": {},
+            "tag:minecraft:dirt": {},
+            "tag:minecraft:fertilize_area": {},
+            "tag:minecraft:grass": {},
+            "tag:minecraft:minecraft:is_shovel_item_destructible": {},
+            "mythicus_sn:season_change": {
+                "has_season_state": true
+            },
+            "minecraft:tick": {
+                "interval_range": [
+                    100,
+                    400
+                ],
+                "looping": true
+            },
+            "tag:mythicus_sn:seasonal_block": {},
+            "mythicus_sn:custom_ground_behaviour": {},
+            "minecraft:destructible_by_explosion": {
+                "explosion_resistance": 0.6
+            },
+            "minecraft:loot": "loot_tables/mythicus/sn/blocks/ground/custom_ground_block.json",
+            "minecraft:material_instances": {
+                "up": {
+                    "texture": "mythicus_sn:spring.custom_ground_block_0",
+                    "render_method": "opaque"
+                },
+                "north": {
+                    "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                    "render_method": "opaque",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                },
+                "south": {
+                    "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                    "render_method": "opaque",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                },
+                "east": {
+                    "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                    "render_method": "opaque",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                },
+                "west": {
+                    "texture": "mythicus_sn:spring.custom_ground_side_block_0",
+                    "render_method": "opaque",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                },
+                "down": {
+                    "texture": "mythicus_sn:custom_ground_bottom",
+                    "render_method": "opaque",
+                    "ambient_occlusion": true,
+                    "face_dimming": true
+                }
+            },
+            "minecraft:destructible_by_mining": {
+                "seconds_to_destroy": 0.9,
+                "item_specific_speeds": [
+                    {
+                        "destroy_speed": 0.45,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shovel', 'minecraft:wooden_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.25,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shovel', 'minecraft:stone_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.15,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shovel', 'minecraft:iron_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.15,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shovel', 'minecraft:diamond_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.1,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shovel', 'minecraft:netherite_tier')"
+                        }
+                    },
+                    {
+                        "destroy_speed": 0.1,
+                        "item": {
+                            "tags": "q.all_tags('minecraft:is_shovel', 'minecraft:golden_tier')"
+                        }
+                    }
+                ]
+            },
+            "minecraft:light_dampening": 15,
+            "minecraft:geometry": {
+                "identifier": "minecraft:geometry.full_block"
+            },
+            "minecraft:collision_box": true,
+            "minecraft:selection_box": true,
+            "tag:mythicus_sn:environment": {},
+            "minecraft:map_color": "#006432"
+        }
+    }
+}

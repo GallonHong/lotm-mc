@@ -1,0 +1,53 @@
+{
+  "format_version": "1.21.100",
+  "minecraft:item": {
+    "description": {
+      "identifier": "atg:killa_6b13",
+      "menu_category": {
+        "category": "equipment",
+        "group": "pa:itemGroup.name.plateCarrierSpecial"
+      }
+    },
+    "components": {
+      "minecraft:icon": "atg_killa_6b13",
+      "minecraft:max_stack_size": 1,
+      "minecraft:allow_off_hand": false,
+      "minecraft:enchantable": {
+        "value": 10,
+        "slot": "armor_torso"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 10
+      },
+      "minecraft:durability": {
+        "max_durability": 230,
+        "damage_chance": {
+          "min": 60,
+          "max": 100
+        }
+      },
+      "minecraft:mining_speed": 5,
+      "minecraft:glint": false,
+      "minecraft:hand_equipped": false,
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "atg:armor_plate",
+              "atg:killa_6b13"
+            ],
+            "repair_amount": 115
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_armor",
+          "minecraft:transformable_items",
+          "minecraft:trimmable_armors"
+        ]
+      }
+    }
+  }
+}

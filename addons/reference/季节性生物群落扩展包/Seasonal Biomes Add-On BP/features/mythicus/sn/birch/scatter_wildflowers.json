@@ -1,0 +1,23 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:scatter_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/birch/scatter_wildflowers"
+        },
+        "iterations": 10,
+        "x": {
+            "distribution": "triangle",
+            "extent": [-8, 8]
+        },
+        "y": {
+            "distribution": "triangle",
+            "extent": [-2, 2]
+        },
+        "z": {
+            "distribution": "triangle",
+            "extent": [-8, 8]
+        },
+        "coordinate_eval_order": "zyx",
+        "places_feature": "mythicus_sn:mythicus/sn/birch/wildflowers"
+    }
+}

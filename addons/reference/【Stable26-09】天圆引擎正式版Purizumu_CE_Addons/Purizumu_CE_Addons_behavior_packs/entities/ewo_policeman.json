@@ -1,0 +1,225 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "ewo:policeman",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "lead",
+          "toy"
+        ]
+      },
+      "minecraft:breathable": {
+        "totalSupply": 15,
+        "suffocateTime": 0
+      },
+      "minecraft:health": {
+        "value": 180,
+        "max": 200
+      },
+      "minecraft:collision_box": {
+        "height": 2,
+        "width": 0.5
+      },
+      "minecraft:nameable": {
+        "alwaysShow": false,
+        "allowNameTagRenaming": false
+      },
+      "minecraft:movement": {
+        "value": 0.3
+      },
+      "minecraft:navigation.walk": {
+        "is_amphibious": true,
+        "can_path_over_water": true,
+        "can_pass_doors": true,
+        "can_open_doors": true,
+        "can_walk": true,
+        "avoid_water": true
+      },
+      "minecraft:annotation.open_door": {},
+      "minecraft:movement.basic": {},
+      "minecraft:jump.static": {},
+      "minecraft:can_climb": {},
+      "minecraft:damage_sensor": [
+        {
+          "on_damage": {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "lightning"
+            },
+            "event": "become_witch"
+          },
+          "deals_damage": false
+        },
+        {
+          "on_damage": {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "husk"
+                }
+              ],
+              "all_of": [
+                {
+                  "test": "has_damage",
+                  "value": "fatal"
+                }
+              ]
+            },
+            "event": "become_zombie"
+          }
+        }
+      ],
+      "minecraft:behavior.move_indoors": {
+        "priority": 4,
+        "speed_multiplier": 0.8
+      },
+      "minecraft:behavior.restrict_open_door": {
+        "priority": 5
+      },
+      "minecraft:behavior.move_towards_restriction": {
+        "priority": 7,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.share_items": {
+        "priority": 8,
+        "max_dist": 3,
+        "goal_radius": 2,
+        "speed_multiplier": 0.5,
+        "entity_types": [
+          {
+            "filters": {
+              "test": "is_family",
+              "subject": "other",
+              "value": "villager"
+            }
+          }
+        ]
+      },
+      "minecraft:behavior.random_stroll": {
+        "priority": 11,
+        "speed_multiplier": 0.6
+      },
+      "minecraft:behavior.look_at_player": {
+        "priority": 12,
+        "look_distance": 8,
+        "probability": 0.02
+      },
+      "minecraft:physics": {},
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:underwater_movement": {
+        "value": 0.1
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:attack": {
+        "damage": 3,
+        "effect_name": "weakness",
+        "effect_duration": 30
+      },
+      "minecraft:behavior.ranged_attack": {
+        "attack_interval_min": 1,
+        "attack_interval_max": 3,
+        "attack_radius": 50,
+        "burst_shots": 3,
+        "burst_interval": 0.4
+      },
+      "minecraft:shooter": {
+        "type": "Arrow",
+        "def": "minecraft:arrow"
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 3,
+        "within_radius": 15,
+        "must_reach": false,
+        "entity_types": [
+          {
+            "filters": {
+              "any_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie_villager"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "zombie_pigman"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "illager"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "vex"
+                },
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "monster"
+                }
+              ]
+            },
+            "max_dist": 15.0,
+            "must_see": true
+          }
+        ],
+        "must_see": true,
+        "speed_multiplier": 1,
+        "reselect_targets": true
+      },
+      "minecraft:follow_range": {
+        "value": 50
+      },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 3
+      },
+      "minecraft:behavior.owner_hurt_by_target": {
+        "priority": 1
+      },
+      "minecraft:behavior.owner_hurt_target": {
+        "priority": 2
+      },
+      "minecraft:tameable": {
+        "probability": 0.33,
+        "tameItems": [
+          "ewo:card_level0",
+          "minecraft:gold_ingot"
+        ],
+        "tame_event": {
+          "event": "minecraft:on_tame",
+          "target": "self"
+        }
+      },
+      "minecraft:equip_item": {},
+      "minecraft:loot": {
+        "table": "loot_tables/corona/jmgs_arms.json"
+      }
+    },
+    "events": {
+      
+    }
+  }
+}

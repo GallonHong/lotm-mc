@@ -1,0 +1,128 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.sniper_models",
+				"texture_width": 512,
+				"texture_height": 256,
+				"visible_bounds_width": 214,
+				"visible_bounds_height": 43,
+				"visible_bounds_offset": [0, 1.5, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0],
+					"locators": {
+						"gunfiresmoke_sniper": [-6, 29, -35.98]
+					}
+				},
+				{
+					"name": "waist",
+					"parent": "root",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "body",
+					"parent": "waist",
+					"pivot": [0, 24, 0]
+				},
+				{
+					"name": "leftArm",
+					"parent": "body",
+					"pivot": [5, 22, 0]
+				},
+				{
+					"name": "handl_sniper",
+					"parent": "leftArm",
+					"pivot": [5, 22, 0],
+					"cubes": [
+						{
+							"origin": [4, 12, -2],
+							"size": [4, 12, 4],
+							"uv": {
+								"north": {"uv": [75, 107], "uv_size": [17, 21]},
+								"east": {"uv": [75, 107], "uv_size": [17, 21]},
+								"south": {"uv": [75, 107], "uv_size": [17, 21]},
+								"west": {"uv": [75, 107], "uv_size": [17, 21]},
+								"up": {"uv": [92, 128], "uv_size": [-17, -21]},
+								"down": {"uv": [92, 128], "uv_size": [-17, -21]}
+							}
+						},
+						{
+							"origin": [4, 12, -2],
+							"size": [4, 12, 4],
+							"inflate": 0.25,
+							"uv": {
+								"north": {"uv": [75, 107], "uv_size": [17, 21]},
+								"east": {"uv": [75, 107], "uv_size": [17, 21]},
+								"south": {"uv": [75, 107], "uv_size": [17, 21]},
+								"west": {"uv": [75, 107], "uv_size": [17, 21]},
+								"up": {"uv": [92, 128], "uv_size": [-17, -21]},
+								"down": {"uv": [92, 128], "uv_size": [-17, -21]}
+							}
+						}
+					]
+				},
+				{
+					"name": "leftSleeve",
+					"parent": "leftArm",
+					"pivot": [5, 27, -6.3]
+				},
+				{
+					"name": "leftItem",
+					"parent": "leftArm",
+					"pivot": [6, 20, -5.3]
+				},
+				{
+					"name": "rightArm",
+					"parent": "body",
+					"pivot": [-5, 22, 0]
+				},
+				{
+					"name": "handr_sniper",
+					"parent": "rightArm",
+					"pivot": [-5, 22, 0],
+					"cubes": [
+						{
+							"origin": [-14, 12, -2],
+							"size": [4, 12, 4],
+							"uv": {
+								"north": {"uv": [62, 110], "uv_size": [18, 18]},
+								"east": {"uv": [62, 110], "uv_size": [18, 18]},
+								"south": {"uv": [62, 110], "uv_size": [18, 18]},
+								"west": {"uv": [62, 110], "uv_size": [18, 18]},
+								"up": {"uv": [80, 128], "uv_size": [-18, -18]},
+								"down": {"uv": [80, 128], "uv_size": [-18, -18]}
+							}
+						},
+						{
+							"origin": [-13, 12, -2],
+							"size": [4, 12, 4],
+							"inflate": 0.25,
+							"uv": {
+								"north": {"uv": [62, 110], "uv_size": [18, 18]},
+								"east": {"uv": [62, 110], "uv_size": [18, 18]},
+								"south": {"uv": [62, 110], "uv_size": [18, 18]},
+								"west": {"uv": [62, 110], "uv_size": [18, 18]},
+								"up": {"uv": [80, 128], "uv_size": [-18, -18]},
+								"down": {"uv": [80, 128], "uv_size": [-18, -18]}
+							}
+						}
+					]
+				},
+				{
+					"name": "rightSleeve",
+					"parent": "rightArm",
+					"pivot": [-5, 27, -6.3]
+				},
+				{
+					"name": "rightItem",
+					"parent": "rightArm",
+					"pivot": [-6, 15, 1]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,29 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "blueprint_sr_7aed50ed"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "B",
+      "C"
+    ],
+    "key": {
+      "B": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:recipe_page",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:blueprint_sr",
+      "count": 1
+    }
+  }
+}

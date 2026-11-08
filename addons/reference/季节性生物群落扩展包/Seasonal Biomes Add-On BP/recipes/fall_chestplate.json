@@ -1,0 +1,31 @@
+{
+    "format_version": "1.12.0",
+    "minecraft:recipe_shaped": {
+        "description": {
+            "identifier": "mythicus_sn:normal_fall_chestplate"
+        },
+        "tags": [
+            "crafting_table"
+        ],
+        "pattern": [
+            "# #",
+            "#A#",
+            "###"
+        ],
+        "key": {
+            "#": {
+                "item": "mythicus_sn:cloth"
+            },
+            "A": {
+                "item": "minecraft:string"
+            }
+        },
+        "result": {
+            "item": "mythicus_sn:normal_fall_chestplate",
+            "count": 1
+        },
+        "unlock": {
+            "context": "AlwaysUnlocked"
+        }
+    }
+}

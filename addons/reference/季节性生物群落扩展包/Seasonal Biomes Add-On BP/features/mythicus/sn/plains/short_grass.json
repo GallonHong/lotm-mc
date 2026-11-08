@@ -1,0 +1,20 @@
+{
+    "format_version": "1.13.0",
+    "minecraft:single_block_feature": {
+        "description": {
+            "identifier": "mythicus_sn:mythicus/sn/plains/short_grass"
+        },
+        "places_block": "mythicus_sn:short_grass",
+        "enforce_survivability_rules": true,
+        "enforce_placement_rules": false,
+        "may_replace": ["minecraft:air"],
+        "may_attach_to": {
+            "bottom": [
+                "mythicus_sn:custom_ground_block",
+                "mythicus_sn:custom_ground_variant_1",
+                "mythicus_sn:custom_ground_variant_2",
+                "minecraft:grass_block"
+            ]
+        }
+    }
+}

@@ -1,0 +1,136 @@
+{
+    "groups": [
+        {
+            "icon": "jmgs:block_chair_wood",
+            "group_name": "jmgs:chairGroup.name.jmgs_blocks",
+            "list": [
+                "jmgs:block_chair_wood",
+                "ewo:block_edu_chair",
+                "jmgs:block_chair_game",
+                "jmgs:block_chair_lab",
+                "jmgs:block_chair_leader",
+                "jmgs:block_chair_lite",
+                "jmgs:block_chair_massage",
+                "jmgs:block_chair_office",
+                "jmgs:block_chair_tea",
+                "jmgs:block_bench"
+            ]
+        },
+        {
+            "icon": "jmgs:block_table",
+            "group_name": "jmgs:tableGroup.name.jmgs_blocks",
+            "list": [
+                "jmgs:block_table",
+                "ewo:block_edu_table",
+                "ewo:block_edu_table1",
+                "jmgs:block_table_bed",
+                "jmgs:block_table_computer",
+                "jmgs:block_table_food",
+                "jmgs:block_table_game",
+                "jmgs:block_table_lite",
+                "jmgs:block_table_mahjong",
+                "jmgs:block_table_square",
+                "jmgs:block_table_stone",
+                "jmgs:block_table_ware",
+                "jmgs:block_table_work",
+                "jmgs:block_table_graphics",
+                "jmgs:block_table_graphics_ground"
+            ]
+        },
+        {
+            "icon": "jmgs:block_light",
+            "group_name": "jmgs:lightGroup.name.jmgs_blocks",
+            "list": [
+                "jmgs:block_light",
+                "jmgs:block_light_bed",
+                "jmgs:block_light_day",
+                "jmgs:block_light_flood",
+                "jmgs:block_light_ground",
+                "jmgs:block_light_industry",
+                "jmgs:block_light_overhead",
+                "jmgs:block_light_overhead_modern",
+                "jmgs:block_light_pro",
+                "jmgs:block_light_traffic"
+            ]
+        },
+        {
+            "icon": "jmgs:block_1234",
+            "group_name": "jmgs:tableGroup.name.jmgs_blocks",
+            "list": [
+                "jmgs:block_1234",
+                "jmgs:block_abcd",
+                "ewo:bug_block",
+                "jmgs:block_light_black",
+                "jmgs:block_light_green",
+                "jmgs:block_light_white",
+                "jmgs:block_wall_iron_surface",
+                "jmgs:block_wall_iron_slab"
+            ]
+        },
+        {
+            "icon": "jmgs:block_parcel_locker_xl",
+            "group_name": "jmgs:shelfGroup.name.jmgs_blocks",
+            "list": [
+                "jmgs:block_parcel_locker_xl",
+                "jmgs:block_parcel_locker_xs",
+                "jmgs:block_parcel_locker_display",
+                "jmgs:block_shelf",
+                "jmgs:block_table_shelf",
+                "jmgs:block_table_chest",
+                "jmgs:block_grid",
+                "jmgs:block_chest_file",
+                "jmgs:block_chest_iron",
+                "jmgs:block_chest_wood"
+            ]
+        },
+        {
+            "icon": "jmgs:block_barrier_a",
+            "group_name": "jmgs:barrierGroup.name.jmgs_blocks",
+            "list": [
+                "jmgs:block_barrier_a",
+                "jmgs:block_barrier_a_lite",
+                "jmgs:block_barrier_h",
+                "jmgs:block_barrier_heavy",
+                "jmgs:block_barrier_i",
+                "jmgs:block_barrier_m",
+                "jmgs:block_barrier_o",
+                "jmgs:block_barrier_tom",
+                "jmgs:block_barrier_x"
+            ]
+        },
+        {
+            "icon": "ewo:block_display_edge",
+            "group_name": "jmgs:displayGroup.name.jmgs_blocks",
+            "list": [
+                "ewo:block_display_edge",
+                "ewo:block_display",
+                "ewo:block_display_crt",
+                "ewo:block_display_duo",
+                "ewo:block_display_game",
+                "ewo:block_display_pro",
+                "jmgs:block_display_air",
+                "jmgs:block_display_admin",
+                "jmgs:block_display_control",
+                "jmgs:block_tv",
+                "jmgs:block_tv_mobile",
+                "jmgs:block_tablet_graphics",
+                "jmgs:block_tablet_graphics_ground"
+            ]
+        },
+        {
+            "icon": "ewo:block_pc1",
+            "group_name": "jmgs:pcGroup.name.jmgs_blocks",
+            "list": [
+                "ewo:block_pc1",
+                "ewo:block_pc2",
+                "ewo:block_pc3",
+                "ewo:block_pc4",
+                "ewo:block_pc5",
+                "ewo:block_pc_game",
+                "jmgs:block_game_next_era",
+                "jmgs:block_game_old",
+                "jmgs:block_nas"
+            ]
+        }
+    ]
+}

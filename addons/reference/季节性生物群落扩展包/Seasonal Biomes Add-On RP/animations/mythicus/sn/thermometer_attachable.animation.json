@@ -1,0 +1,46 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.mythicus_sn.thermometer_attachable.left.tp": {
+            "loop": true,
+            "bones": {
+                "clock2": {
+                    "rotation": [19.74601, -3.20187, 171.87927],
+                    "position": [12, 11.22217, -3.85355],
+                    "scale": 0.6
+                },
+                "thermometer2": {
+                    "position": [1.06066, -1.55662, -6.09244],
+                    "scale": 0.6
+                }
+            }
+        },
+        "animation.mythicus_sn.thermometer_attachable.right.tp": {
+            "loop": true,
+            "bones": {
+                "clock2": {
+                    "rotation": [19.74601, -3.20187, 171.87927],
+                    "position": [12, 11.22217, -3.85355],
+                    "scale": 0.6
+                },
+                "thermometer": {
+                    "rotation": [70, 0, 60],
+                    "position": [1.06066, -1.55662, -6.09244],
+                    "scale": 0.6
+                }
+            }
+        },
+        "animation.mythicus_sn.thermometer_attachable.right.fp": {
+            "loop": true
+        },
+        "animation.mythicus_sn.thermometer_attachable.left.fp": {
+            "loop": true,
+            "bones": {
+                "thermometer2": {
+                    "rotation": [-104.97079, 3.53821, -6.12088],
+                    "position": [-20, 1, 11]
+                }
+            }
+        }
+    }
+}

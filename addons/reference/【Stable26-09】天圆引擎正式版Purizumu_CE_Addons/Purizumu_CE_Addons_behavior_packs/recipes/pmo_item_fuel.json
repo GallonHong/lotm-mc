@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "item_fuel_8eef7b40"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ADG",
+      "BCH",
+      "ECF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:animal_vertebra",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:blaze_rod",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:glass_bottle",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:mine_uranium",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_toolbox",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:animal_tendon",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:item_fuel",
+      "count": 8
+    }
+  }
+}

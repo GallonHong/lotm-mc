@@ -1,0 +1,163 @@
+{
+	"format_version": "1.20.70",
+	"minecraft:block": {
+		"description": {
+			"identifier": "jmgs:block_light_traffic",
+			"traits": {
+				"minecraft:placement_direction": {
+					"enabled_states": [
+						"minecraft:facing_direction"
+					],
+					"x_rotation_offset": 90
+				}
+			},
+			"menu_category": {
+				"category": "construction"
+			}
+		},
+		"components": {
+			"minecraft:collision_box": {
+				"origin": [
+					-3.5,
+					0,
+					-3
+				],
+				"size": [
+					7,
+					16,
+					6
+				]
+			},
+			"minecraft:light_emission": 15,
+			"minecraft:destructible_by_explosion": {
+				"explosion_resistance": 30
+			},
+			"minecraft:geometry": "geometry.jmgs_block_light_traffic",
+			"minecraft:material_instances": {
+				"*": {
+					"texture": "jmgs_block_light_traffic",
+					"render_method": "alpha_test",
+					"face_dimming": false
+				}
+			},
+			"minecraft:display_name": "tile.jmgs:block_light_traffic.name",
+			"minecraft:light_dampening": 0,
+			"minecraft:map_color": "#ffbe00",
+			"minecraft:destructible_by_mining": {
+				"seconds_to_destroy": 3,
+				"item_specific_speeds": [
+					{
+						"item": {
+							"tags": "q.all_tags('minecraft:is_axe', 'minecraft:wooden_tier')"
+						},
+						"destroy_speed": 1.5
+					},
+					{
+						"item": {
+							"tags": "q.all_tags('minecraft:is_axe', 'minecraft:stone_tier')"
+						},
+						"destroy_speed": 0.75
+					},
+					{
+						"item": {
+							"tags": "q.all_tags('minecraft:is_axe', 'minecraft:iron_tier')"
+						},
+						"destroy_speed": 0.5
+					},
+					{
+						"item": {
+							"tags": "q.all_tags('minecraft:is_axe', 'minecraft:golden_tier')"
+						},
+						"destroy_speed": 0.25
+					},
+					{
+						"item": {
+							"tags": "q.all_tags('minecraft:is_axe', 'minecraft:diamond_tier')"
+						},
+						"destroy_speed": 0.4
+					},
+					{
+						"item": {
+							"tags": "q.all_tags('minecraft:is_axe', 'minecraft:netherite_tier')"
+						},
+						"destroy_speed": 0.35
+					}
+				]
+			}
+		},
+		"permutations": [
+			{
+				"condition": "q.block_state('minecraft:facing_direction') == 'down'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							180,
+							0,
+							90
+						]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:facing_direction') == 'up'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							0,
+							90
+						]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:facing_direction') == 'east'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							90,
+							0
+						]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:facing_direction') == 'west'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							90,
+							180
+						]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:facing_direction') == 'south'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							0,
+							0
+						]
+					}
+				}
+			},
+			{
+				"condition": "q.block_state('minecraft:facing_direction') == 'north'",
+				"components": {
+					"minecraft:transformation": {
+						"rotation": [
+							0,
+							0,
+							180
+						]
+					}
+				}
+			}
+		]
+	}
+}

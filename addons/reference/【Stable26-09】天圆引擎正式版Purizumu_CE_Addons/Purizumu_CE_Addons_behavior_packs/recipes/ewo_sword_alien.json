@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "sword_alien_e8656f9c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "FAF",
+      "BCD",
+      "BED"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_special",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:amethyst_shard",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:iron_sword",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:lapis_lazuli",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:sword_alien",
+      "count": 1
+    }
+  }
+}

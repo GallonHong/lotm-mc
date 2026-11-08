@@ -1,0 +1,15 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.mythicus_sn.texture_mesh.rotation_to_camera": {
+            "loop": true,
+            "animation_length": 4.4167,
+            "bones": {
+                "root": {
+                    "rotation": [0, "-query.body_y_rotation + query.rotation_to_camera(1)", 0],
+                    "scale": 0.6
+                }
+            }
+        }
+    }
+}

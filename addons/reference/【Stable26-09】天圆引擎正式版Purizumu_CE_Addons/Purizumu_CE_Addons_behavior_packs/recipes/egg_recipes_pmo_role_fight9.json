@@ -1,0 +1,54 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "role_fight9_7d88831c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABG",
+      "HEI",
+      "FCF"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:pc_mainh110",
+        "data": 0
+      },
+      "B": {
+        "item": "pmo:projectile_a1",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:entity_car_plus_spawn_egg",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_ssr",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:metal_structure",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:metal_weathering",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:role_fight9_spawn_egg",
+      "count": 2
+    }
+  }
+}

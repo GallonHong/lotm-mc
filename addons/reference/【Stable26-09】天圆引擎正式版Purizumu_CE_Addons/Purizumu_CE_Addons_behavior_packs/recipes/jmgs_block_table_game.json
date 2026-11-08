@@ -1,0 +1,41 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_table_game_ax653cfa"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "BAB",
+      "CED"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:cloth_plain",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:plastics_glass",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:metal_alumin",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_table_game",
+      "count": 1
+    }
+  }
+}

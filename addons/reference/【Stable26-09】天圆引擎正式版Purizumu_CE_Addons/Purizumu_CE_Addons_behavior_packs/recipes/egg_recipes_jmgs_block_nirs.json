@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "block_nirs_6dbb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "jmgs:item_hero",
+        "data": 0
+      },
+      "B": {
+        "item": "jmgs:eva8",
+        "data": 0
+      },
+      "C": {
+        "item": "pmo:entity_mecha_a2_spawn_egg",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:pc_cpu5950xt",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_apex",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:pc_led",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:metal_amalgam",
+        "data": 0
+      },
+      "H": {
+        "item": "ewo:mine_kyanite",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:block_display",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:block_nirs_spawn_egg",
+      "count": 1
+    }
+  }
+}

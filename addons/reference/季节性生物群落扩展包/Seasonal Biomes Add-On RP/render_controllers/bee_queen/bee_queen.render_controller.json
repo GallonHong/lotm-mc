@@ -1,0 +1,20 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.bee_queen": {
+            "arrays": {
+                "textures": {
+                    "Array.skins": [
+                        "Texture.default",
+                        "Texture.angry",
+                        "Texture.nectar",
+                        "Texture.angry_nectar"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": ["Array.skins[v.is_angry * 1 + v.has_nectar * 2]"]
+        }
+    }
+}

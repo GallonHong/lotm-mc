@@ -1,0 +1,21 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.pmo_entity_car_macaron_edit": {
+            "arrays": {
+                "textures": {
+                    "Array.variant": [
+                        "Texture.default",
+                        "Texture.variant_2",
+                        "Texture.variant_3",
+                        "Texture.variant_4",
+                        "Texture.variant_5"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [ { "*": "Material.default" } ],
+            "textures": [ "Array.variant[ query.variant ]" ]
+        }
+    }
+}

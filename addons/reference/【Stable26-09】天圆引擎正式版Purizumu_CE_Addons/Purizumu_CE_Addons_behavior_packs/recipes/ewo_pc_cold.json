@@ -1,0 +1,38 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "pc_cold_9b87a3d8"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      " A ",
+      "BCB",
+      " D "
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:parts_mech",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:plastics_abs",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:copper_ingot",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:slime_ball",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "ewo:pc_cold",
+      "count": 1
+    }
+  }
+}

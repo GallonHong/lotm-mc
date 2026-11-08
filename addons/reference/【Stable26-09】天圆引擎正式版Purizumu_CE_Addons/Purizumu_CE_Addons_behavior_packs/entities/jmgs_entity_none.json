@@ -1,0 +1,183 @@
+{
+  "format_version": "1.13.0",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "jmgs:entity_none",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "component_groups": {
+      "jmgs:entity_none_white_group": {
+        "minecraft:variant": {
+          "value": 0
+        },
+        "minecraft:mark_variant": {
+          "value": 0
+        }
+      },
+      "jmgs:entity_none_blue_group": {
+        "minecraft:variant": {
+          "value": 1
+        },
+        "minecraft:mark_variant": {
+          "value": 1
+        }
+      },
+      "jmgs:entity_none_red_group": {
+        "minecraft:variant": {
+          "value": 2
+        },
+        "minecraft:mark_variant": {
+          "value": 2
+        }
+      },
+      "jmgs:entity_none_item_group": {
+        "minecraft:variant": {
+          "value": 3
+        },
+        "minecraft:mark_variant": {
+          "value": 3
+        },
+        "minecraft:inventory": {
+          "inventory_size": 27,
+          "container_type": "container",
+          "private": false
+        }
+      },
+      "jmgs:entity_none_phone_group": {
+        "minecraft:variant": {
+          "value": 4
+        },
+        "minecraft:mark_variant": {
+          "value": 4
+        }
+      },
+      "jmgs:entity_none_none_group": {
+        "minecraft:variant": {
+          "value": 5
+        },
+        "minecraft:mark_variant": {
+          "value": 5
+        }
+      }
+    },
+    "components": {
+      "minecraft:type_family": {
+        "family": [
+          "armor_stand",
+          "toy"
+        ]
+      },
+      "minecraft:collision_box": {
+        "height": 1.5,
+        "width": 0.5
+      },
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:knockback_resistance": {
+        "value": 10.0,
+        "max": 10.0
+      },
+      "minecraft:hurt_on_condition": {
+        "damage_conditions": [
+          {
+            "filters": {
+              "test": "in_lava",
+              "subject": "self",
+              "operator": "==",
+              "value": true
+            },
+            "cause": "lava",
+            "damage_per_tick": 4
+          }
+        ]
+      },
+      "minecraft:loot": {},
+      "minecraft:nameable": {
+        "alwaysShow": true,
+        "allowNameTagRenaming": true
+      },
+      "minecraft:persistent": {},
+      "minecraft:physics": {},
+      "minecraft:pushable": {
+        "is_pushable": false,
+        "is_pushable_by_piston": true
+      },
+      "minecraft:experience_reward": {
+        "on_death": "query.last_hit_by_player ? 10 : 0"
+      },
+      "minecraft:movement": {
+        "value": 0,
+        "max": 0
+      },
+      "minecraft:underwater_movement": {
+        "value": 0
+      },
+      "minecraft:scale": {
+        "value": 1
+      },
+      "minecraft:on_death": {
+        "event": "jmgs:entity_on_death",
+        "target": "self"
+      },
+      "minecraft:on_hurt": {
+        "event": "jmgs:entity_on_hurt",
+        "target": "self"
+      }
+    },
+    "events": {
+      "jmgs:entity_on_death": {
+        "queue_command": {
+          "command": [
+            "fill ~2 ~2 ~2 ~-2 ~-2 ~-2 redstone_block 0 replace emerald_block 0"
+          ]
+        }
+      },
+      "jmgs:entity_none_white": {
+        "add": {
+          "component_groups": [
+            "jmgs:entity_none_white_group"
+          ]
+        }
+      },
+      "jmgs:entity_none_blue": {
+        "add": {
+          "component_groups": [
+            "jmgs:entity_none_blue_group"
+          ]
+        }
+      },
+      "jmgs:entity_none_red": {
+        "add": {
+          "component_groups": [
+            "jmgs:entity_none_red_group"
+          ]
+        }
+      },
+      "jmgs:entity_none_item": {
+        "add": {
+          "component_groups": [
+            "jmgs:entity_none_item_group"
+          ]
+        }
+      },
+      "jmgs:entity_none_phone": {
+        "add": {
+          "component_groups": [
+            "jmgs:entity_none_phone_group"
+          ]
+        }
+      },
+      "jmgs:entity_none_none": {
+        "add": {
+          "component_groups": [
+            "jmgs:entity_none_none_group"
+          ]
+        }
+      }
+    }
+  }
+}

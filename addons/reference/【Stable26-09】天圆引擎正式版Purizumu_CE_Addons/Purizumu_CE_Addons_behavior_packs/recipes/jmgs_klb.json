@@ -1,0 +1,58 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "klb_8fcfca43"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "ABC",
+      "DEF",
+      "GHI"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:spyglass",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_electrion",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:pc_cold",
+        "data": 0
+      },
+      "D": {
+        "item": "pmo:item_cpu",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:netherite_ingot",
+        "data": 0
+      },
+      "F": {
+        "item": "ewo:parts_gun",
+        "data": 0
+      },
+      "G": {
+        "item": "ewo:blueprint_ur",
+        "data": 0
+      },
+      "H": {
+        "item": "jmgs:item_cd",
+        "data": 0
+      },
+      "I": {
+        "item": "ewo:mine_kyanite",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:klb",
+      "count": 1
+    }
+  }
+}

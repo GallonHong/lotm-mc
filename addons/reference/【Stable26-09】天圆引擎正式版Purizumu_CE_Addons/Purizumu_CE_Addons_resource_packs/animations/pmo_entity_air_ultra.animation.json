@@ -1,0 +1,77 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.pmo_entity_air_ultra.fly": {
+			"loop": true,
+			"animation_length": 9,
+			"bones": {
+				"bone2": {
+					"position": [20, -6, 0]
+				},
+				"bone": {
+					"position": [-19, -4, 0]
+				},
+				"chicken_yeeR": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"9.0": [0, 0, -7200]
+					}
+				},
+				"chicken_yeeL": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"9.0": [0, 0, 7200]
+					}
+				},
+				"jio": {
+					"rotation": [132.5, 0, 0],
+					"position": [0, 0, -16]
+				},
+				"jio2": {
+					"rotation": [0, 0, 137.5],
+					"position": [-0.2, 4.4, 0]
+				},
+				"jio3": {
+					"rotation": [0, 0, -145],
+					"position": [0, 4, 0]
+				},
+				"power_guan": {
+					"position": [28, -8, 0]
+				},
+				"bone4": {
+					"position": [0, 13, 11]
+				},
+				"root": {
+					"rotation": ["math.clamp(query.vertical_speed * -2.31, -20, 10)", 0, "math.clamp(query.yaw_speed * -1, -10, 10)"],
+					"position": {
+						"0.0": [0, 0, 0],
+						"9.0": [0, 0, 0]
+					}
+				}
+			},
+			"sound_effects": {
+				"0.0": {
+					"effect": "helfly_walk"
+				}
+			}
+		},
+		"animation.pmo_entity_air_ultra.walk": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"fadongji2": {
+					"rotation": {
+						"0.0": [90, 0, 0],
+						"1.0": [90, 0, 0]
+					}
+				},
+				"fadongji": {
+					"rotation": {
+						"0.0": [90, 0, 0],
+						"1.0": [90, 0, 0]
+					}
+				}
+			}
+		}
+	}
+}

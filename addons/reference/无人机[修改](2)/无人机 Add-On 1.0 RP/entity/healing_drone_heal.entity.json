@@ -1,0 +1,32 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:healing_drone_heal",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/empty"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.empty"
+			},
+			"animations": {
+				"particle": "animation.makercamp_dr.healing_drone_heal.particle"
+			},
+			"scripts": {
+				"animate": [
+					"particle"
+				]
+			},
+			"render_controllers": [
+				"controller.render.default"
+			],
+			"particle_effects": {
+				"healing_field_1": "makercamp_dr:healing_drone",
+				"healing_field_2": "makercamp_dr:healing_drone_2"
+			}
+		}
+	}
+}

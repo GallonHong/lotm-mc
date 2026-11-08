@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "recipes_bdabe93b"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AFA",
+      "EBE",
+      "CDC"
+    ],
+    "key": {
+      "A": {
+        "item": "minecraft:iron_block",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:pc_cpu9100f",
+        "data": 0
+      },
+      "C": {
+        "item": "minecraft:redstone",
+        "data": 0
+      },
+      "D": {
+        "item": "minecraft:comparator",
+        "data": 0
+      },
+      "E": {
+        "item": "minecraft:daylight_detector",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:beacon",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "pmo:entity_power5_spawn_egg",
+      "count": 1
+    }
+  }
+}

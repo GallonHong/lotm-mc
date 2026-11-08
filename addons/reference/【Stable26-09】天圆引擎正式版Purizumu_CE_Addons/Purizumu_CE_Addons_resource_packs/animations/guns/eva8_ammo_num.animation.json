@@ -1,0 +1,224 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.eva8_ammo_num": {
+			"loop": true
+		},
+		"animation.eva8.ammo_num_8": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 1
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 0
+				},
+				"eva8_ammo_num_red": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_7": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 1
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 0
+				},
+				"eva8_ammo_num_red": {
+					"scale": 0
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_6": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 1
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 0
+				},
+				"eva8_ammo_num_red": {
+					"scale": 0
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				},
+				"eva8_blue_ammo7": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_5": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 0
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 1
+				},
+				"eva8_ammo_num_red": {
+					"scale": 0
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				},
+				"eva8_blue_ammo7": {
+					"scale": 0
+				},
+				"eva8_blue_ammo6": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_4": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 0
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 1
+				},
+				"eva8_ammo_num_red": {
+					"scale": 0
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				},
+				"eva8_blue_ammo7": {
+					"scale": 0
+				},
+				"eva8_blue_ammo6": {
+					"scale": 0
+				},
+				"eva8_orange_ammo5": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_3": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 0
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 1
+				},
+				"eva8_ammo_num_red": {
+					"scale": 0
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				},
+				"eva8_blue_ammo7": {
+					"scale": 0
+				},
+				"eva8_blue_ammo6": {
+					"scale": 0
+				},
+				"eva8_orange_ammo4": {
+					"scale": 0
+				},
+				"eva8_orange_ammo5": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_2": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 0
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 0
+				},
+				"eva8_ammo_num_red": {
+					"scale": 1
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				},
+				"eva8_blue_ammo7": {
+					"scale": 0
+				},
+				"eva8_blue_ammo6": {
+					"scale": 0
+				},
+				"eva8_orange_ammo4": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_1": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 0
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 0
+				},
+				"eva8_ammo_num_red": {
+					"scale": 1
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				},
+				"eva8_blue_ammo7": {
+					"scale": 0
+				},
+				"eva8_blue_ammo6": {
+					"scale": 0
+				},
+				"eva8_orange_ammo4": {
+					"scale": 0
+				},
+				"eva8_red_ammo2": {
+					"scale": 0
+				}
+			}
+		},
+		"animation.eva8.ammo_num_0": {
+			"loop": true,
+			"bones": {
+				"eva8_ammo_num_blue": {
+					"scale": 0
+				},
+				"eva8_ammo_num_orange": {
+					"scale": 0
+				},
+				"eva8_ammo_num_red": {
+					"scale": 1
+				},
+				"eva8_blue_ammo8": {
+					"scale": 0
+				},
+				"eva8_blue_ammo7": {
+					"scale": 0
+				},
+				"eva8_blue_ammo6": {
+					"scale": 0
+				},
+				"eva8_orange_ammo4": {
+					"scale": 0
+				},
+				"eva8_red_ammo2": {
+					"scale": 0
+				},
+				"eva8_red_ammo1": {
+					"scale": 0
+				}
+			}
+		}
+	}
+}

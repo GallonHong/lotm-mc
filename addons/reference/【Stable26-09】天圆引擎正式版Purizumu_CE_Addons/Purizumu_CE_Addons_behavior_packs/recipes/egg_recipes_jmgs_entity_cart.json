@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "entity_cart_11bb131c"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "DBF",
+      "ECA",
+      "CCC"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:plastics_eng",
+        "data": 0
+      },
+      "B": {
+        "item": "ewo:parts_screw",
+        "data": 0
+      },
+      "C": {
+        "item": "ewo:metal_carbon",
+        "data": 0
+      },
+      "D": {
+        "item": "ewo:cloth_blended",
+        "data": 0
+      },
+      "E": {
+        "item": "ewo:blueprint_sr",
+        "data": 0
+      },
+      "F": {
+        "item": "minecraft:blue_dye",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:entity_cart_spawn_egg",
+      "count": 2
+    }
+  }
+}

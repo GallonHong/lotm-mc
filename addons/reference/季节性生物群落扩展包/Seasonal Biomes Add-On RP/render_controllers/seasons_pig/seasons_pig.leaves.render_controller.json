@@ -1,0 +1,26 @@
+{
+    "format_version": "1.8.0",
+    "render_controllers": {
+        "controller.render.mythicus_sn.seasons_pig.leaves": {
+            "arrays": {
+                "textures": {
+                    "Array.warm": [
+                        "Texture.warm.leaves_1",
+                        "Texture.warm.leaves_2",
+                        "Texture.warm.leaves_3",
+                        "Texture.warm.leaves_4"
+                    ],
+                    "Array.cold": [
+                        "Texture.cold.leaves_1",
+                        "Texture.cold.leaves_2",
+                        "Texture.cold.leaves_3",
+                        "Texture.cold.leaves_4"
+                    ]
+                }
+            },
+            "geometry": "Geometry.default",
+            "materials": [{ "*": "Material.default" }],
+            "textures": ["v.index == 0 ? Array.warm[q.property('mythicus_sn:leaves_level') - 1] : Array.cold[q.property('mythicus_sn:leaves_level') - 1]"]
+        }
+    }
+}

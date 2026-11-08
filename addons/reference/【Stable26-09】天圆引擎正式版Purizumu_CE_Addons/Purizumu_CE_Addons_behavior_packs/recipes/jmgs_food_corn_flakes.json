@@ -1,0 +1,30 @@
+{
+  "format_version": "1.12",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "jmgs_food_corn_flakes_10003"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "AAA",
+      "BBB",
+      "BBB"
+    ],
+    "key": {
+      "A": {
+        "item": "ewo:flour",
+        "data": 0
+      },
+      "B": {
+        "item": "minecraft:wheat",
+        "data": 0
+      }
+    },
+    "result": {
+      "item": "jmgs:food_corn_flakes",
+      "count": 2
+    }
+  }
+}
