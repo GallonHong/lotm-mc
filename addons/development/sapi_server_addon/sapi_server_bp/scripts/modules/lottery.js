@@ -20,6 +20,30 @@ const RARITY_IDS = ["common", "rare", "epic", "legendary", "mythic"];
  */
 export class LotteryManager {
  
+ static sendHopePostSnapshot(player, nonce) {
+  if (!/^hp_[a-z0-9]+_[a-z0-9]+$/.test(String(nonce)) || nonce.length > 64) return;
+  // Derive advertisement from the same live pool list shown by the lottery UI.
+  const pools = this.getPools();
+  const text = value => String(value || "").replace(/§./g, "").replace(/[\r\n]/g, " ").slice(0, 100);
+  const featured = pools.filter(pool => pool.activeFeatured).map(pool => text(pool.activeFeatured.name));
+  let body = "§l§6【101商会 · 当前开放奖池】§r\n\n";
+  for (const pool of pools) {
+   const name = text(pool.name);
+   body += `§6${name}§r\n`;
+   if (pool.activeFeatured) body += `§e当前 UP：${text(pool.activeFeatured.name)}\n`;
+   body += `§7单抽 ${pool.singleCost} 金币 / 十连 ${pool.tenCost} 金币\n`;
+   if (pool.pityThreshold > 0) body += `§7本池保底：${pool.pityThreshold} 抽（详见奖池规则）\n`;
+   body += "\n";
+   if (body.length > 1250) { body += "§8更多奖池请进入抽奖大厅查看。\n"; break; }
+  }
+  body += "§8各奖池保底分别累计；概率与完整奖励请以抽奖终端为准。";
+  const packet = { version: 1, nonce, subtitle: (featured.join(" / ") || "查看当前开放奖池").slice(0, 100), body: body.slice(0, 1600) };
+  system.run(() => {
+   try { player.runCommand(`scriptevent daily:hope_lottery_snapshot ${JSON.stringify(packet)}`); }
+   catch (error) { console.warn(`[SAPI] Hope Post snapshot failed: ${error}`); }
+  });
+ }
+
  static isDroneEpicOpen() {
   try { return world.getDynamicProperty(DRONE_EPIC_OPEN_KEY) === true; } catch { return false; }
  }

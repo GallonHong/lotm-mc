@@ -269,6 +269,10 @@ if (scriptEvents?.subscribe) {
   }
   if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
   const player = sourceEntity;
+  if (id === "sapi:hope_lottery_request") {
+   LotteryManager.sendHopePostSnapshot(player, message);
+   return;
+  }
   // Share the same debounce as native compass events: Apocalypse Life also forwards sapi:open.
   if (["system:menu", "gui:menu", "menu:open", "sapi:open"].includes(id)) requestCompassMenu(player);
   else if (["system:shop", "gui:shop", "shop:open"].includes(id)) ShopManager.openShopCategoryUI(player);

@@ -16,6 +16,7 @@ import { EntityLootCrateManager } from "./rewards/EntityLootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
 import { LegacyCrateBackfillManager } from "./rewards/LegacyCrateBackfillManager.js";
 import { DailyNewsManager } from "./events/DailyNewsManager.js";
+import { HopeLotteryBridge } from "./integration/HopeLotteryBridge.js";
 import { HopePostManager } from "./events/HopePostManager.js";
 
 console.warn("[DailyEvents] Survival Daily, World Events & Multi-Dungeon v0.19.0 initializing...");
@@ -336,6 +337,10 @@ subscribe(world.afterEvents?.playerInteractWithBlock, "playerInteractWithBlock",
 subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event => {
  const { player, message } = scriptEventContext(event);
  const id = String(event.id || "").toLowerCase();
+ if (id === "daily:hope_lottery_snapshot") {
+  HopeLotteryBridge.receive(player, message);
+  return;
+ }
  if (id === "sapi:daily_probe") {
   if (!player || player.typeId !== "minecraft:player") return;
   const nonce = String(message || "").replace(/[^a-z0-9_\-]/gi, "").slice(0, 64);

@@ -4,6 +4,7 @@ import { CONFIG } from "../config.js";
 import { RewardManager } from "../rewards/RewardManager.js";
 import { quizForDay } from "./hopePostQuiz.js";
 import { DailyNewsManager } from "./DailyNewsManager.js";
+import { HopeLotteryBridge } from "../integration/HopeLotteryBridge.js";
 
 const STATS_KEY = "daily:hope_post_stats:v1";
 const QUEUE_KEY = "daily:hope_post_queue:v1";
@@ -12,19 +13,6 @@ const FIRST_OPEN_KEY = "daily:hope_post_first_open:v1";
 const QUIZ_KEY = "daily:hope_post_quiz:v1";
 const QUIZ_REWARD = 1000;
 const AD_OVERRIDE_KEY = "daily:hope_post_ad_override:v1";
-
-const LEGENDARY_WEAPONS = {
- legendary_mp7: "HK MP7 暴走狂潮",
- legendary_mgl: "MGL 自动榴弹炮",
- legendary_arc: "特斯拉高能电弧风暴",
- legendary_jetpack: "战术离子喷气背包",
- legendary_commander: "AK-47 战术指挥官"
-};
-
-const LEGENDARY_DRONES = {
- drone_aurora: "「极光天灾」典藏战术母机",
- drone_abyssal: "「深渊主宰」典藏战术矩阵"
-};
 
 const SURVIVAL_TIPS = [
  "联盟气象站未发现可靠的晴天证据。外出前请检查弹药、饮水与撤离路线，活着回来永远比多带一件战利品重要。",
@@ -124,70 +112,52 @@ export class HopePostManager {
   let issue = issues.find(value => value.dayKey === today);
   if (issue) return issue;
   const queue = read(QUEUE_KEY, []);
-  const articles = queue.filter(value => value.publishDay === today).slice(0, 8);
+  const articles = queue.filter(value => value.publishDay <= today);
   if (!articles.length) articles.push(this.automaticArticle());
-  issue = { dayKey: today, issueNo: Math.max(1, issues.length + 1), articles, createdAt: Date.now() };
-  write(ISSUES_KEY, [...issues, issue].slice(-30));
-  write(QUEUE_KEY, queue.filter(value => value.publishDay !== today).slice(-100));
+  issue = { dayKey: today, issueNo: Math.max(0, ...issues.map(value => Number(value.issueNo) || 0)) + 1, articles, createdAt: Date.now() };
+  if (!write(ISSUES_KEY, [...issues, issue].slice(-30))) return issue;
+  write(QUEUE_KEY, queue.filter(value => value.publishDay > today));
   return issue;
  }
 
- static getLotteryAdData() {
-  try {
-   const custom = JSON.parse(world.getDynamicProperty(AD_OVERRIDE_KEY) || "null");
-   if (custom && custom.title) return custom;
-  } catch {}
-
-  let weaponKey = "legendary_mp7";
-  try {
-   const saved = world.getDynamicProperty("sapi:lottery:legendary_featured:v1");
-   if (saved) weaponKey = String(saved);
-  } catch {}
-  const weaponName = LEGENDARY_WEAPONS[weaponKey] || "传说限定军备";
-
-  let droneOpen = false;
-  let droneName = "";
-  try {
-   droneOpen = world.getDynamicProperty("sapi:lottery:drone_leg_open") === true;
-   if (droneOpen) {
-    const droneKey = world.getDynamicProperty("sapi:lottery:drone_leg_featured") || "drone_aurora";
-    droneName = LEGENDARY_DRONES[droneKey] || "典藏战术母机";
-   }
-  } catch {}
-
-  const subtitle = droneOpen
-   ? `${weaponName.slice(0, 7)} / ${droneName.slice(0, 6)} · 前往抽奖`
-   : `${weaponName} · 前往抽奖`;
-
-  let body = `§l§6【101商会装备部特供军需推广】§r\n\n`;
-  body += `§e✦ 当期传说武器核心 UP：\n§f  • §6${weaponName}核心设计图\n\n`;
-  if (droneOpen) {
-   body += `§b✦ 战术母机限定 UP：\n§f  • §5${droneName}蓝图\n\n`;
-  } else {
-   body += `§b✦ 经典军备常驻：\n§f  • §5「守护天使」特战医疗机\n§f  • §5PKM 烈焰重机枪设计图\n\n`;
+ static getLotteryAdData(snapshot = null) {
+  const custom = read(AD_OVERRIDE_KEY, null);
+  if (custom && typeof custom.title === "string" && typeof custom.body === "string") {
+   return { title: custom.title, subtitle: String(custom.subtitle || "商会公告"), body: custom.body };
   }
-  body += `§a✦ 商会保障机制：\n`;
-  body += `§7  • 完整限定 Epic 蓝图第 20 抽保底必出\n`;
-  body += `§7  • 第 30 抽必出当期 UP 传说图纸，保底进度永久保留！\n\n`;
-  body += `§8（点击下方按钮可直接前往军备抽奖终端）`;
-
+  if (!snapshot) return {
+   title: "§l§6商会军备广告", subtitle: "奖池信息暂不可用 · 点击重试",
+   body: "§7暂未连接军备抽奖服务，不能确认当前 UP 或开放奖池。请确认 SAPI 已启用且已更新。", unavailable: true
+  };
   return {
    title: "§l§6商会特供 · 典藏军备卡池",
-   subtitle,
-   body,
-   isAuto: true
+   subtitle: snapshot.subtitle,
+   body: snapshot.body
   };
  }
 
+ static open(player, onBack, admin = false) {
+  HopeLotteryBridge.request(player, snapshot => {
+   if (valid(player)) this.renderOpen(player, onBack, admin, snapshot);
+  });
+ }
+
  static openLotteryAd(player, onBack, admin = false) {
-  const ad = this.getLotteryAdData();
+  HopeLotteryBridge.request(player, snapshot => {
+   if (valid(player)) this.renderLotteryAd(player, onBack, admin, snapshot);
+  });
+ }
+
+ static renderLotteryAd(player, onBack, admin, snapshot) {
+  const ad = this.getLotteryAdData(snapshot);
   const form = new MessageFormData()
    .title(ad.title)
    .body(ad.body)
-   .button1("§6前往军备抽奖")
+   .button1(snapshot ? "§6前往军备抽奖" : "§6重新连接军备服务")
    .button2("§8返回希望报");
   show(player, form, result => {
    if (result.selection === 0) {
+    if (!snapshot) return this.openLotteryAd(player, onBack, admin);
     try { player.runCommand("scriptevent sapi:lottery"); }
     catch { player.sendMessage("§c[SAPI] 军备抽奖终端连接中，请稍后重试。"); }
    } else {
@@ -196,7 +166,7 @@ export class HopePostManager {
   });
  }
 
- static open(player, onBack, admin = false) {
+ static renderOpen(player, onBack, admin, snapshot) {
   const issue = this.ensureIssue();
   const actions = [];
   const survivalTip = getDailySurvivalTip(issue.dayKey);
@@ -207,7 +177,7 @@ export class HopePostManager {
 
   const form = new ActionFormData()
    .title("§l§6希望报")
-   .body(`§l§e第 ${issue.issueNo} 期 · ${issue.dayKey}\n§8在废土上，消息有时比子弹更早救人。\n\n§6【今日生存提示】\n§7${survivalTip}`);
+   .body(`§l§0第 ${issue.issueNo} 期 · ${issue.dayKey}\n§8在废土上，消息有时比子弹更早救人。\n\n§0【今日生存提示】\n§8${survivalTip}`);
 
   // 1. [左上] 今日新闻 (头条要闻)
   const todayNews = DailyNewsManager.listToday();
@@ -224,12 +194,12 @@ export class HopePostManager {
   } else {
    headlineArticle = issue.articles.find(a => a.type === "admin") || issue.articles[0] || this.automaticArticle();
   }
-  form.button(`§l§c【今日要闻】${clean(headlineArticle.title, 14)}\n§r§8${headlineArticle.author || "希望报编辑部"} · 点击阅读`, "textures/ui/apocalypse/world_event");
-  actions.push(() => this.openArticle(player, issue, headlineArticle, () => this.open(player, onBack, admin), admin));
+  form.button(`§l§0${clean(headlineArticle.title, 12)}\n§r§8${headlineArticle.author || "希望报编辑部"} · 点击阅读`, "textures/ui/apocalypse/world_event");
+  actions.push(() => this.openNewsList(player, issue, onBack, admin));
 
   // 2. [右上] 广告（抽奖对应卡池宣传）
-  const adData = this.getLotteryAdData();
-  form.button(`§l§6【商会广告】${clean(adData.title.replace(/§./g, ""), 12)}\n§r§8${adData.subtitle}`, "textures/ui/apocalypse/lottery");
+  const adData = this.getLotteryAdData(snapshot);
+  form.button(`§l§0${clean(adData.title.replace(/§./g, ""), 12)}\n§r§8${clean(adData.subtitle, 22)}`, "textures/ui/apocalypse/lottery");
   actions.push(() => this.openLotteryAd(player, onBack, admin));
 
   // 3. [左下] 今日新闻（市民快讯 / 社区动态）
@@ -240,24 +210,98 @@ export class HopePostManager {
    title: "巡逻守则与见闻",
    body: "各大庇护所巡逻队全天候执勤。近期野外资源刷新频繁，欢迎各营地幸存者踊跃互助、投递见闻！点击下方【我要登刊】即可将你的故事发往全服。"
   };
-  form.button(`§l§2【市民快讯】${clean(communityArticle.title, 14)}\n§r§8${communityArticle.type === "player" ? `幸存者投稿 · ${communityArticle.author}` : communityArticle.author}`, "textures/ui/icon_book_writable");
-  actions.push(() => this.openArticle(player, issue, communityArticle, () => this.open(player, onBack, admin), admin));
+  form.button(`§l§0${clean(communityArticle.title, 12)}\n§r§8${communityArticle.type === "player" ? `幸存者投稿 · ${communityArticle.author}` : communityArticle.author}`, "textures/ui/icon_book_writable");
+  actions.push(() => this.openCommunityList(player, issue, onBack, admin));
 
   // 4. [右下] 题目奖励（真假情报）
-  form.button(`§l§e【真假情报】今日题目奖励\n§r§8${quizStatus}`, "textures/ui/icon_book_writable");
+  form.button(`§l§0每日情报问答\n§r§8${quizStatus}`, "textures/ui/icon_book_writable");
   actions.push(() => this.openQuiz(player, onBack, admin));
 
   // 5. [左下下方] 保留投稿入口
-  form.button(`§l§6【我要登刊】次日全服见报\n§r§8次日刊登 · ${CONFIG.hopePostPublicationFee || 10000} 金币`, "textures/ui/icon_book_writable");
+  form.button(`§l§0【我要登刊】次日全服见报\n§r§8次日刊登 · ${CONFIG.hopePostPublicationFee || 10000} 金币`, "textures/ui/icon_book_writable");
   actions.push(() => this.openSubmission(player, onBack, admin));
 
-  if (admin) {
+  if (admin && this.isAdmin(player)) {
    form.button("§l§c【联盟管理】公告与广告定制\n§r§8管理发稿、定制广告、切换奖池", "textures/ui/gear");
    actions.push(() => this.openAdminHub(player, onBack));
   }
   form.button("§l§8返回上一页", "textures/ui/cancel");
   actions.push(() => onBack?.());
   show(player, form, result => actions[result.selection]?.());
+ }
+
+ static openArticleList(player, title, articles, onReturn, onMenu) {
+  const form = new ActionFormData().title(title).body(`§7共 ${articles.length} 篇 · 点击阅读全文`);
+  for (const article of articles) form.button(`${article.title}\n§r§8${article.author || "希望报编辑部"}`, "textures/ui/icon_book_writable");
+  form.button("§8返回希望报");
+  show(player, form, result => {
+   const article = articles[result.selection];
+   if (!article) return onReturn();
+   const detail = new MessageFormData().title(article.title).body(`§8撰稿：${article.author}\n\n§e${article.body}`)
+    .button1("§a返回列表").button2("§8返回菜单");
+   show(player, detail, response => response.selection === 0
+    ? this.openArticleList(player, title, articles, onReturn, onMenu) : onMenu?.());
+  });
+ }
+
+ static openNewsList(player, issue, onBack, admin) {
+  // Always keep every published notice/article reachable, even when live news exists.
+  const news = DailyNewsManager.listToday();
+  const recent = news.length ? news : DailyNewsManager.listRecent(30);
+  const articles = [...issue.articles.filter(article => article.type !== "player"), ...recent.map(entry => ({
+   title: entry.headline || "废土突发简讯", author: "前线广播", body: DailyNewsManager.formatEntry(entry)
+  }))];
+  if (!articles.length) articles.push(this.automaticArticle());
+  this.openArticleList(player, "§l§6今日要闻与联盟公告", articles, () => this.open(player, onBack, admin), onBack);
+ }
+
+ static openCommunityList(player, issue, onBack, admin) {
+  const articles = issue.articles.filter(article => article.type === "player");
+  if (!articles.length) articles.push({ title: "欢迎幸存者投稿", author: "希望报编辑部", body: "本期暂无幸存者投稿。可从希望报的【我要登刊】入口提交明日稿件。" });
+  this.openArticleList(player, "§l§6市民快讯 · 本期全部投稿", articles, () => this.open(player, onBack, admin), onBack);
+ }
+
+ static isAdmin(player) {
+  try { if (player.hasTag("admin")) return true; } catch {}
+  try { return typeof player.isOp === "function" && player.isOp(); } catch { return false; }
+ }
+
+ static openAdminHub(player, onBack) {
+  if (!this.isAdmin(player)) return player.sendMessage("§c需要管理员权限。");
+  const form = new ActionFormData().title("§l§6希望报 · 联盟管理")
+   .button("发布次日联盟公告").button("编辑商会广告").button("恢复自动奖池广告")
+   .button("管理 SAPI 奖池").button("返回希望报");
+  show(player, form, result => {
+   if (!this.isAdmin(player)) return;
+   if (result.selection === 0) return this.openAdminSubmission(player, onBack);
+   if (result.selection === 1) return this.openAdEditor(player, onBack);
+   if (result.selection === 2) {
+    player.sendMessage(write(AD_OVERRIDE_KEY, null) ? "§a已恢复自动奖池广告。" : "§c保存失败，请重试。");
+    return this.openAdminHub(player, onBack);
+   }
+   if (result.selection === 3) return HopeLotteryBridge.request(player, snapshot => {
+    if (!this.isAdmin(player)) return;
+    if (!snapshot) { player.sendMessage("§c未连接 SAPI，请更新并启用配套行为包。"); return this.openAdminHub(player, onBack); }
+    try { player.runCommand("scriptevent sapi:lottery admin"); } catch { player.sendMessage("§c无法打开奖池管理。"); }
+   });
+   this.open(player, onBack, true);
+  });
+ }
+
+ static openAdEditor(player, onBack) {
+  if (!this.isAdmin(player)) return;
+  const previous = read(AD_OVERRIDE_KEY, {}) || {};
+  const form = new ModalFormData().title("§l希望报 · 编辑商会广告")
+   .textField("标题（2～24字）", "商会公告", previous.title || "")
+   .textField("副标题（最多40字）", "点击阅读", previous.subtitle || "")
+   .textField("正文（10～500字）", "宣传内容", previous.body || "");
+  show(player, form, result => {
+   if (!this.isAdmin(player)) return;
+   const [title, subtitle, body] = [clean(result.formValues?.[0], 24), clean(result.formValues?.[1], 40), clean(result.formValues?.[2], 500)];
+   if (title.length < 2 || body.length < 10) player.sendMessage("§c标题或正文太短，未保存。");
+   else player.sendMessage(write(AD_OVERRIDE_KEY, { title, subtitle, body }) ? "§a广告已保存。" : "§c保存失败，请重试。");
+   this.openAdminHub(player, onBack);
+  });
  }
 
  static quizState(player) {
@@ -331,15 +375,21 @@ export class HopePostManager {
     player.sendMessage("§c你已经有一篇稿件等待明日刊登。");
     return this.open(player, onBack, admin);
    }
+   if (queue.length >= 100) { player.sendMessage("§c待刊队列已满，未扣费，请稍后再投。"); return this.open(player, onBack, admin); }
    if (!charge(player, fee)) { player.sendMessage(`§c登刊需要 ${fee} 金币。`); return this.open(player, onBack, admin); }
    queue.push({ type: "player", author: player.name, title, body, publishDay, submittedAt: Date.now() });
-   write(QUEUE_KEY, queue.slice(-100));
+   if (!write(QUEUE_KEY, queue)) {
+    try { objective()?.addScore(player.scoreboardIdentity, fee); } catch (error) { console.warn(`[HopePost] refund failed: ${error}`); }
+    player.sendMessage("§c稿件保存失败，登刊费已尝试退回，请检查余额。");
+    return this.open(player, onBack, admin);
+   }
    player.sendMessage(`§a投稿已收录，将在 ${publishDay} 的希望报刊登；已收取 ${fee} 金币。`);
    this.open(player, onBack, admin);
   });
  }
 
  static openAdminSubmission(player, onBack) {
+  if (!this.isAdmin(player)) return;
   const form = new ModalFormData().title("§l希望报 · 联盟公告")
    .textField("公告标题（2～24 字）", "服务器维护通知")
    .textField("公告正文（10～240 字，次日刊登）", "填写面向全服的正式信息");
@@ -347,10 +397,11 @@ export class HopePostManager {
    const title = clean(result.formValues?.[0], 24);
    const body = clean(result.formValues?.[1], 240);
    if (title.length < 2 || body.length < 10) { player.sendMessage("§c公告内容不完整。"); return this.open(player, onBack, true); }
+   if (!this.isAdmin(player)) return;
    const queue = read(QUEUE_KEY, []);
+   if (queue.length >= 100) { player.sendMessage("§c待刊队列已满，未提交公告。"); return this.openAdminHub(player, onBack); }
    queue.push({ type: "admin", author: `联盟管理处 · ${player.name}`, title, body, publishDay: dayKey(1), submittedAt: Date.now() });
-   write(QUEUE_KEY, queue.slice(-100));
-   player.sendMessage("§a服务器公告已排入明日希望报。");
+   player.sendMessage(write(QUEUE_KEY, queue) ? "§a服务器公告已排入明日希望报。" : "§c公告保存失败，请重试。");
    this.open(player, onBack, true);
   });
  }
