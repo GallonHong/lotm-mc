@@ -22,7 +22,7 @@ const LIMITED_EPIC_BLUEPRINTS = [
  { key: "epic_titan", id: "test_gun:blueprint_titan_chest", amount: 1, name: "§5泰坦动力外骨骼装甲蓝图", weight: 1, rarity: "epic", isPityTarget: true },
 ];
 
-export const BUILT_IN_LOTTERY_POOLS = Object.freeze([
+const STANDARD_LOTTERY_POOLS = [
  {
   id: "epic_armory",
   name: "§5高级军备箱",
@@ -119,7 +119,28 @@ export const BUILT_IN_LOTTERY_POOLS = Object.freeze([
    { id: "test_gun:blueprint_arx", amount: 1, name: "ARX Rare 蓝图", weight: 1, rarity: "rare" },
   ],
  },
-]);
+];
+
+// 独立常驻裂轨奖池：不占用旧传说 UP，不进入其他补给/商店奖励来源。
+export const LIEGUI_LOTTERY_POOL = Object.freeze({
+ id: "legendary_liegui",
+ name: "§6限定军备箱·裂轨",
+ icon: "textures/items/nether_star",
+ description: "裂轨传说蓝图仅限本池抽奖获得，基础概率 2%；最多 30 抽必出，抽中后保底重置。",
+ singleCost: 2000,
+ tenCost: 20000,
+ pityThreshold: 30,
+ pityPrizeKey: "legendary_liegui_blueprint",
+ items: [
+  { key: "legendary_liegui_blueprint", id: "test_gun:blueprint_liegui", amount: 1, name: "§6裂轨设计图 [传说]", weight: 2, rarity: "legendary", isPityTarget: true },
+  // 将旧池的 13 权重载具/日常联动奖励换成原版材料，避免缺少那些包时概率被重算。
+  ...STANDARD_LOTTERY_POOLS.find(pool => pool.id === "legendary_featured").items
+   .filter(item => item.id.startsWith("minecraft:") || item.id.startsWith("test_gun:")),
+  { id: "minecraft:copper_block", amount: 8, name: "铜块 x8", weight: 13, rarity: "rare" },
+ ],
+});
+
+export const BUILT_IN_LOTTERY_POOLS = Object.freeze([...STANDARD_LOTTERY_POOLS, LIEGUI_LOTTERY_POOL]);
 
 // 战术无人机限定奖池定义 (默认未开启，需管理员在控制台手动开)
 export const DRONE_EPIC_LIMITED_POOL = Object.freeze({

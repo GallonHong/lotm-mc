@@ -1,0 +1,75 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.liegui.player_right_hand": {
+      "loop": true,
+      "override_previous_animation": true,
+      "bones": {
+        "rightArm": {
+          "position": [
+            "(6.187527009) * 1 + (-1.000000000) * (variable.tg3d_view_aim_x * variable.tg3d_hand_aim)",
+            "(-7.875080847) * 1 + (1.000000000) * (variable.tg3d_view_aim_y * variable.tg3d_hand_aim) + (-2.500000000) * variable.tg3d_hand_reload + (-1.000000000) * variable.tg3d_hand_run",
+            "(9.837823013) * 1 + (-2.000000000) * variable.tg3d_hand_reload + (-1.500000000) * variable.tg3d_hand_kick + (-1.500000000) * variable.tg3d_hand_run"
+          ],
+          "rotation": [
+            95,
+            -45,
+            115
+          ],
+          "scale": 1
+        },
+        "rightItem": {
+          "position": [
+            "(0.705426086) * 1 + (-0.298836239) * (variable.tg3d_view_aim_x * variable.tg3d_hand_aim) + (0.640856382) * (variable.tg3d_view_aim_y * variable.tg3d_hand_aim) + (-0.187927393) * variable.tg3d_hand_reload + (1.060660172) * variable.tg3d_hand_kick + (0.419803790) * variable.tg3d_hand_run",
+            "(-2.999282674) * 1 + (-0.376689005) * (variable.tg3d_view_aim_x * variable.tg3d_hand_aim) + (0.601584122) * (variable.tg3d_view_aim_y * variable.tg3d_hand_aim) + (-2.912792357) * variable.tg3d_hand_reload + (-1.056624040) * variable.tg3d_hand_kick + (-1.658208161) * variable.tg3d_hand_run",
+            "(6.291723353) * 1 + (0.876813718) * (variable.tg3d_view_aim_x * variable.tg3d_hand_aim) + (0.476864386) * (variable.tg3d_view_aim_y * variable.tg3d_hand_aim) + (-1.315417798) * variable.tg3d_hand_reload + (-0.092442625) * variable.tg3d_hand_kick + (-0.569307011) * variable.tg3d_hand_run"
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": 1
+        }
+      }
+    },
+    "animation.liegui.player_support_hand": {
+      "loop": true,
+      "override_previous_animation": true,
+      "bones": {
+        "leftArm": {
+          "position": [
+            "(3.812472991) * 1 + (-1.000000000) * (variable.tg3d_view_aim_x * variable.tg3d_hand_aim) + 0.816",
+            "(-6.975080847) * 1 + (1.000000000) * (variable.tg3d_view_aim_y * variable.tg3d_hand_aim) + (-2.500000000) * variable.tg3d_hand_reload + (-1.000000000) * variable.tg3d_hand_run - 0.356 - 2 * variable.tg3d_hand_reload",
+            "(16.837823013) * 1 + (-2.000000000) * variable.tg3d_hand_reload + (-1.500000000) * variable.tg3d_hand_kick + (-1.500000000) * variable.tg3d_hand_run - (variable.is_holding_pistol ? 6 : 0) + 1.5 - 3 * variable.tg3d_hand_reload"
+          ],
+          "rotation": [
+            95,
+            45,
+            -115
+          ],
+          "scale": 1
+        }
+      }
+    },
+    "animation.liegui.player_hold_third": {
+      "loop": true,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            "-85.0 - query.target_x_rotation - 3 * variable.tg3d_hand_kick",
+            "-query.target_y_rotation * 0.1",
+            0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "variable.tg3d_free_offhand ? (-82.0 - query.target_x_rotation - 3 * variable.tg3d_hand_kick + 10 * variable.tg3d_hand_reload) : 0",
+            "variable.tg3d_free_offhand ? 31 : 0",
+            "variable.tg3d_free_offhand ? 8 : 0"
+          ]
+        }
+      }
+    }
+  }
+}

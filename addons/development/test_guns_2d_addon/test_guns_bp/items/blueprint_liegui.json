@@ -1,0 +1,20 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:blueprint_liegui",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 64
+      },
+      "minecraft:icon": "test_gun_blueprint_liegui",
+      "minecraft:display_name": {
+        "value": "§6武器图纸: 裂轨 [传说·仅限抽奖]§r"
+      }
+    }
+  }
+}

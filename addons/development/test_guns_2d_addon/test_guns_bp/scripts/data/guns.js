@@ -357,7 +357,7 @@ export const GUNS = [
   projectileTypeId: 'test_gun:bullet_rifle',
   hasSkill: true,
   skillName: '战术火炮空袭',
-  skillCooldownSec: 5,
+  skillCooldownSec: 30,
   stats: { damage: 18.0, headshotMultiplier: 1.5, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 75, knockback: { x: 0.2, y: 0.1 } }
  },
  {
@@ -441,6 +441,14 @@ export const GUNS = [
   skillCooldownSec: 90,
   skillDurationSec: 30.0,
   stats: { damage: 12.0, headshotMultiplier: 1.6, armorPenetration: 0.40, damageDropOff: 0.03, maxRange: 100, knockback: { x: 0.9, y: 0.4 } }
+ }
+ ,{
+  id: 'test_gun:liegui', name: '裂轨', tier: 'legendary', type: 'energy',
+  mode: FireMode.SEMI, maxAmmo: 1, fireRate: 12, shootPower: 10,
+  recoil: 0.08, reloadTime: 52, shootSound: 'test_gun.arc_shoot',
+  ammoTypeId: 'test_gun:ammo_battery', projectileTypeId: 'test_gun:liegui_slug',
+  isRailCannon: true, hasSkill: true, skillName: '裂空音波', skillCooldownSec: 30,
+  stats: { damage: 36, headshotMultiplier: 1, armorPenetration: 0.35, damageDropOff: 0.001, maxRange: 40, knockback: { x: 0.4, y: 0.1 } }
  }
 ];
 

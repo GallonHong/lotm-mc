@@ -121,6 +121,8 @@ export class ShootManager {
    return;
   }
 
+  if (gun?.isRailCannon) return; // Explicit hold/release state belongs to RailCannon.
+
   if (!this.isTriggerDown(player, gun)) {
    return;
   }

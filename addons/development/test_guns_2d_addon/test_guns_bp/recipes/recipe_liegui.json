@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_liegui"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "HPH",
+      "RCT",
+      "SNF"
+    ],
+    "key": {
+      "H": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "P": {
+        "item": "test_gun:blueprint_liegui"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "C": {
+        "item": "test_gun:part_plasma_core"
+      },
+      "T": {
+        "item": "test_gun:part_tungsten_bolt"
+      },
+      "S": {
+        "item": "test_gun:part_stock"
+      },
+      "N": {
+        "item": "minecraft:netherite_ingot"
+      },
+      "F": {
+        "item": "test_gun:part_military_fcu"
+      }
+    },
+    "result": {
+      "item": "test_gun:liegui",
+      "count": 1
+    }
+  }
+}

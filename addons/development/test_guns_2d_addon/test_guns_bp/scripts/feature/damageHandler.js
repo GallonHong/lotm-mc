@@ -242,7 +242,7 @@ export class DamageHandler {
   const distance = MathUtils.distance(shooterLoc, targetLoc);
 
   const baseDmg = stats.damage;
-  const dropFactor = Math.max(0.3, 1.0 - distance * (stats.damageDropOff || 0.02));
+  const dropFactor = Math.max(0.3, 1.0 - distance * (stats.damageDropOff ?? 0.02));
   let currentDamage = baseDmg * dropFactor;
 
   // ----------------------------------------------------
@@ -363,7 +363,7 @@ export class DamageHandler {
   currentDamage *= dmgMultiplier;
 
   // 战术致命暴击判定 (Critical Strike Roll)
-  const isCritHit = Math.random() < critRate;
+  const isCritHit = !gun.disableCritical && Math.random() < critRate;
   if (isCritHit) {
    currentDamage *= critMultiplier;
    DamageIndicator.markCritical(target.id);
@@ -386,7 +386,7 @@ export class DamageHandler {
   const offhandItem = targetEquip?.getEquipment(EquipmentSlot.Offhand);
 
   // 2.1 爆头判定与爆头头盔减伤
-  const headshot = this.isHeadshot(impactLocation, target);
+  const headshot = !gun.disableHeadshot && this.isHeadshot(impactLocation, target);
   if (headshot) {
    DamageIndicator.markHeadshot(target.id);
    let hsMult = stats.headshotMultiplier || 1.75;
@@ -623,6 +623,7 @@ export class DamageHandler {
 
   // 4. 护甲与穿透计算 (双曲递减曲线 + 保底动能伤害)
   const armorPoints = this.estimateArmorPoints(target);
+  if (Number.isFinite(gun.fixedArmorPenetration)) finalPenetration = Math.max(0, Math.min(1, gun.fixedArmorPenetration));
   const finalDamage = this.calculateArmorReduction(currentDamage, armorPoints, finalPenetration, floorRatio);
 
   // 5. 施加无敌帧穿透伤害 (EntityDamageCause.override)
@@ -632,7 +633,8 @@ export class DamageHandler {
     cause: EntityDamageCause.override,
     damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
    };
-   target.applyDamage(finalDamage, damageOptions);
+   const applied = target.applyDamage(finalDamage, damageOptions);
+   if (gun.noHealthFallback && applied === false) return false;
    if (kbResistance >= 1.0) {
     try {
      target.clearVelocity();
@@ -676,6 +678,7 @@ export class DamageHandler {
   }
 
   } catch {
+   if (gun.noHealthFallback) return false; // Never bypass protection by writing health.
    try {
     const healthComp = target.getComponent('minecraft:health');
     if (healthComp) {
@@ -720,5 +723,6 @@ export class DamageHandler {
     }
    } catch {}
   }
+  return true;
  }
 }

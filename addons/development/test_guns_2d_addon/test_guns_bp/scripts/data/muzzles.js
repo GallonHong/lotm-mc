@@ -119,5 +119,6 @@ export const MUZZLES = {
   0,
   2.05,
   -8.75
- ]
+ ],
+ 'test_gun:liegui': [0, 3.264, -20.4],
 };

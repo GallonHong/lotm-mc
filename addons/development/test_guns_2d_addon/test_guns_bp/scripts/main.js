@@ -1,3 +1,4 @@
+import { RailCannon } from './feature/railCannon.js';
 import { initializePvpGuns, tickPvpGunGuard, stopPvpGunTasks } from './feature/pvpIntegration.js';
 import { isPvpParticipant, pvpCanAttack } from './feature/utils/pvpRules.js';
 import { GunVisuals } from './feature/gunVisuals.js';
@@ -126,6 +127,7 @@ class AddonController {
     }
 
     const gun = getGunById(item.typeId);
+    if (gun?.isRailCannon) { RailCannon.begin(player, gun); return; }
     if (gun) {
      if (player.isSneaking) {
       // Shift + 右键分支判定
@@ -165,6 +167,7 @@ class AddonController {
     }
 
     const gun = getGunById(item.typeId);
+    if (gun?.isRailCannon) { RailCannon.begin(player, gun); return; }
     if (gun) {
      if (player.isSneaking) {
       if (gun.id === 'test_gun:ak47_commander') {
@@ -191,6 +194,7 @@ class AddonController {
   const stopTrigger = (event) => {
    const player = event.source || event.player;
    if (player) {
+    RailCannon.release(player);
     ShootManager.setTriggerState(player, false);
    }
   };
@@ -236,6 +240,7 @@ class AddonController {
   });
 
   subscribeAfter(world.afterEvents, 'playerLeave', (event) => {
+   RailCannon.cancel(event.playerId);
    stopPvpGunTasks({ id: event.playerId });
    GunVisuals.clearPlayer(event.playerId);
    ShootManager.playerShooting.delete(event.playerId);
@@ -251,6 +256,7 @@ class AddonController {
  startGameLoop() {
   system.runInterval(() => {
    this.auraTick++;
+   RailCannon.tick();
    for (const player of world.getAllPlayers()) tickPvpGunGuard(player);
    GrenadeEngine.onTick();
    RocketEngine.onTick();
@@ -291,6 +297,7 @@ class AddonController {
  }
 }
 
+RailCannon.initialize();
 initializePvpGuns();
 new AddonController();
 

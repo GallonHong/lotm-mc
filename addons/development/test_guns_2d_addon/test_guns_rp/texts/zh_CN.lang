@@ -228,3 +228,5 @@ item.test_gun:armor_goggles_red.name=§a战术防风护目镜 红色 [优良·�
 item.test_gun:blueprint_armor_goggles_red.name=§a战术防风护目镜 红色 [优良·面部]§r 设计图纸
 item.test_gun:part_armor_plate.name=§9战术防弹插板 [精良]§r
 item.test_gun:part_iit.name=§5图像增强管 (IIT) [史诗]§r
+item.test_gun:liegui.name=裂轨 电磁重炮 §6[传说·蓄能穿透]§r
+item.test_gun:blueprint_liegui.name=裂轨 电磁重炮设计图 §6[传说·限定·不可合成]§r

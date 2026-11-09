@@ -20,6 +20,7 @@ import { SocialManager } from "./modules/social.js";
 import { CombatManager } from "./modules/combat.js";
 import { WantedManager } from "./modules/wanted.js";
 import { PlayerVendingManager } from "./modules/player_vending.js";
+import { RailPermissionManager } from "./modules/rail_permission.js";
 
 const compassMenuTicks = new Map();
 
@@ -87,6 +88,7 @@ function initServerSystem() {
 	console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
 	try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
 	CombatManager.registerEvents();
+	RailPermissionManager.registerEvents();
 	RegionManager.registerProtectionEvents();
  PlotSafeZone.start();
 	LandManager.registerProtectionEvents();

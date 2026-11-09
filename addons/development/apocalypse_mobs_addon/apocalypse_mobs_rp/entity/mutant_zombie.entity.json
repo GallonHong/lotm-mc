@@ -25,7 +25,7 @@
       ],
       "enable_attachables": true,
       "spawn_egg": {
-        "texture": "apoc_mobs_mutant_zombie_spawn_egg",
+        "texture": "apoc_shared_boss_mutant_zombie_egg",
         "texture_index": 0
       },
       "scripts": {

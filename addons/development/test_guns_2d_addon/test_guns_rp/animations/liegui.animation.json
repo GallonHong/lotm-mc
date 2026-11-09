@@ -1,0 +1,84 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.liegui.mount": {
+      "loop": true,
+      "bones": {
+        "model": {
+          "position": [
+            0,
+            -0.136,
+            -1.7
+          ],
+          "scale": 0.68
+        }
+      }
+    },
+    "animation.liegui.weapon_action": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "rotation": [
+            "-4 * variable.tg3d_kick + 16 * variable.tg3d_reload_shape",
+            "-8 * variable.tg3d_reload_shape",
+            "-1 * variable.tg3d_kick - 18 * variable.tg3d_reload_shape"
+          ],
+          "position": [
+            0,
+            "-2.5 * variable.tg3d_reload_shape",
+            "1.5 * variable.tg3d_kick + 2 * variable.tg3d_reload_shape"
+          ]
+        }
+      }
+    },
+    "animation.liegui.mechanism": {
+      "loop": true,
+      "bones": {
+        "rail_slide": {
+          "position": [
+            0,
+            0,
+            "1.4 * variable.tg3d_kick"
+          ]
+        },
+        "capacitor": {
+          "position": [
+            0,
+            "-4 * variable.tg3d_reload_shape",
+            0
+          ]
+        },
+        "gauge_needle": {
+          "rotation": [
+            "-130 * variable.liegui_charge",
+            0,
+            0
+          ]
+        },
+        "vent_left": {
+          "rotation": [
+            0,
+            0,
+            "-14 * variable.liegui_charge - 30 * variable.liegui_vent - 25 * variable.tg3d_reload_shape"
+          ]
+        },
+        "vent_right": {
+          "rotation": [
+            0,
+            0,
+            "14 * variable.liegui_charge + 30 * variable.liegui_vent + 25 * variable.tg3d_reload_shape"
+          ]
+        },
+        "coil_1": {
+          "scale": "1 + 0.025 * variable.liegui_charge + math.sin(query.life_time * 900 + 40) * 0.012 * variable.liegui_charge"
+        },
+        "coil_2": {
+          "scale": "1 + 0.025 * variable.liegui_charge + math.sin(query.life_time * 900 + 80) * 0.012 * variable.liegui_charge"
+        },
+        "coil_3": {
+          "scale": "1 + 0.025 * variable.liegui_charge + math.sin(query.life_time * 900 + 120) * 0.012 * variable.liegui_charge"
+        }
+      }
+    }
+  }
+}

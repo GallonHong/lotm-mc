@@ -20,6 +20,7 @@ export function pvpCanOperate(player) {
   !hasTag(player, 'pvp:dead') && !hasTag(player, 'pvp:guns_finished') && !!pvpMatch(player);
 }
 export function pvpCanAttack(player) {
+ if (hasTag(player, 'tg:rail_stunned')) return false;
  return pvpCanOperate(player) && (!isPvpParticipant(player) || !hasTag(player, 'pvp:protected'));
 }
 export function hasInfinitePvpReserve(player) { return isPvpParticipant(player) && pvpCanOperate(player); }

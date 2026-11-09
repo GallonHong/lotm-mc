@@ -28,6 +28,24 @@
     },
     "apoc_mobs_mutant_enderman_spawn_egg": {
       "textures": "textures/items/apoc/mutant_enderman_spawn_egg"
+    },
+    "apoc_shared_boss_mutant_drowned_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_drowned_egg"
+    },
+    "apoc_shared_boss_mutant_enderman_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_enderman_egg"
+    },
+    "apoc_shared_boss_mutant_iron_golem_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_iron_golem_egg"
+    },
+    "apoc_shared_boss_mutant_lobber_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_lobber_egg"
+    },
+    "apoc_shared_boss_mutant_skeleton_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_skeleton_egg"
+    },
+    "apoc_shared_boss_mutant_zombie_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_zombie_egg"
     }
   }
 }

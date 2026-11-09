@@ -475,6 +475,12 @@
     },
     "test_gun_part_iit": {
       "textures": "textures/items/pamobile/atg_iit"
+    },
+    "test_gun_liegui": {
+      "textures": "textures/guns/liegui"
+    },
+    "test_gun_blueprint_liegui": {
+      "textures": "textures/items/blueprint_liegui"
     }
   }
 }

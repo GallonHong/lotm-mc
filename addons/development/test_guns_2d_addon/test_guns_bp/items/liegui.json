@@ -1,0 +1,49 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:liegui",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_liegui",
+      "minecraft:display_name": {
+        "value": "§6裂轨 [传说·蓄力电磁重炮]§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.6
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 900
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:redstone",
+              "minecraft:copper_ingot"
+            ],
+            "repair_amount": 250
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
+  }
+}

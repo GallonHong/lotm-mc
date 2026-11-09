@@ -26,7 +26,7 @@
       ],
       "enable_attachables": true,
       "spawn_egg": {
-        "texture": "apoc_mobs_mutant_enderman_spawn_egg",
+        "texture": "apoc_shared_boss_mutant_enderman_egg",
         "texture_index": 0
       },
       "scripts": {

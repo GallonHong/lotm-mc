@@ -1,35 +1,43 @@
 {
- "format_version": "1.8.0",
- "minecraft:client_entity": {
-  "description": {
-   "identifier": "apoc_boss:mutant_skeleton",
-   "materials": {
-    "default": "entity_alphatest"
-   },
-   "textures": {
-    "default": "textures/entity/skeleton/skeleton"
-   },
-   "geometry": {
-    "default": "geometry.mskeleton"
-   },
-   "animations": {
-    "idle": "animation.mskeleton.general",
-    "walk": "animation.mskeleton.move",
-    "attack": "animation.mskeleton.melee_attack",
-    "look_at_target": "animation.mskeleton.look_at_target"
-   },
-   "animation_controllers": [
-    {
-     "move": "controller.animation.jumpable_mskeleton.walking"
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:mutant_skeleton",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/skeleton/skeleton"
+      },
+      "geometry": {
+        "default": "geometry.mskeleton"
+      },
+      "animations": {
+        "idle": "animation.mskeleton.general",
+        "walk": "animation.mskeleton.walk",
+        "attack": "animation.mskeleton.swing",
+        "look_at_target": "animation.mskeleton.look_at_target"
+      },
+      "render_controllers": [
+        "controller.render.apoc.default"
+      ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "texture": "apoc_shared_boss_mutant_skeleton_egg",
+        "texture_index": 0
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "query.modified_move_speed > 0.01"
+          },
+          {
+            "attack": "query.is_swinging_arm"
+          },
+          "look_at_target"
+        ]
+      }
     }
-   ],
-   "render_controllers": [
-    "controller.render.mutant_skeleton"
-   ],
-   "enable_attachables": true,
-   "spawn_egg": {
-    "texture": "egg_mutant_skeleton"
-   }
   }
- }
 }

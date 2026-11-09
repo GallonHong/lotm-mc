@@ -1,35 +1,43 @@
 {
- "format_version": "1.8.0",
- "minecraft:client_entity": {
-  "description": {
-   "identifier": "apoc_boss:mutant_iron_golem",
-   "materials": {
-    "default": "entity_alphatest"
-   },
-   "textures": {
-    "default": "textures/entity/iron_golem/mutant_iron_golem_v2"
-   },
-   "geometry": {
-    "default": "geometry.mutant_iron_golem_v2"
-   },
-   "animations": {
-    "idle": "animation.miron_golem.general",
-    "walk": "animation.miron_golem.move",
-    "attack": "animation.miron_golem.attack_bare_hand",
-    "look_at_target": "animation.miron_golem.look_at_target"
-   },
-   "animation_controllers": [
-    {
-     "move": "controller.animation.jumpable_miron_golem.walking"
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:mutant_iron_golem",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/iron_golem/mutant_iron_golem_v2"
+      },
+      "geometry": {
+        "default": "geometry.mutant_iron_golem_v2"
+      },
+      "animations": {
+        "idle": "animation.mutant_iron_golem_v2.idle_1",
+        "walk": "animation.mutant_iron_golem_v2.walk",
+        "attack": "animation.mutant_iron_golem_v2.attack_1",
+        "look_at_target": "animation.mutant_iron_golem_v2.look_at_target"
+      },
+      "render_controllers": [
+        "controller.render.apoc.default"
+      ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "texture": "apoc_shared_boss_mutant_iron_golem_egg",
+        "texture_index": 0
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "query.modified_move_speed > 0.01"
+          },
+          {
+            "attack": "query.is_swinging_arm"
+          },
+          "look_at_target"
+        ]
+      }
     }
-   ],
-   "render_controllers": [
-    "controller.render.mutant_iron_golem"
-   ],
-   "enable_attachables": true,
-   "spawn_egg": {
-    "texture": "egg_mutant_iron_golem"
-   }
   }
- }
 }

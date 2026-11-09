@@ -6,6 +6,7 @@ import { ArmorEngine } from './armorEngine.js';
 import { DamageHandler } from './damageHandler.js';
 
 export class ArtilleryEngine {
+ static COOLDOWN_TICKS = 30 * 20;
  static cooldowns = new Map(); // playerId -> remainingTicks
  static activeBarrages = [];  // Array of active barrage tasks
  static fallingShells = [];  // Array of shells currently in mid-air descent
@@ -78,7 +79,7 @@ export class ArtilleryEngine {
 
   const form = new ActionFormData();
   form.title('§6战术火炮空袭指挥链路 (SAPI)§r');
-  form.body('§7请选择集束迫击炮群的轰炸覆盖区域:\n§8(提示: 24发迫击炮弹从天而降，单发5伤，原版TNT特效，不破坏地形)§r');
+  form.body('§7请选择集束迫击炮群的轰炸覆盖区域:\n§8(提示: 24发迫击炮弹从天而降，单发5伤，冷却30秒，消耗10耐久，不破坏地形)§r');
 
   form.button(`§e【准星目标】锁定当前瞄准点\n§8(${crosshairPos.x.toFixed(0)}, ${crosshairPos.y.toFixed(0)}, ${crosshairPos.z.toFixed(0)})`, 'textures/ui/crosshair');
   form.button(`§b【中程压制】自身正前方 30 格\n§8(${pos30.x.toFixed(0)}, ${pos30.y.toFixed(0)}, ${pos30.z.toFixed(0)})`, 'textures/ui/magnifying_glass');
@@ -146,8 +147,15 @@ export class ArtilleryEngine {
   if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid() || !centerLoc) return;
 
-  // 5秒测试冷却 (100 ticks)
-  this.cooldowns.set(player.id, 100);
+  // 弹窗确认时再次检查，避免重复回调或切枪后无耐久成本释放。
+  if ((this.cooldowns.get(player.id) || 0) > 0) return;
+  try {
+   const mainhand = player.getComponent('minecraft:equippable')?.getEquipment('Mainhand');
+   if (mainhand?.typeId !== 'test_gun:ak47_commander') return;
+  } catch { return; }
+
+  // 玩家级冷却由全局 tick 推进，切枪不会刷新或暂停。
+  this.cooldowns.set(player.id, this.COOLDOWN_TICKS);
   this.deductSkillDurability(player, 10);
 
   const dim = player.dimension;

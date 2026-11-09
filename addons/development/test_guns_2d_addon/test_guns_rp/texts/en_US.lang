@@ -147,3 +147,5 @@ item.test_gun:armor_goggles_red.name=§aTactical Goggles Red [Uncommon Face]§r
 item.test_gun:blueprint_armor_goggles_red.name=§aTactical Goggles Red [Uncommon Face]§r Blueprint
 item.test_gun:part_armor_plate.name=§9Tactical Armor Plate [Rare]§r
 item.test_gun:part_iit.name=§5Image Intensifier Tube (IIT) [Epic]§r
+item.test_gun:liegui.name=LieGui Rail Cannon [Legendary Charged Railgun]
+item.test_gun:blueprint_liegui.name=LieGui Rail Cannon Blueprint [Legendary Limited·Uncraftable]

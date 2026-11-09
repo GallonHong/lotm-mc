@@ -8,7 +8,7 @@ const phases = new Map();
 const shots = new Map();
 let warned = false;
 
-function signal(player, gun, kind, durationSeconds) {
+function signal(player, gun, kind, durationSeconds, progressSeconds = durationSeconds) {
  try {
   if (typeof player?.playAnimation !== 'function') throw new Error('playAnimation unavailable');
   const key = gun ? GUN_KEYS.get(gun.id) : 0;
@@ -25,7 +25,7 @@ function signal(player, gun, kind, durationSeconds) {
    `temp.tg3d_done = ${kind === 0 ? '1' : `${interrupted}query.state_time >= ${seconds.toFixed(4)}`};`,
    `variable.tg3d_kind = temp.tg3d_done ? 0 : ${kind};`,
    `variable.tg3d_gun = temp.tg3d_done ? 0 : ${key || 0};`,
-   `variable.tg3d_progress = temp.tg3d_done ? 0 : math.clamp(query.state_time / ${seconds.toFixed(4)}, 0, 1);`,
+   `variable.tg3d_progress = temp.tg3d_done ? 0 : math.clamp(query.state_time / ${Math.max(0.05, progressSeconds).toFixed(4)}, 0, 1);`,
    'variable.tg3d_stamp = query.life_time;',
    'return temp.tg3d_done;',
   ].join(' ');
@@ -53,6 +53,8 @@ export const GunVisuals = {
  fire(player, gun) {
   signal(player, gun, 1, 0.15);
  },
+ charge(player, gun, totalTicks, holdTicks = totalTicks) { signal(player, gun, 3, holdTicks / 20, totalTicks / 20); },
+ vent(player, gun) { signal(player, gun, 4, 1.2); },
  reload(player, gun, totalTicks) {
   if (!Number.isFinite(totalTicks) || totalTicks <= 0) return;
   signal(player, gun, 2, totalTicks / 20);

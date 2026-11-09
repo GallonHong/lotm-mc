@@ -48,6 +48,7 @@ export class MeleeEngine {
   * @param {Entity} target 
   */
  static handleEntityHit(player, target) {
+  if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid() || !target || !target.isValid()) return;
   if (isProtectedTeammate(player, target)) return;
 
@@ -121,6 +122,7 @@ export class MeleeEngine {
   * 执行真实横扫之刃群攻 (True Sweeping Blade)
   */
  static performSweepingBlade(player, primaryTarget, sweepDmg, radius, applyBleed = false) {
+  if (!pvpCanAttack(player)) return;
   try {
    const pLoc = player.location;
    const viewDir = player.getViewDirection();

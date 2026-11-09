@@ -1,0 +1,98 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.liegui.energy": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "transitions": [
+            {
+              "charge_a": "variable.liegui_charging"
+            },
+            {
+              "vent_a": "variable.liegui_venting"
+            }
+          ]
+        },
+        "charge_a": {
+          "particle_effects": [
+            {
+              "effect": "charge",
+              "locator": "charge",
+              "bind_to_actor": true
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!variable.liegui_charging"
+            },
+            {
+              "charge_b": "query.state_time >= 0.12"
+            }
+          ]
+        },
+        "charge_b": {
+          "particle_effects": [
+            {
+              "effect": "charge",
+              "locator": "charge",
+              "bind_to_actor": true
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!variable.liegui_charging"
+            },
+            {
+              "charge_a": "query.state_time >= 0.12"
+            }
+          ]
+        },
+        "vent_a": {
+          "particle_effects": [
+            {
+              "effect": "vent",
+              "locator": "vent_left",
+              "bind_to_actor": true
+            },
+            {
+              "effect": "vent",
+              "locator": "vent_right",
+              "bind_to_actor": true
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!variable.liegui_venting"
+            },
+            {
+              "vent_b": "query.state_time >= 0.12"
+            }
+          ]
+        },
+        "vent_b": {
+          "particle_effects": [
+            {
+              "effect": "vent",
+              "locator": "vent_left",
+              "bind_to_actor": true
+            },
+            {
+              "effect": "vent",
+              "locator": "vent_right",
+              "bind_to_actor": true
+            }
+          ],
+          "transitions": [
+            {
+              "idle": "!variable.liegui_venting"
+            },
+            {
+              "vent_a": "query.state_time >= 0.12"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -30,10 +30,16 @@
               "first_person_breathing_bob": "variable.attack_time <= 0.0"
             },
             {
-              "tg3d_right_hand": "variable.is_holding_gun && !variable.is_using_vr"
+              "tg3d_right_hand": "variable.is_holding_gun && !variable.is_using_vr && !variable.is_holding_liegui"
             },
             {
-              "tg3d_support_hand": "variable.is_holding_gun && variable.tg3d_free_offhand && !variable.is_using_vr"
+              "liegui_right_hand": "variable.is_holding_gun && !variable.is_using_vr && variable.is_holding_liegui"
+            },
+            {
+              "tg3d_support_hand": "variable.is_holding_gun && variable.tg3d_free_offhand && !variable.is_using_vr && !variable.is_holding_liegui"
+            },
+            {
+              "liegui_support_hand": "variable.is_holding_gun && variable.tg3d_free_offhand && !variable.is_using_vr && variable.is_holding_liegui"
             },
             {
               "tg_shield_main_fp": "variable.tg3d_shield_main"
@@ -102,7 +108,10 @@
               "holding": "!variable.is_holding_gun"
             },
             {
-              "gun_hold_tpp": "variable.is_holding_rifle"
+              "gun_hold_tpp": "variable.is_holding_rifle && !variable.is_holding_liegui"
+            },
+            {
+              "liegui_hold_tpp": "variable.is_holding_rifle && variable.is_holding_liegui"
             },
             {
               "pistol_hold_tpp": "variable.is_holding_pistol"

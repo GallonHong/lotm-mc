@@ -1,3 +1,4 @@
+import { RailCannon } from './railCannon.js';
 import { world, system } from '@minecraft/server';
 import { preparePvpAmmo, finishPvpAmmo, getPvpAmmoRecord } from './utils/pvpAmmoTransaction.js';
 import { isPvpParticipant, pvpMatch, pvpCanAttack } from './utils/pvpRules.js';
@@ -11,6 +12,7 @@ import { MeleeEngine } from './meleeEngine.js';
 
 /** Cancel delayed damage before restoring inventory or allowing another match. */
 export function stopPvpGunTasks(player) {
+ RailCannon.cancel(player.id);
  ShootManager.clearPlayer(player);
  ShootManager.playerShotCounts.delete(player.id);
  ReloadManager.cancelReload(player);
