@@ -27,7 +27,7 @@ export function chunkColumns(location,size,dimension) {
 function command(d,text,label) {
  let result;
  try{result=d.runCommand(text);}catch(e){throw new ChunkLoadError('AREA_COMMAND',`${label}失败：${String(e.message||e)}。请检查常加载区名额/权限；不会删除其他常加载区。`);}
- if(!result||!(result.successCount>0))throw new ChunkLoadError('AREA_COMMAND',`${label}未成功（successCount=${result?.successCount??'缺失'}）。全世界最多10个命令常加载区，请检查名额/权限；不会删除其他常加载区。`);
+ if(!result||!(result.successCount>0))throw new ChunkLoadError('AREA_COMMAND',`${label}未成功（successCount=${result?.successCount??'缺失'}）。可能是同名区域尚未释放、命令限制或名额不足；successCount不能确定具体原因。不会删除其他常加载区。`);
  return result;
 }
 export function removeOwnArea(d,name) {
@@ -97,16 +97,42 @@ export function withLoadedTile(tile,callback,options={}) {
 async function loadTile(tile,callback,{player=null,session=null,timeoutTicks=LOAD_TIMEOUT_TICKS}={}) {
  const d=world.getDimension(C.dimension),p=tile.location,s=tile.size;
  const columns=chunkColumns(p,s,d);
- removeOwnArea(d,'pvp_work');
- let created=false;
+ // Move the already-consenting installer first. Allocation is an aid, not proof
+ // of chunk readiness; every destination column is always checked below.
+ if(session)session.move({x:p.x+s.x/2,y:Math.max(64,Math.min(120,p.y+s.y/2)),z:p.z+s.z/2});
+ let allocated=false,lastError;
  try{
-  command(d,`tickingarea add ${p.x} 64 ${p.z} ${p.x+s.x-1} 64 ${p.z+s.z-1} pvp_work true`,'创建赛场临时常加载区');created=true;
-  if(session)session.move({x:p.x+s.x/2,y:Math.max(64,Math.min(120,p.y+s.y/2)),z:p.z+s.z/2});
+  for(let attempt=0;attempt<3&&!allocated;attempt++){
+   // Native removal/name-table updates can settle after the command returns.
+   // Await the async command when available AND a tick barrier before re-add.
+   let removed;
+   try{removed=await areaCommand(d,'tickingarea remove pvp_work');}
+   catch(e){console.warn(`[PVP work remove] attempt=${attempt+1} ${e.message||e}`);}
+   await delay(10*(attempt+1));
+   try{
+    const result=await areaCommand(d,`tickingarea add ${p.x} 64 ${p.z} ${p.x+s.x-1} 64 ${p.z+s.z-1} pvp_work true`);
+    allocated=result?.successCount>0;
+    if(!allocated)lastError=new ChunkLoadError('AREA_COMMAND',`临时常加载区未确认创建：add=${result?.successCount??'缺失'}, remove=${removed?.successCount??'缺失'}；不能据此判定名额已满。`);
+   }catch(e){lastError=new ChunkLoadError('AREA_COMMAND',`临时常加载区命令失败：${e.message||e}`);}
+  }
+  if(!allocated){
+   if(!session||!player||!valid(player))throw lastError;
+   console.warn(`[PVP work fallback] ${tile.name}: ${lastError.message} 使用已确认的管理员现场加载，仍逐区块验证。`);
+   note(player,'临时常加载区未确认成功，改用现场加载；不会删除其他插件的常加载区。');
+  }
   await waitForColumns(d,columns,{label:`地图 ${tile.name}`,player,timeoutTicks});
   await callback(d,p,s);
-  // Allow native structure/entity work to settle before releasing its chunks.
   await delay(5);
- }finally{if(created)removeOwnArea(d,'pvp_work');}
+ }finally{
+  // An unsuccessful/ambiguous add can still leave an owned native area.
+  // Always attempt bounded cleanup, even when callback/loading fails.
+  try{await areaCommand(d,'tickingarea remove pvp_work');}catch(e){console.warn(`[PVP work cleanup] ${e.message||e}`);}
+  await delay(10);
+ }
+}
+async function areaCommand(d,text) {
+ if(typeof d.runCommandAsync==='function')return await d.runCommandAsync(text);
+ return d.runCommand(text);
 }
 
 export async function ensurePersistentArea(name,location,size,{label,timeoutTicks=LOAD_TIMEOUT_TICKS,player=null,session=null}={}) {

@@ -235,7 +235,7 @@ export class PvPManager {
  static installMenu(p) {
   if(!Utils.isAdmin(p))return;
   let status='';try{const j=JSON.parse(String(world.getDynamicProperty('pvp:install_v2')||'null'));if(j&&j.phase!=='DONE')status=`\n发现未完成记录：${j.nextTile||0}/${ARENA_TILES.length}片；确认后继续。`;}catch{}
-  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n将覆盖主世界 X100096..100319、Z100096..100383、Y-64..319，并在 X100336..100366、Z100112..100121、Y-60 建立装备托管箱。请先备份世界并确认这些位置无原有建筑。\n施工会临时切换你为旁观模式并带你逐片加载地形，结束或失败会恢复位置、模式与操作权限；离线则停止并在重登后恢复。\n地图署名 Licraft漓清，仅供本服使用。'+status+'\n是否开始？').button1('取消').button2('确认指定范围施工并临时加载'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p);});
+  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n将覆盖主世界 X100096..100319、Z100096..100383、Y-64..319，并在 X100336..100366、Z100112..100121、Y-60 建立装备托管箱。请先备份世界并确认这些位置无原有建筑。\n施工会临时切换你为旁观模式并带你逐片加载地形，结束或失败会恢复位置、模式与操作权限；离线则停止并在重登后恢复。\n地图署名 Licraft漓清，仅供本服使用。'+status+'\n是否开始？').button1('取消').button2('确认指定范围施工并临时加载'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p).catch(e=>{tell(p,`安装异常：${e.message||e}`);console.warn(`[PVP install unexpected] ${e.stack||e}`);});});
  }
  static async install(p) {
   if(!Utils.isAdmin(p))return;
