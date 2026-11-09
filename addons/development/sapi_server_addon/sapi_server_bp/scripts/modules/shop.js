@@ -203,40 +203,26 @@ export class ShopManager {
 			return onBack?.();
 		}
 
-		let body = `§6═════════════════════════
-` +
-		           `§e共扫描到 §b${scanned.length} §e种可回收物资，本次可出售 §b${totalCount} §e件：
-
-` +
-		           previewLines.slice(0, 12).join("
-");
+		let body = `§6═════════════════════════\n` +
+		           `§e共扫描到 §b${scanned.length} §e种可回收物资，本次可出售 §b${totalCount} §e件：\n\n` +
+		           previewLines.slice(0, 12).join("\n");
 		if (previewLines.length > 12) {
-			body += `
-§f...以及其余 ${previewLines.length - 12} 种物资`;
+			body += `\n§f...以及其余 ${previewLines.length - 12} 种物资`;
 		}
-		body += `
-
-§6═════════════════════════
-` +
-		        `§e预计回收总收益: §6${Utils.formatCurrency(totalCoins)}
-` +
-		        `§e今日原版回收: §6${daily.vanillaSoldCoins + vanillaEarn} / ${cap} 金币
-`;
+		body += `\n\n§6═════════════════════════\n` +
+		        `§e预计回收总收益: §6${Utils.formatCurrency(totalCoins)}\n` +
+		        `§e今日原版回收: §6${daily.vanillaSoldCoins + vanillaEarn} / ${cap} 金币\n`;
 		if (heldBackVanillaCount > 0) {
-			body += `§c提示: 因回收限额，有 ${heldBackVanillaCount} 件原版物资将被妥善保留在背包中。
-`;
+			body += `§c提示: 因回收限额，有 ${heldBackVanillaCount} 件原版物资将被妥善保留在背包中。\n`;
 		}
-		body += `§6═════════════════════════
-` +
+		body += `§6═════════════════════════\n` +
 		        `§f请确认是否立即回收？`;
 
 		const form = new ActionFormData()
 			.title("§l§6一键回收确认")
 			.body(body)
-			.button("§l§a确认回收全部
-§r§f立即清空并变现金币", "textures/ui/MCStore_Gold_large")
-			.button("§l§c取消
-§r§f返回上一级界面", "textures/ui/cancel");
+			.button("§l§a确认回收全部\n§r§f立即清空并变现金币", "textures/ui/MCStore_Gold_large")
+			.button("§l§c取消\n§r§f返回上一级界面", "textures/ui/cancel");
 
 		Utils.showForm(player, form, (res) => {
 			if (res.canceled || res.selection !== 0) {
@@ -327,27 +313,20 @@ export class ShopManager {
 		const form = new ActionFormData()
 			.title(`§l${category.name} · 商品分类`)
 			.body(
-				`§6═════════════════════════
-` +
-				`§e当前资产: ${Utils.formatCurrency(balance)}
-` +
-				`§e今日原版物资回收: §6${daily.vanillaSoldCoins} / ${Config.shop.vanillaDailySellCap} 金币
-` +
-				`§6═════════════════════════
-` +
+				`§6═════════════════════════\n` +
+				`§e当前资产: ${Utils.formatCurrency(balance)}\n` +
+				`§e今日原版物资回收: §6${daily.vanillaSoldCoins} / ${Config.shop.vanillaDailySellCap} 金币\n` +
+				`§6═════════════════════════\n` +
 				`§f请选择需要购买或回收的物资类别：`
 			);
 
 		// 一键回收当前商人/分类下所有物品
-		form.button(`§l§e【一键回收】${category.name}相关物资
-§r§f一键出售背包中所有属于本分类的可回收物`, "textures/ui/MCStore_Gold_large");
+		form.button(`§l§e【一键回收】${category.name}相关物资\n§r§f一键出售背包中所有属于本分类的可回收物`, "textures/ui/MCStore_Gold_large");
 
 		for (const group of groups) {
-			form.button(`${group.name}
-§r§f${group.description}`, group.icon);
+			form.button(`${group.name}\n§r§f${group.description}`, group.icon);
 		}
-		form.button("§l§c返回商场
-§r§f选择其他商人", "textures/ui/cancel");
+		form.button("§l§c返回商场\n§r§f选择其他商人", "textures/ui/cancel");
 
 		Utils.showForm(player, form, (res) => {
 			if (res.canceled) return;
@@ -377,30 +356,23 @@ export class ShopManager {
 		const form = new ActionFormData()
 			.title("§l§6全球综合商店")
 			.body(
-				`§6═════════════════════════
-` +
-				`§e当前资产: ${Utils.formatCurrency(balance)}
-` +
-				`§e今日原版物资回收: §6${daily.vanillaSoldCoins} / ${Config.shop.vanillaDailySellCap} 金币
-` +
-				`§6═════════════════════════
-` +
+				`§6═════════════════════════\n` +
+				`§e当前资产: ${Utils.formatCurrency(balance)}\n` +
+				`§e今日原版物资回收: §6${daily.vanillaSoldCoins} / ${Config.shop.vanillaDailySellCap} 金币\n` +
+				`§6═════════════════════════\n` +
 				`§f请选择你要浏览的商品分类，或使用一键回收：`
 			);
 
 		// 置顶一键回收全背包物资按钮
-		form.button("§l§e【一键回收】全背包可售物资
-§r§f扫描全背包可回收物并一键变现金币", "textures/ui/MCStore_Gold_large");
+		form.button("§l§e【一键回收】全背包可售物资\n§r§f扫描全背包可回收物并一键变现金币", "textures/ui/MCStore_Gold_large");
 
 		const categories = this.getVisibleCategories();
 		for (const cat of categories) {
-			form.button(`${cat.name}
-§r§f${cat.description}`, cat.icon);
+			form.button(`${cat.name}\n§r§f${cat.description}`, cat.icon);
 		}
 
 		if (onBack) {
-			form.button("§l§c返回上级
-§r§f返回主菜单", "textures/ui/cancel");
+			form.button("§l§c返回上级\n§r§f返回主菜单", "textures/ui/cancel");
 		}
 
 		Utils.showForm(player, form, (res) => {
@@ -431,20 +403,15 @@ export class ShopManager {
 		const form = new ActionFormData()
 			.title(`§l${category.name}`)
 			.body(
-				`§6═════════════════════════
-` +
-				`§e当前资产: ${Utils.formatCurrency(balance)}
-` +
-				`§f点击商品即可进入购买或出售界面
-` +
-				`§e今日原版物资回收: §6${daily.vanillaSoldCoins} / ${Config.shop.vanillaDailySellCap} 金币
-` +
+				`§6═════════════════════════\n` +
+				`§e当前资产: ${Utils.formatCurrency(balance)}\n` +
+				`§f点击商品即可进入购买或出售界面\n` +
+				`§e今日原版物资回收: §6${daily.vanillaSoldCoins} / ${Config.shop.vanillaDailySellCap} 金币\n` +
 				`§6═════════════════════════`
 			);
 
 		// 置顶一键回收当前专区物资按钮
-		form.button("§l§e【一键回收】当前专区物资
-§r§f一键出售背包中属于当前专区的可回收物", "textures/ui/MCStore_Gold_large");
+		form.button("§l§e【一键回收】当前专区物资\n§r§f一键出售背包中属于当前专区的可回收物", "textures/ui/MCStore_Gold_large");
 
 		const items = category.items;
 		for (const item of items) {
@@ -452,12 +419,10 @@ export class ShopManager {
 			const limitText = item.dailyLimit ? ` §6(${bought}/${item.dailyLimit})` : "";
 			const buyText = item.buyPrice ? `§a买: §e${item.buyPrice}${limitText}` : "§c不可买";
 			const sellText = item.sellPrice ? `§c卖: §e${item.sellPrice}` : "§c不可卖";
-			form.button(`${item.name}
-${buyText} §6| ${sellText}`, item.icon);
+			form.button(`${item.name}\n${buyText} §6| ${sellText}`, item.icon);
 		}
 
-		form.button("§l§c返回分类
-§r§f选择其他商品专区", "textures/ui/cancel");
+		form.button("§l§c返回分类\n§r§f选择其他商品专区", "textures/ui/cancel");
 
 		Utils.showForm(player, form, (res) => {
 			if (res.canceled) return;
@@ -499,10 +464,7 @@ ${buyText} §6| ${sellText}`, item.icon);
 
 		const form = new ModalFormData()
 			.title(`§l交易: ${item.name}`)
-			.dropdown(`§e你的金币: ${Utils.formatCurrency(balance)}
-§e背包库存: §b${bagCount} §e个
-
-§f请选择交易类型:`, tradeOptions)
+			.dropdown(`§e你的金币: ${Utils.formatCurrency(balance)}\n§e背包库存: §b${bagCount} §e个\n\n§f请选择交易类型:`, tradeOptions)
 			.slider("§e交易数量 (1 - 64):", 1, 64, 1);
 
 		Utils.showForm(player, form, (res) => {

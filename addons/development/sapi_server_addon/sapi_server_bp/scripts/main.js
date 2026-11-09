@@ -267,7 +267,8 @@ if (scriptEvents?.subscribe) {
   }
   if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
   const player = sourceEntity;
-  if (["system:menu", "gui:menu", "menu:open", "sapi:open"].includes(id)) ServerMenuManager.openMainMenu(player);
+  // Share the same debounce as native compass events: Apocalypse Life also forwards sapi:open.
+  if (["system:menu", "gui:menu", "menu:open", "sapi:open"].includes(id)) requestCompassMenu(player);
   else if (["system:shop", "gui:shop", "shop:open"].includes(id)) ShopManager.openShopCategoryUI(player);
   else if (id === "sapi:shop") ShopManager.openCategoryById(player, message || "all");
   else if (["system:land", "gui:land", "land:open"].includes(id)) LandManager.openPlotMainUI(player);
