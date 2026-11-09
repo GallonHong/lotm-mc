@@ -1,3 +1,4 @@
+import { ensurePersistentArea, removeOwnArea } from './chunk_loading.js';
 import { world, system } from '@minecraft/server';
 import { PVP_CONFIG as C } from './rules.js';
 
@@ -30,9 +31,7 @@ export function hudRows(match,countdown=null) {
 export class PvPHud {
  static entities=new Map(); static matchId=null;
  static async ensureLoaded() {
-  try { dim().runCommand(`tickingarea add circle ${ANCHOR.x} ${ANCHOR.y} ${ANCHOR.z} 1 ${AREA} true`); } catch {}
-  for(let n=0;n<60;n++) { try { if(dim().getBlock(ANCHOR))return; } catch {} await delay(5); }
-  throw new Error('顶部战况显示区未加载，请检查 tickingarea 名额。');
+  await ensurePersistentArea(AREA,{x:Math.floor(ANCHOR.x/16)*16-16,y:64,z:Math.floor(ANCHOR.z/16)*16-16},{x:48,y:1,z:48},{label:'顶部战况显示区'});
  }
  static removeLoaded(matchId=null) {
   const tags=[PVP_HUD_TAG];if(matchId)tags.push(`pvp:hud_match:${matchId}`);
@@ -61,7 +60,6 @@ export class PvPHud {
  }
  static async clear(matchId=null) {
   // Also works after a script reload when runtime entity references were lost.
-  await this.ensureLoaded();this.removeLoaded(matchId);
-  try { dim().runCommand(`tickingarea remove ${AREA}`); } catch {}
+  try{await this.ensureLoaded();this.removeLoaded(matchId);}finally{removeOwnArea(dim(),AREA);}
  }
 }

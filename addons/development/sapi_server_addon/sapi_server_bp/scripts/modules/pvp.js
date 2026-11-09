@@ -1,3 +1,4 @@
+import { withLoadedTile, ensurePersistentArea, beginInstaller, recoverInstaller, removeOwnArea } from './pvp/chunk_loading.js';
 import { world, system, GameMode } from '@minecraft/server';
 import { ActionFormData, MessageFormData } from '@minecraft/server-ui';
 import { Utils } from '../utils.js';
@@ -140,6 +141,7 @@ export class PvPManager {
   event(p,'pvp:death',m.id);saveMatch(m);
  }
  static handleSpawn(p,initialSpawn) {
+  if(recoverInstaller(p))return true;
   if(!this.isParticipant(p)) {
    const tx=readTransaction(p);if(tx&&(!['RESTORED','CANCELLED'].includes(tx.phase)||tx.unlockPending)){p.addTag('pvp:participant');this.restore(p);return true;}
    return false;
@@ -214,25 +216,14 @@ export class PvPManager {
  }
  static async ensureSpawnsLoaded() {
   for(const team of ['red','blue']) {
-   const p=C[team];try{dimension().runCommand(`tickingarea add circle ${Math.floor(p.x)} ${p.y} ${Math.floor(p.z)} 1 pvp_spawn_${team} true`);}catch{}
+   const p=C[team];
+   await ensurePersistentArea(`pvp_spawn_${team}`,{x:Math.floor(p.x/16)*16-16,y:64,z:Math.floor(p.z/16)*16-16},{x:48,y:1,z:48},{label:`${team==='red'?'红':'蓝'}方出生点`});
   }
-  for(let n=0;n<60;n++){try{if(['red','blue'].every(t=>dimension().getBlock({x:Math.floor(C[t].x),y:C[t].y,z:Math.floor(C[t].z)})))return;}catch{}await delay(5);}
-  throw new Error('出生点区块无法加载，请检查 tickingarea 名额。');
  }
- static async ensureVaultLoaded() {
-  try{dimension().runCommand(`tickingarea add ${C.vault.x-2} ${C.vault.y} ${C.vault.z-2} ${C.vault.x+34} ${C.vault.y+4} ${C.vault.z+14} pvp_vault true`);}catch{}
-  for(let i=0;i<40;i++){try{if(dimension().getBlock(vaultLocation(0)))return;}catch{}await delay(5);}
-  throw new Error('托管区无法加载；检查 tickingarea 名额。');
+ static async ensureVaultLoaded(options={}) {
+  await ensurePersistentArea('pvp_vault',{x:C.vault.x-2,y:C.vault.y,z:C.vault.z-2},{x:37,y:5,z:17},{label:'装备托管区',...options});
  }
- static async loadedTile(tile, callback) {
-  const d=dimension(),p=tile.location,s=tile.size;
-  try{d.runCommand('tickingarea remove pvp_work');}catch{}
-  d.runCommand(`tickingarea add ${p.x} ${p.y} ${p.z} ${p.x+s.x-1} ${p.y+s.y-1} ${p.z+s.z-1} pvp_work true`);
-  try{
-   let loaded=false;for(let i=0;i<80;i++){try{if(d.getBlock(p)&&d.getBlock({x:p.x+s.x-1,y:p.y+s.y-1,z:p.z+s.z-1})){loaded=true;break;}}catch{}await delay(5);}
-   if(!loaded)throw new Error('赛场区块加载超时。');await callback(d,p,s);await delay(2);
-  }finally{try{d.runCommand('tickingarea remove pvp_work');}catch{}}
- }
+ static loadedTile(tile,callback,options={}) { return withLoadedTile(tile,callback,options); }
  static async cleanupArena(matchId) {
   for(const tile of ARENA_TILES) await this.loadedTile(tile,async(d,p,s)=>{
    for(const e of d.getEntities({type:'minecraft:item',location:p,volume:{x:s.x,y:s.y,z:s.z}})){
@@ -243,24 +234,54 @@ export class PvPManager {
  }
  static installMenu(p) {
   if(!Utils.isAdmin(p))return;
-  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n将覆盖主世界 X100096..100319、Z100096..100383 的完整高度区域，并在附近建立装备托管区。请先备份世界并确认此处无已有建筑。\n地图来自用户提供的六分街，保留 Licraft漓清 作者署名，仅供本服使用。\n是否开始？').button1('取消').button2('确认覆盖指定赛区并安装'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p);});
+  let status='';try{const j=JSON.parse(String(world.getDynamicProperty('pvp:install_v2')||'null'));if(j&&j.phase!=='DONE')status=`\n发现未完成记录：${j.nextTile||0}/${ARENA_TILES.length}片；确认后继续。`;}catch{}
+  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n将覆盖主世界 X100096..100319、Z100096..100383、Y-64..319，并在 X100336..100366、Z100112..100121、Y-60 建立装备托管箱。请先备份世界并确认这些位置无原有建筑。\n施工会临时切换你为旁观模式并带你逐片加载地形，结束或失败会恢复位置、模式与操作权限；离线则停止并在重登后恢复。\n地图署名 Licraft漓清，仅供本服使用。'+status+'\n是否开始？').button1('取消').button2('确认指定范围施工并临时加载'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p);});
  }
  static async install(p) {
+  if(!Utils.isAdmin(p))return;
   if(this.busy||this.match||this.queue.size)return tell(p,'有比赛或候场，不能安装。');
-  this.busy=true;world.setDynamicProperty(READY_KEY,false);
+  if(this.isParticipant(p)||hasForeignMatch(p))return tell(p,'请先退出其他活动后安装赛场。');
+  this.busy=true;let session=null,journal=null;
+  const journalKey='pvp:install_v2';
+  const signature=JSON.stringify(ARENA_TILES.map(t=>[t.name,t.location,t.size]));
   try{
-   // Never overwrite retained originals, even after interrupted installation.
    const allocated=JSON.parse(String(world.getDynamicProperty('pvp:vault_index_v1')||'{}'));
    if(Object.keys(allocated).length)throw new Error('存在未释放托管记录，先恢复所有玩家装备。');
-   let n=0;for(const tile of ARENA_TILES){await this.loadedTile(tile,async d=>{for(const e of d.getEntities({tags:['pvp:decoration'],location:tile.location,volume:tile.size}))e.remove();const r=d.runCommand(`structure load ${tile.name} ${tile.location.x} ${tile.location.y} ${tile.location.z} 0_degrees none true true`);if(!r.successCount)throw new Error(`结构未加载：${tile.name}`);});if(++n%5===0)tell(p,`安装地图 ${n}/${ARENA_TILES.length}`);}
-   await this.ensureVaultLoaded();
-   for(let slot=0;slot<C.vault.slots;slot++)for(let side=0;side<2;side++){
-    const v=vaultLocation(slot,side),existing=dimension().getBlock(v);
-    if(existing?.getComponent('minecraft:inventory')?.container?.emptySlotsCount!==undefined&&existing.getComponent('minecraft:inventory').container.emptySlotsCount!==existing.getComponent('minecraft:inventory').container.size)throw new Error('发现非空托管箱，拒绝覆盖。');
-    dimension().runCommand(`setblock ${v.x} ${v.y} ${v.z} chest`);
+   // Fixed manifest bounds, not user-supplied command coordinates. Never expand scope on retry.
+   for(const t of ARENA_TILES){const a=t.location,b={x:a.x+t.size.x-1,y:a.y+t.size.y-1,z:a.z+t.size.z-1};if(!inBounds(a)||!inBounds(b))throw new Error(`结构 ${t.name} 超出已确认赛区，拒绝安装。`);}
+   let previous=null;try{previous=JSON.parse(String(world.getDynamicProperty(journalKey)||'null'));}catch{}
+   journal=previous&&previous.signature===signature&&['RUNNING','FAILED'].includes(previous.phase)&&Number.isInteger(previous.nextTile)&&previous.nextTile>=0&&previous.nextTile<=ARENA_TILES.length?previous:{version:2,signature,nextTile:0};
+   journal.phase='RUNNING';journal.installerId=p.id;delete journal.error;
+   world.setDynamicProperty(journalKey,JSON.stringify(journal));world.setDynamicProperty(READY_KEY,false);
+   session=beginInstaller(p);
+   tell(p,`开始施工，已完成 ${journal.nextTile}/${ARENA_TILES.length} 片。首次远端生成可能较慢，请保持在线。`);
+   for(let i=journal.nextTile;i<ARENA_TILES.length;i++){
+    const tile=ARENA_TILES[i];
+    await this.loadedTile(tile,async d=>{
+     for(const e of d.getEntities({tags:['pvp:decoration'],location:tile.location,volume:tile.size}))e.remove();
+     const command=`structure load ${tile.name} ${tile.location.x} ${tile.location.y} ${tile.location.z} 0_degrees none true true`;
+     const r=typeof d.runCommandAsync==='function'?await d.runCommandAsync(command):d.runCommand(command);
+     if(!r||!(r.successCount>0))throw new Error(`结构未加载：${tile.name}，请确认启用六分街场景BP。`);
+    },{player:p,session});
+    journal.nextTile=i+1;world.setDynamicProperty(journalKey,JSON.stringify(journal));
+    tell(p,`安装地图 ${journal.nextTile}/${ARENA_TILES.length}`);
    }
-   vaultContainers(0);world.setDynamicProperty(READY_KEY,true);tell(p,'赛场结构和托管区安装完成。请先实机检查路线、地图边界和出生点，再开始正式比赛。');
-  }catch(e){tell(p,`安装未完成：${e.message}。不会开放报名，可修正后重新安装。`);console.warn(`[PVP install] ${e.stack||e}`);}finally{this.busy=false;}
+   await this.ensureVaultLoaded({player:p,session});
+   for(let slot=0;slot<C.vault.slots;slot++)for(let side=0;side<2;side++){
+    const v=vaultLocation(slot,side),existing=dimension().getBlock(v),container=existing?.getComponent('minecraft:inventory')?.container;
+    if(container&&container.emptySlotsCount!==container.size)throw new Error('发现非空托管箱，拒绝覆盖。');
+    if(existing?.typeId!=='minecraft:chest'){
+     const r=dimension().runCommand(`setblock ${v.x} ${v.y} ${v.z} chest`);if(!(r?.successCount>0))throw new Error(`创建托管箱失败：${v.x},${v.y},${v.z}`);
+    }
+   }
+   for(let slot=0;slot<C.vault.slots;slot++)vaultContainers(slot);
+   journal.phase='DONE';delete journal.error;world.setDynamicProperty(journalKey,JSON.stringify(journal));
+   world.setDynamicProperty(READY_KEY,true);tell(p,'赛场和全部托管箱安装完成。请先在测试服检查路线、出生点与边界，再开启正式比赛。');
+  }catch(e){
+   if(journal){journal.phase='FAILED';journal.error=String(e.message||e).slice(0,1500);try{world.setDynamicProperty(journalKey,JSON.stringify(journal));}catch{}}
+   tell(p,`安装未完成：${e.message}。已保留${journal?.nextTile||0}/${ARENA_TILES.length}片进度；修正后重新确认安装即可继续。`);
+   console.warn(`[PVP install ${e.code||'ERROR'}] tile=${journal?.nextTile??0}: ${e.stack||e}`);
+  }finally{removeOwnArea(dimension(),'pvp_work');session?.finish();this.busy=false;}
  }
  static tick() {
   const m=this.match;if(!m||m.phase!=='ACTIVE')return;
@@ -283,6 +304,9 @@ export class PvPManager {
   if(m.remaining<=0||m.score.red>=C.targetScore||m.score.blue>=C.targetScore)this.finish('比赛结束');
  }
  static init() {
+  removeOwnArea(dimension(),'pvp_work');
+  for(const p of world.getAllPlayers())recoverInstaller(p);
+  system.runInterval(()=>{for(const p of world.getAllPlayers())recoverInstaller(p);},20);
   const old=world.getDynamicProperty(MATCH_KEY);
   if(old){try{this.match=JSON.parse(String(old));this.match.phase='RECOVERING';system.run(()=>this.finish('服务器重启，安全结束比赛'));}catch(e){console.warn(`[PVP journal] ${e}`);this.busy=true;}}
   for(const p of world.getAllPlayers()){
