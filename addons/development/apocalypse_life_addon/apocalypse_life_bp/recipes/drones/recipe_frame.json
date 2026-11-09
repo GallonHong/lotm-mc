@@ -1,0 +1,28 @@
+{
+ "format_version": "1.12.0",
+ "minecraft:recipe_shaped": {
+ "description": {
+  "identifier": "ab_dr:craft_frame"
+ },
+ "tags": [
+  "crafting_table"
+ ],
+ "pattern": [
+  "SIS",
+  "I I",
+  "SIS"
+ ],
+ "key": {
+  "S": {
+  "item": "survival_vehicle:scrap_metal"
+  },
+  "I": {
+  "item": "minecraft:iron_ingot"
+  }
+ },
+ "result": {
+  "item": "ab_dr:frame",
+  "count": 1
+ }
+ }
+}

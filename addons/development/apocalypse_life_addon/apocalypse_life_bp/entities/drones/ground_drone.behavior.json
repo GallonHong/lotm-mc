@@ -1,0 +1,187 @@
+{
+	"format_version": "1.21.130",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "makercamp_dr:ground_drone",
+			"is_spawnable": false,
+			"is_summonable": true,
+			"animations": {
+				"check": "animation.makercamp_dr.ground_drone.check"
+			},
+			"scripts": {
+				"animate": [
+					"check"
+				]
+			}
+		},
+		"component_groups": {
+			"despawn": {
+				"minecraft:instant_despawn": {}
+			},
+			"death": {
+				"minecraft:health": {
+					"value": 0,
+					"max": 0,
+					"min": 0
+				}
+			}
+		},
+		"components": {
+			"minecraft:fire_immune": {},
+			"minecraft:behavior.hurt_by_target": {
+				"hurt_owner": false,
+				"priority": 3
+			},
+			"minecraft:behavior.owner_hurt_by_target": {
+				"priority": 2
+			},
+			"minecraft:behavior.owner_hurt_target": {
+				"priority": 1
+			},
+			"minecraft:navigation.walk": {
+				"avoid_damage_blocks": true,
+				"can_jump": true,
+				"can_swim": true,
+				"can_float": true,
+				"can_walk": true
+			},
+			"minecraft:movement": {
+				"value": 0.25
+			},
+			"minecraft:movement.generic": {
+				"max_turn": 30
+			},
+			"minecraft:behavior.float": {},
+			"minecraft:can_climb": {},
+			"minecraft:jump.static": {},
+			"minecraft:behavior.delayed_attack": {
+				"priority": 3,
+				"attack_duration": 0.88,
+				"hit_delay_pct": 0.45,
+				"reach_multiplier": 2
+			},
+			"minecraft:knockback_resistance": {
+				"value": 0.5,
+				"max": 0.5
+			},
+			"minecraft:attack": {
+				"damage": 3
+			},
+			"minecraft:is_baby": {},
+			"minecraft:behavior.follow_parent": {
+				"priority": 4
+			},
+			"minecraft:tameable": {},
+			"minecraft:behavior.nearest_attackable_target": {
+				"priority": 2,
+				"attack_owner": false,
+				"must_reach": true,
+				"must_see": false,
+				"reselect_targets": true,
+				"entity_types": [
+					{
+						"filters": {
+							"test": "is_family",
+							"subject": "other",
+							"value": "monster"
+						},
+						"within_default": 16
+					}
+				]
+			},
+			"minecraft:despawn": {
+				"despawn_from_distance": {}
+			},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:health": {
+				"value": 30,
+				"max": 30
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_block",
+								"subject": "block",
+								"value": "minecraft:sweet_berry_bush"
+							}
+						},
+						"deals_damage": "no"
+					},
+					{
+						"cause": "fall",
+						"deals_damage": "no"
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "has_damage",
+								"value": "fatal"
+							},
+							"event": "fatal_damage"
+						},
+						"deals_damage": "no"
+					}
+				]
+			},
+			"minecraft:collision_box": {
+				"height": 0.5,
+				"width": 0.8
+			},
+			"minecraft:type_family": {
+				"family": [
+					"makercamp_dr:drone",
+					"drone",
+					"mob"
+				]
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:nameable": {},
+			"minecraft:physics": {
+				"has_collision": true,
+				"has_gravity": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		},
+		"events": {
+			"despawn": {
+				"add": {
+					"component_groups": [
+						"despawn"
+					]
+				}
+			},
+			"death": {
+				"add": {
+					"component_groups": [
+						"death"
+					]
+				}
+			},
+			"fatal_damage": {
+				"queue_command": {
+					"command": [
+						"scriptevent makercamp_dr:drone.death"
+					]
+				}
+			}
+		}
+	}
+}

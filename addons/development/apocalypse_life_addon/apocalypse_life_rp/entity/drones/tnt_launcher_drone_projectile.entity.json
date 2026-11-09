@@ -1,0 +1,33 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:tnt_launcher_drone_projectile",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/tnt_launcher_drone"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.tnt_launcher_drone_projectile"
+			},
+			"animations": {
+				"fly": "animation.makercamp_dr.tnt_launcher_drone_projectile.fly",
+				"particle": "animation.makercamp_dr.tnt_launcher_drone_projectile.particle"
+			},
+			"scripts": {
+				"animate": [
+					"fly",
+					"particle"
+				]
+			},
+			"render_controllers": [
+				"controller.render.default"
+			],
+			"particle_effects": {
+				"fly": "makercamp_dr:tnt_launcher_drone_projectile_smoke"
+			}
+		}
+	}
+}

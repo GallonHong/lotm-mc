@@ -59,6 +59,7 @@ BEHAVIOR_PACKS = [
 ]
 
 RESOURCE_PACKS = [
+    ("apocalypse_test_guns_pose_compatibility", os.path.join(BASE_DIR, "apocalypse_test_guns_pose_compatibility")),
     ("apocalypse_ui_rp", os.path.join(BASE_DIR, "apocalypse_ui_addon", "apocalypse_ui_rp")),
     ("sapi_server_rp", os.path.join(BASE_DIR, "sapi_server_addon", "sapi_server_rp")),
     ("apocalypse_mobs_rp", os.path.join(BASE_DIR, "apocalypse_mobs_addon", "apocalypse_mobs_rp")),
@@ -158,10 +159,11 @@ def main():
             print("[*] Embedding Behavior Packs...")
             for bp_name, bp_path in BEHAVIOR_PACKS:
                 for root, dirs, files in os.walk(bp_path):
-                    # Skip git and cache dirs
                     if any(x in root for x in [".git", "node_modules", ".gemini", "__pycache__"]):
                         continue
                     for file in files:
+                        if file.endswith((".mcpack", ".mcaddon", ".py")):
+                            continue
                         full_p = os.path.join(root, file)
                         rel_p = os.path.relpath(full_p, bp_path)
                         zip_entry = f"behavior_packs/{bp_name}/{rel_p.replace(os.sep, '/')}"
@@ -176,6 +178,8 @@ def main():
                     if any(x in root for x in [".git", "node_modules", ".gemini", "__pycache__"]):
                         continue
                     for file in files:
+                        if file.endswith((".mcpack", ".mcaddon", ".py")):
+                            continue
                         full_p = os.path.join(root, file)
                         rel_p = os.path.relpath(full_p, rp_path)
                         zip_entry = f"resource_packs/{rp_name}/{rel_p.replace(os.sep, '/')}"

@@ -1,0 +1,25 @@
+{
+ "format_version": "1.21.40",
+ "minecraft:item": {
+ "description": {
+  "identifier": "ab_dr:spawner_specter",
+  "menu_category": {
+  "category": "items"
+  }
+ },
+ "components": {
+  "minecraft:display_name": {
+  "value": "「幽灵」聚能激光机"
+  },
+  "minecraft:max_stack_size": 1,
+  "minecraft:custom_components": [
+  "ab_ve:entity_spawner"
+  ],
+  "minecraft:icon": {
+  "textures": {
+   "default": "ab_dr:specter"
+  }
+  }
+ }
+ }
+}

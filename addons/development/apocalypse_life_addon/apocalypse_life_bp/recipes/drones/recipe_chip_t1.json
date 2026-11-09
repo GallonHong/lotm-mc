@@ -1,0 +1,31 @@
+{
+ "format_version": "1.12.0",
+ "minecraft:recipe_shaped": {
+ "description": {
+  "identifier": "ab_dr:craft_chip_t1"
+ },
+ "tags": [
+  "crafting_table"
+ ],
+ "pattern": [
+  "GRG",
+  "RER",
+  "GRG"
+ ],
+ "key": {
+  "G": {
+  "item": "minecraft:gold_ingot"
+  },
+  "R": {
+  "item": "minecraft:redstone"
+  },
+  "E": {
+  "item": "minecraft:emerald"
+  }
+ },
+ "result": {
+  "item": "ab_dr:chip_t1",
+  "count": 1
+ }
+ }
+}

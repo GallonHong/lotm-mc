@@ -1,0 +1,29 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:item": {
+    "description": {
+      "identifier": "sapi:menu_compass",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:display_name": {
+        "value": "§r§l§6快捷导航菜单 §f(右键使用)"
+      },
+      "minecraft:icon": {
+        "textures": {
+          "default": "sapi_menu_compass"
+        }
+      },
+      "minecraft:max_stack_size": 1,
+      "minecraft:use_modifiers": {
+        "use_duration": 32,
+        "movement_modifier": 1.0
+      },
+      "minecraft:custom_components": [
+        "sapi:menu_compass_interact"
+      ]
+    }
+  }
+}

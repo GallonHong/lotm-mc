@@ -35,9 +35,15 @@
           },
           "pose",
           "weapon_action",
-          "muzzle"
+          "muzzle",
+          {
+            "aim_first": "context.is_first_person"
+          }
         ],
         "pre_animation": [
+          "variable.tg3d_aim = math.clamp((context.owning_entity -> variable.tg3d_hand_aim) ?? query.is_sneaking, 0, 1);",
+          "variable.tg3d_view_aim_y = (context.owning_entity -> variable.tg3d_view_aim_y) ?? -0.506524;",
+          "variable.tg3d_view_aim_x = (context.owning_entity -> variable.tg3d_view_aim_x) ?? 5.0;",
           "variable.tg3d_sneaking = (context.owning_entity -> query.is_sneaking) ?? 0;",
           "variable.tg3d_sprinting = (context.owning_entity -> query.is_sprinting) ?? 0;",
           "variable.tg3d_using = (context.owning_entity -> query.is_using_item) ?? 0;",

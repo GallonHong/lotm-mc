@@ -1,0 +1,22 @@
+{
+ "format_version": "1.21.40",
+ "minecraft:item": {
+ "description": {
+  "identifier": "ab_dr:blueprint_specter",
+  "menu_category": {
+  "category": "items"
+  }
+ },
+ "components": {
+  "minecraft:display_name": {
+  "value": "无人机蓝图：「幽灵」聚能激光机"
+  },
+  "minecraft:max_stack_size": 16,
+  "minecraft:icon": {
+  "textures": {
+   "default": "ab_dr:blueprint_specter"
+  }
+  }
+ }
+ }
+}

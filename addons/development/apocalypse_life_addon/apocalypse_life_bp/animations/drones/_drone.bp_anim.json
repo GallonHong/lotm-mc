@@ -1,0 +1,23 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.makercamp_dr.drone.effect": {
+			"loop": true,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.0": [
+					"/scriptevent makercamp_dr:drone.effect"
+				]
+			}
+		},
+		"animation.makercamp_dr.drone.battery_update": {
+			"loop": true,
+			"animation_length": 1.0,
+			"timeline": {
+				"0.0": [
+					"/scriptevent makercamp_dr:drone.battery_update"
+				]
+			}
+		}
+	}
+}

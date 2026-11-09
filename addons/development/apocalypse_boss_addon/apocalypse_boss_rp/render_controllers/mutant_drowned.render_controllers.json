@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"render_controllers": {
-    "controller.render.mutant_drowned": {
+  "controller.render.mutant_drowned": {
 		"is_hurt_color": {
 			"r": 1,
 			"g": 0,
@@ -13,8 +13,8 @@
 		"g": 0,
 		"b": 0,
 		"a": "(query.is_stunned * 0.6)"
-		  },
-           "textures": [ "Texture.default" ],
+		 },
+      "textures": [ "Texture.default" ],
 			"geometry": "Geometry.default",
 			"materials": [{
 				"*": "Material.default"
@@ -39,14 +39,14 @@
 			"g": 0,
 			"b": 0,
 			"a": "(query.is_stunned * 0.0)"
-			  },
-			  "textures": [ "Texture.default" ],
-			  "geometry": "Geometry.default",
-			  "materials": [{
-				  "*": "Material.default"
-			  }],
+			 },
+			 "textures": [ "Texture.default" ],
+			 "geometry": "Geometry.default",
+			 "materials": [{
+				 "*": "Material.default"
+			 }],
 			"part_visibility": [ { "*": 0 }, { "trident": 1 } ]
-		  },
+		 },
 		"controller.render.mutant_drowned_glow": {
 			"is_hurt_color": {
 				"r": 1,
@@ -59,8 +59,8 @@
 			"g": 0,
 			"b": 0,
 			"a": "(query.is_stunned * 0.6)"
-			  },
-			   "textures": [ "Texture.glow" ],
+			 },
+			  "textures": [ "Texture.glow" ],
 				"geometry": "Geometry.default",
 				"materials": [{
 					"*": "Material.default"

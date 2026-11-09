@@ -1,0 +1,26 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.freeze_drone_ice": {
+			"states": {
+				"default": {
+					"animations": [
+						"spawn"
+					],
+					"transitions": [
+						{
+							"despawn": "q.is_illager_captain"
+						}
+					],
+					"blend_via_shortest_path": true
+				},
+				"despawn": {
+					"animations": [
+						"despawn"
+					],
+					"blend_via_shortest_path": true
+				}
+			}
+		}
+	}
+}

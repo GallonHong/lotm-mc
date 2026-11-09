@@ -87,7 +87,7 @@
         "aim": {
           "animations": [
             {
-              "aim_first": "context.is_first_person"
+              "still": "context.is_first_person"
             },
             {
               "aim_third": "!context.is_first_person"

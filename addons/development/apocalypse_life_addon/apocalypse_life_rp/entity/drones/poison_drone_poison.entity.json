@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:poison_drone_poison",
+			"materials": {
+				"default": "entity_alphatest"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/empty"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.empty"
+			},
+			"animations": {
+				"particle": "animation.makercamp_dr.poison_drone_poison.particle"
+			},
+			"scripts": {
+				"animate": [
+					"particle"
+				]
+			},
+			"render_controllers": [
+				"controller.render.default"
+			],
+			"particle_effects": {
+				"poison_field": "makercamp_dr:poison_drone_poison_field"
+			}
+		}
+	}
+}

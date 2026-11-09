@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"render_controllers": {
-    "controller.render.mutant_husk": {
+  "controller.render.mutant_husk": {
 		"is_hurt_color": {
 			"r": 1,
 			"g": 0,
@@ -13,11 +13,11 @@
 		"g": 0,
 		"b": 0,
 		"a": "(query.is_stunned * 0.6)"
-		  },
-               "arrays": {
+		 },
+        "arrays": {
 
-      
-      
+   
+   
 				"textures": {
 					"Array.skins": [
 						"Texture.default",
@@ -26,7 +26,7 @@
 					]
 				}
 			},
-      "geometry": "Geometry.default",
+   "geometry": "Geometry.default",
 			"materials": [{
 				"*": "Material.default"
 			}],

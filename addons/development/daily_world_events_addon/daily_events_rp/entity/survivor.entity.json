@@ -1,20 +1,20 @@
 {
-  "format_version": "1.10.0",
-  "minecraft:client_entity": { "description": {
-    "identifier": "daily:survivor",
-    "materials": { "default": "entity_alphatest" },
-    "textures": { "default": "textures/entity/alex" },
-    "geometry": { "default": "geometry.humanoid" },
-    "animations": { "base": "animation.humanoid.base_pose", "move": "animation.humanoid.move", "look": "animation.humanoid.look_at_target.default" },
-    "scripts": {
-      "initialize": [
-        "variable.tcos0 = 0.0;"
-      ],
-      "pre_animation": [
-        "variable.tcos0 = (query.modified_move_speed * 38.17);"
-      ],
-      "animate": ["base", "move", "look"]
-    },
-    "render_controllers": ["controller.render.default"]
-  } }
+ "format_version": "1.10.0",
+ "minecraft:client_entity": { "description": {
+  "identifier": "daily:survivor",
+  "materials": { "default": "entity_alphatest" },
+  "textures": { "default": "textures/entity/alex" },
+  "geometry": { "default": "geometry.humanoid" },
+  "animations": { "base": "animation.humanoid.base_pose", "move": "animation.humanoid.move", "look": "animation.humanoid.look_at_target.default" },
+  "scripts": {
+   "initialize": [
+    "variable.tcos0 = 0.0;"
+   ],
+   "pre_animation": [
+    "variable.tcos0 = (query.modified_move_speed * 38.17);"
+   ],
+   "animate": ["base", "move", "look"]
+  },
+  "render_controllers": ["controller.render.default"]
+ } }
 }

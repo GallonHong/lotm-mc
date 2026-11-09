@@ -1,38 +1,38 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:armor_killa_6b13",
-      "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.chestplate"
-      }
-    },
-    "components": {
-      "minecraft:icon": "test_gun_armor_killa_6b13",
-      "minecraft:max_stack_size": 1,
-      "minecraft:display_name": {
-        "value": "§66B13「基拉」突击防弹衣 [传说]§r\n§7被动: 14点护甲，-50%枪械终伤，近身/霰弹吸收+30%，全枪暴击率+20%，冲锋/霰弹伤害+30%；濒死(<40%HP)暴击率额外+20%§r\n§8§o“商场霸主Killa的标志性装甲，正面硬刚的战神象征。”§r"
-      },
-      "minecraft:wearable": {
-        "slot": "slot.armor.chest",
-        "protection": 14
-      },
-      "minecraft:durability": {
-        "max_durability": 1000
-      },
-      "minecraft:repairable": {
-        "repair_items": [
-          {
-            "items": [
-              "test_gun:part_fabric_rag",
-              "test_gun:part_armor_plate",
-              "minecraft:iron_ingot"
-            ],
-            "repair_amount": 333
-          }
-        ]
-      }
-    }
+ "format_version": "1.20.80",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:armor_killa_6b13",
+   "menu_category": {
+    "category": "equipment",
+    "group": "itemGroup.name.chestplate"
+   }
+  },
+  "components": {
+   "minecraft:icon": "test_gun_armor_killa_6b13",
+   "minecraft:max_stack_size": 1,
+   "minecraft:display_name": {
+    "value": "§66B13「基拉」突击防弹衣 [传说]§r\n§7被动: 14点护甲，【100%完全免疫击退】，-18%枪械终伤，+30%爆炸减免，近身/霰弹吸收+10%，全枪暴击率+20%，冲锋/霰弹伤害+30%；濒死(<40%HP)暴击率额外+20%§r\n§8§o“商场霸主Killa的标志性装甲，正面硬刚的战神象征。”§r"
+   },
+   "minecraft:wearable": {
+    "slot": "slot.armor.chest",
+    "protection": 14
+   },
+   "minecraft:durability": {
+    "max_durability": 1000
+   },
+   "minecraft:repairable": {
+    "repair_items": [
+     {
+      "items": [
+       "test_gun:part_fabric_rag",
+       "test_gun:part_armor_plate",
+       "minecraft:iron_ingot"
+      ],
+      "repair_amount": 333
+     }
+    ]
+   }
   }
+ }
 }

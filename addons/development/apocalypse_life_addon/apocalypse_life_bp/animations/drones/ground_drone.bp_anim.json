@@ -1,0 +1,14 @@
+{
+	"format_version": "1.10.0",
+	"animations": {
+		"animation.makercamp_dr.ground_drone.check": {
+			"loop": true,
+			"animation_length": 5.0,
+			"timeline": {
+				"0.0": [
+					"/scriptevent makercamp_dr:ground_drone.check"
+				]
+			}
+		}
+	}
+}

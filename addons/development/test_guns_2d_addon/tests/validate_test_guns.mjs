@@ -11,9 +11,9 @@ function files(directory) { return readdirSync(directory).flatMap(name => { cons
 for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".json"))) assert.doesNotThrow(() => json(path), `invalid JSON: ${path}`);
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [3, 12, 4]);
-assert.deepEqual(rpManifest.header.version, [3, 12, 4]);
-assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 12, 4]);
+assert.deepEqual(bpManifest.header.version, [3, 12, 6]);
+assert.deepEqual(rpManifest.header.version, [3, 12, 6]);
+assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 12, 6]);
 assert.equal(json(join(bp, "items/blueprint_usas12.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_usas12");
 assert(readFileSync(join(bp, "recipes/recipe_usas12.json"), "utf8").includes("test_gun:blueprint_usas12"));
 assert.equal(json(join(bp, "items/blueprint_dbss.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_dbss");
@@ -129,4 +129,27 @@ assert(damageHandlerCode.includes("critRate"), "damageHandler missing critRate")
 assert(damageHandlerCode.includes("critMultiplier"), "damageHandler missing critMultiplier");
 assert(damageHandlerCode.includes("DamageIndicator.markCritical"), "damageHandler missing markCritical hook");
 
-console.log("Test Guns 2D v3.12.4 validation passed.");
+const armorEngineCode = readFileSync(join(bp, "scripts/feature/armorEngine.js"), "utf8");
+assert(armorEngineCode.includes("ARMOR_KNOCKBACK_VALUES"), "armorEngine missing ARMOR_KNOCKBACK_VALUES");
+assert(armorEngineCode.includes("getKnockbackResistance"), "armorEngine missing getKnockbackResistance");
+const goldHeavyArmors = ["armor_mlt_hg2", "armor_killa_6b13", "armor_mob_chest", "armor_titan_chest", "armor_epic_titan_vest"];
+for (const heavyId of goldHeavyArmors) {
+  assert(new RegExp(`${heavyId}:\\s*1\\.0`).test(armorEngineCode), `Gold heavy armor ${heavyId} must have 1.0 (100%) knockback resistance`);
+}
+assert(damageHandlerCode.includes("getKnockbackResistance") && damageHandlerCode.includes("kbResistance"), "damageHandler missing knockback resistance logic");
+assert(readFileSync(join(bp, "scripts/feature/grenadeEngine.js"), "utf8").includes("getKnockbackResistance"), "grenadeEngine missing knockback resistance");
+assert(readFileSync(join(bp, "scripts/feature/rocketEngine.js"), "utf8").includes("getKnockbackResistance"), "rocketEngine missing knockback resistance");
+
+// 枪械类型穿甲、动能保底与爆炸减免验证
+assert(damageHandlerCode.includes("WEAPON_ARCHETYPE_STATS"), "damageHandler missing WEAPON_ARCHETYPE_STATS");
+assert(damageHandlerCode.includes("floorRatio"), "damageHandler missing floorRatio guaranteed damage");
+assert(armorEngineCode.includes("BLAST_REDUCTION_VALUES"), "armorEngine missing BLAST_REDUCTION_VALUES");
+assert(armorEngineCode.includes("getBlastReduction"), "armorEngine missing getBlastReduction");
+for (const scriptFile of ["rocketEngine.js", "grenadeEngine.js", "artilleryEngine.js"]) {
+  const code = readFileSync(join(bp, "scripts/feature", scriptFile), "utf8");
+  assert(code.includes("getBlastReduction"), `${scriptFile} missing getBlastReduction`);
+  assert(code.includes("trueDamage"), `${scriptFile} missing 50% true explosion damage logic`);
+}
+assert(armorEngineCode.includes("bluntTrauma"), "armorEngine missing Boss blunt trauma logic");
+
+console.log("Test Guns 2D v3.12.6 validation passed.");

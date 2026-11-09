@@ -1,0 +1,66 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.crossbow_drone.shoot": {
+			"initial_state": "start",
+			"states": {
+				"start": {
+					"transitions": [
+						{
+							"init": "1.0"
+						}
+					]
+				},
+				"init": {
+					"on_entry": [
+						"@s shot"
+					],
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				},
+
+				"default": {
+					"transitions": [
+						{
+							"prepare": "q.is_charged"
+						},
+						{
+							"shoot": "q.property('makercamp_dr:is_shooting')"
+						}
+					]
+				},
+				"prepare": {
+					"transitions": [
+						{
+							"shoot": "!q.is_charged && q.property('makercamp_dr:shoot')"
+						},
+						{
+							"default": "!q.has_target"
+						}
+					]
+				},
+				"shoot": {
+					"on_entry": [
+						"@s shot",
+						"v.cooldown = q.life_time + 0.63;"
+					],
+					"transitions": [
+						{
+							"refill": "v.cooldown < q.life_time"
+						}
+					]
+				},
+				"refill": {
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

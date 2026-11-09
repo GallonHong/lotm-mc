@@ -1,23 +1,23 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:blueprint_m1014",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": {
-        "value": 64
-      },
-      "minecraft:hand_equipped": {
-        "value": false
-      },
-      "minecraft:icon": "test_gun_blueprint_rare",
-      "minecraft:display_name": {
-        "value": "\u00a79\u4f2f\u5948\u5229 M1014 \u9730\u5f39\u67aa\u84dd\u56fe [\u4f18\u826f]\u00a7r"
-      }
-    }
+ "format_version": "1.20.50",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:blueprint_m1014",
+   "menu_category": {
+    "category": "items"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": {
+    "value": 64
+   },
+   "minecraft:hand_equipped": {
+    "value": false
+   },
+   "minecraft:icon": "test_gun_blueprint_rare",
+   "minecraft:display_name": {
+    "value": "\u00a79\u4f2f\u5948\u5229 M1014 \u9730\u5f39\u67aa\u84dd\u56fe [\u4f18\u826f]\u00a7r"
+   }
   }
+ }
 }

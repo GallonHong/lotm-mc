@@ -1,0 +1,34 @@
+{
+ "format_version": "1.12.0",
+ "minecraft:recipe_shaped": {
+ "description": {
+  "identifier": "ab_dr:craft_chip_t3"
+ },
+ "tags": [
+  "crafting_table"
+ ],
+ "pattern": [
+  "DND",
+  "RCR",
+  "DND"
+ ],
+ "key": {
+  "D": {
+  "item": "minecraft:diamond"
+  },
+  "N": {
+  "item": "minecraft:netherite_scrap"
+  },
+  "R": {
+  "item": "minecraft:redstone_block"
+  },
+  "C": {
+  "item": "ab_dr:chip_t2"
+  }
+ },
+ "result": {
+  "item": "ab_dr:chip_t3",
+  "count": 1
+ }
+ }
+}

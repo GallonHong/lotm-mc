@@ -1,0 +1,48 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.lightning_strike_drone.shoot": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"prepare": "q.is_charged"
+						}
+					]
+				},
+				"prepare": {
+					"transitions": [
+						{
+							"starts": "!q.is_charged"
+						}
+					]
+				},
+				"starts": {
+					"animations": [
+						"energy"
+					],
+					"on_entry": [
+						"@s find_target",
+						"v.cooldown = q.life_time + 0.9;"
+					],
+					"transitions": [
+						{
+							"shoot": "v.cooldown < q.life_time"
+						}
+					]
+				},
+				"shoot": {
+					"on_entry": [
+						"/scriptevent makercamp_dr:lightning_strike_drone.shoot",
+						"/playsound mob.creaking.unfreeze @a ~ ~ ~ 0.7 2"
+					],
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

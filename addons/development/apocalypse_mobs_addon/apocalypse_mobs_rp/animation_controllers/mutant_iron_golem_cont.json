@@ -1,49 +1,49 @@
 {
-   "format_version": "1.10.0",
-   "animation_controllers": {
-  	"controller.animation.miron_golem.flower": {
+  "format_version": "1.10.0",
+  "animation_controllers": {
+ 	"controller.animation.miron_golem.flower": {
 			"states": {
-			   "default": {
+			  "default": {
 				"animations": [
 					"stored_flower"
 				 ],
-				  "transitions": [
+				 "transitions": [
 					 {
 						"offer_flower": "math.random(0, 35300) < 1.0 && !query.is_angry && !query.is_roaring && !query.is_stunned && !query.has_target && !query.is_sitting && !query.is_interested && query.is_alive"
 					 }
-				  ],
-				  "blend_transition": 0.0
-			   },
-			   "offer_flower": {
-				  "animations": [
+				 ],
+				 "blend_transition": 0.0
+			  },
+			  "offer_flower": {
+				 "animations": [
 					 "offer_flower"
-				  ],
-				  "transitions": [
+				 ],
+				 "transitions": [
 					 {
 						"offer_flower_still": "query.all_animations_finished || query.is_angry || query.is_sitting || query.has_target || query.is_roaring || !query.is_alive"
 					 }
-				  ],
-				  "blend_transition": 0.0
-			   },
-			   "offer_flower_still": {
+				 ],
+				 "blend_transition": 0.0
+			  },
+			  "offer_flower_still": {
 				"animations": [
-				   "offer_flower_still"
+				  "offer_flower_still"
 				],
 				"transitions": [
-				   {
-					  "put_away_flower": "math.random(0, 5300) < 1.0 || query.is_angry || query.is_sitting || query.has_target || query.is_roaring || !query.is_alive"
-				   }
+				  {
+					 "put_away_flower": "math.random(0, 5300) < 1.0 || query.is_angry || query.is_sitting || query.has_target || query.is_roaring || !query.is_alive"
+				  }
 				],
 				"blend_transition": 0.0
 			 },
-			   "put_away_flower": {
+			  "put_away_flower": {
 				"animations": [
-				   "put_away_flower"
+				  "put_away_flower"
 				],
 				"transitions": [
-				   {
-					  "default": "query.all_animations_finished"
-				   }
+				  {
+					 "default": "query.all_animations_finished"
+				  }
 				],
 				"blend_transition": 0.0
 			 }
@@ -75,7 +75,7 @@
 							"casting_mode" : "query.is_alive && query.is_casting && query.mark_variant == 5"
 						},
 						{
-							"cannon_mode" : "query.is_alive  && query.mark_variant == 4"
+							"cannon_mode" : "query.is_alive && query.mark_variant == 4"
 						}
 					
 					]
@@ -135,7 +135,7 @@
 							"attack_2" : "query.is_alive && query.is_roaring && query.mark_variant == 2"
 						},
 						{
-							"cannon_mode" : "query.is_alive  && query.mark_variant == 4"
+							"cannon_mode" : "query.is_alive && query.mark_variant == 4"
 						},
 						{
 							"casting_mode" : "query.is_alive && query.is_casting && query.mark_variant == 5"
@@ -161,7 +161,7 @@
 							"attack_3" : "query.is_alive && query.mark_variant == 3"
 						},
 						{
-							"cannon_mode" : "query.is_alive  && query.mark_variant == 4"
+							"cannon_mode" : "query.is_alive && query.mark_variant == 4"
 						},
 						{
 							"casting_mode" : "query.is_alive && query.is_casting && query.mark_variant == 5"
@@ -207,7 +207,7 @@
 							"attack_2" : "query.is_alive && query.is_roaring && query.mark_variant == 2"
 						},
 						{
-							"cannon_mode" : "query.is_alive  && query.mark_variant == 4"
+							"cannon_mode" : "query.is_alive && query.mark_variant == 4"
 						},
 						{
 							"death_cancel": "!query.is_alive"
@@ -323,133 +323,133 @@
 						{
 							"default" : "query.is_alive"
 						}
-					  ],
+					 ],
 					"blend_transition" : 0.4
 				}
 
 			}
 		},
-   
+  
 
-   
+  
 	"controller.animation.miron_golem.walking": {
 		"states": {
-		  "default": {
+		 "default": {
 			"animations": [ 
 				"general",
-			  "look_at_target",
+			 "look_at_target",
 			{ "walk": "math.min(1.0, query.modified_move_speed * 10)" }
-  ],
-  
+ ],
+ 
 			"transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-			  { "run": "query.is_on_ground && query.ground_speed>6.5" },
-			  {
+			 { "run": "query.is_on_ground && query.ground_speed>6.5" },
+			 {
 				"attack_mode" : "query.is_alive && query.is_roaring"
 			},
 			{
 				"casting_mode" : "query.is_alive && query.is_casting"
-			},	  
-			  {
+			},	 
+			 {
 				"sitting": "query.is_sitting && query.is_alive"
-			  }
-		   
+			 }
+		  
 			],
 			"blend_transition": 0.2
-		  },
-		  
-				  
-		  "run": {
+		 },
+		 
+				 
+		 "run": {
 			"animations": [ 
 				"general",
-			  "look_at_target",
-			  { "run": "math.min(1.0, query.modified_move_speed * 10)" }
-  ],
+			 "look_at_target",
+			 { "run": "math.min(1.0, query.modified_move_speed * 10)" }
+ ],
 			"transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-			  { "default": "!query.is_on_ground || query.ground_speed<5" },
-			  {
+			 { "default": "!query.is_on_ground || query.ground_speed<5" },
+			 {
 				"attack_mode" : "query.is_alive && query.is_roaring"
 			},
-			  {
+			 {
 				"sitting": "query.is_sitting && query.is_alive"
-			  }
-		   
+			 }
+		  
 			],
 			"blend_transition": 0.2
-		  },
-	     "attack_mode": {
+		 },
+	   "attack_mode": {
 			"animations": [ 
 				"general"
-  ],
+ ],
 			"transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-			  {
+			 {
 				"default" : "!query.is_roaring || !query.is_alive"
 			}
-		   
+		  
 			],
 			"blend_transition": 0.2
-		  },
-		  "casting_mode": {
+		 },
+		 "casting_mode": {
 			
 			"transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-			  {
+			 {
 				"default" : "!query.is_casting || !query.is_alive"
 			}
-		   
+		  
 			],
 			"blend_transition": 0.2
-		  },
-		  "sitting": {
+		 },
+		 "sitting": {
 			"animations": [
 			
-			   "sit"
-			  
-		   
+			  "sit"
+			 
+		  
 			],
 			
 			"transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-			  {
+			 {
 				"default": "!query.is_sitting || !query.is_alive"
-			  }
+			 }
 			],
 			"blend_transition": 0.3
-		  },
-		  "stunned": {
+		 },
+		 "stunned": {
 		
 			
 			"transitions": [
-			  {
+			 {
 				"default": "!query.is_stunned"
-			  }
+			 }
 			],
 			"blend_transition": 0.3
-		  }
+		 }
 		}
-	  },
-	  "controller.animation.miron_golem.walking_arms": {
-		  "states": {
+	 },
+	 "controller.animation.miron_golem.walking_arms": {
+		 "states": {
 			"default": {
-			  "animations": [ 
+			 "animations": [ 
 				
-		  
-			  { "walk_arms": "math.min(1.0, query.modified_move_speed * 10)" }
+		 
+			 { "walk_arms": "math.min(1.0, query.modified_move_speed * 10)" }
 	],
 	
-			  "transitions": [
+			 "transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
@@ -461,22 +461,22 @@
 					"casting_mode" : "query.is_alive && query.is_casting"
 				},
 				{
-				  "cannon_mode" : "query.is_alive  && query.mark_variant == 4"
-			  },	  
+				 "cannon_mode" : "query.is_alive && query.mark_variant == 4"
+			 },	 
 				{
-				  "sitting": "query.is_sitting && query.is_alive"
+				 "sitting": "query.is_sitting && query.is_alive"
 				}
 			 
-			  ],
-			  "blend_transition": 0.2
+			 ],
+			 "blend_transition": 0.2
 			},
 			
 					
 			"run": {
-			  "animations": [ 
+			 "animations": [ 
 				{ "run_arms": "math.min(1.0, query.modified_move_speed * 10)" }
 	],
-			  "transitions": [
+			 "transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
@@ -488,140 +488,140 @@
 					"casting_mode" : "query.is_alive && query.is_casting"
 				},
 				{
-				  "cannon_mode" : "query.is_alive  && query.mark_variant == 4"
-			  },
+				 "cannon_mode" : "query.is_alive && query.mark_variant == 4"
+			 },
 				{
-				  "sitting": "query.is_sitting && query.is_alive"
+				 "sitting": "query.is_sitting && query.is_alive"
 				}
 			 
-			  ],
-			  "blend_transition": 0.2
+			 ],
+			 "blend_transition": 0.2
 			},
 			"cannon_mode": {
-			  "animations": [      
-				  "general_cannon"
+			 "animations": [   
+				 "general_cannon"
 				],
-			  "transitions": [
+			 "transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-				  {
-					  "default" : "query.mark_variant != 4 || !query.is_alive"
-				  }
-			  ],
-			  "blend_transition" : 0.2
-		  },
-		  "attack_mode": {
+				 {
+					 "default" : "query.mark_variant != 4 || !query.is_alive"
+				 }
+			 ],
+			 "blend_transition" : 0.2
+		 },
+		 "attack_mode": {
 			"transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-			  {
+			 {
 				"default" : "!query.is_roaring || !query.is_alive"
 			}
-		   
+		  
 			],
 			"blend_transition": 0.2
-		  },
-		  "casting_mode": {
+		 },
+		 "casting_mode": {
 			"transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
-			  {
+			 {
 				"default" : "!query.is_casting || !query.is_alive"
 			}
-		   
+		  
 			],
 			"blend_transition": 0.2
-		  },
+		 },
 			"sitting": {
-		  
-			  
-			  "transitions": [
+		 
+			 
+			 "transitions": [
 				{
 					"stunned": "query.is_stunned"
 				},
 				{
-				  "default": "!query.is_sitting || !query.is_alive"
+				 "default": "!query.is_sitting || !query.is_alive"
 				}
-			  ],
-			  "blend_transition": 0.3
+			 ],
+			 "blend_transition": 0.3
 			},
 			"stunned": {
-		  
-			  
-			  "transitions": [
+		 
+			 
+			 "transitions": [
 				{
-				  "default": "!query.is_stunned"
+				 "default": "!query.is_stunned"
 				}
-			  ],
-			  "blend_transition": 0.3
+			 ],
+			 "blend_transition": 0.3
 			}
-		  }
+		 }
 		},
 		"controller.animation.miron_golem.walking_particles": {
 			"states": {
-			  "default": {
+			 "default": {
 				"animations": [ 
 				
 				{ "walk_steps": "math.min(1.0, query.modified_move_speed * 10)" }
-	  ],
-	  
+	 ],
+	 
 				"transitions": [
-				  { "run": "query.is_on_ground && query.ground_speed>6.5" },
-				  { "still": "query.is_on_ground && query.ground_speed<0.15" },
-				  {
+				 { "run": "query.is_on_ground && query.ground_speed>6.5" },
+				 { "still": "query.is_on_ground && query.ground_speed<0.15" },
+				 {
 					"sitting": "query.is_sitting && query.is_alive"
-				  }
-			   
+				 }
+			  
 				],
 				"blend_transition": 0.2
-			  },
-			  
-			  "still": {
-				  
+			 },
+			 
+			 "still": {
+				 
 		
-				  "transitions": [
-					  { "default": "query.is_on_ground && query.ground_speed>0.05" },
+				 "transitions": [
+					 { "default": "query.is_on_ground && query.ground_speed>0.05" },
 					{
-					  "sitting": "query.is_sitting && query.is_alive"
+					 "sitting": "query.is_sitting && query.is_alive"
 					}
 				 
-				  ],
-				  "blend_transition": 0.2
+				 ],
+				 "blend_transition": 0.2
 				},		
-			  "run": {
+			 "run": {
 				"animations": [ 
-				  { "run_steps": "math.min(1.0, query.modified_move_speed * 10)" }
-	  ],
+				 { "run_steps": "math.min(1.0, query.modified_move_speed * 10)" }
+	 ],
 				"transitions": [
-				  { "default": "!query.is_on_ground || query.ground_speed<5" },
-				  {
+				 { "default": "!query.is_on_ground || query.ground_speed<5" },
+				 {
 					"sitting": "query.is_sitting && query.is_alive"
-				  }
-			   
+				 }
+			  
 				],
 				"blend_transition": 0.2
-			  },
-		   
-			  "sitting": {
+			 },
+		  
+			 "sitting": {
 			
 				
 				"transitions": [
-				  {
+				 {
 					"default": "!query.is_sitting || !query.is_alive"
-				  }
+				 }
 				],
 				"blend_transition": 0.3
-			  }
+			 }
 			}
-		  },
-		  "controller.animation.miron_golem.damage": {
+		 },
+		 "controller.animation.miron_golem.damage": {
 			"states": {
-			   "default": {
+			  "default": {
 			
-				  "transitions": [
+				 "transitions": [
 					 {
 						"teir_1_recoil": "query.health <= 1049 && query.skin_id == 0 && query.is_alive && !query.is_stunned"
 					 },
@@ -637,42 +637,42 @@
 					 {
 						"teir_5_recoil": "query.health <= 2999 && query.skin_id == 4 && query.is_alive && !query.is_stunned"
 					 }
-				  ],
-				  "blend_transition": 0.0
-			   },
-			   "teir_1_recoil": {
+				 ],
+				 "blend_transition": 0.0
+			  },
+			  "teir_1_recoil": {
 				"sound_effects" : [
 					{
 						"effect" : "crack"
 					}
 				],
-				  "animations": [
+				 "animations": [
 					 "recoil"
-				  ],
-				  "transitions": [
+				 ],
+				 "transitions": [
 					{
 						"default": "query.skin_id != 0 || query.skin_id == 0 && query.health > 1050|| !query.is_alive || query.health <= 1349 && query.skin_id == 1"
 					 },
 					 {
 						"teir_1_recoil_2": "query.health <= 699 && query.skin_id == 0 && query.is_alive && !query.is_stunned"
 					 }
-				  ],
-				  "blend_transition": 0.0
-			   },
-			   "teir_1_recoil_2": {
+				 ],
+				 "blend_transition": 0.0
+			  },
+			  "teir_1_recoil_2": {
 				"sound_effects" : [
 					{
 						"effect" : "crack"
 					}
 				],
 				"animations": [
-				   "recoil"
+				  "recoil"
 				],
 				"transitions": [
-				   {
-					  "default": "query.skin_id != 0 || query.skin_id == 0 && query.health > 1050|| !query.is_alive || query.health <= 1349 && query.skin_id == 1"
-				   },
-				   {
+				  {
+					 "default": "query.skin_id != 0 || query.skin_id == 0 && query.health > 1050|| !query.is_alive || query.health <= 1349 && query.skin_id == 1"
+				  },
+				  {
 					"teir_1_recoil_3": "query.health <= 349 && query.skin_id == 0 && query.is_alive && !query.is_stunned"
 				 }
 				],
@@ -691,7 +691,7 @@
 					}
 				],
 				"animations": [
-				   "recoil"
+				  "recoil"
 				],
 				"transitions": [
 					{
@@ -701,98 +701,98 @@
 				"blend_transition": 0.0
 			 },
 			 "teir_2_recoil": {
-			  "sound_effects" : [
-				  {
-					  "effect" : "crack"
-				  }
-			  ],
+			 "sound_effects" : [
+				 {
+					 "effect" : "crack"
+				 }
+			 ],
 				"animations": [
-				   "recoil"
+				  "recoil"
 				],
 				"transitions": [
+				 {
+					 "default": "query.skin_id != 1 || query.skin_id == 1 && query.health > 1350|| !query.is_alive || query.skin_id == 2"
+				  },
 				  {
-					  "default": "query.skin_id != 1 || query.skin_id == 1 && query.health > 1350|| !query.is_alive || query.skin_id == 2"
-				   },
-				   {
-					  "teir_2_recoil_2": "query.health <= 899 && query.skin_id == 1 && query.is_alive && !query.is_stunned"
-				   }
+					 "teir_2_recoil_2": "query.health <= 899 && query.skin_id == 1 && query.is_alive && !query.is_stunned"
+				  }
 				],
 				"blend_transition": 0.0
 			 },
 			 "teir_2_recoil_2": {
-			  "sound_effects" : [
-				  {
-					  "effect" : "crack"
-				  }
-			  ],
-			  "animations": [
+			 "sound_effects" : [
+				 {
+					 "effect" : "crack"
+				 }
+			 ],
+			 "animations": [
 				 "recoil"
-			  ],
-			  "transitions": [
+			 ],
+			 "transitions": [
 				 {
 					"default": "query.skin_id != 1 || query.skin_id == 1 && query.health > 1350|| !query.is_alive || query.skin_id == 2"
 				 },
 				 {
-				  "teir_2_recoil_3": "query.health <= 449 && query.skin_id == 1 && query.is_alive && !query.is_stunned"
-			   }
-			  ],
-			  "blend_transition": 0.0
-		   },
-		   "teir_2_recoil_3": {
-			  "particle_effects" : [
-				  {
-					  "effect" : "chemical_smoke"
-					  
-				  }
-			  ],
-			  "sound_effects" : [
-				  {
-					  "effect" : "crack"
-				  }
-			  ],
-			  "animations": [
+				 "teir_2_recoil_3": "query.health <= 449 && query.skin_id == 1 && query.is_alive && !query.is_stunned"
+			  }
+			 ],
+			 "blend_transition": 0.0
+		  },
+		  "teir_2_recoil_3": {
+			 "particle_effects" : [
+				 {
+					 "effect" : "chemical_smoke"
+					 
+				 }
+			 ],
+			 "sound_effects" : [
+				 {
+					 "effect" : "crack"
+				 }
+			 ],
+			 "animations": [
 				 "recoil"
-			  ],
-			  "transitions": [
-				  {
-					  "default": "query.skin_id != 1 || query.skin_id == 1 && query.health > 1350 || !query.is_alive || query.skin_id == 2"
-				   }
-			  ],
-			  "blend_transition": 0.0
-		   },
-		   "teir_3_recoil": {
+			 ],
+			 "transitions": [
+				 {
+					 "default": "query.skin_id != 1 || query.skin_id == 1 && query.health > 1350 || !query.is_alive || query.skin_id == 2"
+				  }
+			 ],
+			 "blend_transition": 0.0
+		  },
+		  "teir_3_recoil": {
 			"sound_effects" : [
 				{
 					"effect" : "crack"
 				}
 			],
-			  "animations": [
+			 "animations": [
 				 "recoil"
-			  ],
-			  "transitions": [
+			 ],
+			 "transitions": [
 				{
 					"default": "query.skin_id != 2 || query.skin_id == 2 && query.health > 1875|| !query.is_alive || query.skin_id == 3"
 				 },
 				 {
 					"teir_3_recoil_2": "query.health <= 1249 && query.skin_id == 2 && query.is_alive && !query.is_stunned"
 				 }
-			  ],
-			  "blend_transition": 0.0
-		   },
-		   "teir_3_recoil_2": {
+			 ],
+			 "blend_transition": 0.0
+		  },
+		  "teir_3_recoil_2": {
 			"sound_effects" : [
 				{
 					"effect" : "crack"
 				}
 			],
 			"animations": [
-			   "recoil"
+			  "recoil"
 			],
 			"transitions": [
-			   {
-				  "default": "query.skin_id != 2 || query.skin_id == 2 && query.health > 1875|| !query.is_alive || query.skin_id == 3"
-			   },
-			   {
+			  {
+				 "default": "query.skin_id != 2 || query.skin_id == 2 && query.health > 1875|| !query.is_alive || query.skin_id == 3"
+			  },
+			  {
 				"teir_3_recoil_3": "query.health <= 624 && query.skin_id == 2 && query.is_alive && !query.is_stunned"
 			 }
 			],
@@ -811,7 +811,7 @@
 				}
 			],
 			"animations": [
-			   "recoil"
+			  "recoil"
 			],
 			"transitions": [
 				{
@@ -821,98 +821,98 @@
 			"blend_transition": 0.0
 		 },
 		 "teir_4_recoil": {
-		  "sound_effects" : [
-			  {
-				  "effect" : "crack"
-			  }
-		  ],
+		 "sound_effects" : [
+			 {
+				 "effect" : "crack"
+			 }
+		 ],
 			"animations": [
-			   "recoil"
+			  "recoil"
 			],
 			"transitions": [
+			 {
+				 "default": "query.skin_id != 3 || query.skin_id == 3 && query.health > 2250|| !query.is_alive || query.skin_id == 4"
+			  },
 			  {
-				  "default": "query.skin_id != 3 || query.skin_id == 3 && query.health > 2250|| !query.is_alive || query.skin_id == 4"
-			   },
-			   {
-				  "teir_4_recoil_2": "query.health <= 1499 && query.skin_id == 3 && query.is_alive && !query.is_stunned"
-			   }
+				 "teir_4_recoil_2": "query.health <= 1499 && query.skin_id == 3 && query.is_alive && !query.is_stunned"
+			  }
 			],
 			"blend_transition": 0.0
 		 },
 		 "teir_4_recoil_2": {
-		  "sound_effects" : [
-			  {
-				  "effect" : "crack"
-			  }
-		  ],
-		  "animations": [
+		 "sound_effects" : [
+			 {
+				 "effect" : "crack"
+			 }
+		 ],
+		 "animations": [
 			 "recoil"
-		  ],
-		  "transitions": [
+		 ],
+		 "transitions": [
 			 {
 				"default": "query.skin_id != 3 || query.skin_id == 3 && query.health > 2250|| !query.is_alive || query.skin_id == 4"
 			 },
 			 {
-			  "teir_4_recoil_3": "query.health <= 749 && query.skin_id == 3 && query.is_alive && !query.is_stunned"
-		   }
-		  ],
-		  "blend_transition": 0.0
-	   },
-	   "teir_4_recoil_3": {
-		  "particle_effects" : [
-			  {
-				  "effect" : "chemical_smoke"
-				  
-			  }
-		  ],
-		  "sound_effects" : [
-			  {
-				  "effect" : "crack"
-			  }
-		  ],
-		  "animations": [
+			 "teir_4_recoil_3": "query.health <= 749 && query.skin_id == 3 && query.is_alive && !query.is_stunned"
+		  }
+		 ],
+		 "blend_transition": 0.0
+	  },
+	  "teir_4_recoil_3": {
+		 "particle_effects" : [
+			 {
+				 "effect" : "chemical_smoke"
+				 
+			 }
+		 ],
+		 "sound_effects" : [
+			 {
+				 "effect" : "crack"
+			 }
+		 ],
+		 "animations": [
 			 "recoil"
-		  ],
-		  "transitions": [
-			  {
-				  "default": "query.skin_id != 3 || query.skin_id == 3 && query.health > 2250 || !query.is_alive || query.skin_id == 4"
-			   }
-		  ],
-		  "blend_transition": 0.0
-	   },
-	   "teir_5_recoil": {
+		 ],
+		 "transitions": [
+			 {
+				 "default": "query.skin_id != 3 || query.skin_id == 3 && query.health > 2250 || !query.is_alive || query.skin_id == 4"
+			  }
+		 ],
+		 "blend_transition": 0.0
+	  },
+	  "teir_5_recoil": {
 		"sound_effects" : [
 			{
 				"effect" : "crack"
 			}
 		],
-		  "animations": [
+		 "animations": [
 			 "recoil"
-		  ],
-		  "transitions": [
+		 ],
+		 "transitions": [
 			{
 				"default": "query.skin_id != 4 || query.skin_id == 4 && query.health > 3000|| !query.is_alive"
 			 },
 			 {
 				"teir_5_recoil_2": "query.health <= 2999 && query.skin_id == 4 && query.is_alive && !query.is_stunned"
 			 }
-		  ],
-		  "blend_transition": 0.0
-	   },
-	   "teir_5_recoil_2": {
+		 ],
+		 "blend_transition": 0.0
+	  },
+	  "teir_5_recoil_2": {
 		"sound_effects" : [
 			{
 				"effect" : "crack"
 			}
 		],
 		"animations": [
-		   "recoil"
+		  "recoil"
 		],
 		"transitions": [
-		   {
-			  "default": "query.skin_id != 4 || query.skin_id == 4 && query.health > 3000|| !query.is_alive"
-		   },
-		   {
+		  {
+			 "default": "query.skin_id != 4 || query.skin_id == 4 && query.health > 3000|| !query.is_alive"
+		  },
+		  {
 			"teir_5_recoil_3": "query.health <= 999 && query.skin_id == 4 && query.is_alive && !query.is_stunned"
 		 }
 		],
@@ -931,7 +931,7 @@
 			}
 		],
 		"animations": [
-		   "recoil"
+		  "recoil"
 		],
 		"transitions": [
 			{
@@ -942,5 +942,5 @@
 	 }
 			}
 		 }
-  }
+ }
 }

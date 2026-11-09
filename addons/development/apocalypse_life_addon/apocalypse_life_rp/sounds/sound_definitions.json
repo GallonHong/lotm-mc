@@ -209,7 +209,7 @@
       "sounds": [
         {
           "name": "sounds/asiagobagels/vehicles/racing_car_idle",
-          "volume": 0.20,
+          "volume": 0.2,
           "pitch": 1
         }
       ]
@@ -1060,6 +1060,395 @@
       ],
       "min_distance": 8,
       "max_distance": 32
+    },
+    "makercamp_dr.drone.hurt": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/hurt",
+          "volume": 0.8,
+          "pitch": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/hurt",
+          "volume": 0.8,
+          "pitch": 1.05
+        },
+        {
+          "name": "sounds/makercamp/dr/hurt",
+          "volume": 0.8,
+          "pitch": 0.95
+        }
+      ]
+    },
+    "makercamp_dr.drone.death": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/death",
+          "volume": 0.8
+        }
+      ]
+    },
+    "makercamp_dr.drone.chest_open": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/random/chestopen",
+          "volume": 0.7,
+          "pitch": 1
+        }
+      ]
+    },
+    "makercamp_dr.drone.chest_close": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/random/chestclosed",
+          "volume": 0.7,
+          "pitch": 1
+        }
+      ]
+    },
+    "makercamp_dr.drone.fertiliser": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/fertiliser",
+          "volume": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/fertiliser2",
+          "volume": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/fertiliser3",
+          "volume": 1
+        }
+      ]
+    },
+    "makercamp_dr.drone.ice": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/ice_start",
+          "volume": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/ice_start2",
+          "volume": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/ice_start3",
+          "volume": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/ice_start4",
+          "volume": 1
+        }
+      ]
+    },
+    "makercamp_dr.drone.ground_drone.idle": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/ground_drone_idle",
+          "volume": 0.2
+        },
+        {
+          "name": "sounds/makercamp/dr/ground_drone_idle2",
+          "volume": 0.2
+        },
+        {
+          "name": "sounds/makercamp/dr/ground_drone_idle3",
+          "volume": 0.2
+        },
+        {
+          "name": "sounds/makercamp/dr/ground_drone_idle4",
+          "volume": 0.2
+        }
+      ]
+    },
+    "makercamp_dr.drone.ground_drone.attack": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/makercamp/dr/ground_drone_idle2",
+          "volume": 0.3,
+          "pitch": 1.4
+        },
+        {
+          "name": "sounds/makercamp/dr/ground_drone_idle3",
+          "volume": 0.3,
+          "pitch": 1.4
+        },
+        {
+          "name": "sounds/makercamp/dr/ground_drone_idle4",
+          "volume": 0.3,
+          "pitch": 1.4
+        }
+      ]
+    },
+    "makercamp_dr.drone.ground_drone.walk": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/ground_drone_walk",
+          "volume": 0.6
+        }
+      ]
+    },
+    "makercamp_dr.drone.healing": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/healing",
+          "volume": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/healing2",
+          "volume": 1
+        },
+        {
+          "name": "sounds/makercamp/dr/healing3",
+          "volume": 1
+        }
+      ]
+    },
+    "makercamp_dr.drone.mob_transporter": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/mob_transporter",
+          "volume": 0.5
+        }
+      ]
+    },
+    "makercamp_dr.drone.night_vision": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/night_vision",
+          "is3D": false,
+          "volume": 1
+        }
+      ]
+    },
+    "makercamp_dr.drone.poison_impact": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/poison_impact",
+          "volume": 0.5
+        }
+      ]
+    },
+    "makercamp_dr.drone.summon": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/summon",
+          "volume": 0.8
+        }
+      ]
+    },
+    "makercamp_dr.drone.active_start": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/active_start"
+        }
+      ]
+    },
+    "makercamp_dr.drone.passive_start": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/passive_start"
+        }
+      ]
+    },
+    "makercamp_dr.drone.standby_start": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/standby_start"
+        }
+      ]
+    },
+    "makercamp_dr.drone.passive.fly": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/passive_fly",
+          "pitch": 1,
+          "volume": 1,
+          "is3D": true,
+          "stream": false
+        },
+        {
+          "name": "sounds/makercamp/dr/passive_fly2",
+          "pitch": 1,
+          "volume": 1,
+          "is3D": true,
+          "stream": false
+        },
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/passive_fly",
+          "pitch": 1.05,
+          "volume": 1,
+          "is3D": true,
+          "stream": false
+        },
+        {
+          "name": "sounds/makercamp/dr/passive_fly2",
+          "pitch": 1.05,
+          "volume": 1,
+          "is3D": true,
+          "stream": false
+        }
+      ]
+    },
+    "makercamp_dr.drone.active.fly": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/active_fly",
+          "pitch": 1,
+          "volume": 0.6,
+          "is3D": true,
+          "stream": false
+        },
+        {
+          "name": "sounds/makercamp/dr/active_fly2",
+          "pitch": 1,
+          "volume": 0.6,
+          "is3D": true,
+          "stream": false
+        },
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/active_fly",
+          "pitch": 1.05,
+          "volume": 0.6,
+          "is3D": true,
+          "stream": false
+        },
+        {
+          "name": "sounds/makercamp/dr/active_fly2",
+          "pitch": 1.05,
+          "volume": 0.6,
+          "is3D": true,
+          "stream": false
+        }
+      ]
+    },
+    "makercamp_dr.drone.laser_beam": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/laser_beam",
+          "is3D": true,
+          "stream": false,
+          "volume": 0.6
+        }
+      ]
+    },
+    "makercamp_dr.drone.laser_beam.controlled": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/laser_beam",
+          "is3D": false,
+          "stream": false,
+          "volume": 0.5
+        }
+      ]
+    },
+    "makercamp_dr.drone.freeze_beam": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/freeze_beam",
+          "is3D": true,
+          "stream": false,
+          "volume": 0.5
+        }
+      ]
+    },
+    "makercamp_dr.drone.freeze_beam.controlled": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "load_on_low_memory": true,
+          "name": "sounds/makercamp/dr/freeze_beam",
+          "is3D": false,
+          "stream": false,
+          "volume": 0.4
+        }
+      ]
+    },
+    "makercamp_dr.drone.shoot": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/makercamp/dr/bullet_shoot",
+          "pitch": 1.0,
+          "volume": 0.8,
+          "is3D": true
+        },
+        {
+          "name": "sounds/makercamp/dr/bullet_shoot",
+          "pitch": 1.1,
+          "volume": 0.8,
+          "is3D": true
+        },
+        {
+          "name": "sounds/makercamp/dr/bullet_shoot",
+          "pitch": 0.95,
+          "volume": 0.8,
+          "is3D": true
+        }
+      ]
+    },
+    "makercamp_dr.drone.heavy_shoot": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/makercamp/dr/heavy_shoot",
+          "pitch": 1.0,
+          "volume": 0.85,
+          "is3D": true
+        },
+        {
+          "name": "sounds/makercamp/dr/heavy_shoot",
+          "pitch": 1.05,
+          "volume": 0.85,
+          "is3D": true
+        }
+      ]
     }
   }
 }

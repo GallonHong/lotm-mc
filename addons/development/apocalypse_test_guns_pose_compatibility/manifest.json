@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Apocalypse + Test Guns Pose Compatibility",
+    "description": "Player bridge for Test Guns 3.12.6. Enable only with both packs; place above both. Offline-tested, not game-tested.",
+    "uuid": "f9cfc46a-da35-445c-adfa-dbf345d7499a",
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "36a78ab6-3153-41d0-b39d-44613cb90542",
+      "version": [
+        1,
+        0,
+        1
+      ]
+    }
+  ]
+}

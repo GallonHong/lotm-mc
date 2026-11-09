@@ -1,0 +1,146 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.makercamp_dr.mining_drone_controlled",
+				"texture_width": 128,
+				"texture_height": 128,
+				"visible_bounds_width": 5,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 1.55, 0],
+					"locators": {
+						"locator": [0, 1.05, -3.5]
+					}
+				},
+				{
+					"name": "inventory",
+					"parent": "root",
+					"pivot": [0, 5.55, -0.5]
+				},
+				{
+					"name": "emissive_material2",
+					"parent": "inventory",
+					"pivot": [0, 5.55, -0.5]
+				},
+				{
+					"name": "laser",
+					"parent": "root",
+					"pivot": [0, 3.55, 0.5]
+				},
+				{
+					"name": "beam",
+					"parent": "laser",
+					"pivot": [0, 2.05, -6]
+				},
+				{
+					"name": "emissive_material",
+					"parent": "beam",
+					"pivot": [0, 2.05, -6]
+				},
+				{
+					"name": "beam_animate",
+					"parent": "beam",
+					"pivot": [0, 2.05, -2]
+				},
+				{
+					"name": "blend_bright_material",
+					"parent": "beam_animate",
+					"pivot": [-0.5, 2.05, -1],
+					"cubes": [
+						{"origin": [-1.5, 1.05, -38], "size": [3, 3, 38], "pivot": [-0.5, 2.05, -1], "rotation": [0, 0, 45], "uv": [13, 82]}
+					]
+				},
+				{
+					"name": "p4",
+					"parent": "root",
+					"pivot": [7.4832, 7.05, 7.38198]
+				},
+				{
+					"name": "part_trials3",
+					"parent": "p4",
+					"pivot": [7.62462, 7.05, 7.38198]
+				},
+				{
+					"name": "p8",
+					"parent": "root",
+					"pivot": [7.4832, 6.8, 7.38198],
+					"rotation": [0, -90, 0]
+				},
+				{
+					"name": "part_trials4",
+					"parent": "p8",
+					"pivot": [7.62462, 6.8, 7.38198]
+				},
+				{
+					"name": "p3",
+					"parent": "root",
+					"pivot": [-7.4832, 7.05, -7.38198]
+				},
+				{
+					"name": "part_trials8",
+					"parent": "p3",
+					"pivot": [-7.62462, 7.05, -7.38198]
+				},
+				{
+					"name": "p6",
+					"parent": "root",
+					"pivot": [-7.4832, 6.8, -7.38198],
+					"rotation": [0, -90, 0]
+				},
+				{
+					"name": "part_trials7",
+					"parent": "p6",
+					"pivot": [-7.62462, 6.8, -7.38198]
+				},
+				{
+					"name": "p2",
+					"parent": "root",
+					"pivot": [7.4832, 7.05, -7.38198]
+				},
+				{
+					"name": "part_trials2",
+					"parent": "p2",
+					"pivot": [7.62462, 7.05, -7.38198]
+				},
+				{
+					"name": "p7",
+					"parent": "root",
+					"pivot": [7.4832, 6.8, -7.38198],
+					"rotation": [0, -92.5, 0]
+				},
+				{
+					"name": "part_trials",
+					"parent": "p7",
+					"pivot": [7.62462, 6.8, -7.38198]
+				},
+				{
+					"name": "p1",
+					"parent": "root",
+					"pivot": [-7.4832, 7.05, 7.38198]
+				},
+				{
+					"name": "part_trials5",
+					"parent": "p1",
+					"pivot": [-7.62462, 7.05, 7.38198]
+				},
+				{
+					"name": "p5",
+					"parent": "root",
+					"pivot": [-7.4832, 6.8, 7.38198],
+					"rotation": [0, -90, 0]
+				},
+				{
+					"name": "part_trials6",
+					"parent": "p5",
+					"pivot": [-7.62462, 6.8, 7.38198]
+				}
+			]
+		}
+	]
+}

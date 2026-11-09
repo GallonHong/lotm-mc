@@ -1,37 +1,37 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:armor_assault_vest",
-      "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.chestplate"
-      }
-    },
-    "components": {
-      "minecraft:icon": "test_gun_armor_assault_vest",
-      "minecraft:max_stack_size": 1,
-      "minecraft:display_name": {
-        "value": "重型突击插板防弹衣"
-      },
-      "minecraft:wearable": {
-        "slot": "slot.armor.chest",
-        "protection": 7
-      },
-      "minecraft:durability": {
-        "max_durability": 600
-      },
-      "minecraft:repairable": {
-        "repair_items": [
-          {
-            "items": [
-              "test_gun:part_fabric_rag",
-              "minecraft:leather"
-            ],
-            "repair_amount": 240
-          }
-        ]
-      }
-    }
+ "format_version": "1.20.80",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:armor_assault_vest",
+   "menu_category": {
+    "category": "equipment",
+    "group": "itemGroup.name.chestplate"
+   }
+  },
+  "components": {
+   "minecraft:icon": "test_gun_armor_assault_vest",
+   "minecraft:max_stack_size": 1,
+   "minecraft:display_name": {
+    "value": "§5重型突击插板防弹衣 [史诗]§r\n§7被动: 9点高额护甲，【抗击退 +65%】，-12%枪械终伤，+25%爆炸减免§r\n§8§o“厚重的防弹钢板与凯夫拉夹层，提供出色的正面防卫。”§r"
+   },
+   "minecraft:wearable": {
+    "slot": "slot.armor.chest",
+    "protection": 7
+   },
+   "minecraft:durability": {
+    "max_durability": 600
+   },
+   "minecraft:repairable": {
+    "repair_items": [
+     {
+      "items": [
+       "test_gun:part_fabric_rag",
+       "minecraft:leather"
+      ],
+      "repair_amount": 240
+     }
+    ]
+   }
   }
+ }
 }

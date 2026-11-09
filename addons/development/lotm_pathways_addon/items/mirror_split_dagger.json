@@ -1,22 +1,22 @@
 {
-  "format_version": "1.20.30",
-  "minecraft:item": {
-    "description": {
-      "identifier": "lotm:mirror_split_dagger",
-      "menu_category": {
-        "category": "equipment"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": 1,
-      "minecraft:hand_equipped": true,
-      "minecraft:icon": {
-        "texture": "lotm_mirror_split_dagger"
-      },
-      "minecraft:display_name": {
-        "value": "§l§d【3级封印物】§5镜面裂魂短匕"
-      },
-      "minecraft:glint": true
-    }
+ "format_version": "1.20.30",
+ "minecraft:item": {
+  "description": {
+   "identifier": "lotm:mirror_split_dagger",
+   "menu_category": {
+    "category": "equipment"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": 1,
+   "minecraft:hand_equipped": true,
+   "minecraft:icon": {
+    "texture": "lotm_mirror_split_dagger"
+   },
+   "minecraft:display_name": {
+    "value": "§l§d【3级封印物】§5镜面裂魂短匕"
+   },
+   "minecraft:glint": true
   }
+ }
 }

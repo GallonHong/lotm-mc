@@ -1,0 +1,47 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:night_vision_drone",
+			"materials": {
+				"default": "entity_alphatest",
+				"blend": "entity_alphablend",
+				"customblend": "makercamp_dr_customblend",
+				"emissive": "entity_emissive_alpha",
+				"night_vision_effect": "makercamp_dr_night_vision_effect"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/night_vision_drone",
+				"night_vision_effect": "textures/makercamp/dr/entity/night_vision_effect"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.night_vision_drone",
+				"controlled": "geometry.makercamp_dr.empty",
+				"night_vision_effect": "geometry.makercamp_dr.night_vision_effect"
+			},
+			"animations": {
+				"ac.fly": "controller.animation.makercamp_dr.drone.fly",
+
+				"idle": "animation.makercamp_dr.night_vision_drone.idle",
+				"fly": "animation.makercamp_dr.night_vision_drone.fly",
+
+				"night_vision_effect": "animation.makercamp_dr.night_vision_effect"
+			},
+			"scripts": {
+				"should_update_bones_and_effects_offscreen": true,
+				"pre_animation": [
+					"v.is_controlled_by_player = q.property('makercamp_dr:controlled_by_player');"
+				],
+				"animate": ["ac.fly", "night_vision_effect"]
+			},
+			"spawn_egg": {
+				"texture": "makercamp_dr:night_vision_drone"
+			},
+			"render_controllers": [
+				"controller.render.markercamp_dr.drone.night_vision_effect",
+				"controller.render.markercamp_dr.drone.common",
+				"controller.render.makercamp_dr.drone.blend_bright"
+			]
+		}
+	}
+}

@@ -1,75 +1,75 @@
 {
-   "format_version": "1.10.0",
-   "animation_controllers": {
+  "format_version": "1.10.0",
+  "animation_controllers": {
 	"controller.animation.mskeleton.death": {
 		"initial_state" : "default",
 		"states": {
-		  "default": {
+		 "default": {
 
-  
+ 
 			"transitions": [
 			
-			  {
+			 {
 				"death": "!query.is_alive"
-			  }
-		   
+			 }
+		  
 			],
 			"blend_transition": 0.0
-		  },
+		 },
 		"death": {
-		  "animations" : [
+		 "animations" : [
 			"death",
 			"death_cancel"
-		  
-		  ],
-		  
-		  "transitions": [
+		 
+		 ],
+		 
+		 "transitions": [
 			{
-			  "default": "query.is_alive"
+			 "default": "query.is_alive"
 			}
-		  ],
-		  "blend_transition": 0.0
+		 ],
+		 "blend_transition": 0.0
 		}
-	   }
-	  },
-    "controller.animation.mskeleton.walk_arms" : {
-        "initial_state" : "default",
-        "states" : {
+	  }
+	 },
+  "controller.animation.mskeleton.walk_arms" : {
+    "initial_state" : "default",
+    "states" : {
 
 		"death": {
 		
-		  
-		  "transitions": [
+		 
+		 "transitions": [
 			{
-			  "default": "query.is_alive"
+			 "default": "query.is_alive"
 			}
-		  ],
-		  "blend_transition": 0.3
+		 ],
+		 "blend_transition": 0.3
 		},
-            "default" : {
-                "animations" : [
-                    { "walk_arms": "math.min(1.0, query.modified_move_speed * 10)" } 
-                ],
+      "default" : {
+        "animations" : [
+          { "walk_arms": "math.min(1.0, query.modified_move_speed * 10)" } 
+        ],
 				"blend_transition" : 0.4,
-                "transitions" : [
+        "transitions" : [
 					{
-                        "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
-                    },
+            "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
+          },
 					{
-                        "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
-                    },
-                    {
-                        "range_attack" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 0"
-                    },
+            "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
+          },
+          {
+            "range_attack" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 0"
+          },
 					{
 						"ranged_jump" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 1"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
-                
-                ]
-            },
+					 }
+        
+        ]
+      },
 			"melee_attack" : {
 			
 				"blend_transition" : 0.4,
@@ -80,7 +80,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"melee_ribcage" : {
@@ -93,24 +93,24 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"ranged_jump": {
 			
 				"transitions": [
 					{
-                        "default" : "!query.facing_target_to_range_attack || query.all_animations_finished && !query.is_alive"
-                    },
+            "default" : "!query.facing_target_to_range_attack || query.all_animations_finished && !query.is_alive"
+          },
 					{
-                        "range_jump_landing" : "query.mark_variant == 0 || !query.has_target"
-                    },
+            "range_jump_landing" : "query.mark_variant == 0 || !query.has_target"
+          },
 					{
 						"range_jump_shoot": "variable.attack_time != 0"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.1
 			},
@@ -121,48 +121,48 @@
 				],
 				"transitions": [
 					{
-                        "ranged_jump" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 1"
-                    },
+            "ranged_jump" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 1"
+          },
 					{
-                        "range_jump_landing" : "query.mark_variant == 0 || !query.has_target"
-                    },
+            "range_jump_landing" : "query.mark_variant == 0 || !query.has_target"
+          },
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.2
 			},
-        	"range_jump_landing": {
+    	"range_jump_landing": {
 				"animations": [
 					"range_jump_shoot"
 				],
 				"transitions": [
 					{
-                        "default" : "query.all_animations_finished && query.mark_variant == 0 || !query.has_target"
-                    },
+            "default" : "query.all_animations_finished && query.mark_variant == 0 || !query.has_target"
+          },
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.4
 			},
-        
+    
 			"range_attack": {
 				"animations": [
 					"range_charge"
 				],
 				"transitions": [
 					{
-                        "default" : "query.all_animations_finished && !query.is_alive"
-                    },
+            "default" : "query.all_animations_finished && !query.is_alive"
+          },
 					{
-                        "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
-                    },
+            "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
+          },
 					{
-                        "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
-                    },
+            "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
+          },
 					{
-						"ranged_jump" : "query.facing_target_to_range_attack  && query.is_alive && !query.is_stunned && query.mark_variant == 1"
+						"ranged_jump" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 1"
 					},
 					{
 						"range_uncharge": "!query.facing_target_to_range_attack"
@@ -172,7 +172,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.2
 			},
@@ -182,14 +182,14 @@
 				],
 				"transitions": [
 					{
-                        "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 1"
-                    },
+            "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 1"
+          },
 					{
-						"ranged_jump" : "query.facing_target_to_range_attack  && query.is_alive && !query.is_stunned && query.mark_variant == 1"
+						"ranged_jump" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 1"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.2
 			},
@@ -200,67 +200,67 @@
 				],
 				"transitions": [
 					{
-                        "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 2"
-                    },
+            "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 2"
+          },
 					{
-                        "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
-                    },
+            "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
+          },
 					{
-                        "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
-                    },
+            "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
+          },
 					{
-						"ranged_jump" : "query.facing_target_to_range_attack  && query.is_alive && !query.is_stunned && query.mark_variant == 1"
+						"ranged_jump" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 1"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.2
 			}
-        }
-    },
+    }
+  },
 	"controller.animation.mwither_skeleton.walk_arms" : {
-        "initial_state" : "default",
-        "states" : {
-            
+    "initial_state" : "default",
+    "states" : {
+      
 			"death": {
 		
-		  
+		 
 				"transitions": [
-				  {
+				 {
 					"default": "query.is_alive"
-				  }
+				 }
 				],
 				"blend_transition": 0.3
-			  },
-            "default" : {
-                "animations" : [
-                    { "walk_arms": "math.min(1.0, query.modified_move_speed * 10)" } 
-                ],
+			 },
+      "default" : {
+        "animations" : [
+          { "walk_arms": "math.min(1.0, query.modified_move_speed * 10)" } 
+        ],
 				"blend_transition" : 0.4,
-                "transitions" : [
+        "transitions" : [
 				
 					{
-                        "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
-                    },
+            "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
+          },
 					{
-                        "melee_attack" : "variable.attack_time > 0.0 &&  query.is_alive && !query.is_stunned && query.mark_variant != 4"
-                    },
+            "melee_attack" : "variable.attack_time > 0.0 && query.is_alive && !query.is_stunned && query.mark_variant != 4"
+          },
 					{
-                        "melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
-                    },
-                    {
-                        "range_attack" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 4"
-                    },
+            "melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
+          },
+          {
+            "range_attack" : "query.facing_target_to_range_attack && query.is_alive && !query.is_stunned && query.mark_variant == 4"
+          },
 					{
 						"defence" : "query.mark_variant == 1"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
-                
-                ]
-            },
+					 }
+        
+        ]
+      },
 			"melee_attack" : {
 			
 				"blend_transition" : 0.4,
@@ -271,7 +271,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"melee_attack_knockback" : {
@@ -284,7 +284,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"melee_ribcage" : {
@@ -297,29 +297,29 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"defence": {
 				"animations" : [
-                     "guard"
-                ],
+           "guard"
+        ],
 				"transitions": [
 					{
-                        "default" : "!query.mark_variant == 1 || !query.is_alive"
-                    },
+            "default" : "!query.mark_variant == 1 || !query.is_alive"
+          },
 					{
-                        "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
-                    },
+            "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
+          },
 					{
-                        "melee_attack" : "variable.attack_time > 0.0 &&  query.is_alive && !query.is_stunned && query.mark_variant != 4"
-                    },
+            "melee_attack" : "variable.attack_time > 0.0 && query.is_alive && !query.is_stunned && query.mark_variant != 4"
+          },
 					{
-                        "melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
-                    },
+            "melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
+          },
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.3
 			},
@@ -329,17 +329,17 @@
 				],
 				"transitions": [
 					{
-                        "default" : "query.all_animations_finished && !query.is_alive"
-                    },
+            "default" : "query.all_animations_finished && !query.is_alive"
+          },
 					{
-                        "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
-                    },
+            "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
+          },
 					{
-                        "melee_attack" : "variable.attack_time > 0.0 &&  query.is_alive && !query.is_stunned && query.mark_variant != 4"
-                    },
+            "melee_attack" : "variable.attack_time > 0.0 && query.is_alive && !query.is_stunned && query.mark_variant != 4"
+          },
 					{
-                        "melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
-                    },
+            "melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
+          },
 					{
 						"defence" : "query.all_animations_finished && query.mark_variant == 1"
 					},
@@ -351,7 +351,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.2
 			},
@@ -361,14 +361,14 @@
 				],
 				"transitions": [
 					{
-                        "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 1"
-                    },
+            "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 1"
+          },
 					{
 						"defence" : "query.all_animations_finished && query.mark_variant == 1"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.2
 			},
@@ -378,40 +378,40 @@
 				],
 				"transitions": [
 					{
-                        "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 2"
-                    },
+            "default" : "query.all_animations_finished || !query.is_alive || query.mark_variant == 2"
+          },
 					{
-                        "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
-                    },
+            "melee_ribcage" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 3"
+          },
 					{
-                        "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
-                    },
+            "melee_attack" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2"
+          },
 					{
 						"defence" : "query.mark_variant == 1"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				],
 				"blend_transition" : 0.2
 			}
-        }
-    },
-   
+    }
+  },
+  
 
 		"controller.animation.mwither_skeleton.general" : {
 			"initial_state" : "default",
 			"states" : {
 				"death": {
 		
-		  
+		 
 					"transitions": [
-					  {
+					 {
 						"default": "query.is_alive"
-					  }
+					 }
 					],
 					"blend_transition": 0.3
-				  },
+				 },
 				"default" : {
 					
 					"animations" : [
@@ -435,11 +435,11 @@
 							"melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2 && variable.attack_roar_num == 1"
 						},
 						{
-							"melee_attack_knockback_2" : "query.is_roaring && query.is_alive && !query.is_stunned &&  query.mark_variant == 2 && variable.attack_roar_num == 2"
+							"melee_attack_knockback_2" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2 && variable.attack_roar_num == 2"
 						},
 						{
 							"death": "!query.is_alive"
-						  }
+						 }
 					
 					]
 				},
@@ -457,14 +457,14 @@
 						"melee_attack_knockback" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2 && variable.attack_roar_num == 1"
 					},
 					{
-						"melee_attack_knockback_2" : "query.is_roaring && query.is_alive && !query.is_stunned &&  query.mark_variant == 2 && variable.attack_roar_num == 2"
+						"melee_attack_knockback_2" : "query.is_roaring && query.is_alive && !query.is_stunned && query.mark_variant == 2 && variable.attack_roar_num == 2"
 					},
 					{
 						"default" : "variable.attack_time <= 0.0"
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"melee_attack_2" : {
@@ -476,7 +476,7 @@
 				"blend_transition" : 0.1,
 				"transitions" : [
 					{
-						"melee_attack_knockback" : "query.is_roaring && query.is_alive &&  query.mark_variant == 2 && variable.attack_roar_num == 1"
+						"melee_attack_knockback" : "query.is_roaring && query.is_alive && query.mark_variant == 2 && variable.attack_roar_num == 1"
 					},
 					{
 						"melee_attack_knockback_2" : "query.is_roaring && query.is_alive && query.mark_variant == 2 && variable.attack_roar_num == 2"
@@ -486,7 +486,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 				"melee_attack_knockback" : {
@@ -506,7 +506,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"melee_attack_knockback_2" : {
@@ -526,7 +526,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"start_swing" : {
@@ -589,19 +589,19 @@
 			}
 		}
 	},
-  	"controller.animation.mskeleton.general" : {
+ 	"controller.animation.mskeleton.general" : {
 			"initial_state" : "default",
 			"states" : {
 				"death": {
 		
-		  
+		 
 					"transitions": [
-					  {
+					 {
 						"default": "query.is_alive"
-					  }
+					 }
 					],
 					"blend_transition": 0.3
-				  },
+				 },
 				"default" : {
 					
 					"animations" : [
@@ -622,9 +622,9 @@
 						},
 						{
 							"death": "!query.is_alive"
-						  },
-						  {
-							  "death": "!query.is_alive"
+						 },
+						 {
+							 "death": "!query.is_alive"
 							}
 					
 					]
@@ -644,7 +644,7 @@
 						},
 						{
 							"death": "!query.is_alive"
-						  }
+						 }
 					]
 				},
 				"ranged_land" : {
@@ -662,7 +662,7 @@
 						},
 						{
 							"death": "!query.is_alive"
-						  }
+						 }
 					]
 				},
 			
@@ -681,7 +681,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			},
 			"melee_ribcage" : {
@@ -698,7 +698,7 @@
 					},
 					{
 						"death": "!query.is_alive"
-					  }
+					 }
 				]
 			}
 		}
@@ -707,83 +707,83 @@
 		"states": {
 			"death": {
 		
-		  
+		 
 				"transitions": [
-				  {
+				 {
 					"default": "query.is_alive"
-				  }
+				 }
 				],
 				"blend_transition": 0.3
-			  },
-		  "default": {
-		  
-			"animations": [ 
-		  
-			{ "walk": "math.min(1.0, query.modified_move_speed * 10)" } 
-  ],
-  
-			"transitions": [
-			  {
-				"air": "query.skin_id == 1 && query.is_alive && !query.is_stunned"
-			  },
-			  {
-				  "death": "!query.is_alive"
-				}
-		   
-			],
-			"blend_transition": 0.2
-		  },
-  
+			 },
+		 "default": {
 		 
-		  "air": {
+			"animations": [ 
+		 
+			{ "walk": "math.min(1.0, query.modified_move_speed * 10)" } 
+ ],
+ 
+			"transitions": [
+			 {
+				"air": "query.skin_id == 1 && query.is_alive && !query.is_stunned"
+			 },
+			 {
+				 "death": "!query.is_alive"
+				}
+		  
+			],
+			"blend_transition": 0.2
+		 },
+ 
+		 
+		 "air": {
 			
 			"transitions": [
 			
-			  {
+			 {
 				"default": "!query.has_target || query.skin_id == 0 && query.is_on_ground"
-			  },
-			  {
-				  "death": "!query.is_alive"
+			 },
+			 {
+				 "death": "!query.is_alive"
 				}
 			],
 			"blend_transition": 0.2
-		  }
+		 }
 		}
-	  },
-	  "controller.animation.mwither_skeleton.walking": {
+	 },
+	 "controller.animation.mwither_skeleton.walking": {
 		"states": {
 			"death": {
 		
-		  
+		 
 				"transitions": [
-				  {
+				 {
 					"default": "query.is_alive"
-				  }
+				 }
 				],
 				"blend_transition": 0.3
-			  },
-		  "default": {
-		  
+			 },
+		 "default": {
+		 
 			"animations": [ 
-		  
+		 
 			{ "walk": "math.min(1.0, query.modified_move_speed * 10)" } 
-  ],
-  
+ ],
+ 
 			"transitions": [
-			  {
+			 {
 				"air": "query.skin_id == 1 && query.is_alive && !query.is_stunned"
-			  },
-			  {
+			 },
+			 {
 				"start_swing" : "query.has_target && query.mark_variant == 3"
 			},
 			{
 				"death": "!query.is_alive"
-			  }
-		   
+			 }
+		  
 			],
 			"blend_transition": 0.2
-		  },
-		  "start_swing" : {
+		 },
+		 "start_swing" : {
 				
 		
 		
@@ -800,41 +800,41 @@
 		},
 	
 		 
-		  "air": {
+		 "air": {
 			
 			"transitions": [
 			
-			  {
+			 {
 				"default": "!query.has_target || query.skin_id == 0 && query.is_on_ground"
-			  },
-			  {
-				  "death": "!query.is_alive"
+			 },
+			 {
+				 "death": "!query.is_alive"
 				}
 			],
 			"blend_transition": 0.2
-		  },
-		  "sword_swing": {
+		 },
+		 "sword_swing": {
 			
 			"transitions": [
 			
-			  {
+			 {
 				"default": "!query.is_roaring"
-			  },
-			  {
-				  "death": "!query.is_alive"
+			 },
+			 {
+				 "death": "!query.is_alive"
 				}
 			],
 			"blend_transition": 0.2
-		  }
+		 }
 		}
-	  },
-	  "controller.animation.mwither_skeleton.particle" : {
-        "initial_state" : "default",
-        "states" : {
-    
-            "default" : {
-                
-                "particle_effects" : [
+	 },
+	 "controller.animation.mwither_skeleton.particle" : {
+    "initial_state" : "default",
+    "states" : {
+  
+      "default" : {
+        
+        "particle_effects" : [
 					{
 						"effect" : "blaze_smoke_shoulders",
 						"locator" : "right_blaze_arm"
@@ -867,9 +867,9 @@
 						"effect" : "blaze_smoke_legs",
 						"locator" : "left_blaze_leg"
 					}
-                ]
-            }
-        }
+        ]
+      }
     }
   }
+ }
 }

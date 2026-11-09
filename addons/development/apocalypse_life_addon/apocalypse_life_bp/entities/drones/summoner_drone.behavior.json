@@ -1,0 +1,559 @@
+{
+	"format_version": "1.21.130",
+	"minecraft:entity": {
+		"description": {
+			"identifier": "makercamp_dr:summoner_drone",
+			"is_spawnable": true,
+			"is_summonable": true,
+			"spawn_egg_name": "Summoner Drone",
+			"properties": {
+				"makercamp_dr:state": {
+					"client_sync": true,
+					"type": "enum",
+					"default": "standby",
+					"values": [
+						"standby",
+						"passive",
+						"active"
+					]
+				},
+				"makercamp_dr:controlled_by_player": {
+					"client_sync": true,
+					"type": "bool",
+					"default": false
+				},
+				"makercamp_dr:is_shooting": {
+					"client_sync": true,
+					"default": false,
+					"type": "bool"
+				},
+				"makercamp_dr:battery": {
+					"type": "int",
+					"default": 100,
+					"range": [
+						0,
+						100
+					]
+				},
+				"makercamp_dr:hits": {
+					"type": "int",
+					"default": 0,
+					"range": [
+						0,
+						5
+					]
+				}
+			},
+			"animations": {
+				"ac.hits": "controller.animation.makercamp_dr.drone.break",
+				"ac.shoot": "controller.animation.makercamp_dr.summoner_drone.shoot",
+				"ac.movement": "controller.animation.makercamp_dr.drone.movement",
+				"ac.land": "controller.animation.makercamp_dr.drone.land",
+				"ac.teleport": "controller.animation.makercamp_dr.drone.teleport"
+			},
+			"scripts": {
+				"animate": [
+					"ac.hits",
+					"ac.shoot",
+					"ac.movement",
+					"ac.land",
+					"ac.teleport"
+				]
+			}
+		},
+		"component_groups": {
+			"active": {
+				"minecraft:tick_world": {
+					"never_despawn": true,
+					"radius": 2
+				}
+			},
+			"summon": {
+				"minecraft:spawn_entity": {
+					"entities": [
+						{
+							"spawn_method": "born",
+							"max_wait_time": 0,
+							"min_wait_time": 0,
+							"num_to_spawn": 1,
+							"single_use": true,
+							"spawn_entity": "makercamp_dr:ground_drone"
+						}
+					]
+				},
+				"minecraft:timer": {
+					"time": 0.1,
+					"looping": true,
+					"time_down_event": {
+						"event": "summoned",
+						"target": "self"
+					}
+				}
+			},
+			"passive": {
+				"minecraft:behavior.ranged_attack": {
+					"priority": 3,
+					"charge_shoot_trigger": 1.5,
+					"charge_charged_trigger": 1,
+					"attack_radius_min": 5,
+					"attack_radius": 8
+				},
+				"minecraft:shooter": {
+					"def": ""
+				},
+				"minecraft:behavior.hurt_by_target": {
+					"priority": 3
+				},
+				"minecraft:behavior.owner_hurt_by_target": {
+					"priority": 2
+				},
+				"minecraft:behavior.owner_hurt_target": {
+					"priority": 1
+				},
+				"minecraft:behavior.nearest_attackable_target": {
+					"priority": 5,
+					"attack_owner": false,
+					"must_reach": true,
+					"must_see": true,
+					"reselect_targets": true,
+					"entity_types": [
+						{
+							"filters": {
+								"test": "is_family",
+								"subject": "other",
+								"value": "monster"
+							},
+							"within_default": 10
+						}
+					]
+				},
+				"minecraft:physics": {
+					"has_collision": true,
+					"has_gravity": true
+				},
+				"minecraft:follow_range": {
+					"value": 64
+				},
+				"minecraft:behavior.follow_owner": {
+					"priority": 4,
+					"start_distance": 10,
+					"stop_distance": 6,
+					"can_teleport": true
+				},
+				"minecraft:behavior.teleport_to_owner": {
+					"priority": 1,
+					"filters": {
+						"any_of": [
+							{
+								"all_of": [
+									{
+										"test": "owner_distance",
+										"operator": ">",
+										"value": 24
+									}
+								]
+							}
+						]
+					}
+				}
+			},
+			"standby": {
+				"minecraft:behavior.float": {
+					"priority": 0
+				},
+				"minecraft:buoyant": {
+					"base_buoyancy": 0.7,
+					"apply_gravity": false,
+					"simulate_waves": true,
+					"liquid_blocks": [
+						"minecraft:water"
+					]
+				},
+				"minecraft:movement.generic": {
+					"max_turn": 0
+				},
+				"minecraft:navigation.walk": {
+					"can_walk": true,
+					"can_jump": true,
+					"can_sink": false,
+					"can_swim": true,
+					"can_float": true,
+					"can_breach": true
+				},
+				"minecraft:physics": {
+					"has_collision": true,
+					"has_gravity": true
+				},
+				"minecraft:movement": {
+					"value": 0.1,
+					"max": 0.1
+				},
+				"minecraft:flying_speed": {
+					"value": 0.0
+				}
+			},
+			"air_movement": {
+				"minecraft:navigation.hover": {
+					"can_path_over_water": true,
+					"can_sink": true,
+					"can_pass_doors": true,
+					"can_path_from_air": true,
+					"can_path_over_lava": true,
+					"avoid_water": true,
+					"avoid_damage_blocks": true,
+					"avoid_sun": false,
+					"is_amphibious": true,
+					"can_swim": true,
+					"can_jump": true,
+					"can_breach": true
+				},
+				"minecraft:movement.hover": {
+					"max_turn": 5
+				},
+				"minecraft:jump.static": {},
+				"minecraft:can_fly": {},
+				"minecraft:movement": {
+					"value": 0.3
+				},
+				"minecraft:flying_speed": {
+					"value": 0.2
+				}
+			},
+			"water_movement": {
+				"minecraft:can_climb": {},
+				"minecraft:jump.static": {},
+				"minecraft:navigation.generic": {
+					"is_amphibious": true,
+					"can_path_over_water": true,
+					"can_swim": true,
+					"can_walk": true,
+					"can_breach": true,
+					"can_jump": true,
+					"can_sink": false
+				},
+				"minecraft:movement.generic": {
+					"max_turn": 10
+				},
+				"minecraft:movement": {
+					"value": 0.3
+				},
+				"minecraft:underwater_movement": {
+					"value": 0.3,
+					"max": 0.3
+				}
+			},
+			"despawn": {
+				"minecraft:instant_despawn": {}
+			},
+			"death": {
+				"minecraft:health": {
+					"value": 0,
+					"max": 0,
+					"min": 0
+				}
+			}
+		},
+		"components": {
+			"minecraft:fire_immune": {},
+			"minecraft:interact": {
+				"interactions": [
+					{
+						"interact_text": "makercamp_dr:drone.use_battery",
+						"swing": true,
+						"use_item": true,
+						"on_interact": {
+							"event": "recharge",
+							"filters": [
+								{
+									"all_of": [
+										{
+											"test": "has_equipment",
+											"subject": "other",
+											"domain": "hand",
+											"value": "makercamp_dr:battery"
+										},
+										{
+											"test": "int_property",
+											"domain": "makercamp_dr:battery",
+											"subject": "self",
+											"operator": "<",
+											"value": 100
+										}
+									]
+								}
+							]
+						}
+					}
+				]
+			},
+			"minecraft:push_through": {
+				"value": 1
+			},
+			"minecraft:pushable": {
+				"is_pushable": true,
+				"is_pushable_by_piston": true
+			},
+			"minecraft:tameable": {
+				"probability": 1
+			},
+			"minecraft:health": {
+				"value": 80,
+				"max": 80
+			},
+			"minecraft:damage_sensor": {
+				"triggers": [
+					{
+						"on_damage": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_owner",
+										"subject": "other",
+										"value": true
+									},
+									{
+										"test": "is_family",
+										"subject": "damager",
+										"value": "player"
+									}
+								]
+							},
+							"event": "hit"
+						},
+						"deals_damage": "no"
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"all_of": [
+									{
+										"test": "is_owner",
+										"subject": "other",
+										"value": true
+									}
+								]
+							}
+						},
+						"deals_damage": "no"
+					},
+					{
+						"cause": "fall",
+						"deals_damage": "no"
+					},
+					{
+						"cause": "magic",
+						"deals_damage": "no"
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "is_block",
+								"subject": "block",
+								"value": "minecraft:sweet_berry_bush"
+							}
+						},
+						"deals_damage": "no"
+					},
+					{
+						"on_damage": {
+							"filters": {
+								"test": "has_damage",
+								"value": "fatal"
+							},
+							"event": "fatal_damage"
+						},
+						"deals_damage": "no"
+					}
+				]
+			},
+			"minecraft:collision_box": {
+				"height": 0.5,
+				"width": 0.8
+			},
+			"minecraft:type_family": {
+				"family": [
+					"makercamp_dr:drone",
+					"drone",
+					"mob"
+				]
+			},
+			"minecraft:hurt_on_condition": {
+				"damage_conditions": [
+					{
+						"filters": {
+							"test": "in_lava",
+							"subject": "self",
+							"operator": "==",
+							"value": true
+						},
+						"cause": "lava",
+						"damage_per_tick": 4
+					}
+				]
+			},
+			"minecraft:persistent": {},
+			"minecraft:nameable": {},
+			"minecraft:physics": {
+				"has_collision": true,
+				"has_gravity": true
+			},
+			"minecraft:conditional_bandwidth_optimization": {}
+		},
+		"events": {
+			"minecraft:entity_spawned": {
+				"trigger": "standby"
+			},
+			"despawn": {
+				"add": {
+					"component_groups": [
+						"despawn"
+					]
+				}
+			},
+			"death": {
+				"add": {
+					"component_groups": [
+						"death"
+					]
+				}
+			},
+			"fatal_damage": {
+				"queue_command": {
+					"command": [
+						"scriptevent makercamp_dr:drone.death"
+					]
+				}
+			},
+			"recharge": {
+				"queue_command": {
+					"command": [
+						"scriptevent makercamp_dr:drone.recharge"
+					]
+				}
+			},
+			"air_movement": {
+				"add": {
+					"component_groups": [
+						"air_movement"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"water_movement"
+					]
+				}
+			},
+			"water_movement": {
+				"add": {
+					"component_groups": [
+						"water_movement"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"air_movement"
+					]
+				}
+			},
+			"summon": {
+				"add": {
+					"component_groups": [
+						"summon"
+					]
+				}
+			},
+			"summoned": {
+				"set_property": {
+					"makercamp_dr:is_shooting": false
+				},
+				"remove": {
+					"component_groups": [
+						"summon"
+					]
+				}
+			},
+			"active": {
+				"add": {
+					"component_groups": [
+						"active"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"passive",
+						"standby",
+						"air_movement",
+						"water_movement"
+					]
+				},
+				"set_property": {
+					"makercamp_dr:state": "active"
+				},
+				"queue_command": {
+					"command": [
+						"playsound makercamp_dr.drone.active_start @a ~~~"
+					]
+				}
+			},
+			"passive": {
+				"add": {
+					"component_groups": [
+						"passive"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"active",
+						"standby"
+					]
+				},
+				"set_property": {
+					"makercamp_dr:state": "passive"
+				},
+				"queue_command": {
+					"command": [
+						"playsound makercamp_dr.drone.passive_start @a ~~~"
+					]
+				}
+			},
+			"standby": {
+				"add": {
+					"component_groups": [
+						"standby"
+					]
+				},
+				"remove": {
+					"component_groups": [
+						"passive",
+						"active",
+						"air_movement",
+						"water_movement"
+					]
+				},
+				"set_property": {
+					"makercamp_dr:state": "standby"
+				},
+				"queue_command": {
+					"command": [
+						"playsound makercamp_dr.drone.standby_start @a ~~~"
+					]
+				}
+			},
+			"hit": {
+				"set_property": {
+					"makercamp_dr:hits": "Math.clamp(q.property('makercamp_dr:hits') + 1, 0, 5)"
+				},
+				"queue_command": {
+					"command": [
+						"playsound makercamp_dr.drone.hurt @a ~~~"
+					]
+				}
+			},
+			"reset_hits": {
+				"set_property": {
+					"makercamp_dr:hits": 0
+				}
+			}
+		}
+	}
+}

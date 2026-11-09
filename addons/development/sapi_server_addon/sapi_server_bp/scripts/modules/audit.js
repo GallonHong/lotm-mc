@@ -7,131 +7,131 @@ const AUDIT_KEY = "sapi:server:audit:v1";
 
 /** 服务器管理审计日志。只记录操作元数据，不保存聊天或背包内容。 */
 export class AuditManager {
-    static getLogs() {
-        try {
-            const raw = world.getDynamicProperty(AUDIT_KEY);
-            const logs = typeof raw === "string" ? JSON.parse(raw) : [];
-            return Array.isArray(logs) ? logs : [];
-        } catch (error) {
-            console.warn(`[Audit] Failed to read logs: ${error}`);
-            return [];
-        }
-    }
+ static getLogs() {
+  try {
+   const raw = world.getDynamicProperty(AUDIT_KEY);
+   const logs = typeof raw === "string" ? JSON.parse(raw) : [];
+   return Array.isArray(logs) ? logs : [];
+  } catch (error) {
+   console.warn(`[Audit] Failed to read logs: ${error}`);
+   return [];
+  }
+ }
 
-    static saveLogs(logs) {
-        try {
-            const limit = Math.max(20, Math.min(500, Number(Config.audit?.maxEntries) || 200));
-            const bounded = logs.slice(0, limit);
-            let encoded = JSON.stringify(bounded);
-            while (encoded.length > 30000 && bounded.length > 1) {
-                bounded.pop();
-                encoded = JSON.stringify(bounded);
-            }
-            world.setDynamicProperty(AUDIT_KEY, encoded);
-            return true;
-        } catch (error) {
-            console.warn(`[Audit] Failed to save logs: ${error}`);
-            return false;
-        }
-    }
+ static saveLogs(logs) {
+  try {
+   const limit = Math.max(20, Math.min(500, Number(Config.audit?.maxEntries) || 200));
+   const bounded = logs.slice(0, limit);
+   let encoded = JSON.stringify(bounded);
+   while (encoded.length > 30000 && bounded.length > 1) {
+    bounded.pop();
+    encoded = JSON.stringify(bounded);
+   }
+   world.setDynamicProperty(AUDIT_KEY, encoded);
+   return true;
+  } catch (error) {
+   console.warn(`[Audit] Failed to save logs: ${error}`);
+   return false;
+  }
+ }
 
-    static log(type, actor, target = "", detail = "") {
-        const actorName = typeof actor === "string" ? actor : actor?.name || "system";
-        const entry = {
-            id: `audit_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
-            time: Date.now(),
-            type: String(type || "unknown").slice(0, 32),
-            actor: String(actorName).slice(0, 32),
-            target: String(target || "").slice(0, 48),
-            detail: String(detail || "").replace(/[\n\r]/g, " ").slice(0, 160)
-        };
-        const logs = this.getLogs();
-        logs.unshift(entry);
-        this.saveLogs(logs);
-        console.warn(`[Audit] ${entry.type} actor=${entry.actor} target=${entry.target} detail=${entry.detail}`);
-        return entry;
-    }
+ static log(type, actor, target = "", detail = "") {
+  const actorName = typeof actor === "string" ? actor : actor?.name || "system";
+  const entry = {
+   id: `audit_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 6)}`,
+   time: Date.now(),
+   type: String(type || "unknown").slice(0, 32),
+   actor: String(actorName).slice(0, 32),
+   target: String(target || "").slice(0, 48),
+   detail: String(detail || "").replace(/[\n\r]/g, " ").slice(0, 160)
+  };
+  const logs = this.getLogs();
+  logs.unshift(entry);
+  this.saveLogs(logs);
+  console.warn(`[Audit] ${entry.type} actor=${entry.actor} target=${entry.target} detail=${entry.detail}`);
+  return entry;
+ }
 
-    static label(type) {
-        const labels = {
-            warp_create: "创建传送点", warp_delete: "删除传送点", spawn_set: "设置主城",
-            warp_use: "公共传送", home_set: "设置 Home", home_delete: "删除 Home", home_use: "使用 Home",
-            tpa_request: "发起 TPA", tpa_accept: "接受 TPA", tpa_reject: "拒绝 TPA", tpa_cancel: "取消 TPA", tpa_expire: "TPA 过期",
-            death_record: "记录死亡点", death_back: "死亡返回", admin_clear: "管理员清理",
-            region_create: "创建保护区", region_delete: "删除保护区", land_claim: "认领地皮", land_sell: "出售地皮",
-            admin_money: "管理金币", admin_plot_delete: "强删地皮", admin_broadcast: "发布公告", admin_gift: "全服福利",
-            ops_settings: "运营设置", daily_claim: "每日签到", code_create: "创建兑换码", code_toggle: "切换兑换码",
-            code_delete: "删除兑换码", code_redeem: "兑换礼包码", pending_claim: "领取暂存奖励", pending_admin: "管理暂存奖励",
-            tpa_receive: "TPA 接收设置", tpa_admin: "TPA 管理设置",
-            safe_place: "放置保险箱", safe_open: "打开保险箱", safe_deposit: "存入保险箱",
-            safe_withdraw: "取出保险箱", safe_password: "修改保险箱密码", safe_breach: "攻破保险箱", safe_recover: "回收保险箱",
-            item_cleanup: "清理掉落物", item_cleanup_settings: "掉落物清理设置",
-            land_visitor_point: "设置领地访客点", land_visit: "好友领地观光", team_dissolve: "解散队伍",
-            guild_create: "创建公会", guild_join: "加入公会", guild_leave: "退出公会", guild_kick: "移除公会成员",
-            guild_transfer: "移交会长", guild_disband: "解散公会", guild_edit: "编辑公会", guild_base_set: "设置公会基地", guild_base_visit: "前往公会基地",
-            guild_chat: "公会聊天", wanted_change: "通缉值变化", wanted_bail: "支付保释", blacklist_add: "加入黑名单", blacklist_remove: "移出黑名单",
-            vending_place: "放置玩家贩卖机", vending_list: "贩卖机上架", vending_sale: "贩卖机成交", vending_collect: "领取营业额", vending_break: "破坏贩卖机", vending_insure: "购买联盟保险", vending_recover: "回收贩卖机"
-        };
-        return labels[type] || type;
-    }
+ static label(type) {
+  const labels = {
+   warp_create: "创建传送点", warp_delete: "删除传送点", spawn_set: "设置主城",
+   warp_use: "公共传送", home_set: "设置 Home", home_delete: "删除 Home", home_use: "使用 Home",
+   tpa_request: "发起 TPA", tpa_accept: "接受 TPA", tpa_reject: "拒绝 TPA", tpa_cancel: "取消 TPA", tpa_expire: "TPA 过期",
+   death_record: "记录死亡点", death_back: "死亡返回", admin_clear: "管理员清理",
+   region_create: "创建保护区", region_delete: "删除保护区", land_claim: "认领地皮", land_sell: "出售地皮",
+   admin_money: "管理金币", admin_plot_delete: "强删地皮", admin_broadcast: "发布公告", admin_gift: "全服福利",
+   ops_settings: "运营设置", daily_claim: "每日签到", code_create: "创建兑换码", code_toggle: "切换兑换码",
+   code_delete: "删除兑换码", code_redeem: "兑换礼包码", pending_claim: "领取暂存奖励", pending_admin: "管理暂存奖励",
+   tpa_receive: "TPA 接收设置", tpa_admin: "TPA 管理设置",
+   safe_place: "放置保险箱", safe_open: "打开保险箱", safe_deposit: "存入保险箱",
+   safe_withdraw: "取出保险箱", safe_password: "修改保险箱密码", safe_breach: "攻破保险箱", safe_recover: "回收保险箱",
+   item_cleanup: "清理掉落物", item_cleanup_settings: "掉落物清理设置",
+   land_visitor_point: "设置领地访客点", land_visit: "好友领地观光", team_dissolve: "解散队伍",
+   guild_create: "创建公会", guild_join: "加入公会", guild_leave: "退出公会", guild_kick: "移除公会成员",
+   guild_transfer: "移交会长", guild_disband: "解散公会", guild_edit: "编辑公会", guild_base_set: "设置公会基地", guild_base_visit: "前往公会基地",
+   guild_chat: "公会聊天", wanted_change: "通缉值变化", wanted_bail: "支付保释", blacklist_add: "加入黑名单", blacklist_remove: "移出黑名单",
+   vending_place: "放置玩家贩卖机", vending_list: "贩卖机上架", vending_sale: "贩卖机成交", vending_collect: "领取营业额", vending_break: "破坏贩卖机", vending_insure: "购买联盟保险", vending_recover: "回收贩卖机"
+  };
+  return labels[type] || type;
+ }
 
-    static formatTime(timestamp) {
-        try { return new Date(timestamp).toLocaleString("zh-CN", { hour12: false }); }
-        catch { return String(timestamp); }
-    }
+ static formatTime(timestamp) {
+  try { return new Date(timestamp).toLocaleString("zh-CN", { hour12: false }); }
+  catch { return String(timestamp); }
+ }
 
-    static openAdminUI(player, onBack = null, filter = "") {
-        if (!Utils.isAdmin(player)) return;
-        const needle = String(filter || "").trim().toLowerCase();
-        const logs = this.getLogs().filter(entry => !needle ||
-            [entry.type, entry.actor, entry.target, entry.detail, this.label(entry.type)].some(value => String(value || "").toLowerCase().includes(needle))
-        ).slice(0, 30);
-        const actions = [];
-        const form = new ActionFormData().title("§l§c📋 服务器审计").body(
-            `§e总记录: §e${this.getLogs().length}§e 条\n§e当前筛选: §8${needle || "无"}\n§8仅显示最近 30 条匹配记录`
-        );
-        const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-        add("§l§b🔎 搜索日志", "textures/ui/magnifyingGlass", () => this.openFilterModal(player, onBack));
-        add("§l§8✖ 清除筛选", "textures/ui/cancel", () => this.openAdminUI(player, onBack));
-        for (const entry of logs) {
-            add(`§e${this.label(entry.type)} §8| §e${entry.actor}\n§r§8${this.formatTime(entry.time)}`, "textures/ui/achievements", () => this.openEntry(player, entry, onBack, needle));
-        }
-        add("§l§6📤 输出到内容日志", "textures/ui/op", () => {
-            console.warn(`[Audit Export] ${JSON.stringify(this.getLogs())}`);
-            Utils.tell(player, "§a审计日志已输出到 Minecraft 内容日志。注意日志可能包含玩家名和坐标。");
-            this.openAdminUI(player, onBack, needle);
-        });
-        add("§l§c🗑️ 清空审计日志", "textures/ui/trash", () => this.confirmClear(player, onBack));
-        add("§l§8⬅ 返回", "textures/ui/undo", () => onBack?.());
-        Utils.showForm(player, form, response => actions[response.selection]?.());
-    }
+ static openAdminUI(player, onBack = null, filter = "") {
+  if (!Utils.isAdmin(player)) return;
+  const needle = String(filter || "").trim().toLowerCase();
+  const logs = this.getLogs().filter(entry => !needle ||
+   [entry.type, entry.actor, entry.target, entry.detail, this.label(entry.type)].some(value => String(value || "").toLowerCase().includes(needle))
+  ).slice(0, 30);
+  const actions = [];
+  const form = new ActionFormData().title("§l§c服务器审计").body(
+   `§e总记录: §e${this.getLogs().length}§e条\n§e当前筛选: §8${needle || "无"}\n§8仅显示最近 30 条匹配记录`
+  );
+  const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
+  add("§l§b搜索日志", "textures/ui/magnifyingGlass", () => this.openFilterModal(player, onBack));
+  add("§l§8清除筛选", "textures/ui/cancel", () => this.openAdminUI(player, onBack));
+  for (const entry of logs) {
+   add(`§e${this.label(entry.type)} §8| §e${entry.actor}\n§r§8${this.formatTime(entry.time)}`, "textures/ui/achievements", () => this.openEntry(player, entry, onBack, needle));
+  }
+  add("§l§6输出到内容日志", "textures/ui/op", () => {
+   console.warn(`[Audit Export] ${JSON.stringify(this.getLogs())}`);
+   Utils.tell(player, "§a审计日志已输出到 Minecraft 内容日志。注意日志可能包含玩家名和坐标。");
+   this.openAdminUI(player, onBack, needle);
+  });
+  add("§l§c清空审计日志", "textures/ui/trash", () => this.confirmClear(player, onBack));
+  add("§l§8返回", "textures/ui/undo", () => onBack?.());
+  Utils.showForm(player, form, response => actions[response.selection]?.());
+ }
 
-    static openFilterModal(player, onBack = null) {
-        const form = new ModalFormData().title("§l搜索审计日志").textField("类型、玩家名或详情", "例如：TPA / Steve / Home");
-        Utils.showForm(player, form, response => {
-            const filter = response.formValues?.[0] || "";
-            this.openAdminUI(player, onBack, filter);
-        });
-    }
+ static openFilterModal(player, onBack = null) {
+  const form = new ModalFormData().title("§l搜索审计日志").textField("类型、玩家名或详情", "例如：TPA / Steve / Home");
+  Utils.showForm(player, form, response => {
+   const filter = response.formValues?.[0] || "";
+   this.openAdminUI(player, onBack, filter);
+  });
+ }
 
-    static openEntry(player, entry, onBack, filter) {
-        const form = new MessageFormData().title(`§l${this.label(entry.type)}`).body(
-            `§e时间: §8${this.formatTime(entry.time)}\n§e操作者: §e${entry.actor}\n§e目标: §b${entry.target || "无"}\n§e详情: §8${entry.detail || "无"}\n§8ID: ${entry.id}`
-        ).button1("§8返回日志").button2("§8关闭");
-        Utils.showForm(player, form, response => {
-            if (response.selection === 0) this.openAdminUI(player, onBack, filter);
-        });
-    }
+ static openEntry(player, entry, onBack, filter) {
+  const form = new MessageFormData().title(`§l${this.label(entry.type)}`).body(
+   `§e时间: §8${this.formatTime(entry.time)}\n§e操作者: §e${entry.actor}\n§e目标: §b${entry.target || "无"}\n§e详情: §8${entry.detail || "无"}\n§8ID: ${entry.id}`
+  ).button1("§8返回日志").button2("§8关闭");
+  Utils.showForm(player, form, response => {
+   if (response.selection === 0) this.openAdminUI(player, onBack, filter);
+  });
+ }
 
-    static confirmClear(player, onBack = null) {
-        const form = new MessageFormData().title("§l§c清空审计日志").body("§c此操作不可撤销。确定清空全部服务器审计记录？").button1("§c确认清空").button2("§8取消");
-        Utils.showForm(player, form, response => {
-            if (response.selection === 0) {
-                this.saveLogs([]);
-                this.log("admin_clear", player, "audit", "清空全部审计日志");
-                Utils.tell(player, "§a审计日志已清空，并保留了本次清空操作记录。");
-            }
-            this.openAdminUI(player, onBack);
-        });
-    }
+ static confirmClear(player, onBack = null) {
+  const form = new MessageFormData().title("§l§c清空审计日志").body("§c此操作不可撤销。确定清空全部服务器审计记录？").button1("§c确认清空").button2("§8取消");
+  Utils.showForm(player, form, response => {
+   if (response.selection === 0) {
+    this.saveLogs([]);
+    this.log("admin_clear", player, "audit", "清空全部审计日志");
+    Utils.tell(player, "§a审计日志已清空，并保留了本次清空操作记录。");
+   }
+   this.openAdminUI(player, onBack);
+  });
+ }
 }

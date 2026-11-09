@@ -1,0 +1,31 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:freeze_drone_ice",
+			"materials": {
+				"default": "entity_alphablend"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/freeze_drone_ice"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.freeze_drone_ice"
+			},
+			"animations": {
+				"ac.ice": "controller.animation.makercamp_dr.freeze_drone_ice",
+
+				"spawn": "animation.makercamp_dr.freeze_drone_ice.spawn",
+				"despawn": "animation.makercamp_dr.freeze_drone_ice.despawn"
+			},
+			"scripts": {
+				"animate": [
+					"ac.ice"
+				]
+			},
+			"render_controllers": [
+				"controller.render.default"
+			]
+		}
+	}
+}

@@ -15,7 +15,14 @@
             25.495322,
             -6.483884
           ],
-          "scale": 0.85
+          "scale": 1.0
+        },
+        "weapon": {
+          "position": [
+            0,
+            -0.5,
+            0
+          ]
         }
       }
     },
@@ -71,8 +78,8 @@
       "bones": {
         "weapon": {
           "position": [
-            5.882353,
-            3.529412,
+            "variable.tg3d_view_aim_x * variable.tg3d_aim",
+            "variable.tg3d_view_aim_y * variable.tg3d_aim",
             0
           ],
           "rotation": [

@@ -7,26 +7,26 @@ let registrationError = "";
 
 const startup = system.beforeEvents?.startup;
 if (startup && typeof startup.subscribe === "function") {
-  startup.subscribe(event => {
-    try {
-      event.dimensionRegistry.registerCustomDimension(DIMENSION_ID);
-      registrationError = "";
-      console.warn(`[ExtractionBootstrap] registered ${DIMENSION_ID}.`);
-    } catch (error) {
-      registrationError = String(error);
-      console.error(`[ExtractionBootstrap] registration failed: ${error}`);
-    }
-  });
+ startup.subscribe(event => {
+  try {
+   event.dimensionRegistry.registerCustomDimension(DIMENSION_ID);
+   registrationError = "";
+   console.warn(`[ExtractionBootstrap] registered ${DIMENSION_ID}.`);
+  } catch (error) {
+   registrationError = String(error);
+   console.error(`[ExtractionBootstrap] registration failed: ${error}`);
+  }
+ });
 } else {
-  registrationError = "system.beforeEvents.startup / DimensionRegistry unavailable";
-  console.error(`[ExtractionBootstrap] ${registrationError}`);
+ registrationError = "system.beforeEvents.startup / DimensionRegistry unavailable";
+ console.error(`[ExtractionBootstrap] ${registrationError}`);
 }
 
 function publishStatus() {
-  try {
-    world.setDynamicProperty(HEARTBEAT_KEY, Date.now());
-    world.setDynamicProperty(ERROR_KEY, registrationError || undefined);
-  } catch {}
+ try {
+  world.setDynamicProperty(HEARTBEAT_KEY, Date.now());
+  world.setDynamicProperty(ERROR_KEY, registrationError || undefined);
+ } catch {}
 }
 
 system.run(publishStatus);

@@ -1,0 +1,78 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.laser_drone.laser": {
+			"initial_state": "init",
+			"states": {
+				"init": {"transitions": [{"default": "1.0"}]},
+
+				"default": {
+					"on_entry": [
+						"v.shoots = 0;",
+						"@s not_shooting"
+					],
+					"transitions": [
+						{
+							"start_shoot": "q.is_charging || q.is_charged"
+						}
+					]
+				},
+				"start_shoot": {
+					"on_entry": [
+						"v.shoots = q.life_time - (v.last_shot ?? q.life_time) < 6 ? 0 : v.shoots;",
+
+						"@s is_shooting",
+						"v.delay = q.life_time + 0.6;"
+					],
+					"transitions": [
+						{
+							"shoot": "v.delay < q.life_time"
+						}
+					]
+				},
+				"shoot": {
+					"on_entry": [
+						"v.shoots = v.shoots + 1;",
+						"v.last_shot = q.life_time;",
+						"/effect @s slowness 1 10 true",
+						"/scriptevent makercamp_dr:laser_drone.shoot"
+					],
+					"transitions": [
+						{
+							"should_end": "!q.is_charging && !q.is_charged"
+						}
+					]
+				},
+				"should_end": {
+					"on_entry": [
+						"v.delay = q.life_time + 0.2;"
+					],
+					"transitions": [
+						{
+							"cooldown": "v.shoots > 15"
+						},
+						{
+							"shoot": "q.is_charging || q.is_charged"
+						},
+						{
+							"default": "v.delay < q.life_time"
+						}
+					]
+				},
+
+				"cooldown": {
+					"on_entry": [
+						"@s not_shooting",
+						"v.shots = 0;",
+						"v.cooldown = q.life_time + 3;"
+					],
+					"transitions": [
+						{
+							"default": "v.cooldown < q.life_time"
+						}
+					]
+				}
+			}
+		}
+	}
+}

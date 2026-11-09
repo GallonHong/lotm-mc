@@ -1,14 +1,14 @@
 {
 	"format_version": "1.8.0",
 	"render_controllers": {
-    "controller.render.mutant_wither_skeleton": {
+  "controller.render.mutant_wither_skeleton": {
 		"is_hurt_color": {
 			"r": 1,
 			"g": 0,
 			"b": 0,
 			"a": "(query.is_alive * 0.6)+(!query.is_alive * 0)"
 		},
-           "textures": [ "Texture.default" ],
+      "textures": [ "Texture.default" ],
 			"geometry": "Geometry.default",
 			"materials": [{
 				"*": "Material.default"
@@ -23,7 +23,7 @@
 			"b": 0,
 			"a": "(query.is_alive * 0.6)+(!query.is_alive * 0)"
 		},
-           "textures": [ "Texture.blaze_rods" ],
+      "textures": [ "Texture.blaze_rods" ],
 			"geometry": "Geometry.default",
 			"materials": [{
 				"*": "Material.default"
@@ -48,13 +48,13 @@
 			"g": 0,
 			"b": 0,
 			"a": "(query.is_stunned * 0.0)"
-			  },
-			  "textures": [ "Texture.default" ],
-			  "geometry": "Geometry.default",
-			  "materials": [{
-				  "*": "Material.default"
-			  }],
+			 },
+			 "textures": [ "Texture.default" ],
+			 "geometry": "Geometry.default",
+			 "materials": [{
+				 "*": "Material.default"
+			 }],
 			"part_visibility": [ { "*": 0 }, { "rsword": 1 }, { "lsword": 1 } ]
-		  }
+		 }
 	}
 }

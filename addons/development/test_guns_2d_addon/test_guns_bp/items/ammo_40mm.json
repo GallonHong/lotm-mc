@@ -1,23 +1,23 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:ammo_40mm",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": {
-        "value": 64
-      },
-      "minecraft:icon": "test_gun_ammo_40mm",
-      "minecraft:display_name": {
-        "value": "\u9ad8\u7206\u69b4\u5f39 \u00a78[\u53d1\u5c04\u5668\u901a\u7528]\u00a7r"
-      },
-      "minecraft:hand_equipped": {
-        "value": false
-      }
-    }
+ "format_version": "1.20.50",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:ammo_40mm",
+   "menu_category": {
+    "category": "items"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": {
+    "value": 64
+   },
+   "minecraft:icon": "test_gun_ammo_40mm",
+   "minecraft:display_name": {
+    "value": "\u9ad8\u7206\u69b4\u5f39 \u00a78[\u53d1\u5c04\u5668\u901a\u7528]\u00a7r"
+   },
+   "minecraft:hand_equipped": {
+    "value": false
+   }
   }
+ }
 }

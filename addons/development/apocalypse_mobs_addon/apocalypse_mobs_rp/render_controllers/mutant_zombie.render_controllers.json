@@ -1,7 +1,7 @@
 {
 	"format_version": "1.8.0",
 	"render_controllers": {
-    "controller.render.mutant_zombie": {
+  "controller.render.mutant_zombie": {
 		"is_hurt_color": {
 			"r": 1,
 			"g": 0,
@@ -13,12 +13,12 @@
 		"g": 0,
 		"b": 0,
 		"a": "(query.is_stunned * 0.6)"
-		  },
-        "arrays": {
+		 },
+    "arrays": {
 			
-        "geometries": {
-          "Array.geos": [ "Geometry.default", "Geometry.zombie_villager", "Geometry.aris" ]
-        },
+    "geometries": {
+     "Array.geos": [ "Geometry.default", "Geometry.zombie_villager", "Geometry.aris" ]
+    },
 				"textures": {
 					"Array.skins": [
 						"Texture.default",
@@ -28,7 +28,7 @@
 				}
 			},
 		
-      "geometry": "Array.geos[query.variant]",
+   "geometry": "Array.geos[query.variant]",
 			"materials": [{
 				"*": "Material.default"
 			}],

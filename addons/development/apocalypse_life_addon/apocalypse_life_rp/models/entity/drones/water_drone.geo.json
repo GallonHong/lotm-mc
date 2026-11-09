@@ -1,0 +1,104 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.makercamp_dr.water_drone",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 3,
+				"visible_bounds_height": 2.5,
+				"visible_bounds_offset": [0, 0.75, 0]
+			},
+			"bones": [
+				{
+					"name": "root",
+					"pivot": [0, 0, 0],
+					"cubes": [
+						{"origin": [-2.5, 2, -5], "size": [5, 5, 8], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "emissive_material",
+					"parent": "root",
+					"pivot": [0, 4.5, -5.5],
+					"cubes": [
+						{"origin": [-1.5, 3, -6], "size": [3, 3, 1], "pivot": [0, 4.5, -5.5], "rotation": [0, 0, 45], "uv": [32, 13]}
+					]
+				},
+				{
+					"name": "arms",
+					"parent": "root",
+					"pivot": [0, 4.05556, -1.5],
+					"cubes": [
+						{"origin": [-3.5, 3, -3], "size": [7, 2, 3], "uv": [0, 22]}
+					]
+				},
+				{
+					"name": "propeller1",
+					"parent": "arms",
+					"pivot": [6, 4.08333, -1.5],
+					"cubes": [
+						{"origin": [3.5, 3, -3], "size": [1, 2, 3], "uv": [24, 27]},
+						{"origin": [7.5, 3, -3], "size": [1, 2, 3], "uv": [0, 30]},
+						{"origin": [5.5, 3, -2], "size": [1, 2, 1], "uv": [32, 29]},
+						{"origin": [3.5, 3, -4], "size": [5, 2, 1], "uv": [26, 0]},
+						{"origin": [3.5, 3, 0], "size": [5, 2, 1], "uv": [26, 3]}
+					]
+				},
+				{
+					"name": "blade1",
+					"parent": "propeller1",
+					"pivot": [6, 4.5, -1.5],
+					"cubes": [
+						{"origin": [5.5, 3.5, -3.5], "size": [1, 0, 4], "uv": [40, 17]},
+						{"origin": [4, 4.5, -2], "size": [4, 0, 1], "uv": [32, 23]}
+					]
+				},
+				{
+					"name": "propeller2",
+					"parent": "arms",
+					"pivot": [-6, 4.08333, -1.5],
+					"cubes": [
+						{"origin": [-4.5, 3, -3], "size": [1, 2, 3], "uv": [8, 30]},
+						{"origin": [-8.5, 3, -3], "size": [1, 2, 3], "uv": [16, 30]},
+						{"origin": [-6.5, 3, -2], "size": [1, 2, 1], "uv": [32, 32]},
+						{"origin": [-8.5, 3, -4], "size": [5, 2, 1], "uv": [26, 6]},
+						{"origin": [-8.5, 3, 0], "size": [5, 2, 1], "uv": [26, 9]}
+					]
+				},
+				{
+					"name": "blade2",
+					"parent": "propeller2",
+					"pivot": [-6, 4.5, -1.5],
+					"cubes": [
+						{"origin": [-6.5, 3.5, -3.5], "size": [1, 0, 4], "uv": [31, 19]},
+						{"origin": [-8, 4.5, -2], "size": [4, 0, 1], "uv": [23, 32]}
+					]
+				},
+				{
+					"name": "propeller3",
+					"parent": "root",
+					"pivot": [0, 4.70264, 5.80609],
+					"rotation": [90, 0, -45],
+					"cubes": [
+						{"origin": [2.5, 3.61931, 2.30609], "size": [1, 2, 7], "uv": [0, 13]},
+						{"origin": [-3.5, 3.61931, 2.30609], "size": [1, 2, 7], "uv": [16, 13]},
+						{"origin": [-0.5, 3.61931, 5.30609], "size": [1, 4, 1], "uv": [32, 24]},
+						{"origin": [-2.5, 3.61931, 2.30609], "size": [5, 2, 1], "uv": [0, 27]},
+						{"origin": [-2.5, 3.61931, 8.30609], "size": [5, 2, 1], "uv": [12, 27]}
+					]
+				},
+				{
+					"name": "blade3",
+					"parent": "propeller3",
+					"pivot": [0, 5.11931, 5.80609],
+					"cubes": [
+						{"origin": [-0.5, 4.11931, 3.30609], "size": [1, 0, 5], "uv": [20, 22]},
+						{"origin": [-2.5, 5.11931, 5.30609], "size": [5, 0, 1], "uv": [26, 12]}
+					]
+				}
+			]
+		}
+	]
+}

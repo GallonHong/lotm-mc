@@ -1,21 +1,21 @@
 {
-  "format_version": "1.8.0",
-  "animations": {
-    "animation.ab_ve.fly_default": {
-      "loop": true,
-      "animation_length": 1.0
-    },
-    "animation.ab_ve.fly_up": {
-      "loop": true,
-      "animation_length": 1.0
-    },
-    "animation.ab_ve.fly_idle": {
-      "loop": true,
-      "animation_length": 1.0
-    },
-    "animation.ab_ve.fly_down": {
-      "loop": true,
-      "animation_length": 1.0
-    }
-  }
+ "format_version": "1.8.0",
+ "animations": {
+ "animation.ab_ve.fly_default": {
+  "loop": true,
+  "animation_length": 1.0
+ },
+ "animation.ab_ve.fly_up": {
+  "loop": true,
+  "animation_length": 1.0
+ },
+ "animation.ab_ve.fly_idle": {
+  "loop": true,
+  "animation_length": 1.0
+ },
+ "animation.ab_ve.fly_down": {
+  "loop": true,
+  "animation_length": 1.0
+ }
+ }
 }

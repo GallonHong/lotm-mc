@@ -1,48 +1,48 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:ak47",
-      "menu_category": {
-        "category": "equipment"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": {
-        "value": 1
-      },
-      "minecraft:hand_equipped": {
-        "value": true
-      },
-      "minecraft:icon": "test_gun_ak47",
-      "minecraft:display_name": {
-        "value": "§fAK-47 突击步枪 [普通]§r\n§7被动: 经典苏系全威力突击步枪，中近距离全自动强力穿透扫射§r\n§8§o“哪怕泡过沼泽泥水、枪机挂满沙砾，扣动扳机时依然狂怒咆哮。”§r"
-      },
-      "minecraft:use_modifiers": {
-        "use_duration": 3200,
-        "movement_modifier": 0.75
-      },
-      "minecraft:food": {
-        "can_always_eat": true
-      },
-      "minecraft:durability": {
-        "max_durability": 1200
-      },
-      "minecraft:repairable": {
-        "repair_items": [
-          {
-            "items": [
-              "minecraft:iron_ingot"
-            ],
-            "repair_amount": 300
-          }
-        ]
-      },
-      "minecraft:tags": {
-        "tags": [
-          "minecraft:is_crossbow"
-        ]
-      }
-    }
+ "format_version": "1.20.50",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:ak47",
+   "menu_category": {
+    "category": "equipment"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": {
+    "value": 1
+   },
+   "minecraft:hand_equipped": {
+    "value": true
+   },
+   "minecraft:icon": "test_gun_ak47",
+   "minecraft:display_name": {
+    "value": "§fAK-47 突击步枪 [普通]§r\n§7被动: 经典苏系全威力突击步枪，中近距离全自动强力穿透扫射§r\n§8§o“哪怕泡过沼泽泥水、枪机挂满沙砾，扣动扳机时依然狂怒咆哮。”§r"
+   },
+   "minecraft:use_modifiers": {
+    "use_duration": 3200,
+    "movement_modifier": 0.75
+   },
+   "minecraft:food": {
+    "can_always_eat": true
+   },
+   "minecraft:durability": {
+    "max_durability": 1200
+   },
+   "minecraft:repairable": {
+    "repair_items": [
+     {
+      "items": [
+       "minecraft:iron_ingot"
+      ],
+      "repair_amount": 300
+     }
+    ]
+   },
+   "minecraft:tags": {
+    "tags": [
+     "minecraft:is_crossbow"
+    ]
+   }
   }
+ }
 }

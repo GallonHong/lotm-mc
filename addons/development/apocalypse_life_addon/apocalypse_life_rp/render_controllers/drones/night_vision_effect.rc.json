@@ -1,0 +1,26 @@
+{
+	"format_version": "1.10.0",
+	"render_controllers": {
+		"controller.render.markercamp_dr.drone.night_vision_effect": {
+			"geometry": "Geometry.night_vision_effect",
+			"materials": [
+				{
+					"*": "Material.night_vision_effect"
+				}
+			],
+			"part_visibility": [
+				{
+					"*": "v.is_controlled_by_player"
+				}
+			],
+			"textures": ["Texture.night_vision_effect"],
+			"ignore_lighting": true,
+			"on_fire_color": {
+				"a": 0
+			},
+			"is_hurt_color": {
+				"a": 0
+			}
+		}
+	}
+}

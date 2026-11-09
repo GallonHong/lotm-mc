@@ -1,38 +1,38 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:armor_ocf_gpnvg18",
-      "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.helmet"
-      }
-    },
-    "components": {
-      "minecraft:icon": "test_gun_armor_ocf_gpnvg18",
-      "minecraft:max_stack_size": 1,
-      "minecraft:display_name": {
-        "value": "§6Ops-Core FAST 四目全景夜视盔 [传说]§r\n§7被动: 6点护甲，-50%爆头伤害，全景超清夜视，全枪械暴击率+25%，暴伤提升至1.85x，暗处穿甲+15%§r\n§8§o“特种部队巅峰四目全景白磷管夜视仪，黑夜即是主场。”§r"
-      },
-      "minecraft:wearable": {
-        "slot": "slot.armor.head",
-        "protection": 6
-      },
-      "minecraft:durability": {
-        "max_durability": 800
-      },
-      "minecraft:repairable": {
-        "repair_items": [
-          {
-            "items": [
-              "test_gun:part_fabric_rag",
-              "test_gun:part_armor_plate",
-              "minecraft:iron_ingot"
-            ],
-            "repair_amount": 266
-          }
-        ]
-      }
-    }
+ "format_version": "1.20.80",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:armor_ocf_gpnvg18",
+   "menu_category": {
+    "category": "equipment",
+    "group": "itemGroup.name.helmet"
+   }
+  },
+  "components": {
+   "minecraft:icon": "test_gun_armor_ocf_gpnvg18",
+   "minecraft:max_stack_size": 1,
+   "minecraft:display_name": {
+    "value": "§6Ops-Core FAST 四目全景夜视仪盔 [传说]§r\n§7被动: 6点护甲，【抗击退 +30%】，-50%头部减伤，全景微光夜视，全枪械精准度+25%，全枪暴击率+15%§r\n§8§o“暗夜主宰，猎杀潜行于阴影中的一切敌对目标。”§r"
+   },
+   "minecraft:wearable": {
+    "slot": "slot.armor.head",
+    "protection": 6
+   },
+   "minecraft:durability": {
+    "max_durability": 800
+   },
+   "minecraft:repairable": {
+    "repair_items": [
+     {
+      "items": [
+       "test_gun:part_fabric_rag",
+       "test_gun:part_armor_plate",
+       "minecraft:iron_ingot"
+      ],
+      "repair_amount": 266
+     }
+    ]
+   }
   }
+ }
 }

@@ -1,23 +1,23 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:blueprint_jetpack",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": {
-        "value": 64
-      },
-      "minecraft:hand_equipped": {
-        "value": false
-      },
-      "minecraft:icon": "test_gun_blueprint_legendary",
-      "minecraft:display_name": {
-        "value": "\u00a76\u6218\u672f\u79bb\u5b50\u55b7\u6c14\u80cc\u5305\u7ed3\u6784\u56fe [\u4f20\u8bf4\u00b7\u4e0d\u53ef\u5408\u6210]\u00a7r"
-      }
-    }
+ "format_version": "1.20.50",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:blueprint_jetpack",
+   "menu_category": {
+    "category": "items"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": {
+    "value": 64
+   },
+   "minecraft:hand_equipped": {
+    "value": false
+   },
+   "minecraft:icon": "test_gun_blueprint_legendary",
+   "minecraft:display_name": {
+    "value": "\u00a76\u6218\u672f\u79bb\u5b50\u55b7\u6c14\u80cc\u5305\u7ed3\u6784\u56fe [\u4f20\u8bf4\u00b7\u4e0d\u53ef\u5408\u6210]\u00a7r"
+   }
   }
+ }
 }

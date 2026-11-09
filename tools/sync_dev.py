@@ -22,6 +22,7 @@ def reference(path):
 links = [
     (development('test_guns_2d_addon/test_guns_bp'), os.path.join(dev_bp_dir, 'Test_Guns_2D_BP')),
     (development('test_guns_2d_addon/test_guns_rp'), os.path.join(dev_rp_dir, 'Test_Guns_2D_RP')),
+    (development('apocalypse_test_guns_pose_compatibility'), os.path.join(dev_rp_dir, 'Apocalypse_Test_Guns_Pose_Compatibility')),
     (reference('apex_boss_addon/apex_boss_bp'), os.path.join(dev_bp_dir, 'Apex_Boss_BP')),
     (reference('apex_boss_addon/apex_boss_rp'), os.path.join(dev_rp_dir, 'Apex_Boss_RP')),
     (development('apocalypse_life_addon/apocalypse_life_bp'), os.path.join(dev_bp_dir, 'apocalypse_life_bp')),

@@ -1,0 +1,192 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.makercamp_dr.poison_drone.idle": {
+			"loop": true,
+			"animation_length": 8,
+			"bones": {
+				"root": {
+					"rotation": ["-math.sin(query.anim_time*90+45)*2", "-math.sin(query.anim_time*45+45)*5", "math.sin(query.anim_time*90-45)*2"],
+					"position": [0, "math.cos(query.anim_time*180)*0.5 +1", 0]
+				},
+				"p3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p1": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p5": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p6": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"liquid": {
+					"rotation": ["-math.cos(query.anim_time*180+45)*3", "-math.sin(query.anim_time*180)*3", "math.sin(query.anim_time*180+45)*3"],
+					"scale": "math.cos(query.anim_time*90)*0.02 +0.98"
+				}
+			}
+		},
+		"animation.makercamp_dr.poison_drone.fly": {
+			"loop": true,
+			"animation_length": 8,
+			"bones": {
+				"root": {
+					"rotation": ["12.5-math.sin(query.anim_time*90+45)*0.5", "-math.sin(query.anim_time*45+45)*1", "math.sin(query.anim_time*90-45)*0.5"],
+					"position": [0, "math.cos(query.anim_time*180)*0.2+2", 0]
+				},
+				"p3": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p1": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p5": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p4": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p2": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"p6": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"7.9583": [0, -8640, 0]
+					}
+				},
+				"liquid": {
+					"rotation": ["-math.cos(query.anim_time*360+45)*1-5", "-math.sin(query.anim_time*360)*1", "math.sin(query.anim_time*360+45)*1"],
+					"scale": "math.cos(query.anim_time*90)*0.02 +0.98"
+				}
+			}
+		},
+		"animation.makercamp_dr.poison_drone.poison": {
+			"animation_length": 1.0417,
+			"particle_effects": {
+				"0.4": {
+					"effect": "poison_particle",
+					"locator": "effect"
+				}
+			},
+			"bones": {
+				"root": {
+					"rotation": {
+						"0.375": [0, 0, 0],
+						"0.5": {
+							"pre": [-10, -5, 0],
+							"post": [-10, -5, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5833": {
+							"post": [10, 5, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6667": {
+							"post": [-7, -3, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.75": {
+							"post": [4, 0, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.875": [0, 0, 0]
+					},
+					"position": {
+						"0.0": [0, 0, 0],
+						"0.375": {
+							"pre": [0, 6, 0],
+							"post": [0, 6, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5417": {
+							"post": [0, -1, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6667": {
+							"post": [0, 2, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.75": {
+							"post": [0, 0, 0],
+							"lerp_mode": "catmullrom"
+						},
+						"0.875": [0, 0, 0]
+					},
+					"scale": {
+						"0.0": [1, 1, 1],
+						"0.375": {
+							"pre": [1.2, 1, 1.2],
+							"post": [1.2, 1, 1.2],
+							"lerp_mode": "catmullrom"
+						},
+						"0.5417": {
+							"post": [0.9, 1, 0.9],
+							"lerp_mode": "catmullrom"
+						},
+						"0.6667": {
+							"post": [1, 1, 1],
+							"lerp_mode": "catmullrom"
+						},
+						"0.875": [1, 1, 1]
+					}
+				},
+				"ventil": {
+					"rotation": {
+						"0.0": [0, 0, 0],
+						"0.375": [0, 110, 0],
+						"0.9167": [0, -262.5, 0],
+						"1.0417": [0, -180, 0]
+					},
+					"scale": {
+						"0.0": [1, 1, 1],
+						"0.375": [0.8, 1, 0.8],
+						"0.7083": [1.5, 1, 1.5],
+						"0.8333": [0.9, 1, 0.9],
+						"0.9583": [1, 1, 1]
+					}
+				}
+			}
+		}
+	}
+}

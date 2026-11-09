@@ -1,0 +1,39 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.lightning_strike_drone.shoot": {
+			"states": {
+				"default": {
+					"animations": [
+						"energy_off"
+					],
+					"transitions": [
+						{
+							"prepare": "q.is_charged || v.is_shooting"
+						}
+					]
+				},
+				"prepare": {
+					"animations": [
+						"energy_off"
+					],
+					"transitions": [
+						{
+							"shoot": "!q.is_charged || (v.is_shooting && q.all_animations_finished)"
+						}
+					]
+				},
+				"shoot": {
+					"animations": [
+						"shoot"
+					],
+					"transitions": [
+						{
+							"default": "q.all_animations_finished"
+						}
+					]
+				}
+			}
+		}
+	}
+}

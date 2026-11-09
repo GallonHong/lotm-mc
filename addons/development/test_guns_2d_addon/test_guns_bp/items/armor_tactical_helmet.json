@@ -1,37 +1,37 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:armor_tactical_helmet",
-      "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.helmet"
-      }
-    },
-    "components": {
-      "minecraft:icon": "test_gun_armor_tactical_helmet",
-      "minecraft:max_stack_size": 1,
-      "minecraft:display_name": {
-        "value": "FAST 战术导轨头盔"
-      },
-      "minecraft:wearable": {
-        "slot": "slot.armor.head",
-        "protection": 4
-      },
-      "minecraft:durability": {
-        "max_durability": 380
-      },
-      "minecraft:repairable": {
-        "repair_items": [
-          {
-            "items": [
-              "test_gun:part_fabric_rag",
-              "minecraft:leather"
-            ],
-            "repair_amount": 152
-          }
-        ]
-      }
-    }
+ "format_version": "1.20.80",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:armor_tactical_helmet",
+   "menu_category": {
+    "category": "equipment",
+    "group": "itemGroup.name.helmet"
+   }
+  },
+  "components": {
+   "minecraft:icon": "test_gun_armor_tactical_helmet",
+   "minecraft:max_stack_size": 1,
+   "minecraft:display_name": {
+    "value": "§5FAST 战术防暴头盔 [史诗]§r\n§7被动: 6点护甲，【抗击退 +25%】，+15%爆炸减免，吸收50%头部爆头创伤§r\n§8§o“特警与战术先锋的标准配备，坚硬的聚乙烯头盔能够有效阻滞跳弹。”§r"
+   },
+   "minecraft:wearable": {
+    "slot": "slot.armor.head",
+    "protection": 4
+   },
+   "minecraft:durability": {
+    "max_durability": 380
+   },
+   "minecraft:repairable": {
+    "repair_items": [
+     {
+      "items": [
+       "test_gun:part_fabric_rag",
+       "minecraft:leather"
+      ],
+      "repair_amount": 152
+     }
+    ]
+   }
   }
+ }
 }

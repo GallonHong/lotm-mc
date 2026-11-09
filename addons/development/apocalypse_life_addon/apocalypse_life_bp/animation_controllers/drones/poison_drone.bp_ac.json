@@ -1,0 +1,55 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.poison_drone.shoot": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"prepare": "q.is_charged"
+						}
+					]
+				},
+				"prepare": {
+					"transitions": [
+						{
+							"starts": "!q.is_charged"
+						}
+					]
+				},
+				"starts": {
+					"on_entry": [
+						"@s find_target",
+						"v.cooldown = q.life_time + 0.4;"
+					],
+					"transitions": [
+						{
+							"sound": "v.cooldown < q.life_time"
+						}
+					]
+				},
+				"sound": {
+					"on_entry": [
+						"/playsound mob.horse.breathe @a ~ ~ ~ 1 0.6",
+						"v.cooldown = q.life_time + 0.1;"
+					],
+					"transitions": [
+						{
+							"shoot": "v.cooldown < q.life_time"
+						}
+					]
+				},
+				"shoot": {
+					"on_entry": [
+						"/scriptevent makercamp_dr:poison_drone.shoot"
+					],
+					"transitions": [
+						{
+							"default": "1.0"
+						}
+					]
+				}
+			}
+		}
+	}
+}

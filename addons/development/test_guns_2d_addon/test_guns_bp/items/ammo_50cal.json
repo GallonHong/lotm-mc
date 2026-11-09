@@ -1,23 +1,23 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:ammo_50cal",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": {
-        "value": 64
-      },
-      "minecraft:hand_equipped": {
-        "value": false
-      },
-      "minecraft:icon": "test_gun_ammo_50cal",
-      "minecraft:display_name": {
-        "value": "\u72d9\u51fb\u67aa/\u91cd\u578b\u5b50\u5f39 \u00a78[\u72d9\u51fb/\u91cd\u624b\u67aa\u901a\u7528]\u00a7r"
-      }
-    }
+ "format_version": "1.20.50",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:ammo_50cal",
+   "menu_category": {
+    "category": "items"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": {
+    "value": 64
+   },
+   "minecraft:hand_equipped": {
+    "value": false
+   },
+   "minecraft:icon": "test_gun_ammo_50cal",
+   "minecraft:display_name": {
+    "value": "\u72d9\u51fb\u67aa/\u91cd\u578b\u5b50\u5f39 \u00a78[\u72d9\u51fb/\u91cd\u624b\u67aa\u901a\u7528]\u00a7r"
+   }
   }
+ }
 }

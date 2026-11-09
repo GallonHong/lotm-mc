@@ -1,49 +1,49 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:vector",
-      "menu_category": {
-        "category": "equipment"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": {
-        "value": 1
-      },
-      "minecraft:hand_equipped": {
-        "value": true
-      },
-      "minecraft:icon": "test_gun_vector",
-      "minecraft:display_name": {
-        "value": "\u00a76HK MP7 \u6218\u672f\u51b2\u950b\u67aa [\u4f20\u8bf4\u00b7\u66b4\u8d70\u72c2\u6f6e]\u00a7r"
-      },
-      "minecraft:use_modifiers": {
-        "use_duration": 3200,
-        "movement_modifier": 0.75
-      },
-      "minecraft:food": {
-        "can_always_eat": true
-      },
-      "minecraft:durability": {
-        "max_durability": 1800
-      },
-      "minecraft:repairable": {
-        "repair_items": [
-          {
-            "items": [
-              "minecraft:iron_ingot",
-              "minecraft:copper_ingot"
-            ],
-            "repair_amount": 450
-          }
-        ]
-      },
-      "minecraft:tags": {
-        "tags": [
-          "minecraft:is_crossbow"
-        ]
-      }
-    }
+ "format_version": "1.20.50",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:vector",
+   "menu_category": {
+    "category": "equipment"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": {
+    "value": 1
+   },
+   "minecraft:hand_equipped": {
+    "value": true
+   },
+   "minecraft:icon": "test_gun_vector",
+   "minecraft:display_name": {
+    "value": "\u00a76HK MP7 \u6218\u672f\u51b2\u950b\u67aa [\u4f20\u8bf4\u00b7\u66b4\u8d70\u72c2\u6f6e]\u00a7r"
+   },
+   "minecraft:use_modifiers": {
+    "use_duration": 3200,
+    "movement_modifier": 0.75
+   },
+   "minecraft:food": {
+    "can_always_eat": true
+   },
+   "minecraft:durability": {
+    "max_durability": 1800
+   },
+   "minecraft:repairable": {
+    "repair_items": [
+     {
+      "items": [
+       "minecraft:iron_ingot",
+       "minecraft:copper_ingot"
+      ],
+      "repair_amount": 450
+     }
+    ]
+   },
+   "minecraft:tags": {
+    "tags": [
+     "minecraft:is_crossbow"
+    ]
+   }
   }
+ }
 }

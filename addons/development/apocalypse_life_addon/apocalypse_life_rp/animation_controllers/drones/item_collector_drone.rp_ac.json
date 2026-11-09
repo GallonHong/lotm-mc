@@ -1,0 +1,29 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.item_collector_drone.shoot": {
+			"states": {
+				"default": {
+					"animations": [
+						"hide_beam"
+					],
+					"transitions": [
+						{
+							"shoot": "v.is_shooting"
+						}
+					]
+				},
+				"shoot": {
+					"animations": [
+						"shoot"
+					],
+					"transitions": [
+						{
+							"default": "q.all_animations_finished"
+						}
+					]
+				}
+			}
+		}
+	}
+}

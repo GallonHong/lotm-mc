@@ -1,0 +1,48 @@
+{
+	"format_version": "1.10.0",
+	"minecraft:client_entity": {
+		"description": {
+			"identifier": "makercamp_dr:mob_transporter_drone",
+			"materials": {
+				"default": "entity_alphatest",
+				"blend": "entity_alphablend",
+				"customblend": "makercamp_dr_customblend",
+				"emissive": "entity_emissive_alpha"
+			},
+			"textures": {
+				"default": "textures/makercamp/dr/entity/mob_transporter_drone"
+			},
+			"geometry": {
+				"default": "geometry.makercamp_dr.mob_transporter_drone",
+				"controlled": "geometry.makercamp_dr.empty"
+			},
+			"animations": {
+				"ac.fly": "controller.animation.makercamp_dr.drone.fly",
+				"ac.shoot": "controller.animation.makercamp_dr.mob_transporer.shoot",
+
+				"idle": "animation.makercamp_dr.mob_transporter_drone.idle",
+				"fly": "animation.makercamp_dr.mob_transporter_drone.fly",
+
+				"hide_beam": "animation.makercamp_dr.mob_transporter_drone.hide_beam",
+
+				"beam_start": "animation.makercamp_dr.mob_transporter_drone.beam_start",
+				"beam_hold": "animation.makercamp_dr.mob_transporter_drone.beam_hold",
+				"beam_end": "animation.makercamp_dr.mob_transporter_drone.beam_end"
+			},
+			"scripts": {
+				"pre_animation": [
+					"v.is_shooting = q.property('makercamp_dr:is_shooting');",
+					"v.is_controlled_by_player = q.property('makercamp_dr:controlled_by_player');"
+				],
+				"animate": ["ac.fly", "ac.shoot"]
+			},
+			"spawn_egg": {
+				"texture": "makercamp_dr:mob_transporter_drone"
+			},
+			"render_controllers": [
+				"controller.render.markercamp_dr.drone.common",
+				"controller.render.makercamp_dr.drone.blend_bright"
+			]
+		}
+	}
+}

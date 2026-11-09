@@ -1,23 +1,23 @@
 {
-  "format_version": "1.20.50",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:part_receiver",
-      "menu_category": {
-        "category": "items"
-      }
-    },
-    "components": {
-      "minecraft:max_stack_size": {
-        "value": 64
-      },
-      "minecraft:hand_equipped": {
-        "value": false
-      },
-      "minecraft:icon": "test_gun_part_receiver",
-      "minecraft:display_name": {
-        "value": "\u51b2\u538b\u51fb\u53d1\u673a\u5323 \u00a78[\u534a\u6210\u54c1\u914d\u4ef6]\u00a7r"
-      }
-    }
+ "format_version": "1.20.50",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:part_receiver",
+   "menu_category": {
+    "category": "items"
+   }
+  },
+  "components": {
+   "minecraft:max_stack_size": {
+    "value": 64
+   },
+   "minecraft:hand_equipped": {
+    "value": false
+   },
+   "minecraft:icon": "test_gun_part_receiver",
+   "minecraft:display_name": {
+    "value": "\u51b2\u538b\u51fb\u53d1\u673a\u5323 \u00a78[\u534a\u6210\u54c1\u914d\u4ef6]\u00a7r"
+   }
   }
+ }
 }

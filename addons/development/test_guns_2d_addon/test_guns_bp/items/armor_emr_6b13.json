@@ -1,38 +1,38 @@
 {
-  "format_version": "1.20.80",
-  "minecraft:item": {
-    "description": {
-      "identifier": "test_gun:armor_emr_6b13",
-      "menu_category": {
-        "category": "equipment",
-        "group": "itemGroup.name.chestplate"
-      }
-    },
-    "components": {
-      "minecraft:icon": "test_gun_armor_emr_6b13",
-      "minecraft:max_stack_size": 1,
-      "minecraft:display_name": {
-        "value": "§96B13 EMR 迷彩防弹衣 [精良]§r\n§7被动: 10点护甲，-35%枪械终伤，对中远距离步枪穿透子弹防护+10%§r\n§8§o“俄军标配重型单兵护甲，扎实可靠的陶瓷防护层。”§r"
-      },
-      "minecraft:wearable": {
-        "slot": "slot.armor.chest",
-        "protection": 10
-      },
-      "minecraft:durability": {
-        "max_durability": 600
-      },
-      "minecraft:repairable": {
-        "repair_items": [
-          {
-            "items": [
-              "test_gun:part_fabric_rag",
-              "test_gun:part_armor_plate",
-              "minecraft:iron_ingot"
-            ],
-            "repair_amount": 200
-          }
-        ]
-      }
-    }
+ "format_version": "1.20.80",
+ "minecraft:item": {
+  "description": {
+   "identifier": "test_gun:armor_emr_6b13",
+   "menu_category": {
+    "category": "equipment",
+    "group": "itemGroup.name.chestplate"
+   }
+  },
+  "components": {
+   "minecraft:icon": "test_gun_armor_emr_6b13",
+   "minecraft:max_stack_size": 1,
+   "minecraft:display_name": {
+    "value": "§56B13 EMR 迷彩防弹衣 [史诗]§r\n§7被动: 10点护甲，【抗击退 +70%】，-14%枪械终伤，+20%爆炸减免，对中远距离步枪穿透子弹防护+10%§r\n§8§o“俄军标配重型单兵护甲，扎实可靠的陶瓷防护层。”§r"
+   },
+   "minecraft:wearable": {
+    "slot": "slot.armor.chest",
+    "protection": 10
+   },
+   "minecraft:durability": {
+    "max_durability": 600
+   },
+   "minecraft:repairable": {
+    "repair_items": [
+     {
+      "items": [
+       "test_gun:part_fabric_rag",
+       "test_gun:part_armor_plate",
+       "minecraft:iron_ingot"
+      ],
+      "repair_amount": 200
+     }
+    ]
+   }
   }
+ }
 }

@@ -1,0 +1,36 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.makercamp_dr.poison_drone.shoot": {
+			"states": {
+				"default": {
+					"transitions": [
+						{
+							"prepare": "q.is_charged"
+						},
+						{
+							"shoot": "v.is_shooting"
+						}
+					]
+				},
+				"prepare": {
+					"transitions": [
+						{
+							"shoot": "!q.is_charged"
+						}
+					]
+				},
+				"shoot": {
+					"animations": [
+						"shoot"
+					],
+					"transitions": [
+						{
+							"default": "q.all_animations_finished"
+						}
+					]
+				}
+			}
+		}
+	}
+}
