@@ -58,7 +58,7 @@ export const MERCHANT_CATEGORIES = Object.freeze([
      { id: "minecraft:iron_bars", name: "铁栏杆", buyPrice: 10, sellPrice: 5, sellGroup: "vanilla" },
      { id: "minecraft:lever", name: "拉杆", buyPrice: 6, sellPrice: 2, sellGroup: "vanilla" },
      { id: "minecraft:piston", name: "活塞", buyPrice: 45, sellPrice: 20, sellGroup: "vanilla" },
-     { id: "minecraft:compass", name: "指南针", buyPrice: 70, sellPrice: 30, sellGroup: "vanilla" },
+     { id: "minecraft:compass", name: "指南针", buyPrice: 70, sellGroup: "vanilla" },
      { id: "minecraft:spyglass", name: "望远镜", buyPrice: 60, sellPrice: 25, sellGroup: "vanilla" },
      { id: "minecraft:lightning_rod", name: "避雷针", buyPrice: 35, sellPrice: 15, sellGroup: "vanilla" },
      { id: "minecraft:tnt", name: "TNT", buyPrice: 120, sellPrice: 50, sellGroup: "vanilla" },

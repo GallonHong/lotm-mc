@@ -9,11 +9,11 @@
   },
   "components": {
    "minecraft:display_name": {
-    "value": "§l§b【火控就绪】右键开火 / 潜行返航§r"
+    "value": "§l§b【无人机遥控】按住使用键开火 / 切栏退出§r"
    },
    "minecraft:max_stack_size": 1,
    "minecraft:item_lock": {
-    "mode": "lock_in_inventory"
+    "mode": "lock_in_slot"
    },
    "minecraft:use_modifiers": {
     "use_duration": 1000000,
@@ -23,6 +23,12 @@
     "textures": {
      "default": "ab_dr:drone_fire_control"
     }
+   },
+   "minecraft:keep_on_death": {},
+   "minecraft:food": {
+    "nutrition": 0,
+    "saturation_modifier": 0,
+    "can_always_eat": true
    }
   }
  }

@@ -1,4 +1,6 @@
-import { world, system, EntityComponentTypes, EquipmentSlot, ItemStack } from "@minecraft/server";
+import { world, system, EntityComponentTypes, InputButton, ButtonState, EasingType } from "@minecraft/server";
+import { DroneEffects } from "./DroneEffects.js";
+import { ManualControlSession } from "./ManualControlSession.js";
 import { DRONE_REGISTRY } from "./DroneConstants.js";
 import { DroneGarageManager } from "./DroneGarageManager.js";
 import { DownedRescueManager } from "../rescue/DownedRescueManager.js";
@@ -59,6 +61,8 @@ export class DroneClass {
  }
 
  static unregisterActiveDrone(playerId) {
+  const drone = this.activeDrones.get(playerId);
+  if (drone?.manualMode) this.exitManualControl(drone.player);
   this.activeDrones.delete(playerId);
  }
 
@@ -100,29 +104,18 @@ export class DroneClass {
    return;
   }
 
-  drone.manualMode = true;
-  drone.controllingPlayer = player;
-  drone.controlSlotIndex = player.selectedSlotIndex;
-  drone.sneakHoldTicks = 0;
-
-  // 1. 保存当前主手物品并装备空手火控瞄准触发器
   try {
-   const eq = player.getComponent("minecraft:equippable");
-   drone.savedMainhandItem = eq?.getEquipment(EquipmentSlot.Mainhand) || null;
-   const fireControlItem = new ItemStack("ab_dr:drone_fire_control", 1);
-   eq?.setEquipment(EquipmentSlot.Mainhand, fireControlItem);
-  } catch (err) {
-   console.warn(`[DroneClass] Equip fire control error: ${err}`);
+   drone.controlSession = ManualControlSession.begin(player);
+  } catch (error) {
+   player.sendMessage(`§c[战术遥控] ${error.message}`);
+   return;
   }
-
-  // 2. 锁定玩家躯体位移 (避免遥控时人身误走跌落)
-  try {
-   const inputPerm = player.inputPermissions;
-   if (inputPerm) {
-    [1, 2, 3, 4, 5].forEach(cat => inputPerm.setPermissionCategory(cat, false));
-    inputPerm.setPermissionCategory(6, true);
-   }
-  } catch {}
+  drone.manualMode = true;
+  drone.manualFiring = false;
+  drone.controllingPlayer = player;
+  drone.controlSlotIndex = drone.controlSession.slot;
+  drone.sneakHoldTicks = 0;
+  drone.lastManualFireTick = -Infinity;
 
   // 3. 切换第一人称自由相机到无人机机头
   const droneLoc = drone.entity.location;
@@ -140,12 +133,12 @@ export class DroneClass {
    player.camera.setCamera("minecraft:free", {
     location: eyePos,
     rotation: { x: rot.x, y: rot.y },
-    easeOptions: { easeTime: 0.1, easeType: "Linear" }
+    easeOptions: { easeTime: 0.1, easeType: EasingType.Linear }
    });
-  } catch {
-   try {
-    player.runCommandAsync(`camera @s set minecraft:free ease 0.1 linear pos ${eyePos.x.toFixed(2)} ${eyePos.y.toFixed(2)} ${eyePos.z.toFixed(2)} rot ${rot.x.toFixed(2)} ${rot.y.toFixed(2)}`);
-   } catch {}
+  } catch (error) {
+   this.exitManualControl(player);
+   player.sendMessage(`§c[战术遥控] 相机初始化失败：${error}`);
+   return;
   }
 
   // 4. 设置无人机实体属性
@@ -159,7 +152,7 @@ export class DroneClass {
   player.sendMessage("§6━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
   player.sendMessage(`§a[战术接管] 已接入 ${drone.config.name} §a第一人称火控视角！`);
   player.sendMessage("§e【飞行操控】WASD 移动飞行 │ 空格(Jump) 爬升 │ 潜行(Shift) 下降");
-  player.sendMessage("§e【武器射击】空手右键瞄准开火");
+  player.sendMessage("§e【武器射击】按住使用键/右键持续开火，松开停止");
   player.sendMessage("§6【安全返航】按住潜行(落地长按)或切换快捷栏物品即可退出视角");
   player.sendMessage("§6━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
  }
@@ -190,40 +183,25 @@ export class DroneClass {
    });
   } catch {}
 
-  // 2. 恢复玩家移动控制权限
-  try {
-   const inputPerm = player.inputPermissions;
-   if (inputPerm) {
-    [1, 2, 3, 4, 5, 6].forEach(cat => inputPerm.setPermissionCategory(cat, true));
-   }
-  } catch {}
-
-  // 3. 回收火控物品，还原主手原有物品
-  try {
-   const eq = player.getComponent("minecraft:equippable");
-   if (eq) {
-    const cur = eq.getEquipment(EquipmentSlot.Mainhand);
-    if (cur && cur.typeId === "ab_dr:drone_fire_control") {
-     eq.setEquipment(EquipmentSlot.Mainhand, drone.savedMainhandItem || null);
-    }
-   }
-  } catch (err) {
-   console.warn(`[DroneClass] Restore mainhand item error: ${err}`);
-  }
-  drone.savedMainhandItem = null;
+  drone.manualFiring = false;
+  ManualControlSession.recover(player);
+  drone.controlSession = null;
 
   // 4. 重置无人机实体状态
   try {
    if (drone.entity && drone.entity.isValid()) {
     drone.entity.setProperty("makercamp_dr:controlled_by_player", false);
+    drone.entity.setProperty("makercamp_dr:is_shooting", false);
     drone.entity.setProperty("makercamp_dr:state", "passive");
    }
   } catch {}
 
   // 5. 反馈
   try { player.onScreenDisplay.clearTitle(); } catch {}
-  player.runCommandAsync("playsound random.pop @s ~~~ 0.8 1.0");
-  player.sendMessage("§b[战术网络] 已退出手动火控视角，无人机恢复自主协同伴飞。");
+  try {
+   player.runCommandAsync("playsound random.pop @s ~~~ 0.8 1.0");
+   player.sendMessage("§b[战术网络] 已退出手动火控视角，无人机恢复自主协同伴飞。");
+  } catch {}
  }
 
  /**
@@ -238,7 +216,7 @@ export class DroneClass {
       entity.setProperty("makercamp_dr:is_shooting", false);
      }
     } catch {}
-   }, 6);
+   }, 2);
   } catch {}
  }
 
@@ -261,7 +239,7 @@ export class DroneClass {
     pitch = 1.05;
    }
 
-   entity.runCommandAsync(`playsound ${soundId} @a ~~~ ${volume} ${pitch}`);
+   entity.runCommandAsync(`playsound ${soundId} @a[r=40] ~~~ ${volume * 0.7} ${pitch + ((system.currentTick % 5) - 2) * 0.012}`).catch(() => {});
   } catch {}
  }
 
@@ -269,60 +247,7 @@ export class DroneClass {
   * 绘制子弹弹道轨迹与枪口火花
   */
  static drawDroneBulletTracer(dimension, startLoc, endLoc, drone) {
-  if (!dimension || !startLoc || !endLoc) return;
-
-  const sx = Number(startLoc.x);
-  const sy = Number(startLoc.y);
-  const sz = Number(startLoc.z);
-  const ex = Number(endLoc.x);
-  const ey = Number(endLoc.y);
-  const ez = Number(endLoc.z);
-
-  const dx = ex - sx;
-  const dy = ey - sy;
-  const dz = ez - sz;
-  const dist = Math.hypot(dx, dy, dz);
-  if (dist < 0.2) return;
-
-  // 1. 枪口火花
-  try {
-   dimension.spawnParticle("test_gun:muzzle_flash_circle", { x: sx, y: sy, z: sz });
-  } catch {}
-
-  // 2. 弹道粒子选型与步长
-  let particle = "test_gun:bullet_tracer";
-  let stepSize = 0.65;
-
-  if (drone.droneId === "aurora" || drone.droneId === "specter") {
-   particle = "test_gun:arc_beam";
-   stepSize = 0.50;
-  } else if (drone.droneId === "destroyer" || drone.config?.fireType === "incendiary") {
-   particle = "test_gun:pkm_burn";
-   stepSize = 0.60;
-  } else if (drone.droneId === "punisher") {
-   particle = "test_gun:vector_tracer";
-   stepSize = 0.55;
-  }
-
-  const steps = Math.min(Math.max(3, Math.floor(dist / stepSize)), 45);
-  for (let i = 1; i <= steps; i++) {
-   const frac = i / steps;
-   const px = sx + dx * frac;
-   const py = sy + dy * frac;
-   const pz = sz + dz * frac;
-   try {
-    dimension.spawnParticle(particle, { x: px, y: py, z: pz });
-   } catch {
-    try {
-     dimension.spawnParticle("minecraft:critical_hit_emitter", { x: px, y: py, z: pz });
-    } catch {}
-   }
-  }
-
-  // 3. 终点击中火花
-  try {
-   dimension.spawnParticle("test_gun:bullet_hit_spark", { x: ex, y: ey, z: ez });
-  } catch {}
+  DroneEffects.trace(dimension, startLoc, endLoc, drone);
  }
 
  /**
@@ -330,7 +255,7 @@ export class DroneClass {
   */
  static fireManualBullet(player) {
   const drone = this.getActiveDrone(player.id);
-  if (!drone || !drone.entity || !drone.entity.isValid()) return;
+  if (!drone?.manualMode || !drone.entity?.isValid() || !ManualControlSession.held(player, drone.controlSession)) return;
 
   if (drone.fuel <= 0) {
    player.sendMessage("§c[战术遥控] 无人机能量耗尽，无法射击！");
@@ -338,10 +263,10 @@ export class DroneClass {
   }
 
   const currentTick = system.currentTick;
-  if (currentTick - (drone.lastManualFireTick || 0) < 6) return; // 0.3s 射击CD
+  if (currentTick - (drone.lastManualFireTick ?? -Infinity) < drone.config.fireIntervalTicks) return; // 各机型射速
   drone.lastManualFireTick = currentTick;
 
-  const headLoc = player.getHeadLocation();
+  const headLoc = { x: drone.entity.location.x, y: drone.entity.location.y + 0.15, z: drone.entity.location.z };
   const viewDir = player.getViewDirection();
   const rot = player.getRotation();
 
@@ -349,11 +274,7 @@ export class DroneClass {
    drone.entity.setRotation(rot);
   } catch {}
 
-  const muzzleLoc = {
-   x: drone.entity.location.x,
-   y: drone.entity.location.y + 0.2,
-   z: drone.entity.location.z
-  };
+  const muzzleLoc = DroneEffects.muzzle(drone.entity);
 
   let endLoc = {
    x: headLoc.x + viewDir.x * 32,
@@ -363,10 +284,17 @@ export class DroneClass {
 
   // 计算射程内命中的实体 (射线检测 32米)
   try {
-   const hit = player.dimension.getEntitiesFromRay(headLoc, viewDir, {
-    maxDistance: 32,
-    excludeEntities: [player.id, drone.entity.id]
-   });
+   const dimension = drone.entity.dimension;
+   const blockHit = dimension.getBlockFromRay(headLoc, viewDir, { maxDistance: 32, includeLiquidBlocks: false, includePassableBlocks: false });
+   const blockDistance = blockHit ? Math.hypot(
+    blockHit.block.location.x + blockHit.faceLocation.x - headLoc.x,
+    blockHit.block.location.y + blockHit.faceLocation.y - headLoc.y,
+    blockHit.block.location.z + blockHit.faceLocation.z - headLoc.z
+   ) : 32;
+   endLoc = { x: headLoc.x + viewDir.x * blockDistance, y: headLoc.y + viewDir.y * blockDistance, z: headLoc.z + viewDir.z * blockDistance };
+   const hit = dimension.getEntitiesFromRay(headLoc, viewDir, { maxDistance: 32 })
+    .filter(result => result.entity.id !== player.id && result.entity.id !== drone.entity.id && result.distance < blockDistance)
+    .sort((a, b) => a.distance - b.distance);
 
    if (hit && hit.length > 0) {
     const target = hit[0].entity;
@@ -403,6 +331,35 @@ export class DroneClass {
   */
  static init() {
   console.warn("[DroneClass] Drone Combat and Flight Engine initializing...");
+
+  const start = event => {
+   const drone = this.getActiveDrone(event.source?.id);
+   if (drone?.manualMode && ManualControlSession.matches(event.itemStack, drone.controlSession) && ManualControlSession.held(event.source, drone.controlSession)) {
+    drone.manualFiring = true;
+    this.fireManualBullet(event.source);
+   }
+  };
+  const stop = event => {
+   const drone = this.getActiveDrone(event.source?.id);
+   if (drone) drone.manualFiring = false;
+  };
+  world.afterEvents.itemStartUse.subscribe(start);
+  world.afterEvents.itemUse.subscribe(start);
+  world.afterEvents.itemStopUse.subscribe(stop);
+  world.afterEvents.itemReleaseUse.subscribe(stop);
+  world.afterEvents.playerSpawn.subscribe(({ player }) => {
+   const drone = this.getActiveDrone(player.id);
+   if (drone?.manualMode) this.exitManualControl(player);
+   ManualControlSession.recover(player);
+  });
+  world.afterEvents.playerLeave.subscribe(({ playerId }) => {
+   const drone = this.getActiveDrone(playerId);
+   try { if (drone?.entity?.isValid()) drone.entity.remove(); } catch {}
+   this.unregisterActiveDrone(playerId);
+  });
+  system.run(() => {
+   for (const player of world.getAllPlayers()) ManualControlSession.recover(player);
+  });
 
   // 20 TPS 伴飞与火控主循环
   system.runInterval(() => {
@@ -452,6 +409,11 @@ export class DroneClass {
   */
  static updateAllDrones() {
   const currentTick = system.currentTick;
+  if (currentTick % 20 === 0) {
+   for (const player of world.getAllPlayers()) {
+    if (!this.isPlayerInManualControl(player)) ManualControlSession.recover(player);
+   }
+  }
 
   for (const [ownerId, drone] of this.activeDrones) {
    const player = drone.player;
@@ -459,14 +421,18 @@ export class DroneClass {
 
    // 1. 基础有效性检测
    if (!player || !player.isValid() || !entity || !entity.isValid()) {
-    DroneGarageManager.recallDrone(player, false);
+    if (player?.isValid()) DroneGarageManager.recallDrone(player, false);
+    else {
+     try { if (entity?.isValid()) entity.remove(); } catch {}
+     this.unregisterActiveDrone(ownerId);
+    }
     continue;
    }
 
     // A. 手动操控 FPV 视角与全向物理飞行分支
     if (drone.manualMode) {
      // 1. 检查栏位切换 (切栏位立即退出视角)
-     if (player.selectedSlotIndex !== drone.controlSlotIndex) {
+     if (drone.fuel <= 0 || !ManualControlSession.held(player, drone.controlSession) || player.dimension.id !== entity.dimension.id || DownedRescueManager.isPlayerDowned(player) || player.getComponent(EntityComponentTypes.Health)?.currentValue <= 0) {
       this.exitManualControl(player);
       continue;
      }
@@ -508,8 +474,8 @@ export class DroneClass {
       if (input) {
        const mv = input.getMovementVector();
        if (mv) { moveX = mv.x; moveY = mv.y; }
-       jumpPressed = input.getButtonState("Jump") === "Pressed" || player.isJumping;
-       sneakPressed = input.getButtonState("Sneak") === "Pressed" || player.isSneaking;
+       jumpPressed = input.getButtonState(InputButton.Jump) === ButtonState.Pressed || player.isJumping;
+       sneakPressed = input.getButtonState(InputButton.Sneak) === ButtonState.Pressed || player.isSneaking;
       } else {
        jumpPressed = player.isJumping;
        sneakPressed = player.isSneaking;
@@ -579,13 +545,14 @@ export class DroneClass {
       player.camera.setCamera("minecraft:free", {
        location: eyePos,
        rotation: { x: rot.x, y: rot.y },
-       easeOptions: { easeTime: 0.1, easeType: "Linear" }
+       easeOptions: { easeTime: 0.1, easeType: EasingType.Linear }
       });
      } catch {
-      try {
-       player.runCommandAsync(`camera @s set minecraft:free ease 0.1 linear pos ${eyePos.x.toFixed(2)} ${eyePos.y.toFixed(2)} ${eyePos.z.toFixed(2)} rot ${rot.x.toFixed(2)} ${rot.y.toFixed(2)}`);
-      } catch {}
+      this.exitManualControl(player);
+      continue;
      }
+
+     if (drone.manualFiring) this.fireManualBullet(player);
 
      // 6. 屏幕飞行状态反馈 (全彩高亮零灰色)
      const fuelPercent = Math.max(0, Math.floor(drone.fuel));
@@ -593,7 +560,7 @@ export class DroneClass {
      const altText = entity.location.y.toFixed(1);
      try {
       player.onScreenDisplay.setTitle("", {
-       subtitle: `§b【FPV火控视角】 §e电量: §a${fuelPercent}% §6│ §e距离: §f${distText}m/96m §6│ §e高度: §f${altText} §6│ §a右键开火 §6│ §c潜行返航`,
+       subtitle: `§b【FPV火控视角】 §e电量: §a${fuelPercent}% §6│ §e距离: §f${distText}m/96m §6│ §e高度: §f${altText} §6│ §a按住使用键开火 §6│ §c潜行返航`,
        fadeInDuration: 0,
        stayDuration: 10,
        fadeOutDuration: 0
@@ -750,11 +717,7 @@ export class DroneClass {
   const rot = this.getRotationTowards(entity.location, target.location);
   try { entity.setRotation(rot); } catch {}
 
-  const muzzleLoc = {
-   x: entity.location.x,
-   y: entity.location.y + 0.2,
-   z: entity.location.z
-  };
+  const muzzleLoc = DroneEffects.muzzle(entity);
 
   const targetCenter = {
    x: target.location.x,
@@ -848,12 +811,10 @@ export class DroneClass {
      const t = mobs[0];
      try {
       t.applyDamage(skill.burstDamage || 35);
-      entity.dimension.spawnParticle("minecraft:large_explosion", t.location);
-      entity.runCommandAsync("playsound random.explode @s ~~~ 0.8 1.4");
       this.triggerDroneShootingAnimation(entity);
-      const muzzleLoc = { x: entity.location.x, y: entity.location.y + 0.2, z: entity.location.z };
+      const muzzleLoc = DroneEffects.muzzle(entity);
       const targetCenter = { x: t.location.x, y: t.location.y + 0.8, z: t.location.z };
-      this.drawDroneBulletTracer(entity.dimension, muzzleLoc, targetCenter, drone);
+      DroneEffects.skill(entity.dimension, muzzleLoc, targetCenter, drone, skill.id);
       player.sendMessage(`§c[火控打击] ${drone.config.name} §c释放【${skill.name}】对目标造成重创！`);
      } catch {}
     }

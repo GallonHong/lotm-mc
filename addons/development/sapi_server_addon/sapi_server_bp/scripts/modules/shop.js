@@ -13,6 +13,15 @@ import { WantedManager } from "./wanted.js";
 export class ShopManager {
 	static dailyStateKey = "sapi:shop:daily:v1";
 
+	// Navigation items must never be consumed by official NPC recycling,
+	// even if an old/custom merchant configuration still gives them a price.
+	static canRecycle(item) {
+		const id = item?.id;
+		return !!id && !["minecraft:compass", "sapi:menu_compass",
+			Config.system?.menuItem, Config.system?.fallbackMenuItem].includes(id)
+			&& Number.isFinite(Number(item.sellPrice)) && Number(item.sellPrice) > 0;
+	}
+
 	static dayKey() {
 		const offset = Number(Config.operations.timezoneOffsetMinutes || 0) * 60000;
 		return new Date(Date.now() + offset).toISOString().slice(0, 10);
@@ -48,7 +57,7 @@ export class ShopManager {
 		const collect = (list) => {
 			if (!Array.isArray(list)) return;
 			for (const item of list) {
-				if (item && item.sellPrice && Number(item.sellPrice) > 0) {
+				if (this.canRecycle(item)) {
 					sellable.push(item);
 				}
 			}
@@ -111,7 +120,7 @@ export class ShopManager {
 			const item = container.getItem(i);
 			if (!item) continue;
 			const def = sellableMap.get(item.typeId);
-			if (!def) continue;
+			if (!def || !this.canRecycle(def) || def.id !== item.typeId) continue;
 
 			const entry = foundMap.get(item.typeId);
 			if (entry) {
@@ -241,7 +250,7 @@ export class ShopManager {
 			let actualVanillaEarn = 0;
 
 			for (const entry of scanned) {
-				if (entry.sellAmount <= 0) continue;
+				if (entry.sellAmount <= 0 || !this.canRecycle(entry.def)) continue;
 				const currentInBag = Utils.countItem(player, entry.def.id);
 				if (currentInBag <= 0) continue;
 
@@ -418,7 +427,7 @@ export class ShopManager {
 			const bought = Number(daily.purchases?.[item.id] || 0);
 			const limitText = item.dailyLimit ? ` §6(${bought}/${item.dailyLimit})` : "";
 			const buyText = item.buyPrice ? `§a买: §e${item.buyPrice}${limitText}` : "§c不可买";
-			const sellText = item.sellPrice ? `§c卖: §e${item.sellPrice}` : "§c不可卖";
+			const sellText = this.canRecycle(item) ? `§c卖: §e${item.sellPrice}` : "§c不可卖";
 			form.button(`${item.name}\n${buyText} §6| ${sellText}`, item.icon);
 		}
 
@@ -454,7 +463,7 @@ export class ShopManager {
 
 		const tradeOptions = [];
 		if (item.buyPrice) tradeOptions.push(`§a购买 (单价: ${item.buyPrice} 金币)`);
-		if (item.sellPrice) tradeOptions.push(`§c出售 (单价: ${item.sellPrice} 金币)`);
+		if (this.canRecycle(item)) tradeOptions.push(`§c出售 (单价: ${item.sellPrice} 金币)`);
 
 		if (tradeOptions.length === 0) {
 			Utils.tell(player, "§c此物品暂不支持交易！");
@@ -475,6 +484,7 @@ export class ShopManager {
 
 			const [typeIndex, quantity] = res.formValues;
 			const selectedText = tradeOptions[typeIndex];
+			if (typeof selectedText !== "string") return;
 			const isBuy = selectedText.includes("购买");
 
 			let count = Math.floor(quantity);
@@ -514,6 +524,7 @@ export class ShopManager {
 				Utils.tell(player, `§a成功购买 §e${item.name} §ax${count}，获得物品 ${amount} 个，花费 ${Utils.formatCurrency(totalCost)}！`);
 				Utils.sound.buy(player);
 			} else {
+				if (!this.canRecycle(item)) return;
 				if (!WantedManager.requireOfficialTrade(player)) return;
 				if (item.sellGroup === "vanilla") {
 					const cap = Math.max(0, Number(Config.shop.vanillaDailySellCap || 0));
