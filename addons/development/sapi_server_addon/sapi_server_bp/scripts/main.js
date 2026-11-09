@@ -9,6 +9,7 @@ import { MarketManager } from "./modules/market.js";
 import { ServerMenuManager } from "./modules/server_menu.js";
 import { Integration } from "./modules/integration.js";
 import { TeleportManager } from "./modules/teleport.js";
+import { PlotSafeZone } from "./modules/plot_safe_zone.js";
 import { RegionManager } from "./modules/region.js";
 import { AuditManager } from "./modules/audit.js";
 import { OperationsManager } from "./modules/operations.js";
@@ -85,6 +86,7 @@ function initServerSystem() {
 	try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
 	CombatManager.registerEvents();
 	RegionManager.registerProtectionEvents();
+ PlotSafeZone.start();
 	LandManager.registerProtectionEvents();
 	TeleportManager.registerEvents();
 	Integration.startServerHeartbeat();

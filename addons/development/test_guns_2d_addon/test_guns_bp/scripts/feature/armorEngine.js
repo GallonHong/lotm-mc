@@ -516,7 +516,49 @@ export class ArmorEngine {
 				}
 			}
 
-			// 3. 【艾斯链甲骷髅战术背心】反弹 30% 近战穿透刺伤
+			// 3. 【重装防具巨兽近战重击吸收与防秒杀机制】
+			// 解决高科技重甲/外骨骼被 Warden/世界Boss 怪物一拳秒杀的严重体验问题
+			const isHeavyArmor = chestId.includes('armor_mlt_hg2') || chestId.includes('armor_titan') || chestId.includes('armor_mob_chest') || chestId.includes('armor_killa') || chestId.includes('armor_assault') || chestId.includes('armor_vest_heavy');
+			const isMeleeMonster = isMonster && (cause === 'entityAttack' || cause === 'entitySwipe' || cause === 'sonicBoom');
+
+			if (isMeleeMonster && isHeavyArmor && damage >= 4.0) {
+				const health = player.getComponent('minecraft:health');
+				if (health) {
+					// 吸收巨兽 45% (普通巨怪 30%) 的近战毁灭冲击力
+					const absorbRatio = isBoss ? 0.45 : 0.30;
+					const absorbed = Math.max(1.0, Math.round(damage * absorbRatio * 10) / 10);
+					const newHp = Math.min(health.effectiveMax, health.currentValue + absorbed);
+					health.setCurrentValue(newHp);
+
+					player.dimension.playSound('armor.equip_diamond', player.location, { volume: 0.8, pitch: 0.8 });
+					player.dimension.spawnParticle('minecraft:crit', player.location);
+
+					if (isBoss) {
+						player.onScreenDisplay?.setActionBar?.(`§6【重装外骨骼】吸收巨兽 ${(absorbRatio * 100).toFixed(0)}% 毁灭冲击！(抗性吸收 +${absorbed.toFixed(1)} HP)§r`);
+					}
+				}
+			}
+
+			// 3.1 【重装甲紧急防秒杀缓冲机制 (Anti-One-Shot Protection)】
+			// 满血或健康状态遭遇足以致命的巨额重创时，紧急阻尼器过载保留 4 HP (2颗心)，杜绝暴毙
+			if (isHeavyArmor && isMonster) {
+				const health = player.getComponent('minecraft:health');
+				if (health && health.currentValue <= 2.0) {
+					const currentTick = system.currentTick;
+					const lastGateTick = hurtState?.lastLethalGateTick || 0;
+					if (currentTick - lastGateTick > 500) { // 25秒内置过载保护冷却
+						if (hurtState) hurtState.lastLethalGateTick = currentTick;
+						health.setCurrentValue(4.0); // 强行保留 4 HP (2 颗心)
+						player.addEffect('resistance', 30, { amplifier: 4, showParticles: false }); // 1.5秒霸体抗性缓冲
+						player.dimension.playSound('random.totem', player.location, { volume: 0.9, pitch: 1.6 });
+						player.dimension.playSound('beacon.deactivate', player.location, { volume: 1.0, pitch: 1.2 });
+						player.dimension.spawnParticle('minecraft:totem_particle', player.location);
+						player.onScreenDisplay?.setActionBar?.('§c【紧急过载缓冲】重装甲紧急阻尼器过载激活！抵御致命秒杀！§r');
+					}
+				}
+			}
+
+			// 4. 【艾斯链甲骷髅战术背心】反弹 30% 近战穿透刺伤
 			if ((cause === 'entityAttack' || cause === 'entitySwipe') && chestId.includes('armor_ala_spc') && attacker && attacker.isValid()) {
 				try {
 					const reflectDmg = Math.max(1.0, Math.round(damage * 0.30 * 10) / 10);
@@ -526,7 +568,7 @@ export class ArmorEngine {
 				} catch {}
 			}
 
-			// 4. 【堡垒重装防弹衣】受重击时如果生命降至危险线，触发濒死护盾
+			// 5. 【堡垒重装防弹衣】受重击时如果生命降至危险线，触发濒死护盾
 			if (chestId.includes('armor_mob_chest')) {
 				const health = player.getComponent('minecraft:health');
 				if (health && health.currentValue <= 8) {
@@ -534,20 +576,16 @@ export class ArmorEngine {
 				}
 			}
 
-			// 5. 【敌对生物威胁平衡】(解决后期全装打不动、怪物无威胁问题)
-			if (isMonster && (cause === 'entityAttack' || cause === 'entitySwipe')) {
+			// 6. 【敌对生物威胁平衡】
+			if (isMonster && (cause === 'entityAttack' || cause === 'entitySwipe' || cause === 'sonicBoom')) {
 				if (isBoss) {
-					// 世界Boss/突变巨兽攻击：施加 40% 真实钝击挫伤与重度震颤硬直
-					const bluntTrauma = Math.max(3.0, Math.round(damage * 0.40 * 10) / 10);
+					// 世界Boss/突变巨兽攻击：施加震颤硬直与沉重钝击挫伤特效 (不再反向额外扣血加速暴毙)
+					const bluntTrauma = Math.round(damage * 0.40 * 10) / 10;
 					try {
-						const health = player.getComponent('minecraft:health');
-						if (health) {
-							health.setCurrentValue(Math.max(1, health.currentValue - bluntTrauma));
-						}
 						player.addEffect('slowness', 40, { amplifier: 1, showParticles: false });
 						player.dimension.playSound('random.anvil_land', player.location, { volume: 0.9, pitch: 0.7 });
 						player.dimension.spawnParticle('minecraft:critical_hit_emitter', player.location);
-						player.onScreenDisplay?.setActionBar?.(`§c【巨兽重击】遭受巨兽冲击！受到 §e${bluntTrauma.toFixed(1)}§c点装甲穿透挫伤并陷入硬直！§r`);
+						player.onScreenDisplay?.setActionBar?.(`§c【巨兽重击】遭受巨兽冲击！受到重度硬直与 §e${bluntTrauma}§c钝击震荡！§r`);
 					} catch {}
 				} else {
 					// 普通丧尸/群怪近战：保底至少受到 1.0 HP 爪击挫伤，避免尸群完全刮痧

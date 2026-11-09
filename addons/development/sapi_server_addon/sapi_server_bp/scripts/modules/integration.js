@@ -1,4 +1,5 @@
 import { world, system } from "@minecraft/server";
+import { PlotSafeZone } from "./plot_safe_zone.js";
 
 const SERVER_HEARTBEAT = "interop:sapi_server_heartbeat";
 const LOTM_HEARTBEAT = "interop:lotm_heartbeat";
@@ -158,6 +159,8 @@ export class Integration {
  static resolveCurrentZone(dimensionId, location) {
   const dim = normalizeDimension(dimensionId);
   const pt = { x: Number(location.x), y: Number(location.y), z: Number(location.z) };
+
+  if (PlotSafeZone.find(dim, pt)) return { type: "safe", name: "地皮周边安全区", color: "§a", source: "plot" };
 
   // 1. 检查预设区域 (安全区 / 法制区)
   const preset = APOCALYPSE_PRESET_ZONES.find(z =>

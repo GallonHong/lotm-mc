@@ -3,6 +3,8 @@ import { SeasonManager, SEASONS } from "../seasons/SeasonManager.js";
 import { ArmorInsulation } from "./ArmorInsulation.js";
 import { DietThermoregulation } from "./DietThermoregulation.js";
 
+import { isPlotSafe } from "./PlotSafeZoneBridge.js";
+
 const TEMP_PROP_KEY = "apoc:player_temp_v1";
 
 const APOCALYPSE_PRESET_ZONES = [
@@ -59,6 +61,7 @@ export class TemperatureManager {
   */
  static resolvePlayerZoneType(player) {
   if (!player || !player.isValid()) return "outlaw";
+  if (isPlotSafe(player)) return "safe";
   const loc = player.location;
   const x = loc.x;
   const z = loc.z;

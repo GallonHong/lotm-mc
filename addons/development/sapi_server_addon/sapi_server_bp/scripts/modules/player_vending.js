@@ -163,7 +163,7 @@ export class PlayerVendingManager {
   const plot = LandManager.getPlot(lower.dimension.id, Utils.getChunkCoords(lower.location).chunkX, Utils.getChunkCoords(lower.location).chunkZ);
   if (plot && !LandManager.hasPermission(player, plot)) return Utils.tell(player, "§c不能在其他玩家的领地部署贩卖机。");
   const zone = Integration.resolveCurrentZone(lower.dimension.id, lower.location);
-  if (zone.type !== "safe" && !RegionManager.isAllowed(player, lower.location, "allowPlace")) return Utils.tell(player, "§c此管理员保护区禁止部署玩家贩卖机。");
+  if ((zone.type !== "safe" || zone.source === "plot") && !RegionManager.isAllowed(player, lower.location, "allowPlace")) return Utils.tell(player, "§c此管理员保护区禁止部署玩家贩卖机。");
   const cityFee = zone.type === "safe" ? Number(this.settings().cityPlacementFee || 5000) : 0;
   if (!EconomyManager.hasBalance(player, cityFee)) return Utils.tell(player, `§c在主城经营需要 ${Utils.formatCurrency(cityFee)} 许可费。`);
   const id = this.coordinateId(lower.dimension.id, lower.location);
