@@ -1,3 +1,5 @@
+import { MessageFormData } from "@minecraft/server-ui";
+import { createJumpHold, readJumpPressed, updateJumpHold } from "./JumpHoldInput.js";
 import { participant } from "../pvp/PvpLifePolicy.js";
 import { world, system, EquipmentSlot, EntityComponentTypes } from "@minecraft/server";
 import { TemperatureManager } from "../temperature/TemperatureManager.js";
@@ -27,6 +29,8 @@ export class DownedPlayerInstance {
   this.knockedTicks = 0;
   this.reviveTicks = 0;
   this.surrenderTicks = 0;
+  this.jumpHold = createJumpHold();
+  this.surrenderMenuOpen = false;
   this.reviver = null;
   this.ended = false;
   this.droneRescuing = false;
@@ -54,6 +58,9 @@ export class DownedPlayerInstance {
 
   // 全服或就近广播呼救 (全彩零灰色)
   this.broadcastHelpMessage();
+  this.player.sendMessage(DownedRescueManager.chatSurrenderAvailable
+   ? "§e放弃救援：先松开跳跃，再长按3秒；也可聊天输入 !giveup 打开确认菜单。"
+   : "§e放弃救援：先松开跳跃，再长按3秒。当前脚本环境不支持聊天确认入口。");
 
   // 启动独立驱动循环
   this.runId = system.runInterval(() => this.tick(), 1);
@@ -152,6 +159,7 @@ export class DownedPlayerInstance {
    } else {
     // 长按跳跃无法快速放弃！
     this.surrenderTicks = 0;
+    updateJumpHold(this.jumpHold, readJumpPressed(this.player), false);
     this.droneRescueTicks += 1;
 
     // 施救脉冲粒子与心跳除颤音效
@@ -192,6 +200,8 @@ export class DownedPlayerInstance {
 
   // 2. 救援进度演算
   if (this.reviver) {
+   updateJumpHold(this.jumpHold, readJumpPressed(this.player), false);
+   this.surrenderTicks = 0;
    // 播放施救者心肺复苏按压动作
    try { this.reviver.playAnimation("animation.humanoid.reviver"); } catch {}
 
@@ -216,12 +226,11 @@ export class DownedPlayerInstance {
    // 没有施救者时，救援进度缓慢回退
    this.reviveTicks = Math.max(0, this.reviveTicks - 1);
 
-   // 检测主动放弃 (按住跳跃 2 秒 = 40 tick)
-   if (this.player.isJumping) {
-    this.surrenderTicks += 1;
-   } else {
-    this.surrenderTicks = 0;
-   }
+   // Read raw logical input while Jump/movement are locked. isJumping reflects
+   // physical motion and stays false under those locks. A pre-knock hold cannot
+   // surrender; the player must release, then intentionally hold for 3 seconds.
+   updateJumpHold(this.jumpHold, readJumpPressed(this.player));
+   this.surrenderTicks = this.jumpHold.ticks;
 
    // 流血计时累加
    this.knockedTicks += 1;
@@ -240,8 +249,28 @@ export class DownedPlayerInstance {
   // 4. 判定完成/死亡分支
   if (this.reviveTicks >= 80) {
    this.revive(this.reviver?.name || "队友");
-  } else if (this.surrenderTicks >= 40 || this.knockedTicks >= this.maxKnockedTicks) {
+  } else if (this.jumpHold.triggered || this.knockedTicks >= this.maxKnockedTicks) {
    this.kill();
+  }
+ }
+
+ async showSurrenderMenu() {
+  if (this.ended || this.surrenderMenuOpen || this.droneRescuing || this.reviver) {
+   if (!this.ended) this.player.sendMessage("§e正在接受救援时不能放弃，请等待救援结果。");
+   return;
+  }
+  this.surrenderMenuOpen = true;
+  try {
+   const result = await new MessageFormData().title("放弃救援")
+    .body("确认放弃本次救援并阵亡？此操作不能撤销。")
+    .button1("继续等待救援").button2("确认放弃").show(this.player);
+   if (result.canceled || result.selection !== 1 || this.ended || this.droneRescuing || this.reviver) return;
+   if (DownedRescueManager.activeInstances.get(this.id) !== this || participant(this.player)) return;
+   this.kill();
+  } catch (error) {
+   console.warn(`[DownedRescue] Surrender menu pending: ${error}`);
+  } finally {
+   this.surrenderMenuOpen = false;
   }
  }
 
@@ -263,7 +292,7 @@ export class DownedPlayerInstance {
 
    // 状态 A：长按跳跃主动放弃
    if (this.surrenderTicks > 0) {
-    const ratio = this.surrenderTicks / 40;
+    const ratio = this.surrenderTicks / 60;
     const bar = createBar(ratio, "§c■", "§e□", 16);
     this.player.onScreenDisplay.setActionBar(`§c【主动放弃中... HP: §e${currentHp}§c】 ${bar} §e长按跳跃放弃挣扎`);
     return;
@@ -283,7 +312,7 @@ export class DownedPlayerInstance {
    const remainSec = Math.max(0, Math.ceil((this.maxKnockedTicks - this.knockedTicks) / 20));
    const remainRatio = Math.max(0, (this.maxKnockedTicks - this.knockedTicks) / this.maxKnockedTicks);
    const bar = createBar(remainRatio, "§c■", "§e□", 16);
-   this.player.onScreenDisplay.setActionBar(`§c【濒死倒地 HP: §e${currentHp}§c/§e${maxHp}§c】 ${bar} §e${remainSec}§c秒 §6│ 【潜行】施救 §6│ 【跳跃】放弃`);
+   this.player.onScreenDisplay.setActionBar(`§c【濒死倒地 HP: §e${currentHp}§c/§e${maxHp}§c】 ${bar} §e${remainSec}§c秒 §6│ 【潜行】施救 §6│ 先松开再长按【跳跃】3秒放弃`);
    this.player.nameTag = `§c@${this.player.name} §e[HP:${currentHp}/${maxHp}]\n${bar}`;
   } catch {}
  }
@@ -317,7 +346,7 @@ export class DownedPlayerInstance {
   if (!this.player || !this.player.isValid()) return;
 
   system.runTimeout(() => {
-   if (!this.player.isValid()) return;
+   if (!this.player.isValid() || participant(this.player)) return;
    try {
     const healthComp = this.player.getComponent(EntityComponentTypes.Health);
     if (healthComp) {
@@ -426,6 +455,7 @@ export class DownedPlayerInstance {
  */
 export class DownedRescueManager {
  static activeInstances = new Map();
+ static chatSurrenderAvailable = false;
 
  static init() {
   console.warn("[DownedRescueManager] Downed & Rescue System initializing...");
@@ -525,6 +555,21 @@ export class DownedRescueManager {
    });
   }
 
+  // Chat remains available when a touch device hides the locked Jump button.
+  this.chatSurrenderAvailable = !!world.beforeEvents?.chatSend?.subscribe;
+  if (!this.chatSurrenderAvailable) console.warn("[DownedRescue] chatSend is unavailable; !giveup confirmation is not supported here.");
+  world.beforeEvents?.chatSend?.subscribe(event => {
+   if (!["!giveup", "!放弃"].includes(event.message.trim().toLowerCase())) return;
+   const player = event.sender;
+   if (participant(player)) return; // PvP owns its own menu/final-death decision.
+   const instance = this.activeInstances.get(player.id);
+   if (!instance) return;
+   event.cancel = true;
+   system.run(() => {
+    if (player.isValid() && this.activeInstances.get(player.id) === instance) instance.showSurrenderMenu();
+   });
+  });
+
   // 3. 不死图腾 / 强心针自救监听
   if (world.beforeEvents?.itemUse) {
    world.beforeEvents.itemUse.subscribe((event) => {
@@ -577,6 +622,7 @@ export class DownedRescueManager {
  }
 
  static revivePlayer(player, reviverName = "救助") {
+  if (participant(player)) return;
   const inst = this.activeInstances.get(player.id);
   if (inst) {
    inst.revive(reviverName);

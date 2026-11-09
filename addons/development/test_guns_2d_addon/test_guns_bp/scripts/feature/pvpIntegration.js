@@ -1,7 +1,7 @@
 import { RailCannon } from './railCannon.js';
 import { world, system } from '@minecraft/server';
 import { preparePvpAmmo, finishPvpAmmo, getPvpAmmoRecord } from './utils/pvpAmmoTransaction.js';
-import { isPvpParticipant, pvpMatch, pvpCanAttack } from './utils/pvpRules.js';
+import { isPvpParticipant, isPvpDowned, pvpMatch, pvpCanAttack } from './utils/pvpRules.js';
 import { ShootManager } from './shoot.js';
 import { ReloadManager } from './reload.js';
 import { SkillManager } from './skillManager.js';
@@ -11,12 +11,15 @@ import { ArtilleryEngine } from './artilleryEngine.js';
 import { MeleeEngine } from './meleeEngine.js';
 
 /** Cancel delayed damage before restoring inventory or allowing another match. */
-export function stopPvpGunTasks(player) {
- RailCannon.cancel(player.id);
+export function stopPvpGunTasks(player, { downed = false } = {}) {
+ RailCannon.cancel(RailCannon.charges.has(player.id) ? player : player.id);
  ShootManager.clearPlayer(player);
  ShootManager.playerShotCounts.delete(player.id);
  ReloadManager.cancelReload(player);
- SkillManager.clearPlayer(player.id);
+ if (downed) {
+  SkillManager.activeOverdrive.delete(player.id);
+  SkillManager.activeSmartAim.delete(player.id);
+ } else SkillManager.clearPlayer(player.id);
  const id = player.id;
  RocketEngine.activeRockets = RocketEngine.activeRockets.filter(x => x.shooterId !== id);
  GrenadeEngine.activeGrenades = GrenadeEngine.activeGrenades.filter(x => x.shooterId !== id);
@@ -24,15 +27,18 @@ export function stopPvpGunTasks(player) {
  ArtilleryEngine.fallingShells = ArtilleryEngine.fallingShells.filter(x => x.shooterId !== id);
  ArtilleryEngine.isMenuOpen.delete(id);
  for (const [targetId, info] of MeleeEngine.bleedingTargets) {
-  if (targetId === id || info.attackerId === id) MeleeEngine.bleedingTargets.delete(targetId);
+  if ((!downed && targetId === id) || info.attackerId === id) MeleeEngine.bleedingTargets.delete(targetId);
  }
 }
 export function tickPvpGunGuard(player) {
- if (isPvpParticipant(player) && !pvpCanAttack(player)) stopPvpGunTasks(player);
+ if (isPvpParticipant(player) && !pvpCanAttack(player)) {
+  // Downing is not death: keep inventory/ammo and incoming damage untouched.
+  stopPvpGunTasks(player, { downed: isPvpDowned(player) });
+ }
 }
 
 function onPvpEvent(event) {
- if (event.id !== 'pvp:prepare' && event.id !== 'pvp:finish' && event.id !== 'pvp:death') return;
+ if (!['pvp:prepare', 'pvp:finish', 'pvp:death', 'pvp:downed'].includes(event.id)) return;
  let player;
  try {
   const payload = JSON.parse(event.message);
@@ -40,6 +46,10 @@ function onPvpEvent(event) {
   player = world.getAllPlayers().find(p => p.id === payload.playerId);
   if (!player || (event.sourceEntity && event.sourceEntity.id !== player.id)) return;
   if (!isPvpParticipant(player) || pvpMatch(player) !== payload.matchId) return;
+  if (event.id === 'pvp:downed') {
+   if (isPvpDowned(player)) stopPvpGunTasks(player, { downed: true });
+   return;
+  }
   stopPvpGunTasks(player);
   if (event.id === 'pvp:death') return;
   if (event.id === 'pvp:prepare') {
@@ -47,16 +57,18 @@ function onPvpEvent(event) {
    player.removeTag('pvp:guns_rejected');
    preparePvpAmmo(player, payload.matchId);
    player.addTag('pvp:guns_ready');
+   player.addTag('pvp:rescue_guns_ready');
   } else {
    // A preparation which never reached Guns is safe to acknowledge, but never
    // silently discard a conflicting existing transaction.
    finishPvpAmmo(player, payload.matchId);
    player.removeTag('pvp:guns_ready');
+   player.removeTag('pvp:rescue_guns_ready');
    player.removeTag('pvp:guns_rejected');
    player.addTag('pvp:guns_finished');
   }
  } catch (error) {
-  try { player?.removeTag('pvp:guns_ready'); player?.addTag('pvp:guns_rejected'); } catch {}
+  try { player?.removeTag('pvp:guns_ready'); player?.removeTag('pvp:rescue_guns_ready'); player?.addTag('pvp:guns_rejected'); } catch {}
   console.warn(`[PVP Guns] ${event.id} rejected: ${error}`);
  }
 }
@@ -74,10 +86,14 @@ export function initializePvpGuns() {
      if (!isPvpParticipant(player)) {
       finishPvpAmmo(player, record.matchId);
       player.removeTag('pvp:guns_ready');
+      player.removeTag('pvp:rescue_guns_ready');
       player.addTag('pvp:guns_finished');
      }
     }
-   } catch (error) { console.warn(`[PVP Guns] Recovery blocked: ${error}`); }
+   } catch (error) {
+    try { player.removeTag('pvp:rescue_guns_ready'); } catch {}
+    console.warn(`[PVP Guns] Recovery blocked: ${error}`);
+   }
   });
  });
 }

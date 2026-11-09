@@ -21,6 +21,7 @@ export class ShootManager {
 
  static setTriggerState(player, isDown) {
   if (!player) return;
+  if (isDown && !pvpCanAttack(player)) { this.clearPlayer(player); return; }
   this.playerShooting.set(player.id, isDown);
   if (isDown) {
    this.playerLastUseTick.set(player.id, system.currentTick);
@@ -36,6 +37,7 @@ export class ShootManager {
 
  static refreshTriggerHeartbeat(player) {
   if (!player) return;
+  if (!pvpCanAttack(player)) { this.clearPlayer(player); return; }
   this.playerShooting.set(player.id, true);
   this.playerLastUseTick.set(player.id, system.currentTick);
  }

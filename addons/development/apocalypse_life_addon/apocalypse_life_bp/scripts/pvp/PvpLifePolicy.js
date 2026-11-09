@@ -22,6 +22,14 @@ export function locked(player, notify = false) {
  if (notify) try { player.sendMessage("§e[PVP] 比赛期间不能召唤、整备或更换无人机/载具。"); } catch {}
  return true;
 }
+/** Player input/medicine is separate from autonomous drone operation. */
+export function canPlayerAct(player) {
+ if (!participant(player)) return true;
+ return player.hasTag("pvp:active") && !player.hasTag("pvp:downed") && !player.hasTag("pvp:dead");
+}
+export function canControlDrone(player, drone) {
+ return canPlayerAct(player) && canOperateDrone(player, drone);
+}
 export function canOperateDrone(player, drone) {
  if (!participant(player)) return true;
  const state = lifeState(player);

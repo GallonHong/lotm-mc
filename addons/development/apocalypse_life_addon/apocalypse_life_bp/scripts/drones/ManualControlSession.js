@@ -1,3 +1,4 @@
+import { participant } from "../pvp/PvpLifePolicy.js";
 import { InputPermissionCategory as Permission, ItemStack } from "@minecraft/server";
 
 // Only an EMPTY hotbar slot is ever written. Original ItemStacks never leave inventory.
@@ -56,7 +57,15 @@ export class ManualControlSession {
    const session = this.read(player);
    if (!session) return true;
    player.camera.clear();
-   for (const [category, enabled] of session.permissions) player.inputPermissions.setPermissionCategory(category, enabled);
+   // Restore FPV's directional/jump settings normally, while preserving the
+   // core's independent Movement lock until revive, final respawn or cleanup.
+   try {
+    for (const [category, enabled] of session.permissions) player.inputPermissions.setPermissionCategory(category, enabled);
+   } finally {
+    if (participant(player) && (player.hasTag("pvp:downed") || player.hasTag("pvp:dead"))) {
+     player.inputPermissions.movementEnabled = false;
+    }
+   }
    const inventory = player.getComponent("minecraft:inventory")?.container;
    if (!inventory) return false;
    for (let i = 0; i < inventory.size; i++) {

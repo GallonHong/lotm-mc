@@ -1,4 +1,4 @@
-import { ammoKey, isPvpParticipant, hasTag } from './pvpRules.js';
+import { ammoKey, isPvpParticipant, isPvpDowned, hasTag } from './pvpRules.js';
 import { getGunById } from '../../data/guns.js';
 import { getHeldItem } from './inventoryUtils.js';
 
@@ -21,15 +21,18 @@ export function getCurrentAmmo(player, gun) {
   if (typeof ammo === 'number') {
    return Math.max(0, Math.min(gun.maxAmmo, ammo));
   }
+  if (isPvpDowned(player)) return 0;
   // Default initialize to maxAmmo on first pickup
   player.setDynamicProperty(key, gun.maxAmmo);
   return gun.maxAmmo;
  } catch {
+  if (isPvpDowned(player)) return 0;
   return gun.maxAmmo;
  }
 }
 
 export function setCurrentAmmo(player, gun, amount) {
+ if (isPvpDowned(player)) return getCurrentAmmo(player, gun);
  if (isPvpParticipant(player) && (!hasTag(player, 'pvp:guns_ready') || hasTag(player, 'pvp:guns_finished'))) return 0;
  try {
   const key = ammoKey(player, getGunDynamicKey(gun.id));

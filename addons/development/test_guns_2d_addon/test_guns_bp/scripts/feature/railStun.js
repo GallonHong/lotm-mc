@@ -2,7 +2,7 @@ import { world, system } from '@minecraft/server';
 import { RAIL } from './utils/railRules.js';
 const KEY='tg_rail_stun_v1', TAG='tg:rail_stunned';
 function read(p){try{const s=p.getDynamicProperty(KEY);return typeof s==='string'?JSON.parse(s):null;}catch{return null;}}
-function blockedByOtherMode(p){return p.hasTag('pvp:dead')||p.hasTag('pvp:protected')||p.hasTag('pvp:admission')||p.hasTag('apoc:downed')||p.hasTag('apoc_downed')||p.getGameMode?.()==='spectator';}
+function blockedByOtherMode(p){return p.hasTag('pvp:dead')||p.hasTag('pvp:downed')||p.hasTag('pvp:protected')||p.hasTag('pvp:admission')||p.hasTag('apoc:downed')||p.hasTag('apoc_downed')||p.getGameMode?.()==='spectator';}
 export function isRailStunned(p){const s=read(p);return !!s&&s.until>Date.now();}
 export function applyRailStun(target) {
  if(target.typeId!=='minecraft:player') {

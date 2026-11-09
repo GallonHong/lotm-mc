@@ -1,4 +1,5 @@
-import { assertEmptyDestination } from './pvp/placement.js';
+import { PvpRescue } from './pvp/rescue.js';
+import { LEGACY_ELEVATED_SIGNATURE } from './pvp/legacy_layout.js';
 import { withLoadedTile, ensurePersistentArea, beginInstaller, recoverInstaller, removeOwnArea } from './pvp/chunk_loading.js';
 import { world, system, GameMode } from '@minecraft/server';
 import { ActionFormData, MessageFormData } from '@minecraft/server-ui';
@@ -13,7 +14,7 @@ const delay = ticks => new Promise(resolve => system.runTimeout(resolve, ticks))
 const tell = (p,s) => { try { p.sendMessage(`§b[废土争夺战] §r${s}`); } catch {} };
 const byId = id => world.getAllPlayers().find(p=>p.id===id);
 const dimension = () => world.getDimension(C.dimension);
-const prefixTags = ['pvp:participant','pvp:admission','pvp:active','pvp:protected','pvp:dead','pvp:life_ready','pvp:life_rejected','pvp:life_finished','pvp:guns_ready','pvp:guns_rejected','pvp:guns_finished'];
+const prefixTags = ['pvp:participant','pvp:admission','pvp:active','pvp:protected','pvp:dead','pvp:downed','pvp:downed_waiting','pvp:life_ready','pvp:life_rejected','pvp:life_finished','pvp:guns_ready','pvp:guns_rejected','pvp:guns_finished','pvp:rescue_life_ready','pvp:rescue_guns_ready'];
 const clearTags = p => { for(const t of p.getTags()) if(prefixTags.includes(t)||t.startsWith('pvp:team:')||t.startsWith('pvp:match:')) p.removeTag(t); };
 const mode = p => p.getGameMode();
 function lock(p) { p.setGameMode(GameMode.spectator); try { p.inputPermissions.movementEnabled=false; } catch {} }
@@ -35,7 +36,7 @@ async function waitTag(p, success, rejected, ticks=100) {
 }
 
 export class PvPManager {
- static queue = new Set(); static teamSize = 1; static match = null; static busy = false; static restoring = new Map(); static respawning = new Set(); static finishing = null; static protectionEpoch = new Map(); static menuHold = new Map();
+ static queue = new Set(); static teamSize = 1; static match = null; static busy = false; static restoring = new Map(); static respawning = new Map(); static finishing = null; static protectionEpoch = new Map(); static menuHold = new Map();
  static isParticipant(p) { try{return !!p?.hasTag('pvp:participant');}catch{return false;} }
  static isArenaLocation(d,location) { return d===C.dimension && inBounds(location); }
  static isVaultLocation(d,p) { return d===C.dimension && !!p && p.x>=C.vault.x-2&&p.x<=C.vault.x+34&&p.y>=C.vault.y-2&&p.y<=C.vault.y+4&&p.z>=C.vault.z-2&&p.z<=C.vault.z+14; }
@@ -43,6 +44,7 @@ export class PvPManager {
   if(!Utils.isValid(p))return;
   if(this.isParticipant(p)) {
    const tx=readTransaction(p);
+   if(p.hasTag('pvp:downed')){const rec=PvpRescue.record(p.id);Utils.showForm(p,new ActionFormData().title('倒地救援').body(`等待同队潜行救援，剩余${Math.ceil((rec?.bleedTicks||0)/20)}秒。长按跳跃3秒或点击下方放弃。无人机仍自动作战。`).button('继续等待救援').button('放弃救援并回出生点'),r=>{if(r.selection===1)PvpRescue.finalize(p,PvpRescue.record(p.id)?.attacker);});return;}
    const navigation=(this.match?.points||C.points).map(point=>`${navigationLine(p.location,point)} · ${point.contested?'争夺中':point.owner==='red'?'红方':point.owner==='blue'?'蓝方':'中立'}${point.capturing?` · 占领 ${point.progress}/${C.captureSeconds}`:''}`).join('\n');
    Utils.showForm(p,new ActionFormData().title('废土争夺战').body(`当前：${tx?.phase||'恢复中'}\n${navigation}\n死亡保留本局装备；无人机召回后本局停用。\n退出后恢复赛前原装备。`).button('退出比赛并恢复原装备').button('继续比赛'),r=>{if(r.selection===0)this.leave(p);});return;
   }
@@ -96,7 +98,7 @@ export class PvPManager {
     m.players.push(p.id);m.allPlayers.push(p.id);m.stats[p.id]={name:p.name,team,kills:0,deaths:0};saveMatch(m);
     lock(p);
     event(p,'pvp:prepare',m.id);
-    await waitTag(p,['pvp:life_ready','pvp:guns_ready'],['pvp:life_rejected','pvp:guns_rejected']);
+    await waitTag(p,['pvp:life_ready','pvp:guns_ready','pvp:rescue_life_ready','pvp:rescue_guns_ready'],['pvp:life_rejected','pvp:guns_rejected']);
     this.assertPreparing(m);lock(p);
     storeOriginals(p,tx);issueMatchEquipment(p,tx);
     p.teleport(this.spawnLocation(team,p.id),{dimension:dimension(),rotation:{x:0,y:team==='blue'?180:0}});
@@ -137,7 +139,7 @@ export class PvPManager {
  }
  static death(p,killer) {
   const m=this.match;if(!m||m.phase!=='ACTIVE'||!m.players.includes(p.id)||p.hasTag('pvp:dead'))return;
-  p.addTag('pvp:dead');p.addTag('pvp:protected');m.stats[p.id].deaths++;
+  PvpRescue.clear(p);p.addTag('pvp:dead');p.addTag('pvp:protected');m.stats[p.id].deaths++;
   const attacker=killer?.id&&m.stats[killer.id];if(attacker&&attacker.team!==m.stats[p.id].team)attacker.kills++;
   event(p,'pvp:death',m.id);saveMatch(m);
  }
@@ -149,16 +151,18 @@ export class PvPManager {
   }
   const m=this.match;
   if(initialSpawn||!m||m.phase!=='ACTIVE'||!m.players.includes(p.id)){this.restore(p);return true;}
+  try{if(PvpRescue.spawn(p))return true;}catch(e){console.warn(`[PVP downed spawn] ${e}`);this.finish('倒地恢复异常，安全结束');return true;}
   this.respawn(p);return true;
  }
  static async respawn(p) {
-  if(this.respawning.has(p.id))return;this.respawning.add(p.id);
+  if(this.respawning.has(p.id))return;const respawnToken=Symbol('respawn');this.respawning.set(p.id,respawnToken);
   const m=this.match;
   try{lock(p);p.addTag('pvp:dead');p.addTag('pvp:protected');tell(p,`${C.respawnSeconds} 秒后复活，保留死亡时的本局装备。`);await delay(C.respawnSeconds*20);
    if(!Utils.isValid(p))return;
-   if(this.match!==m||m.phase!=='ACTIVE'||!m.players.includes(p.id)||!this.isParticipant(p))return this.restore(p);
-   const tx=readTransaction(p);if(tx?.phase!=='ACTIVE'||tx.matchId!==m.id)return this.restore(p);p.teleport(this.spawnLocation(tx.team,p.id),{dimension:dimension(),rotation:{x:0,y:tx.team==='blue'?180:0}});p.removeTag('pvp:dead');p.setGameMode(GameMode.adventure);unlockMovement(p);this.protect(p);
-  }catch(e){console.warn(`[PVP respawn] ${e}`);this.restore(p);}finally{this.respawning.delete(p.id);}
+   if(this.respawning.get(p.id)!==respawnToken)return;
+   if(this.match!==m||m.phase!=='ACTIVE'||!m.players.includes(p.id)||!this.isParticipant(p)){const pending=readTransaction(p);if(pending?.matchId===m.id&&!['RESTORED','CANCELLED'].includes(pending.phase))return this.restore(p);return;}
+   const tx=readTransaction(p);if(tx?.phase!=='ACTIVE'||tx.matchId!==m.id)return this.restore(p);p.teleport(this.spawnLocation(tx.team,p.id),{dimension:dimension(),rotation:{x:0,y:tx.team==='blue'?180:0}});const hp=p.getComponent('minecraft:health');if(!hp)throw new Error('复活生命组件不可用');hp.setCurrentValue(hp.effectiveMax??20);p.removeTag('pvp:dead');p.setGameMode(GameMode.adventure);unlockMovement(p);this.protect(p);
+  }catch(e){console.warn(`[PVP respawn] ${e}`);this.restore(p);}finally{if(this.respawning.get(p.id)===respawnToken)this.respawning.delete(p.id);}
  }
  static leave(p) {
   this.queue.delete(p.id);if(!this.isParticipant(p))return;
@@ -177,6 +181,7 @@ export class PvPManager {
  static async restorePlayer(p) {
   try{
    const tx=readTransaction(p);if(!tx){tell(p,'缺少装备托管记录，已保留隔离状态，请管理员检查。');return false;}
+   PvpRescue.clear(p);this.respawning.delete(p.id);
    if(tx.phase==='RESTORED'||tx.phase==='CANCELLED'){if(tx.unlockPending){p.setGameMode(tx.gameMode);unlockMovement(p);tx.unlockPending=false;writeTransaction(p,tx);}clearTags(p);await this.ensureVaultLoaded();releaseVault(p,tx);return true;}
    p.addTag('pvp:participant');p.addTag('pvp:protected');p.removeTag('pvp:active');lock(p);
    const originalUntouched=tx.phase==='PREPARING';
@@ -236,7 +241,7 @@ export class PvPManager {
  static installMenu(p) {
   if(!Utils.isAdmin(p))return;
   let status='';try{const j=JSON.parse(String(world.getDynamicProperty('pvp:install_elevated_v1')||'null'));if(j&&j.phase!=='DONE')status=`\n发现未完成记录：${j.nextTile||0}/${ARENA_TILES.length}片；确认后继续。`;}catch{}
-  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n新赛场在主世界 X100096..100319、Z100096..100383、Y128..319，出生Y232。旧赛场保留不清理；新区域发现任何非空气方块即停止，不会自动清空。仅在你确认此区域可用于新赛场后施工，并在 X100336..100366、Z100112..100121、Y-60 建立装备托管箱。请先备份世界并确认这些位置无原有建筑。\n施工会临时切换你为旁观模式并带你逐片加载地形，结束或失败会恢复位置、模式与操作权限；离线则停止并在重登后恢复。\n地图署名 Licraft漓清，仅供本服使用。'+status+'\n是否开始？').button1('取消').button2('确认新高空范围施工'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p).catch(e=>{tell(p,`安装异常：${e.message||e}`);console.warn(`[PVP install unexpected] ${e.stack||e}`);});});
+  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n新赛场在主世界 X100096..100319、Z100096..100383、Y128的基岩薄层及Y204..293的建筑主层，出生Y232。只覆盖这两部分已有建筑、水体和其他方块；Y129..203不清理，不再进行空置扫描。旧赛场Y128以下不清理。请确认这个完整范围可覆盖后施工，并在 X100336..100366、Z100112..100121、Y-60 建立装备托管箱。请先备份世界；装备托管箱仍保留非空保护。\n施工会临时切换你为旁观模式并带你逐片加载地形，结束或失败会恢复位置、模式与操作权限；离线则停止并在重登后恢复。\n地图署名 Licraft漓清，仅供本服使用。'+status+'\n是否开始？').button1('取消').button2('确认覆盖上述赛场范围'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p).catch(e=>{tell(p,`安装异常：${e.message||e}`);console.warn(`[PVP install unexpected] ${e.stack||e}`);});});
  }
  static async install(p) {
   if(!Utils.isAdmin(p))return;
@@ -244,13 +249,16 @@ export class PvPManager {
   if(this.isParticipant(p)||hasForeignMatch(p))return tell(p,'请先退出其他活动后安装赛场。');
   this.busy=true;let session=null,journal=null;
   const journalKey='pvp:install_elevated_v1';
-  const signature=JSON.stringify(ARENA_TILES.map(t=>[t.name,t.location,t.size]));
+  const signature=JSON.stringify(ARENA_TILES.map(t=>[t.name,t.location,t.size,t.foundation]));
   try{
    const allocated=JSON.parse(String(world.getDynamicProperty('pvp:vault_index_v1')||'{}'));
    if(Object.keys(allocated).length)throw new Error('存在未释放托管记录，先恢复所有玩家装备。');
    // Fixed manifest bounds, not user-supplied command coordinates. Never expand scope on retry.
-   for(const t of ARENA_TILES){const a=t.location,b={x:a.x+t.size.x-1,y:a.y+t.size.y-1,z:a.z+t.size.z-1};if(!inBounds(a)||!inBounds(b))throw new Error(`结构 ${t.name} 超出已确认赛区，拒绝安装。`);}
+   for(const t of ARENA_TILES.flatMap(t=>t.foundation?[t.foundation,t]:[t])){const a=t.location,b={x:a.x+t.size.x-1,y:a.y+t.size.y-1,z:a.z+t.size.z-1};if(!inBounds(a)||!inBounds(b))throw new Error(`结构 ${t.name} 超出已确认赛区，拒绝安装。`);}
    let previous=null;try{previous=JSON.parse(String(world.getDynamicProperty(journalKey)||'null'));}catch{}
+   // Same world coordinates and retained blocks; only proven empty top removed.
+   if(previous?.signature===LEGACY_ELEVATED_SIGNATURE)previous={...previous,signature,migratedFrom:'2.14.2'};
+   if(previous?.signature===signature&&previous.phase==='DONE'&&previous.nextTile===ARENA_TILES.length&&ready())return tell(p,'赛场已安装完成，优化包不需要重建；旧地下结构和已生成建筑保持不变。');
    journal=previous&&previous.signature===signature&&['RUNNING','FAILED'].includes(previous.phase)&&Number.isInteger(previous.nextTile)&&previous.nextTile>=0&&previous.nextTile<=ARENA_TILES.length?previous:{version:2,signature,nextTile:0};
    journal.phase='RUNNING';journal.installerId=p.id;delete journal.error;
    world.setDynamicProperty(journalKey,JSON.stringify(journal));world.setDynamicProperty(READY_KEY,false);
@@ -259,11 +267,13 @@ export class PvPManager {
    for(let i=journal.nextTile;i<ARENA_TILES.length;i++){
     const tile=ARENA_TILES[i];
     await this.loadedTile(tile,async d=>{
-     await assertEmptyDestination(d,tile,{isOnline:()=>Utils.isValid(p),onProgress:(done,total)=>tell(p,`第${i+1}片空置检查 ${Math.round(done/total*100)}%`)});
      for(const e of d.getEntities({tags:['pvp:decoration'],location:tile.location,volume:tile.size}))e.remove();
-     const command=`structure load ${tile.name} ${tile.location.x} ${tile.location.y} ${tile.location.z} 0_degrees none true true`;
-     const r=typeof d.runCommandAsync==='function'?await d.runCommandAsync(command):d.runCommand(command);
-     if(!r||!(r.successCount>0))throw new Error(`结构未加载：${tile.name}，请确认启用六分街场景BP。`);
+     // Both parts share the same chunk columns: one load wait per group.
+     for(const part of tile.foundation?[tile.foundation,tile]:[tile]){
+      const command=`structure load ${part.name} ${part.location.x} ${part.location.y} ${part.location.z} 0_degrees none true true`;
+      const r=typeof d.runCommandAsync==='function'?await d.runCommandAsync(command):d.runCommand(command);
+      if(!r||!(r.successCount>0))throw new Error(`结构未加载：${part.name}，请确认更新并启用六分街场景0.1.1。`);
+     }
     },{player:p,session});
     journal.nextTile=i+1;world.setDynamicProperty(journalKey,JSON.stringify(journal));
     tell(p,`安装地图 ${journal.nextTile}/${ARENA_TILES.length}`);
@@ -290,13 +300,13 @@ export class PvPManager {
   if(!validKeepInventory()){this.finish('背包保留规则被关闭，安全中止');return;}
   const live=m.players.map(byId).filter(Boolean);
   for(const p of live){
-   if(p.hasTag('pvp:dead'))continue;
+   if(p.hasTag('pvp:dead')||p.hasTag('pvp:downed'))continue;
    const tx=readTransaction(p);
    if(p.dimension.id!==C.dimension||!inBounds(p.location,C.combat)){p.teleport(C[tx.team],{dimension:dimension()});this.protect(p);tell(p,'超出战区，已返回出生点。');}
    markItems(p,m.id);
   }
   m.points=m.points.map(point=>{
-   const occupiers=live.filter(p=>p.hasTag('pvp:active')&&!p.hasTag('pvp:dead')&&!p.hasTag('pvp:protected')&&p.dimension.id===C.dimension&&onPoint(p.location,point));
+   const occupiers=live.filter(p=>p.hasTag('pvp:active')&&!p.hasTag('pvp:dead')&&!p.hasTag('pvp:downed')&&!p.hasTag('pvp:protected')&&p.dimension.id===C.dimension&&onPoint(p.location,point));
    return stepPoint(point,occupiers.filter(p=>p.hasTag('pvp:team:red')).length,occupiers.filter(p=>p.hasTag('pvp:team:blue')).length);
   });
   for(const point of m.points)if(point.owner&&!point.contested)m.score[point.owner]++;
@@ -306,6 +316,9 @@ export class PvPManager {
   if(m.remaining<=0||m.score.red>=C.targetScore||m.score.blue>=C.targetScore)this.finish('比赛结束');
  }
  static init() {
+  PvpRescue.configure({getMatch:()=>this.match,save:saveMatch,byId,dimension,signal:event,valid:Utils.isValid,canDownAt:p=>p.dimension.id===C.dimension&&inBounds(p.location,C.combat),formalDeath:(p,k)=>this.death(p,k),respawn:p=>this.respawn(p)});
+  system.runInterval(()=>{try{PvpRescue.tick();}catch(e){console.warn(`[PVP rescue] ${e.stack||e}`);this.finish('救援流程异常，安全结束');}},5);
+  system.afterEvents?.scriptEventReceive?.subscribe(e=>{if(e.id!=='pvp:surrender')return;const p=e.sourceEntity;if(p?.typeId!=='minecraft:player'||!this.isParticipant(p)||!p.hasTag('pvp:downed'))return;try{const q=JSON.parse(e.message);const rec=PvpRescue.record(p.id);if(q.matchId===this.match?.id&&rec?.stage==='DOWNED')PvpRescue.finalize(p,rec.attacker);}catch{}});
   removeOwnArea(dimension(),'pvp_work');
   for(const p of world.getAllPlayers())recoverInstaller(p);
   system.runInterval(()=>{for(const p of world.getAllPlayers())recoverInstaller(p);},20);
@@ -315,11 +328,15 @@ export class PvPManager {
    const tx=readTransaction(p);if(tx&&(!['RESTORED','CANCELLED'].includes(tx.phase)||tx.unlockPending)){p.addTag('pvp:participant');system.run(()=>this.restore(p));}
   }
   const sub=(events,name,fn)=>{try{events?.[name]?.subscribe(fn);}catch(e){console.warn(`[PVP subscribe ${name}] ${e}`);}};
-  sub(world.afterEvents,'entityDie',e=>{if(e.deadEntity?.typeId==='minecraft:player'&&this.isParticipant(e.deadEntity))this.death(e.deadEntity,e.damageSource?.damagingEntity);});
+  sub(world.afterEvents,'entityDie',e=>{try{if(e.deadEntity?.typeId==='minecraft:player'&&this.isParticipant(e.deadEntity))PvpRescue.nativeDeath(e.deadEntity,e.damageSource?.damagingEntity);}catch(error){console.warn(`[PVP death] ${error}`);this.finish('阵亡流程异常，安全结束');}});
+  sub(world.afterEvents,'entityHurt',e=>{if(e.hurtEntity?.typeId==='minecraft:player'&&this.isParticipant(e.hurtEntity))PvpRescue.hurt(e.hurtEntity);});
+  sub(world.beforeEvents,'itemUse',e=>{if(this.isParticipant(e.source)&&e.source.hasTag('pvp:downed'))e.cancel=true;});
   sub(world.afterEvents,'playerLeave',e=>{
    this.queue.delete(e.playerId);this.protectionEpoch.delete(e.playerId);this.menuHold.delete(e.playerId);const m=this.match;
    if(!m?.players.includes(e.playerId))return;
    if(['PREPARING','COUNTDOWN'].includes(m.phase)){m.cancelRequested=true;saveMatch(m);return;}
+   // Disconnect cannot preserve an active rescue or award repeat deaths. Return originals on rejoin.
+   if(m.downed)delete m.downed[e.playerId];
    m.players=m.players.filter(id=>id!==e.playerId);saveMatch(m);
    if(m.phase==='ACTIVE'&&['red','blue'].some(t=>!m.players.some(id=>m.stats[id]?.team===t)))this.finish('一方离线');
   });
@@ -327,7 +344,7 @@ export class PvPManager {
   sub(world.beforeEvents,'playerBreakBlock',e=>{if(this.isParticipant(e.player)||protectedBlock(e))e.cancel=true;});
   // Stable 1.15 has no before playerPlaceBlock. Cancel placement through itemUseOn and interaction instead.
   sub(world.beforeEvents,'itemUseOn',e=>{if(this.isParticipant(e.source)||protectedBlock(e))e.cancel=true;});
-  sub(world.beforeEvents,'playerInteractWithBlock',e=>{if(this.isVaultLocation(e.block?.dimension?.id,e.block?.location)){e.cancel=true;return;}if(this.isArenaLocation(e.block?.dimension?.id,e.block?.location)&&!this.isParticipant(e.player)){e.cancel=true;return;}if(this.isParticipant(e.player)&&!/(door|trapdoor|fence_gate|button|lever)$/.test(e.block?.typeId||''))e.cancel=true;});
+  sub(world.beforeEvents,'playerInteractWithBlock',e=>{if(this.isVaultLocation(e.block?.dimension?.id,e.block?.location)){e.cancel=true;return;}if(this.isArenaLocation(e.block?.dimension?.id,e.block?.location)&&!this.isParticipant(e.player)){e.cancel=true;return;}if(this.isParticipant(e.player)&&(e.player.hasTag('pvp:downed')||!/(door|trapdoor|fence_gate|button|lever)$/.test(e.block?.typeId||'')))e.cancel=true;});
   sub(world.beforeEvents,'playerInteractWithEntity',e=>{if(this.isParticipant(e.player)||this.isArenaLocation(e.target?.dimension?.id,e.target?.location)||this.isVaultLocation(e.target?.dimension?.id,e.target?.location))e.cancel=true;});
   sub(world.beforeEvents,'explosion',e=>{try{e.setImpactedBlocks(e.getImpactedBlocks().filter(b=>!this.isArenaLocation(b.dimension.id,b.location)&&!this.isVaultLocation(b.dimension.id,b.location)));}catch{if(this.isArenaLocation(e.dimension?.id,e.source?.location))e.cancel=true;}});
   // Stable fallback when chatSend is unavailable: hold sneak with an empty hand for two seconds.

@@ -7,6 +7,7 @@ import { FireMode } from '../../data/types.js';
 import { EntityDamageCause } from '@minecraft/server';
 import { resolveBlockRaycastHit } from './raycastUtils.js';
 import { isProtectedTeammate } from './teamRules.js';
+import { pvpCanAttack } from './pvpRules.js';
 
 export { getMuzzleLocation as getSpawnLocation } from './muzzleUtils.js';
 import { getMuzzle, clipSegment } from './muzzleUtils.js';
@@ -226,6 +227,7 @@ function processBulletRay(player, gun, dir, muzzle, maxRange) {
 }
 
 export function fireBullet(player, gun) {
+ if (!pvpCanAttack(player)) return;
  const muzzle = getMuzzle(player, gun);
  const viewDir = player.getViewDirection();
  const maxRange = (gun.stats && gun.stats.maxRange) ? gun.stats.maxRange : 60;

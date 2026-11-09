@@ -1,4 +1,4 @@
-import { participant, canOperateDrone, canDamage, hasLineOfSight, lifeState, saveLifeState } from "../pvp/PvpLifePolicy.js";
+import { participant, canOperateDrone, canControlDrone, canPlayerAct, canDamage, hasLineOfSight, lifeState, saveLifeState } from "../pvp/PvpLifePolicy.js";
 import { world, system, EntityComponentTypes, InputButton, ButtonState, EasingType } from "@minecraft/server";
 import { DroneEffects } from "./DroneEffects.js";
 import { ManualControlSession } from "./ManualControlSession.js";
@@ -93,7 +93,7 @@ export class DroneClass {
   * 立即进入无人机第一人称视角 (FPV 视角与全向物理飞控)
   */
  static enterManualControl(player) {
-  if (!canOperateDrone(player, this.getActiveDrone(player.id))) return;
+  if (!canControlDrone(player, this.getActiveDrone(player.id))) return;
   const drone = this.getActiveDrone(player.id);
   if (!drone || !drone.entity || !drone.entity.isValid()) {
    player.sendMessage("§c[战术机库] 当前无出战伴飞的无人机！");
@@ -260,7 +260,7 @@ export class DroneClass {
   * 手动远程瞄准射击
   */
  static fireManualBullet(player) {
-  if (!canOperateDrone(player, this.getActiveDrone(player.id))) return;
+  if (!canControlDrone(player, this.getActiveDrone(player.id))) return;
   const drone = this.getActiveDrone(player.id);
   if (!drone?.manualMode || !drone.entity?.isValid() || !ManualControlSession.held(player, drone.controlSession)) return;
 
@@ -450,8 +450,17 @@ export class DroneClass {
   }
 
   for (const [ownerId, drone] of this.activeDrones) {
-   const player = drone.player;
+   let player = drone.player;
    const entity = drone.entity;
+
+   // Native first-death respawn can briefly invalidate the player handle. The
+   // explicit playerLeave handler still cleans up disconnects; do not turn this
+   // short window into a final drone recall before the core resolves downed.
+   if (!player?.isValid() && drone.pvpMatchId && entity?.isValid()) {
+    const current = world.getAllPlayers().find(p => p.id === ownerId);
+    if (!current?.isValid()) continue;
+    drone.player = player = current;
+   }
 
    // 1. 基础有效性检测
    if (!player || !player.isValid() || !entity || !entity.isValid()) {
@@ -471,6 +480,10 @@ export class DroneClass {
 
    drone.lastKnownLocation = { ...entity.location };
    drone.lastKnownDimension = entity.dimension;
+
+   // Lost or delayed script events cannot keep a downed player in FPV. Continue
+   // into the autonomous branch this tick; downed never disables the drone.
+   if (drone.manualMode && !canPlayerAct(player)) this.exitManualControl(player);
 
     // A. 手动操控 FPV 视角与全向物理飞行分支
     if (drone.manualMode) {
@@ -779,7 +792,7 @@ export class DroneClass {
   for (let i = 0; i < pellets; i++) {
    try {
     if (!canDamage(player, target) || (participant(player) && !hasLineOfSight(entity, target))) break;
-    target.applyDamage(baseDamage, { damagingEntity: player, cause: "entityAttack" });
+    target.applyDamage(baseDamage, { damagingEntity: participant(player) ? entity : player, cause: "entityAttack" });
    } catch {}
 
    // 多弹丸散布弹道 (霰弹机型微量偏移，单发直射)
@@ -815,6 +828,7 @@ export class DroneClass {
 
    // 触发器 A：主人残血急救 (owner_low_hp)
    if (skill.trigger === "owner_low_hp") {
+    if (!canPlayerAct(player)) continue; // Healing never substitutes for PvP revive.
     const hpComp = player.getComponent(EntityComponentTypes.Health);
     if (hpComp && hpComp.currentValue / hpComp.effectiveMax <= (skill.threshold || 0.3)) {
      shouldTrigger = true;
@@ -829,6 +843,7 @@ export class DroneClass {
 
    // 触发器 B：战术交火增益 (combat_buff / combat_active)
    else if (skill.trigger === "combat_buff" || skill.trigger === "combat_active") {
+    if (!canPlayerAct(player)) continue;
     const mobs = this.combatTargets(player, entity, 16);
     if (mobs.length >= 2) {
      shouldTrigger = true;
@@ -856,7 +871,7 @@ export class DroneClass {
      const t = mobs[0];
      try {
       if (!canDamage(player, t) || (participant(player) && !hasLineOfSight(entity, t))) continue;
-      t.applyDamage(skill.burstDamage || 35, { damagingEntity: player, cause: "entityAttack" });
+      t.applyDamage(skill.burstDamage || 35, { damagingEntity: participant(player) ? entity : player, cause: "entityAttack" });
       this.triggerDroneShootingAnimation(entity);
       const muzzleLoc = DroneEffects.muzzle(entity);
       const targetCenter = { x: t.location.x, y: t.location.y + 0.8, z: t.location.z };

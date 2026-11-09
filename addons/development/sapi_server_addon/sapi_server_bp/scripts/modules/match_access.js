@@ -18,7 +18,7 @@ export function matchDamageAllowed(attacker, victim) {
  if (!isMatchLocked(attacker) && !isMatchLocked(victim)) return true;
  try {
   return attacker.hasTag("pvp:active") && victim.hasTag("pvp:active") &&
-   !attacker.hasTag("pvp:dead") && !victim.hasTag("pvp:dead") &&
+   !attacker.hasTag("pvp:downed") && !attacker.hasTag("pvp:dead") && !victim.hasTag("pvp:dead") &&
    !attacker.hasTag("pvp:protected") && !victim.hasTag("pvp:protected") &&
    !!matchTag(attacker) && matchTag(attacker) === matchTag(victim) &&
    !!matchTeam(attacker) && !!matchTeam(victim) && matchTeam(attacker) !== matchTeam(victim);

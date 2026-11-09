@@ -1,4 +1,4 @@
-import { participant, matchId, matchItem } from "../pvp/PvpLifePolicy.js";
+import { participant, matchId, matchItem, canPlayerAct } from "../pvp/PvpLifePolicy.js";
 import { world } from "@minecraft/server";
 
 /**
@@ -25,6 +25,7 @@ export class FoodManager {
    const item = event.itemStack;
    if (!player || !player.isValid() || player.typeId !== "minecraft:player" || !item) return;
 
+   if (!canPlayerAct(player)) return;
    const marked = item.getLore().some(line => line.startsWith("PVP_MATCH:"));
    if (marked && (!participant(player) || !player.hasTag("pvp:active") || player.hasTag("pvp:dead") || !matchItem(item, matchId(player)))) return;
    const typeId = item.typeId;
@@ -38,6 +39,8 @@ export class FoodManager {
   * 处理末日食物、饮品与医疗品的食用结算与药效分发
   */
  static handleConsumption(player, typeId) {
+  // Also guard direct calls and consumption completed after the downed transition.
+  if (!canPlayerAct(player)) return;
   try {
    const health = player.getComponent("minecraft:health");
 

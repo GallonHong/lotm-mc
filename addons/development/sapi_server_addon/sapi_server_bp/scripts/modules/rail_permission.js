@@ -15,6 +15,7 @@ export class RailPermissionManager {
   if (!shooter || !target || shooter.typeId !== "minecraft:player" || target.typeId !== "minecraft:player") return false;
   try {
    if (!shooter.isValid() || !target.isValid() || shooter.id === target.id) return false;
+   if (shooter.hasTag?.("pvp:downed")) return false;
    if (shooter.dimension.id !== target.dimension.id) return false;
    // 比赛权限由 Guns 的比赛标签检查处理，普通世界桥不能授权比赛伤害。
    if (isMatchLocked(shooter) || isMatchLocked(target) || CombatManager.areTeammates(shooter, target)) return false;

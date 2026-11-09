@@ -4,10 +4,12 @@ import { world, EntityDamageCause } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
 import { resolveBlockRaycastHit } from './utils/raycastUtils.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
+import { pvpCanAttack } from './utils/pvpRules.js';
 
 export class ArcEngine {
  static fireArc(player, gun) {
   if (!player || !player.isValid()) return;
+  if (!pvpCanAttack(player)) return;
 
   try {
    const dim = player.dimension;

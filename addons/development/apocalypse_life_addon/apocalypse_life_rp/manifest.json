@@ -1,13 +1,13 @@
 {
  "format_version": 2,
  "header": {
-  "name": "Apocalypse Life RP v1.4.4",
+  "name": "Apocalypse Life RP v1.4.5",
   "description": "末日生活系统资源包（载具、食品、医疗站、枪械训练靶、自动售货机与钢琴模型）",
   "uuid": "f179a256-053b-4d7f-9c03-d92f26ffb083",
   "version": [
    1,
    4,
-   4
+   5
   ],
   "min_engine_version": [
    1,
@@ -23,7 +23,7 @@
    "version": [
     1,
     4,
-    4
+    5
    ]
   }
  ]

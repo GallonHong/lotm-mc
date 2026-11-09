@@ -200,6 +200,7 @@ export class SkillManager {
 
  static executeSmartAimShot(player, gun) {
   if (!player || !player.isValid()) return;
+  if (!pvpCanAttack(player)) return;
   const dim = player.dimension;
   const pLoc = player.location;
   const head = player.getHeadLocation();

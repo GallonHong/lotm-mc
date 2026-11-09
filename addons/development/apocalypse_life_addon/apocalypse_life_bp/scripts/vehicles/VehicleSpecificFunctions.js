@@ -1,3 +1,4 @@
+import { participant } from "../pvp/PvpLifePolicy.js";
 import { system, ItemStack, world } from "@minecraft/server";
 import * as VC from "./VehicleConstants.js";
 
@@ -9,7 +10,7 @@ export class VehicleSpecificFunctions {
   * 救护车：战地群体回血光环 (跳跃激活)
   */
  static ambulanceAura(vehicle, player) {
-  if (!vehicle || !player) return;
+  if (!vehicle || !player || participant(player)) return;
 
   const specialLevel = vehicle.getProperty("ab_ve:special") || 0;
   const specialEntry = VC.specialUpgrades[vehicle.typeId]?.find(u => u.level === specialLevel);
@@ -17,7 +18,7 @@ export class VehicleSpecificFunctions {
   const auraAmplifier = specialEntry ? specialEntry.amplifier : 0;
 
   try {
-   vehicle.runCommand(`effect @e[r=${auraRange},family=player] regeneration 6 ${auraAmplifier} true`);
+   vehicle.runCommand(`effect @e[r=${auraRange},family=player,tag=!pvp:participant] regeneration 6 ${auraAmplifier} true`);
    vehicle.playAnimation(`animation.ab_ve.ambulance.heal_aura.${specialLevel}`);
   } catch {}
 

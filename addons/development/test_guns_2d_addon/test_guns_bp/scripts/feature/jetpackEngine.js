@@ -1,5 +1,6 @@
 import { world, system, EquipmentSlot } from '@minecraft/server';
 import { updateActionBar } from './ui.js';
+import { pvpCanOperate } from './utils/pvpRules.js';
 
 export class JetpackEngine {
  static playerJumpStates = new Map();
@@ -10,6 +11,7 @@ export class JetpackEngine {
 
   for (const player of allPlayers) {
    if (!player || !player.isValid()) continue;
+   if (!pvpCanOperate(player)) { this.playerJumpStates.delete(player.id); continue; }
 
    let isJetpackEquipped = false;
 
@@ -57,6 +59,7 @@ export class JetpackEngine {
  }
 
  static activateJetThrust(player, currentTick, state) {
+  if (!pvpCanOperate(player)) return;
   try {
    state.nextReadyTick = currentTick + 30;
 

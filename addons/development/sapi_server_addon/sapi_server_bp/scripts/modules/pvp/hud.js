@@ -16,8 +16,10 @@ const ratioHealth = ratio => Math.max(1,Math.min(1000,Math.round(ratio*1000)));
 export function hudRows(match,countdown=null) {
  const remaining=Math.max(0,Number(match.remaining)||0);
  const time=`${Math.floor(remaining/60)}:${String(remaining%60).padStart(2,'0')}`;
+ const downed=Object.keys(match.downed||{}).filter(id=>match.downed[id].stage!=='FINAL');
+ const rescueStatus=downed.length?` · 倒地 红${downed.filter(id=>match.stats[id]?.team==='red').length}/蓝${downed.filter(id=>match.stats[id]?.team==='blue').length}`:'';
  const headline=countdown!==null?`§e废土争夺战 · ${match.teamSize}v${match.teamSize} · ${countdown}秒后开始`:
-  `§c红 ${match.score.red} §f│ §9蓝 ${match.score.blue} §f│ ${time} · 目标 ${C.targetScore}`;
+  `§c红 ${match.score.red} §f│ §9蓝 ${match.score.blue} §f│ ${time} · 目标 ${C.targetScore}${rescueStatus}`;
  return [{key:'score',label:headline,health:ratioHealth(countdown!==null?countdown/C.countdownSeconds:remaining/C.durationSeconds)},
   ...match.points.map(point=>{
    const owner=point.owner==='red'?'§c红方':point.owner==='blue'?'§9蓝方':'§7中立';

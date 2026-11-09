@@ -1,6 +1,7 @@
 import { EntityDamageCause, EquipmentSlot, system } from '@minecraft/server';
 import { MathUtils } from './utils/mathUtils.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
+import { isPvpDowned } from './utils/pvpRules.js';
 import { DamageIndicator } from './damageIndicator.js';
 import { ArmorEngine, ARMOR_KNOCKBACK_VALUES } from './armorEngine.js';
 
@@ -468,7 +469,7 @@ export class DamageHandler {
   const isRiot = (offhandItem?.typeId?.includes('riot_shield') || mainhandItem?.typeId?.includes('riot_shield'));
   const isFlash = (offhandItem?.typeId?.includes('flash_shield') || mainhandItem?.typeId?.includes('flash_shield'));
 
-  if (hasShield) {
+  if (hasShield && !isPvpDowned(target)) {
    // 判定攻击方向是否在正面 (前方 200° 大扇形格挡)
    let isFrontal = true;
    if (shooter && shooter.isValid()) {
@@ -641,7 +642,7 @@ export class DamageHandler {
     } catch {}
    }
   // USAS-12「嗜血狂潮」专属吸血被动结算 (Life-Steal & Overheal Barrier)
-  if (gun && (gun.isLifeSteal || gun.id === 'test_gun:usas12') && shooter && shooter.isValid() && shooter.typeId === 'minecraft:player') {
+  if (gun && (gun.isLifeSteal || gun.id === 'test_gun:usas12') && shooter && shooter.isValid() && shooter.typeId === 'minecraft:player' && !isPvpDowned(shooter)) {
    try {
     const ratio = gun.lifeStealRatio || 0.18;
     const healAmount = Math.max(0.5, Math.round(finalDamage * ratio * 10) / 10);

@@ -1,4 +1,5 @@
 import { isProtectedTeammate } from './utils/teamRules.js';
+import { isPvpDowned } from './utils/pvpRules.js';
 import { world, system, EquipmentSlot, EntityDamageCause } from '@minecraft/server';
 
 export const ARMOR_KNOCKBACK_VALUES = {
@@ -206,6 +207,7 @@ export class ArmorEngine {
   */
  static tick(player) {
   if (!player || !player.isValid()) return;
+  if (isPvpDowned(player)) return;
 
   try {
    const equ = player.getComponent('minecraft:equippable');
@@ -370,6 +372,7 @@ export class ArmorEngine {
   */
  static triggerEmergencyShield(player, state) {
   if (!player || !player.isValid()) return;
+  if (isPvpDowned(player)) return;
 
   if (!state) {
    state = this.playerStates.get(player.id);
@@ -414,6 +417,8 @@ export class ArmorEngine {
   */
  static handleHurt(player, damageSource, damage) {
 		if (!player || !player.isValid() || damage <= 0) return;
+  // SAPI owns the fixed downed HP pool; armor must not heal or re-shield it.
+  if (isPvpDowned(player)) return;
 
 		try {
 			// 更新玩家受创时间戳 (打断护盾充能并启动脱战计时)

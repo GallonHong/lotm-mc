@@ -1,4 +1,4 @@
-import { pvpCanAttack, isPvpParticipant } from './utils/pvpRules.js';
+import { pvpCanAttack, isPvpParticipant, isPvpDowned } from './utils/pvpRules.js';
 import { world, system, EntityDamageCause, EquipmentSlot } from '@minecraft/server';
 import { isProtectedTeammate } from './utils/teamRules.js';
 
@@ -207,6 +207,7 @@ export class ShieldEngine {
   */
  static handleDamageReduction(player, damageSource, damage) {
   if (!player || !player.isValid() || damage <= 0) return;
+  if (isPvpDowned(player)) return;
 
   try {
    const equ = player.getComponent('minecraft:equippable');

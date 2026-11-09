@@ -5,6 +5,7 @@ export function hasTag(entity, tag) {
  try { return !!entity?.hasTag(tag); } catch { return false; }
 }
 export function isPvpParticipant(entity) { return hasTag(entity, 'pvp:participant'); }
+export function isPvpDowned(entity) { return isPvpParticipant(entity) && hasTag(entity, 'pvp:downed'); }
 export function pvpMatch(entity) {
  try { return entity?.getTags().find(tag => tag.startsWith('pvp:match:'))?.slice(10) || ''; }
  catch { return ''; }
@@ -17,7 +18,7 @@ export function pvpTeam(entity) {
 export function pvpCanOperate(player) {
  if (!isPvpParticipant(player)) return true;
  return hasTag(player, 'pvp:active') && hasTag(player, 'pvp:guns_ready') &&
-  !hasTag(player, 'pvp:dead') && !hasTag(player, 'pvp:guns_finished') && !!pvpMatch(player);
+  !hasTag(player, 'pvp:dead') && !isPvpDowned(player) && !hasTag(player, 'pvp:guns_finished') && !!pvpMatch(player);
 }
 export function pvpCanAttack(player) {
  if (hasTag(player, 'tg:rail_stunned')) return false;
@@ -32,7 +33,8 @@ export function pvpBlocksDamage(attacker, target) {
  const match = pvpMatch(attacker), team = pvpTeam(attacker);
  return !match || match !== pvpMatch(target) || !team || !pvpTeam(target) ||
   team === pvpTeam(target) || !hasTag(attacker, 'pvp:active') || !hasTag(target, 'pvp:active') ||
-  hasTag(attacker, 'pvp:dead') || hasTag(target, 'pvp:dead') ||
+  // Downed players cannot attack, but remain valid enemy targets for finishing.
+  hasTag(attacker, 'pvp:dead') || isPvpDowned(attacker) || hasTag(target, 'pvp:dead') ||
   hasTag(attacker, 'pvp:protected') || hasTag(target, 'pvp:protected');
 }
 export function ammoKey(player, normalKey) {
