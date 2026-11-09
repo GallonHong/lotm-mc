@@ -143,6 +143,34 @@
           ]
         }
       }
+    },
+    "animation.tg3d.pose_direct": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "rotation": [
+            "15 * variable.tg3d_pose_run - (!context.is_first_person ? 3 * variable.tg3d_aim : 0)",
+            "-18 * variable.tg3d_pose_run",
+            "-18 * variable.tg3d_pose_run"
+          ],
+          "position": [
+            0,
+            "math.sin(query.life_time * 90) * 0.035 * variable.tg3d_pose_idle + (math.sin(query.life_time * 720) * 0.12 - 1) * variable.tg3d_pose_run",
+            "1.5 * variable.tg3d_pose_run"
+          ]
+        }
+      }
+    },
+    "animation.tg3d.muzzle_direct": {
+      "animation_length": 0.05,
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "muzzle_flash",
+            "locator": "muzzle"
+          }
+        ]
+      }
     }
   }
 }

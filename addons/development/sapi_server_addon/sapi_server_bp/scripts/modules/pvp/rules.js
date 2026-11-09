@@ -1,13 +1,13 @@
 // Pure rules: no Minecraft imports, exercised by Node tests.
 export const PVP_CONFIG = Object.freeze({
- dimension: 'minecraft:overworld', offset: { x: 100000, z: 100000 },
- bounds: { minX: 100096, maxX: 100319, minY: -64, maxY: 319, minZ: 100096, maxZ: 100383 },
- combat: { minX: 100098, maxX: 100317, minY: 20, maxY: 112, minZ: 100098, maxZ: 100381 },
- blue: { x: 100209.57, y: 40, z: 100262.77 }, red: { x: 100223.71, y: 40, z: 100148.30 },
+ dimension: 'minecraft:overworld', offset: { x: 100000, y: 192, z: 100000 },
+ bounds: { minX: 100096, maxX: 100319, minY: 128, maxY: 319, minZ: 100096, maxZ: 100383 },
+ combat: { minX: 100098, maxX: 100317, minY: 212, maxY: 304, minZ: 100098, maxZ: 100381 },
+ blue: { x: 100209.57, y: 232, z: 100262.77 }, red: { x: 100223.71, y: 232, z: 100148.30 },
  points: [
-  { id: 'A', x: 100196.93, y: 54, z: 100176.59 },
-  { id: 'B', x: 100247.28, y: 45, z: 100214.73 },
-  { id: 'C', x: 100164.71, y: 40, z: 100238.68 }
+  { id: 'A', x: 100196.93, y: 246, z: 100176.59 },
+  { id: 'B', x: 100247.28, y: 237, z: 100214.73 },
+  { id: 'C', x: 100164.71, y: 232, z: 100238.68 }
  ],
  captureRadius: 5, verticalTolerance: 2, captureSeconds: 8, targetScore: 500,
  durationSeconds: 720, countdownSeconds: 15, respawnSeconds: 5, protectionSeconds: 4,

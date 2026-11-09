@@ -50,7 +50,7 @@
         },
         "gauge_needle": {
           "rotation": [
-            "-130 * variable.liegui_charge",
+            "-130 * variable.liegui_charge + math.sin(query.life_time * 720) * variable.liegui_charge",
             0,
             0
           ]
@@ -68,16 +68,35 @@
             0,
             "14 * variable.liegui_charge + 30 * variable.liegui_vent + 25 * variable.tg3d_reload_shape"
           ]
-        },
-        "coil_1": {
-          "scale": "1 + 0.025 * variable.liegui_charge + math.sin(query.life_time * 900 + 40) * 0.012 * variable.liegui_charge"
-        },
-        "coil_2": {
-          "scale": "1 + 0.025 * variable.liegui_charge + math.sin(query.life_time * 900 + 80) * 0.012 * variable.liegui_charge"
-        },
-        "coil_3": {
-          "scale": "1 + 0.025 * variable.liegui_charge + math.sin(query.life_time * 900 + 120) * 0.012 * variable.liegui_charge"
         }
+      }
+    },
+    "animation.liegui.charge_fx": {
+      "loop": true,
+      "animation_length": 0.4,
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "charge",
+            "locator": "charge"
+          }
+        ]
+      }
+    },
+    "animation.liegui.vent_fx": {
+      "loop": true,
+      "animation_length": 0.2,
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "vent",
+            "locator": "vent_left"
+          },
+          {
+            "effect": "vent",
+            "locator": "vent_right"
+          }
+        ]
       }
     }
   }

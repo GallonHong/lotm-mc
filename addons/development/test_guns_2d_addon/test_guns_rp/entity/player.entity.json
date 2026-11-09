@@ -177,7 +177,8 @@
         "tg_shield_off_tpp": "animation.tg_shield.player_off_tpp",
         "liegui_right_hand": "animation.liegui.player_right_hand",
         "liegui_support_hand": "animation.liegui.player_support_hand",
-        "liegui_hold_tpp": "animation.liegui.player_hold_third"
+        "liegui_hold_tpp": "animation.liegui.player_hold_third",
+        "first_person_attack_controller": "controller.animation.player.first_person_attack"
       },
       "render_controllers": [
         {

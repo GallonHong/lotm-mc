@@ -99,7 +99,7 @@ async function loadTile(tile,callback,{player=null,session=null,timeoutTicks=LOA
  const columns=chunkColumns(p,s,d);
  // Move the already-consenting installer first. Allocation is an aid, not proof
  // of chunk readiness; every destination column is always checked below.
- if(session)session.move({x:p.x+s.x/2,y:Math.max(64,Math.min(120,p.y+s.y/2)),z:p.z+s.z/2});
+ if(session)session.move({x:p.x+s.x/2,y:Math.max(d.heightRange?.min??-64,Math.min((d.heightRange?.max??320)-1,p.y+s.y/2)),z:p.z+s.z/2});
  let allocated=false,lastError;
  try{
   for(let attempt=0;attempt<3&&!allocated;attempt++){

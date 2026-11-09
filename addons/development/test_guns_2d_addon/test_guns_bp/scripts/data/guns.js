@@ -444,11 +444,11 @@ export const GUNS = [
  }
  ,{
   id: 'test_gun:liegui', name: '裂轨', tier: 'legendary', type: 'energy',
-  mode: FireMode.SEMI, maxAmmo: 1, fireRate: 12, shootPower: 10,
-  recoil: 0.08, reloadTime: 52, shootSound: 'test_gun.arc_shoot',
+  mode: FireMode.SEMI, maxAmmo: 4, fireRate: 12, shootPower: 10,
+  recoil: 0.08, reloadTime: 52, shootSound: 'test_gun.m82_shoot',
   ammoTypeId: 'test_gun:ammo_battery', projectileTypeId: 'test_gun:liegui_slug',
   isRailCannon: true, hasSkill: true, skillName: '裂空音波', skillCooldownSec: 30,
-  stats: { damage: 36, headshotMultiplier: 1, armorPenetration: 0.35, damageDropOff: 0.001, maxRange: 40, knockback: { x: 0.4, y: 0.1 } }
+  stats: { damage: 80, headshotMultiplier: 1, armorPenetration: 0.35, damageDropOff: 0.001, maxRange: 40, knockback: { x: 0.4, y: 0.1 } }
  }
 ];
 

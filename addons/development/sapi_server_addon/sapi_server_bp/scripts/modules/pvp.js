@@ -1,3 +1,4 @@
+import { assertEmptyDestination } from './pvp/placement.js';
 import { withLoadedTile, ensurePersistentArea, beginInstaller, recoverInstaller, removeOwnArea } from './pvp/chunk_loading.js';
 import { world, system, GameMode } from '@minecraft/server';
 import { ActionFormData, MessageFormData } from '@minecraft/server-ui';
@@ -7,7 +8,7 @@ import { readTransaction, writeTransaction, reserveVault, vaultLocation, vaultCo
 import { ARENA_TILES } from './pvp/arena.generated.js';
 import { PvPHud } from './pvp/hud.js';
 
-const MATCH_KEY = 'pvp:match_v1', READY_KEY = 'pvp:arena_ready_v1';
+const MATCH_KEY = 'pvp:match_v1', READY_KEY = 'pvp:arena_ready_elevated_v1';
 const delay = ticks => new Promise(resolve => system.runTimeout(resolve, ticks));
 const tell = (p,s) => { try { p.sendMessage(`§b[废土争夺战] §r${s}`); } catch {} };
 const byId = id => world.getAllPlayers().find(p=>p.id===id);
@@ -234,15 +235,15 @@ export class PvPManager {
  }
  static installMenu(p) {
   if(!Utils.isAdmin(p))return;
-  let status='';try{const j=JSON.parse(String(world.getDynamicProperty('pvp:install_v2')||'null'));if(j&&j.phase!=='DONE')status=`\n发现未完成记录：${j.nextTile||0}/${ARENA_TILES.length}片；确认后继续。`;}catch{}
-  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n将覆盖主世界 X100096..100319、Z100096..100383、Y-64..319，并在 X100336..100366、Z100112..100121、Y-60 建立装备托管箱。请先备份世界并确认这些位置无原有建筑。\n施工会临时切换你为旁观模式并带你逐片加载地形，结束或失败会恢复位置、模式与操作权限；离线则停止并在重登后恢复。\n地图署名 Licraft漓清，仅供本服使用。'+status+'\n是否开始？').button1('取消').button2('确认指定范围施工并临时加载'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p).catch(e=>{tell(p,`安装异常：${e.message||e}`);console.warn(`[PVP install unexpected] ${e.stack||e}`);});});
+  let status='';try{const j=JSON.parse(String(world.getDynamicProperty('pvp:install_elevated_v1')||'null'));if(j&&j.phase!=='DONE')status=`\n发现未完成记录：${j.nextTile||0}/${ARENA_TILES.length}片；确认后继续。`;}catch{}
+  Utils.showForm(p,new MessageFormData().title('安装六分街争夺战赛场').body('仅首次安装或更新地图时使用。\n新赛场在主世界 X100096..100319、Z100096..100383、Y128..319，出生Y232。旧赛场保留不清理；新区域发现任何非空气方块即停止，不会自动清空。仅在你确认此区域可用于新赛场后施工，并在 X100336..100366、Z100112..100121、Y-60 建立装备托管箱。请先备份世界并确认这些位置无原有建筑。\n施工会临时切换你为旁观模式并带你逐片加载地形，结束或失败会恢复位置、模式与操作权限；离线则停止并在重登后恢复。\n地图署名 Licraft漓清，仅供本服使用。'+status+'\n是否开始？').button1('取消').button2('确认新高空范围施工'),r=>{if(r.selection===1&&Utils.isAdmin(p))this.install(p).catch(e=>{tell(p,`安装异常：${e.message||e}`);console.warn(`[PVP install unexpected] ${e.stack||e}`);});});
  }
  static async install(p) {
   if(!Utils.isAdmin(p))return;
   if(this.busy||this.match||this.queue.size)return tell(p,'有比赛或候场，不能安装。');
   if(this.isParticipant(p)||hasForeignMatch(p))return tell(p,'请先退出其他活动后安装赛场。');
   this.busy=true;let session=null,journal=null;
-  const journalKey='pvp:install_v2';
+  const journalKey='pvp:install_elevated_v1';
   const signature=JSON.stringify(ARENA_TILES.map(t=>[t.name,t.location,t.size]));
   try{
    const allocated=JSON.parse(String(world.getDynamicProperty('pvp:vault_index_v1')||'{}'));
@@ -258,6 +259,7 @@ export class PvPManager {
    for(let i=journal.nextTile;i<ARENA_TILES.length;i++){
     const tile=ARENA_TILES[i];
     await this.loadedTile(tile,async d=>{
+     await assertEmptyDestination(d,tile,{isOnline:()=>Utils.isValid(p),onProgress:(done,total)=>tell(p,`第${i+1}片空置检查 ${Math.round(done/total*100)}%`)});
      for(const e of d.getEntities({tags:['pvp:decoration'],location:tile.location,volume:tile.size}))e.remove();
      const command=`structure load ${tile.name} ${tile.location.x} ${tile.location.y} ${tile.location.z} 0_degrees none true true`;
      const r=typeof d.runCommandAsync==='function'?await d.runCommandAsync(command):d.runCommand(command);

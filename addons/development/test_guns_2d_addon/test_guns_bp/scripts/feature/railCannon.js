@@ -12,7 +12,7 @@ const CD_KEY='tg_liegui_skill_until';
 const add=(a,b,s=1)=>({x:a.x+b.x*s,y:a.y+b.y*s,z:a.z+b.z*s});
 const dist=(a,b)=>Math.hypot(a.x-b.x,a.y-b.y,a.z-b.z);
 const body=e=>{try{return e.getHeadLocation();}catch{return add(e.location,{x:0,y:0.8,z:0});}};
-const valid=e=>{try{return e?.isValid()&&e.getComponent('minecraft:health')?.currentValue>0;}catch{return false;}};
+const valid=e=>{try{return (typeof e?.isValid==='function'?e.isValid():e?.isValid===true)&&e.getComponent('minecraft:health')?.currentValue>0;}catch{return false;}};
 function tell(p,s){try{p.sendMessage(`§b[裂轨] §r${s}`);}catch{}}
 function particle(d,id,p){try{d.spawnParticle(id,p);}catch{}}
 function eligible(p,t){return valid(t)&&t.id!==p.id&&!isProtectedTeammate(p,t)&&!t.typeId.includes('hud')&&!t.typeId.includes('armor_stand')&&!['creative','spectator'].includes(t.getGameMode?.());}
@@ -38,16 +38,16 @@ export class RailCannon {
   if(getCurrentAmmo(player,gun)<1){ReloadManager.startReload(player,gun);return true;}
   this.charges.set(player.id,{...snapshot(player),start:system.currentTick,slot:player.selectedSlotIndex,gun});
   GunVisuals.charge(player,gun,RAIL.fullCharge,RAIL.maxHold);
-  try{player.dimension.playSound('beacon.activate',player.location,{volume:0.7,pitch:0.7});}catch{}
+  try{player.dimension.playSound('random.door_open',player.location,{volume:0.7,pitch:0.7});}catch{}
   return true;
  }
- static release(player){const c=this.charges.get(player.id);this.ended.set(player.id,system.currentTick);if(!c)return;
+ static release(player){const c=this.charges.get(player.id);if(!c)return;this.ended.set(player.id,system.currentTick);
   this.charges.delete(player.id);GunVisuals.reset(player);
   if(!same(player,c)||player.selectedSlotIndex!==c.slot||getHeldGun(player)?.gun.id!==RAIL.id||ReloadManager.isReloading(player))return;
   const held=system.currentTick-c.start,profile=chargeProfile(held);
   if(!profile||held>=RAIL.maxHold){this.cooling.set(player.id,system.currentTick+8);return;}
   if(getCurrentAmmo(player,c.gun)<1)return;
-  setCurrentAmmo(player,c.gun,0);this.cooling.set(player.id,system.currentTick+12);
+  setCurrentAmmo(player,c.gun,getCurrentAmmo(player,c.gun)-1);this.cooling.set(player.id,system.currentTick+12);
   const muzzle=getMuzzle(player,c.gun);const dir=spreadDirection(player.getViewDirection(),profile.spread);
   GunVisuals.fire(player,c.gun);this.wear(player);particle(player.dimension,'test_gun:liegui_muzzle',muzzle.location);
   try{player.dimension.playSound(c.gun.shootSound,muzzle.location,{volume:1.5,pitch:0.65});}catch{}
@@ -62,7 +62,7 @@ export class RailCannon {
   // Persist before any emission; switching guns, death and reconnect cannot clear cooldown.
   try{p.setDynamicProperty(CD_KEY,Date.now()+RAIL.skillCooldownMs);}catch{return;}
   this.ended.set(p.id,system.currentTick);this.charges.delete(p.id);
-  const m=getMuzzle(p,g);GunVisuals.fire(p,g);particle(p.dimension,'minecraft:sonic_explosion',m.location);
+  const m=getMuzzle(p,g);GunVisuals.fire(p,g);particle(p.dimension,'test_gun:liegui_impact',m.location);
   try{p.dimension.playSound('mob.warden.sonic_boom',m.location,{volume:1.3,pitch:0.9});}catch{}
   this.waves.push({...snapshot(p),shooter:p,gun:g,position:m.location,dir:spreadDirection(p.getViewDirection(),0),travel:0,skill:true,hit:new Set()});
  }
@@ -101,6 +101,7 @@ export class RailCannon {
   for(const [id,c]of this.charges){const p=world.getAllPlayers().find(x=>x.id===id);
    if(!p||!same(p,c)||p.selectedSlotIndex!==c.slot||getHeldGun(p)?.gun.id!==RAIL.id||ReloadManager.isReloading(p)||p.isSneaking){this.charges.delete(id);if(p)GunVisuals.reset(p);continue;}
    const ticks=system.currentTick-c.start;
+   if(ticks % 4 === 0){try{const stage=ticks>=RAIL.fullCharge?'III · 80':ticks>=RAIL.midCharge?'II · 50':ticks>=RAIL.minCharge?'I · 25':'预压';p.onScreenDisplay.setActionBar(`§6[裂轨] §7蓄力 ${Math.min(100,Math.floor(ticks/RAIL.fullCharge*100))}% §f${stage} §7| 松开击发 · 弹药 ${getCurrentAmmo(p,c.gun)}/${c.gun.maxAmmo}`);}catch{}}
    if(ticks>=RAIL.maxHold){this.charges.delete(id);this.ended.set(id,system.currentTick);this.cooling.set(id,system.currentTick+RAIL.ventTicks);GunVisuals.vent(p,c.gun);try{p.dimension.playSound('random.fizz',p.location,{volume:0.7,pitch:0.7});}catch{}}
   }
   const next=[];
@@ -112,7 +113,7 @@ export class RailCannon {
    try{candidates=p.dimension.getEntities({location:add(w.position,w.dir,speed/2),maxDistance:speed/2+3}).filter(t=>eligible(p,t)&&!w.hit.has(t.id)).map(t=>({target:t,hit:pointOnSegment(body(t),w.position,actual,w.skill?RAIL.skillRadius:0.7)})).filter(x=>x.hit).sort((a,b)=>a.hit.t-b.hit.t);}catch{}
    if(w.skill){for(const c of candidates){if(w.hit.size>=RAIL.maxTargets)break;w.hit.add(c.target.id);this.hit(w,c.target,RAIL.skillDamage,true);}}
    else if(candidates.length){const c=candidates[0],loc=add(w.position,{x:actual.x-w.position.x,y:actual.y-w.position.y,z:actual.z-w.position.z},c.hit.t);this.impact(w,loc,c.target);continue;}
-   particle(p.dimension,w.skill?'minecraft:sonic_explosion':'test_gun:liegui_tracer',actual);
+   particle(p.dimension,w.skill?'test_gun:liegui_impact':'test_gun:liegui_tracer',actual);
    if(segment.blocked){this.impact(w,actual);continue;}
    w.travel+=dist(w.position,actual);w.position=actual;if(w.travel<range)next.push(w);
   }this.waves=next;

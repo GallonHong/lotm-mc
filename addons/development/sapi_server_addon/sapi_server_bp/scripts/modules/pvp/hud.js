@@ -6,7 +6,7 @@ import { PVP_CONFIG as C } from './rules.js';
 // Visibility is distance-based, not player-tag-based: nearby observers also see it.
 export const PVP_HUD_ENTITY = 'sapi:pvp_hud';
 export const PVP_HUD_TAG = 'pvp:hud';
-const ANCHOR = { x: 100208, y: 120, z: 100240 };
+const ANCHOR = { x: 100208, y: 312, z: 100240 };
 const AREA = 'pvp_hud_area';
 const delay = ticks => new Promise(resolve => system.runTimeout(resolve,ticks));
 const dim = () => world.getDimension(C.dimension);

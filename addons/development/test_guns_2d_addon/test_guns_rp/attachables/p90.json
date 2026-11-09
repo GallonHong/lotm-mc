@@ -19,12 +19,12 @@
         "hold_third": "animation.tg3d.hold_third",
         "idle": "animation.tg3d.idle",
         "sprint": "animation.tg3d.sprint",
-        "pose": "controller.animation.tg3d.pose",
         "aim_first": "animation.tg3d.aim_first",
         "aim_third": "animation.tg3d.aim_third",
         "still": "animation.tg3d.still",
         "weapon_action": "animation.tg3d.weapon_action",
-        "muzzle": "controller.animation.tg3d.muzzle"
+        "tg3d_pose_direct": "animation.tg3d.pose_direct",
+        "tg3d_muzzle_direct": "animation.tg3d.muzzle_direct"
       },
       "scripts": {
         "animate": [
@@ -34,9 +34,11 @@
           {
             "hold_third": "!context.is_first_person"
           },
-          "pose",
+          "tg3d_pose_direct",
           "weapon_action",
-          "muzzle",
+          {
+            "tg3d_muzzle_direct": "variable.tg3d_fire_pulse"
+          },
           {
             "aim_first": "context.is_first_person"
           }
@@ -57,10 +59,15 @@
           "variable.tg3d_valid = context.item_slot == 'main_hand' && variable.tg3d_owner_gun == 9 && variable.tg3d_owner_age >= variable.tg3d_stamp && variable.tg3d_owner_age - variable.tg3d_stamp < 0.3;",
           "variable.tg3d_reloading = variable.tg3d_valid && variable.tg3d_owner_kind == 2;",
           "variable.tg3d_kick = variable.tg3d_valid && variable.tg3d_owner_kind == 1 ? math.clamp(math.min(variable.tg3d_progress / 0.2, (1 - variable.tg3d_progress) / 0.8), 0, 1) : 0;",
-          "variable.tg3d_reload_shape = variable.tg3d_reloading ? math.sin(variable.tg3d_progress * 180) : 0;"
+          "variable.tg3d_reload_shape = variable.tg3d_reloading ? math.sin(variable.tg3d_progress * 180) : 0;",
+          "variable.tg3d_pose_run = variable.tg3d_pose_run + ((!variable.tg3d_reloading && !variable.tg3d_sneaking && variable.tg3d_sprinting && !variable.tg3d_using ? 1 : 0) - variable.tg3d_pose_run) * math.clamp(query.delta_time * 12, 0, 1);",
+          "variable.tg3d_pose_idle = !variable.tg3d_reloading && !variable.tg3d_sneaking ? 1 - variable.tg3d_pose_run : 0;",
+          "variable.tg3d_fire_pulse = variable.tg3d_valid && variable.tg3d_owner_kind == 1 && variable.tg3d_shot != variable.tg3d_seen_shot;",
+          "variable.tg3d_seen_shot = variable.tg3d_valid && variable.tg3d_owner_kind == 1 ? variable.tg3d_shot : variable.tg3d_seen_shot;"
         ],
         "initialize": [
-          "variable.tg3d_seen_shot = 0;"
+          "variable.tg3d_seen_shot = 0;",
+          "variable.tg3d_pose_run = 0;"
         ]
       },
       "render_controllers": [

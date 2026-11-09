@@ -127,7 +127,8 @@ class AddonController {
     }
 
     const gun = getGunById(item.typeId);
-    if (gun?.isRailCannon) { RailCannon.begin(player, gun); return; }
+    // itemUse is not the start-of-hold event; never create a charge on completion.
+    if (gun?.isRailCannon) { if(player.isSneaking) RailCannon.begin(player, gun); return; }
     if (gun) {
      if (player.isSneaking) {
       // Shift + 右键分支判定
@@ -194,14 +195,18 @@ class AddonController {
   const stopTrigger = (event) => {
    const player = event.source || event.player;
    if (player) {
-    RailCannon.release(player);
+    if (event.itemStack?.typeId === 'test_gun:liegui') RailCannon.release(player);
+    else if (!event.itemStack) RailCannon.cancel(player);
     ShootManager.setTriggerState(player, false);
    }
   };
 
   subscribeAfter(world.afterEvents, 'itemStopUse', stopTrigger);
   subscribeAfter(world.afterEvents, 'itemReleaseUse', stopTrigger);
-  subscribeAfter(world.afterEvents, 'itemStopUseOn', stopTrigger);
+  // Leaving a targeted block is not releasing the use button.
+  subscribeAfter(world.afterEvents, 'itemStopUseOn', (event) => {
+   if (event.itemStack?.typeId !== 'test_gun:liegui') stopTrigger(event);
+  });
 
   subscribeAfter(world.afterEvents, 'entityHurt', (event) => {
    try {
