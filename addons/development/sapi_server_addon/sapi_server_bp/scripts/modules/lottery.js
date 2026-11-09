@@ -1,3 +1,4 @@
+import { allowOrdinaryAction } from "./match_access.js";
 import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -169,6 +170,7 @@ export class LotteryManager {
   * @param {Function} [onBack] 
   */
  static openLotteryMainUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const balance = EconomyManager.getBalance(player);
   const form = new ActionFormData()
    .title("§l§d幸运抽奖大厅")
@@ -189,6 +191,7 @@ export class LotteryManager {
   }
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) return;
    if (res.selection < pools.length) {
     const selectedPool = pools[res.selection];
@@ -206,6 +209,7 @@ export class LotteryManager {
   * @param {Function} [onBack] 
   */
  static openPoolActionUI(player, pool, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const balance = EconomyManager.getBalance(player);
   const pity = this.getPityStatus(player, pool);
   const form = new ActionFormData()
@@ -227,6 +231,7 @@ export class LotteryManager {
   }
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) return;
    if (res.selection === 0) {
     this.executeDraw(player, pool, 1, () => this.openPoolActionUI(player, pool, onBack));
@@ -248,6 +253,7 @@ export class LotteryManager {
   * @param {Function} [onComplete] 
   */
  static executeDraw(player, pool, count = 1, onComplete = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const cost = count === 1 ? pool.singleCost : pool.tenCost;
 
   if (!EconomyManager.hasBalance(player, cost)) {
@@ -333,6 +339,7 @@ export class LotteryManager {
     .button("§l§a再来一次", "textures/ui/refresh")
     .button("§l§e返回奖池", "textures/ui/cancel");
    Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
     if (res.selection === 0) this.executeDraw(player, pool, count, onComplete);
     else if (onComplete) onComplete();
    });
@@ -364,6 +371,7 @@ export class LotteryManager {
   * @param {Function} [onBack] 
   */
  static openPoolPrizesPreviewUI(player, pool, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const eligibleItems = this.getEligibleItems(pool);
   const totalWeight = eligibleItems.reduce((sum, it) => sum + it.weight, 0);
 
@@ -387,6 +395,7 @@ export class LotteryManager {
    .button("§l§a确定并返回", "textures/ui/confirm");
 
   Utils.showForm(player, form, () => {
+   if (!allowOrdinaryAction(player)) return;
    if (onBack) onBack();
   });
  }
@@ -422,6 +431,7 @@ export class LotteryManager {
  }
 
  static openAdminPoolManager(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!Utils.isAdmin(player)) {
    Utils.tell(player, "§c需要管理员权限。");
    return;
@@ -489,6 +499,7 @@ export class LotteryManager {
  }
 
  static openFeaturedLegendaryAdmin(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!Utils.isAdmin(player)) return;
   const pool = Config.lottery.pools.find(value => value.pityMode === "featured");
   const current = this.getFeaturedLegendary(pool);
@@ -497,6 +508,7 @@ export class LotteryManager {
    .title("§l§6切换 Legendary 当期卡池")
    .dropdown("当期唯一 Legendary 蓝图（同时也是 30 抽保底）", candidates.map(value => value.name), Math.max(0, candidates.findIndex(value => value.key === current?.key)));
   Utils.showForm(player, form, res => {
+   if (!allowOrdinaryAction(player)) return;
    if (!res.canceled) {
     const selected = candidates[Number(res.formValues?.[0]) || 0];
     if (selected && this.setFeaturedLegendary(selected.key)) Utils.broadcast(`§6[限定军备] 当期 UP 已切换为：${selected.name}`);
@@ -507,6 +519,7 @@ export class LotteryManager {
  }
 
  static openCreatePoolUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new ModalFormData()
    .title("§l§a创建自定义奖池")
    .textField("奖池名称", "例如：周末限定池")
@@ -515,6 +528,7 @@ export class LotteryManager {
    .textField("单抽价格", "200")
    .textField("十连价格", "1800");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) return onBack?.();
    const [name, description, icon, singleCost, tenCost] = res.formValues;
    const pools = this.getCustomPools();
@@ -544,6 +558,7 @@ export class LotteryManager {
  }
 
  static openCustomPoolEditor(player, poolId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   if (!pool) return onBack?.();
   const pityPrize = pool.items?.find(item => item.key === pool.pityPrizeKey);
@@ -575,6 +590,7 @@ export class LotteryManager {
  }
 
  static openEditPoolBasicsUI(player, poolId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   if (!pool) return onBack?.();
   const form = new ModalFormData()
@@ -585,6 +601,7 @@ export class LotteryManager {
    .textField("单抽价格", "200", String(pool.singleCost))
    .textField("十连价格", "1800", String(pool.tenCost));
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (!res.canceled) {
     const [name, description, icon, singleCost, tenCost] = res.formValues;
     try {
@@ -602,6 +619,7 @@ export class LotteryManager {
  }
 
  static openAddPrizeUI(player, poolId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   if (!pool || (pool.items?.length || 0) >= 40) {
    Utils.tell(player, "§c奖品数量已达上限或奖池不存在。");
@@ -615,6 +633,7 @@ export class LotteryManager {
    .textField("抽取权重（正整数）", "10")
    .dropdown("稀有度", ["普通", "稀有", "史诗", "传说", "神话"]);
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) return onBack?.();
    const [itemId, displayName, amount, weight, rarityIndex] = res.formValues;
    const normalizedId = String(itemId || "").trim().toLowerCase();
@@ -645,6 +664,7 @@ export class LotteryManager {
  }
 
  static openPrizeListUI(player, poolId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   if (!pool) return onBack?.();
   const actions = [];
@@ -658,6 +678,7 @@ export class LotteryManager {
  }
 
  static openPrizeEditorUI(player, poolId, prizeKey, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   const prize = pool?.items?.find(item => item.key === prizeKey);
   if (!prize) return onBack?.();
@@ -668,6 +689,7 @@ export class LotteryManager {
    .button("§l§4删除奖品", "textures/ui/trash")
    .button("§l§8返回", "textures/ui/undo");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) this.openEditPrizeUI(player, poolId, prizeKey, onBack);
    else if (res.selection === 1) {
     try {
@@ -685,6 +707,7 @@ export class LotteryManager {
  }
 
  static openEditPrizeUI(player, poolId, prizeKey, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   const prize = pool?.items?.find(item => item.key === prizeKey);
   if (!prize) return onBack?.();
@@ -696,6 +719,7 @@ export class LotteryManager {
    .textField("抽取权重", "10", String(prize.weight))
    .dropdown("稀有度", ["普通", "稀有", "史诗", "传说", "神话"], RARITY_IDS.indexOf(prize.rarity));
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (!res.canceled) {
     const [itemId, displayName, amount, weight, rarityIndex] = res.formValues;
     const normalizedId = String(itemId || "").trim().toLowerCase();
@@ -719,6 +743,7 @@ export class LotteryManager {
  }
 
  static openPityConfigUI(player, poolId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   if (!pool?.items?.length) {
    Utils.tell(player, "§c请先添加奖品。");
@@ -731,6 +756,7 @@ export class LotteryManager {
    .dropdown("保底奖品", options, currentIndex)
    .textField("触发抽数（1–10000）", "例如：80", String(pool.pityThreshold || 80));
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (!res.canceled) {
     const [selectedIndex, threshold] = res.formValues;
     try {
@@ -750,6 +776,7 @@ export class LotteryManager {
  }
 
  static openDeletePoolUI(player, poolId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pool = this.getCustomPools().find(entry => entry.id === poolId);
   if (!pool) return onBack?.();
   const form = new MessageFormData()
@@ -758,6 +785,7 @@ export class LotteryManager {
    .button1("§4确认删除")
    .button2("§8取消");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) {
     try { this.saveCustomPools(this.getCustomPools().filter(entry => entry.id !== poolId)); }
     catch (error) { Utils.tell(player, `§c删除失败：${error}`); }

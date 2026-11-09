@@ -1,3 +1,4 @@
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world } from "@minecraft/server";
 import { ActionFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -143,6 +144,7 @@ export class ShopManager {
 	 * @param {Function} [onBack] 
 	 */
 	static openRecycleConfirmUI(player, categoryOrItems = null, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
 		if (!WantedManager.requireOfficialTrade(player)) return onBack?.();
 
 		const sellableMap = this.getSellableMap(categoryOrItems);
@@ -234,6 +236,7 @@ export class ShopManager {
 			.button("§l§c取消\n§r§f返回上一级界面", "textures/ui/cancel");
 
 		Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 			if (res.canceled || res.selection !== 0) {
 				return onBack?.();
 			}
@@ -297,6 +300,7 @@ export class ShopManager {
 	}
 
 	static openCategoryById(player, categoryId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
 		if (!WantedManager.requireOfficialTrade(player)) return onBack?.();
 		const id = String(categoryId || "").trim().toLowerCase();
 		if (!id || id === "all") return this.openShopCategoryUI(player, onBack);
@@ -309,6 +313,7 @@ export class ShopManager {
 	}
 
 	static openCategoryUI(player, category, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
 		if (Array.isArray(category.subcategories) && category.subcategories.length) {
 			return this.openSubcategoryUI(player, category, onBack);
 		}
@@ -316,6 +321,7 @@ export class ShopManager {
 	}
 
 	static openSubcategoryUI(player, category, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
 		const balance = EconomyManager.getBalance(player);
 		const daily = this.getDailyState(player);
 		const groups = category.subcategories || [];
@@ -338,6 +344,7 @@ export class ShopManager {
 		form.button("§l§c返回商场\n§r§f选择其他商人", "textures/ui/cancel");
 
 		Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 			if (res.canceled) return;
 			if (res.selection === 0) {
 				this.openRecycleConfirmUI(player, category, () => this.openSubcategoryUI(player, category, onBack));
@@ -359,6 +366,7 @@ export class ShopManager {
 	 * @param {Function} [onBack] 
 	 */
 	static openShopCategoryUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
 		if (!WantedManager.requireOfficialTrade(player)) return onBack?.();
 		const balance = EconomyManager.getBalance(player);
 		const daily = this.getDailyState(player);
@@ -385,6 +393,7 @@ export class ShopManager {
 		}
 
 		Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 			if (res.canceled) return;
 			if (res.selection === 0) {
 				this.openRecycleConfirmUI(player, null, () => this.openShopCategoryUI(player, onBack));
@@ -407,6 +416,7 @@ export class ShopManager {
 	 * @param {Function} [onBack] 
 	 */
 	static openCategoryItemsUI(player, category, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
 		const balance = EconomyManager.getBalance(player);
 		const daily = this.getDailyState(player);
 		const form = new ActionFormData()
@@ -434,6 +444,7 @@ export class ShopManager {
 		form.button("§l§c返回分类\n§r§f选择其他商品专区", "textures/ui/cancel");
 
 		Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 			if (res.canceled) return;
 			if (res.selection === 0) {
 				this.openRecycleConfirmUI(player, items, () => this.openCategoryItemsUI(player, category, onBack));
@@ -456,6 +467,7 @@ export class ShopManager {
 	 * @param {Function} [onBack] 
 	 */
 	static openItemTradeUI(player, item, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
 		if (!WantedManager.requireOfficialTrade(player)) return onBack?.();
 		const balance = EconomyManager.getBalance(player);
 		const bagCount = Utils.countItem(player, item.id);
@@ -477,6 +489,7 @@ export class ShopManager {
 			.slider("§e交易数量 (1 - 64):", 1, 64, 1);
 
 		Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 			if (res.canceled) {
 				if (onBack) onBack();
 				return;

@@ -1,3 +1,4 @@
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -152,6 +153,7 @@ export class SafeManager {
  }
 
  static placementAllowed(player, dimension, location) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!RegionManager.isAllowed(player, location, "allowPlace")) return false;
   const { chunkX, chunkZ } = Utils.getChunkCoords(location);
   const plot = LandManager.getPlot(dimension.id, chunkX, chunkZ);
@@ -189,6 +191,7 @@ export class SafeManager {
    .textField(`§e请输入 ${min}～${max} 位数字密码`, "不会保存明文密码")
    .textField("§e再次输入密码", "重复密码");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled) return;
    const [password, confirmation] = response.formValues || [];
    if (!this.validPassword(password)) {
@@ -208,6 +211,7 @@ export class SafeManager {
  }
 
  static deploy(player, dimension, location, password) {
+  if (!allowOrdinaryAction(player)) return false;
   let safe = null;
   try {
    safe = dimension.spawnEntity(SAFE_TYPE, location);
@@ -353,6 +357,7 @@ export class SafeManager {
  }
 
  static requestAccess(player, safe) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!Utils.isValid(player) || !this.validSafe(safe)) return;
   if (!this.requireInteractionDistance(player, safe)) return;
   if (this.isBreached(safe)) return this.openSafeMenu(player, safe);
@@ -368,6 +373,7 @@ export class SafeManager {
   const form = new ModalFormData().title("§l§6保险箱密码验证")
    .textField(`§e拥有者：§e${this.ownerName(safe)}\n§e请输入密码`, "4～8 位数字");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled || !this.validSafe(safe)) return;
    if (!this.requireInteractionDistance(player, safe)) return;
    const password = String(response.formValues?.[0] || "");
@@ -394,6 +400,7 @@ export class SafeManager {
  }
 
  static openSafeMenu(player, safe) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!this.validSafe(safe)) return;
   if (!this.requireInteractionDistance(player, safe)) return;
   const container = this.getContainer(safe);
@@ -439,6 +446,7 @@ export class SafeManager {
  }
 
  static openDepositMenu(player, safe) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!this.validSafe(safe)) return;
   if (!this.requireInteractionDistance(player, safe)) return;
   const playerContainer = player.getComponent("minecraft:inventory")?.container || player.getComponent("inventory")?.container;
@@ -466,6 +474,7 @@ export class SafeManager {
  }
 
  static openWithdrawMenu(player, safe) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!this.validSafe(safe)) return;
   if (!this.requireInteractionDistance(player, safe)) return;
   const playerContainer = player.getComponent("minecraft:inventory")?.container || player.getComponent("inventory")?.container;
@@ -493,6 +502,7 @@ export class SafeManager {
  }
 
  static transferStack(player, safe, source, sourceIndex, destination, action) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!this.validSafe(safe)) return;
   if (!this.requireInteractionDistance(player, safe)) return;
   if (this.transactionLocks.has(safe.id)) {
@@ -524,6 +534,7 @@ export class SafeManager {
  }
 
  static openChangePassword(player, safe) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!this.validSafe(safe) || !this.isOwner(player, safe) || this.isBreached(safe)) return;
   if (!this.requireInteractionDistance(player, safe)) return;
   const min = Math.max(4, Number(this.settings.passwordMinLength || 4));
@@ -532,6 +543,7 @@ export class SafeManager {
    .textField(`§e新密码（${min}～${max} 位数字）`, "新密码")
    .textField("§e再次输入", "重复新密码");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled || !this.validSafe(safe)) return this.openSafeMenu(player, safe);
    if (!this.requireInteractionDistance(player, safe)) return;
    const [password, confirmation] = response.formValues || [];
@@ -549,6 +561,7 @@ export class SafeManager {
  }
 
  static confirmRecovery(player, safe) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!this.validSafe(safe) || !this.isOwner(player, safe) || this.isBreached(safe)) return;
   if (!this.requireInteractionDistance(player, safe)) return;
   const container = this.getContainer(safe);
@@ -561,6 +574,7 @@ export class SafeManager {
    .button1("§a确认回收")
    .button2("§8取消");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection !== 0 || !this.validSafe(safe)) return this.openSafeMenu(player, safe);
    if (!this.requireInteractionDistance(player, safe)) return;
    if (this.occupiedSlots(this.getContainer(safe)).length > 0) {

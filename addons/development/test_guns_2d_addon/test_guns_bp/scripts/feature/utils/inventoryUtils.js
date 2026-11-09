@@ -1,3 +1,4 @@
+import { hasInfinitePvpReserve } from './pvpRules.js';
 import { EquipmentSlot } from '@minecraft/server';
 
 export function isCreativePlayer(player) {
@@ -25,7 +26,7 @@ export function getHeldItem(player) {
 }
 
 export function countAmmoInInventory(player, ammoTypeId) {
- if (isCreativePlayer(player)) {
+ if (hasInfinitePvpReserve(player) || isCreativePlayer(player)) {
   return 9999;
  }
  try {
@@ -46,7 +47,7 @@ export function countAmmoInInventory(player, ammoTypeId) {
 }
 
 export function consumeAmmoFromInventory(player, ammoTypeId, amountNeeded) {
- if (isCreativePlayer(player)) {
+ if (hasInfinitePvpReserve(player) || isCreativePlayer(player)) {
   return amountNeeded;
  }
  try {

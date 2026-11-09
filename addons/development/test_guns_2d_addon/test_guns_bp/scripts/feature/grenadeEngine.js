@@ -1,3 +1,4 @@
+import { pvpCanAttack, isPvpParticipant } from './utils/pvpRules.js';
 import { RecoilManager } from './recoilManager.js';
 import { getMuzzle } from './utils/muzzleUtils.js';
 import { world, EntityDamageCause, system } from '@minecraft/server';
@@ -9,6 +10,7 @@ export class GrenadeEngine {
  static activeGrenades = [];
 
  static launchGrenade(player, gun) {
+  if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid()) return;
 
   try {

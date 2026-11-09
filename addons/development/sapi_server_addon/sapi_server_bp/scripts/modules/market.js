@@ -1,3 +1,4 @@
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world, ItemStack } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -101,6 +102,7 @@ export class MarketManager {
  }
 
  static claimPendingPayout(player, notify = true) {
+  if (!allowOrdinaryAction(player)) return false;
   const amount = this.getPendingPayout(player.name);
   if (!amount) return 0;
   EconomyManager.addBalance(player, amount);
@@ -182,10 +184,12 @@ export class MarketManager {
  }
 
  static giveListingItem(player, listing, amount) {
+  if (!allowOrdinaryAction(player)) return false;
   return Utils.giveItem(player, listing.typeId, amount, listing.nameTag || null, listing.lore || null);
  }
 
  static removeFromSlot(player, slot, amount, expectedTypeId) {
+  if (!allowOrdinaryAction(player)) return false;
   try {
    const container = player.getComponent("minecraft:inventory")?.container || player.getComponent("inventory")?.container;
    const item = container?.getItem(slot);
@@ -202,6 +206,7 @@ export class MarketManager {
  }
 
  static openMainUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   this.claimPendingPayout(player, true);
   const listings = this.getListings();
   const mine = listings.filter(listing => listing.sellerName === player.name).length;
@@ -218,6 +223,7 @@ export class MarketManager {
    .button("§l§b我的寄卖\n§r§8查看或撤回尚未售出的商品", "textures/items/book_writable");
   if (onBack) form.button("§l§8返回服务器菜单", "textures/ui/undo");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) this.openBrowseUI(player, () => this.openMainUI(player, onBack));
    else if (res.selection === 1) this.openCreateListingUI(player, () => this.openMainUI(player, onBack));
    else if (res.selection === 2) this.openMyListingsUI(player, () => this.openMainUI(player, onBack));
@@ -226,6 +232,7 @@ export class MarketManager {
  }
 
  static openCreateListingUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const myCount = this.getListings().filter(listing => listing.sellerName === player.name).length;
   if (myCount >= (Config.market?.maxListingsPerPlayer ?? 10)) {
    Utils.tell(player, "§c你的寄卖数量已达上限，请先撤回或等待成交。");
@@ -255,6 +262,7 @@ export class MarketManager {
    .slider("上架数量", 1, 64, 1)
    .textField("每件单价（金币）", "例如：100");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) return onBack?.();
    const [entryIndex, rawListingName, rawAmount, rawPrice] = res.formValues;
    const entry = entries[entryIndex];
@@ -325,6 +333,7 @@ export class MarketManager {
  }
 
  static openBrowseUI(player, onBack = null, page = 0) {
+  if (!allowOrdinaryAction(player)) return false;
   const listings = this.getListings().filter(listing => listing.sellerName !== player.name && this.isItemAvailable(listing.typeId));
   const pageSize = 20;
   const pageCount = Math.max(1, Math.ceil(listings.length / pageSize));
@@ -351,6 +360,7 @@ export class MarketManager {
  }
 
  static openBuyUI(player, listingId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const listing = this.getListing(listingId);
   if (!listing || listing.amount < 1) {
    Utils.tell(player, "§c该商品已售出或被撤回。");
@@ -368,6 +378,7 @@ export class MarketManager {
    .title(`§l购买 ${this.getDisplayName(listing)}`)
    .slider(`${identity}\n库存 ${listing.amount} | 单价 ${listing.unitPrice} 金币`, 1, Math.min(64, listing.amount), 1);
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) return onBack?.();
    const quantity = Math.floor(Number(res.formValues?.[0]));
    const latest = this.getListing(listingId);
@@ -403,6 +414,7 @@ export class MarketManager {
  }
 
  static openMyListingsUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const listings = this.getListings().filter(listing => listing.sellerName === player.name);
   const actions = [];
   const form = new ActionFormData().title("§l§b我的寄卖").body(listings.length ? "§8选择商品可撤回剩余库存。" : "§8当前没有寄卖商品。");
@@ -419,6 +431,7 @@ export class MarketManager {
  }
 
  static openCancelListingUI(player, listingId, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const listing = this.getListing(listingId);
   if (!listing || listing.sellerName !== player.name) return onBack?.();
   if (!this.isItemAvailable(listing.typeId)) {
@@ -431,6 +444,7 @@ export class MarketManager {
    .button1("§a确认撤回")
    .button2("§8取消");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) {
     const latest = this.getListing(listingId);
     if (latest?.sellerName === player.name) {

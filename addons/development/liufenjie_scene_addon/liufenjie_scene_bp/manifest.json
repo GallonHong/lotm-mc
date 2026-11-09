@@ -1,0 +1,29 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "六分街 PVP 场景资源（私用测试）",
+    "description": "原地图：Licraft漓清。分块结构供管理员显式安装；不会自动修改世界。公开分发前须取得原作者授权。",
+    "uuid": "9387e30c-a705-4b06-b397-40bd365bf9cd",
+    "version": [
+      0,
+      1,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "data",
+      "uuid": "77527583-3eec-4ad3-b409-d5a3ff0eb2f6",
+      "version": [
+        0,
+        1,
+        0
+      ]
+    }
+  ]
+}

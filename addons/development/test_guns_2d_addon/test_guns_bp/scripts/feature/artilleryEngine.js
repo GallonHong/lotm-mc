@@ -1,3 +1,4 @@
+import { pvpCanAttack, isPvpParticipant, pvpMatch } from './utils/pvpRules.js';
 import { world, system, EntityDamageCause } from '@minecraft/server';
 import { ActionFormData } from '@minecraft/server-ui';
 import { isProtectedTeammate } from './utils/teamRules.js';
@@ -16,6 +17,7 @@ export class ArtilleryEngine {
   * @param {Player} player 
   */
  static openMenu(player) {
+  if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid()) return;
   if (this.isMenuOpen.has(player.id)) return;
 
@@ -82,8 +84,10 @@ export class ArtilleryEngine {
   form.button(`§b【中程压制】自身正前方 30 格\n§8(${pos30.x.toFixed(0)}, ${pos30.y.toFixed(0)}, ${pos30.z.toFixed(0)})`, 'textures/ui/magnifying_glass');
   form.button(`§c【远程覆盖】自身正前方 50 格\n§8(${pos50.x.toFixed(0)}, ${pos50.y.toFixed(0)}, ${pos50.z.toFixed(0)})`, 'textures/ui/beacon');
 
+  const menuMatch = pvpMatch(player), menuParticipant = isPvpParticipant(player);
   form.show(player).then(res => {
    this.isMenuOpen.delete(player.id);
+   if (!pvpCanAttack(player) || menuMatch !== pvpMatch(player) || menuParticipant !== isPvpParticipant(player)) return;
    if (res.canceled || typeof res.selection !== 'number') return;
 
    let targetLoc = crosshairPos;
@@ -139,6 +143,7 @@ export class ArtilleryEngine {
   * 启动多波次集束火炮地毯轰炸
   */
  static startBarrage(player, centerLoc, modeName) {
+  if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid() || !centerLoc) return;
 
   // 5秒测试冷却 (100 ticks)

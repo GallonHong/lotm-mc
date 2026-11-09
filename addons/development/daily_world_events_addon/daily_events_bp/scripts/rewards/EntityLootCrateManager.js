@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "../pvpIsolation.js";
 import { ItemStack, world } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
@@ -126,6 +127,7 @@ export class EntityLootCrateManager {
  }
 
  static spawnDrop(dimension, location, entry) {
+  if (isPvpArea(dimension.id, location)) return false;
   try {
    const stack = RewardManager.makeStack(entry);
    dimension.spawnItem(stack, { x: location.x, y: location.y + 0.45, z: location.z });
@@ -139,6 +141,7 @@ export class EntityLootCrateManager {
  }
 
  static interact(player, entity) {
+  if (isPvpExcluded(player)) return false;
   const tier = this.tier(entity);
   if (!tier || !player) return false;
   if (!this.closeEnough(player, entity)) {
@@ -204,7 +207,7 @@ export class EntityLootCrateManager {
  }
 
  static scanAndSpawn() {
-  const players = world.getAllPlayers().filter(player => sameOverworld(player.dimension?.id));
+  const players = world.getAllPlayers().filter(player => !isPvpExcluded(player) && sameOverworld(player.dimension?.id));
   if (!players.length) return 0;
   let dimension;
   try { dimension = world.getDimension("minecraft:overworld"); } catch { return 0; }
@@ -229,7 +232,7 @@ export class EntityLootCrateManager {
    const key = `${candidate.chunkX}:${candidate.chunkZ}`;
    if (occupied.has(key) || Number(this.cooldowns.get(key) || 0) > Date.now()) continue;
    const location = this.findSurface(dimension, candidate.chunkX, candidate.chunkZ);
-   if (!location) continue;
+   if (!location || isPvpArea(dimension.id, location)) continue;
    if (players.some(player => distanceSquared(player.location, location) < CONFIG.entityCrateMinSpawnDistance ** 2)) continue;
    const zone = IntegrationBridge.resolveZone(dimension.id, location);
    const tier = this.selectedTier(candidate.chunkX, candidate.chunkZ, zone.type);

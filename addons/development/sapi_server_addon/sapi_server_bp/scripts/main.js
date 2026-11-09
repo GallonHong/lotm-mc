@@ -1,3 +1,4 @@
+import { PvPManager } from './modules/pvp.js';
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { Config } from "./config.js";
 import { Utils } from "./utils.js";
@@ -56,7 +57,7 @@ function isCompass(itemStack, player = null) {
 
 
 function ensurePlayerCompass(player) {
-	if (!Config.system.giveMenuItemOnJoin || !Utils.isValid(player)) return;
+	if (!Config.system.giveMenuItemOnJoin || !Utils.isValid(player) || PvPManager.isParticipant(player)) return;
 	const hasCompass = Utils.countItem(player, "sapi:menu_compass") > 0 || Utils.countItem(player, "minecraft:compass") > 0;
 	if (hasCompass) return;
 	
@@ -82,6 +83,7 @@ function ensurePlayerCompass(player) {
 }
 
 function initServerSystem() {
+ PvPManager.init();
 	console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
 	try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
 	CombatManager.registerEvents();
@@ -109,6 +111,7 @@ system.run(initServerSystem);
 
 world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 	if (!Utils.isValid(player)) return;
+ if (PvPManager.handleSpawn(player, initialSpawn)) return;
 	if (WantedManager.enforceBlacklist(player)) return;
 	system.runTimeout(() => Integration.probeDailyEvents(player), 20);
 	EconomyManager.getBalance(player);
@@ -130,7 +133,7 @@ world.afterEvents.playerSpawn.subscribe(({ player, initialSpawn }) => {
 
 const playerDie = world.afterEvents?.entityDie;
 if (playerDie?.subscribe) playerDie.subscribe(event => {
-	if (event.deadEntity?.typeId === "minecraft:player") CombatManager.onPlayerDeath(event.deadEntity);
+	if (event.deadEntity?.typeId === "minecraft:player" && !PvPManager.isParticipant(event.deadEntity)) CombatManager.onPlayerDeath(event.deadEntity);
 });
 
 const playerLeave = world.afterEvents?.playerLeave;
@@ -215,6 +218,8 @@ if (world.beforeEvents?.playerInteractWithEntity?.subscribe) {
 function handleChat(event) {
  const player = event.sender;
  const message = event.message.trim().toLowerCase();
+ if (message === "!pvp") { if ("cancel" in event) event.cancel=true; system.run(()=>PvPManager.openMenu(player)); return; }
+ if (PvPManager.isParticipant(player) && message.startsWith("!")) { if ("cancel" in event) event.cancel=true; system.run(()=>PvPManager.openMenu(player)); return; }
  const routes = {
   "!menu": () => ServerMenuManager.openMainMenu(player),
   "!cd": () => ServerMenuManager.openMainMenu(player),
@@ -269,6 +274,7 @@ if (scriptEvents?.subscribe) {
   }
   if (!sourceEntity || sourceEntity.typeId !== "minecraft:player") return;
   const player = sourceEntity;
+  if (PvPManager.isParticipant(player) && !id.startsWith("pvp:")) return;
   if (id === "sapi:hope_lottery_request") {
    LotteryManager.sendHopePostSnapshot(player, message);
    return;

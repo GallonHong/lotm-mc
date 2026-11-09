@@ -1,3 +1,4 @@
+import { participant, canOperateDrone, canDamage, hasLineOfSight, lifeState, saveLifeState } from "../pvp/PvpLifePolicy.js";
 import { world, system, EntityComponentTypes, InputButton, ButtonState, EasingType } from "@minecraft/server";
 import { DroneEffects } from "./DroneEffects.js";
 import { ManualControlSession } from "./ManualControlSession.js";
@@ -92,6 +93,7 @@ export class DroneClass {
   * 立即进入无人机第一人称视角 (FPV 视角与全向物理飞控)
   */
  static enterManualControl(player) {
+  if (!canOperateDrone(player, this.getActiveDrone(player.id))) return;
   const drone = this.getActiveDrone(player.id);
   if (!drone || !drone.entity || !drone.entity.isValid()) {
    player.sendMessage("§c[战术机库] 当前无出战伴飞的无人机！");
@@ -258,6 +260,7 @@ export class DroneClass {
   * 手动远程瞄准射击
   */
  static fireManualBullet(player) {
+  if (!canOperateDrone(player, this.getActiveDrone(player.id))) return;
   const drone = this.getActiveDrone(player.id);
   if (!drone?.manualMode || !drone.entity?.isValid() || !ManualControlSession.held(player, drone.controlSession)) return;
 
@@ -302,15 +305,15 @@ export class DroneClass {
 
    if (hit && hit.length > 0) {
     const target = hit[0].entity;
-    if (target && target.isValid()) {
+    if (target && target.isValid() && canDamage(player, target)) {
      endLoc = {
       x: target.location.x,
       y: target.location.y + 0.8,
       z: target.location.z
      };
      const baseDamage = drone.config.baseDamage * drone.damageBonus * 1.2;
-     target.applyDamage(baseDamage);
-     if (drone.config.fireType === "incendiary") {
+     target.applyDamage(baseDamage, { damagingEntity: player, cause: "entityAttack" });
+     if (drone.config.fireType === "incendiary" && !participant(player)) {
       target.setOnFire(3, false);
      }
     }
@@ -358,6 +361,11 @@ export class DroneClass {
   });
   world.afterEvents.playerLeave.subscribe(({ playerId }) => {
    const drone = this.getActiveDrone(playerId);
+   try {
+    if (drone?.pvpMatchId && drone.entity?.getComponent(EntityComponentTypes.Health)?.currentValue <= 0) {
+     this.crashDrone(playerId, drone); // World journal survives unavailable player data.
+    }
+   } catch {}
    try { if (drone?.entity?.isValid()) drone.entity.remove(); } catch {}
    this.unregisterActiveDrone(playerId);
   });
@@ -412,6 +420,10 @@ export class DroneClass {
  static crashDrone(ownerId, drone) {
   if (!drone || drone.crashHandled || this.activeDrones.get(ownerId) !== drone) return;
   drone.crashHandled = true; // Gate before effects/removal: callbacks may re-enter.
+  try {
+   const state = lifeState(drone.player);
+   if (state) { state.disabled = true; state.disabledReason = "destroyed"; saveLifeState(drone.player, state); }
+  } catch (error) { console.warn(`[PvpLife] Crash lock pending: ${error}`); }
   const entity = drone.entity;
   let location = drone.lastKnownLocation, dimension = drone.lastKnownDimension;
   try { location = entity.location; dimension = entity.dimension; } catch {}
@@ -448,6 +460,12 @@ export class DroneClass {
      try { if (entity?.isValid()) entity.remove(); } catch {}
      this.unregisterActiveDrone(ownerId);
     }
+    continue;
+   }
+
+   // During prepare, restore or spawn grace no Life combat/FPV action is allowed.
+   if (participant(player) && !canOperateDrone(player, drone)) {
+    if (drone.manualMode) this.exitManualControl(player);
     continue;
    }
 
@@ -622,7 +640,7 @@ export class DroneClass {
    }
 
    // 5. 倒地自动救援协议 (高级与典藏机型，5秒急救倒计时)
-   if (drone.config.autoRevive) {
+   if (drone.config.autoRevive && !participant(player)) {
     if (DownedRescueManager.isPlayerDowned(player)) {
      if (currentTick >= drone.autoReviveCooldownTick && !drone.isRescuing) {
       drone.isRescuing = true;
@@ -725,14 +743,11 @@ export class DroneClass {
   * 自动伴飞交火射击
   */
  static handleAutoCombat(drone, player, entity, currentTick) {
+  if (!canOperateDrone(player, drone)) return;
   if (currentTick - drone.lastFireTick < drone.config.fireIntervalTicks) return;
 
   // 扫描周围 20 格内的敌对怪物
-  const nearbyMonsters = entity.dimension.getEntities({
-   location: entity.location,
-   maxDistance: 20,
-   families: ["monster"]
-  });
+  const nearbyMonsters = this.combatTargets(player, entity, 20);
 
   if (nearbyMonsters.length === 0) return;
 
@@ -763,7 +778,8 @@ export class DroneClass {
 
   for (let i = 0; i < pellets; i++) {
    try {
-    target.applyDamage(baseDamage);
+    if (!canDamage(player, target) || (participant(player) && !hasLineOfSight(entity, target))) break;
+    target.applyDamage(baseDamage, { damagingEntity: player, cause: "entityAttack" });
    } catch {}
 
    // 多弹丸散布弹道 (霰弹机型微量偏移，单发直射)
@@ -781,7 +797,7 @@ export class DroneClass {
   }
 
   // 燃烧弹点燃怪物
-  if (drone.config.fireType === "incendiary") {
+  if (drone.config.fireType === "incendiary" && !participant(player)) {
    try { target.setOnFire(3, false); } catch {}
   }
  }
@@ -790,6 +806,7 @@ export class DroneClass {
   * 战术技能自动研判与触发
   */
  static handleSkillTriggers(drone, player, entity, currentTick) {
+  if (!canOperateDrone(player, drone)) return;
   for (const skill of drone.config.skills) {
    const readyTick = drone.skillCooldowns.get(skill.id) || 0;
    if (currentTick < readyTick) continue;
@@ -812,7 +829,7 @@ export class DroneClass {
 
    // 触发器 B：战术交火增益 (combat_buff / combat_active)
    else if (skill.trigger === "combat_buff" || skill.trigger === "combat_active") {
-    const mobs = entity.dimension.getEntities({ location: entity.location, maxDistance: 16, families: ["monster"] });
+    const mobs = this.combatTargets(player, entity, 16);
     if (mobs.length >= 2) {
      shouldTrigger = true;
      if (skill.id === "adrenaline_shot") {
@@ -833,12 +850,13 @@ export class DroneClass {
 
    // 触发器 C：单体高爆/榴弹 (combat_target)
    else if (skill.trigger === "combat_target") {
-    const mobs = entity.dimension.getEntities({ location: entity.location, maxDistance: 18, families: ["monster"] });
+    const mobs = this.combatTargets(player, entity, 18);
     if (mobs.length > 0) {
      shouldTrigger = true;
      const t = mobs[0];
      try {
-      t.applyDamage(skill.burstDamage || 35);
+      if (!canDamage(player, t) || (participant(player) && !hasLineOfSight(entity, t))) continue;
+      t.applyDamage(skill.burstDamage || 35, { damagingEntity: player, cause: "entityAttack" });
       this.triggerDroneShootingAnimation(entity);
       const muzzleLoc = DroneEffects.muzzle(entity);
       const targetCenter = { x: t.location.x, y: t.location.y + 0.8, z: t.location.z };
@@ -856,6 +874,15 @@ export class DroneClass {
     drone.skillCooldowns.set(skill.id, currentTick + cd);
    }
   }
+ }
+
+ static combatTargets(player, entity, radius) {
+  const query = { location: entity.location, maxDistance: radius };
+  if (!participant(player)) query.families = ["monster"];
+  return entity.dimension.getEntities(query)
+   .filter(target => target.id !== entity.id && target.id !== player.id && canDamage(player, target) && (!participant(player) || hasLineOfSight(entity, target)))
+   .sort((a, b) => Math.hypot(a.location.x-entity.location.x,a.location.y-entity.location.y,a.location.z-entity.location.z) -
+    Math.hypot(b.location.x-entity.location.x,b.location.y-entity.location.y,b.location.z-entity.location.z));
  }
 
  static getRotationTowards(from, to) {

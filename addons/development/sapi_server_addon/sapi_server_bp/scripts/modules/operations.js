@@ -1,3 +1,4 @@
+import { allowOrdinaryAction } from "./match_access.js";
 import { world, ItemStack } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -144,6 +145,7 @@ export class OperationsManager {
  }
 
  static grantReward(player, reward) {
+  if (!allowOrdinaryAction(player)) return false;
   const normalized = this.normalizeReward(reward);
   if (!Utils.isValid(player) || !this.validateReward(normalized)) return false;
   const inventory = player.getComponent("inventory");
@@ -191,6 +193,7 @@ export class OperationsManager {
  }
 
  static claimDaily(player) {
+  if (!allowOrdinaryAction(player)) return false;
   const { day, date, settings } = this.getDayInfo();
   if (!settings.dailyEnabled) {
    Utils.tell(player, "§8每日签到当前已被管理员关闭。");
@@ -217,6 +220,7 @@ export class OperationsManager {
  }
 
  static redeem(player, rawCode) {
+  if (!allowOrdinaryAction(player)) return false;
   const settings = this.getSettings();
   if (!settings.redeemEnabled) return { success: false, message: "兑换码功能当前已关闭。" };
   const value = this.sanitizeCode(rawCode);
@@ -277,6 +281,7 @@ export class OperationsManager {
  }
 
  static openPlayerMenu(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const { date, settings } = this.getDayInfo();
   const state = this.getDailyState(player);
   const pending = this.getPending(player);
@@ -291,8 +296,10 @@ export class OperationsManager {
  }
 
  static openRedeemModal(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new ModalFormData().title("§l兑换服务器礼包码").textField("兑换码", "例如：WELCOME2026");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (!response.canceled) {
     const result = this.redeem(player, response.formValues?.[0]);
     Utils.tell(player, result.success ? `§a${result.message}` : `§c${result.message}`);
@@ -302,6 +309,7 @@ export class OperationsManager {
  }
 
  static openPendingMenu(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const pending = this.getPending(player);
   const actions = [];
   const form = new ActionFormData().title("§l§b待领取奖励").body(pending.length ? "§8点击一项尝试重新领取。" : "§8没有待领取奖励。");
@@ -341,6 +349,7 @@ export class OperationsManager {
    .textField("第7天额外物品 ID", "minecraft:diamond", settings.daySevenItem)
    .textField("第7天物品数量", "1", String(settings.daySevenAmount));
   Utils.showForm(admin, form, response => {
+   if (!allowOrdinaryAction(admin)) return;
    if (!response.canceled) {
     const [dailyEnabled, redeemEnabled, timezone, moneyList, itemId, itemAmount] = response.formValues;
     const dailyMoney = String(moneyList).split(",").map(value => Math.max(0, Math.floor(Number(value) || 0))).slice(0, 7);
@@ -377,6 +386,7 @@ export class OperationsManager {
    .textField("每人次数（1-10）", "1", "1")
    .textField("有效天数（0=永久）", "30", "30");
   Utils.showForm(admin, form, response => {
+   if (!allowOrdinaryAction(admin)) return;
    if (!response.canceled) {
     const [code, name, money, itemId, amount, maxUses, perPlayer, days] = response.formValues;
     const validDays = Math.max(0, Number(days) || 0);
@@ -397,6 +407,7 @@ export class OperationsManager {
   if (!code) return this.openCodeAdmin(admin, onBack);
   const form = new MessageFormData().title(`§l${code.name}`).body(`§e兑换码: §e${code.code}\n§e状态: ${code.enabled ? "§a启用" : "§c停用"}\n§e奖励: §e${this.rewardText(code.reward)}\n§e使用: §e${code.used}/${code.maxUses || "∞"}\n§e每人: §e${code.perPlayer} 次\n§e到期: §8${code.expiresAt ? new Date(code.expiresAt).toLocaleString("zh-CN") : "永久"}\n\n§8选择切换状态，或进入删除确认。`).button1(code.enabled ? "§c停用" : "§a启用").button2("§4删除…");
   Utils.showForm(admin, form, response => {
+   if (!allowOrdinaryAction(admin)) return;
    if (response.canceled) return this.openCodeAdmin(admin, onBack);
    if (response.selection === 0) {
     code.enabled = !code.enabled;
@@ -410,6 +421,7 @@ export class OperationsManager {
  static confirmDeleteCode(admin, code, onBack = null) {
   const form = new MessageFormData().title("§l§c确认删除兑换码").body(`§c删除后无法恢复：${code.name}\n§8建议有玩家使用后优先停用，而不是删除。`).button1("§c确认删除").button2("§8取消");
   Utils.showForm(admin, form, response => {
+   if (!allowOrdinaryAction(admin)) return;
    if (response.selection === 0) {
     this.saveCodes(this.getCodes().filter(entry => entry.id !== code.id));
     AuditManager.log("code_delete", admin, code.name, this.maskCode(code.code));
@@ -425,6 +437,7 @@ export class OperationsManager {
   for (const target of players) form.button(`${target.name}\n§r§8待领取 ${this.getPending(target).length} 项`, "textures/ui/FriendsIcon");
   form.button("§l§8返回", "textures/ui/undo");
   Utils.showForm(admin, form, response => {
+   if (!allowOrdinaryAction(admin)) return;
    const target = players[response.selection];
    if (target) this.openPendingAdminActions(admin, target, onBack);
    else this.openAdminMenu(admin, onBack);
@@ -459,6 +472,7 @@ export class OperationsManager {
   const count = this.getPending(target).length;
   const form = new MessageFormData().title("§l§c清空待领取奖励").body(`§c将删除 ${target.name} 的 ${count} 项待领取奖励，且无法恢复。`).button1("§c确认清空").button2("§8取消");
   Utils.showForm(admin, form, response => {
+   if (!allowOrdinaryAction(admin)) return;
    if (response.selection === 0) {
     this.setPlayerJson(target, PENDING_KEY, []);
     AuditManager.log("pending_admin", admin, target.name, `清空 ${count} 项`);

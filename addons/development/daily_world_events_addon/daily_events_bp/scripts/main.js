@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system, ItemStack } from "@minecraft/server";
 import { CONFIG, MOB_TARGETS } from "./config.js";
 import { DailyQuestManager } from "./daily/DailyQuestManager.js";
@@ -107,7 +108,7 @@ function sapiTeamTag(player) {
 }
 
 function closeEnoughForTeamCredit(player, dead, deadDimId, deadLoc) {
- if (!valid(player)) return false;
+ if (!valid(player) || isPvpPlayer(player)) return false;
  try {
   const pDim = player.dimension?.id;
   const targetDim = deadDimId || dead?.dimension?.id;
@@ -122,6 +123,7 @@ function closeEnoughForTeamCredit(player, dead, deadDimId, deadLoc) {
 }
 
 function handleNpcInteraction(player, target) {
+ if (isPvpPlayer(player)) return false;
  if (!player || !target) return false;
  let commissioner = target.typeId === "daily:commissioner";
  try { commissioner ||= target.hasTag("daily_commissioner"); } catch {}
@@ -182,6 +184,7 @@ function handleEntityDeath(event) {
 }
 
 function handleCrateCommand(player, rawAction = "give") {
+ if (isPvpPlayer(player)) return;
  const parts = String(rawAction || "give").trim().toLowerCase().split(/\s+/);
  const action = parts[0];
  if (action === "backfill") {
@@ -265,6 +268,7 @@ subscribe(world.afterEvents?.entityLoad, "entityLoad", event => WorldEventManage
 subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
  system.runTimeout(() => {
   try {
+   if (isPvpPlayer(event.player)) return;
    DailyQuestManager.ensureState(event.player);
    if (!event.player.hasTag("apoc:true_death")) {
     // 倒地抢救拉回中不触发副本淘汰死回复活点
@@ -281,6 +285,7 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
 });
 
 subscribe(world.afterEvents?.playerBreakBlock, "playerBreakBlock", event => {
+ if (isPvpPlayer(event.player)) return;
  try {
   const typeId = event.brokenBlockPermutation?.type?.id || event.brokenBlockPermutation?.typeId || event.block?.typeId;
   if (typeId) DailyQuestManager.onBlockCollected(event.player, typeId);
@@ -290,7 +295,7 @@ subscribe(world.afterEvents?.playerBreakBlock, "playerBreakBlock", event => {
 
 subscribe(world.afterEvents?.entityHurt, "entityHurt", event => {
  const player = attackerPlayer(event.damageSource);
- if (!player || !event.hurtEntity) return;
+ if (!player || isPvpPlayer(player) || !event.hurtEntity) return;
  recordContributor(event.hurtEntity, player);
  WorldEventManager.recordCombat(event.hurtEntity, player, event.damage || 1, false);
  DungeonManager.recordCombat(event.hurtEntity, player, event.damage || 1, false);
@@ -350,6 +355,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
   return;
  }
  if (!player || player.typeId !== "minecraft:player") return;
+ if (isPvpPlayer(player)) return;
  if (id === "daily:menu") DailyMenu.open(player);
  else if (id === "daily:quests") system.runTimeout(() => DailyMenu.openQuests(player), 2);
  else if (id === "daily:claim") system.runTimeout(() => {
@@ -434,6 +440,7 @@ system.runInterval(() => {
 
 system.runInterval(() => {
  for (const player of world.getAllPlayers()) {
+  if (isPvpPlayer(player)) continue;
   try { DailyQuestManager.pollInventory(player); DailyQuestManager.pollSales(player); NpcDialogue.syncPlayer(player); } catch {}
  }
 }, 100);

@@ -1,3 +1,4 @@
+import { pvpCanAttack } from './utils/pvpRules.js';
 import { getMuzzleLocation } from './utils/muzzleUtils.js';
 import { GunVisuals } from './gunVisuals.js';
 import { RocketEngine } from './rocketEngine.js';
@@ -105,6 +106,7 @@ export class ShootManager {
  }
 
  static tick(player, gun) {
+  if (!pvpCanAttack(player)) { this.clearPlayer(player); ReloadManager.cancelReload(player); return; }
   const currentCd = this.playerCooldowns.get(player.id) || 0;
   if (currentCd > 0) {
    this.playerCooldowns.set(player.id, currentCd - 1);
@@ -136,6 +138,7 @@ export class ShootManager {
   * 特斯拉高能电弧发射器：1.0 秒 (20 刻) 右键蓄力逻辑
   */
  static processArcCharge(player, gun) {
+  if (!pvpCanAttack(player)) return;
   const currentAmmo = getCurrentAmmo(player, gun);
   if (currentAmmo <= 0) {
    this.arcChargeTicks.delete(player.id);
@@ -199,6 +202,7 @@ export class ShootManager {
  }
 
  static executeShot(player, gun) {
+  if (!pvpCanAttack(player)) return;
   const currentAmmo = getCurrentAmmo(player, gun);
 
   if (currentAmmo <= 0) {

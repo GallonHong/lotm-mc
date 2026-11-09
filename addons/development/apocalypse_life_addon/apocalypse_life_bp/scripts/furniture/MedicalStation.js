@@ -1,3 +1,4 @@
+import { participant } from "../pvp/PvpLifePolicy.js";
 import { system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
@@ -42,6 +43,7 @@ function heal(player, amount, cleanse = false) {
 }
 
 function treat(player, station, typeId, amount, cleanse, label) {
+ if (participant(player)) return;
  if (!station?.isValid() || distance(player.location, station.location) > 2.5) {
   player.sendMessage("§c请靠近医疗站后再进行治疗。");
   return;
@@ -63,6 +65,7 @@ function treat(player, station, typeId, amount, cleanse, label) {
 
 export class MedicalStation {
  static handleInteraction(player, target) {
+  if (participant(player)) return true;
   if (target?.typeId !== STATION_ID) return false;
   if (distance(player.location, target.location) > 2.5) {
    player.sendMessage("§c请站到医疗站旁边再使用。");

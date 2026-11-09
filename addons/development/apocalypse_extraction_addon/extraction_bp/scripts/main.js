@@ -970,6 +970,7 @@ async function ensureCityReady(dimension, force = false) {
 }
 
 function returnPlayer(player, reason = "已离开摸金都市。") {
+ if (pvpParticipant(player)) return;
  let saved = parse(player.getDynamicProperty(CONFIG.returnKey), null);
  let dimension;
  try { dimension = world.getDimension(saved?.dimension || "minecraft:overworld"); }
@@ -1011,7 +1012,33 @@ function enforceKeepInventory() {
  try { world.getDimension("minecraft:overworld").runCommand("gamerule keepinventory true"); } catch {}
 }
 
+const admissionRequests = new Map();
+function pvpParticipant(player) {
+ try { return player.hasTag("pvp:participant"); } catch { return true; }
+}
+function endAdmission(player, token) {
+ if (admissionRequests.get(player.id) !== token) return;
+ admissionRequests.delete(player.id);
+ try { player.removeTag("extract:admission"); player.removeTag("pvp:admission"); } catch {}
+}
+function admissionValid(player, token) {
+ try {
+  return admissionRequests.get(player.id) === token && !pvpParticipant(player) &&
+   player.hasTag("extract:admission") && player.hasTag("pvp:admission");
+ } catch { return false; }
+}
+
 async function enter(player) {
+ try {
+  if (pvpParticipant(player) || player.hasTag("pvp:admission") || player.hasTag(CONFIG.activeTag) || player.dimension.id === CONFIG.dimensionId) {
+   player.sendMessage("§c你已经在比赛、摸金或入场准备中，请勿重复进入。");
+   return;
+  }
+ } catch { return; }
+ const token = `${system.currentTick}:${Math.random()}`;
+ admissionRequests.set(player.id, token);
+ player.addTag("pvp:admission");
+ player.addTag("extract:admission");
  const dimension = extractionDimension();
  if (!dimension) {
   let bootstrapAlive = false;
@@ -1021,6 +1048,7 @@ async function enter(player) {
    bootstrapAlive = heartbeat > 0 && Date.now() - heartbeat < 15000;
    bootstrapError = String(world.getDynamicProperty(DIMENSION_BOOTSTRAP_ERROR) || "");
   } catch {}
+  endAdmission(player, token);
   const detail = bootstrapError ? `\n§6注册错误：${bootstrapError}` : "";
   player.sendMessage(bootstrapAlive
    ? `§cBeta 引导脚本在线，但摸金维度没有成功注册。${detail}`
@@ -1030,11 +1058,13 @@ async function enter(player) {
  player.sendMessage("§e[摸金都市] 正在确认城市状态。首次升级将部署约 870 个建筑与 700 个 RandS 街道格；完成后永久复用，请勿重复点击入口……");
  try { await ensureCityReady(dimension); }
  catch (error) {
-  player.sendMessage(`§c城市结构初始化失败：${error}`);
+  endAdmission(player, token);
+  try { player.sendMessage(`§c城市结构初始化失败：${error}`); } catch {}
   console.error(`[ExtractionCity] city initialization failed: ${error}`);
   return;
  }
- storeReturn(player);
+ if (!admissionValid(player, token)) { endAdmission(player, token); return; }
+ try { storeReturn(player); } catch { endAdmission(player, token); return; }
  const point = CONFIG.entryPoints[Math.floor(Math.random() * CONFIG.entryPoints.length)];
  const x = point.x + 3;
  const z = point.z + 10;
@@ -1045,6 +1075,7 @@ async function enter(player) {
  } catch (error) { console.warn(`[ExtractionCity] arrival ticking area unavailable: ${error}`); }
  system.runTimeout(() => {
   try {
+   if (!admissionValid(player, token)) return;
    const location = { x: x + 0.5, y: CONFIG.airDropY, z: z + 0.5 };
    player.teleport(location, { dimension });
    player.addTag(CONFIG.activeTag);
@@ -1057,8 +1088,11 @@ async function enter(player) {
    player.sendMessage(`§6[摸金都市] 已在 ${point.name} 上空投放，并获得 60 秒缓降。City 不占用枪械 HUD；左上角聊天每 60 秒更新一次导航。进入撤离点 ${CONFIG.extractionRadius} 格范围后会自动开始倒计时。`);
    publishNavigationChat(player, exit, nearestLegendaryCrate(player));
    navigationChatTicks.set(player.id, system.currentTick);
-  } catch (error) { player.sendMessage(`§c进入失败：${error}`); }
-  system.runTimeout(() => { try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {} }, 100);
+  } catch (error) { try { player.sendMessage(`§c进入失败：${error}`); } catch {} }
+  finally {
+   endAdmission(player, token);
+   system.runTimeout(() => { try { dimension.runCommand(`tickingarea remove ${arrivalAreaId}`); } catch {} }, 100);
+  }
  }, 30);
 }
 
@@ -1140,6 +1174,7 @@ function emitNearbyExtractionMarkers(player) {
 }
 
 function startExtraction(player) {
+ if (pvpParticipant(player)) return;
  const point = nearestExit(player);
  if (!point || point.distance > CONFIG.extractionRadius) {
   player.sendMessage(`§c需要进入撤离点 ${CONFIG.extractionRadius} 格范围。最近：${point?.name || "无"}（${Math.floor(point?.distance || 0)}格）`);
@@ -1150,6 +1185,7 @@ function startExtraction(player) {
 }
 
 function openMenu(player) {
+ if (pvpParticipant(player)) { player.sendMessage("§c比赛期间不能进入城市摸金。"); return; }
  const inside = player.dimension.id === CONFIG.dimensionId;
  const point = inside ? nearestExit(player) : null;
  const form = new ActionFormData().title("§l§6末日摸金都市")
@@ -1159,7 +1195,7 @@ function openMenu(player) {
   .button(inside ? "§a开始撤离" : "§6随机进入都市", inside ? "textures/ui/confirm" : "textures/ui/World")
   .button("§c关闭", "textures/ui/cancel");
  form.show(player).then(result => {
-  if (result.canceled || result.selection !== 0) return;
+  if (result.canceled || result.selection !== 0 || pvpParticipant(player)) return;
   if (inside) startExtraction(player); else enter(player);
  }).catch(error => {
   console.warn(`[ExtractionCity] menu failed for ${player.name}: ${error}`);
@@ -1323,7 +1359,7 @@ function spawnHordeWave(player, wave) {
 }
 
 function tickHorde(allowStart = false) {
- const players = world.getAllPlayers().filter(player => player.dimension.id === CONFIG.dimensionId);
+ const players = world.getAllPlayers().filter(player => !pvpParticipant(player) && player.dimension.id === CONFIG.dimensionId);
  if (!players.length) { activeHorde = null; return; }
  const now = system.currentTick;
  if (!activeHorde) {
@@ -1357,6 +1393,7 @@ function cleanupVanillaHostiles(dimension) {
 }
 
 function spawnBoss(player, force = false) {
+ if (pvpParticipant(player)) return;
  const existing = player.dimension.getEntities({ tags: ["apoc_extraction_boss"] });
  if (existing.length) return { spawned: false, reason: "existing", entity: existing[0] };
  if (!force && Math.random() >= CONFIG.bossChancePerCheck) return { spawned: false, reason: "chance" };
@@ -1426,6 +1463,14 @@ subscribe(world.afterEvents?.entityDie, "entityDie", event => {
 });
 
 subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
+ // Clear only abandoned extraction-owned admission, never a live PvP admission.
+ if (!admissionRequests.has(event.player.id)) try {
+  if (event.player.hasTag("extract:admission")) {
+   event.player.removeTag("extract:admission");
+   if (!pvpParticipant(event.player)) event.player.removeTag("pvp:admission");
+  }
+ } catch {}
+ if (pvpParticipant(event.player)) return;
  if (event.initialSpawn && isAdmin(event.player)) {
   system.runTimeout(() => {
    try { event.player.sendMessage(`§a[摸金都市] 行为脚本 v${CONFIG.version} 已加载，菜单与原版 /scriptevent 入口可用。`); } catch {}
@@ -1436,6 +1481,11 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
  if (!shouldReturn) return;
  try { event.player.setDynamicProperty(CONFIG.deathReturnKey, undefined); } catch {}
  system.runTimeout(() => {
+  if (pvpParticipant(event.player)) {
+   pendingReturn.add(event.player.id);
+   try { event.player.setDynamicProperty(CONFIG.deathReturnKey, true); } catch {}
+   return;
+  }
   const insured = insuredReturns.get(event.player.id);
   clearBackpackSlots(event.player);
   restoreInsuredLoadout(event.player, insured);
@@ -1516,6 +1566,7 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
 system.runInterval(() => {
  try { world.setDynamicProperty(CONFIG.heartbeatKey, Date.now()); } catch {}
  for (const player of world.getAllPlayers()) {
+  if (pvpParticipant(player)) continue;
   try {
    const requestId = Number(player.getDynamicProperty(CONFIG.menuRequestKey) || 0);
    const acknowledged = Number(player.getDynamicProperty(CONFIG.menuAckKey) || 0);
@@ -1555,13 +1606,13 @@ system.runInterval(() => {
 system.runInterval(enforceKeepInventory, 200);
 
 system.runInterval(() => {
- const players = world.getAllPlayers().filter(player => player.dimension.id === CONFIG.dimensionId);
+ const players = world.getAllPlayers().filter(player => !pvpParticipant(player) && player.dimension.id === CONFIG.dimensionId);
  if (players.length) cleanupVanillaHostiles(players[0].dimension);
  for (const player of players) try { spawnExtractionMob(player); } catch {}
 }, CONFIG.hostileSpawnIntervalTicks);
 
 system.runInterval(() => {
- for (const player of world.getAllPlayers()) if (player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
+ for (const player of world.getAllPlayers()) if (!pvpParticipant(player) && player.dimension.id === CONFIG.dimensionId) try { spawnBoss(player); } catch {}
 }, CONFIG.bossCheckIntervalTicks);
 
 system.runInterval(() => {
@@ -1573,3 +1624,7 @@ system.runInterval(() => {
 }, 40);
 
 console.warn(`[ExtractionCity] v${CONFIG.version} dense city, regional Apocalypse special infected, random hordes, loot crates, exits and dusk fog initialized.`);
+
+subscribe(world.afterEvents?.playerLeave, "admissionPlayerLeave", event => {
+ admissionRequests.delete(event.playerId);
+});

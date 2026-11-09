@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea } from "../pvpIsolation.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { DungeonManager } from "../dungeons/DungeonManager.js";
@@ -18,7 +19,9 @@ function isUserBusy(value) {
 }
 
 function show(player, form, callback, attempt = 0) {
+ if (isPvpPlayer(player)) return;
  system.runTimeout(() => form.show(player).then(result => {
+  if (isPvpPlayer(player)) return;
   if (!result.canceled) return callback(result);
   if (isUserBusy(result) && attempt < 8) return show(player, form, callback, attempt + 1);
  }).catch(error => {
@@ -29,6 +32,7 @@ function show(player, form, callback, attempt = 0) {
 
 function showDecision(player, form, callback, attempt = 0) {
  system.runTimeout(() => form.show(player).then(result => {
+  if (isPvpPlayer(player)) return;
   if (isUserBusy(result) && attempt < 8) return showDecision(player, form, callback, attempt + 1);
   callback(result);
  }).catch(error => {
@@ -53,6 +57,7 @@ export class DungeonMenu {
  static readySessions = new Map();
 
  static open(player, onBack = null) {
+  if (isPvpPlayer(player)) return;
   const own = DungeonManager.playerInstance(player);
   if (own) return this.openCurrent(player, own, onBack);
 
@@ -96,6 +101,7 @@ export class DungeonMenu {
  }
 
  static openTeam(player, rawPayload, onBack = null) {
+  if (isPvpPlayer(player)) return;
   let payload = null;
   try { payload = typeof rawPayload === "string" ? JSON.parse(rawPayload) : rawPayload; } catch {}
   const names = [...new Set((payload?.members || []).map(String).filter(Boolean))].slice(0, 4);
@@ -198,6 +204,7 @@ export class DungeonMenu {
  }
 
  static openCurrent(player, instance, onBack) {
+  if (isPvpPlayer(player)) return;
   const template = DUNGEON_TEMPLATES[instance.templateId];
   const form = new MessageFormData().title("§l§c当前副本")
    .body(`§f副本：§e${template?.name || instance.templateId}\n§f队长：§e${instance.ownerName}\n§f阶段：§e${Math.max(0, instance.stageIndex + 1)} / ${template?.stages.length || 0}\n§f队员：§e${instance.participantIds.length} / ${template?.maxPlayers || 4}\n\n§c主动退出不会获得通关奖励。`)

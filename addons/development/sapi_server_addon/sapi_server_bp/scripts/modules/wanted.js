@@ -1,3 +1,4 @@
+import { allowOrdinaryAction } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -64,6 +65,7 @@ export class WantedManager {
  }
 
  static requireOfficialTrade(player) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!this.isTradeRestricted(player)) return true;
   Utils.tell(player, `§c你的通缉值为 §e${this.points(player)}§c，达到 20 后无法使用全球商店或管理自己的贩卖机。你仍可购买其他玩家贩卖机的商品。`);
   Utils.sound.fail(player);

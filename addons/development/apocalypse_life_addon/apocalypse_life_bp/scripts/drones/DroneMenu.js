@@ -1,3 +1,4 @@
+import { locked } from "../pvp/PvpLifePolicy.js";
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { DRONE_REGISTRY } from "./DroneConstants.js";
@@ -12,7 +13,7 @@ export class DroneMenu {
   * 打开无人机机库主菜单
   */
  static openMainMenu(player) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid() || locked(player, true)) return;
   const hangar = DroneGarageManager.getHangarData(player);
   const droneKeys = Object.keys(hangar.drones || {});
 
@@ -33,6 +34,7 @@ export class DroneMenu {
    form.button("§l§a装配新机指南\n§r§f可在商店购买或工作台制造蓝图", "textures/ui/info");
    form.button("§l§c关闭终端", "textures/ui/cancel");
    form.show(player).then((res) => {
+   if (locked(player, true)) return;
     if (res.canceled) return;
     if (res.selection === 0) {
      this.showGuideDialog(player);
@@ -68,6 +70,7 @@ export class DroneMenu {
   actions.push(() => {});
 
   form.show(player).then((res) => {
+   if (locked(player, true)) return;
    if (res.canceled || res.selection === undefined) return;
    actions[res.selection]?.();
   });
@@ -77,7 +80,7 @@ export class DroneMenu {
   * 单机整备与详细管理页面
   */
  static openDroneManageMenu(player, droneId) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid() || locked(player, true)) return;
   const hangar = DroneGarageManager.getHangarData(player);
   const data = hangar.drones[droneId];
   const conf = DRONE_REGISTRY[droneId];
@@ -177,6 +180,7 @@ export class DroneMenu {
   actions.push(() => this.openMainMenu(player));
 
   form.show(player).then((res) => {
+   if (locked(player, true)) return;
    if (res.canceled || res.selection === undefined) return;
    actions[res.selection]?.();
   });
@@ -194,6 +198,7 @@ export class DroneMenu {
    .button("§l§2返回上一级", "textures/ui/undo");
 
   form.show(player).then((res) => {
+   if (locked(player, true)) return;
    if (res.canceled) return;
    if (res.selection === 0) {
     DroneGarageManager.refuelDrone(player, droneId, "gold");
@@ -240,6 +245,7 @@ export class DroneMenu {
    .button("§l§2返回上一级", "textures/ui/undo");
 
   form.show(player).then((res) => {
+   if (locked(player, true)) return;
    if (res.canceled) return;
    if (res.selection === 0) {
     DroneGarageManager.upgradeDrone(player, droneId, "hp");
@@ -282,6 +288,7 @@ export class DroneMenu {
    .button2("§l§2返回机库", "textures/ui/undo");
 
   form.show(player).then((res) => {
+   if (locked(player, true)) return;
    if (res.selection === 1) {
     this.openMainMenu(player);
    }

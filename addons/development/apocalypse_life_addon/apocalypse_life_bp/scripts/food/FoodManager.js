@@ -1,3 +1,4 @@
+import { participant, matchId, matchItem } from "../pvp/PvpLifePolicy.js";
 import { world } from "@minecraft/server";
 
 /**
@@ -24,6 +25,8 @@ export class FoodManager {
    const item = event.itemStack;
    if (!player || !player.isValid() || player.typeId !== "minecraft:player" || !item) return;
 
+   const marked = item.getLore().some(line => line.startsWith("PVP_MATCH:"));
+   if (marked && (!participant(player) || !player.hasTag("pvp:active") || player.hasTag("pvp:dead") || !matchItem(item, matchId(player)))) return;
    const typeId = item.typeId;
    if (!typeId.startsWith("ab_ve:")) return;
 

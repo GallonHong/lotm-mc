@@ -1,3 +1,4 @@
+import { isPvpPlayer } from "../pvpIsolation.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { CONFIG } from "../config.js";
@@ -58,7 +59,9 @@ function isUserBusy(value) {
  return reason.includes("userbusy") || reason.includes("user busy");
 }
 function show(player, form, callback, attempt = 0) {
+ if (isPvpPlayer(player)) return;
  system.runTimeout(() => form.show(player).then(result => {
+  if (isPvpPlayer(player)) return;
   if (!result.canceled) return callback(result);
   if (isUserBusy(result) && attempt < 8) show(player, form, callback, attempt + 1);
  }).catch(error => {
@@ -72,6 +75,7 @@ function valid(player) {
 
 export class HopePostManager {
  static record(player, field, amount = 1) {
+  if (isPvpPlayer(player)) return;
   if (!player?.name || !field) return;
   const all = read(STATS_KEY, {});
   const today = dayKey();
@@ -83,6 +87,7 @@ export class HopePostManager {
  }
 
  static recordCollection(player, typeId) {
+  if (isPvpPlayer(player)) return;
   if (/(?:_log|_ore|leaves|wheat|carrot|potato|beetroot|melon|pumpkin|sugar_cane|bamboo)$/.test(String(typeId))) this.record(player, "collected", 1);
  }
 
@@ -137,6 +142,7 @@ export class HopePostManager {
  }
 
  static open(player, onBack, admin = false) {
+  if (isPvpPlayer(player)) return;
   HopeLotteryBridge.request(player, snapshot => {
    if (valid(player)) this.renderOpen(player, onBack, admin, snapshot);
   });
@@ -347,6 +353,7 @@ export class HopePostManager {
  }
 
  static onPlayerInitialSpawn(player, initialSpawn) {
+  if (isPvpPlayer(player)) return;
   if (initialSpawn === false || !valid(player)) return;
   // 每次进入世界/服务器均弹出希望报
   system.runTimeout(() => {

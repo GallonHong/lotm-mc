@@ -1,3 +1,5 @@
+import { PvPManager } from "./pvp.js";
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -19,6 +21,7 @@ import { WantedManager } from "./wanted.js";
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
 export class ServerMenuManager {
  static openMainMenu(player) {
+  if (isMatchLocked(player)) return PvPManager.openMenu(player);
   if (!Utils.isValid(player)) return;
   EconomyManager.redeemLegacyCoinItems(player);
   const balance = EconomyManager.getBalance(player);
@@ -62,9 +65,7 @@ export class ServerMenuManager {
   add("§l§e每日福利\n§r§f签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
   add("§l§6幸存者联盟委托\n§r§f日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
   add("§l§c副本行动\n§r§f单人进入或由队长发起全队 Ready", "textures/ui/warning_alex", () => SocialManager.openDungeon(player));
-  add("§l§4末日摸金都市\n§r§f随机进入高危城市并寻找撤离点", "textures/ui/warning_alex", () => {
-   Integration.openExtractionMenu(player);
-  });
+  add("§l§4战斗玩法\n§r§f城市摸金 · 废土争夺战", "textures/ui/warning_alex", () => this.openBattleMenu(player));
   add("§l§6个人银行\n§r§f资产查询与玩家转账", "textures/items/gold_ingot", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
   add("§l§a全球商店\n§r§f物资买卖与一键物品回收", "textures/items/emerald", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
   add("§l§2地皮领地\n§r§f购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
@@ -77,7 +78,24 @@ export class ServerMenuManager {
   Utils.showForm(player, form, (res) => actions[res.selection]?.());
  }
 
+ static openBattleMenu(player) {
+  if (isMatchLocked(player)) return PvPManager.openMenu(player);
+  const form = new ActionFormData().title("§l§4战斗玩法")
+   .body("§f城市摸金：搜集物资并撤离。\n§f废土争夺战：系统补给，死亡保留本局装备。")
+   .button("§6城市摸金", "textures/ui/World")
+   .button("§c废土争夺战", "textures/ui/warning_alex")
+   .button("§2返回", "textures/ui/undo");
+  Utils.showForm(player, form, res => {
+   if (res.canceled) return;
+   if (res.selection === 1) return PvPManager.openMenu(player, () => this.openBattleMenu(player));
+   if (!allowOrdinaryAction(player)) return;
+   if (res.selection === 0) Integration.openExtractionMenu(player);
+   else this.openMainMenu(player);
+  });
+ }
+
  static openMoreMenu(player) {
+  if (!allowOrdinaryAction(player)) return;
   if (!Utils.isValid(player)) return;
   const actions = [];
   let seasonDisplay = "";
@@ -172,6 +190,7 @@ export class ServerMenuManager {
    .dropdown("§e操作", ["§e增加", "§e扣除", "§e设定"])
    .textField("§e金额", "1000");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) return onBack?.();
    const [playerIndex, operation, rawAmount] = res.formValues;
    const target = players[playerIndex];
@@ -198,6 +217,7 @@ export class ServerMenuManager {
   }
   const form = new MessageFormData().title("§l§4确认删除地皮").body(`§e${plot.name}\n§f[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§a取消");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) {
     LandManager.deletePlot(dimension, chunkX, chunkZ);
     AuditManager.log("admin_plot_delete", player, plot.ownerName, `${dimension} [${chunkX},${chunkZ}] ${plot.name}`);
@@ -209,6 +229,7 @@ export class ServerMenuManager {
  static openBroadcastModal(player, onBack = null) {
   const form = new ModalFormData().title("§l§e发布公告").textField("§e内容", "服务器公告");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    const content = res.formValues?.[0]?.trim();
    if (content) {
     Utils.broadcast(`§e[管理员 ${player.name}] §e${content}`);
@@ -221,6 +242,7 @@ export class ServerMenuManager {
  static openGiftAllModal(player, onBack = null) {
   const form = new ModalFormData().title("§l§a全服福利").textField("§e每人金币", "1000");
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    const amount = Math.floor(Number(res.formValues?.[0]));
    if (Number.isFinite(amount) && amount > 0) {
     for (const target of world.getAllPlayers()) EconomyManager.addBalance(target, amount);

@@ -1,3 +1,4 @@
+import { pvpCanAttack, isPvpParticipant } from './utils/pvpRules.js';
 import { RecoilManager } from './recoilManager.js';
 import { getMuzzle } from './utils/muzzleUtils.js';
 import { world, EntityDamageCause, system } from '@minecraft/server';
@@ -9,6 +10,7 @@ export class RocketEngine {
  static activeRockets = [];
 
  static launchRocket(player, gun) {
+  if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid()) return;
 
   try {
@@ -223,7 +225,7 @@ export class RocketEngine {
 
   // 3. 破坏方块 (Block Destruction) - 真实炸毁周围掩体与方块
   try {
-   dim.createExplosion(validLoc, 3.2, {
+   if (!isPvpParticipant(shooter) && !dim.getEntities({ location: validLoc, maxDistance: 16 }).some(isPvpParticipant)) dim.createExplosion(validLoc, 3.2, {
     breaksBlocks: true,
     causesFire: true,
     source: (shooter && shooter.isValid()) ? shooter : undefined

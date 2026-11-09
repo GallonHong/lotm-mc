@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system, EntityDamageCause, ItemStack } from "@minecraft/server";
 import { NPC_WEAPONS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
@@ -61,7 +62,7 @@ export function isFlashDisabled(entity) {
  * 仅过滤旁观模式(spectator)，创造模式与生存模式均可被锁定与射击
  */
 export function findTarget(entity, maxDistance) {
- const players = entity.dimension.getPlayers({ location: entity.location, maxDistance });
+ const players = entity.dimension.getPlayers({ location: entity.location, maxDistance }).filter(player => !isPvpExcluded(player));
  let target = null;
  let best = Infinity;
  for (const player of players) {
@@ -248,6 +249,7 @@ export class CombatAI {
  static tick() {
   const dimensions = new Map();
   for (const player of world.getAllPlayers()) {
+   if (isPvpExcluded(player)) continue;
    try { dimensions.set(player.dimension.id, player.dimension); } catch {}
   }
   for (const dimension of dimensions.values()) {
@@ -443,6 +445,7 @@ export class CombatAI {
   * 真实枪械射击分发（发射 test_guns_2d_addon 的真实子弹投掷物）
   */
  static fireNpcGun(entity, target, origin, targetHead, profile) {
+  if (isPvpExcluded(target) || isPvpArea(entity.dimension.id, entity.location)) return;
   const dir = vector(origin, targetHead);
   const spawnPos = {
    x: origin.x + dir.x * 0.75,

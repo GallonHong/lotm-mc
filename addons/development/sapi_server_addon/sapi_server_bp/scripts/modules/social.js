@@ -1,3 +1,4 @@
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -63,6 +64,7 @@ export class SocialManager {
  }
 
  static openSocialMenu(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!Utils.isValid(player)) return;
   const profile = SocialStore.touchPlayer(player);
   const friends = profile.friends || [];
@@ -89,6 +91,7 @@ export class SocialManager {
  }
 
  static openFriends(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const profile = SocialStore.touchPlayer(player);
   const friends = [...(profile.friends || [])].sort((a, b) => Number(!!onlinePlayer(b)) - Number(!!onlinePlayer(a)) || a.localeCompare(b));
   const actions = [];
@@ -104,6 +107,7 @@ export class SocialManager {
  }
 
  static openFriendRequests(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const profile = SocialStore.touchPlayer(player);
   const requests = [...(profile.friendRequests || [])].reverse();
   const actions = [];
@@ -118,9 +122,11 @@ export class SocialManager {
  }
 
  static openFriendRequestDecision(player, fromName, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new MessageFormData().title("§l好友申请").body(`§e${fromName} §e希望添加你为好友。`)
    .button1("§a接受").button2("§c拒绝");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection === 0) {
     const result = SocialStore.acceptFriend(player.name, fromName, this.settings.maxFriends || 50);
     Utils.tell(player, result.ok ? `§a你和 §e${fromName} §a已成为好友。` : `§c接受失败：${result.reason}`);
@@ -135,6 +141,7 @@ export class SocialManager {
  }
 
  static openOnlinePlayers(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const players = [...world.getAllPlayers()].sort((a, b) => a.name.localeCompare(b.name));
   const actions = [];
   const form = new ActionFormData().title("§l§b在线玩家").body(`§e当前在线：§e${players.length}`);
@@ -182,6 +189,7 @@ export class SocialManager {
  static openPrivateMessage(sender, targetName, onBack = null) {
   const form = new ModalFormData().title(`§l私聊 ${targetName}`).textField("输入发送内容", "最多 200 字");
   Utils.showForm(sender, form, response => {
+   if (!allowOrdinaryAction(sender)) return;
    const message = cleanText(response.formValues?.[0], 200);
    const target = onlinePlayer(targetName);
    if (!response.canceled && message && target) {
@@ -195,6 +203,7 @@ export class SocialManager {
  static confirmRemoveFriend(player, targetName, onBack = null) {
   const form = new MessageFormData().title("§l删除好友").body(`§c确定删除好友 ${targetName}？`).button1("§c删除").button2("§8取消");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection === 0) {
     SocialStore.removeFriend(player.name, targetName);
     Utils.tell(player, `§8已删除好友 ${targetName}。`);
@@ -238,6 +247,7 @@ export class SocialManager {
    `§e${owner.name} §e邀请你参观他的领地：§e${plot.name}\n\n§8接受后只会传送到访客点，不会获得破坏、放置、容器、保险箱或载具权限。`
   ).button1("§a接受").button2("§c拒绝");
   Utils.showForm(target, form, response => {
+   if (!allowOrdinaryAction(target)) return;
    if (response.selection !== 0) {
     Utils.tell(owner, `§8${target.name} 拒绝了领地观光邀请。`);
     return;
@@ -297,6 +307,7 @@ export class SocialManager {
   const teamId = team.id;
   const form = new MessageFormData().title("§l§a组队邀请").body(`§e${inviter.name} §e邀请你加入队伍。\n§e当前人数：§e${team.members.length}/${this.settings.teamMaxPlayers || 4}`).button1("§a加入").button2("§c拒绝");
   Utils.showForm(target, form, response => {
+   if (!allowOrdinaryAction(target)) return;
    const current = this.teams.get(teamId);
    if (response.selection !== 0) return Utils.tell(inviter, `§8${target.name} 拒绝了组队邀请。`);
    if (!current || current.members.length >= (this.settings.teamMaxPlayers || 4) || this.teamOf(target.name)) return Utils.tell(target, "§c队伍邀请已经失效。");
@@ -337,11 +348,13 @@ export class SocialManager {
  }
 
  static openTeam(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const team = this.teamOf(player.name);
   if (!team) {
    const form = new MessageFormData().title("§l§a我的队伍").body("§e你当前没有加入队伍。普通队伍最多 4 人，服务器重启后自动解散。")
     .button1("§a创建队伍").button2("§8返回");
    return Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
     if (response.selection === 0) {
      this.createTeam(player);
      Utils.tell(player, "§a队伍已创建，你现在是队长。");
@@ -367,6 +380,7 @@ export class SocialManager {
  }
 
  static openTeamInviteList(player, team, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const candidates = world.getAllPlayers().filter(target => target.name !== player.name && !this.teamOf(target.name));
   const actions = [];
   const form = new ActionFormData().title("§l邀请组队").body(candidates.length ? "§e选择在线玩家。" : "§8没有可邀请的在线玩家。");
@@ -380,8 +394,10 @@ export class SocialManager {
  }
 
  static openTeamChat(player, team, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new ModalFormData().title("§l队伍聊天").textField("发送给当前队伍", "最多 200 字");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const message = cleanText(response.formValues?.[0], 200);
    if (!response.canceled && message && this.teamOf(player.name)?.id === team.id) this.broadcastTeam(team, `§e${player.name}§e：${message}`);
    this.openTeam(player, onBack);
@@ -389,9 +405,11 @@ export class SocialManager {
  }
 
  static openTransferLeader(player, team, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const candidates = team.members.filter(name => name !== player.name && onlinePlayer(name));
   const form = new ModalFormData().title("§l移交队长").dropdown("选择新队长", candidates.length ? candidates : ["没有在线成员"]);
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const target = candidates[response.formValues?.[0]];
    if (!response.canceled && target && this.teamOf(player.name)?.id === team.id && team.leaderName === player.name) {
     team.leaderName = target;
@@ -402,9 +420,11 @@ export class SocialManager {
  }
 
  static openRemoveTeamMember(player, team, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const candidates = team.members.filter(name => name !== player.name);
   const form = new ModalFormData().title("§l移除队员").dropdown("选择成员", candidates);
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const target = candidates[response.formValues?.[0]];
    if (!response.canceled && target && this.teamOf(player.name)?.id === team.id && team.leaderName === player.name) {
     this.removeTeamMember(team, target);
@@ -421,6 +441,7 @@ export class SocialManager {
    .body(leader ? "§c解散后所有成员退出队伍，确定继续？" : "§e确定离开当前队伍？")
    .button1(leader ? "§4解散" : "§c离开").button2("§8取消");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection === 0) {
     if (leader) this.dissolveTeam(team, player);
     else this.removeTeamMember(team, player.name);
@@ -430,6 +451,7 @@ export class SocialManager {
  }
 
  static openDungeon(player) {
+  if (!allowOrdinaryAction(player)) return false;
   const team = this.teamOf(player.name);
   if (!team) return Integration.send(player, "daily:dungeon");
   if (team.leaderName !== player.name) return Utils.tell(player, `§c只有队长 ${team.leaderName} 可以发起队伍副本。`);
@@ -439,6 +461,7 @@ export class SocialManager {
  }
 
  static openGuild(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const guild = SocialStore.guildForPlayer(player.name);
   if (guild) return this.openGuildHome(player, guild, onBack);
   const actions = [];
@@ -453,11 +476,13 @@ export class SocialManager {
  }
 
  static openCreateGuild(player, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new ModalFormData().title("§l§6创建公会")
    .textField("公会名称（2～16字）", "例如：渡鸦营地")
    .textField("简称（2～5字母/汉字/数字）", "例如：RAVEN")
    .textField("简介（最多80字）", "主要进行 PvE、副本和基地建设");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled) return this.openGuild(player, onBack);
    const name = cleanText(response.formValues?.[0], 16);
    const tag = cleanText(response.formValues?.[1], 5).toUpperCase();
@@ -488,6 +513,7 @@ export class SocialManager {
  }
 
  static openGuildBrowser(player, onBack, filter = "") {
+  if (!allowOrdinaryAction(player)) return false;
   const needle = cleanText(filter, 16).toLowerCase();
   const guilds = SocialStore.getGuilds().filter(guild => !needle || guild.name.toLowerCase().includes(needle) || guild.tag.toLowerCase().includes(needle))
    .sort((a, b) => (b.members?.length || 0) - (a.members?.length || 0));
@@ -505,11 +531,13 @@ export class SocialManager {
  }
 
  static openGuildSearch(player, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new ModalFormData().title("§l搜索公会").textField("公会名称或简称", "RAVEN");
   Utils.showForm(player, form, response => this.openGuildBrowser(player, onBack, response.formValues?.[0] || ""));
  }
 
  static openGuildDetail(player, guild, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = SocialStore.getGuild(guild.id);
   if (!current) return this.openGuild(player, onBack);
   if (SocialStore.guildForPlayer(player.name)?.id === current.id) return this.openGuildHome(player, current, onBack);
@@ -518,6 +546,7 @@ export class SocialManager {
    `§e成员：§e${current.members.length}/${this.settings.guildMaxMembers || 30}\n§e会长：§e${current.leaderName}\n\n§e简介：\n§8${current.description}`
   ).button1(applied ? "§8已申请" : "§a申请加入").button2("§8返回");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection === 0 && !applied) {
     if (SocialStore.guildForPlayer(player.name)) return Utils.tell(player, "§c你已经加入其他公会。");
     current.applications = current.applications || [];
@@ -533,6 +562,7 @@ export class SocialManager {
  }
 
  static openMyGuildApplications(player, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const guilds = SocialStore.getGuilds().filter(guild => guild.applications?.some(entry => normalizePlayerName(entry.name) === normalizePlayerName(player.name)));
   const form = new ActionFormData().title("§l§e我的公会申请").body(guilds.length ? guilds.map(guild => `§6[${guild.tag}] §e${guild.name}`).join("\n") : "§8当前没有待审核申请。");
   form.button("§l§8返回", "textures/ui/undo");
@@ -540,6 +570,7 @@ export class SocialManager {
  }
 
  static openGuildHome(player, guild, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = SocialStore.getGuild(guild.id);
   if (!current) {
    SocialStore.setPlayerGuild(player.name, "");
@@ -565,6 +596,7 @@ export class SocialManager {
  }
 
  static openGuildChat(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = SocialStore.getGuild(guild.id);
   if (!current?.members?.some(member => normalizePlayerName(member.name) === normalizePlayerName(player.name))) {
    return this.openGuild(player, onBack);
@@ -577,12 +609,14 @@ export class SocialManager {
    .button("§l§a发送消息", "textures/ui/chat_send")
    .button("§l§8返回", "textures/ui/undo");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection === 0) this.openGuildChatCompose(player, current, onBack);
    else this.openGuildHome(player, current, onBack);
   });
  }
 
  static openGuildChatCompose(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const previous = Number(this.guildChatTicks.get(player.name) ?? -1000);
   if (system.currentTick - previous < 40) {
    Utils.tell(player, "§c公会消息发送得太快，请稍后再试。");
@@ -590,6 +624,7 @@ export class SocialManager {
   }
   const form = new ModalFormData().title("§l发送公会消息").textField("消息（最多 200 字）", "今晚一起打副本吗？");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled) return this.openGuildChat(player, guild, onBack);
    const current = SocialStore.getGuild(guild.id);
    const member = current?.members?.some(entry => normalizePlayerName(entry.name) === normalizePlayerName(player.name));
@@ -610,6 +645,7 @@ export class SocialManager {
  }
 
  static openGuildMembers(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const members = [...guild.members].sort((a, b) => Number(b.role === "leader") - Number(a.role === "leader") || a.name.localeCompare(b.name));
   const actions = [];
   const form = new ActionFormData().title(`§l§b${guild.name} · 成员`).body(`§e成员：§e${members.length}`);
@@ -624,19 +660,23 @@ export class SocialManager {
  }
 
  static openGuildInfo(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const leader = normalizePlayerName(guild.leaderName) === normalizePlayerName(player.name);
   const form = new MessageFormData().title(`§l§6[${guild.tag}] ${guild.name}`).body(
    `§e创建时间：§8${new Date(guild.createdAt).toLocaleDateString()}\n§e会长：§e${guild.leaderName}\n\n§e简介：\n§8${guild.description}`
   ).button1(leader ? "§a编辑简介" : "§8返回").button2("§8关闭");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection === 0 && leader) this.openEditGuildDescription(player, guild, onBack);
    else if (response.selection === 0) this.openGuildHome(player, guild, onBack);
   });
  }
 
  static openEditGuildDescription(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new ModalFormData().title("§l编辑公会简介").textField("简介（最多80字）", "公会简介", guild.description || "");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (!response.canceled && normalizePlayerName(guild.leaderName) === normalizePlayerName(player.name)) {
     guild.description = cleanText(response.formValues?.[0], 80) || guild.description;
     SocialStore.saveGuild(guild);
@@ -647,6 +687,7 @@ export class SocialManager {
  }
 
  static openGuildBase(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const leader = normalizePlayerName(guild.leaderName) === normalizePlayerName(player.name);
   const actions = [];
   const location = guild.baseLocation;
@@ -674,6 +715,7 @@ export class SocialManager {
  }
 
  static openGuildApplications(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const applications = guild.applications || [];
   const actions = [];
   const form = new ActionFormData().title("§l§e公会申请").body(`§e待审核：§e${applications.length}`);
@@ -687,8 +729,10 @@ export class SocialManager {
  }
 
  static openGuildApplicationDecision(player, guild, applicantName, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const form = new MessageFormData().title("§l公会申请审核").body(`§e${applicantName} §e申请加入 §6[${guild.tag}] ${guild.name}§e。`).button1("§a批准").button2("§c拒绝");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const current = SocialStore.getGuild(guild.id);
    if (!current || normalizePlayerName(current.leaderName) !== normalizePlayerName(player.name)) return;
    current.applications = (current.applications || []).filter(entry => normalizePlayerName(entry.name) !== normalizePlayerName(applicantName));
@@ -709,6 +753,7 @@ export class SocialManager {
  }
 
  static openGuildManagement(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const actions = [];
   const form = new ActionFormData().title("§l§c公会管理").body("§cLeader 操作会立即影响持久化公会数据。");
   const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
@@ -723,6 +768,7 @@ export class SocialManager {
  }
 
  static openGuildInviteList(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const candidates = world.getAllPlayers().filter(target => target.name !== player.name && !SocialStore.guildForPlayer(target.name));
   const actions = [];
   const form = new ActionFormData().title("§l邀请加入公会").body(candidates.length ? "§e选择在线玩家。" : "§8没有可邀请的在线玩家。");
@@ -739,6 +785,7 @@ export class SocialManager {
   Utils.tell(leader, `§a已邀请 ${target.name} 加入公会。`);
   const form = new MessageFormData().title("§l§6公会邀请").body(`§e${leader.name} §e邀请你加入 §6[${guild.tag}] ${guild.name}§e。`).button1("§a加入").button2("§c拒绝");
   Utils.showForm(target, form, response => {
+   if (!allowOrdinaryAction(target)) return;
    const current = SocialStore.getGuild(guild.id);
    if (response.selection !== 0) return Utils.tell(leader, `§8${target.name} 拒绝了公会邀请。`);
    if (!current || current.leaderName !== leader.name || current.members.length >= (this.settings.guildMaxMembers || 30) || SocialStore.guildForPlayer(target.name)) return Utils.tell(target, "§c公会邀请已经失效。");
@@ -753,9 +800,11 @@ export class SocialManager {
  }
 
  static openGuildRemoveMember(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const candidates = guild.members.filter(member => member.role !== "leader").map(member => member.name);
   const form = new ModalFormData().title("§l移除公会成员").dropdown("选择成员", candidates);
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const targetName = candidates[response.formValues?.[0]];
    const current = SocialStore.getGuild(guild.id);
    if (!response.canceled && targetName && current?.leaderName === player.name) {
@@ -771,9 +820,11 @@ export class SocialManager {
  }
 
  static openGuildTransferLeader(player, guild, onBack) {
+  if (!allowOrdinaryAction(player)) return false;
   const candidates = guild.members.filter(member => member.role !== "leader").map(member => member.name);
   const form = new ModalFormData().title("§l移交会长").dropdown("选择新会长", candidates);
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const targetName = candidates[response.formValues?.[0]];
    const current = SocialStore.getGuild(guild.id);
    if (!response.canceled && targetName && current?.leaderName === player.name) {
@@ -792,6 +843,7 @@ export class SocialManager {
  static confirmLeaveGuild(player, guild, onBack) {
   const form = new MessageFormData().title("§l退出公会").body(`§c确定退出 §e[${guild.tag}] ${guild.name}§c？`).button1("§c退出").button2("§8取消");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection === 0) {
     const current = SocialStore.getGuild(guild.id);
     if (current) {
@@ -809,6 +861,7 @@ export class SocialManager {
  static confirmDisbandGuild(player, guild, onBack) {
   const form = new MessageFormData().title("§l§4解散公会").body(`§c公会成员、申请和基地位置将永久删除，创建费用不会返还。确定解散 ${guild.name}？`).button1("§4永久解散").button2("§8取消");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const current = SocialStore.getGuild(guild.id);
    if (response.selection === 0 && current?.leaderName === player.name) {
     for (const member of current.members) {

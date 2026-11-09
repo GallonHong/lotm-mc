@@ -1,3 +1,4 @@
+import { participant } from "../pvp/PvpLifePolicy.js";
 import { world, system, EquipmentSlot, EntityComponentTypes } from "@minecraft/server";
 import { TemperatureManager } from "../temperature/TemperatureManager.js";
 
@@ -437,7 +438,7 @@ export class DownedRescueManager {
   if (world.afterEvents?.entityHurt) {
    world.afterEvents.entityHurt.subscribe((event) => {
     const hurtEntity = event.hurtEntity;
-    if (!hurtEntity || hurtEntity.typeId !== "minecraft:player") return;
+    if (!hurtEntity || hurtEntity.typeId !== "minecraft:player" || participant(hurtEntity)) return;
 
     const inst = this.activeInstances.get(hurtEntity.id);
     if (!inst || inst.ended) return;
@@ -470,7 +471,7 @@ export class DownedRescueManager {
   if (world.afterEvents?.entityDie) {
    world.afterEvents.entityDie.subscribe((event) => {
     const deadEntity = event.deadEntity;
-    if (!deadEntity || deadEntity.typeId !== "minecraft:player") return;
+    if (!deadEntity || deadEntity.typeId !== "minecraft:player" || participant(deadEntity)) return;
 
     const player = world.getAllPlayers().find(p => p.id === deadEntity.id);
     if (!player) return;
@@ -501,7 +502,7 @@ export class DownedRescueManager {
     // 启动即刻拉回与倒地流程 (等待即时复活完成后将玩家瞬间传送回原处倒伏)
     let attempts = 0;
     const pullId = system.runInterval(() => {
-     if (!player.isValid() || ++attempts > 40) {
+     if (!player.isValid() || participant(player) || ++attempts > 40) {
       system.clearRun(pullId);
       return;
      }
@@ -514,7 +515,7 @@ export class DownedRescueManager {
 
       // 创建倒地实例
       system.runTimeout(() => {
-       if (player.isValid() && !this.activeInstances.has(player.id)) {
+       if (player.isValid() && !participant(player) && !this.activeInstances.has(player.id)) {
         const instance = new DownedPlayerInstance(player, loc, dim);
         this.activeInstances.set(player.id, instance);
        }
@@ -566,6 +567,7 @@ export class DownedRescueManager {
  }
 
  static startDroneRescue(player, droneEntity, droneConfig) {
+  if (participant(player)) return false;
   const inst = this.activeInstances.get(player.id);
   if (inst) {
    inst.startDroneRescue(droneEntity, droneConfig);

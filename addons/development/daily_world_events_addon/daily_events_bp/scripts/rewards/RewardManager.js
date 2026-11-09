@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "../pvpIsolation.js";
 import { world, ItemStack } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { REWARD_REGISTRY, DUNGEON_TIER_REWARDS, DUNGEON_EPIC_BLUEPRINTS } from "./rewards.js";
@@ -79,6 +80,7 @@ export class RewardManager {
  }
 
  static giveOrQueue(player, entry) {
+  if (isPvpPlayer(player)) { this.queue(player, entry); return false; }
   try {
    const container = player.getComponent("minecraft:inventory")?.container;
    if (!container) throw new Error("inventory unavailable");
@@ -99,6 +101,7 @@ export class RewardManager {
  }
 
  static claimPending(player) {
+  if (isPvpPlayer(player)) return 0;
   const pending = getArray(player, CONFIG.pendingRewardsKey);
   if (!pending.length) return 0;
   const remaining = [];

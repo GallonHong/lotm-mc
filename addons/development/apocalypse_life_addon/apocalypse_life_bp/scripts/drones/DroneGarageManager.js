@@ -1,3 +1,4 @@
+import { locked } from "../pvp/PvpLifePolicy.js";
 import { world, system, EquipmentSlot, EntityComponentTypes } from "@minecraft/server";
 import { DRONE_REGISTRY } from "./DroneConstants.js";
 import { DroneClass } from "./DroneClass.js";
@@ -48,6 +49,7 @@ export class DroneGarageManager {
   * 右键使用生成物品绑定至个人机库
   */
  static bindDroneFromItem(player, item, droneId) {
+  if (locked(player, true)) return false;
   if (!player || !player.isValid()) return;
   const config = DRONE_REGISTRY[droneId];
   if (!config) {
@@ -110,6 +112,7 @@ export class DroneGarageManager {
   * 召唤无人机出击伴飞
   */
  static summonDrone(player, droneId) {
+  if (locked(player, true)) return false;
   if (!player || !player.isValid()) return false;
   const config = DRONE_REGISTRY[droneId];
   if (!config) return false;
@@ -209,6 +212,7 @@ export class DroneGarageManager {
   * 加注燃油 (手持汽油桶或金币加注)
   */
  static refuelDrone(player, droneId, method = "gold") {
+  if (locked(player, true)) return false;
   if (!player || !player.isValid()) return false;
   const hangar = this.getHangarData(player);
   const drone = hangar.drones[droneId];
@@ -274,6 +278,7 @@ export class DroneGarageManager {
   * 属性改装升级 (血量 / 攻击力 / 技能增幅)
   */
  static upgradeDrone(player, droneId, statType) {
+  if (locked(player, true)) return false;
   if (!player || !player.isValid()) return false;
   const hangar = this.getHangarData(player);
   const drone = hangar.drones[droneId];
@@ -328,6 +333,7 @@ export class DroneGarageManager {
   * 清理报废无人机残骸 (坚决不返还芯片与蓝图，保证长期经济硬通货价值)
   */
  static cleanScrappedDrone(player, droneId) {
+  if (locked(player, true)) return false;
   if (!player || !player.isValid()) return false;
   const hangar = this.getHangarData(player);
   const drone = hangar.drones[droneId];
@@ -366,6 +372,16 @@ export class DroneGarageManager {
   * 无人机在世界中坠毁爆炸处理
   */
  static onDroneCrash(ownerId, droneId, runtime = null) {
+  if (runtime?.pvpMatchId) {
+   // Journal before writing player data. Disconnect/restart cannot erase a real crash.
+   const pending = { droneId, token: `${runtime.pvpMatchId}:${runtime.entityId}`,
+    durability: Math.max(0, runtime.durability - 70), fuel: runtime.fuel };
+   world.setDynamicProperty(`pvp:drone_crash:${ownerId}`, JSON.stringify(pending));
+   const player = world.getAllPlayers().find(p => p.id === ownerId);
+   if (player?.isValid()) this.recoverPvpCrash(player);
+   DroneClass.unregisterActiveDrone(ownerId);
+   return;
+  }
   const player = world.getAllPlayers().find(p => p.id === ownerId);
   if (!player || !player.isValid()) return;
 
@@ -383,7 +399,7 @@ export class DroneGarageManager {
    player.sendMessage(`§c[机载网络警报] 无人机遭受致命殉爆！总耐久已归零，机体进入【永久报废】状态！`);
   } else {
    player.sendMessage(`§c[机载网络警报] 无人机在战斗中被击毁坠爆！机身耐久损失 70 点，当前剩余: §e${drone.durability}/${drone.maxDurability}`);
-   player.sendMessage(`§e机体已自动强制召回，冷却后可重新部署。`);
+   player.sendMessage(player.hasTag("pvp:participant") ? "§e机体已强制召回，本局不能再次部署。" : "§e机体已自动强制召回，冷却后可重新部署。");
   }
 
   this.saveHangarData(player, hangar);
@@ -393,6 +409,26 @@ export class DroneGarageManager {
  /**
   * 智能低频电量通讯 (每消耗10%通过聊天栏发送一次消息，零 Actionbar 干扰)
   */
+ static recoverPvpCrash(player) {
+  const key = `pvp:drone_crash:${player.id}`;
+  const raw = world.getDynamicProperty(key);
+  if (!raw) return;
+  const pending = JSON.parse(raw);
+  const hangar = this.getHangarData(player);
+  const stored = hangar.drones[pending.droneId];
+  if (!stored) throw new Error("PvP crash recovery: original drone entry missing");
+  if (stored.lastPvpCrash !== pending.token) {
+   // Idempotency token is saved in the same JSON value as the durability charge.
+   stored.durability = pending.durability;
+   stored.fuel = pending.fuel;
+   stored.scrapped = pending.durability <= 0;
+   stored.lastPvpCrash = pending.token;
+   player.setDynamicProperty(HANGAR_PROP_KEY, JSON.stringify(hangar));
+   player.sendMessage(`§c[PVP] 无人机被击毁，真实机身耐久损失 70，本局不能再次部署。剩余 ${stored.durability}/${stored.maxDurability}。`);
+  }
+  world.setDynamicProperty(key, undefined);
+ }
+
  static notifyFuelDecile(player, currentFuel) {
   if (!player || !player.isValid()) return;
   const currentDecile = Math.floor(currentFuel / 10) * 10;

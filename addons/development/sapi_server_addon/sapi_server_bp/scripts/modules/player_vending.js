@@ -1,3 +1,4 @@
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world, system, BlockPermutation, ItemStack } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -154,6 +155,7 @@ export class PlayerVendingManager {
  static ownerCount(name) { return this.all().filter(state => state.ownerName === name).length; }
 
  static deploy(player, clickedBlock) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!Utils.isValid(player) || !clickedBlock || Utils.countItem(player, ITEM_ID) < 1) return;
   if (!WantedManager.requireOfficialTrade(player)) return;
   const lower = clickedBlock.above();
@@ -200,6 +202,7 @@ export class PlayerVendingManager {
  }
 
  static interact(player, block) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!Utils.isValid(player) || block?.typeId !== BLOCK_ID) return;
   const lower = this.lowerBlock(block);
   const state = this.stateForBlock(block);
@@ -216,6 +219,7 @@ export class PlayerVendingManager {
  static reload(state) { return this.get(state.id); }
 
  static requirePhysicalAccess(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   try {
    if (player.dimension.id !== state.dimension) throw new Error("dimension");
    const distance = Math.hypot(
@@ -230,6 +234,7 @@ export class PlayerVendingManager {
  }
 
  static requireOwnerAccess(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.reload(state);
   if (!current || current.ownerName !== player.name) return null;
   if (!this.requirePhysicalAccess(player, current)) return null;
@@ -238,6 +243,7 @@ export class PlayerVendingManager {
  }
 
  static openOwner(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.requireOwnerAccess(player, state);
   if (!current) return;
   const actions = [];
@@ -256,6 +262,7 @@ export class PlayerVendingManager {
  }
 
  static openAddListing(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.requireOwnerAccess(player, state);
   if (!current) return;
   if (current.listings.length >= Number(this.settings().maxListings || 9)) return Utils.tell(player, "§c商品种类已经达到上限。");
@@ -271,6 +278,7 @@ export class PlayerVendingManager {
    .textField("上架数量", "请输入 1～当前持有数量", "1")
    .textField("每件售价", "请输入金币单价", "100");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled) return this.openOwner(player, current);
    const entry = entries[Number(response.formValues?.[0])];
    const amount = Math.floor(Number(response.formValues?.[1]));
@@ -311,6 +319,7 @@ export class PlayerVendingManager {
   if (!current || !listing) return;
   const form = new MessageFormData().title("§l下架商品").body(`§e下架 ${MarketManager.getDisplayName(listing)} ×${listing.amount}？`).button1("§a下架").button2("§8取消");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    const latest = this.requireOwnerAccess(player, current);
    const selected = latest?.listings.find(value => value.id === listingId);
    if (response.selection === 0 && latest && selected) {
@@ -324,6 +333,7 @@ export class PlayerVendingManager {
  }
 
  static openBuyer(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.reload(state);
   if (!current) return;
   if (!this.requirePhysicalAccess(player, current)) return;
@@ -338,11 +348,13 @@ export class PlayerVendingManager {
  }
 
  static openPurchase(player, state, listingId) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.reload(state);
   const listing = current?.listings.find(value => value.id === listingId);
   if (!current || !listing) return Utils.tell(player, "§c商品刚刚已经售完。");
   const form = new ModalFormData().title(`§l购买 ${MarketManager.getDisplayName(listing)}`).slider("购买数量", 1, listing.amount, 1, 1);
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled) return this.openBuyer(player, current);
    const latest = this.reload(current);
    if (latest && !this.requirePhysicalAccess(player, latest)) return;
@@ -367,6 +379,7 @@ export class PlayerVendingManager {
  }
 
  static collect(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.requireOwnerAccess(player, state);
   if (!current) return;
   const amount = Math.max(0, Math.floor(Number(current.pendingCoins || 0)));
@@ -380,11 +393,13 @@ export class PlayerVendingManager {
  }
 
  static openRename(player, state, initial = false) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = initial ? this.reload(state) : this.requireOwnerAccess(player, state);
   if (!current || current.ownerName !== player.name) return;
   const cost = initial ? 0 : 1000;
   const form = new ModalFormData().title(initial ? "§l设置店铺名称" : "§l修改店铺名称").textField(`名称 2～18 字${cost ? `，费用 ${cost} 金币` : ""}`, current.shopName, current.shopName);
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.canceled) return;
    const latest = initial ? this.reload(current) : this.requireOwnerAccess(player, current);
    if (!latest) return;
@@ -398,6 +413,7 @@ export class PlayerVendingManager {
  }
 
  static buyInsurance(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.requireOwnerAccess(player, state);
   if (!current || current.insured) return;
   const cost = Number(this.settings().insurancePrice || 10000);
@@ -410,11 +426,13 @@ export class PlayerVendingManager {
  }
 
  static recover(player, state) {
+  if (!allowOrdinaryAction(player)) return false;
   const current = this.requireOwnerAccess(player, state);
   if (!current || current.ownerName !== player.name) return;
   if (current.listings.length || Number(current.pendingCoins || 0) > 0) return Utils.tell(player, "§c请先下架全部商品并领取营业额。");
   const form = new MessageFormData().title("§l回收玩家贩卖机").body("§e正常回收会返还部署器；已经购买的联盟保险不会返还。").button1("§a回收").button2("§8取消");
   Utils.showForm(player, form, response => {
+   if (!allowOrdinaryAction(player)) return;
    if (response.selection !== 0) return this.openOwner(player, current);
    const latest = this.requireOwnerAccess(player, current);
    if (!latest || latest.listings.length || Number(latest.pendingCoins || 0) > 0) return;
@@ -474,6 +492,7 @@ export class PlayerVendingManager {
  }
 
  static deliverInsuranceItem(player, listing) {
+  if (!allowOrdinaryAction(player)) return false;
   const container = player.getComponent("inventory")?.container;
   if (!container) return Math.max(0, Number(listing.amount || 0));
   let remaining = Math.max(0, Math.floor(Number(listing.amount || 0)));
@@ -497,6 +516,7 @@ export class PlayerVendingManager {
  }
 
  static claimInsuranceCompensation(player, notify = true) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!player?.name) return 0;
   const data = this.readInsurance(player.name);
   let delivered = 0;

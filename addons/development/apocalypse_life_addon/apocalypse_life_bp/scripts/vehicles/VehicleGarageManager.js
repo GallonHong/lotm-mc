@@ -1,3 +1,4 @@
+import { locked } from "../pvp/PvpLifePolicy.js";
 import { world, system, ItemStack } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import * as VC from "./VehicleConstants.js";
@@ -93,6 +94,7 @@ export class VehicleGarageManager {
   * @param {string} entityType 
   */
  static bindVehicleFromItem(player, item, entityType) {
+  if (locked(player, true)) return;
   if (!player || !entityType) return;
 
   const meta = this.getMeta(entityType);
@@ -177,6 +179,7 @@ export class VehicleGarageManager {
   * @param {Player} player 
   */
  static openGarageMenu(player) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -236,6 +239,7 @@ export class VehicleGarageManager {
   actions.push(() => {});
 
   form.show(player).then(res => {
+   if (locked(player, true)) return;
    if (res.canceled) return;
    actions[res.selection]?.();
   });
@@ -247,6 +251,7 @@ export class VehicleGarageManager {
   * @param {string} typeId 
   */
  static openVehicleControlPanel(player, typeId) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -354,6 +359,7 @@ export class VehicleGarageManager {
   actions.push(() => this.openGarageMenu(player));
 
   form.show(player).then(res => {
+   if (locked(player, true)) return;
    if (res.canceled) return;
    actions[res.selection]?.();
   });
@@ -363,6 +369,7 @@ export class VehicleGarageManager {
   * 召唤载具到身边 / 重定位
   */
  static summonVehicle(player, typeId) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -457,6 +464,7 @@ export class VehicleGarageManager {
   * @param {boolean} forceReset 
   */
  static recallVehicle(player, typeId, forceReset = false) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -535,6 +543,7 @@ export class VehicleGarageManager {
   * 菜单内快速加油 (支持汽油桶或金币)
   */
  static refuelVehicle(player, typeId) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -608,6 +617,7 @@ export class VehicleGarageManager {
   * 菜单内金币维修载具
   */
  static repairVehicle(player, typeId, cost) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -654,6 +664,7 @@ export class VehicleGarageManager {
   * 载具改装工坊 (时速、加速度、特权、车漆)
   */
  static openUpgradeMenu(player, typeId) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -717,6 +728,7 @@ export class VehicleGarageManager {
   form.button("§l§2返回控制面板", "textures/ui/undo");
 
   form.show(player).then(res => {
+   if (locked(player, true)) return;
    if (res.canceled) return;
    const sel = res.selection;
 
@@ -738,6 +750,7 @@ export class VehicleGarageManager {
   * 执行具体升级扣费
   */
  static executeUpgrade(player, typeId, garageField, propKey, nextConfig, title) {
+  if (locked(player, true)) return;
   if (!nextConfig) {
    player.sendMessage("§e[改装提示] 该改装项目已升至最高等级！");
    try { player.runCommandAsync("playsound note.bell @s ~~~ 0.5"); } catch {}
@@ -774,6 +787,7 @@ export class VehicleGarageManager {
   * 16 色车漆涂装选择菜单
   */
  static openColorSelectMenu(player, typeId) {
+  if (locked(player, true)) return;
   if (!player || !player.isValid()) return;
 
   const garage = this.getPlayerGarage(player);
@@ -792,6 +806,7 @@ export class VehicleGarageManager {
   form.button("§l§2返回改装工坊", "textures/ui/undo");
 
   form.show(player).then(res => {
+   if (locked(player, true)) return;
    if (res.canceled) return;
    const sel = res.selection;
    if (sel >= colorKeys.length) {

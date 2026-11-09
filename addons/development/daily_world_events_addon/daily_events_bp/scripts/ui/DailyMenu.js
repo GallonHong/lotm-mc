@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea } from "../pvpIsolation.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
@@ -28,7 +29,9 @@ function isUserBusy(value) {
 }
 
 function show(player, form, callback, attempt = 0) {
+ if (isPvpPlayer(player)) return;
  system.runTimeout(() => form.show(player).then(result => {
+  if (isPvpPlayer(player)) return;
   if (!result.canceled) return callback(result);
   if (isUserBusy(result) && attempt < 8) show(player, form, callback, attempt + 1);
  }).catch(error => {
@@ -49,6 +52,7 @@ function targetText(quest) {
 
 export class DailyMenu {
  static open(player) {
+  if (isPvpPlayer(player)) return;
   const { state, complete, pending } = DailyQuestManager.summary(player);
   const claimable = state.quests.filter(quest => quest.completed && !quest.claimed).length;
   const form = new ActionFormData().title("§l§6生存联盟 · 今日委托")
@@ -80,6 +84,7 @@ export class DailyMenu {
  }
 
  static openNews(player) {
+  if (isPvpPlayer(player)) return;
   const entries = DailyNewsManager.listRecent(30);
   const form = new ActionFormData().title("§l§4每日突发事件")
    .body(entries.length ? `§f今日报道：§e${DailyNewsManager.listToday().length}\n§7选择新闻查看事件坐标和详情。` : "§7当前还没有新闻报道。");
@@ -97,6 +102,7 @@ export class DailyMenu {
  }
 
  static openQuests(player) {
+  if (isPvpPlayer(player)) return;
   const state = DailyQuestManager.ensureState(player);
   const lines = state.quests.map((quest, index) => {
    const status = quest.claimed ? "§8已领取" : quest.completed ? "§a已完成·待领取" : `§e${quest.progress}/${quest.required}`;
@@ -110,6 +116,7 @@ export class DailyMenu {
  }
 
  static openActivity(player) {
+  if (isPvpPlayer(player)) return;
   const state = DailyQuestManager.ensureState(player);
   if (!Array.isArray(state.activityClaims)) state.activityClaims = [];
   const actions = [];
@@ -129,6 +136,7 @@ export class DailyMenu {
  }
 
  static openHelp(player) {
+  if (isPvpPlayer(player)) return;
   const body = "§f每天固定生成：\n§a1 个采集任务\n§c1 个击杀任务\n§d1 个动态事件任务\n§61 个综合任务\n\n§7采集只统计接取任务后背包中新获得的数量，旧库存不能刷进度。制造任务由制造事件自动记录；击杀与事件奖励只计算实际参与者。\n\n§e完成四项委托共得 4000 金币，100 活跃度额外领取 2000 金币。";
   const form = new MessageFormData().title("§l任务说明").body(body).button1("§a知道了").button2("§7返回");
   show(player, form, () => this.open(player));
@@ -137,6 +145,7 @@ export class DailyMenu {
 
 export class DailyAdminMenu {
  static open(player) {
+  if (isPvpPlayer(player)) return;
   if (!isAdmin(player)) return player.sendMessage("§c仅管理员可使用此菜单。");
   const actions = [];
   const form = new ActionFormData().title("§l§c日常与动态事件管理")
@@ -176,6 +185,7 @@ export class DailyAdminMenu {
  }
 
  static openMerchantSpawner(player) {
+  if (isPvpPlayer(player)) return;
   const merchants = Object.values(MERCHANTS);
   const form = new ActionFormData().title("§l放置商人 NPC").body("§7商人名称、台词、按钮和商店分类均可在配置文件中继续修改。");
   for (const merchant of merchants) form.button(`${merchant.name}\n§r§8${merchant.description}`, "textures/ui/MCStore_Gold_large");

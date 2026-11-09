@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system, ItemStack, EquipmentSlot } from "@minecraft/server";
 import { CONFIG, MOB_PROFILES, ZONE_POOLS, ZONE_DIFFICULTY, ARMOR_POOLS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
@@ -75,6 +76,7 @@ export class SpawnDirector {
   if (!valid(entity) || entity.hasTag("apoc_spawn_configured")) return;
   const profile = PROFILE_BY_TYPE.get(entity.typeId);
   if (!profile) return;
+  if (isPvpArea(entity.dimension.id, entity.location)) { entity.remove(); return; }
   let zoneType = forcedZoneType;
   try {
    if (!zoneType) zoneType = entity.dimension.id === CONFIG.extractionDimension
@@ -227,6 +229,7 @@ export class SpawnDirector {
  }
 
  static spawnAt(dimension, location, mobKey, tags = [], forcedZoneType = null) {
+  if (isPvpArea(dimension.id, location)) return null;
   const profile = MOB_PROFILES[mobKey];
   if (!profile || ZoneRegistry.isSafe(dimension.id, location)) return null;
   const targetZoneType = forcedZoneType || ZoneRegistry.resolve(dimension.id, location).type;
@@ -246,6 +249,7 @@ export class SpawnDirector {
  }
 
  static spawnNearPlayer(player, mobKey = null, tags = [], minDistance, maxDistance) {
+  if (isPvpExcluded(player)) return null;
   const zone = ZoneRegistry.resolve(player.dimension.id, player.location);
   if (zone.type === "safe") return null;
   const pool = ZONE_POOLS[zone.type] || ZONE_POOLS.law;
@@ -257,6 +261,7 @@ export class SpawnDirector {
 
  static tick() {
   for (const player of world.getAllPlayers()) {
+   if (isPvpExcluded(player)) continue;
    if (player.dimension.id !== CONFIG.overworld) continue;
    let gameMode = "survival";
    try { gameMode = String(player.getGameMode()).toLowerCase(); } catch {}
@@ -277,7 +282,7 @@ export class SpawnDirector {
   const entities = overworld.getEntities({ tags: ["apoc_hostile"] });
   for (const entity of entities) {
    try {
-    if (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity)) {
+    if (isPvpArea(entity.dimension.id, entity.location) || (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity))) {
      entity.remove();
     } else if (entity.typeId === "apoc:infected_shrieker" && ZoneRegistry.resolve(entity.dimension.id, entity.location).type === "law") {
      entity.remove();
@@ -288,7 +293,7 @@ export class SpawnDirector {
    for (const typeId of VANILLA_HOSTILES) {
     for (const entity of overworld.getEntities({ type: typeId })) {
      try {
-      if (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity)) entity.remove();
+      if (isPvpArea(entity.dimension.id, entity.location) || (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity))) entity.remove();
      } catch {}
     }
    }
@@ -296,7 +301,7 @@ export class SpawnDirector {
  }
 
  static cleanupFarEntities() {
-  const players = world.getAllPlayers();
+  const players = world.getAllPlayers().filter(player => !isPvpExcluded(player));
   let overworld;
   try { overworld = world.getDimension("overworld"); } catch { return; }
   const maxSq = CONFIG.despawnDistance * CONFIG.despawnDistance;

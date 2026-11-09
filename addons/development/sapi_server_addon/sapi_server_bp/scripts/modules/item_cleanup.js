@@ -1,3 +1,4 @@
+import { PvPManager } from "./pvp.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, MessageFormData, ModalFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -97,7 +98,10 @@ export class ItemCleanupManager {
    try {
     const dimension = world.getDimension(dimensionId);
     for (const entity of dimension.getEntities({ type: "minecraft:item" })) {
-     try { entity.remove(); count += 1; } catch {}
+     try {
+      if (PvPManager.isArenaLocation(dimension.id, entity.location)) continue;
+      entity.remove(); count += 1;
+     } catch {}
     }
    } catch (error) {
     console.warn(`[ItemCleanup] Failed in ${dimensionId}: ${error}`);

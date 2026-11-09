@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea } from "../pvpIsolation.js";
 import { world } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { NEWS_PRESETS, newsPreset, presetsForTemplate } from "./templates/newsPresets.js";
@@ -135,6 +136,7 @@ export class DailyNewsManager {
   const color = entry.phase === "success" ? "§a" : entry.phase === "failed" ? "§c" : Number(entry.danger) >= 5 ? "§4" : "§6";
   const label = entry.phase === "active" ? entry.category : "事件战报";
   for (const player of world.getAllPlayers()) {
+   if (isPvpPlayer(player)) continue;
    try {
     player.sendMessage(`${color}§l【${label}】§r${color}${entry.headline}\n§f${entry.message}\n§7地点：§e${entry.locationName} §8(${coords})`);
     if (urgent || Number(entry.danger) >= 5) {
@@ -148,6 +150,7 @@ export class DailyNewsManager {
  }
 
  static notifyDailySummary(player) {
+  if (isPvpPlayer(player)) return;
   const today = dayKey();
   try {
    if (player.getDynamicProperty(CONFIG.playerNewsSeenKey) === today) return false;

@@ -1,3 +1,4 @@
+import { pvpCanAttack, isPvpParticipant } from './utils/pvpRules.js';
 import { getMuzzle, clipSegment } from './utils/muzzleUtils.js';
 import { RecoilManager } from './recoilManager.js';
 import { ShootManager } from './shoot.js';
@@ -31,6 +32,7 @@ export class SkillManager {
  }
 
  static tryActivateSkill(player, gun) {
+  if (!pvpCanAttack(player)) return;
   if (!gun || !gun.hasSkill) return false;
 
   if (this.isOverdriveActive(player)) return false;
@@ -273,6 +275,7 @@ export class SkillManager {
  }
 
  static tick(player, currentGun) {
+  if (!pvpCanAttack(player)) return;
   const cd = this.skillCooldowns.get(player.id) || 0;
   if (cd > 0) {
    this.skillCooldowns.set(player.id, cd - 1);
@@ -333,6 +336,7 @@ export class SkillManager {
 
       for (const ent of targets) {
        if (!ent || !ent.isValid() || ent.id === player.id) continue;
+       if (isProtectedTeammate(player, ent)) continue;
        if (ent.typeId === 'minecraft:item' || ent.typeId === 'minecraft:xp_orb' || ent.typeId === 'sapi:secure_safe') continue;
        if (ent.typeId === 'minecraft:player') continue;
 

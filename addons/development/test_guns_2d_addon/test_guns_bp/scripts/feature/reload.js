@@ -1,3 +1,4 @@
+import { hasInfinitePvpReserve, isPvpParticipant, pvpCanOperate, pvpMatch } from './utils/pvpRules.js';
 import { GunVisuals } from './gunVisuals.js';
 import { EquipmentSlot } from '@minecraft/server';
 import { countAmmoInInventory, consumeAmmoFromInventory, isCreativePlayer } from './utils/inventoryUtils.js';
@@ -19,11 +20,11 @@ export class ReloadManager {
  }
 
  static startReload(player, gun) {
-  if (this.isReloading(player)) return false;
+  if (!pvpCanOperate(player) || this.isReloading(player)) return false;
 
   const currentAmmo = getCurrentAmmo(player, gun);
   const availableAmmo = countAmmoInInventory(player, gun.ammoTypeId);
-  const isCreative = isCreativePlayer(player);
+  const isCreative = isCreativePlayer(player) || hasInfinitePvpReserve(player);
 
   if (currentAmmo >= gun.maxAmmo) {
    updateActionBar(player, `§a[弹夹已满 ${currentAmmo}/${gun.maxAmmo}]§r§6[${gun.name}]§r§8(备弹: ${isCreative ? '§b∞§r' : availableAmmo})§r`);
@@ -46,6 +47,8 @@ export class ReloadManager {
   }
 
   this.reloadingPlayers.set(player.id, {
+   matchId: pvpMatch(player),
+   participant: isPvpParticipant(player),
    gunId: gun.id,
    currentTick: 0,
    totalTicks: totalTicks
@@ -64,7 +67,7 @@ export class ReloadManager {
   const reloadInfo = this.reloadingPlayers.get(player.id);
   if (!reloadInfo) return;
 
-  if (!currentGun || currentGun.id !== reloadInfo.gunId) {
+  if (!pvpCanOperate(player) || reloadInfo.participant !== isPvpParticipant(player) || reloadInfo.matchId !== pvpMatch(player) || !currentGun || currentGun.id !== reloadInfo.gunId) {
    this.cancelReload(player);
    return;
   }
@@ -79,6 +82,11 @@ export class ReloadManager {
  }
 
  static completeReload(player, gun) {
+  const info = this.reloadingPlayers.get(player.id);
+  if (!info || !pvpCanOperate(player) || info.participant !== isPvpParticipant(player) || info.matchId !== pvpMatch(player)) {
+   this.cancelReload(player);
+   return;
+  }
   this.reloadingPlayers.delete(player.id);
   GunVisuals.reset(player);
 

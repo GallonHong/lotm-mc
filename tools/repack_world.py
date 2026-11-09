@@ -56,6 +56,7 @@ BEHAVIOR_PACKS = [
     ("extraction_dimension_bootstrap_bp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_dimension_bootstrap_bp")),
     ("extraction_bp", os.path.join(BASE_DIR, "apocalypse_extraction_addon", "extraction_bp")),
     ("daily_events_bp", os.path.join(BASE_DIR, "daily_world_events_addon", "daily_events_bp")),
+    ("liufenjie_scene_bp", os.path.join(BASE_DIR, "liufenjie_scene_addon", "liufenjie_scene_bp")),
 ]
 
 RESOURCE_PACKS = [

@@ -5,6 +5,7 @@
 | 目录 | 用途 |
 |---|---|
 | `apocalypse_boss_addon` | Apocalypse Boss 实体与掉落 |
+| `liufenjie_scene_addon` | 六分街 PVP 比赛场地切块与结构资源（私用测试） |
 | `apocalypse_extraction_addon` | 摸金都市生成、撤离点与城市副本 |
 | `apocalypse_mobs_addon` | 末日怪物、刷怪导演与掉落 |
 | `apocalypse_story_addon` | 主世界剧情 / 副本新手教程 MVP |

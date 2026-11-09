@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "../pvpIsolation.js";
 import { BlockPermutation, world } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 
@@ -28,6 +29,7 @@ export class SpawnerReplacementManager {
  }
 
  static enqueueAroundPlayer(player, force = false) {
+  if (isPvpExcluded(player)) return 0;
   if (!player || !overworld(player.dimension?.id)) return 0;
   const centerX = Math.floor(Number(player.location.x) / 16);
   const centerZ = Math.floor(Number(player.location.z) / 16);
@@ -62,6 +64,7 @@ export class SpawnerReplacementManager {
  }
 
  static replaceIfSpawner(dimension, cratePermutation, x, y, z) {
+  if (isPvpArea(dimension.id, {x, y, z})) return 0;
   const block = dimension.getBlock({ x, y, z });
   if (!block) throw new Error("chunk unavailable");
   if (block.typeId !== "minecraft:mob_spawner" && block.typeId !== "minecraft:monster_spawner") return 0;

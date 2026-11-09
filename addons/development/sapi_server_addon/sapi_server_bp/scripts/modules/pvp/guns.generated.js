@@ -1,0 +1,2 @@
+// Generated from Test Guns data/guns.js; regenerate when adding guns.
+export const PVP_GUN_IDS = new Set(["test_gun:ak47", "test_gun:ak74u", "test_gun:shotgun", "test_gun:m1897", "test_gun:bizon", "test_gun:glock", "test_gun:scarh", "test_gun:arx", "test_gun:p90", "test_gun:deagle", "test_gun:svd", "test_gun:m1014", "test_gun:rpk", "test_gun:m79", "test_gun:pkm", "test_gun:m1014_ward", "test_gun:usas12", "test_gun:rpg", "test_gun:m82", "test_gun:ak47_commander", "test_gun:vector", "test_gun:mgl", "test_gun:arc_emitter", "test_gun:dbss"]);

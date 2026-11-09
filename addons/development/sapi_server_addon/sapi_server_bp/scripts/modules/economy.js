@@ -1,3 +1,4 @@
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -109,6 +110,7 @@ export class EconomyManager {
   * @returns {{ success: boolean, message: string }}
   */
  static transfer(fromPlayer, toPlayer, amount) {
+  if (!allowOrdinaryAction(fromPlayer) || !allowOrdinaryAction(toPlayer)) return false;
   const val = Math.floor(amount);
   if (val < Config.economy.minTransferAmount) {
    return { success: false, message: `转账金额不能小于 ${Config.economy.minTransferAmount}` };
@@ -146,6 +148,7 @@ export class EconomyManager {
   * @param {Function} [onBack] 
   */
  static openBankUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const balance = this.getBalance(player);
   const form = new ActionFormData()
    .title("§l§6个人银行与资产")
@@ -164,6 +167,7 @@ export class EconomyManager {
   }
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 
    if (res.selection === 0) {
     this.openTransferUI(player, () => this.openBankUI(player, onBack));
@@ -181,6 +185,7 @@ export class EconomyManager {
   * @param {Function} [onBack] 
   */
  static openTransferUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const onlinePlayers = world.getAllPlayers().filter(p => p.id !== player.id);
 
   if (onlinePlayers.length === 0) {
@@ -191,6 +196,7 @@ export class EconomyManager {
     .button2("§l返回");
 
    Utils.showForm(player, form, () => {
+   if (!allowOrdinaryAction(player)) return;
     if (onBack) onBack();
    });
    return;
@@ -205,6 +211,7 @@ export class EconomyManager {
    .textField("§e转账金额:", "请输入转账金币数量 (例如: 100)");
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) {
     if (onBack) onBack();
     return;
@@ -240,6 +247,7 @@ export class EconomyManager {
   * @param {Function} [onBack] 
   */
  static openLeaderboardUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const allPlayers = world.getAllPlayers();
   const playerStats = allPlayers.map(p => ({
    name: p.name,
@@ -264,6 +272,7 @@ export class EconomyManager {
    .button("§l§c返回", "textures/ui/cancel");
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) {
     this.openLeaderboardUI(player, onBack);
    } else if (res.selection === 1 && onBack) {
@@ -278,6 +287,7 @@ export class EconomyManager {
 	 * @returns {number} 兑换所得金币总数
 	 */
 	static redeemLegacyCoinItems(player) {
+  if (!allowOrdinaryAction(player)) return false;
 		if (!player) return 0;
 		const inventory = player.getComponent("inventory") || player.getComponent("minecraft:inventory");
 		if (!inventory || !inventory.container) return 0;

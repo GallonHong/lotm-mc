@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system, BlockPermutation } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 import { STANDALONE_CONFIG } from "./config.js";
@@ -171,6 +172,7 @@ function inBounds(entry, dimensionId, location) {
 }
 
 function automaticRegionForPlayer(player) {
+ if (isPvpExcluded(player)) return null;
  try {
   if (player.dimension.id === "apoc_extract:city") {
    if (!settings.extractionCityEnabled) return null;
@@ -211,6 +213,7 @@ function chooseOccupiedAutoRegion(preferredType = "") {
 }
 
 function isSafeArea(dimensionId, location) {
+ if (isPvpArea(dimensionId, location)) return true;
  // The controller is an explicit administrator override and can target any area.
  if (manualCenter) return false;
  if (STANDALONE_CONFIG.safeRegions.some(region => inBounds(region, dimensionId, location))) return true;
@@ -225,6 +228,7 @@ function isSafeArea(dimensionId, location) {
 }
 
 function touchesSafeArea(dimensionId, location, radius) {
+ if (isPvpArea(dimensionId, location, radius)) return true;
  if (!settings.protectSafeZones) return false;
  const offsets = [[0, 0], [radius, 0], [-radius, 0], [0, radius], [0, -radius],
   [radius, radius], [radius, -radius], [-radius, radius], [-radius, -radius]];
@@ -233,6 +237,7 @@ function touchesSafeArea(dimensionId, location, radius) {
 
 function participantsFor(dimensionId = activeDimensionId) {
  return world.getAllPlayers().filter(player => {
+  if (isPvpExcluded(player)) return false;
   try {
    if (player.dimension.id !== dimensionId) return false;
    if (manualCenter) {
@@ -518,7 +523,7 @@ function cleanupWorld() {
 function finishDisaster() {
  cleanupWorld();
 
- for (const p of world.getAllPlayers().filter(player => runParticipants.has(player.name))) {
+ for (const p of world.getAllPlayers().filter(player => !isPvpPlayer(player) && runParticipants.has(player.name))) {
   ensurePlayerScores(p);
   const failed = failedPlayers.has(p.name);
 
@@ -625,7 +630,7 @@ function tornadoTick(dim, players) {
 
  // Spatial vanilla weather ambience works as a wind roar around the funnel.
  if (activeTick % 40 === 0) {
-  safeCmd(dim, `playsound ambient.weather.rain @a ${l.x} ${l.y + 6} ${l.z} 1.35 0.55 0.06`);
+  for (const listener of players) safeCmd(listener, `playsound ambient.weather.rain @s ${l.x} ${l.y + 6} ${l.z} 1.35 0.55 0.06`);
  }
 
  // Pull + giro tangencial + elevacion. A corta distancia expulsa en pulsos para simular el embudo.
@@ -986,13 +991,14 @@ function resetChallengeAfterAllDead() {
 }
 
 function allCurrentParticipantsHaveDied() {
- const online = world.getAllPlayers().filter(p => runParticipants.has(p.name));
+ const online = world.getAllPlayers().filter(p => !isPvpPlayer(p) && runParticipants.has(p.name));
  return online.length > 0 && online.every(p => deadParticipants.has(p.name));
 }
 
 world.afterEvents.playerSpawn.subscribe(ev => {
  const p = ev.player;
  system.run(() => {
+  if (isPvpPlayer(p)) return;
   // Scoreboard setup is allowed to retry, but never starts a disaster.
   if (!initialized) ensureObjectives();
   ensurePlayerScores(p);
@@ -1011,7 +1017,7 @@ world.afterEvents.playerSpawn.subscribe(ev => {
 
 world.afterEvents.entityDie.subscribe(ev => {
  const e = ev.deadEntity;
- if (!gameStarted || e.typeId !== "minecraft:player") return;
+ if (!gameStarted || e.typeId !== "minecraft:player" || isPvpPlayer(e)) return;
  const name = e.name;
  system.run(() => {
   if (!runParticipants.has(name)) return;
@@ -1325,3 +1331,11 @@ system.runInterval(() => {
   }
  }
 }, 1);
+
+// A player can enter PvP after a disaster started; discard only this pack's lingering fog.
+system.runInterval(() => {
+ if (!gameStarted) return;
+ for (const player of world.getAllPlayers()) {
+  if (isPvpPlayer(player)) safeCmd(player, "fog @s remove sando_standalone_disaster");
+ }
+}, 20);

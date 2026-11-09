@@ -1,3 +1,4 @@
+import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -94,6 +95,7 @@ export class LandManager {
   * @param {import("@minecraft/server").Player} player 
   */
  static claimCurrentChunk(player) {
+  if (!allowOrdinaryAction(player)) return false;
   const loc = player.location;
   const { chunkX, chunkZ } = Utils.getChunkCoords(loc);
   const dimensionId = player.dimension.id;
@@ -166,6 +168,7 @@ export class LandManager {
   * @param {object} plot 
   */
  static sellPlot(player, plot) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!plot || (plot.ownerId !== player.id && !Utils.isAdmin(player))) {
    Utils.tell(player, "§c你不是该地皮的主人，无法出售！");
    return;
@@ -230,6 +233,7 @@ export class LandManager {
   * @param {Function} [onBack] 
   */
  static openPlotMainUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const loc = player.location;
   const { chunkX, chunkZ } = Utils.getChunkCoords(loc);
   const currentPlot = this.getPlot(player.dimension.id, chunkX, chunkZ);
@@ -271,6 +275,7 @@ export class LandManager {
   }
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 
    let btnIndex = 0;
    if (!currentPlot) {
@@ -314,6 +319,7 @@ export class LandManager {
 
  /** 设置好友领地观光的传送点；不改变任何领地权限。 */
  static setVisitorPoint(player, plot) {
+  if (!allowOrdinaryAction(player)) return false;
   if (!plot || (plot.ownerId !== player.id && plot.ownerName !== player.name && !Utils.isAdmin(player))) return false;
   const { chunkX, chunkZ } = Utils.getChunkCoords(player.location);
   if (player.dimension.id !== plot.dimension || chunkX !== plot.chunkX || chunkZ !== plot.chunkZ) {
@@ -339,6 +345,7 @@ export class LandManager {
   * @param {Function} [onBack] 
   */
  static openMyPlotsListUI(player, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const plotKeys = this.getPlayerPlots(player);
   const form = new ActionFormData()
    .title("§l§e我的领地列表")
@@ -363,6 +370,7 @@ export class LandManager {
   form.button("§l§c返回", "textures/ui/cancel");
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 
    if (res.selection < validPlots.length) {
     const plot = validPlots[res.selection];
@@ -390,6 +398,7 @@ export class LandManager {
   * @param {Function} [onBack] 
   */
  static openPlotSettingsUI(player, plot, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const flags = plot.flags || { ...Config.land.defaultFlags };
 
   const form = new ModalFormData()
@@ -402,6 +411,7 @@ export class LandManager {
    .toggle("§e允许访客攻击领地内动物/实体:", flags.allowAttackEntity ?? false);
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.canceled) {
     if (onBack) onBack();
     return;
@@ -433,6 +443,7 @@ export class LandManager {
   * @param {Function} [onBack] 
   */
  static openPlotMembersUI(player, plot, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const members = plot.members || [];
   const form = new ActionFormData()
    .title(`§l信任成员 - ${plot.name}`)
@@ -442,6 +453,7 @@ export class LandManager {
    .button("§l§8返回", "textures/ui/cancel");
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
 
    if (res.selection === 0) {
     // 添加成员
@@ -457,6 +469,7 @@ export class LandManager {
      .dropdown("§e选择要添加的在线玩家:", candidates.map(p => p.name));
 
     Utils.showForm(player, addForm, (addRes) => {
+   if (!allowOrdinaryAction(player)) return;
      if (addRes.canceled) {
       if (onBack) onBack();
       return;
@@ -485,6 +498,7 @@ export class LandManager {
      .dropdown("§e选择要移除的成员:", members);
 
     Utils.showForm(player, removeForm, (remRes) => {
+   if (!allowOrdinaryAction(player)) return;
      if (remRes.canceled) {
       if (onBack) onBack();
       return;
@@ -509,6 +523,7 @@ export class LandManager {
   * @param {Function} [onBack] 
   */
  static openSellConfirmUI(player, plot, onBack = null) {
+  if (!allowOrdinaryAction(player)) return false;
   const refund = Math.floor(Config.land.pricePerChunk * Config.land.sellRefundRate);
   const form = new MessageFormData()
    .title("§l§c确认出售地皮？")
@@ -517,6 +532,7 @@ export class LandManager {
    .button2("§l§a取消返回");
 
   Utils.showForm(player, form, (res) => {
+   if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) {
     this.sellPlot(player, plot);
    } else if (onBack) {

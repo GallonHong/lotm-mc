@@ -1,3 +1,4 @@
+import { pvpCanAttack, isPvpParticipant } from './utils/pvpRules.js';
 import { world, system, EntityDamageCause, EquipmentSlot } from '@minecraft/server';
 import { isProtectedTeammate } from './utils/teamRules.js';
 
@@ -11,6 +12,7 @@ export class ShieldEngine {
   * @param {ItemStack} item 
   */
  static triggerFlash(player, item) {
+  if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid()) return false;
   if (!item || item.typeId !== 'test_gun:flash_shield') return false;
 
@@ -60,6 +62,7 @@ export class ShieldEngine {
 
    for (const target of nearby) {
     if (!target || !target.isValid() || target.id === player.id) continue;
+    if (isProtectedTeammate(player, target)) continue;
     if (target.typeId === 'minecraft:item' || target.typeId === 'minecraft:xp_orb') continue;
 
     const tLoc = target.location;

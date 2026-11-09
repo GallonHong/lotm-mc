@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system } from '@minecraft/server';
 
 /**
@@ -11,6 +12,7 @@ class BossSkillEngine {
   
   // 寻找大世界中的活跃 Boss
   for (const player of world.getAllPlayers()) {
+   if (isPvpExcluded(player)) continue;
    if (!player || !player.isValid()) continue;
    const dim = player.dimension;
    
@@ -35,7 +37,7 @@ class BossSkillEngine {
      location: boss.location,
      maxDistance: 24,
      families: ['player']
-    });
+    }).filter(player => !isPvpExcluded(player));
     
     if (targets.length === 0) continue;
     const target = targets[0]; // 锁定最近玩家
@@ -49,6 +51,7 @@ class BossSkillEngine {
  }
 
  static executeBossSkill(boss, typeId, target, dim) {
+  if (isPvpExcluded(target) || isPvpArea(boss.dimension.id, boss.location)) return;
   const bLoc = boss.location;
   const tLoc = target.location;
   const dx = tLoc.x - bLoc.x;
@@ -64,6 +67,7 @@ class BossSkillEngine {
 
     // 技能1: 深渊水浪吸聚 (漩涡吸怪)
     for (const p of dim.getEntities({ location: bLoc, maxDistance: 16, families: ['player'] })) {
+     if (isPvpExcluded(p)) continue;
      const pLoc = p.location;
      const pullX = (bLoc.x - pLoc.x) * 0.15;
      const pullZ = (bLoc.z - pLoc.z) * 0.15;
@@ -73,12 +77,13 @@ class BossSkillEngine {
 
     // 技能2: 延迟 1 秒后召唤水柱与三叉戟穿刺
     system.runTimeout(() => {
-     if (!boss.isValid()) return;
+     if (!boss.isValid() || isPvpExcluded(target)) return;
      dim.playSound('item.trident.thunder', bLoc, { volume: 2.5, pitch: 0.9 });
      dim.spawnParticle('minecraft:critical_hit_emitter', { x: bLoc.x, y: bLoc.y + 1.5, z: bLoc.z });
 
      // 正面锥形水波冲击
      for (const p of dim.getEntities({ location: bLoc, maxDistance: 10, families: ['player'] })) {
+     if (isPvpExcluded(p)) continue;
       p.applyDamage(8, { cause: 'magic', damagingEntity: boss });
       p.applyKnockback((tLoc.x - bLoc.x) * 0.3, (tLoc.z - bLoc.z) * 0.3, 1.2, 0.4);
      }
@@ -94,6 +99,7 @@ class BossSkillEngine {
     dim.spawnParticle('minecraft:huge_explosion_emitter', bLoc);
 
     for (const p of dim.getEntities({ location: bLoc, maxDistance: 12, families: ['player'] })) {
+     if (isPvpExcluded(p)) continue;
      p.applyDamage(10, { cause: 'entityAttack', damagingEntity: boss });
      p.applyKnockback(0, 0, 0.2, 1.1); // 击飞至空中
      p.addEffect('slowness', 60, { amplifier: 2, showParticles: true });
@@ -133,6 +139,7 @@ class BossSkillEngine {
 
     dim.spawnParticle('minecraft:dragon_breath_fire', tLoc);
     for (const p of dim.getEntities({ location: tLoc, maxDistance: 5, families: ['player'] })) {
+     if (isPvpExcluded(p)) continue;
      p.addEffect('poison', 100, { amplifier: 1, showParticles: true });
      p.addEffect('weakness', 100, { amplifier: 1, showParticles: true });
      p.applyDamage(6, { cause: 'magic', damagingEntity: boss });
@@ -172,6 +179,7 @@ class BossSkillEngine {
     dim.spawnParticle('minecraft:huge_explosion_emitter', bLoc);
 
     for (const p of dim.getEntities({ location: bLoc, maxDistance: 10, families: ['player'] })) {
+     if (isPvpExcluded(p)) continue;
      p.applyDamage(14, { cause: 'contact', damagingEntity: boss });
      p.applyKnockback(0, 0, 0, 1.3);
      p.onScreenDisplay?.setActionBar?.('§6钢铁终结者 发动【合金地刺突刺】重击震飞!§r');
@@ -187,6 +195,7 @@ class BossSkillEngine {
     dim.spawnParticle('minecraft:sonic_explosion', { x: bLoc.x, y: bLoc.y + 7.5, z: bLoc.z });
 
     for (const p of dim.getEntities({ location: bLoc, maxDistance: 32, families: ['player'] })) {
+     if (isPvpExcluded(p)) continue;
      p.addEffect('slowness', 80, { amplifier: 1, showParticles: true });
      p.applyDamage(8, { cause: 'sonicBoom', damagingEntity: boss });
      try { p.runCommandAsync('camerashake add @s 0.25 0.40 rotational'); } catch {}
@@ -203,3 +212,7 @@ system.runInterval(() => {
   BossSkillEngine.tick();
  } catch (e) {}
 }, 10);
+
+if (world.afterEvents?.entitySpawn?.subscribe) world.afterEvents.entitySpawn.subscribe(({ entity }) => {
+ try { if (entity.typeId.startsWith("apoc_boss:") && isPvpArea(entity.dimension.id, entity.location)) entity.remove(); } catch {}
+});

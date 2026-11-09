@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea } from "../pvpIsolation.js";
 import { CONFIG, ACTIVITY_MILESTONES, COLLECT_GROUPS, MOB_TARGETS, CRAFT_GROUPS } from "../config.js";
 import { DAILY_QUEST_REGISTRY, QUEST_POOLS } from "./dailyQuests.js";
 import { RewardManager } from "../rewards/RewardManager.js";
@@ -83,6 +84,7 @@ export class DailyQuestManager {
  }
 
  static advance(player, matcher, amount = 1, label = "") {
+  if (isPvpPlayer(player)) return false;
   const state = this.ensureState(player);
   let changed = false;
   for (const quest of state.quests) {
@@ -126,6 +128,7 @@ export class DailyQuestManager {
  }
 
  static pollInventory(player) {
+  if (isPvpPlayer(player)) return false;
   const state = this.ensureState(player);
   const gains = [];
   let changed = false;
@@ -176,6 +179,7 @@ export class DailyQuestManager {
  }
 
  static pollSales(player) {
+  if (isPvpPlayer(player)) return false;
   const state = this.ensureState(player);
   const total = IntegrationBridge.getSalesTotal(player.name);
   const delta = Math.max(0, total - Number(state.salesSeen || 0));
@@ -186,6 +190,7 @@ export class DailyQuestManager {
  }
 
  static claimCompleted(player) {
+  if (isPvpPlayer(player)) return false;
   const state = this.ensureState(player);
   let claimed = 0;
   for (const quest of state.quests) {
@@ -201,6 +206,7 @@ export class DailyQuestManager {
  }
 
  static claimActivity(player, value) {
+  if (isPvpPlayer(player)) return false;
   const state = this.ensureState(player);
   if (!Array.isArray(state.activityClaims)) state.activityClaims = [];
   const milestone = ACTIVITY_MILESTONES.find(entry => entry.value === value);
@@ -214,6 +220,7 @@ export class DailyQuestManager {
  }
 
  static removeItem(player, typeId, amount) {
+  if (isPvpPlayer(player)) return false;
   try {
    const container = player.getComponent("minecraft:inventory")?.container;
    let available = 0;

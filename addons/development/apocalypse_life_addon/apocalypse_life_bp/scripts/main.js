@@ -1,3 +1,5 @@
+import { PvpLifeManager } from "./pvp/PvpLifeManager.js";
+import { participant } from "./pvp/PvpLifePolicy.js";
 import { DroneClass } from "./drones/DroneClass.js";
 import { DroneGarageManager } from "./drones/DroneGarageManager.js";
 import { DroneMenu } from "./drones/DroneMenu.js";
@@ -35,6 +37,7 @@ SeasonalEnvironment.init();
 DownedRescueManager.init();
 // 初始化战术无人机伴飞与火控系统
 DroneClass.init();
+PvpLifeManager.init();
 
 
 /**
@@ -57,7 +60,7 @@ const EntitySpawner = {
  onUse(event) {
   const player = event.source;
   const item = event.itemStack;
-  if (!player || player.typeId !== "minecraft:player" || !item) return;
+  if (!player || player.typeId !== "minecraft:player" || !item || participant(player)) return;
   const itemId = item.typeId;
   if (itemId === "minecraft:compass") {
    system.runTimeout(() => {
@@ -82,7 +85,7 @@ const EntitySpawner = {
   const block = event.block;
   const item = event.itemStack;
 
-  if (!player || player.typeId !== "minecraft:player" || !item) return;
+  if (!player || player.typeId !== "minecraft:player" || !item || participant(player)) return;
 
   const itemId = item.typeId;
   if (itemId === "minecraft:compass") {
@@ -150,7 +153,7 @@ try {
 // 2. 载具右键加注燃油 (手持满装汽油桶)
 subscribeAfterEvent("playerInteractWithEntity", (event) => {
  const { player, target } = event;
- if (!player || !target || !target.isValid()) return;
+ if (!player || !target || !target.isValid() || participant(player)) return;
 
  if (MedicalStation.handleInteraction(player, target)) return;
 
@@ -163,7 +166,7 @@ subscribeAfterEvent("playerInteractWithEntity", (event) => {
 // 3. 机械改装菜单 (手持扳手交互)
 subscribeAfterEvent("playerInteractWithEntity", (event) => {
  const { player, target } = event;
- if (!player || !target || !target.isValid()) return;
+ if (!player || !target || !target.isValid() || participant(player)) return;
 
  const equippable = player.getComponent("minecraft:equippable");
  if (!equippable) return;
@@ -402,7 +405,7 @@ subscribeAfterEvent("entityDie", (event) => {
 // 8. 玩家右键使用物品绑定兜底 (防止部分场景 onUse 未触发)
 subscribeAfterEvent("itemUse", (event) => {
  const { source: player, itemStack: item } = event;
- if (!player || player.typeId !== "minecraft:player" || !item) return;
+ if (!player || player.typeId !== "minecraft:player" || !item || participant(player)) return;
  const itemId = item.typeId;
   if (itemId === "minecraft:compass") {
    system.runTimeout(() => {

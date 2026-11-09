@@ -1,3 +1,5 @@
+import { initializePvpGuns, tickPvpGunGuard, stopPvpGunTasks } from './feature/pvpIntegration.js';
+import { isPvpParticipant, pvpCanAttack } from './feature/utils/pvpRules.js';
 import { GunVisuals } from './feature/gunVisuals.js';
 import { ItemStack } from '@minecraft/server';
 import { MeleeEngine } from './feature/meleeEngine.js';
@@ -234,6 +236,7 @@ class AddonController {
   });
 
   subscribeAfter(world.afterEvents, 'playerLeave', (event) => {
+   stopPvpGunTasks({ id: event.playerId });
    GunVisuals.clearPlayer(event.playerId);
    ShootManager.playerShooting.delete(event.playerId);
    ShootManager.playerCooldowns.delete(event.playerId);
@@ -248,6 +251,7 @@ class AddonController {
  startGameLoop() {
   system.runInterval(() => {
    this.auraTick++;
+   for (const player of world.getAllPlayers()) tickPvpGunGuard(player);
    GrenadeEngine.onTick();
    RocketEngine.onTick();
    ShieldEngine.tick();
@@ -287,12 +291,14 @@ class AddonController {
  }
 }
 
+initializePvpGuns();
 new AddonController();
 
 // 聊天快捷指令系统 (!usas / !pkm / !rpk / !m1014)
 let lastTgChatTick = new Map();
 function handleTgCommand(player, rawText) {
  if (!player || !player.isValid()) return;
+ if (isPvpParticipant(player)) { player.sendMessage('§c比赛期间不能领取调试装备。'); return; }
  const text = (rawText || '').trim().toLowerCase();
 
  const key = `${player.id}_${text}`;

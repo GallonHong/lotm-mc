@@ -126,6 +126,12 @@ function arenaQuery(instance, template) {
  return { center, radius };
 }
 
+// Cross-pack admission is visible through entity tags, unlike BP-scoped dynamic properties.
+function pvpLocked(player) {
+ try { return player.hasTag("pvp:participant") || player.hasTag("pvp:admission"); }
+ catch { return true; }
+}
+
 export class DungeonManager {
  static active = new Map();
  static resettingSlots = new Set();
@@ -181,7 +187,7 @@ export class DungeonManager {
   const participants = [...new Map((players || []).filter(valid).map(player => [player.id, player])).values()];
   if (!participants.some(player => player.id === leader.id)) participants.unshift(leader);
   if (!participants.length || participants.length > Number(template.maxPlayers || 4)) return false;
-  if (participants.some(player => readPlayerState(player))) return false;
+  if (participants.some(player => pvpLocked(player) || readPlayerState(player))) return false;
   const shortId = `${Date.now().toString(36)}${Math.floor(Math.random() * 9999).toString(36)}`.slice(-12);
   const participantIds = participants.map(player => player.id);
   const instance = {
@@ -214,6 +220,7 @@ export class DungeonManager {
  }
 
  static bindPlayer(player, instance) {
+  if (pvpLocked(player)) return false;
   const previous = readPlayerState(player);
   writePlayerState(player, {
    instanceId: instance.instanceId,
@@ -307,6 +314,7 @@ export class DungeonManager {
  }
 
  static teleportInto(player, instance) {
+  if (pvpLocked(player)) return false;
   const template = dungeonTemplate(instance.templateId);
   const dimension = world.getDimension(instance.slot.dimension);
   const location = absolutePoint(instance.slot.origin, instance.respawnOffset || template.entryOffset);
@@ -319,6 +327,7 @@ export class DungeonManager {
  }
 
  static join(player, instanceId) {
+  if (pvpLocked(player)) return false;
   if (!valid(player) || readPlayerState(player)) return false;
   const instance = this.active.get(instanceId);
   const template = instance ? dungeonTemplate(instance.templateId) : null;
@@ -405,7 +414,7 @@ export class DungeonManager {
  static giveStageLoadout(instance, stage) {
   for (const id of instance.participantIds) {
    const player = onlinePlayer(id);
-   if (!player) continue;
+   if (!player || pvpLocked(player)) continue;
    for (const entry of stage.loadout || []) {
     try {
      const stack = new ItemStack(entry.id, Math.max(1, Math.min(64, Number(entry.amount) || 1)));
@@ -785,6 +794,7 @@ export class DungeonManager {
  }
 
  static onPlayerDeath(player) {
+  if (pvpLocked(player)) return false;
   const state = readPlayerState(player);
   const instance = state?.instanceId ? this.active.get(state.instanceId) : null;
   if (!instance) return false;
@@ -795,6 +805,7 @@ export class DungeonManager {
  }
 
  static handlePlayerSpawn(player) {
+  if (pvpLocked(player)) return false;
   const state = readPlayerState(player);
   if (!state?.instanceId) return false;
   const instance = this.active.get(state.instanceId);
@@ -831,6 +842,7 @@ export class DungeonManager {
  }
 
  static returnPlayer(player, state, message = "") {
+  if (pvpLocked(player)) return false;
   const target = state?.returnLocation;
   try {
    if (target) {
@@ -848,6 +860,7 @@ export class DungeonManager {
  }
 
  static cleanupTutorialLoans(player) {
+  if (pvpLocked(player)) return false;
   try {
    const container = player.getComponent("minecraft:inventory")?.container;
    if (!container) return;

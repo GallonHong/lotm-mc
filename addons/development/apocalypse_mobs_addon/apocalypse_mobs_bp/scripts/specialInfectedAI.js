@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system, EntityDamageCause } from "@minecraft/server";
 import { CONFIG, ZONE_DIFFICULTY } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
@@ -17,6 +18,7 @@ function zoneType(entity) {
  return "law";
 }
 function damage(entity, target, amount) {
+ if (isPvpExcluded(target)) return;
  const multiplier = ZONE_DIFFICULTY[zoneType(entity)]?.skillDamageMultiplier || 1;
  try { target.applyDamage(amount * multiplier, { cause: EntityDamageCause.entityAttack, damagingEntity: entity }); } catch {}
 }

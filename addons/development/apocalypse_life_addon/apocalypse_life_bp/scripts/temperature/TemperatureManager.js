@@ -1,3 +1,4 @@
+import { participant } from "../pvp/PvpLifePolicy.js";
 import { world, system, EntityComponentTypes, EquipmentSlot } from "@minecraft/server";
 import { SeasonManager, SEASONS } from "../seasons/SeasonManager.js";
 import { ArmorInsulation } from "./ArmorInsulation.js";
@@ -209,6 +210,7 @@ export class TemperatureManager {
   const currentTick = system.currentTick;
 
   for (const player of world.getAllPlayers()) {
+   if (participant(player)) continue;
    if (!player || !player.isValid()) continue;
 
    const zoneType = this.resolvePlayerZoneType(player);

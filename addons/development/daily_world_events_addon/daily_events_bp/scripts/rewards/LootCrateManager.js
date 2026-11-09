@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea } from "../pvpIsolation.js";
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { RewardManager } from "./RewardManager.js";
@@ -124,6 +125,7 @@ export class LootCrateManager {
  static interact(event) {
   const block = event.block;
   const player = event.player;
+  if (isPvpPlayer(player) || isPvpArea(block?.dimension?.id, block?.location)) return false;
   const tier = LOOT_CRATE_BLOCKS[block?.typeId];
   if (!tier || !player) return false;
   const coordinateKey = this.coordinateKey(block);

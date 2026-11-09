@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "../pvpIsolation.js";
 import { BlockPermutation, world } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { LOOT_CRATE_BLOCKS } from "./lootCratePools.js";
@@ -71,6 +72,7 @@ export class LegacyCrateBackfillManager {
   if (!this.enabled) return 0;
   let added = 0;
   for (const player of world.getAllPlayers()) {
+   if (isPvpExcluded(player)) continue;
    if (String(player.dimension?.id || "").replace("minecraft:", "") !== "overworld") continue;
    const centerX = Math.floor(Number(player.location.x) / 16);
    const centerZ = Math.floor(Number(player.location.z) / 16);
@@ -130,6 +132,7 @@ export class LegacyCrateBackfillManager {
      topY = Math.floor(top.location.y);
     }
     const location = { x: job.chunkX * 16 + localX, y: topY + 1, z: job.chunkZ * 16 + localZ };
+    if (isPvpArea(dimension.id, location)) continue;
     const support = dimension.getBlock({ x: location.x, y: location.y - 1, z: location.z });
     const target = dimension.getBlock(location);
     if (!support || !target?.isAir || !NATURAL_SUPPORT.has(support.typeId)) continue;

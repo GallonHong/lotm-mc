@@ -1,3 +1,4 @@
+import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, ItemStack } from "@minecraft/server";
 import { CONFIG, MOB_PROFILES } from "./config.js";
 
@@ -25,6 +26,7 @@ function sameDimension(a, b) {
 }
 
 function give(player, typeId, amount) {
+ if (isPvpExcluded(player)) return false;
  try {
   const item = new ItemStack(typeId, Math.max(1, Math.floor(amount)));
   const inventory = player.getComponent("minecraft:inventory")?.container;
@@ -45,6 +47,7 @@ function spawn(dead, typeId, amount = 1) {
 
 export class LootManager {
  static handleMobDeath(dead) {
+  try { if (isPvpArea(dead?.dimension?.id, dead?.location)) return false; } catch { return false; }
   const profile = PROFILE_BY_TYPE.get(dead?.typeId);
   if (!profile || dead.hasTag?.("apoc_no_rewards")) return false;
   const tier = Math.max(1, Number(profile.tier || 1));
@@ -90,6 +93,7 @@ export class LootManager {
  }
 
  static addNode(player, type = "tools", respawnMinutes = CONFIG.defaultLootRespawnMinutes) {
+  if (isPvpExcluded(player)) return false;
   const view = player.getViewDirection();
   let x = Math.floor(player.location.x + view.x * 2.5);
   let y = Math.floor(player.location.y);
@@ -127,6 +131,7 @@ export class LootManager {
  }
 
  static interact(player, block) {
+  if (isPvpExcluded(player)) return false;
   if (block.typeId !== "apoc:loot_crate") return false;
   const node = this.findNode(player.dimension.id, block.location);
   if (!node) {

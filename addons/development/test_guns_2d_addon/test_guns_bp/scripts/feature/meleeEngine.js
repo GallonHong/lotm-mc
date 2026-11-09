@@ -1,3 +1,4 @@
+import { pvpCanAttack, isPvpParticipant } from './utils/pvpRules.js';
 import { world, system, EntityDamageCause } from '@minecraft/server';
 import { isProtectedTeammate } from './utils/teamRules.js';
 import { ArmorEngine } from './armorEngine.js';
@@ -24,7 +25,9 @@ export class MeleeEngine {
     try {
      const entity = world.getEntity(entId);
      if (entity && entity.isValid()) {
-      entity.applyDamage(2.0, { cause: EntityDamageCause.magic });
+      const attacker = info.attackerId ? world.getEntity(info.attackerId) : null;
+      if (isProtectedTeammate(attacker, entity)) { this.bleedingTargets.delete(entId); continue; }
+      entity.applyDamage(2.0, { cause: EntityDamageCause.magic, damagingEntity: attacker || undefined });
       entity.dimension.spawnParticle('minecraft:critical_hit_emitter', entity.location);
      } else {
       this.bleedingTargets.delete(entId);
@@ -131,7 +134,7 @@ export class MeleeEngine {
    player.dimension.spawnParticle('minecraft:sweep_attack', sweepLoc);
 
    if (applyBleed && primaryTarget && primaryTarget.isValid()) {
-    this.bleedingTargets.set(primaryTarget.id, { ticks: 60 });
+    this.bleedingTargets.set(primaryTarget.id, { attackerId: player.id, ticks: 60 });
    }
 
    const nearby = player.dimension.getEntities({
@@ -155,7 +158,7 @@ export class MeleeEngine {
        ent.applyDamage(sweepDmg * 0.85, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
        ent.dimension.spawnParticle('minecraft:critical_hit_emitter', eLoc);
        if (applyBleed) {
-        this.bleedingTargets.set(ent.id, { ticks: 60 });
+        this.bleedingTargets.set(ent.id, { attackerId: player.id, ticks: 60 });
        }
       } catch {}
      }
@@ -172,6 +175,7 @@ export class MeleeEngine {
   * @param {ItemStack} item 
   */
  static handleSkillUse(player, item) {
+  if (!pvpCanAttack(player)) return;
   if (!player || !player.isValid() || !item) return;
 
   const typeId = item.typeId;

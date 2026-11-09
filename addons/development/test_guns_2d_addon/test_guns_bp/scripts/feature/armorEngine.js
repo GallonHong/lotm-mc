@@ -1,3 +1,4 @@
+import { isProtectedTeammate } from './utils/teamRules.js';
 import { world, system, EquipmentSlot, EntityDamageCause } from '@minecraft/server';
 
 export const ARMOR_KNOCKBACK_VALUES = {
@@ -559,7 +560,7 @@ export class ArmorEngine {
 			}
 
 			// 4. 【艾斯链甲骷髅战术背心】反弹 30% 近战穿透刺伤
-			if ((cause === 'entityAttack' || cause === 'entitySwipe') && chestId.includes('armor_ala_spc') && attacker && attacker.isValid()) {
+			if ((cause === 'entityAttack' || cause === 'entitySwipe') && chestId.includes('armor_ala_spc') && attacker && attacker.isValid() && !isProtectedTeammate(player, attacker)) {
 				try {
 					const reflectDmg = Math.max(1.0, Math.round(damage * 0.30 * 10) / 10);
 					attacker.applyDamage(reflectDmg, { cause: EntityDamageCause.thorns, damagingEntity: player });

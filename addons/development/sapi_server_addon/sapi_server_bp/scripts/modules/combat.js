@@ -1,3 +1,4 @@
+import { isMatchLocked, matchDamageAllowed, matchTag, matchTeam } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { Integration } from "./integration.js";
 import { WantedManager } from "./wanted.js";
@@ -25,12 +26,13 @@ export class CombatManager {
 
  static areTeammates(left, right) {
   if (!left || !right || left.id === right.id) return false;
+  if (isMatchLocked(left) || isMatchLocked(right)) return !!matchTag(left) && matchTag(left) === matchTag(right) && !!matchTeam(left) && matchTeam(left) === matchTeam(right);
   const tag = teamTag(left);
   return !!tag && tag === teamTag(right);
  }
 
  static recordProtectedAttack(attacker, victim) {
-  if (!attacker || !victim) return;
+  if (!attacker || !victim || isMatchLocked(attacker) || isMatchLocked(victim)) return;
   const zoneA = Integration.resolveCurrentZone(attacker.dimension.id, attacker.location);
   const zoneV = Integration.resolveCurrentZone(victim.dimension.id, victim.location);
   const protectedType = zoneA.type === "safe" || zoneV.type === "safe" ? "safe"
@@ -50,6 +52,10 @@ export class CombatManager {
    const victim = event.hurtEntity;
    const attacker = attackingPlayer(event.damageSource);
    if (victim?.typeId !== "minecraft:player" || !attacker) return;
+   if (isMatchLocked(attacker) || isMatchLocked(victim)) {
+    if (!matchDamageAllowed(attacker, victim)) event.cancel = true;
+    return;
+   }
    if (this.areTeammates(attacker, victim)) {
     event.cancel = true;
     return;
@@ -63,6 +69,8 @@ export class CombatManager {
    const victim = event.hurtEntity;
    const attacker = attackingPlayer(event.damageSource);
    if (victim?.typeId !== "minecraft:player" || !attacker) return;
+   // Match sources filter before damage. Do not run social/wanted healing here.
+   if (isMatchLocked(attacker) || isMatchLocked(victim)) return;
    if (this.areTeammates(attacker, victim)) {
     system.run(() => {
      try {
@@ -82,6 +90,7 @@ export class CombatManager {
  }
 
  static onPlayerDeath(player) {
+  if (isMatchLocked(player)) { this.lastCriminalHit.delete(player?.id); return; }
   const hit = this.lastCriminalHit.get(player?.id);
   if (!hit || system.currentTick - Number(hit.tick) > 200) return;
   WantedManager.addPoints(hit.attackerName, 10, `${hit.type === "safe" ? "安全区" : "法制区"}击杀玩家`);

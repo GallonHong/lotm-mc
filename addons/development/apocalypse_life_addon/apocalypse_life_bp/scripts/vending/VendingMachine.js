@@ -1,3 +1,4 @@
+import { participant } from "../pvp/PvpLifePolicy.js";
 import { world, BlockPermutation, system } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
 
@@ -66,7 +67,7 @@ export class VendingMachine {
      {
       onPlayerInteract(e) {
        const player = e.player;
-       if (!player || !player.isValid()) return;
+       if (!player || !player.isValid() || participant(player)) return;
        system.run(() => {
         VendingMachine.openMainMenu(player);
        });
@@ -138,10 +139,11 @@ export class VendingMachine {
   * 解决客户端 UserBusy 延迟弹窗与界面争抢的安全调用
   */
  static showFormSafe(player, form, onSelect, retries = 5) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid() || participant(player)) return;
   system.runTimeout(() => {
-   if (!player || !player.isValid()) return;
+   if (!player || !player.isValid() || participant(player)) return;
    form.show(player).then((res) => {
+    if (participant(player)) return;
     if (res.canceled) {
      const reason = String(res.cancelationReason || "").toLowerCase();
      if ((reason.includes("userbusy") || reason.includes("user busy")) && retries > 0) {
@@ -153,7 +155,7 @@ export class VendingMachine {
     }
     // 关键点：在独立 tick 步进中触发后续界面，杜绝上一级界面关闭动画导致的点击丢失与 UserBusy
     system.runTimeout(() => {
-     if (player && player.isValid()) {
+     if (player && player.isValid() && !participant(player)) {
       onSelect(res);
      }
     }, 1);
@@ -179,6 +181,7 @@ export class VendingMachine {
   * 扣除玩家 SAPI money 金币
   */
  static deductMoney(player, amount) {
+  if (participant(player)) return false;
   try {
    const objective = world.scoreboard.getObjective("money");
    if (!objective || !player.scoreboardIdentity) return false;
@@ -195,7 +198,7 @@ export class VendingMachine {
   * 自动售货机主分类菜单
   */
  static openMainMenu(player) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid() || participant(player)) return;
 
   // 8 刻防重入去抖，彻底防止同一交互被方块组件与通用交互双重唤出
   const last = VendingMachine.lastOpenTick.get(player.id) || 0;
@@ -225,7 +228,7 @@ export class VendingMachine {
   * 打开具体商品分类菜单
   */
  static openCategoryMenu(player, categoryKey, title) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid() || participant(player)) return;
 
   const items = VENDING_ITEMS[categoryKey] || [];
   const money = VendingMachine.getMoney(player);
@@ -255,7 +258,7 @@ export class VendingMachine {
   * 购买确认与出货交付窗口
   */
  static openPurchaseConfirm(player, item, categoryKey, parentTitle) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid() || participant(player)) return;
 
   const currentMoney = VendingMachine.getMoney(player);
   const canAfford = currentMoney >= item.price;

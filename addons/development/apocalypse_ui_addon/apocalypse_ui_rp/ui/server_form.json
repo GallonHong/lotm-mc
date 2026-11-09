@@ -1198,7 +1198,7 @@
    {
     "apoc_extraction@server_form.apoc_picture_tile": {
     "$texture": "textures/ui/apocalypse/extraction",
-    "$label": "末日摸金都市",
+    "$label": "战斗玩法",
     "$slot": [
      88,
      58

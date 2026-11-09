@@ -1,3 +1,4 @@
+import { isMatchLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -169,6 +170,7 @@ export class RegionManager {
    const victim = event.hurtEntity;
    const attacker = event.damageSource?.damagingEntity;
    if (victim?.typeId !== "minecraft:player" || attacker?.typeId !== "minecraft:player") return;
+   if (isMatchLocked(victim) || isMatchLocked(attacker)) return;
    const region = this.getRegionAt(victim.dimension.id, victim.location);
    if (region?.flags?.allowPvp === false && !Utils.isAdmin(attacker)) event.cancel = true;
   });
