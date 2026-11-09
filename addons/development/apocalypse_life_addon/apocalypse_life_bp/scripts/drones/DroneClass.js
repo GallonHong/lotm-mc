@@ -649,10 +649,13 @@ export class DroneClass {
    targetY = pLoc.y + 1.8 + viewDir.y * 0.5;
    targetZ = pLoc.z + viewDir.z * 2.0;
   } else {
+   // 伴飞悬停在玩家右后侧 (右偏 1.25 格，后退 1.35 格，高 1.95 格)，避免遮挡准星视线
    const rad = (player.getRotation().y * Math.PI) / 180;
-   targetX = pLoc.x - Math.sin(rad) * 1.6;
-   targetY = pLoc.y + 2.1;
-   targetZ = pLoc.z + Math.cos(rad) * 1.6;
+   const rearDist = 1.35;
+   const rightDist = 1.25;
+   targetX = pLoc.x + Math.sin(rad) * rearDist - Math.cos(rad) * rightDist;
+   targetY = pLoc.y + 1.95;
+   targetZ = pLoc.z - Math.cos(rad) * rearDist - Math.sin(rad) * rightDist;
   }
 
   const vx = (targetX - eLoc.x) * 0.18;

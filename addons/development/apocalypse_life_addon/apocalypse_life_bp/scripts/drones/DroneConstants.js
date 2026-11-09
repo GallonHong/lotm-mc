@@ -19,7 +19,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.COMMON,
   maxDurability: 2000,
   baseHp: 60,
-  baseDamage: 5,
+  baseDamage: 7.5,
   fireIntervalTicks: 16, // 0.8s 射击一次
   autoRevive: false,
   skills: []
@@ -32,7 +32,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.RARE,
   maxDurability: 2500,
   baseHp: 75,
-  baseDamage: 5,
+  baseDamage: 7.5,
   fireIntervalTicks: 16,
   autoRevive: false,
   skills: [
@@ -54,7 +54,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.EPIC,
   maxDurability: 3500,
   baseHp: 95,
-  baseDamage: 8,
+  baseDamage: 12,
   fireIntervalTicks: 15,
   autoRevive: true,
   skills: [
@@ -83,7 +83,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.RARE,
   maxDurability: 2500,
   baseHp: 80,
-  baseDamage: 7,
+  baseDamage: 10.5,
   fireIntervalTicks: 10, // 0.5s 高速扫射
   autoRevive: false,
   skills: [
@@ -106,7 +106,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.RARE,
   maxDurability: 2500,
   baseHp: 75,
-  baseDamage: 5,
+  baseDamage: 7.5,
   fireIntervalTicks: 10,
   autoRevive: false,
   skills: [
@@ -128,7 +128,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.EPIC,
   maxDurability: 3500,
   baseHp: 110,
-  baseDamage: 8,
+  baseDamage: 12,
   pellets: 3, // 3*8 霰弹
   fireIntervalTicks: 25,
   autoRevive: true,
@@ -160,7 +160,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.LEGENDARY,
   maxDurability: 5000,
   baseHp: 150,
-  baseDamage: 9,
+  baseDamage: 13.5,
   fireIntervalTicks: 8, // 极速射击
   fireType: "incendiary", // 灼烧子弹 (不破坏/不点燃方块)
   autoRevive: true,
@@ -199,7 +199,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.RARE,
   maxDurability: 2500,
   baseHp: 70,
-  baseDamage: 7,
+  baseDamage: 10.5,
   fireIntervalTicks: 16,
   autoRevive: false,
   skills: [
@@ -222,7 +222,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.EPIC,
   maxDurability: 3500,
   baseHp: 95,
-  baseDamage: 8,
+  baseDamage: 12,
   fireIntervalTicks: 16,
   autoRevive: true,
   skills: [
@@ -252,7 +252,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.COMMON,
   maxDurability: 2000,
   baseHp: 80,
-  baseDamage: 5,
+  baseDamage: 7.5,
   fireIntervalTicks: 16,
   autoRevive: false,
   skills: [
@@ -272,7 +272,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.EPIC,
   maxDurability: 3500,
   baseHp: 90,
-  baseDamage: 6,
+  baseDamage: 9,
   fireIntervalTicks: 16,
   autoRevive: true,
   skills: [
@@ -301,7 +301,7 @@ export const DRONE_REGISTRY = {
   tier: DRONE_TIERS.LEGENDARY,
   maxDurability: 5000,
   baseHp: 150,
-  baseDamage: 8,
+  baseDamage: 12,
   fireIntervalTicks: 15,
   autoRevive: true,
   skills: [

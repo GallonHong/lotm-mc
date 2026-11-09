@@ -139,12 +139,15 @@ export class DroneGarageManager {
   hangar.currentDrone = droneId;
   this.saveHangarData(player, hangar);
 
-  // 在玩家肩膀后上方生成实体
+  // 在玩家右后方伴飞位置生成实体
   const pLoc = player.location;
+  const rad = (player.getRotation().y * Math.PI) / 180;
+  const rearDist = 1.35;
+  const rightDist = 1.25;
   const spawnLoc = {
-   x: pLoc.x - Math.sin((player.getRotation().y * Math.PI) / 180) * 1.5,
-   y: pLoc.y + 2.2,
-   z: pLoc.z + Math.cos((player.getRotation().y * Math.PI) / 180) * 1.5
+   x: pLoc.x + Math.sin(rad) * rearDist - Math.cos(rad) * rightDist,
+   y: pLoc.y + 1.95,
+   z: pLoc.z - Math.cos(rad) * rearDist - Math.sin(rad) * rightDist
   };
 
   try {
