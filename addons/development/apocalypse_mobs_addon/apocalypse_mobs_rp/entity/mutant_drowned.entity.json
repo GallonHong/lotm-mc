@@ -1,35 +1,42 @@
 {
- "format_version": "1.8.0",
- "minecraft:client_entity": {
-  "description": {
-   "identifier": "apoc_boss:mutant_drowned",
-   "materials": {
-    "default": "entity_alphatest"
-   },
-   "textures": {
-    "default": "textures/entity/zombie/drowned"
-   },
-   "geometry": {
-    "default": "geometry.mdrowned"
-   },
-   "animations": {
-    "idle": "animation.mzombie.general",
-    "walk": "animation.mzombie.move",
-    "attack": "animation.mzombie.attack_bare_hand",
-    "look_at_target": "animation.mzombie.look_at_target"
-   },
-   "animation_controllers": [
-    {
-     "move": "controller.animation.jumpable_mzombie.walking"
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:mutant_drowned",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/zombie/drowned"
+      },
+      "geometry": {
+        "default": "geometry.mdrowned"
+      },
+      "animations": {
+        "idle": "animation.mzombie.general",
+        "walk": "animation.mzombie.move",
+        "attack": "animation.mzombie.attack",
+        "look_at_target": "animation.mzombie.look_at_target"
+      },
+      "render_controllers": [
+        "controller.render.apoc.default"
+      ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "texture": "egg_mutant_drowned"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "walk": "query.modified_move_speed > 0.01"
+          },
+          {
+            "attack": "query.is_swinging_arm"
+          },
+          "look_at_target"
+        ]
+      }
     }
-   ],
-   "render_controllers": [
-    "controller.render.default"
-   ],
-   "enable_attachables": true,
-   "spawn_egg": {
-    "texture": "egg_mutant_drowned"
-   }
   }
- }
 }

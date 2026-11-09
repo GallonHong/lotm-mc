@@ -199,11 +199,6 @@ export class LootManager {
 			player.sendMessage(`§6[事件奖励] +${value} 金币`);
 			return true;
 		} catch {}
-		return false;
-	}
-  } catch {}
-  give(player, "minecraft:emerald", Math.max(1, Math.floor(amount / 25)));
-  player.sendMessage("§a[事件奖励] 未检测到 SAPI 经济，已改发绿宝石物资。");
   return false;
  }
 }
