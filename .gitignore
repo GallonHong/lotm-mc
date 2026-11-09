@@ -12,6 +12,7 @@ __pycache__/
 # Build output (keep packaged mcaddons or ignore large temp builds)
 *.ps1
 *.mcworld
+*.jar
 deploy_*.js
 dark_fantasy_visuals_rp/
 Actual Guns 1/
