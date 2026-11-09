@@ -19,6 +19,15 @@
     },
     "egg_mutant_iron_golem": {
       "textures": "textures/items/spawn_eggs/spawn_miron_golem"
+    },
+    "apoc_mobs_mutant_zombie_spawn_egg": {
+      "textures": "textures/items/apoc/mutant_zombie_spawn_egg"
+    },
+    "apoc_mobs_mutant_drowned_spawn_egg": {
+      "textures": "textures/items/apoc/mutant_drowned_spawn_egg"
+    },
+    "apoc_mobs_mutant_enderman_spawn_egg": {
+      "textures": "textures/items/apoc/mutant_enderman_spawn_egg"
     }
   }
 }

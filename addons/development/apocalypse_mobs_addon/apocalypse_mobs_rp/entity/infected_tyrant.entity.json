@@ -7,17 +7,10 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "appearance_0": "textures/entity/ranzie/tyrant",
-        "appearance_1": "textures/entity/ranzie/tyrant",
-        "appearance_2": "textures/entity/ranzie/tyrant",
-        "appearance_3": "textures/entity/ranzie/tyrant",
-        "appearance_4": "textures/entity/ranzie/tyrant",
-        "appearance_5": "textures/entity/ranzie/tyrant",
-        "appearance_6": "textures/entity/deadzone_variants/infected_3",
-        "appearance_7": "textures/entity/deadzone_variants/infected_6"
+        "default": "textures/entity/apoc_original/infected_tyrant"
       },
       "geometry": {
-        "default": "geometry.apoc.infected"
+        "default": "geometry.apoc.original_tyrant"
       },
       "animations": {
         "base": "animation.humanoid.base_pose",
@@ -34,7 +27,7 @@
         ]
       },
       "render_controllers": [
-        "controller.render.apoc.infected_variants"
+        "controller.render.apoc.default"
       ],
       "enable_attachables": true,
       "spawn_egg": {

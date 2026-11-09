@@ -8,7 +8,7 @@ rp_dir = os.path.join(addon_dir, 'apocalypse_mobs_rp')
 bp_pack = os.path.join(addon_dir, 'Apocalypse_Mobs_BP.mcpack')
 rp_pack = os.path.join(addon_dir, 'Apocalypse_Mobs_RP.mcpack')
 addon = os.path.join(addon_dir, 'Apocalypse_Mobs_Addon.mcaddon')
-v_addon = os.path.join(addon_dir, 'Apocalypse_Mobs_Addon_v0.6.0.mcaddon')
+v_addon = os.path.join(addon_dir, 'Apocalypse_Mobs_Addon_v0.7.3.mcaddon')
 
 def zip_folder(folder_path, output_path):
     with zipfile.ZipFile(output_path, 'w', zipfile.ZIP_DEFLATED) as zipf:

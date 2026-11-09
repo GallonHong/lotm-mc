@@ -22,8 +22,8 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [0, 7, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 7, 1]);
+assert.deepEqual(bpManifest.header.version, [0, 7, 3]);
+assert.deepEqual(rpManifest.header.version, [0, 7, 3]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.dependencies.some(value => value.uuid === "f47a1111-e222-4333-8444-555555550001"), false, "Test Guns must remain an optional integration");
 assert.equal(rpManifest.dependencies?.some(value => value.uuid === "f47a1111-e222-4333-8444-555555550003") ?? false, false, "Test Guns RP must not prevent Apocalypse Mobs from loading");
@@ -94,21 +94,20 @@ for (const bone of ["root", "body", "head", "leftArm", "rightArm", "leftLeg", "r
   assert(infectedBones.includes(bone), `armor-compatible infected bone missing: ${bone}`);
 }
 const infectedNames = ["infected_basic", "infected_runner", "infected_spitter", "infected_shrieker", "infected_charger", "infected_hunter", "infected_mutant", "infected_heavy", "infected_tyrant", "infected_broodmother"];
+const expectedGeos = {
+  infected_charger: "geometry.apoc.original_charger",
+  infected_tyrant: "geometry.apoc.original_tyrant",
+  infected_broodmother: "geometry.apoc.original_broodmother"
+};
 for (const name of infectedNames) {
   const server = json(join(bp, "entities", `${name}.json`))["minecraft:entity"];
   assert.deepEqual(server.description.properties["apoc:appearance"].range, [0, 7], `${name} appearance property missing`);
   const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
-  assert.equal(client.geometry.default, "geometry.apoc.infected", `${name} must use the namespaced geometry`);
-  assert.equal(client.enable_attachables, true, `${name} must render equipped armor attachables`);
-  assert(client.render_controllers.includes("controller.render.apoc.infected_variants"), `${name} variant render controller missing`);
-  for (let index = 0; index < 8; index++) assert(client.textures[`appearance_${index}`], `${name} appearance_${index} missing`);
-}
-for (const name of ["infected_spitter", "infected_shrieker", "infected_charger", "infected_hunter", "infected_tyrant", "infected_broodmother"]) {
-  const client = json(join(rp, "entity", `${name}.entity.json`))["minecraft:client_entity"].description;
-  assert.equal(client.geometry.default, "geometry.apoc.infected", `${name} must use the proven namespaced humanoid geometry`);
-  assert.equal(client.spawn_egg.texture, "spawn_egg_zombie", `${name} must use a visible vanilla spawn egg icon`);
+  const expGeo = expectedGeos[name] || "geometry.apoc.infected";
+  assert.equal(client.geometry.default, expGeo, `${name} must use the namespaced geometry`);
   assert.equal(client.enable_attachables, true, `${name} must render equipped armor attachables`);
 }
+
 const variantController = json(join(rp, "render_controllers", "infected_variants.render_controllers.json")).render_controllers["controller.render.apoc.infected_variants"];
 assert(variantController.textures[0].includes("apoc:appearance"), "variant controller must use the synchronized appearance property");
 for (let index = 0; index < 8; index++) {

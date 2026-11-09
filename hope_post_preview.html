@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>希望报 HOPE POST - 新版四宫格设计预览</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    body {
+      background-color: #1a1815;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .preview-tip {
+      color: #9c8b78;
+      font-size: 13px;
+      margin-bottom: 12px;
+      letter-spacing: 0.5px;
+    }
+
+    /* 报纸外框 */
+    .newspaper-window {
+      width: 760px;
+      background: #eee5cf;
+      border: 8px solid #4a4136;
+      border-radius: 4px;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.7), inset 0 0 50px rgba(100, 80, 60, 0.25);
+      color: #2b251e;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* 顶部报头 */
+    .header-banner {
+      background: #342c23;
+      color: #dfba52;
+      padding: 12px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 3px double #73604d;
+    }
+    .header-banner .title {
+      font-size: 21px;
+      font-weight: 900;
+      letter-spacing: 2px;
+    }
+    .header-banner .issue-meta {
+      font-size: 13px;
+      color: #b2a28d;
+    }
+
+    /* 头条寄语 + 原今日生存提示直接展示于废土标语下方 */
+    .hero-strip {
+      background: #dfd2b5;
+      padding: 12px 20px;
+      border-bottom: 2px solid #a39279;
+    }
+    .slogan-box {
+      font-size: 14px;
+      color: #554432;
+      font-style: italic;
+      margin-bottom: 8px;
+    }
+    .survival-broadcast {
+      background: #e3d2ab;
+      border-left: 4px solid #b35924;
+      padding: 8px 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      color: #3b2816;
+      border-radius: 0 2px 2px 0;
+    }
+    .survival-broadcast strong {
+      color: #9c400d;
+    }
+
+    /* 四宫格核心布局 */
+    .newspaper-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 14px;
+      padding: 16px 20px;
+      background: #f4edd9;
+    }
+
+    /* 单个板块卡片 */
+    .grid-card {
+      background: #e8ddbd;
+      border: 1px solid #baa889;
+      border-radius: 3px;
+      padding: 12px 14px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      box-shadow: inset 0 0 10px rgba(0,0,0,0.03);
+    }
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid #8e7c63;
+      padding-bottom: 5px;
+      margin-bottom: 8px;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: bold;
+      color: #2b2218;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .card-tag {
+      font-size: 11px;
+      padding: 2px 6px;
+      background: #665442;
+      color: #f7eed8;
+      border-radius: 2px;
+    }
+
+    /* [左上] 今日新闻 */
+    .news-content {
+      font-size: 13px;
+      line-height: 1.6;
+      color: #3e3328;
+    }
+    .news-headline {
+      font-weight: bold;
+      font-size: 14px;
+      margin-bottom: 4px;
+      color: #8c2e1f;
+    }
+
+    /* [左下] 投稿与读者广场 */
+    .submission-list {
+      flex: 1;
+      font-size: 12px;
+      color: #4f4233;
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+    .submission-item {
+      padding: 4px 0;
+      border-bottom: 1px dashed #bfb195;
+    }
+    .submit-btn {
+      background: #b55c27;
+      color: #fff;
+      border: 1px solid #783812;
+      padding: 8px 12px;
+      text-align: center;
+      font-size: 13px;
+      font-weight: bold;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-radius: 2px;
+    }
+    .submit-btn:hover {
+      background: #c96b32;
+    }
+
+    /* [右上] 广告与卡池宣传 */
+    .ad-card {
+      background: #dfd0ad;
+      border: 2px dashed #934c2b;
+    }
+    .ad-badge {
+      background: #a33822;
+      color: #fff;
+    }
+    .ad-banner {
+      background: #2a241f;
+      color: #eed69b;
+      padding: 10px 12px;
+      border-radius: 2px;
+      margin-bottom: 8px;
+      text-align: center;
+    }
+    .ad-banner h4 {
+      font-size: 15px;
+      color: #f2ba42;
+      margin-bottom: 4px;
+    }
+    .ad-banner p {
+      font-size: 11px;
+      color: #bfb2a0;
+      line-height: 1.4;
+    }
+    .ad-btn {
+      background: #44683f;
+      color: #fff;
+      border: 1px solid #243e20;
+      padding: 7px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .ad-btn:hover {
+      background: #527d4c;
+    }
+
+    /* [右下] 题目奖励 / 真假情报 */
+    .quiz-question {
+      font-size: 13px;
+      font-weight: bold;
+      color: #2e261d;
+      margin-bottom: 8px;
+      line-height: 1.5;
+    }
+    .quiz-reward-badge {
+      display: inline-block;
+      font-size: 11px;
+      background: #c8952a;
+      color: #2b1f07;
+      padding: 2px 7px;
+      font-weight: bold;
+      border-radius: 2px;
+      margin-bottom: 10px;
+    }
+    .quiz-btn {
+      background: #465362;
+      color: #fff;
+      border: 1px solid #29323d;
+      padding: 7px;
+      font-size: 12px;
+      font-weight: bold;
+      text-align: center;
+      cursor: pointer;
+      border-radius: 2px;
+    }
+    .quiz-btn:hover {
+      background: #556578;
+    }
+
+    /* 底部收件箱说明 */
+    .footer-bar {
+      background: #383026;
+      color: #a49784;
+      font-size: 11px;
+      padding: 7px 20px;
+      display: flex;
+      justify-content: space-between;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="preview-tip">希望报 HOPE POST · 废土报纸新版界面原型</div>
+
+  <div class="newspaper-window">
+    <!-- 顶部报头 -->
+    <div class="header-banner">
+      <div class="title">📰 希望报 · HOPE POST</div>
+      <div class="issue-meta">第 1 期 · 2026-11-09 · 101商会发行部</div>
+    </div>
+
+    <!-- 头条寄语 + 原今日生存提示直接展示 -->
+    <div class="hero-strip">
+      <div class="slogan-box">“在废土上，消息有时比子弹更早救人。”</div>
+      <div class="survival-broadcast">
+        <strong>【编辑部今日生存提示】</strong>：当前辐射云层过境，夜晚感染者感知范围提高30%，请随身备好燃烧瓶与足量弹药；野外遭遇高阶无人机侦察时，切勿在开阔桥梁停留。
+      </div>
+    </div>
+
+    <!-- 四宫格主内容区 -->
+    <div class="newspaper-grid">
+      
+      <!-- 【左上：今日新闻】 -->
+      <div class="grid-card">
+        <div class="card-header">
+          <div class="card-title">📌 废土要闻</div>
+          <span class="card-tag">今日焦点</span>
+        </div>
+        <div class="news-content">
+          <div class="news-headline">南希市军事演习通道正式开放！</div>
+          <p>贸易联盟防卫部宣布即日起恢复演习配给，参演幸存者可自备武器装备，演习期间<b>枪械耐久由防务部全免维护</b>，每日据点占领积分达标即可申领专属补给配件。</p>
+        </div>
+      </div>
+
+      <!-- 【右上：广告（对应卡池/典藏军需宣传）】 -->
+      <div class="grid-card ad-card">
+        <div class="card-header">
+          <div class="card-title">📢 商会特供赞助</div>
+          <span class="card-tag ad-badge">商业推广</span>
+        </div>
+        <div class="ad-banner">
+          <h4>【典藏军需】战术蜂群与武器补给</h4>
+          <p>「极光天灾」战术母机 & HK MP7 暴走狂潮设计图限时概率 UP！</p>
+        </div>
+        <button class="ad-btn" onclick="alert('即将跳转军备抽奖终端 (scriptevent sapi:lottery)')">前往典藏军需抽奖 ➜</button>
+      </div>
+
+      <!-- 【左下：市民动态 + 投稿入口】 -->
+      <div class="grid-card">
+        <div class="card-header">
+          <div class="card-title">🗣️ 市民广场</div>
+          <span class="card-tag">幸存者留言</span>
+        </div>
+        <div class="submission-list">
+          <div class="submission-item"><b>【营地招募】</b> 黎明防线营地招募巡逻队员，出勤享子弹补贴！</div>
+          <div class="submission-item"><b>【遗失启事】</b> 昨夜在秋日森林遗失一把带消音器的复合弓，重酬！</div>
+        </div>
+        <!-- 保留投稿入口 -->
+        <button class="submit-btn" onclick="alert('打开投稿窗口：登刊费 10,000 金币，次日刊登')">
+          <span>我要登刊 (次日见报)</span>
+          <span>费用: 10,000 金币</span>
+        </button>
+      </div>
+
+      <!-- 【右下：题目奖励（真假情报有奖问答）】 -->
+      <div class="grid-card">
+        <div class="card-header">
+          <div class="card-title">🎯 每日真假情报</div>
+          <span class="card-tag">有奖互动</span>
+        </div>
+        <div class="quiz-question">
+          今日课题：“在暴风雨天气下，普通感染者的移速与警觉半径会因湿度大幅降低？”
+        </div>
+        <div class="quiz-reward-badge">💰 答对即领 1,000 金币</div>
+        <button class="quiz-btn" onclick="alert('进入每日问答界面：判断正确立即获得 1,000 金币！')">立刻参与作答 ➜</button>
+      </div>
+
+    </div>
+
+    <!-- 底部状态条 -->
+    <div class="footer-bar">
+      <span>报社营业执照：NO.101-POST-001</span>
+      <span>每日早晨 03:00 准时换版投递至庄园信箱</span>
+    </div>
+  </div>
+
+</body>
+</html>

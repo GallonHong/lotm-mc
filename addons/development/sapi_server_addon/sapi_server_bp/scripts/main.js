@@ -274,7 +274,10 @@ if (scriptEvents?.subscribe) {
   else if (["system:shop", "gui:shop", "shop:open"].includes(id)) ShopManager.openShopCategoryUI(player);
   else if (id === "sapi:shop") ShopManager.openCategoryById(player, message || "all");
   else if (["system:land", "gui:land", "land:open"].includes(id)) LandManager.openPlotMainUI(player);
-  else if (["system:lottery", "gui:lottery", "lottery:open"].includes(id)) LotteryManager.openLotteryMainUI(player);
+  else if (["system:lottery", "gui:lottery", "lottery:open", "sapi:lottery"].includes(id)) {
+    if (message === "admin") LotteryManager.openAdminPoolManager(player);
+    else LotteryManager.openLotteryMainUI(player);
+   }
   else if (["system:market", "gui:market", "market:open"].includes(id)) MarketManager.openMainUI(player);
   else if (["system:bank", "gui:bank", "bank:open"].includes(id)) EconomyManager.openBankUI(player);
   else if (["system:warp", "gui:warp", "warp:open"].includes(id)) TeleportManager.openWarpMenu(player);

@@ -7,23 +7,24 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/zombie/drowned"
+        "default": "textures/entity/apoc/mutant_drowned"
       },
       "geometry": {
-        "default": "geometry.mdrowned"
+        "default": "geometry.apoc.mobs.mutant_drowned"
       },
       "animations": {
-        "idle": "animation.mzombie.general",
-        "walk": "animation.mzombie.move",
-        "attack": "animation.mzombie.attack",
-        "look_at_target": "animation.mzombie.look_at_target"
+        "idle": "animation.apoc.mobs.mutant_drowned.idle",
+        "walk": "animation.apoc.mobs.mutant_drowned.walk",
+        "attack": "animation.apoc.mobs.mutant_drowned.attack",
+        "look_at_target": "animation.apoc.mobs.mutant_drowned.look_at_target"
       },
       "render_controllers": [
-        "controller.render.apoc.default"
+        "controller.render.apoc.mobs.mutant_drowned"
       ],
       "enable_attachables": true,
       "spawn_egg": {
-        "texture": "egg_mutant_drowned"
+        "texture": "apoc_mobs_mutant_drowned_spawn_egg",
+        "texture_index": 0
       },
       "scripts": {
         "animate": [
