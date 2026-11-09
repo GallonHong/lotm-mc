@@ -40,6 +40,10 @@ export class DroneClass {
   this.activeDrones.set(player.id, {
    player,
    entity,
+   entityId: entity.id,
+   lastKnownLocation: { ...entity.location },
+   lastKnownDimension: entity.dimension,
+   crashHandled: false,
    droneId,
    config,
    durability: hangarEntry.durability,
@@ -366,41 +370,59 @@ export class DroneClass {
    this.updateAllDrones();
   }, 1);
 
-  // 无人机受伤监听：累计受创折算耐久，HP归零触发坠机殉爆
-  if (world.afterEvents?.entityHurt) {
-   world.afterEvents.entityHurt.subscribe((event) => {
-    const hurtEntity = event.hurtEntity;
-    if (!hurtEntity || !hurtEntity.isValid()) return;
+  // Native death must be observed separately: a lethal entityHurt can expose an
+  // already-invalid entity, and damage sensors must not swallow the fatal hit.
+  world.afterEvents.entityHurt.subscribe(event => this.handleDroneHurt(event));
+  world.afterEvents.entityDie.subscribe(event => this.handleDroneDeath(event));
+ }
 
-    // 检查是否为玩家出战的无人机
-    for (const [ownerId, drone] of this.activeDrones) {
-     if (drone.entity && drone.entity.id === hurtEntity.id) {
-      const dmg = Number(event.damage || 0);
-      drone.accumulatedDamage += dmg;
+ static findDroneByEntity(entity) {
+  let id;
+  try { id = entity?.id; } catch { return null; }
+  if (!id) return null;
+  for (const [ownerId, drone] of this.activeDrones) {
+   if ((drone.entityId || drone.entity?.id) === id) return { ownerId, drone };
+  }
+  return null;
+ }
 
-      // 累计每受到 30 点伤害，扣除 1 点机身耐久
-      if (drone.accumulatedDamage >= 30) {
-       const pts = Math.floor(drone.accumulatedDamage / 30);
-       drone.durability = Math.max(0, drone.durability - pts);
-       drone.accumulatedDamage %= 30;
-      }
+ static handleDroneHurt(event) {
+  const found = this.findDroneByEntity(event.hurtEntity);
+  if (!found || found.drone.crashHandled) return;
+  const { ownerId, drone } = found;
+  const damage = Number(event.damage);
+  if (Number.isFinite(damage) && damage > 0) {
+   drone.accumulatedDamage = (drone.accumulatedDamage || 0) + damage;
+   const wear = Math.floor(drone.accumulatedDamage / 30);
+   drone.durability = Math.max(0, drone.durability - wear);
+   drone.accumulatedDamage %= 30;
+  }
+  // Keep a fallback for API/event ordering differences. HP=1 is still alive.
+  try {
+   const health = event.hurtEntity.getComponent(EntityComponentTypes.Health);
+   if (health && health.currentValue <= 0) this.crashDrone(ownerId, drone);
+  } catch { /* entityDie is authoritative if the health component is gone. */ }
+ }
 
-      // 检查生命值是否归零
-      const hpComp = hurtEntity.getComponent(EntityComponentTypes.Health);
-      if (!hpComp || hpComp.currentValue <= 1) {
-       // 剧烈殉爆效果
-       try {
-        hurtEntity.dimension.spawnParticle("minecraft:huge_explosion_emitter", hurtEntity.location);
-        hurtEntity.runCommandAsync("playsound random.explode @a ~~~ 1.0 1.2");
-        hurtEntity.remove();
-       } catch {}
+ static handleDroneDeath(event) {
+  const found = this.findDroneByEntity(event.deadEntity);
+  if (found) this.crashDrone(found.ownerId, found.drone);
+ }
 
-       DroneGarageManager.onDroneCrash(ownerId, drone.droneId);
-      }
-      break;
-     }
-    }
-   });
+ static crashDrone(ownerId, drone) {
+  if (!drone || drone.crashHandled || this.activeDrones.get(ownerId) !== drone) return;
+  drone.crashHandled = true; // Gate before effects/removal: callbacks may re-enter.
+  const entity = drone.entity;
+  let location = drone.lastKnownLocation, dimension = drone.lastKnownDimension;
+  try { location = entity.location; dimension = entity.dimension; } catch {}
+  // Only visual/sound feedback, never a second damaging explosion.
+  try { dimension?.spawnParticle("minecraft:huge_explosion_emitter", location); } catch {}
+  try { dimension?.playSound("random.explode", location, { volume: 0.8, pitch: 1.2 }); } catch {}
+  try {
+   DroneGarageManager.onDroneCrash(ownerId, drone.droneId, drone);
+  } finally {
+   this.unregisterActiveDrone(ownerId);
+   try { if (entity?.isValid()) entity.remove(); } catch {}
   }
  }
 
@@ -428,6 +450,9 @@ export class DroneClass {
     }
     continue;
    }
+
+   drone.lastKnownLocation = { ...entity.location };
+   drone.lastKnownDimension = entity.dimension;
 
     // A. 手动操控 FPV 视角与全向物理飞行分支
     if (drone.manualMode) {

@@ -369,16 +369,6 @@
 							}
 						},
 						"deals_damage": "no"
-					},
-					{
-						"on_damage": {
-							"filters": {
-								"test": "has_damage",
-								"value": "fatal"
-							},
-							"event": "fatal_damage"
-						},
-						"deals_damage": "no"
 					}
 				]
 			},
@@ -430,13 +420,6 @@
 				"add": {
 					"component_groups": [
 						"death"
-					]
-				}
-			},
-			"fatal_damage": {
-				"queue_command": {
-					"command": [
-						"scriptevent makercamp_dr:drone.death"
 					]
 				}
 			},

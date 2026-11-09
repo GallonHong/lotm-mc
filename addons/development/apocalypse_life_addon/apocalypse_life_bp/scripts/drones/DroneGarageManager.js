@@ -365,7 +365,7 @@ export class DroneGarageManager {
  /**
   * 无人机在世界中坠毁爆炸处理
   */
- static onDroneCrash(ownerId, droneId) {
+ static onDroneCrash(ownerId, droneId, runtime = null) {
   const player = world.getAllPlayers().find(p => p.id === ownerId);
   if (!player || !player.isValid()) return;
 
@@ -374,7 +374,10 @@ export class DroneGarageManager {
   if (!drone) return;
 
   // 坠毁扣除 70 点耐久 (高耐久容错，绝不一次炸毁)
-  drone.durability = Math.max(0, drone.durability - 70);
+  // Charge once against live wear/fuel, not the stale deployment snapshot.
+  const durability = runtime?.durability ?? drone.durability;
+  drone.durability = Math.max(0, durability - 70);
+  if (runtime) drone.fuel = runtime.fuel;
   if (drone.durability <= 0) {
    drone.scrapped = true;
    player.sendMessage(`§c[机载网络警报] 无人机遭受致命殉爆！总耐久已归零，机体进入【永久报废】状态！`);
