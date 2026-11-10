@@ -2,12 +2,12 @@
   "format_version": 2,
   "header": {
     "name": "Apocalypse + Test Guns Pose Compatibility",
-    "description": "Player bridge for Test Guns 3.13.0 with LieGui. Place above Life and Guns. Requires in-game validation.",
+    "description": "Player bridge for Test Guns 3.15.0 and Apocalypse Life. Adds all 29 gun hold states. Place above Life and Guns. Requires in-game validation.",
     "uuid": "f9cfc46a-da35-445c-adfa-dbf345d7499a",
     "version": [
       1,
       1,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         1,
-        1
+        2
       ]
     }
   ]

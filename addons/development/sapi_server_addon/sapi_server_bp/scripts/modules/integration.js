@@ -213,6 +213,76 @@ export class Integration {
   return { type: "outlaw", name: "非法制荒原", color: "§c" };
  }
 
+ /** Conservative movement allowance around proof endpoints. Distance to every
+  * potentially relevant boundary is a lower bound, never an optimistic radius.
+  * Uses the same resolver data as segmentCrossesSafeZone. */
+ static safeMovementMargin(dimensionId, points, regions = []) {
+  const dim=normalizeDimension(dimensionId);let margin=0.5;
+  if(!Array.isArray(points)||!points.length)return 0;
+  const plane=(point,axis,value)=>{if(Number.isFinite(value))margin=Math.min(margin,Math.abs(point[axis]-value));};
+  const dynamic=readWorldArray(APOCALYPSE_ZONES_KEY);
+  const spawnWarp=readWorldArray(SAPI_WARPS_KEY).find(w=>w?.id==='spawn'||w?.isSpawn);
+  let spawn={dimension:'minecraft:overworld',x:2423.49,z:2019.55};
+  if(spawnWarp)spawn={dimension:spawnWarp.dimension,x:Number(spawnWarp.x),z:Number(spawnWarp.z)};
+  else try{const p=world.getDefaultSpawnLocation();spawn={dimension:'minecraft:overworld',x:Number(p.x),z:Number(p.z)};}catch{}
+  for(const point of points){
+   if(!['x','y','z'].every(a=>Number.isFinite(point?.[a])))return 0;
+   for(const r of regions){if(!r.min||!r.max)return 0;for(const a of ['x','y','z']){plane(point,a,r.min[a]);plane(point,a,r.max[a]);}}
+   for(const z of APOCALYPSE_PRESET_ZONES.filter(z=>normalizeDimension(z.dimension)===dim)){
+    plane(point,'x',z.minX);plane(point,'x',z.maxX);plane(point,'z',z.minZ);plane(point,'z',z.maxZ);
+   }
+   for(const z of dynamic.filter(z=>normalizeDimension(z?.dimension)===dim)){
+    if(!z?.min||!z?.max)continue;for(const a of ['x','y','z']){plane(point,a,Number(z.min[a]));plane(point,a,Number(z.max[a]));}
+   }
+   if(normalizeDimension(spawn.dimension)===dim)margin=Math.min(margin,Math.abs(Math.hypot(point.x-spawn.x,point.z-spawn.z)-APOCALYPSE_FALLBACK_SAFE_RADIUS));
+   // Only claims capable of intersecting the endpoint's half-block movement
+   // ball matter. PlotSafeZone uses floor coordinates, so max edge is +1.
+   for(let cx=Math.ceil((Math.floor(point.x-0.5)-45)/16);cx<=Math.floor((Math.floor(point.x+0.5)+30)/16);cx++){
+    for(let cz=Math.ceil((Math.floor(point.z-0.5)-45)/16);cz<=Math.floor((Math.floor(point.z+0.5)+30)/16);cz++){
+     try{const raw=world.getDynamicProperty(`plt_${dim}_${cx}_${cz}`);if(typeof raw!=='string')continue;const plot=JSON.parse(raw);
+      if(!plot?.ownerId||plot.chunkX!==cx||plot.chunkZ!==cz||normalizeDimension(plot.dimension)!==dim)continue;
+      plane(point,'x',cx*16-30);plane(point,'x',cx*16+46);plane(point,'z',cz*16-30);plane(point,'z',cz*16+46);
+     }catch{return 0;}
+    }
+   }
+  }
+  // Stay strictly inside the same boundary cell, even under float round-off.
+  return Math.max(0,margin-0.0001);
+ }
+
+ /** Exact segment safety query. Partition at every resolver boundary, including
+  * integer claim columns and spawn-circle roots; thin regions cannot be skipped. */
+ static segmentCrossesSafeZone(dimensionId, start, end) {
+  if (!['x','y','z'].every(a => Number.isFinite(start?.[a]) && Number.isFinite(end?.[a]))) return true;
+  const delta = {x:end.x-start.x,y:end.y-start.y,z:end.z-start.z};
+  if (Math.hypot(delta.x,delta.y,delta.z) > 100) return true;
+  const cuts = [0,1], add = t => { if (Number.isFinite(t) && t>0 && t<1) cuts.push(t); };
+  const plane = (axis, value) => { if (delta[axis]) add((value-start[axis])/delta[axis]); };
+  // PlotSafeZone resolves floor(x/z). Each open interval stays in one column.
+  for (const axis of ['x','z']) {
+   for(let n=Math.ceil(Math.min(start[axis],end[axis]));n<=Math.floor(Math.max(start[axis],end[axis]));n++) plane(axis,n);
+  }
+  for (const z of APOCALYPSE_PRESET_ZONES) {
+   plane('x',z.minX);plane('x',z.maxX);plane('z',z.minZ);plane('z',z.maxZ);
+  }
+  for (const z of readWorldArray(APOCALYPSE_ZONES_KEY)) {
+   if (!z?.min || !z?.max) continue;
+   for(const axis of ['x','y','z']) { plane(axis,Number(z.min[axis]));plane(axis,Number(z.max[axis])); }
+  }
+  const spawnWarp=readWorldArray(SAPI_WARPS_KEY).find(w=>w?.id==='spawn'||w?.isSpawn);
+  let spawn={dimension:'minecraft:overworld',x:2423.49,z:2019.55};
+  if(spawnWarp)spawn={dimension:spawnWarp.dimension,x:Number(spawnWarp.x),z:Number(spawnWarp.z)};
+  else try{const p=world.getDefaultSpawnLocation();spawn={dimension:'minecraft:overworld',x:Number(p.x),z:Number(p.z)};}catch{}
+  if(normalizeDimension(spawn.dimension)===normalizeDimension(dimensionId)){
+   const x=start.x-spawn.x,z=start.z-spawn.z,a=delta.x**2+delta.z**2,b=2*(x*delta.x+z*delta.z),c=x*x+z*z-APOCALYPSE_FALLBACK_SAFE_RADIUS**2;
+   const disc=b*b-4*a*c;
+   if(a>0&&disc>=0){add((-b-Math.sqrt(disc))/(2*a));add((-b+Math.sqrt(disc))/(2*a));}
+  }
+  cuts.sort((a,b)=>a-b);
+  const checks=[...cuts];for(let i=1;i<cuts.length;i++)checks.push((cuts[i-1]+cuts[i])/2);
+  return checks.some(t=>this.resolveCurrentZone(dimensionId,{x:start.x+delta.x*t,y:start.y+delta.y*t,z:start.z+delta.z*t}).type==='safe');
+ }
+
  /** 累计成交额桥接：日常 Add-on 只读取差值，不介入 SAPI 交易。 */
  static recordDailySale(playerName, amount) {
   const value = Math.max(0, Math.floor(Number(amount) || 0));

@@ -1,0 +1,19 @@
+{
+  "data/epicGuns.js": "8f5349d70254915226d3713d917db7b00d87d8ceae53aeb30e618a6eb2085bd2",
+  "data/guns.js": "dbdd052ded9b5a54d91e838b16c3113b8c3109008f940880d1d87a949579beea",
+  "data/jetpack.js": "696079632d2aa0a84b8b4e36d4fb34763d2b5338ebedd1ddadbee8949c820fda",
+  "data/pkm.js": "1b8bb5e643fb31cbe5454e451baf412edf053f91475cef3dd7608a13625d30a9",
+  "data/types.js": "f024132386702fb868e4235e81435db4c301fa21c28ef62e4d9302525e60f595",
+  "feature/armorEngine.js": "8757673593ecd7bf8c30daceac330a5bf9671baf095916f8dfa6dbe28ec692ff",
+  "feature/damageHandler.js": "168e4e14bddcafced8d63287f07c1d240414b1eb1a8857adb83e53c96f8f710b",
+  "feature/damageIndicator.js": "3dff26c9f55af9d7fb82a680c9c3654c3892106580b38719ed0426eced93a47f",
+  "feature/epicGunPassives.js": "ee5ad529c2b5a4718b83c1c62872211c3b677e7e2d25dd61957ca7884a7054f5",
+  "feature/equipmentWear.js": "670a03deeda2378a3db00ab05274fbe26bace09992cc0480bedcb37e5b15312f",
+  "feature/pkmBurn.js": "2e75bf877ca866e7f2b3c5ee779d15d42a32ee93a2abf52682f83dd802538a17",
+  "feature/utils/gunUtils.js": "460b5ea142816b3e7f2b750257bdf22838d3d396c65d6379079e93725e93c0e7",
+  "feature/utils/inventoryUtils.js": "9b63bef4659f07e6c999f2177a32437ad3f62649a6d064709aadeebbad42392d",
+  "feature/utils/mathUtils.js": "b2b679131257638872f12f0ba7a4d98a1d113d153d6623ea36cf2085edd92421",
+  "feature/utils/pvpRules.js": "cd7d7b8a1e488128e495be1b8673f63cf787fb80088eca11c2a1a06938068203",
+  "feature/utils/railRules.js": "976e81d8a3a37cf9dbebac9d00338ceaa205557dc39f8f79830313b358780cb7",
+  "feature/utils/teamRules.js": "cdd885fca9659b6d0a1195345713b7a24be8c66f1b94007512543477750ebef0"
+}
