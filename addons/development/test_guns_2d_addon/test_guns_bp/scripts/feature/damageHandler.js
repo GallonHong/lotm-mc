@@ -1,3 +1,4 @@
+import { EquipmentWear } from './equipmentWear.js';
 import { EntityDamageCause, EquipmentSlot, system } from '@minecraft/server';
 import { MathUtils } from './utils/mathUtils.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
@@ -465,9 +466,13 @@ export class DamageHandler {
 
   // 2.3 战术防暴盾牌格挡枪械子弹伤害与反弹 (Bullet Shield Blocking & Reflection)
   const mainhandItem = targetEquip?.getEquipment(EquipmentSlot.Mainhand);
-  const hasShield = (offhandItem?.typeId?.includes('shield') || mainhandItem?.typeId?.includes('shield'));
-  const isRiot = (offhandItem?.typeId?.includes('riot_shield') || mainhandItem?.typeId?.includes('riot_shield'));
-  const isFlash = (offhandItem?.typeId?.includes('flash_shield') || mainhandItem?.typeId?.includes('flash_shield'));
+  const shieldItem = offhandItem?.typeId?.includes('shield') ? offhandItem : mainhandItem?.typeId?.includes('shield') ? mainhandItem : undefined;
+  const activeShieldSlot = EquipmentWear.isShield(shieldItem) ? (shieldItem === offhandItem ? EquipmentSlot.Offhand : EquipmentSlot.Mainhand) : undefined;
+  let blockedDamage = 0;
+  let shieldResponse;
+  const hasShield = !!shieldItem;
+  const isRiot = shieldItem?.typeId === 'test_gun:riot_shield';
+  const isFlash = shieldItem?.typeId === 'test_gun:flash_shield';
 
   if (hasShield && !isPvpDowned(target)) {
    // 判定攻击方向是否在正面 (前方 200° 大扇形格挡)
@@ -488,8 +493,10 @@ export class DamageHandler {
    if (isFrontal) {
     // 潜行举盾吸收 85% 枪械伤害，常态持盾吸收 70% 枪械伤害
     const blockRate = target.isSneaking ? 0.85 : 0.70;
+    blockedDamage = currentDamage * blockRate;
     currentDamage *= (1.0 - blockRate);
 
+    shieldResponse = () => {
     // 盾牌金属跳弹火花与格挡重击音效
     try {
      target.dimension.playSound('item.shield.block', targetLoc, { volume: 1.3, pitch: 1.1 });
@@ -512,6 +519,7 @@ export class DamageHandler {
     } else if (target.typeId === 'minecraft:player') {
      target.onScreenDisplay?.setActionBar?.(`§9【G52 防暴盾】格挡子弹！吸收 ${(blockRate * 100).toFixed(0)}% 枪械伤害!§r`);
     }
+    };
    }
   }
 
@@ -634,8 +642,9 @@ export class DamageHandler {
     cause: EntityDamageCause.override,
     damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
    };
-   const applied = target.applyDamage(finalDamage, damageOptions);
-   if (gun.noHealthFallback && applied === false) return false;
+   const applied = EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage);
+   if (applied !== true) return false;
+   shieldResponse?.();
    if (kbResistance >= 1.0) {
     try {
      target.clearVelocity();
@@ -679,13 +688,8 @@ export class DamageHandler {
   }
 
   } catch {
-   if (gun.noHealthFallback) return false; // Never bypass protection by writing health.
-   try {
-    const healthComp = target.getComponent('minecraft:health');
-    if (healthComp) {
-     healthComp.setCurrentValue(Math.max(0, healthComp.currentValue - finalDamage));
-    }
-   } catch {}
+   return false; // Never bypass protection or duplicate an uncertain hit.
+
   }
 
   // 6. 命中粒子特效与音效反馈

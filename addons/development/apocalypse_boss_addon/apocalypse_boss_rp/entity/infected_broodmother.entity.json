@@ -1,0 +1,43 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc:infected_broodmother",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/apoc_diag/infected_broodmother_default"
+      },
+      "geometry": {
+        "default": "geometry.apoc_diag.infected_broodmother"
+      },
+      "animations": {
+        "idle": "animation.apoc_diag.infected_broodmother.idle",
+        "move": "animation.apoc_diag.infected_broodmother.move",
+        "look": "animation.apoc_diag.infected_broodmother.look",
+        "attack": "animation.apoc_diag.infected_broodmother.attack"
+      },
+      "scripts": {
+        "animate": [
+          "idle",
+          {
+            "move": "query.modified_move_speed > 0.01"
+          },
+          "look",
+          {
+            "attack": "variable.attack_time > 0.0"
+          }
+        ]
+      },
+      "render_controllers": [
+        "controller.render.apoc_diag.body"
+      ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "base_color": "#49345D",
+        "overlay_color": "#A72E50"
+      }
+    }
+  }
+}

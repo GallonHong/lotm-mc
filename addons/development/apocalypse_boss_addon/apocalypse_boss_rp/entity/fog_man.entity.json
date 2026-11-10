@@ -1,0 +1,41 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_boss:fog_man",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/apoc_diag/fog_man_default"
+      },
+      "geometry": {
+        "default": "geometry.apoc_diag.fog_man"
+      },
+      "animations": {
+        "run": "animation.apoc_diag.fog_man.run",
+        "stalk": "animation.apoc_diag.fog_man.stalk",
+        "climb": "animation.apoc_diag.fog_man.climb",
+        "crawl": "animation.apoc_diag.fog_man.crawl"
+      },
+      "scripts": {
+        "scale": "1.1",
+        "animate": [
+          {
+            "run": "query.modified_move_speed > 0.1"
+          },
+          {
+            "stalk": "query.modified_move_speed <= 0.1"
+          }
+        ]
+      },
+      "render_controllers": [
+        "controller.render.apoc_diag.body"
+      ],
+      "spawn_egg": {
+        "base_color": "#26292D",
+        "overlay_color": "#373949"
+      }
+    }
+  }
+}

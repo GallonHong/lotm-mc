@@ -1,3 +1,4 @@
+import { EquipmentWear } from '../equipmentWear.js';
 import { ReloadManager } from '../reload.js';
 import { SkillManager } from '../skillManager.js';
 import { RecoilManager } from '../recoilManager.js';
@@ -213,7 +214,7 @@ function processBulletRay(player, gun, dir, muzzle, maxRange) {
     const splashDmg = Math.round(25.0 * factor);
 
     try {
-     vic.applyDamage(splashDmg, {
+     EquipmentWear.apply(vic, splashDmg, {
       cause: EntityDamageCause.override,
       damagingEntity: (player && player.isValid()) ? player : undefined
      });

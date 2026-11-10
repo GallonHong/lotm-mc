@@ -1,3 +1,4 @@
+import { EquipmentWear } from './equipmentWear.js';
 import { RecoilManager } from './recoilManager.js';
 import { getMuzzle, clipSegment } from './utils/muzzleUtils.js';
 import { world, EntityDamageCause } from '@minecraft/server';
@@ -147,12 +148,12 @@ export class ArcEngine {
   const finalDmg = DamageHandler.calculateArmorReduction(damage, armor, gun.stats?.armorPenetration || 0.40);
 
   try {
-   target.applyDamage(finalDmg, {
+   EquipmentWear.apply(target, finalDmg, {
     cause: EntityDamageCause.override,
     damagingEntity: (attacker && attacker.isValid()) ? attacker : undefined
    });
   } catch {
-   try { target.applyDamage(finalDmg); } catch {}
+   // Do not retry a failed hit without its source/protection metadata.
   }
 
   try { target.setOnFire(2, true); } catch {}

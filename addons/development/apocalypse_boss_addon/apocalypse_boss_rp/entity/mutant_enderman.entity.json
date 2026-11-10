@@ -5,29 +5,29 @@
       "identifier": "apoc_boss:mutant_enderman",
       "materials": {
         "default": "entity_alphatest",
-        "eyes": "entity_emissive_alpha"
+        "eyes": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/apoc/mutant_enderman",
-        "eyes": "textures/entity/apoc/mutant_enderman_eyes"
+        "default": "textures/entity/apoc_diag/mutant_enderman_default",
+        "eyes": "textures/entity/apoc_diag/mutant_enderman_eyes"
       },
       "geometry": {
-        "default": "geometry.apoc.mobs.mutant_enderman"
+        "default": "geometry.apoc_diag.mutant_enderman"
       },
       "animations": {
-        "idle": "animation.apoc.mobs.mutant_enderman.idle",
-        "walk": "animation.apoc.mobs.mutant_enderman.walk",
-        "attack": "animation.apoc.mobs.mutant_enderman.attack",
-        "look_at_target": "animation.apoc.mobs.mutant_enderman.look_at_target"
+        "idle": "animation.apoc_diag.mutant_enderman.idle",
+        "walk": "animation.apoc_diag.mutant_enderman.walk",
+        "attack": "animation.apoc_diag.mutant_enderman.attack",
+        "look_at_target": "animation.apoc_diag.mutant_enderman.look_at_target"
       },
       "render_controllers": [
-        "controller.render.apoc.default",
-        "controller.render.apoc.mobs.eyes"
+        "controller.render.apoc_diag.body",
+        "controller.render.apoc_diag.eyes"
       ],
       "enable_attachables": true,
       "spawn_egg": {
-        "texture": "apoc_shared_boss_mutant_enderman_egg",
-        "texture_index": 0
+        "base_color": "#26292D",
+        "overlay_color": "#603E75"
       },
       "scripts": {
         "animate": [
@@ -36,7 +36,7 @@
             "walk": "query.modified_move_speed > 0.01"
           },
           {
-            "attack": "query.is_swinging_arm"
+            "attack": "variable.attack_time > 0.0"
           },
           "look_at_target"
         ]

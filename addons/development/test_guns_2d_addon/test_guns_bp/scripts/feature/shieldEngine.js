@@ -1,3 +1,4 @@
+import { EquipmentWear } from './equipmentWear.js';
 import { pvpCanAttack, isPvpParticipant, isPvpDowned } from './utils/pvpRules.js';
 import { world, system, EntityDamageCause, EquipmentSlot } from '@minecraft/server';
 import { isProtectedTeammate } from './utils/teamRules.js';
@@ -238,6 +239,14 @@ export class ShieldEngine {
    }
 
    if (!isFrontal) return;
+
+   // Only the accepted hurt event owns shield wear, covering bullets and splash.
+   // Override attacks bypass native durability; never charge armor here again.
+   if (damageSource?.cause === EntityDamageCause.override && attacker?.isValid?.() &&
+       !isProtectedTeammate(attacker, player)) {
+    const slot = EquipmentWear.shieldSlot(equ);
+    EquipmentWear.commit(player, EquipmentWear.snapshot(player, damage, slot, damage * 0.70, false));
+   }
 
    // 1. 真实恢复 70% 被格挡吸收的血量 (Instant Health Recovery of 70% absorbed damage)
    const health = player.getComponent('minecraft:health');

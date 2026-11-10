@@ -1,3 +1,4 @@
+import { EquipmentWear } from './equipmentWear.js';
 import { pvpCanAttack, isPvpParticipant, pvpMatch } from './utils/pvpRules.js';
 import { world, system, EntityDamageCause } from '@minecraft/server';
 import { ActionFormData } from '@minecraft/server-ui';
@@ -372,12 +373,12 @@ export class ArtilleryEngine {
     const finalDmg = Math.max(1.0, Math.round(subtotalDamage * (1.0 - blastRed) * 10) / 10);
 
     try {
-     ent.applyDamage(finalDmg, {
+     EquipmentWear.apply(ent, finalDmg, {
       cause: EntityDamageCause.override,
       damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
      });
     } catch {
-     try { ent.applyDamage(finalDmg); } catch {}
+     // Do not retry a failed hit without its source/protection metadata.
     }
 
     try {

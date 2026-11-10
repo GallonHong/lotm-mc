@@ -1,0 +1,91 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.apoc_diag.infected_tyrant.idle": {
+      "loop": true,
+      "bones": {
+        "body": {
+          "rotation": [
+            "math.sin(query.life_time * 70) * 1.2",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.apoc_diag.infected_tyrant.move": {
+      "loop": true,
+      "bones": {
+        "leftLeg": {
+          "rotation": [
+            "math.cos(query.modified_distance_moved * 38) * 25",
+            0,
+            0
+          ]
+        },
+        "rightLeg": {
+          "rotation": [
+            "-math.cos(query.modified_distance_moved * 38) * 25",
+            0,
+            0
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            "-math.cos(query.modified_distance_moved * 38) * 15",
+            0,
+            0
+          ]
+        },
+        "rightArm": {
+          "rotation": [
+            "math.cos(query.modified_distance_moved * 38) * 15",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.apoc_diag.infected_tyrant.look": {
+      "loop": true,
+      "bones": {
+        "head": {
+          "rotation": [
+            "query.target_x_rotation",
+            "query.target_y_rotation",
+            0
+          ]
+        }
+      }
+    },
+    "animation.apoc_diag.infected_tyrant.attack": {
+      "animation_length": 0.6,
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.2": [
+              -80,
+              0,
+              0
+            ],
+            "0.4": [
+              20,
+              0,
+              0
+            ],
+            "0.6": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

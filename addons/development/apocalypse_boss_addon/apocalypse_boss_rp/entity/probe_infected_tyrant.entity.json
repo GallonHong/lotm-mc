@@ -1,0 +1,25 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "apoc_diag:infected_tyrant",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/apoc_diag/infected_tyrant_default"
+      },
+      "geometry": {
+        "default": "geometry.apoc_diag.infected_tyrant"
+      },
+      "render_controllers": [
+        "controller.render.apoc_diag.body"
+      ],
+      "enable_attachables": true,
+      "spawn_egg": {
+        "base_color": "#282828",
+        "overlay_color": "#8A1818"
+      }
+    }
+  }
+}
