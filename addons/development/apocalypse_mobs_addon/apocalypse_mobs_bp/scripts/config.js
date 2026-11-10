@@ -36,8 +36,8 @@ export const MOB_PROFILES = Object.freeze({
  hunter: { typeId: "apoc:infected_hunter", weight: 3, tier: 2, armorEligible: true, health: { law: 60, outlaw: 80, extraction: 116 } },
  mutant: { typeId: "apoc:infected_mutant", weight: 5, tier: 3, armorEligible: true, health: { law: 100, outlaw: 132, extraction: 172 } },
  heavy: { typeId: "apoc:infected_heavy", weight: 2, tier: 4, armorEligible: true, health: { law: 200, outlaw: 260, extraction: 340 } },
- tyrant: { typeId: "apoc:infected_tyrant", weight: 0, tier: 4, armorEligible: true, health: { law: 220, outlaw: 320, extraction: 480 } },
- broodmother: { typeId: "apoc:infected_broodmother", weight: 0, tier: 5, armorEligible: true, health: { law: 500, outlaw: 652, extraction: 852 } },
+ tyrant: { typeId: "apoc:infected_tyrant", weight: 0, tier: 4, armorEligible: true, health: { law: 550, outlaw: 800, extraction: 1200 } },
+ broodmother: { typeId: "apoc:infected_broodmother", weight: 0, tier: 5, armorEligible: true, health: { law: 1250, outlaw: 1630, extraction: 2130 } },
  raider: { typeId: "apoc:raider_rifleman", weight: 0, tier: 2, armorEligible: false, health: { law: 50, outlaw: 70, extraction: 80 } },
  guard: { typeId: "apoc:shelter_guard", weight: 0, tier: 3, armorEligible: false, health: { law: 150, outlaw: 150, extraction: 150 } }
 });
