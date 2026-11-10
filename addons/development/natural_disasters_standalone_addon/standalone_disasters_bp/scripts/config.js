@@ -9,8 +9,8 @@ export const STANDALONE_CONFIG = Object.freeze({
  protectSpawn: false,
  blockDamage: false,
 
- warningSeconds: 20,
- disasterSeconds: 45,
+ warningSeconds: 0,
+ disasterSeconds: 30,
  cooldownSeconds: 120,
  emptyRegionRetryMinutes: 1,
  difficulty: 2,

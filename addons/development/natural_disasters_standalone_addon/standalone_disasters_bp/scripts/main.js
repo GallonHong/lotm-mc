@@ -4,8 +4,8 @@ import { ActionFormData } from "@minecraft/server-ui";
 import { STANDALONE_CONFIG } from "./config.js";
 
 const CFG = {
- warningSeconds: 20,
- disasterSeconds: 45,
+ warningSeconds: 0,
+ disasterSeconds: 30,
  cooldownSeconds: 12,
  maxTrackedMeteors: 18,
  maxFloodBlocks: 180,
@@ -15,7 +15,7 @@ const CFG = {
  maxSurfaceCache: 280,
 };
 
-const SETTINGS_KEY = "sando_standalone:settings:v5";
+const SETTINGS_KEY = "sando_standalone:settings:v6";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
@@ -97,7 +97,7 @@ function normalizeSettings(value) {
   extractionCityEnabled: source.extractionCityEnabled !== false,
   protectSafeZones: source.protectSafeZones !== false,
   blockDamage: source.blockDamage === true,
-  warningSeconds: Math.floor(clamp(source.warningSeconds, 5, 300, DEFAULT_SETTINGS.warningSeconds)),
+  warningSeconds: Math.floor(clamp(source.warningSeconds, 0, 300, DEFAULT_SETTINGS.warningSeconds)),
   disasterSeconds: Math.floor(clamp(source.disasterSeconds, 10, 600, DEFAULT_SETTINGS.disasterSeconds)),
   cooldownSeconds: Math.floor(clamp(source.cooldownSeconds, 10, 3600, DEFAULT_SETTINGS.cooldownSeconds)),
   difficulty: Math.floor(clamp(source.difficulty, 0, 10, DEFAULT_SETTINGS.difficulty)),
@@ -366,19 +366,8 @@ function bar(seconds, max) {
 }
 
 function hud() {
- // 冷却期保持 Action Bar 空闲，避免覆盖枪械 HUD、任务进度等其他 Addon 信息。
+ // 预警与剩余时长显示已根据需求关闭，保持 Action Bar 干净无遮挡
  if (phase !== "warning" && phase !== "active") return;
- const max = phase === "warning" ? settings.warningSeconds : settings.disasterSeconds;
- for (const p of participantsFor()) {
-  const title = phase === "active"
-   ? disaster.name
-   : `§eNEXT: ${disaster.name}`;
-  try {
-   p.onScreenDisplay.setActionBar(
-    `${title} §8| §6难度 ${disasterLevel} §8| ${bar(remaining, max)} §f${remaining}s §8| §3${dimensionLabel(activeDimensionId)}`
-   );
-  } catch (_) {}
- }
 }
 
 function centerForPlayer(p, radius = 20, minRadius = 7) {
@@ -495,7 +484,7 @@ function startDisaster() {
   safeCmd(p, "playsound ambient.weather.thunder @s ~ ~ ~ 0.8 0.8");
   try {
    p.onScreenDisplay.setTitle(disaster.name, {
-    subtitle: `§f难度 ${disasterLevel} §8| §f坚持 ${settings.disasterSeconds} 秒`,
+    subtitle: `§f难度 ${disasterLevel}`,
     fadeInDuration: 5,
     stayDuration: 35,
     fadeOutDuration: 10
@@ -580,7 +569,7 @@ function tornadoProfile(level) {
   moveSpeed: Math.min(1.9, 0.75 + level * 0.14),
   pull: Math.min(0.25, 0.08 + level * 0.022),
   swirl: Math.min(0.26, 0.07 + level * 0.027),
-  lift: Math.min(0.23, 0.065 + level * 0.022),
+  lift: Math.min(0.04, 0.012 + level * 0.003),
   destruct: level >= 3,
   blocksPerPulse: Math.min(9, 2 + Math.floor(level / 2)),
  };
@@ -644,11 +633,21 @@ function tornadoTick(dim, players) {
   const tx = -nz, tz = nx;
   const inward = d > 3.0 ? profile.pull : profile.pull * 0.35;
   const outwardBurst = d < 3.2 && activeTick % Math.max(22, 46 - disasterLevel * 3) === 0;
+
+  // 大幅削弱龙卷风让人起飞的程度：严格限制垂直升力，高度超过 2 格立即下压抑制起飞
+  const heightAboveGround = e.location.y - l.y;
+  let liftY = 0;
+  if (heightAboveGround < 1.2) {
+   liftY = outwardBurst ? 0.03 : Math.min(0.025, profile.lift);
+  } else if (heightAboveGround > 2.0) {
+   liftY = -0.04;
+  }
+
   try {
    e.applyImpulse({
-    x: outwardBurst ? nx * (0.45 + disasterLevel * 0.05) : (-nx * inward + tx * profile.swirl),
-    y: outwardBurst ? (0.20 + disasterLevel * 0.025) : profile.lift + Math.max(0, (profile.radius - d)) * 0.004,
-    z: outwardBurst ? nz * (0.45 + disasterLevel * 0.05) : (-nz * inward + tz * profile.swirl)
+    x: outwardBurst ? nx * (0.35 + disasterLevel * 0.03) : (-nx * inward + tx * profile.swirl),
+    y: liftY,
+    z: outwardBurst ? nz * (0.35 + disasterLevel * 0.03) : (-nz * inward + tz * profile.swirl)
    });
   } catch (_) {}
  }
@@ -1155,8 +1154,6 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
   cleanupWorld();
   gameStarted = true;
   bootMessageShown = true;
-  phase = "warning";
-  remaining = settings.warningSeconds;
   disaster = selected;
   disasterIndex = Math.max(0, DISASTERS.findIndex(entry => entry.id === selected.id));
   disasterLevel = Math.floor(clamp(requestedDifficulty, 0, 10, settings.difficulty));
@@ -1166,20 +1163,13 @@ function startGame(source, requestedDisasterId = "", requestedDimensionId = "", 
   setGlobalScore("DISASTER_INDEX", disasterIndex);
   setGlobalScore("WORLD_LEVEL", disasterLevel);
   nextAutoTick = Number.POSITIVE_INFINITY;
-  publishState();
 
-  const targetLabel = activeAutoRegion?.name || (manualCenter ? `管理员坐标 ${Math.floor(manualCenter.x)}, ${Math.floor(manualCenter.y)}, ${Math.floor(manualCenter.z)}` : activeDimensionId);
-  try { world.sendMessage(`§c§l[自然灾害预警] §r§f${disaster.name} §f将在 ${remaining} 秒后袭击 ${targetLabel}！`); } catch (_) {}
-  for (const p of participantsFor(targetDimensionId)) {
-   try {
-    p.onScreenDisplay.setTitle("§c§lNATURAL DISASTERS", {
-     subtitle: `§f${remaining} 秒后开始 §8| §e难度 ${disasterLevel}`,
-     fadeInDuration: 3,
-     stayDuration: 40,
-     fadeOutDuration: 7
-    });
-    safeCmd(p, "playsound random.levelup @s ~ ~ ~ 1 0.8");
-   } catch (_) {}
+  if (settings.warningSeconds > 0) {
+   phase = "warning";
+   remaining = settings.warningSeconds;
+   publishState();
+  } else {
+   startDisaster();
   }
  } catch (error) {
   console.error(`[NaturalDisasters] start failed: ${error?.stack || error}`);
