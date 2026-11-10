@@ -1,0 +1,101 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.tg_melee.roll": {
+      "animation_length": 0.4,
+      "bones": {
+        "root": {
+          "rotation": [
+            "math.clamp(q.anim_time / 0.4, 0, 1) * 360",
+            0,
+            0
+          ],
+          "position": [
+            0,
+            "12 * (1 - math.cos(math.clamp(q.anim_time / 0.4, 0, 1) * 360))",
+            "12 * math.sin(math.clamp(q.anim_time / 0.4, 0, 1) * 360)"
+          ]
+        }
+      }
+    },
+    "animation.tg_melee.guard": {
+      "animation_length": 0.45,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            0,
+            0,
+            12
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            -55,
+            15,
+            -20
+          ]
+        }
+      }
+    },
+    "animation.tg_melee.parry": {
+      "animation_length": 0.3,
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              12
+            ],
+            ".1": [
+              0,
+              0,
+              24
+            ],
+            ".3": [
+              0,
+              0,
+              12
+            ]
+          }
+        }
+      }
+    },
+    "animation.tg_melee.stagger": {
+      "animation_length": 0.6,
+      "bones": {
+        "body": {
+          "rotation": {
+            "0": [
+              0,
+              0,
+              0
+            ],
+            ".12": [
+              -14,
+              0,
+              0
+            ],
+            ".45": [
+              -10,
+              0,
+              0
+            ],
+            ".6": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "head": {
+          "rotation": [
+            -10,
+            0,
+            0
+          ]
+        }
+      }
+    }
+  }
+}

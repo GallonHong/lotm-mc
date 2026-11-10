@@ -1,0 +1,44 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "test_gun:salvage_cleaver",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/survival_melee/salvage_cleaver"
+      },
+      "geometry": {
+        "default": "geometry.survival_melee.salvage_cleaver"
+      },
+      "animations": {
+        "hold_fp": "animation.survival_melee.salvage_cleaver.hold_fp",
+        "hold_tp": "animation.survival_melee.salvage_cleaver.hold_tp",
+        "idle": "animation.survival_melee.salvage_cleaver.idle",
+        "strike": "animation.survival_melee.salvage_cleaver.strike",
+        "heavy": "animation.survival_melee.salvage_cleaver.heavy",
+        "action": "controller.animation.survival_melee.salvage_cleaver"
+      },
+      "scripts": {
+        "pre_animation": [
+          "v.sm_using = c.owning_entity -> q.is_using_item;",
+          "v.sm_sneaking = c.owning_entity -> q.is_sneaking;",
+          "v.sm_roll_hidden = c.is_first_person && ((c.owning_entity -> v.tg_melee_roll_until) ?? 0) > (c.owning_entity -> q.life_time);"
+        ],
+        "animate": [
+          {
+            "hold_fp": "c.is_first_person"
+          },
+          {
+            "hold_tp": "!c.is_first_person"
+          },
+          "action"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.survival_melee"
+      ]
+    }
+  }
+}

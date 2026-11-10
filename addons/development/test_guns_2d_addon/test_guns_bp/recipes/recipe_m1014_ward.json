@@ -23,7 +23,7 @@
         "item": "minecraft:gold_ingot"
       },
       "R": {
-        "item": "test_gun:part_receiver"
+        "item": "test_gun:m1014"
       },
       "M": {
         "item": "test_gun:ammo_shotgun"

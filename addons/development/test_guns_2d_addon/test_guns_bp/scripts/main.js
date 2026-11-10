@@ -1,3 +1,10 @@
+import { FlamethrowerEngine } from './feature/flamethrowerEngine.js';
+import { FlamethrowerBlueprintLoot } from './feature/flamethrowerBlueprintLoot.js';
+import { EpicGunPassives } from './feature/epicGunPassives.js';
+import { EpicBlueprintLoot } from './feature/epicBlueprintLoot.js';
+import { BaizhanEngine } from './feature/baizhanEngine.js';
+import { PkmBurn } from './feature/pkmBurn.js';
+import './feature/survivalMeleeEngine.js';
 import { RailCannon } from './feature/railCannon.js';
 import { initializePvpGuns, tickPvpGunGuard, stopPvpGunTasks } from './feature/pvpIntegration.js';
 import { isPvpParticipant, pvpCanAttack } from './feature/utils/pvpRules.js';
@@ -48,6 +55,10 @@ function subscribeBefore(eventsObj, eventName, handler) {
  return false;
 }
 
+function startWeaponReload(player, gun) {
+ return gun?.isFlamethrower ? FlamethrowerEngine.startReload(player, gun) : ReloadManager.startReload(player, gun);
+}
+
 class AddonController {
  constructor() {
   this.lastHeldItem = new Map();
@@ -69,7 +80,7 @@ class AddonController {
     if (mainhand) {
      const gun = getGunById(mainhand.typeId);
      if (gun) {
-      ReloadManager.startReload(player, gun);
+      startWeaponReload(player, gun);
      }
     }
    } catch {}
@@ -86,7 +97,7 @@ class AddonController {
     if (gun) {
      event.cancel = true; // 阻止持枪破坏方块
      system.run(() => {
-      ReloadManager.startReload(player, gun);
+      startWeaponReload(player, gun);
      });
     }
    } catch {}
@@ -99,6 +110,11 @@ class AddonController {
     const item = event.itemStack;
     if (!player || !item) return;
 
+    if (item.typeId === 'test_gun:baizhan') {
+     event.cancel = true;
+     system.run(() => BaizhanEngine.use(player, getGunById(item.typeId)));
+     return;
+    }
     if (player.isSneaking && item.typeId === 'test_gun:ak47_commander') {
      event.cancel = true;
      system.run(() => {
@@ -128,6 +144,8 @@ class AddonController {
 
     const gun = getGunById(item.typeId);
     // itemUse is not the start-of-hold event; never create a charge on completion.
+    if (gun?.isFlamethrower) return; // itemUse may be the completion event, never latch a flame hold.
+    if (gun?.isBaizhan) { BaizhanEngine.use(player, gun); return; }
     if (gun?.isRailCannon) { if(player.isSneaking) RailCannon.begin(player, gun); return; }
     if (gun) {
      if (player.isSneaking) {
@@ -168,6 +186,8 @@ class AddonController {
     }
 
     const gun = getGunById(item.typeId);
+    if (gun?.isFlamethrower) { FlamethrowerEngine.begin(player, gun); return; }
+    if (gun?.isBaizhan) { BaizhanEngine.use(player, gun); return; }
     if (gun?.isRailCannon) { RailCannon.begin(player, gun); return; }
     if (gun) {
      if (player.isSneaking) {
@@ -192,9 +212,16 @@ class AddonController {
    }
   });
 
+  subscribeAfter(world.afterEvents, 'itemStartUseOn', (event) => {
+   const gun = getGunById(event.itemStack?.typeId);
+   if (gun?.isFlamethrower && event.source) FlamethrowerEngine.begin(event.source, gun);
+  });
+
   const stopTrigger = (event) => {
    const player = event.source || event.player;
    if (player) {
+    FlamethrowerEngine.stop(player);
+    BaizhanEngine.stop(player);
     if (event.itemStack?.typeId === 'test_gun:liegui') RailCannon.release(player);
     else if (!event.itemStack) RailCannon.cancel(player);
     ShootManager.setTriggerState(player, false);
@@ -205,7 +232,7 @@ class AddonController {
   subscribeAfter(world.afterEvents, 'itemReleaseUse', stopTrigger);
   // Leaving a targeted block is not releasing the use button.
   subscribeAfter(world.afterEvents, 'itemStopUseOn', (event) => {
-   if (event.itemStack?.typeId !== 'test_gun:liegui') stopTrigger(event);
+   if (!['test_gun:liegui', 'test_gun:flamethrower'].includes(event.itemStack?.typeId)) stopTrigger(event);
   });
 
   subscribeAfter(world.afterEvents, 'entityHurt', (event) => {
@@ -234,7 +261,7 @@ class AddonController {
       const gun = getGunById(mainhand.typeId);
       if (gun) {
        // 持枪左键命中 -> 手动换弹
-       ReloadManager.startReload(player, gun);
+       startWeaponReload(player, gun);
       } else {
        // 近战武器
        MeleeEngine.handleEntityHit(player, hitEntity);
@@ -244,7 +271,17 @@ class AddonController {
    } catch {}
   });
 
+  subscribeAfter(world.afterEvents, 'entityDie', (event) => {
+   EpicGunPassives.observeDeath(event);
+   EpicBlueprintLoot.onDeath(event);
+   FlamethrowerBlueprintLoot.onDeath(event);
+   if (event.deadEntity) EpicGunPassives.clearEntity(event.deadEntity.id);
+   if (event.deadEntity) { FlamethrowerEngine.clear(event.deadEntity.id); PkmBurn.clearEntity(event.deadEntity.id); BaizhanEngine.clear(event.deadEntity.id); }
+  });
+
   subscribeAfter(world.afterEvents, 'playerLeave', (event) => {
+   PkmBurn.clearEntity(event.playerId);
+   EpicGunPassives.clearEntity(event.playerId);
    RailCannon.cancel(event.playerId);
    stopPvpGunTasks({ id: event.playerId });
    GunVisuals.clearPlayer(event.playerId);
@@ -261,7 +298,10 @@ class AddonController {
  startGameLoop() {
   system.runInterval(() => {
    this.auraTick++;
+   FlamethrowerEngine.tick();
    RailCannon.tick();
+   BaizhanEngine.tick();
+   PkmBurn.tick();
    for (const player of world.getAllPlayers()) tickPvpGunGuard(player);
    GrenadeEngine.onTick();
    RocketEngine.onTick();
@@ -276,10 +316,12 @@ class AddonController {
     }
 
     const held = getHeldGun(player);
+    EpicGunPassives.tickPlayer(player, held?.gun);
     const lastItemId = this.lastHeldItem.get(player.id);
     const currentItemId = held ? held.item.typeId : null;
 
     if (lastItemId !== currentItemId) {
+     EpicGunPassives.clearPlayer(player.id);
      this.lastHeldItem.set(player.id, currentItemId);
      ShootManager.setTriggerState(player, false);
      ReloadManager.cancelReload(player);
@@ -292,7 +334,9 @@ class AddonController {
      }
     }
 
-    if (held) {
+    FlamethrowerEngine.tickPlayer(player, held?.gun);
+    BaizhanEngine.tickPlayer(player, held?.gun);
+    if (held && !held.gun.isBaizhan && !held.gun.isFlamethrower) {
      ShootManager.tick(player, held.gun);
     }
 
@@ -302,6 +346,9 @@ class AddonController {
  }
 }
 
+FlamethrowerEngine.initialize();
+BaizhanEngine.initialize();
+PkmBurn.initialize();
 RailCannon.initialize();
 initializePvpGuns();
 new AddonController();

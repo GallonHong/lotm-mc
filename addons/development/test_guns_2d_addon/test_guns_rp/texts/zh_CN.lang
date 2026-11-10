@@ -13,14 +13,14 @@ item.test_gun:svd.name=§9SVD 德拉贡诺夫狙击步枪 [优良]§r\n§7被动
 item.test_gun:m1014.name=§9伯奈利 M1014 连发霰弹枪 [优良]§r\n§7被动: 【急速连喷】导气式半自动结构，无需手动拉栓泵动极速连射§r\n§8§o“狂风暴雨般的半自动霰弹轰鸣，能在三秒内将狭窄走廊清扫一空。”§r
 
 item.test_gun:m82.name=§5巴雷特 M82 .50 反器材重狙 [史诗]§r\n§7被动: 【穿甲高爆】动能穿透掩体，命中产生高爆音爆音速冲击波§r\n§8§o“雷鸣般的击发声回荡在整座荒原，它击碎的不仅是重甲，还有猎物的狂妄。”§r
-item.test_gun:riot_shield.name=§5战术反甲防暴盾 [史诗]§r\n§7被动: 【动能反伤】正面吸收70%枪械伤害，并将50%动能反弹给攻击者§r\n§8§o“‘你打我有多狠，子弹咬回你就有多疼。’——黑市改装大师的得意之作”§r
+item.test_gun:riot_shield.name=§5战术反甲防暴盾 [史诗]§r\n§7被动: 【动能反伤】正面枪弹减伤70%（潜行85%）、反伤50%；潜行受管近战减伤75%§r\n§8§o“‘你打我有多狠，子弹咬回你就有多疼。’——黑市改装大师的得意之作”§r
 item.test_gun:armor_titan_chest.name=§5泰坦动力外骨骼装甲 [史诗]§r\n§7被动: 12点满额护甲，钛合金护甲层吸收 35% 枪械终伤§r\n§8§o“重工业文明的终极咆哮，伺服液压电机嗡鸣间赋予单兵徒手撼动暴君的力量。”§r
 
-item.test_gun:vector.name=HK MP7 战术冲锋枪 §6[传说·暴走狂潮]§r
-item.test_gun:mgl.name=MGL 40mm 自动榴弹炮 §6[传说·饱和轰炸]§r
-item.test_gun:arc_emitter.name=特斯拉高能电弧发射器 §6[传说·EMP电磁风暴]§r
-item.test_gun:dbss.name=DBSS 裁决者 双管霰弹枪 §6[传说·红莲龙息]§r
-item.test_gun:jetpack.name=战术离子喷气背包 §6[传说·双跳飞升·缓降]§r
+item.test_gun:vector.name=HK MP7
+item.test_gun:mgl.name=MGL 40mm
+item.test_gun:arc_emitter.name=特斯拉电弧发射器
+item.test_gun:dbss.name=DBSS 裁决者
+item.test_gun:jetpack.name=§6战术离子喷气背包 [传说·双跳飞升·缓降]§r\n§7战斗: 8点护甲，枪械直击/生存近战暴击率+10个百分点，伤害+12%§r\n§7机动: 推进冷却1.2秒，缓降4秒，耐久900§r
 
 item.test_gun:armor_vest_light.name=§f凯夫拉轻型防弹衣 [普通]§r\n§7被动: 提供 4 点基础护甲，吸收 15% 枪械终伤§r\n§8§o“粗糙翻新的民用防弹纤维背心，每一个缝补针脚都是求生者的挣扎。”§r
 item.test_gun:armor_vest_heavy.name=§9战术突击重装防弹衣 [优良]§r\n§7被动: 提供 7 点高额护甲，吸收 25% 枪械终伤§r\n§8§o“压满重型防弹钢板的坚固背心，虽然沉重，却能在要命的交火中保全呼吸。”§r
@@ -83,10 +83,10 @@ item.test_gun:rpg.name=§5RPG-7 单兵火箭筒 [史诗]§r\n§7被动: 聚能�
 item.test_gun:ammo_rocket.name=PG-7V 高爆破甲火箭弹 §5[史诗]§r
 item.test_gun:blueprint_rpg.name=武器图纸: RPG-7 火箭筒 §5[史诗]§r
 
-item.test_gun:flash_shield.name=§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面持盾格挡吸收 70% 枪械与近战物理伤害§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r\n§8§o“不仅是一道无法跨越的高墙，也是刺破黑暗绝境的一道灼眼闪电。”§r
+item.test_gun:flash_shield.name=§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面枪弹减伤70%（潜行85%）；潜行受管近战减伤75%§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r\n§8§o“不仅是一道无法跨越的高墙，也是刺破黑暗绝境的一道灼眼闪电。”§r
 item.test_gun:blueprint_flash_shield.name=防具图纸: G52 战术闪光盾 §5[史诗]§r
 
-item.test_gun:ak47_commander.name=AK-47 · 战术指挥官 §6[传说]§r
+item.test_gun:ak47_commander.name=AK-47 战术指挥官
 item.test_gun:blueprint_ak47_commander.name=武器图纸: AK-47 战术指挥官 §6[传说]§r
 
 item.test_gun:usas12.name=§5USAS-12「嗜血狂潮」[史诗]§r\n§7被动: 【鲜血盛宴】20发弹鼓全自动吸血，吸取18%伤害恢复生命，满血转吸收护盾§r\n§8§o“【受污染样本X-9】：枪机内部涌动着诡异的活性脉动，以杀戮之血滋养生机。”§r
@@ -228,5 +228,21 @@ item.test_gun:armor_goggles_red.name=§a战术防风护目镜 红色 [优良·�
 item.test_gun:blueprint_armor_goggles_red.name=§a战术防风护目镜 红色 [优良·面部]§r 设计图纸
 item.test_gun:part_armor_plate.name=§9战术防弹插板 [精良]§r
 item.test_gun:part_iit.name=§5图像增强管 (IIT) [史诗]§r
-item.test_gun:liegui.name=裂轨 电磁重炮 §6[传说·蓄能穿透]§r
+item.test_gun:liegui.name=裂轨
 item.test_gun:blueprint_liegui.name=裂轨 电磁重炮设计图 §6[传说·限定·不可合成]§r
+item.test_gun:salvage_cleaver.name=锯齿·拾荒砍刀
+item.test_gun:breach_hammer.name=破城·液压重锤
+item.test_gun:pulse_spear.name=流电·战术长矛
+item.test_gun:baizhan.name=百战
+item.test_gun:baizhan.lore=传说重机枪；手持弹仓100发，随机发射特殊弹种；潜行架设，右键手动开火，取消潜行收枪。架枪直接消耗背包现有机枪弹药，不换弹。每件弹药消耗对应1发，不按物品名称折算100发。
+entity.test_gun:baizhan_mount.name=百战
+
+item.test_gun:scarh_stripper.name=§5SCAR-H「剥甲者」 §d[史诗]§r
+item.test_gun:blueprint_scarh_stripper.name=§5SCAR-H「剥甲者」 设计图 §d[史诗]§r
+item.test_gun:mp5k_relay.name=§5MP5K「接力者」 §d[史诗]§r
+item.test_gun:blueprint_mp5k_relay.name=§5MP5K「接力者」 设计图 §d[史诗]§r
+item.test_gun:python_finale.name=§5Python「谢幕」 §d[史诗]§r
+item.test_gun:blueprint_python_finale.name=§5Python「谢幕」 设计图 §d[史诗]§r
+item.test_gun:flamethrower.name=§5喷火器§r
+item.test_gun:high_pressure_fuel.name=高压燃料
+item.test_gun:blueprint_flamethrower.name=§5喷火器蓝图§r

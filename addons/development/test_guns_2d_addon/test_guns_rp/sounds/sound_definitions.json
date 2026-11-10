@@ -180,6 +180,73 @@
       "sounds": [
         "sounds/guns/rpk_shoot"
       ]
+    },
+    "test_gun.liegui_charge_start": {
+      "category": "player",
+      "min_distance": 2,
+      "max_distance": 24,
+      "sounds": [
+        "sounds/guns/liegui_charge_start"
+      ]
+    },
+    "test_gun.liegui_charge_pulse": {
+      "category": "player",
+      "min_distance": 2,
+      "max_distance": 24,
+      "sounds": [
+        "sounds/guns/liegui_charge_pulse"
+      ]
+    },
+    "test_gun.liegui_charge_latch": {
+      "category": "player",
+      "min_distance": 2,
+      "max_distance": 24,
+      "sounds": [
+        "sounds/guns/liegui_charge_latch"
+      ]
+    },
+    "test_gun.liegui_charge_ready": {
+      "category": "player",
+      "min_distance": 2,
+      "max_distance": 24,
+      "sounds": [
+        "sounds/guns/liegui_charge_ready"
+      ]
+    },
+    "test_gun.liegui_vent": {
+      "category": "player",
+      "min_distance": 2,
+      "max_distance": 24,
+      "sounds": [
+        "sounds/guns/liegui_vent"
+      ]
+    },
+    "test_gun.flamethrower_spray": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/flamethrower_spray",
+          "volume": 0.65
+        }
+      ]
+    },
+    "test_gun.flamethrower_ignite": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/flamethrower_ignite",
+          "volume": 0.65
+        }
+      ]
+    },
+    "test_gun.flamethrower_reload": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/flamethrower_reload",
+          "volume": 0.65
+        }
+      ]
     }
   }
 }

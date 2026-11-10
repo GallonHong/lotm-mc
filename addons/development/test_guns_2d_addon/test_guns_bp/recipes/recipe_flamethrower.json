@@ -1,0 +1,43 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_flamethrower"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBI",
+      "RMT",
+      "CIC"
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_flamethrower"
+      },
+      "B": {
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_block"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "M": {
+        "item": "minecraft:magma_cream"
+      },
+      "T": {
+        "item": "test_gun:part_tungsten_bolt"
+      },
+      "C": {
+        "item": "minecraft:copper_block"
+      }
+    },
+    "result": {
+      "item": "test_gun:flamethrower",
+      "count": 1
+    }
+  }
+}

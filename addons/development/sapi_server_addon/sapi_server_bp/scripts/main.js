@@ -1,3 +1,6 @@
+import { CombatTechniques } from './modules/combatTechniques.js';
+import { MeleeLeftManager } from './modules/melee_left.js';
+import { RailImpactManager } from './modules/rail_impact.js';
 import { PvPManager } from './modules/pvp.js';
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { Config } from "./config.js";
@@ -20,6 +23,7 @@ import { SocialManager } from "./modules/social.js";
 import { CombatManager } from "./modules/combat.js";
 import { WantedManager } from "./modules/wanted.js";
 import { PlayerVendingManager } from "./modules/player_vending.js";
+import { FlamethrowerPermissionManager } from "./modules/flamethrower_permission.js";
 import { BaizhanPermissionManager } from "./modules/baizhan_permission.js";
 import { RailPermissionManager } from "./modules/rail_permission.js";
 
@@ -91,6 +95,10 @@ function initServerSystem() {
 	CombatManager.registerEvents();
 	RailPermissionManager.registerEvents();
 	BaizhanPermissionManager.registerEvents(() => PvPManager.match?.id ?? null);
+	FlamethrowerPermissionManager.registerEvents(() => PvPManager.match?.id ?? null);
+	RailImpactManager.registerEvents(() => PvPManager.match?.id ?? null);
+	CombatTechniques.registerEvents(() => PvPManager.match?.id ?? null);
+	MeleeLeftManager.registerEvents(() => PvPManager.match?.id ?? null);
 	RegionManager.registerProtectionEvents();
  PlotSafeZone.start();
 	LandManager.registerProtectionEvents();

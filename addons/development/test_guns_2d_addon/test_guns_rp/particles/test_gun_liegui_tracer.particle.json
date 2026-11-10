@@ -4,8 +4,8 @@
     "description": {
       "identifier": "test_gun:liegui_tracer",
       "basic_render_parameters": {
-        "material": "particles_alpha",
-        "texture": "textures/particle/liegui_spark"
+        "material": "particles_blend",
+        "texture": "textures/particle/particles"
       }
     },
     "components": {
@@ -13,48 +13,37 @@
         "num_particles": 1
       },
       "minecraft:emitter_lifetime_once": {
-        "active_time": 0.01
+        "active_time": 0.05
       },
+      "minecraft:emitter_shape_point": {},
       "minecraft:particle_lifetime_expression": {
-        "max_lifetime": 0.045
+        "max_lifetime": 0.16
       },
       "minecraft:particle_appearance_billboard": {
         "size": [
-          0.012,
-          0.012
+          0.18,
+          0.18
         ],
         "facing_camera_mode": "rotate_xyz",
         "uv": {
-          "texture_width": 16,
-          "texture_height": 16,
+          "texture_width": 128,
+          "texture_height": 128,
           "uv": [
             0,
-            0
+            80
           ],
           "uv_size": [
-            16,
-            16
+            8,
+            8
           ]
         }
       },
       "minecraft:particle_appearance_tinting": {
         "color": [
-          0.45,
-          0.39,
-          0.3,
-          0.24
-        ]
-      },
-      "minecraft:emitter_shape_sphere": {
-        "radius": 0.01,
-        "direction": "outwards"
-      },
-      "minecraft:particle_initial_speed": 0.05,
-      "minecraft:particle_motion_dynamic": {
-        "linear_acceleration": [
-          0,
-          -0.1,
-          0
+          1,
+          0.52,
+          0.16,
+          1
         ]
       }
     }

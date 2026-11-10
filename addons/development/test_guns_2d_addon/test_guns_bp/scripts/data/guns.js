@@ -1,5 +1,11 @@
 import { FireMode } from './types.js';
 
+// Single-shot balance, not DPS: common pistol 4.5, SMG 6.75, rifle/LMG 9.
+// Conventional class tiers: common x1, rare x1.5, epic x2, legendary x3.
+// Shotgun damage is PER PELLET (8 pellets): common 3, rare 4.5, epic 6, legendary 9.
+// Heavy pistol, sniper, rocket, arc and charged rail retain their distinct baselines.
+// MGL uses x3 of the lowest existing grenade launcher (M79, a rare weapon).
+// See docs/gun_balance.md for the complete values, exceptions and crafting audit.
 export const GUNS = [
  // Common Quality
  {
@@ -17,7 +23,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_rifle',
   projectileTypeId: 'test_gun:bullet_rifle',
   hasSkill: false,
-  stats: { damage: 15.0, headshotMultiplier: 1.8, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 80, knockback: { x: 0.45, y: 0.2 } }
+  stats: { damage: 9, headshotMultiplier: 1.8, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 80, knockback: { x: 0.45, y: 0.2 } }
  },
  {
   id: 'test_gun:ak74u',
@@ -34,7 +40,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_rifle',
   projectileTypeId: 'test_gun:bullet_rifle',
   hasSkill: false,
-  stats: { damage: 13.5, headshotMultiplier: 1.75, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 65, knockback: { x: 0.35, y: 0.15 } }
+  stats: { damage: 9, headshotMultiplier: 1.75, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 65, knockback: { x: 0.35, y: 0.15 } }
  },
  {
   id: 'test_gun:shotgun',
@@ -51,7 +57,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_shotgun',
   projectileTypeId: 'test_gun:bullet_shotgun',
   hasSkill: false,
-  stats: { damage: 7.5, headshotMultiplier: 1.5, armorPenetration: 0.15, damageDropOff: 0.05, maxRange: 35, knockback: { x: 0.75, y: 0.35 } }
+  stats: { damage: 3, headshotMultiplier: 1.5, armorPenetration: 0.15, damageDropOff: 0.05, maxRange: 35, knockback: { x: 0.75, y: 0.35 } }
  },
  {
   id: 'test_gun:m1897',
@@ -68,7 +74,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_shotgun',
   projectileTypeId: 'test_gun:bullet_shotgun',
   hasSkill: false,
-  stats: { damage: 8.0, headshotMultiplier: 1.5, armorPenetration: 0.15, damageDropOff: 0.04, maxRange: 40, knockback: { x: 0.7, y: 0.3 } }
+  stats: { damage: 3, headshotMultiplier: 1.5, armorPenetration: 0.15, damageDropOff: 0.04, maxRange: 40, knockback: { x: 0.7, y: 0.3 } }
  },
  {
   id: 'test_gun:bizon',
@@ -85,7 +91,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_45acp',
   projectileTypeId: 'test_gun:bullet_smg',
   hasSkill: false,
-  stats: { damage: 4.5, headshotMultiplier: 1.5, armorPenetration: 0.20, damageDropOff: 0.03, maxRange: 50, knockback: { x: 0.15, y: 0.1 } }
+  stats: { damage: 6.75, headshotMultiplier: 1.5, armorPenetration: 0.20, damageDropOff: 0.03, maxRange: 50, knockback: { x: 0.15, y: 0.1 } }
  },
  {
   id: 'test_gun:glock',
@@ -121,7 +127,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_rifle',
   projectileTypeId: 'test_gun:bullet_rifle',
   hasSkill: false,
-  stats: { damage: 18.0, headshotMultiplier: 1.85, armorPenetration: 0.40, damageDropOff: 0.012, maxRange: 90, knockback: { x: 0.55, y: 0.25 } }
+  stats: { damage: 13.5, headshotMultiplier: 1.85, armorPenetration: 0.40, damageDropOff: 0.012, maxRange: 90, knockback: { x: 0.55, y: 0.25 } }
  },
  {
   id: 'test_gun:arx',
@@ -138,7 +144,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_rifle',
   projectileTypeId: 'test_gun:bullet_rifle',
   hasSkill: false,
-  stats: { damage: 16.0, headshotMultiplier: 1.8, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 85, knockback: { x: 0.4, y: 0.18 } }
+  stats: { damage: 13.5, headshotMultiplier: 1.8, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 85, knockback: { x: 0.4, y: 0.18 } }
  },
  {
   id: 'test_gun:p90',
@@ -155,7 +161,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_45acp',
   projectileTypeId: 'test_gun:bullet_smg',
   hasSkill: false,
-  stats: { damage: 5.5, headshotMultiplier: 1.6, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 60, knockback: { x: 0.2, y: 0.1 } }
+  stats: { damage: 10.125, headshotMultiplier: 1.6, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 60, knockback: { x: 0.2, y: 0.1 } }
  },
  {
   id: 'test_gun:deagle',
@@ -206,7 +212,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_shotgun',
   projectileTypeId: 'test_gun:bullet_shotgun',
   hasSkill: false,
-  stats: { damage: 7.0, headshotMultiplier: 1.5, armorPenetration: 0.20, damageDropOff: 0.04, maxRange: 35, knockback: { x: 0.65, y: 0.3 } }
+  stats: { damage: 4.5, headshotMultiplier: 1.5, armorPenetration: 0.20, damageDropOff: 0.04, maxRange: 35, knockback: { x: 0.65, y: 0.3 } }
  },
  {
   id: 'test_gun:rpk',
@@ -223,7 +229,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_rifle',
   projectileTypeId: 'test_gun:bullet_rifle',
   hasSkill: false,
-  stats: { damage: 16.0, headshotMultiplier: 1.75, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 75, knockback: { x: 0.35, y: 0.15 } }
+  stats: { damage: 13.5, headshotMultiplier: 1.75, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 75, knockback: { x: 0.35, y: 0.15 } }
  },
  {
   id: 'test_gun:m79',
@@ -235,7 +241,7 @@ export const GUNS = [
   fireRate: 12,
   shootPower: 1.35,
   recoil: 0.65,
-  reloadTime: 45,
+  reloadTime: 23, // Half of 45 ticks, rounded up to the next whole game tick.
   shootSound: 'test_gun.m79_shoot',
   ammoTypeId: 'test_gun:ammo_40mm',
   projectileTypeId: 'test_gun:bullet_grenade',
@@ -262,7 +268,7 @@ export const GUNS = [
   projectileTypeId: 'test_gun:bullet_rifle',
   isIncendiaryDot: true,
   hasSkill: false,
-  stats: { damage: 14.0, headshotMultiplier: 1.65, armorPenetration: 0.40, damageDropOff: 0.015, maxRange: 80, knockback: { x: 0.30, y: 0.12 } }
+  stats: { damage: 18, headshotMultiplier: 1.65, armorPenetration: 0.40, damageDropOff: 0.015, maxRange: 80, knockback: { x: 0.30, y: 0.12 } }
  },
  {
   id: 'test_gun:m1014_ward',
@@ -280,7 +286,7 @@ export const GUNS = [
   projectileTypeId: 'test_gun:bullet_shotgun',
   isArmorScaled: true,
   hasSkill: false,
-  stats: { damage: 5.0, headshotMultiplier: 1.5, armorPenetration: 0.25, damageDropOff: 0.04, maxRange: 25, knockback: { x: 0.70, y: 0.30 } }
+  stats: { damage: 6, headshotMultiplier: 1.5, armorPenetration: 0.25, damageDropOff: 0.04, maxRange: 25, knockback: { x: 0.70, y: 0.30 } }
  },
  {
   id: 'test_gun:usas12',
@@ -299,7 +305,7 @@ export const GUNS = [
   hasSkill: false,
   isLifeSteal: true,
   lifeStealRatio: 0.18,
-  stats: { damage: 6.5, headshotMultiplier: 1.5, armorPenetration: 0.30, damageDropOff: 0.04, maxRange: 35, knockback: { x: 0.65, y: 0.25 } }
+  stats: { damage: 6, headshotMultiplier: 1.5, armorPenetration: 0.30, damageDropOff: 0.04, maxRange: 35, knockback: { x: 0.65, y: 0.25 } }
  },
 
  {
@@ -358,7 +364,7 @@ export const GUNS = [
   hasSkill: true,
   skillName: '战术火炮空袭',
   skillCooldownSec: 30,
-  stats: { damage: 18.0, headshotMultiplier: 1.5, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 75, knockback: { x: 0.2, y: 0.1 } }
+  stats: { damage: 27, headshotMultiplier: 1.5, armorPenetration: 0.35, damageDropOff: 0.015, maxRange: 75, knockback: { x: 0.2, y: 0.1 } }
  },
  {
   id: 'test_gun:vector',
@@ -378,7 +384,7 @@ export const GUNS = [
   skillName: '暴走狂潮',
   skillCooldownSec: 25,
   skillDurationSec: 5.0,
-  stats: { damage: 15.0, headshotMultiplier: 1.6, armorPenetration: 0.25, damageDropOff: 0.025, maxRange: 60, knockback: { x: 0.18, y: 0.1 } }
+  stats: { damage: 20.25, headshotMultiplier: 1.6, armorPenetration: 0.25, damageDropOff: 0.025, maxRange: 60, knockback: { x: 0.18, y: 0.1 } }
  },
  {
   id: 'test_gun:mgl',
@@ -390,7 +396,7 @@ export const GUNS = [
   fireRate: 10,
   shootPower: 1.45,
   recoil: 0.75,
-  reloadTime: 70,
+  reloadTime: 35,
   shootSound: 'test_gun.mgl_shoot',
   ammoTypeId: 'test_gun:ammo_40mm',
   projectileTypeId: 'test_gun:bullet_grenade',
@@ -399,7 +405,7 @@ export const GUNS = [
   skillName: '饱和轰炸',
   skillCooldownSec: 20,
   skillDurationSec: 1.0,
-  stats: { damage: 40.0, heSplashDamage: 45.0, heRadius: 6.0, armorPenetration: 0.50, maxRange: 65, knockback: { x: 1.2, y: 0.6 } }
+  stats: { damage: 84, heSplashDamage: 90.0, heRadius: 6.0, armorPenetration: 0.50, maxRange: 65, knockback: { x: 1.2, y: 0.6 } }
  },
  {
   id: 'test_gun:arc_emitter',
@@ -440,7 +446,7 @@ export const GUNS = [
   skillName: '红莲龙息·锁敌',
   skillCooldownSec: 90,
   skillDurationSec: 30.0,
-  stats: { damage: 12.0, headshotMultiplier: 1.6, armorPenetration: 0.40, damageDropOff: 0.03, maxRange: 100, knockback: { x: 0.9, y: 0.4 } }
+  stats: { damage: 9, headshotMultiplier: 1.6, armorPenetration: 0.40, damageDropOff: 0.03, maxRange: 100, knockback: { x: 0.9, y: 0.4 } }
  }
  ,{
   id: 'test_gun:liegui', name: '裂轨', tier: 'legendary', type: 'energy',
@@ -449,6 +455,44 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_battery', projectileTypeId: 'test_gun:liegui_slug',
   isRailCannon: true, hasSkill: true, skillName: '裂空音波', skillCooldownSec: 30,
   stats: { damage: 80, headshotMultiplier: 1, armorPenetration: 0.35, damageDropOff: 0.001, maxRange: 40, knockback: { x: 0.4, y: 0.1 } }
+ }
+ ,{
+  id: 'test_gun:baizhan', name: '百战', tier: 'legendary', type: 'lmg',
+  mode: FireMode.AUTO, maxAmmo: 100, initialAmmo: 0, fireRate: 4, shootPower: 14,
+  recoil: 0.30, reloadTime: 80, shootSound: 'test_gun.pkm_shoot',
+  ammoTypeId: 'test_gun:ammo_belt_100', projectileTypeId: 'test_gun:bullet_rifle',
+  isBaizhan: true, hasSkill: false,
+  stats: { damage: 27, headshotMultiplier: 1.5, armorPenetration: 0.42, damageDropOff: 0.008, maxRange: 80, knockback: { x: 0.3, y: 0.1 } }
+ } ,
+ // New epic variants are appended: preserve every existing visual gun index.
+ {
+  id: 'test_gun:scarh_stripper', visualIndex: 27, name: 'SCAR-H「剥甲者」', tier: 'epic', type: 'rifle',
+  mode: FireMode.AUTO, maxAmmo: 20, fireRate: 4, shootPower: 13.5,
+  recoil: 0.32, reloadTime: 48, shootSound: 'test_gun.scarh_shoot',
+  ammoTypeId: 'test_gun:ammo_rifle', projectileTypeId: 'test_gun:bullet_rifle', hasSkill: false,
+  stats: { damage: 18, headshotMultiplier: 1.85, armorPenetration: 0.45, damageDropOff: 0.012, maxRange: 90, knockback: { x: 0.55, y: 0.25 } }
+ },
+ {
+  id: 'test_gun:mp5k_relay', visualIndex: 28, name: 'MP5K「接力者」', tier: 'epic', type: 'smg',
+  mode: FireMode.AUTO, maxAmmo: 30, fireRate: 2, shootPower: 10.5,
+  recoil: 0.13, reloadTime: 40, shootSound: 'test_gun.p90_shoot',
+  ammoTypeId: 'test_gun:ammo_45acp', projectileTypeId: 'test_gun:bullet_smg', hasSkill: false,
+  stats: { damage: 13.5, headshotMultiplier: 1.5, armorPenetration: 0.25, damageDropOff: 0.028, maxRange: 50, knockback: { x: 0.18, y: 0.1 } }
+ },
+ {
+  id: 'test_gun:python_finale', visualIndex: 29, name: 'Python「谢幕」', tier: 'epic', type: 'pistol',
+  mode: FireMode.SEMI, maxAmmo: 6, fireRate: 8, shootPower: 11.5,
+  recoil: 0.38, reloadTime: 52, shootSound: 'test_gun.deagle_shoot',
+  ammoTypeId: 'test_gun:ammo_45acp', projectileTypeId: 'test_gun:bullet_heavy', hasSkill: false,
+  stats: { damage: 9, headshotMultiplier: 1.75, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 55, knockback: { x: 0.4, y: 0.2 } }
+ },
+ {
+  id:'test_gun:flamethrower', visualIndex:30, name:'喷火器「热蚀」', tier:'epic', type:'special',
+  mode:FireMode.AUTO, maxAmmo:60, initialAmmo:0, fireRate:4,
+  shootPower:0, recoil:0, reloadTime:60, shootSound:'test_gun.flamethrower_spray',
+  ammoTypeId:'test_gun:high_pressure_fuel', isFlamethrower:true, hasSkill:false,
+  disableCritical:true, disableHeadshot:true, fixedArmorPenetration:0.15,
+  stats:{damage:4,headshotMultiplier:1,armorPenetration:0.15,damageDropOff:0,maxRange:7}
  }
 ];
 

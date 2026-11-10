@@ -1,0 +1,4 @@
+/** Mirrored authoritative launch tuning; no caller-supplied damage is accepted. */
+export const RAIL_IMPACT=Object.freeze({id:'test_gun:liegui',speed:1.8,gravity:.045,drag:.995,sweepStep:.5,range:40,maxFlightTicks:80,guardTicks:12,maxShots:128,maxReplay:4096,skillSpeed:2,skillRange:24,skillRadius:1.3,skillDamage:24,skillMaxTargets:12,skillCooldownMs:30000});
+export function railProfile(t){if(!Number.isInteger(t)||t<7||t>=56)return null;return t<20?{damage:25,spread:3,radius:1,splash:4}:t<40?{damage:50,spread:1.5,radius:1.3,splash:8}:{damage:80,spread:.6,radius:2.2,splash:12};}
+export function nearSegment(p,a,b,r){const v={x:b.x-a.x,y:b.y-a.y,z:b.z-a.z},len=v.x*v.x+v.y*v.y+v.z*v.z;const t=len?Math.max(0,Math.min(1,((p.x-a.x)*v.x+(p.y-a.y)*v.y+(p.z-a.z)*v.z)/len)):0;return Math.hypot(p.x-a.x-v.x*t,p.y-a.y-v.y*t,p.z-a.z-v.z*t)<=r?{t}:null;}

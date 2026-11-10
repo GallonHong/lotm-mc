@@ -1,3 +1,4 @@
+import { EpicGunPassives } from '../epicGunPassives.js';
 import { EquipmentWear } from '../equipmentWear.js';
 import { ReloadManager } from '../reload.js';
 import { SkillManager } from '../skillManager.js';
@@ -95,7 +96,7 @@ export function drawBulletTracer(dimension, startPos, endPos, gun) {
  }
 }
 
-function processBulletRay(player, gun, dir, muzzle, maxRange) {
+function processBulletRay(player, gun, dir, muzzle, maxRange, directShot = null) {
  const dimension = player.dimension;
  const spawnLoc = muzzle.location;
  const headPos = player.getHeadLocation();
@@ -172,7 +173,7 @@ function processBulletRay(player, gun, dir, muzzle, maxRange) {
  drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
 
  if (hitEntity) {
-  DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc);
+  DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc, directShot);
  } else if (hitBlock) {
   try {
    dimension.spawnParticle('test_gun:bullet_hit_spark', impactLoc);
@@ -248,6 +249,8 @@ export function fireBullet(player, gun) {
    finalDir = RecoilManager.getShotDirection(player, gun, viewDir);
   }
 
-  processBulletRay(player, gun, finalDir, muzzle, maxRange);
+  const directShot = EpicGunPassives.beginShot(player, gun);
+  try { processBulletRay(player, gun, finalDir, muzzle, maxRange, directShot); }
+  finally { EpicGunPassives.endShot(directShot); }
  }
 }

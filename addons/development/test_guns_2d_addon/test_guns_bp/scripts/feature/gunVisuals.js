@@ -2,7 +2,7 @@ import { GUNS } from '../data/guns.js';
 
 // Server events -> client player signal -> public owner variables -> attachable.
 // No inventory, damage, use-state, camera or BP minecraft:player changes.
-const GUN_KEYS = new Map(GUNS.map((gun, index) => [gun.id, index + 1]));
+const GUN_KEYS = new Map(GUNS.map((gun, index) => [gun.id, gun.visualIndex ?? index + 1]));
 const CONTROLLER = 'tg3d_action_signal';
 const phases = new Map();
 const shots = new Map();
@@ -51,7 +51,7 @@ export const GunVisuals = {
   shots.delete(playerId);
  },
  fire(player, gun) {
-  signal(player, gun, 1, 0.15);
+  signal(player, gun, 1, gun?.isFlamethrower ? 0.25 : 0.15);
  },
  charge(player, gun, totalTicks, holdTicks = totalTicks) { signal(player, gun, 3, holdTicks / 20, totalTicks / 20); },
  vent(player, gun) { signal(player, gun, 4, 1.2); },

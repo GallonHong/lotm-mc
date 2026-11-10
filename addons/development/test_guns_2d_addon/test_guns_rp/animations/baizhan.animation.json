@@ -1,0 +1,132 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.baizhan.mechanism": {
+      "loop": true,
+      "bones": {
+        "bolt": {
+          "position": [
+            0,
+            0,
+            "1.5 * variable.tg3d_kick"
+          ]
+        },
+        "feed_cover": {
+          "rotation": [
+            "-65 * variable.tg3d_reload_shape",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.baizhan.mount_aim": {
+      "loop": true,
+      "bones": {
+        "weapon": {
+          "rotation": [
+            "query.property('test_gun:aim_pitch')",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.baizhan.mount_fire": {
+      "animation_length": 0.15,
+      "bones": {
+        "bolt": {
+          "position": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.03": [
+              0,
+              0,
+              1.5
+            ],
+            "0.15": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "muzzle_flash",
+            "locator": "muzzle"
+          }
+        ]
+      }
+    },
+    "animation.baizhan.mount_fire_a": {
+      "animation_length": 0.15,
+      "bones": {
+        "bolt": {
+          "position": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.03": [
+              0,
+              0,
+              1.5
+            ],
+            "0.15": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "muzzle_flash",
+            "locator": "muzzle"
+          }
+        ]
+      }
+    },
+    "animation.baizhan.mount_fire_b": {
+      "animation_length": 0.15,
+      "bones": {
+        "bolt": {
+          "position": {
+            "0.0": [
+              0,
+              0,
+              0
+            ],
+            "0.03": [
+              0,
+              0,
+              1.5
+            ],
+            "0.15": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      },
+      "particle_effects": {
+        "0.0": [
+          {
+            "effect": "muzzle_flash",
+            "locator": "muzzle"
+          }
+        ]
+      }
+    }
+  }
+}

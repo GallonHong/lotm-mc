@@ -1,0 +1,84 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "test_gun:python_finale",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/entity/epic_guns/python_finale",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.epic_guns.python_finale"
+      },
+      "animations": {
+        "hold_first": "animation.tg3d.hold_first",
+        "hold_third": "animation.tg3d.hold_third",
+        "idle": "animation.tg3d.idle",
+        "sprint": "animation.tg3d.sprint",
+        "aim_first": "animation.tg3d.aim_first",
+        "aim_third": "animation.tg3d.aim_third",
+        "still": "animation.tg3d.still",
+        "weapon_action": "animation.tg3d.weapon_action",
+        "tg3d_pose_direct": "animation.tg3d.pose_direct",
+        "tg3d_muzzle_direct": "animation.tg3d.muzzle_direct",
+        "epic_parts": "animation.epic_guns.python_finale.parts"
+      },
+      "scripts": {
+        "animate": [
+          {
+            "hold_first": "context.is_first_person"
+          },
+          {
+            "hold_third": "!context.is_first_person"
+          },
+          "tg3d_pose_direct",
+          "weapon_action",
+          {
+            "tg3d_muzzle_direct": "variable.tg3d_fire_pulse"
+          },
+          {
+            "aim_first": "context.is_first_person"
+          },
+          "epic_parts"
+        ],
+        "pre_animation": [
+          "variable.tg3d_aim = math.clamp((context.owning_entity -> variable.tg3d_hand_aim) ?? query.is_sneaking, 0, 1);",
+          "variable.tg3d_view_aim_y = (context.owning_entity -> variable.tg3d_view_aim_y) ?? -0.506524;",
+          "variable.tg3d_view_aim_x = (context.owning_entity -> variable.tg3d_view_aim_x) ?? 5.0;",
+          "variable.tg3d_sneaking = (context.owning_entity -> query.is_sneaking) ?? 0;",
+          "variable.tg3d_sprinting = (context.owning_entity -> query.is_sprinting) ?? 0;",
+          "variable.tg3d_using = (context.owning_entity -> query.is_using_item) ?? 0;",
+          "variable.tg3d_owner_age = (context.owning_entity -> query.life_time) ?? 0;",
+          "variable.tg3d_shot = (context.owning_entity -> variable.tg3d_shot) ?? 0;",
+          "variable.tg3d_stamp = (context.owning_entity -> variable.tg3d_stamp) ?? -100;",
+          "variable.tg3d_owner_gun = (context.owning_entity -> variable.tg3d_gun) ?? 0;",
+          "variable.tg3d_owner_kind = (context.owning_entity -> variable.tg3d_kind) ?? 0;",
+          "variable.tg3d_progress = math.clamp((context.owning_entity -> variable.tg3d_progress) ?? 0, 0, 1);",
+          "variable.tg3d_valid = context.item_slot == 'main_hand' && variable.tg3d_owner_gun == 29 && variable.tg3d_owner_age >= variable.tg3d_stamp && variable.tg3d_owner_age - variable.tg3d_stamp < 0.3;",
+          "variable.tg3d_reloading = variable.tg3d_valid && variable.tg3d_owner_kind == 2;",
+          "variable.tg3d_kick = variable.tg3d_valid && variable.tg3d_owner_kind == 1 ? math.clamp(math.min(variable.tg3d_progress / 0.2, (1 - variable.tg3d_progress) / 0.8), 0, 1) : 0;",
+          "variable.tg3d_reload_shape = variable.tg3d_reloading ? math.sin(variable.tg3d_progress * 180) : 0;",
+          "variable.tg3d_pose_run = variable.tg3d_pose_run + ((!variable.tg3d_reloading && !variable.tg3d_sneaking && variable.tg3d_sprinting && !variable.tg3d_using ? 1 : 0) - variable.tg3d_pose_run) * math.clamp(query.delta_time * 12, 0, 1);",
+          "variable.tg3d_pose_idle = !variable.tg3d_reloading && !variable.tg3d_sneaking ? 1 - variable.tg3d_pose_run : 0;",
+          "variable.tg3d_fire_pulse = variable.tg3d_valid && variable.tg3d_owner_kind == 1 && variable.tg3d_shot != variable.tg3d_seen_shot;",
+          "variable.tg3d_seen_shot = variable.tg3d_valid && variable.tg3d_owner_kind == 1 ? variable.tg3d_shot : variable.tg3d_seen_shot;",
+          "variable.epic_mag = variable.tg3d_reloading ? math.clamp(math.min((variable.tg3d_progress - 0.12) / 0.2, (0.88 - variable.tg3d_progress) / 0.24), 0, 1) : 0;"
+        ],
+        "initialize": [
+          "variable.tg3d_seen_shot = 0;",
+          "variable.tg3d_pose_run = 0;"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.tg3d.original"
+      ],
+      "particle_effects": {
+        "muzzle_flash": "test_gun:muzzle_flash_circle"
+      }
+    }
+  }
+}

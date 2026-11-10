@@ -1,0 +1,37 @@
+{
+  "title": "炽热战斗(战斗机制重置).mcaddon",
+  "author": "fieryabyss",
+  "packageSha256": "44cdcf5fcf13bb9cbb24b19d3999f5567f6a29fd94bce56e73487c29394270de",
+  "scriptSha256": "9e82e016724e47a36bd30202e9941009e2439ce95d5c11de706fdf1fb910f6ac",
+  "license": "No license file bundled. Private evaluation; obtain permission before redistribution.",
+  "excerpts": [
+    {
+      "export": "facingAngle",
+      "sourceSymbol": "function _0x10033",
+      "startOffset": 20608,
+      "endOffset": 21128,
+      "sha256": "f8426810eef2030231927afd86cbc7e2ea9e8d44cf18e9e6d12971f7ec76d465"
+    },
+    {
+      "export": "createComboAttack",
+      "sourceSymbol": "function _0x10112",
+      "startOffset": 93891,
+      "endOffset": 94340,
+      "sha256": "4f0dbae7e617eea7e5feb52f66f10a5bb5ca04e8d83a5b58d2b8d537fa616926"
+    },
+    {
+      "export": "createHeavyAttack",
+      "sourceSymbol": "function _0x10113",
+      "startOffset": 94340,
+      "endOffset": 94733,
+      "sha256": "7ec9e98b142714014ae2d3193b98dd6ac077dcf824ee5b6f63de62d32d576109"
+    },
+    {
+      "export": "ComboTracker",
+      "sourceSymbol": "var _0x10117=class",
+      "startOffset": 95800,
+      "endOffset": 96557,
+      "sha256": "203ba68d4accda17bad4a6767ad256b48554d3d5a73243bbf5711415a6d38b43"
+    }
+  ]
+}

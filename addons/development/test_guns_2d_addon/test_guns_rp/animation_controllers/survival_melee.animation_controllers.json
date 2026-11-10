@@ -1,0 +1,146 @@
+{
+  "format_version": "1.10.0",
+  "animation_controllers": {
+    "controller.animation.survival_melee.salvage_cleaver": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "transitions": [
+            {
+              "heavy": "v.sm_using && v.sm_sneaking"
+            },
+            {
+              "strike": "v.sm_using"
+            }
+          ]
+        },
+        "strike": {
+          "animations": [
+            "strike"
+          ],
+          "transitions": [
+            {
+              "release": "q.all_animations_finished"
+            }
+          ],
+          "blend_transition": 0.04
+        },
+        "heavy": {
+          "animations": [
+            "heavy"
+          ],
+          "transitions": [
+            {
+              "release": "q.all_animations_finished"
+            }
+          ],
+          "blend_transition": 0.04
+        },
+        "release": {
+          "transitions": [
+            {
+              "idle": "!v.sm_using"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.survival_melee.breach_hammer": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "transitions": [
+            {
+              "heavy": "v.sm_using && v.sm_sneaking"
+            },
+            {
+              "strike": "v.sm_using"
+            }
+          ]
+        },
+        "strike": {
+          "animations": [
+            "strike"
+          ],
+          "transitions": [
+            {
+              "release": "q.all_animations_finished"
+            }
+          ],
+          "blend_transition": 0.04
+        },
+        "heavy": {
+          "animations": [
+            "heavy"
+          ],
+          "transitions": [
+            {
+              "release": "q.all_animations_finished"
+            }
+          ],
+          "blend_transition": 0.04
+        },
+        "release": {
+          "transitions": [
+            {
+              "idle": "!v.sm_using"
+            }
+          ]
+        }
+      }
+    },
+    "controller.animation.survival_melee.pulse_spear": {
+      "initial_state": "idle",
+      "states": {
+        "idle": {
+          "animations": [
+            "idle"
+          ],
+          "transitions": [
+            {
+              "heavy": "v.sm_using && v.sm_sneaking"
+            },
+            {
+              "strike": "v.sm_using"
+            }
+          ]
+        },
+        "strike": {
+          "animations": [
+            "strike"
+          ],
+          "transitions": [
+            {
+              "release": "q.all_animations_finished"
+            }
+          ],
+          "blend_transition": 0.04
+        },
+        "heavy": {
+          "animations": [
+            "heavy"
+          ],
+          "transitions": [
+            {
+              "release": "q.all_animations_finished"
+            }
+          ],
+          "blend_transition": 0.04
+        },
+        "release": {
+          "transitions": [
+            {
+              "idle": "!v.sm_using"
+            }
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,9 +1,18 @@
 import { world, system, EquipmentSlot } from '@minecraft/server';
 import { updateActionBar } from './ui.js';
 import { pvpCanOperate } from './utils/pvpRules.js';
+import { JETPACK_TUNING } from '../data/jetpack.js';
+import { startJetpackThrustVisuals, updateJetpackThrustVisuals } from './jetpackVisuals.js';
 
 export class JetpackEngine {
  static playerJumpStates = new Map();
+
+ static isAlive(player) {
+  try {
+   const health = player.getComponent('minecraft:health');
+   return !health || health.currentValue > 0;
+  } catch { return false; }
+ }
 
  static onTick() {
   const currentTick = system.currentTick;
@@ -25,7 +34,7 @@ export class JetpackEngine {
     }
    } catch {}
 
-   if (!isJetpackEquipped) {
+   if (!isJetpackEquipped || !this.isAlive(player)) {
     this.playerJumpStates.delete(player.id);
     continue;
    }
@@ -41,7 +50,7 @@ export class JetpackEngine {
 
    if (justPressedJump) {
     const timeSinceLastJump = currentTick - state.lastJumpTick;
-    const isAirborne = player.isFalling || timeSinceLastJump <= 12;
+    const isAirborne = player.isFalling || timeSinceLastJump <= JETPACK_TUNING.doubleJumpWindowTicks;
 
     if (isAirborne) {
      if (currentTick >= state.nextReadyTick) {
@@ -55,17 +64,18 @@ export class JetpackEngine {
    }
 
    state.wasJumping = isJumpingNow;
+   try { updateJetpackThrustVisuals(player, state, currentTick); } catch { delete state.jetpackVisual; }
   }
  }
 
  static activateJetThrust(player, currentTick, state) {
-  if (!pvpCanOperate(player)) return;
+  if (!pvpCanOperate(player) || !this.isAlive(player)) return;
   try {
-   state.nextReadyTick = currentTick + 30;
+   state.nextReadyTick = currentTick + JETPACK_TUNING.cooldownTicks;
 
    const viewDir = player.getViewDirection();
-   const hSpeed = 0.45;
-   const vSpeed = 0.92;
+   const hSpeed = JETPACK_TUNING.horizontalImpulse;
+   const vSpeed = JETPACK_TUNING.verticalImpulse;
 
    player.applyImpulse({
     x: viewDir.x * hSpeed,
@@ -75,14 +85,7 @@ export class JetpackEngine {
 
    const dim = player.dimension;
    const loc = player.location;
-   const footLoc = { x: loc.x, y: loc.y + 0.1, z: loc.z };
-
-   try {
-    dim.spawnParticle('minecraft:basic_flame_particle', footLoc);
-    
-    dim.spawnParticle('minecraft:lava_particle', footLoc);
-    
-   } catch {}
+   try { startJetpackThrustVisuals(player, state, currentTick); } catch {}
 
    try {
     dim.playSound('mob.ghast.fireball', loc, { volume: 1.2, pitch: 1.3 });
@@ -90,7 +93,7 @@ export class JetpackEngine {
    } catch {}
 
    try {
-    player.addEffect('slow_falling', 70, { amplifier: 0, showParticles: false });
+    player.addEffect('slow_falling', JETPACK_TUNING.slowFallingTicks, { amplifier: 0, showParticles: false });
    } catch {}
 
    const broke = this.deductDurability(player);

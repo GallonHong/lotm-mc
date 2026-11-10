@@ -1,0 +1,133 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.epic_guns.scarh_stripper.parts": {
+      "loop": true,
+      "bones": {
+        "magazine": {
+          "position": [
+            0,
+            "-6 * variable.epic_mag",
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            "8 * variable.epic_mag"
+          ]
+        },
+        "bolt": {
+          "position": [
+            0,
+            0,
+            "0.8 * variable.tg3d_kick + 1.5 * (variable.tg3d_reloading && variable.tg3d_progress > 0.85 ? math.sin((variable.tg3d_progress - 0.85) * 1200) : 0)"
+          ]
+        },
+        "trigger": {
+          "rotation": [
+            "-12 * variable.tg3d_kick",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.epic_guns.mp5k_relay.parts": {
+      "loop": true,
+      "bones": {
+        "magazine": {
+          "position": [
+            0,
+            "-6 * variable.epic_mag",
+            "-1.8 * variable.epic_mag"
+          ],
+          "rotation": [
+            "-18 * variable.epic_mag",
+            0,
+            0
+          ]
+        },
+        "bolt": {
+          "position": [
+            0,
+            0,
+            "0.8 * variable.tg3d_kick + 1.5 * (variable.tg3d_reloading && variable.tg3d_progress > 0.85 ? math.sin((variable.tg3d_progress - 0.85) * 1200) : 0)"
+          ]
+        },
+        "trigger": {
+          "rotation": [
+            "-12 * variable.tg3d_kick",
+            0,
+            0
+          ]
+        }
+      }
+    },
+    "animation.epic_guns.python_finale.parts": {
+      "loop": true,
+      "bones": {
+        "cylinder": {
+          "position": [
+            "-2.4 * variable.epic_mag",
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            "60 * math.mod(variable.tg3d_shot, 6) + 180 * variable.tg3d_progress * variable.epic_mag"
+          ]
+        },
+        "hammer": {
+          "rotation": [
+            "-25 * variable.tg3d_kick",
+            0,
+            0
+          ]
+        },
+        "round_0": {
+          "position": [
+            0,
+            0,
+            "variable.tg3d_reloading ? 3 * math.sin(variable.tg3d_progress * 180) : 0"
+          ]
+        },
+        "round_1": {
+          "position": [
+            0,
+            0,
+            "variable.tg3d_reloading ? 3 * math.sin(variable.tg3d_progress * 180) : 0"
+          ]
+        },
+        "round_2": {
+          "position": [
+            0,
+            0,
+            "variable.tg3d_reloading ? 3 * math.sin(variable.tg3d_progress * 180) : 0"
+          ]
+        },
+        "round_3": {
+          "position": [
+            0,
+            0,
+            "variable.tg3d_reloading ? 3 * math.sin(variable.tg3d_progress * 180) : 0"
+          ]
+        },
+        "round_4": {
+          "position": [
+            0,
+            0,
+            "variable.tg3d_reloading ? 3 * math.sin(variable.tg3d_progress * 180) : 0"
+          ]
+        },
+        "round_5": {
+          "position": [
+            0,
+            0,
+            "variable.tg3d_reloading ? 3 * math.sin(variable.tg3d_progress * 180) : 0"
+          ]
+        }
+      }
+    }
+  }
+}

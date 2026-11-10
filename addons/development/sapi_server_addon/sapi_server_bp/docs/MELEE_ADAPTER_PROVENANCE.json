@@ -1,0 +1,16 @@
+{
+  "source": "vendor/baizhan_damage/feature/damageHandler.js",
+  "source_sha256": "6c2a21198c265be652e5b30ef5d40288730aa6397e34d6bf65d25427804cf24a",
+  "derivative": "vendor/melee_damageHandler.js",
+  "derivative_sha256": "0831a49833d51665e37f8a7c56f56eefc4031ea2cf68091f6820468315e471c2",
+  "changes": [
+    "Relative imports point to frozen dependency closure.",
+    "Subtract measured native damage after complete armor/offensive/critical formula; no HP rewrite.",
+    "A valid native hit already meeting the desired total returns successful no-op without damage or healing.",
+    "Confirmed left supplemental damage skips second target-armor wear; right/heavy/bleed retain ordinary target wear.",
+    "Managed melee shield handling is resolved once by CombatTechniques; techniqueShieldResolved bypasses bullet-specific shield absorption and reflection even when guard is inactive or broken.",
+    "techniqueShieldBlocked carries the one accepted guard absorption for shield durability. Native-credit supplement skips duplicate armor wear but commits a shield-only snapshot once on accepted damage.",
+    "The source vendor handler now passes activeShieldSlot and blockedDamage to EquipmentWear.apply for accepted scripted bullet hits; no unsafe after-hurt shield refund remains."
+  ],
+  "old_vendor_unchanged": false
+}

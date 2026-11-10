@@ -73,12 +73,22 @@
     },
     "animation.liegui.charge_fx": {
       "loop": true,
-      "animation_length": 0.4,
+      "animation_length": 0.12,
       "particle_effects": {
         "0.0": [
           {
             "effect": "charge",
             "locator": "charge"
+          },
+          {
+            "effect": "charge",
+            "locator": "vent_left"
+          }
+        ],
+        "0.06": [
+          {
+            "effect": "charge",
+            "locator": "vent_right"
           }
         ]
       }

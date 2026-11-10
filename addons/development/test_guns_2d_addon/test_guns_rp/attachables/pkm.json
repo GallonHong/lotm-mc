@@ -4,7 +4,8 @@
     "description": {
       "identifier": "test_gun:pkm",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
       },
       "textures": {
         "default": "textures/entity/tg3d/smooth/pkm_default",

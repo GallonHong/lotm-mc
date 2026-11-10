@@ -16,7 +16,7 @@
    },
    "minecraft:icon": "test_gun_dbss",
    "minecraft:display_name": {
-    "value": "§6DBSS 裁决者 [传说·红莲龙息]§r"
+    "value": "DBSS 裁决者"
    },
    "minecraft:use_modifiers": {
     "use_duration": 3200,

@@ -3,49 +3,129 @@
   "animations": {
     "animation.tg_shield.player_main_fp": {
       "loop": true,
+      "override_previous_animation": true,
       "bones": {
         "rightArm": {
+          "position": [
+            "19.71480051 - 2 * v.tg3d_guard + 1 * q.is_sprinting * (1 - v.tg3d_guard)",
+            "-14.09336808 + 1.5 * v.tg3d_guard - 2 * q.is_sprinting * (1 - v.tg3d_guard)",
+            "12.42360945 - q.is_sprinting * (1 - v.tg3d_guard) + 1.5 * math.sin(math.clamp(v.attack_time, 0, 1) * 180)"
+          ],
           "rotation": [
-            "-6 - 12 * v.tg3d_guard",
+            95,
+            -45,
+            115
+          ],
+          "scale": 1
+        },
+        "rightItem": {
+          "position": [
+            0,
             0,
             0
-          ]
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": 1
         }
       }
     },
     "animation.tg_shield.player_main_tpp": {
       "loop": true,
+      "override_previous_animation": true,
       "bones": {
         "rightArm": {
+          "position": [
+            0,
+            "-0.8 * q.is_sprinting * (1 - v.tg3d_guard)",
+            "-1.5 * math.sin(math.clamp(v.attack_time, 0, 1) * 180)"
+          ],
           "rotation": [
-            "-40 - 15 * v.tg3d_guard",
+            "-60 - 15 * v.tg3d_guard",
             0,
             0
-          ]
+          ],
+          "scale": 1
+        },
+        "rightItem": {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": 1
         }
       }
     },
     "animation.tg_shield.player_off_fp": {
       "loop": true,
+      "override_previous_animation": true,
       "bones": {
         "leftArm": {
+          "position": [
+            "-19.71480051 - -2 * v.tg3d_guard + -1 * q.is_sprinting * (1 - v.tg3d_guard)",
+            "-14.09336808 + 1.5 * v.tg3d_guard - 2 * q.is_sprinting * (1 - v.tg3d_guard)",
+            "12.42360945 - q.is_sprinting * (1 - v.tg3d_guard)"
+          ],
           "rotation": [
-            "-6 - 12 * v.tg3d_guard",
+            95,
+            45,
+            -115
+          ],
+          "scale": 1
+        },
+        "leftItem": {
+          "position": [
+            0,
             0,
             0
-          ]
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": 1
         }
       }
     },
     "animation.tg_shield.player_off_tpp": {
       "loop": true,
+      "override_previous_animation": true,
       "bones": {
         "leftArm": {
+          "position": [
+            0,
+            "-0.8 * q.is_sprinting * (1 - v.tg3d_guard)",
+            0
+          ],
           "rotation": [
-            "-40 - 15 * v.tg3d_guard",
+            "-60 - 15 * v.tg3d_guard",
             0,
             0
-          ]
+          ],
+          "scale": 1
+        },
+        "leftItem": {
+          "position": [
+            0,
+            0,
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            0
+          ],
+          "scale": 1
         }
       }
     }

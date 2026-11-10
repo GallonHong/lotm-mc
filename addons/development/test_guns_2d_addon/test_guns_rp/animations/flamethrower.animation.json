@@ -1,0 +1,43 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.flamethrower.parts": {
+      "loop": true,
+      "bones": {
+        "fuel_tank": {
+          "position": [
+            0,
+            "-7 * variable.epic_mag",
+            0
+          ],
+          "rotation": [
+            0,
+            0,
+            "-14 * variable.epic_mag"
+          ]
+        },
+        "pressure_valve": {
+          "rotation": [
+            0,
+            "variable.tg3d_reloading ? math.sin(variable.tg3d_progress * 360) * 90 : variable.flame_flow * 45",
+            0
+          ]
+        },
+        "trigger": {
+          "rotation": [
+            "-16 * variable.flame_flow",
+            0,
+            0
+          ]
+        },
+        "weapon": {
+          "position": [
+            0,
+            "variable.flame_flow * math.sin(query.life_time * 720) * 0.025",
+            0
+          ]
+        }
+      }
+    }
+  }
+}

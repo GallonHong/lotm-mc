@@ -1,5 +1,6 @@
 // Generated from canonical model muzzle locators. Do not edit by hand.
 export const MUZZLES = {
+ "test_gun:baizhan": [0, 5, -25.1],
  "test_gun:ak47": [
   0,
   3.5,
@@ -121,4 +122,7 @@ export const MUZZLES = {
   -8.75
  ],
  'test_gun:liegui': [0, 3.264, -20.4],
+ "test_gun:scarh_stripper": [0, 4.1, -15.1],
+ "test_gun:mp5k_relay": [0, 3.9, -8.8],
+ "test_gun:python_finale": [0, 4.1, -10],
 };

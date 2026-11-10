@@ -8,9 +8,8 @@
       "crafting_table"
     ],
     "pattern": [
-      "PBI",
-      "RMA",
-      "S  "
+      "PB",
+      "RS"
     ],
     "key": {
       "P": {
@@ -19,17 +18,8 @@
       "B": {
         "item": "test_gun:part_barrel"
       },
-      "I": {
-        "item": "minecraft:iron_ingot"
-      },
       "R": {
         "item": "test_gun:part_receiver"
-      },
-      "M": {
-        "item": "test_gun:ammo_rifle"
-      },
-      "A": {
-        "item": "minecraft:iron_ingot"
       },
       "S": {
         "item": "test_gun:part_stock"

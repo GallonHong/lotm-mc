@@ -1,3 +1,6 @@
+import { FlamethrowerEngine } from './flamethrowerEngine.js';
+import { EpicGunPassives } from './epicGunPassives.js';
+import { BaizhanEngine } from './baizhanEngine.js';
 import { RailCannon } from './railCannon.js';
 import { world, system } from '@minecraft/server';
 import { preparePvpAmmo, finishPvpAmmo, getPvpAmmoRecord } from './utils/pvpAmmoTransaction.js';
@@ -12,6 +15,9 @@ import { MeleeEngine } from './meleeEngine.js';
 
 /** Cancel delayed damage before restoring inventory or allowing another match. */
 export function stopPvpGunTasks(player, { downed = false } = {}) {
+ FlamethrowerEngine.clear(player.id);
+ EpicGunPassives.clearEntity(player.id);
+ BaizhanEngine.clear(player.id);
  RailCannon.cancel(RailCannon.charges.has(player.id) ? player : player.id);
  ShootManager.clearPlayer(player);
  ShootManager.playerShotCounts.delete(player.id);

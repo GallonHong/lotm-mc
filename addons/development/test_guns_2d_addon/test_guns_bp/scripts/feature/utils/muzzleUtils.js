@@ -46,11 +46,11 @@ export function clipSegment(dimension, start, end) {
   });
   if (!hit) return { location: end, blocked: false };
   const resolved = resolveBlockRaycastHit(hit, direction);
-  if (!resolved) return { location: start, blocked: true };
+  if (!resolved) return { location: start, blocked: true, reason: 'unavailable' };
   const travel = Math.max(0, Math.min(length, distance(start, resolved.surface) - 0.04));
-  return { location: { x: start.x + direction.x*travel, y: start.y + direction.y*travel, z: start.z + direction.z*travel }, blocked: true };
+  return { location: { x: start.x + direction.x*travel, y: start.y + direction.y*travel, z: start.z + direction.z*travel }, blocked: true, reason: 'collision' };
  } catch {
-  return { location: start, blocked: true };
+  return { location: start, blocked: true, reason: 'unavailable' };
  }
 }
 

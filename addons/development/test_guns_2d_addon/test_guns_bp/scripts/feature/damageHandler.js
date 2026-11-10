@@ -1,3 +1,5 @@
+import { EpicGunPassives } from './epicGunPassives.js';
+import { PkmBurn } from './pkmBurn.js';
 import { EquipmentWear } from './equipmentWear.js';
 import { EntityDamageCause, EquipmentSlot, system } from '@minecraft/server';
 import { MathUtils } from './utils/mathUtils.js';
@@ -5,6 +7,7 @@ import { isProtectedTeammate } from './utils/teamRules.js';
 import { isPvpDowned } from './utils/pvpRules.js';
 import { DamageIndicator } from './damageIndicator.js';
 import { ArmorEngine, ARMOR_KNOCKBACK_VALUES } from './armorEngine.js';
+import { JETPACK_COMBAT } from '../data/jetpack.js';
 
 export { ARMOR_KNOCKBACK_VALUES };
 
@@ -96,7 +99,7 @@ export const ARMOR_PIECE_VALUES = {
  armor_wasp_boots: 4,     // 工兵减震军靴 (原 3 -> 4)
 
  // 特殊机动装备与战术盾牌 (Mobility & Shields)
- jetpack: 6,
+ jetpack: JETPACK_COMBAT.armorPoints,
  riot_shield: 5,        // 重装反甲盾 (原 4 -> 5)
  flash_shield: 5,       // G52 战术闪光盾 (原 4 -> 5)
  armor_wasp_rig: 8,      // 黄蜂轻型胸挂 (原 6 -> 8)
@@ -230,12 +233,13 @@ export class DamageHandler {
  /**
   * 执行综合伤害结算
   */
- static handleHit(projectile, shooter, target, gun, impactLocation) {
+ static handleHit(projectile, shooter, target, gun, impactLocation, directShot = null) {
   if (!target || !target.isValid()) return;
   if (shooter && target.id === shooter.id) return;
   if (isProtectedTeammate(shooter, target)) return;
   if (!gun) return;
 
+  const epicHit = EpicGunPassives.prepareHit(directShot, shooter, target, gun);
   const stats = gun.stats || { damage: 10, armorPenetration: 0.25, maxRange: 60 };
 
   // 1. 距离衰减计算
@@ -298,7 +302,10 @@ export class DamageHandler {
   }
 
   // 胸甲攻击被动
-  if (sChest.includes('armor_killa_6b13')) {
+  if (sChest === 'test_gun:jetpack' || sChest === 'apex:jetpack') {
+   critRate += JETPACK_COMBAT.critChanceBonus;
+   dmgMultiplier += JETPACK_COMBAT.damageBonus;
+  } else if (sChest.includes('armor_killa_6b13')) {
    critRate += 0.20; // Killa 6B13: +20% 暴击率
    if (isSmg || isShotgun) dmgMultiplier += 0.30; // 冲锋枪/霰弹枪 +30% 伤害
    else dmgMultiplier += 0.15;
@@ -585,20 +592,6 @@ export class DamageHandler {
    }
   }
 
-  // 3.2 PKM 烈焰重机枪：【硫磺烈焰 / Incendiary DOT】(连续灼烧与熔火爆燃)
-  if (gun.id === 'test_gun:pkm' || gun.isIncendiaryDot) {
-   try {
-    target.setOnFire(4, true); // 施加4秒持续燃烧
-    // 概率触发熔火爆炸钢屑与爆燃音效
-    const dim = target.dimension;
-    dim.spawnParticle('test_gun:pkm_burn', { x: targetLoc.x, y: targetLoc.y + 1, z: targetLoc.z });
-    dim.spawnParticle('minecraft:basic_flame_particle', { x: targetLoc.x, y: targetLoc.y + 1.2, z: targetLoc.z });
-    if (Math.random() < 0.35) {
-     dim.playSound('random.fizz', targetLoc, { volume: 0.8, pitch: 1.2 });
-    }
-   } catch {}
-  }
-
   // 3.3 RPK 班用轻机枪：【火力压制 / Suppression】(强力减速与破除霸体)
   if (gun.id === 'test_gun:rpk') {
    try {
@@ -633,6 +626,10 @@ export class DamageHandler {
   // 4. 护甲与穿透计算 (双曲递减曲线 + 保底动能伤害)
   const armorPoints = this.estimateArmorPoints(target);
   if (Number.isFinite(gun.fixedArmorPenetration)) finalPenetration = Math.max(0, Math.min(1, gun.fixedArmorPenetration));
+  if (epicHit) {
+   if (epicHit.penetration !== null) finalPenetration = epicHit.penetration;
+   currentDamage *= epicHit.multiplier;
+  }
   const finalDamage = this.calculateArmorReduction(currentDamage, armorPoints, finalPenetration, floorRatio);
 
   // 5. 施加无敌帧穿透伤害 (EntityDamageCause.override)
@@ -642,8 +639,10 @@ export class DamageHandler {
     cause: EntityDamageCause.override,
     damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
    };
-   const applied = EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage);
+   const applied = EpicGunPassives.applyHit(epicHit, () => EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage, activeShieldSlot, blockedDamage));
    if (applied !== true) return false;
+   // Only accepted direct hits may start/refresh attributed sulfur burn.
+   if (gun.id === 'test_gun:pkm' || gun.isIncendiaryDot) PkmBurn.apply(shooter, target);
    shieldResponse?.();
    if (kbResistance >= 1.0) {
     try {

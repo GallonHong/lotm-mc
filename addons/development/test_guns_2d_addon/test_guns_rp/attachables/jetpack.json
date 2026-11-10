@@ -8,11 +8,11 @@
         "enchanted": "armor_enchanted"
       },
       "textures": {
-        "default": "textures/models/armor/jetpack",
+        "default": "textures/models/armor/wasteland_jetpack",
         "enchanted": "textures/misc/enchanted_item_glint"
       },
       "geometry": {
-        "default": "geometry.jetpack"
+        "default": "geometry.test_gun.wasteland_jetpack"
       },
       "scripts": {
         "parent_setup": "variable.chest_layer_visible = 0.0;"

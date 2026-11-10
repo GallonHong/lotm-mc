@@ -4,7 +4,8 @@
     "description": {
       "identifier": "test_gun:m1014_ward",
       "materials": {
-        "default": "entity_alphatest"
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
       },
       "textures": {
         "default": "textures/entity/tg3d/smooth/m1014_ward_default",

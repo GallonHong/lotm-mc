@@ -54,7 +54,7 @@
       "textures": "textures/guns/dbss"
     },
     "test_gun_jetpack": {
-      "textures": "textures/items/jetpack"
+      "textures": "textures/items/wasteland_jetpack"
     },
     "test_gun_riot_shield": {
       "textures": "textures/items/riot_shield"
@@ -481,6 +481,45 @@
     },
     "test_gun_blueprint_liegui": {
       "textures": "textures/items/blueprint_liegui"
+    },
+    "test_gun_salvage_cleaver": {
+      "textures": "textures/items/survival_melee/salvage_cleaver"
+    },
+    "test_gun_breach_hammer": {
+      "textures": "textures/items/survival_melee/breach_hammer"
+    },
+    "test_gun_pulse_spear": {
+      "textures": "textures/items/survival_melee/pulse_spear"
+    },
+    "test_gun_baizhan": {
+      "textures": "textures/guns/baizhan"
+    },
+    "test_gun_scarh_stripper": {
+      "textures": "textures/guns/scarh_stripper"
+    },
+    "test_gun_blueprint_scarh_stripper": {
+      "textures": "textures/guns/blueprint_scarh_stripper"
+    },
+    "test_gun_mp5k_relay": {
+      "textures": "textures/guns/mp5k_relay"
+    },
+    "test_gun_blueprint_mp5k_relay": {
+      "textures": "textures/guns/blueprint_mp5k_relay"
+    },
+    "test_gun_python_finale": {
+      "textures": "textures/guns/python_finale"
+    },
+    "test_gun_blueprint_python_finale": {
+      "textures": "textures/guns/blueprint_python_finale"
+    },
+    "test_gun_flamethrower": {
+      "textures": "textures/guns/flamethrower"
+    },
+    "test_gun_high_pressure_fuel": {
+      "textures": "textures/guns/high_pressure_fuel"
+    },
+    "test_gun_blueprint_flamethrower": {
+      "textures": "textures/guns/blueprint_flamethrower"
     }
   }
 }

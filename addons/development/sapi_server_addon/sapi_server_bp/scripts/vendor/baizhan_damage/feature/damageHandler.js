@@ -639,7 +639,7 @@ export class DamageHandler {
     cause: EntityDamageCause.override,
     damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
    };
-   const applied = EpicGunPassives.applyHit(epicHit, () => EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage));
+   const applied = EpicGunPassives.applyHit(epicHit, () => EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage, activeShieldSlot, blockedDamage));
    if (applied !== true) return false;
    // Only accepted direct hits may start/refresh attributed sulfur burn.
    if (gun.id === 'test_gun:pkm' || gun.isIncendiaryDot) PkmBurn.apply(shooter, target);

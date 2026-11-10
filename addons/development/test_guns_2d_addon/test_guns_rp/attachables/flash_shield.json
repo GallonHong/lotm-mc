@@ -16,24 +16,27 @@
       },
       "animations": {
         "wield_fp": "animation.tg_shield.wield_first_person",
+        "wield_off_fp": "animation.tg_shield.wield_off_first_person",
         "wield_tp": "animation.tg_shield.wield_third_person"
       },
       "scripts": {
         "animate": [
           {
-            "wield_fp": "c.is_first_person"
+            "wield_fp": "c.is_first_person && c.item_slot == 'main_hand'"
+          },
+          {
+            "wield_off_fp": "c.is_first_person && c.item_slot == 'off_hand'"
           },
           {
             "wield_tp": "!c.is_first_person"
           }
         ],
         "initialize": [
-          "v.tgs_guard = 0;",
-          "v.tgs_run = 0;"
+          "v.tgs_guard = 0;"
         ],
         "pre_animation": [
           "v.tgs_guard = math.lerp(v.tgs_guard, (c.owning_entity -> q.is_sneaking), math.min(1, q.delta_time * 12));",
-          "v.tgs_run = math.lerp(v.tgs_run, (c.owning_entity -> q.is_sprinting) * (1 - v.tgs_guard), math.min(1, q.delta_time * 10));"
+          "v.tgs_pitch = 60 + 15 * v.tgs_guard;"
         ]
       },
       "render_controllers": [

@@ -22,12 +22,13 @@ export function getCurrentAmmo(player, gun) {
    return Math.max(0, Math.min(gun.maxAmmo, ammo));
   }
   if (isPvpDowned(player)) return 0;
-  // Default initialize to maxAmmo on first pickup
-  player.setDynamicProperty(key, gun.maxAmmo);
-  return gun.maxAmmo;
+  // Baizhan starts empty outside PvP; pickup/reconnect must not mint ammo.
+  const initial = isPvpParticipant(player) ? gun.maxAmmo : (gun.initialAmmo ?? gun.maxAmmo);
+  player.setDynamicProperty(key, initial);
+  return initial;
  } catch {
   if (isPvpDowned(player)) return 0;
-  return gun.maxAmmo;
+  return (gun.isBaizhan || gun.isFlamethrower || gun.isRailCannon) ? 0 : gun.maxAmmo;
  }
 }
 
@@ -38,8 +39,9 @@ export function setCurrentAmmo(player, gun, amount) {
   const key = ammoKey(player, getGunDynamicKey(gun.id));
   const clamped = Math.max(0, Math.min(gun.maxAmmo, Math.floor(amount)));
   player.setDynamicProperty(key, clamped);
+  if ((gun.isFlamethrower || gun.isRailCannon) && player.getDynamicProperty(key) !== clamped) return undefined;
   return clamped;
  } catch {
-  return amount;
+  return (gun.isBaizhan || gun.isFlamethrower || gun.isRailCannon) ? undefined : amount;
  }
 }

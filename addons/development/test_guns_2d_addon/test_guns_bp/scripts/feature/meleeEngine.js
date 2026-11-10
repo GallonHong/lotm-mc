@@ -1,3 +1,4 @@
+import { LegacyMeleeBridge } from './legacyMeleeBridge.js';
 import { pvpCanAttack, isPvpParticipant } from './utils/pvpRules.js';
 import { world, system, EntityDamageCause } from '@minecraft/server';
 import { isProtectedTeammate } from './utils/teamRules.js';
@@ -27,7 +28,7 @@ export class MeleeEngine {
      if (entity && entity.isValid()) {
       const attacker = info.attackerId ? world.getEntity(info.attackerId) : null;
       if (isProtectedTeammate(attacker, entity)) { this.bleedingTargets.delete(entId); continue; }
-      entity.applyDamage(2.0, { cause: EntityDamageCause.magic, damagingEntity: attacker || undefined });
+      if(!attacker||!LegacyMeleeBridge.hit(attacker,entity,'bleed')){this.bleedingTargets.delete(entId);continue;}
       entity.dimension.spawnParticle('minecraft:critical_hit_emitter', entity.location);
      } else {
       this.bleedingTargets.delete(entId);
@@ -70,7 +71,7 @@ export class MeleeEngine {
       const tView = target.getViewDirection ? target.getViewDirection() : { x: 0, z: 0 };
       const dot = viewDir.x * tView.x + viewDir.z * tView.z;
       if (dot > 0.4) {
-       target.applyDamage(8.0, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
+       LegacyMeleeBridge.hit(player,target,'backstab');
        player.dimension.spawnParticle('minecraft:critical_hit_emitter', tLoc);
        player.dimension.playSound('random.break', pLoc, { volume: 0.9, pitch: 1.8 });
        player.onScreenDisplay?.setActionBar?.('§c【潜行背刺暗杀】触发 300% 致命暴击!§r');
@@ -83,7 +84,7 @@ export class MeleeEngine {
    else if (typeId === 'test_gun:tactical_shovel') {
     try {
      player.dimension.playSound('random.anvil_land', pLoc, { volume: 0.6, pitch: 2.2 });
-     target.addEffect('slowness', 40, { amplifier: 1, showParticles: true });
+     LegacyMeleeBridge.hit(player,target,'shovel');
     } catch {}
    }
 
@@ -91,14 +92,7 @@ export class MeleeEngine {
    else if (typeId === 'test_gun:tactical_axe') {
     try {
      player.dimension.playSound('random.break', pLoc, { volume: 0.8, pitch: 1.2 });
-     target.applyDamage(3.0, { cause: EntityDamageCause.override, damagingEntity: player });
-     const kbRes = ArmorEngine.getKnockbackResistance(target);
-     if (kbRes >= 1.0) {
-      target.clearVelocity();
-     } else {
-      const remainingFactor = Math.max(0, 1.0 - kbRes);
-      target.applyKnockback(viewDir.x * remainingFactor, viewDir.z * remainingFactor, 0.8 * remainingFactor, 0.2 * remainingFactor);
-     }
+     LegacyMeleeBridge.hit(player,target,'axe');
     } catch {}
    }
 
@@ -157,11 +151,9 @@ export class MeleeEngine {
      const dot = (dx / dist) * viewDir.x + (dz / dist) * viewDir.z;
      if (dot > 0.25) {
       try {
-       ent.applyDamage(sweepDmg * 0.85, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
+       LegacyMeleeBridge.hit(player,ent,applyBleed?'kukri_sweep':'katana_sweep');
        ent.dimension.spawnParticle('minecraft:critical_hit_emitter', eLoc);
-       if (applyBleed) {
-        this.bleedingTargets.set(ent.id, { attackerId: player.id, ticks: 60 });
-       }
+       // SAPI starts secondary-target bleed only after a confirmed un-parried hit.
       } catch {}
      }
     }
@@ -225,16 +217,7 @@ export class MeleeEngine {
      if (isProtectedTeammate(player, ent)) continue;
 
      try {
-      ent.applyDamage(18.0, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
-      const kbRes = ArmorEngine.getKnockbackResistance(ent);
-      if (kbRes >= 1.0) {
-       ent.clearVelocity();
-      } else {
-       const remainingFactor = Math.max(0, 1.0 - kbRes);
-       const el = ent.location;
-       ent.applyKnockback((el.x - pLoc.x) * remainingFactor, (el.z - pLoc.z) * remainingFactor, 1.2 * remainingFactor, 0.35 * remainingFactor);
-      }
-      ent.dimension.spawnParticle('minecraft:critical_hit_emitter', el);
+      LegacyMeleeBridge.hit(player,ent,'whirlwind');
      } catch {}
     }
 
@@ -283,8 +266,7 @@ export class MeleeEngine {
      if (isProtectedTeammate(player, ent)) continue;
 
      try {
-      ent.applyDamage(22.0, { cause: EntityDamageCause.entityAttack, damagingEntity: player });
-      ent.addEffect('weakness', 60, { amplifier: 1, showParticles: true });
+      LegacyMeleeBridge.hit(player,ent,'iaido');
       ent.dimension.spawnParticle('minecraft:critical_hit_emitter', ent.location);
      } catch {}
     }

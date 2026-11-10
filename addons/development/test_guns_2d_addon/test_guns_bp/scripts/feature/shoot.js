@@ -108,6 +108,8 @@ export class ShootManager {
  }
 
  static tick(player, gun) {
+  if (gun?.isFlamethrower) return;
+  if (gun?.isBaizhan) return; // Dedicated posture/ammo/guard state machine.
   if (!pvpCanAttack(player)) { this.clearPlayer(player); ReloadManager.cancelReload(player); return; }
   const currentCd = this.playerCooldowns.get(player.id) || 0;
   if (currentCd > 0) {
@@ -272,7 +274,7 @@ export class ShootManager {
   // 持续长按连发时，每次击发成功均自动延续看门狗心跳（避免长按被误熔断）
   this.refreshTriggerHeartbeat(player);
 
-  showAmmoHUD(player, gun, newAmmo);
+  showAmmoHUD(player, gun, getCurrentAmmo(player, gun)); // Direct-kill refills may change the magazine.
   this.playerCooldowns.set(player.id, gun.fireRate || 4);
 
   if (gun.mode === FireMode.SEMI) {

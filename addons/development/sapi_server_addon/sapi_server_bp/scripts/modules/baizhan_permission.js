@@ -4,6 +4,7 @@ import { CombatManager } from './combat.js';
 import { Integration } from './integration.js';
 import { isMatchLocked, matchDamageAllowed } from './match_access.js';
 import { DamageHandler } from '../vendor/baizhan_damage/feature/damageHandler.js';
+import { DamageIndicator as AuthoritativeIndicator } from '../vendor/baizhan_damage/feature/damageIndicator.js';
 import { BAIZHAN_GUN } from '../data/baizhanGun.js';
 import { BAIZHAN, MACHINE_TARGETS, machineDamageMultiplier, distance, traceCover, approvedSegment } from '../data/baizhanRules.js';
 
@@ -17,6 +18,56 @@ const blockedTag = p => ['pvp:downed','pvp:dead','pvp:protected','tg:rail_stunne
 /** Authoritative Baizhan commit. Protection, cover and current damage formulas
  * run synchronously in one server callback; no delayed damage approval exists. */
 export class BaizhanPermissionManager {
+ static feedback = new Map();
+ static beginFeedback(packet, shooter, target) {
+  for(const [key,r] of this.feedback)if(system.currentTick-r.tick>BAIZHAN.guardTicks)this.feedback.delete(key);
+  if(this.feedback.size>=4096)return null;
+  try {
+   const record={nonce:packet.nonce,shooterId:shooter.id,targetId:target.id,tick:system.currentTick,
+    dimension:target.dimension.id,location:{...target.location},before:target.getComponent('minecraft:health')?.currentValue};
+   this.feedback.set(packet.nonce,record);return record;
+  }catch{return null;}
+ }
+ static captureHurt(event) {
+  const damage=Number(event?.damage);
+  if(!Number.isFinite(damage)||damage<=0||event.damageSource?.cause!=='override')return;
+  for(const record of this.feedback.values()) {
+   if(record.observed||record.targetId!==event.hurtEntity?.id||record.shooterId!==event.damageSource?.damagingEntity?.id||system.currentTick-record.tick>2)continue;
+   record.observed=true;record.damage=damage;record.basis='entityHurt';
+   if(typeof AuthoritativeIndicator!=='undefined'){
+    record.headshot=AuthoritativeIndicator.headshots.has(record.targetId);
+    record.critical=AuthoritativeIndicator.crits.has(record.targetId);
+   }
+   break;
+  }
+ }
+ static finishFeedback(record, target, applied) {
+  if(!record||!applied)return;
+  try {
+   const after=target.getComponent('minecraft:health')?.currentValue;
+   if(!record.observed&&target.isValid()&&Number.isFinite(record.before)&&Number.isFinite(after)&&after>=0&&record.before>after&&
+    !['pvp:downed','apoc:downed','apoc_downed'].some(t=>target.hasTag(t))){
+    record.damage=record.before-after;record.basis='health_loss';
+   }
+  }catch{} // Never invent a lethal/deleted target's remaining HP.
+ }
+ static consumeFeedback(record) {
+  if(!record)return undefined;
+  this.feedback.delete(record.nonce);
+  if(!Number.isFinite(record.damage)||record.damage<=0)return undefined;
+  const {shooterId,targetId,dimension,location,damage,basis,headshot,critical,tick}=record;
+  return {shooterId,targetId,dimension,location,damage,basis,headshot,critical,cause:'override',hitTick:tick};
+ }
+ static sendResult(packet, applied, record) {
+  const send=()=>{
+   const feedback=applied?this.consumeFeedback(record):undefined;
+   this.feedback.delete(packet.nonce);
+   try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:baizhan_hit_result ${JSON.stringify({nonce:packet.nonce,applied,feedback})}`);}catch{}
+  };
+  // Damage was already committed synchronously. Defer only the cosmetic
+  // receipt one tick to prefer Bedrock's actual damage event over HP deltas.
+  if(typeof system.run==='function')system.run(send);else send();
+ }
  static registered = false;
  static getActiveMatchId;
  static activeMatchId(){try{const id=this.getActiveMatchId?.();return id===null||typeof id==='string'&&id?id:undefined;}catch{return undefined;}}
@@ -128,7 +179,7 @@ export class BaizhanPermissionManager {
   // A player's persisted public tag may survive logout until spawn cleanup.
   // Never accept a pre-leave packet, even after a quick same-id reconnect.
   if(packet.issuedTick<=Math.max(this.lastLeaveTick.get(packet.shooterId)??-1,this.leaveOverflowTick))return;
-  let applied=false;
+  let applied=false,feedbackRecord;
   try {
    const approval=this.authorize(packet);
    if(approval.allowed===true){
@@ -141,13 +192,15 @@ export class BaizhanPermissionManager {
       knockback:packet.kind==='direct'?BAIZHAN_GUN.stats.knockback:undefined}};
     // No await, queued callback, or caller-supplied final damage occurs between
     // current safety checks and this exact mirrored damage/armor/shield code.
+    feedbackRecord=this.beginFeedback(packet,shooter,target);
     applied=DamageHandler.handleHit(null,shooter,target,gun,packet.impact)===true;
+    this.finishFeedback(feedbackRecord,target,applied);
     if(applied&&packet.kind==='direct'&&packet.round==='slow'&&living(target)){
      try{target.addEffect('slowness',40,{amplifier:1,showParticles:false});}catch{}
     }
    }
   }catch{applied=false;} // Never retry an uncertain apply, nor fall back to HP.
-  try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:baizhan_hit_result ${JSON.stringify({nonce:packet.nonce,applied})}`);}catch{}
+  this.sendResult(packet,applied,feedbackRecord);
  }
  static registerEvents(getActiveMatchId) {
   if(typeof getActiveMatchId==='function')this.getActiveMatchId=getActiveMatchId;
@@ -155,6 +208,7 @@ export class BaizhanPermissionManager {
   const signal=system.afterEvents?.scriptEventReceive,leaveSignal=world.afterEvents?.playerLeave;
   if(!signal?.subscribe||!leaveSignal?.subscribe)return;
   leaveSignal.subscribe(({playerId})=>this.recordLeave(playerId));
+  world.afterEvents?.entityHurt?.subscribe(event=>this.captureHurt(event));
   signal.subscribe(e=>this.handleRequest(e));
   this.registered=true;
  }

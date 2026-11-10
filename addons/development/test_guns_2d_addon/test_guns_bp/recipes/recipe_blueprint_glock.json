@@ -12,10 +12,10 @@
         "item": "test_gun:blueprint_blank"
       },
       {
-        "item": "minecraft:redstone"
+        "item": "minecraft:stick"
       },
       {
-        "item": "minecraft:iron_ingot"
+        "item": "minecraft:iron_nugget"
       }
     ],
     "result": {

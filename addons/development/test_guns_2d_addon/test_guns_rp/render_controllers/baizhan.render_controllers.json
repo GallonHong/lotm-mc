@@ -1,0 +1,52 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.baizhan.held": {
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": "!variable.tg3d_sneaking"
+        }
+      ]
+    },
+    "controller.render.baizhan.mount": {
+      "geometry": "geometry.default",
+      "materials": [
+        {
+          "*": "material.default"
+        }
+      ],
+      "textures": [
+        "texture.default"
+      ],
+      "part_visibility": [
+        {
+          "*": true
+        },
+        {
+          "mount_body": "query.distance_from_camera > 2.5"
+        },
+        {
+          "mount_tripod": "query.distance_from_camera > 2.5"
+        },
+        {
+          "bolt": "query.distance_from_camera > 2.5"
+        },
+        {
+          "feed_cover": "query.distance_from_camera > 2.5"
+        },
+        {
+          "mount_barrel": "query.distance_from_camera > 2.5 || math.abs(query.property('test_gun:aim_pitch')) < 25"
+        }
+      ]
+    }
+  }
+}

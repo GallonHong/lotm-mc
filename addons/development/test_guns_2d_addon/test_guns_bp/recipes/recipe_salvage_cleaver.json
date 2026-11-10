@@ -1,0 +1,31 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_salvage_cleaver"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "IIB",
+      " II",
+      " S "
+    ],
+    "key": {
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "S": {
+        "item": "minecraft:stick"
+      }
+    },
+    "result": {
+      "item": "test_gun:salvage_cleaver",
+      "count": 1
+    }
+  }
+}

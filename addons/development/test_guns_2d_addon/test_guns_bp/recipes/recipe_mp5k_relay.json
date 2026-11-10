@@ -1,0 +1,46 @@
+{
+  "format_version": "1.12.0",
+  "minecraft:recipe_shaped": {
+    "description": {
+      "identifier": "test_gun:recipe_mp5k_relay"
+    },
+    "tags": [
+      "crafting_table"
+    ],
+    "pattern": [
+      "PBC",
+      "RMI",
+      "SG "
+    ],
+    "key": {
+      "P": {
+        "item": "test_gun:blueprint_mp5k_relay"
+      },
+      "B": {
+        "item": "test_gun:part_barrel"
+      },
+      "C": {
+        "item": "minecraft:copper_ingot"
+      },
+      "R": {
+        "item": "test_gun:part_receiver"
+      },
+      "M": {
+        "item": "test_gun:part_receiver"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
+      },
+      "S": {
+        "item": "minecraft:redstone"
+      },
+      "G": {
+        "item": "test_gun:part_stock"
+      }
+    },
+    "result": {
+      "item": "test_gun:mp5k_relay",
+      "count": 1
+    }
+  }
+}

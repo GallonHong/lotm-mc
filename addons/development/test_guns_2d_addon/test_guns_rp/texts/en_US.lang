@@ -13,14 +13,14 @@ item.test_gun:svd.name=SVD Dragunov Sniper [Target Tracker]\n§8§o"An obituary 
 item.test_gun:m1014.name=Benelli M1014 Rapid Shotgun [Semi-Auto]\n§8§o"A tempest of semi-automatic buckshot capable of purging a narrow corridor clean in three seconds."§r
 
 item.test_gun:m82.name=Barrett M82 .50 Anti-Materiel Sniper [Epic]\n§8§o"Thunderous crack echoing across the barrens; shattering heavy armor and the arrogance of monsters."§r
-item.test_gun:riot_shield.name=Tactical Spiked Riot Shield [50% Reflect]\n§8§o"The harder you strike, the deeper the lead bites back. — Masterpiece of an underground armorer"§r
+item.test_gun:riot_shield.name=Tactical Spiked Riot Shield [50% Bullet Reflect]\n§7Frontal bullets: 70% block, sneaking 85%. Sneaking managed melee: 75%.§r\n§8§o"The harder you strike, the deeper the lead bites back. — Masterpiece of an underground armorer"§r
 item.test_gun:armor_titan_chest.name=Titan Exoskeleton Suit [12 Armor·Strength]\n§8§o"The ultimate roar of heavy industry; hydraulic servomotors give soldiers the strength to grapple giants."§r
 
-item.test_gun:vector.name=HK MP7 Tactical SMG [Legendary·Overdrive]
-item.test_gun:mgl.name=MGL 40mm Rotary Grenade Launcher [Saturation]
-item.test_gun:arc_emitter.name=Tesla Arc Emitter [EMP Shockwave]
-item.test_gun:dbss.name=DBSS Arbitrator Shotgun [Legendary·Inferno]
-item.test_gun:jetpack.name=Tactical Ion Jetpack [Double Jump·Boost]
+item.test_gun:vector.name=HK MP7
+item.test_gun:mgl.name=MGL 40mm
+item.test_gun:arc_emitter.name=Tesla Arc Emitter
+item.test_gun:dbss.name=DBSS Arbitrator
+item.test_gun:jetpack.name=§6Tactical Ion Jetpack [Legendary·Double Jump·Slow Fall]§r\n§7Combat: 8 armor; firearm direct hits / survival melee: +10 percentage points crit chance, +12% damage§r\n§7Mobility: 1.2s boost cooldown, 4s slow fall, 900 durability§r
 
 item.test_gun:armor_vest_light.name=Kevlar Light Tactical Vest\n§8§o"A crudely refurbished civilian ballistic vest; every patched stitch tells a survivor's desperate tale."§r
 item.test_gun:armor_vest_heavy.name=Tactical Heavy Assault Vest\n§8§o"Rigged with heavy ballistic plates; cumbersome, yet keeps you breathing through lethal firefights."§r
@@ -42,10 +42,10 @@ item.test_gun:rpg.name=RPG-7 Rocket Launcher §5[Epic]§r\n§8§o"The purest exp
 item.test_gun:ammo_rocket.name=PG-7V High-Explosive Rocket §5[Epic]§r
 item.test_gun:blueprint_rpg.name=Weapon Blueprint: RPG-7 §5[Epic]§r
 
-item.test_gun:flash_shield.name=G52 Tactical Flash Shield §5[Epic]§r\n§8§o"Not just an impassable bulwark, but a blinding lightning bolt piercing through pitch-black despair."§r
+item.test_gun:flash_shield.name=G52 Tactical Flash Shield §5[Epic]§r\n§7Frontal bullets: 70% block, sneaking 85%. Sneaking managed melee: 75%.§r\n§8§o"Not just an impassable bulwark, but a blinding lightning bolt piercing through pitch-black despair."§r
 item.test_gun:blueprint_flash_shield.name=Armor Blueprint: G52 Flash Shield §5[Epic]§r
 
-item.test_gun:ak47_commander.name=AK-47 Tactical Commander §6[Legendary]§r
+item.test_gun:ak47_commander.name=AK-47 Tactical Commander
 item.test_gun:blueprint_ak47_commander.name=Weapon Blueprint: AK-47 Commander §6[Legendary]§r
 item.test_gun:blueprint_dbss.name=DBSS Arbitrator Blueprint [Legendary Limited·Uncraftable]
 
@@ -147,5 +147,21 @@ item.test_gun:armor_goggles_red.name=§aTactical Goggles Red [Uncommon Face]§r
 item.test_gun:blueprint_armor_goggles_red.name=§aTactical Goggles Red [Uncommon Face]§r Blueprint
 item.test_gun:part_armor_plate.name=§9Tactical Armor Plate [Rare]§r
 item.test_gun:part_iit.name=§5Image Intensifier Tube (IIT) [Epic]§r
-item.test_gun:liegui.name=LieGui Rail Cannon [Legendary Charged Railgun]
+item.test_gun:liegui.name=LieGui
 item.test_gun:blueprint_liegui.name=LieGui Rail Cannon Blueprint [Legendary Limited·Uncraftable]
+item.test_gun:salvage_cleaver.name=Serration | Salvage Cleaver
+item.test_gun:breach_hammer.name=Breach | Hydraulic Hammer
+item.test_gun:pulse_spear.name=Pulse | Tactical Spear
+item.test_gun:baizhan.name=Baizhan
+item.test_gun:baizhan.lore=Legendary heavy machine gun; 100-round handheld capacity with random special rounds. Sneak to deploy, use to fire manually, stop sneaking to retrieve. Mounted fire draws existing machine-gun ammo directly from inventory without reloading. One ammo item per shot; no 100-round conversion.
+entity.test_gun:baizhan_mount.name=Baizhan
+
+item.test_gun:scarh_stripper.name=§5SCAR-H "Stripper" §d[Epic]§r
+item.test_gun:blueprint_scarh_stripper.name=§5SCAR-H "Stripper" Blueprint §d[Epic]§r
+item.test_gun:mp5k_relay.name=§5MP5K "Relay" §d[Epic]§r
+item.test_gun:blueprint_mp5k_relay.name=§5MP5K "Relay" Blueprint §d[Epic]§r
+item.test_gun:python_finale.name=§5Python "Finale" §d[Epic]§r
+item.test_gun:blueprint_python_finale.name=§5Python "Finale" Blueprint §d[Epic]§r
+item.test_gun:flamethrower.name=§5Flamethrower§r
+item.test_gun:high_pressure_fuel.name=High-pressure Fuel
+item.test_gun:blueprint_flamethrower.name=§5Flamethrower Blueprint§r

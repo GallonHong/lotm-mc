@@ -1,0 +1,7 @@
+Test Guns 3.14.0 私人测试整合版
+
+新增近战适配中含用户提供的 Fiery Combat Add-on 1.0 的四段原始函数。作者署名 fieryabyss，汉化标注 b站男巫。原附件未附独立 LICENSE 或明确再分发许可，保留署名并不等于取得授权。此包仅作为私人适配测试交付，不表示参考代码开源。公开推送、公开分发或再许可前须确认作者授权。
+
+来源、原文摘要、适配范围及验证限制见 docs/SURVIVAL_MELEE.md 和 docs/fiery_combat_provenance.json。三件新武器模型、贴图、图标为此次原创，未从《明日之后》提取资产。既有 Test Guns 第三方资产保持原有来源与权利，不因本次整合而取得新的许可。
+
+This private test build includes four source excerpts from user-supplied Fiery Combat Add-on 1.0 by fieryabyss. No standalone license or express redistribution permission was bundled. Attribution is not permission. Confirm authorization before public distribution or publication.

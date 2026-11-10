@@ -16,7 +16,7 @@
       },
       "minecraft:icon": "test_gun_liegui",
       "minecraft:display_name": {
-        "value": "§6裂轨 [传说·蓄力重炮]§r\n§7四发弹仓 · 长按使用蓄力，松开击发\n§7三级基础伤害 25 / 50 / 80 · 潜行使用：裂空音波（30秒）"
+        "value": "裂轨"
       },
       "minecraft:use_modifiers": {
         "use_duration": 3200,

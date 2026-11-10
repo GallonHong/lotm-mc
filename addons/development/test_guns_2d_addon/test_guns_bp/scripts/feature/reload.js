@@ -1,3 +1,4 @@
+import { EpicGunPassives } from './epicGunPassives.js';
 import { hasInfinitePvpReserve, isPvpParticipant, pvpCanOperate, pvpMatch } from './utils/pvpRules.js';
 import { GunVisuals } from './gunVisuals.js';
 import { EquipmentSlot } from '@minecraft/server';
@@ -20,6 +21,7 @@ export class ReloadManager {
  }
 
  static startReload(player, gun) {
+  if (gun?.isBaizhan && player.isSneaking) { this.cancelReload(player); return false; }
   if (!pvpCanOperate(player) || this.isReloading(player)) return false;
 
   const currentAmmo = getCurrentAmmo(player, gun);
@@ -46,6 +48,7 @@ export class ReloadManager {
    totalTicks = Math.max(10, Math.round(totalTicks * 0.8)); // 携弹胸挂装填时间 -20%
   }
 
+  EpicGunPassives.clearPlayer(player.id);
   this.reloadingPlayers.set(player.id, {
    matchId: pvpMatch(player),
    participant: isPvpParticipant(player),

@@ -1,10 +1,10 @@
 /** Gameplay tuning uses existing Test Guns damage units, not normalized HP. */
 export const RAIL = Object.freeze({ id:'test_gun:liegui', minCharge:7, midCharge:20, fullCharge:40,
  maxHold:56, ventTicks:24, skillCooldownMs:30000, skillRange:24, skillRadius:1.3,
- skillDamage:24, stunTicks:24, stunImmunityMs:3000, maxTargets:12 });
+ skillDamage:24, stunTicks:24, stunImmunityMs:3000, maxTargets:12, projectileSpeed:1.8, gravity:0.045, drag:0.995, sweepStep:0.5, projectileRange:40, maxFlightTicks:80 });
 export function chargeProfile(ticks) {
  if(ticks<RAIL.minCharge)return null;
- if(ticks<RAIL.midCharge)return {damage:25,spread:3,radius:0,splash:0};
+ if(ticks<RAIL.midCharge)return {damage:25,spread:3,radius:1,splash:4};
  if(ticks<RAIL.fullCharge)return {damage:50,spread:1.5,radius:1.3,splash:8};
  return {damage:80,spread:0.6,radius:2.2,splash:12};
 }
