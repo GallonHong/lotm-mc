@@ -1,3 +1,4 @@
+import { getInnateArmorPoints } from './utils/mobArmor.js';
 import { CUSTOM_SHIELDS, SHIELD_IDS, calculateShieldBlock, isFrontalShieldHit } from './utils/shieldRules.js';
 import { getArmorHealthProfile } from '../data/armorHealth.js';
 import { getEquipmentCombatBonuses } from '../data/equipmentCombat.js';
@@ -147,6 +148,9 @@ export class DamageHandler {
   // Apocalypse Life drones carry intrinsic chassis armor instead of equipment.
   const intrinsic = intrinsicArmorPoints(entity.typeId);
   if (intrinsic > 0) return intrinsic;
+  const innateArmor = getInnateArmorPoints(entity);
+  // Assigned spawn armor is the total rating, not added to cosmetic random gear.
+  if (innateArmor !== null) return innateArmor;
   try {
    const equippable = entity.getComponent('minecraft:equippable');
    if (!equippable) return 0;

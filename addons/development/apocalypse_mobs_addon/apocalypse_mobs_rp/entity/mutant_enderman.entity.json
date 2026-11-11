@@ -36,7 +36,7 @@
             "walk": "query.modified_move_speed > 0.01"
           },
           {
-            "attack": "query.is_swinging_arm"
+            "attack": "variable.attack_time > 0.0"
           },
           "look_at_target"
         ]

@@ -1,0 +1,42 @@
+{
+  "resource_pack_name": "apocalypse_boss_rp",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "egg_mutant_zombie": {
+      "textures": "textures/items/spawn_eggs/spawn_mzombie"
+    },
+    "egg_mutant_skeleton": {
+      "textures": "textures/items/spawn_eggs/spawn_mskeleton"
+    },
+    "egg_mutant_lobber": {
+      "textures": "textures/items/spawn_eggs/spawn_mlobberzombie"
+    },
+    "egg_mutant_drowned": {
+      "textures": "textures/items/spawn_eggs/spawn_mdrowned"
+    },
+    "egg_mutant_enderman": {
+      "textures": "textures/items/spawn_eggs/spawn_menderman"
+    },
+    "egg_mutant_iron_golem": {
+      "textures": "textures/items/spawn_eggs/spawn_miron_golem"
+    },
+    "apoc_shared_boss_mutant_drowned_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_drowned_egg"
+    },
+    "apoc_shared_boss_mutant_enderman_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_enderman_egg"
+    },
+    "apoc_shared_boss_mutant_iron_golem_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_iron_golem_egg"
+    },
+    "apoc_shared_boss_mutant_lobber_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_lobber_egg"
+    },
+    "apoc_shared_boss_mutant_skeleton_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_skeleton_egg"
+    },
+    "apoc_shared_boss_mutant_zombie_egg": {
+      "textures": "textures/items/apoc_shared_boss/mutant_zombie_egg"
+    }
+  }
+}

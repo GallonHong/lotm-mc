@@ -1,5 +1,5 @@
 {
-  "format_version": "1.10.0",
+  "format_version": "1.20.80",
   "minecraft:client_entity": {
     "description": {
       "identifier": "apoc_boss:siren_head",
@@ -7,26 +7,26 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/apoc_diag/siren_head_default"
+        "default": "textures/entity/siren_head/pntmc_sirenhead_texture"
       },
       "geometry": {
-        "default": "geometry.apoc_diag.siren_head"
+        "default": "geometry.pntmc_siren_head"
       },
       "render_controllers": [
-        "controller.render.apoc_diag.body"
+        "controller.render.apoc.default"
       ],
       "spawn_egg": {
-        "base_color": "#26292D",
-        "overlay_color": "#913026"
+        "base_color": "#2a1a14",
+        "overlay_color": "#b31b1b"
       },
       "animations": {
-        "idle": "animation.apoc_diag.siren_head.idle",
-        "walk": "animation.apoc_diag.siren_head.walk",
-        "run": "animation.apoc_diag.siren_head.run",
-        "smash": "animation.apoc_diag.siren_head.smash",
-        "scream": "animation.apoc_diag.siren_head.scream",
-        "stomp": "animation.apoc_diag.siren_head.stomp",
-        "death": "animation.apoc_diag.siren_head.death"
+        "idle": "animation.pntmc_sirenhead.SirenIdle",
+        "walk": "animation.pntmc_sirenhead.SirenWalk",
+        "run": "animation.pntmc_sirenhead.SirenRun",
+        "smash": "animation.pntmc_sirenhead.SirenSmash",
+        "scream": "animation.pntmc_sirenhead.SirenScream",
+        "stomp": "animation.pntmc_sirenhead.SirenStomp",
+        "death": "animation.pntmc_sirenhead.SirenHeadDeath"
       },
       "scripts": {
         "scale": "1.2",

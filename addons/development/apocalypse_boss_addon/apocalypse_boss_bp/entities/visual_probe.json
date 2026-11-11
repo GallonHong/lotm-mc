@@ -1,0 +1,34 @@
+{
+  "format_version": "1.20.80",
+  "minecraft:entity": {
+    "description": {
+      "identifier": "apoc_boss:visual_probe",
+      "is_spawnable": true,
+      "is_summonable": true,
+      "is_experimental": false
+    },
+    "components": {
+      "minecraft:health": {
+        "value": 1,
+        "max": 1
+      },
+      "minecraft:collision_box": {
+        "width": 0.8,
+        "height": 2.25
+      },
+      "minecraft:physics": {
+        "has_gravity": false,
+        "has_collision": false
+      },
+      "minecraft:persistent": {},
+      "minecraft:nameable": {
+        "always_show": true
+      },
+      "minecraft:type_family": {
+        "family": [
+          "apoc_visual_probe"
+        ]
+      }
+    }
+  }
+}

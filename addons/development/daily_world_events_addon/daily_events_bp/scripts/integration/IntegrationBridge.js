@@ -1,5 +1,6 @@
 import { world } from "@minecraft/server";
 import { CONFIG } from "../config.js";
+import { assignMobArmor } from "../mobArmor.js";
 
 function parseArray(raw) {
  try {
@@ -219,24 +220,24 @@ export class IntegrationBridge {
   * 副本坐标由地图模板人工验证。副本必须立即知道实际生成数量，
   * 因此不经过异步请求队列，直接尝试生成 Apocalypse 实体并以原版实体兜底。
   */
- static spawnDungeonMobs(dimension, center, mobKey, count, tags) {
-  return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true, false);
+ static spawnDungeonMobs(dimension, center, mobKey, count, tags, armorMaximum = 0) {
+  return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true, false, armorMaximum);
  }
 
  /** 最后的确认性补刷：优先直接生成 Apocalypse 实体，避免异步总线丢包导致空阶段。 */
- static forceDungeonMobs(dimension, center, mobKey, count, tags) {
-  return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true, false);
+ static forceDungeonMobs(dimension, center, mobKey, count, tags, armorMaximum = 0) {
+  return this.spawnExact(dimension, center, mobKey, count, [...tags, "daily_event_entity"], true, false, armorMaximum);
  }
 
- static spawnDungeonBosses(dimension, center, bossKey, count, tags) {
-  return this.spawnExact(dimension, center, bossKey, count, [...tags, "daily_event_entity"], true, true);
+ static spawnDungeonBosses(dimension, center, bossKey, count, tags, armorMaximum = 0) {
+  return this.spawnExact(dimension, center, bossKey, count, [...tags, "daily_event_entity"], true, true, armorMaximum);
  }
 
- static forceDungeonBosses(dimension, center, bossKey, count, tags) {
-  return this.spawnExact(dimension, center, bossKey, count, [...tags, "daily_event_entity"], true, true);
+ static forceDungeonBosses(dimension, center, bossKey, count, tags, armorMaximum = 0) {
+  return this.spawnExact(dimension, center, bossKey, count, [...tags, "daily_event_entity"], true, true, armorMaximum);
  }
 
- static spawnExact(dimension, center, mobKey, count, tags, preferApocalypse, apocalypseBossOnly = false) {
+ static spawnExact(dimension, center, mobKey, count, tags, preferApocalypse, apocalypseBossOnly = false, armorMaximum = null) {
   let spawned = 0;
   for (let index = 0; index < count; index++) {
    const location = {
@@ -253,6 +254,11 @@ export class IntegrationBridge {
    if (!entity) continue;
    try {
     for (const tag of tags) entity.addTag(tag);
+    if (armorMaximum !== null) {
+     const maximum = Math.max(0, Math.min(40, Math.floor(Number(armorMaximum) || 0)));
+     entity.addTag(`apoc:armor_max:${maximum}`);
+     assignMobArmor(entity, "dungeon", maximum);
+    }
     if (String(entity.typeId).startsWith("apoc:") || String(entity.typeId).startsWith("apoc_boss:")) {
      entity.addTag("apoc_hostile");
      entity.addTag("apoc_director");

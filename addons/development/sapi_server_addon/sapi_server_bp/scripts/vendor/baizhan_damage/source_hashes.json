@@ -7,7 +7,7 @@
   "data/pkm.js": "1b8bb5e643fb31cbe5454e451baf412edf053f91475cef3dd7608a13625d30a9",
   "data/types.js": "f024132386702fb868e4235e81435db4c301fa21c28ef62e4d9302525e60f595",
   "feature/armorEngine.js": "fcd7dfc65d72041e1140f4f053b5489e54bb980626a2284b0425a783d44a25e5",
-  "feature/damageHandler.js": "73e1a0be92f7df37392d4594c072c485e34638bf78e8e359c32ba0998938593b",
+  "feature/damageHandler.js": "fee3967cd496f621971ff50251b261016ff56838cdaa791d8d9c7d67defc1e0a",
   "feature/damageIndicator.js": "3dff26c9f55af9d7fb82a680c9c3654c3892106580b38719ed0426eced93a47f",
   "feature/epicGunPassives.js": "ee5ad529c2b5a4718b83c1c62872211c3b677e7e2d25dd61957ca7884a7054f5",
   "feature/equipmentWear.js": "670a03deeda2378a3db00ab05274fbe26bace09992cc0480bedcb37e5b15312f",
@@ -15,6 +15,7 @@
   "feature/utils/gunUtils.js": "460b5ea142816b3e7f2b750257bdf22838d3d396c65d6379079e93725e93c0e7",
   "feature/utils/inventoryUtils.js": "9b63bef4659f07e6c999f2177a32437ad3f62649a6d064709aadeebbad42392d",
   "feature/utils/mathUtils.js": "b2b679131257638872f12f0ba7a4d98a1d113d153d6623ea36cf2085edd92421",
+  "feature/utils/mobArmor.js": "8c5818e003264e30766a6a6a3e8e15c47ae71c257df9f92270e9b9b403d254c1",
   "feature/utils/pvpRules.js": "6cfcadfc7f38e37ef14f20626d76a9ead389683e76825e472bb6d98136ab3e0f",
   "feature/utils/railRules.js": "6a7eaed666303a9bae71423a8c1d10cb3a7d3cdfa18a0ab38a8471017cecf0b5",
   "feature/utils/teamRules.js": "cdd885fca9659b6d0a1195345713b7a24be8c66f1b94007512543477750ebef0"

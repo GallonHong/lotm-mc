@@ -38,3 +38,13 @@
 - 百战对无人机的 ×2 机器加成仍先结算，再进入护甲与爆炸减免。
 - 无人机 `entityHurt` 的耐久磨损按减免后的 `event.damage` 累计（每 30 点扣 1 耐久），因此护甲/防爆同时延长机身耐久。
 - 修改本契约必须同步更新 Life 设计常量、两个镜像数据文件与 4 个溅射站点，并运行 `node addons/development/apocalypse_life_addon/tests/test_drone_armor.mjs`。
+
+## 与「敌对刷怪护甲 v1」的关系（3.16.14 / 2.14.17）
+
+厂商 3.16.13 / 2.14.16 新增了 mobArmor（`apoc:armor:N` 标签）机制，读取入口同样是 `DamageHandler.estimateArmorPoints()`。两者按固定顺序共存，不会叠加：
+
+1. 先检查 `intrinsicArmorPoints(entity.typeId)` —— 只有 Life 机库的 12 种玩家无人机命中，返回机体固有护甲并直接返回；
+2. 再检查 `getInnateArmorPoints(entity)` —— 敌对刷怪护甲（总护甲值语义）；
+3. 最后才是装备扫描。
+
+生成方（Apocalypse Mobs / Daily Events / Extraction City / Apocalypse Boss）只给敌对生物写 `apoc:armor`，不会写给玩家无人机，因此实机上两者互不相交。详见 `sapi_server_bp/docs/DRONE_ARMOR_PROTOCOL.md` 与厂商 `docs/MOB_ARMOR_PROTOCOL.md`。

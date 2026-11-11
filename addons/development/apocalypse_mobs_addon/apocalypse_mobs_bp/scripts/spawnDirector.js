@@ -2,6 +2,7 @@ import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system, ItemStack, EquipmentSlot } from "@minecraft/server";
 import { CONFIG, MOB_PROFILES, ZONE_POOLS, ZONE_DIFFICULTY, ARMOR_POOLS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
+import { assignSpawnArmor } from "./spawnArmor.js";
 
 const VANILLA_HOSTILES = new Set([
  "minecraft:zombie", "minecraft:zombie_villager", "minecraft:husk", "minecraft:drowned",
@@ -72,8 +73,10 @@ function allowedSafeZoneEvent(entity) {
 function choose(list) { return list[Math.floor(Math.random() * list.length)]; }
 
 export class SpawnDirector {
- static configureEntity(entity, forcedZoneType = null) {
-  if (!valid(entity) || entity.hasTag("apoc_spawn_configured")) return;
+ static configureEntity(entity, forcedZoneType = null, spawnOrigin = null) {
+  if (!valid(entity)) return;
+  assignSpawnArmor(entity, spawnOrigin);
+  if (entity.hasTag("apoc_spawn_configured")) return;
   const profile = PROFILE_BY_TYPE.get(entity.typeId);
   if (!profile) return;
   if (isPvpArea(entity.dimension.id, entity.location)) { entity.remove(); return; }
@@ -157,7 +160,12 @@ export class SpawnDirector {
  static registerSpawnConfiguration() {
   const signal = world.afterEvents?.entitySpawn;
   if (!signal || typeof signal.subscribe !== "function") return;
-  signal.subscribe(event => system.run(() => {
+  signal.subscribe(event => {
+   let spawnOrigin = null;
+   try { spawnOrigin = { dimensionId: event.entity.dimension.id, location: { ...event.entity.location } }; } catch {}
+   // Preserve the existing deferred configuration so dungeon/city creators can
+   // attach authoritative metadata first. Snapshot the birth location now.
+   system.run(() => {
    try {
     const entity = event.entity;
     if (!valid(entity)) return;
@@ -168,9 +176,10 @@ export class SpawnDirector {
       return;
      }
     }
-    this.configureEntity(entity);
+    this.configureEntity(entity, null, spawnOrigin);
    } catch {}
-  }));
+   });
+  });
  }
  /** 可选跨包总线：由 Daily & Events Addon 请求，仍由本 SpawnDirector 落地实体。 */
  static processExternalRequests() {

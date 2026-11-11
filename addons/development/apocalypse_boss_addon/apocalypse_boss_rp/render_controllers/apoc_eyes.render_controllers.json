@@ -1,0 +1,16 @@
+{
+  "format_version": "1.8.0",
+  "render_controllers": {
+    "controller.render.apoc.mobs.eyes": {
+      "geometry": "Geometry.default",
+      "materials": [
+        {
+          "*": "Material.eyes"
+        }
+      ],
+      "textures": [
+        "Texture.eyes"
+      ]
+    }
+  }
+}

@@ -76,8 +76,8 @@ assert.match(menu, /Integration\.send\(player, "daily:news_admin"\)/);
 assert.match(menu, /日常、希望报与事件管理/);
 assert.match(menu, /突发事件入口仍保留/);
 assert.match(build, /sapi_server_bp/);
-assert.equal(manifest.header.version.join("."), "2.14.16");
-assert.equal(resourceManifest.header.version.join("."), "2.14.16");
+assert.equal(manifest.header.version.join("."), "2.14.17");
+assert.equal(resourceManifest.header.version.join("."), "2.14.17");
 assert.ok(manifest.dependencies.some(dependency => dependency.uuid === resourceManifest.header.uuid), "SAPI resource-pack dependency missing");
 assert.match(menu, /§l§2幸存者联盟§r/);
 assert.match(menu, /openMoreMenu/);
@@ -298,4 +298,4 @@ for (const source of uiSources) {
 
 assert(menu.includes("openExtractionMenu") && !menu.includes("if (!Integration.isExtractionAvailable())") && integration.includes("interop:apoc_extraction_heartbeat"), "acknowledged extraction menu bridge missing");
 assert.match(integration, /仅导入 \.mcaddon 不会自动给已有世界启用行为包/);
-console.log("SAPI Server v2.14.16 validation passed.");
+console.log("SAPI Server v2.14.17 validation passed.");

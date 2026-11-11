@@ -7,19 +7,19 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/apoc_diag/mutant_iron_golem_default"
+        "default": "textures/entity/apoc_original/iron_terminator"
       },
       "geometry": {
-        "default": "geometry.apoc_diag.mutant_iron_golem"
+        "default": "geometry.apoc_boss.iron_terminator_original_v1"
       },
       "render_controllers": [
-        "controller.render.apoc_diag.body"
+        "controller.render.apoc_boss.iron_original"
       ],
       "animations": {
-        "idle": "animation.apoc_diag.mutant_iron_golem.idle",
-        "walk": "animation.apoc_diag.mutant_iron_golem.walk",
-        "attack": "animation.apoc_diag.mutant_iron_golem.attack",
-        "look": "animation.apoc_diag.mutant_iron_golem.look"
+        "idle": "animation.apoc_boss.iron_original.idle",
+        "walk": "animation.apoc_boss.iron_original.walk",
+        "attack": "animation.apoc_boss.iron_original.attack",
+        "look": "animation.apoc_boss.iron_original.look"
       },
       "scripts": {
         "animate": [
@@ -34,8 +34,8 @@
         ]
       },
       "spawn_egg": {
-        "base_color": "#26292D",
-        "overlay_color": "#A74128"
+        "base_color": "#292D30",
+        "overlay_color": "#9A3826"
       }
     }
   }

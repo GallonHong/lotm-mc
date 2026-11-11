@@ -16,7 +16,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  newcomer_valley: {
   ...rules,
   id: "newcomer_valley", name: "曙光谷·第一次撤离", category: "tutorial",
-  difficulty: "教学", recommendedPlayers: "1 人",
+  difficulty: "教学", armorMax: 5, recommendedPlayers: "1 人",
   description: "原创单人新手剧情：车队坠毁后，在林岚的无线电引导下学习蓝图、枪械、载具、物资箱、灾害与摸金撤离。",
   structureSize: { x: 96, y: 28, z: 106 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 98, y: 34, z: 108 } },
@@ -74,7 +74,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  outpost_defense: {
   ...rules,
   id: "outpost_defense", name: "灰港防线·最后一夜", category: "defense",
-  difficulty: "普通", recommendedPlayers: "1–4 人",
+  difficulty: "普通", armorMax: 10, recommendedPlayers: "1–4 人",
   description: "利用警局、施工区与工业厂房组成的防线，抵御四波感染者并守住无线电中继器。",
   structureSize: { x: 112, y: 30, z: 108 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 114, y: 36, z: 110 } },
@@ -112,7 +112,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  storm_rescue: {
   ...rules,
   id: "storm_rescue", name: "黑雨医院·营救计划", category: "rescue",
-  difficulty: "困难", recommendedPlayers: "2–4 人",
+  difficulty: "困难", armorMax: 30, recommendedPlayers: "2–4 人",
   description: "穿越医院、超市和居民区找到医生，沿人工路径护送撤离；途中包含伏击、雷暴与暴君 Boss。",
   structureSize: { x: 126, y: 32, z: 118 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 128, y: 38, z: 120 } },
@@ -155,7 +155,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  convoy_escort: {
   ...rules,
   id: "convoy_escort", name: "断桥公路·车队护送", category: "escort",
-  difficulty: "进阶", recommendedPlayers: "2–4 人",
+  difficulty: "进阶", armorMax: 20, recommendedPlayers: "2–4 人",
   description: "驾驶或跟随补给车穿越加油站、仓库与废弃住宅，清除路障并在终点完成防守。",
   structureSize: { x: 124, y: 28, z: 116 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 126, y: 34, z: 118 } },
@@ -199,7 +199,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  abandoned_clinic: {
   ...rules,
   id: "abandoned_clinic", name: "废弃医院·封锁小镇", category: "combat",
-  difficulty: "进阶", recommendedPlayers: "1–4 人",
+  difficulty: "进阶", armorMax: 20, recommendedPlayers: "1–4 人",
   description: "从感染诊所突围，穿过街区和警局，在市场与车库完成最终清剿。",
   structureSize: { x: 55, y: 25, z: 105 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 56, y: 32, z: 106 } },
@@ -232,7 +232,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  fogbound_hospital: {
   ...rules,
   id: "fogbound_hospital", name: "白雾医院·无面病区", category: "boss",
-  difficulty: "噩梦", recommendedPlayers: "2–4 人",
+  difficulty: "噩梦", armorMax: 35, recommendedPlayers: "2–4 人",
   description: "封锁被异常白雾吞没的医院街区，击败雾中人与盘踞地下病区的变异感染者。Boss 只使用 Apocalypse Mobs 实体。",
   structureSize: { x: 104, y: 30, z: 116 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 106, y: 38, z: 118 } },
@@ -263,7 +263,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  redhorn_industrial: {
   ...rules,
   id: "redhorn_industrial", name: "赤角工厂·猎杀之夜", category: "boss",
-  difficulty: "噩梦", recommendedPlayers: "2–4 人",
+  difficulty: "噩梦", armorMax: 35, recommendedPlayers: "2–4 人",
   description: "穿过废弃加油站与工业厂房追猎山羊人，最终摧毁被感染核心控制的变异铁傀儡。",
   structureSize: { x: 112, y: 30, z: 116 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 114, y: 38, z: 118 } },
@@ -294,7 +294,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  siren_blackout: {
   ...rules,
   id: "siren_blackout", name: "失声城区·最后广播", category: "boss",
-  difficulty: "灾厄", recommendedPlayers: "3–4 人",
+  difficulty: "灾厄", armorMax: 40, recommendedPlayers: "3–4 人",
   description: "重启城区广播中继器，引出占据制高点的变异骷髅，并在露天街区对抗警笛头。",
   structureSize: { x: 108, y: 34, z: 120 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 110, y: 42, z: 122 } },
@@ -326,7 +326,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  drowned_pumpstation: {
   ...rules,
   id: "drowned_pumpstation", name: "沉没泵站·深水回声", category: "boss",
-  difficulty: "噩梦", recommendedPlayers: "2–4 人",
+  difficulty: "噩梦", armorMax: 35, recommendedPlayers: "2–4 人",
   description: "调查被洪水隔绝的泵站与仓库，消灭变异溺尸和从高处投掷感染物的变异投掷者。",
   structureSize: { x: 104, y: 30, z: 112 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 106, y: 38, z: 114 } },
@@ -358,7 +358,7 @@ export const DUNGEON_TEMPLATES = Object.freeze({
  mutation_gauntlet: {
   ...rules,
   id: "mutation_gauntlet", name: "黑箱实验场·终极样本", category: "boss",
-  difficulty: "炼狱", recommendedPlayers: "4 人",
+  difficulty: "炼狱", armorMax: 40, recommendedPlayers: "4 人",
   description: "最高难度连续 Boss 副本：穿越实验区，击败空间变异体与召唤母体。适合装备成型的小队。",
   structureSize: { x: 116, y: 34, z: 122 },
   arenaBounds: { min: { x: -2, y: -4, z: -2 }, max: { x: 118, y: 42, z: 124 } },

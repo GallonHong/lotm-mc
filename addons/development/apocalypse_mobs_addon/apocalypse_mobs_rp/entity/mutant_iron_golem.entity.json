@@ -7,24 +7,19 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/iron_golem/mutant_iron_golem_v2"
+        "default": "textures/entity/apoc_original/iron_terminator"
       },
       "geometry": {
-        "default": "geometry.mutant_iron_golem_v2"
-      },
-      "animations": {
-        "idle": "animation.mutant_iron_golem_v2.idle_1",
-        "walk": "animation.mutant_iron_golem_v2.walk",
-        "attack": "animation.mutant_iron_golem_v2.attack_1",
-        "look_at_target": "animation.mutant_iron_golem_v2.look_at_target"
+        "default": "geometry.apoc_boss.iron_terminator_original_v1"
       },
       "render_controllers": [
-        "controller.render.apoc.default"
+        "controller.render.apoc_boss.iron_original"
       ],
-      "enable_attachables": true,
-      "spawn_egg": {
-        "texture": "apoc_shared_boss_mutant_iron_golem_egg",
-        "texture_index": 0
+      "animations": {
+        "idle": "animation.apoc_boss.iron_original.idle",
+        "walk": "animation.apoc_boss.iron_original.walk",
+        "attack": "animation.apoc_boss.iron_original.attack",
+        "look": "animation.apoc_boss.iron_original.look"
       },
       "scripts": {
         "animate": [
@@ -33,10 +28,14 @@
             "walk": "query.modified_move_speed > 0.01"
           },
           {
-            "attack": "query.is_swinging_arm"
+            "attack": "variable.attack_time > 0.0"
           },
-          "look_at_target"
+          "look"
         ]
+      },
+      "spawn_egg": {
+        "base_color": "#292D30",
+        "overlay_color": "#9A3826"
       }
     }
   }

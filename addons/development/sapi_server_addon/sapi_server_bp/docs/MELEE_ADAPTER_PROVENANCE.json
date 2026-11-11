@@ -1,8 +1,8 @@
 {
   "source": "vendor/baizhan_damage/feature/damageHandler.js",
-  "source_sha256": "73e1a0be92f7df37392d4594c072c485e34638bf78e8e359c32ba0998938593b",
+  "source_sha256": "fee3967cd496f621971ff50251b261016ff56838cdaa791d8d9c7d67defc1e0a",
   "derivative": "vendor/melee_damageHandler.js",
-  "derivative_sha256": "cfb637958b2b3b945feaf249bdbaff9f7a12fed6031ba21e9e86841fe7b97f13",
+  "derivative_sha256": "48658de1915a8d4bb4d7d84286e14ff56917dd7c4081ad60b188a0359997f0a4",
   "changes": [
     "Relative imports point to frozen dependency closure.",
     "Subtract measured native damage after complete armor/offensive/critical formula; no HP rewrite.",
@@ -13,7 +13,8 @@
     "The source vendor handler now passes activeShieldSlot and blockedDamage to EquipmentWear.apply for accepted scripted bullet hits; no unsafe after-hurt shield refund remains.",
     "3.16.3: equipmentCombat allowlist and slot corrections are mirrored in both handlers; native left attacks remain input/combo observations without supplemental damage.",
     "3.16.12 / 2.14.15: flamethrower direct and burn damage bypass shield guard/reflection/wear and exclude shield armor points, preserving actual worn armor and other weapon behavior.",
-    "2.14.16 / 3.16.13: Apocalypse Life drone chassis armor is resolved from vendor/baizhan_damage/data/droneArmor.js before the equipment scan; native melee supplements keep the same intrinsic-armor result as bullet hits."
+    "3.16.13 / 2.14.16: valid non-player apoc:armor:0..40 tags are authoritative total addon armor; zero overrides equipment, untagged mobs and players retain baseline behavior. Penetration, damage floors, true-damage bypasses and shield behavior are unchanged.",
+    "3.16.14 / 2.14.17: Apocalypse Life drone chassis armor resolves from vendor data/droneArmor.js before innate spawn armor; native melee supplements keep the same intrinsic-armor result as bullet hits."
   ],
   "old_vendor_unchanged": false
 }

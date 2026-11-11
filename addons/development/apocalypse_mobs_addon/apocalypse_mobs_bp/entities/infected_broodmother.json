@@ -12,7 +12,7 @@
       "minecraft:type_family": { "family": ["apoc_hostile", "apoc_special_infected", "apoc_boss", "infected", "broodmother", "summoner", "zombie", "undead", "monster", "mob"] },
       "minecraft:nameable": { "always_show": true },
       "minecraft:boss": { "name": "召唤母体", "should_darken_sky": true, "hud_range": 56 },
-      "minecraft:health": { "value": 1250, "max": 1250 },
+      "minecraft:health": { "value": 500, "max": 500 },
       "minecraft:scale": { "value": 1.75 },
       "minecraft:collision_box": { "width": 1.1, "height": 3.25 },
       "minecraft:movement": { "value": 0.17 },

@@ -1,6 +1,7 @@
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { ActionFormData, MessageFormData } from "@minecraft/server-ui";
 import { CONFIG } from "./config.js";
+import { assignMobArmor } from "./mobArmor.js";
 
 console.warn(`[ExtractionCity] v${CONFIG.version} initializing...`);
 
@@ -1329,6 +1330,7 @@ function spawnExtractionMob(player) {
    entity.addTag("apoc_director");
    entity.addTag("apoc_extraction_hostile");
    entity.addTag("apoc_zone_extraction");
+   assignMobArmor(entity, "city", 40);
   } catch (error) {
    if (system.currentTick - mobSpawnFailureNoticeTick >= 1200) {
     mobSpawnFailureNoticeTick = system.currentTick;
@@ -1352,6 +1354,7 @@ function spawnHordeWave(player, wave) {
   try {
    const entity = player.dimension.spawnEntity(APOCALYPSE_MOBS[key], location);
    for (const tag of ["apoc_hostile", "apoc_director", "apoc_extraction_hostile", "apoc_zone_extraction", "apoc_extraction_horde"]) entity.addTag(tag);
+   assignMobArmor(entity, "city", 40);
    spawned++;
   } catch {}
  }
@@ -1404,6 +1407,7 @@ function spawnBoss(player, force = false) {
  try {
   const boss = player.dimension.spawnEntity(profile.id, location);
   boss.addTag("apoc_extraction_boss"); boss.addTag("apoc_hostile"); boss.addTag("apoc_zone_extraction");
+  assignMobArmor(boss, "city", 40);
   world.sendMessage(`§4[都市警报] ${profile.urbanLegend ? "都市传说" : "变异首领"}已在摸金都市出现：${profile.id}`);
   return { spawned: true, id: profile.id, entity: boss };
  } catch (error) {

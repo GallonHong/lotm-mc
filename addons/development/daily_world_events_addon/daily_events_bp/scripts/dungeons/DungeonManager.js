@@ -476,6 +476,7 @@ export class DungeonManager {
  }
 
  static spawnStageGroups(instance, stage, force) {
+  const armorMaximum = dungeonTemplate(instance.templateId)?.armorMax ?? 0;
   const dimension = world.getDimension(instance.slot.dimension);
   let requested = 0;
   for (const group of stage.groups || []) {
@@ -489,7 +490,8 @@ export class DungeonManager {
     this.spawnPoint(instance, group.spawnPoint),
     boss ? group.bossKey : group.mobKey,
     expected,
-    [instance.tag, DUNGEON_ENTITY_TAG, DUNGEON_ENEMY_TAG]
+    [instance.tag, DUNGEON_ENTITY_TAG, DUNGEON_ENEMY_TAG],
+    armorMaximum
    );
    requested += spawned;
    if (boss && spawned < expected) {

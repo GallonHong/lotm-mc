@@ -1,10 +1,10 @@
-# Apocalypse Extraction City v0.10.8
+# Apocalypse Extraction City v0.10.10
 
-持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.8 将撤离点从12个增加到20个，外围坐标向城区内缩，使用可验证的7×7固定标记，并增加灵动视效兼容的绿色全亮粒子；旧版突出平台会在进入城市时迁移一次。v0.10.7 为资源包声明 `capabilities: ["pbr"]`。
+持久化摸金都市测试版。需要 Minecraft Bedrock/BDS 1.21.120+（26.45 可用）及 Beta APIs 实验玩法。v0.10.10 接入厂商「敌对刷怪护甲 v1」：城区普通敌人、尸潮与 Boss 在生成时写入 0–40 随机 `apoc:armor:N` 标签，由 Test Guns / SAPI 伤害公式读取；已存在的旧敌人不追溯。v0.10.8 将撤离点从12个增加到20个，外围坐标向城区内缩，使用可验证的7×7固定标记，并增加灵动视效兼容的绿色全亮粒子；旧版突出平台会在进入城市时迁移一次。v0.10.7 为资源包声明 `capabilities: ["pbr"]`。
 
 ## 安装与联动
 
-- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.8`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。主 BP 继续只强制依赖维度 Bootstrap；缺少 RP 时仍可运行，并回退显示原版粒子。
+- 必装：本 Add-on 中的 `Apocalypse Extraction City BP v0.10.10`、`Apocalypse Extraction Dimension Bootstrap v0.1.0` 和 RP。主 BP 继续只强制依赖维度 Bootstrap；缺少 RP 时仍可运行，并回退显示原版粒子。
 - 推荐联动：Daily World Events v0.11.0（提供统一物资箱、神话箱和每日新闻）、Apocalypse Mobs v0.6.1（提供区域强化感染者、持枪掠夺者、避难所守卫、Boss 与主城入侵安全区例外）；缺少时入口仍会响应，但对应内容不会生成。
 - 推荐：SAPI Server（菜单入口）、Test Gun（玩家武器）。
 - Test Guns 保持原样，并独占 action bar 显示弹药、换弹与技能信息；City 不再写入该区域。

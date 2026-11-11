@@ -1,0 +1,56 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "sirenhead.siren": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/sirenhead/terrifying_air_raid_siren_sound",
+          "volume": 3.0
+        },
+        {
+          "name": "sounds/sirenhead/tornado_siren_-_sound_effect",
+          "volume": 3.0
+        },
+        {
+          "name": "sounds/sirenhead/big_siren",
+          "volume": 3.0
+        }
+      ]
+    },
+    "sirenhead.screech": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/sirenhead/sireheadgrowl1",
+          "volume": 2.5
+        },
+        {
+          "name": "sounds/sirenhead/sireheadgrowl2",
+          "volume": 2.5
+        },
+        {
+          "name": "sounds/sirenhead/sirenheadalarm",
+          "volume": 2.5
+        }
+      ]
+    },
+    "sirenhead.step": {
+      "category": "hostile",
+      "sounds": [
+        {
+          "name": "sounds/sirenhead/footstep_1",
+          "volume": 1.5
+        },
+        {
+          "name": "sounds/sirenhead/footstep_2",
+          "volume": 1.5
+        },
+        {
+          "name": "sounds/sirenhead/footstep_3",
+          "volume": 1.5
+        }
+      ]
+    }
+  }
+}

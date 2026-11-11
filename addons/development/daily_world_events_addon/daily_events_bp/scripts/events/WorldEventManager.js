@@ -8,6 +8,7 @@ import { RewardManager } from "../rewards/RewardManager.js";
 import { DailyQuestManager } from "../daily/DailyQuestManager.js";
 import { DailyNewsManager } from "./DailyNewsManager.js";
 import { HopePostManager } from "./HopePostManager.js";
+import { assignMobArmor } from "../mobArmor.js";
 
 function valid(entity) {
  try { return !!entity && entity.isValid(); } catch { return false; }
@@ -101,7 +102,7 @@ export class WorldEventManager {
   if (template.mode === "rescue") this.spawnSpecial(instance, "daily:survivor", "§a受困幸存者");
   if (template.mode === "defense") this.spawnSpecial(instance, template.objectiveEntityId || "daily:convoy_marker", template.objectiveName || "§6坠毁运输车");
   if (template.mode === "boss") {
-   const boss = this.spawnSpecial(instance, template.bossEntityId, template.bossName || `§4${template.name}`);
+   const boss = this.spawnSpecial(instance, template.bossEntityId, template.bossName || `§4${template.name}`, true);
    if (!boss) {
     if (instance.newsPublished) this.finish(instance, false, "目标实体生成失败");
     else this.active.delete(instance.nodeId);
@@ -122,7 +123,7 @@ export class WorldEventManager {
   return instance;
  }
 
- static spawnSpecial(instance, typeId, nameTag) {
+ static spawnSpecial(instance, typeId, nameTag, isBoss = false) {
   try {
    const entity = world.getDimension(instance.dimension).spawnEntity(typeId, instance.center);
    entity.nameTag = nameTag;
@@ -130,6 +131,11 @@ export class WorldEventManager {
    entity.addTag("daily_event_entity");
    entity.addTag("daily_event_special");
    if (instance.zoneType === "safe") entity.addTag("daily_allow_safe_zone");
+   if (isBoss) {
+    // World-event bosses use the existing event zone, never a dungeon's cap.
+    const maximum = instance.zoneType === "outlaw" ? 20 : 10;
+    assignMobArmor(entity, instance.zoneType === "outlaw" ? "event_outlaw" : "event_law", maximum);
+   }
    instance.specialEntityId = entity.id;
    return entity;
   } catch (error) { console.warn(`[DailyEvents] 特殊实体生成失败: ${error}`); return null; }

@@ -1,0 +1,154 @@
+{
+	"format_version": "1.10.0",
+	"animation_controllers": {
+		"controller.animation.pntmcSirenHead": {
+			"initial_state": "idle",
+			"states": {
+				"idle": {
+					"animations": ["idle"],
+					"transitions": [
+						{ "walk": "query.modified_move_speed > 0.05 && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "run": "query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" },
+
+						{ "smash": "query.property('pntmc:attacktype') == 1" },
+						{ "smallsmash": "query.property('pntmc:attacktype') == 2" },
+						{ "stomp": "query.property('pntmc:attacktype') == 3" },
+						{ "uppercutslam": "query.property('pntmc:attacktype') == 4" },
+						{ "pickup": "query.property('pntmc:attacktype') == 5" },
+						{ "scream": "query.property('pntmc:attacktype') == 6" }
+					],
+					"blend_transition": 0.2
+				},
+
+				"walk": {
+					"animations": ["walk"],
+					"transitions": [
+						{ "idle": "query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "run": "query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" },
+
+						{ "smash": "query.property('pntmc:attacktype') == 1" },
+						{ "smallsmash": "query.property('pntmc:attacktype') == 2" },
+						{ "stomp": "query.property('pntmc:attacktype') == 3" },
+						{ "uppercutslam": "query.property('pntmc:attacktype') == 4" },
+						{ "pickup": "query.property('pntmc:attacktype') == 5" },
+						{ "scream": "query.property('pntmc:attacktype') == 6" }
+					],
+					"blend_transition": 0.2
+				},
+
+				"run": {
+					"animations": ["run"],
+					"transitions": [
+						{ "idle": "query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "walk": "query.modified_move_speed > 0.05 && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" },
+
+						{ "smash": "query.property('pntmc:attacktype') == 1" },
+						{ "smallsmash": "query.property('pntmc:attacktype') == 2" },
+						{ "stomp": "query.property('pntmc:attacktype') == 3" },
+						{ "uppercutslam": "query.property('pntmc:attacktype') == 4" },
+						{ "pickup": "query.property('pntmc:attacktype') == 5" },
+						{ "scream": "query.property('pntmc:attacktype') == 6" }
+					],
+					"blend_transition": 0.2
+				},
+				"despawn": {
+					"animations": ["despawn"],
+					"blend_transition": 0.2
+				},
+				"smash": {
+					"animations": ["smash"],
+					"transitions": [
+						{ "idle": "query.any_animation_finished && query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "walk": "query.any_animation_finished && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "run": "query.any_animation_finished && query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" }
+					]
+				},
+
+				"smallsmash": {
+					"animations": ["smallsmash"],
+					"transitions": [
+						{ "idle": "query.any_animation_finished && query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "walk": "query.any_animation_finished && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "run": "query.any_animation_finished && query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" }
+					]
+				},
+
+				"stomp": {
+					"animations": ["stomp"],
+					"transitions": [
+						{ "idle": "query.any_animation_finished && query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "walk": "query.any_animation_finished && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "run": "query.any_animation_finished && query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" }
+					]
+				},
+
+				"uppercutslam": {
+					"animations": ["uppercutslam"],
+					"transitions": [
+						{ "idle": "query.any_animation_finished && query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "walk": "query.any_animation_finished && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "run": "query.any_animation_finished && query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" }
+					]
+				},
+
+				"pickup": {
+					"animations": ["pickup"],
+					"transitions": [
+						{ "idle": "query.any_animation_finished && query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "walk": "query.any_animation_finished && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "run": "query.any_animation_finished && query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" }
+					]
+				},
+
+				"scream": {
+					"animations": ["scream"],
+					"transitions": [
+						{ "idle": "query.any_animation_finished && query.modified_move_speed < 0.05 && !query.is_sheared" },
+						{ "walk": "query.any_animation_finished && query.modified_move_speed < 0.75 && !query.is_sheared" },
+						{ "run": "query.any_animation_finished && query.modified_move_speed > 0.75 && !query.is_sheared" },
+						{ "despawn": "query.is_sheared" }
+					]
+				}
+			}
+		},
+		"controller.animation.pntmcSirenHead_crawl": {
+			"initial_state": "crawl_idle",
+			"states": {
+				"crawl_idle": {
+					"animations": ["crawl_idle"],
+					"transitions": [
+						{ "crawl": "query.modified_move_speed > 0.05 && !query.is_wall_climbing" },
+						{ "climb": "query.is_wall_climbing" }
+					],
+					"blend_transition": 0.2
+				},
+
+				"crawl": {
+					"animations": ["crawl"],
+					"transitions": [
+						{ "crawl_idle": "query.modified_move_speed < 0.05 && !query.is_wall_climbing" },
+						{ "climb": "query.is_wall_climbing" }
+					],
+					"blend_transition": 0.2
+				},
+
+				"climb": {
+					"animations": ["climb"],
+					"transitions": [
+						{ "crawl_idle": "query.modified_move_speed < 0.05 && !query.is_wall_climbing" },
+						{ "crawl": "query.modified_move_speed > 0.05 && !query.is_wall_climbing" }
+					],
+					"blend_transition": 0.2
+				}
+			}
+		}
+	}
+}

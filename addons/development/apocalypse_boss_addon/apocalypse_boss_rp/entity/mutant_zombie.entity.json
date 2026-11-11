@@ -7,26 +7,26 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/apoc_diag/mutant_zombie_default"
+        "default": "textures/entity/apoc/mutant_zombie"
       },
       "geometry": {
-        "default": "geometry.apoc_diag.mutant_zombie"
+        "default": "geometry.apoc.mobs.mutant_zombie"
       },
       "animations": {
-        "idle": "animation.apoc_diag.mutant_zombie.idle",
-        "walk": "animation.apoc_diag.mutant_zombie.walk",
-        "attack": "animation.apoc_diag.mutant_zombie.attack",
-        "smash": "animation.apoc_diag.mutant_zombie.smash",
-        "roar": "animation.apoc_diag.mutant_zombie.roar",
-        "look_at_target": "animation.apoc_diag.mutant_zombie.look_at_target"
+        "idle": "animation.apoc.mobs.mutant_zombie.idle",
+        "walk": "animation.apoc.mobs.mutant_zombie.walk",
+        "attack": "animation.apoc.mobs.mutant_zombie.attack",
+        "smash": "animation.apoc.mobs.mutant_zombie.smash",
+        "roar": "animation.apoc.mobs.mutant_zombie.roar",
+        "look_at_target": "animation.apoc.mobs.mutant_zombie.look_at_target"
       },
       "render_controllers": [
-        "controller.render.apoc_diag.body"
+        "controller.render.apoc.default"
       ],
       "enable_attachables": true,
       "spawn_egg": {
-        "base_color": "#26292D",
-        "overlay_color": "#8A462F"
+        "texture": "apoc_shared_boss_mutant_zombie_egg",
+        "texture_index": 0
       },
       "scripts": {
         "animate": [

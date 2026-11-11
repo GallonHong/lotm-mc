@@ -14,11 +14,11 @@ for (const path of files(bp).filter(path => path.endsWith(".json"))) assert.does
 const manifest = json(join(bp, "manifest.json"));
 const resourceManifest = json(join(rp, "manifest.json"));
 const bootstrapManifest = json(join(bootstrap, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 10, 8]);
-assert.deepEqual(resourceManifest.header.version, [0, 10, 8]);
+assert.deepEqual(manifest.header.version, [0, 10, 10]);
+assert.deepEqual(resourceManifest.header.version, [0, 10, 10]);
 assert.deepEqual(manifest.header.min_engine_version, [1, 21, 120]);
-assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
-assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
+assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "1.15.0"));
+assert(manifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "1.3.0"));
 assert(manifest.dependencies.some(dep => dep.uuid === bootstrapManifest.header.uuid && dep.version.join(".") === "0.1.0"));
 assert(bootstrapManifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "beta"));
 assert.equal(manifest.dependencies.some(dep => dep.uuid === "714f16b3-b6ad-47f3-af06-dd93095da201"), false, "optional Apocalypse Mobs must not block pack startup");
@@ -93,6 +93,6 @@ const extractionParticle = json(join(rp, "particles/extraction_marker.particle.j
 assert.equal(extractionParticle.particle_effect.description.identifier, "apoc_extract:extraction_marker");
 assert(!processors.includes("chiseled_deepslste") && !processors.includes('"minecraft:deepslate_slab"'), "invalid RandS deepslate blocks remain");
 assert.deepEqual(json(join(rp, "manifest.json")).capabilities, ["pbr"]);
-assert.deepEqual(json(join(bp, "manifest.json")).header.version, [0, 10, 8]);
-assert.deepEqual(json(join(rp, "manifest.json")).header.version, [0, 10, 8]);
-console.log("Apocalypse Extraction City v0.10.8 validation passed.");
+assert.deepEqual(json(join(bp, "manifest.json")).header.version, [0, 10, 10]);
+assert.deepEqual(json(join(rp, "manifest.json")).header.version, [0, 10, 10]);
+console.log("Apocalypse Extraction City v0.10.10 validation passed.");
