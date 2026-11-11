@@ -1,7 +1,6 @@
+import { ArmorHealth } from './feature/armorHealth.js';
 import { FlamethrowerEngine } from './feature/flamethrowerEngine.js';
-import { FlamethrowerBlueprintLoot } from './feature/flamethrowerBlueprintLoot.js';
 import { EpicGunPassives } from './feature/epicGunPassives.js';
-import { EpicBlueprintLoot } from './feature/epicBlueprintLoot.js';
 import { BaizhanEngine } from './feature/baizhanEngine.js';
 import { PkmBurn } from './feature/pkmBurn.js';
 import './feature/survivalMeleeEngine.js';
@@ -143,6 +142,8 @@ class AddonController {
     }
 
     const gun = getGunById(item.typeId);
+    // Pistols begin only on itemStartUse; completion must not re-arm a released hold.
+    if (gun?.type === 'pistol') return;
     // itemUse is not the start-of-hold event; never create a charge on completion.
     if (gun?.isFlamethrower) return; // itemUse may be the completion event, never latch a flame hold.
     if (gun?.isBaizhan) { BaizhanEngine.use(player, gun); return; }
@@ -189,6 +190,11 @@ class AddonController {
     if (gun?.isFlamethrower) { FlamethrowerEngine.begin(player, gun); return; }
     if (gun?.isBaizhan) { BaizhanEngine.use(player, gun); return; }
     if (gun?.isRailCannon) { RailCannon.begin(player, gun); return; }
+    if (gun?.type === 'pistol') {
+     ShootManager.startPistolHold(player, gun);
+     ShootManager.tick(player, gun);
+     return;
+    }
     if (gun) {
      if (player.isSneaking) {
       if (gun.id === 'test_gun:ak47_commander') {
@@ -237,6 +243,7 @@ class AddonController {
 
   subscribeAfter(world.afterEvents, 'entityHurt', (event) => {
    try {
+    ArmorHealth.onHurt(event.hurtEntity, event.damage);
     DamageIndicator.handleEntityHurt(event);
     const hurtEntity = event.hurtEntity;
     if (hurtEntity && hurtEntity.typeId === 'minecraft:player') {
@@ -271,10 +278,15 @@ class AddonController {
    } catch {}
   });
 
+  subscribeAfter(world.afterEvents, 'playerSpawn', (event) => {
+   ArmorHealth.onSpawn(event.player, event.initialSpawn);
+   system.run(() => ArmorHealth.tick(event.player));
+  });
+
   subscribeAfter(world.afterEvents, 'entityDie', (event) => {
+   if (event.deadEntity?.typeId === 'minecraft:player') ArmorHealth.clearPlayer(event.deadEntity);
+   if (event.deadEntity) ShootManager.clearPlayer(event.deadEntity);
    EpicGunPassives.observeDeath(event);
-   EpicBlueprintLoot.onDeath(event);
-   FlamethrowerBlueprintLoot.onDeath(event);
    if (event.deadEntity) EpicGunPassives.clearEntity(event.deadEntity.id);
    if (event.deadEntity) { FlamethrowerEngine.clear(event.deadEntity.id); PkmBurn.clearEntity(event.deadEntity.id); BaizhanEngine.clear(event.deadEntity.id); }
   });
@@ -285,12 +297,12 @@ class AddonController {
    RailCannon.cancel(event.playerId);
    stopPvpGunTasks({ id: event.playerId });
    GunVisuals.clearPlayer(event.playerId);
-   ShootManager.playerShooting.delete(event.playerId);
-   ShootManager.playerCooldowns.delete(event.playerId);
+   ShootManager.clearPlayer(event.playerId);
    ReloadManager.reloadingPlayers.delete(event.playerId);
    SkillManager.clearPlayer(event.playerId);
    JetpackEngine.playerJumpStates.delete(event.playerId);
    ArmorEngine.clearPlayer(event.playerId);
+   ArmorHealth.clearPlayer(event.playerId);
    this.lastHeldItem.delete(event.playerId);
   });
  }
@@ -312,6 +324,7 @@ class AddonController {
    const players = world.getAllPlayers();
    for (const player of players) {
     if (this.auraTick % 10 === 0) {
+     ArmorHealth.tick(player);
      ArmorEngine.tick(player);
     }
 
@@ -341,6 +354,15 @@ class AddonController {
     }
 
     SkillManager.tick(player, held ? held.gun : null);
+    // Keep ammo/durability alive while merely holding a weapon. Specialized
+    // charge/reload/overdrive writers own their states and must not be overwritten.
+    if (held && this.auraTick % 10 === 0 && !held.gun.isBaizhan && !held.gun.isFlamethrower &&
+        pvpCanAttack(player) && !ReloadManager.isReloading(player) &&
+        !RailCannon.charges.has(player.id) && !ShootManager.arcChargeTicks.has(player.id) &&
+        !SkillManager.isOverdriveActive(player) && !SkillManager.isSmartAimActive(player, held.gun)) {
+     showAmmoHUD(player, held.gun, getCurrentAmmo(player, held.gun));
+    }
+
    }
   }, 1);
  }

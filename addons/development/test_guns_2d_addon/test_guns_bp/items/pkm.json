@@ -1,48 +1,48 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:pkm",
-   "menu_category": {
-    "category": "equipment"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_pkm",
-   "minecraft:display_name": {
-    "value": "§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，子弹持续点燃目标并引发熔火爆燃撕裂§r\n§8§o“枪管打得赤红发烫，喷吐出灼热的火雨，将眼前的一切化作焦炭与余烬。”§r"
-   },
-   "minecraft:use_modifiers": {
-    "use_duration": 3200,
-    "movement_modifier": 0.65
-   },
-   "minecraft:food": {
-    "can_always_eat": true
-   },
-   "minecraft:durability": {
-    "max_durability": 2000
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_block"
-      ],
-      "repair_amount": 500
-     }
-    ]
-   },
-   "minecraft:tags": {
-    "tags": [
-     "minecraft:is_crossbow"
-    ]
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:pkm",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_pkm",
+      "minecraft:display_name": {
+        "value": "§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，2秒内命中同一目标5次点燃（间隔≤0.6秒），后续每5次命中续燃并引发熔火爆燃§r\n§8§o“枪管打得赤红发烫，喷吐出灼热的火雨，将眼前的一切化作焦炭与余烬。”§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.65
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 2000
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:blueprint_pkm"
+            ],
+            "repair_amount": 1600
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
   }
- }
 }

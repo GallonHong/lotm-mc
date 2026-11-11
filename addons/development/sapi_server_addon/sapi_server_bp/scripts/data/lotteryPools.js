@@ -140,7 +140,20 @@ export const LIEGUI_LOTTERY_POOL = Object.freeze({
  ],
 });
 
-export const BUILT_IN_LOTTERY_POOLS = Object.freeze([...STANDARD_LOTTERY_POOLS, LIEGUI_LOTTERY_POOL]);
+// 百战沿用裂轨的独立传说奖池规则，不改变已有奖池或 UP 候选。
+export const BAIZHAN_LOTTERY_POOL = Object.freeze({
+ ...LIEGUI_LOTTERY_POOL,
+ id: "legendary_baizhan",
+ name: "§6限定军备箱·百战",
+ description: "百战传说蓝图仅限本池抽奖获得，基础概率 2%；最多 30 抽必出，抽中后保底重置。",
+ pityPrizeKey: "legendary_baizhan_blueprint",
+ items: [
+  { key: "legendary_baizhan_blueprint", id: "test_gun:blueprint_baizhan", amount: 1, name: "§6百战设计图 [传说]", weight: 2, rarity: "legendary", isPityTarget: true },
+  ...LIEGUI_LOTTERY_POOL.items.filter(item => item.key !== LIEGUI_LOTTERY_POOL.pityPrizeKey),
+ ],
+});
+
+export const BUILT_IN_LOTTERY_POOLS = Object.freeze([...STANDARD_LOTTERY_POOLS, LIEGUI_LOTTERY_POOL, BAIZHAN_LOTTERY_POOL]);
 
 // 战术无人机限定奖池定义 (默认未开启，需管理员在控制台手动开)
 export const DRONE_EPIC_LIMITED_POOL = Object.freeze({

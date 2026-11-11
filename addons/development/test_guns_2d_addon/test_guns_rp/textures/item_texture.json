@@ -491,6 +491,9 @@
     "test_gun_pulse_spear": {
       "textures": "textures/items/survival_melee/pulse_spear"
     },
+    "test_gun_blueprint_baizhan": {
+      "textures": "textures/blueprints/blueprint_legendary"
+    },
     "test_gun_baizhan": {
       "textures": "textures/guns/baizhan"
     },

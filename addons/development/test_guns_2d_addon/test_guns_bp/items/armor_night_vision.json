@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_night_vision",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.helmet"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_night_vision",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§9战术夜视仪 [精良]§r\n§7被动: 4点护甲，【抗击退 +15%】，远视微光夜视，夜间清晰视野§r\n§8§o“单兵战术微光夜视装置。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.head",
-    "protection": 3
-   },
-   "minecraft:durability": {
-    "max_durability": 400
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 160
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_night_vision",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_night_vision",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9战术夜视仪 [精良]§r\n§7被动: 4点护甲，【抗击退 +15%】，远视微光夜视，夜间清晰视野§r\n§8§o“单兵战术微光夜视装置。”§r\n§e暴击率 +4个百分点§r\n§c最大生命 +12 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 3
+      },
+      "minecraft:durability": {
+        "max_durability": 400
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 160
+          }
+        ]
+      }
+    }
   }
- }
 }

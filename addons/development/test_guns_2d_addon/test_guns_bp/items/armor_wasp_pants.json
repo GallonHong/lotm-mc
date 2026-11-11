@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_wasp_pants",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.leggings"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_wasp_pants",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§9黄蜂轻量作战裤 [精良]§r\n§7被动: 5点护甲，【抗击退 +20%】，耐磨强化纤维§r\n§8§o“轻巧坚韧的战术作战长裤。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.legs",
-    "protection": 4
-   },
-   "minecraft:durability": {
-    "max_durability": 500
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 200
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_wasp_pants",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.leggings"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_wasp_pants",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9黄蜂轻量作战裤 [精良]§r\n§7被动: 5点护甲，【抗击退 +20%】，耐磨强化纤维§r\n§8§o“轻巧坚韧的战术作战长裤。”§r\n§e暴击率 +4个百分点§r\n§c最大生命 +16 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.legs",
+        "protection": 4
+      },
+      "minecraft:durability": {
+        "max_durability": 500
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 200
+          }
+        ]
+      }
+    }
   }
- }
 }

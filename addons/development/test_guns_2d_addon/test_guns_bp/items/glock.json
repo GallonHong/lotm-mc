@@ -1,48 +1,48 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:glock",
-   "menu_category": {
-    "category": "equipment"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_glock",
-   "minecraft:display_name": {
-    "value": "§f格洛克 Glock-18 手枪 [普通]§r\n§7被动: 全自动击发手枪，单手轻便快拔，近身急速自卫泼水§r\n§8§o“插在腰间的最后一道保险，瞬间泼洒的暴烈弹雨曾无数次逆转生死。”§r"
-   },
-   "minecraft:use_modifiers": {
-    "use_duration": 3200,
-    "movement_modifier": 0.75
-   },
-   "minecraft:food": {
-    "can_always_eat": true
-   },
-   "minecraft:durability": {
-    "max_durability": 700
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 200
-     }
-    ]
-   },
-   "minecraft:tags": {
-    "tags": [
-     "minecraft:is_crossbow"
-    ]
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:glock",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_glock",
+      "minecraft:display_name": {
+        "value": "§f格洛克 Glock-18 手枪 [普通]§r\n§7被动: 全自动击发手枪，单手轻便快拔，近身急速自卫泼水§r\n§8§o“插在腰间的最后一道保险，瞬间泼洒的暴烈弹雨曾无数次逆转生死。”§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 700
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:blueprint_glock"
+            ],
+            "repair_amount": 560
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
   }
- }
 }

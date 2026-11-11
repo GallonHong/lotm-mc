@@ -1,17 +1,20 @@
 import { BaizhanImpactFeedback } from './baizhanImpactFeedback.js';
+import { combatAuthority } from './utils/combatAuthority.js';
+import { DamageHandler } from './damageHandler.js';
 import { BaizhanWear } from './baizhanWear.js';
 import { world, system, EquipmentSlot, ScriptEventSource } from '@minecraft/server';
-import { BAIZHAN, chooseRound, traceCover, unit, point, distance } from '../data/baizhan.js';
+import { BAIZHAN, chooseRound, traceCover, unit, point, distance, machineDamageMultiplier } from '../data/baizhan.js';
 import { getHeldGun, getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
-import { pvpCanAttack, isPvpParticipant, hasInfinitePvpReserve } from './utils/pvpRules.js';
+import { pvpCanAttack } from './utils/pvpRules.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
-import { consumeAmmoFromInventory, countAmmoInInventory, isCreativePlayer } from './utils/inventoryUtils.js';
+import { consumeAmmoFromInventory, countAmmoInInventory } from './utils/inventoryUtils.js';
 import { getMuzzle, clipSegment } from './utils/muzzleUtils.js';
 import { drawBaizhanTracer } from './baizhanFeedback.js';
 import { DamageIndicator } from './damageIndicator.js';
 import { RecoilManager } from './recoilManager.js';
 import { GunVisuals } from './gunVisuals.js';
 import { ReloadManager } from './reload.js';
+import { showAmmoHUD } from './ui.js';
 
 const ITEM_KEY = 'tg_baizhan_identity';
 const SHARED_ID_PREFIX = 'BAIZHAN_ID:';
@@ -23,17 +26,17 @@ function valid(entity) { try { return typeof entity?.isValid === 'function' ? en
 function alive(entity) { try { return valid(entity) && entity.getComponent('minecraft:health')?.currentValue > 0; } catch { return false; } }
 function body(entity) { try { return entity.getHeadLocation(); } catch { return { ...entity.location, y: entity.location.y + 0.8 }; } }
 function canOperate(player) {
- try { return alive(player) && pvpCanAttack(player) && !['apoc:downed','apoc_downed','apoc:true_death'].some(tag=>player.hasTag(tag)) &&
+ try { return alive(player) && pvpCanAttack(player) && !['apoc:downed','apoc_downed','apoc:downed_pending','apoc:true_death'].some(tag=>player.hasTag(tag)) &&
   String(player.getGameMode?.()).toLowerCase()!=='spectator'; } catch { return false; }
 }
 function context(entity) {
- try { return JSON.stringify([entity.dimension.id, entity.getTags().filter(t => t.startsWith('pvp:') || t.startsWith('sapi_team_') || ['apoc:downed','apoc_downed','apoc:true_death'].includes(t)).sort()]); } catch { return null; }
+ try { return JSON.stringify([entity.dimension.id, entity.getTags().filter(t => t.startsWith('pvp:') || t.startsWith('sapi_team_') || ['apoc:downed','apoc_downed','apoc:downed_pending','apoc:true_death'].includes(t)).sort()]); } catch { return null; }
 }
-function tell(player, message) { try { player.onScreenDisplay?.setActionBar?.(`§6[百战] §r${message}`); } catch {} }
+function tell(player, message) { try { const held = getHeldGun(player); if (held?.gun.isBaizhan) showAmmoHUD(player, held.gun, getCurrentAmmo(player, held.gun), `§7${message}§r`); } catch {} }
 function effect(dimension,id,location) { try { dimension.spawnParticle(id,location); } catch {} }
 function eligible(shooter,target) {
  try { return canOperate(shooter) && alive(target) && shooter.id !== target.id && shooter.dimension.id === target.dimension.id &&
-  pvpCanAttack(shooter) && (target.typeId!=='minecraft:player'||isPvpParticipant(target)) && !isProtectedTeammate(shooter,target) && target.typeId !== BAIZHAN.mountId &&
+  pvpCanAttack(shooter) && !isProtectedTeammate(shooter,target) && target.typeId !== BAIZHAN.mountId &&
   !['minecraft:armor_stand','minecraft:item','minecraft:xp_orb'].includes(target.typeId) &&
   !target.typeId.includes('hud') && !['creative','spectator'].includes(String(target.getGameMode?.()).toLowerCase());
  } catch { return false; }
@@ -63,16 +66,23 @@ export class BaizhanEngine {
   this.players.delete(id);
   if (state) BaizhanWear.settle(state.player,state.token,state.wearScope);
   if (state?.mount) { try { if (valid(state.mount.entity)) state.mount.entity.remove(); } catch {} }
-  for (const [key,request] of this.pending) if (request.state.player.id === id || request.target.id === id) this.pending.delete(key);
+  for (const [key,request] of this.pending) if (request.state.player.id === id || request.target.id === id) { this.pending.delete(key); DamageIndicator.cancelAuthoritative(key); }
   for (const [key,burn] of this.burns) if (burn.state.player.id === id || burn.target.id === id) this.burns.delete(key);
   if (state) { RecoilManager.clearPlayer(id); GunVisuals.reset(state.player); }
  }
  static same(state) {
   const player = state.player;
-  try { return this.players.get(player.id) === state && canOperate(player) && context(player) === state.context &&
-   player.selectedSlotIndex === state.slot && getHeldGun(player)?.item.getDynamicProperty(ITEM_KEY) === state.token &&
-   sharedIdentity(getHeldGun(player)?.item,state.token) && !!state.sessionTag &&
-   player.getTags().filter(tag=>tag.startsWith(SESSION_PREFIX)).length===1 && player.hasTag(state.sessionTag); }
+  try {
+   if(this.players.get(player.id)!==state||state.authority==='blocked'||state.authority!==combatAuthority()||
+    !canOperate(player)||context(player)!==state.context||player.selectedSlotIndex!==state.slot)return false;
+   const item=getHeldGun(player)?.item;
+   if(item?.typeId!==BAIZHAN.id||item.getDynamicProperty(ITEM_KEY)!==state.token)return false;
+   // Private item identity is enough for local wear. Shared proof is needed
+   // only when a separate SAPI behavior pack commits the hit.
+   if(state.authority==='local')return BaizhanWear.canUse(player,item);
+   return sharedIdentity(item,state.token)&&!!state.sessionTag&&
+    player.getTags().filter(tag=>tag.startsWith(SESSION_PREFIX)).length===1&&player.hasTag(state.sessionTag);
+  }
   catch { return false; }
  }
  static ensure(player,gun) {
@@ -80,7 +90,8 @@ export class BaizhanEngine {
   let state = this.players.get(player.id);
   if (state && !this.same(state)) { this.clear(player); state = undefined; }
   if (state) return state;
-  if (!canOperate(player) || !gun?.isBaizhan) return null;
+  const authority = combatAuthority();
+  if (authority === 'blocked' || !canOperate(player) || !gun?.isBaizhan) return null;
   try {
    const equipment = player.getComponent('minecraft:equippable');
    const item = equipment?.getEquipment(EquipmentSlot.Mainhand);
@@ -89,24 +100,24 @@ export class BaizhanEngine {
    const fresh=typeof token!=='string'||!token;
    if(fresh){
     const shared=(item.getLore?.()||[]).filter(line=>line.startsWith(SHARED_ID_PREFIX));
-    if(shared.length>1)return null;
-    token=shared.length===1?shared[0].slice(SHARED_ID_PREFIX.length):`bz_${Date.now()}_${system.currentTick}_${++this.serial}`;
+    if(authority==='server'&&shared.length>1)return null;
+    token=authority==='server'&&shared.length===1?shared[0].slice(SHARED_ID_PREFIX.length):`bz_${Date.now()}_${system.currentTick}_${++this.serial}`;
     if(!/^[A-Za-z0-9_:-]{1,128}$/.test(token))return null;
     item.setDynamicProperty(ITEM_KEY,token);
    }
    if(token.length>128)return null;
    // ItemStack dynamic properties are private to the Guns BP UUID. The one
    // shared lore marker proves this held item to SAPI without moving wear debt.
-   if(fresh||!sharedIdentity(item,token)){
+   if(fresh||(authority==='server'&&!sharedIdentity(item,token))){
     const lore=item.getLore?.()||[],pvp=lore.filter(line=>line.startsWith('PVP_MATCH:'));
     const display=fresh?['§7手持100发弹仓 · 潜行1秒架枪 / 起身收枪','§7右键手动射击 · 架枪直接消耗背包机枪弹药','§7五种随机弹头 · 架枪穿透最多2格软掩体','§7对载具/无人机×2 · 现有弹药按1物品/发计数']:lore.filter(line=>!line.startsWith(SHARED_ID_PREFIX)&&!line.startsWith('PVP_MATCH:'));
-    item.setLore([...display.slice(0,19-pvp.length),SHARED_ID_PREFIX+token,...pvp]);
+    item.setLore([...display.slice(0,19-pvp.length),...(authority==='server'?[SHARED_ID_PREFIX+token]:[]),...pvp]);
     if(equipment.setEquipment(EquipmentSlot.Mainhand,item)===false)return null;
     const saved=equipment.getEquipment(EquipmentSlot.Mainhand);
-    if(saved?.getDynamicProperty(ITEM_KEY)!==token||!sharedIdentity(saved,token))return null;
+    if(saved?.getDynamicProperty(ITEM_KEY)!==token||(authority==='server'&&!sharedIdentity(saved,token)))return null;
    }
    if(!BaizhanWear.settle(player,token))return null;
-   state = { wearScope:BaizhanWear.scope(player),player,gun,slot:player.selectedSlotIndex,token,context:context(player),
+   state = { authority,wearScope:BaizhanWear.scope(player),player,gun,slot:player.selectedSlotIndex,token,context:context(player),
     trigger:false,triggerUntil:0,cooldownUntil:0,mount:null,waitForStand:false,lastHud:-100,lastGuardHint:-100 };
    this.players.set(player.id,state);
    if(!this.rotateSession(state)){this.clear(player);return null;}
@@ -118,8 +129,9 @@ export class BaizhanEngine {
  }
  static rotateSession(state){
   const player=state.player;
+  if(state.authority==='local')return true;
   this.removeSession(player);state.sessionTag='';
-  for(const[key,r]of this.pending)if(r.state===state)this.pending.delete(key);
+  for(const[key,r]of this.pending)if(r.state===state){this.pending.delete(key);DamageIndicator.cancelAuthoritative(key);}
   for(const[key,b]of this.burns)if(b.state===state)this.burns.delete(key);
   try{
    const tag=`${SESSION_PREFIX}${Date.now()}_${system.currentTick}_${++this.serial}_${Math.floor(Math.random()*0x100000000).toString(36)}`;
@@ -201,27 +213,56 @@ export class BaizhanEngine {
   if(ReloadManager.isReloading(player)) { ReloadManager.tick(player,gun); return; }
   if(state.trigger && system.currentTick<=state.triggerUntil)this.fire(state);
   else if(state.trigger)this.stop(player);
-  if(system.currentTick-state.lastHud>=5) {
+  if(system.currentTick-state.lastHud>=5&&system.currentTick>=(state.hintUntil||0)) {
    state.lastHud=system.currentTick;
    if(state.mount) {
     const remaining=Math.max(0,state.mount.readyAt-system.currentTick);
-    const ammo=hasInfinitePvpReserve(player)||isCreativePlayer(player)?'∞':countAmmoInInventory(player,BAIZHAN.ammoId);
-    tell(player,remaining?`架设中 ${Math.floor((1-remaining/BAIZHAN.deployTicks)*100)}% · 保持潜行`:`已架设 · 背包备弹 ${ammo} · 右键射击 / 起身收枪`);
-   } else if(!state.waitForStand)tell(player,`手持 ${getCurrentAmmo(player,gun)}/${gun.maxAmmo} · 潜行架枪`);
+    tell(player,remaining?`架设中 ${Math.floor((1-remaining/BAIZHAN.deployTicks)*100)}% · 保持潜行`:'已架设 · 消耗备弹 · 右键射击 / 起身收枪');
+   } else if(!state.waitForStand)tell(player,'手持 · 潜行架枪');
   }
+ }
+ static serviceReady(state) {
+  if(!this.same(state))return false;
+  if(state.authority==='local')return true;
+  if(state.authority!=='server')return false;
+  const now=system.currentTick;
+  if(state.serviceUntil>=now)return true;
+  if(state.serviceRequest)return false;
+  const nonce=`bz_service_${now}_${++this.serial}`;
+  state.serviceRequest={nonce,issuedTick:now};
+  try{state.player.dimension.runCommand(`scriptevent tg:baizhan_wear_state ${JSON.stringify(state.serviceRequest)}`);}
+  catch{state.serviceRequest=null;this.stop(state.player);this.guardHint(state,'service');}
+  return false;
  }
  static fire(state) {
   const player=state.player,gun=state.gun,now=system.currentTick;
   if(!this.same(state)||!state.trigger||now<state.cooldownUntil||ReloadManager.isReloading(player))return;
+  if(!this.serviceReady(state))return;
   const mounted=!!state.mount;
   if(player.isSneaking && (!mounted||now<state.mount.readyAt))return;
   if(mounted && (!player.isSneaking||distance(player.location,state.mount.origin)>0.45||!valid(state.mount.entity)))return;
-  const direction=unit(mounted?player.getViewDirection():RecoilManager.getShotDirection(player,gun,player.getViewDirection()));
+  let direction=unit(mounted?player.getViewDirection():RecoilManager.getShotDirection(player,gun,player.getViewDirection()));
   if(!direction)return;
   let origin,muzzle;
   if(mounted)origin={...state.mount.origin,y:state.mount.origin.y+BAIZHAN.mountedPivotHeight};
   else { muzzle=getMuzzle(player,gun);origin=muzzle.location; }
-  const trace=muzzle?.blocked?{blocked:true,distance:0,end:origin,cells:[]}:traceCover(player.dimension,origin,direction,BAIZHAN.range,mounted?BAIZHAN.maxPenetrations:0);
+  // Aim from the camera, then converge the real muzzle toward that point.
+  // Parallel muzzle rays are offset 0.375m and miss a 0.6m-wide entity even
+  // with a perfectly centered crosshair and zero spread. Cover is still
+  // checked again from the actual muzzle; this never teleports a bullet.
+  if(!muzzle?.blocked)try {
+   const head=player.getHeadLocation();
+   const sight=traceCover(player.dimension,head,direction,BAIZHAN.range,mounted?BAIZHAN.maxPenetrations:0);
+   let aim=sight.end;
+   const hits=player.dimension.getEntitiesFromRay(head,direction,{maxDistance:sight.distance,ignoreBlockCollision:true}).sort((a,b)=>a.distance-b.distance);
+   for(const hit of hits){
+    if(!valid(hit.entity)||hit.entity.id===player.id||hit.entity.typeId===BAIZHAN.mountId||['minecraft:item','minecraft:xp_orb'].includes(hit.entity.typeId))continue;
+    if(!Number.isFinite(hit.distance)||hit.distance<0||hit.distance>sight.distance)continue;
+    aim=point(head,direction,hit.distance);break;
+   }
+   direction=unit({x:aim.x-origin.x,y:aim.y-origin.y,z:aim.z-origin.z})||direction;
+  }catch{this.guardHint(state,'raycast');return;}
+  const trace=muzzle?.blocked?{blocked:true,hitBlock:muzzle.reason==='collision',distance:0,end:origin,cells:[]}:traceCover(player.dimension,origin,direction,BAIZHAN.range,mounted?BAIZHAN.maxPenetrations:0);
   // Reserve exactly once, before emission. Mount never reads or changes the
   // loaded magazine; creative/PvP helpers intentionally use virtual reserve.
   if((mounted?countAmmoInInventory(player,BAIZHAN.ammoId):getCurrentAmmo(player,gun))<1) {
@@ -233,7 +274,7 @@ export class BaizhanEngine {
   } else {
    const ammo=getCurrentAmmo(player,gun);
    if(ammo<1){BaizhanWear.cancelReservation(player,state.token);this.stop(player);ReloadManager.startReload(player,gun);return;}
-   if(setCurrentAmmo(player,gun,ammo-1)!==ammo-1){BaizhanWear.cancelReservation(player,state.token);this.stop(player);return;}
+   if(setCurrentAmmo(player,gun,ammo-1)!==ammo-1||getCurrentAmmo(player,gun)!==ammo-1){BaizhanWear.cancelReservation(player,state.token);this.stop(player);return;}
   }
   state.cooldownUntil=now+(mounted?BAIZHAN.mountedFireTicks:BAIZHAN.handFireTicks);
   const round=chooseRound();
@@ -247,13 +288,18 @@ export class BaizhanEngine {
     // tunnel through them and harm another player behind.
     target=hit.entity;end=point(origin,direction,hit.distance);break;
    }
-  } catch { target=undefined; }
+  } catch { target=undefined;this.guardHint(state,'raycast'); }
   const visibleStart=mounted?point(origin,direction,Math.min(BAIZHAN.mountedMuzzleReach,distance(origin,end))):origin;
   drawBaizhanTracer(player.dimension,visibleStart,end,round);
   try { player.dimension.playSound(gun.shootSound,visibleStart,{volume:1.3,pitch:0.9}); } catch {}
   if(mounted) {
    try { state.mount.firePhase=state.mount.firePhase==='a'?'b':'a'; state.mount.entity.playAnimation(`animation.baizhan.mount_fire_${state.mount.firePhase}`,{controller:'baizhan_fire',blendOutTime:0}); } catch {}
   } else GunVisuals.fire(player,gun);
+  // Only the actual stopping surface gets a block effect: an entity in front
+  // of cover still owns its own accepted-hit feedback. Penetrated cells do
+  // not multiply emitters. This path is cosmetic under either authority.
+  if(!target)BaizhanImpactFeedback.showBlock({nonce:`baizhan_block_${now}_${++this.serial}`,
+   shooterId:player.id,dimension:player.dimension,round,origin,trace,created:now});
   if(target && eligible(player,target))this.requestHit(state,target,{kind:'direct',round,origin,impact:end,mounted,damage:gun.stats.damage});
   if(round==='splash')this.splash(state,origin,end,target,mounted);
   if(BaizhanWear.isBroken(player,state.token))this.stop(player);
@@ -270,7 +316,9 @@ export class BaizhanEngine {
   }
  }
  static requestHit(state,target,shot) {
-  if(!this.same(state)||!eligible(state.player,target)||this.pending.size>=BAIZHAN.maxPending)return;
+  if(!this.same(state)||!eligible(state.player,target))return;
+  if(state.authority==='local'){this.localHit(state,target,shot);return;}
+  if(state.authority!=='server'||this.pending.size>=BAIZHAN.maxPending)return;
   const nonce=`baizhan_${system.currentTick}_${++this.serial}`;
   const request={state,target,shot,created:system.currentTick,shooterLocation:{...state.player.location},shooterHead:{...state.player.getHeadLocation()},targetLocation:{...target.location},targetContext:context(target)};
   this.pending.set(nonce,request);
@@ -281,15 +329,55 @@ export class BaizhanEngine {
    state.player.dimension.runCommand(`scriptevent tg:baizhan_hit ${JSON.stringify({nonce,issuedTick:system.currentTick,gunId:BAIZHAN.id,shooterId:state.player.id,targetId:target.id,
     weaponToken:state.token,sessionTag:state.sessionTag,selectedSlot:state.slot,sourceContext:state.context,targetContext:context(target),round:shot.round,
     origin:shot.origin,impact:shot.impact,shotOrigin:shot.shotOrigin,shotMounted:shot.mounted,mounted:shot.mounted,kind:shot.kind})}`);
-  } catch { this.pending.delete(nonce);DamageIndicator.cancelAuthoritative(nonce);this.guardHint(state); }
+  } catch { this.pending.delete(nonce);DamageIndicator.cancelAuthoritative(nonce);this.guardHint(state,'service'); }
  }
- static guardHint(state) {
+ /** Standalone damage is synchronous and never entered from a server timeout
+  * or receipt. The same ordinary Guns armor, shield, wear and attribution path
+  * handles every round, including burn pulses and splash victims. */
+ static localHit(state,target,shot) {
+  if(state.authority!=='local'||!this.same(state)||!eligible(state.player,target))return;
+  if(!!state.mount!==shot.mounted||!!state.player.isSneaking!==shot.mounted)return;
+  if(['pvp:protected','pvp:admission','pvp:dead','apoc:true_death'].some(tag=>target.hasTag(tag)))return;
+  // Direct and splash paths have just been traced by fire/splash. Recheck the
+  // current burn path on every pulse, so moving behind cover stops the DOT.
+  if(shot.kind==='burn'&&(distance(shot.origin,shot.impact)>BAIZHAN.range||clipSegment(state.player.dimension,shot.origin,shot.impact).blocked))return;
+  const direct=shot.kind==='direct';
+  const gun={...state.gun,noHealthFallback:true,disableCritical:!direct,disableHeadshot:!direct,
+   fixedArmorPenetration:shot.round==='piercing'?0.85:undefined,
+   stats:{...state.gun.stats,damage:shot.damage*machineDamageMultiplier(target),
+    damageDropOff:direct?state.gun.stats.damageDropOff:0,knockback:direct?state.gun.stats.knockback:undefined}};
+  let applied=false;
+  try{applied=DamageHandler.handleHit(null,state.player,target,gun,shot.impact)===true;}catch{}
+  if(!applied)return; // No retry or direct-health fallback on uncertain damage.
+  BaizhanImpactFeedback.show({applied:true,nonce:`baizhan_local_${system.currentTick}_${++this.serial}`,
+   shooterId:state.player.id,dimension:state.player.dimension,shot,created:system.currentTick});
+  if(!this.same(state)||!eligible(state.player,target))return;
+  if(direct&&shot.round==='slow')try{target.addEffect('slowness',40,{amplifier:1,showParticles:false});}catch{}
+  if(direct&&shot.round==='fire')this.startBurn(state,target,shot.mounted);
+ }
+ static guardHint(state,reason='rejected') {
   if(system.currentTick-state.lastGuardHint<100)return;
-  state.lastGuardHint=system.currentTick;tell(state.player,'安全校验未通过或命中回执未到，暂未确认命中效果。');
+  const hints={timeout:'命中回执超时，未确认伤害；请检查 SAPI 服务。',service:'无法发送命中请求，请检查 SAPI 服务。',target_gone:'目标已消失或死亡，本次未造成伤害。',blocked:'射击路径被掩体或保护区域阻挡。',rejected:'当前身份、队伍或战斗状态不允许此命中。',damage_rejected:'伤害未被游戏接受，未显示命中伤害。',raycast:'无法读取射击路径，请重试。',config:'SAPI 战斗服务未就绪。',protocol:'百战与 SAPI 版本不匹配，请同步更新配套 SAPI。'};
+  state.lastGuardHint=system.currentTick;state.hintUntil=system.currentTick+60;tell(state.player,hints[reason]||hints.rejected);
  }
  static receiveHit(event) {
-  if(event.id!=='tg:baizhan_hit_result'||event.sourceType!==ScriptEventSource.Server||event.sourceEntity||event.sourceBlock)return;
+  if(combatAuthority()!=='server')return;
+  if(!['tg:baizhan_hit_result','tg:baizhan_wear_state_result'].includes(event.id)||event.sourceType!==ScriptEventSource.Server||event.sourceEntity||event.sourceBlock)return;
   let data;try{data=JSON.parse(event.message);}catch{return;}
+  if(event.id==='tg:baizhan_wear_state_result'){
+   for(const state of this.players.values()){
+    const request=state.serviceRequest;
+    if(!request||data?.nonce!==request.nonce)continue;
+    if(!this.same(state)||system.currentTick-request.issuedTick>BAIZHAN.guardTicks||!Number.isInteger(data.checkedTick)||data.checkedTick<request.issuedTick||data.checkedTick>system.currentTick)return;
+    state.serviceRequest=null;
+    if(data.protocol!==2){this.stop(state.player);this.guardHint(state,'protocol');return;}
+    if(data.ready!==true||!(data.activeMatchId===null||typeof data.activeMatchId==='string'&&data.activeMatchId.length>0&&data.activeMatchId.length<=128)){
+     this.stop(state.player);this.guardHint(state,'config');return;
+    }
+    state.serviceUntil=data.checkedTick+20;return;
+   }
+   return;
+  }
   const request=this.pending.get(data?.nonce);if(!request)return;
   this.pending.delete(data.nonce);
   const {state,target,shot}=request;
@@ -300,7 +388,7 @@ export class BaizhanEngine {
   else DamageIndicator.cancelAuthoritative(data.nonce);
   // SAPI has already applied accepted damage in its synchronous validation
   // callback. NEVER damage, reflect, slow or wear equipment again from this ACK.
-  if(data.applied!==true){this.guardHint(state);return;}
+  if(data.applied!==true){this.guardHint(state,data.reason);return;}
   if(system.currentTick-request.created<=BAIZHAN.guardTicks&&this.same(state)&&
    !!state.mount===shot.mounted&&!!state.player.isSneaking===shot.mounted)
    BaizhanImpactFeedback.show({applied:true,nonce:data.nonce,shooterId:state.player.id,dimension:state.player.dimension,shot,created:request.created});
@@ -319,8 +407,13 @@ export class BaizhanEngine {
   this.burns.set(key,{state,target,mounted,targetContext:context(target),expires:system.currentTick+BAIZHAN.burnTicks,next:system.currentTick+BAIZHAN.burnInterval});
  }
  static tick() {
-  for(const [id,state]of this.players)if(!this.same(state))this.clear(id);
-  for(const [nonce,request]of this.pending)if(system.currentTick-request.created>BAIZHAN.guardTicks){this.pending.delete(nonce);this.guardHint(request.state);}
+  for(const [id,state]of this.players){
+   if(!this.same(state)){this.clear(id);continue;}
+   if(state.serviceRequest&&system.currentTick-state.serviceRequest.issuedTick>BAIZHAN.guardTicks){
+    state.serviceRequest=null;this.stop(state.player);this.guardHint(state,'timeout');
+   }
+  }
+  for(const [nonce,request]of this.pending)if(system.currentTick-request.created>BAIZHAN.guardTicks){this.pending.delete(nonce);DamageIndicator.cancelAuthoritative(nonce);this.guardHint(request.state,'timeout');}
   for(const [key,burn]of this.burns) {
    const {state,target}=burn;
    if(!this.same(state)||!eligible(state.player,target)||context(target)!==burn.targetContext||target.isInWater||target.getEffect?.('fire_resistance')||

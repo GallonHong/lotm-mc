@@ -1,8 +1,8 @@
 {
   "source": "vendor/baizhan_damage/feature/damageHandler.js",
-  "source_sha256": "6c2a21198c265be652e5b30ef5d40288730aa6397e34d6bf65d25427804cf24a",
+  "source_sha256": "28541e984eb35de1c95206a7e2b6cb2274864d5641a6bb8adfb810fabcaed75a",
   "derivative": "vendor/melee_damageHandler.js",
-  "derivative_sha256": "0831a49833d51665e37f8a7c56f56eefc4031ea2cf68091f6820468315e471c2",
+  "derivative_sha256": "5210a0f297253abeb3f99d5833663894eefbd30a724495caa80402576edd9374",
   "changes": [
     "Relative imports point to frozen dependency closure.",
     "Subtract measured native damage after complete armor/offensive/critical formula; no HP rewrite.",
@@ -10,7 +10,9 @@
     "Confirmed left supplemental damage skips second target-armor wear; right/heavy/bleed retain ordinary target wear.",
     "Managed melee shield handling is resolved once by CombatTechniques; techniqueShieldResolved bypasses bullet-specific shield absorption and reflection even when guard is inactive or broken.",
     "techniqueShieldBlocked carries the one accepted guard absorption for shield durability. Native-credit supplement skips duplicate armor wear but commits a shield-only snapshot once on accepted damage.",
-    "The source vendor handler now passes activeShieldSlot and blockedDamage to EquipmentWear.apply for accepted scripted bullet hits; no unsafe after-hurt shield refund remains."
+    "The source vendor handler now passes activeShieldSlot and blockedDamage to EquipmentWear.apply for accepted scripted bullet hits; no unsafe after-hurt shield refund remains.",
+    "3.16.3: equipmentCombat allowlist and slot corrections are mirrored in both handlers; native left attacks remain input/combo observations without supplemental damage.",
+    "3.16.12 / 2.14.15: flamethrower direct and burn damage bypass shield guard/reflection/wear and exclude shield armor points, preserving actual worn armor and other weapon behavior."
   ],
   "old_vendor_unchanged": false
 }

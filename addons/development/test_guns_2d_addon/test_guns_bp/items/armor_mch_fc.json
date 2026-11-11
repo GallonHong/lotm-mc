@@ -1,38 +1,38 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_mch_fc",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.helmet"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_mch_fc",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§5MICH 2000 防弹面罩头盔 [史诗]§r\n§7被动: 6点护甲，【抗击退 +35%】，+15%爆炸减免，-35%头部减伤，100%阻断爆头额外伤害，腰射散布-30%§r\n§8§o“特警强攻破门面罩，完全粉碎敌人的爆头加成。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.head",
-    "protection": 6
-   },
-   "minecraft:durability": {
-    "max_durability": 750
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "test_gun:part_armor_plate",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 250
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_mch_fc",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_mch_fc",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§5MICH 2000 防弹面罩头盔 [史诗]§r\n§7被动: 6点护甲，【抗击退 +35%】，+15%爆炸减免，-35%头部减伤，100%阻断爆头额外伤害，腰射散布-30%§r\n§8§o“特警强攻破门面罩，完全粉碎敌人的爆头加成。”§r\n§c最大生命 +16 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 6
+      },
+      "minecraft:durability": {
+        "max_durability": 750
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "test_gun:part_armor_plate",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 250
+          }
+        ]
+      }
+    }
   }
- }
 }

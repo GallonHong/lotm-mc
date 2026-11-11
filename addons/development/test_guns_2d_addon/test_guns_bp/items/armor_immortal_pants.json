@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_immortal_pants",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.leggings"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_immortal_pants",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§5特警耐磨战术长裤 [史诗]§r\n§7被动: 6点护甲，【抗击退 +25%】，疾跑时获得迅捷冲刺加速，下蹲吸收15%伤害§r\n§8§o“高抗撕裂面料制成的特警作战裤，兼具灵活机动与防护。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.legs",
-    "protection": 5
-   },
-   "minecraft:durability": {
-    "max_durability": 600
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 240
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_immortal_pants",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.leggings"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_immortal_pants",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§5特警耐磨战术长裤 [史诗]§r\n§7被动: 6点护甲，【抗击退 +25%】，疾跑时获得迅捷冲刺加速，下蹲吸收15%伤害§r\n§8§o“高抗撕裂面料制成的特警作战裤，兼具灵活机动与防护。”§r\n§e暴击率 +5个百分点§r\n§c最大生命 +20 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.legs",
+        "protection": 5
+      },
+      "minecraft:durability": {
+        "max_durability": 600
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 240
+          }
+        ]
+      }
+    }
   }
- }
 }

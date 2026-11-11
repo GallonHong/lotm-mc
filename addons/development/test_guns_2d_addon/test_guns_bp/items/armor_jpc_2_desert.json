@@ -1,38 +1,38 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_jpc_2_desert",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.chestplate"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_jpc_2_desert",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§9Crye JPC 2.0 战术背心 荒漠色 [精良]§r\n§7被动: 8点护甲，【抗击退 +35%】，-10%枪械终伤，+10%爆炸减免，常驻+10%移速，全枪伤害+20%§r\n§8§o“荒漠迷彩JPC 2.0轻量化背心，战术机动与防护兼备。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.chest",
-    "protection": 8
-   },
-   "minecraft:durability": {
-    "max_durability": 650
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "test_gun:part_armor_plate",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 216
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_jpc_2_desert",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_jpc_2_desert",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9Crye JPC 2.0 战术背心 荒漠色 [精良]§r\n§7被动: 8点护甲，【抗击退 +35%】，-16%枪械终伤，+10%爆炸减免，常驻+10%移速，全枪伤害+20%§r\n§8§o“荒漠迷彩JPC 2.0轻量化背心，战术机动与防护兼备。”§r\n§c最大生命 +24 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 8
+      },
+      "minecraft:durability": {
+        "max_durability": 650
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "test_gun:part_armor_plate",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 216
+          }
+        ]
+      }
+    }
   }
- }
 }

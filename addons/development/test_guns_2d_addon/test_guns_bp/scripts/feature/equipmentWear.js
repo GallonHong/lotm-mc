@@ -25,7 +25,7 @@ export class EquipmentWear {
   try {
    if (['creative', 'spectator'].includes(String(target.getGameMode?.()).toLowerCase())) return result;
    const eq = target.getComponent('minecraft:equippable');
-   if (!eq || !Number.isFinite(damage) || damage <= 0) return result;
+   if (!eq || !Number.isFinite(damage) || damage < 0 || (!(damage > 0) && !(shieldSlot && blockedDamage > 0))) return result;
    for (const slot of [...(armor ? ARMOR_SLOTS : []), ...(shieldSlot ? [shieldSlot] : [])]) {
     const item = eq.getEquipment(slot), dur = item?.getComponent('minecraft:durability');
     if (!dur || !Number.isFinite(dur.maxDurability) || dur.maxDurability <= 0) continue;
@@ -66,6 +66,10 @@ export class EquipmentWear {
     }
    }
   } catch (error) { console.warn('[Test Guns] Equipment durability write failed:', error); }
+ }
+ static block(target, shieldSlot, blockedDamage) {
+  if (!shieldSlot || !(Number.isFinite(blockedDamage) && blockedDamage > 0)) return;
+  this.commit(target, this.snapshot(target, 0, shieldSlot, blockedDamage, false));
  }
  static apply(target, damage, options, wearDamage = damage, shieldSlot, blockedDamage = 0) {
   if (!(Number.isFinite(damage) && damage > 0)) return false;

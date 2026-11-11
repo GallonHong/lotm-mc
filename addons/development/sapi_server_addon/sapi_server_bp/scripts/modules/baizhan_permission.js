@@ -8,12 +8,12 @@ import { DamageIndicator as AuthoritativeIndicator } from '../vendor/baizhan_dam
 import { BAIZHAN_GUN } from '../data/baizhanGun.js';
 import { BAIZHAN, MACHINE_TARGETS, machineDamageMultiplier, distance, traceCover, approvedSegment } from '../data/baizhanRules.js';
 
-const combatContext=e=>{try{return JSON.stringify([e.dimension.id,e.getTags().filter(t=>t.startsWith('pvp:')||t.startsWith('sapi_team_')||['apoc:downed','apoc_downed','apoc:true_death'].includes(t)).sort()]);}catch{return null;}};
+const combatContext=e=>{try{return JSON.stringify([e.dimension.id,e.getTags().filter(t=>t.startsWith('pvp:')||t.startsWith('sapi_team_')||['apoc:downed','apoc:downed_pending','apoc_downed','apoc:true_death'].includes(t)).sort()]);}catch{return null;}};
 const finitePoint = p => !!p && ['x','y','z'].every(a => typeof p[a] === 'number' && Number.isFinite(p[a]));
 const living = e => { try { return e?.isValid() && e.getComponent('minecraft:health')?.currentValue > 0; } catch { return false; } };
 const body = e => { try { return e.getHeadLocation(); } catch { return {...e.location,y:e.location.y+0.8}; } };
 const delta = (a,b) => ({x:b.x-a.x,y:b.y-a.y,z:b.z-a.z});
-const blockedTag = p => ['pvp:downed','pvp:dead','pvp:protected','tg:rail_stunned','apoc:downed','apoc_downed','apoc:true_death'].some(t=>p.hasTag(t));
+const blockedTag = p => ['pvp:downed','pvp:dead','pvp:protected','tg:rail_stunned','apoc:downed','apoc:downed_pending','apoc_downed','apoc:true_death'].some(t=>p.hasTag(t));
 
 /** Authoritative Baizhan commit. Protection, cover and current damage formulas
  * run synchronously in one server callback; no delayed damage approval exists. */
@@ -46,7 +46,7 @@ export class BaizhanPermissionManager {
   try {
    const after=target.getComponent('minecraft:health')?.currentValue;
    if(!record.observed&&target.isValid()&&Number.isFinite(record.before)&&Number.isFinite(after)&&after>=0&&record.before>after&&
-    !['pvp:downed','apoc:downed','apoc_downed'].some(t=>target.hasTag(t))){
+    !['pvp:downed','apoc:downed','apoc:downed_pending','apoc_downed'].some(t=>target.hasTag(t))){
     record.damage=record.before-after;record.basis='health_loss';
    }
   }catch{} // Never invent a lethal/deleted target's remaining HP.
@@ -58,11 +58,11 @@ export class BaizhanPermissionManager {
   const {shooterId,targetId,dimension,location,damage,basis,headshot,critical,tick}=record;
   return {shooterId,targetId,dimension,location,damage,basis,headshot,critical,cause:'override',hitTick:tick};
  }
- static sendResult(packet, applied, record) {
+ static sendResult(packet, applied, record, reason) {
   const send=()=>{
    const feedback=applied?this.consumeFeedback(record):undefined;
    this.feedback.delete(packet.nonce);
-   try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:baizhan_hit_result ${JSON.stringify({nonce:packet.nonce,applied,feedback})}`);}catch{}
+   try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:baizhan_hit_result ${JSON.stringify({nonce:packet.nonce,applied,feedback,reason})}`);}catch{}
   };
   // Damage was already committed synchronously. Defer only the cosmetic
   // receipt one tick to prefer Bedrock's actual damage event over HP deltas.
@@ -89,15 +89,14 @@ export class BaizhanPermissionManager {
   return !traceCover(dimension,start,length ? delta(start,end) : {x:1,y:0,z:0},length,penetrations).blocked;
  }
  static authorize(packet) {
-  const denied={allowed:false};
-  const activeMatchId=this.activeMatchId();if(activeMatchId===undefined)return denied;
+  const denied={allowed:false,reason:'rejected'};
+  const activeMatchId=this.activeMatchId();if(activeMatchId===undefined)return {...denied,reason:'config'};
   try {
    const shooter=world.getAllPlayers().find(p=>p.id===packet.shooterId);
    const target=world.getEntity(packet.targetId);
-   if(!living(shooter)||!living(target)||shooter.id===target.id||blockedTag(shooter))return denied;
-   // Life 1.4.5 exposes no authoritative dynamic-region permission bridge.
-   // Never infer ordinary-world player permission from SAPI-local properties.
-   if(target.typeId==='minecraft:player'&&(!isMatchLocked(target)||!target.hasTag('pvp:participant')))return denied;
+   if(!living(target))return {...denied,reason:'target_gone'};
+   if(!living(shooter)||target.hasTag('apoc:downed_pending')||shooter.id===target.id||blockedTag(shooter))return denied;
+   // Native attributed applyDamage reaches Life's global death/respawn lifecycle.
    if(shooter.dimension.id!==target.dimension.id||target.typeId===BAIZHAN.mountId||['minecraft:armor_stand','minecraft:item','minecraft:xp_orb'].includes(target.typeId)||target.typeId.includes('hud'))return denied;
    if(['creative','spectator'].includes(String(target.getGameMode?.()))||String(shooter.getGameMode?.())==='spectator')return denied;
    // Ordinary-world players cannot be hurt indirectly through a mob's riot
@@ -107,7 +106,7 @@ export class BaizhanPermissionManager {
     if([EquipmentSlot.Mainhand,EquipmentSlot.Offhand].some(slot=>equipment?.getEquipment(slot)?.typeId==='test_gun:riot_shield'))return denied;
    }
    const held=shooter.getComponent('minecraft:equippable')?.getEquipment(EquipmentSlot.Mainhand);
-   if(held?.typeId!==BAIZHAN.id||typeof packet.weaponToken!=='string'||!packet.weaponToken||packet.weaponToken.length>128)return denied;
+   if(packet.gunId!==BAIZHAN.id||held?.typeId!==BAIZHAN.id||typeof packet.weaponToken!=='string'||!packet.weaponToken||packet.weaponToken.length>128)return denied;
    // Item dynamic properties are behavior-pack scoped. Only shared lore binds
    // the visible item here; Guns retains its private durability identity.
    const identities=(held.getLore()||[]).filter(line=>line.startsWith('BAIZHAN_ID:'));
@@ -131,30 +130,36 @@ export class BaizhanPermissionManager {
    // Known vehicle hulls reach 2.8m wide / 2.5m tall; drones remain narrow.
    const impactTolerance=MACHINE_TARGETS.has(target.typeId)&&target.typeId.startsWith('ab_ve:')?3.5:2.5;
    if(distance(packet.impact,targetBody)>impactTolerance)return denied;
+   // The target can move during event delivery. A short movement is allowed,
+   // but the old impact must still connect to its CURRENT body without cover.
+   if(!this.clearPath(dim,packet.impact,targetBody))return {...denied,reason:'blocked'};
    const paths=[];
    if(packet.kind==='direct') {
     if(packet.mounted&&!shooter.isSneaking)return denied;
     if(distance(head,packet.origin)>3||distance(packet.origin,packet.impact)>BAIZHAN.range+0.01)return denied;
-    if(!this.clearPath(dim,head,packet.origin)||!this.clearPath(dim,packet.origin,packet.impact,packet.mounted?2:0))return denied;
+    if(!this.clearPath(dim,head,packet.origin)||!this.clearPath(dim,packet.origin,packet.impact,packet.mounted?2:0))return {...denied,reason:'blocked'};
     paths.push([head,packet.origin],[packet.origin,packet.impact]);
    } else if(packet.kind==='splash') {
     // Splash carries its parent bullet geometry, never a free-standing blast.
     if(!finitePoint(packet.shotOrigin))return denied;
     if(packet.mounted&&!shooter.isSneaking)return denied;
     if(distance(head,packet.shotOrigin)>3||distance(packet.shotOrigin,packet.origin)>BAIZHAN.range+0.01||distance(packet.origin,packet.impact)>BAIZHAN.splashRadius+0.01)return denied;
-    if(!this.clearPath(dim,head,packet.shotOrigin)||!this.clearPath(dim,packet.shotOrigin,packet.origin,packet.mounted?2:0)||!this.clearPath(dim,packet.origin,packet.impact))return denied;
+    if(!this.clearPath(dim,head,packet.shotOrigin)||!this.clearPath(dim,packet.shotOrigin,packet.origin,packet.mounted?2:0)||!this.clearPath(dim,packet.origin,packet.impact))return {...denied,reason:'blocked'};
     paths.push([head,packet.shotOrigin],[packet.shotOrigin,packet.origin],[packet.origin,packet.impact]);
    } else {
     if(distance(head,packet.origin)>0.5||distance(packet.origin,packet.impact)>BAIZHAN.range+0.01)return denied;
-    if(!this.clearPath(dim,head,packet.origin)||!this.clearPath(dim,packet.origin,packet.impact))return denied;
+    if(!this.clearPath(dim,head,packet.origin)||!this.clearPath(dim,packet.origin,packet.impact))return {...denied,reason:'blocked'};
     paths.push([head,packet.origin],[packet.origin,packet.impact]);
    }
-   // Never permit shooting out of, into, or across protected space. Keep both
-   // raw player feet and body in the region proof to cover thin Y boundaries.
+   // Keep geography for nonplayer targets; player combat ignores safe-zone
+   // boundaries while retaining identity, team, match and cover validation.
    paths.push([shooter.location,head],[packet.impact,targetBody],[targetBody,target.location]);
    const regions=RegionManager.getRegions().filter(r=>r.dimension===dim.id).map(r=>({min:r.min,max:r.max,priority:r.priority||0,allow:r.flags?.allowPvp!==false}));
    const approval={allowed:true,targetDimension:dim.id,regions,adminBypass:false};
-   for(const [start,end]of paths)if(!approvedSegment(approval,dim.id,start,end)||Integration.segmentCrossesSafeZone(dim.id,start,end))return denied;
+   for(const [start,end]of paths){
+    if(!finitePoint(start)||!finitePoint(end))return denied;
+    if(target.typeId!=='minecraft:player'&&(!approvedSegment(approval,dim.id,start,end)||Integration.segmentCrossesSafeZone(dim.id,start,end)))return {...denied,reason:'blocked'};
+   }
    return {...approval,shooterId:shooter.id,targetId:target.id,shooterLocation:{...shooter.location},targetLocation:{...target.location},origin:{...packet.origin},impact:{...packet.impact},createdTick:system.currentTick,expiresTick:system.currentTick+BAIZHAN.guardTicks};
   }catch{return denied;}
  }
@@ -172,16 +177,16 @@ export class BaizhanPermissionManager {
   this.seen.set(key,packet.issuedTick);
   if(event.id==='tg:baizhan_wear_state'){
    const activeMatchId=this.activeMatchId();
-   if(activeMatchId!==undefined)try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:baizhan_wear_state_result ${JSON.stringify({nonce:packet.nonce,activeMatchId,checkedTick:system.currentTick})}`);}catch{}
+   try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:baizhan_wear_state_result ${JSON.stringify({nonce:packet.nonce,protocol:2,ready:activeMatchId!==undefined,activeMatchId,checkedTick:system.currentTick})}`);}catch{}
    return;
   }
   if(typeof packet.shooterId!=='string'||typeof packet.targetId!=='string')return;
   // A player's persisted public tag may survive logout until spawn cleanup.
   // Never accept a pre-leave packet, even after a quick same-id reconnect.
   if(packet.issuedTick<=Math.max(this.lastLeaveTick.get(packet.shooterId)??-1,this.leaveOverflowTick))return;
-  let applied=false,feedbackRecord;
+  let applied=false,feedbackRecord,reason='rejected';
   try {
-   const approval=this.authorize(packet);
+   const approval=this.authorize(packet);reason=approval.reason;
    if(approval.allowed===true){
     const shooter=world.getAllPlayers().find(p=>p.id===packet.shooterId),target=world.getEntity(packet.targetId);
     const damage=(packet.kind==='direct'?BAIZHAN_GUN.stats.damage:packet.kind==='burn'?BAIZHAN.burnDamage:
@@ -194,13 +199,13 @@ export class BaizhanPermissionManager {
     // current safety checks and this exact mirrored damage/armor/shield code.
     feedbackRecord=this.beginFeedback(packet,shooter,target);
     applied=DamageHandler.handleHit(null,shooter,target,gun,packet.impact)===true;
-    this.finishFeedback(feedbackRecord,target,applied);
+    this.finishFeedback(feedbackRecord,target,applied);reason=applied?'applied':'damage_rejected';
     if(applied&&packet.kind==='direct'&&packet.round==='slow'&&living(target)){
      try{target.addEffect('slowness',40,{amplifier:1,showParticles:false});}catch{}
     }
    }
-  }catch{applied=false;} // Never retry an uncertain apply, nor fall back to HP.
-  this.sendResult(packet,applied,feedbackRecord);
+  }catch{applied=false;reason='damage_rejected';} // Never retry an uncertain apply, nor fall back to HP.
+  this.sendResult(packet,applied,feedbackRecord,reason);
  }
  static registerEvents(getActiveMatchId) {
   if(typeof getActiveMatchId==='function')this.getActiveMatchId=getActiveMatchId;

@@ -1,12 +1,12 @@
 /** Gameplay tuning uses existing Test Guns damage units, not normalized HP. */
 export const RAIL = Object.freeze({ id:'test_gun:liegui', minCharge:7, midCharge:20, fullCharge:40,
- maxHold:56, ventTicks:24, skillCooldownMs:30000, skillRange:24, skillRadius:1.3,
- skillDamage:24, stunTicks:24, stunImmunityMs:3000, maxTargets:12 });
+ maxHold:56, ventTicks:24, skillCooldownMs:30000, skillRange:36, skillRadius:2.8,
+ skillDamage:72, stunTicks:36, stunImmunityMs:3000, maxTargets:18, projectileSpeed:1.8, gravity:0.045, drag:0.995, sweepStep:0.5, projectileRange:56, maxFlightTicks:80 });
 export function chargeProfile(ticks) {
- if(ticks<RAIL.minCharge)return null;
- if(ticks<RAIL.midCharge)return {damage:25,spread:3,radius:0,splash:0};
- if(ticks<RAIL.fullCharge)return {damage:50,spread:1.5,radius:1.3,splash:8};
- return {damage:80,spread:0.6,radius:2.2,splash:12};
+ if(!Number.isInteger(ticks)||ticks<RAIL.minCharge||ticks>=RAIL.maxHold)return null;
+ if(ticks<RAIL.midCharge)return {damage:45,spread:3,radius:3.5,splash:36,slowTicks:0,slowAmplifier:0};
+ if(ticks<RAIL.fullCharge)return {damage:90,spread:1.5,radius:5.5,splash:72,slowTicks:60,slowAmplifier:2};
+ return {damage:150,spread:0.6,radius:7.5,splash:120,slowTicks:80,slowAmplifier:3};
 }
 export function pointOnSegment(point,start,end,radius) {
  const d={x:end.x-start.x,y:end.y-start.y,z:end.z-start.z};

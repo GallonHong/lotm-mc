@@ -106,11 +106,11 @@ export class SkillManager {
      try {
       ent.addEffect('slowness', 60, { amplifier: 4, showParticles: true });
       ent.addEffect('weakness', 60, { amplifier: 2, showParticles: false });
-      ent.setOnFire(3, true);
+      ent.setOnFire(gun.skillBurnDurationSec ?? 6, true);
      } catch {}
     }
    } catch {}
-   updateActionBar(player, '§b【EMP过载风暴】360°全方位电磁瘫痪脉冲已释放!§r');
+   updateActionBar(player, `§b【EMP过载风暴】360°电磁瘫痪脉冲已释放！燃烧 ${gun.skillBurnDurationSec ?? 6} 秒!§r`);
    return true;
   }
 
@@ -165,7 +165,7 @@ export class SkillManager {
      if (dot >= 0.35) {
       if (isProtectedTeammate(player, ent)) continue;
       try { ent.setOnFire(5, true); } catch {}
-      try { ent.applyDamage(35, { damagingEntity: player, cause: EntityDamageCause.fireTick }); } catch {}
+      try { ent.applyDamage(gun.skillConeDamage ?? 52.5, { damagingEntity: player, cause: EntityDamageCause.fireTick }); } catch {}
       try { dim.spawnParticle('minecraft:lava_particle', ent.location); } catch {}
      }
     }

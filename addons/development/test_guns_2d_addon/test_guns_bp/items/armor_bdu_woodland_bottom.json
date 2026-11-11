@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_bdu_woodland_bottom",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.leggings"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_bdu_woodland_bottom",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§a美军 BDU 丛林作战长裤 [普通]§r\n§7被动: 5点护甲，【抗击退 +10%】§r\n§8§o“结实耐磨的经典丛林迷彩裤。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.legs",
-    "protection": 4
-   },
-   "minecraft:durability": {
-    "max_durability": 320
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:leather"
-      ],
-      "repair_amount": 128
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_bdu_woodland_bottom",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.leggings"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_bdu_woodland_bottom",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§a美军 BDU 丛林作战长裤 [普通]§r\n§7被动: 枪械护甲5点 / 原版保护5点，【抗击退 +10%】§r\n§8§o“结实耐磨的经典丛林迷彩裤。”§r\n§e暴击率 +2个百分点§r\n§c最大生命 +4 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.legs",
+        "protection": 5
+      },
+      "minecraft:durability": {
+        "max_durability": 320
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:leather"
+            ],
+            "repair_amount": 128
+          }
+        ]
+      }
+    }
   }
- }
 }

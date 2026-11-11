@@ -8,11 +8,11 @@ import { distance, traceCover, approvedSegment, unit } from '../data/baizhanRule
 import { FLAMETHROWER, FLAMETHROWER_GUN, inFlameCone } from '../data/flamethrowerRules.js';
 
 const SESSION='tg_flamethrower_session:';
-const context=e=>{try{return JSON.stringify([e.dimension.id,e.getTags().filter(t=>t.startsWith('pvp:')||t.startsWith('sapi_team_')||['apoc:downed','apoc_downed','apoc:true_death'].includes(t)).sort()]);}catch{return null;}};
+const context=e=>{try{return JSON.stringify([e.dimension.id,e.getTags().filter(t=>t.startsWith('pvp:')||t.startsWith('sapi_team_')||['apoc:downed','apoc:downed_pending','apoc_downed','apoc:true_death'].includes(t)).sort()]);}catch{return null;}};
 const point=p=>!!p&&['x','y','z'].every(a=>typeof p[a]==='number'&&Number.isFinite(p[a]));
 const living=e=>{try{return e?.isValid()&&e.getComponent('minecraft:health')?.currentValue>0;}catch{return false;}};
 const body=e=>{try{return e.getHeadLocation();}catch{return {...e.location,y:e.location.y+0.8};}};
-const blocked=e=>['pvp:downed','pvp:dead','pvp:protected','tg:rail_stunned','apoc:downed','apoc_downed','apoc:true_death'].some(t=>e.hasTag(t));
+const blocked=e=>['pvp:downed','pvp:dead','pvp:protected','tg:rail_stunned','apoc:downed','apoc:downed_pending','apoc_downed','apoc:true_death'].some(t=>e.hasTag(t));
 
 /** Synchronous, authoritative damage. A result is informational, never a
  * transferable damage permission. No source input can specify damage/targets. */
@@ -42,29 +42,30 @@ export class FlamethrowerPermissionManager {
   for(const [id,tick]of this.lastLeaveTick)if(now-tick>FLAMETHROWER.guardTicks)this.lastLeaveTick.delete(id);
   for(const [id,s]of this.sources)if(now-s.tick>FLAMETHROWER.guardTicks)this.sources.delete(id);
  }
- static source(packet,checkAim=false) {
+ static source(packet,checkAim=false,failure=null) {
+  const reject=reason=>{if(failure)failure.reason=reason;return null;};
   try {
    const active=this.getActiveMatchId?.();
-   if(active!==null&&!(typeof active==='string'&&active))return null;
+   if(active!==null&&!(typeof active==='string'&&active))return reject('service_initializing');
    const shooter=world.getAllPlayers().find(e=>e.id===packet.shooterId);
-   if(!living(shooter)||blocked(shooter)||String(shooter.getGameMode?.()).toLowerCase()==='spectator')return null;
-   if(context(shooter)!==packet.sourceContext||!Number.isInteger(packet.selectedSlot)||shooter.selectedSlotIndex!==packet.selectedSlot)return null;
+   if(!living(shooter)||blocked(shooter)||String(shooter.getGameMode?.()).toLowerCase()==='spectator')return reject('player_state');
+   if(context(shooter)!==packet.sourceContext||!Number.isInteger(packet.selectedSlot)||shooter.selectedSlotIndex!==packet.selectedSlot)return reject('state_changed');
    const held=shooter.getComponent('minecraft:equippable')?.getEquipment(EquipmentSlot.Mainhand);
-   if(held?.typeId!==FLAMETHROWER.id||typeof packet.weaponToken!=='string'||!/^[A-Za-z0-9_:-]{1,128}$/.test(packet.weaponToken))return null;
+   if(held?.typeId!==FLAMETHROWER.id||typeof packet.weaponToken!=='string'||!/^[A-Za-z0-9_:-]{1,128}$/.test(packet.weaponToken))return reject('weapon_state');
    const lore=held.getLore()||[],identity=lore.filter(l=>l.startsWith('FT_ID:'));
-   if(identity.length!==1||identity[0]!=='FT_ID:'+packet.weaponToken)return null;
+   if(identity.length!==1||identity[0]!=='FT_ID:'+packet.weaponToken)return reject('weapon_state');
    const sessions=shooter.getTags().filter(t=>t.startsWith(SESSION));
-   if(typeof packet.sessionTag!=='string'||!packet.sessionTag.startsWith(SESSION)||packet.sessionTag.length<=SESSION.length||packet.sessionTag.length>128||sessions.length!==1||sessions[0]!==packet.sessionTag)return null;
+   if(typeof packet.sessionTag!=='string'||!packet.sessionTag.startsWith(SESSION)||packet.sessionTag.length<=SESSION.length||packet.sessionTag.length>128||sessions.length!==1||sessions[0]!==packet.sessionTag)return reject('weapon_state');
    const markers=lore.filter(l=>l.startsWith('PVP_MATCH:'));
    if(isMatchLocked(shooter)){
     const match=shooter.getTags().find(t=>t.startsWith('pvp:match:'))?.slice(10);
-    if(!shooter.hasTag('pvp:participant')||!shooter.hasTag('pvp:active')||!shooter.hasTag('pvp:guns_ready')||shooter.hasTag('pvp:guns_finished')||active!==match||markers.length!==1||markers[0]!=='PVP_MATCH:'+match)return null;
-   }else if(markers.length)return null;
+    if(!shooter.hasTag('pvp:participant')||!shooter.hasTag('pvp:active')||!shooter.hasTag('pvp:guns_ready')||shooter.hasTag('pvp:guns_finished')||active!==match||markers.length!==1||markers[0]!=='PVP_MATCH:'+match)return reject('match_state');
+   }else if(markers.length)return reject('weapon_state');
    const head=body(shooter),direction=unit(shooter.getViewDirection());
-   if(!point(head)||!direction)return null;
-   const regions=RegionManager.getRegions().filter(r=>r.dimension===shooter.dimension.id).map(r=>({min:r.min,max:r.max,priority:r.priority||0,allow:r.flags?.allowPvp!==false}));
-   const approval={allowed:true,targetDimension:shooter.dimension.id,regions,adminBypass:false};
-   if(!approvedSegment(approval,shooter.dimension.id,shooter.location,head)||Integration.segmentCrossesSafeZone(shooter.dimension.id,shooter.location,head))return null;
+   if(!point(head)||!direction)return reject('weapon_state');
+   if(!point(shooter.location))return reject('invalid_geometry');
+   // A safe-zone location does not reject firing. Nonplayer targets retain
+   // their geographical checks below; player targets use current combat rules.
    if(checkAim){
     const sent=point(packet.direction)&&unit(packet.direction);
     // The actual cone always uses the CURRENT view and current head, not a
@@ -72,19 +73,17 @@ export class FlamethrowerPermissionManager {
     // valid sweep. The old direction is only validated, never trusted.
     // An 8m transport bound rejects teleport-sized changes while allowing
     // normal movement within the 12-tick packet lifetime.
-    if(!point(packet.origin)||distance(head,packet.origin)>8||!sent)return null;
+    if(!point(packet.origin)||distance(head,packet.origin)>8||!sent)return reject('weapon_state');
    }
    return {shooter,head,direction};
-  }catch{return null;}
+  }catch{return reject('validation_error');}
  }
  static allowed(source,target,{burn=false}={}) {
   try {
    const {shooter,head}=source;
-   if(!living(shooter)||blocked(shooter)||!living(target)||target.id===shooter.id||shooter.dimension.id!==target.dimension.id)return false;
+   if(!living(shooter)||blocked(shooter)||!living(target)||target.hasTag('apoc:downed_pending')||target.id===shooter.id||shooter.dimension.id!==target.dimension.id)return false;
    if(['minecraft:armor_stand','minecraft:item','minecraft:xp_orb','test_gun:baizhan_mount'].includes(target.typeId)||target.typeId.includes('hud'))return false;
    if(['creative','spectator'].includes(String(target.getGameMode?.()).toLowerCase()))return false;
-   // Same conservative ordinary-player protection boundary as SAPI 2.14.5.
-   if(target.typeId==='minecraft:player'&&(!isMatchLocked(target)||!target.hasTag('pvp:participant')))return false;
    if(!shooter.hasTag('pvp:participant')&&target.typeId!=='minecraft:player'){
     const eq=target.getComponent('minecraft:equippable');
     if([EquipmentSlot.Mainhand,EquipmentSlot.Offhand].some(slot=>eq?.getEquipment(slot)?.typeId==='test_gun:riot_shield'))return false;
@@ -98,14 +97,16 @@ export class FlamethrowerPermissionManager {
    const regions=RegionManager.getRegions().filter(r=>r.dimension===dim.id).map(r=>({min:r.min,max:r.max,priority:r.priority||0,allow:r.flags?.allowPvp!==false}));
    const approval={allowed:true,targetDimension:dim.id,regions,adminBypass:false};
    for(const [start,end]of [[shooter.location,head],[head,impact],[impact,target.location]]){
-    if(!approvedSegment(approval,dim.id,start,end)||Integration.segmentCrossesSafeZone(dim.id,start,end))return false;
+    if(!point(start)||!point(end))return false;
+    if(target.typeId!=='minecraft:player'&&(!approvedSegment(approval,dim.id,start,end)||Integration.segmentCrossesSafeZone(dim.id,start,end)))return false;
    }
    return true;
   }catch{return false;}
  }
- static damage(source,target,amount) {
-  // Independent full base damage, followed by existing armor/equipment rules.
-  const gun={...FLAMETHROWER_GUN,stats:{...FLAMETHROWER_GUN.stats,damage:amount}};
+ static damage(source,target,amount,{burn=false}={}) {
+  // Each direct target/pulse uses the shared gear crit roll; burn never crits.
+  // Pass base damage unchanged so gear damage bonuses are applied only once.
+  const gun={...FLAMETHROWER_GUN,disableCritical:burn,damageOverTime:burn,stats:{...FLAMETHROWER_GUN.stats,damage:amount}};
   try{return DamageHandler.handleHit(null,source.shooter,target,gun,body(target))===true;}catch{return false;}
  }
  static heatHit(packet,target) {
@@ -133,10 +134,13 @@ export class FlamethrowerPermissionManager {
   const replayKey=event.id+':'+packet.nonce;
   if(this.seen.has(replayKey)||this.seen.size>=FLAMETHROWER.maxReplay)return;
   this.seen.set(replayKey,packet.issuedTick);
-  if(packet.issuedTick<=Math.max(this.lastLeaveTick.get(packet.shooterId)??-1,this.leaveOverflowTick))return;
+  if(packet.issuedTick<=Math.max(this.lastLeaveTick.get(packet.shooterId)??-1,this.leaveOverflowTick)){
+   if(event.id==='tg:flamethrower_state')try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:flamethrower_state_result ${JSON.stringify({nonce:packet.nonce,ready:false,protocol:1,checkedTick:now,reason:'respawn_transition'})}`);}catch{}
+   return;
+  }
   if(event.id==='tg:flamethrower_state'){
-   const ready=!!this.source(packet);
-   try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:flamethrower_state_result ${JSON.stringify({nonce:packet.nonce,ready,protocol:1,checkedTick:now})}`);}catch{}
+   const failure={};const ready=!!this.source(packet,false,failure);
+   try{world.getDimension('minecraft:overworld').runCommand(`scriptevent tg:flamethrower_state_result ${JSON.stringify({nonce:packet.nonce,ready,protocol:1,checkedTick:now,reason:ready?'ready':failure.reason||'player_state'})}`);}catch{}
    return;
   }
   let hits=0;
@@ -184,7 +188,7 @@ export class FlamethrowerPermissionManager {
    // Stored heat proves the earlier hit. Ordinary cover/range changes do not
    // extinguish a four-second burn, but all current safety segments still do.
    if(!this.allowed(source,target,{burn:true})){state.burnUntil=-1;state.layers=0;this.heat.delete(key);continue;}
-   if(this.damage(source,target,FLAMETHROWER.burnDamage)){
+   if(this.damage(source,target,FLAMETHROWER.burnDamage,{burn:true})){
     this.metrics.burnHits++;
     try{target.dimension.spawnParticle('test_gun:flamethrower_ember',body(target));}catch{}
    }else{this.heat.delete(key);}

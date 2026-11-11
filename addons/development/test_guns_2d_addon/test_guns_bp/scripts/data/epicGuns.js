@@ -6,7 +6,3 @@ export const EPIC_GUNS = Object.freeze({
  finaleHealthThreshold: 0.35, finaleMultiplier: 1.75,
  relayMinRounds: 2, relayMaxRounds: 4
 });
-export const EPIC_BLUEPRINT_DROPS = Object.freeze({
- 'minecraft:ravager': Object.freeze({ item: 'test_gun:blueprint_scarh_stripper', chance: 0.12 }),
- 'minecraft:evocation_illager': Object.freeze({ item: 'test_gun:blueprint_python_finale', chance: 0.10 })
-});

@@ -29,6 +29,19 @@
         "tags": [
           "minecraft:is_crossbow"
         ]
+      },
+      "minecraft:durability": {
+        "max_durability": 1800
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:blueprint_flamethrower"
+            ],
+            "repair_amount": 1440
+          }
+        ]
       }
     }
   }

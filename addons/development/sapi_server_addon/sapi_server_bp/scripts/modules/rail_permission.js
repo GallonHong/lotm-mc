@@ -15,12 +15,11 @@ export class RailPermissionManager {
   if (!shooter || !target || shooter.typeId !== "minecraft:player" || target.typeId !== "minecraft:player") return false;
   try {
    if (!shooter.isValid() || !target.isValid() || shooter.id === target.id) return false;
-   if (shooter.hasTag?.("pvp:downed")) return false;
+   if (["pvp:downed","apoc:downed","apoc_downed","apoc:downed_pending"].some(t => shooter.hasTag?.(t)) || target.hasTag?.("apoc:downed_pending")) return false;
    if (shooter.dimension.id !== target.dimension.id) return false;
    // 比赛权限由 Guns 的比赛标签检查处理，普通世界桥不能授权比赛伤害。
    if (isMatchLocked(shooter) || isMatchLocked(target) || CombatManager.areTeammates(shooter, target)) return false;
-   const region = RegionManager.getRegionAt(target.dimension.id, target.location);
-   return region?.flags?.allowPvp !== false || Utils.isAdmin(shooter);
+   return true; // Safe-zone location does not prohibit ordinary player combat.
   } catch { return false; }
  }
 
@@ -46,8 +45,7 @@ export class RailPermissionManager {
    if (allowed) {
     targetDimension = target.dimension.id; targetLocation = { ...target.location };
     adminBypass = Utils.isAdmin(shooter);
-    regions = RegionManager.getRegions().filter(r => r.dimension === targetDimension)
-     .map(r => ({min:r.min,max:r.max,priority:r.priority||0,allow:r.flags?.allowPvp!==false}));
+    regions = []; // Player-combat proof: keep all non-geographical guards above.
    }
   } catch { allowed = false; regions = []; }
   try {

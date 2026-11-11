@@ -3,7 +3,8 @@ import { FireMode } from './types.js';
 // Single-shot balance, not DPS: common pistol 4.5, SMG 6.75, rifle/LMG 9.
 // Conventional class tiers: common x1, rare x1.5, epic x2, legendary x3.
 // Shotgun damage is PER PELLET (8 pellets): common 3, rare 4.5, epic 6, legendary 9.
-// Heavy pistol, sniper, rocket, arc and charged rail retain their distinct baselines.
+// DBSS has a further x1.5 per-pellet boost; arc has a further x2 base boost.
+// Heavy pistol, sniper, rocket and charged rail retain their distinct baselines.
 // MGL uses x3 of the lowest existing grenade launcher (M79, a rare weapon).
 // See docs/gun_balance.md for the complete values, exceptions and crafting audit.
 export const GUNS = [
@@ -195,7 +196,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_50cal',
   projectileTypeId: 'test_gun:bullet_heavy',
   hasSkill: false,
-  stats: { damage: 45.0, headshotMultiplier: 1.8, armorPenetration: 0.55, damageDropOff: 0.008, maxRange: 100, knockback: { x: 0.8, y: 0.35 } }
+  stats: { damage: 36.0, headshotMultiplier: 1.8, armorPenetration: 0.55, damageDropOff: 0.008, maxRange: 100, knockback: { x: 0.8, y: 0.35 } }
  },
  {
   id: 'test_gun:m1014',
@@ -424,9 +425,10 @@ export const GUNS = [
   isArcWeapon: true,
   hasSkill: true,
   skillName: 'EMP过载风暴',
+  skillBurnDurationSec: 6, // Existing burn-only damage effect: was 3 seconds.
   skillCooldownSec: 25,
   skillDurationSec: 1.0,
-  stats: { damage: 16.0, chainRadius: 8.0, maxChains: 4, decayRate: 0.20, armorPenetration: 0.40, maxRange: 25, knockback: { x: 0.3, y: 0.15 } }
+  stats: { damage: 32.0, chainRadius: 8.0, maxChains: 4, decayRate: 0.20, armorPenetration: 0.40, maxRange: 25, knockback: { x: 0.3, y: 0.15 } }
  },
  {
   id: 'test_gun:dbss',
@@ -444,9 +446,10 @@ export const GUNS = [
   projectileTypeId: 'test_gun:bullet_shotgun',
   hasSkill: true,
   skillName: '红莲龙息·锁敌',
+  skillConeDamage: 52.5, // 35 x 1.5; smart-aim already uses pellet damage.
   skillCooldownSec: 90,
   skillDurationSec: 30.0,
-  stats: { damage: 9, headshotMultiplier: 1.6, armorPenetration: 0.40, damageDropOff: 0.03, maxRange: 100, knockback: { x: 0.9, y: 0.4 } }
+  stats: { damage: 13.5, headshotMultiplier: 1.6, armorPenetration: 0.40, damageDropOff: 0.03, maxRange: 100, knockback: { x: 0.9, y: 0.4 } }
  }
  ,{
   id: 'test_gun:liegui', name: '裂轨', tier: 'legendary', type: 'energy',
@@ -454,7 +457,7 @@ export const GUNS = [
   recoil: 0.08, reloadTime: 52, shootSound: 'test_gun.m82_shoot',
   ammoTypeId: 'test_gun:ammo_battery', projectileTypeId: 'test_gun:liegui_slug',
   isRailCannon: true, hasSkill: true, skillName: '裂空音波', skillCooldownSec: 30,
-  stats: { damage: 80, headshotMultiplier: 1, armorPenetration: 0.35, damageDropOff: 0.001, maxRange: 40, knockback: { x: 0.4, y: 0.1 } }
+  stats: { damage: 150, headshotMultiplier: 1, armorPenetration: 0.35, damageDropOff: 0, maxRange: 56, knockback: { x: 0.4, y: 0.1 } }
  }
  ,{
   id: 'test_gun:baizhan', name: '百战', tier: 'legendary', type: 'lmg',
@@ -484,15 +487,15 @@ export const GUNS = [
   mode: FireMode.SEMI, maxAmmo: 6, fireRate: 8, shootPower: 11.5,
   recoil: 0.38, reloadTime: 52, shootSound: 'test_gun.deagle_shoot',
   ammoTypeId: 'test_gun:ammo_45acp', projectileTypeId: 'test_gun:bullet_heavy', hasSkill: false,
-  stats: { damage: 9, headshotMultiplier: 1.75, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 55, knockback: { x: 0.4, y: 0.2 } }
+  stats: { damage: 36, headshotMultiplier: 1.75, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 55, knockback: { x: 0.4, y: 0.2 } }
  },
  {
   id:'test_gun:flamethrower', visualIndex:30, name:'喷火器「热蚀」', tier:'epic', type:'special',
   mode:FireMode.AUTO, maxAmmo:60, initialAmmo:0, fireRate:4,
   shootPower:0, recoil:0, reloadTime:60, shootSound:'test_gun.flamethrower_spray',
   ammoTypeId:'test_gun:high_pressure_fuel', isFlamethrower:true, hasSkill:false,
-  disableCritical:true, disableHeadshot:true, fixedArmorPenetration:0.15,
-  stats:{damage:4,headshotMultiplier:1,armorPenetration:0.15,damageDropOff:0,maxRange:7}
+  disableCritical:false, disableHeadshot:true, fixedArmorPenetration:0.15,
+  stats:{damage:10,headshotMultiplier:1,armorPenetration:0.15,damageDropOff:0,maxRange:10}
  }
 ];
 

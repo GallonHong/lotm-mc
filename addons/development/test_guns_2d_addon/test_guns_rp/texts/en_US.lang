@@ -13,7 +13,7 @@ item.test_gun:svd.name=SVD Dragunov Sniper [Target Tracker]\n§8§o"An obituary 
 item.test_gun:m1014.name=Benelli M1014 Rapid Shotgun [Semi-Auto]\n§8§o"A tempest of semi-automatic buckshot capable of purging a narrow corridor clean in three seconds."§r
 
 item.test_gun:m82.name=Barrett M82 .50 Anti-Materiel Sniper [Epic]\n§8§o"Thunderous crack echoing across the barrens; shattering heavy armor and the arrogance of monsters."§r
-item.test_gun:riot_shield.name=Tactical Spiked Riot Shield [50% Bullet Reflect]\n§7Frontal bullets: 70% block, sneaking 85%. Sneaking managed melee: 75%.§r\n§8§o"The harder you strike, the deeper the lead bites back. — Masterpiece of an underground armorer"§r
+item.test_gun:riot_shield.name=Tactical Spiked Riot Shield [Reflects 50% Pre-Block Damage]\n§7Frontal scripted hits: subtract 10 HP, then reduce excess by 60%. Sneaking: 15 HP / 75%.§r\n§8§o"The harder you strike, the deeper the lead bites back. — Masterpiece of an underground armorer"§r
 item.test_gun:armor_titan_chest.name=Titan Exoskeleton Suit [12 Armor·Strength]\n§8§o"The ultimate roar of heavy industry; hydraulic servomotors give soldiers the strength to grapple giants."§r
 
 item.test_gun:vector.name=HK MP7
@@ -42,7 +42,7 @@ item.test_gun:rpg.name=RPG-7 Rocket Launcher §5[Epic]§r\n§8§o"The purest exp
 item.test_gun:ammo_rocket.name=PG-7V High-Explosive Rocket §5[Epic]§r
 item.test_gun:blueprint_rpg.name=Weapon Blueprint: RPG-7 §5[Epic]§r
 
-item.test_gun:flash_shield.name=G52 Tactical Flash Shield §5[Epic]§r\n§7Frontal bullets: 70% block, sneaking 85%. Sneaking managed melee: 75%.§r\n§8§o"Not just an impassable bulwark, but a blinding lightning bolt piercing through pitch-black despair."§r
+item.test_gun:flash_shield.name=G52 Tactical Flash Shield §5[Epic]§r\n§7Frontal scripted hits: subtract 10 HP, then reduce excess by 60%. Sneaking: 15 HP / 75%.§r\n§8§o"Not just an impassable bulwark, but a blinding lightning bolt piercing through pitch-black despair."§r
 item.test_gun:blueprint_flash_shield.name=Armor Blueprint: G52 Flash Shield §5[Epic]§r
 
 item.test_gun:ak47_commander.name=AK-47 Tactical Commander
@@ -52,7 +52,7 @@ item.test_gun:blueprint_dbss.name=DBSS Arbitrator Blueprint [Legendary Limited·
 item.test_gun:usas12.name=USAS-12 Blood Frenzy [Epic Shotgun]\n§8§o"[Infected Specimen X-9]: An eerie biological pulse throbs in the action, feeding upon spilled blood."§r
 item.test_gun:blueprint_usas12.name=USAS-12 Blood Frenzy Blueprint [Epic Limited·Uncraftable]
 
-item.test_gun:pkm.name=PKM Incendiary GPMG §5[Epic·Molten DOT]§r\n§8§o"The barrel glows cherry red, spitting a tempest of hellfire that reduces all to ash and cinders."§r
+item.test_gun:pkm.name=PKM Incendiary GPMG §5[Epic·Molten DOT]§r\n§7Ignite/refresh: 5 hits on one target within 2s, no hit gap above 0.6s.§r\n§8§o"The barrel glows cherry red, spitting a tempest of hellfire that reduces all to ash and cinders."§r
 item.test_gun:rpk.name=RPK Squad LMG §9[Rare·Suppression]§r\n§8§o"An iron sentinel on a bipod; one determined gunner alone held down the ruined bridge for hours."§r
 item.test_gun:m1014_ward.name=M1014 Titan Ward §5[Epic·Armor-Scale]§r\n§8§o"Scientia heavy prototype; kinetic armor energy feeds the action—the firmer the line, the deadlier the fire."§r
 item.test_gun:ammo_belt_100.name=100-Round 7.62mm Belt Box §5[GPMG Ammo]§r
@@ -162,6 +162,7 @@ item.test_gun:mp5k_relay.name=§5MP5K "Relay" §d[Epic]§r
 item.test_gun:blueprint_mp5k_relay.name=§5MP5K "Relay" Blueprint §d[Epic]§r
 item.test_gun:python_finale.name=§5Python "Finale" §d[Epic]§r
 item.test_gun:blueprint_python_finale.name=§5Python "Finale" Blueprint §d[Epic]§r
-item.test_gun:flamethrower.name=§5Flamethrower§r
+item.test_gun:flamethrower.name=§5Flamethrower§r\n§7Durability 1800 · 1 per fuel unit · Matching blueprint repairs 1440 (80%)§r
 item.test_gun:high_pressure_fuel.name=High-pressure Fuel
 item.test_gun:blueprint_flamethrower.name=§5Flamethrower Blueprint§r
+item.test_gun:blueprint_baizhan.name=Baizhan Blueprint [Legendary Limited·Uncraftable]

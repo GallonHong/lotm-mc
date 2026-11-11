@@ -1,49 +1,48 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:p90",
-   "menu_category": {
-    "category": "equipment"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_p90",
-   "minecraft:display_name": {
-    "value": "§9FN P90 战术冲锋枪 [优良]§r\n§7被动: 【火力压制】50发大弹匣高速穿甲弹，子弹命中施加迟缓减速§r\n§8§o“透明弹匣内高速旋转的穿甲弹头，为室内突防与清剿坑道而生。”§r"
-   },
-   "minecraft:use_modifiers": {
-    "use_duration": 3200,
-    "movement_modifier": 0.75
-   },
-   "minecraft:food": {
-    "can_always_eat": true
-   },
-   "minecraft:durability": {
-    "max_durability": 1600
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_ingot",
-       "minecraft:copper_ingot"
-      ],
-      "repair_amount": 400
-     }
-    ]
-   },
-   "minecraft:tags": {
-    "tags": [
-     "minecraft:is_crossbow"
-    ]
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:p90",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_p90",
+      "minecraft:display_name": {
+        "value": "§9FN P90 战术冲锋枪 [优良]§r\n§7被动: 【火力压制】50发大弹匣高速穿甲弹，子弹命中施加迟缓减速§r\n§8§o“透明弹匣内高速旋转的穿甲弹头，为室内突防与清剿坑道而生。”§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 1600
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:blueprint_p90"
+            ],
+            "repair_amount": 1280
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
   }
- }
 }

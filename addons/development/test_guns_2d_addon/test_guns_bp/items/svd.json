@@ -1,49 +1,48 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:svd",
-   "menu_category": {
-    "category": "equipment"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_svd",
-   "minecraft:display_name": {
-    "value": "§9SVD 德拉贡诺夫狙击步枪 [优良]§r\n§7被动: 【连击标记】半自动高精度狙击，命中目标施加发光战术标记§r\n§8§o“高地狙击手的死亡讣告，目镜十字准星里锁定的目标从没见过明天的太阳。”§r"
-   },
-   "minecraft:use_modifiers": {
-    "use_duration": 3200,
-    "movement_modifier": 0.75
-   },
-   "minecraft:food": {
-    "can_always_eat": true
-   },
-   "minecraft:durability": {
-    "max_durability": 600
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_ingot",
-       "minecraft:gold_ingot"
-      ],
-      "repair_amount": 180
-     }
-    ]
-   },
-   "minecraft:tags": {
-    "tags": [
-     "minecraft:is_crossbow"
-    ]
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:svd",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_svd",
+      "minecraft:display_name": {
+        "value": "§9SVD 德拉贡诺夫狙击步枪 [优良]§r\n§7被动: 【连击标记】半自动高精度狙击，命中目标施加发光战术标记§r\n§8§o“高地狙击手的死亡讣告，目镜十字准星里锁定的目标从没见过明天的太阳。”§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 600
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:blueprint_svd"
+            ],
+            "repair_amount": 480
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
   }
- }
 }

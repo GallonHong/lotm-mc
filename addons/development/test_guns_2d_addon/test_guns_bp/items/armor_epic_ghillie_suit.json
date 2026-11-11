@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_epic_ghillie_suit",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.chestplate"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_epic_ghillie_suit",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§9幻影伪装战术吉利服 [精良]§r\n§7被动: 7点护甲，【抗击退 +25%】，潜伏移动静音，-8%枪械终伤§r\n§8§o“高级迷彩织物，野外伏击的利器。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.chest",
-    "protection": 6
-   },
-   "minecraft:durability": {
-    "max_durability": 800
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:leather"
-      ],
-      "repair_amount": 320
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_epic_ghillie_suit",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_epic_ghillie_suit",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9幻影伪装战术吉利服 [精良]§r\n§7被动: 7点护甲，【抗击退 +25%】，潜伏移动静音，-14%枪械终伤§r\n§8§o“高级迷彩织物，野外伏击的利器。”§r\n§c最大生命 +24 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 6
+      },
+      "minecraft:durability": {
+        "max_durability": 800
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:leather"
+            ],
+            "repair_amount": 320
+          }
+        ]
+      }
+    }
   }
- }
 }

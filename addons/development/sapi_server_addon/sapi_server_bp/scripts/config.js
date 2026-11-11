@@ -5,7 +5,7 @@ import { MERCHANT_CATEGORIES, VANILLA_DAILY_SELL_CAP } from "./data/merchantConf
 export const Config = {
  system: {
   serverName: "§l§e我的§b明日§r",
-  version: "2.14.4",
+  version: "2.14.12",
   adminTag: "admin",
   menuItem: "minecraft:compass",
   fallbackMenuItem: "sapi:menu_compass",
@@ -31,6 +31,7 @@ export const Config = {
   maxRegions: 50, maxVolume: 4000000, defaultPriority: 100,
   defaultFlags: {
    allowBreak: false, allowPlace: false, allowBlockInteract: true, allowEntityInteract: true,
+   // Legacy region flag still protects nonplayer custom-weapon targets; player combat is allowed.
    allowPvp: false, allowExplosion: false, allowLandClaim: false,
   },
  },

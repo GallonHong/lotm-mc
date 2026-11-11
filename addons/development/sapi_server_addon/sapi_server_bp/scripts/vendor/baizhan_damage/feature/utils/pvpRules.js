@@ -6,6 +6,10 @@ export function hasTag(entity, tag) {
 }
 export function isPvpParticipant(entity) { return hasTag(entity, 'pvp:participant'); }
 export function isPvpDowned(entity) { return isPvpParticipant(entity) && hasTag(entity, 'pvp:downed'); }
+/** Shared downed states suppress recovery and defensive passives, not damage eligibility. */
+export function isCombatDowned(entity) {
+ return isPvpDowned(entity) || ['apoc:downed', 'apoc_downed', 'apoc:downed_pending'].some(tag => hasTag(entity, tag));
+}
 export function pvpMatch(entity) {
  try { return entity?.getTags().find(tag => tag.startsWith('pvp:match:'))?.slice(10) || ''; }
  catch { return ''; }
@@ -16,6 +20,7 @@ export function pvpTeam(entity) {
  return '';
 }
 export function pvpCanOperate(player) {
+ if (isCombatDowned(player)) return false;
  if (!isPvpParticipant(player)) return true;
  return hasTag(player, 'pvp:active') && hasTag(player, 'pvp:guns_ready') &&
   !hasTag(player, 'pvp:dead') && !isPvpDowned(player) && !hasTag(player, 'pvp:guns_finished') && !!pvpMatch(player);
@@ -27,6 +32,8 @@ export function pvpCanAttack(player) {
 export function hasInfinitePvpReserve(player) { return isPvpParticipant(player) && pvpCanOperate(player); }
 /** null: ordinary gameplay; boolean: PvP determines whether the attack is blocked. */
 export function pvpBlocksDamage(attacker, target) {
+ // Pending respawn/downing is a transition, not a finishable downed target.
+ if (hasTag(target, 'apoc:downed_pending')) return true;
  const ap = isPvpParticipant(attacker), tp = isPvpParticipant(target);
  if (!ap && !tp) return null;
  if (!ap || !tp || !attacker || !target) return true;

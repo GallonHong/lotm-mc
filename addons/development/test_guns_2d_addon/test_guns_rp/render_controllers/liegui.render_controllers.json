@@ -1,0 +1,42 @@
+{
+  "format_version": "1.10.0",
+  "render_controllers": {
+    "controller.render.liegui.cycle": {
+      "geometry": "array.legendary_shapes[math.mod(math.floor(query.anim_time * 8), 8)]",
+      "materials": [
+        {
+          "*": "variable.is_enchanted ? material.enchanted : material.default"
+        }
+      ],
+      "textures": [
+        "array.legendary_frames[math.mod(math.floor(query.anim_time * 8), 8)]"
+      ],
+      "arrays": {
+        "textures": {
+          "array.legendary_frames": [
+            "texture.f1",
+            "texture.f2",
+            "texture.f3",
+            "texture.f4",
+            "texture.f5",
+            "texture.f6",
+            "texture.f7",
+            "texture.f8"
+          ]
+        },
+        "geometries": {
+          "array.legendary_shapes": [
+            "geometry.f1",
+            "geometry.f2",
+            "geometry.f3",
+            "geometry.f4",
+            "geometry.f5",
+            "geometry.f6",
+            "geometry.f7",
+            "geometry.f8"
+          ]
+        }
+      }
+    }
+  }
+}

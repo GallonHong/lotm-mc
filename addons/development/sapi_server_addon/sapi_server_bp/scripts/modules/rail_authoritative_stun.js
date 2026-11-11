@@ -1,5 +1,5 @@
 import { world, system } from '@minecraft/server';
-const RAIL={stunTicks:24,stunImmunityMs:3000};
+import { RAIL_IMPACT as RAIL } from '../data/railImpactRules.js';
 const KEY='sapi_rail_stun_v1', TAG='tg:rail_stunned', OWNER='tg:rail_stun_owner:sapi';
 function read(p){try{const s=p.getDynamicProperty(KEY);return typeof s==='string'?JSON.parse(s):null;}catch{return null;}}
 function blockedByOtherMode(p){return p.hasTag('pvp:dead')||p.hasTag('pvp:downed')||p.hasTag('pvp:protected')||p.hasTag('pvp:admission')||p.hasTag('apoc:downed')||p.hasTag('apoc_downed')||p.getGameMode?.()==='spectator';}

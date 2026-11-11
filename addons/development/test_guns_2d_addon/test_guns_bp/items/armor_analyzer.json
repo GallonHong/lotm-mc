@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_analyzer",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.helmet"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_analyzer",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§a战术扫描仪 [优秀]§r\n§7被动: 3点护甲，【抗击退 +5%】，战场侦测辅助§r\n§8§o“单兵便携战场环境分析装置。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.head",
-    "protection": 2
-   },
-   "minecraft:durability": {
-    "max_durability": 400
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 160
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_analyzer",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_analyzer",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§a战术扫描仪 [优秀]§r\n§7被动: 3点护甲，【抗击退 +5%】，战场侦测辅助§r\n§8§o“单兵便携战场环境分析装置。”§r\n§c最大生命 +8 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 2
+      },
+      "minecraft:durability": {
+        "max_durability": 400
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 160
+          }
+        ]
+      }
+    }
   }
- }
 }

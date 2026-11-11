@@ -7,10 +7,26 @@
         "default": "entity_alphatest"
       },
       "textures": {
-        "default": "textures/entity/baizhan"
+        "default": "textures/entity/baizhan",
+        "f1": "textures/entity/dynamic/baizhan_f1",
+        "f2": "textures/entity/dynamic/baizhan_f2",
+        "f3": "textures/entity/dynamic/baizhan_f3",
+        "f4": "textures/entity/dynamic/baizhan_f4",
+        "f5": "textures/entity/dynamic/baizhan_f5",
+        "f6": "textures/entity/dynamic/baizhan_f6",
+        "f7": "textures/entity/dynamic/baizhan_f7",
+        "f8": "textures/entity/dynamic/baizhan_f8"
       },
       "geometry": {
-        "default": "geometry.baizhan_mount"
+        "default": "geometry.baizhan_mount",
+        "f1": "geometry.baizhan_mount_f1",
+        "f2": "geometry.baizhan_mount_f2",
+        "f3": "geometry.baizhan_mount_f3",
+        "f4": "geometry.baizhan_mount_f4",
+        "f5": "geometry.baizhan_mount_f5",
+        "f6": "geometry.baizhan_mount_f6",
+        "f7": "geometry.baizhan_mount_f7",
+        "f8": "geometry.baizhan_mount_f8"
       },
       "animations": {
         "aim": "animation.baizhan.mount_aim",

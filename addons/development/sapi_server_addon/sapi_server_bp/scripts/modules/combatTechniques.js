@@ -17,7 +17,7 @@ export const TECHNIQUES=Object.freeze({doubleSneak:7,rollTicks:8,dodgeTicks:4,ro
  sprintMultiplier:1.2,jumpMultiplier:1.35,maxStates:256,maxAttacks:512,guardTicks:20});
 const STATE_KEY='sapi_melee_techniques_v1';
 const live=e=>{try{return e?.isValid()&&e.getComponent('minecraft:health')?.currentValue>0;}catch{return false;}};
-const blocked=e=>['pvp:downed','pvp:dead','pvp:protected','apoc:downed','apoc_downed','apoc:true_death','tg:rail_stunned'].some(t=>e.hasTag(t));
+const blocked=e=>['pvp:downed','pvp:dead','pvp:protected','apoc:downed','apoc:downed_pending','apoc_downed','apoc:true_death','tg:rail_stunned'].some(t=>e.hasTag(t));
 const held=e=>e.getComponent('minecraft:equippable')?.getEquipment(EquipmentSlot.Mainhand);
 const equipment=p=>guardEquipment(held(p),p.getComponent('minecraft:equippable')?.getEquipment(EquipmentSlot.Offhand));
 const identity=i=>(i?.getLore?.()||[]).filter(l=>l.startsWith('SM_ID:'));
@@ -75,7 +75,7 @@ export class CombatTechniques {
   for(const[k,a]of this.attacks)if(a.packet.shooterId===id)this.attacks.delete(k);
   for(const[k,b]of this.bleeds)if(b.packet.shooterId===id||b.targetId===id)this.bleeds.delete(k);
  }
- static pathSafe(dim,a,b){try{const regions=RegionManager.getRegions().filter(r=>r.dimension===dim.id).map(r=>({min:r.min,max:r.max,priority:r.priority||0,allow:r.flags?.allowPvp!==false}));return approvedSegment({allowed:true,targetDimension:dim.id,regions,adminBypass:false},dim.id,a,b)&&!Integration.segmentCrossesSafeZone(dim.id,a,b);}catch{return false;}}
+ static pathSafe(dim,a,b,target=null){try{if(!finite(a)||!finite(b))return false;if(target?.typeId==='minecraft:player')return true;const regions=RegionManager.getRegions().filter(r=>r.dimension===dim.id).map(r=>({min:r.min,max:r.max,priority:r.priority||0,allow:r.flags?.allowPvp!==false}));return approvedSegment({allowed:true,targetDimension:dim.id,regions,adminBypass:false},dim.id,a,b)&&!Integration.segmentCrossesSafeZone(dim.id,a,b);}catch{return false;}}
  static source(p,packet){
   try{if(!live(p)||blocked(p)||String(p.getGameMode?.())==='spectator')return null;
    const s=this.state(p);if(!s||s.staggerMs>Date.now())return null;
@@ -85,27 +85,28 @@ export class CombatTechniques {
     if(active!==match||!p.hasTag('pvp:active')||!p.hasTag('pvp:guns_ready')||p.hasTag('pvp:guns_finished')||markers.length!==1||markers[0]!=='PVP_MATCH:'+match)return null;
    }else if(markers.length)return null;
    if(packet&&(packet.typeId!==s.typeId||packet.identity!==s.identity||packet.selectedSlot!==s.slot||packet.sourceContext!==s.context||packet.sessionTag!==s.sessionTag))return null;
-   if(!this.pathSafe(p.dimension,p.location,head(p)))return null;return s;
+   if(!finite(p.location)||!finite(head(p)))return null;return s;
   }catch{return null;}
  }
  static allowed(p,t,range,angle=180){
   try{if(!this.source(p)||!live(t)||blocked(t)||p.id===t.id||p.dimension.id!==t.dimension.id||blocked(p))return false;
    if(['creative','spectator'].includes(String(t.getGameMode?.()))||['minecraft:armor_stand','minecraft:item','minecraft:xp_orb','test_gun:baizhan_mount'].includes(t.typeId)||t.typeId.includes('hud'))return false;
-   if(t.typeId==='minecraft:player'&&(!isMatchLocked(t)||!t.hasTag('pvp:participant')))return false;
    if(isMatchLocked(p)||isMatchLocked(t)){if(!matchDamageAllowed(p,t))return false;}else if(CombatManager.areTeammates(p,t))return false;
    if(!p.hasTag('pvp:participant')&&t.typeId!=='minecraft:player'){const eq=t.getComponent('minecraft:equippable');if([EquipmentSlot.Mainhand,EquipmentSlot.Offhand].some(k=>eq?.getEquipment(k)?.typeId==='test_gun:riot_shield'))return false;}
    const a=body(p),b=body(t),len=distance(a,b),dir=unit({x:b.x-a.x,y:b.y-a.y,z:b.z-a.z}),view=unit(p.getViewDirection());
    if(len>range||!view||len>0&&!dir)return false;
    if(angle<180&&len>0&&view.x*dir.x+view.y*dir.y+view.z*dir.z<Math.cos(angle*Math.PI/180))return false;
    if(traceCover(p.dimension,a,dir||{x:1,y:0,z:0},len,0).blocked)return false;
-   return this.pathSafe(p.dimension,p.location,a)&&this.pathSafe(p.dimension,a,b)&&this.pathSafe(p.dimension,b,t.location);
+   return this.pathSafe(p.dimension,p.location,a,t)&&this.pathSafe(p.dimension,a,b,t)&&this.pathSafe(p.dimension,b,t.location,t);
   }catch{return false;}
  }
  static describeAttack(p){try{return p.isOnGround===false&&!p.isInWater&&!p.isFlying?'jump':p.isSprinting?'sprint':'normal';}catch{return'normal';}}
  static noteAttack(p,tick=system.currentTick,kind='normal'){const s=this.state(p);if(s){s.attackTick=tick;s.attackUntil=Math.max(s.attackUntil,tick+4);s.guard=false;}return kind;}
  static stagger(s,ticks){const previous=s.staggerMs;s.staggerMs=Math.max(s.staggerMs,Date.now()+ticks*50);if(!this.persist(s)){s.staggerMs=previous;return false;}s.guard=false;s.rollUntil=-1;s.dodgeUntil=-1;try{s.player.addTag('tg_melee_staggered');}catch{}animate(s.player,'stagger',ticks/20);return true;}
  static modifyHit(p,t,gun,kind='normal'){
-  const a=this.source(p);if(!a||system.currentTick<a.rollUntil)return null;const d=this.source(t),now=system.currentTick,shieldResolved=!!equipment(t)?.shield;
+  const a=this.source(p);if(!a||system.currentTick<a.rollUntil)return null;const d=this.source(t),now=system.currentTick,tGear=equipment(t);
+  const customShield=!!tGear?.shield&&EquipmentWear.isShield(t.getComponent('minecraft:equippable')?.getEquipment(tGear.shieldSlot));
+  const shieldResolved=!!tGear?.shield&&(!customShield||(this.state(t)?.staggerMs||0)>Date.now());
   let scale=kind==='jump'?1.35:kind==='sprint'?1.2:1,shieldBlocked=0;
   if(d&&d.context===techniqueContext(t)&&!blocked(t)){
    if(now<d.dodgeUntil)return null;
@@ -113,8 +114,8 @@ export class CombatTechniques {
     if(Math.abs(d.attackTick-now)<=TECHNIQUES.clashTicks&&Math.abs(a.attackTick-now)<=TECHNIQUES.clashTicks){if(this.stagger(a,6)&&this.stagger(d,6)){cue(t,'拼刀');return null;}}
     if(d.guard&&t.isSneaking&&now>=d.attackUntil){
      d.lastHit=now;
-     if(now-d.guardStart<TECHNIQUES.parryTicks){if(!this.persist(d))return {...gun,techniqueShieldResolved:shieldResolved,techniqueShieldBlocked:0,stats:{...gun.stats,damage:gun.stats.damage*scale}};this.stagger(a,12);cue(t,'精准招架');animate(t,'parry',.3);return null;}
-     const previous={poise:d.poise};d.poise-=kind==='heavy'?3:kind==='jump'?2:1;if(!this.persist(d)){Object.assign(d,previous);return {...gun,techniqueShieldResolved:shieldResolved,techniqueShieldBlocked:0,stats:{...gun.stats,damage:gun.stats.damage*scale}};}if(d.gear.shield)shieldBlocked=gun.stats.damage*scale*.75;scale*=.25;
+     if(now-d.guardStart<TECHNIQUES.parryTicks){if(!this.persist(d))return {...gun,techniqueShieldResolved:shieldResolved,techniqueShieldBlocked:0,stats:{...gun.stats,damage:gun.stats.damage*scale}};this.stagger(a,12);cue(t,'精准招架');animate(t,'parry',.3);return customShield?{...gun,techniqueParried:true,techniqueShieldResolved:false,stats:{...gun.stats,damage:gun.stats.damage*scale}}:null;}
+     const previous={poise:d.poise};d.poise-=kind==='heavy'?3:kind==='jump'?2:1;if(!this.persist(d)){Object.assign(d,previous);return {...gun,techniqueShieldResolved:shieldResolved,techniqueShieldBlocked:0,stats:{...gun.stats,damage:gun.stats.damage*scale}};}if(!customShield){if(d.gear.shield)shieldBlocked=gun.stats.damage*scale*.75;scale*=.25;}
      if(d.poise<=0){d.poise=0;this.stagger(d,TECHNIQUES.breakTicks);cue(t,'韧性击破');}else{this.persist(d);cue(t,'格挡');}
     }
    }
@@ -149,14 +150,17 @@ export class CombatTechniques {
   const s=this.source(p);if(!s||s.typeId!==q.typeId||s.slot!==q.selectedSlot||p.dimension.id!==q.dimension||q.sourceContext!==s.context||JSON.stringify(held(p)?.getLore())!==JSON.stringify(q.lore)||system.currentTick<s.rollUntil||!this.allowed(p,t,spec.range))return;
   if(q.kind==='backstab'&&(!p.isSneaking||front(t,p)))return;
   if(q.kind!=='bleed')this.noteAttack(p,q.issuedTick);
-  const gun={stats:{damage:spec.damage}};
+  const gun={category:'melee',damageOverTime:q.kind==='bleed',stats:{damage:spec.damage}};
   // Bleed is an already established wound, still authorized per tick, not a new strike.
   const hit=q.kind==='bleed'?gun:this.modifyHit(p,t,gun);if(!hit)return;
   try{
-   const amount=hit.stats.damage;
-   const shieldWear=hit.techniqueShieldBlocked>0?EquipmentWear.snapshot(t,amount,this.state(t)?.gear.shieldSlot,hit.techniqueShieldBlocked,false):null;
+   const shield=DamageHandler.resolveShieldHit(t,p,hit.stats.damage,body(t),hit),amount=shield.damage;
+   const blockedDamage=shield.blockedDamage+(Number(hit.techniqueShieldBlocked)||0),shieldSlot=shield.slot||this.state(t)?.gear.shieldSlot;
+   if(shield.blockedDamage>0&&amount<=0){EquipmentWear.block(t,shieldSlot,blockedDamage);shield.respond?.();return;}
+   const shieldWear=blockedDamage>0?EquipmentWear.snapshot(t,amount,shieldSlot,blockedDamage,false):null;
    if(amount>0&&t.applyDamage(amount,{cause:q.kind==='bleed'?'magic':q.kind==='axe'?'override':'entityAttack',damagingEntity:p})!==true)return;
    if(shieldWear)EquipmentWear.commit(t,shieldWear);
+   shield.respond?.();
    if(!live(t)||blocked(t))return;
    const scale=spec.damage>0?amount/spec.damage:1;
    if(spec.slow)t.addEffect('slowness',Math.max(1,Math.round(spec.slow*scale)),{amplifier:1,showParticles:true});

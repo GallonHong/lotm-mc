@@ -32,9 +32,9 @@
         "repair_items": [
           {
             "items": [
-              "minecraft:iron_block"
+              "test_gun:blueprint_baizhan"
             ],
-            "repair_amount": 500
+            "repair_amount": 1600
           }
         ]
       },

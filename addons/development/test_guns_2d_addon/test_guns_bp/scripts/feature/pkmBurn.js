@@ -1,3 +1,4 @@
+import { combatAuthority } from './utils/combatAuthority.js';
 import { system, ScriptEventSource, EntityDamageCause } from '@minecraft/server';
 import { PKM_BURN } from '../data/pkm.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
@@ -23,6 +24,7 @@ function eligible(shooter, target) {
   return alive(shooter) && alive(target) && shooter.typeId === 'minecraft:player' &&
    shooter.id !== target.id && shooter.dimension.id === target.dimension.id &&
    pvpCanAttack(shooter) && !isProtectedTeammate(shooter, target) &&
+   !['apoc:true_death','pvp:admission','pvp:dead'].some(tag=>shooter.hasTag(tag)||target.hasTag(tag)) &&
    !['creative', 'spectator'].includes(String(target.getGameMode?.()).toLowerCase()) &&
    target.typeId !== 'minecraft:armor_stand' && !target.typeId.includes('hud') &&
    target.isInWater !== true && !target.getEffect?.('fire_resistance');
@@ -32,6 +34,7 @@ function eligible(shooter, target) {
 /** One state per shooter/target. No per-bullet timers, anonymous fire or HP writes. */
 export class PkmBurn {
  static active = new Map();
+ static primed = new Map();
  static pending = new Map();
  static serial = 0;
  static initialized = false;
@@ -43,32 +46,51 @@ export class PkmBurn {
  }
 
  static apply(shooter, target) {
-  if (!eligible(shooter, target)) return false;
+  const authority=combatAuthority();if(authority==='blocked'||!eligible(shooter, target)) return false;
   const now = system.currentTick;
   const key = JSON.stringify([shooter.id, target.id]);
   const old = this.active.get(key);
-  if (old && now <= old.expires && this.valid(old)) {
-   old.expires = now + PKM_BURN.durationTicks;
-   return true; // Do not reset tick cadence, heat, or the one-burst latch.
+  const burning = old && now <= old.expires && this.valid(old);
+  if (old && !burning) this.remove(old);
+  if (burning) {
+   if (old.lastDirectHit === now) return false;
+   old.lastDirectHit = now;
   }
-  if (old) this.remove(old);
+  const shooterContext = context(shooter), targetContext = context(target);
+  if (shooterContext === null || targetContext === null) return false;
+  let heat = this.primed.get(key);
+  if (heat && (heat.authority !== authority || heat.shooterContext !== shooterContext || heat.targetContext !== targetContext ||
+      now - heat.lastHit > PKM_BURN.maxHitGapTicks)) { this.primed.delete(key); heat = null; }
+  if (!heat) {
+   if (this.primed.size >= PKM_BURN.maxPrimedTargets) return false;
+   heat = { shooter, target, shooterContext, targetContext, authority, lastHit: -1, hits: [] };
+   this.primed.set(key, heat);
+  }
+  // Accepted hits only; duplicate callbacks in one tick cannot manufacture heat.
+  if (heat.lastHit === now) return false;
+  heat.hits = heat.hits.filter(tick => now - tick <= PKM_BURN.hitWindowTicks);
+  heat.hits.push(now); heat.lastHit = now;
+  if (heat.hits.length < PKM_BURN.hitsToIgnite) return false;
+  this.primed.delete(key);
+  if (burning) {
+   old.expires = now + PKM_BURN.durationTicks;
+   return true; // Refresh also requires 5 hits; keep cadence and the burst latch.
+  }
   if (this.active.size >= PKM_BURN.maxActiveBurns) return false;
   let sources = 0;
   for (const entry of this.active.values()) if (entry.target.id === target.id) sources++;
   if (sources >= PKM_BURN.maxSourcesPerTarget) return false;
-  const shooterContext = context(shooter), targetContext = context(target);
-  if (shooterContext === null || targetContext === null) return false;
   this.active.set(key, {
-   key, shooter, target, shooterContext, targetContext,
+   key, shooter, target, shooterContext, targetContext, authority,
    expires: now + PKM_BURN.durationTicks, nextTick: now + PKM_BURN.intervalTicks,
-   heatTicks: 0, burst: false, pending: null
+   heatTicks: 0, burst: false, pending: null, lastDirectHit: now
   });
   return true;
  }
 
  static valid(entry) {
   try {
-   return this.active.get(entry.key) === entry && eligible(entry.shooter, entry.target) &&
+   return entry.authority===combatAuthority()&&entry.authority!=='blocked'&&this.active.get(entry.key) === entry && eligible(entry.shooter, entry.target) &&
     context(entry.shooter) === entry.shooterContext && context(entry.target) === entry.targetContext;
   } catch { return false; }
  }
@@ -80,6 +102,7 @@ export class PkmBurn {
  }
 
  static clearEntity(id) {
+  for (const [key, heat] of this.primed) if (heat.shooter.id === id || heat.target.id === id) this.primed.delete(key);
   for (const entry of this.active.values()) {
    if (entry.shooter.id === id || entry.target.id === id) this.remove(entry);
   }
@@ -87,6 +110,10 @@ export class PkmBurn {
 
  static tick() {
   const now = system.currentTick;
+  for (const [key, heat] of this.primed) {
+   if (now - heat.lastHit > PKM_BURN.maxHitGapTicks || heat.authority !== combatAuthority() ||
+       !eligible(heat.shooter, heat.target) || context(heat.shooter) !== heat.shooterContext || context(heat.target) !== heat.targetContext) this.primed.delete(key);
+  }
   for (const entry of this.active.values()) {
    if (!this.valid(entry)) { this.remove(entry); continue; }
    if (entry.pending) {
@@ -98,7 +125,7 @@ export class PkmBurn {
    if (now < entry.nextTick) continue;
    // Never catch up a lag spike with many damage calls in one server tick.
    entry.nextTick = now + PKM_BURN.intervalTicks;
-   if (entry.target.typeId === 'minecraft:player' && !isPvpParticipant(entry.shooter)) {
+   if (entry.authority==='server' && entry.target.typeId === 'minecraft:player' && !isPvpParticipant(entry.shooter)) {
     this.requestGuard(entry);
    } else {
     this.commit(entry);

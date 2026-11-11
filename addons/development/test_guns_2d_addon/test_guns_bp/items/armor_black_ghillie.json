@@ -1,38 +1,38 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_black_ghillie",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.leggings"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_black_ghillie",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§9暗夜黑色战术吉利服 [精良]§r\n§7被动: 5点护甲，【抗击退 +25%】，潜伏时移速惩罚-60%，狙击枪伤害+35%，连狙首发必暴击§r\n§8§o“吸光纤维编织的暗夜吉利服，在月影下与黑夜融为一体。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.legs",
-    "protection": 5
-   },
-   "minecraft:durability": {
-    "max_durability": 450
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "test_gun:part_armor_plate",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 150
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_black_ghillie",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.leggings"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_black_ghillie",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9暗夜黑色战术吉利服 [精良]§r\n§7被动: 5点护甲，【抗击退 +25%】，潜伏时移速惩罚-60%，狙击枪伤害+35%，连狙首发必暴击§r\n§8§o“吸光纤维编织的暗夜吉利服，在月影下与黑夜融为一体。”§r\n§c最大生命 +16 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.legs",
+        "protection": 5
+      },
+      "minecraft:durability": {
+        "max_durability": 450
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "test_gun:part_armor_plate",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 150
+          }
+        ]
+      }
+    }
   }
- }
 }

@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_wasp_boots",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.boots"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_wasp_boots",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§9野战工兵军靴 [精良]§r\n§7被动: 4点护甲，【抗击退 +15%】，+10%防雷爆炸减免，减震气垫吸收60%跌落摔伤§r\n§8§o“高帮战术军靴，保护脚踝与足底。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.feet",
-    "protection": 3
-   },
-   "minecraft:durability": {
-    "max_durability": 450
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 180
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_wasp_boots",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.boots"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_wasp_boots",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§9野战工兵军靴 [精良]§r\n§7被动: 4点护甲，【抗击退 +15%】，+10%防雷爆炸减免，减震气垫吸收60%跌落摔伤§r\n§8§o“高帮战术军靴，保护脚踝与足底。”§r\n§e暴击率 +4个百分点§r\n§c最大生命 +12 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.feet",
+        "protection": 3
+      },
+      "minecraft:durability": {
+        "max_durability": 450
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 180
+          }
+        ]
+      }
+    }
   }
- }
 }

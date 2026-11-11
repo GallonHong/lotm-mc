@@ -1,46 +1,46 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_vest_heavy",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.chestplate"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_armor_vest_heavy",
-   "minecraft:display_name": {
-    "value": "§5战术突击重装防弹衣 [史诗]§r\n§7被动: 9点高额护甲，【抗击退 +65%】，-12%枪械终伤，+25%爆炸减免§r\n§8§o“压满重型防弹钢板的坚固背心，虽然沉重，却能在要命的交火中保全呼吸。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.chest",
-    "protection": 7
-   },
-   "minecraft:durability": {
-    "max_durability": 550
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_ingot",
-       "minecraft:copper_ingot"
-      ],
-      "repair_amount": 150
-     }
-    ]
-   },
-   "minecraft:enchantable": {
-    "value": 15,
-    "slot": "armor_torso"
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_vest_heavy",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_armor_vest_heavy",
+      "minecraft:display_name": {
+        "value": "§5战术突击重装防弹衣 [史诗]§r\n§7被动: 9点高额护甲，【抗击退 +65%】，-20%枪械终伤，+25%爆炸减免§r\n§8§o“压满重型防弹钢板的坚固背心，虽然沉重，却能在要命的交火中保全呼吸。”§r\n§c最大生命 +32 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 7
+      },
+      "minecraft:durability": {
+        "max_durability": 550
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "minecraft:copper_ingot"
+            ],
+            "repair_amount": 150
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "armor_torso"
+      }
+    }
   }
- }
 }

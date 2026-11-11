@@ -13,9 +13,9 @@
       "minecraft:hand_equipped": true,
       "minecraft:icon": "test_gun_pulse_spear",
       "minecraft:display_name": {
-        "value": "§5流电·战术长矛 [史诗]§r\n§e右键三连刺 10/11/15｜Shift+右键 电弧穿刺 28 (6秒)\n§7最长4.8格窄幅穿刺并减速；暴击/增伤继承护甲。\n§8左键单体基础10（含原生伤害）；右键连击，潜行+右键重击。"
+        "value": "§5流电·战术长矛 [史诗]§r\n§e右键三连刺 10/11/15｜Shift+右键 电弧穿刺 28 (6秒)\n§7最长4.8格窄幅穿刺并减速；暴击/增伤继承护甲。\n§8左键原版基础10（不含右键穿甲/连击）；右键连击，潜行+右键重击。"
       },
-      "minecraft:damage": 0,
+      "minecraft:damage": 9,
       "minecraft:durability": {
         "max_durability": 1250
       },

@@ -13,7 +13,7 @@ item.test_gun:svd.name=§9SVD 德拉贡诺夫狙击步枪 [优良]§r\n§7被动
 item.test_gun:m1014.name=§9伯奈利 M1014 连发霰弹枪 [优良]§r\n§7被动: 【急速连喷】导气式半自动结构，无需手动拉栓泵动极速连射§r\n§8§o“狂风暴雨般的半自动霰弹轰鸣，能在三秒内将狭窄走廊清扫一空。”§r
 
 item.test_gun:m82.name=§5巴雷特 M82 .50 反器材重狙 [史诗]§r\n§7被动: 【穿甲高爆】动能穿透掩体，命中产生高爆音爆音速冲击波§r\n§8§o“雷鸣般的击发声回荡在整座荒原，它击碎的不仅是重甲，还有猎物的狂妄。”§r
-item.test_gun:riot_shield.name=§5战术反甲防暴盾 [史诗]§r\n§7被动: 【动能反伤】正面枪弹减伤70%（潜行85%）、反伤50%；潜行受管近战减伤75%§r\n§8§o“‘你打我有多狠，子弹咬回你就有多疼。’——黑市改装大师的得意之作”§r
+item.test_gun:riot_shield.name=§5战术反甲防暴盾 [史诗]§r\n§7被动: 【动能反伤】正面枪弹/受管近战先抵扣10 HP、余量减伤60%；潜行15 HP/75%；枪弹反伤为格挡前伤害50%§r\n§8§o“‘你打我有多狠，子弹咬回你就有多疼。’——黑市改装大师的得意之作”§r
 item.test_gun:armor_titan_chest.name=§5泰坦动力外骨骼装甲 [史诗]§r\n§7被动: 12点满额护甲，钛合金护甲层吸收 35% 枪械终伤§r\n§8§o“重工业文明的终极咆哮，伺服液压电机嗡鸣间赋予单兵徒手撼动暴君的力量。”§r
 
 item.test_gun:vector.name=HK MP7
@@ -83,7 +83,7 @@ item.test_gun:rpg.name=§5RPG-7 单兵火箭筒 [史诗]§r\n§7被动: 聚能�
 item.test_gun:ammo_rocket.name=PG-7V 高爆破甲火箭弹 §5[史诗]§r
 item.test_gun:blueprint_rpg.name=武器图纸: RPG-7 火箭筒 §5[史诗]§r
 
-item.test_gun:flash_shield.name=§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面枪弹减伤70%（潜行85%）；潜行受管近战减伤75%§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r\n§8§o“不仅是一道无法跨越的高墙，也是刺破黑暗绝境的一道灼眼闪电。”§r
+item.test_gun:flash_shield.name=§5G52 战术闪光防暴盾 [史诗]§r\n§7被动: 正面枪弹/受管近战先抵扣10 HP、余量减伤60%；潜行15 HP/75%§r\n§e主动: 【战术闪光】按右键释放超能闪光，致盲定身前方敌人 (14s CD)§r\n§8§o“不仅是一道无法跨越的高墙，也是刺破黑暗绝境的一道灼眼闪电。”§r
 item.test_gun:blueprint_flash_shield.name=防具图纸: G52 战术闪光盾 §5[史诗]§r
 
 item.test_gun:ak47_commander.name=AK-47 战术指挥官
@@ -133,7 +133,7 @@ item.test_gun:armor_gorka_bottom.name=高尔卡重型防风裤 §9[优良·耐�
 item.test_gun:armor_epic_titan_vest.name=【泰坦重工】动力外骨骼装甲 §5[史诗·极高护甲+防击退]§r
 item.test_gun:armor_epic_ghillie_suit.name=【幽灵幻影】超导隐匿吉利战袍 §5[史诗·战术伪装+静音]§r
 
-item.test_gun:pkm.name=§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，子弹持续点燃目标并引发熔火爆燃撕裂§r\n§8§o“枪管打得赤红发烫，喷吐出灼热的火雨，将眼前的一切化作焦炭与余烬。”§r
+item.test_gun:pkm.name=§5PKM 烈焰重机枪 [史诗]§r\n§7被动: 【硫磺烈焰】100发大弹链，2秒内命中同一目标5次点燃（间隔≤0.6秒），后续每5次命中续燃并引发熔火爆燃§r\n§8§o“枪管打得赤红发烫，喷吐出灼热的火雨，将眼前的一切化作焦炭与余烬。”§r
 item.test_gun:rpk.name=§9RPK 班用轻机枪 [优良]§r\n§7被动: 【火力压制】重型加长枪管，持续火力压制命中对目标施加迟缓减速§r\n§8§o“支起两脚架的铁铸哨兵，一人一枪便足以卡死废弃大桥整整两小时。”§r
 item.test_gun:m1014_ward.name=§5M1014 泰坦壁垒 [史诗]§r\n§7被动: 【重装过载】自身护甲越厚威力越强，每点护甲增伤 3% (最高+72%)§r\n§8§o“科技会重装单兵工程样机，护甲能量反哺枪机，防线愈固，杀戮愈烈。”§r
 item.test_gun:ammo_belt_100.name=100发 7.62mm 弹链箱 §5[重机枪专用]§r
@@ -243,6 +243,7 @@ item.test_gun:mp5k_relay.name=§5MP5K「接力者」 §d[史诗]§r
 item.test_gun:blueprint_mp5k_relay.name=§5MP5K「接力者」 设计图 §d[史诗]§r
 item.test_gun:python_finale.name=§5Python「谢幕」 §d[史诗]§r
 item.test_gun:blueprint_python_finale.name=§5Python「谢幕」 设计图 §d[史诗]§r
-item.test_gun:flamethrower.name=§5喷火器§r
+item.test_gun:flamethrower.name=§5喷火器§r\n§7耐久1800 · 每单位燃料消耗1点 · 专属蓝图修复1440点（80%）§r
 item.test_gun:high_pressure_fuel.name=高压燃料
 item.test_gun:blueprint_flamethrower.name=§5喷火器蓝图§r
+item.test_gun:blueprint_baizhan.name=百战设计图 §6[传说·限定·不可合成]§r

@@ -43,7 +43,8 @@ export function unit(direction) {
  return { x: direction.x / length, y: direction.y / length, z: direction.z / length };
 }
 /** Voxel DDA counts each occupied cell once, including diagonal/negative rays.
- * Unknown chunks fail closed; liquids stop the gun. */
+ * Unknown chunks fail closed; liquids stop the gun. hitBlock is cosmetic
+ * evidence of a real stopping surface, not a failed/unavailable trace. */
 export function traceCover(dimension, start, direction, maxDistance, maxBlocks = 0) {
  const dir = unit(direction);
  const result = { distance: 0, end: start, blocked: true, cells: [] };
@@ -64,7 +65,7 @@ export function traceCover(dimension, start, direction, maxDistance, maxBlocks =
   const liquid = block.isLiquid === true || ['minecraft:water','minecraft:flowing_water','minecraft:lava','minecraft:flowing_lava'].includes(id);
   if (!air && (liquid || block.isSolid !== false || PENETRABLE_BLOCKS.has(id))) {
    if (liquid || !PENETRABLE_BLOCKS.has(id) || result.cells.length >= maxBlocks) {
-    return { ...result, distance: Math.max(0,travel-0.01), end: point(start,dir,Math.max(0,travel-0.01)) };
+    return { ...result, hitBlock:true, distance: Math.max(0,travel-0.01), end: point(start,dir,Math.max(0,travel-0.01)) };
    }
    result.cells.push({ x: cell.x, y: cell.y, z: cell.z, typeId: id });
   }

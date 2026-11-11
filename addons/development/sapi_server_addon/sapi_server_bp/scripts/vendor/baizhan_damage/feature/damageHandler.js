@@ -1,10 +1,13 @@
+import { CUSTOM_SHIELDS, SHIELD_IDS, calculateShieldBlock, isFrontalShieldHit } from './utils/shieldRules.js';
+import { getArmorHealthProfile } from '../data/armorHealth.js';
+import { getEquipmentCombatBonuses } from '../data/equipmentCombat.js';
 import { EpicGunPassives } from './epicGunPassives.js';
 import { PkmBurn } from './pkmBurn.js';
 import { EquipmentWear } from './equipmentWear.js';
 import { EntityDamageCause, EquipmentSlot, system } from '@minecraft/server';
 import { MathUtils } from './utils/mathUtils.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
-import { isPvpDowned } from './utils/pvpRules.js';
+import { isCombatDowned } from './utils/pvpRules.js';
 import { DamageIndicator } from './damageIndicator.js';
 import { ArmorEngine, ARMOR_KNOCKBACK_VALUES } from './armorEngine.js';
 import { JETPACK_COMBAT } from '../data/jetpack.js';
@@ -70,10 +73,10 @@ export const ARMOR_PIECE_VALUES = {
  armor_assault_vest: 9,    // 重装突击背心 (原 7 -> 9)
  armor_vest_heavy: 9,     // 重型防弹背心 (原 7 -> 9)
  armor_police_vest: 7,     // 警用防弹衣 (原 5 -> 7)
- armor_vest_light: 5,     // 轻型防弹背心 (原 4 -> 5)
+ armor_vest_light: 6, // 普通品质小幅增强：枪械护甲 5 -> 6；原版 protection 4 -> 5。
  armor_epic_ghillie_suit: 7,  // 史诗潜行吉利服 (原 6 -> 7)
- armor_bdu_woodland_top: 5,  // 林地作战服上身 (原 4 -> 5)
- armor_hazmat_top: 5,     // 防化服上身 (原 4 -> 5)
+ armor_bdu_woodland_top: 6, // 普通品质小幅增强：枪械护甲 5 -> 6；原版 protection 4 -> 5。
+ armor_hazmat_top: 6, // 普通品质小幅增强：枪械护甲 5 -> 6；原版 protection 4 -> 5。
 
  // 战术防暴头盔与面罩 (Helmets & Masks)
  armor_tactical_helmet: 6,   // 战术防暴头盔 (原 4 -> 6)
@@ -138,7 +141,7 @@ export class DamageHandler {
  /**
   * 估算目标实体的综合护甲点数 (0 ~ 24+)
   */
- static estimateArmorPoints(entity) {
+ static estimateArmorPoints(entity, ignoreShields = false) {
   if (!entity || !entity.isValid()) return 0;
   try {
    const equippable = entity.getComponent('minecraft:equippable');
@@ -156,6 +159,8 @@ export class DamageHandler {
    for (const slot of slots) {
     const item = equippable.getEquipment(slot);
     if (item && item.typeId) {
+     // Flame bypass must not regain shield mitigation through the armor estimate.
+     if (ignoreShields && SHIELD_IDS.includes(item.typeId)) continue;
      const rawName = item.typeId.includes(':') ? item.typeId.split(':')[1].toLowerCase() : item.typeId.toLowerCase();
      if (ARMOR_PIECE_VALUES[rawName] !== undefined) {
       points += ARMOR_PIECE_VALUES[rawName];
@@ -204,18 +209,20 @@ export class DamageHandler {
   * @param {number} armorPoints 护甲点数
   * @param {number} [armorPiercing=0.25] 穿甲系数 (0.0 ~ 1.0)
   * @param {number} [floorRatio=0.20] 动能保底伤害比例 (0.15 ~ 0.50)
+  * @param {boolean} [allowFractional=false] Preserve sub-HP flame/DOT and shield leaks.
   * @returns {number}
   */
- static calculateArmorReduction(baseDamage, armorPoints, armorPiercing = 0.25, floorRatio = 0.20) {
-  if (armorPoints <= 0) return Math.max(1.0, Math.round(baseDamage * 10) / 10);
+ static calculateArmorReduction(baseDamage, armorPoints, armorPiercing = 0.25, floorRatio = 0.20, allowFractional = false) {
+  if (!(Number.isFinite(baseDamage) && baseDamage > 0)) return 0;
+  if (armorPoints <= 0) return allowFractional ? baseDamage : Math.max(1.0, Math.round(baseDamage * 10) / 10);
   const effectivePiercing = Math.max(0, Math.min(1.0, armorPiercing !== undefined ? armorPiercing : 0.25));
   const effectiveArmor = Math.max(0, armorPoints * (1.0 - effectivePiercing));
-  // 双曲递减收益曲线：Reduction = EffectiveArmor / (EffectiveArmor + 16.0)，硬上限 70% (0.70)
-  const reductionRatio = Math.min(0.70, effectiveArmor / (effectiveArmor + 16.0));
+  // 强化护甲曲线：分母 16 -> 12，上限 70% -> 80%；保留各武器穿甲与动能保底。
+  const reductionRatio = Math.min(0.80, effectiveArmor / (effectiveArmor + 12.0));
   const reducedDamage = baseDamage * (1.0 - reductionRatio);
   const floorDamage = baseDamage * (floorRatio !== undefined ? floorRatio : 0.20);
   const finalDamage = Math.max(floorDamage, reducedDamage);
-  return Math.max(1.0, Math.round(finalDamage * 10) / 10);
+  return allowFractional ? finalDamage : Math.max(1.0, Math.round(finalDamage * 10) / 10);
  }
 
  /**
@@ -228,6 +235,55 @@ export class DamageHandler {
     target.setTarget(attacker);
    }
   } catch {}
+ }
+
+ /** Resolve only a fresh, frontal scripted shield hit. No HP changes here.
+  * A fully blocked hit returns false from handleHit so callers cannot add DOT,
+  * heat, hit-count passives or attacker healing. Shield feedback/wear is separate. */
+ static resolveShieldHit(target, shooter, incoming, impactLocation, gun = {}) {
+  const result = { damage: incoming, blockedDamage: 0, slot: undefined, respond: undefined };
+  // Flamethrower direct pulses and their burns ignore shield guard.
+  // Return before equipment selection: no flat/percent block, reflection or shield wear.
+  // The normal safety checks and armor calculation still run in handleHit.
+  if (gun.isFlamethrower || gun.id === 'test_gun:flamethrower') return result;
+  if (!(Number.isFinite(incoming) && incoming > 0) || gun.damageOverTime || gun.techniqueShieldResolved || isCombatDowned(target) || isProtectedTeammate(shooter, target)) return result;
+  try {
+   if (['creative', 'spectator'].includes(String(target.getGameMode?.()).toLowerCase())) return result;
+   const eq = target.getComponent?.('minecraft:equippable');
+   const off = eq?.getEquipment(EquipmentSlot.Offhand), main = eq?.getEquipment(EquipmentSlot.Mainhand);
+   const item = SHIELD_IDS.includes(off?.typeId) ? off : SHIELD_IDS.includes(main?.typeId) ? main : null;
+   if (!item || !isFrontalShieldHit(target, shooter)) return result;
+   const dur = item.getComponent?.('minecraft:durability');
+   if (dur && dur.damage >= dur.maxDurability) return result;
+   const block = calculateShieldBlock(incoming, item.typeId, !!target.isSneaking);
+   if (gun.techniqueParried && CUSTOM_SHIELDS.includes(item.typeId)) { block.damage = 0; block.blockedDamage = incoming; }
+   result.damage = block.damage; result.blockedDamage = block.blockedDamage;
+   result.slot = EquipmentWear.isShield(item) ? (item === off ? EquipmentSlot.Offhand : EquipmentSlot.Mainhand) : undefined;
+   const location = target.location;
+   result.respond = () => {
+    try {
+     target.dimension.playSound('item.shield.block', location, { volume: 1.3, pitch: 1.1 });
+     target.dimension.playSound('random.anvil_land', location, { volume: 0.7, pitch: 1.9 });
+     target.dimension.spawnParticle('minecraft:crit', impactLocation || location);
+     target.dimension.spawnParticle('minecraft:camera_shoot_explosion', impactLocation || location);
+    } catch {}
+    // Reflect 50% of actual incoming damage BEFORE shield/defender armor, not wounds,
+    // managed melee or a perfect parry, which never reflected before.
+    const reflect = item.typeId === 'test_gun:riot_shield' && gun.category !== 'melee' && !gun.techniqueParried;
+    let reflectDmg = 0;
+    if (reflect && shooter?.isValid?.() && shooter.id !== target.id) {
+     reflectDmg = incoming * 0.50;
+     try { shooter.applyDamage(reflectDmg, { cause: EntityDamageCause.thorns, damagingEntity: target });
+      shooter.dimension.spawnParticle('minecraft:critical_hit_emitter', shooter.location); } catch {}
+    }
+    if (target.typeId === 'minecraft:player') {
+     const name = item.typeId === 'test_gun:riot_shield' ? '重装反甲盾' : item.typeId === 'test_gun:flash_shield' ? 'G52 防暴盾' : '盾牌';
+     const detail = block.damage === 0 ? '完全格挡' : `固定抵扣 ${block.threshold}，余量减伤 ${Math.round(block.reduction * 100)}%`;
+     target.onScreenDisplay?.setActionBar?.(`§9【${name}】${detail}${reflectDmg ? `；反伤 ${Number(reflectDmg.toFixed(2))}` : ''}§r`);
+    }
+   };
+  } catch {}
+  return result;
  }
 
  /**
@@ -369,35 +425,38 @@ export class DamageHandler {
    critRate += 0.05; // M50面具配件：专注瞄准 +5% 暴击率
   }
 
+  // 3.16.3: modest missing armor passives and civilian clothing, additive to existing bonuses.
+  const equipmentBonuses = getEquipmentCombatBonuses(shooterEquip, EquipmentSlot);
+  critRate += equipmentBonuses.critBonus;
+  dmgMultiplier += equipmentBonuses.damageBonus;
+
+  // These accessories are declared in Feet/Legs by the item JSON, not Head/Chest.
+  if ((sFeet === 'test_gun:armor_goggles_black' || sFeet === 'test_gun:armor_goggles_red') && !sHead.includes('armor_goggles_black') && !sHead.includes('armor_goggles_red')) critRate += 0.08;
+  if (sLegs === 'test_gun:armor_black_ghillie' && !sChest.includes('armor_black_ghillie')) {
+   dmgMultiplier += isSniper ? (shooter?.isSneaking ? 0.40 : 0.25) : 0.10;
+   if (isSniper) critRate += shooter?.isSneaking ? 0.30 : 0.15;
+  } else if (sLegs === 'test_gun:armor_oak_ghillie' && !sChest.includes('armor_oak_ghillie')) {
+   dmgMultiplier += isSniper ? 0.25 : 0.08;
+   if (isSniper) critRate += 0.15;
+  }
+  // Probability only is clamped; no new cap reduces any pre-existing damage/passive.
+  critRate = Math.max(0, Math.min(1, critRate));
   currentDamage *= dmgMultiplier;
 
   // 战术致命暴击判定 (Critical Strike Roll)
   const isCritHit = !gun.disableCritical && Math.random() < critRate;
   if (isCritHit) {
    currentDamage *= critMultiplier;
-   DamageIndicator.markCritical(target.id);
-   try {
-    const pLoc = target.location;
-    const dim = target.dimension;
-    dim.spawnParticle('minecraft:critical_hit_emitter', { x: pLoc.x, y: pLoc.y + 1.2, z: pLoc.z });
-    dim.playSound('random.orb', pLoc, { volume: 0.9, pitch: 1.6 });
-    dim.playSound('firework.blast', pLoc, { volume: 0.6, pitch: 1.4 });
-   } catch {}
-   if (shooter && shooter.typeId === 'minecraft:player') {
-    shooter.onScreenDisplay?.setActionBar?.(`§c【战术暴击】触发致命暴击！造成 §e${critMultiplier.toFixed(2)}x§c暴击倍率伤害！§r`);
-   }
   }
 
   // 2. 目标防具减免被动检测 (Tactical Armor Passives)
   const targetEquip = target.getComponent?.('minecraft:equippable');
   const chestItem = targetEquip?.getEquipment(EquipmentSlot.Chest);
   const headItem = targetEquip?.getEquipment(EquipmentSlot.Head);
-  const offhandItem = targetEquip?.getEquipment(EquipmentSlot.Offhand);
 
   // 2.1 爆头判定与爆头头盔减伤
   const headshot = !gun.disableHeadshot && this.isHeadshot(impactLocation, target);
   if (headshot) {
-   DamageIndicator.markHeadshot(target.id);
    let hsMult = stats.headshotMultiplier || 1.75;
    const headId = (headItem?.typeId || '').toLowerCase();
 
@@ -426,35 +485,36 @@ export class DamageHandler {
    currentDamage *= hsMult;
   }
 
-  // 2.2 防弹衣额外减伤 (温和微调：吸收 6% ~ 20%，避免双重高减伤将伤害彻底压缩至 1)
-  if (chestItem) {
-   const chestId = (chestItem.typeId || '').toLowerCase();
-   if (chestId.includes('armor_mlt_hg2')) {
-    currentDamage *= 0.80; // 军用科技 HG2 全身重甲：20% 终伤吸收 (金色顶级防护)
-   } else if (chestId.includes('armor_killa_6b13')) {
-    currentDamage *= 0.82; // Killa 6B13 防弹衣：18% 终伤吸收
-    if (distance <= 8.0 || isShotgun) {
-     currentDamage *= 0.90; // 贴身近战/霰弹额外再吸收 10%
-    }
-   } else if (chestId.includes('armor_mob_chest')) {
-    currentDamage *= 0.82; // 堡垒重装防弹衣 18% 终伤吸收
-   } else if (chestId.includes('armor_titan_chest') || chestId.includes('armor_epic_titan_vest')) {
-    currentDamage *= 0.84; // 泰坦动力外骨骼装甲 16% 终伤吸收
-   } else if (chestId.includes('armor_emr_6b13')) {
-    currentDamage *= 0.86; // 6B13 EMR 迷彩防弹衣 14% 终伤吸收
-   } else if (chestId.includes('armor_ala_spc')) {
-    currentDamage *= 0.88; // 艾斯链甲SPC背心 12% 终伤吸收
-   } else if (chestId.includes('armor_assault_vest') || chestId.includes('armor_vest_heavy')) {
-    currentDamage *= 0.88; // 重装突击防弹衣 12% 终伤吸收
-   } else if (chestId.includes('armor_jpc_2')) {
-    currentDamage *= 0.90; // JPC 2.0 轻量特战背心 10% 终伤吸收
-   } else if (chestId.includes('armor_immortal_vest') || chestId.includes('armor_police_vest')) {
-    currentDamage *= 0.90; // 特警特训 / 警用防弹衣 10% 终伤吸收
-   } else if (chestId.includes('armor_black_ghillie') || chestId.includes('armor_epic_ghillie_suit')) {
-    currentDamage *= 0.92; // 黑色吉利服 / 史诗吉利服 8% 终伤吸收
-   } else if (chestId.includes('armor_oak_ghillie') || chestId.includes('armor_vest_light') || chestId.includes('armor_bdu_woodland_top') || chestId.includes('armor_hazmat_top')) {
-    currentDamage *= 0.94; // 橡木吉利服 / 轻型战术背心 6% 终伤吸收
+  // Resolve offense completely, then shield, then defender armor/passives.
+  // 3.1 M1014 泰坦壁垒：【重装过载 / Armor-Scale Dynamic Damage】(自身护甲越厚伤害越高)
+  if (gun.id === 'test_gun:m1014_ward' || gun.isArmorScaled) {
+   const shooterArmor = (shooter && shooter.isValid()) ? this.estimateArmorPoints(shooter) : 0;
+   // 每点自身护甲增伤 3.0% (满护甲 20点增伤 60%，泰坦套24点增伤 72%)
+   const armorBonusRatio = 1.0 + Math.min(1.0, shooterArmor * 0.03);
+   currentDamage *= armorBonusRatio;
+   if (shooter && shooter.typeId === 'minecraft:player') {
+    const bonusPct = Math.round((armorBonusRatio - 1.0) * 100);
+    shooter.onScreenDisplay?.setActionBar?.(`§6【重装过载】自身护甲 §e${shooterArmor}§6点，霰弹威力爆发 §a+${bonusPct}%§6!§r`);
    }
+  }
+
+  if (epicHit) currentDamage *= epicHit.multiplier;
+  const shield = this.resolveShieldHit(target, shooter, currentDamage, impactLocation, gun);
+  const activeShieldSlot = shield.slot, blockedDamage = shield.blockedDamage + Math.max(0, Number(gun.techniqueShieldBlocked) || 0);
+  const shieldResponse = shield.respond;
+  currentDamage = shield.damage;
+  if (blockedDamage > 0 && currentDamage <= 0) {
+   EquipmentWear.block(target, activeShieldSlot, blockedDamage);
+   shieldResponse?.();
+   return false;
+  }
+
+  // 2.2 按品质强化防弹衣终伤吸收（10% ~ 30%），与原有穿甲/保底机制并存。
+  // 明确 ID + 实际胸甲槽：异模组同名物品、放在腿槽的吉利服不会错误获得胸甲被动。
+  const chestProfile = getArmorHealthProfile(chestItem?.typeId, 'Chest');
+  if (chestProfile?.firearmReduction) currentDamage *= 1 - chestProfile.firearmReduction;
+  if (chestItem?.typeId === 'test_gun:armor_killa_6b13' && (distance <= 8.0 || isShotgun)) {
+   currentDamage *= 0.90; // 保留 Killa 原有近身/霰弹额外吸收。
   }
 
   // 2.2.1 堡垒重装防暴裤：下蹲架枪掩体减伤 15%
@@ -468,65 +528,6 @@ export class DamageHandler {
     }
    } else if (legsId.includes('armor_immortal_pants') || legsId.includes('armor_gorka_bottom')) {
     currentDamage *= 0.92; // 特警战术裤 / 廓尔喀战斗裤：下蹲吸收 8% 伤害
-   }
-  }
-
-  // 2.3 战术防暴盾牌格挡枪械子弹伤害与反弹 (Bullet Shield Blocking & Reflection)
-  const mainhandItem = targetEquip?.getEquipment(EquipmentSlot.Mainhand);
-  const shieldItem = offhandItem?.typeId?.includes('shield') ? offhandItem : mainhandItem?.typeId?.includes('shield') ? mainhandItem : undefined;
-  const activeShieldSlot = EquipmentWear.isShield(shieldItem) ? (shieldItem === offhandItem ? EquipmentSlot.Offhand : EquipmentSlot.Mainhand) : undefined;
-  let blockedDamage = 0;
-  let shieldResponse;
-  const hasShield = !!shieldItem;
-  const isRiot = shieldItem?.typeId === 'test_gun:riot_shield';
-  const isFlash = shieldItem?.typeId === 'test_gun:flash_shield';
-
-  if (hasShield && !isPvpDowned(target)) {
-   // 判定攻击方向是否在正面 (前方 200° 大扇形格挡)
-   let isFrontal = true;
-   if (shooter && shooter.isValid()) {
-    const sLoc = shooter.location;
-    const tLoc = target.location;
-    const viewDir = target.getViewDirection ? target.getViewDirection() : { x: 0, z: 0 };
-    const dx = sLoc.x - tLoc.x;
-    const dz = sLoc.z - tLoc.z;
-    const dist = Math.hypot(dx, dz);
-    if (dist > 0.1) {
-     const dot = (dx / dist) * viewDir.x + (dz / dist) * viewDir.z;
-     isFrontal = (dot > -0.25);
-    }
-   }
-
-   if (isFrontal) {
-    // 潜行举盾吸收 85% 枪械伤害，常态持盾吸收 70% 枪械伤害
-    const blockRate = target.isSneaking ? 0.85 : 0.70;
-    blockedDamage = currentDamage * blockRate;
-    currentDamage *= (1.0 - blockRate);
-
-    shieldResponse = () => {
-    // 盾牌金属跳弹火花与格挡重击音效
-    try {
-     target.dimension.playSound('item.shield.block', targetLoc, { volume: 1.3, pitch: 1.1 });
-     target.dimension.playSound('random.anvil_land', targetLoc, { volume: 0.7, pitch: 1.9 });
-     const sparkLoc = (impactLocation && Number.isFinite(impactLocation.x)) ? impactLocation : targetLoc;
-     target.dimension.spawnParticle('minecraft:crit', sparkLoc);
-     target.dimension.spawnParticle('minecraft:camera_shoot_explosion', sparkLoc);
-    } catch {}
-
-    // 重装反甲盾 50% 真实动能反伤
-    if (isRiot && shooter && shooter.isValid() && shooter.id !== target.id) {
-     const reflectDmg = Math.max(2.0, Math.round(baseDmg * 0.50));
-     try {
-      shooter.applyDamage(reflectDmg, { cause: EntityDamageCause.thorns, damagingEntity: target });
-      shooter.dimension.spawnParticle('minecraft:critical_hit_emitter', shooter.location);
-     } catch {}
-     if (target.typeId === 'minecraft:player') {
-      target.onScreenDisplay?.setActionBar?.(`§6【重装反甲盾】格挡子弹！吸收 ${(blockRate * 100).toFixed(0)}% 枪伤，反弹 §e${reflectDmg}§6动能反伤!§r`);
-     }
-    } else if (target.typeId === 'minecraft:player') {
-     target.onScreenDisplay?.setActionBar?.(`§9【G52 防暴盾】格挡子弹！吸收 ${(blockRate * 100).toFixed(0)}% 枪械伤害!§r`);
-    }
-    };
    }
   }
 
@@ -580,18 +581,35 @@ export class DamageHandler {
    floorRatio = Math.max(floorRatio, 0.25);
   }
 
-  // 3.1 M1014 泰坦壁垒：【重装过载 / Armor-Scale Dynamic Damage】(自身护甲越厚伤害越高)
-  if (gun.id === 'test_gun:m1014_ward' || gun.isArmorScaled) {
-   const shooterArmor = (shooter && shooter.isValid()) ? this.estimateArmorPoints(shooter) : 0;
-   // 每点自身护甲增伤 3.0% (满护甲 20点增伤 60%，泰坦套24点增伤 72%)
-   const armorBonusRatio = 1.0 + Math.min(1.0, shooterArmor * 0.03);
-   currentDamage *= armorBonusRatio;
-   if (shooter && shooter.typeId === 'minecraft:player') {
-    const bonusPct = Math.round((armorBonusRatio - 1.0) * 100);
-    shooter.onScreenDisplay?.setActionBar?.(`§6【重装过载】自身护甲 §e${shooterArmor}§6点，霰弹威力爆发 §a+${bonusPct}%§6!§r`);
-   }
-  }
+  // 4. 护甲与穿透计算 (双曲递减曲线 + 保底动能伤害)
+  const armorPoints = this.estimateArmorPoints(target, gun.isFlamethrower || gun.id === 'test_gun:flamethrower');
+  if (Number.isFinite(gun.fixedArmorPenetration)) finalPenetration = Math.max(0, Math.min(1, gun.fixedArmorPenetration));
+  if (epicHit?.penetration !== null && epicHit?.penetration !== undefined) finalPenetration = epicHit.penetration;
+  const finalDamage = this.calculateArmorReduction(currentDamage, armorPoints, finalPenetration, floorRatio, blockedDamage > 0 || gun.isFlamethrower || gun.damageOverTime);
 
+  // 5. 施加无敌帧穿透伤害 (EntityDamageCause.override)
+  const kbResistance = ArmorEngine.getKnockbackResistance(target);
+  try {
+   const damageOptions = {
+    cause: EntityDamageCause.override,
+    damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
+   };
+   if (isCritHit) DamageIndicator.markCritical(target.id);
+   if (headshot) DamageIndicator.markHeadshot(target.id);
+   const applied = EpicGunPassives.applyHit(epicHit, () => EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage, activeShieldSlot, blockedDamage));
+   if (applied !== true) return false;
+   if (isCritHit) {
+   try {
+    const pLoc = target.location;
+    const dim = target.dimension;
+    dim.spawnParticle('minecraft:critical_hit_emitter', { x: pLoc.x, y: pLoc.y + 1.2, z: pLoc.z });
+    dim.playSound('random.orb', pLoc, { volume: 0.9, pitch: 1.6 });
+    dim.playSound('firework.blast', pLoc, { volume: 0.6, pitch: 1.4 });
+   } catch {}
+   if (shooter && shooter.typeId === 'minecraft:player') {
+    shooter.onScreenDisplay?.setActionBar?.(`§c【战术暴击】触发致命暴击！造成 §e${critMultiplier.toFixed(2)}x§c暴击倍率伤害！§r`);
+   }
+   }
   // 3.3 RPK 班用轻机枪：【火力压制 / Suppression】(强力减速与破除霸体)
   if (gun.id === 'test_gun:rpk') {
    try {
@@ -623,24 +641,6 @@ export class DamageHandler {
    } catch {}
   }
 
-  // 4. 护甲与穿透计算 (双曲递减曲线 + 保底动能伤害)
-  const armorPoints = this.estimateArmorPoints(target);
-  if (Number.isFinite(gun.fixedArmorPenetration)) finalPenetration = Math.max(0, Math.min(1, gun.fixedArmorPenetration));
-  if (epicHit) {
-   if (epicHit.penetration !== null) finalPenetration = epicHit.penetration;
-   currentDamage *= epicHit.multiplier;
-  }
-  const finalDamage = this.calculateArmorReduction(currentDamage, armorPoints, finalPenetration, floorRatio);
-
-  // 5. 施加无敌帧穿透伤害 (EntityDamageCause.override)
-  const kbResistance = ArmorEngine.getKnockbackResistance(target);
-  try {
-   const damageOptions = {
-    cause: EntityDamageCause.override,
-    damagingEntity: (shooter && shooter.isValid()) ? shooter : undefined
-   };
-   const applied = EpicGunPassives.applyHit(epicHit, () => EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage, activeShieldSlot, blockedDamage));
-   if (applied !== true) return false;
    // Only accepted direct hits may start/refresh attributed sulfur burn.
    if (gun.id === 'test_gun:pkm' || gun.isIncendiaryDot) PkmBurn.apply(shooter, target);
    shieldResponse?.();
@@ -650,7 +650,7 @@ export class DamageHandler {
     } catch {}
    }
   // USAS-12「嗜血狂潮」专属吸血被动结算 (Life-Steal & Overheal Barrier)
-  if (gun && (gun.isLifeSteal || gun.id === 'test_gun:usas12') && shooter && shooter.isValid() && shooter.typeId === 'minecraft:player' && !isPvpDowned(shooter)) {
+  if (gun && (gun.isLifeSteal || gun.id === 'test_gun:usas12') && shooter && shooter.isValid() && shooter.typeId === 'minecraft:player' && !isCombatDowned(shooter)) {
    try {
     const ratio = gun.lifeStealRatio || 0.18;
     const healAmount = Math.max(0.5, Math.round(finalDamage * ratio * 10) / 10);

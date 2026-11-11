@@ -17,7 +17,41 @@ export class ShootManager {
  static playerCooldowns = new Map();
  static playerShooting = new Map();
  static playerLastUseTick = new Map(); // playerId -> system.currentTick
+ static pistolLastTick = new Map(); // Event and interval must not advance cooldown twice in one tick.
+ static pistolHolds = new Map(); // Explicit itemStartUse sessions, never refreshed by shots.
  static arcChargeTicks = new Map(); // playerId -> number (0 ~ 20 ticks)
+
+ // Food/use-duration items emit start and release events, not per-tick heartbeats.
+ // Pistol hold-repeat is explicit; SEMI on snipers/launchers remains unchanged.
+ static startPistolHold(player, gun) {
+  if (!player || gun?.type !== 'pistol') return;
+  if (!pvpCanAttack(player) || ReloadManager.isReloading(player)) { this.setTriggerState(player, false); return; }
+  if (this.pistolHolds.has(player.id)) return; // Duplicate starts cannot extend the fuse.
+  const ammo = getCurrentAmmo(player, gun);
+  const cooldown = this.playerCooldowns.get(player.id) || 0;
+  this.pistolHolds.set(player.id, {
+   gunId: gun.id, slot: player.selectedSlotIndex,
+   // Enough for the complete current magazine even on a slow revolver. A lost
+   // release cannot sustain fire indefinitely through passive magazine refills.
+   deadline: system.currentTick + cooldown + Math.max(1, ammo) * ((gun.fireRate || 4) + 1) + 20
+  });
+  this.setTriggerState(player, true);
+ }
+
+ static validPistolHold(player, gun) {
+  const hold = this.pistolHolds.get(player.id);
+  if (!hold) return false;
+  let valid = false;
+  try {
+   const item = player.getComponent('minecraft:equippable')?.getEquipment(EquipmentSlot.Mainhand);
+   const health = player.getComponent('minecraft:health');
+   valid = player.isValid() && (!health || health.currentValue > 0) &&
+    item?.typeId === hold.gunId && gun?.id === hold.gunId &&
+    player.selectedSlotIndex === hold.slot && system.currentTick <= hold.deadline;
+  } catch {}
+  if (!valid) this.setTriggerState(player, false);
+  return valid;
+ }
 
  static setTriggerState(player, isDown) {
   if (!player) return;
@@ -26,6 +60,7 @@ export class ShootManager {
   if (isDown) {
    this.playerLastUseTick.set(player.id, system.currentTick);
   } else {
+   this.pistolHolds.delete(player.id);
    this.playerLastUseTick.delete(player.id);
    const charge = this.arcChargeTicks.get(player.id) || 0;
    if (charge > 0 && charge < 8) {
@@ -45,6 +80,9 @@ export class ShootManager {
  static isTriggerDown(player, gun) {
   if (!player || !this.playerShooting.get(player.id)) return false;
 
+  if (this.pistolHolds.has(player.id)) return this.validPistolHold(player, gun);
+
+  // Legacy non-pistol heartbeat watchdog. Explicit pistol holds use the bounded session above.
   // 心跳看门狗超时检测 (Watchdog Timeout)
   // 超过 8 个 ticks (0.4秒) 未收到基岩版长按更新事件，判定为松开或事件丢失，强制熔断停火
   const lastTick = this.playerLastUseTick.get(player.id) || 0;
@@ -61,6 +99,9 @@ export class ShootManager {
  static clearPlayer(player) {
   if (!player) return;
   const pId = typeof player === 'string' ? player : player.id;
+  this.pistolLastTick.delete(pId);
+  this.pistolHolds.delete(pId);
+  this.playerShotCounts.delete(pId);
   this.playerShooting.delete(pId);
   this.playerCooldowns.delete(pId);
   this.playerLastUseTick.delete(pId);
@@ -112,6 +153,14 @@ export class ShootManager {
   if (gun?.isBaizhan) return; // Dedicated posture/ammo/guard state machine.
   if (!pvpCanAttack(player)) { this.clearPlayer(player); ReloadManager.cancelReload(player); return; }
   const currentCd = this.playerCooldowns.get(player.id) || 0;
+  if (gun?.type === 'pistol') {
+   if (this.pistolLastTick.get(player.id) === system.currentTick) return;
+   // An idle, ready interval consumes no firing/cooldown work. Leave this tick
+   // available for itemStartUse, including a tap released before the next tick.
+   if (currentCd > 0 || this.playerShooting.get(player.id)) {
+    this.pistolLastTick.set(player.id, system.currentTick);
+   }
+  }
   if (currentCd > 0) {
    this.playerCooldowns.set(player.id, currentCd - 1);
   }
@@ -121,6 +170,7 @@ export class ShootManager {
   }
 
   if (ReloadManager.isReloading(player)) {
+   if (this.pistolHolds.has(player.id)) this.setTriggerState(player, false);
    ReloadManager.tick(player, gun);
    return;
   }
@@ -212,6 +262,7 @@ export class ShootManager {
   const currentAmmo = getCurrentAmmo(player, gun);
 
   if (currentAmmo <= 0) {
+   if (gun.type === 'pistol') this.setTriggerState(player, false);
    showOutOfAmmoHUD(player, gun);
    try {
     player.dimension.playSound('random.click', player.location, { volume: 0.5, pitch: 1.2 });
@@ -272,12 +323,13 @@ export class ShootManager {
   }
 
   // 持续长按连发时，每次击发成功均自动延续看门狗心跳（避免长按被误熔断）
-  this.refreshTriggerHeartbeat(player);
+  if (gun.type !== 'pistol') this.refreshTriggerHeartbeat(player);
 
   showAmmoHUD(player, gun, getCurrentAmmo(player, gun)); // Direct-kill refills may change the magazine.
   this.playerCooldowns.set(player.id, gun.fireRate || 4);
 
-  if (gun.mode === FireMode.SEMI) {
+  if ((gun.mode === FireMode.SEMI && !this.pistolHolds.has(player.id)) ||
+      (gun.type === 'pistol' && getCurrentAmmo(player, gun) <= 0)) {
    this.setTriggerState(player, false);
   }
  }

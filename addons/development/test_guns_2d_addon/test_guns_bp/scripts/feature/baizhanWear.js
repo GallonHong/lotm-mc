@@ -1,7 +1,10 @@
+import { combatAuthority } from './utils/combatAuthority.js';
 import { world, system, ScriptEventSource, EquipmentSlot } from '@minecraft/server';
 import { isPvpParticipant, pvpMatch } from './utils/pvpRules.js';
 
 const ITEM_KEY='tg_baizhan_identity';
+const RECEIPT_KEY='tg_baizhan_wear_receipt';
+let settlementSerial=0;
 const scopeOf=player=>isPvpParticipant(player)?`match:${pvpMatch(player)}`:'survival';
 const keyOf=token=>`tg_baizhan_wear_${token}`;
 const MAX_SCOPES=2,MAX_RECORD_BYTES=4096;
@@ -51,6 +54,7 @@ export class BaizhanWear {
   system.afterEvents?.scriptEventReceive?.subscribe(event=>this.receiveState(event));
  }
  static requestState(player){
+  if(combatAuthority()!=='server'){this.stateRequest=null;return;}
   if(verifiedMatchKnown&&(!isPvpParticipant(player)||verifiedMatchId===pvpMatch(player)))return;
   if(this.stateRequest&&system.currentTick-this.stateRequest.issuedTick<=12)return;
   const desired=isPvpParticipant(player)?pvpMatch(player):null;
@@ -61,6 +65,7 @@ export class BaizhanWear {
   try{player.dimension.runCommand(`scriptevent tg:baizhan_wear_state ${JSON.stringify(this.stateRequest)}`);}catch{this.stateRequest=null;}
  }
  static receiveState(event){
+  if(combatAuthority()!=='server')return;
   if(event.id!=='tg:baizhan_wear_state_result'||event.sourceType!==ScriptEventSource.Server||event.sourceEntity||event.sourceBlock||!this.stateRequest)return;
   let data;try{data=JSON.parse(event.message);}catch{return;}
   if(data?.nonce!==this.stateRequest.nonce||system.currentTick-this.stateRequest.issuedTick>12||
@@ -70,7 +75,11 @@ export class BaizhanWear {
  }
  static canUse(player,item){
   try{
+   const authority=combatAuthority();
+   if(authority==='blocked')return false;
    const markers=(item?.getLore?.()||[]).filter(line=>line.startsWith('PVP_MATCH:'));
+   // A leftover PvP copy cannot authorize itself in a standalone world.
+   if(authority==='local')return !isPvpParticipant(player)&&markers.length===0;
    if(isPvpParticipant(player))return verifiedMatchKnown&&verifiedMatchId===pvpMatch(player)&&markers.length===1&&markers[0]===`PVP_MATCH:${verifiedMatchId}`;
    return markers.length===0;
   }catch{return false;}
@@ -110,25 +119,32 @@ export class BaizhanWear {
    if(record.settlement) {
     const tx=record.settlement;
     if(tx.scope!==scope)return false;
-    if(!Number.isInteger(tx.amount)||!Number.isInteger(tx.before)||!Number.isInteger(tx.after)||tx.amount<1||tx.after!==tx.before+tx.amount)return false;
-    if(dur.damage>=tx.after) {
+    if(!Number.isSafeInteger(tx.amount)||!Number.isSafeInteger(tx.before)||!Number.isSafeInteger(tx.after)||tx.before<0||tx.amount<1||tx.after!==tx.before+tx.amount||
+     (tx.receipt!==undefined&&(typeof tx.receipt!=='string'||!tx.receipt.length||tx.receipt.length>200)))return false;
+    // Item receipt and native damage were committed together. An anvil repair
+    // after that commit must not make an uncertain ledger clear charge twice.
+    if((tx.receipt&&slot.item.getDynamicProperty(RECEIPT_KEY)===tx.receipt)||(!tx.receipt&&dur.damage>=tx.after)) {
      record.debts[scope]=Math.max(0,(record.debts[scope]||0)-tx.amount);
      delete record.settlement;write(token,record);
-    } else if(dur.damage!==tx.before)return false; // Repaired/replaced during an uncertain settlement.
+    } else if(dur.damage!==tx.before){
+     if(!tx.receipt)return false; // Legacy ambiguous transaction: do not guess.
+     tx.before=dur.damage;tx.after=dur.damage+tx.amount;write(token,record);
+    }
    }
    let tx=record.settlement;
    const debt=record.debts[scope]||0;
    if(!debt){write(token,record);return true;}
    if(!tx) {
-    tx={scope,amount:debt,before:dur.damage,after:dur.damage+debt};
+    tx={scope,amount:debt,before:dur.damage,after:dur.damage+debt,receipt:`${scope}:${Date.now()}:${++settlementSerial}`};
     record.settlement=tx;write(token,record);
    }
    let result;
    if(tx.after>=dur.maxDurability)result=slot.set(undefined);
-   else {dur.damage=tx.after;result=slot.set(slot.item);}
+   else {dur.damage=tx.after;if(tx.receipt)slot.item.setDynamicProperty(RECEIPT_KEY,tx.receipt);result=slot.set(slot.item);}
    if(result===false)return false;
    const actual=slot.get();
-   if(tx.after>=dur.maxDurability?actual!==undefined:(!matches(actual,token)||(actual.getComponent('minecraft:durability')?.damage??-1)<tx.after))return false;
+   if(tx.after>=dur.maxDurability?actual!==undefined:(!matches(actual,token)||(actual.getComponent('minecraft:durability')?.damage??-1)<tx.after||
+    (tx.receipt&&actual.getDynamicProperty(RECEIPT_KEY)!==tx.receipt)))return false;
    record.debts[scope]=Math.max(0,(record.debts[scope]||0)-tx.amount);
    delete record.settlement;write(token,record);
    return true;

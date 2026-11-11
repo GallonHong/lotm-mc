@@ -2,11 +2,11 @@ import { hasInfinitePvpReserve } from './utils/pvpRules.js';
 import { countAmmoInInventory, isCreativePlayer } from './utils/inventoryUtils.js';
 import { EquipmentSlot } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
+import { BaizhanWear } from './baizhanWear.js';
+import { FlamethrowerWear, FLAME_ITEM_KEY } from './flamethrowerWear.js';
 
 export function updateActionBar(player, text) {
- try {
-  player.onScreenDisplay.setActionBar(text);
- } catch {}
+ try { player.onScreenDisplay.setActionBar(text); } catch {}
 }
 
 export function getWeaponDurability(player, gun) {
@@ -22,7 +22,13 @@ export function getWeaponDurability(player, gun) {
   if (!durComp) return null;
 
   const maxDur = durComp.maxDurability || 500;
-  const damage = durComp.damage || 0;
+  let damage = durComp.damage || 0;
+  const tokenKey = gun.isBaizhan ? 'tg_baizhan_identity' : gun.isFlamethrower ? FLAME_ITEM_KEY : null;
+  const token = tokenKey ? mainhand.getDynamicProperty(tokenKey) : null;
+  if (token) {
+   const pending = gun.isBaizhan ? BaizhanWear.pending(player, token) : FlamethrowerWear.pending(player, token);
+   damage += Number.isFinite(pending) ? pending : maxDur;
+  }
   const current = Math.max(0, maxDur - damage);
   return { current, max: maxDur, ratio: current / maxDur };
  } catch {
@@ -41,7 +47,7 @@ function formatDurabilityString(player, gun) {
  return ` §8|§r§d耐久:§r${durColor}${dur.current}§r/§7${dur.max}§r`;
 }
 
-export function showAmmoHUD(player, gun, currentAmmo) {
+export function showAmmoHUD(player, gun, currentAmmo, status = '') {
  const isCreative = isCreativePlayer(player) || hasInfinitePvpReserve(player);
  const reserveStr = isCreative ? '§b∞§r' : ('§f' + countAmmoInInventory(player, gun.ammoTypeId) + '§r');
  const ammoRatio = currentAmmo / gun.maxAmmo;
@@ -58,7 +64,7 @@ export function showAmmoHUD(player, gun, currentAmmo) {
  }
 
  const durStr = formatDurabilityString(player, gun);
- const text = `§6[${gun.name}]§r§e弹药:§r${ammoColor}${currentAmmo}§r/§7${gun.maxAmmo}§r§8(备弹: ${reserveStr})§r${passiveStr}${durStr}`;
+ const text = `§6[${gun.name}]§r§e弹药:§r${ammoColor}${currentAmmo}§r/§7${gun.maxAmmo}§r§8(备弹: ${reserveStr})§r${passiveStr}${durStr}${status ? ` §8|§r${status}` : ''}`;
  updateActionBar(player, text);
 }
 

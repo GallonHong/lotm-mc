@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_mob_chest",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.chestplate"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_mob_chest",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§6堡垒重型防暴护甲 [传说·限定]§r\n§7被动: 12点护甲，【100%完全免疫击退】，-18%枪械终伤，+50%排爆全伤减免，濒死(≤8HP)激活6颗金心超频护盾§r\n§8§o“多贝雪山的寒风没能吹垮第七防线，破碎的装甲钢熔铸成了这面胸甲。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.chest",
-    "protection": 9
-   },
-   "minecraft:durability": {
-    "max_durability": 900
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 360
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_mob_chest",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_mob_chest",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§6堡垒重型防暴护甲 [传说·限定]§r\n§7被动: 12点护甲，【100%完全免疫击退】，-28%枪械终伤，+50%排爆全伤减免，濒死(≤8HP)激活6颗金心超频护盾§r\n§8§o“多贝雪山的寒风没能吹垮第七防线，破碎的装甲钢熔铸成了这面胸甲。”§r\n§e暴击率 +6个百分点§r\n§c最大生命 +40 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 9
+      },
+      "minecraft:durability": {
+        "max_durability": 900
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 360
+          }
+        ]
+      }
+    }
   }
- }
 }

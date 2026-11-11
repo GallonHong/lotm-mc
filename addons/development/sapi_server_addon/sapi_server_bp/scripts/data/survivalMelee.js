@@ -22,7 +22,7 @@ export const SURVIVAL_MELEE = Object.freeze({
 
 export function meleeDamageProfile(typeId, spec, damage, penetration = spec.penetration, dot = false) {
   return {
-    id: typeId, category: 'melee', disableHeadshot: true, disableCritical: dot,
+    id: typeId, category: 'melee', disableHeadshot: true, disableCritical: dot, damageOverTime: dot,
     fixedArmorPenetration: penetration,
     stats: { damage, damageDropOff: 0, headshotMultiplier: 1, armorPenetration: penetration,
       maxRange: spec.range, knockback: dot ? undefined : spec.knockback }

@@ -1,48 +1,48 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:m1014_ward",
-   "menu_category": {
-    "category": "equipment"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_m1014_ward",
-   "minecraft:display_name": {
-    "value": "§5M1014 泰坦壁垒 [史诗]§r\n§7被动: 【重装过载】自身护甲越厚威力越强，每点护甲增伤 3% (最高+72%)§r\n§8§o“科技会重装单兵工程样机，护甲能量反哺枪机，防线愈固，杀戮愈烈。”§r"
-   },
-   "minecraft:use_modifiers": {
-    "use_duration": 3200,
-    "movement_modifier": 0.75
-   },
-   "minecraft:food": {
-    "can_always_eat": true
-   },
-   "minecraft:durability": {
-    "max_durability": 1200
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 300
-     }
-    ]
-   },
-   "minecraft:tags": {
-    "tags": [
-     "minecraft:is_crossbow"
-    ]
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:m1014_ward",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_m1014_ward",
+      "minecraft:display_name": {
+        "value": "§5M1014 泰坦壁垒 [史诗]§r\n§7被动: 【重装过载】自身护甲越厚威力越强，每点护甲增伤 3% (最高+72%)§r\n§8§o“科技会重装单兵工程样机，护甲能量反哺枪机，防线愈固，杀戮愈烈。”§r"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:durability": {
+        "max_durability": 1200
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:blueprint_m1014_ward"
+            ],
+            "repair_amount": 960
+          }
+        ]
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
   }
- }
 }

@@ -1,38 +1,38 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_mlt_hg2_desert",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.chestplate"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_mlt_hg2_desert",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§6军用科技 HG2 全身重甲 荒漠迷彩 [传说]§r\n§7被动: 16点护甲，【100%完全免疫击退】，-20%枪械终伤，+40%爆炸全伤减免，+8HP动能护盾(脱战8秒充能)，机枪/重武器伤害+25%，散布-35%，移速-8%§r\n§8§o“军工级荒漠特种防弹机甲，极致重型防护与压制火力。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.chest",
-    "protection": 16
-   },
-   "minecraft:durability": {
-    "max_durability": 1200
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "test_gun:part_armor_plate",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 400
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_mlt_hg2_desert",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_mlt_hg2_desert",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§6军用科技 HG2 全身重甲 荒漠迷彩 [传说]§r\n§7被动: 16点护甲，【100%完全免疫击退】，-30%枪械终伤，+40%爆炸全伤减免，+8HP动能护盾(脱战8秒充能)，机枪/重武器伤害+25%，散布-35%，移速-8%§r\n§8§o“军工级荒漠特种防弹机甲，极致重型防护与压制火力。”§r\n§e暴击率 +6个百分点§r\n§c最大生命 +40 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 16
+      },
+      "minecraft:durability": {
+        "max_durability": 1200
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "test_gun:part_armor_plate",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 400
+          }
+        ]
+      }
+    }
   }
- }
 }

@@ -32,10 +32,9 @@
         "repair_items": [
           {
             "items": [
-              "minecraft:redstone",
-              "minecraft:copper_ingot"
+              "test_gun:blueprint_liegui"
             ],
-            "repair_amount": 250
+            "repair_amount": 720
           }
         ]
       },

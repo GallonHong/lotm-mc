@@ -1,45 +1,45 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_helmet_tactical",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.helmet"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_armor_helmet_tactical",
-   "minecraft:display_name": {
-    "value": "§5特警防弹战术头盔 [史诗]§r\n§7被动: 6点护甲，【抗击退 +25%】，+15%爆炸减免，吸收50%头部爆头创伤§r\n§8§o“特装战术头盔，坚硬的凯夫拉盔体有效化解头部冲击。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.head",
-    "protection": 3
-   },
-   "minecraft:durability": {
-    "max_durability": 400
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 120
-     }
-    ]
-   },
-   "minecraft:enchantable": {
-    "value": 15,
-    "slot": "armor_head"
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_helmet_tactical",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_armor_helmet_tactical",
+      "minecraft:display_name": {
+        "value": "§5特警防弹战术头盔 [史诗]§r\n§7被动: 6点护甲，【抗击退 +25%】，+15%爆炸减免，吸收50%头部爆头创伤§r\n§8§o“特装战术头盔，坚硬的凯夫拉盔体有效化解头部冲击。”§r\n§c最大生命 +16 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 3
+      },
+      "minecraft:durability": {
+        "max_durability": 400
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 120
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 15,
+        "slot": "armor_head"
+      }
+    }
   }
- }
 }

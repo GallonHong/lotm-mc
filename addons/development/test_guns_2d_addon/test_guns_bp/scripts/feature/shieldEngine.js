@@ -201,7 +201,7 @@ export class ShieldEngine {
  }
 
  /**
-  * 判定盾牌正面格挡减伤 70% 与反甲盾 50% 动能反伤
+  * 原生受伤事件仅保留兼容入口；受管盾牌抵扣/减伤在 DamageHandler 前置结算
   * @param {Player} player 
   * @param {Object} damageSource 
   * @param {number} damage 

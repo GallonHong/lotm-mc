@@ -1,4 +1,4 @@
-import { world, system, EquipmentSlot, ScriptEventSource } from '@minecraft/server';
+import { world, system, EquipmentSlot } from '@minecraft/server';
 import { SURVIVAL_MELEE } from '../data/survivalMelee.js';
 import { ComboTracker, createComboAttack, createHeavyAttack } from '../vendor/fieryCombatCore.js';
 import { MeleeTechniquesClient } from './meleeTechniquesClient.js';
@@ -22,18 +22,15 @@ function subscribe(name, fn) {
   if (signal?.subscribe) signal.subscribe(fn);
 }
 
-/** Right-use combos plus a shared left-use cooldown grant. Stable API 1.15
- * cannot cancel native left damage. SAPI observes the real native hurt and adds
- * only the post-mitigation difference to the configured shared-combo total.
- * No player JSON override, movement locking, health subtraction or global prototype patches.
+/** Right-use skills retain their scripted formulas. Left-use damage and wear are
+ * owned by the native item components, without script supplements or combo grants.
+ * API 1.15 has no cancellable before-entityHurt event.
  */
 export class SurvivalMeleeEngine {
   static combos = new ComboTracker();
   static states = new Map();
   static serial = 0;
   static initialized = false;
-  static leftSnapshots = new Map();
-  static leftGrants = new Map();
 
   static init() {
     if (this.initialized) return;
@@ -52,7 +49,6 @@ export class SurvivalMeleeEngine {
       const id = event.deadEntity?.id;
       if (id) this.clear(id);
     });
-    system.afterEvents?.scriptEventReceive?.subscribe(event => this.acceptApproval(event));
     system.runInterval(() => this.tick(), 1);
   }
 
@@ -60,10 +56,6 @@ export class SurvivalMeleeEngine {
     const state = this.states.get(id);
     if (state) this.combos.reset(state.player);
     this.states.delete(id);
-    this.leftSnapshots.delete(id);
-    const grant=this.leftGrants.get(id);
-    try { grant?.player.removeTag(grant.tag); } catch {}
-    this.leftGrants.delete(id);
     MeleeTechniquesClient.clear(id);
   }
 
@@ -121,43 +113,34 @@ export class SurvivalMeleeEngine {
         item.setLore([...lore.filter(x=>!x.startsWith('SM_ID:')&&!x.startsWith('PVP_MATCH:')).slice(0,19-markers.length),token,...markers]);
         player.getComponent('minecraft:equippable').setEquipment(EquipmentSlot.Mainhand,item);
       }
-      // Establish the shared epoch after identity initialization, including a
-      // fresh weapon used only with left input. Read back the committed hand.
+      // Establish the right-use skill epoch after identity initialization.
       MeleeTechniquesClient.ensure(player,hand(player));
     }catch{}
   }
 
   static leftHit(event) {
-    const p=event?.damagingEntity,t=event?.hitEntity;
-    if(p?.typeId!=='minecraft:player'||!t||!canAttack(p))return false;
-    const item=hand(p),spec=SURVIVAL_MELEE[item?.typeId];if(!spec)return false;
-    const now=system.currentTick;
-    let state=this.states.get(p.id);
-    if(state?.pending){state.pending=null;MeleeTechniquesClient.clear(p.id);this.combos.reset(p);return false;}
-    if(state&&now<state.readyAt)return false;
-    const marker=(item.getLore?.()||[]).filter(x=>x.startsWith('SM_ID:'));
-    if(marker.length!==1)return false; // A first-frame pickup initializes on tick; no guessed identity.
-    state=state||{player:p,readyAt:0,heavyReady:new Map(),pending:null};
-    state.readyAt=now+spec.windup+spec.recovery;this.states.set(p.id,state);
-    const index=this.combos.next(p,item.typeId,spec.damage.length).index-1;
-    const tag=`tg_melee_left:${now}:${p.selectedSlotIndex}:${t.id}:${index}`;
-    if(tag.length>240)return false;
-    try {
-      for(const old of p.getTags())if(old.startsWith('tg_melee_left:'))p.removeTag(old);
-      p.addTag(tag);this.leftGrants.set(p.id,{player:p,tag,tick:now,accepted:false});
-      this.combos.record(p,item.typeId,index,spec.damage.length);
-    }catch{return false;}
-    const before=this.leftSnapshots.get(p.id),identity=EquipmentWear.identity(item);
-    // Native durability wins. Only top up if the pre-hit snapshot proves no
-    // native charge occurred. Never add a second charge or repair native wear.
-    if(before&&now-before.tick<=1&&before.slot===p.selectedSlotIndex&&before.identity===identity)system.run(()=>{
-      try{const current=hand(p),d=current?.getComponent('minecraft:durability');
-        if(!d||String(p.getGameMode?.())==='creative'||p.selectedSlotIndex!==before.slot||EquipmentWear.identity(current)!==identity||d.damage!==before.damage)return;
-        let level=current.getComponent('minecraft:enchantable')?.getEnchantment('unbreaking')?.level||0;
-        if(Math.random()>=1/(level+1))return;d.damage++;
-        p.getComponent('minecraft:equippable').setEquipment(EquipmentSlot.Mainhand,d.damage>=d.maxDurability?undefined:current);
-      }catch{}
-    });
+    const player = event?.damagingEntity;
+    if (player?.typeId !== 'minecraft:player' || !event.hitEntity || !canAttack(player)) return false;
+    const item = hand(player), spec = SURVIVAL_MELEE[item?.typeId];
+    if (!spec) return false;
+    const now = system.currentTick;
+    let state = this.states.get(player.id);
+    // Native damage is already complete. Cancel delayed right-use damage without
+    // erasing the shared combo history or shortening its existing recovery.
+    if (state?.pending) state.pending = null;
+    MeleeTechniquesClient.clear(player.id);
+    if (state && (state.lastLeftTick === now || now < state.readyAt)) return false;
+    if (!state) {
+      state = { player, readyAt: 0, heavyReady: new Map(), pending: null };
+      this.states.set(player.id, state);
+    }
+    const index = this.combos.next(player, item.typeId, spec.damage.length).index - 1;
+    this.combos.record(player, item.typeId, index, spec.damage.length);
+    state.lastLeftTick = now;
+    state.readyAt = now + spec.windup + spec.recovery;
+    // This is shared progression, not scripted left damage or a custom swing.
+    // Native left damage stays fixed; the next right-use consumes the next index.
+    player.onScreenDisplay?.setActionBar?.(`§b${spec.name} §7连击 ${index + 1}/${spec.damage.length}`);
     return true;
   }
 
@@ -172,24 +155,6 @@ export class SurvivalMeleeEngine {
   static tick() {
     MeleeTechniquesClient.prune();
     const now = system.currentTick;
-    for (const [id,g] of this.leftGrants) if (now-g.tick>4) {try{g.player.removeTag(g.tag);}catch{}if(!g.accepted)this.combos.reset(g.player);this.leftGrants.delete(id);}
-    // Cache pre-native durability and a shared unique identity while held.
-    for (const p of world.getAllPlayers?.() || []) {
-      const item=hand(p);if(!SURVIVAL_MELEE[item?.typeId]){
-        if(this.leftSnapshots.has(p.id))this.combos.reset(p);
-        this.leftSnapshots.delete(p.id);
-        const grant=this.leftGrants.get(p.id);if(grant){try{p.removeTag(grant.tag);}catch{}this.leftGrants.delete(p.id);}
-        continue;
-      }
-      try {
-        if(!(this.states.get(p.id)?.pending))this.prepareIdentity(p,item);
-        const previous=this.leftSnapshots.get(p.id),currentIdentity=EquipmentWear.identity(item);
-        if(previous&&(previous.identity!==currentIdentity||previous.slot!==p.selectedSlotIndex)){
-          this.combos.reset(p);const grant=this.leftGrants.get(p.id);if(grant){try{p.removeTag(grant.tag);}catch{}this.leftGrants.delete(p.id);}
-        }
-        this.leftSnapshots.set(p.id,{identity:EquipmentWear.identity(item),damage:item.getComponent('minecraft:durability')?.damage??0,tick:now,slot:p.selectedSlotIndex});
-      }catch{}
-    }
     for (const [id, state] of this.states) {
       try {
         if (!alive(state.player)) { this.clear(id); continue; }
@@ -211,13 +176,6 @@ export class SurvivalMeleeEngine {
         this.clear(id);
         console.warn('[Survival Melee] tick:', error);
       }
-    }
-  }
-
-  static acceptApproval(event) {
-    if(event.id==='tg:melee_left_result'&&event.sourceType===ScriptEventSource.Server&&!event.sourceEntity&&!event.sourceBlock){
-      try{const r=JSON.parse(event.message),g=this.leftGrants.get(r.playerId);if(g&&g.tick===r.tick){g.accepted=r.accepted===true;if(!g.accepted)this.combos.reset(g.player);}}catch{}
-      return;
     }
   }
 

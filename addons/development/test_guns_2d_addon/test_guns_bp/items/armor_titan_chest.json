@@ -1,46 +1,46 @@
 {
- "format_version": "1.20.50",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_titan_chest",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.chestplate"
-   }
-  },
-  "components": {
-   "minecraft:max_stack_size": {
-    "value": 1
-   },
-   "minecraft:hand_equipped": {
-    "value": true
-   },
-   "minecraft:icon": "test_gun_armor_titan_chest",
-   "minecraft:display_name": {
-    "value": "§6泰坦动力外骨骼装甲 [传说]§r\n§7被动: 14点满额护甲，【100%完全免疫击退】，-16%枪械终伤，+40%重型爆炸减免§r\n§8§o“重工业文明的终极咆哮，伺服液压电机嗡鸣间赋予单兵徒手撼动暴君的力量。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.chest",
-    "protection": 10
-   },
-   "minecraft:durability": {
-    "max_durability": 850
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "minecraft:iron_ingot",
-       "minecraft:netherite_ingot"
-      ],
-      "repair_amount": 250
-     }
-    ]
-   },
-   "minecraft:enchantable": {
-    "value": 20,
-    "slot": "armor_torso"
-   }
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_titan_chest",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.chestplate"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "test_gun_armor_titan_chest",
+      "minecraft:display_name": {
+        "value": "§6泰坦动力外骨骼装甲 [传说]§r\n§7被动: 14点满额护甲，【100%完全免疫击退】，-26%枪械终伤，+40%重型爆炸减免§r\n§8§o“重工业文明的终极咆哮，伺服液压电机嗡鸣间赋予单兵徒手撼动暴君的力量。”§r\n§e暴击率 +6个百分点§r\n§c最大生命 +40 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.chest",
+        "protection": 10
+      },
+      "minecraft:durability": {
+        "max_durability": 850
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "minecraft:iron_ingot",
+              "minecraft:netherite_ingot"
+            ],
+            "repair_amount": 250
+          }
+        ]
+      },
+      "minecraft:enchantable": {
+        "value": 20,
+        "slot": "armor_torso"
+      }
+    }
   }
- }
 }

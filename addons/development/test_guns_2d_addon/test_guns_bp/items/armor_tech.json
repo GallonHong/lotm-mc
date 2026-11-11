@@ -1,37 +1,37 @@
 {
- "format_version": "1.20.80",
- "minecraft:item": {
-  "description": {
-   "identifier": "test_gun:armor_tech",
-   "menu_category": {
-    "category": "equipment",
-    "group": "itemGroup.name.helmet"
-   }
-  },
-  "components": {
-   "minecraft:icon": "test_gun_armor_tech",
-   "minecraft:max_stack_size": 1,
-   "minecraft:display_name": {
-    "value": "§5前锋战术头盔 [史诗]§r\n§7被动: 5点护甲，【抗击退 +25%】，强化头部减震，提供可靠战场防护§r\n§8§o“科技战术先锋头盔，坚固轻便。”§r"
-   },
-   "minecraft:wearable": {
-    "slot": "slot.armor.head",
-    "protection": 4
-   },
-   "minecraft:durability": {
-    "max_durability": 500
-   },
-   "minecraft:repairable": {
-    "repair_items": [
-     {
-      "items": [
-       "test_gun:part_fabric_rag",
-       "minecraft:iron_ingot"
-      ],
-      "repair_amount": 200
-     }
-    ]
-   }
+  "format_version": "1.20.80",
+  "minecraft:item": {
+    "description": {
+      "identifier": "test_gun:armor_tech",
+      "menu_category": {
+        "category": "equipment",
+        "group": "itemGroup.name.helmet"
+      }
+    },
+    "components": {
+      "minecraft:icon": "test_gun_armor_tech",
+      "minecraft:max_stack_size": 1,
+      "minecraft:display_name": {
+        "value": "§5前锋战术头盔 [史诗]§r\n§7被动: 5点护甲，【抗击退 +25%】，强化头部减震，提供可靠战场防护§r\n§8§o“科技战术先锋头盔，坚固轻便。”§r\n§c最大生命 +16 HP§r §7(红心容量，合计上限100；穿戴不回血)§r"
+      },
+      "minecraft:wearable": {
+        "slot": "slot.armor.head",
+        "protection": 4
+      },
+      "minecraft:durability": {
+        "max_durability": 500
+      },
+      "minecraft:repairable": {
+        "repair_items": [
+          {
+            "items": [
+              "test_gun:part_fabric_rag",
+              "minecraft:iron_ingot"
+            ],
+            "repair_amount": 200
+          }
+        ]
+      }
+    }
   }
- }
 }

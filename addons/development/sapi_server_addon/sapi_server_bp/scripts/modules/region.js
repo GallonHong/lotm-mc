@@ -166,14 +166,9 @@ export class RegionManager {
     return !region || region.flags?.allowExplosion !== false;
    }));
   });
-  this.subscribe(before?.entityHurt, "entityHurt", event => {
-   const victim = event.hurtEntity;
-   const attacker = event.damageSource?.damagingEntity;
-   if (victim?.typeId !== "minecraft:player" || attacker?.typeId !== "minecraft:player") return;
-   if (isMatchLocked(victim) || isMatchLocked(attacker)) return;
-   const region = this.getRegionAt(victim.dimension.id, victim.location);
-   if (region?.flags?.allowPvp === false && !Utils.isAdmin(attacker)) event.cancel = true;
-  });
+  // Geographical safe zones no longer cancel player combat. CombatManager
+  // retains teammate/match protections; all block/claim/explosion guards above remain.
+
 
   system.runInterval(() => {
    for (const player of world.getAllPlayers()) {
@@ -219,7 +214,7 @@ export class RegionManager {
   Utils.showForm(player, form, res => {
    if (!res.canceled) {
     const [name, priority] = res.formValues;
-    Utils.tell(player, this.createRegion(player, name, priority) ? "§a保护区创建成功，已禁止破坏、放置、PVP、爆炸和玩家领地认领。" : "§c创建失败：请先在同一维度设置 A/B 两点，或检查区域大小/数量上限。");
+    Utils.tell(player, this.createRegion(player, name, priority) ? "§a保护区创建成功，已禁止破坏、放置、爆炸和玩家领地认领；允许玩家战斗。" : "§c创建失败：请先在同一维度设置 A/B 两点，或检查区域大小/数量上限。");
    }
    this.openAdminMenu(player, onBack);
   });

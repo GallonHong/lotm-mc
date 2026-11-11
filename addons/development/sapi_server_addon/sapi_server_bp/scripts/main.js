@@ -98,7 +98,7 @@ function initServerSystem() {
 	FlamethrowerPermissionManager.registerEvents(() => PvPManager.match?.id ?? null);
 	RailImpactManager.registerEvents(() => PvPManager.match?.id ?? null);
 	CombatTechniques.registerEvents(() => PvPManager.match?.id ?? null);
-	MeleeLeftManager.registerEvents(() => PvPManager.match?.id ?? null);
+	MeleeLeftManager.registerEvents();
 	RegionManager.registerProtectionEvents();
  PlotSafeZone.start();
 	LandManager.registerProtectionEvents();

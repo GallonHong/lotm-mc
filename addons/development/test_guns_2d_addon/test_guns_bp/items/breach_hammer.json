@@ -13,9 +13,9 @@
       "minecraft:hand_equipped": true,
       "minecraft:icon": "test_gun_breach_hammer",
       "minecraft:display_name": {
-        "value": "§5破城·液压重锤 [史诗]§r\n§e右键重击连段 19/25｜Shift+右键 液压震荡 38 (8秒)\n§7重击65%穿甲并减速；暴击/增伤继承护甲。\n§8左键单体基础19（含原生伤害）；右键连击，潜行+右键重击。"
+        "value": "§5破城·液压重锤 [史诗]§r\n§e右键重击连段 19/25｜Shift+右键 液压震荡 38 (8秒)\n§7重击65%穿甲并减速；暴击/增伤继承护甲。\n§8左键原版基础19（不含右键穿甲/连击）；右键连击，潜行+右键重击。"
       },
-      "minecraft:damage": 0,
+      "minecraft:damage": 18,
       "minecraft:durability": {
         "max_durability": 1700
       },
