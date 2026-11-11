@@ -61,7 +61,6 @@ def finalize_world():
     # 5. Package into .mcworld
     output_filename = "六分街 - 1.21.1兼容.mcworld"
     local_output_path = os.path.abspath(output_filename)
-    desktop_output_path = os.path.join(os.path.expanduser('~'), 'Desktop', output_filename)
     downloads_output_path = os.path.join(os.path.expanduser('~'), 'Downloads', output_filename)
     
     print(f"Creating zip archive {local_output_path}...")
@@ -74,13 +73,8 @@ def finalize_world():
     
     print(f"Local package size: {os.path.getsize(local_output_path):,} bytes")
     
-    # Copy to Desktop
-    try:
-        shutil.copyfile(local_output_path, desktop_output_path)
-        print(f"Copied to Desktop: {desktop_output_path}")
-    except Exception as e:
-        print(f"Error copying to Desktop: {e}")
-        
+    # Desktop copies are intentionally disabled: packaging must not add files to
+    # the user's Desktop. Copy to Downloads only.
     # Copy to Downloads
     try:
         shutil.copyfile(local_output_path, downloads_output_path)
