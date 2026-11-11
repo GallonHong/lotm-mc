@@ -10,7 +10,7 @@ const ui = JSON.parse(fs.readFileSync(path.join(rp, "ui/server_form.json"), "utf
 const uiDefs = JSON.parse(fs.readFileSync(path.join(rp, "ui/_ui_defs.json"), "utf8"));
 
 assert.equal(manifest.modules[0].type, "resources");
-assert.equal(manifest.header.version.join("."), "1.2.0");
+assert.equal(manifest.header.version.join("."), "1.2.3");
 assert.deepEqual(uiDefs.ui_defs, ["ui/server_form.json"]);
 assert.equal(fs.existsSync(path.join(rp, "ui/server_form.json")), true, "server_form.json must exist in ui directory");
 assert.equal(ui.namespace, "server_form");
@@ -34,7 +34,8 @@ assert.match(raw, /§l§2快乐101·贸易联盟§r/);
 assert.match(raw, /§l§2末日生存联盟§r/);
 assert.match(raw, /§l§6希望报/);
 assert.match(raw, /hope_post_panel/);
-assert.match(raw, /textures\/ui\/apocalypse\/hope_post_newspaper/);
+assert.match(raw, /"paper_background"/, "hope post paper background control missing");
+assert.match(raw, /"texture":\s*"textures\/ui\/apocalypse\/highlight"/, "hope post paper must reuse the highlight texture");
 assert.doesNotMatch(raw, /"ignored":\s*true/, "no tile art or labels should be ignored");
 
 for (let index = 0; index < 13; index++) {
@@ -51,4 +52,4 @@ for (const texture of [
 }
 assert.ok(fs.existsSync(path.join(rp, "textures/ui/apocalypse/hope_post_newspaper.png")), "generated Hope Post newspaper background missing");
 
-console.log("Apocalypse Survival UI v1.2.0 validation passed.");
+console.log("Apocalypse Survival UI v1.2.3 validation passed.");

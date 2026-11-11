@@ -453,296 +453,471 @@
  ]
  },
  "long_form": {
- "type": "panel",
- "size": [
-  "100%",
-  "100%"
- ],
- "controls": [
-  {
-  "default_long_form@common_dialogs.main_panel_no_buttons": {
-   "$title_panel": "common_dialogs.standard_title_label",
-   "$title_size": [
-   "100% - 15px",
-   10
-   ],
-   "$title_max_size": [
-   "100% - 15px",
-   10
-   ],
-   "size": [
-   225,
-   200
-   ],
-   "$text_name": "#title_text",
-   "$title_text_binding_type": "none",
-   "$child_control": "server_form.long_form_panel",
-   "layer": 2,
-   "bindings": [
+  "type": "panel",
+  "size": [
+   "100%",
+   "100%"
+  ],
+  "controls": [
    {
-    "binding_name": "#title_text"
+    "default_long_form@common_dialogs.main_panel_no_buttons": {
+     "$title_panel": "common_dialogs.standard_title_label",
+     "$title_size": [
+      "100% - 15px",
+      10
+     ],
+     "$title_max_size": [
+      "100% - 15px",
+      10
+     ],
+     "size": [
+      225,
+      200
+     ],
+     "$text_name": "#title_text",
+     "$title_text_binding_type": "none",
+     "$child_control": "server_form.long_form_panel",
+     "layer": 2,
+     "bindings": [
+      {
+       "binding_name": "#title_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(not ((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r') or (#title_text = '§l§6希望报')))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
    },
    {
-    "binding_type": "view",
-    "source_property_name": "(not ((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r') or (#title_text = '§l§6希望报')))",
-    "target_property_name": "#visible"
-   }
-   ]
-  }
-  },
-  {
-  "apoc_survival_form@common_dialogs.main_panel_no_buttons": {
-   "$title_panel": "common_dialogs.standard_title_label",
-   "$title_size": [
-   "100% - 14px",
-   14
-   ],
-   "size": [
-   364,
-   244
-   ],
-   "$text_name": "#title_text",
-   "$title_text_binding_type": "none",
-   "$child_control": "server_form.apoc_survival_panel",
-   "layer": 3,
-   "bindings": [
-   {
-    "binding_name": "#title_text"
+    "apoc_survival_form@common_dialogs.main_panel_no_buttons": {
+     "$title_panel": "common_dialogs.standard_title_label",
+     "$title_size": [
+      "100% - 14px",
+      14
+     ],
+     "size": [
+      364,
+      244
+     ],
+     "$text_name": "#title_text",
+     "$title_text_binding_type": "none",
+     "$child_control": "server_form.apoc_survival_panel",
+     "layer": 3,
+     "bindings": [
+      {
+       "binding_name": "#title_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r'))",
+       "target_property_name": "#visible"
+      }
+     ]
+    }
    },
    {
-    "binding_type": "view",
-    "source_property_name": "((#title_text = '§l§2幸存者联盟§r') or (#title_text = '§l§2快乐101·贸易联盟§r') or (#title_text = '§l§2末日生存联盟§r'))",
-    "target_property_name": "#visible"
+    "hope_post_form@common_dialogs.main_panel_no_buttons": {
+     "$title_panel": "common_dialogs.standard_title_label",
+     "$title_size": [
+      "100% - 14px",
+      14
+     ],
+     "size": [
+      "96%",
+      "94%"
+     ],
+     "$text_name": "#title_text",
+     "$title_text_binding_type": "none",
+     "$child_control": "server_form.hope_post_panel",
+     "layer": 4,
+     "bindings": [
+      {
+       "binding_name": "#title_text"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(#title_text = '§l§6希望报')",
+       "target_property_name": "#visible"
+      }
+     ],
+     "max_size": [
+      420,
+      280
+     ]
+    }
    }
-   ]
-  }
-  },
-  {
-  "hope_post_form@common_dialogs.main_panel_no_buttons": {
-   "$title_panel": "common_dialogs.standard_title_label",
-   "$title_size": ["100% - 14px", 14],
-   "size": [364, 244],
-   "$text_name": "#title_text",
-   "$title_text_binding_type": "none",
-   "$child_control": "server_form.hope_post_panel",
-   "layer": 4,
-   "bindings": [
-   { "binding_name": "#title_text" },
-   {
-    "binding_type": "view",
-    "source_property_name": "(#title_text = '§l§6希望报')",
-    "target_property_name": "#visible"
-   }
-   ]
-  }
-  }
- ]
+  ]
  },
  "hope_post_panel": {
- "type": "panel",
- "size": [
-  "100%",
-  "100%"
- ],
- "controls": [
-  {
-   "paper_background": {
-    "type": "image",
-    "texture": "textures/ui/apocalypse/highlight",
-    "size": [
-     "100%",
-     "100%"
-    ],
-    "color": [
-     0.933,
-     0.898,
-     0.812
-    ],
-    "layer": 1
-   }
-  },
-  {
-   "newspaper_content": {
-    "type": "stack_panel",
-    "orientation": "vertical",
-    "size": [
-     "100% - 12px",
-     "100% - 8px"
-    ],
-    "offset": [
-     0,
-     2
-    ],
-    "layer": 2,
-    "controls": [
-     {
-      "masthead": {
-       "type": "panel",
-       "controls": [
-        {
-         "background": {
-          "type": "image",
-          "texture": "textures/ui/apocalypse/highlight",
-          "size": [
-           "100%",
-           "100%"
-          ],
-          "color": [
-           0.204,
-           0.173,
-           0.137
-          ],
-          "layer": 1
+  "type": "panel",
+  "size": [
+   "100%",
+   "100%"
+  ],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left",
+  "controls": [
+   {
+    "paper_background": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100%",
+      "100%"
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      0,
+      0
+     ],
+     "keep_ratio": false,
+     "color": [
+      0.937,
+      0.91,
+      0.839
+     ],
+     "layer": 1
+    }
+   },
+   {
+    "newspaper_content": {
+     "type": "stack_panel",
+     "size": [
+      "100% - 12px",
+      "100% - 8px"
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "orientation": "vertical",
+     "controls": [
+      {
+       "masthead": {
+        "type": "panel",
+        "size": [
+         "100%",
+         28
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "controls": [
+         {
+          "background": {
+           "type": "image",
+           "texture": "textures/ui/apocalypse/highlight",
+           "size": [
+            "100%",
+            "100%"
+           ],
+           "anchor_from": "top_left",
+           "anchor_to": "top_left",
+           "offset": [
+            0,
+            0
+           ],
+           "keep_ratio": false,
+           "color": [
+            0.53,
+            0.28,
+            0.2
+           ],
+           "layer": 1
+          }
+         },
+         {
+          "edition_mark": {
+           "type": "label",
+           "text": "HOPE\nPOST",
+           "size": [
+            38,
+            22
+           ],
+           "anchor_from": "top_left",
+           "anchor_to": "top_left",
+           "offset": [
+            6,
+            3
+           ],
+           "color": [
+            0.937,
+            0.91,
+            0.839
+           ],
+           "shadow": false,
+           "text_alignment": "left",
+           "font_size": "small",
+           "layer": 3
+          }
+         },
+         {
+          "title": {
+           "type": "label",
+           "text": "§l希 望 报",
+           "size": [
+            "100% - 90px",
+            22
+           ],
+           "anchor_from": "top_left",
+           "anchor_to": "top_left",
+           "offset": [
+            45,
+            3
+           ],
+           "color": [
+            0.937,
+            0.91,
+            0.839
+           ],
+           "shadow": false,
+           "text_alignment": "center",
+           "font_size": "large",
+           "layer": 3
+          }
+         },
+         {
+          "publisher": {
+           "type": "label",
+           "text": "幸存者\n日报",
+           "size": [
+            38,
+            22
+           ],
+           "anchor_from": "top_right",
+           "anchor_to": "top_right",
+           "offset": [
+            -6,
+            3
+           ],
+           "color": [
+            0.937,
+            0.91,
+            0.839
+           ],
+           "shadow": false,
+           "text_alignment": "right",
+           "font_size": "small",
+           "layer": 3
+          }
          }
-        },
-        {
-         "title": {
-          "type": "label",
-          "text": "§l希望报 · HOPE POST",
-          "size": [
-           "100% - 8px",
-           18
-          ],
-          "color": [
-           0.875,
-           0.729,
-           0.322
-          ],
-          "text_alignment": "center",
-          "layer": 2
-         }
-        }
-       ],
-       "size": [
-        "100%",
-        24
-       ]
+        ]
+       }
+      },
+      {
+       "motto": {
+        "type": "label",
+        "text": "记录灯火仍未熄灭的每一天",
+        "size": [
+         "100%",
+         13
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "offset": [
+         0,
+         0
+        ],
+        "color": [
+         0.42,
+         0.38,
+         0.31
+        ],
+        "shadow": false,
+        "text_alignment": "center",
+        "font_size": "small",
+        "layer": 3
+       }
+      },
+      {
+       "rule": {
+        "type": "image",
+        "texture": "textures/ui/apocalypse/highlight",
+        "size": [
+         "100%",
+         1
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "offset": [
+         0,
+         0
+        ],
+        "keep_ratio": false,
+        "color": [
+         0.2,
+         0.18,
+         0.15
+        ],
+        "layer": 1
+       }
+      },
+      {
+       "hope_scroll@common.scrolling_panel": {
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "$show_background": false,
+        "size": [
+         "100%",
+         "fill"
+        ],
+        "$scrolling_content": "server_form.hope_post_scrolling_content",
+        "$scroll_size": [
+         5,
+         "100% - 4px"
+        ],
+        "$scrolling_pane_size": [
+         "100% - 4px",
+         "100% - 2px"
+        ],
+        "$scrolling_pane_offset": [
+         2,
+         0
+        ],
+        "$scroll_bar_right_padding_size": [
+         0,
+         0
+        ]
+       }
       }
-     },
-     {
-      "motto": {
-       "type": "label",
-       "text": "记录灯火仍未熄灭的每一天",
-       "size": [
-        "100%",
-        12
-       ],
-       "color": [
-        0.333,
-        0.267,
-        0.196
-       ],
-       "text_alignment": "center"
-      }
-     },
-     {
-      "hero_gap": {
-       "type": "panel",
-       "size": [
-        "100%",
-        4
-       ]
-      }
-     },
-     {
-      "rule": {
-       "type": "image",
-       "texture": "textures/ui/apocalypse/scrim",
-       "size": [
-        "100%",
-        1
-       ],
-       "color": [
-        0.95,
-        0.68,
-        0.2
-       ],
-       "alpha": 1.0
-      }
-     },
-     {
-      "hope_scroll@common.scrolling_panel": {
-       "$show_background": false,
-       "size": [
-        "100%",
-        "fill"
-       ],
-       "$scrolling_content": "server_form.hope_post_scrolling_content",
-       "$scroll_size": [
-        5,
-        "100% - 4px"
-       ],
-       "$scrolling_pane_size": [
-        "100% - 4px",
-        "100% - 2px"
-       ],
-       "$scrolling_pane_offset": [
-        2,
-        0
-       ],
-       "$scroll_bar_right_padding_size": [
-        0,
-        0
-       ]
-      }
-     }
-    ]
+     ],
+     "offset": [
+      6,
+      4
+     ],
+     "layer": 2
+    }
    }
-  }
- ]
-},
+  ]
+ },
  "hope_post_scrolling_content": {
- "type": "stack_panel",
- "orientation": "vertical",
- "size": [
-  "100% - 4px",
-  "100%c"
- ],
- "controls": [
-  {
-   "edition_text": {
-    "type": "label",
-    "text": "#form_text",
-    "size": [
-     "100% - 4px",
-     "default"
-    ],
-    "offset": [
-     2,
-     3
-    ],
-    "color": [
-     0.23,
-     0.16,
-     0.09
-    ],
-    "shadow": false,
-    "bindings": [
-     {
-      "binding_name": "#form_text"
-     }
-    ]
+  "type": "stack_panel",
+  "size": [
+   "100% - 4px",
+   "100%c"
+  ],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left",
+  "orientation": "vertical",
+  "controls": [
+   {
+    "top_padding": {
+     "type": "panel",
+     "size": [
+      "100%",
+      5
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   },
+   {
+    "edition_block": {
+     "type": "panel",
+     "size": [
+      "100%",
+      "100%c"
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "controls": [
+      {
+       "edition_text": {
+        "type": "label",
+        "text": "#form_text",
+        "size": [
+         "100% - 8px",
+         "default"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "offset": [
+         4,
+         0
+        ],
+        "color": [
+         0.2,
+         0.18,
+         0.15
+        ],
+        "shadow": false,
+        "text_alignment": "left",
+        "font_size": "small",
+        "layer": 3,
+        "bindings": [
+         {
+          "binding_name": "#form_text"
+         }
+        ]
+       }
+      }
+     ]
+    }
+   },
+   {
+    "edition_padding": {
+     "type": "panel",
+     "size": [
+      "100%",
+      6
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   },
+   {
+    "edition_rule": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100%",
+      1
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      0,
+      0
+     ],
+     "keep_ratio": false,
+     "color": [
+      0.54,
+      0.49,
+      0.4
+     ],
+     "layer": 1
+    }
+   },
+   {
+    "columns_gap": {
+     "type": "panel",
+     "size": [
+      "100%",
+      4
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   },
+   {
+    "hope_buttons@server_form.hope_post_buttons": {
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   },
+   {
+    "bottom_padding": {
+     "type": "panel",
+     "size": [
+      "100%",
+      4
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
    }
-  },
-  {
-   "gap": {
-    "type": "panel",
-    "size": [
-     "100%",
-     7
-    ]
-   }
-  },
-  {
-   "hope_buttons@server_form.hope_post_buttons": {
-    "size": [
-     "100% - 4px",
-     "100%c"
-    ]
-   }
-  }
- ]
-},
+  ]
+ },
  "long_form_panel": {
  "type": "stack_panel",
  "size": [
@@ -1410,439 +1585,557 @@
  }
 ,
  "hope_post_buttons": {
- "type": "stack_panel",
- "orientation": "vertical",
- "controls": [
-  {
-   "row_0": {
-    "type": "stack_panel",
-    "orientation": "horizontal",
-    "controls": [
-     {
-      "card_0@server_form.hope_post_card": {
-       "collection_index": 0,
-       "$heading": "废土要闻",
-       "$cta": "阅读全文  >",
-       "$accent": [
-        0.55,
-        0.18,
-        0.12
-       ]
+  "type": "stack_panel",
+  "size": [
+   "100%",
+   "100%c"
+  ],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left",
+  "orientation": "vertical",
+  "controls": [
+   {
+    "columns": {
+     "type": "panel",
+     "size": [
+      "100%",
+      192
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "controls": [
+      {
+       "left_column": {
+        "type": "stack_panel",
+        "size": [
+         "58% - 3px",
+         "100%"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "orientation": "vertical",
+        "controls": [
+         {
+          "card_0@server_form.hope_post_card": {
+           "collection_index": 0,
+           "$heading": "§l废土头条",
+           "$cta": "阅读全文  >",
+           "$card_height": 116,
+           "$show_art": true,
+           "$summary_y": 74,
+           "$summary_height": 24
+          }
+         },
+         {
+          "gap": {
+           "type": "panel",
+           "size": [
+            "100%",
+            4
+           ],
+           "anchor_from": "top_left",
+           "anchor_to": "top_left"
+          }
+         },
+         {
+          "card_2@server_form.hope_post_card": {
+           "collection_index": 2,
+           "$heading": "§l市民广场",
+           "$cta": "查看幸存者投稿  >",
+           "$card_height": 72
+          }
+         }
+        ],
+        "collection_name": "form_buttons"
+       }
+      },
+      {
+       "column_rule": {
+        "type": "image",
+        "texture": "textures/ui/apocalypse/highlight",
+        "size": [
+         1,
+         "100% - 4px"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "offset": [
+         "58%",
+         0
+        ],
+        "keep_ratio": false,
+        "color": [
+         0.54,
+         0.49,
+         0.4
+        ],
+        "layer": 1
+       }
+      },
+      {
+       "right_column": {
+        "type": "stack_panel",
+        "size": [
+         "42% - 4px",
+         "100%"
+        ],
+        "anchor_from": "top_left",
+        "anchor_to": "top_left",
+        "orientation": "vertical",
+        "controls": [
+         {
+          "card_1@server_form.hope_post_card": {
+           "collection_index": 1,
+           "$heading": "§l商会资讯",
+           "$cta": "查看当期军需  >",
+           "$card_height": 94
+          }
+         },
+         {
+          "gap": {
+           "type": "panel",
+           "size": [
+            "100%",
+            4
+           ],
+           "anchor_from": "top_left",
+           "anchor_to": "top_left"
+          }
+         },
+         {
+          "card_3@server_form.hope_post_card": {
+           "collection_index": 3,
+           "$heading": "§l每日情报",
+           "$cta": "参与有奖问答  >",
+           "$card_height": 94
+          }
+         }
+        ],
+        "offset": [
+         "58% + 4px",
+         0
+        ],
+        "collection_name": "form_buttons"
+       }
       }
-     },
-     {
-      "card_1@server_form.hope_post_card": {
-       "collection_index": 1,
-       "$heading": "商会特供赞助",
-       "$cta": "查看当期军需  >",
-       "$accent": [
-        0.27,
-        0.41,
-        0.25
-       ]
+     ]
+    }
+   },
+   {
+    "footer_gap": {
+     "type": "panel",
+     "size": [
+      "100%",
+      4
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   },
+   {
+    "footer_4@server_form.hope_post_footer": {
+     "collection_index": 4,
+     "bindings": [
+      {
+       "binding_name": "#form_button_contents",
+       "binding_name_override": "#hope_button_count"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(#hope_button_count > 4)",
+       "target_property_name": "#visible"
       }
-     }
-    ],
-    "size": [
-     "100%",
-     84
-    ],
-    "collection_name": "form_buttons"
-   }
-  },
-  {
-   "row_1": {
-    "type": "stack_panel",
-    "orientation": "horizontal",
-    "controls": [
-     {
-      "card_2@server_form.hope_post_card": {
-       "collection_index": 2,
-       "$heading": "市民广场",
-       "$cta": "查看所有投稿  >",
-       "$accent": [
-        0.71,
-        0.36,
-        0.15
-       ]
+     ]
+    }
+   },
+   {
+    "footer_5@server_form.hope_post_footer": {
+     "collection_index": 5,
+     "bindings": [
+      {
+       "binding_name": "#form_button_contents",
+       "binding_name_override": "#hope_button_count"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(#hope_button_count > 5)",
+       "target_property_name": "#visible"
       }
-     },
-     {
-      "card_3@server_form.hope_post_card": {
-       "collection_index": 3,
-       "$heading": "每日真假情报",
-       "$cta": "参与有奖问答  >",
-       "$accent": [
-        0.275,
-        0.325,
-        0.384
-       ]
+     ]
+    }
+   },
+   {
+    "footer_6@server_form.hope_post_footer": {
+     "collection_index": 6,
+     "bindings": [
+      {
+       "binding_name": "#form_button_contents",
+       "binding_name_override": "#hope_button_count"
+      },
+      {
+       "binding_type": "view",
+       "source_property_name": "(#hope_button_count > 6)",
+       "target_property_name": "#visible"
       }
-     }
-    ],
-    "size": [
-     "100%",
-     84
-    ],
-    "collection_name": "form_buttons"
+     ]
+    }
    }
-  },
-  {
-   "footer_4@server_form.hope_post_footer": {
-    "collection_index": 4,
-    "bindings": [
-     {
-      "binding_name": "#form_button_contents",
-      "binding_name_override": "#hope_button_count"
-     },
-     {
-      "binding_type": "view",
-      "source_property_name": "(#hope_button_count > 4)",
-      "target_property_name": "#visible"
-     }
-    ]
-   }
-  },
-  {
-   "footer_5@server_form.hope_post_footer": {
-    "collection_index": 5,
-    "bindings": [
-     {
-      "binding_name": "#form_button_contents",
-      "binding_name_override": "#hope_button_count"
-     },
-     {
-      "binding_type": "view",
-      "source_property_name": "(#hope_button_count > 5)",
-      "target_property_name": "#visible"
-     }
-    ]
-   }
-  },
-  {
-   "footer_6@server_form.hope_post_footer": {
-    "collection_index": 6,
-    "bindings": [
-     {
-      "binding_name": "#form_button_contents",
-      "binding_name_override": "#hope_button_count"
-     },
-     {
-      "binding_type": "view",
-      "source_property_name": "(#hope_button_count > 6)",
-      "target_property_name": "#visible"
-     }
-    ]
-   }
-  }
- ],
- "size": [
-  "100%",
-  "100%c"
- ],
- "collection_name": "form_buttons"
-},
+  ],
+  "collection_name": "form_buttons"
+ },
  "hope_post_card": {
- "type": "panel",
- "controls": [
-  {
-   "card": {
-    "type": "panel",
-    "controls": [
-     {
-      "border": {
-       "type": "image",
-       "texture": "textures/ui/apocalypse/highlight",
-       "size": [
-        "100%",
-        "100%"
-       ],
-       "color": [
-        0.729,
-        0.659,
-        0.537
-       ],
-       "layer": 1
+  "type": "panel",
+  "size": [
+   "100%",
+   "$card_height"
+  ],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left",
+  "clips_children": true,
+  "$card_height|default": 94,
+  "$show_art|default": false,
+  "$summary_y|default": 26,
+  "$summary_height|default": 28,
+  "controls": [
+   {
+    "paper": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100%",
+      "100%"
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      0,
+      0
+     ],
+     "keep_ratio": false,
+     "color": [
+      0.937,
+      0.91,
+      0.839
+     ],
+     "layer": 1
+    }
+   },
+   {
+    "heading": {
+     "type": "label",
+     "text": "$heading",
+     "size": [
+      "100% - 12px",
+      14
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      6,
+      4
+     ],
+     "color": [
+      0.2,
+      0.18,
+      0.15
+     ],
+     "shadow": false,
+     "text_alignment": "left",
+     "font_size": "normal",
+     "layer": 3
+    }
+   },
+   {
+    "rule": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100% - 12px",
+      1
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      6,
+      21
+     ],
+     "keep_ratio": false,
+     "color": [
+      0.54,
+      0.49,
+      0.4
+     ],
+     "layer": 2
+    }
+   },
+   {
+    "art": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/world_event",
+     "size": [
+      "100% - 12px",
+      44
+     ],
+     "offset": [
+      0,
+      26
+     ],
+     "anchor_from": "top_middle",
+     "anchor_to": "top_middle",
+     "keep_ratio": true,
+     "grayscale": true,
+     "color": [
+      0.84,
+      0.8,
+      0.7
+     ],
+     "visible": "$show_art",
+     "layer": 2
+    }
+   },
+   {
+    "summary": {
+     "type": "label",
+     "text": "#form_button_text",
+     "size": [
+      "100% - 12px",
+      "$summary_height"
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      6,
+      "$summary_y"
+     ],
+     "color": [
+      0.2,
+      0.18,
+      0.15
+     ],
+     "shadow": false,
+     "text_alignment": "left",
+     "font_size": "small",
+     "layer": 3,
+     "clips_children": true,
+     "bindings": [
+      {
+       "binding_name": "#form_button_text",
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons"
       }
-     },
-     {
-      "paper": {
-       "type": "image",
-       "texture": "textures/ui/apocalypse/highlight",
-       "size": [
-        "100% - 2px",
-        "100% - 2px"
-       ],
-       "color": [
-        0.91,
-        0.867,
-        0.741
-       ],
-       "layer": 2
-      }
-     },
-     {
-      "heading": {
-       "type": "label",
-       "text": "$heading",
-       "size": [
-        "100% - 12px",
-        16
-       ],
-       "offset": [
-        6,
-        4
-       ],
-       "anchor_from": "top_left",
-       "anchor_to": "top_left",
-       "color": [
-        0.17,
-        0.13,
-        0.09
-       ],
-       "font_size": "normal",
-       "layer": 3
-      }
-     },
-     {
-      "rule": {
-       "type": "image",
-       "texture": "textures/ui/apocalypse/highlight",
-       "size": [
-        "100% - 12px",
-        1
-       ],
-       "color": [
-        0.557,
-        0.486,
-        0.388
-       ],
-       "offset": [
-        6,
-        22
-       ],
-       "anchor_from": "top_left",
-       "anchor_to": "top_left",
-       "layer": 3
-      }
-     },
-     {
-      "summary": {
-       "type": "label",
-       "text": "#form_button_text",
-       "size": [
-        "100% - 12px",
-        36
-       ],
-       "offset": [
-        6,
-        25
-       ],
-       "anchor_from": "top_left",
-       "anchor_to": "top_left",
-       "text_alignment": "left",
-       "font_size": "small",
-       "color": [
-        0.24,
-        0.2,
-        0.16
-       ],
-       "shadow": false,
-       "layer": 3,
-       "bindings": [
-        {
-         "binding_name": "#form_button_text",
-         "binding_type": "collection",
-         "binding_collection_name": "form_buttons"
-        }
-       ]
-      }
-     },
-     {
-      "cta_background": {
-       "type": "image",
-       "texture": "textures/ui/apocalypse/highlight",
-       "size": [
-        "100% - 8px",
-        14
-       ],
-       "color": "$accent",
-       "offset": [
-        0,
-        -3
-       ],
-       "anchor_from": "bottom_middle",
-       "anchor_to": "bottom_middle",
-       "layer": 3
-      }
-     },
-     {
-      "cta": {
-       "type": "label",
-       "text": "$cta",
-       "size": [
-        "100% - 12px",
-        12
-       ],
-       "offset": [
-        0,
-        -4
-       ],
-       "anchor_from": "bottom_middle",
-       "anchor_to": "bottom_middle",
-       "text_alignment": "center",
-       "font_size": "small",
-       "color": [
-        1,
-        1,
-        1
-       ],
-       "layer": 4
-      }
-     },
-     {
-      "click@server_form.hope_post_click": {}
-     }
-    ],
-    "size": [
-     "100% - 4px",
-     80
-    ]
+     ]
+    }
+   },
+   {
+    "cta": {
+     "type": "label",
+     "text": "$cta",
+     "size": [
+      "100% - 12px",
+      12
+     ],
+     "anchor_from": "bottom_right",
+     "anchor_to": "bottom_right",
+     "offset": [
+      -6,
+      -3
+     ],
+     "color": [
+      0.53,
+      0.28,
+      0.2
+     ],
+     "shadow": false,
+     "text_alignment": "right",
+     "font_size": "small",
+     "layer": 3
+    }
+   },
+   {
+    "click@server_form.hope_post_click": {}
    }
-  }
- ],
- "size": [
-  "50%",
-  84
- ],
- "collection_name": "form_buttons"
-},
+  ]
+ },
  "hope_post_click": {
- "type": "button",
- "size": [
-  "100%",
-  "100%"
- ],
- "layer": 10,
- "default_control": "default",
- "hover_control": "hover",
- "pressed_control": "pressed",
- "sound_name": "random.click",
- "controls": [
-  {
-   "default": {
-    "type": "panel",
-    "controls": [],
-    "size": [
-     "100%",
-     "100%"
-    ]
+  "type": "button",
+  "size": [
+   "100%",
+   "100%"
+  ],
+  "layer": 10,
+  "default_control": "default",
+  "hover_control": "hover",
+  "pressed_control": "pressed",
+  "sound_name": "random.click",
+  "controls": [
+   {
+    "default": {
+     "type": "panel",
+     "controls": [],
+     "size": [
+      "100%",
+      "100%"
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left"
+    }
+   },
+   {
+    "hover": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100%",
+      "100%"
+     ],
+     "color": [
+      1,
+      1,
+      1
+     ],
+     "alpha": 0.16,
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "keep_ratio": false
+    }
+   },
+   {
+    "pressed": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100%",
+      "100%"
+     ],
+     "color": [
+      0.2,
+      0.15,
+      0.1
+     ],
+     "alpha": 0.3,
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "keep_ratio": false
+    }
    }
-  },
-  {
-   "hover": {
-    "type": "image",
-    "texture": "textures/ui/apocalypse/highlight",
-    "size": [
-     "100%",
-     "100%"
-    ],
-    "color": [
-     1,
-     1,
-     1
-    ],
-    "alpha": 0.16
+  ],
+  "bindings": [
+   {
+    "binding_type": "collection_details",
+    "binding_collection_name": "form_buttons"
    }
-  },
-  {
-   "pressed": {
-    "type": "image",
-    "texture": "textures/ui/apocalypse/highlight",
-    "size": [
-     "100%",
-     "100%"
-    ],
-    "color": [
-     0.2,
-     0.15,
-     0.1
-    ],
-    "alpha": 0.3
+  ],
+  "button_mappings": [
+   {
+    "from_button_id": "button.menu_select",
+    "to_button_id": "button.form_button_click",
+    "mapping_type": "pressed"
+   },
+   {
+    "from_button_id": "button.menu_ok",
+    "to_button_id": "button.form_button_click",
+    "mapping_type": "focused"
    }
-  }
- ],
- "bindings": [
-  {
-   "binding_type": "collection_details",
-   "binding_collection_name": "form_buttons"
-  }
- ],
- "button_mappings": [
-  {
-   "from_button_id": "button.menu_select",
-   "to_button_id": "button.form_button_click",
-   "mapping_type": "pressed"
-  },
-  {
-   "from_button_id": "button.menu_ok",
-   "to_button_id": "button.form_button_click",
-   "mapping_type": "focused"
-  }
- ]
-},
+  ],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left"
+ },
  "hope_post_footer": {
- "type": "panel",
- "controls": [
-  {
-   "background": {
-    "type": "image",
-    "texture": "textures/ui/apocalypse/highlight",
-    "size": [
-     "100% - 4px",
-     30
-    ],
-    "color": [
-     0.875,
-     0.824,
-     0.71
-    ],
-    "layer": 1
+  "type": "panel",
+  "size": [
+   "100%",
+   32
+  ],
+  "anchor_from": "top_left",
+  "anchor_to": "top_left",
+  "clips_children": true,
+  "controls": [
+   {
+    "background": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100%",
+      29
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      0,
+      0
+     ],
+     "keep_ratio": false,
+     "color": [
+      0.87,
+      0.83,
+      0.74
+     ],
+     "layer": 1
+    }
+   },
+   {
+    "rule": {
+     "type": "image",
+     "texture": "textures/ui/apocalypse/highlight",
+     "size": [
+      "100%",
+      1
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      0,
+      0
+     ],
+     "keep_ratio": false,
+     "color": [
+      0.54,
+      0.49,
+      0.4
+     ],
+     "layer": 1
+    }
+   },
+   {
+    "label": {
+     "type": "label",
+     "text": "#form_button_text",
+     "size": [
+      "100% - 12px",
+      24
+     ],
+     "anchor_from": "top_left",
+     "anchor_to": "top_left",
+     "offset": [
+      6,
+      3
+     ],
+     "color": [
+      0.2,
+      0.18,
+      0.15
+     ],
+     "shadow": false,
+     "text_alignment": "left",
+     "font_size": "small",
+     "layer": 3,
+     "bindings": [
+      {
+       "binding_name": "#form_button_text",
+       "binding_type": "collection",
+       "binding_collection_name": "form_buttons"
+      }
+     ]
+    }
+   },
+   {
+    "click@server_form.hope_post_click": {
+     "size": [
+      "100%",
+      29
+     ]
+    }
    }
-  },
-  {
-   "label": {
-    "type": "label",
-    "text": "#form_button_text",
-    "size": [
-     "100% - 12px",
-     26
-    ],
-    "text_alignment": "center",
-    "font_size": "small",
-    "color": [
-     0.17,
-     0.13,
-     0.09
-    ],
-    "layer": 2,
-    "bindings": [
-     {
-      "binding_name": "#form_button_text",
-      "binding_type": "collection",
-      "binding_collection_name": "form_buttons"
-     }
-    ]
-   }
-  },
-  {
-   "click@server_form.hope_post_click": {}
-  }
- ],
- "size": [
-  "100%",
-  34
- ],
- "collection_name": "form_buttons"
-}
+  ]
+ }
 }
