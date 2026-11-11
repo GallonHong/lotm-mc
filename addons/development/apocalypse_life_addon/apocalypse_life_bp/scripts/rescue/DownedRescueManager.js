@@ -23,6 +23,9 @@ export class DownedPlayerInstance {
  constructor(player, location, dimension) {
   this.player = player;
   this.id = player.id;
+  // Tags cross behavior-pack UUID boundaries; Guns/SAPI must see this lock.
+  this.tagPublishAttempts = 20;
+  this.publishDownedTag();
   this.location = { x: location.x, y: location.y, z: location.z };
   this.dimension = dimension;
 
@@ -64,6 +67,17 @@ export class DownedPlayerInstance {
 
   // 启动独立驱动循环
   this.runId = system.runInterval(() => this.tick(), 1);
+ }
+
+ publishDownedTag() {
+  if (this.tagPublishAttempts <= 0) return;
+  this.tagPublishAttempts--;
+  try {
+   this.player.addTag("apoc:downed");
+   // Keep the pending lock until the active lock was successfully published.
+   this.player.removeTag("apoc:downed_pending");
+   this.tagPublishAttempts = 0;
+  } catch {}
  }
 
  startDroneRescue(droneEntity, droneConfig) {
@@ -135,6 +149,8 @@ export class DownedPlayerInstance {
    this.end();
    return;
   }
+
+  this.publishDownedTag();
 
   // 倒地初始 1 秒保护倒计时
   if (this.graceTicks > 0) {
@@ -327,6 +343,7 @@ export class DownedPlayerInstance {
   DownedRescueManager.activeInstances.delete(this.id);
 
   if (this.player && this.player.isValid()) {
+   DownedRescueManager.clearOwnLocks(this.player);
    this.player.nameTag = this.player.name;
    this.lockControls(false);
 
@@ -455,7 +472,20 @@ export class DownedPlayerInstance {
  */
 export class DownedRescueManager {
  static activeInstances = new Map();
+ static pendingDowns = new Set();
  static chatSurrenderAvailable = false;
+
+ // Bounded per-transition cleanup. Never erase a newer pending/active lock.
+ static clearOwnLocks(player, attempts = 3) {
+  if (this.activeInstances.has(player.id) || this.pendingDowns.has(player.id)) return;
+  let failed = false;
+  for (const tag of ["apoc:downed", "apoc:downed_pending"]) {
+   try { player.removeTag(tag); } catch { failed = true; }
+  }
+  if (failed && attempts > 1) {
+   try { system.runTimeout(() => this.clearOwnLocks(player, attempts - 1), 1); } catch {}
+  }
+ }
 
  static init() {
   console.warn("[DownedRescueManager] Downed & Rescue System initializing...");
@@ -463,6 +493,15 @@ export class DownedRescueManager {
   // 1. 强制确保持续即时复活 (保证倒地瞬间不弹出原版死亡停顿界面)
   this.enforceGamerules();
   system.runInterval(() => this.enforceGamerules(), 200);
+
+  // Remove only stale Life locks after reload/reconnect, not a pending respawn.
+  const clearStaleLock = player => {
+   if (!this.activeInstances.has(player.id) && !this.pendingDowns.has(player.id)) {
+    this.clearOwnLocks(player);
+   }
+  };
+  for (const player of world.getAllPlayers()) clearStaleLock(player);
+  world.afterEvents?.playerSpawn?.subscribe(({ player }) => clearStaleLock(player));
 
   // 2.1 倒地受创监听：允许被枪械击中、扣血并支持补枪处决
   if (world.afterEvents?.entityHurt) {
@@ -526,6 +565,11 @@ export class DownedRescueManager {
      return;
     }
 
+    // Publish the lock before respawn so queued custom shots cannot escape it.
+    if (this.pendingDowns.has(player.id)) return;
+    this.pendingDowns.add(player.id);
+    try { player.addTag("apoc:downed_pending"); } catch {}
+    try {
     const loc = { x: deadEntity.location.x, y: deadEntity.location.y, z: deadEntity.location.z };
     const dim = deadEntity.dimension;
 
@@ -534,24 +578,45 @@ export class DownedRescueManager {
     const pullId = system.runInterval(() => {
      if (!player.isValid() || participant(player) || ++attempts > 40) {
       system.clearRun(pullId);
+      this.pendingDowns.delete(player.id);
+      this.clearOwnLocks(player);
       return;
      }
 
-     const healthComp = player.getComponent(EntityComponentTypes.Health);
+     // Dead entities may reject tags; retry only during this bounded handoff.
+     try { player.addTag("apoc:downed_pending"); } catch {}
+     let healthComp;
+     try { healthComp = player.getComponent(EntityComponentTypes.Health); } catch { return; }
      if (healthComp && healthComp.currentValue > 0) {
       // 复活完毕，瞬间拉回致死点
-      player.teleport(loc, { dimension: dim });
+      try { player.teleport(loc, { dimension: dim }); } catch { return; }
       system.clearRun(pullId);
 
       // 创建倒地实例
-      system.runTimeout(() => {
+      try { system.runTimeout(() => {
+       try {
        if (player.isValid() && !participant(player) && !this.activeInstances.has(player.id)) {
         const instance = new DownedPlayerInstance(player, loc, dim);
         this.activeInstances.set(player.id, instance);
        }
-      }, 1);
+       } catch (error) {
+        console.warn(`[DownedRescue] Downed startup failed: ${error}`);
+       } finally {
+        this.pendingDowns.delete(player.id);
+        if (!this.activeInstances.has(player.id)) this.clearOwnLocks(player);
+       }
+      }, 1); } catch (error) {
+       this.pendingDowns.delete(player.id);
+       this.clearOwnLocks(player);
+       console.warn(`[DownedRescue] Downed scheduling failed: ${error}`);
+      }
      }
     }, 1);
+    } catch (error) {
+     this.pendingDowns.delete(player.id);
+     this.clearOwnLocks(player);
+     console.warn(`[DownedRescue] Respawn handoff failed: ${error}`);
+    }
    });
   }
 
