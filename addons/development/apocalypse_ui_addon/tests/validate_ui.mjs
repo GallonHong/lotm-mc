@@ -10,7 +10,7 @@ const ui = JSON.parse(fs.readFileSync(path.join(rp, "ui/server_form.json"), "utf
 const uiDefs = JSON.parse(fs.readFileSync(path.join(rp, "ui/_ui_defs.json"), "utf8"));
 
 assert.equal(manifest.modules[0].type, "resources");
-assert.equal(manifest.header.version.join("."), "1.2.3");
+assert.equal(manifest.header.version.join("."), "1.2.4");
 assert.deepEqual(uiDefs.ui_defs, ["ui/server_form.json"]);
 assert.equal(fs.existsSync(path.join(rp, "ui/server_form.json")), true, "server_form.json must exist in ui directory");
 assert.equal(ui.namespace, "server_form");
@@ -52,4 +52,4 @@ for (const texture of [
 }
 assert.ok(fs.existsSync(path.join(rp, "textures/ui/apocalypse/hope_post_newspaper.png")), "generated Hope Post newspaper background missing");
 
-console.log("Apocalypse Survival UI v1.2.3 validation passed.");
+console.log("Apocalypse Survival UI v1.2.4 validation passed.");
