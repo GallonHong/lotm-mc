@@ -24,7 +24,7 @@
         "pre_animation": [
           "v.sm_using = c.owning_entity -> q.is_using_item;",
           "v.sm_sneaking = c.owning_entity -> q.is_sneaking;",
-          "v.sm_roll_hidden = c.is_first_person && ((c.owning_entity -> (v.tg_melee_roll_until ?? 0))) > (c.owning_entity -> q.life_time);"
+          "v.sm_roll_hidden = c.is_first_person && (((c.owning_entity -> v.tg_melee_roll_until) ?? 0)) > (c.owning_entity -> q.life_time);"
         ],
         "animate": [
           {

@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 19, 4]);
-assert.deepEqual(rpManifest.header.version, [0, 19, 4]);
+assert.deepEqual(manifest.header.version, [0, 19, 5]);
+assert.deepEqual(rpManifest.header.version, [0, 19, 5]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {

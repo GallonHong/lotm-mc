@@ -266,15 +266,16 @@ EntityLootCrateManager.initialize();
 subscribe(world.afterEvents?.entityLoad, "entityLoad", event => WorldEventManager.cleanupIfStale(event.entity));
 
 subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
+ // Recovery belongs to durable dungeon state, not Life's short-lived death tag.
+ // Run independently of news/UI work, which may fail or be deferred.
+ system.runTimeout(() => {
+  try { DungeonManager.handlePlayerSpawn(event.player); }
+  catch (error) { console.warn(`[DailyEvents] dungeon respawn failed: ${error}`); }
+ }, 1);
  system.runTimeout(() => {
   try {
    if (isPvpPlayer(event.player)) return;
    DailyQuestManager.ensureState(event.player);
-   if (!event.player.hasTag("apoc:true_death")) {
-    // 倒地抢救拉回中不触发副本淘汰死回复活点
-   } else {
-    DungeonManager.handlePlayerSpawn(event.player);
-   }
    DailyNewsManager.notifyDailySummary(event.player);
    HopePostManager.ensureIssue();
    HopePostManager.onPlayerInitialSpawn(event.player, event.initialSpawn);
@@ -378,6 +379,12 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
  else if (id === "daily:hope_post") system.runTimeout(() => HopePostManager.open(player, () => DailyMenu.open(player), isAdmin(player)), 2);
  else if (id === "daily:news_admin" && isAdmin(player)) system.runTimeout(() => DailyAdminMenu.startNewsEvent(player), 2);
  else if (id === "daily:merchant") MerchantMenu.openCategory(player, message || "all");
+ else if (id === "daily:dungeon_true_death") {
+  // Life also emits this when an already-downed player dies before our
+  // entityDie subscriber sees its true-death tag. The token makes it idempotent.
+  WorldEventManager.onPlayerDeath(player);
+  DungeonManager.onPlayerDeath(player, String(message || "").trim());
+ }
  else if (id === "daily:drone_revive" || id === "dungeon:cancel_death") {
    DungeonManager.decrementPlayerDeath(player);
   }

@@ -6,6 +6,32 @@ import { TemperatureManager } from "../temperature/TemperatureManager.js";
 
 const eqTypes = [EquipmentSlot.Feet, EquipmentSlot.Legs, EquipmentSlot.Chest, EquipmentSlot.Head, EquipmentSlot.Offhand];
 const inputCategories = [1, 2, 3, 4, 5];
+const DEATH_ID_PREFIX = "apoc:death_id:";
+let deathSequence = 0;
+
+function trueDeathToken(player) {
+ try { return player.getTags().find(tag => tag.startsWith(DEATH_ID_PREFIX))?.slice(DEATH_ID_PREFIX.length) || ""; }
+ catch { return ""; }
+}
+
+function publishTrueDeath(player) {
+ const token = `${Date.now().toString(36)}_${system.currentTick}_${++deathSequence}`;
+ try {
+  for (const tag of player.getTags()) if (tag.startsWith(DEATH_ID_PREFIX)) player.removeTag(tag);
+  player.addTag(`${DEATH_ID_PREFIX}${token}`);
+ } catch {}
+ try { player.addTag("apoc:true_death"); } catch {}
+ return token;
+}
+
+function sendScriptEvent(player, command) {
+ // Publish before kill, without depending on the async command queue surviving
+ // the entity's death. Older API builds can still use the async fallback.
+ try {
+  if (typeof player.runCommand === "function") { player.runCommand(command); return; }
+ } catch {}
+ try { player.runCommandAsync(command)?.catch?.(() => {}); } catch {}
+}
 
 /**
  * 创建高对比度彩色进度条 (零灰色字，全彩高亮)
@@ -408,8 +434,9 @@ export class DownedPlayerInstance {
   this.end();
   if (!this.player || !this.player.isValid()) return;
 
-  // 打上真实死亡标记，防止被 entityDie 循环捕获为新的倒地
-  this.player.addTag("apoc:true_death");
+  // This transition receipt crosses pack UUID boundaries and survives until
+  // actual respawn. Daily may receive both this signal and entityDie.
+  const deathId = publishTrueDeath(this.player);
 
   // 若世界规则没有开启死亡保留背包，则原生直接在地面掉落物品 (绝对不生成 rm:loot_chest 实体箱子！)
   let keepInv = true;
@@ -452,10 +479,8 @@ export class DownedPlayerInstance {
   } catch {}
 
   // 触发副本死亡与物资结算
-  try {
-   this.player.runCommandAsync("scriptevent daily:dungeon_true_death");
-   this.player.runCommandAsync("scriptevent extract:force_drop_backpack");
-  } catch {}
+  sendScriptEvent(this.player, `scriptevent daily:dungeon_true_death ${deathId}`);
+  sendScriptEvent(this.player, "scriptevent extract:force_drop_backpack");
 
   // 杀死实体 (若尚未死亡)
   try {
@@ -500,8 +525,26 @@ export class DownedRescueManager {
     this.clearOwnLocks(player);
    }
   };
-  for (const player of world.getAllPlayers()) clearStaleLock(player);
-  world.afterEvents?.playerSpawn?.subscribe(({ player }) => clearStaleLock(player));
+  const afterRespawn = player => {
+   clearStaleLock(player);
+   // Retire the active death lock immediately on actual spawn so a new lethal
+   // hit can down the player normally. Keep only the passive receipt briefly:
+   // Daily can recover in either subscriber order without blocking combat.
+   const token = trueDeathToken(player);
+   try {
+    if (player.getComponent(EntityComponentTypes.Health)?.currentValue > 0) player.removeTag("apoc:true_death");
+   } catch {}
+   system.runTimeout(() => {
+    try {
+     if (!player.isValid() || trueDeathToken(player) !== token ||
+         !(player.getComponent(EntityComponentTypes.Health)?.currentValue > 0) ||
+         this.activeInstances.has(player.id) || this.pendingDowns.has(player.id)) return;
+     if (token) player.removeTag(`${DEATH_ID_PREFIX}${token}`);
+    } catch {}
+   }, 40);
+  };
+  for (const player of world.getAllPlayers()) afterRespawn(player);
+  world.afterEvents?.playerSpawn?.subscribe(({ player }) => afterRespawn(player));
 
   // 2.1 倒地受创监听：允许被枪械击中、扣血并支持补枪处决
   if (world.afterEvents?.entityHurt) {
@@ -546,12 +589,7 @@ export class DownedRescueManager {
     if (!player) return;
 
     // 若已被标记为真实死亡 (如流血耗尽、处决或主动放弃)，则正常完成死亡流程
-    if (player.hasTag("apoc:true_death")) {
-     system.runTimeout(() => {
-      try { if (player.isValid()) player.removeTag("apoc:true_death"); } catch {}
-     }, 40);
-     return;
-    }
+    if (player.hasTag("apoc:true_death")) return;
 
     // 若已经处于倒地状态，再次死亡说明是被枪械击杀/补枪处决！
     if (this.activeInstances.has(player.id)) {
@@ -559,9 +597,6 @@ export class DownedRescueManager {
      const killer = event.damageSource?.damagingEntity;
      player.addTag("apoc:true_death");
      inst.kill(killer, true);
-     system.runTimeout(() => {
-      try { if (player.isValid()) player.removeTag("apoc:true_death"); } catch {}
-     }, 40);
      return;
     }
 

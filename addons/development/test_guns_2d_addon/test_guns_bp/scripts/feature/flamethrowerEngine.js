@@ -1,10 +1,10 @@
 import { world, system, EquipmentSlot, ScriptEventSource } from '@minecraft/server';
-import { FLAMETHROWER as F, flameContext } from '../data/flamethrower.js';
+import { FLAMETHROWER as F, flameContext, traceFlameCover } from '../data/flamethrower.js';
 import { getHeldGun, getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { pvpCanAttack, hasInfinitePvpReserve, pvpWeaponAllowed } from './utils/pvpRules.js';
 import { countAmmoInInventory, isCreativePlayer } from './utils/inventoryUtils.js';
 import { GunVisuals } from './gunVisuals.js';
-import { traceCover, point, unit } from '../data/baizhan.js';
+import { point, unit } from '../data/baizhan.js';
 
 import { combatAuthority } from './utils/combatAuthority.js';
 import { FlamethrowerLocal } from './flamethrowerLocal.js';
@@ -162,7 +162,7 @@ export class FlamethrowerEngine {
   const up=unit({x:forward.y*right.z-forward.z*right.y,y:forward.z*right.x-forward.x*right.z,z:forward.x*right.y-forward.y*right.x});
   for(const [x,y]of [[0,0],[-0.30,0.12],[0.30,-0.12],[-0.15,-0.26],[0.15,0.26]]){
    const dir=unit({x:forward.x+right.x*x+up.x*y,y:forward.y+right.y*x+up.y*y,z:forward.z+right.z*x+up.z*y});
-   const trace=traceCover(dim,origin,dir,F.range,0);
+   const trace=traceFlameCover(dim,origin,dir,F.range);
    for(const d of [0.7,2.3,4.0,5.8,7.6,9.4])if(d<trace.distance)try{dim.spawnParticle('test_gun:flamethrower_flame',point(origin,dir,d));}catch{}
   }
   if(now-s.lastSound>=4){s.lastSound=now;try{dim.playSound('test_gun.flamethrower_spray',origin,{volume:0.45,pitch:0.96+(now%3)*0.025});}catch{}}

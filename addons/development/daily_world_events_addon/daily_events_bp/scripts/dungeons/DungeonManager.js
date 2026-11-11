@@ -10,6 +10,19 @@ const PLAYER_STATE_KEY = "daily:dungeon_player:v1";
 const PLAYER_ECONOMY_KEY = "daily:dungeon_economy:v1";
 const DUNGEON_ENTITY_TAG = "daily_dungeon_entity";
 const DUNGEON_ENEMY_TAG = "daily_dungeon_enemy";
+const DEATH_ID_PREFIX = "apoc:death_id:";
+const RESPAWN_ATTEMPTS = 40;
+const RESPAWN_RETRY_TICKS = 5;
+
+function deathToken(player) {
+ try { return player.getTags().find(tag => tag.startsWith(DEATH_ID_PREFIX))?.slice(DEATH_ID_PREFIX.length) || ""; }
+ catch { return ""; }
+}
+
+function rescuePending(player) {
+ try { return player.hasTag("apoc:downed") || player.hasTag("apoc:downed_pending"); }
+ catch { return true; }
+}
 
 function valid(entity) {
  try { return !!entity && entity.isValid(); } catch { return false; }
@@ -27,7 +40,7 @@ function readPlayerState(player) {
 }
 
 function writePlayerState(player, value) {
- try { player.setDynamicProperty(PLAYER_STATE_KEY, value ? JSON.stringify(value) : undefined); } catch {}
+ try { player.setDynamicProperty(PLAYER_STATE_KEY, value ? JSON.stringify(value) : undefined); return true; } catch { return false; }
 }
 
 function dungeonEconomyState(player) {
@@ -128,13 +141,15 @@ function arenaQuery(instance, template) {
 
 // Cross-pack admission is visible through entity tags, unlike BP-scoped dynamic properties.
 function pvpLocked(player) {
- try { return player.hasTag("pvp:participant") || player.hasTag("pvp:admission"); }
+ try { return player.hasTag("pvp:participant") || player.hasTag("pvp:admission") ||
+  player.hasTag("extract:admission") || player.hasTag("apoc_extraction_active"); }
  catch { return true; }
 }
 
 export class DungeonManager {
  static active = new Map();
  static resettingSlots = new Set();
+ static respawnJobs = new Map();
 
  static initializeCleanup() {
   for (const dimensionId of ["overworld", "nether", "the_end"]) {
@@ -316,14 +331,19 @@ export class DungeonManager {
  static teleportInto(player, instance) {
   if (pvpLocked(player)) return false;
   const template = dungeonTemplate(instance.templateId);
-  const dimension = world.getDimension(instance.slot.dimension);
-  const location = absolutePoint(instance.slot.origin, instance.respawnOffset || template.entryOffset);
+  if (!template || this.active.get(instance.instanceId) !== instance ||
+      !instance.participantIds.includes(player.id) || readPlayerState(player)?.instanceId !== instance.instanceId ||
+      instance.state !== "active") return false;
   try {
+   const dimension = world.getDimension(instance.slot.dimension);
+   const location = absolutePoint(instance.slot.origin, instance.respawnOffset || template.entryOffset);
    player.teleport(location, { dimension });
-   player.sendMessage(`§6[副本] 已进入 ${template.name}。§8按阶段清理建筑并前往标记点打卡。`);
   } catch (error) {
    console.warn(`[DailyEvents][Dungeon] teleport failed for ${player.name}: ${error}`);
+   return false;
   }
+  try { player.sendMessage(`§6[副本] 已进入 ${template.name}。§8按阶段清理建筑并前往标记点打卡。`); } catch {}
+  return true;
  }
 
  static join(player, instanceId) {
@@ -782,49 +802,103 @@ export class DungeonManager {
  static decrementPlayerDeath(player) {
   const state = readPlayerState(player);
   const instance = state?.instanceId ? this.active.get(state.instanceId) : null;
-  if (!instance) return false;
-  if (instance.deaths && instance.deaths[player.id] && instance.deaths[player.id] > 0) {
-   instance.deaths[player.id] -= 1;
-  }
-  state.pendingRespawn = false;
-  writePlayerState(player, state);
+  if (!instance || pvpLocked(player)) return false;
+  // A rescued down is never counted. Do not refund an earlier, finalized death
+  // or cancel a real-death respawn when a late drone notification arrives.
   const currentDeaths = instance.deaths[player.id] || 0;
   const template = dungeonTemplate(instance.templateId);
-  const maxDeaths = template?.maxDeathsPerPlayer || 3;
-  player.sendMessage(`§a[副本火控协议] 无人机电除颤救助成功！本次倒地不计入副本死亡次数（当前死亡: ${currentDeaths}/${maxDeaths}）。`);
+  player.sendMessage(`§a[副本火控协议] 无人机电除颤救助成功！本次倒地不计入副本死亡次数（当前死亡: ${currentDeaths}/${template?.maxDeathsPerPlayer || 3}）。`);
   return true;
  }
 
- static onPlayerDeath(player) {
+ static onPlayerDeath(player, token = deathToken(player)) {
   if (pvpLocked(player)) return false;
   const state = readPlayerState(player);
   const instance = state?.instanceId ? this.active.get(state.instanceId) : null;
-  if (!instance) return false;
-  instance.deaths[player.id] = Number(instance.deaths[player.id] || 0) + 1;
+  if (!instance || !instance.participantIds.includes(player.id) || instance.state !== "active") return false;
+  // The explicit Life notification and entityDie describe the same transition.
+  // Keep its receipt after respawn too, so a delayed duplicate cannot spend a life.
+  if ((token && (state.lastDeathToken === token || state.deathReceipts?.includes(token))) || state.pendingRespawn) return false;
+  const currentToken = deathToken(player);
+  if (token && currentToken && currentToken !== token) return false;
   state.pendingRespawn = true;
-  writePlayerState(player, state);
+  if (token) {
+   state.lastDeathToken = token;
+   state.deathReceipts = [...(Array.isArray(state.deathReceipts) ? state.deathReceipts : []), token].slice(-16);
+  }
+  if (!writePlayerState(player, state)) return false;
+  instance.deaths[player.id] = Number(instance.deaths[player.id] || 0) + 1;
   return true;
  }
 
  static handlePlayerSpawn(player) {
-  if (pvpLocked(player)) return false;
-  const state = readPlayerState(player);
+  if (pvpLocked(player) || rescuePending(player)) return false;
+  let state = readPlayerState(player);
   if (!state?.instanceId) return false;
   const instance = this.active.get(state.instanceId);
   const template = instance ? dungeonTemplate(instance.templateId) : null;
-  if (!instance || !template) {
+  if (!instance || !template || !instance.participantIds.includes(player.id) ||
+      ["success", "failed"].includes(instance.state)) {
    this.returnPlayer(player, state, "服务器重启或副本已结束，已返回原位置。");
    return true;
   }
-  if (state.pendingRespawn) {
-   state.pendingRespawn = false;
-   writePlayerState(player, state);
-   if (Number(instance.deaths[player.id] || 0) > template.maxDeathsPerPlayer) {
-    this.removeParticipant(player, instance, "复活次数已用尽。");
-   } else {
-    system.runTimeout(() => this.teleportInto(player, instance), 10);
+  // Capture a true death even if entityDie could not write a dead player's data.
+  // This is only a fallback: a saved pendingRespawn survives tag cleanup/rejoin.
+  try {
+   if (!state.pendingRespawn && (deathToken(player) || player.hasTag("apoc:true_death"))) {
+    this.onPlayerDeath(player);
+    state = readPlayerState(player);
    }
-  }
+  } catch {}
+  if (!state?.pendingRespawn || this.respawnJobs.has(player.id)) return true;
+  const job = { instanceId: instance.instanceId, attempts: 0 };
+  this.respawnJobs.set(player.id, job);
+  const finishJob = () => {
+   if (this.respawnJobs.get(player.id) !== job) return;
+   this.respawnJobs.delete(player.id);
+   system.runTimeout(() => {
+    if (this.active.get(instance.instanceId) === instance && instance.state === "active" &&
+        ![...this.respawnJobs.values()].some(value => value.instanceId === instance.instanceId)) {
+     this.removeTickingArea(instance.slot);
+    }
+   }, 40);
+  };
+  job.cancel = finishJob;
+  const attempt = () => {
+   if (this.respawnJobs.get(player.id) !== job) return;
+   const currentPlayer = onlinePlayer(player.id);
+   const current = currentPlayer ? readPlayerState(currentPlayer) : null;
+   if (!currentPlayer || !valid(currentPlayer) || pvpLocked(currentPlayer) ||
+       current?.instanceId !== instance.instanceId || !current.pendingRespawn ||
+       this.active.get(instance.instanceId) !== instance || !instance.participantIds.includes(player.id) ||
+       ["success", "failed"].includes(instance.state)) return finishJob();
+   if (rescuePending(currentPlayer)) return finishJob();
+   let alive = false;
+   try { alive = currentPlayer.getComponent("minecraft:health")?.currentValue > 0; } catch {}
+   if (alive && instance.state === "active") {
+    if (Number(instance.deaths[player.id] || 0) > template.maxDeathsPerPlayer) {
+     finishJob();
+     this.removeParticipant(currentPlayer, instance, "复活次数已用尽。");
+     return;
+    }
+    // A solo player's distant dungeon can unload during the death screen.
+    if (job.attempts % 4 === 0) this.addTickingArea(instance.slot);
+    if (this.teleportInto(currentPlayer, instance)) {
+     current.pendingRespawn = false;
+     if (writePlayerState(currentPlayer, current)) {
+      finishJob();
+      return;
+     }
+    }
+   }
+   if (++job.attempts < RESPAWN_ATTEMPTS) {
+    system.runTimeout(attempt, RESPAWN_RETRY_TICKS);
+   } else {
+    finishJob();
+    try { currentPlayer.sendMessage("§e[副本] 复活点暂时无法传送，待复活记录已保留。可重进世界重试，或输入 !dungeon 打开菜单退出。"); } catch {}
+   }
+  };
+  system.runTimeout(attempt, 1);
   return true;
  }
 
@@ -844,6 +918,7 @@ export class DungeonManager {
  }
 
  static returnPlayer(player, state, message = "") {
+  this.respawnJobs.get(player.id)?.cancel();
   if (pvpLocked(player)) return false;
   const target = state?.returnLocation;
   try {

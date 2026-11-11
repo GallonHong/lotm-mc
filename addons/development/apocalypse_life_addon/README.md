@@ -92,7 +92,16 @@ v1.2.0 起，摩托车与冲锋快艇蓝图仍可由玩家合成；皮卡、救�
 - 机库整备页会显示"机体护甲 X 点 / 爆炸减免 Y%"。
 - 数据契约与测试：Test Guns `docs/DRONE_ARMOR.md`、`tests/test_drone_armor.mjs`。
 
-## 6. 编译与打包
+## 6. 倒地救援与真实死亡令牌 (v1.4.8)
+
+v1.4.8 为倒地/真实死亡增加跨行为包令牌，修复"倒地后真正死亡"在副本与摸金都市中偶发漏判的问题：
+
+- 处决前写入 `apoc:death_id:<token>` 并保留 `apoc:true_death` 标记，直到玩家真正复活；
+- 通过同步 `scriptevent daily:dungeon_true_death <token>` 通知 Daily Events（旧 API 回退异步命令），由接收方按令牌去重；
+- `extract:force_drop_backpack` 仍保留，保证摸金都市死亡背包掉落。
+- 与 Daily Events v0.19.5 配套，两包需同时更新；无人机机体护甲/防爆数值不变。
+
+## 7. 编译与打包
 
 在当前目录下直接运行：
 ```bash

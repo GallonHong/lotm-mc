@@ -1,6 +1,6 @@
 import { system, EquipmentSlot } from '@minecraft/server';
-import { FLAMETHROWER as F, flameContext } from '../data/flamethrower.js';
-import { traceCover, distance, unit } from '../data/baizhan.js';
+import { FLAMETHROWER as F, flameContext, traceFlameCover } from '../data/flamethrower.js';
+import { distance, unit } from '../data/baizhan.js';
 import { DamageHandler } from './damageHandler.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
 import { combatAuthority } from './utils/combatAuthority.js';
@@ -32,7 +32,7 @@ export class FlamethrowerLocal {
    if(!p.hasTag('pvp:participant')&&target.typeId!=='minecraft:player'&&[EquipmentSlot.Mainhand,EquipmentSlot.Offhand].some(slot=>eq?.getEquipment(slot)?.typeId==='test_gun:riot_shield'))return false;
    const head=body(p),impact=body(target),length=distance(head,impact);
    if(!finite(head)||!finite(impact))return false;
-   if(!burn&&(length>F.range+1e-8||traceCover(p.dimension,head,length?{x:impact.x-head.x,y:impact.y-head.y,z:impact.z-head.z}:{x:1,y:0,z:0},length,0).blocked))return false;
+   if(!burn&&(length>F.range+1e-8||traceFlameCover(p.dimension,head,length?{x:impact.x-head.x,y:impact.y-head.y,z:impact.z-head.z}:{x:1,y:0,z:0},length).blocked))return false;
    return true;
   }catch{return false;}
  }

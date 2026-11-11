@@ -44,8 +44,10 @@ export function unit(direction) {
 }
 /** Voxel DDA counts each occupied cell once, including diagonal/negative rays.
  * Unknown chunks fail closed; liquids stop the gun. hitBlock is cosmetic
- * evidence of a real stopping surface, not a failed/unavailable trace. */
-export function traceCover(dimension, start, direction, maxDistance, maxBlocks = 0) {
+ * evidence of a real stopping surface, not a failed/unavailable trace.
+ * An explicit passable-block set replaces the optional isSolid heuristic for
+ * that caller only. Other weapons retain their existing cover policy. */
+export function traceCover(dimension, start, direction, maxDistance, maxBlocks = 0, passableBlockIds = undefined) {
  const dir = unit(direction);
  const result = { distance: 0, end: start, blocked: true, cells: [] };
  if (!dir || !['x','y','z'].every(axis => Number.isFinite(start?.[axis])) || !(maxDistance >= 0)) return result;
@@ -63,7 +65,13 @@ export function traceCover(dimension, start, direction, maxDistance, maxBlocks =
   const id = block.typeId;
   const air = block.isAir === true || ['minecraft:air','minecraft:cave_air','minecraft:void_air'].includes(id);
   const liquid = block.isLiquid === true || ['minecraft:water','minecraft:flowing_water','minecraft:lava','minecraft:flowing_lava'].includes(id);
-  if (!air && (liquid || block.isSolid !== false || PENETRABLE_BLOCKS.has(id))) {
+  // Stable @minecraft/server 1.x does not expose Block.isSolid. Flame rays use
+  // explicit vanilla plant IDs instead; never infer passability from a tag,
+  // missing property or a name containing "grass" (grass is also legacy soil).
+  const occupied = !air && (liquid || (passableBlockIds
+   ? !passableBlockIds.has(id) || block.isWaterlogged === true
+   : block.isSolid !== false || PENETRABLE_BLOCKS.has(id)));
+  if (occupied) {
    if (liquid || !PENETRABLE_BLOCKS.has(id) || result.cells.length >= maxBlocks) {
     // Preserve the exact stopping boundary for entity-ray clipping. The 0.01
     // visual offset must not erase a legal grazing hit immediately before a
