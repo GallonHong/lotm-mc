@@ -1,0 +1,270 @@
+{
+ "format_version": "1.21.30",
+ "minecraft:entity": {
+  "description": {
+   "identifier": "apoc_boss:sandworm",
+   "is_spawnable": true,
+   "is_summonable": true,
+   "is_experimental": false,
+   "properties": {
+    "bf_bossesrise:state": {
+     "type": "enum",
+     "values": [
+      "intro",
+      "sleep",
+      "emerged",
+      "screech",
+      "roar",
+      "chase",
+      "dive",
+      "spit",
+      "knocked",
+      "earthquake",
+      "underground",
+      "dead"
+     ],
+     "default": "intro",
+     "client_sync": true
+    },
+    "bf_bossesrise:is_attacking": {
+     "type": "bool",
+     "default": false,
+     "client_sync": true
+    },
+    "bf_bossesrise:is_dormant": {
+     "type": "bool",
+     "default": true,
+     "client_sync": true
+    }
+   }
+  },
+  "components": {
+   "minecraft:is_hidden_when_invisible": {},
+   "minecraft:nameable": {
+    "always_show": true
+   },
+   "minecraft:health": {
+    "value": 16000,
+    "max": 16000
+   },
+   "minecraft:boss": {
+    "name": "斯洛克 · 巨型沙虫",
+    "should_darken_sky": false,
+    "hud_range": 64
+   },
+   "minecraft:knockback_resistance": {
+    "value": 1
+   },
+   "minecraft:collision_box": {
+    "width": 5,
+    "height": 5
+   },
+   "minecraft:movement": {
+    "value": 0.3
+   },
+   "minecraft:navigation.walk": {
+    "can_path_over_water": true,
+    "can_pass_doors": true,
+    "can_break_doors": true,
+    "avoid_water": false
+   },
+   "minecraft:movement.basic": {},
+   "minecraft:jump.static": {},
+   "minecraft:can_climb": {},
+   "minecraft:attack": {
+    "damage": 24
+   },
+   "minecraft:damage_sensor": {
+    "triggers": [
+     {
+      "cause": "fall",
+      "deals_damage": false
+     },
+     {
+      "cause": "drowning",
+      "deals_damage": false
+     },
+     {
+      "cause": "suffocation",
+      "deals_damage": false
+     }
+    ]
+   },
+   "minecraft:experience_reward": {
+    "on_death": "3000"
+   },
+   "minecraft:loot": {
+    "table": "loot_tables/raid/sandworm.json"
+   },
+   "minecraft:type_family": {
+    "family": [
+     "monster",
+     "boss",
+     "apoc_boss",
+     "sandworm"
+    ]
+   },
+   "minecraft:physics": {},
+   "minecraft:pushable": {
+    "is_pushable": false,
+    "is_pushable_by_piston": false
+   },
+   "minecraft:persistent": {},
+   "minecraft:follow_range": {
+    "value": 64,
+    "max": 64
+   },
+   "minecraft:breathable": {},
+   "minecraft:body_rotation_always_follows_head": {},
+   "minecraft:scale": {
+    "value": 1
+   },
+   "minecraft:custom_hit_test": {
+    "hitboxes": [
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       -30
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       -24
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       -18
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       -12
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       -6
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       0
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       6
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       12
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       18
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       24
+      ]
+     },
+     {
+      "width": 8,
+      "height": 8,
+      "pivot": [
+       0,
+       2,
+       30
+      ]
+     }
+    ]
+   },
+   "minecraft:behavior.nearest_attackable_target": {
+    "priority": 1,
+    "must_see": false,
+    "within_radius": 64,
+    "entity_types": [
+     {
+      "filters": {
+       "test": "is_family",
+       "subject": "other",
+       "value": "player"
+      },
+      "max_dist": 64
+     },
+     {
+      "filters": {
+       "test": "is_family",
+       "subject": "other",
+       "value": "irongolem"
+      },
+      "max_dist": 48
+     }
+    ]
+   },
+   "minecraft:behavior.hurt_by_target": {
+    "priority": 2
+   },
+   "minecraft:behavior.melee_attack": {
+    "priority": 3,
+    "speed_multiplier": 1.2,
+    "track_target": true,
+    "reach_multiplier": 2.2
+   },
+   "minecraft:behavior.random_stroll": {
+    "priority": 7,
+    "speed_multiplier": 0.8
+   },
+   "minecraft:behavior.look_at_player": {
+    "priority": 8,
+    "look_distance": 12
+   },
+   "minecraft:behavior.random_look_around": {
+    "priority": 9
+   }
+  }
+ }
+}

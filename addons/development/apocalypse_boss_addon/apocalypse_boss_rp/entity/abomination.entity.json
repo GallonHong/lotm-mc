@@ -1,0 +1,110 @@
+{
+ "format_version": "1.21.92",
+ "minecraft:client_entity": {
+  "description": {
+   "identifier": "apoc_boss:abomination",
+   "min_engine_version": "1.8.0",
+   "materials": {
+    "default": "entity_alphatest"
+   },
+   "textures": {
+    "default": "textures/bf/bossesrise/entity/abomination"
+   },
+   "spawn_egg": {
+    "base_color": "#3a1f3d",
+    "overlay_color": "#94d14f"
+   },
+   "render_controllers": [
+    "controller.render.default"
+   ],
+   "geometry": {
+    "default": "geometry.abomination_geo"
+   },
+   "animations": {
+    "entrance": "animation.bf_bossesrise_abomination_spawn",
+    "idle": "animation.bf_bossesrise_abomination_idle",
+    "walk": "animation.bf_bossesrise_abomination_walk",
+    "light_attack": "animation.bf_bossesrise_abomination_attack",
+    "area_attack": "animation.bf_bossesrise_abomination_swipe_attack",
+    "heavy_attack": "animation.bf_bossesrise_abomination_smash",
+    "charge_run": "animation.bf_bossesrise_abomination_charge_run",
+    "wall_stun": "animation.bf_bossesrise_abomination_charge_knocked",
+    "scream": "animation.bf_bossesrise_abomination_scream",
+    "rampage": "animation.bf_bossesrise_abomination_rampage_full",
+    "d1_meteor_acceleration": "animation.bf_bossesrise_abomination_d1_meteor_acceleration",
+    "charge_run_d2": "animation.bf_bossesrise_abomination_charge_run",
+    "d2_air_slam": "animation.bf_bossesrise_abomination_d2_air_slam_grab",
+    "d2_air_slam_grab_idle": "animation.bf_bossesrise_abomination_d2_air_slam_grab_idle",
+    "d2_air_slam_grab_successful": "animation.bf_bossesrise_abomination_d2_air_slam_grab_succesful",
+    "d2_air_slam_throw": "animation.bf_bossesrise_abomination_d2_air_grab_throw",
+    "d2_grab_to_idle": "animation.bf_bossesrise_abomination_d2_grab_to_idle",
+    "d2_air_slam_fail": "animation.bf_bossesrise_abomination_d2_air_slam_return_to_idle_from_grab",
+    "death_proc": "animation.bf_bossesrise_abomination_death",
+    "hit": "animation.bf_bossesrise_abomination_hit",
+    "general_ac": "controller.animation.abomination_anim_ac"
+   },
+   "scripts": {
+    "initialize": [
+     "variable.state_id = 0;",
+     "variable.flip = false;",
+     "variable.flop = false;",
+     "variable.dying = false;"
+    ],
+    "pre_animation": [
+     "variable.dying = query.property('bf_bossesrise:is_dying');",
+     "variable.flop = variable.flip;",
+     "variable.flip = query.property('bf_bossesrise:flip_flop');",
+     "variable.state_id = query.property('bf_bossesrise:state_id');"
+    ],
+    "animate": [
+     "general_ac"
+    ]
+   },
+   "sound_effects": {
+    "footstepwalk_01": "bf_bossesrise.abomination_footstepwalk_01",
+    "footstepwalk_03": "bf_bossesrise.abomination_footstepwalk_03",
+    "scream_01": "bf_bossesrise.abomination_scream_01",
+    "attack_03": "bf_bossesrise.abomination_attack_03",
+    "chargeknocked_03": "bf_bossesrise.abomination_chargeknocked_03",
+    "hit_01": "bf_bossesrise.abomination_hit_01",
+    "rampage_01": "bf_bossesrise.abomination_rampage_01",
+    "hand_smash": "bf_bossesrise.abomination_hand_smash_02",
+    "spawn": "bf_bossesrise.abomination_spawn",
+    "swipe_attack_03": "bf_bossesrise.abomination_swipe_attack_03",
+    "smash_01": "bf_bossesrise.abomination_smash_01",
+    "idle_01": "bf_bossesrise.abomination_idle_01",
+    "idle_03": "bf_bossesrise.abomination_idle_03",
+    "smash_impact": "bf_bossesrise.abomination_smash_impact",
+    "handsmash_02": "bf_bossesrise.abomination_hand_smash_02",
+    "d3_heal": "bf_bossesrise.abomination_d3_heal",
+    "heal": "bf_bossesrise.abomination_heal",
+    "d2_throw_air": "bf_bossesrise.abomination_d2_throw_air",
+    "d2_scream": "bf_bossesrise.abomination_d2_scream"
+   },
+   "particle_effects": {
+    "abomination_impact_dust": "bf_br:abomination_impact_dust",
+    "abomination_circle": "bf_br:abomination_circle",
+    "attack": "bf_bossesrise:abomination_attack",
+    "abomination_impact_dust_small": "bf_br:abomination_impact_dust_small",
+    "hand_smash": "bf_bossesrise:abomination_hand_smash",
+    "scream_1": "bf_bossesrise:abomination_scream_1",
+    "scream_2": "bf_bossesrise:abomination_scream_2",
+    "rampage_1": "bf_bossesrise:abomination_rampage_1",
+    "rampage_2": "bf_bossesrise:abomination_rampage_2",
+    "smash_1": "bf_bossesrise:abomination_smash_1",
+    "smash_2": "bf_bossesrise:abomination_smash_2",
+    "smash_3": "bf_bossesrise:abomination_smash_3",
+    "spawn_1": "bf_bossesrise:abomination_spawn_1",
+    "spawn_2": "bf_bossesrise:abomination_spawn_2",
+    "spawn_3": "bf_bossesrise:abomination_spawn_3",
+    "walk": "bf_bossesrise:abomination_walk",
+    "charge_run": "bf_bossesrise:abomination_charge_run",
+    "death_1": "bf_bossesrise:death_1",
+    "death_2": "bf_bossesrise:death_2",
+    "end_abomination_trophy_light": "bf_bossesrise:end_abomination_trophy_light",
+    "line": "bf_bossesrise:line",
+    "point": "bf_bossesrise:point"
+   }
+  }
+ }
+}

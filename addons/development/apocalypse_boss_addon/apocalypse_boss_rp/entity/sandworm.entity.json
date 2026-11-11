@@ -1,0 +1,114 @@
+{
+ "format_version": "1.21.92",
+ "minecraft:client_entity": {
+  "description": {
+   "identifier": "apoc_boss:sandworm",
+   "min_engine_version": "1.8.0",
+   "materials": {
+    "default": "entity_alphatest"
+   },
+   "textures": {
+    "default": "textures/bf/bossesrise/entity/sandworm"
+   },
+   "render_controllers": [
+    "controller.render.bf_bossesrise_sandworm"
+   ],
+   "geometry": {
+    "default": "geometry.bf_boss_sandworm"
+   },
+   "spawn_egg": {
+    "base_color": "#c9a227",
+    "overlay_color": "#5b4324"
+   },
+   "animations": {
+    "ac_sandworm": "controller.animation.bf_bossesrise_sandworm",
+    "emerge": "animation.bf_bossesrise_sandworm_emerge",
+    "emerge_idle": "animation.bf_bossesrise_sandworm_emerge_idle",
+    "roar": "animation.bf_bossesrise_sandworm_roar_dive",
+    "earthquake_start": "animation.bf_bossesrise_sandworm_earthquake_start",
+    "earthquake": "animation.bf_bossesrise_sandworm_earthquake",
+    "earthquake_end": "animation.bf_bossesrise_sandworm_earthquake_end",
+    "underground": "animation.bf_bossesrise_sandworm_underground",
+    "dive_start": "animation.bf_bossesrise_sandworm_dive_start",
+    "dive_start_fast": "animation.bf_bossesrise_sandworm_dive_start_fast",
+    "dive_end": "animation.bf_bossesrise_sandworm_dive_end",
+    "knocked_down": "animation.bf_bossesrise_sandworm_knocked_down",
+    "screech": "animation.bf_bossesrise_sandworm_screech",
+    "bite": "animation.bf_bossesrise_sandworm_bite",
+    "poison_spit": "animation.bf_bossesrise_sandworm_poison_spit",
+    "death": "animation.bf_bossesrise_sandworm_death",
+    "chase_charge": "animation.bf_bossesrise_sandworm_chase_charge",
+    "chase_start": "animation.bf_bossesrise_sandworm_chase_start",
+    "chase_stop": "animation.bf_bossesrise_sandworm_chase_stop"
+   },
+   "scripts": {
+    "should_update_bones_and_effects_offscreen": true,
+    "initialize": [
+     "variable.lighting = 1;"
+    ],
+    "pre_animation": [
+     "variable.lighting = Math.clamp(Math.pow(Math.sin(Math.mod(query.time_of_day + 0.5, 1) * 180), 2) * 0.75, 0, 1);",
+     "v.swim = 180;",
+     "v.idle = 300;",
+     "v.emergence = 360;",
+     "v.distance = 1;",
+     "v.speed = 1;",
+     "v.shift = 1;",
+     "v.shift2=v.shift+1;",
+     "v.shift3=v.shift2+1;",
+     "v.shift4=v.shift3+1;",
+     "v.shift5=v.shift4+1;",
+     "v.shift6=v.shift5+1;",
+     "v.shift7=v.shift6+1;",
+     "v.shift8=v.shift7+1;",
+     "v.delay1 = 20 ;",
+     "v.delay2 = 40;",
+     "v.delay3 = 60;",
+     "v.delay4 = 80;",
+     "v.delay5 = 100;",
+     "v.delay6 = 120;",
+     "v.delay7 = 140;",
+     "v.delay8 = 160;",
+     "v.delay9 = 180;",
+     "v.delay10 = 200;",
+     "v.delay11 = 220;",
+     "v.delay12 = 240;",
+     "v.delay13 = 260;",
+     "v.delay14 = 280;",
+     "v.delay15 = 300;",
+     "v.delay16 = 320;"
+    ],
+    "animate": [
+     "ac_sandworm"
+    ]
+   },
+   "sound_effects": {
+    "eruption_1": "bf_bossesrise.sandworm.eruption_1",
+    "emergence": "bf_bossesrise.sandworm.emergence",
+    "screech_04": "bf_bossesrise.sandworm.screech_04",
+    "roar_dive_impact": "bf_bossesrise.sandworm.roar_dive_impact",
+    "sand_explosion_impact": "bf_bossesrise.sandworm.sand_explosion_impact",
+    "idle_04": "bf_bossesrise.sandworm.idle_04",
+    "dash": "bf_bossesrise.sandworm.dash",
+    "sand_displacement": "bf_bossesrise.sandworm.sand_displacement",
+    "bite_02": "bf_bossesrise.sandworm.bite_02",
+    "poisonspit_02": "bf_bossesrise.sandworm.poisonspit_02",
+    "charge_start_build_up_roar": "bf_bossesrise.sandworm.charge_start_build_up_roar",
+    "sand_displacement_3_heartbeat": "bf_bossesrise.sandworm.sand_displacement_3_heartbeat"
+   },
+   "particle_effects": {
+    "sandworm_dive1": "bf_bossesrise:sandworm_dive1",
+    "sandworm_dive2": "bf_bossesrise:sandworm_dive2",
+    "sandworm_dive3": "bf_bossesrise:sandworm_dive3",
+    "sandworm_rocks_wide": "bf_bossesrise:sandworm_rocks_wide",
+    "sandworm_roar": "bf_bossesrise:sandworm_roar",
+    "sandworm_saliva": "bf_bossesrise:sandworm_saliva",
+    "sandworm_roar_short": "bf_bossesrise:sandworm_roar_short",
+    "sandworm_saliva_short": "bf_bossesrise:sandworm_saliva_short",
+    "sand_rock_smoke": "bf_bossesrise:sand_rock_smoke",
+    "sandworm_charge_path": "bf_bossesrise:sandworm_charge_path",
+    "sandworm_dust_trail": "bf_bossesrise:sandworm_dust_trail"
+   }
+  }
+ }
+}

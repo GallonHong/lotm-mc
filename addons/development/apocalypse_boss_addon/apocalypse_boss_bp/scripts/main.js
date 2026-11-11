@@ -1,4 +1,5 @@
 import "./bossArmor.js";
+import "./raidBosses.js";
 import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system } from '@minecraft/server';
 

@@ -1,56 +1,267 @@
 {
-  "format_version": "1.14.0",
-  "sound_definitions": {
-    "sirenhead.siren": {
-      "category": "hostile",
-      "sounds": [
-        {
-          "name": "sounds/sirenhead/terrifying_air_raid_siren_sound",
-          "volume": 3.0
-        },
-        {
-          "name": "sounds/sirenhead/tornado_siren_-_sound_effect",
-          "volume": 3.0
-        },
-        {
-          "name": "sounds/sirenhead/big_siren",
-          "volume": 3.0
-        }
-      ]
+ "format_version": "1.14.0",
+ "sound_definitions": {
+  "sirenhead.siren": {
+   "category": "hostile",
+   "sounds": [
+    {
+     "name": "sounds/sirenhead/terrifying_air_raid_siren_sound",
+     "volume": 3
     },
-    "sirenhead.screech": {
-      "category": "hostile",
-      "sounds": [
-        {
-          "name": "sounds/sirenhead/sireheadgrowl1",
-          "volume": 2.5
-        },
-        {
-          "name": "sounds/sirenhead/sireheadgrowl2",
-          "volume": 2.5
-        },
-        {
-          "name": "sounds/sirenhead/sirenheadalarm",
-          "volume": 2.5
-        }
-      ]
+    {
+     "name": "sounds/sirenhead/tornado_siren_-_sound_effect",
+     "volume": 3
     },
-    "sirenhead.step": {
-      "category": "hostile",
-      "sounds": [
-        {
-          "name": "sounds/sirenhead/footstep_1",
-          "volume": 1.5
-        },
-        {
-          "name": "sounds/sirenhead/footstep_2",
-          "volume": 1.5
-        },
-        {
-          "name": "sounds/sirenhead/footstep_3",
-          "volume": 1.5
-        }
-      ]
+    {
+     "name": "sounds/sirenhead/big_siren",
+     "volume": 3
     }
+   ]
+  },
+  "sirenhead.screech": {
+   "category": "hostile",
+   "sounds": [
+    {
+     "name": "sounds/sirenhead/sireheadgrowl1",
+     "volume": 2.5
+    },
+    {
+     "name": "sounds/sirenhead/sireheadgrowl2",
+     "volume": 2.5
+    },
+    {
+     "name": "sounds/sirenhead/sirenheadalarm",
+     "volume": 2.5
+    }
+   ]
+  },
+  "sirenhead.step": {
+   "category": "hostile",
+   "sounds": [
+    {
+     "name": "sounds/sirenhead/footstep_1",
+     "volume": 1.5
+    },
+    {
+     "name": "sounds/sirenhead/footstep_2",
+     "volume": 1.5
+    },
+    {
+     "name": "sounds/sirenhead/footstep_3",
+     "volume": 1.5
+    }
+   ]
+  },
+  "bf_bossesrise.sandworm.air_launch_impact_cue": {
+   "category": "neutral",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/air_launch_impact_cue"
+   ]
+  },
+  "bf_bossesrise.abomination_footstepwalk_01": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/FootstepWalk_01"
+   ]
+  },
+  "bf_bossesrise.abomination_footstepwalk_03": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/FootstepWalk_03"
+   ]
+  },
+  "bf_bossesrise.abomination_scream_01": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Scream_01"
+   ]
+  },
+  "bf_bossesrise.abomination_attack_03": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Attack_03"
+   ]
+  },
+  "bf_bossesrise.abomination_chargeknocked_03": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/ChargeKnocked_03"
+   ]
+  },
+  "bf_bossesrise.abomination_hit_01": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Hit_01"
+   ]
+  },
+  "bf_bossesrise.abomination_rampage_01": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Rampage_01"
+   ]
+  },
+  "bf_bossesrise.abomination_hand_smash_02": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/HandSmash_02"
+   ]
+  },
+  "bf_bossesrise.abomination_death_1": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Death_01"
+   ]
+  },
+  "bf_bossesrise.abomination_phase_transition": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/phase_transition"
+   ]
+  },
+  "bf_bossesrise.abomination_spawn": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Spawn"
+   ]
+  },
+  "bf_bossesrise.abomination_swipe_attack_03": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/SwipeAttack_03"
+   ]
+  },
+  "bf_bossesrise.abomination_smash_01": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Smash_01"
+   ]
+  },
+  "bf_bossesrise.abomination_idle_01": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Idle_01"
+   ]
+  },
+  "bf_bossesrise.abomination_idle_03": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Idle_03"
+   ]
+  },
+  "bf_bossesrise.abomination_smash_impact": {
+   "category": "neutral",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/smash_impact"
+   ]
+  },
+  "bf_bossesrise.abomination_idle": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/Idle_01",
+    "sounds/bf/bossesrise/abomination/Idle_03"
+   ]
+  },
+  "bf_bossesrise.abomination_d3_heal": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/d3_heal"
+   ]
+  },
+  "bf_bossesrise.abomination_heal": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/heal"
+   ]
+  },
+  "bf_bossesrise.abomination_d2_throw_air": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/d2_throw_air"
+   ]
+  },
+  "bf_bossesrise.abomination_d2_scream": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/abomination/d2_scream"
+   ]
+  },
+  "bf_bossesrise.sandworm.eruption_1": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/eruption_1"
+   ]
+  },
+  "bf_bossesrise.sandworm.emergence": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/emergence"
+   ]
+  },
+  "bf_bossesrise.sandworm.screech_04": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/screech04"
+   ]
+  },
+  "bf_bossesrise.sandworm.roar_dive_impact": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/roar_dive_impact"
+   ]
+  },
+  "bf_bossesrise.sandworm.sand_explosion_impact": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/sand_explosion_impact"
+   ]
+  },
+  "bf_bossesrise.sandworm.idle_04": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/Idle_04"
+   ]
+  },
+  "bf_bossesrise.sandworm.dash": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/dash"
+   ]
+  },
+  "bf_bossesrise.sandworm.sand_displacement": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/sand_displacement"
+   ]
+  },
+  "bf_bossesrise.sandworm.bite_02": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/Bite_02"
+   ]
+  },
+  "bf_bossesrise.sandworm.poisonspit_02": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/PoisonSpit_02"
+   ]
+  },
+  "bf_bossesrise.sandworm.charge_start_build_up_roar": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/charge_start_build_up_roar"
+   ]
+  },
+  "bf_bossesrise.sandworm.sand_displacement_3_heartbeat": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/sand_displacement_3_heartbeat"
+   ]
+  },
+  "bf_bossesrise.sandworm.rumble_1": {
+   "category": "hostile",
+   "sounds": [
+    "sounds/bf/bossesrise/sandworm/rumble_1"
+   ]
   }
+ }
 }

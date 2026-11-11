@@ -15,5 +15,10 @@ item.spawn_egg.entity.apoc_boss:mutant_iron_golem.name=钢铁终结者刷怪蛋
 entity.apoc_boss:siren_head.name=警笛头 · 迷雾噩梦 (Siren Head)
 item.spawn_egg.entity.apoc_boss:siren_head.name=警笛头刷怪蛋
 
+entity.apoc_boss:sandworm.name=斯洛克 · 巨型沙虫 (Sirok)
+item.spawn_egg.entity.apoc_boss:sandworm.name=斯洛克刷怪蛋
+entity.apoc_boss:abomination.name=莫加苏尔 (Mogathul)
+item.spawn_egg.entity.apoc_boss:abomination.name=莫加苏尔刷怪蛋
+
 entity.apoc_boss:visual_probe.name=资源显示测试（无攻击）
 item.spawn_egg.entity.apoc_boss:visual_probe.name=资源显示测试（无攻击）

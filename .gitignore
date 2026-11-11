@@ -12,6 +12,8 @@ __pycache__/
 # Build output (keep packaged mcaddons or ignore large temp builds)
 *.ps1
 *.mcworld
+*.mcworld.bak*
+*.mcworld.tmp
 *.jar
 deploy_*.js
 dark_fantasy_visuals_rp/
