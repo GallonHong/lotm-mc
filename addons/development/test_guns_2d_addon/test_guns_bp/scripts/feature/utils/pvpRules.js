@@ -30,6 +30,16 @@ export function pvpCanAttack(player) {
  return pvpCanOperate(player) && (!isPvpParticipant(player) || !hasTag(player, 'pvp:protected'));
 }
 export function hasInfinitePvpReserve(player) { return isPvpParticipant(player) && pvpCanOperate(player); }
+/** Only the current match's copied equipment is valid in a match. Stale match
+ * items cannot be used in survival. Uses public tags/lore, never a SAPI service. */
+export function pvpWeaponAllowed(player, item) {
+ try {
+  const markers = (item?.getLore?.() || []).filter(line => line.startsWith('PVP_MATCH:'));
+  if (!isPvpParticipant(player)) return markers.length === 0;
+  return pvpCanOperate(player) && markers.length === 1 &&
+   markers[0] === 'PVP_MATCH:' + pvpMatch(player);
+ } catch { return false; }
+}
 /** null: ordinary gameplay; boolean: PvP determines whether the attack is blocked. */
 export function pvpBlocksDamage(attacker, target) {
  // Pending respawn/downing is a transition, not a finishable downed target.

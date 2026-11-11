@@ -1,3 +1,5 @@
+> Historical implementation reference. Since SAPI 2.14.18, SAPI weapon adapters are not loaded or registered. Guns owns weapon damage and intrinsic drone armor. See DAMAGE_OWNERSHIP_2.14.18.md.
+
 # Rail projectile authority: Guns 3.16.11 / SAPI 2.14.14
 
 Guns-only worlds use local rail authority. If SAPI is installed, RailImpactManager owns damage; Guns only simulates flight visuals and displays confirmed results. A delayed or missing service never causes local damage fallback. Legacy permission snapshots are not the active damage path.

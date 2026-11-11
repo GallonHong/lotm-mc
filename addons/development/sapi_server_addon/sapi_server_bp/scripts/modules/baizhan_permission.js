@@ -210,6 +210,7 @@ export class BaizhanPermissionManager {
   this.sendResult(packet,applied,feedbackRecord,reason);
  }
  static registerEvents(getActiveMatchId) {
+  return; // Retired in 2.14.18: Guns is the sole weapon damage owner.
   if(typeof getActiveMatchId==='function')this.getActiveMatchId=getActiveMatchId;
   if(this.registered)return;
   const signal=system.afterEvents?.scriptEventReceive,leaveSignal=world.afterEvents?.playerLeave;

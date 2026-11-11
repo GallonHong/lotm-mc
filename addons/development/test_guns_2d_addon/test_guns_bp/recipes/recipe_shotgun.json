@@ -8,18 +8,25 @@
       "crafting_table"
     ],
     "pattern": [
-      "PB",
-      "RS"
+      "PBI",
+      "RIM",
+      " S "
     ],
     "key": {
       "P": {
         "item": "test_gun:blueprint_m870"
       },
       "B": {
-        "item": "test_gun:part_barrel"
+        "item": "test_gun:part_heavy_barrel"
+      },
+      "I": {
+        "item": "minecraft:iron_ingot"
       },
       "R": {
         "item": "test_gun:part_receiver"
+      },
+      "M": {
+        "item": "test_gun:ammo_shotgun"
       },
       "S": {
         "item": "test_gun:part_stock"

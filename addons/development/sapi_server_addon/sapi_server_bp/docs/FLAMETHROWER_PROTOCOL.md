@@ -1,3 +1,5 @@
+> Historical implementation reference. Since SAPI 2.14.18, SAPI weapon adapters are not loaded or registered. Guns owns weapon damage and intrinsic drone armor. See DAMAGE_OWNERSHIP_2.14.18.md.
+
 # Flamethrower protocol 1
 
 This is an additive SAPI increment based on 2.14.5. Existing Baizhan authority,

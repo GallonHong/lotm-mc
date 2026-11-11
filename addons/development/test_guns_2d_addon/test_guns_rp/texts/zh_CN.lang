@@ -1,6 +1,6 @@
 item.test_gun:ak47.name=§fAK-47 突击步枪 [普通]§r\n§7被动: 经典苏系全威力突击步枪，中近距离全自动强力穿透扫射§r\n§8§o“哪怕泡过沼泽泥水、枪机挂满沙砾，扣动扳机时依然狂怒咆哮。”§r
 item.test_gun:ak74u.name=§fAK-74U 短突击步枪 [普通]§r\n§7被动: 短管紧凑枪身设计，超高持枪机动性与极快开镜反应速度§r\n§8§o“狭窄车厢与废弃楼道里的近战利刃，枪托上刻着前任车长的名字缩写。”§r
-item.test_gun:shotgun.name=§f雷明顿 M870 霰弹枪 [普通]§r\n§7被动: 经典泵动霰弹枪，近身多弹丸高爆发并附带强力击退冲击§r\n§8§o“‘咔嚓’一声泵动上膛，是在荒野长夜里最让人心安的声音。”§r
+item.test_gun:shotgun.name=§9雷明顿 M870 霰弹枪 [优良]§r\n§7被动: 经典泵动霰弹枪，近身多弹丸高爆发并附带强力击退冲击§r\n§8§o“‘咔嚓’一声泵动上膛，是在荒野长夜里最让人心安的声音。”§r
 item.test_gun:m1897.name=§f温彻斯特 M1897 霰弹枪 [普通]§r\n§7被动: 经典战壕喷，超大弹丸散射范围，提供大范围近身面杀伤§r\n§8§o“‘等感染者冲到三米内再扣扳机，既省子弹，也能听清骨头碎裂的声音。’”§r
 item.test_gun:bizon.name=§fPP-19 野牛冲锋枪 [普通]§r\n§7被动: 64发大容量螺旋弹筒，提供持久不间断的火力压制泼水§r\n§8§o“大容量螺旋弹筒，是独自面对蜂拥尸潮时唯一不需频繁换弹的底气。”§r
 item.test_gun:glock.name=§f格洛克 Glock-18 手枪 [普通]§r\n§7被动: 全自动击发手枪，单手轻便快拔，近身急速自卫泼水§r\n§8§o“插在腰间的最后一道保险，瞬间泼洒的暴烈弹雨曾无数次逆转生死。”§r
@@ -49,7 +49,7 @@ item.test_gun:part_ion_thruster.name=🚀 超导离子推进矢量喷口 §6[稀
 item.test_gun:blueprint_blank.name=空白军用图纸 §7[基础制图纸]§r
 item.test_gun:blueprint_ak47.name=AK-47 设计图纸 §f[普通]§r
 item.test_gun:blueprint_ak74u.name=AK-74U 设计图纸 §f[普通]§r
-item.test_gun:blueprint_m870.name=雷明顿 M870 霰弹枪图纸 §f[普通]§r
+item.test_gun:blueprint_m870.name=雷明顿 M870 霰弹枪图纸 §9[优良]§r
 item.test_gun:blueprint_m1897.name=温彻斯特 M1897 战壕枪图纸 §f[普通]§r
 item.test_gun:blueprint_bizon.name=PP-19 野牛冲锋枪图纸 §f[普通]§r
 item.test_gun:blueprint_glock.name=格洛克 Glock-18 战术图纸 §f[普通]§r

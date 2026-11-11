@@ -43,10 +43,11 @@ export const GUNS = [
   hasSkill: false,
   stats: { damage: 9, headshotMultiplier: 1.75, armorPenetration: 0.30, damageDropOff: 0.02, maxRange: 65, knockback: { x: 0.35, y: 0.15 } }
  },
+ // M870 is blue/rare; keep its array position for existing visual-index compatibility.
  {
   id: 'test_gun:shotgun',
   name: 'Remington M870',
-  tier: 'common',
+  tier: 'rare',
   type: 'shotgun',
   mode: FireMode.SHOTGUN,
   maxAmmo: 8,
@@ -58,7 +59,7 @@ export const GUNS = [
   ammoTypeId: 'test_gun:ammo_shotgun',
   projectileTypeId: 'test_gun:bullet_shotgun',
   hasSkill: false,
-  stats: { damage: 3, headshotMultiplier: 1.5, armorPenetration: 0.15, damageDropOff: 0.05, maxRange: 35, knockback: { x: 0.75, y: 0.35 } }
+  stats: { damage: 4.5, headshotMultiplier: 1.5, armorPenetration: 0.15, damageDropOff: 0.05, maxRange: 35, knockback: { x: 0.75, y: 0.35 } }
  },
  {
   id: 'test_gun:m1897',

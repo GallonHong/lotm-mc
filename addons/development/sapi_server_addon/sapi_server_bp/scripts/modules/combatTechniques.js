@@ -234,7 +234,9 @@ export class CombatTechniques {
    if(--b.remaining<=0)this.bleeds.delete(k);else b.next=now+20;
   }
  }
- static registerEvents(getActiveMatchId){this.getActiveMatchId=getActiveMatchId;if(this.registered)return;this.registered=true;
+ static registerEvents(getActiveMatchId){
+  return; // Retired in 2.14.18: Guns is the sole weapon damage owner.
+  this.getActiveMatchId=getActiveMatchId;if(this.registered)return;this.registered=true;
   system.afterEvents.scriptEventReceive.subscribe(e=>{this.handleRequest(e);this.handleLegacy(e);});system.runInterval(()=>this.tick(),1);
   world.afterEvents.entityHitEntity?.subscribe(({damagingEntity})=>{if(damagingEntity?.typeId==='minecraft:player'&&!SURVIVAL_MELEE[held(damagingEntity)?.typeId])this.noteAttack(damagingEntity);});
   world.afterEvents.itemUse?.subscribe(({source})=>{if(source?.typeId==='minecraft:player'&&!SURVIVAL_MELEE[held(source)?.typeId])this.noteAttack(source);});

@@ -195,6 +195,7 @@ export class FlamethrowerPermissionManager {
   }
  }
  static registerEvents(getActiveMatchId) {
+  return; // Retired in 2.14.18: Guns is the sole weapon damage owner.
   if(typeof getActiveMatchId==='function')this.getActiveMatchId=getActiveMatchId;
   if(this.registered)return;
   if(!system.afterEvents?.scriptEventReceive?.subscribe||!world.afterEvents?.playerLeave?.subscribe||!world.afterEvents?.playerSpawn?.subscribe)return;

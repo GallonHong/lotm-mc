@@ -1,6 +1,6 @@
 item.test_gun:ak47.name=AK-47 Assault Rifle (Classic)\n§8§o"Even soaked in swamp mud and choked with grit, it roars with fury when you pull the trigger."§r
 item.test_gun:ak74u.name=AK-74U Compact Rifle (High Mobility)\n§8§o"A close-quarters edge in tight train cars and derelict ruins; initials are carved into the stock."§r
-item.test_gun:shotgun.name=Remington M870 Shotgun (Pump-Action)\n§8§o"The sharp clack of pumping a shell into the chamber is the most comforting sound in a bleak night."§r
+item.test_gun:shotgun.name=§9Remington M870 Shotgun [Rare]§r (Pump-Action)\n§8§o"The sharp clack of pumping a shell into the chamber is the most comforting sound in a bleak night."§r
 item.test_gun:m1897.name=Winchester M1897 Trench Shotgun\n§8§o"Wait until they charge within three meters before firing—saves ammo, and you can hear the bones shatter."§r
 item.test_gun:bizon.name=PP-19 Bizon SMG (64-Round Drum)\n§8§o"A massive helical magazine is your only steady confidence when standing alone against an infected horde."§r
 item.test_gun:glock.name=Glock-18 Tactical Pistol (Full-Auto)\n§8§o"The last line of defense on your hip; its instantaneous burst of lead has turned the tide countless times."§r
@@ -166,3 +166,5 @@ item.test_gun:flamethrower.name=§5Flamethrower§r\n§7Durability 1800 · 1 per 
 item.test_gun:high_pressure_fuel.name=High-pressure Fuel
 item.test_gun:blueprint_flamethrower.name=§5Flamethrower Blueprint§r
 item.test_gun:blueprint_baizhan.name=Baizhan Blueprint [Legendary Limited·Uncraftable]
+
+item.test_gun:blueprint_m870.name=Remington M870 Shotgun Blueprint §9[Rare]§r

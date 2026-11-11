@@ -7,9 +7,9 @@ import { SURVIVAL_MELEE, meleeDamageProfile } from '../data/survivalMelee.js';
 import { DamageHandler } from './damageHandler.js';
 import { combatAuthority } from './utils/combatAuthority.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
-import { pvpCanAttack, isPvpParticipant, pvpMatch } from './utils/pvpRules.js';
+import { pvpCanAttack, isPvpParticipant, pvpMatch, pvpWeaponAllowed } from './utils/pvpRules.js';
 import { distance, traceCover, unit } from '../data/baizhan.js';
-// Local port of the existing technique rules. Loaded SAPI never uses this engine.
+// Guns owns the technique runtime whether or not SAPI is installed.
 
 
 export const TECHNIQUES=Object.freeze({doubleSneak:7,rollTicks:8,dodgeTicks:4,rollCooldownMs:1200,
@@ -78,8 +78,8 @@ export class LocalMeleeTechniques {
  static source(p,packet){
   try{if(combatAuthority()!=='local'||!live(p)||blocked(p)||!pvpCanAttack(p)||p.hasTag('pvp:admission')||String(p.getGameMode?.())==='spectator')return null;
    const s=this.state(p);if(!s||s.staggerMs>Date.now())return null;
-   const item=held(p),markers=(item?.getLore?.()||[]).filter(l=>l.startsWith('PVP_MATCH:'));
-   if(isPvpParticipant(p)||markers.length)return null;
+   const item=held(p);
+   if(!pvpWeaponAllowed(p,item))return null;
    if(packet&&(packet.typeId!==s.typeId||packet.identity!==s.identity||packet.selectedSlot!==s.slot||packet.sourceContext!==s.context||packet.sessionTag!==s.sessionTag))return null;
    if(!finite(p.location)||!finite(head(p)))return null;return s;
   }catch{return null;}

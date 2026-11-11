@@ -1,7 +1,7 @@
 import { world, system, EquipmentSlot, ScriptEventSource } from '@minecraft/server';
 import { FLAMETHROWER as F, flameContext } from '../data/flamethrower.js';
 import { getHeldGun, getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
-import { pvpCanAttack, hasInfinitePvpReserve } from './utils/pvpRules.js';
+import { pvpCanAttack, hasInfinitePvpReserve, pvpWeaponAllowed } from './utils/pvpRules.js';
 import { countAmmoInInventory, isCreativePlayer } from './utils/inventoryUtils.js';
 import { GunVisuals } from './gunVisuals.js';
 import { traceCover, point, unit } from '../data/baizhan.js';
@@ -18,8 +18,8 @@ function canOperate(p){try{return valid(p)&&p.getComponent('minecraft:health')?.
 function message(p,text){try{const held=getHeldGun(p);if(held?.gun.isFlamethrower)showAmmoHUD(p,held.gun,getCurrentAmmo(p,held.gun),`§7${text}§r`);}catch{}}
 function warning(p,text){const s=FlamethrowerEngine.players.get(p.id);if(s)s.noticeUntil=system.currentTick+60;message(p,text);}
 function uniqueLore(item,token){try{const ids=(item.getLore()||[]).filter(x=>x.startsWith(ID));return ids.length===1&&ids[0]===ID+token;}catch{return false;}}
-/** Freeze authority per session. Installed SAPI remains authoritative even
- * when its script service fails; only verified Guns-only worlds run locally. */
+/** Guns owns every flame session, including worlds with SAPI installed.
+ * A rejected damage call is never retried through another service. */
 export class FlamethrowerEngine {
  static players=new Map(); static pending=new Map(); static serial=0; static initialized=false;
  static initialize(){
@@ -40,7 +40,7 @@ export class FlamethrowerEngine {
   try{const held=getHeldGun(s.player);
    if(s.mode==='local')return combatAuthority()==='local'&&this.players.get(s.player.id)===s&&canOperate(s.player)&&
     s.player.dimension.id===s.dimensionId&&s.player.selectedSlotIndex===s.slot&&held?.gun?.id===F.id&&
-    held.item.getDynamicProperty(KEY)===s.token&&!s.player.hasTag('pvp:participant')&&!(held.item.getLore()||[]).some(l=>l.startsWith('PVP_MATCH:'));
+    held.item.getDynamicProperty(KEY)===s.token&&flameContext(s.player)===s.context&&pvpWeaponAllowed(s.player,held.item);
    const tags=s.player.getTags().filter(t=>t.startsWith(SESSION));
    return s.mode!=='blocked'&&combatAuthority()===s.mode&&this.players.get(s.player.id)===s&&canOperate(s.player)&&flameContext(s.player)===s.context&&
     s.player.selectedSlotIndex===s.slot&&held?.gun?.id===F.id&&held.item.getDynamicProperty(KEY)===s.token&&
@@ -53,7 +53,7 @@ export class FlamethrowerEngine {
   try{
    const eq=player.getComponent('minecraft:equippable'),item=eq?.getEquipment(EquipmentSlot.Mainhand);
    if(item?.typeId!==F.id)return null;
-   if(mode==='local'&&(player.hasTag('pvp:participant')||(item.getLore()||[]).some(l=>l.startsWith('PVP_MATCH:'))))return null;
+   if(mode==='local'&&!pvpWeaponAllowed(player,item))return null;
    let token=item.getDynamicProperty(KEY),changed=false;
    if(typeof token!=='string'||!/^[A-Za-z0-9_:-]{1,128}$/.test(token)){
     token=`ft_${Date.now()}_${system.currentTick}_${++this.serial}`;item.setDynamicProperty(KEY,token);changed=true;
@@ -68,8 +68,8 @@ export class FlamethrowerEngine {
     const saved=eq.getEquipment(EquipmentSlot.Mainhand);if(saved?.getDynamicProperty(KEY)!==token||(mode==='server'&&!uniqueLore(saved,token)))return null;}
    if(!FlamethrowerWear.settle(player,token))return null;
    if(mode==='local'){
-    if(player.hasTag('pvp:participant')||(item.getLore()||[]).some(l=>l.startsWith('PVP_MATCH:')))return null;
-    s={player,gun,token,wearScope:FlamethrowerWear.scope(player),mode,slot:player.selectedSlotIndex,dimensionId:player.dimension.id,trigger:false,
+    if(!pvpWeaponAllowed(player,item))return null;
+    s={player,gun,token,wearScope:FlamethrowerWear.scope(player),mode,slot:player.selectedSlotIndex,dimensionId:player.dimension.id,context:flameContext(player),trigger:false,
      ready:true,handshake:null,nextPulse:0,holdUntil:0,reloadUntil:0,lastHud:-100,lastSound:-100};
     this.players.set(player.id,s);return s;
    }

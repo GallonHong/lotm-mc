@@ -57,6 +57,7 @@ export class RailPermissionManager {
  }
 
  static registerEvents() {
+  return; // Retired in 2.14.18: Guns is the sole weapon damage owner.
   if (this.registered) return;
   const signal = system.afterEvents?.scriptEventReceive;
   if (!signal?.subscribe) return;

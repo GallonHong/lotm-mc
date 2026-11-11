@@ -25,6 +25,7 @@ export class MeleeLeftManager {
   } catch {}
  }
  static registerEvents() {
+  return; // Retired in 2.14.18: Guns is the sole weapon damage owner.
   if (this.registered || !world.afterEvents?.entityHitEntity?.subscribe) return;
   world.afterEvents.entityHitEntity.subscribe(event => this.observe(event));
   this.registered = true;

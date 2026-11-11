@@ -1,3 +1,5 @@
+> Historical implementation reference. Since SAPI 2.14.18, SAPI weapon adapters are not loaded or registered. Guns owns weapon damage and intrinsic drone armor. See DAMAGE_OWNERSHIP_2.14.18.md.
+
 # Drone chassis armor / blast protection (SAPI side)
 
 SAPI mirrors the Test Guns damage contract; the canonical description lives in

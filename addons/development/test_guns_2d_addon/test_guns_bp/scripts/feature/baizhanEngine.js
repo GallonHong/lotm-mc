@@ -3,13 +3,14 @@ import { combatAuthority } from './utils/combatAuthority.js';
 import { DamageHandler } from './damageHandler.js';
 import { BaizhanWear } from './baizhanWear.js';
 import { world, system, EquipmentSlot, ScriptEventSource } from '@minecraft/server';
-import { BAIZHAN, chooseRound, traceCover, unit, point, distance, machineDamageMultiplier } from '../data/baizhan.js';
+import { BAIZHAN, chooseRound, unit, point, distance, machineDamageMultiplier } from '../data/baizhan.js';
 import { intrinsicBlastReduction } from '../data/droneArmor.js';
 import { getHeldGun, getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { pvpCanAttack } from './utils/pvpRules.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
 import { consumeAmmoFromInventory, countAmmoInInventory } from './utils/inventoryUtils.js';
 import { getMuzzle, clipSegment } from './utils/muzzleUtils.js';
+import { resolveBaizhanRay } from './utils/baizhanRaycast.js';
 import { drawBaizhanTracer } from './baizhanFeedback.js';
 import { DamageIndicator } from './damageIndicator.js';
 import { RecoilManager } from './recoilManager.js';
@@ -247,23 +248,13 @@ export class BaizhanEngine {
   let origin,muzzle;
   if(mounted)origin={...state.mount.origin,y:state.mount.origin.y+BAIZHAN.mountedPivotHeight};
   else { muzzle=getMuzzle(player,gun);origin=muzzle.location; }
-  // Aim from the camera, then converge the real muzzle toward that point.
-  // Parallel muzzle rays are offset 0.375m and miss a 0.6m-wide entity even
-  // with a perfectly centered crosshair and zero spread. Cover is still
-  // checked again from the actual muzzle; this never teleports a bullet.
-  if(!muzzle?.blocked)try {
-   const head=player.getHeadLocation();
-   const sight=traceCover(player.dimension,head,direction,BAIZHAN.range,mounted?BAIZHAN.maxPenetrations:0);
-   let aim=sight.end;
-   const hits=player.dimension.getEntitiesFromRay(head,direction,{maxDistance:sight.distance,ignoreBlockCollision:true}).sort((a,b)=>a.distance-b.distance);
-   for(const hit of hits){
-    if(!valid(hit.entity)||hit.entity.id===player.id||hit.entity.typeId===BAIZHAN.mountId||['minecraft:item','minecraft:xp_orb'].includes(hit.entity.typeId))continue;
-    if(!Number.isFinite(hit.distance)||hit.distance<0||hit.distance>sight.distance)continue;
-    aim=point(head,direction,hit.distance);break;
-   }
-   direction=unit({x:aim.x-origin.x,y:aim.y-origin.y,z:aim.z-origin.z})||direction;
+  let resolved;
+  try {
+   resolved=resolveBaizhanRay({dimension:player.dimension,shooterId:player.id,head:player.getHeadLocation(),
+    origin,direction,mounted,muzzle});
   }catch{this.guardHint(state,'raycast');return;}
-  const trace=muzzle?.blocked?{blocked:true,hitBlock:muzzle.reason==='collision',distance:0,end:origin,cells:[]}:traceCover(player.dimension,origin,direction,BAIZHAN.range,mounted?BAIZHAN.maxPenetrations:0);
+  const {trace,end,target,contact}=resolved;
+  origin=resolved.origin;direction=resolved.direction;
   // Reserve exactly once, before emission. Mount never reads or changes the
   // loaded magazine; creative/PvP helpers intentionally use virtual reserve.
   if((mounted?countAmmoInInventory(player,BAIZHAN.ammoId):getCurrentAmmo(player,gun))<1) {
@@ -279,18 +270,7 @@ export class BaizhanEngine {
   }
   state.cooldownUntil=now+(mounted?BAIZHAN.mountedFireTicks:BAIZHAN.handFireTicks);
   const round=chooseRound();
-  let end=trace.end,target;
-  try {
-   const hits=player.dimension.getEntitiesFromRay(origin,direction,{maxDistance:trace.distance,ignoreBlockCollision:true}).sort((a,b)=>a.distance-b.distance);
-   for(const hit of hits) {
-    if(!valid(hit.entity)||hit.entity.id===player.id||hit.entity.typeId===BAIZHAN.mountId||['minecraft:item','minecraft:xp_orb'].includes(hit.entity.typeId))continue;
-    if(!Number.isFinite(hit.distance)||hit.distance<0||hit.distance>trace.distance)continue;
-    // Teammates/protected targets still stop the bullet instead of letting it
-    // tunnel through them and harm another player behind.
-    target=hit.entity;end=point(origin,direction,hit.distance);break;
-   }
-  } catch { target=undefined;this.guardHint(state,'raycast'); }
-  const visibleStart=mounted?point(origin,direction,Math.min(BAIZHAN.mountedMuzzleReach,distance(origin,end))):origin;
+  const visibleStart=contact?end:mounted?point(origin,direction,Math.min(BAIZHAN.mountedMuzzleReach,distance(origin,end))):origin;
   drawBaizhanTracer(player.dimension,visibleStart,end,round);
   try { player.dimension.playSound(gun.shootSound,visibleStart,{volume:1.3,pitch:0.9}); } catch {}
   if(mounted) {

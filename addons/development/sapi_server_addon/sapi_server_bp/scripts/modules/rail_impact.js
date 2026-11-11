@@ -189,6 +189,7 @@ export class RailImpactManager {
   }
  }
  static registerEvents(getActiveMatchId){
+  return; // Retired in 2.14.18: Guns is the sole weapon damage owner.
   if(typeof getActiveMatchId==='function')this.getActiveMatchId=getActiveMatchId;if(this.registered)return;
   if(!system.afterEvents?.scriptEventReceive?.subscribe||!world.afterEvents?.playerLeave?.subscribe||!world.afterEvents?.playerSpawn?.subscribe)return;
   system.afterEvents.scriptEventReceive.subscribe(e=>this.handleRequest(e));world.afterEvents.playerLeave.subscribe(({playerId})=>this.leave(playerId));world.afterEvents.playerSpawn.subscribe(({player})=>this.leave(player.id));

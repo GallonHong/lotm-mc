@@ -65,7 +65,11 @@ export function traceCover(dimension, start, direction, maxDistance, maxBlocks =
   const liquid = block.isLiquid === true || ['minecraft:water','minecraft:flowing_water','minecraft:lava','minecraft:flowing_lava'].includes(id);
   if (!air && (liquid || block.isSolid !== false || PENETRABLE_BLOCKS.has(id))) {
    if (liquid || !PENETRABLE_BLOCKS.has(id) || result.cells.length >= maxBlocks) {
-    return { ...result, hitBlock:true, distance: Math.max(0,travel-0.01), end: point(start,dir,Math.max(0,travel-0.01)) };
+    // Preserve the exact stopping boundary for entity-ray clipping. The 0.01
+    // visual offset must not erase a legal grazing hit immediately before a
+    // wall. Existing consumers keep their conservative distance/end behavior.
+    return { ...result, hitBlock:true, collisionDistance:travel,
+     distance: Math.max(0,travel-0.01), end: point(start,dir,Math.max(0,travel-0.01)) };
    }
    result.cells.push({ x: cell.x, y: cell.y, z: cell.z, typeId: id });
   }

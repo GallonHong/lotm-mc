@@ -1,6 +1,3 @@
-import { CombatTechniques } from './modules/combatTechniques.js';
-import { MeleeLeftManager } from './modules/melee_left.js';
-import { RailImpactManager } from './modules/rail_impact.js';
 import { PvPManager } from './modules/pvp.js';
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { Config } from "./config.js";
@@ -23,9 +20,6 @@ import { SocialManager } from "./modules/social.js";
 import { CombatManager } from "./modules/combat.js";
 import { WantedManager } from "./modules/wanted.js";
 import { PlayerVendingManager } from "./modules/player_vending.js";
-import { FlamethrowerPermissionManager } from "./modules/flamethrower_permission.js";
-import { BaizhanPermissionManager } from "./modules/baizhan_permission.js";
-import { RailPermissionManager } from "./modules/rail_permission.js";
 
 const compassMenuTicks = new Map();
 
@@ -88,17 +82,13 @@ function ensurePlayerCompass(player) {
 	}
 }
 
+// Weapon damage and melee techniques are owned exclusively by Guns.
+// Do not import the retired SAPI weapon adapters: imports can activate vendor listeners.
 function initServerSystem() {
  PvPManager.init();
 	console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
 	try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
 	CombatManager.registerEvents();
-	RailPermissionManager.registerEvents();
-	BaizhanPermissionManager.registerEvents(() => PvPManager.match?.id ?? null);
-	FlamethrowerPermissionManager.registerEvents(() => PvPManager.match?.id ?? null);
-	RailImpactManager.registerEvents(() => PvPManager.match?.id ?? null);
-	CombatTechniques.registerEvents(() => PvPManager.match?.id ?? null);
-	MeleeLeftManager.registerEvents();
 	RegionManager.registerProtectionEvents();
  PlotSafeZone.start();
 	LandManager.registerProtectionEvents();
