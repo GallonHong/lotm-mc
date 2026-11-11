@@ -2,7 +2,6 @@ import os
 import sys
 import zipfile
 import json
-import shutil
 import time
 import io
 import struct
@@ -196,20 +195,7 @@ def main():
     elapsed = time.time() - start_time
     print(f"\n[SUCCESS] Packaged {OUT_MCWORLD} successfully in {elapsed:.2f}s!")
     print(f"Total Size: {size_mb:.2f} MB")
-
-    # Also copy to Desktop for convenient access
-    desktop_targets = [
-        os.path.join(DESKTOP_DIR, "《明日之后：幸存者》.mcworld"),
-        os.path.join(DESKTOP_DIR, "明日之后.mcworld"),
-        os.path.join(DESKTOP_DIR, "mrzh.zip"),
-        os.path.join(DESKTOP_DIR, "明日之后.zip"),
-    ]
-    for target in desktop_targets:
-        try:
-            shutil.copy2(OUT_MCWORLD, target)
-            print(f"[SUCCESS] Copied to Desktop: {target}")
-        except Exception as e:
-            print(f"[!] Warning: Could not copy to {target}: {e}")
+    print("[*] Desktop copies are intentionally disabled; the packaged world only lives in the repository.")
 
 if __name__ == "__main__":
     main()
