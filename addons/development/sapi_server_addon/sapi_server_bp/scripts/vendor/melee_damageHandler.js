@@ -1,6 +1,7 @@
 import { CUSTOM_SHIELDS, SHIELD_IDS, calculateShieldBlock, isFrontalShieldHit } from './baizhan_damage/feature/utils/shieldRules.js';
 import { getArmorHealthProfile } from './baizhan_damage/data/armorHealth.js';
 import { getEquipmentCombatBonuses } from './baizhan_damage/data/equipmentCombat.js';
+import { intrinsicArmorPoints } from './baizhan_damage/data/droneArmor.js';
 import { EpicGunPassives } from './baizhan_damage/feature/epicGunPassives.js';
 import { PkmBurn } from './baizhan_damage/feature/pkmBurn.js';
 import { EquipmentWear } from './baizhan_damage/feature/equipmentWear.js';
@@ -143,6 +144,9 @@ export class DamageHandler {
   */
  static estimateArmorPoints(entity, ignoreShields = false) {
   if (!entity || !entity.isValid()) return 0;
+  // Apocalypse Life drones carry intrinsic chassis armor instead of equipment.
+  const intrinsic = intrinsicArmorPoints(entity.typeId);
+  if (intrinsic > 0) return intrinsic;
   try {
    const equippable = entity.getComponent('minecraft:equippable');
    if (!equippable) return 0;

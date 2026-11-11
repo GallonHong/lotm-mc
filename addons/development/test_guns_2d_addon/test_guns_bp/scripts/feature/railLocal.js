@@ -6,6 +6,7 @@ import { clipSegment } from './utils/muzzleUtils.js';
 import { applyRailStun } from './railStun.js';
 import { RAIL } from './utils/railRules.js';
 import { railSplashDamage, applyRailSlow, railBlastGeometry, railBlastTargets } from './utils/railBlast.js';
+import { intrinsicBlastReduction } from '../data/droneArmor.js';
 
 const body=t=>{try{return t.getHeadLocation();}catch{return {...t.location,y:t.location.y+.8};}};
 export function railBlastPoint(t,impact){return railBlastGeometry(t,impact)?.point;}
@@ -35,7 +36,7 @@ export function localRailImpact(w,location,direct){
  for(const t of targets){try{
   if(!localRailEligible(w.shooter,t))continue;
   const geometry=railBlastGeometry(t,location);if(!geometry)continue;
-  const amount=railSplashDamage(w.profile,geometry.distance);
+  const amount=railSplashDamage(w.profile,geometry.distance)*(1-intrinsicBlastReduction(t.typeId));
   if(amount>0)localRailDamage(w,t,amount,location,{splash:true});
  }catch{}}return true;
 }

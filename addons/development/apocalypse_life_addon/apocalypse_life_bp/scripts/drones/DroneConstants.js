@@ -10,6 +10,30 @@ export const DRONE_TIERS = {
  LEGENDARY: { name: "典藏", color: "§6" }
 };
 
+/**
+ * 机体固有护甲点数：接入 Test Guns / SAPI 既有护甲公式（减伤随武器穿甲降低）。
+ * 数值必须与 SAPI scripts/vendor/baizhan_damage/data/droneArmor.js 和
+ * Test Guns scripts/data/droneArmor.js 保持一致，由 tests/test_drone_armor.mjs 校验。
+ */
+export const DRONE_ARMOR_BY_TIER = {
+ COMMON: 10,
+ RARE: 10,
+ EPIC: 18,
+ LEGENDARY: 25
+};
+
+/**
+ * 机体固有爆炸减免：只作用于脚本爆炸（RPG / M79 / MGL / 迫击炮溅射、百战溅射、裂轨爆炸）。
+ * 原生爆炸（苦力怕 / TNT / 自然灾害陨石 createExplosion）不在本机制范围内。
+ * 数值必须与 SAPI / Test Guns 的 droneArmor.js 保持一致。
+ */
+export const DRONE_BLAST_REDUCTION_BY_TIER = {
+ COMMON: 0.45,
+ RARE: 0.55,
+ EPIC: 0.65,
+ LEGENDARY: 0.75
+};
+
 export const DRONE_REGISTRY = {
  // 1. 普通型
  "hummingbird": {
@@ -17,6 +41,8 @@ export const DRONE_REGISTRY = {
   name: "「蜂鸟-I」侦察无人机",
   entityType: "makercamp_dr:summoner_drone",
   tier: DRONE_TIERS.COMMON,
+  armor: DRONE_ARMOR_BY_TIER.COMMON,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.COMMON,
   maxDurability: 2000,
   baseHp: 60,
   baseDamage: 7.5,
@@ -30,6 +56,8 @@ export const DRONE_REGISTRY = {
   name: "「生命线」战地急救机",
   entityType: "makercamp_dr:ore_finder_drone",
   tier: DRONE_TIERS.RARE,
+  armor: DRONE_ARMOR_BY_TIER.RARE,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.RARE,
   maxDurability: 2500,
   baseHp: 75,
   baseDamage: 7.5,
@@ -52,6 +80,8 @@ export const DRONE_REGISTRY = {
   name: "「守护天使」特战医疗机",
   entityType: "makercamp_dr:healing_drone",
   tier: DRONE_TIERS.EPIC,
+  armor: DRONE_ARMOR_BY_TIER.EPIC,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.EPIC,
   maxDurability: 3500,
   baseHp: 95,
   baseDamage: 12,
@@ -81,6 +111,8 @@ export const DRONE_REGISTRY = {
   name: "「惩戒者」突击无人机",
   entityType: "makercamp_dr:mob_transporter_drone",
   tier: DRONE_TIERS.RARE,
+  armor: DRONE_ARMOR_BY_TIER.RARE,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.RARE,
   maxDurability: 2500,
   baseHp: 80,
   baseDamage: 10.5,
@@ -104,6 +136,8 @@ export const DRONE_REGISTRY = {
   name: "「幽灵」聚能激光机",
   entityType: "makercamp_dr:spy_drone",
   tier: DRONE_TIERS.RARE,
+  armor: DRONE_ARMOR_BY_TIER.RARE,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.RARE,
   maxDurability: 2500,
   baseHp: 75,
   baseDamage: 7.5,
@@ -126,6 +160,8 @@ export const DRONE_REGISTRY = {
   name: "「毁灭者」重装突击机",
   entityType: "makercamp_dr:mining_drone",
   tier: DRONE_TIERS.EPIC,
+  armor: DRONE_ARMOR_BY_TIER.EPIC,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.EPIC,
   maxDurability: 3500,
   baseHp: 110,
   baseDamage: 12,
@@ -158,6 +194,8 @@ export const DRONE_REGISTRY = {
   name: "「极光天灾」典藏战术母机",
   entityType: "makercamp_dr:laser_drone",
   tier: DRONE_TIERS.LEGENDARY,
+  armor: DRONE_ARMOR_BY_TIER.LEGENDARY,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.LEGENDARY,
   maxDurability: 5000,
   baseHp: 150,
   baseDamage: 13.5,
@@ -197,6 +235,8 @@ export const DRONE_REGISTRY = {
   name: "「神风」巡飞自爆机",
   entityType: "makercamp_dr:tnt_launcher_drone",
   tier: DRONE_TIERS.RARE,
+  armor: DRONE_ARMOR_BY_TIER.RARE,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.RARE,
   maxDurability: 2500,
   baseHp: 70,
   baseDamage: 10.5,
@@ -220,6 +260,8 @@ export const DRONE_REGISTRY = {
   name: "「死神」腐蚀自爆机",
   entityType: "makercamp_dr:poison_drone",
   tier: DRONE_TIERS.EPIC,
+  armor: DRONE_ARMOR_BY_TIER.EPIC,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.EPIC,
   maxDurability: 3500,
   baseHp: 95,
   baseDamage: 12,
@@ -250,6 +292,8 @@ export const DRONE_REGISTRY = {
   name: "「骆驼」重载货运机",
   entityType: "makercamp_dr:inventory_drone",
   tier: DRONE_TIERS.COMMON,
+  armor: DRONE_ARMOR_BY_TIER.COMMON,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.COMMON,
   maxDurability: 2000,
   baseHp: 80,
   baseDamage: 7.5,
@@ -270,6 +314,8 @@ export const DRONE_REGISTRY = {
   name: "「疾风」战术增幅机",
   entityType: "makercamp_dr:race_drone",
   tier: DRONE_TIERS.EPIC,
+  armor: DRONE_ARMOR_BY_TIER.EPIC,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.EPIC,
   maxDurability: 3500,
   baseHp: 90,
   baseDamage: 9,
@@ -299,6 +345,8 @@ export const DRONE_REGISTRY = {
   name: "「深渊主宰」典藏战术矩阵",
   entityType: "makercamp_dr:water_drone",
   tier: DRONE_TIERS.LEGENDARY,
+  armor: DRONE_ARMOR_BY_TIER.LEGENDARY,
+  blastReduction: DRONE_BLAST_REDUCTION_BY_TIER.LEGENDARY,
   maxDurability: 5000,
   baseHp: 150,
   baseDamage: 12,

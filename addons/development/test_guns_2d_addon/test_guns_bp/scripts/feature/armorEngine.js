@@ -1,5 +1,6 @@
 import { isProtectedTeammate } from './utils/teamRules.js';
 import { isCombatDowned } from './utils/pvpRules.js';
+import { intrinsicBlastReduction } from '../data/droneArmor.js';
 import { world, system, EquipmentSlot, EntityDamageCause } from '@minecraft/server';
 
 export const ARMOR_KNOCKBACK_VALUES = {
@@ -161,6 +162,9 @@ export class ArmorEngine {
 	 */
 	static getBlastReduction(entity) {
 		if (!entity || !entity.isValid()) return 0;
+		// Apocalypse Life drones carry intrinsic chassis blast protection.
+		const intrinsic = intrinsicBlastReduction(entity.typeId);
+		if (intrinsic > 0) return intrinsic;
 		try {
 			const equ = entity.getComponent('minecraft:equippable');
 			if (!equ) return 0;

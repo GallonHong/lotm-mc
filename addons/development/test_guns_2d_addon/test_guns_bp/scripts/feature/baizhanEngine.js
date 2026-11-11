@@ -4,6 +4,7 @@ import { DamageHandler } from './damageHandler.js';
 import { BaizhanWear } from './baizhanWear.js';
 import { world, system, EquipmentSlot, ScriptEventSource } from '@minecraft/server';
 import { BAIZHAN, chooseRound, traceCover, unit, point, distance, machineDamageMultiplier } from '../data/baizhan.js';
+import { intrinsicBlastReduction } from '../data/droneArmor.js';
 import { getHeldGun, getCurrentAmmo, setCurrentAmmo } from './utils/gunUtils.js';
 import { pvpCanAttack } from './utils/pvpRules.js';
 import { isProtectedTeammate } from './utils/teamRules.js';
@@ -344,7 +345,7 @@ export class BaizhanEngine {
   const direct=shot.kind==='direct';
   const gun={...state.gun,noHealthFallback:true,disableCritical:!direct,disableHeadshot:!direct,
    fixedArmorPenetration:shot.round==='piercing'?0.85:undefined,
-   stats:{...state.gun.stats,damage:shot.damage*machineDamageMultiplier(target),
+   stats:{...state.gun.stats,damage:shot.damage*machineDamageMultiplier(target)*(shot.kind==='splash'?1-intrinsicBlastReduction(target.typeId):1),
     damageDropOff:direct?state.gun.stats.damageDropOff:0,knockback:direct?state.gun.stats.knockback:undefined}};
   let applied=false;
   try{applied=DamageHandler.handleHit(null,state.player,target,gun,shot.impact)===true;}catch{}

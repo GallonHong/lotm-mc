@@ -117,6 +117,7 @@ export class DroneMenu {
     `§6──────────────────────────────\n` +
     `§e机体耐久: §6${data.durability} / ${data.maxDurability} §f(注:不可修理，炸机只扣固定耐久)\n` +
     `§e机载燃油: §a${data.fuel}% §6│ 基础火力: §f${conf.baseDamage} 点伤害\n` +
+    `§e机体护甲: §b${conf.armor || 0} 点 §6│ §e爆炸减免: §b${Math.round((conf.blastReduction || 0) * 100)}% §f(固有装甲，按武器穿甲削减) \n` +
     `§e改装配置: §f装甲 LV${data.hpLvl || 0} §6│ §f火控 LV${data.atkLvl || 0} §6│ §f超频 LV${data.skillLvl || 0}\n` +
     `§6──────────────────────────────\n` +
     `§e战术技能载荷:\n${skillsDesc}\n` +

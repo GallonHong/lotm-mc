@@ -1,13 +1,13 @@
 {
  "format_version": 2,
  "header": {
-  "name": "Apocalypse Life BP v1.4.6",
+  "name": "Apocalypse Life BP v1.4.7",
   "description": "末日生活系统行为包（载具、食品、医疗站、枪械训练靶、自动售货机与可演奏钢琴）",
   "uuid": "bfab646c-b627-4312-adec-ec8b34af5061",
   "version": [
    1,
    4,
-   6
+   7
   ],
   "min_engine_version": [
    1,
@@ -23,7 +23,7 @@
    "version": [
     1,
     4,
-    6
+    7
    ]
   },
   {
@@ -34,7 +34,7 @@
    "version": [
     1,
     4,
-    6
+    7
    ],
    "entry": "scripts/main.js"
   }
@@ -45,7 +45,7 @@
    "version": [
     1,
     4,
-    6
+    7
    ]
   },
   {

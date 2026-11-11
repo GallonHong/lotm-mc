@@ -7,6 +7,7 @@ import { DamageHandler } from '../vendor/baizhan_damage/feature/damageHandler.js
 import { DamageIndicator as AuthoritativeIndicator } from '../vendor/baizhan_damage/feature/damageIndicator.js';
 import { BAIZHAN_GUN } from '../data/baizhanGun.js';
 import { BAIZHAN, MACHINE_TARGETS, machineDamageMultiplier, distance, traceCover, approvedSegment } from '../data/baizhanRules.js';
+import { intrinsicBlastReduction } from '../vendor/baizhan_damage/data/droneArmor.js';
 
 const combatContext=e=>{try{return JSON.stringify([e.dimension.id,e.getTags().filter(t=>t.startsWith('pvp:')||t.startsWith('sapi_team_')||['apoc:downed','apoc:downed_pending','apoc_downed','apoc:true_death'].includes(t)).sort()]);}catch{return null;}};
 const finitePoint = p => !!p && ['x','y','z'].every(a => typeof p[a] === 'number' && Number.isFinite(p[a]));
@@ -190,7 +191,8 @@ export class BaizhanPermissionManager {
    if(approval.allowed===true){
     const shooter=world.getAllPlayers().find(p=>p.id===packet.shooterId),target=world.getEntity(packet.targetId);
     const damage=(packet.kind==='direct'?BAIZHAN_GUN.stats.damage:packet.kind==='burn'?BAIZHAN.burnDamage:
-     BAIZHAN.splashDamage*Math.max(0.2,1-distance(packet.origin,packet.impact)/BAIZHAN.splashRadius))*machineDamageMultiplier(target);
+     BAIZHAN.splashDamage*Math.max(0.2,1-distance(packet.origin,packet.impact)/BAIZHAN.splashRadius))
+     *machineDamageMultiplier(target)*(packet.kind==='splash'?1-intrinsicBlastReduction(target.typeId):1);
     const gun={...BAIZHAN_GUN,noHealthFallback:true,disableCritical:packet.kind!=='direct',disableHeadshot:packet.kind!=='direct',
      fixedArmorPenetration:packet.round==='piercing'?0.85:undefined,
      stats:{...BAIZHAN_GUN.stats,damage,damageDropOff:packet.kind==='direct'?BAIZHAN_GUN.stats.damageDropOff:0,

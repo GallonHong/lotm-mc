@@ -1,6 +1,7 @@
 import { CUSTOM_SHIELDS, SHIELD_IDS, calculateShieldBlock, isFrontalShieldHit } from './utils/shieldRules.js';
 import { getArmorHealthProfile } from '../data/armorHealth.js';
 import { getEquipmentCombatBonuses } from '../data/equipmentCombat.js';
+import { intrinsicArmorPoints } from '../data/droneArmor.js';
 import { EpicGunPassives } from './epicGunPassives.js';
 import { PkmBurn } from './pkmBurn.js';
 import { EquipmentWear } from './equipmentWear.js';
@@ -143,6 +144,9 @@ export class DamageHandler {
   */
  static estimateArmorPoints(entity, ignoreShields = false) {
   if (!entity || !entity.isValid()) return 0;
+  // Apocalypse Life drones carry intrinsic chassis armor instead of equipment.
+  const intrinsic = intrinsicArmorPoints(entity.typeId);
+  if (intrinsic > 0) return intrinsic;
   try {
    const equippable = entity.getComponent('minecraft:equippable');
    if (!equippable) return 0;

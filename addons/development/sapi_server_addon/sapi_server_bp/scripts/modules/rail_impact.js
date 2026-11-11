@@ -8,6 +8,7 @@ import { DamageHandler } from '../vendor/baizhan_damage/feature/damageHandler.js
 import { distance, traceCover, approvedSegment, unit, point as along } from '../data/baizhanRules.js';
 import { RAIL_IMPACT as R, railProfile, nearSegment } from '../data/railImpactRules.js';
 import { railSplashDamage, applyRailSlow, railBlastGeometry, railBlastTargets } from '../data/railBlast.js';
+import { intrinsicBlastReduction } from '../vendor/baizhan_damage/data/droneArmor.js';
 import { traceGrenadeSegment, grenadeFuseLocationAvailable } from '../data/grenadeFlight.js';
 import { applyAuthoritativeRailStun, tickAuthoritativeRailStuns } from './rail_authoritative_stun.js';
 const SESSION='tg_rail_session:';
@@ -109,7 +110,7 @@ export class RailImpactManager {
   if(direct){const f=this.damage(s,direct,s.profile.damage,location);if(f){hits++;feedback.push(f);}}
   for(const target of targets){try{
    const geometry=railBlastGeometry(target,location);if(!geometry)continue;
-   const amount=railSplashDamage(s.profile,geometry.distance);if(!(amount>0))continue;
+   const amount=railSplashDamage(s.profile,geometry.distance)*(1-intrinsicBlastReduction(target.typeId));if(!(amount>0))continue;
    const f=this.damage(s,target,amount,location,{splash:true});if(f){hits++;feedback.push(f);}
   }catch{}}
   // Coordinates belong to the authoritative launcher flight, never its visual copy.
