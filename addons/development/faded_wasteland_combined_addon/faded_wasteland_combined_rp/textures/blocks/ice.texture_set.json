@@ -1,0 +1,8 @@
+{
+    "format_version": "1.21.30",
+    "minecraft:texture_set": {
+        "color": "ice",
+        "heightmap": "fw_ice_dd_height",
+        "metalness_emissive_roughness_subsurface": "fw_ice_dd_mer"
+    }
+}

@@ -1,0 +1,8 @@
+{
+    "format_version": "1.21.30",
+    "minecraft:texture_set": {
+        "color": "deepslate_top",
+        "heightmap": "fw_deepslate_top_dd_height",
+        "metalness_emissive_roughness": "fw_deepslate_top_dd_mer"
+    }
+}

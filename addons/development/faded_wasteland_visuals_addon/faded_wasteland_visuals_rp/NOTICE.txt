@@ -5,3 +5,6 @@ Original lighting/color grade adjustments: Faded Wasteland Visuals. Not affiliat
 Water settings, local lighting and shadow base configs are adapted from
 Dark Fantasy Visuals (identifiers prefixed Starfish) with the user's permission,
 then retuned for the Faded Wasteland visuals.
+
+
+Block PBR height/MER maps under textures/blocks/ were extracted from Dynamic Details 1.2 (Square Dreams AB, Minecraft Marketplace) for local testing only. Marketplace content must not be redistributed publicly; remove textures/blocks/ before publishing this pack if you do not have redistribution rights.

@@ -24,3 +24,12 @@ https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/vol
 焦散一致性复核：五种水配置统一使用原默认水的frame_length=0.05秒、scale=0.12，以及相同贴图/power=1；避免跨群系时采用不同动画速度/投影尺度。水体颜色和波浪差异仍保留。
 
 官方Biomes Customization的Limitations已核实：同包水设置应使用相同caustics参数，因为它们不能混合。上述统一遵循此限制。来源：https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/biomecustomization
+
+
+## 0.3.10 追加：常用方块 PBR 贴图
+
+从第三方光影包 Dynamic Details 1.2（Square Dreams AB）提取常用方块的高度图（heightmap）与金属/发光/粗糙度图（MER），共 93 个方块纹理、145 张 PBR 贴图，合计约 294KB；颜色仍使用原版贴图（texture_set 的 color 指向原版纹理名），不替换方块外观颜色。
+
+覆盖：石头/圆石/深板岩/花岗岩/闪长岩/安山岩/石砖/砖块/泥土/草方块/沙/砂岩/木头/木板/矿石/矿物块/混凝土/陶瓦/羊毛/玻璃/冰/雪/下界岩/灵魂沙/黑曜石等常用方块。
+
+注意：该 PBR 贴图数据来源于市场付费包，仅供本地测试使用，请勿公开再分发；如果某些方块的 PBR 未生效，可删除 textures/blocks 下对应的 texture_set.json 单独排查。

@@ -1,0 +1,8 @@
+{
+    "format_version": "1.21.30",
+    "minecraft:texture_set": {
+        "color": "log_oak",
+        "heightmap": "fw_log_oak_dd_height",
+        "metalness_emissive_roughness": "fw_log_oak_dd_mer"
+    }
+}

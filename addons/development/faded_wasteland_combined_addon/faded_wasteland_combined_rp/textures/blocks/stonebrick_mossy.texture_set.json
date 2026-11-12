@@ -1,0 +1,8 @@
+{
+    "format_version": "1.21.30",
+    "minecraft:texture_set": {
+        "color": "stonebrick_mossy",
+        "heightmap": "fw_stonebrick_mossy_dd_height",
+        "metalness_emissive_roughness": "fw_stonebrick_mossy_dd_mer"
+    }
+}
