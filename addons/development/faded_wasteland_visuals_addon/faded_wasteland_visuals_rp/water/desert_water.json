@@ -6,19 +6,19 @@
     },
     "particle_concentrations": {
       "chlorophyll": 0.05,
-      "suspended_sediment": 18.0,
-      "cdom": 0.0
+      "suspended_sediment": 14.0,
+      "cdom": 0
     },
     "caustics": {
       "enabled": true,
-      "frame_length": 0.052,
+      "frame_length": 0.05,
       "texture": "textures/caustic/caustics.png",
-      "scale": 0.11,
-      "power": 1.0
+      "scale": 0.12,
+      "power": 1
     },
     "waves": {
       "enabled": true,
-      "depth": 0.1,
+      "depth": 0.09,
       "frequency": 0.77,
       "frequency_scaling": 1.228,
       "mix": 0.2,
@@ -26,7 +26,7 @@
       "pull": 0.45,
       "sampleWidth": 0.12,
       "shape": 5.0,
-      "speed": 2.2,
+      "speed": 2.0,
       "direction_increment": 170.0,
       "speed_scaling": 0.74
     }

@@ -5,20 +5,20 @@
       "identifier": "faded_wasteland:swamp_water"
     },
     "particle_concentrations": {
-      "chlorophyll": 0.55,
-      "suspended_sediment": 20.0,
-      "cdom": 0.3
+      "chlorophyll": 0.48,
+      "suspended_sediment": 16.0,
+      "cdom": 0.24
     },
     "caustics": {
       "enabled": true,
-      "frame_length": 0.058,
+      "frame_length": 0.05,
       "texture": "textures/caustic/caustics.png",
-      "scale": 0.1,
-      "power": 0.8
+      "scale": 0.12,
+      "power": 1
     },
     "waves": {
       "enabled": true,
-      "depth": 0.22,
+      "depth": 0.16,
       "frequency": 0.77,
       "frequency_scaling": 1.228,
       "mix": 0.2,
@@ -26,7 +26,7 @@
       "pull": 0.45,
       "sampleWidth": 0.12,
       "shape": 5.0,
-      "speed": 1.8,
+      "speed": 1.6,
       "direction_increment": 170.0,
       "speed_scaling": 0.74
     }

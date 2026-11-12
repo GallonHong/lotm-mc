@@ -27,9 +27,9 @@
           -0.017
         ],
         "saturation": [
-          0.83,
-          0.83,
-          0.83
+          0.8,
+          0.8,
+          0.8
         ]
       },
       "shadows": {
@@ -63,16 +63,16 @@
       },
       "highlights": {
         "enabled": true,
-        "highlightsMin": 2.0,
+        "highlightsMin": 1.8,
         "contrast": [
           1.0,
           1.0,
           1.0
         ],
         "gain": [
-          0.75,
-          0.75,
-          0.75
+          0.63,
+          0.63,
+          0.63
         ],
         "gamma": [
           2.2,
@@ -85,9 +85,9 @@
           0
         ],
         "saturation": [
-          0.9,
-          0.9,
-          0.9
+          0.82,
+          0.82,
+          0.82
         ]
       },
       "temperature": {

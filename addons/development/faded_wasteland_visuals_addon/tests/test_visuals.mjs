@@ -3,7 +3,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Faded Wasteland Visuals 0.3.7: natural blue sky + clearer haze on top of the fixed darker preset.
+// Faded Wasteland Visuals 0.3.9: sky layering + softer haze / clearer water test build.
 // Static validation only; real GPU/visual verification needs an in-game Vibrant Visuals pass.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const rp = join(root, "faded_wasteland_visuals_rp");
@@ -26,12 +26,12 @@ const relative = path => path.slice(rp.length + 1).replaceAll("\\", "/");
 
 // 1) manifest: single fixed preset, no subpacks
 const manifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 3, 7], "manifest version must be 0.3.7");
-assert.deepEqual(manifest.modules[0].version, [0, 3, 7], "module version must be 0.3.7");
+assert.deepEqual(manifest.header.version, [0, 3, 9], "manifest version must be 0.3.9");
+assert.deepEqual(manifest.modules[0].version, [0, 3, 9], "module version must be 0.3.9");
 assert.equal(manifest.header.uuid, "61a15a41-271b-4326-86e3-e110db785760", "uuid stays stable");
 assert.deepEqual(manifest.header.min_engine_version, [1, 26, 60]);
 assert(manifest.capabilities?.includes("pbr"));
-assert(manifest.header.name.includes("0.3.7"), "display name must mention 0.3.7");
+assert(manifest.header.name.includes("0.3.9"), "display name must mention 0.3.9");
 assert.equal(manifest.subpacks, undefined, "single fixed look: no selectable subpacks");
 assert.equal(existsSync(join(rp, "subpacks")), false, "subpacks directory must be gone");
 
@@ -68,8 +68,10 @@ const gradingDoc = json(join(rp, "color_grading/color_grading.json"))["minecraft
 assert.equal(gradingDoc.tone_mapping.operator, "reinhard_luminance");
 const grading = gradingDoc.color_grading;
 assert.deepEqual(grading.midtones.gain, [0.66, 0.66, 0.65], "post-tonemap gain stays the darker level");
-assert.deepEqual(grading.midtones.saturation, [0.83, 0.83, 0.83], "natural desaturation (0.3.7)");
-assert.deepEqual(grading.highlights.gain, [0.75, 0.75, 0.75], "neutral highlight gain (0.3.7)");
+assert.deepEqual(grading.midtones.saturation, [0.80, 0.80, 0.80], "natural desaturation (0.3.9)");
+assert.deepEqual(grading.highlights.gain, [0.63, 0.63, 0.63], "neutral highlight gain (0.3.9)");
+assert.equal(grading.highlights.highlightsMin, 1.8, "highlight threshold (0.3.9)");
+assert.deepEqual(grading.highlights.saturation, [0.82, 0.82, 0.82], "highlight saturation (0.3.9)");
 assert.deepEqual(grading.midtones.offset, [-0.022, -0.020, -0.017]);
 assert.equal(grading.temperature.temperature, 6450);
 assert(grading.temperature.enabled && grading.shadows.enabled && grading.highlights.enabled);
@@ -102,11 +104,14 @@ for (const name of fogFiles) {
 		`${name}: haze must absorb light`);
 }
 const defaultFog = json(join(fogDir, "fog_default.json"))["minecraft:fog_settings"];
-assert.equal(defaultFog.distance.air.fog_start, 0.72);
+assert.equal(defaultFog.distance.air.fog_start, 0.78, "haze moved back (0.3.9)");
+assert.equal(defaultFog.distance.weather.fog_start, 0.3, "weather haze start (0.3.9)");
+assert.equal(defaultFog.distance.weather.fog_end, 0.8, "weather haze end (0.3.9)");
+assert.equal(defaultFog.volumetric.density.weather.max_density, 0.0105, "weather haze density (0.3.9)");
 assert.equal(defaultFog.distance.air.fog_color, "#A4A7A8");
 assert.equal(defaultFog.distance.water.fog_color, "#3E6156");
-assert.equal(defaultFog.volumetric.density.air.max_density, 0.0036, "clearer haze density (0.3.7)");
-assert.equal(defaultFog.volumetric.henyey_greenstein_g.air.henyey_greenstein_g, 0.65, "softer forward scattering (0.3.7)");
+assert.equal(defaultFog.volumetric.density.air.max_density, 0.0036, "clearer haze density (0.3.9)");
+assert.equal(defaultFog.volumetric.henyey_greenstein_g.air.henyey_greenstein_g, 0.65, "softer forward scattering (0.3.9)");
 
 // 6) shared water / lights / shadows / biomes
 const WATER_IDS = ["water", "desert_water", "snowy_water", "swamp_water", "pale_water"];
@@ -116,6 +121,9 @@ for (const id of WATER_IDS) {
 	assert.equal(settings.description.identifier, `faded_wasteland:${id}`);
 	assert.equal(settings.caustics.texture, "textures/caustic/caustics.png");
 	assert(existsSync(join(rp, settings.caustics.texture)));
+	assert.equal(settings.caustics.power, 1, `${id}: caustics power must be the schema integer 1`);
+	assert.equal(settings.caustics.frame_length, 0.05);
+	assert.equal(settings.caustics.scale, 0.12);
 	waterDefs.add(settings.description.identifier);
 }
 const biomes = readdirSync(join(rp, "biomes")).filter(name => name.endsWith(".json"));
@@ -156,8 +164,8 @@ for (const isolated of ["models", "sounds", "ui", "attachables", "entity"]) {
 
 // 8) docs
 const inPackReadme = read(join(rp, "README_zh_CN.txt"));
-assert(inPackReadme.includes("0.3.7") && inPackReadme.includes("雨"),
-	"readme documents the 0.3.7 rain particles");
+assert(inPackReadme.includes("0.3.9") && inPackReadme.includes("雨"),
+	"readme documents the 0.3.9 rain particles");
 assert(inPackReadme.includes("未"), "readme stays honest about in-game verification");
 
-console.log("Faded Wasteland Visuals 0.3.7 validation passed (single fixed preset, noon cut, rain particles replaced).");
+console.log("Faded Wasteland Visuals 0.3.9 validation passed (sky layering, softer haze, clearer water).");

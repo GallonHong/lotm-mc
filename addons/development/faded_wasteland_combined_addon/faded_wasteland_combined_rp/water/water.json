@@ -5,20 +5,20 @@
       "identifier": "faded_wasteland:water"
     },
     "particle_concentrations": {
-      "chlorophyll": 0.35,
-      "suspended_sediment": 8.0,
-      "cdom": 0.08
+      "chlorophyll": 0.3,
+      "suspended_sediment": 6.0,
+      "cdom": 0.06
     },
     "caustics": {
       "enabled": true,
       "frame_length": 0.05,
       "texture": "textures/caustic/caustics.png",
       "scale": 0.12,
-      "power": 1.2
+      "power": 1
     },
     "waves": {
       "enabled": true,
-      "depth": 0.12,
+      "depth": 0.1,
       "frequency": 0.77,
       "frequency_scaling": 1.228,
       "mix": 0.22,
@@ -26,7 +26,7 @@
       "pull": 0.45,
       "sampleWidth": 0.12,
       "shape": 5.0,
-      "speed": 2.6,
+      "speed": 2.2,
       "direction_increment": 170.0,
       "speed_scaling": 0.74
     }

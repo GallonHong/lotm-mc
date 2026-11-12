@@ -3,19 +3,19 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Faded Wasteland Music Pack 1.0.3: replaces vanilla background music via music_definitions.json.
+// Faded Wasteland Music Pack 1.0.4: replaces vanilla background music via music_definitions.json.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const rp = join(root, "faded_wasteland_music_rp");
 const read = path => readFileSync(path, "utf8");
 const json = path => JSON.parse(read(path));
 
 const manifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [1, 0, 3], "manifest version");
-assert.deepEqual(manifest.modules[0].version, [1, 0, 3], "module version");
+assert.deepEqual(manifest.header.version, [1, 0, 4], "manifest version");
+assert.deepEqual(manifest.modules[0].version, [1, 0, 4], "module version");
 assert.equal(manifest.modules[0].type, "resources");
 assert.deepEqual(manifest.header.min_engine_version, [1, 26, 10]);
 assert(manifest.header.name.includes("音乐"), "pack name must mention music");
-assert(manifest.header.name.includes("BGM"), "name must mention BGM replacement");
+assert(manifest.header.name.includes("音乐包"), "name must mention the music pack");
 
 const definitions = json(join(rp, "sounds/sound_definitions.json"))["sound_definitions"];
 for (const id of ["music.game", "music.menu"]) {
@@ -55,4 +55,10 @@ for (const [key, entry] of Object.entries(musicDefinitions)) {
 	assert.equal(typeof entry.max_delay, "number");
 }
 assert(Object.keys(musicDefinitions).length >= 60, "music_definitions should cover all surface biomes");
-console.log("Faded Wasteland Music 1.0.3 validation passed (music_definitions biome mapping + all events defined).");
+assert.equal(musicDefinitions.game.min_delay, 600, "default overworld min interval");
+assert.equal(musicDefinitions.game.max_delay, 900, "default overworld max interval");
+assert.equal(musicDefinitions.menu.min_delay, 30, "menu min interval");
+assert.equal(musicDefinitions.water.max_delay, 60, "water max interval");
+const biomeSample = Object.entries(musicDefinitions).find(([key]) => key === "plains");
+assert(biomeSample && biomeSample[1].min_delay === 240 && biomeSample[1].max_delay === 480, "surface biome interval 4-8 min");
+console.log("Faded Wasteland Music 1.0.4 validation passed (music_definitions biome mapping + all events defined).");
