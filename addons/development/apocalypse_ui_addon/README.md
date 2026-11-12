@@ -2,7 +2,7 @@
 
 可选的 Minecraft Bedrock JSON UI 资源包，为 SAPI Server 的主菜单提供末日生存像素磁贴外观。
 
-v1.2.4 修正希望报版式：`hope_post_form` 固定为 364×244 面板并移除 420×280 上限，报纸卡片改用 `$card_size` / `$summary_size` / `$summary_offset` 变量组，避免长文本撑破版面。
+v1.2.5 修正希望报版式：`hope_post_form` 固定为 364×244 面板并移除 420×280 上限，报纸卡片改用 `$card_size` / `$summary_size` / `$summary_offset` 变量组，避免长文本撑破版面。
 
 v1.2.3 重构了长表单分支：主菜单磁贴（`§l§2幸存者联盟§r` 及两个旧标题）与希望报（`§l§6希望报`）拆分为独立面板定义，统一 14px 标题栏并修正希望报版式的尺寸/层级，其余表单继续走原版长表单分支。
 

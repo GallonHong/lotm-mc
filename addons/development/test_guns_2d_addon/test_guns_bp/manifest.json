@@ -7,7 +7,7 @@
     "version": [
       3,
       16,
-      21
+      22
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         3,
         16,
-        21
+        22
       ]
     },
     {
@@ -33,7 +33,7 @@
       "version": [
         3,
         16,
-        21
+        22
       ]
     }
   ],
@@ -51,8 +51,11 @@
       "version": [
         3,
         16,
-        21
+        22
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "product_type": "addon"
+  }
 }

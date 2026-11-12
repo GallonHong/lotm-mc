@@ -1,0 +1,36 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "LOTM Pathways Resources",
+    "description": "诡秘之主途径物品材质、界面图标与语言文件",
+    "uuid": "7605bcb1-4077-460b-b051-6f52be919e10",
+    "version": [
+      1,
+      4,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      120
+    ]
+  },
+  "modules": [
+    {
+      "description": "Resource Module",
+      "type": "resources",
+      "uuid": "3d064c17-88ff-470e-9574-883d184d7b28",
+      "version": [
+        1,
+        4,
+        1
+      ]
+    }
+  ],
+  "capabilities": [
+    "pbr"
+  ],
+  "metadata": {
+    "product_type": "addon"
+  }
+}

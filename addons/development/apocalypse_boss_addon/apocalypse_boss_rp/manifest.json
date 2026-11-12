@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Boss RP v1.5.1",
+    "name": "Apocalypse Boss RP v1.5.2",
     "description": "Resources for Apocalypse Boss Addon. Includes multiplayer raid boss assets.",
     "uuid": "ab128e86-8313-46ca-967e-83408a6a701e",
     "version": [
       1,
       5,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,8 +22,14 @@
       "version": [
         1,
         5,
-        1
+        2
       ]
     }
+  ],
+  "metadata": {
+    "product_type": "addon"
+  },
+  "capabilities": [
+    "pbr"
   ]
 }

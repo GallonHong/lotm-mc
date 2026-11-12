@@ -12,7 +12,8 @@ manifest_paths = [
     "addons/development/apocalypse_extraction_addon/extraction_bp/manifest.json",
     "addons/development/apocalypse_boss_addon/apocalypse_boss_bp/manifest.json",
     "addons/development/apocalypse_story_addon/story_bp/manifest.json",
-    "addons/development/lotm_pathways_addon/manifest.json",
+    "addons/development/lotm_pathways_addon/lotm_pathways_bp/manifest.json",
+    "addons/development/lotm_pathways_addon/lotm_pathways_rp/manifest.json",
 ]
 
 for p in manifest_paths:

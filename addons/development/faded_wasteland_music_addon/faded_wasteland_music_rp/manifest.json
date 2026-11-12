@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "余晖 · 废土音乐包 1.0.2（修复主世界 BGM 替换）",
-    "description": "Replaces vanilla background music across all slots using music_definitions.json (per-biome mapping) + sound_definitions.json. Resource pack only.",
+    "name": "余晖 · 废土音乐包 1.0.3（全部 BGM + 生物群系映射）",
+    "description": "Replaces vanilla background music across all slots: sound_definitions.json events plus a music_definitions.json biome mapping (overworld biomes, menu, creative, water, nether, end). Resource pack only.",
     "uuid": "d3b9a1f2-5c47-4a8e-b0d1-7e6f3a9c2b58",
     "version": [
       1,
       0,
-      2
+      3
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        2
+        3
       ]
     }
   ],
@@ -30,6 +30,10 @@
     "authors": [
       "Gallon Hong / dot"
     ],
-    "license": "User-supplied game soundtrack excerpts; do not redistribute publicly without the rights holder's permission."
-  }
+    "license": "User-supplied game soundtrack excerpts; do not redistribute publicly without the rights holder's permission.",
+    "product_type": "addon"
+  },
+  "capabilities": [
+    "pbr"
+  ]
 }

@@ -1,6 +1,8 @@
-# 余晖 · 废土光影 (Faded Wasteland Visuals) — 0.3.6 「固定更暗档 · 后天雨粒子」
+# 余晖 · 废土光影 (Faded Wasteland Visuals) — 0.3.7 「自然蓝天 · 清透薄雾」
 
-基座：仓库 0.3.0 + 用户提供的 0.3.1 + 0.3.2~0.3.5 迭代；资源包 UUID 不变。
+基座：仓库 0.3.0 + 用户提供的 0.3.1 + 0.3.2~0.3.6 迭代；资源包 UUID 不变。
+
+**0.3.7**：在 0.3.6 基础上微调晴天天空（自然灰蓝）、中间调饱和度 0.87→0.83、高光 gain 改中性 [0.75,0.75,0.75]、晴天空气密度 0.0042→0.0036、前向散射 g 0.75→0.65；光照强度/雨系统/水体/群系不变。
 原包来源 `Faded_Wasteland_Visuals_v0.1.0.mcpack`（作者 Gallon Hong / dot；不含《明日之后》资产）；
 群系/雾数据来自 Mojang bedrock-samples（见包内 `NOTICE.txt`）；水面 / 本地光照 / 软阴影 / 雨天粒子
 复用并重调自 `dark_fantasy_visuals_rp`（经用户许可）。
@@ -9,7 +11,7 @@
 - **只做光影**：不替换方块/生物/枪械/物品/UI 贴图（仅水面/焦散/雨滴相关），不含脚本
 - 服务器可选资源包；不影响伤害、掉落、刷怪、天气频率
 
-## 0.3.6 改动
+## 0.3.6 改动（0.3.7 保留光照与雨系统）
 
 1. **固定单档**：只保留「更暗 · 阴郁废土」一套配置，删除全部子包选项（资源包设置里不再有档位可选）
 2. **正午再压暗**（日落/夜晚不变）：
@@ -45,8 +47,8 @@ node addons/development/faded_wasteland_visuals_addon/tests/test_visuals.mjs
 
 ## 安装 / 排查
 
-1. 删除旧版本包（0.1.x~0.3.5），只导入 **0.3.6**（UUID 相同会替换）
-2. 视频设置选择「灵动视效」；世界资源包列表确认启用的是 0.3.6；不行取消重勾
+1. 删除旧版本包（0.1.x~0.3.5），只导入 **0.3.7**（UUID 相同会替换）
+2. 视频设置选择「灵动视效」；世界资源包列表确认启用的是 0.3.7；不行取消重勾
 3. 不要与其他光影/天空/雾包叠加；服务器在 Packs 页更新并刷新世界资源包版本
 4. 正午仍偏亮：改 `lighting/global.json` 的 0/1 键（900）与 0.2/0.8 键（550）；不要动 0.25/0.5 键以免影响日落/夜晚
 
@@ -62,12 +64,12 @@ node addons/development/faded_wasteland_visuals_addon/tests/test_visuals.mjs
 ```
 faded_wasteland_visuals_addon/
   faded_wasteland_visuals_rp/
-    manifest.json                     # 0.3.6（单档，无 subpacks）
+    manifest.json                     # 0.3.7（单档，无 subpacks）
     lighting/ atmospherics/ color_grading/   # 固定更暗档配置
     particles/rain_splash_particle.particle.json + particles/rain/*   # 雨天粒子
     biomes/ fogs/ water/ local_lighting/ shadows/ textures/           # 共享资产
     README_zh_CN.txt / NOTICE.txt
   tests/test_visuals.mjs
   build.sh
-  Faded_Wasteland_Visuals_v0.3.6.mcpack
+  Faded_Wasteland_Visuals_v0.3.7.mcpack
 ```

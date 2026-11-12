@@ -7,7 +7,7 @@
     "version": [
       2,
       15,
-      3
+      4
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         2,
         15,
-        3
+        4
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         2,
         15,
-        3
+        4
       ],
       "entry": "scripts/main.js"
     }
@@ -53,8 +53,11 @@
       "version": [
         2,
         15,
-        3
+        4
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "product_type": "addon"
+  }
 }

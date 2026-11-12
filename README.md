@@ -181,7 +181,7 @@
 修改源码后，在 macOS 或 Linux 中运行：
 
 ```bash
-bash addons/development/lotm_pathways_addon/scripts/build-packages.sh
+bash addons/development/lotm_pathways_addon/build.sh
 ```
 
 只构建 SAPI Server 时运行：

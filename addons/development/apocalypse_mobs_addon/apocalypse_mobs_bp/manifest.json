@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs BP v0.7.10",
-    "description": "\u672b\u65e5\u751f\u7269\u4e0e\u4eba\u7c7b\u9635\u8425\u884c\u4e3a\u5305\uff1a\u8352\u539f\u6301\u67aa\u63a0\u593a\u8005\u3001\u907f\u96be\u6240\u9a7b\u5b88\u62a4\u536b\uff0c\u5e76\u652f\u6301 World Events \u4e25\u683c\u6807\u8bb0\u7684\u4e3b\u57ce\u53db\u519b\u5165\u4fb5\u3002",
+    "name": "Apocalypse Mobs BP v0.7.11",
+    "description": "末日生物与人类阵营行为包：荒原持枪掠夺者、避难所驻守护卫，并支持 World Events 严格标记的主城叛军入侵。",
     "uuid": "714f16b3-b6ad-47f3-af06-dd93095da201",
     "version": [
       0,
       7,
-      10
+      11
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         7,
-        10
+        11
       ]
     },
     {
@@ -32,7 +32,7 @@
       "version": [
         0,
         7,
-        10
+        11
       ],
       "entry": "scripts/main.js"
     }
@@ -51,8 +51,11 @@
       "version": [
         0,
         7,
-        10
+        11
       ]
     }
-  ]
+  ],
+  "metadata": {
+    "product_type": "addon"
+  }
 }

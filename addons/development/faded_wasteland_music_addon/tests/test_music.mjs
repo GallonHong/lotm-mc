@@ -3,15 +3,15 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Faded Wasteland Music Pack 1.0.2: replaces vanilla background music via music_definitions.json.
+// Faded Wasteland Music Pack 1.0.3: replaces vanilla background music via music_definitions.json.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const rp = join(root, "faded_wasteland_music_rp");
 const read = path => readFileSync(path, "utf8");
 const json = path => JSON.parse(read(path));
 
 const manifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [1, 0, 2], "manifest version");
-assert.deepEqual(manifest.modules[0].version, [1, 0, 2], "module version");
+assert.deepEqual(manifest.header.version, [1, 0, 3], "manifest version");
+assert.deepEqual(manifest.modules[0].version, [1, 0, 3], "module version");
 assert.equal(manifest.modules[0].type, "resources");
 assert.deepEqual(manifest.header.min_engine_version, [1, 26, 10]);
 assert(manifest.header.name.includes("音乐"), "pack name must mention music");
@@ -55,4 +55,4 @@ for (const [key, entry] of Object.entries(musicDefinitions)) {
 	assert.equal(typeof entry.max_delay, "number");
 }
 assert(Object.keys(musicDefinitions).length >= 60, "music_definitions should cover all surface biomes");
-console.log("Faded Wasteland Music 1.0.2 validation passed (music_definitions biome mapping + all events defined).");
+console.log("Faded Wasteland Music 1.0.3 validation passed (music_definitions biome mapping + all events defined).");

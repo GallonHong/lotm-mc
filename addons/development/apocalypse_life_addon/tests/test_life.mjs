@@ -15,13 +15,13 @@ const walk = directory => readdirSync(directory, { withFileTypes: true }).flatMa
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [1, 4, 12]);
-assert.deepEqual(rpManifest.header.version, [1, 4, 12]);
+assert.deepEqual(bpManifest.header.version, [1, 4, 13]);
+assert.deepEqual(rpManifest.header.version, [1, 4, 13]);
 assert.equal(bpManifest.header.uuid, "bfab646c-b627-4312-adec-ec8b34af5061", "BP UUID must preserve old worlds");
 assert.equal(rpManifest.header.uuid, "f179a256-053b-4d7f-9c03-d92f26ffb083", "RP UUID must preserve old worlds");
 assert.ok(bpManifest.header.name.includes("Apocalypse Life"));
 assert.ok(rpManifest.header.name.includes("Apocalypse Life"));
-assert.ok(bpManifest.dependencies.some(value => value.uuid === rpManifest.header.uuid && value.version.join(".") === "1.4.12"));
+assert.ok(bpManifest.dependencies.some(value => value.uuid === rpManifest.header.uuid && value.version.join(".") === "1.4.13"));
 
 const recipe = name => join(bp, "recipes/vehicles", `recipe_blueprint_${name}.json`);
 for (const craftable of ["speedboat"]) assert(existsSync(recipe(craftable)), `${craftable} blueprint must remain craftable`);
@@ -114,6 +114,6 @@ assert.match(lifeMain, /isInteractiveBlock\(event\.block\)/, "drone fire control
 
 assert.ok(existsSync(join(repo, "addons/reference/钢琴_原始包_v1.3.0.mcaddon")), "uploaded source piano archive must be preserved");
 const build = readFileSync(join(root, "build.sh"), "utf8");
-for (const marker of ["apocalypse_life_bp", "apocalypse_life_rp", "Apocalypse_Life_Addon_v1.4.12.mcaddon"]) assert.ok(build.includes(marker));
+for (const marker of ["apocalypse_life_bp", "apocalypse_life_rp", "Apocalypse_Life_Addon_v1.4.13.mcaddon"]) assert.ok(build.includes(marker));
 assert.equal(build.includes("Apocalypse_Vehicles"), false);
-console.log("Apocalypse Life v1.4.12 validation passed.");
+console.log("Apocalypse Life v1.4.13 validation passed.");
