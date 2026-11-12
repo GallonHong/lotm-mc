@@ -1,0 +1,7 @@
+Vanilla biome and fog data derived from Mojang/bedrock-samples commit 15701fa9c13923f12662984c32c124327e40e3d3 (v1.26.60.5).
+(c) Mojang AB. All rights reserved. Subject to Minecraft EULA: https://www.minecraft.net/en-us/eula
+Original lighting/color grade adjustments: Faded Wasteland Visuals. Not affiliated with LifeAfter or NetEase. No LifeAfter assets included.
+
+Water settings, local lighting and shadow base configs are adapted from
+Dark Fantasy Visuals (identifiers prefixed Starfish) with the user's permission,
+then retuned for the Faded Wasteland visuals.

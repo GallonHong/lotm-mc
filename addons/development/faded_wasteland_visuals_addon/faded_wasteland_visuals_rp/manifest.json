@@ -1,0 +1,60 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "余晖 · 废土光影 0.3.0（早期明日之后 · 多档亮度）",
+    "description": "Faded Wasteland Visuals | 原版贴图不变 · 需要灵动视效 | 0.3.0 多档亮度子包：偏暗（推荐）/ 标准 / 更暗；Reinhard Luminance 色调映射 + 6500K 白平衡 + 带吸收沙尘薄雾 + 浑水水面 | 若正午仍过曝，请切换子包或确认加载的是 0.3.0",
+    "uuid": "61a15a41-271b-4326-86e3-e110db785760",
+    "version": [
+      0,
+      3,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "4b93eaf7-ed96-437c-b2d8-7b2c288b6756",
+      "version": [
+        0,
+        3,
+        0
+      ]
+    }
+  ],
+  "capabilities": [
+    "pbr"
+  ],
+  "metadata": {
+    "authors": [
+      "Gallon Hong / dot"
+    ],
+    "license": "Original visual configuration; vanilla client-biome/fog data subject to Minecraft EULA. Water/local-lighting/shadow base configs adapted from Dark Fantasy Visuals and retuned."
+  },
+  "subpacks": [
+    {
+      "folder_name": "1",
+      "name": "§f偏暗 · 早期废土（推荐）",
+      "memory_performance_tier": 0
+    },
+    {
+      "folder_name": "2",
+      "name": "§f标准 · 自然日光",
+      "memory_performance_tier": 0
+    },
+    {
+      "folder_name": "3",
+      "name": "§8更暗 · 阴郁废土",
+      "memory_performance_tier": 0
+    },
+    {
+      "folder_name": "4",
+      "name": "§c诊断档 · 极暗测试（选它仍然亮 = 加载的不是本包）",
+      "memory_performance_tier": 0
+    }
+  ]
+}

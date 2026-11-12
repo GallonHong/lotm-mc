@@ -1,0 +1,59 @@
+{
+  "format_version": "1.26.0",
+  "minecraft:lighting_settings": {
+    "description": {
+      "identifier": "faded_wasteland:lighting"
+    },
+    "directional_lights": {
+      "orbital": {
+        "sun": {
+          "illuminance": {
+            "0": 12000,
+            "0.2": 5500,
+            "0.25": 1800,
+            "0.35": 100,
+            "0.5": 0.6,
+            "0.65": 100,
+            "0.75": 1800,
+            "0.8": 5500,
+            "1": 12000
+          },
+          "color": {
+            "0": "#FFF0DC",
+            "0.2": "#FFE2C2",
+            "0.25": "#FFC98F",
+            "0.35": "#E6D5C4",
+            "0.5": "#C6D2DD",
+            "0.65": "#E6D5C4",
+            "0.75": "#FFC98F",
+            "0.8": "#FFE2C2",
+            "1": "#FFF0DC"
+          }
+        },
+        "moon": {
+          "illuminance": 0.22,
+          "color": "#9AAFC4"
+        },
+        "orbital_offset_degrees": 3.0
+      }
+    },
+    "emissive": {
+      "desaturation": 0.1
+    },
+    "ambient": {
+      "illuminance": {
+        "0": 0.03,
+        "0.25": 0.025,
+        "0.35": 0.02,
+        "0.5": 0.015,
+        "0.65": 0.02,
+        "0.75": 0.025,
+        "1": 0.03
+      },
+      "color": "#9FA9AD"
+    },
+    "sky": {
+      "intensity": 0.2
+    }
+  }
+}
