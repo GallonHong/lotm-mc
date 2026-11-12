@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "planks_acacia",
-        "heightmap": "fw_planks_acacia_height",
-        "metalness_emissive_roughness": "fw_planks_acacia_mer"
+        "heightmap": "fw_planks_dd_height",
+        "metalness_emissive_roughness": "fw_planks_dd_mer"
     }
 }

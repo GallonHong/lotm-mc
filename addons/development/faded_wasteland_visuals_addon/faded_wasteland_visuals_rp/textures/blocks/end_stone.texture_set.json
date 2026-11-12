@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "end_stone",
-        "heightmap": "fw_end_stone_height",
-        "metalness_emissive_roughness_subsurface": "fw_end_stone_mers"
+        "heightmap": "fw_end_stone_dd_height",
+        "metalness_emissive_roughness": "fw_end_stone_dd_mer"
     }
 }

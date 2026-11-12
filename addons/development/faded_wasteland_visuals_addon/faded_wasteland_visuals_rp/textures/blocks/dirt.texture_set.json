@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "dirt",
-        "heightmap": "fw_dirt_height",
-        "metalness_emissive_roughness": "fw_dirt_mer"
+        "heightmap": "fw_dirt_dd_height",
+        "metalness_emissive_roughness": "fw_dirt_dd_mer"
     }
 }

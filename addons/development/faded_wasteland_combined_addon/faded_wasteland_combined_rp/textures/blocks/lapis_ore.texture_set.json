@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "lapis_ore",
-        "heightmap": "fw_lapis_ore_height",
-        "metalness_emissive_roughness": "fw_lapis_ore_mer"
+        "heightmap": "fw_lapis_ore_dd_height",
+        "metalness_emissive_roughness": "fw_lapis_ore_dd_mer"
     }
 }

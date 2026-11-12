@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "stone_granite",
-        "heightmap": "fw_stone_granite_height",
-        "metalness_emissive_roughness": "fw_stone_granite_mer"
+        "heightmap": "fw_stone_granite_dd_height",
+        "metalness_emissive_roughness": "fw_stone_granite_dd_mer"
     }
 }

@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "clay",
-        "heightmap": "fw_clay_height",
-        "metalness_emissive_roughness": "fw_clay_mer"
+        "heightmap": "fw_clay_dd_height",
+        "metalness_emissive_roughness": "fw_clay_dd_mer"
     }
 }

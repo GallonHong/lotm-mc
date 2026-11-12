@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "余晖 · 废土光影 0.3.13",
-    "description": "在 0.3.12 基础上修复方块 PBR 资源：每个 texture_set 都随包携带颜色图（不再引用包外纹理），高度图改为单通道灰度、MER 改为 3 通道、MERS 改为 4 通道，符合 VV 纹理集规范。需要灵动视效。",
+    "name": "余晖 · 废土光影 0.3.15",
+    "description": "PBR黑紫缺图修复（64×64版）：93张方块颜色图随包携带（Dynamic Details 1.2 的64×64方块美术），高度图单通道（保留原RGB通道细节）、无效MERS还原MER；PBR高度/材质图仍来自本地 Dynamic Details 1.2。保留已有光影，未经客户端实测。",
     "uuid": "61a15a41-271b-4326-86e3-e110db785760",
     "version": [
       0,
       3,
-      13
+      15
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         3,
-        13
+        15
       ]
     }
   ],

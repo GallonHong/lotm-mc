@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "log_big_oak",
-        "heightmap": "fw_log_big_oak_height",
-        "metalness_emissive_roughness": "fw_log_big_oak_mer"
+        "heightmap": "fw_log_big_oak_dd_height",
+        "metalness_emissive_roughness": "fw_log_big_oak_dd_mer"
     }
 }

@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "iron_ore",
-        "heightmap": "fw_iron_ore_height",
-        "metalness_emissive_roughness": "fw_iron_ore_mer"
+        "heightmap": "fw_iron_ore_dd_height",
+        "metalness_emissive_roughness": "fw_iron_ore_dd_mer"
     }
 }

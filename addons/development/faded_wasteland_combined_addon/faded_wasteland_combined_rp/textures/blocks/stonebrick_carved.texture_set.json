@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "stonebrick_carved",
-        "heightmap": "fw_stonebrick_carved_height",
-        "metalness_emissive_roughness": "fw_stonebrick_carved_mer"
+        "heightmap": "fw_stonebrick_carved_dd_height",
+        "metalness_emissive_roughness": "fw_stonebrick_carved_dd_mer"
     }
 }

@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "copper_ore",
-        "heightmap": "fw_copper_ore_height",
-        "metalness_emissive_roughness": "fw_copper_ore_mer"
+        "heightmap": "fw_copper_ore_dd_height",
+        "metalness_emissive_roughness": "fw_copper_ore_dd_mer"
     }
 }

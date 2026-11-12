@@ -1,3 +1,19 @@
+# 0.3.15 黑紫贴图修复 · 64×64 方块颜色 + Dynamic Details PBR
+
+已定位三类确定的无效纹理集：93个color引用在同包不存在；91个heightmap引用的源图为RGB/RGBA而非单通道；17个MERS引用RGB图而缺少第4通道。
+
+0.3.15 修复：为93个方块补入随包的 64×64 颜色图（美术取自本地 Dynamic Details 1.2 的64×64方块颜色层）；高度图只取原图同一RGB通道无损转单通道灰度；17个不具备SSS数据的MERS声明还原为MER。保留高度细节、全部MER像素和其他光影设置，不全面移除PBR。PBR高度/材质图仍完全来自本地 Dynamic Details 1.2.mcpack。
+
+64×64 颜色会替换这些方块的默认颜色（不是原版16×16色彩）；同包纹理集不会使用其他资源包的颜色覆盖，需要和其他方块材质包协调优先级。
+
+验证：递归检查全部94个纹理集的本地引用、PNG/TGA有效性、通道、互斥层、颜色原始哈希与包内一致性。未进行基岩客户端内容日志/画面/GPU实测。0.3.12成品保留。0.3.15采用0.3.13验证过的修复方案，颜色图换成 Dynamic Details 1.2 的64×64方块美术。单独光影与合并光影音乐包不要同时启用，本轮未自动更新合并包。
+
+官方依据：https://learn.microsoft.com/en-us/minecraft/creator/reference/content/texturesetsreference/texturesetsconcepts/texturesetsintroduction
+
+原包NOTICE标注PBR素材来自Marketplace用于本地测试；保留此来源与限制，勿当成可公开再分发的原创资产。
+
+---
+历史说明：
 # 0.3.9 雾与水微调测试版
 
 在0.3.8天空渐变/高光调整上继续修改；0.3.7与0.3.8成品均保留供对照。未经客户端/GPU/手机实测。
@@ -26,9 +42,9 @@ https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/vol
 官方Biomes Customization的Limitations已核实：同包水设置应使用相同caustics参数，因为它们不能混合。上述统一遵循此限制。来源：https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/biomecustomization
 
 
-## 0.3.13 修正：常用方块 PBR 贴图
+## 0.3.12 追加：常用方块 PBR 贴图
 
-从第三方光影包 Dynamic Details 1.2（Square Dreams AB）提取常用方块的颜色图 + 高度图 + 金属/发光/粗糙度图。颜色图统一降采样到 16x 并随包携带（纹理集只能引用同包纹理）；高度图转单通道灰度、MER 转 3 通道、MERS 转 4 通道。共 93 个方块纹理，方块部分合计约 142KB。
+从第三方光影包 Dynamic Details 1.2（Square Dreams AB）提取常用方块的高度图（heightmap）与金属/发光/粗糙度图（MER），共 93 个方块纹理、145 张 PBR 贴图，合计约 294KB；颜色仍使用原版贴图（texture_set 的 color 指向原版纹理名），不替换方块外观颜色。
 
 覆盖：石头/圆石/深板岩/花岗岩/闪长岩/安山岩/石砖/砖块/泥土/草方块/沙/砂岩/木头/木板/矿石/矿物块/混凝土/陶瓦/羊毛/玻璃/冰/雪/下界岩/灵魂沙/黑曜石等常用方块。
 

@@ -8,3 +8,5 @@ then retuned for the Faded Wasteland visuals.
 
 
 Block PBR height/MER maps under textures/blocks/ were extracted from Dynamic Details 1.2 (Square Dreams AB, Minecraft Marketplace) for local testing only. Marketplace content must not be redistributed publicly; remove textures/blocks/ before publishing this pack if you do not have redistribution rights.
+
+0.3.15方块颜色图取自本地 Dynamic Details 1.2 的64×64方块颜色层（随包携带）；PBR高度/材质图同样来自该包。高度图只将相同RGB通道无损规范为单通道，既有RGB MER保留，误用MERS的17个声明还原为MER（不虚构SSS）。Mojang/bedrock-samples 提交仅用于本项目群系/雾数据来源说明，不属于CC0，遵守Minecraft EULA。市场包素材仅供本地测试，请勿公开再分发。

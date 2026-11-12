@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "netherrack",
-        "heightmap": "fw_netherrack_height",
-        "metalness_emissive_roughness": "fw_netherrack_mer"
+        "heightmap": "fw_netherrack_dd_height",
+        "metalness_emissive_roughness": "fw_netherrack_dd_mer"
     }
 }

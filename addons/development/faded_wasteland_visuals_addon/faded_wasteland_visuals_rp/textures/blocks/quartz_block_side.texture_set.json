@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "quartz_block_side",
-        "heightmap": "fw_quartz_block_side_height",
-        "metalness_emissive_roughness": "fw_quartz_block_side_mer"
+        "heightmap": "fw_quartz_block_side_dd_height",
+        "metalness_emissive_roughness": "fw_quartz_block_side_dd_mer"
     }
 }

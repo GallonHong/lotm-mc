@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "grass_top",
-        "heightmap": "fw_grass_top_height",
-        "metalness_emissive_roughness": "fw_grass_top_mer"
+        "heightmap": "fw_grass_top_dd_height",
+        "metalness_emissive_roughness": "fw_grass_top_dd_mer"
     }
 }

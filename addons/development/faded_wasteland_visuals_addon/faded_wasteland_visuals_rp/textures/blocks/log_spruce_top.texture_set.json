@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "log_spruce_top",
-        "heightmap": "fw_log_spruce_top_height",
-        "metalness_emissive_roughness": "fw_log_spruce_top_mer"
+        "heightmap": "fw_log_top_2_dd_height",
+        "metalness_emissive_roughness": "fw_log_top_2_dd_mer"
     }
 }

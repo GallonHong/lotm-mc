@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "soul_soil",
-        "heightmap": "fw_soul_soil_height",
-        "metalness_emissive_roughness": "fw_soul_soil_mer"
+        "heightmap": "fw_soul_soil_dd_height",
+        "metalness_emissive_roughness": "fw_soul_soil_dd_mer"
     }
 }

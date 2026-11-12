@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "cobblestone",
-        "heightmap": "fw_cobblestone_height",
-        "metalness_emissive_roughness": "fw_cobblestone_mer"
+        "heightmap": "fw_cobblestone_dd_height",
+        "metalness_emissive_roughness": "fw_cobblestone_dd_mer"
     }
 }
