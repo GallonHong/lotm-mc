@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse + Test Guns Pose Compatibility",
-    "description": "Player bridge for Test Guns 3.16.22 and Apocalypse Life. Uses isolated gun controller and native sneaking ADS. Place above Life and Guns. Requires in-game validation.",
+    "name": "Apocalypse + Test Guns Pose Compatibility 1.1.8",
+    "description": "Player bridge for Test Guns 3.16.23. Place above all player-animation packs. Matching gun RP required; validate in game.",
     "uuid": "f9cfc46a-da35-445c-adfa-dbf345d7499a",
     "version": [
       1,
       1,
-      7
+      8
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         1,
-        7
+        8
       ]
     }
   ],
@@ -31,5 +31,15 @@
   ],
   "metadata": {
     "product_type": "addon"
-  }
+  },
+  "dependencies": [
+    {
+      "uuid": "f47a1111-e222-4333-8444-555555550003",
+      "version": [
+        3,
+        16,
+        23
+      ]
+    }
+  ]
 }

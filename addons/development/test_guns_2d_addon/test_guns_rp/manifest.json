@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Test Guns 2D RP",
+    "name": "Test Guns 2D RP 3.16.23",
     "description": "2D Firearms Addon - Absolute Guns 3D Script Core & Old DLC Assets",
     "uuid": "f47a1111-e222-4333-8444-555555550003",
     "version": [
       3,
       16,
-      22
+      23
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         3,
         16,
-        22
+        23
       ]
     }
   ],

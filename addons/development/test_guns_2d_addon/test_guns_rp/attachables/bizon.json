@@ -47,8 +47,8 @@
           }
         ],
         "pre_animation": [
-          "variable.tg3d_view_aim_y = ((context.owning_entity -> variable.tg3d_view_aim_y) ?? 1.41);",
-          "variable.tg3d_view_aim_x = ((context.owning_entity -> variable.tg3d_view_aim_x) ?? 5.0);",
+          "variable.tg3d_view_aim_y = 1.41;",
+          "variable.tg3d_view_aim_x = 5.0;",
           "variable.tg3d_sneaking = (context.owning_entity -> query.is_sneaking);",
           "variable.tg3d_sprinting = (context.owning_entity -> query.is_sprinting);",
           "variable.tg3d_using = (context.owning_entity -> query.is_using_item);",

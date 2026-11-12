@@ -11,8 +11,8 @@ const read = path => readFileSync(path, "utf8");
 const json = path => JSON.parse(read(path));
 
 const manifest = json(join(root, "manifest.json"));
-assert.deepEqual(manifest.header.version, [1, 1, 7], "pose compatibility version");
-assert.deepEqual(manifest.modules[0].version, [1, 1, 7], "pose compatibility module version");
+assert.deepEqual(manifest.header.version, [1, 1, 8], "pose compatibility version");
+assert.deepEqual(manifest.modules[0].version, [1, 1, 8], "pose compatibility module version");
 
 const entity = json(join(root, "entity", "player.entity.json"));
 const description = entity["minecraft:client_entity"]?.description;

@@ -446,6 +446,18 @@ if (system.afterEvents?.scriptEventReceive) {
    const player = event.sourceEntity;
    if (!player || player.typeId !== 'minecraft:player') return;
 
+   // Opt-in, one delayed read only: no polling, animations, tags or gameplay mutation.
+   if (id === 'tg:ads_debug') {
+    player.sendMessage('[ADS 3.16.23] 3秒后读取服务端状态，请关闭聊天并持枪切换潜行。');
+    system.runTimeout(() => {
+     try {
+      const held = getHeldGun(player);
+      player.sendMessage(`[ADS 3.16.23] gun=${held?.gun?.id ?? 'none'} sneak=${player.isSneaking ? 1 : 0}。这里只验证服务端输入，不能读取客户端资源包/动画状态。`);
+     } catch {}
+    }, 60);
+    return;
+   }
+
    if (id === 'gun:pkm' || id === 'gun:mg') {
     system.run(() => handleTgCommand(player, '!pkm'));
    } else if (id === 'gun:rpk') {
