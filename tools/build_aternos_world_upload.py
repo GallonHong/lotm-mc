@@ -96,9 +96,9 @@ def main():
         for name, payload in sorted(world_files.items()):
             target.writestr(prefix + name, payload)
         for name, payload in sorted(behavior_files.items()):
-            target.writestr(name, payload)
+            target.writestr(prefix + name, payload)
         for name, payload in sorted(merged_files.items()):
-            target.writestr(name, payload)
+            target.writestr(prefix + name, payload)
 
     with zipfile.ZipFile(temp_path) as check:
         names = [info.filename for info in check.infolist() if not info.is_dir()]
@@ -108,14 +108,15 @@ def main():
         sys.exit(f"[!] CRC error: {broken}")
     required = [prefix + "level.dat"]
     if args.include_packs:
-        required.append(f"resource_packs/{MERGED_RP_DIR}/manifest.json")
+        required.append(f"{prefix}resource_packs/{MERGED_RP_DIR}/manifest.json")
     for requirement in required:
         if requirement not in names:
             os.remove(temp_path)
             sys.exit(f"[!] missing required entry: {requirement}")
     os.replace(temp_path, output)
 
-    bp_count = len({n.split("/")[1] for n in names if n.startswith("behavior_packs/") and len(n.split("/")) > 2})
+    bp_root = prefix + "behavior_packs/"
+    bp_count = len({n[len(bp_root):].split("/")[0] for n in names if n.startswith(bp_root)})
     print(f"[ok] {os.path.basename(output)}: {len(names)} entries, "
           f"{os.path.getsize(output) / 1024 / 1024:.2f}MB")
     print(f"[ok] world folder '{prefix}' | behavior packs: {bp_count} | "
