@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "余晖 · 废土音乐包 1.0.1（全部原版 BGM 槽位替换）",
-    "description": "Replaces all vanilla overworld/dimension/menu music slots with the user-provided camp / wild / residential tracks. Resource pack only.",
+    "name": "余晖 · 废土音乐包 1.0.2（修复主世界 BGM 替换）",
+    "description": "Replaces vanilla background music across all slots using music_definitions.json (per-biome mapping) + sound_definitions.json. Resource pack only.",
     "uuid": "d3b9a1f2-5c47-4a8e-b0d1-7e6f3a9c2b58",
     "version": [
       1,
       0,
-      1
+      2
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        1
+        2
       ]
     }
   ],

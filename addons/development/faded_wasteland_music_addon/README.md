@@ -1,6 +1,6 @@
 # 余晖 · 废土音乐包 (Faded Wasteland Music) — 1.0.0
 
-把原版背景音乐替换为《明日之后》风格的 4 首 BGM（用户提供的音频文件转换而来）。
+把原版背景音乐替换为《明日之后》风格的 4 首 BGM（用户提供的音频文件转换而来）。\n\n**1.0.2 修复**：当前 Bedrock 的主世界音乐由 sounds/music_definitions.json 按生物群系映射（music.overworld.* 等事件）控制，只覆盖 sound_definitions.json 的 music.game 不会生效。1.0.2 同时提供 music_definitions.json（99 个生物群系/维度/菜单键全部指向本包事件），并把这些事件定义在 sound_definitions.json 中。
 纯资源包：不含脚本、不改玩法数值，可单独启用，也可和 `faded_wasteland_visuals_addon`（光影包）一起启用。
 
 ## 曲目映射

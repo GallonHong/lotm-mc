@@ -4,43 +4,142 @@
     "music.game": {
       "category": "music",
       "sounds": [
-        { "name": "sounds/music/faded_wasteland/camp_wild", "stream": true, "volume": 0.55, "load_on_low_memory": false },
-        { "name": "sounds/music/faded_wasteland/ambience_1", "stream": true, "volume": 0.5, "load_on_low_memory": false },
-        { "name": "sounds/music/faded_wasteland/residential_night", "stream": true, "volume": 0.5, "load_on_low_memory": false },
-        { "name": "sounds/music/faded_wasteland/camp_center", "stream": true, "volume": 0.55, "load_on_low_memory": false }
+        {
+          "name": "sounds/music/faded_wasteland/camp_wild",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        },
+        {
+          "name": "sounds/music/faded_wasteland/ambience_1",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        },
+        {
+          "name": "sounds/music/faded_wasteland/residential_night",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        },
+        {
+          "name": "sounds/music/faded_wasteland/camp_center",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        }
       ]
     },
     "music.menu": {
       "category": "music",
       "sounds": [
-        { "name": "sounds/music/faded_wasteland/camp_center", "stream": true, "volume": 0.5, "load_on_low_memory": false }
+        {
+          "name": "sounds/music/faded_wasteland/camp_center",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        }
       ]
     },
     "music.game.creative": {
       "category": "music",
       "sounds": [
-        { "name": "sounds/music/faded_wasteland/camp_center", "stream": true, "volume": 0.5, "load_on_low_memory": false },
-        { "name": "sounds/music/faded_wasteland/camp_wild", "stream": true, "volume": 0.5, "load_on_low_memory": false }
+        {
+          "name": "sounds/music/faded_wasteland/camp_center",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        },
+        {
+          "name": "sounds/music/faded_wasteland/camp_wild",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        }
       ]
     },
     "music.game.nether": {
       "category": "music",
       "sounds": [
-        { "name": "sounds/music/faded_wasteland/ambience_1", "stream": true, "volume": 0.5, "load_on_low_memory": false },
-        { "name": "sounds/music/faded_wasteland/residential_night", "stream": true, "volume": 0.5, "load_on_low_memory": false }
+        {
+          "name": "sounds/music/faded_wasteland/ambience_1",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        },
+        {
+          "name": "sounds/music/faded_wasteland/residential_night",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        }
       ]
     },
     "music.game.end": {
       "category": "music",
       "sounds": [
-        { "name": "sounds/music/faded_wasteland/residential_night", "stream": true, "volume": 0.5, "load_on_low_memory": false },
-        { "name": "sounds/music/faded_wasteland/ambience_1", "stream": true, "volume": 0.5, "load_on_low_memory": false }
+        {
+          "name": "sounds/music/faded_wasteland/residential_night",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        },
+        {
+          "name": "sounds/music/faded_wasteland/ambience_1",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        }
+      ]
+    },
+    "music.game.endboss": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/music/faded_wasteland/camp_wild",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        }
       ]
     },
     "music.game.dragon": {
       "category": "music",
       "sounds": [
-        { "name": "sounds/music/faded_wasteland/camp_wild", "stream": true, "volume": 0.55, "load_on_low_memory": false }
+        {
+          "name": "sounds/music/faded_wasteland/camp_wild",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        }
+      ]
+    },
+    "music.game.water": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/music/faded_wasteland/ambience_1",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        },
+        {
+          "name": "sounds/music/faded_wasteland/residential_night",
+          "stream": true,
+          "volume": 0.5,
+          "load_on_low_memory": false
+        }
+      ]
+    },
+    "music.game.credits": {
+      "category": "music",
+      "sounds": [
+        {
+          "name": "sounds/music/faded_wasteland/camp_center",
+          "stream": true,
+          "volume": 0.55,
+          "load_on_low_memory": false
+        }
       ]
     }
   }

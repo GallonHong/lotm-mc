@@ -1,0 +1,497 @@
+{
+  "bamboo_jungle": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "bamboo_jungle_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "basalt_deltas": {
+    "event_name": "music.game.nether",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "beach": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "birch_forest": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "birch_forest_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "birch_forest_hills_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "birch_forest_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "cherry_grove": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "cold_beach": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "cold_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "cold_taiga": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "cold_taiga_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "cold_taiga_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "creative": {
+    "event_name": "music.game.creative",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "credits": {
+    "event_name": "music.game.credits",
+    "max_delay": 0,
+    "min_delay": 0
+  },
+  "crimson_forest": {
+    "event_name": "music.game.nether",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "dappled_forest": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "deep_cold_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "deep_dark": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "deep_frozen_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "deep_lukewarm_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "deep_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "deep_warm_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "desert": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "desert_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "desert_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "dripstone_caves": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "end": {
+    "event_name": "music.game.end",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "endboss": {
+    "event_name": "music.game.endboss",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "extreme_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "extreme_hills_edge": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "extreme_hills_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "extreme_hills_plus_trees": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "extreme_hills_plus_trees_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "flower_forest": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "forest": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "forest_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "frozen_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "frozen_peaks": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "frozen_river": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "game": {
+    "event_name": "music.game",
+    "max_delay": 300,
+    "min_delay": 120
+  },
+  "grove": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "hell": {
+    "event_name": "music.game.nether",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "ice_mountains": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "ice_plains": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "ice_plains_spikes": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "jagged_peaks": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "jungle": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "jungle_edge": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "jungle_edge_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "jungle_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "jungle_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "legacy_frozen_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "lukewarm_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "lush_caves": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mangrove_swamp": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "meadow": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mega_taiga": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mega_taiga_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "menu": {
+    "event_name": "music.menu",
+    "max_delay": 30,
+    "min_delay": 0
+  },
+  "mesa": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mesa_bryce": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mesa_plateau": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mesa_plateau_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mesa_plateau_stone": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mesa_plateau_stone_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mushroom_island": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "mushroom_island_shore": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "nether": {
+    "event_name": "music.game.nether",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "nether_wastes": {
+    "event_name": "music.game.nether",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "old_growth_taiga": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "pale_garden": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "plains": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "redwood_taiga_hills_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "redwood_taiga_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "river": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "roofed_forest": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "roofed_forest_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "savanna": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "savanna_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "savanna_plateau": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "savanna_plateau_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "snowy_slopes": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "soulsand_valley": {
+    "event_name": "music.game.nether",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "sparse_jungle": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "stone_beach": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "stony_peaks": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "sulfur_caves": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "sunflower_plains": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "swampland": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "swampland_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "taiga": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "taiga_hills": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "taiga_mutated": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "warm_ocean": {
+    "event_name": "music.game",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "warped_forest": {
+    "event_name": "music.game.nether",
+    "max_delay": 180,
+    "min_delay": 60
+  },
+  "water": {
+    "event_name": "music.game.water",
+    "max_delay": 20,
+    "min_delay": 10
+  }
+}

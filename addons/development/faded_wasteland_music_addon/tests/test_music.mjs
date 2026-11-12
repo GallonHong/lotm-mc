@@ -3,19 +3,19 @@ import { existsSync, readFileSync, readdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Faded Wasteland Music Pack 1.0.0: replaces vanilla overworld/menu music.
+// Faded Wasteland Music Pack 1.0.2: replaces vanilla background music via music_definitions.json.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const rp = join(root, "faded_wasteland_music_rp");
 const read = path => readFileSync(path, "utf8");
 const json = path => JSON.parse(read(path));
 
 const manifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [1, 0, 1], "manifest version");
-assert.deepEqual(manifest.modules[0].version, [1, 0, 1], "module version");
+assert.deepEqual(manifest.header.version, [1, 0, 2], "manifest version");
+assert.deepEqual(manifest.modules[0].version, [1, 0, 2], "module version");
 assert.equal(manifest.modules[0].type, "resources");
 assert.deepEqual(manifest.header.min_engine_version, [1, 26, 10]);
 assert(manifest.header.name.includes("音乐"), "pack name must mention music");
-assert(manifest.header.name.includes("全部"), "name must mention full-slot replacement");
+assert(manifest.header.name.includes("BGM"), "name must mention BGM replacement");
 
 const definitions = json(join(rp, "sounds/sound_definitions.json"))["sound_definitions"];
 for (const id of ["music.game", "music.menu"]) {
@@ -42,4 +42,17 @@ for (const isolated of ["textures", "scripts", "ui", "models", "particles", "ent
 	assert.equal(existsSync(join(rp, isolated)), false, `music pack must not add ${isolated}/`);
 }
 
-console.log("Faded Wasteland Music 1.0.1 validation passed (music.game + music.menu wired to 4 tracks).");
+// music_definitions.json must drive every biome to one of our events
+const musicDefinitions = json(join(rp, "sounds/music_definitions.json"));
+assert(musicDefinitions.game && musicDefinitions.menu && musicDefinitions.creative,
+	"music_definitions must include game/menu/creative keys");
+assert.equal(musicDefinitions.menu.event_name, "music.menu");
+assert.equal(musicDefinitions.game.event_name, "music.game");
+const knownEvents = new Set(Object.keys(definitions));
+for (const [key, entry] of Object.entries(musicDefinitions)) {
+	assert(knownEvents.has(entry.event_name), key + ": event " + entry.event_name + " is not defined");
+	assert.equal(typeof entry.min_delay, "number");
+	assert.equal(typeof entry.max_delay, "number");
+}
+assert(Object.keys(musicDefinitions).length >= 60, "music_definitions should cover all surface biomes");
+console.log("Faded Wasteland Music 1.0.2 validation passed (music_definitions biome mapping + all events defined).");
