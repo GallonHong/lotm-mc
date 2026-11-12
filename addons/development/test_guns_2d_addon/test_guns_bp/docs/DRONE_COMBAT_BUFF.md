@@ -42,7 +42,7 @@ ab_dr:crit:<percent>:<token>   暴击率 +percent 个百分点（整数 1..100�
 - SAPI `scripts/vendor/baizhan_damage/feature/damageHandler.js`（镜像副本）
 - SAPI `scripts/vendor/melee_damageHandler.js`（SAPI 权威近战）
 
-**PvP 生效**：伤害公式本身不区分 PvE/PvP，增益随玩家生效；交火触发条件在 PvP 对局中放宽为 ≥1 个敌对目标（PvE 仍为 ≥2）。
+**PvP / 周本生效**：伤害公式本身不区分 PvE/PvP，增益随玩家生效；交火触发条件在 PvP 对局与周常团本中放宽为 ≥1 个敌对目标（其他 PvE 仍为 ≥2）。
 
 ## 4. 测试
 

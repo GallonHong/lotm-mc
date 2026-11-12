@@ -15,7 +15,6 @@ item.ab_ve:helicopter_spawner.name=§l§d[Key] Military Helicopter§r
 item.ab_ve:wrench.name=§eMechanical Wrench§r
 
 item.survival_vehicle:blueprint_truck.name=§l§6[Blueprint] Truck§r
-item.survival_vehicle:blueprint_motorcycle.name=§l§6[Blueprint] Motorcycle§r
 item.survival_vehicle:blueprint_ambulance.name=§l§6[Blueprint] Ambulance§r
 item.survival_vehicle:blueprint_speedboat.name=§l§6[Blueprint] Speedboat§r
 item.survival_vehicle:blueprint_helicopter.name=§l§d[Blueprint] Military Helicopter§r

@@ -148,8 +148,8 @@ for (const file of ["scripts/modules/match_access.js", "scripts/modules/pvp.js",
 const versions = [
 	["apocalypse_boss_addon/apocalypse_boss_bp/manifest.json", [1, 5, 0]],
 	["apocalypse_boss_addon/apocalypse_boss_rp/manifest.json", [1, 5, 0]],
-	["daily_world_events_addon/daily_events_bp/manifest.json", [0, 20, 1]],
-	["daily_world_events_addon/daily_events_rp/manifest.json", [0, 20, 1]],
+	["daily_world_events_addon/daily_events_bp/manifest.json", [0, 20, 2]],
+	["daily_world_events_addon/daily_events_rp/manifest.json", [0, 20, 2]],
 	["test_guns_2d_addon/test_guns_bp/manifest.json", [3, 16, 19]],
 	["test_guns_2d_addon/test_guns_rp/manifest.json", [3, 16, 19]],
 	["sapi_server_addon/sapi_server_bp/manifest.json", [2, 15, 2]],
@@ -160,4 +160,4 @@ for (const [relative, expected] of versions) {
 	assert.deepEqual(manifest.header.version, expected, `${relative} version`);
 }
 
-console.log("Weekly raid boss contract validation passed (boss 1.5.0 / daily 0.20.1 / guns 3.16.19 / sapi 2.15.2).");
+console.log("Weekly raid boss contract validation passed (boss 1.5.0 / daily 0.20.2 / guns 3.16.19 / sapi 2.15.2).");

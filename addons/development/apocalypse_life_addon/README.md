@@ -28,11 +28,10 @@ v1.4.0 增加两种只能从 SAPI“生活与载具商”购买的实体设施�
 
 ## 2. 车辆蓝图与工业半成品配件
 
-v1.2.0 起，摩托车与冲锋快艇蓝图仍可由玩家合成；皮卡、救护车和军用直升机蓝图取消工作台配方，改由 SAPI 载具商以 25,000 / 40,000 / 80,000 金币出售。
+v1.2.0 起，冲锋快艇蓝图仍可由玩家合成；**v1.4.11 起摩托车蓝图与合成配方（造蓝图 + 组装）已删除**，越野摩托车改为新手教程奖励直接发放；皮卡、救护车和军用直升机蓝图取消工作台配方，改由 SAPI 载具商以 25,000 / 40,000 / 80,000 金币出售。
 
 ### 2.1 车辆制造蓝图 (Blueprints)
 - `survival_vehicle:blueprint_truck`（皮卡制造蓝图）
-- `survival_vehicle:blueprint_motorcycle`（摩托车制造蓝图）
 - `survival_vehicle:blueprint_ambulance`（战地救护车制造蓝图）
 - `survival_vehicle:blueprint_speedboat`（冲锋快艇制造蓝图）
 - `survival_vehicle:blueprint_helicopter`（军用直升机蓝图 - 高级稀有）
@@ -116,6 +115,13 @@ bash addons/development/apocalypse_life_addon/build.sh
 
 - 对接周常团本：`pvp/PvpLifePolicy.js` 新增 `weekly:participant` / `weekly:admission` / `weekly:room:*` 判定，
   周本参战玩家的无人机、倒地救援与生活系统规则不再按 PvP 处理；`DroneGarageManager` 同步周本锁定。
+- 周本内辅助无人机交火触发阈值放宽为 ≥1 个敌对目标（其他 PvE 仍 ≥2），修复单 Boss 周本中增益技能不触发的问题。
 - 新增 `drones/DroneCargoGuard.js`：货运机（`makercamp_dr:inventory_drone`）容器物品以原生 ItemStack 保存在
   动态属性账本中，禁止从 JSON 重建、禁止删除仍持有物品的容器，避免周本跨维度/重载丢货。
 - `DownedRescueManager` 与新增 `animations/downed_reset.animation.json` 补齐倒地重置表现；相应 SAPI 救援模块同步。
+
+## 8. v1.4.11：摩托车蓝图移除、售货机/钢琴交互修复
+
+- 删除 `survival_vehicle:blueprint_motorcycle` 蓝图物品与两条配方（造蓝图 + 组装），摩托车改为新手教程奖励直接发放。
+- 自动售货机自定义方块组件改为在 startup / worldInitialize 阶段注册（旧写法只订阅 worldInitialize，会静默错过事件），空手与手持任意物品右键均可稳定打开菜单。
+- 钢琴（xypiano）组件注册同步加固；无人机伴飞/手动火控的"空手右键开火"逻辑不再拦截自定义方块与常见交互方块（售货机、箱子、工作台、门等），避免吞掉交互。

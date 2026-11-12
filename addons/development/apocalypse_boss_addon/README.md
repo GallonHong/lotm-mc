@@ -5,7 +5,7 @@
 ## v1.5.0 要点（周常团本）
 
 - 新增周常团本 Boss 实例接入（`scripts/weeklyRaid.js`）：`apoc_boss:weekly_spawn` 生成事件、房间/参战/精确护甲 tag 契约、周本空掉落与关闭原生 AI、带房间校验的脚本追踪；普通召唤仍是 16000/26000 生命 + 10 护甲 + 原掉落，周本实例为斯洛克 20000、莫加苏尔 30000，护甲 0/10/20/40 精确指定。
-- 契约细节见 `apocalypse_boss_bp/docs/WEEKLY_RAIDS.md`；房间、队伍、周奖励账本与清场由 Daily Events 0.20.1 负责。
+- 契约细节见 `apocalypse_boss_bp/docs/WEEKLY_RAIDS.md`；房间、队伍、周奖励账本与清场由 Daily Events 0.20.2 负责。
 
 ## v1.4.2 要点
 

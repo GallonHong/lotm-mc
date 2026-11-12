@@ -492,6 +492,31 @@ function getHeldMainhandItem(player) {
  }
 }
 
+// 8.1.1 交互类方块识别：右键这些方块必须交给方块自身的 UI/交互逻辑，不能被无人机火控取消。
+// 自定义命名空间方块（售货机、钢琴、物资箱、玩家贩卖机等）一律放行；原版常见容器/村庄方块按白名单与后缀识别。
+const INTERACTIVE_BLOCK_IDS = new Set([
+ "minecraft:crafting_table", "minecraft:furnace", "minecraft:blast_furnace", "minecraft:smoker",
+ "minecraft:chest", "minecraft:trapped_chest", "minecraft:barrel", "minecraft:hopper",
+ "minecraft:dispenser", "minecraft:dropper", "minecraft:brewing_stand", "minecraft:enchanting_table",
+ "minecraft:anvil", "minecraft:smithing_table", "minecraft:cartography_table", "minecraft:fletching_table",
+ "minecraft:loom", "minecraft:stonecutter_block", "minecraft:grindstone", "minecraft:lectern",
+ "minecraft:beacon", "minecraft:bed", "minecraft:cauldron", "minecraft:respawn_anchor",
+ "minecraft:campfire", "minecraft:soul_campfire", "minecraft:composter", "minecraft:jukebox",
+ "minecraft:note_block", "minecraft:repeater", "minecraft:comparator", "minecraft:lever"
+]);
+const INTERACTIVE_BLOCK_SUFFIXES = ["_button", "_door", "_trapdoor", "_fence_gate", "_sign"];
+function isInteractiveBlock(block) {
+ try {
+  const id = block?.typeId;
+  if (!id) return false;
+  if (!id.startsWith("minecraft:")) return true;
+  if (INTERACTIVE_BLOCK_IDS.has(id)) return true;
+  return INTERACTIVE_BLOCK_SUFFIXES.some((suffix) => id.endsWith(suffix));
+ } catch {
+  return false;
+ }
+}
+
 // 8.2 空手右键互动开火支持 (手动视角下与伴飞模式下无缝触发，绝不误触或吞没指南针菜单)
 if (world.beforeEvents?.playerInteractWithBlock) {
  world.beforeEvents.playerInteractWithBlock.subscribe((event) => {
@@ -505,6 +530,9 @@ if (world.beforeEvents?.playerInteractWithBlock) {
    }, 1);
    return;
   }
+
+  // 交互类方块优先：售货机、物资箱、钢琴、工作台等交给方块自身处理，避免被火控吞掉
+  if (isInteractiveBlock(event.block)) return;
 
   if (DroneClass.isPlayerInManualControl(player)) {
    event.cancel = true;

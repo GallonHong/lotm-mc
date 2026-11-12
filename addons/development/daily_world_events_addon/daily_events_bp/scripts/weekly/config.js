@@ -16,7 +16,7 @@ export const WEEKLY_TIERS = Object.freeze({
  normal: Object.freeze({ id: "normal", name: "普通", rank: 0, armor: 0, multiplier: 1, blueprintChances: Object.freeze([0, 0]) }),
  hard: Object.freeze({ id: "hard", name: "困难", rank: 1, armor: 10, multiplier: 2, blueprintChances: Object.freeze([0.2, 0]) }),
  nightmare: Object.freeze({ id: "nightmare", name: "噩梦", rank: 2, armor: 20, multiplier: 4, blueprintChances: Object.freeze([0.4, 0.2]) }),
- hell: Object.freeze({ id: "hell", name: "地狱", rank: 3, armor: 40, multiplier: 8, blueprintChances: Object.freeze([0.5, 0.5]) })
+ hell: Object.freeze({ id: "hell", name: "地狱", rank: 3, armor: 40, multiplier: 8, blueprintChances: Object.freeze([1, 0.5]) })
 });
 
 export const WEEKLY_BOSSES = Object.freeze({

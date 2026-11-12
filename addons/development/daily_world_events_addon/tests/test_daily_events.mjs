@@ -30,8 +30,8 @@ for (const path of files(join(bp, "scripts")).filter(path => extname(path) === "
 
 const manifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 20, 1]);
-assert.deepEqual(rpManifest.header.version, [0, 20, 1]);
+assert.deepEqual(manifest.header.version, [0, 20, 2]);
+assert.deepEqual(rpManifest.header.version, [0, 20, 2]);
 assert.equal(manifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid);
 assert.equal(manifest.modules.find(value => value.type === "script")?.entry, "scripts/main.js");
 for (const [file, identifier] of [["objective_beacon.particle.json", "daily_events:objective_beacon"], ["objective_trail.particle.json", "daily_events:objective_trail"]]) {
@@ -79,7 +79,10 @@ assert(hopeQuiz.includes("HOPE_POST_QUIZZES") && hopeQuiz.includes("quizForDay")
 assert(readFileSync(join(bp, "scripts/main.js"), "utf8").includes("HopePostManager.onPlayerInitialSpawn"), "first-join Hope Post hook missing");
 
 const rewards = readFileSync(join(bp, "scripts/rewards/rewards.js"), "utf8");
-assert(rewards.includes('id: "test_gun:blueprint_deagle"') && rewards.includes("coins: 2000"), "one-time tutorial reward must use the real blue-quality Test Gun blueprint and 2000 coins");
+const tutorialReward = rewards.match(/dungeon_newcomer_valley:\s*\{[\s\S]*?\n \},/)[0];
+for (const id of ["test_gun:deagle", "test_gun:ammo_50cal", "ab_dr:spawner_hummingbird", "ab_ve:motorcycle_spawner", "test_gun:part_barrel", "test_gun:part_receiver", "test_gun:part_stock", "test_gun:blueprint_mp5k_relay"]) assert(tutorialReward.includes(`id: "${id}"`), `tutorial reward missing ${id}`);
+assert.equal(tutorialReward.includes("test_gun:blueprint_deagle"), false, "tutorial reward must no longer grant the deagle blueprint");
+assert(tutorialReward.includes("coins: 2000"), "tutorial reward must keep the 2000 coin payout");
 for (const marker of ["daily_collect", "coins: 800", "daily_kill", "coins: 900", "daily_event", "coins: 1100", "daily_comprehensive", "coins: 1200", "activity_100", "coins: 2000", "DUNGEON_TIER_REWARDS"]) assert(rewards.includes(marker), `missing economy reward marker: ${marker}`);
 for (const removed of ["research_token", "研究币"]) assert.equal(rewards.includes(removed), false, `obsolete currency remains: ${removed}`);
 
@@ -351,3 +354,17 @@ assert(apocSpawn.includes("processExternalRequests") && apocSpawn.includes("exte
 assert(apocSpawn.includes('request.placement === "exact"'), "SpawnDirector fixed dungeon placement missing");
 
 console.log("Survival Daily & World Events validation passed.");
+
+// Weekly raid contract (daily side): rooms, maps, rewards and hell blueprint guarantee.
+const weeklyScripts = ["config.js", "maps.js", "mapsConfig.js", "manager.js", "menu.js", "rewards.js", "isolation.js", "spawnGuard.js"];
+for (const name of weeklyScripts) assert(statSync(join(bp, "scripts/weekly", name)).isFile(), `missing weekly script ${name}`);
+assert(statSync(join(bp, "structures/weekly/manifest.json")).isFile(), "missing weekly structure manifest");
+const weeklyConfig = readFileSync(join(bp, "scripts/weekly/config.js"), "utf8");
+assert.match(weeklyConfig, /hell: Object\.freeze\(\{[^}]*blueprintChances: Object\.freeze\(\[1, 0\.5\]\)/);
+assert.match(weeklyConfig, /test_gun:blueprint_python_finale/);
+assert.match(weeklyConfig, /test_gun:blueprint_scarh_stripper/);
+const weeklyRewards = readFileSync(join(bp, "scripts/weekly/rewards.js"), "utf8");
+assert.match(weeklyRewards, /export function previewReward/);
+assert.match(weeklyRewards, /guaranteed = rule\.blueprintChances\[0\] >= 1 \? boss\.blueprints\[0\] : null/);
+assert.match(weeklyRewards, /reason: "guarantee_backfill"/);
+assert.match(weeklyRewards, /stableWeeklyRolls/);

@@ -59,23 +59,8 @@ export class VendingMachine {
  static init() {
   console.warn("[ApocalypseVending] VendingMachine initializing...");
 
-  // 1. 售货机自定义方块组件（防止玩家手持物品时事件被吃掉）
-  try {
-   world.beforeEvents.worldInitialize.subscribe((event) => {
-    event.blockComponentRegistry.registerCustomComponent(
-     "ab_ve:vending_interact",
-     {
-      onPlayerInteract(e) {
-       const player = e.player;
-       if (!player || !player.isValid() || participant(player)) return;
-       system.run(() => {
-        VendingMachine.openMainMenu(player);
-       });
-      }
-     }
-    );
-   });
-  } catch {}
+  // 1. 售货机自定义方块组件（让空手/普通物品右键也能稳定触发交互）
+  VendingMachine.registerInteractComponent();
 
   // 2. 售货机手动摆放联动（自动生成 2 格高的上半部分）
   subscribeAfterEvent("playerPlaceBlock", (event) => {
@@ -131,6 +116,48 @@ export class VendingMachine {
     VendingMachine.openMainMenu(player);
    });
   });
+ }
+
+ static blockComponentRegistered = false;
+
+ /**
+  * 自定义方块组件必须尽早注册：新版引擎只保证在 startup / worldInitialize 阶段可注册。
+  * 旧实现只订阅 worldInitialize，脚本加载稍晚时会静默错过该事件，
+  * 结果空手与普通物品右键不触发 onPlayerInteract（只有手持方块时靠兼容事件才生效）。
+  */
+ static registerInteractComponent() {
+  if (VendingMachine.blockComponentRegistered) return;
+  const register = (event) => {
+   if (VendingMachine.blockComponentRegistered) return;
+   try {
+    event.blockComponentRegistry.registerCustomComponent("ab_ve:vending_interact", {
+     onPlayerInteract(e) {
+      const player = e.player;
+      if (!player || !player.isValid() || participant(player)) return;
+      system.run(() => {
+       VendingMachine.openMainMenu(player);
+      });
+     }
+    });
+    VendingMachine.blockComponentRegistered = true;
+   } catch (error) {
+    console.warn(`[ApocalypseVending] custom component registration failed: ${error}`);
+   }
+  };
+  let subscribed = false;
+  try {
+   if (system.beforeEvents?.startup?.subscribe) {
+    system.beforeEvents.startup.subscribe(register);
+    subscribed = true;
+   }
+  } catch {}
+  try {
+   if (world.beforeEvents?.worldInitialize?.subscribe) {
+    world.beforeEvents.worldInitialize.subscribe(register);
+    subscribed = true;
+   }
+  } catch {}
+  if (!subscribed) console.warn("[ApocalypseVending] no custom component registration event available");
  }
 
  static lastOpenTick = new Map();

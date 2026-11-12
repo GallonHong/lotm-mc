@@ -68,11 +68,12 @@ for (const [droneId, config] of Object.entries(life.DRONE_REGISTRY)) {
 	}
 }
 
-// 4. Producer wiring: DroneClass writes/cleans tags and relaxes the PvP trigger threshold.
+// 4. Producer wiring: DroneClass writes/cleans tags and relaxes the PvP / weekly trigger threshold.
 const droneClass = read(join(root, "apocalypse_life_bp/scripts/drones/DroneClass.js"));
 assert.match(droneClass, /import \{ buildDroneBuffTag, clearDroneCombatBuffs \} from "\.\/droneCombatBuff\.js";/);
 assert.match(droneClass, /if \(skill\.combatBuff\) this\.applyDroneCombatBuff\(player, skill\.combatBuff, skill\.durationTicks \|\| 160\);/);
-assert.match(droneClass, /const requiredTargets = participant\(player\) \? 1 : 2;/, "PvP must trigger with a single hostile target");
+assert.match(droneClass, /const requiredTargets = participant\(player\) \|\| weeklyParticipant\(player\) \? 1 : 2;/, "PvP and weekly raids must trigger with a single hostile target");
+assert.match(droneClass, /weeklyParticipant/, "weekly raid participants must be recognised by the buff trigger");
 assert.match(droneClass, /for \(const player of world\.getAllPlayers\(\)\) clearDroneCombatBuffs\(player\);/, "stale buff tags must be cleared on world load");
 assert.match(droneClass, /player\.addTag\(tag\);\s*\n\s*applied\.push\(tag\);/);
 assert.match(droneClass, /system\.runTimeout\(\(\) => \{[\s\S]*?player\.removeTag\(tag\);/, "buff tags must expire with the producer timer");

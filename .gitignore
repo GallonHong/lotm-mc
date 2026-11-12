@@ -12,6 +12,9 @@ __pycache__/
 # Local update-bundle scratch space (tools/apply_wormhole_update.py / update_packs_in_world.py)
 .tmp-wormhole/
 
+# Generated server upload packages
+dist/
+
 # Build output (keep packaged mcaddons or ignore large temp builds)
 *.ps1
 *.mcworld

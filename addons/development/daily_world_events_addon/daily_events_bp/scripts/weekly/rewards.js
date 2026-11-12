@@ -39,7 +39,16 @@ function definitions(bossId, tier) {
 export function previewReward(bossId, tier, previous = null, rolls = [1, 1]) {
  const { boss, rule } = definitions(bossId, tier);
  const oldRank = previous?.tier && own(WEEKLY_TIERS, previous.tier) ? WEEKLY_TIERS[previous.tier].rank : -1;
- if (oldRank >= rule.rank) return { awarded: false, reason: "already_cleared", gold: 0, items: [], highestTier: previous.tier };
+ if (oldRank >= rule.rank) {
+  // Highest-tier guarantee backfill: a hell clear recorded before the guaranteed
+  // first blueprint existed receives it on the next kill of the same week.
+  const guaranteed = rule.blueprintChances[0] >= 1 ? boss.blueprints[0] : null;
+  if (guaranteed && previous && !(previous.blueprints || []).includes(guaranteed.id)) {
+   const targetItems = { ...(previous.items || {}), [guaranteed.id]: 1 };
+   return { awarded: true, reason: "guarantee_backfill", gold: 0, items: [{ id: guaranteed.id, amount: 1 }], highestTier: previous.tier, targetGold: previous.gold, targetItems, blueprints: [...(previous.blueprints || []), guaranteed.id] };
+  }
+  return { awarded: false, reason: "already_cleared", gold: 0, items: [], highestTier: previous.tier };
+ }
  if (!Array.isArray(rolls) || rolls.length !== 2 || rolls.some(value => !Number.isFinite(value) || value < 0 || value > 1)) throw new Error("Invalid weekly blueprint rolls");
  const targetItems = {};
  for (const material of boss.materials) targetItems[material.id] = material.amount * rule.multiplier;

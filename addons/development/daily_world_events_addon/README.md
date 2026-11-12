@@ -1,6 +1,6 @@
 # Survival Daily & World Events Addon
 
-独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.20.1 增加周本隔离（`scripts/weekly/isolation.js`）与刷怪守护（`scripts/weekly/spawnGuard.js`），并把周本准入同步到事件、副本与 IntegrationBridge；v0.20.0 新增周常团本（斯洛克/莫加苏尔房间、队伍准入、周奖励账本与 9 格地图结构，配合 Boss 1.5.0）；v0.19.5 与 Apocalypse Life 1.4.8 配套：接收 `daily:dungeon_true_death <token>` 真实死亡令牌并按令牌去重，`playerSpawn` 恢复副本状态不再依赖 Life 的短命死亡标签；副本复活点恢复增加活动实例/参与者/状态校验，并把摸金都市准入标签纳入 PvP 锁定判断。v0.19.4 接入厂商「敌对刷怪护甲 v1」：副本敌人与 Boss 按难度写入 `apoc:armor:N`（教学 5、普通 10、进阶 20、困难 30、噩梦 35、灾厄/地狱 40），动态事件敌人按区域获得 0–20 护甲，由 Test Guns / SAPI 的伤害公式读取。v0.19.0 会在玩家首次进入时弹出希望报，并加入每日一次“编辑部真假情报”：答对固定奖励 1,000 金币。v0.18.0 增加普通、高级两种自然分布的实体随机箱：仅生成在主世界法制区/非法制区，摸金都市与安全区不会生成；玩家必须在 1 格内左键或右键开启，物资落地后箱体消失。高级实体箱和无品质废墟方块箱均有独立 1% 概率开出随机 Epic 蓝图。
+独立的 Minecraft Bedrock 每日日常、动态事件与多副本 Addon。v0.20.2 重做新手教程奖励（沙鹰 + 60 发 .50 弹药、基础无人机、摩托车、AK47 枪管/机匣/枪托、MP5K 接力者蓝图，另保留 2000 金币）；v0.20.1 增加周本隔离（`scripts/weekly/isolation.js`）与刷怪守护（`scripts/weekly/spawnGuard.js`），并把周本准入同步到事件、副本与 IntegrationBridge；地狱难度改为首张蓝图保底（100%/50%），本周已通关但未出蓝图的记录会在下次击杀地狱时自动补发；v0.20.0 新增周常团本（斯洛克/莫加苏尔房间、队伍准入、周奖励账本与 9 格地图结构，配合 Boss 1.5.0）；v0.19.5 与 Apocalypse Life 1.4.8 配套：接收 `daily:dungeon_true_death <token>` 真实死亡令牌并按令牌去重，`playerSpawn` 恢复副本状态不再依赖 Life 的短命死亡标签；副本复活点恢复增加活动实例/参与者/状态校验，并把摸金都市准入标签纳入 PvP 锁定判断。v0.19.4 接入厂商「敌对刷怪护甲 v1」：副本敌人与 Boss 按难度写入 `apoc:armor:N`（教学 5、普通 10、进阶 20、困难 30、噩梦 35、灾厄/地狱 40），动态事件敌人按区域获得 0–20 护甲，由 Test Guns / SAPI 的伤害公式读取。v0.19.0 会在玩家首次进入时弹出希望报，并加入每日一次“编辑部真假情报”：答对固定奖励 1,000 金币。v0.18.0 增加普通、高级两种自然分布的实体随机箱：仅生成在主世界法制区/非法制区，摸金都市与安全区不会生成；玩家必须在 1 格内左键或右键开启，物资落地后箱体消失。高级实体箱和无品质废墟方块箱均有独立 1% 概率开出随机 Epic 蓝图。
 
 ## 可复用物资箱
 
@@ -114,7 +114,7 @@ Normal / Hard / Nightmare 首次完成分别奖励 2,000 / 3,500 / 5,000 金币�
 
 新副本优先复用仓库里的 DeadZone 与 RandS Overgrown Cities `.mcstructure`。导入工具会把 `mcpe:*` 家具替换成原版近似方块，并删除结构自带实体、刷怪笼和 Jigsaw；运行时不要求安装原素材包。每次开局按 32³ 分片清空实例槽位，再分帧加载结构，避免旧地图残留和一次性大量命令造成卡顿。现在有四个相隔 256 格的高空实例槽位。
 
-新手教程为原创“车队坠毁—无线电引导—第一次撤离”剧情。教学枪是临时的普通品质 `test_gun:ak74u`，使用 `test_gun:ammo_rifle`；离开教程时会回收带“教学”名称的借用物品。首次贡献达标后，固定发放 2000 元和真实 Test Gun 物品 `test_gun:blueprint_deagle`（优良/蓝色品质图纸）。完成标记保存在玩家动态属性中，副本可重玩但奖励永不重复。
+新手教程为原创“车队坠毁—无线电引导—第一次撤离”剧情。教学枪是临时的普通品质 `test_gun:ak74u`，使用 `test_gun:ammo_rifle`；离开教程时会回收带“教学”名称的借用物品。首次贡献达标后，固定发放 2000 元与新手补给：`test_gun:deagle` 沙鹰手枪 1 把、`test_gun:ammo_50cal` 60 发、`ab_dr:spawner_hummingbird` 基础无人机 1 架、`ab_ve:motorcycle_spawner` 摩托车 1 辆、AK47 三件半成品（`test_gun:part_barrel` / `part_receiver` / `part_stock`）各 1 个、`test_gun:blueprint_mp5k_relay` MP5K 接力者蓝图 1 张。完成标记保存在玩家动态属性中，副本可重玩但奖励永不重复。
 
 支持的关卡类型集中在 `scripts/dungeons/dungeonTemplates.js`：
 

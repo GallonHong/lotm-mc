@@ -982,7 +982,7 @@ export class DungeonManager {
     if (template.oneTimeReward && granted) {
      try { player.setDynamicProperty(template.completionKey, true); } catch {}
     } else if (template.oneTimeReward && completed) {
-     player.sendMessage("§e新手教程可以重玩，但 2000 元与优良图纸每名玩家只能领取一次。此次不重复发奖。");
+     player.sendMessage("§e新手教程可以重玩，但 2000 元与新手补给（沙鹰/弹药/无人机/摩托车/AK47 半成品/MP5K 蓝图）每名玩家只能领取一次。此次不重复发奖。");
     }
     DailyQuestManager.onDungeonSuccess(player, template.id);
     HopePostManager.record(player, "dungeons", 1);

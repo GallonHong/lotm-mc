@@ -1,4 +1,4 @@
-import { participant, canOperateDrone, canControlDrone, canPlayerAct, canDamage, canIgniteTarget, hasLineOfSight, lifeState, saveLifeState } from "../pvp/PvpLifePolicy.js";
+import { participant, weeklyParticipant, canOperateDrone, canControlDrone, canPlayerAct, canDamage, canIgniteTarget, hasLineOfSight, lifeState, saveLifeState } from "../pvp/PvpLifePolicy.js";
 import { world, system, EntityComponentTypes, InputButton, ButtonState, EasingType } from "@minecraft/server";
 import { DroneEffects } from "./DroneEffects.js";
 import { ManualControlSession } from "./ManualControlSession.js";
@@ -868,8 +868,8 @@ export class DroneClass {
    else if (skill.trigger === "combat_buff" || skill.trigger === "combat_active") {
     if (!canPlayerAct(player)) continue;
     const mobs = this.combatTargets(player, entity, 16);
-    // PvP 对局中 1 个敌对目标即可触发；PvE 保持 2 个以上交火目标。
-    const requiredTargets = participant(player) ? 1 : 2;
+    // PvP 对局与周常团本中 1 个敌对目标即可触发；其他 PvE 保持 2 个以上交火目标。
+    const requiredTargets = participant(player) || weeklyParticipant(player) ? 1 : 2;
     if (mobs.length >= requiredTargets) {
      shouldTrigger = true;
      if (skill.id === "adrenaline_shot") {

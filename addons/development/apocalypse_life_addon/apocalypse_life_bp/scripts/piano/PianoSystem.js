@@ -430,15 +430,39 @@ function tickPlayers() {
 }
 
 export class PianoSystem {
- static init() {
-  try {
-   world.beforeEvents.worldInitialize.subscribe((event) => {
+ static componentRegistered = false;
+
+ /** 与售货机相同：组件必须在 startup / worldInitialize 阶段注册，只等 worldInitialize 会静默错过。 */
+ static registerComponents() {
+  if (PianoSystem.componentRegistered) return;
+  const register = (event) => {
+   if (PianoSystem.componentRegistered) return;
+   try {
     event.itemComponentRegistry.registerCustomComponent("xypiano:placer", PianoPlacerComponent);
     event.blockComponentRegistry.registerCustomComponent("xypiano:piano_block", PianoBlockComponent);
-   });
-  } catch (error) {
-   console.warn(`[ApocalypseLife] Piano component registration unavailable: ${error}`);
-  }
+    PianoSystem.componentRegistered = true;
+   } catch (error) {
+    console.warn(`[ApocalypseLife] Piano component registration unavailable: ${error}`);
+   }
+  };
+  let subscribed = false;
+  try {
+   if (system.beforeEvents?.startup?.subscribe) {
+    system.beforeEvents.startup.subscribe(register);
+    subscribed = true;
+   }
+  } catch {}
+  try {
+   if (world.beforeEvents?.worldInitialize?.subscribe) {
+    world.beforeEvents.worldInitialize.subscribe(register);
+    subscribed = true;
+   }
+  } catch {}
+  if (!subscribed) console.warn("[ApocalypseLife] no custom component registration event available");
+ }
+
+ static init() {
+  PianoSystem.registerComponents();
 
   subscribeAfterEvent("playerBreakBlock", (event) => {
    const permutation = event.brokenBlockPermutation;

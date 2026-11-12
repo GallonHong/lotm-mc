@@ -33,7 +33,14 @@ export const REWARD_REGISTRY = Object.freeze({
  dungeon_newcomer_valley: {
   coins: 2000,
   items: [
-   { id: "test_gun:blueprint_deagle", amount: 1, name: "§9沙漠之鹰 .50 制造图纸 [优良]§r" }
+   { id: "test_gun:deagle", amount: 1, name: "§9沙漠之鹰 .50 战术手枪 [优良]§r" },
+   { id: "test_gun:ammo_50cal", amount: 60, name: ".50 AE 手枪弹药" },
+   { id: "ab_dr:spawner_hummingbird", amount: 1, name: "基础无人机「蜂鸟-I」" },
+   { id: "ab_ve:motorcycle_spawner", amount: 1, name: "越野摩托车" },
+   { id: "test_gun:part_barrel", amount: 1, name: "枪管（AK47 半成品）" },
+   { id: "test_gun:part_receiver", amount: 1, name: "机匣（AK47 半成品）" },
+   { id: "test_gun:part_stock", amount: 1, name: "枪托（AK47 半成品）" },
+   { id: "test_gun:blueprint_mp5k_relay", amount: 1, name: "§9MP5K 接力者蓝图§r" }
   ]
  },
  dungeon_outpost_defense: {

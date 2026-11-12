@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Life RP v1.4.9",
+    "name": "Apocalypse Life RP v1.4.11",
     "description": "\u672b\u65e5\u751f\u6d3b\u7cfb\u7edf\u8d44\u6e90\u5305\uff08\u8f7d\u5177\u3001\u98df\u54c1\u3001\u533b\u7597\u7ad9\u3001\u67aa\u68b0\u8bad\u7ec3\u9776\u3001\u81ea\u52a8\u552e\u8d27\u673a\u4e0e\u94a2\u7434\u6a21\u578b\uff09",
     "uuid": "f179a256-053b-4d7f-9c03-d92f26ffb083",
     "version": [
       1,
       4,
-      10
+      11
     ],
     "min_engine_version": [
       1,

@@ -15,7 +15,6 @@ item.ab_ve:helicopter_spawner.name=§l§d【钥匙】军用直升机§r
 item.ab_ve:wrench.name=§e机械改装扳手§r
 
 item.survival_vehicle:blueprint_truck.name=§l§6【车辆蓝图】皮卡货车§r
-item.survival_vehicle:blueprint_motorcycle.name=§l§6【车辆蓝图】极速摩托车§r
 item.survival_vehicle:blueprint_ambulance.name=§l§6【车辆蓝图】战地救护车§r
 item.survival_vehicle:blueprint_speedboat.name=§l§6【车辆蓝图】冲锋快艇§r
 item.survival_vehicle:blueprint_helicopter.name=§l§d【稀有航空蓝图】军用直升机§r

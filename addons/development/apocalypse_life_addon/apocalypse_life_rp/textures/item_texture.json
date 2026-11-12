@@ -23,9 +23,6 @@
     "survival_vehicle:blueprint_truck": {
       "textures": "textures/items/blueprints/blueprint_truck.png"
     },
-    "survival_vehicle:blueprint_motorcycle": {
-      "textures": "textures/items/blueprints/blueprint_motorcycle.png"
-    },
     "survival_vehicle:blueprint_ambulance": {
       "textures": "textures/items/blueprints/blueprint_ambulance.png"
     },
