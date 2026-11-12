@@ -1,4 +1,4 @@
-import { locked } from "../pvp/PvpLifePolicy.js";
+import { locked, weeklyLocked } from "../pvp/PvpLifePolicy.js";
 import { world, system, EquipmentSlot } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { DRONE_REGISTRY } from "./DroneConstants.js";
@@ -152,12 +152,15 @@ export class DroneMenu {
   }
 
   // 按钮 2：加注燃油 / 电量
-  form.button("§l§6加注机载燃油\n§r§f500金币或汽油桶充能至100%", "textures/items/fuel/jerrycan_full");
+  form.button(weeklyLocked(player) ? "§l§6加注机载燃油\n§r§f使用手持汽油桶（周本内不能金币充值）" : "§l§6加注机载燃油\n§r§f500金币或汽油桶充能至100%", "textures/items/fuel/jerrycan_full");
   actions.push(() => this.openRefuelDialog(player, droneId));
 
+  // 周本只开放随身无人机操作；金币改装在离开后进行。
+  if (!weeklyLocked(player)) {
   // 按钮 3：属性科技改装
   form.button("§l§b战术属性改装\n§r§f升级机身装甲、火控与技能核心", "textures/ui/settings_glyph_color_2x");
   actions.push(() => this.openUpgradeMenu(player, droneId));
+  }
 
   // 按钮 4：负重货箱 (仅限骆驼货运无人机)
   if (conf.id === "camel") {
@@ -191,6 +194,17 @@ export class DroneMenu {
   * 加注燃油弹窗
   */
  static openRefuelDialog(player, droneId) {
+  if (weeklyLocked(player)) {
+   const form = new MessageFormData().title("§l§6周本无人机补给")
+    .body("§e周本内只使用自带满装汽油桶补给，不开放金币充值或改装。")
+    .button1("§a消耗手持汽油桶").button2("§8返回");
+   form.show(player).then(res => system.run(() => {
+    if (res.canceled || locked(player, true)) return;
+    if (res.selection === 0) DroneGarageManager.refuelDrone(player, droneId, "jerrycan");
+    this.openDroneManageMenu(player, droneId);
+   }));
+   return;
+  }
   const form = new ActionFormData()
    .title("§l§6机载能源加注")
    .body("§f请选择加注充能方式：\n每秒消耗极低，能量低于20%将在聊天栏告警。")
@@ -217,6 +231,7 @@ export class DroneMenu {
   * 属性改装升级界面
   */
  static openUpgradeMenu(player, droneId) {
+  if (weeklyLocked(player)) return player.sendMessage("§e周本内不能金币改装，请先退出周本。");
   const hangar = DroneGarageManager.getHangarData(player);
   const drone = hangar.drones[droneId];
   const conf = DRONE_REGISTRY[droneId];

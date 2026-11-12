@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Life BP v1.4.8",
-    "description": "末日生活系统行为包（载具、食品、医疗站、枪械训练靶、自动售货机与可演奏钢琴）",
+    "name": "Apocalypse Life BP v1.4.9",
+    "description": "\u672b\u65e5\u751f\u6d3b\u7cfb\u7edf\u884c\u4e3a\u5305\uff08\u8f7d\u5177\u3001\u98df\u54c1\u3001\u533b\u7597\u7ad9\u3001\u67aa\u68b0\u8bad\u7ec3\u9776\u3001\u81ea\u52a8\u552e\u8d27\u673a\u4e0e\u53ef\u6f14\u594f\u94a2\u7434\uff09",
     "uuid": "bfab646c-b627-4312-adec-ec8b34af5061",
     "version": [
       1,
       4,
-      8
+      10
     ],
     "min_engine_version": [
       1,
@@ -23,7 +23,7 @@
       "version": [
         1,
         4,
-        8
+        10
       ]
     },
     {
@@ -34,7 +34,7 @@
       "version": [
         1,
         4,
-        8
+        10
       ],
       "entry": "scripts/main.js"
     }
@@ -45,7 +45,7 @@
       "version": [
         1,
         4,
-        8
+        10
       ]
     },
     {

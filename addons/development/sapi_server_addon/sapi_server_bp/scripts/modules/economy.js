@@ -287,7 +287,8 @@ export class EconomyManager {
 	 * @returns {number} 兑换所得金币总数
 	 */
 	static redeemLegacyCoinItems(player) {
-  if (!allowOrdinaryAction(player)) return false;
+  // Background spawn/payout processing waits silently until the activity ends.
+  if (!allowOrdinaryAction(player, false)) return false;
 		if (!player) return 0;
 		const inventory = player.getComponent("inventory") || player.getComponent("minecraft:inventory");
 		if (!inventory || !inventory.container) return 0;

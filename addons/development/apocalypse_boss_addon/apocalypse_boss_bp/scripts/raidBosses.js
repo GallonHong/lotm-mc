@@ -1,8 +1,8 @@
 /**
  * Raid bosses imported from the "Bosses Rise" reference add-on (Block Factory).
  *
- *  - apoc_boss:sandworm     "斯洛克 · 巨型沙虫"   15000 HP, forced 40 armor
- *  - apoc_boss:abomination  "莫加苏尔"           24000 HP, forced 40 armor
+ *  - apoc_boss:sandworm     "斯洛克 · 巨型沙虫"   16000 HP, forced 10 armor (weekly: 20000 HP)
+ *  - apoc_boss:abomination  "莫加苏尔"           26000 HP, forced 10 armor (weekly: 30000 HP)
  *
  * The reference pack drives every attack from its own bundled script. This module
  * re-implements the two fights on top of the Apocalypse conventions instead:
@@ -16,6 +16,7 @@
 import { world, system } from "@minecraft/server";
 import { readMobArmor } from "./mobArmor.js";
 import { isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
+import { isLiveEntity, isWeeklyBoss, canWeeklyBossTarget, enforceWeeklyArmor } from "./weeklyRaid.js";
 
 const RAID_ARMOR = 10;
 const SANDWORM = "apoc_boss:sandworm";
@@ -31,6 +32,8 @@ const stateOf = entity => {
  if (!entry) {
   entry = { initialized: false, busyUntil: 0, nextAttack: 0 };
   runtime.set(entity.id, entry);
+  // Restore native AI on ordinary bosses already persisted before component groups.
+  if (!isWeeklyBoss(entity)) { try { entity.triggerEvent("apoc_boss:normal_spawn"); } catch {} }
  }
  return entry;
 };
@@ -60,11 +63,18 @@ const healthRatio = entity => {
  } catch { return 1; }
 };
 
+function canTarget(entity, player) {
+ try {
+  return canWeeklyBossTarget(entity, player) && !isPvpExcluded(player) &&
+   player.dimension.id === entity.dimension.id;
+ } catch { return false; }
+}
+
 function playersNear(entity, radius) {
  try {
   return entity.dimension
    .getEntities({ location: entity.location, maxDistance: radius, families: ["player"] })
-   .filter(player => player.isValid() && !isPvpExcluded(player));
+   .filter(player => canTarget(entity, player));
  } catch { return []; }
 }
 
@@ -82,7 +92,7 @@ function hitPlayers(entity, center, radius, amount, options = {}) {
   players = dimension.getEntities({ location: center, maxDistance: radius, families: ["player"] });
  } catch {}
  for (const player of players) {
-  if (!player.isValid() || isPvpExcluded(player)) continue;
+  if (!canTarget(entity, player)) continue;
   try { player.applyDamage(amount, { cause: "entityAttack", damagingEntity: entity }); } catch {}
   try { if (slowTicks) player.addEffect("slowness", slowTicks, { amplifier: 1, showParticles: true }); } catch {}
   try { if (weakTicks) player.addEffect("weakness", weakTicks, { amplifier: 1, showParticles: true }); } catch {}
@@ -100,6 +110,7 @@ function hitPlayers(entity, center, radius, amount, options = {}) {
 }
 
 function enforceRaidArmor(entity) {
+ if (isWeeklyBoss(entity)) return enforceWeeklyArmor(entity);
  try {
   if (readMobArmor(entity) !== RAID_ARMOR) {
    entity.addTag(`apoc:armor:${RAID_ARMOR}`);
@@ -142,6 +153,11 @@ if (world.afterEvents?.entityDie?.subscribe) {
  });
 }
 
+// Explicit removal (room reset/restart cleanup) does not emit entityDie.
+if (world.afterEvents?.entityRemove?.subscribe) {
+ world.afterEvents.entityRemove.subscribe(({ removedEntityId }) => runtime.delete(removedEntityId));
+}
+
 /* ================================================================ SANDWORM */
 const SANDWORM_STATE = "bf_bossesrise:state";
 
@@ -154,7 +170,7 @@ function sandwormIntro(entity, entry) {
  spawnParticle(entity, "bf_bossesrise:sand_rock");
  playSound(entity, "bf_bossesrise.sandworm.emergence", { volume: 2.5 });
  system.runTimeout(() => {
-  if (!entity.isValid) return;
+  if (!isLiveEntity(entity)) return;
   setProperty(entity, SANDWORM_STATE, "emerged");
   playSound(entity, "bf_bossesrise.sandworm.eruption_1", { volume: 2 });
  }, 45);
@@ -168,12 +184,12 @@ function sandwormEarthquake(entity, entry) {
  playSound(entity, "bf_bossesrise.sandworm.charge_start_build_up_roar", { volume: 2, pitch: 0.9 });
  spawnParticle(entity, "bf_bossesrise:sandworm_earthquake_warning");
  system.runTimeout(() => {
-  if (!entity.isValid) return;
+  if (!isLiveEntity(entity)) return;
   setProperty(entity, SANDWORM_STATE, "earthquake");
   playSound(entity, "bf_bossesrise.sandworm.eruption_1", { volume: 3 });
   let pulses = 0;
   const interval = system.runInterval(() => {
-   if (!entity.isValid) { try { system.clearRun(interval); } catch {} return; }
+   if (!isLiveEntity(entity)) { try { system.clearRun(interval); } catch {} return; }
    pulses++;
    const center = entity.location;
    for (let index = 0; index < 8; index++) {
@@ -190,7 +206,7 @@ function sandwormEarthquake(entity, entry) {
    playSound(entity, "bf_bossesrise.sandworm.rumble_1", { volume: 1.6, pitch: 0.9 });
    if (pulses >= 6) {
     try { system.clearRun(interval); } catch {}
-    if (entity.isValid) setProperty(entity, SANDWORM_STATE, "emerged");
+    if (isLiveEntity(entity)) setProperty(entity, SANDWORM_STATE, "emerged");
    }
   }, 10);
  }, 20);
@@ -205,16 +221,16 @@ function sandwormDive(entity, target, entry) {
  playSound(entity, "bf_bossesrise.sandworm.dash", { volume: 2.5 });
  spawnParticle(entity, "bf_bossesrise:sandworm_dive1");
  system.runTimeout(() => {
-  if (!entity.isValid) return;
+  if (!isLiveEntity(entity)) return;
   spawnParticleAt(entity.dimension, "bf_bossesrise:sandworm_dive1", origin);
-  const destination = target && target.isValid ? { ...target.location } : origin;
+  const destination = canTarget(entity, target) ? { ...target.location } : origin;
   try {
    entity.teleport({ x: destination.x, y: destination.y, z: destination.z }, { checkForBlocks: false });
   } catch {}
   spawnParticle(entity, "bf_bossesrise:sandworm_dive2");
   playSound(entity, "bf_bossesrise.sandworm.roar_dive_impact", { volume: 3 });
   system.runTimeout(() => {
-   if (!entity.isValid) return;
+   if (!isLiveEntity(entity)) return;
    setProperty(entity, SANDWORM_STATE, "emerged");
    spawnParticle(entity, "bf_bossesrise:earthquake_splash");
    spawnParticle(entity, "bf_bossesrise:knockback_hit");
@@ -231,13 +247,13 @@ function sandwormScreech(entity, entry) {
  playSound(entity, "bf_bossesrise.sandworm.screech_04", { volume: 3 });
  spawnParticle(entity, "bf_bossesrise:sandworm_earthquake_zone");
  system.runTimeout(() => {
-  if (!entity.isValid) return;
+  if (!isLiveEntity(entity)) return;
   hitPlayers(entity, entity.location, 24, 10, { slowTicks: 120, weakTicks: 100, knockBack: 0.6 });
   spawnParticle(entity, "bf_bossesrise:sandworm_vulnerability");
   playSound(entity, "bf_bossesrise.sandworm.sand_explosion_impact", { volume: 2.5 });
  }, 14);
  system.runTimeout(() => {
-  if (entity.isValid) setProperty(entity, SANDWORM_STATE, "emerged");
+  if (isLiveEntity(entity)) setProperty(entity, SANDWORM_STATE, "emerged");
  }, 46);
 }
 
@@ -246,7 +262,7 @@ function tickSandworm(entity, player, entry) {
  enforceRaidArmor(entity);
  if (tick() < entry.busyUntil) return;
  if (tick() < entry.nextAttack) return;
- const target = nearestPlayer(entity, 48) ?? (player?.isValid() ? player : undefined);
+ const target = nearestPlayer(entity, 48) ?? (canTarget(entity, player) ? player : undefined);
  if (!target) return;
  const range = flatDistance(entity.location, target.location);
  const roll = Math.random();
@@ -288,7 +304,7 @@ function abominationIntro(entity, entry) {
  entry.busyUntil = tick() + 55;
  entry.nextAttack = tick() + 80;
  system.runTimeout(() => {
-  if (entity.isValid) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
+  if (isLiveEntity(entity)) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
  }, 55);
 }
 
@@ -309,7 +325,7 @@ function abominationMelee(entity, entry, kind) {
   playSound(entity, "bf_bossesrise.abomination_smash_01", { volume: 2.5 });
   spawnParticle(entity, "bf_bossesrise:abomination_hand_smash");
   system.runTimeout(() => {
-   if (!entity.isValid) return;
+   if (!isLiveEntity(entity)) return;
    spawnParticle(entity, "bf_bossesrise:abomination_smash_1");
    spawnParticle(entity, "bf_bossesrise:abomination_impact_dust");
    playSound(entity, "bf_bossesrise.abomination_smash_impact", { volume: 3 });
@@ -321,7 +337,7 @@ function abominationMelee(entity, entry, kind) {
   playSound(entity, "bf_bossesrise.abomination_swipe_attack_03", { volume: 2.5 });
   spawnParticle(entity, "bf_bossesrise:abomination_attack");
   system.runTimeout(() => {
-   if (!entity.isValid) return;
+   if (!isLiveEntity(entity)) return;
    spawnParticle(entity, "bf_bossesrise:abomination_smash_2");
    hitPlayers(entity, entity.location, 7, 32, { knockBack: 1.0, slowTicks: 60 });
   }, 10);
@@ -330,12 +346,12 @@ function abominationMelee(entity, entry, kind) {
   entry.nextAttack = start + 65;
   playSound(entity, "bf_bossesrise.abomination_attack_03", { volume: 2 });
   system.runTimeout(() => {
-   if (!entity.isValid) return;
+   if (!isLiveEntity(entity)) return;
    hitPlayers(entity, entity.location, 5, 26);
   }, 8);
  }
  system.runTimeout(() => {
-  if (entity.isValid) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
+  if (isLiveEntity(entity)) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
  }, entry.busyUntil - tick() + 5);
 }
 
@@ -349,9 +365,9 @@ function abominationCharge(entity, entry, target) {
  spawnParticle(entity, "bf_bossesrise:abomination_charge_run");
  let steps = 0;
  const interval = system.runInterval(() => {
-  if (!entity.isValid) { try { system.clearRun(interval); } catch {} return; }
+  if (!isLiveEntity(entity)) { try { system.clearRun(interval); } catch {} return; }
   steps++;
-  const goal = target && target.isValid ? target.location : entity.location;
+  const goal = canTarget(entity, target) ? target.location : entity.location;
   const dx = goal.x - entity.location.x;
   const dz = goal.z - entity.location.z;
   const length = Math.hypot(dx, dz) || 1;
@@ -374,7 +390,7 @@ function abominationCharge(entity, entry, target) {
   }
   if (steps >= 24) {
    try { system.clearRun(interval); } catch {}
-   if (entity.isValid) {
+   if (isLiveEntity(entity)) {
     setProperty(entity, "bf_bossesrise:is_charging", false);
     setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
    }
@@ -392,7 +408,7 @@ function abominationWallStun(entity, entry) {
  spawnParticle(entity, "bf_bossesrise:abomination_impact_dust");
  hitPlayers(entity, entity.location, 6, 20, { knockBack: 1.2 });
  system.runTimeout(() => {
-  if (!entity.isValid) return;
+  if (!isLiveEntity(entity)) return;
   setProperty(entity, "bf_bossesrise:is_wall_collision", false);
   setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
  }, 45);
@@ -406,13 +422,13 @@ function abominationScream(entity, entry) {
  playSound(entity, "bf_bossesrise.abomination_scream_01", { volume: 3 });
  spawnParticle(entity, "bf_br:abomination_roar");
  system.runTimeout(() => {
-  if (!entity.isValid) return;
+  if (!isLiveEntity(entity)) return;
   spawnParticle(entity, "bf_bossesrise:abomination_scream_1");
   spawnParticle(entity, "bf_bossesrise:abomination_scream_2");
   hitPlayers(entity, entity.location, 20, 22, { slowTicks: 100, weakTicks: 100, knockBack: 1.2 });
  }, 18);
  system.runTimeout(() => {
-  if (entity.isValid) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
+  if (isLiveEntity(entity)) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
  }, 50);
 }
 
@@ -424,13 +440,13 @@ function abominationMeteors(entity, entry, target) {
  playSound(entity, "bf_bossesrise.abomination_rampage_01", { volume: 2.5 });
  for (let index = 0; index < 6; index++) {
   system.runTimeout(() => {
-   if (!entity.isValid) return;
-   const base = target && target.isValid ? target.location : entity.location;
+   if (!isLiveEntity(entity)) return;
+   const base = canTarget(entity, target) ? target.location : entity.location;
    const location = { x: base.x + (Math.random() - 0.5) * 12, y: base.y, z: base.z + (Math.random() - 0.5) * 12 };
    spawnParticleAt(entity.dimension, "bf_bossesrise:line", { x: location.x, y: location.y + 8, z: location.z });
    spawnParticleAt(entity.dimension, "bf_bossesrise:point", location);
    system.runTimeout(() => {
-    if (!entity.isValid) return;
+    if (!isLiveEntity(entity)) return;
     spawnParticleAt(entity.dimension, "bf_bossesrise:abomination_impact_dust_small", location);
     playSound(entity, "bf_bossesrise.abomination_smash_impact", { volume: 2.5, pitch: 0.8 });
     hitPlayers(entity, location, 5, 24, { knockUp: 0.8, knockBack: 0.8 });
@@ -438,7 +454,7 @@ function abominationMeteors(entity, entry, target) {
   }, index * 8);
  }
  system.runTimeout(() => {
-  if (entity.isValid) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
+  if (isLiveEntity(entity)) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
  }, 95);
 }
 
@@ -451,14 +467,14 @@ function abominationRampage(entity, entry) {
  playSound(entity, "bf_bossesrise.abomination_phase_transition", { volume: 3 });
  let pulses = 0;
  const interval = system.runInterval(() => {
-  if (!entity.isValid) { try { system.clearRun(interval); } catch {} return; }
+  if (!isLiveEntity(entity)) { try { system.clearRun(interval); } catch {} return; }
   pulses++;
   spawnParticle(entity, "bf_br:abomination_circle");
   spawnParticle(entity, "bf_bossesrise:abomination_rampage_1");
   hitPlayers(entity, entity.location, 10, 14, { knockBack: 1.4 });
   if (pulses >= 7) {
    try { system.clearRun(interval); } catch {}
-   if (entity.isValid) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
+   if (isLiveEntity(entity)) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
   }
  }, 10);
 }
@@ -470,12 +486,12 @@ function abominationGrab(entity, entry, target) {
  setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.GRAB);
  playSound(entity, "bf_bossesrise.abomination_hand_smash_02", { volume: 2.5 });
  system.runTimeout(() => {
-  if (!entity.isValid) return;
+  if (!isLiveEntity(entity)) return;
   setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.GRAB_IDLE);
  }, 14);
  system.runTimeout(() => {
-  if (!entity.isValid) return;
-  if (!target || !target.isValid) {
+  if (!isLiveEntity(entity)) return;
+  if (!canTarget(entity, target)) {
    setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.GRAB_RECOVER);
    return;
   }
@@ -485,8 +501,8 @@ function abominationGrab(entity, entry, target) {
   playSound(entity, "bf_bossesrise.abomination_d2_scream", { volume: 2.5 });
  }, 28);
  system.runTimeout(() => {
-  if (!entity.isValid) return;
-  if (target && target.isValid) {
+  if (!isLiveEntity(entity)) return;
+  if (canTarget(entity, target)) {
    setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.GRAB_THROW);
    try { target.applyDamage(28, { cause: "entityAttack", damagingEntity: entity }); } catch {}
    try {
@@ -499,7 +515,7 @@ function abominationGrab(entity, entry, target) {
   }
  }, 42);
  system.runTimeout(() => {
-  if (entity.isValid) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
+  if (isLiveEntity(entity)) setProperty(entity, "bf_bossesrise:state_id", ABOMINATION_STATES.IDLE);
  }, 70);
 }
 
@@ -509,7 +525,7 @@ function tickAbomination(entity, player, entry) {
  const ratio = healthRatio(entity);
  if (ratio < 0.5) setProperty(entity, "bf_bossesrise:is_enraged", true);
  if (tick() < entry.busyUntil) return;
- const target = nearestPlayer(entity, 56) ?? (player?.isValid() ? player : undefined);
+ const target = nearestPlayer(entity, 56) ?? (canTarget(entity, player) ? player : undefined);
  if (!target) { abominationIdleState(entity); return; }
  const range = flatDistance(entity.location, target.location);
  if (tick() < entry.nextAttack) { abominationIdleState(entity); return; }
@@ -533,12 +549,34 @@ function tickAbomination(entity, player, entry) {
  else abominationScream(entity, entry);
 }
 
+/* ------------------------------------------------- weekly scripted pursuit */
+// Native AI is disabled on weekly instances: it cannot compare per-room tags and
+// could otherwise melee an outsider. Skills and movement share the same filter.
+function followWeeklyTarget(entity, entry) {
+ if (!isWeeklyBoss(entity) || tick() < entry.busyUntil) return;
+ const target = nearestPlayer(entity, 64);
+ if (!target) return;
+ const here = entity.location;
+ const goal = target.location;
+ const range = flatDistance(here, goal);
+ if (range <= 4) return;
+ const step = Math.min(range - 4, entity.typeId === SANDWORM ? 2.6 : 2.2);
+ const next = { x: here.x + (goal.x - here.x) / range * step, y: here.y, z: here.z + (goal.z - here.z) / range * step };
+ try {
+  const options = { checkForBlocks: true, facingLocation: goal };
+  if (typeof entity.tryTeleport === "function") entity.tryTeleport(next, options);
+  else entity.teleport(next, options);
+ } catch {}
+}
+
 /* ------------------------------------------------------------------ driver */
 function tickRaidBoss(entity, player) {
- if (!entity || !entity.isValid()) { runtime.delete(entity?.id); return; }
+ if (!entity || !isLiveEntity(entity)) { runtime.delete(entity?.id); return; }
  if (isPvpArea(entity.dimension.id, entity.location)) return;
  const entry = stateOf(entity);
  if (entry.dead) return;
+ enforceRaidArmor(entity);
+ followWeeklyTarget(entity, entry);
  try {
   if (entity.typeId === SANDWORM) tickSandworm(entity, player, entry);
   else if (entity.typeId === ABOMINATION) tickAbomination(entity, player, entry);
@@ -567,4 +605,4 @@ system.runInterval(() => {
  }
 }, POLL_INTERVAL);
 
-export { RAID_TYPES, RAID_ARMOR };
+export { RAID_TYPES, RAID_ARMOR, tickRaidBoss, hitPlayers };

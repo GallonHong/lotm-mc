@@ -22,6 +22,7 @@ import { WantedManager } from "./modules/wanted.js";
 import { PlayerVendingManager } from "./modules/player_vending.js";
 
 const compassMenuTicks = new Map();
+const compassMenuRequests = new Map();
 
 // 自定义物品组件必须在 startup/worldInitialize 阶段订阅，不能延迟到 system.run。
 SafeManager.registerEvents();
@@ -65,8 +66,8 @@ function ensurePlayerCompass(player) {
 	let given = false;
 	try {
 		given = Utils.giveItem(player, menuItemId, 1, Config.system.menuItemName, [
-			"§f右键使用可快速打开服务器综合菜单",
-			"§f包含：商店、银行、地皮、抽奖、传送等功能"
+			"§8右键使用可快速打开服务器综合菜单",
+			"§8包含：商店、银行、地皮、抽奖、传送等功能"
 		]);
 	} catch (err) {
 		console.warn(`[MenuCompass] Failed to give ${menuItemId}: ${err}`);
@@ -75,8 +76,8 @@ function ensurePlayerCompass(player) {
 	if (!given && menuItemId !== "minecraft:compass") {
 		try {
 			Utils.giveItem(player, "minecraft:compass", 1, Config.system.menuItemName, [
-				"§f右键使用可快速打开服务器综合菜单",
-				"§f包含：商店、银行、地皮、抽奖、传送等功能"
+				"§8右键使用可快速打开服务器综合菜单",
+				"§8包含：商店、银行、地皮、抽奖、传送等功能"
 			]);
 		} catch {}
 	}
@@ -142,6 +143,8 @@ const playerLeave = world.afterEvents?.playerLeave;
 if (playerLeave && typeof playerLeave.subscribe === "function") {
 	playerLeave.subscribe(({ playerId, playerName }) => {
 		compassMenuTicks.delete(playerId);
+		compassMenuRequests.delete(playerId);
+		ServerMenuManager.clearPendingMenu(playerId);
 		WantedManager.onPlayerLeave(playerId);
 		TeleportManager.cooldowns.delete(playerId);
 		if (playerName) SocialManager.onPlayerLeave(playerName);
@@ -156,7 +159,11 @@ function requestCompassMenu(player) {
 	const lastTick = Number(compassMenuTicks.get(player.id) ?? -1000);
 	if (system.currentTick - lastTick < 6) return;
 	compassMenuTicks.set(player.id, system.currentTick);
+	const request = {};
+	compassMenuRequests.set(player.id, request);
 	system.runTimeout(() => {
+		if (compassMenuRequests.get(player.id) !== request) return;
+		compassMenuRequests.delete(player.id);
 		if (Utils.isValid(player)) {
 			ServerMenuManager.openMainMenu(player);
 		}
@@ -283,6 +290,7 @@ if (scriptEvents?.subscribe) {
   }
   // Share the same debounce as native compass events: Apocalypse Life also forwards sapi:open.
   if (["system:menu", "gui:menu", "menu:open", "sapi:open"].includes(id)) requestCompassMenu(player);
+  else if (id === "sapi:battle") ServerMenuManager.openBattleMenu(player);
   else if (["system:shop", "gui:shop", "shop:open"].includes(id)) ShopManager.openShopCategoryUI(player);
   else if (id === "sapi:shop") ShopManager.openCategoryById(player, message || "all");
   else if (["system:land", "gui:land", "land:open"].includes(id)) LandManager.openPlotMainUI(player);

@@ -1,3 +1,4 @@
+import { isWeeklyArea, isWeeklyExcluded, touchesWeeklyProtection } from "./weeklyIsolation.js";
 import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
 import { world, system, BlockPermutation } from "@minecraft/server";
 import { ActionFormData } from "@minecraft/server-ui";
@@ -19,7 +20,7 @@ const SETTINGS_KEY = "sando_standalone:settings:v6";
 const STATE_KEY = "sando_standalone:state:v2";
 const HEARTBEAT_KEY = "sando_standalone:heartbeat:v1";
 
-console.warn("[NaturalDisastersStandalone] v1.3.4 initializing; Extraction City automatic disasters enabled...");
+console.warn("[NaturalDisastersStandalone] v1.3.6 initializing; Extraction City automatic disasters enabled...");
 
 const DEFAULT_SETTINGS = Object.freeze({
  enabled: STANDALONE_CONFIG.enabled,
@@ -172,7 +173,7 @@ function inBounds(entry, dimensionId, location) {
 }
 
 function automaticRegionForPlayer(player) {
- if (isPvpExcluded(player)) return null;
+ if (isPvpExcluded(player) || isWeeklyExcluded(player)) return null;
  try {
   if (player.dimension.id === "apoc_extract:city") {
    if (!settings.extractionCityEnabled) return null;
@@ -213,7 +214,7 @@ function chooseOccupiedAutoRegion(preferredType = "") {
 }
 
 function isSafeArea(dimensionId, location) {
- if (isPvpArea(dimensionId, location)) return true;
+ if (isPvpArea(dimensionId, location) || isWeeklyArea(dimensionId, location)) return true;
  // The controller is an explicit administrator override and can target any area.
  if (manualCenter) return false;
  if (STANDALONE_CONFIG.safeRegions.some(region => inBounds(region, dimensionId, location))) return true;
@@ -228,7 +229,7 @@ function isSafeArea(dimensionId, location) {
 }
 
 function touchesSafeArea(dimensionId, location, radius) {
- if (isPvpArea(dimensionId, location, radius)) return true;
+ if (isPvpArea(dimensionId, location, radius) || isWeeklyArea(dimensionId, location, radius)) return true;
  if (!settings.protectSafeZones) return false;
  const offsets = [[0, 0], [radius, 0], [-radius, 0], [0, radius], [0, -radius],
   [radius, radius], [radius, -radius], [-radius, radius], [-radius, -radius]];
@@ -237,7 +238,7 @@ function touchesSafeArea(dimensionId, location, radius) {
 
 function participantsFor(dimensionId = activeDimensionId) {
  return world.getAllPlayers().filter(player => {
-  if (isPvpExcluded(player)) return false;
+  if (isPvpExcluded(player) || isWeeklyExcluded(player)) return false;
   try {
    if (player.dimension.id !== dimensionId) return false;
    if (manualCenter) {
@@ -277,6 +278,7 @@ function publishState() {
 }
 
 function safeCmd(target, command) {
+ if (target?.typeId && isWeeklyExcluded(target) && !command.startsWith("fog @s remove")) return;
  try { return target.runCommand(command); } catch (_) { return undefined; }
 }
 
@@ -402,14 +404,17 @@ function surfaceY(dim, x, aroundY, z) {
 }
 
 function spawnParticleSafe(dim, id, loc) {
+ if (isWeeklyArea(dim.id, loc)) return;
  try { dim.spawnParticle(id, loc); } catch (_) {}
 }
 
 function vanillaWaterParticle(dim, loc) {
+ if (isWeeklyArea(dim.id, loc)) return;
  try { dim.spawnParticle("minecraft:water_splash_particle_manual", loc); } catch (_) {}
 }
 
 function vanillaCampfireSmoke(dim, loc) {
+ if (isWeeklyArea(dim.id, loc)) return;
  try {
   dim.spawnParticle("minecraft:campfire_smoke_particle", loc);
  } catch (_) {
@@ -512,7 +517,7 @@ function cleanupWorld() {
 function finishDisaster() {
  cleanupWorld();
 
- for (const p of world.getAllPlayers().filter(player => !isPvpPlayer(player) && runParticipants.has(player.name))) {
+ for (const p of world.getAllPlayers().filter(player => !isPvpPlayer(player) && !isWeeklyExcluded(player) && runParticipants.has(player.name))) {
   ensurePlayerScores(p);
   const failed = failedPlayers.has(p.name);
 
@@ -576,6 +581,7 @@ function tornadoProfile(level) {
 }
 
 function tornadoTick(dim, players) {
+ players = players.filter(player => !isWeeklyExcluded(player));
  if (!players.length) return;
  const profile = tornadoProfile(disasterLevel);
 
@@ -583,6 +589,7 @@ function tornadoTick(dim, players) {
   const p = players[Math.floor(Math.random() * players.length)];
   const c = centerForPlayer(p, 24, 10);
   c.y = surfaceY(dim, c.x, p.location.y, c.z) + 1;
+  if (isWeeklyArea(dim.id, c, profile.radius)) return;
   try { tornado = dim.spawnEntity("sando_standalone:tornado_core", c); } catch (_) { tornado = null; }
  }
  if (!tornado?.isValid) return;
@@ -603,6 +610,11 @@ function tornadoTick(dim, players) {
  }
 
  const l = tornado.location;
+ if (isWeeklyArea(dim.id, l, profile.radius)) {
+  try { tornado.remove(); } catch (_) {}
+  tornado = null;
+  return;
+ }
  if (activeTick % profile.particleStep === 0) {
   for (let i = 0; i < profile.heightLayers; i++) {
    const y = i * 1.8;
@@ -626,7 +638,7 @@ function tornadoTick(dim, players) {
  const ents = dim.getEntities({ location: l, maxDistance: profile.radius }).slice(0, CFG.maxEntitiesAffectedByTornado);
  for (const e of ents) {
   if (e.id === tornado.id || e.typeId === "minecraft:lightning_bolt") continue;
-  try { if (isSafeArea(dim.id, e.location)) continue; } catch (_) { continue; }
+  try { if (isWeeklyExcluded(e) || isSafeArea(dim.id, e.location)) continue; } catch (_) { continue; }
   const ex = e.location.x - l.x, ez = e.location.z - l.z;
   const d = Math.max(0.8, Math.hypot(ex, ez));
   const nx = ex / d, nz = ez / d;
@@ -671,6 +683,7 @@ function tornadoTick(dim, players) {
 }
 
 function spawnMeteor(dim, player) {
+ if (isWeeklyExcluded(player)) return;
  const level = disasterLevel;
  const targetRadius = Math.min(30, 18 + level * 2);
  const target = centerForPlayer(player, targetRadius, 6);
@@ -689,6 +702,7 @@ function spawnMeteor(dim, player) {
   z: target.z + (Math.random() - 0.5) * 20
  };
 
+ if (isWeeklyArea(dim.id, start, 2) || touchesWeeklyProtection(dim, target, 30)) return;
  try {
   const e = dim.spawnEntity("sando_standalone:meteor", start);
   if (giant) {
@@ -699,6 +713,7 @@ function spawnMeteor(dim, player) {
 }
 
 function meteorTick(dim, players) {
+ players = players.filter(player => !isWeeklyExcluded(player));
  const interval = Math.max(10, 24 - disasterLevel * 2);
  const perPulse = Math.min(4, 1 + Math.floor(disasterLevel / 2));
 
@@ -714,6 +729,10 @@ function meteorTick(dim, players) {
   if (!m.entity?.isValid) continue;
   m.life++;
   const l = m.entity.location;
+  if (isWeeklyArea(dim.id, l, 2) || touchesWeeklyProtection(dim, m.target, 30)) {
+   try { m.entity.remove(); } catch (_) {}
+   continue;
+  }
   const dx = m.target.x - l.x, dy = m.target.y - l.y, dz = m.target.z - l.z;
   const len = Math.max(0.001, Math.hypot(dx, dy, dz));
 
@@ -727,7 +746,7 @@ function meteorTick(dim, players) {
    const radius = m.giant
     ? Math.min(7.5, 5.2 + disasterLevel * 0.22)
     : Math.min(4.8, 3.0 + disasterLevel * 0.16);
-   const safeBoundary = touchesSafeArea(dim.id, m.target, radius * 1.5);
+   const safeBoundary = touchesSafeArea(dim.id, m.target, radius * 1.5) || touchesWeeklyProtection(dim, m.target, radius * 4);
    const allowDamage = settings.blockDamage && !safeBoundary;
    if (!safeBoundary) try { dim.createExplosion(m.target, radius, { breaksBlocks: allowDamage, causesFire: allowDamage }); } catch (_) {}
    spawnParticleSafe(dim, "minecraft:campfire_smoke_particle", m.target);
@@ -753,6 +772,7 @@ function meteorTick(dim, players) {
 }
 
 function floodTick(dim, players) {
+ players = players.filter(player => !isWeeklyExcluded(player));
  const level = disasterLevel;
  const push = Math.min(0.15, 0.045 + level * 0.006);
  const downward = Math.min(0.19, 0.085 + level * 0.007);
@@ -805,7 +825,8 @@ function floodTick(dim, players) {
   for (const [ox, oz] of offsets) {
    for (let h = 0; h < 3; h++) {
     const pos = { x: baseX + ox, y: baseY + h, z: baseZ + oz };
-    if (isSafeArea(dim.id, pos)) continue;
+    // Water can spread up to seven blocks beyond its source.
+    if (isSafeArea(dim.id, pos) || touchesWeeklyProtection(dim, pos, 8)) continue;
     const key = `${pos.x},${pos.y},${pos.z}`;
     desired.add(key);
     if (floodBlocks.has(key) || floodBlocks.size >= CFG.maxFloodBlocks) continue;
@@ -829,6 +850,7 @@ function floodTick(dim, players) {
 }
 
 function lightningTick(dim, players) {
+ players = players.filter(player => !isWeeklyExcluded(player));
  const level = disasterLevel;
  const interval = Math.max(8, 28 - level * 2);
  const boltsPerPulse = Math.min(6, 1 + Math.floor(level / 2));
@@ -839,7 +861,7 @@ function lightningTick(dim, players) {
   if (!p) continue;
   const c = centerForPlayer(p, Math.min(28, 17 + level * 2), 5);
   c.y = surfaceY(dim, c.x, p.location.y, c.z) + 1;
-  if (!touchesSafeArea(dim.id, c, 3)) try { dim.spawnEntity("minecraft:lightning_bolt", c); } catch (_) {}
+  if (!touchesSafeArea(dim.id, c, 3) && !touchesWeeklyProtection(dim, c, 8)) try { dim.spawnEntity("minecraft:lightning_bolt", c); } catch (_) {}
 
   // No custom particles. Nearby strikes create a lightweight camera shake.
   for (const viewer of players) {
@@ -854,6 +876,7 @@ function lightningTick(dim, players) {
 }
 
 function queueEarthquakeCrack(dim, player) {
+ if (isWeeklyExcluded(player)) return;
  if (earthquakeQueue.length >= CFG.maxEarthquakeQueue) return;
  const level = disasterLevel;
  const length = Math.min(24, 6 + Math.floor(level * 1.7));
@@ -894,6 +917,11 @@ function processEarthquakeQueue(dim) {
  let processed = 0;
  for (let i = 0; i < earthquakeQueue.length && processed < 2; i++) {
   const q = earthquakeQueue[i];
+  if (isWeeklyArea(dim.id, q)) {
+   earthquakeQueuedKeys.delete(q.key);
+   earthquakeQueue.splice(i--, 1);
+   continue;
+  }
   if (q.delay > 0) {
    q.delay--;
    continue;
@@ -929,6 +957,7 @@ function processEarthquakeQueue(dim) {
 }
 
 function earthquakeTick(dim, players) {
+ players = players.filter(player => !isWeeklyExcluded(player));
  const level = disasterLevel;
  const shakeInterval = Math.max(7, 17 - level);
  if (activeTick % shakeInterval === 0) {
@@ -956,7 +985,10 @@ function disasterTick() {
  let dim;
  try { dim = world.getDimension(activeDimensionId); } catch (_) { return stopGame(null, "目标维度不可用，灾害已停止。"); }
  const players = participantsFor(activeDimensionId);
- if (!players.length) return;
+ if (!players.length) {
+  if (tornado || meteors.length || floodBlocks.size || earthquakeQueue.length) cleanupWorld();
+  return;
+ }
 
  if (disaster.id === "tornado") tornadoTick(dim, players);
  else if (disaster.id === "meteors") meteorTick(dim, players);
@@ -990,14 +1022,14 @@ function resetChallengeAfterAllDead() {
 }
 
 function allCurrentParticipantsHaveDied() {
- const online = world.getAllPlayers().filter(p => !isPvpPlayer(p) && runParticipants.has(p.name));
+ const online = world.getAllPlayers().filter(p => !isPvpPlayer(p) && !isWeeklyExcluded(p) && runParticipants.has(p.name));
  return online.length > 0 && online.every(p => deadParticipants.has(p.name));
 }
 
 world.afterEvents.playerSpawn.subscribe(ev => {
  const p = ev.player;
  system.run(() => {
-  if (isPvpPlayer(p)) return;
+  if (isPvpPlayer(p) || isWeeklyExcluded(p)) return;
   // Scoreboard setup is allowed to retry, but never starts a disaster.
   if (!initialized) ensureObjectives();
   ensurePlayerScores(p);
@@ -1009,17 +1041,19 @@ world.afterEvents.playerSpawn.subscribe(ev => {
    } catch (_) {}
   }
   if (ev.initialSpawn && isAdmin(p)) {
-   try { p.sendMessage("§a[独立自然灾害] v1.3.4 已加载。法制区/摸金都市 20～40 分钟、非法制区 10～20 分钟；资源包已声明灵动视效兼容。"); } catch (_) {}
+   try { p.sendMessage("§a[独立自然灾害] v1.3.6 已加载。法制区/摸金都市 20～40 分钟、非法制区 10～20 分钟；资源包已声明灵动视效兼容。"); } catch (_) {}
   }
  });
 });
 
 world.afterEvents.entityDie.subscribe(ev => {
  const e = ev.deadEntity;
- if (!gameStarted || e.typeId !== "minecraft:player" || isPvpPlayer(e)) return;
+ if (!gameStarted || e.typeId !== "minecraft:player" || isPvpPlayer(e) || isWeeklyExcluded(e)) return;
  const name = e.name;
  system.run(() => {
   if (!runParticipants.has(name)) return;
+  const current = world.getAllPlayers().find(player => player.name === name);
+  if (current && isWeeklyExcluded(current)) return;
   failedPlayers.add(name);
   deadParticipants.add(name);
   runParticipants.add(name);
@@ -1061,7 +1095,7 @@ function chooseTargetDimension(requestedDimensionId) {
  const allowed = allowedDimensionIds();
  if (!allowed.length) return null;
  const playersIn = id => world.getAllPlayers().some(player => {
-  try { return player.dimension.id === id; } catch (_) { return false; }
+  try { return !isWeeklyExcluded(player) && player.dimension.id === id; } catch (_) { return false; }
  });
  if (requestedDimensionId && allowed.includes(requestedDimensionId) && playersIn(requestedDimensionId)) return requestedDimensionId;
  const occupied = allowed.filter(id => {
@@ -1094,6 +1128,10 @@ function stopGame(source, reason = "管理员停止了当前灾害。") {
 function startGame(source, requestedDisasterId = "", requestedDimensionId = "", requestedDifficulty = undefined) {
  try {
   loadSettings();
+  if (source?.typeId === "minecraft:player" && isWeeklyExcluded(source)) {
+   source.sendMessage("§e周本区域内不会启动自然灾害。");
+   return;
+  }
   if (source?.typeId === "minecraft:player" && !isAdmin(source)) {
    source.sendMessage("§c只有管理员可以启动自然灾害。");
    return;
@@ -1322,10 +1360,10 @@ system.runInterval(() => {
  }
 }, 1);
 
-// A player can enter PvP after a disaster started; discard only this pack's lingering fog.
+// A player can enter PvP or a weekly raid after a disaster started; discard only this pack's lingering fog.
 system.runInterval(() => {
  if (!gameStarted) return;
  for (const player of world.getAllPlayers()) {
-  if (isPvpPlayer(player)) safeCmd(player, "fog @s remove sando_standalone_disaster");
+  if (isPvpPlayer(player) || isWeeklyExcluded(player)) safeCmd(player, "fog @s remove sando_standalone_disaster");
  }
 }, 20);

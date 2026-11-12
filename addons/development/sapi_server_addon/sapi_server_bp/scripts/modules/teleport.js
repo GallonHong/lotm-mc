@@ -1,4 +1,4 @@
-import { allowOrdinaryAction, isMatchLocked } from "./match_access.js";
+import { allowOrdinaryAction, isMatchLocked, isWeeklyLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { ActionFormData, ModalFormData, MessageFormData } from "@minecraft/server-ui";
 import { Config } from "../config.js";
@@ -628,7 +628,7 @@ export class TeleportManager {
    die.subscribe(event => {
     try {
      const player = event.deadEntity;
-     if (player?.typeId !== "minecraft:player" || isMatchLocked(player)) return;
+     if (player?.typeId !== "minecraft:player" || isMatchLocked(player) || isWeeklyLocked(player)) return;
      const death = { ...this.snapshot(player, "死亡位置"), cause: String(event.damageSource?.cause || "unknown"), time: Date.now() };
      this.pendingDeaths.set(player.id, death);
      this.setDeathLocation(player, death);
@@ -642,7 +642,8 @@ export class TeleportManager {
  }
 
  static handlePlayerSpawn(player) {
-  if (!allowOrdinaryAction(player)) return false;
+  // Background spawn/payout processing waits silently until the activity ends.
+  if (!allowOrdinaryAction(player, false)) return false;
   const pending = this.pendingDeaths.get(player.id);
   if (pending) {
    this.setDeathLocation(player, pending);

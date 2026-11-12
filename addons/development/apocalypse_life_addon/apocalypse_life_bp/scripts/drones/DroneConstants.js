@@ -101,6 +101,8 @@ export const DRONE_REGISTRY = {
     name: "肾上腺素超频注入",
     trigger: "combat_buff",
     cooldownTicks: 60 * 20, // 60s
+    durationTicks: 8 * 20,
+    combatBuff: { damagePct: 20, critPct: 0 },
     desc: "进入交火时为主人注入战术肾上腺素：速度II、抗性提升I、伤害提升20%(8秒)"
    }
   ]
@@ -328,7 +330,8 @@ export const DRONE_REGISTRY = {
     trigger: "combat_active",
     cooldownTicks: 60 * 20,
     durationTicks: 8 * 20,
-    desc: "注入战术战意：提高主人20%伤害与暴击率，并赋予2颗额外黄金吸收心(持续8秒)"
+    combatBuff: { damagePct: 20, critPct: 20 },
+    desc: "注入战术战意：提高主人20%伤害、20%暴击率，并赋予2颗额外黄金吸收心(持续8秒)"
    },
    {
     id: "emp_jam",
@@ -359,7 +362,8 @@ export const DRONE_REGISTRY = {
     trigger: "combat_active",
     cooldownTicks: 60 * 20,
     durationTicks: 10 * 20,
-    desc: "开启终极矩阵：大幅提升主人35%伤害与暴击率，力量II、速度II并赋予2颗额外心(持续10秒)"
+    combatBuff: { damagePct: 35, critPct: 35 },
+    desc: "开启终极矩阵：大幅提升主人35%伤害、35%暴击率，力量II、速度II并赋予2颗额外心(持续10秒)"
    },
    {
     id: "emp_shield_jam",

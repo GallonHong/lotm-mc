@@ -111,3 +111,11 @@ bash addons/development/apocalypse_life_addon/build.sh
 - `Apocalypse_Life_BP.mcpack`
 - `Apocalypse_Life_RP.mcpack`
 - `Apocalypse_Life_Addon.mcaddon`
+
+## 7. 周常团本隔离与无人机货舱守护 (v1.4.10)
+
+- 对接周常团本：`pvp/PvpLifePolicy.js` 新增 `weekly:participant` / `weekly:admission` / `weekly:room:*` 判定，
+  周本参战玩家的无人机、倒地救援与生活系统规则不再按 PvP 处理；`DroneGarageManager` 同步周本锁定。
+- 新增 `drones/DroneCargoGuard.js`：货运机（`makercamp_dr:inventory_drone`）容器物品以原生 ItemStack 保存在
+  动态属性账本中，禁止从 JSON 重建、禁止删除仍持有物品的容器，避免周本跨维度/重载丢货。
+- `DownedRescueManager` 与新增 `animations/downed_reset.animation.json` 补齐倒地重置表现；相应 SAPI 救援模块同步。

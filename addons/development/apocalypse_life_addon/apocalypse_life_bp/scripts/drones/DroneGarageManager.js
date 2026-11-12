@@ -1,7 +1,8 @@
-import { locked } from "../pvp/PvpLifePolicy.js";
-import { world, system, EquipmentSlot, EntityComponentTypes } from "@minecraft/server";
+import { locked, weeklyLocked } from "../pvp/PvpLifePolicy.js";
+import { world, system, EquipmentSlot, EntityComponentTypes, ItemStack } from "@minecraft/server";
 import { DRONE_REGISTRY } from "./DroneConstants.js";
 import { DroneClass } from "./DroneClass.js";
+import { DroneCargoGuard } from "./DroneCargoGuard.js";
 
 const HANGAR_PROP_KEY = "ab_dr:hangar_v1";
 
@@ -37,11 +38,13 @@ export class DroneGarageManager {
   * 保存玩家机库数据
   */
  static saveHangarData(player, data) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid()) return false;
   try {
    player.setDynamicProperty(HANGAR_PROP_KEY, JSON.stringify(data));
+   return true;
   } catch (e) {
    console.error(`[DroneGarageManager] Save error: ${e}`);
+   return false;
   }
  }
 
@@ -136,11 +139,16 @@ export class DroneGarageManager {
    return false;
   }
 
-  // 召回并清理当前场上已有无人机 (每位玩家同时仅可出动一架伴飞)
-  this.recallDrone(player, false);
-
-  hangar.currentDrone = droneId;
-  this.saveHangarData(player, hangar);
+  // Restore the exact persistent cargo entity before any replacement is allowed.
+  if (!this.restoreCargoDrone(player, true)) return false;
+  // A loaded cargo hold must be moved safely first; failure cannot be followed
+  // by a fresh spawn, otherwise two real drones/cargo copies could coexist.
+  if (this.recallDrone(player, false) === false) return false;
+  const latestHangar = this.getHangarData(player);
+  const latestData = latestHangar.drones[droneId];
+  if (!latestData || latestData.scrapped || latestData.durability <= 0 || latestData.fuel <= 0) return false;
+  latestHangar.currentDrone = droneId;
+  if (!this.saveHangarData(player, latestHangar)) return false;
 
   // 在玩家右后方伴飞位置生成实体
   const pLoc = player.location;
@@ -168,9 +176,13 @@ export class DroneGarageManager {
     entity.setProperty("makercamp_dr:is_shooting", false);
    } catch {}
 
-   DroneClass.registerActiveDrone(player, entity, droneId, droneData);
+   DroneClass.registerActiveDrone(player, entity, droneId, latestData);
+   if (DroneCargoGuard.isCargo(entity)) {
+    try { DroneCargoGuard.save(player.id, DroneClass.getActiveDrone(player.id)); }
+    catch (error) { entity.remove(); DroneClass.unregisterActiveDrone(player.id); throw error; }
+   }
 
-   this.lastAlertedFuelDecile.set(player.id, Math.floor(droneData.fuel / 10) * 10);
+   this.lastAlertedFuelDecile.set(player.id, Math.floor(latestData.fuel / 10) * 10);
 
    player.sendMessage(`§a[战术机载网络] ${config.tier.color}${config.name} §a已成功部署起飞，进入自动巡航伴飞状态！`);
    player.runCommandAsync("playsound makercamp_dr.drone.summon @a ~~~ 0.8 1.0");
@@ -186,25 +198,68 @@ export class DroneGarageManager {
   * 召回场上的无人机进入机库
   */
  static recallDrone(player, showMsg = true) {
-  if (!player || !player.isValid()) return;
+  if (!player || !player.isValid()) return false;
+  if (!DroneClass.getActiveDrone(player.id) && !this.restoreCargoDrone(player, showMsg)) return false;
   const active = DroneClass.getActiveDrone(player.id);
-  if (active && active.entity && active.entity.isValid()) {
+  if (active) {
    try {
-    // 保存飞行消耗的数据
-    const hangar = this.getHangarData(player);
-    if (hangar.drones[active.droneId]) {
+    if (active.removedByRecall) {
+     DroneCargoGuard.clear(player.id, active.entityId);
+    } else if (active.entity?.isValid()) {
+     // Cargo moves as original stacks into empty player slots; on insufficient
+     // space or failed save we retain the original entity, never delete cargo.
+     DroneCargoGuard.unloadToOwner(player, active.entity);
+     const hangar = this.getHangarData(player);
+     if (!hangar.drones[active.droneId]) throw new Error("原机库记录丢失，已保留出战无人机。");
      hangar.drones[active.droneId].durability = active.durability;
      hangar.drones[active.droneId].fuel = active.fuel;
-     this.saveHangarData(player, hangar);
+     if (!this.saveHangarData(player, hangar)) throw new Error("机库保存失败，已保留无人机，请稍后重试。");
+     const cargo = DroneCargoGuard.isCargo(active.entity);
+     active.entity.remove();
+     active.removedByRecall = true;
+     if (cargo) DroneCargoGuard.clear(player.id, active.entityId);
     }
-    active.entity.remove();
-   } catch {}
+   } catch (error) {
+    if (showMsg || !active.lastRecallFailureAt || Date.now() - active.lastRecallFailureAt > 5000) {
+     player.sendMessage(`§e[战术机库] ${error.message || error}`);
+     active.lastRecallFailureAt = Date.now();
+    }
+    return false;
+   }
   }
   DroneClass.unregisterActiveDrone(player.id);
-
   if (showMsg) {
    player.sendMessage("§6[战术机载网络] 无人机已安全返航进入机库待机。");
    player.runCommandAsync("playsound makercamp_dr.drone.standby_start @s ~~~ 0.8 1.0");
+  }
+  return true;
+ }
+
+ // Reconnect/reload attaches only the saved entity ID owned by this player.
+ // Missing/unloaded entities fail closed instead of duplicating a cargo hold.
+ static restoreCargoDrone(player, notify = false) {
+  if (!player?.isValid() || locked(player)) return false;
+  try {
+   const initialHangar = this.getHangarData(player);
+   DroneCargoGuard.adoptLegacy(player, initialHangar.drones.camel);
+   const saved = DroneCargoGuard.resolve(player.id);
+   if (!saved) return true;
+   const active = DroneClass.getActiveDrone(player.id);
+   if (active) {
+    if (active.entityId !== saved.entity.id) throw new Error("货运机与当前出战机记录冲突，请先处理原机。");
+    return true;
+   }
+   const hangar = this.getHangarData(player), entry = hangar.drones.camel;
+   if (!entry) throw new Error("原货运机机库记录缺失，已保留实体和物品。");
+   const { record, entity } = saved;
+   const snapshot = { ...entry, durability: Math.min(entry.durability, record.durability), fuel: Math.min(entry.fuel, record.fuel) };
+   entity.teleport({ x: player.location.x, y: player.location.y + 2, z: player.location.z }, { dimension: player.dimension });
+   DroneClass.registerActiveDrone(player, entity, "camel", snapshot);
+   DroneCargoGuard.save(player.id, DroneClass.getActiveDrone(player.id));
+   return true;
+  } catch (error) {
+   if (notify) player.sendMessage(`§e[战术机库] ${error.message || error}`);
+   return false;
   }
  }
 
@@ -212,64 +267,56 @@ export class DroneGarageManager {
   * 加注燃油 (手持汽油桶或金币加注)
   */
  static refuelDrone(player, droneId, method = "gold") {
-  if (locked(player, true)) return false;
-  if (!player || !player.isValid()) return false;
-  const hangar = this.getHangarData(player);
-  const drone = hangar.drones[droneId];
+  if (weeklyLocked(player) && method !== "jerrycan") { player.sendMessage("§e周本内只能使用自带汽油桶补给，不能金币充值。"); return false; }
+  if (locked(player, true) || !player || !player.isValid()) return false;
+  const hangar = this.getHangarData(player), drone = hangar.drones[droneId];
   if (!drone) return false;
-
-  if (drone.fuel >= 100) {
-   player.sendMessage("§e[战术机库] 机载能量蓄电池已处于 100% 满电饱和状态，无需加注。");
+  const active = DroneClass.getActiveDrone(player.id);
+  const liveDrone = active?.droneId === droneId ? active : null;
+  if (liveDrone) { drone.fuel = liveDrone.fuel; drone.durability = liveDrone.durability; }
+  if (drone.fuel >= 100) { player.sendMessage("§e[战术机库] 当前燃油已满，无需补给。"); return false; }
+  let refund = null;
+  try {
+   if (method === "jerrycan") {
+    const eq = player.getComponent("minecraft:equippable"), main = eq?.getEquipment(EquipmentSlot.Mainhand);
+    if (main?.typeId !== "survival_vehicle:jerrycan_full") throw new Error("请手持满装汽油桶。");
+    const original = main.clone(), emptyCan = new ItemStack("survival_vehicle:jerrycan_empty", 1);
+    const inventory = player.getComponent("minecraft:inventory")?.container;
+    let emptySlot = -1;
+    if (main.amount > 1) {
+     for (let i = 0; i < (inventory?.size || 0); i++) if (!inventory.getItem(i)) { emptySlot = i; break; }
+     if (emptySlot < 0) throw new Error("请先腾出一个背包空位接收空油桶；不会消耗整组油桶。");
+    }
+    refund = () => { eq.setEquipment(EquipmentSlot.Mainhand, original); if (emptySlot >= 0) inventory.setItem(emptySlot, undefined); };
+    if (main.amount === 1) eq.setEquipment(EquipmentSlot.Mainhand, emptyCan);
+    else {
+     const remaining = main.clone(); remaining.amount -= 1;
+     eq.setEquipment(EquipmentSlot.Mainhand, remaining);
+     inventory.setItem(emptySlot, emptyCan);
+    }
+   } else {
+    const objective = world.scoreboard.getObjective("money");
+    if (!objective || !player.scoreboardIdentity || (objective.getScore(player.scoreboardIdentity) || 0) < 500) throw new Error("金币不足，充值需要500金币。");
+    objective.addScore(player.scoreboardIdentity, -500);
+    refund = () => objective.addScore(player.scoreboardIdentity, 500);
+   }
+   drone.fuel = 100;
+   if (!this.saveHangarData(player, hangar)) throw new Error("机库保存失败，已取消本次补给。");
+   // The saved hangar now owns the paid refill. An older cargo checkpoint must
+   // not roll it back after reconnect, so update both before reporting success.
+   if (liveDrone) {
+    liveDrone.fuel = 100;
+    if (DroneCargoGuard.isCargo(liveDrone.entity)) DroneCargoGuard.save(player.id, liveDrone);
+   }
+  } catch (error) {
+   // If cargo checkpoint failed after the hangar commit, retain its saved fuel
+   // rather than refunding an already committed refill and creating free fuel.
+   if (!liveDrone || liveDrone.fuel !== 100) { try { refund?.(); } catch {} }
+   player.sendMessage(`§e[战术机库] ${error.message || error}`);
    return false;
   }
-
-  if (method === "jerrycan") {
-   const eq = player.getComponent("minecraft:equippable");
-   const main = eq?.getEquipment(EquipmentSlot.Mainhand);
-   if (!main || !main.typeId.includes("jerrycan_full")) {
-    player.sendMessage("§c[战术机库] 你的主手未持有【满装汽油桶】！");
-    return false;
-   }
-   // 消耗满油桶，返还空油桶
-   eq.setEquipment(EquipmentSlot.Mainhand, null);
-   try {
-    const emptyCan = player.dimension.spawnItem(
-     new (world.ItemStack || Object)("ab_ve:jerrycan_empty", 1),
-     player.location
-    );
-   } catch {}
-   drone.fuel = 100;
-  } else {
-   // 金币快捷充能 (500 金币)
-   let balance = 0;
-   try {
-    const obj = world.scoreboard.getObjective("money");
-    if (obj && player.scoreboardIdentity) {
-     balance = obj.getScore(player.scoreboardIdentity) || 0;
-    }
-   } catch {}
-
-   if (balance < 500) {
-    player.sendMessage(`§c[战术机库] 金币不足！加注机载能量需要 500 金币，当前拥有: ${balance}`);
-    return false;
-   }
-
-   try {
-    world.scoreboard.getObjective("money")?.addScore(player.scoreboardIdentity, -500);
-   } catch {}
-   drone.fuel = 100;
-  }
-
-  // 同步活跃实体
-  const active = DroneClass.getActiveDrone(player.id);
-  if (active && active.droneId === droneId) {
-   active.fuel = 100;
-  }
-
-  this.saveHangarData(player, hangar);
   this.lastAlertedFuelDecile.set(player.id, 100);
-
-  player.sendMessage("§a[战术机库] 成功加注！无人机电量/燃油已恢复至 100% 满能状态。");
+  player.sendMessage("§a[战术机库] 成功加注！无人机燃油已恢复至100%。");
   player.runCommandAsync("playsound random.pop @s ~~~ 0.8 1.5");
   return true;
  }
@@ -278,6 +325,7 @@ export class DroneGarageManager {
   * 属性改装升级 (血量 / 攻击力 / 技能增幅)
   */
  static upgradeDrone(player, droneId, statType) {
+  if (weeklyLocked(player)) { player.sendMessage("§e周本内不能金币改装，请先退出周本。"); return false; }
   if (locked(player, true)) return false;
   if (!player || !player.isValid()) return false;
   const hangar = this.getHangarData(player);
@@ -372,6 +420,9 @@ export class DroneGarageManager {
   * 无人机在世界中坠毁爆炸处理
   */
  static onDroneCrash(ownerId, droneId, runtime = null) {
+  if (DroneCargoGuard.isCargo(runtime?.entity)) {
+   try { DroneCargoGuard.clear(ownerId, runtime.entityId || runtime.entity.id); } catch (error) { console.warn(`[DroneCargo] ${error}`); }
+  }
   if (runtime?.pvpMatchId) {
    // Journal before writing player data. Disconnect/restart cannot erase a real crash.
    const pending = { droneId, token: `${runtime.pvpMatchId}:${runtime.entityId}`,

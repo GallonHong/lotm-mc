@@ -13,6 +13,7 @@ import { isCombatDowned } from './baizhan_damage/feature/utils/pvpRules.js';
 import { DamageIndicator } from './baizhan_damage/feature/damageIndicator.js';
 import { ArmorEngine, ARMOR_KNOCKBACK_VALUES } from './baizhan_damage/feature/armorEngine.js';
 import { JETPACK_COMBAT } from './baizhan_damage/data/jetpack.js';
+import { readDroneCombatBuff } from './baizhan_damage/feature/utils/droneCombatBuff.js';
 
 export { ARMOR_KNOCKBACK_VALUES };
 
@@ -447,6 +448,11 @@ export class DamageHandler {
    dmgMultiplier += isSniper ? 0.25 : 0.08;
    if (isSniper) critRate += 0.15;
   }
+  // 1.2 无人机战术增益（跨包 player tag 契约，见 droneCombatBuff.js；只加暴击率与伤害）
+  const droneBuff = readDroneCombatBuff(shooter);
+  critRate += droneBuff.critRate;
+  dmgMultiplier += droneBuff.damage;
+
   // Probability only is clamped; no new cap reduces any pre-existing damage/passive.
   critRate = Math.max(0, Math.min(1, critRate));
   currentDamage *= dmgMultiplier;

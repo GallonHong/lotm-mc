@@ -1,4 +1,5 @@
 import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
+import { isWeeklyArea, isWeeklyExcluded } from "./weeklyIsolation.js";
 import { world, system, ItemStack, EquipmentSlot } from "@minecraft/server";
 import { CONFIG, MOB_PROFILES, ZONE_POOLS, ZONE_DIFFICULTY, ARMOR_POOLS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
@@ -238,7 +239,7 @@ export class SpawnDirector {
  }
 
  static spawnAt(dimension, location, mobKey, tags = [], forcedZoneType = null) {
-  if (isPvpArea(dimension.id, location)) return null;
+  if (isPvpArea(dimension.id, location) || isWeeklyArea(dimension.id, location)) return null;
   const profile = MOB_PROFILES[mobKey];
   if (!profile || ZoneRegistry.isSafe(dimension.id, location)) return null;
   const targetZoneType = forcedZoneType || ZoneRegistry.resolve(dimension.id, location).type;
@@ -258,7 +259,7 @@ export class SpawnDirector {
  }
 
  static spawnNearPlayer(player, mobKey = null, tags = [], minDistance, maxDistance) {
-  if (isPvpExcluded(player)) return null;
+  if (isPvpExcluded(player) || isWeeklyExcluded(player)) return null;
   const zone = ZoneRegistry.resolve(player.dimension.id, player.location);
   if (zone.type === "safe") return null;
   const pool = ZONE_POOLS[zone.type] || ZONE_POOLS.law;
@@ -270,7 +271,7 @@ export class SpawnDirector {
 
  static tick() {
   for (const player of world.getAllPlayers()) {
-   if (isPvpExcluded(player)) continue;
+   if (isPvpExcluded(player) || isWeeklyExcluded(player)) continue;
    if (player.dimension.id !== CONFIG.overworld) continue;
    let gameMode = "survival";
    try { gameMode = String(player.getGameMode()).toLowerCase(); } catch {}

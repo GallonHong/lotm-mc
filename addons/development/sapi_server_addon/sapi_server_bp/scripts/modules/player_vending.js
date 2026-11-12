@@ -516,7 +516,8 @@ export class PlayerVendingManager {
  }
 
  static claimInsuranceCompensation(player, notify = true) {
-  if (!allowOrdinaryAction(player)) return false;
+  // Background spawn/payout processing waits silently until the activity ends.
+  if (!allowOrdinaryAction(player, false)) return false;
   if (!player?.name) return 0;
   const data = this.readInsurance(player.name);
   let delivered = 0;

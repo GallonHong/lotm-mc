@@ -11,11 +11,11 @@ const json = file => JSON.parse(read(file));
 const bpManifest = json(path.join(bp, "manifest.json"));
 const rpManifest = json(path.join(rp, "manifest.json"));
 
-assert.deepEqual(bpManifest.header.version, [1, 3, 4]);
-assert.deepEqual(rpManifest.header.version, [1, 3, 4]);
+assert.deepEqual(bpManifest.header.version, [1, 3, 6]);
+assert.deepEqual(rpManifest.header.version, [1, 3, 6]);
 assert.deepEqual(rpManifest.capabilities, ["pbr"]);
-assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "2.9.0"));
-assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "2.0.0"));
+assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server" && dep.version === "1.15.0"));
+assert(bpManifest.dependencies.some(dep => dep.module_name === "@minecraft/server-ui" && dep.version === "1.3.0"));
 const resourceDependency = bpManifest.dependencies.find(dep => dep.uuid);
 assert.equal(resourceDependency?.uuid, rpManifest.header.uuid);
 assert.deepEqual(resourceDependency?.version, rpManifest.header.version);
@@ -23,7 +23,7 @@ assert.deepEqual(resourceDependency?.version, rpManifest.header.version);
 const main = read(path.join(bp, "scripts/main.js"));
 for (const marker of ["openControllerMenu", "ActionFormData", "sando_standalone:menu", "sando_standalone:start", "sando_standalone:stop"]) assert(main.includes(marker), `missing standalone control: ${marker}`);
 for (const marker of ["decodeSapiEnvelope", "resolveScriptEventPlayer", "__sapi_player__", "decodeURIComponent", "envelope.data.trim()"] ) assert(main.includes(marker), `missing direct SAPI menu bridge: ${marker}`);
-for (const marker of ["STANDALONE_CONFIG", "chooseOccupiedAutoRegion", "automaticRegionForPlayer", "activeAutoRegion", "scheduledAutoRegion", "manualCenter", "scheduleAutoRegionRetry", "settings:v5", '"apoc_extract:city"', 'type: "city"', "source.dimension.id"]) assert(main.includes(marker), `missing independent region control: ${marker}`);
+for (const marker of ["STANDALONE_CONFIG", "chooseOccupiedAutoRegion", "automaticRegionForPlayer", "activeAutoRegion", "scheduledAutoRegion", "manualCenter", "scheduleAutoRegionRetry", "settings:v6", '"apoc_extract:city"', 'type: "city"', "source.dimension.id"]) assert(main.includes(marker), `missing independent region control: ${marker}`);
 assert(!main.includes("SAFE TIME"), "cooldown Action Bar must stay free for other Addons");
 assert(main.includes('phase !== "warning" && phase !== "active"'), "HUD must skip the cooldown phase");
 const config = read(path.join(bp, "scripts/config.js"));
@@ -45,4 +45,4 @@ for (const directory of [bp, rp]) {
     }
   }
 }
-console.log("Natural Disasters Standalone v1.3.4 validation passed.");
+console.log("Natural Disasters Standalone v1.3.6 validation passed.");

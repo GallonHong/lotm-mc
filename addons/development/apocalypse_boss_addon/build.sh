@@ -5,7 +5,7 @@ addon_dir="$(cd "$(dirname "$0")" && pwd)"
 bp_pack="$addon_dir/Apocalypse_Boss_BP.mcpack"
 rp_pack="$addon_dir/Apocalypse_Boss_RP.mcpack"
 addon="$addon_dir/Apocalypse_Boss_Addon.mcaddon"
-versioned_addon="$addon_dir/Apocalypse_Boss_Addon_v1.4.2.mcaddon"
+versioned_addon="$addon_dir/Apocalypse_Boss_Addon_v1.5.0.mcaddon"
 
 rm -f "$bp_pack" "$rp_pack" "$addon" "$versioned_addon"
 (cd "$addon_dir/apocalypse_boss_bp" && zip -qr "$bp_pack" .)

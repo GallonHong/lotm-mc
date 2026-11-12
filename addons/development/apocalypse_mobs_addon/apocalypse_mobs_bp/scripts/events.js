@@ -1,4 +1,5 @@
 import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
+import { isWeeklyExcluded } from "./weeklyIsolation.js";
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
@@ -10,7 +11,7 @@ export class WorldEventDirector {
  static lastEventTick = -CONFIG.eventCooldownTicks;
 
  static trigger(player, forced = false) {
-  if (isPvpExcluded(player)) return false;
+  if (isPvpExcluded(player) || isWeeklyExcluded(player)) return false;
   if (this.active || !player || ZoneRegistry.isSafe(player.dimension.id, player.location)) return false;
   if (!forced && system.currentTick - this.lastEventTick < CONFIG.eventCooldownTicks) return false;
   const eventId = `ambush_${Date.now().toString(36)}`;
@@ -33,7 +34,7 @@ export class WorldEventDirector {
   };
   this.lastEventTick = system.currentTick;
   for (const nearby of player.dimension.getPlayers({ location: player.location, maxDistance: 80 })) {
-   if (isPvpExcluded(nearby)) continue;
+   if (isPvpExcluded(nearby) || isWeeklyExcluded(nearby)) continue;
    nearby.sendMessage("§4[动态事件] 废弃补给点惊动了感染者！清理伏击可获得奖励。");
    try { nearby.onScreenDisplay.setTitle("§4感染者伏击", { subtitle: "§e清理区域内的敌人", fadeInDuration: 5, stayDuration: 45, fadeOutDuration: 10 }); } catch {}
   }
@@ -48,7 +49,7 @@ export class WorldEventDirector {
   for (const entity of dimension.getEntities({ tags: [this.active.tag] })) {
    try { if (entity.isValid()) living.push(entity.id); } catch {}
   }
-  for (const player of dimension.getPlayers({ location: this.active.center, maxDistance: 64 })) if (!isPvpExcluded(player)) this.active.participants.add(player.id);
+  for (const player of dimension.getPlayers({ location: this.active.center, maxDistance: 64 })) if (!isPvpExcluded(player) && !isWeeklyExcluded(player)) this.active.participants.add(player.id);
   if (living.length > 0 && system.currentTick - this.active.startedAt < 3600) {
    this.active.entityIds = living;
    return;
@@ -70,7 +71,7 @@ export class WorldEventDirector {
    if (heartbeat > 0 && Date.now() - heartbeat < 30000) return;
   } catch {}
   if (this.active || Math.random() > CONFIG.eventChance) return;
-  const candidates = world.getAllPlayers().filter(player => !isPvpExcluded(player) && player.dimension.id === CONFIG.overworld && !ZoneRegistry.isSafe(player.dimension.id, player.location));
+  const candidates = world.getAllPlayers().filter(player => !isPvpExcluded(player) && !isWeeklyExcluded(player) && player.dimension.id === CONFIG.overworld && !ZoneRegistry.isSafe(player.dimension.id, player.location));
   if (candidates.length) this.trigger(candidates[Math.floor(Math.random() * candidates.length)]);
  }
 }

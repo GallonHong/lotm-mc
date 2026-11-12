@@ -1,0 +1,242 @@
+{
+  "revision": 1,
+  "height": 32,
+  "original_design": true,
+  "maps": {
+    "sirok": {
+      "size": [
+        160,
+        32,
+        160
+      ],
+      "floor_y": 3,
+      "combat_min": [
+        16,
+        4,
+        16
+      ],
+      "combat_max": [
+        143,
+        31,
+        143
+      ],
+      "tiles": [
+        {
+          "id": "weekly:sirok/tile_0_0",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "fa8654ae68d1a5e8164e2a07097de3767d55c0ad3d00cc556eb93e20383df030",
+          "bytes": 1050138
+        },
+        {
+          "id": "weekly:sirok/tile_0_1",
+          "offset": [
+            0,
+            0,
+            64
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "a3098888c16512ae2bf1494767f5c76100752ba698cd655c4074c974f8574c85",
+          "bytes": 1050138
+        },
+        {
+          "id": "weekly:sirok/tile_0_2",
+          "offset": [
+            0,
+            0,
+            128
+          ],
+          "size": [
+            64,
+            32,
+            32
+          ],
+          "sha256": "754ec8686ba3be18d105a42b19de9064e2690d4208699ce4d9b2406e488d73da",
+          "bytes": 525850
+        },
+        {
+          "id": "weekly:sirok/tile_1_0",
+          "offset": [
+            64,
+            0,
+            0
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "49237059f261a28ce1dcb616f9e663c166837c03eded2bafcb288dfb79da7cd7",
+          "bytes": 1050138
+        },
+        {
+          "id": "weekly:sirok/tile_1_1",
+          "offset": [
+            64,
+            0,
+            64
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "b900e3a7b47d4d592e3363236a2eb0dc9b3caee9569c45799fc9971b6afd8cc0",
+          "bytes": 1050138
+        },
+        {
+          "id": "weekly:sirok/tile_1_2",
+          "offset": [
+            64,
+            0,
+            128
+          ],
+          "size": [
+            64,
+            32,
+            32
+          ],
+          "sha256": "807be68de03ddf28fa5586261b9a67a8df307105cf0c4c4cf0dd56ed9433cba6",
+          "bytes": 525850
+        },
+        {
+          "id": "weekly:sirok/tile_2_0",
+          "offset": [
+            128,
+            0,
+            0
+          ],
+          "size": [
+            32,
+            32,
+            64
+          ],
+          "sha256": "809c409a67fc1947ffafa16b09df40deea3ef8e758c7ee73b940545dbc35470e",
+          "bytes": 525850
+        },
+        {
+          "id": "weekly:sirok/tile_2_1",
+          "offset": [
+            128,
+            0,
+            64
+          ],
+          "size": [
+            32,
+            32,
+            64
+          ],
+          "sha256": "ac464def35a18b20231e4e87db38fd6149d4d7d502528060bf7c6e1b21cbb3cf",
+          "bytes": 525850
+        },
+        {
+          "id": "weekly:sirok/tile_2_2",
+          "offset": [
+            128,
+            0,
+            128
+          ],
+          "size": [
+            32,
+            32,
+            32
+          ],
+          "sha256": "fc3d3121c60db0e2e04e7c4581670b20443e65b56d7ceca4eab53350514c8d37",
+          "bytes": 263706
+        }
+      ]
+    },
+    "mogathul": {
+      "size": [
+        128,
+        32,
+        128
+      ],
+      "floor_y": 3,
+      "combat_min": [
+        16,
+        4,
+        16
+      ],
+      "combat_max": [
+        111,
+        31,
+        111
+      ],
+      "tiles": [
+        {
+          "id": "weekly:mogathul/tile_0_0",
+          "offset": [
+            0,
+            0,
+            0
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "6ddb52a379e4ee4074a3d60d7d7bab099784297b6388a0affd6ed0a75ff23081",
+          "bytes": 1050138
+        },
+        {
+          "id": "weekly:mogathul/tile_0_1",
+          "offset": [
+            0,
+            0,
+            64
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "4f11ce7dd10984c369023fc65e5cd84ec190afc9c68511fbc6f113cc25aeb6a9",
+          "bytes": 1050138
+        },
+        {
+          "id": "weekly:mogathul/tile_1_0",
+          "offset": [
+            64,
+            0,
+            0
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "fb7cafb31f3247e397410b0d15b4b646a3a961e9134be5e68966635f65533120",
+          "bytes": 1050138
+        },
+        {
+          "id": "weekly:mogathul/tile_1_1",
+          "offset": [
+            64,
+            0,
+            64
+          ],
+          "size": [
+            64,
+            32,
+            64
+          ],
+          "sha256": "d6b47c98737b3043e911651b1c6eccba16fe7504e273bd3606682f25b804f094",
+          "bytes": 1050138
+        }
+      ]
+    }
+  }
+}

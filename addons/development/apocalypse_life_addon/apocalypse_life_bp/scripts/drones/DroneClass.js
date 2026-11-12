@@ -1,9 +1,11 @@
-import { participant, canOperateDrone, canControlDrone, canPlayerAct, canDamage, hasLineOfSight, lifeState, saveLifeState } from "../pvp/PvpLifePolicy.js";
+import { participant, canOperateDrone, canControlDrone, canPlayerAct, canDamage, canIgniteTarget, hasLineOfSight, lifeState, saveLifeState } from "../pvp/PvpLifePolicy.js";
 import { world, system, EntityComponentTypes, InputButton, ButtonState, EasingType } from "@minecraft/server";
 import { DroneEffects } from "./DroneEffects.js";
 import { ManualControlSession } from "./ManualControlSession.js";
 import { DRONE_REGISTRY } from "./DroneConstants.js";
+import { buildDroneBuffTag, clearDroneCombatBuffs } from "./droneCombatBuff.js";
 import { DroneGarageManager } from "./DroneGarageManager.js";
+import { DroneCargoGuard } from "./DroneCargoGuard.js";
 import { DownedRescueManager } from "../rescue/DownedRescueManager.js";
 
 /**
@@ -313,7 +315,7 @@ export class DroneClass {
      };
      const baseDamage = drone.config.baseDamage * drone.damageBonus * 1.2;
      target.applyDamage(baseDamage, { damagingEntity: player, cause: "entityAttack" });
-     if (drone.config.fireType === "incendiary" && !participant(player)) {
+     if (drone.config.fireType === "incendiary" && canIgniteTarget(player, target)) {
       target.setOnFire(3, false);
      }
     }
@@ -358,6 +360,7 @@ export class DroneClass {
    const drone = this.getActiveDrone(player.id);
    if (drone?.manualMode) this.exitManualControl(player);
    ManualControlSession.recover(player);
+   DroneGarageManager.restoreCargoDrone(player, false);
   });
   world.afterEvents.playerLeave.subscribe(({ playerId }) => {
    const drone = this.getActiveDrone(playerId);
@@ -366,11 +369,26 @@ export class DroneClass {
      this.crashDrone(playerId, drone); // World journal survives unavailable player data.
     }
    } catch {}
-   try { if (drone?.entity?.isValid()) drone.entity.remove(); } catch {}
+   if (DroneCargoGuard.isCargo(drone?.entity) && drone.entity?.isValid()) {
+    try { DroneCargoGuard.save(playerId, drone, true); } catch (error) { console.warn(`[DroneCargo] Preserve disconnected original: ${error}`); }
+    // The real entity and its native inventory survive disconnect. Reconnect
+    // resolves the persistent owner+entity ID, never a player name or loose tag.
+   } else try { if (drone?.entity?.isValid()) drone.entity.remove(); } catch {}
    this.unregisterActiveDrone(playerId);
   });
   system.run(() => {
-   for (const player of world.getAllPlayers()) ManualControlSession.recover(player);
+   for (const player of world.getAllPlayers()) { ManualControlSession.recover(player); DroneGarageManager.restoreCargoDrone(player, false); }
+  });
+
+  const interact = world.beforeEvents?.playerInteractWithEntity;
+  if (interact?.subscribe) interact.subscribe(event => {
+   if (DroneCargoGuard.isCargo(event.target) && !DroneCargoGuard.canAccess(event.player, event.target)) {
+    event.cancel = true;
+    if (event.target.hasTag(`ab_dr:owner_${event.player.id}`)) {
+     // before-events are read-only; exact legacy adoption is deferred safely.
+     system.run(() => DroneGarageManager.restoreCargoDrone(event.player, true));
+    }
+   }
   });
 
   // 20 TPS 伴飞与火控主循环
@@ -466,7 +484,9 @@ export class DroneClass {
    if (!player || !player.isValid() || !entity || !entity.isValid()) {
     if (player?.isValid()) DroneGarageManager.recallDrone(player, false);
     else {
-     try { if (entity?.isValid()) entity.remove(); } catch {}
+     if (DroneCargoGuard.isCargo(entity) && entity?.isValid()) {
+      try { DroneCargoGuard.save(ownerId, drone, true); } catch (error) { console.warn(`[DroneCargo] Preserve unavailable owner: ${error}`); }
+     } else try { if (entity?.isValid()) entity.remove(); } catch {}
      this.unregisterActiveDrone(ownerId);
     }
     continue;
@@ -478,6 +498,9 @@ export class DroneClass {
     continue;
    }
 
+   if (DroneCargoGuard.isCargo(entity) && currentTick % 100 === 0) {
+    try { DroneCargoGuard.save(ownerId, drone); } catch (error) { console.warn(`[DroneCargo] Checkpoint pending: ${error}`); }
+   }
    drone.lastKnownLocation = { ...entity.location };
    drone.lastKnownDimension = entity.dimension;
 
@@ -810,7 +833,7 @@ export class DroneClass {
   }
 
   // 燃烧弹点燃怪物
-  if (drone.config.fireType === "incendiary" && !participant(player)) {
+  if (drone.config.fireType === "incendiary" && canIgniteTarget(player, target)) {
    try { target.setOnFire(3, false); } catch {}
   }
  }
@@ -845,7 +868,9 @@ export class DroneClass {
    else if (skill.trigger === "combat_buff" || skill.trigger === "combat_active") {
     if (!canPlayerAct(player)) continue;
     const mobs = this.combatTargets(player, entity, 16);
-    if (mobs.length >= 2) {
+    // PvP 对局中 1 个敌对目标即可触发；PvE 保持 2 个以上交火目标。
+    const requiredTargets = participant(player) ? 1 : 2;
+    if (mobs.length >= requiredTargets) {
      shouldTrigger = true;
      if (skill.id === "adrenaline_shot") {
       player.addEffect("speed", 160, { amplifier: 1, showParticles: false });
@@ -860,6 +885,7 @@ export class DroneClass {
       player.addEffect("absorption", 200, { amplifier: 0, showParticles: false });
       player.sendMessage(`§d[终极矩阵] 深渊超频矩阵全开！力量大幅提升，终极防御已激活(10秒)。`);
      }
+     if (skill.combatBuff) this.applyDroneCombatBuff(player, skill.combatBuff, skill.durationTicks || 160);
     }
    }
 
@@ -891,6 +917,38 @@ export class DroneClass {
   }
  }
 
+ /**
+  * 下发跨包战术增益（伤害% / 暴击率%）：写 player tag，持续结束移除同一 token。
+  * 契约与读取端见 scripts/drones/droneCombatBuff.js（Test Guns / SAPI 镜像副本）。
+  */
+ static applyDroneCombatBuff(player, combatBuff, durationTicks) {
+  if (!combatBuff) return;
+  const applied = [];
+  try {
+   const token = String(system.currentTick);
+   if (combatBuff.damagePct > 0) {
+    const tag = buildDroneBuffTag("damage", combatBuff.damagePct, token);
+    player.addTag(tag);
+    applied.push(tag);
+   }
+   if (combatBuff.critPct > 0) {
+    const tag = buildDroneBuffTag("crit", combatBuff.critPct, token);
+    player.addTag(tag);
+    applied.push(tag);
+   }
+  } catch {
+   return;
+  }
+  if (!applied.length) return;
+  const ticks = Math.max(1, Math.floor(durationTicks || 0));
+  system.runTimeout(() => {
+   try {
+    if (!player.isValid()) return;
+    for (const tag of applied) player.removeTag(tag);
+   } catch {}
+  }, ticks);
+ }
+
  static combatTargets(player, entity, radius) {
   const query = { location: entity.location, maxDistance: radius };
   if (!participant(player)) query.families = ["monster"];
@@ -910,3 +968,8 @@ export class DroneClass {
   return { x: pitch, y: yaw };
  }
 }
+
+// 世界重载后清理上次会话残留的战术增益 tag（增益本身只持续 8–10 秒）。
+system.run(() => {
+ for (const player of world.getAllPlayers()) clearDroneCombatBuffs(player);
+});

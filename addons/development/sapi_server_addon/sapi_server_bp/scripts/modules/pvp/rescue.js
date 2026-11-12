@@ -1,10 +1,25 @@
-import { GameMode } from '@minecraft/server';
+import { GameMode, system } from '@minecraft/server';
+const POSE_CONTROLLER='sapi_pvp_downed_pose';
 const DOWN='pvp:downed';
 const health=p=>p.getComponent('minecraft:health');
 const note=(p,s)=>{try{p.sendMessage(`§e[废土争夺战] ${s}`);}catch{}};
 export const RESCUE_RULES=Object.freeze({bleedTicks:600,rescueTicks:100,radius:2.8});
 export class PvpRescue {
  static hooks=null;
+ static poseTokens=new Map();
+ static beginPose(p){const token={};this.poseTokens.set(p.id,token);return token;}
+ static resetPose(p){
+  const id=p.id,token=this.beginPose(p);
+  const reset=()=>{
+   if(this.poseTokens.get(id)!==token)return;
+   try{
+    const current=this.hooks?.byId?.(id);
+    if(!current||current.isValid?.()===false||!(health(current)?.currentValue>0)||current.hasTag(DOWN)||this.record(id))return;
+    current.playAnimation('animation.sapi_pvp.downed_reset',{controller:POSE_CONTROLLER,blendOutTime:0,stopExpression:'query.all_animations_finished'});
+   }catch{}
+  };
+  reset();for(const delay of [1,4,10])system.runTimeout(reset,delay);
+ }
  static configure(h){this.hooks=h;}
  static record(id){return this.hooks.getMatch()?.downed?.[id];}
  static enemyId(source,victim){
@@ -20,6 +35,7 @@ export class PvpRescue {
   const h=this.hooks,m=h.getMatch();if(!m||m.phase!=='ACTIVE'||!m.players.includes(p.id)||p.hasTag('pvp:dead'))return;
   const old=this.record(p.id);if(old){if(old.stage==='DOWNED')this.finalize(p,this.enemyId(source,p)||old.attacker,true);return;}
   if(h.canDownAt&&!h.canDownAt(p)){h.formalDeath(p,source);return;}
+  this.beginPose(p);
   m.downed||={};m.downed[p.id]={stage:'WAITING',matchId:m.id,location:{...p.location},rotation:p.getRotation(),attacker:this.enemyId(source,p),bleedTicks:RESCUE_RULES.bleedTicks,rescueTicks:0,reviver:null,waitTicks:0};
   // Persist before any subsequent spawn callback; native keepInventory preserves actual match items.
   h.save(m);p.addTag(DOWN);p.addTag('pvp:downed_waiting');p.removeTag('pvp:protected');
@@ -35,14 +51,14 @@ export class PvpRescue {
   p.addTag(DOWN);p.removeTag('pvp:downed_waiting');p.removeTag('pvp:protected');p.inputPermissions.movementEnabled=false;
   for(const e of ['resistance','regeneration','absorption'])try{p.removeEffect(e);}catch{}
   r.stage='DOWNED';r.rescueTicks=0;r.surrenderTicks=0;r.jumpReleased=false;
-  try{p.playAnimation('animation.humanoid.fall',{stopExpression:'return query.is_invisible;'});}catch{}
+  this.beginPose(p);
+  try{p.playAnimation('animation.humanoid.fall',{controller:POSE_CONTROLLER,blendOutTime:0,stopExpression:'!query.is_alive'});}catch{}
   h.save(m);note(p,'队友在2.8格内潜行5秒可救援；30秒后正式阵亡。可在比赛菜单选择放弃救援。');return true;
  }
  static clear(p){
-  const hadPose=p.hasTag(DOWN)&&!p.hasTag('pvp:downed_waiting');
   const m=this.hooks?.getMatch?.();if(m?.downed)delete m.downed[p.id];
-  if(hadPose)try{p.addEffect('invisibility',3,{showParticles:false});}catch{}
   try{p.removeTag(DOWN);p.removeTag('pvp:downed_waiting');p.removeEffect('weakness');p.removeEffect('slowness');}catch{}
+  this.resetPose(p);
  }
  static finalize(p,attacker=null,nativeDead=false){
   const h=this.hooks,m=h.getMatch(),r=this.record(p.id);if(!r||m?.phase!=='ACTIVE'||p.hasTag('pvp:dead'))return false;
@@ -55,7 +71,8 @@ export class PvpRescue {
   const h=this.hooks,m=h.getMatch(),r=this.record(p.id);if(!r||r.stage!=='DOWNED')return;
   this.clear(p);const hp=health(p);if(hp)hp.setCurrentValue(Math.max(1,Math.min(hp.effectiveMax??20,8)));
   p.inputPermissions.movementEnabled=true;
-  try{p.playAnimation('animation.humanoid.revive');}catch{}
+  this.beginPose(p); // Do not let the prior clear retries interrupt getting up.
+  try{p.playAnimation('animation.humanoid.revive',{controller:POSE_CONTROLLER,blendOutTime:0,stopExpression:'!query.is_alive || query.all_animations_finished'});}catch{}
   h.save(m);h.signal(p,'pvp:revived',m.id);note(p,'已被队友救起，继续使用当前本局装备。');
  }
  static clearLine(a,b){

@@ -10,6 +10,7 @@ import { Integration } from "./integration.js";
 import { AuditManager } from "./audit.js";
 
 const TEAM_TAG_PREFIX = "sapi_team_";
+const TEAM_LEADER_TAG_PREFIX = "sapi_party_leader:";
 
 function onlinePlayer(name) {
  const normalized = normalizePlayerName(name);
@@ -49,12 +50,14 @@ export class SocialManager {
 
  static initializePlayer(player) {
   SocialStore.touchPlayer(player);
-  if (!this.teamOf(player.name)) this.clearTeamTags(player);
+  const team = this.teamOf(player.name);
+  if (team) this.applyTeamTag(player, team);
+  else this.clearTeamTags(player);
  }
 
  static clearTeamTags(player) {
   try {
-   for (const tag of player.getTags()) if (tag.startsWith(TEAM_TAG_PREFIX)) player.removeTag(tag);
+   for (const tag of player.getTags()) if (tag.startsWith(TEAM_TAG_PREFIX) || tag.startsWith(TEAM_LEADER_TAG_PREFIX)) player.removeTag(tag);
   } catch {}
  }
 
@@ -287,7 +290,19 @@ export class SocialManager {
 
  static applyTeamTag(player, team) {
   this.clearTeamTags(player);
-  try { player.addTag(this.teamTag(team)); } catch {}
+  try {
+   player.addTag(this.teamTag(team));
+   if (normalizePlayerName(player.name) === normalizePlayerName(team.leaderName)) {
+    player.addTag(`${TEAM_LEADER_TAG_PREFIX}${team.id.replace(/[^a-z0-9_]/gi, "").slice(-24)}`);
+   }
+  } catch {}
+ }
+
+ static refreshTeamTags(team) {
+  for (const name of team.members) {
+   const player = onlinePlayer(name);
+   if (player) this.applyTeamTag(player, team);
+  }
  }
 
  static broadcastTeam(team, message) {
@@ -330,6 +345,7 @@ export class SocialManager {
    return;
   }
   if (normalizePlayerName(team.leaderName) === normalized) team.leaderName = team.members[0];
+  this.refreshTeamTags(team);
   if (!disconnected) this.broadcastTeam(team, `§e${memberName} §e离开了队伍。`);
  }
 
@@ -370,6 +386,7 @@ export class SocialManager {
   if (leader) add("§l§a邀请在线玩家", "textures/ui/plus", () => this.openTeamInviteList(player, team, onBack));
   add("§l§b队伍聊天", "textures/ui/icon_book_writable", () => this.openTeamChat(player, team, onBack));
   add("§l§c进入副本\n§r§8队长发起全队 Ready", "textures/ui/warning_alex", () => this.openDungeon(player));
+  add("§l§5围剿顶级突变体\n§r§8周本独立房间支持 1–8 人", "textures/ui/warning_alex", () => this.openWeeklyRaid(player));
   if (leader && team.members.length > 1) {
    add("§l§6移交队长", "textures/ui/trade_icon", () => this.openTransferLeader(player, team, onBack));
    add("§l§c移除成员", "textures/ui/minus", () => this.openRemoveTeamMember(player, team, onBack));
@@ -413,6 +430,7 @@ export class SocialManager {
    const target = candidates[response.formValues?.[0]];
    if (!response.canceled && target && this.teamOf(player.name)?.id === team.id && team.leaderName === player.name) {
     team.leaderName = target;
+    this.refreshTeamTags(team);
     this.broadcastTeam(team, `§e${target} §e成为新队长。`);
    }
    this.openTeam(player, onBack);
@@ -448,6 +466,19 @@ export class SocialManager {
     onBack?.();
    } else this.openTeam(player, onBack);
   });
+ }
+
+ // SAPI owns party identity. Daily verifies these shared tags, never trusts
+ // an event payload alone, and each invited member must accept independently.
+ static openWeeklyRaid(player) {
+  if (!allowOrdinaryAction(player)) return false;
+  const team = this.teamOf(player.name);
+  if (!team || team.members.length < 2) return Integration.send(player, "daily:weekly");
+  if (team.leaderName !== player.name) return Integration.send(player, "daily:weekly");
+  this.refreshTeamTags(team);
+  return Integration.send(player, "daily:weekly_team", JSON.stringify({
+   teamId: team.id, leader: player.name, members: [...team.members]
+  }));
  }
 
  static openDungeon(player) {

@@ -1,3 +1,4 @@
+import { isWeeklyBoss, enforceWeeklyArmor } from "./weeklyRaid.js";
 import { world, system } from "@minecraft/server";
 import { assignMobArmor, readMobArmor } from "./mobArmor.js";
 import { resolveBossArmorZone } from "./armorZones.js";
@@ -16,6 +17,7 @@ export function isArmorBoss(entity) {
 export function assignBossSpawnArmor(entity, origin) {
  try {
   if (!isArmorBoss(entity) || isPvpExcluded(entity) || isPvpArea(origin.dimensionId, origin.location)) return null;
+  if (isWeeklyBoss(entity)) return enforceWeeklyArmor(entity);
   const existing = readMobArmor(entity);
   if (existing !== null) return existing;
   const tags = entity.getTags();

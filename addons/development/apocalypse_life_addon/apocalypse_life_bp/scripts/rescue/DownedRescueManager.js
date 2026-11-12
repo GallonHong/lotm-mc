@@ -7,6 +7,7 @@ import { TemperatureManager } from "../temperature/TemperatureManager.js";
 const eqTypes = [EquipmentSlot.Feet, EquipmentSlot.Legs, EquipmentSlot.Chest, EquipmentSlot.Head, EquipmentSlot.Offhand];
 const inputCategories = [1, 2, 3, 4, 5];
 const DEATH_ID_PREFIX = "apoc:death_id:";
+const POSE_CONTROLLER = "apoc_life_downed_pose";
 let deathSequence = 0;
 
 function trueDeathToken(player) {
@@ -49,6 +50,7 @@ export class DownedPlayerInstance {
  constructor(player, location, dimension) {
   this.player = player;
   this.id = player.id;
+  this.poseToken = DownedRescueManager.beginPose(player);
   // Tags cross behavior-pack UUID boundaries; Guns/SAPI must see this lock.
   this.tagPublishAttempts = 20;
   this.publishDownedTag();
@@ -135,9 +137,13 @@ export class DownedPlayerInstance {
 
  playFallAnimation() {
   system.runTimeout(() => {
-   if (this.ended || !this.player.isValid()) return;
+   if (this.ended || !this.player.isValid() || participant(this.player) ||
+       DownedRescueManager.poseTokens.get(this.id) !== this.poseToken ||
+       DownedRescueManager.activeInstances.get(this.id) !== this) return;
    try {
-    this.player.playAnimation("animation.humanoid.fall", { stopExpression: "query.is_invisible" });
+    this.player.playAnimation("animation.humanoid.fall", {
+     controller: POSE_CONTROLLER, blendOutTime: 0, stopExpression: "!query.is_alive"
+    });
    } catch {}
   }, 4);
  }
@@ -366,17 +372,17 @@ export class DownedPlayerInstance {
    system.clearRun(this.runId);
   }
 
-  DownedRescueManager.activeInstances.delete(this.id);
+  if (DownedRescueManager.activeInstances.get(this.id) === this) {
+   DownedRescueManager.activeInstances.delete(this.id);
+  }
+  // The named controller must be replaced explicitly. A short invisibility
+  // effect can disappear with death before any client sees its stop condition.
+  this.resetToken = DownedRescueManager.resetPose(this.player);
 
   if (this.player && this.player.isValid()) {
    DownedRescueManager.clearOwnLocks(this.player);
    this.player.nameTag = this.player.name;
    this.lockControls(false);
-
-   // 通过微量隐身效果中断并重置 hold_on_last_frame 倒地卧倒姿态
-   try {
-    this.player.addEffect("invisibility", 3, { showParticles: false });
-   } catch {}
 
    if (this.reviver && this.reviver.isValid()) {
     this.reviver.onScreenDisplay.setActionBar("");
@@ -388,17 +394,26 @@ export class DownedPlayerInstance {
   this.end();
   if (!this.player || !this.player.isValid()) return;
 
+  const resetToken = this.resetToken;
   system.runTimeout(() => {
-   if (!this.player.isValid() || participant(this.player)) return;
+   if (!this.player.isValid() || participant(this.player) ||
+       DownedRescueManager.poseTokens.get(this.id) !== resetToken ||
+       DownedRescueManager.activeInstances.has(this.id) ||
+       DownedRescueManager.pendingDowns.has(this.id) || this.player.hasTag("apoc:true_death")) return;
    try {
     const healthComp = this.player.getComponent(EntityComponentTypes.Health);
+    if (!healthComp || healthComp.currentValue <= 0) return;
+    DownedRescueManager.beginPose(this.player); // Cancel the old reset retries.
     if (healthComp) {
      const recoverHp = isDrone ? Math.floor(healthComp.effectiveMax * 0.5) : 6;
      healthComp.setCurrentValue(recoverHp);
     }
 
     // 播放爬起动画
-    this.player.playAnimation("animation.humanoid.revive");
+    this.player.playAnimation("animation.humanoid.revive", {
+     controller: POSE_CONTROLLER, blendOutTime: 0,
+     stopExpression: "!query.is_alive || query.all_animations_finished"
+    });
 
     // 给予防御与吸收金心保护
     this.player.addEffect("resistance", 100, { amplifier: 1, showParticles: false });
@@ -499,6 +514,35 @@ export class DownedRescueManager {
  static activeInstances = new Map();
  static pendingDowns = new Set();
  static chatSurrenderAvailable = false;
+ static poseTokens = new Map();
+
+ static beginPose(player) {
+  const token = {};
+  this.poseTokens.set(player.id, token);
+  return token;
+ }
+
+ static resetPose(player) {
+  if (!player) return;
+  const id = player.id;
+  const token = this.beginPose(player);
+  const reset = () => {
+   if (this.poseTokens.get(id) !== token || this.activeInstances.has(id) || this.pendingDowns.has(id)) return;
+   try {
+    // Respawn may replace the old handle. Never modify the shared/default
+    // animation controller: guns, vehicles and other players own their poses.
+    const current = world.getAllPlayers().find(p => p.id === id);
+    if (!current?.isValid() || !(current.getComponent(EntityComponentTypes.Health)?.currentValue > 0)) return;
+    current.playAnimation("animation.apoc_life.downed_reset", {
+     controller: POSE_CONTROLLER, blendOutTime: 0,
+     stopExpression: "query.all_animations_finished"
+    });
+   } catch {}
+  };
+  reset();
+  for (const delay of [1, 4, 10]) system.runTimeout(reset, delay);
+  return token;
+ }
 
  // Bounded per-transition cleanup. Never erase a newer pending/active lock.
  static clearOwnLocks(player, attempts = 3) {
@@ -527,6 +571,7 @@ export class DownedRescueManager {
   };
   const afterRespawn = player => {
    clearStaleLock(player);
+   this.resetPose(player);
    // Retire the active death lock immediately on actual spawn so a new lethal
    // hit can down the player normally. Keep only the passive receipt briefly:
    // Daily can recover in either subscriber order without blocking combat.
@@ -545,6 +590,7 @@ export class DownedRescueManager {
   };
   for (const player of world.getAllPlayers()) afterRespawn(player);
   world.afterEvents?.playerSpawn?.subscribe(({ player }) => afterRespawn(player));
+  world.afterEvents?.playerLeave?.subscribe(({ playerId }) => this.poseTokens.delete(playerId));
 
   // 2.1 倒地受创监听：允许被枪械击中、扣血并支持补枪处决
   if (world.afterEvents?.entityHurt) {
@@ -587,6 +633,7 @@ export class DownedRescueManager {
 
     const player = world.getAllPlayers().find(p => p.id === deadEntity.id);
     if (!player) return;
+    this.beginPose(player); // Invalidate a revive/reset queued before this death.
 
     // 若已被标记为真实死亡 (如流血耗尽、处决或主动放弃)，则正常完成死亡流程
     if (player.hasTag("apoc:true_death")) return;

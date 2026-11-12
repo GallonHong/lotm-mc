@@ -4,6 +4,32 @@ export const MEDICAL_TYPES = ["ab_ve:bandage", "ab_ve:first_aid"];
 export function participant(entity) {
  try { return !!entity?.hasTag("pvp:participant"); } catch { return false; }
 }
+export function weeklyParticipant(entity) {
+ try { return !!entity?.hasTag("weekly:participant"); } catch { return false; }
+}
+export function weeklyLocked(entity) {
+ try { return weeklyParticipant(entity) || !!entity?.hasTag("weekly:admission"); } catch { return false; }
+}
+export function weeklyRoom(entity) {
+ try {
+  const tags = entity.getTags().filter(tag => tag.startsWith("weekly:room:"));
+  return tags.length === 1 && ["weekly:room:sirok", "weekly:room:mogathul"].includes(tags[0]) ? tags[0] : null;
+ } catch { return null; }
+}
+function live(entity) {
+ try {
+  if (!entity || (typeof entity.isValid === "function" ? !entity.isValid() : entity.isValid === false)) return false;
+  return (entity.getComponent?.("minecraft:health")?.currentValue ?? 1) > 0;
+ } catch { return false; }
+}
+function weeklyBoss(entity) {
+ try { return !!entity?.hasTag("weekly:boss") || entity?.getProperty?.("apoc_boss:weekly_instance") === true; } catch { return false; }
+}
+// Native fire ticks lose owner attribution. Keep weekly damage in the exact
+// owner-attributed hit path, never ignite the boss, another room or teammates.
+export function canIgniteTarget(owner, target) {
+ return !weeklyLocked(owner) && !weeklyLocked(target) && !weeklyBoss(target) && !participant(owner) && canDamage(owner, target);
+}
 export function matchId(entity) {
  try { return entity.getTags().find(tag => tag.startsWith("pvp:match:"))?.slice(10) || null; } catch { return null; }
 }
@@ -24,6 +50,9 @@ export function locked(player, notify = false) {
 }
 /** Player input/medicine is separate from autonomous drone operation. */
 export function canPlayerAct(player) {
+ if (weeklyLocked(player)) {
+  try { return live(player) && !player.hasTag("apoc:downed") && !player.hasTag("apoc:downed_pending") && !player.hasTag("apoc:true_death"); } catch { return false; }
+ }
  if (!participant(player)) return true;
  return player.hasTag("pvp:active") && !player.hasTag("pvp:downed") && !player.hasTag("pvp:dead");
 }
@@ -31,6 +60,12 @@ export function canControlDrone(player, drone) {
  return canPlayerAct(player) && canOperateDrone(player, drone);
 }
 export function canOperateDrone(player, drone) {
+ if (weeklyLocked(player)) {
+  try {
+   return live(player) && live(drone?.entity) && drone?.player?.id === player.id && drone.entity.hasTag(`ab_dr:owner_${player.id}`) &&
+    player.dimension.id === drone.entity.dimension.id && !participant(player) && !player.hasTag("pvp:admission");
+  } catch { return false; }
+ }
  if (!participant(player)) return true;
  const state = lifeState(player);
  return !!state && state.matchId === matchId(player) && !state.disabled && state.status === "active" &&
@@ -38,6 +73,14 @@ export function canOperateDrone(player, drone) {
   !player.hasTag("pvp:dead") && !player.hasTag("pvp:protected");
 }
 export function canDamage(owner, target) {
+ if (weeklyLocked(owner) || weeklyLocked(target) || weeklyBoss(target)) {
+  try {
+   const room = weeklyRoom(owner);
+   return live(owner) && live(target) && owner.typeId === "minecraft:player" && weeklyParticipant(owner) &&
+    weeklyBoss(target) && !!room && room === weeklyRoom(target) && owner.dimension.id === target.dimension.id &&
+    !participant(owner) && !owner.hasTag("pvp:admission") && !participant(target) && !target.hasTag("pvp:admission");
+  } catch { return false; }
+ }
  const sourcePvp = participant(owner), targetPvp = participant(target);
  if (!sourcePvp && !targetPvp) return true;
  if (!sourcePvp || !targetPvp || !matchId(owner) || matchId(owner) !== matchId(target)) return false;

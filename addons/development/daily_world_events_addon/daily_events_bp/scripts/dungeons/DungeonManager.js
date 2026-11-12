@@ -1,3 +1,4 @@
+import { isWeeklyArea, isWeeklyExcluded } from "../weekly/isolation.js";
 import { world, system, ItemStack, BlockPermutation } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { IntegrationBridge } from "../integration/IntegrationBridge.js";
@@ -142,7 +143,8 @@ function arenaQuery(instance, template) {
 // Cross-pack admission is visible through entity tags, unlike BP-scoped dynamic properties.
 function pvpLocked(player) {
  try { return player.hasTag("pvp:participant") || player.hasTag("pvp:admission") ||
-  player.hasTag("extract:admission") || player.hasTag("apoc_extraction_active"); }
+  player.hasTag("extract:admission") || player.hasTag("apoc_extraction_active") ||
+  player.hasTag("weekly:participant") || player.hasTag("weekly:admission"); }
  catch { return true; }
 }
 
@@ -752,18 +754,19 @@ export class DungeonManager {
  static tickDisaster(instance, stage) {
   if (system.currentTick < Number(instance.stageData.nextDisasterPulse || 0)) return;
   instance.stageData.nextDisasterPulse = system.currentTick + Math.max(40, 100 - Number(stage.difficulty || 0) * 12);
-  const players = instance.participantIds.map(onlinePlayer).filter(Boolean);
+  const players = instance.participantIds.map(onlinePlayer).filter(player => player && !isWeeklyExcluded(player));
   if (!players.length) return;
   const player = players[Math.floor(Math.random() * players.length)];
   const angle = Math.random() * Math.PI * 2;
   const radius = Math.max(7, 15 - Number(stage.difficulty || 0) * 2);
   const location = { x: player.location.x + Math.cos(angle) * radius, y: player.location.y, z: player.location.z + Math.sin(angle) * radius };
+  if (isWeeklyArea(player.dimension.id, location, 8)) return;
   try { player.dimension.spawnEntity("minecraft:lightning_bolt", location); } catch {}
   try { player.runCommand("playsound ambient.weather.thunder @s ~ ~ ~ 0.8 0.9"); } catch {}
   const elapsed = system.currentTick - instance.stageData.startedTick;
   const remain = Math.max(0, Math.ceil((stageTicks(stage) - elapsed) / 20));
-  for (const id of instance.participantIds) {
-   try { onlinePlayer(id)?.onScreenDisplay.setActionBar(`§d${stage.name} §8| §f避险 ${remain}s`); } catch {}
+  for (const viewer of players) {
+   try { viewer.onScreenDisplay.setActionBar(`§d${stage.name} §8| §f避险 ${remain}s`); } catch {}
   }
  }
 

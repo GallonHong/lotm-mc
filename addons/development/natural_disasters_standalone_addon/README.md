@@ -1,6 +1,6 @@
-# Natural Disasters Standalone v1.3.4
+# Natural Disasters Standalone v1.3.6
 
-完全独立的自然灾害 Addon，不依赖 SAPI Server、摸金都市、怪物或枪械 Addon。只保留龙卷风、陨石雨和雷暴。
+完全独立的自然灾害 Addon，不依赖 SAPI Server、摸金都市、怪物或枪械 Addon。只保留龙卷风、陨石雨和雷暴。v1.3.6 新增周常团本隔离（`scripts/weeklyIsolation.js`）：周本参战玩家与周本区域内不生成/不命中灾害；v1.3.4 为上一版。
 
 v1.3.4 允许自动灾害选择当前有玩家的 `apoc_extract:city` 维度，并允许管理员站在摸金都市内用控制器或 SAPI 入口定点释放；只识别维度 ID，不读取摸金都市状态，因此未安装摸金都市时本包仍可独立运行。摸金都市默认每 20～40 分钟安排一次灾害。
 

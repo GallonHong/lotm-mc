@@ -1,3 +1,4 @@
+import { isWeeklyArea, isWeeklyExcluded } from "../weekly/isolation.js";
 import { isPvpPlayer, isPvpArea, isPvpExcluded } from "../pvpIsolation.js";
 import { world, system } from "@minecraft/server";
 import { CONFIG } from "../config.js";
@@ -49,7 +50,8 @@ export class WorldEventManager {
  }
 
  static start(node, templateId = null, triggeringPlayer = null, options = {}) {
-  if ((triggeringPlayer && isPvpExcluded(triggeringPlayer)) || isPvpArea(node?.dimension, node?.location, 80)) return false;
+  if ((triggeringPlayer && (isPvpExcluded(triggeringPlayer) || isWeeklyExcluded(triggeringPlayer))) ||
+      isPvpArea(node?.dimension, node?.location, 80) || isWeeklyArea(node?.dimension, node?.location, 80)) return false;
   if (!node || this.active.has(node.id) || Number(node.cooldownUntil || 0) > Date.now()) return false;
   if ([...this.active.values()].some(value => value.dimension === node.dimension && distance(value.center, node.location) < 80)) return false;
   const zone = IntegrationBridge.resolveZone(node.dimension, node.location);
@@ -115,7 +117,7 @@ export class WorldEventManager {
    DailyNewsManager.publishEventStart(instance, template);
    instance.newsPublished = true;
   }
-  for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 80 }).filter(player => !isPvpExcluded(player))) {
+  for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 80 }).filter(player => !isPvpExcluded(player) && !isWeeklyExcluded(player))) {
    const zoneLabel = instance.zoneType === "outlaw" ? "§4非法制区·高危" : instance.zoneType === "safe" ? "§a安全区·入侵事件" : "§e法制区·常规";
    player.sendMessage(`§4[动态事件] ${template.name} 已开始！§7（${zoneLabel}§7）`);
    try { player.onScreenDisplay.setTitle(`§4${template.name}`, { subtitle: `${zoneLabel} §7| §e参与战斗可获得个人奖励`, fadeInDuration: 5, stayDuration: 50, fadeOutDuration: 10 }); } catch {}
@@ -124,6 +126,7 @@ export class WorldEventManager {
  }
 
  static spawnSpecial(instance, typeId, nameTag, isBoss = false) {
+  if (isWeeklyArea(instance.dimension, instance.center)) return null;
   try {
    const entity = world.getDimension(instance.dimension).spawnEntity(typeId, instance.center);
    entity.nameTag = nameTag;
@@ -153,7 +156,7 @@ export class WorldEventManager {
   }
   instance.spawnedWaves++;
   instance.waitUntil = system.currentTick + 40;
-  for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 60 }).filter(player => !isPvpExcluded(player))) {
+  for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 60 }).filter(player => !isPvpExcluded(player) && !isWeeklyExcluded(player))) {
    player.sendMessage(`§c[事件] 第 ${instance.spawnedWaves} 波来袭，预计敌人 ${requested} 名。`);
   }
  }
@@ -177,7 +180,7 @@ export class WorldEventManager {
   if (!template) return this.finish(instance, false, "模板不存在");
   let dimension;
   try { dimension = world.getDimension(instance.dimension); } catch { return this.finish(instance, false, "维度不可用"); }
-  const nearby = dimension.getPlayers({ location: instance.center, maxDistance: CONFIG.eventJoinRadius }).filter(player => !isPvpExcluded(player));
+  const nearby = dimension.getPlayers({ location: instance.center, maxDistance: CONFIG.eventJoinRadius }).filter(player => !isPvpExcluded(player) && !isWeeklyExcluded(player));
   if (instance.state === "announced") {
    if (nearby.length) this.activate(instance, template);
    else if (system.currentTick >= Number(instance.arrivalDeadlineTick || 0)) this.finish(instance, false, "限时内无人抵达");
@@ -235,7 +238,7 @@ export class WorldEventManager {
  }
 
  static recordCombat(entity, player, damage = 1, killed = false) {
-  if (isPvpExcluded(player)) return;
+  if (isPvpExcluded(player) || isWeeklyExcluded(player)) return;
   if (!entity || !player) return false;
   for (const instance of this.active.values()) {
    try {
@@ -249,7 +252,7 @@ export class WorldEventManager {
  }
 
  static onPlayerDeath(player) {
-  if (isPvpExcluded(player)) return;
+  if (isPvpExcluded(player) || isWeeklyExcluded(player)) return;
   if (!player) return false;
   let disqualified = false;
   for (const instance of this.active.values()) {
@@ -291,7 +294,7 @@ export class WorldEventManager {
    }
    try { dimension.spawnParticle("minecraft:totem_particle", instance.center); } catch {}
   }
-  for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 80 }).filter(player => !isPvpExcluded(player))) {
+  for (const player of dimension.getPlayers({ location: instance.center, maxDistance: 80 }).filter(player => !isPvpExcluded(player) && !isWeeklyExcluded(player))) {
    if (!success) player.sendMessage(`§c动态事件失败：${template?.name || instance.templateId}${reason ? `（${reason}）` : ""}`);
   }
   DailyNewsManager.publishEventResult(instance, template, success, reason);
@@ -305,7 +308,7 @@ export class WorldEventManager {
    if (this.active.has(node.id) || Number(node.cooldownUntil || 0) > Date.now()) continue;
    let dimension;
    try { dimension = world.getDimension(node.dimension); } catch { continue; }
-   const players = dimension.getPlayers({ location: node.location, maxDistance: Number(node.triggerRadius || 35) }).filter(player => !isPvpExcluded(player));
+   const players = dimension.getPlayers({ location: node.location, maxDistance: Number(node.triggerRadius || 35) }).filter(player => !isPvpExcluded(player) && !isWeeklyExcluded(player));
    if (players.length) this.start(node, null, players[0]);
   }
  }

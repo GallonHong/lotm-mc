@@ -1,3 +1,4 @@
+import { isWeeklyArea } from "../weekly/isolation.js";
 import { world } from "@minecraft/server";
 import { CONFIG } from "../config.js";
 import { assignMobArmor } from "../mobArmor.js";
@@ -147,6 +148,7 @@ export class IntegrationBridge {
  }
 
  static enqueueSpawn(dimensionId, center, mobKey, count, tags, minDistance = 7, maxDistance = 15, placement = "ground") {
+  if (isWeeklyArea(dimensionId, center, placement === "exact" ? 1 : maxDistance)) return false;
   try {
    const raw = world.getDynamicProperty(CONFIG.apocalypseSpawnQueueKey);
    const queue = parseArray(raw);
@@ -172,7 +174,7 @@ export class IntegrationBridge {
    const angle = Math.random() * Math.PI * 2;
    const radius = minDistance + Math.random() * Math.max(1, maxDistance - minDistance);
    const location = findFallbackGround(dimension, center, angle, radius);
-   if (!location) continue;
+   if (!location || isWeeklyArea(dimension.id, location)) continue;
    try {
     const entity = dimension.spawnEntity(VANILLA_MOBS[mobKey] || VANILLA_MOBS.basic, location);
     for (const tag of tags) entity.addTag(tag);
@@ -186,6 +188,7 @@ export class IntegrationBridge {
  }
 
  static spawnEventMobs(dimension, center, mobKey, count, tags, minDistance, maxDistance) {
+  if (isWeeklyArea(dimension.id, center, maxDistance ?? 15)) return 0;
   if (this.isApocalypseAvailable() && this.enqueueSpawn(dimension.id, center, mobKey, count, [...tags, "daily_event_entity"], minDistance, maxDistance)) return count;
   return this.spawnFallback(dimension, center, mobKey, count, tags, minDistance, maxDistance);
  }
@@ -197,7 +200,7 @@ export class IntegrationBridge {
    const angle = Math.random() * Math.PI * 2;
    const radius = minDistance + Math.random() * Math.max(1, maxDistance - minDistance);
    const location = findFallbackGround(dimension, center, angle, radius);
-   if (!location) continue;
+   if (!location || isWeeklyArea(dimension.id, location)) continue;
    let entity = null;
    try { entity = dimension.spawnEntity(APOCALYPSE_MOBS[mobKey] || APOCALYPSE_MOBS.basic, location); } catch {}
    try { entity ||= dimension.spawnEntity(VANILLA_MOBS[mobKey] || VANILLA_MOBS.basic, location); } catch {}
@@ -245,6 +248,7 @@ export class IntegrationBridge {
     y: Number(center.y),
     z: Number(center.z) + (Math.floor(index / 3) % 3) * 0.35
    };
+   if (isWeeklyArea(dimension.id, location)) continue;
    let entity = null;
    if (preferApocalypse) {
     const apocalypseId = apocalypseBossOnly ? APOCALYPSE_DUNGEON_BOSSES[mobKey] : (APOCALYPSE_MOBS[mobKey] || APOCALYPSE_MOBS.basic);

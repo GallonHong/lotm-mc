@@ -52,6 +52,10 @@
      "type": "bool",
      "default": false,
      "client_sync": true
+    },
+    "apoc_boss:weekly_instance": {
+     "type": "bool",
+     "default": false
     }
    }
   },
@@ -153,49 +157,181 @@
       ]
      }
     ]
-   },
-   "minecraft:behavior.nearest_attackable_target": {
-    "priority": 1,
-    "must_see": false,
-    "within_radius": 64,
-    "entity_types": [
-     {
-      "filters": {
-       "test": "is_family",
-       "subject": "other",
-       "value": "player"
+   }
+  },
+  "component_groups": {
+   "apoc_boss:normal_ai": {
+    "minecraft:behavior.nearest_attackable_target": {
+     "priority": 1,
+     "must_see": false,
+     "within_radius": 64,
+     "entity_types": [
+      {
+       "filters": {
+        "test": "is_family",
+        "subject": "other",
+        "value": "player"
+       },
+       "max_dist": 64
       },
-      "max_dist": 64
-     },
-     {
-      "filters": {
-       "test": "is_family",
-       "subject": "other",
-       "value": "irongolem"
+      {
+       "filters": {
+        "test": "is_family",
+        "subject": "other",
+        "value": "irongolem"
+       },
+       "max_dist": 48
+      }
+     ]
+    },
+    "minecraft:behavior.hurt_by_target": {
+     "priority": 2
+    },
+    "minecraft:behavior.melee_attack": {
+     "priority": 3,
+     "speed_multiplier": 1.2,
+     "track_target": true,
+     "reach_multiplier": 2.4
+    },
+    "minecraft:behavior.random_stroll": {
+     "priority": 7,
+     "speed_multiplier": 0.8
+    },
+    "minecraft:behavior.look_at_player": {
+     "priority": 8,
+     "look_distance": 12
+    },
+    "minecraft:behavior.random_look_around": {
+     "priority": 9
+    }
+   },
+   "apoc_boss:weekly_no_loot": {
+    "minecraft:health": {
+     "value": 30000,
+     "max": 30000
+    },
+    "minecraft:loot": {
+     "table": "loot_tables/weekly_empty.json"
+    },
+    "minecraft:experience_reward": {
+     "on_death": "0"
+    }
+   },
+   "apoc_boss:weekly_unassigned": {
+    "minecraft:damage_sensor": {
+     "triggers": [
+      {
+       "cause": "all",
+       "deals_damage": "no"
+      }
+     ]
+    }
+   },
+   "apoc_boss:weekly_room_mogathul": {
+    "minecraft:damage_sensor": {
+     "triggers": [
+      {
+       "cause": "all",
+       "on_damage": {
+        "filters": {
+         "any_of": [
+          {
+           "test": "is_family",
+           "subject": "other",
+           "operator": "!=",
+           "value": "player"
+          },
+          {
+           "test": "has_tag",
+           "subject": "other",
+           "operator": "!=",
+           "value": "weekly:participant"
+          },
+          {
+           "test": "has_tag",
+           "subject": "other",
+           "operator": "!=",
+           "value": "weekly:room:mogathul"
+          },
+          {
+           "test": "has_tag",
+           "subject": "other",
+           "value": "weekly:room:sirok"
+          },
+          {
+           "test": "has_tag",
+           "subject": "other",
+           "value": "pvp:participant"
+          },
+          {
+           "test": "has_tag",
+           "subject": "other",
+           "value": "pvp:admission"
+          }
+         ]
+        }
+       },
+       "deals_damage": "no"
       },
-      "max_dist": 48
-     }
-    ]
+      {
+       "cause": "fall",
+       "deals_damage": false
+      },
+      {
+       "cause": "drowning",
+       "deals_damage": false
+      },
+      {
+       "cause": "suffocation",
+       "deals_damage": false
+      }
+     ]
+    }
+   }
+  },
+  "events": {
+   "minecraft:entity_spawned": {
+    "add": {
+     "component_groups": [
+      "apoc_boss:normal_ai"
+     ]
+    }
    },
-   "minecraft:behavior.hurt_by_target": {
-    "priority": 2
+   "apoc_boss:weekly_spawn": {
+    "remove": {
+     "component_groups": [
+      "apoc_boss:normal_ai"
+     ]
+    },
+    "add": {
+     "component_groups": [
+      "apoc_boss:weekly_no_loot",
+      "apoc_boss:weekly_unassigned"
+     ]
+    },
+    "set_property": {
+     "apoc_boss:weekly_instance": true
+    }
    },
-   "minecraft:behavior.melee_attack": {
-    "priority": 3,
-    "speed_multiplier": 1.2,
-    "track_target": true,
-    "reach_multiplier": 2.4
+   "apoc_boss:weekly_room_mogathul": {
+    "remove": {
+     "component_groups": [
+      "apoc_boss:normal_ai",
+      "apoc_boss:weekly_unassigned"
+     ]
+    },
+    "add": {
+     "component_groups": [
+      "apoc_boss:weekly_room_mogathul"
+     ]
+    }
    },
-   "minecraft:behavior.random_stroll": {
-    "priority": 7,
-    "speed_multiplier": 0.8
-   },
-   "minecraft:behavior.look_at_player": {
-    "priority": 8,
-    "look_distance": 12
-   },
-   "minecraft:behavior.random_look_around": {
-    "priority": 9
+   "apoc_boss:normal_spawn": {
+    "add": {
+     "component_groups": [
+      "apoc_boss:normal_ai"
+     ]
+    }
    }
   }
  }

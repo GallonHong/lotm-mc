@@ -21,10 +21,15 @@ export class Utils {
   * @param {object} form
   * @param {(response: any) => void} callback
   * @param {number} [maxRetries=5]
+  * @param {((refreshWhenStale?: boolean) => boolean)|null} [isCurrent=null] Optional menu-context guard.
   */
- static showForm(player, form, callback, maxRetries = 5) {
-  if (!player || !form) return;
+ static showForm(player, form, callback, maxRetries = 5, isCurrent = null) {
+  if (!Utils.isValid(player) || !form || (isCurrent && !isCurrent())) return;
   form.show(player).then((res) => {
+   const reason = String(res.cancelationReason ?? res.cancellationReason ?? "").toLowerCase();
+   const busy = reason.includes("busy");
+   // A real Close/Cancel must stay closed even if the player just teleported.
+   if (!Utils.isValid(player) || (isCurrent && !isCurrent(!res.canceled || busy))) return;
    const invokeCallback = () => {
     try {
      callback(res);
@@ -36,10 +41,9 @@ export class Utils {
    };
 
    if (res.canceled) {
-    const reason = String(res.cancelationReason ?? res.cancellationReason ?? "").toLowerCase();
-			if ((reason.includes("userbusy") || reason.includes("user_busy") || reason.includes("busy")) && maxRetries > 0) {
+			if (busy && maxRetries > 0) {
 				system.runTimeout(() => {
-					Utils.showForm(player, form, callback, maxRetries - 1);
+					Utils.showForm(player, form, callback, maxRetries - 1, isCurrent);
 				}, 3);
 				return;
 			}

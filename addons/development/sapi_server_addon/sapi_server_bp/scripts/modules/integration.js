@@ -1,4 +1,4 @@
-import { allowOrdinaryAction } from "./match_access.js";
+import { allowOrdinaryAction, isWeeklyLocked, isMatchLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { PlotSafeZone } from "./plot_safe_zone.js";
 
@@ -13,6 +13,14 @@ const EXTRACTION_MENU_REQUEST = "interop:apoc_extraction_menu_request:v1";
 const APOCALYPSE_ZONES_KEY = "apoc:zones:v1";
 const SAPI_WARPS_KEY = "sapi:server:warps:v1";
 const HEARTBEAT_MAX_AGE_MS = 15000;
+
+// Read-only health probes are protocol traffic, not player menu actions. In
+// particular, this probe runs every 40 ticks, including while its carrier
+// player is fighting. Do not route it through a user-facing operation denial.
+function lockIndependentEvent(player, eventId) {
+ return String(eventId).startsWith("pvp:") || eventId === "daily:weekly" || eventId === "sapi:daily_probe" ||
+  (eventId === "drone:open_hangar" && isWeeklyLocked(player) && !isMatchLocked(player));
+}
 const APOCALYPSE_FALLBACK_SAFE_RADIUS = 64;
 
 const APOCALYPSE_PRESET_ZONES = Object.freeze([
@@ -338,7 +346,7 @@ export class Integration {
  }
 
  static send(player, eventId, message = "") {
-  if (!String(eventId).startsWith("pvp:") && !allowOrdinaryAction(player)) return false;
+  if (!lockIndependentEvent(player, eventId) && !allowOrdinaryAction(player)) return false;
   try {
    // 等上一张服务器表单彻底关闭后再触发另一个 Addon 的 UI，
    // 避免 Bedrock 返回 UserBusy 后静默吞掉目标菜单。
@@ -348,7 +356,7 @@ export class Integration {
      // Server 来源，目标 Add-on 收不到 sourceEntity。把玩家名放入
      // 联动信封，目标包可在多人服务器中准确找回发起者。
      const envelope = `__sapi_player__=${encodeURIComponent(player.name)}&data=${encodeURIComponent(String(message || ""))}`;
-     if (!String(eventId).startsWith("pvp:") && !allowOrdinaryAction(player)) return false;
+     if (!lockIndependentEvent(player, eventId) && !allowOrdinaryAction(player)) return false;
      player.runCommand(`scriptevent ${eventId} ${envelope}`);
     } catch (error) {
      console.warn(`[Integration] Failed to send ${eventId}: ${error}`);

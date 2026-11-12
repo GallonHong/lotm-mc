@@ -12,6 +12,9 @@ import { merchantByEntity } from "./merchants/merchantConfig.js";
 import { IntegrationBridge } from "./integration/IntegrationBridge.js";
 import { DungeonManager } from "./dungeons/DungeonManager.js";
 import { DungeonMenu } from "./ui/DungeonMenu.js";
+import { WeeklyRaidManager } from "./weekly/manager.js";
+import { WeeklySpawnGuard, initializeWeeklySpawnGuard } from "./weekly/spawnGuard.js";
+import { WeeklyMenu } from "./weekly/menu.js";
 import { LootCrateManager } from "./rewards/LootCrateManager.js";
 import { EntityLootCrateManager } from "./rewards/EntityLootCrateManager.js";
 import { SpawnerReplacementManager } from "./rewards/SpawnerReplacementManager.js";
@@ -140,6 +143,8 @@ function handleNpcInteraction(player, target) {
 function handleEntityDeath(event) {
  const dead = event.deadEntity;
  if (!dead) return;
+ if (dead.typeId === "minecraft:player") WeeklyRaidManager.handleDeath(dead);
+ else if (WeeklyRaidManager.handleBossDeath(dead)) return;
  let deadDimId = null;
  let deadLoc = null;
  try {
@@ -260,6 +265,8 @@ IntegrationBridge.cleanupStaleDailySpawnRequests();
 LegacyCrateBackfillManager.initialize();
 WorldEventManager.initializeCleanup();
 DungeonManager.initializeCleanup();
+WeeklyRaidManager.initialize();
+initializeWeeklySpawnGuard(id => WeeklyRaidManager.rooms.get(id));
 LootCrateManager.initialize();
 EntityLootCrateManager.initialize();
 
@@ -269,6 +276,8 @@ subscribe(world.afterEvents?.playerSpawn, "playerSpawn", event => {
  // Recovery belongs to durable dungeon state, not Life's short-lived death tag.
  // Run independently of news/UI work, which may fail or be deferred.
  system.runTimeout(() => {
+  try { WeeklyRaidManager.handlePlayerSpawn(event.player, event.initialSpawn); }
+  catch (error) { console.warn(`[Weekly] spawn recovery failed: ${error}`); }
   try { DungeonManager.handlePlayerSpawn(event.player); }
   catch (error) { console.warn(`[DailyEvents] dungeon respawn failed: ${error}`); }
  }, 1);
@@ -382,12 +391,15 @@ subscribe(system.afterEvents?.scriptEventReceive, "scriptEventReceive", event =>
  else if (id === "daily:dungeon_true_death") {
   // Life also emits this when an already-downed player dies before our
   // entityDie subscriber sees its true-death tag. The token makes it idempotent.
+  WeeklyRaidManager.handleDeath(player);
   WorldEventManager.onPlayerDeath(player);
   DungeonManager.onPlayerDeath(player, String(message || "").trim());
  }
  else if (id === "daily:drone_revive" || id === "dungeon:cancel_death") {
    DungeonManager.decrementPlayerDeath(player);
   }
+ else if (id === "daily:weekly") system.runTimeout(() => WeeklyMenu.open(player, () => system.run(() => { try { player.runCommand("scriptevent sapi:battle"); } catch {} })), 3);
+ else if (id === "daily:weekly_team") system.runTimeout(() => WeeklyMenu.openTeam(player, message, () => system.run(() => { try { player.runCommand("scriptevent sapi:battle"); } catch {} })), 3);
   else if (id === "daily:dungeon") system.runTimeout(() => DungeonMenu.open(player), 3);
  else if (id === "daily:dungeon_team") system.runTimeout(() => DungeonMenu.openTeam(player, message), 3);
  else if (id === "daily:dungeon_start") system.runTimeout(() => {
@@ -416,6 +428,8 @@ system.runInterval(() => {
 }, CONFIG.eventTickTicks);
 
 system.runInterval(() => {
+ try { WeeklySpawnGuard.sweep(); } catch (error) { console.warn(`[Weekly] spawn guard failed: ${error}`); }
+ try { WeeklyRaidManager.tick(); } catch (error) { console.warn(`[Weekly] tick failed: ${error}`); }
  try { DungeonManager.tick(); } catch (error) { console.warn(`[DailyEvents] dungeon tick failed: ${error}`); }
 }, 10);
 

@@ -23,7 +23,7 @@ function event(p, id, matchId) { dimension().runCommand(`scriptevent ${id} ${JSO
 function validKeepInventory() { try { return world.gameRules.keepInventory === true; } catch { return false; } }
 function ready() { return world.getDynamicProperty(READY_KEY) === true; }
 function hasForeignMatch(p) {
- return ['pvp:admission','extract:admission','apoc_extraction_active','apoc:downed','apoc_downed','apoc:true_death','daily_in_dungeon'].some(t=>p.hasTag(t)) || p.dimension.id==='apoc_extract:city' || p.getTags().some(t=>/^(dungeon:|lotm:dungeon|apoc_dungeon)/.test(t));
+ return ['weekly:participant','weekly:admission','pvp:admission','extract:admission','apoc_extraction_active','apoc:downed','apoc_downed','apoc:true_death','daily_in_dungeon'].some(t=>p.hasTag(t)) || p.dimension.id==='apoc_extract:city' || p.getTags().some(t=>/^(dungeon:|lotm:dungeon|apoc_dungeon)/.test(t));
 }
 function saveMatch(m) { world.setDynamicProperty(MATCH_KEY,m ? JSON.stringify(m) : undefined); }
 function markItems(p, matchId) {
@@ -144,6 +144,7 @@ export class PvPManager {
   event(p,'pvp:death',m.id);saveMatch(m);
  }
  static handleSpawn(p,initialSpawn) {
+  PvpRescue.resetPose(p);
   if(recoverInstaller(p))return true;
   if(!this.isParticipant(p)) {
    const tx=readTransaction(p);if(tx&&(!['RESTORED','CANCELLED'].includes(tx.phase)||tx.unlockPending)){p.addTag('pvp:participant');this.restore(p);return true;}
@@ -161,7 +162,7 @@ export class PvPManager {
    if(!Utils.isValid(p))return;
    if(this.respawning.get(p.id)!==respawnToken)return;
    if(this.match!==m||m.phase!=='ACTIVE'||!m.players.includes(p.id)||!this.isParticipant(p)){const pending=readTransaction(p);if(pending?.matchId===m.id&&!['RESTORED','CANCELLED'].includes(pending.phase))return this.restore(p);return;}
-   const tx=readTransaction(p);if(tx?.phase!=='ACTIVE'||tx.matchId!==m.id)return this.restore(p);p.teleport(this.spawnLocation(tx.team,p.id),{dimension:dimension(),rotation:{x:0,y:tx.team==='blue'?180:0}});const hp=p.getComponent('minecraft:health');if(!hp)throw new Error('复活生命组件不可用');hp.setCurrentValue(hp.effectiveMax??20);p.removeTag('pvp:dead');p.setGameMode(GameMode.adventure);unlockMovement(p);this.protect(p);
+   const tx=readTransaction(p);if(tx?.phase!=='ACTIVE'||tx.matchId!==m.id)return this.restore(p);p.teleport(this.spawnLocation(tx.team,p.id),{dimension:dimension(),rotation:{x:0,y:tx.team==='blue'?180:0}});const hp=p.getComponent('minecraft:health');if(!hp)throw new Error('复活生命组件不可用');hp.setCurrentValue(hp.effectiveMax??20);p.removeTag('pvp:dead');p.setGameMode(GameMode.adventure);unlockMovement(p);this.protect(p);PvpRescue.resetPose(p);
   }catch(e){console.warn(`[PVP respawn] ${e}`);this.restore(p);}finally{if(this.respawning.get(p.id)===respawnToken)this.respawning.delete(p.id);}
  }
  static leave(p) {
