@@ -3,7 +3,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Faded Wasteland combined pack 0.4.7: visuals (0.3.6) + music (1.0.0).
+// Faded Wasteland combined pack 0.4.8: visuals (0.3.6) + music (1.0.0).
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const rp = join(root, "faded_wasteland_combined_rp");
 const read = path => readFileSync(path, "utf8");
@@ -20,12 +20,12 @@ function walkFiles(dir, out = []) {
 
 // 1) manifest
 const manifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 4, 7], "combined version 0.4.7");
-assert.deepEqual(manifest.modules[0].version, [0, 4, 7], "module version 0.4.7");
+assert.deepEqual(manifest.header.version, [0, 4, 8], "combined version 0.4.8");
+assert.deepEqual(manifest.modules[0].version, [0, 4, 8], "module version 0.4.8");
 assert.equal(manifest.header.uuid, "61a15a41-271b-4326-86e3-e110db785760", "keeps the visual pack uuid");
 assert.deepEqual(manifest.header.min_engine_version, [1, 26, 60]);
 assert(manifest.capabilities?.includes("pbr"));
-assert(manifest.header.name.includes("音乐") && manifest.header.name.includes("0.4.7"));
+assert(manifest.header.name.includes("音乐") && manifest.header.name.includes("0.4.8"));
 assert.equal(manifest.subpacks, undefined, "no selectable subpacks");
 
 // 2) strict JSON parse across the merged tree
@@ -80,4 +80,4 @@ for (const isolated of ["scripts", "models", "ui", "entity", "attachables"]) {
 	assert.equal(existsSync(join(rp, isolated)), false, `must not add ${isolated}/`);
 }
 
-console.log("Faded Wasteland combined 0.4.7 validation passed (visuals 0.3.12 + music 1.0.4 wired together).");
+console.log("Faded Wasteland combined 0.4.8 validation passed (visuals 0.3.12 + music 1.0.4 wired together).");
