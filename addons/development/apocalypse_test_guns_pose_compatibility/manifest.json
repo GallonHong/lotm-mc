@@ -2,12 +2,12 @@
   "format_version": 2,
   "header": {
     "name": "Apocalypse + Test Guns Pose Compatibility",
-    "description": "Player bridge for Test Guns 3.16.15 and Apocalypse Life. Guards persona/UI inventory queries and preserves 30 gun hold states. Place above Life and Guns. Requires in-game validation.",
+    "description": "Player bridge for Test Guns 3.16.21 and Apocalypse Life. Uses isolated gun controller and native sneaking ADS. Place above Life and Guns. Requires in-game validation.",
     "uuid": "f9cfc46a-da35-445c-adfa-dbf345d7499a",
     "version": [
       1,
       1,
-      4
+      6
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         1,
-        4
+        6
       ]
     }
   ]

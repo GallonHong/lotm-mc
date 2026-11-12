@@ -317,6 +317,72 @@ def reapply_life():
     return results
 
 
+def repo_uuid_map():
+    """Map manifest uuid -> repository pack directory (relative to addons/development)."""
+    mapping = {}
+    for current, dirs, files in os.walk(DEV_DIR):
+        dirs[:] = [name for name in dirs if name not in SKIP_DIR_NAMES and not name.startswith(".tmp")]
+        if "manifest.json" not in files:
+            continue
+        try:
+            with open(os.path.join(current, "manifest.json"), "r", encoding="utf-8-sig") as handle:
+                manifest = json.load(handle)
+            uuid = manifest.get("header", {}).get("uuid")
+        except (OSError, ValueError):
+            continue
+        if uuid:
+            mapping[uuid] = os.path.relpath(current, DEV_DIR).replace(os.sep, "/")
+    return mapping
+
+
+def discover_packs(work_root):
+    """Return [(label, extracted pack dir)] for *.mcaddon entries and standalone *.mcpack entries."""
+    packs = []
+    for name in sorted(os.listdir(work_root)):
+        full = os.path.join(work_root, name)
+        if name.endswith(".mcaddon"):
+            package = name[: -len(".mcaddon")]
+            package_dir = os.path.join(work_root, package)
+            extract_zip(full, package_dir)
+            for minecraft_pack in sorted(os.listdir(package_dir)):
+                if not minecraft_pack.endswith(".mcpack"):
+                    continue
+                pack_name = minecraft_pack[: -len(".mcpack")]
+                pack_dir = os.path.join(package_dir, pack_name)
+                extract_zip(os.path.join(package_dir, minecraft_pack), pack_dir)
+                packs.append((f"{package}/{pack_name}", pack_dir))
+        elif name.endswith(".mcpack"):
+            pack_name = name[: -len(".mcpack")]
+            pack_dir = os.path.join(work_root, pack_name)
+            extract_zip(full, pack_dir)
+            packs.append((pack_name, pack_dir))
+    return packs
+
+
+POSE_PLAYER_ENTITY = "addons/development/apocalypse_test_guns_pose_compatibility/entity/player.entity.json"
+POSE_OFFSCREEN_KEY = "should_update_bones_and_effects_offscreen"
+
+
+def reapply_pose_offscreen():
+    """Pose compatibility overrides the highest-priority player.entity.json for the merged
+    server resource pack; keep the Test Guns off-screen bone update flag it omits."""
+    path = os.path.join(REPO_DIR, POSE_PLAYER_ENTITY)
+    if not os.path.exists(path):
+        return ["pose compatibility: player.entity.json missing"]
+    with open(path, "r", encoding="utf-8-sig") as handle:
+        data = json.load(handle)
+    scripts = data.get("minecraft:client_entity", {}).get("description", {}).get("scripts")
+    if not isinstance(scripts, dict):
+        return ["pose compatibility: scripts block missing"]
+    if scripts.get(POSE_OFFSCREEN_KEY) == "1.0":
+        return ["pose compatibility: offscreen bone updates already present"]
+    scripts[POSE_OFFSCREEN_KEY] = "1.0"
+    with open(path, "w", encoding="utf-8", newline="\n") as handle:
+        json.dump(data, handle, ensure_ascii=False, indent=1)
+        handle.write("\n")
+    return ["pose compatibility: re-applied offscreen bone updates"]
+
+
 def check_mirrors():
     checks = []
     pairs = [
@@ -348,48 +414,39 @@ def main():
     os.makedirs(WORK_DIR, exist_ok=True)
     extract_zip(bundle, WORK_DIR)
 
+    uuid_map = repo_uuid_map()
     merged = 0
-    for name in sorted(os.listdir(WORK_DIR)):
-        if not name.endswith(".mcaddon"):
+    for label, pack_dir in discover_packs(WORK_DIR):
+        pack_name = os.path.basename(pack_dir)
+        with open(os.path.join(pack_dir, "manifest.json"), "r", encoding="utf-8-sig") as handle:
+            new_manifest = json.load(handle)["header"]
+        source_rel = uuid_map.get(new_manifest["uuid"]) or PACK_SOURCES.get(pack_name)
+        if not source_rel:
+            print(f"\n=== {label}\n  [!!] no repository mapping for uuid {new_manifest['uuid']}, skipped")
             continue
-        package = name[: -len(".mcaddon")]
-        package_dir = os.path.join(WORK_DIR, package)
-        extract_zip(os.path.join(WORK_DIR, name), package_dir)
-        print(f"\n=== {package}")
-        for mcpack in sorted(os.listdir(package_dir)):
-            if not mcpack.endswith(".mcpack"):
-                continue
-            pack_name = mcpack[: -len(".mcpack")]
-            pack_dir = os.path.join(package_dir, pack_name)
-            extract_zip(os.path.join(package_dir, mcpack), pack_dir)
-            source_rel = PACK_SOURCES.get(pack_name)
-            if not source_rel:
-                print(f"  [!!] {pack_name}: no repository mapping, skipped")
-                continue
-            src_dir = os.path.join(DEV_DIR, source_rel)
-            if not os.path.isdir(src_dir):
-                print(f"  [!!] {pack_name}: source dir missing ({source_rel})")
-                continue
-            with open(os.path.join(pack_dir, "manifest.json"), "r", encoding="utf-8-sig") as handle:
-                new_manifest = json.load(handle)["header"]
-            with open(os.path.join(src_dir, "manifest.json"), "r", encoding="utf-8-sig") as handle:
-                cur_manifest = json.load(handle)["header"]
-            added, changed, removed = diff_tree(src_dir, pack_dir)
-            version_note = f"v{'.'.join(map(str, new_manifest['version']))}"
-            if new_manifest["version"] == cur_manifest["version"]:
-                version_note += " (same version)"
-            print(f"  {pack_name}: {version_note} | added={len(added)} changed={len(changed)} src-only={len(removed)}")
-            for path in added[:10]:
-                print(f"    + {path}")
-            for path in changed[:10]:
-                print(f"    ~ {path}")
-            for path in removed[:10]:
-                print(f"    - {path}")
-            if args.dry_run:
-                continue
-            copied, new_files, unchanged = sync_tree(pack_dir, src_dir)
-            print(f"    synced {copied} file(s) ({new_files} new), {unchanged} unchanged")
-            merged += 1
+        src_dir = os.path.join(DEV_DIR, source_rel)
+        if not os.path.isdir(src_dir):
+            print(f"\n=== {label}\n  [!!] source dir missing ({source_rel})")
+            continue
+        print(f"\n=== {label} -> {source_rel}")
+        with open(os.path.join(src_dir, "manifest.json"), "r", encoding="utf-8-sig") as handle:
+            cur_manifest = json.load(handle)["header"]
+        added, changed, removed = diff_tree(src_dir, pack_dir)
+        version_note = f"v{'.'.join(map(str, new_manifest['version']))}"
+        if new_manifest["version"] == cur_manifest["version"]:
+            version_note += " (same version)"
+        print(f"  {pack_name}: {version_note} | added={len(added)} changed={len(changed)} src-only={len(removed)}")
+        for path in added[:10]:
+            print(f"    + {path}")
+        for path in changed[:10]:
+            print(f"    ~ {path}")
+        for path in removed[:10]:
+            print(f"    - {path}")
+        if args.dry_run:
+            continue
+        copied, new_files, unchanged = sync_tree(pack_dir, src_dir)
+        print(f"    synced {copied} file(s) ({new_files} new), {unchanged} unchanged")
+        merged += 1
 
     if args.dry_run:
         print("\n[dry-run] no files were written")
@@ -399,6 +456,9 @@ def main():
     for relative, import_prefix, hook_target in DRONE_HANDLERS:
         print("  " + reapply_handler(relative, import_prefix, hook_target))
     for line in reapply_life():
+        print("  " + line)
+    print("[local] re-applying pose compatibility layer")
+    for line in reapply_pose_offscreen():
         print("  " + line)
     for line in check_mirrors():
         print("[check] " + line)

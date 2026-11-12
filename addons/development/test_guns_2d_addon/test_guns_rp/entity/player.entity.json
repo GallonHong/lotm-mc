@@ -109,7 +109,7 @@
         "should_update_bones_and_effects_offscreen": "1.0"
       },
       "animations": {
-        "root": "controller.animation.player.root",
+        "root": "controller.animation.tg3d.player.root",
         "base_controller": "controller.animation.player.base",
         "hudplayer": "controller.animation.player.hudplayer",
         "humanoid_base_pose": "animation.humanoid.base_pose",

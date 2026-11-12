@@ -6,14 +6,14 @@
       "bones": {
         "rightArm": {
           "rotation": [
-            "-85.0 - query.target_x_rotation",
+            "-85.0 - query.target_x_rotation - 3 * variable.tg3d_hand_aim",
             "-query.target_y_rotation * 0.1",
             0.0
           ]
         },
         "leftArm": {
           "rotation": [
-            "variable.tg3d_free_offhand ? (-80.0 - query.target_x_rotation) : 0",
+            "(variable.tg3d_free_offhand ? (-80.0 - query.target_x_rotation) : 0) - (variable.tg3d_free_offhand ? 3 * variable.tg3d_hand_aim : 0)",
             "variable.tg3d_free_offhand ? (35.0) : 0",
             "variable.tg3d_free_offhand ? (10.0) : 0"
           ]
@@ -25,14 +25,14 @@
       "bones": {
         "rightArm": {
           "rotation": [
-            "-85.0 - query.target_x_rotation",
+            "-85.0 - query.target_x_rotation - 3 * variable.tg3d_hand_aim",
             0.0,
             0.0
           ]
         },
         "leftArm": {
           "rotation": [
-            "variable.tg3d_free_offhand ? (-82.0 - query.target_x_rotation) : 0",
+            "(variable.tg3d_free_offhand ? (-82.0 - query.target_x_rotation) : 0) - (variable.tg3d_free_offhand ? 3 * variable.tg3d_hand_aim : 0)",
             "variable.tg3d_free_offhand ? (24.0) : 0",
             "variable.tg3d_free_offhand ? (5.0) : 0"
           ]

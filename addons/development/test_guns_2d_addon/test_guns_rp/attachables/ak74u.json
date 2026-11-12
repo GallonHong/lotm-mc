@@ -41,10 +41,12 @@
           },
           {
             "aim_first": "context.is_first_person"
+          },
+          {
+            "aim_third": "!context.is_first_person && variable.tg3d_aim"
           }
         ],
         "pre_animation": [
-          "variable.tg3d_aim = math.clamp(((context.owning_entity -> variable.tg3d_hand_aim) ?? (context.owning_entity -> query.is_sneaking)), 0, 1);",
           "variable.tg3d_view_aim_y = ((context.owning_entity -> variable.tg3d_view_aim_y) ?? 0.31);",
           "variable.tg3d_view_aim_x = ((context.owning_entity -> variable.tg3d_view_aim_x) ?? 5.0);",
           "variable.tg3d_sneaking = (context.owning_entity -> query.is_sneaking);",
@@ -58,6 +60,7 @@
           "variable.tg3d_progress = math.clamp(((context.owning_entity -> variable.tg3d_progress) ?? 0), 0, 1);",
           "variable.tg3d_valid = context.item_slot == 'main_hand' && variable.tg3d_owner_gun == 2 && variable.tg3d_owner_age >= variable.tg3d_stamp && variable.tg3d_owner_age - variable.tg3d_stamp < 0.3;",
           "variable.tg3d_reloading = variable.tg3d_valid && variable.tg3d_owner_kind == 2;",
+          "variable.tg3d_aim = variable.tg3d_aim + ((variable.tg3d_sneaking && !variable.tg3d_reloading ? 1 : 0) - variable.tg3d_aim) * math.clamp(query.delta_time * 16, 0, 1);",
           "variable.tg3d_kick = variable.tg3d_valid && variable.tg3d_owner_kind == 1 ? math.clamp(math.min(variable.tg3d_progress / 0.2, (1 - variable.tg3d_progress) / 0.8), 0, 1) : 0;",
           "variable.tg3d_reload_shape = variable.tg3d_reloading ? math.sin(variable.tg3d_progress * 180) : 0;",
           "variable.tg3d_pose_run = variable.tg3d_pose_run + ((!variable.tg3d_reloading && !variable.tg3d_sneaking && variable.tg3d_sprinting && !variable.tg3d_using ? 1 : 0) - variable.tg3d_pose_run) * math.clamp(query.delta_time * 12, 0, 1);",
@@ -67,7 +70,8 @@
         ],
         "initialize": [
           "variable.tg3d_seen_shot = 0;",
-          "variable.tg3d_pose_run = 0;"
+          "variable.tg3d_pose_run = 0;",
+          "variable.tg3d_aim = 0;"
         ]
       },
       "render_controllers": [
