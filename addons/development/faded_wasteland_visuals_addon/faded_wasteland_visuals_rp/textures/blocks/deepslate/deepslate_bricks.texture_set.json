@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "deepslate_bricks",
-        "heightmap": "fw_deepslate_bricks_dd_height",
-        "metalness_emissive_roughness": "fw_deepslate_bricks_dd_mer"
+        "heightmap": "fw_deepslate_bricks_height",
+        "metalness_emissive_roughness": "fw_deepslate_bricks_mer"
     }
 }

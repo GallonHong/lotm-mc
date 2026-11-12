@@ -26,9 +26,9 @@ https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/vol
 官方Biomes Customization的Limitations已核实：同包水设置应使用相同caustics参数，因为它们不能混合。上述统一遵循此限制。来源：https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/biomecustomization
 
 
-## 0.3.12 追加：常用方块 PBR 贴图
+## 0.3.13 修正：常用方块 PBR 贴图
 
-从第三方光影包 Dynamic Details 1.2（Square Dreams AB）提取常用方块的高度图（heightmap）与金属/发光/粗糙度图（MER），共 93 个方块纹理、145 张 PBR 贴图，合计约 294KB；颜色仍使用原版贴图（texture_set 的 color 指向原版纹理名），不替换方块外观颜色。
+从第三方光影包 Dynamic Details 1.2（Square Dreams AB）提取常用方块的颜色图 + 高度图 + 金属/发光/粗糙度图。颜色图统一降采样到 16x 并随包携带（纹理集只能引用同包纹理）；高度图转单通道灰度、MER 转 3 通道、MERS 转 4 通道。共 93 个方块纹理，方块部分合计约 142KB。
 
 覆盖：石头/圆石/深板岩/花岗岩/闪长岩/安山岩/石砖/砖块/泥土/草方块/沙/砂岩/木头/木板/矿石/矿物块/混凝土/陶瓦/羊毛/玻璃/冰/雪/下界岩/灵魂沙/黑曜石等常用方块。
 

@@ -2,7 +2,7 @@
     "format_version": "1.21.30",
     "minecraft:texture_set": {
         "color": "cobbled_deepslate",
-        "heightmap": "fw_cobbled_deepslate_dd_height",
-        "metalness_emissive_roughness": "fw_cobbled_deepslate_dd_mer"
+        "heightmap": "fw_cobbled_deepslate_height",
+        "metalness_emissive_roughness": "fw_cobbled_deepslate_mer"
     }
 }
