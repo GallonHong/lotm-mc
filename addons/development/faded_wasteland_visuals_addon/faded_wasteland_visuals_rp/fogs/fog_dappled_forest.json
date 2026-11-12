@@ -26,20 +26,20 @@
       "air": {
         "fog_start": 0.72,
         "fog_end": 1.0,
-        "fog_color": "#9AA595",
+        "fog_color": "#9FA7A3",
         "render_distance_type": "render"
       },
       "weather": {
         "fog_start": 0.25,
         "fog_end": 0.75,
-        "fog_color": "#7A7B73",
+        "fog_color": "#7B8083",
         "render_distance_type": "render"
       }
     },
     "volumetric": {
       "density": {
         "air": {
-          "max_density": 0.0035,
+          "max_density": 0.0042,
           "uniform": true
         },
         "weather": {
@@ -59,6 +59,11 @@
             0.004,
             0.0035
           ]
+        }
+      },
+      "henyey_greenstein_g": {
+        "air": {
+          "henyey_greenstein_g": 0.75
         }
       }
     }
