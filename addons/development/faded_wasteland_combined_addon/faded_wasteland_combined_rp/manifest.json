@@ -1,0 +1,38 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "余晖 · 废土光影 + 音乐 0.4.1（固定更暗档 · 雨天粒子 · 全 BGM 替换）",
+    "description": "Faded Wasteland Visuals + Music | 原版贴图不变 · 需要灵动视效 | 光影：固定更暗·阴郁废土档、正午再压暗、雨天粒子（Dark Fantasy 雨滴/涟漪/雨雾）；音乐：主世界/下界/末地/创造/龙战/主菜单全部替换为 4 首营地/野外/居住区 BGM | 合并资源包，无需再装单独音乐包",
+    "uuid": "61a15a41-271b-4326-86e3-e110db785760",
+    "version": [
+      0,
+      4,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      60
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "4b93eaf7-ed96-437c-b2d8-7b2c288b6756",
+      "version": [
+        0,
+        4,
+        1
+      ]
+    }
+  ],
+  "capabilities": [
+    "pbr"
+  ],
+  "metadata": {
+    "authors": [
+      "Gallon Hong / dot"
+    ],
+    "license": "Original visual configuration; vanilla client-biome/fog data subject to Minecraft EULA. Water/local-lighting/shadow base configs adapted from Dark Fantasy Visuals and retuned."
+  }
+}

@@ -1,0 +1,103 @@
+{
+  "format_version": "1.21.90",
+  "minecraft:color_grading_settings": {
+    "description": {
+      "identifier": "faded_wasteland:grading"
+    },
+    "color_grading": {
+      "midtones": {
+        "contrast": [
+          1.02,
+          1.02,
+          1.02
+        ],
+        "gain": [
+          0.66,
+          0.66,
+          0.65
+        ],
+        "gamma": [
+          2.2,
+          2.2,
+          2.2
+        ],
+        "offset": [
+          -0.022,
+          -0.02,
+          -0.017
+        ],
+        "saturation": [
+          0.87,
+          0.87,
+          0.87
+        ]
+      },
+      "shadows": {
+        "enabled": true,
+        "shadowsMax": 0.35,
+        "contrast": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "gain": [
+          0.90719,
+          0.92719,
+          0.94719
+        ],
+        "gamma": [
+          2.2,
+          2.2,
+          2.2
+        ],
+        "offset": [
+          0.004,
+          0.006,
+          0.01
+        ],
+        "saturation": [
+          0.9,
+          0.9,
+          0.9
+        ]
+      },
+      "highlights": {
+        "enabled": true,
+        "highlightsMin": 2.0,
+        "contrast": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "gain": [
+          0.77249,
+          0.76401,
+          0.74704
+        ],
+        "gamma": [
+          2.2,
+          2.2,
+          2.2
+        ],
+        "offset": [
+          0,
+          0,
+          0
+        ],
+        "saturation": [
+          0.9,
+          0.9,
+          0.9
+        ]
+      },
+      "temperature": {
+        "enabled": true,
+        "temperature": 6450,
+        "type": "color_temperature"
+      }
+    },
+    "tone_mapping": {
+      "operator": "reinhard_luminance"
+    }
+  }
+}

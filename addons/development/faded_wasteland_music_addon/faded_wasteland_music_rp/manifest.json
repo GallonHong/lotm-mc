@@ -1,0 +1,35 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "余晖 · 废土音乐包 1.0.1（全部原版 BGM 槽位替换）",
+    "description": "Replaces all vanilla overworld/dimension/menu music slots with the user-provided camp / wild / residential tracks. Resource pack only.",
+    "uuid": "d3b9a1f2-5c47-4a8e-b0d1-7e6f3a9c2b58",
+    "version": [
+      1,
+      0,
+      1
+    ],
+    "min_engine_version": [
+      1,
+      26,
+      10
+    ]
+  },
+  "modules": [
+    {
+      "type": "resources",
+      "uuid": "a7c4e2d9-8f1b-4c3a-9e5d-2b6f8a1c4e70",
+      "version": [
+        1,
+        0,
+        1
+      ]
+    }
+  ],
+  "metadata": {
+    "authors": [
+      "Gallon Hong / dot"
+    ],
+    "license": "User-supplied game soundtrack excerpts; do not redistribute publicly without the rights holder's permission."
+  }
+}
