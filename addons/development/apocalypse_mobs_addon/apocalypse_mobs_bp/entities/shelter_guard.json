@@ -62,47 +62,165 @@
     "has_collision": true
    },
    "minecraft:behavior.hurt_by_target": {
-    "priority": 1,
-    "entity_types": [
-     {
-      "filters": {
-       "test": "is_family",
-       "subject": "other",
-       "operator": "!=",
-       "value": "player"
-      }
-     }
-    ]
+     "priority": 1,
+     "entity_types": [
+       {
+         "filters": {
+           "all_of": [
+             {
+               "test": "is_family",
+               "subject": "other",
+               "operator": "!=",
+               "value": "player"
+             },
+             {
+               "none_of": [
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed_pending"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed_waiting"
+                 }
+               ]
+             }
+           ]
+         },
+         "reevaluate_description": true
+       }
+     ]
    },
    "minecraft:behavior.nearest_attackable_target": {
-    "priority": 2,
-    "must_see": true,
-    "entity_types": [
-     {
-      "filters": {
-       "test": "is_family",
-       "subject": "other",
-       "value": "raider"
-      },
-      "max_dist": 35
-     },
-     {
-      "filters": {
-       "test": "is_family",
-       "subject": "other",
-       "value": "apoc_hostile"
-      },
-      "max_dist": 35
-     },
-     {
-      "filters": {
-       "test": "is_family",
-       "subject": "other",
-       "value": "monster"
-      },
-      "max_dist": 35
-     }
-    ]
+     "priority": 2,
+     "must_see": true,
+     "entity_types": [
+       {
+         "filters": {
+           "all_of": [
+             {
+               "test": "is_family",
+               "subject": "other",
+               "value": "raider"
+             },
+             {
+               "none_of": [
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed_pending"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed_waiting"
+                 }
+               ]
+             }
+           ]
+         },
+         "max_dist": 35,
+         "reevaluate_description": true
+       },
+       {
+         "filters": {
+           "all_of": [
+             {
+               "test": "is_family",
+               "subject": "other",
+               "value": "apoc_hostile"
+             },
+             {
+               "none_of": [
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed_pending"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed_waiting"
+                 }
+               ]
+             }
+           ]
+         },
+         "max_dist": 35,
+         "reevaluate_description": true
+       },
+       {
+         "filters": {
+           "all_of": [
+             {
+               "test": "is_family",
+               "subject": "other",
+               "value": "monster"
+             },
+             {
+               "none_of": [
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "apoc:downed_pending"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed"
+                 },
+                 {
+                   "test": "has_tag",
+                   "subject": "other",
+                   "value": "pvp:downed_waiting"
+                 }
+               ]
+             }
+           ]
+         },
+         "max_dist": 35,
+         "reevaluate_description": true
+       }
+     ],
+     "persist_time": 0,
+     "reselect_targets": true
    },
    "minecraft:behavior.move_towards_target": {
     "priority": 4,

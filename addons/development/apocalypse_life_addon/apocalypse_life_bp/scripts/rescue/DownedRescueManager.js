@@ -58,6 +58,7 @@ export class DownedPlayerInstance {
   this.dimension = dimension;
 
   this.knockedTicks = 0;
+  this.poseTicks = 0;
   this.reviveTicks = 0;
   this.surrenderTicks = 0;
   this.jumpHold = createJumpHold();
@@ -141,8 +142,8 @@ export class DownedPlayerInstance {
        DownedRescueManager.poseTokens.get(this.id) !== this.poseToken ||
        DownedRescueManager.activeInstances.get(this.id) !== this) return;
    try {
-    this.player.playAnimation("animation.humanoid.fall", {
-     controller: POSE_CONTROLLER, blendOutTime: 0, stopExpression: "!query.is_alive"
+    this.player.playAnimation("animation.apoc_life.downed_fall", {
+     controller: POSE_CONTROLLER, blendOutTime: 0, stopExpression: "!query.is_alive || query.all_animations_finished"
     });
    } catch {}
   }, 4);
@@ -183,6 +184,19 @@ export class DownedPlayerInstance {
   }
 
   this.publishDownedTag();
+  // Renew only while this exact instance is active. Finite animations expire
+  // even if the client skips the death frame during immediate respawn.
+  this.poseTicks++;
+  if (this.poseTicks >= 20 && this.poseTicks % 10 === 0 &&
+      DownedRescueManager.activeInstances.get(this.id) === this &&
+      DownedRescueManager.poseTokens.get(this.id) === this.poseToken) {
+   try {
+    this.player.playAnimation("animation.apoc_life.downed_hold", {
+     controller: POSE_CONTROLLER, blendOutTime: 0,
+     stopExpression: "!query.is_alive || query.all_animations_finished"
+    });
+   } catch {}
+  }
 
   // 倒地初始 1 秒保护倒计时
   if (this.graceTicks > 0) {
@@ -540,7 +554,7 @@ export class DownedRescueManager {
    } catch {}
   };
   reset();
-  for (const delay of [1, 4, 10]) system.runTimeout(reset, delay);
+  for (const delay of [1, 4, 10, 20, 40]) system.runTimeout(reset, delay);
   return token;
  }
 

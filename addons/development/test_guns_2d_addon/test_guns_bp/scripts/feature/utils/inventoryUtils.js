@@ -1,5 +1,5 @@
 import { hasInfinitePvpReserve } from './pvpRules.js';
-import { EquipmentSlot } from '@minecraft/server';
+import { EquipmentSlot, system } from '@minecraft/server';
 
 export function isCreativePlayer(player) {
  if (!player || !player.isValid()) return false;
@@ -46,7 +46,25 @@ export function countAmmoInInventory(player, ammoTypeId) {
  }
 }
 
+// Display-only cache. Authoritative ammo checks and consumption above/below
+// always read the live container; a stale HUD can never authorize a shot.
+const hudAmmoCache = new WeakMap();
+export function countAmmoForHUD(player, ammoTypeId) {
+ if (!player) return 0;
+ if (hasInfinitePvpReserve(player) || isCreativePlayer(player)) return 9999;
+ const now = system.currentTick;
+ const cached = hudAmmoCache.get(player);
+ if (cached && cached.ammoTypeId === ammoTypeId && now >= cached.tick && now - cached.tick < 4) {
+  return cached.count;
+ }
+ const count = countAmmoInInventory(player, ammoTypeId);
+ hudAmmoCache.set(player, { ammoTypeId, tick: now, count });
+ return count;
+}
+
 export function consumeAmmoFromInventory(player, ammoTypeId, amountNeeded) {
+ // Invalidate even on a partial/error path: container writes may have occurred.
+ if (player) hudAmmoCache.delete(player);
  if (hasInfinitePvpReserve(player) || isCreativePlayer(player)) {
   return amountNeeded;
  }

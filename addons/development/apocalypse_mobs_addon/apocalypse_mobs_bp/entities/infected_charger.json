@@ -21,8 +21,83 @@
       "minecraft:knockback_resistance": { "value": 0.45 },
       "minecraft:equippable": { "slots": [{ "slot": 2, "accepted_items": [] }, { "slot": 3, "accepted_items": [] }, { "slot": 4, "accepted_items": [] }, { "slot": 5, "accepted_items": [] }] },
       "minecraft:physics": { "has_gravity": true, "has_collision": true },
-      "minecraft:behavior.hurt_by_target": { "priority": 1 },
-      "minecraft:behavior.nearest_attackable_target": { "priority": 2, "must_see": true, "reselect_targets": true, "entity_types": [{ "filters": { "test": "is_family", "subject": "other", "value": "player" }, "max_dist": 40 }] },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1,
+        "entity_types": [
+          {
+            "filters": {
+              "none_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "apoc:downed"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "apoc:downed_pending"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "pvp:downed"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "pvp:downed_waiting"
+                }
+              ]
+            },
+            "reevaluate_description": true
+          }
+        ]
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": true,
+        "reselect_targets": true,
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "none_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "apoc:downed"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "apoc:downed_pending"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "pvp:downed"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "pvp:downed_waiting"
+                    }
+                  ]
+                }
+              ]
+            },
+            "max_dist": 40,
+            "reevaluate_description": true
+          }
+        ],
+        "persist_time": 0
+      },
       "minecraft:behavior.melee_attack": { "priority": 3, "speed_multiplier": 1.0, "track_target": true },
       "minecraft:behavior.random_stroll": { "priority": 6, "speed_multiplier": 0.75 },
       "minecraft:behavior.random_look_around": { "priority": 7 },

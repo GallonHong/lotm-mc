@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Apocalypse Mobs RP v0.7.9",
-    "description": "末日生物与人类阵营资源包：荒原掠夺者与避难所驻守护卫战术模型、持枪姿势、音效与 World Events 联动。",
+    "name": "Apocalypse Mobs RP v0.7.10",
+    "description": "\u672b\u65e5\u751f\u7269\u4e0e\u4eba\u7c7b\u9635\u8425\u8d44\u6e90\u5305\uff1a\u8352\u539f\u63a0\u593a\u8005\u4e0e\u907f\u96be\u6240\u9a7b\u5b88\u62a4\u536b\u6218\u672f\u6a21\u578b\u3001\u6301\u67aa\u59ff\u52bf\u3001\u97f3\u6548\u4e0e World Events \u8054\u52a8\u3002",
     "uuid": "03db80ee-e322-46ce-8787-7efab344707c",
     "version": [
       0,
       7,
-      9
+      10
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         0,
         7,
-        9
+        10
       ]
     }
   ]

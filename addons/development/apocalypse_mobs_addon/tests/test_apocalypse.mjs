@@ -22,8 +22,8 @@ for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".j
 
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [0, 7, 9]);
-assert.deepEqual(rpManifest.header.version, [0, 7, 9]);
+assert.deepEqual(bpManifest.header.version, [0, 7, 10]);
+assert.deepEqual(rpManifest.header.version, [0, 7, 10]);
 assert.equal(bpManifest.dependencies.find(value => value.uuid)?.uuid, rpManifest.header.uuid, "BP must depend on its RP");
 assert.equal(bpManifest.dependencies.some(value => value.uuid === "f47a1111-e222-4333-8444-555555550001"), false, "Test Guns must remain an optional integration");
 assert.equal(rpManifest.dependencies?.some(value => value.uuid === "f47a1111-e222-4333-8444-555555550003") ?? false, false, "Test Guns RP must not prevent Apocalypse Mobs from loading");

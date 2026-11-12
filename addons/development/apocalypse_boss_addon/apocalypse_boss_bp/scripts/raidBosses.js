@@ -1,3 +1,4 @@
+import { isCombatExcluded } from "./downedTarget.js";
 /**
  * Raid bosses imported from the "Bosses Rise" reference add-on (Block Factory).
  *
@@ -15,7 +16,7 @@
  */
 import { world, system } from "@minecraft/server";
 import { readMobArmor } from "./mobArmor.js";
-import { isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
+import { isPvpArea } from "./pvpIsolation.js";
 import { isLiveEntity, isWeeklyBoss, canWeeklyBossTarget, enforceWeeklyArmor } from "./weeklyRaid.js";
 
 const RAID_ARMOR = 10;
@@ -65,7 +66,7 @@ const healthRatio = entity => {
 
 function canTarget(entity, player) {
  try {
-  return canWeeklyBossTarget(entity, player) && !isPvpExcluded(player) &&
+  return canWeeklyBossTarget(entity, player) && !isCombatExcluded(player) &&
    player.dimension.id === entity.dimension.id;
  } catch { return false; }
 }
@@ -586,7 +587,7 @@ function tickRaidBoss(entity, player) {
 system.runInterval(() => {
  const seen = new Set();
  for (const player of world.getAllPlayers()) {
-  if (!player || !player.isValid() || isPvpExcluded(player)) continue;
+  if (!player || !player.isValid() || isCombatExcluded(player)) continue;
   let bosses = [];
   try {
    bosses = player.dimension.getEntities({ location: player.location, maxDistance: 72, families: ["apoc_boss"] });

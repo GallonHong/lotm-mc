@@ -18,8 +18,83 @@
       "minecraft:navigation.walk": { "can_path_over_water": true, "can_pass_doors": true, "avoid_damage_blocks": true },
       "minecraft:movement.basic": {}, "minecraft:jump.static": {}, "minecraft:can_climb": {},
       "minecraft:physics": { "has_gravity": true, "has_collision": true },
-      "minecraft:behavior.hurt_by_target": { "priority": 1 },
-      "minecraft:behavior.nearest_attackable_target": { "priority": 2, "must_see": true, "entity_types": [{ "filters": { "test": "is_family", "subject": "other", "value": "player" }, "max_dist": 24 }] },
+      "minecraft:behavior.hurt_by_target": {
+        "priority": 1,
+        "entity_types": [
+          {
+            "filters": {
+              "none_of": [
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "apoc:downed"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "apoc:downed_pending"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "pvp:downed"
+                },
+                {
+                  "test": "has_tag",
+                  "subject": "other",
+                  "value": "pvp:downed_waiting"
+                }
+              ]
+            },
+            "reevaluate_description": true
+          }
+        ]
+      },
+      "minecraft:behavior.nearest_attackable_target": {
+        "priority": 2,
+        "must_see": true,
+        "entity_types": [
+          {
+            "filters": {
+              "all_of": [
+                {
+                  "test": "is_family",
+                  "subject": "other",
+                  "value": "player"
+                },
+                {
+                  "none_of": [
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "apoc:downed"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "apoc:downed_pending"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "pvp:downed"
+                    },
+                    {
+                      "test": "has_tag",
+                      "subject": "other",
+                      "value": "pvp:downed_waiting"
+                    }
+                  ]
+                }
+              ]
+            },
+            "max_dist": 24,
+            "reevaluate_description": true
+          }
+        ],
+        "persist_time": 0,
+        "reselect_targets": true
+      },
       "minecraft:behavior.avoid_mob_type": { "priority": 3, "entity_types": [{ "filters": { "test": "is_family", "subject": "other", "value": "player" }, "max_dist": 7, "walk_speed_multiplier": 1.1, "sprint_speed_multiplier": 1.25 }] },
       "minecraft:behavior.move_towards_target": { "priority": 4, "speed_multiplier": 0.8, "within_radius": 18 },
       "minecraft:behavior.random_stroll": { "priority": 6, "speed_multiplier": 0.8 },

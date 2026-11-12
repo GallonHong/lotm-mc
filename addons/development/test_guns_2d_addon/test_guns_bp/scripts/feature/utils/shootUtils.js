@@ -170,11 +170,15 @@ function processBulletRay(player, gun, dir, muzzle, maxRange, directShot = null)
   hitEntity = null;
   hitBlock = true;
  }
- drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
+ // Resolve gameplay before emitting the original full-density tracer. The
+ // particle function, sample positions and count are intentionally unchanged.
+ try {
+  if (hitEntity) DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc, directShot);
+ } finally {
+  drawBulletTracer(dimension, spawnLoc, impactLoc, gun);
+ }
 
- if (hitEntity) {
-  DamageHandler.handleHit(null, player, hitEntity, gun, impactLoc, directShot);
- } else if (hitBlock) {
+ if (!hitEntity && hitBlock) {
   try {
    dimension.spawnParticle('test_gun:bullet_hit_spark', impactLoc);
    dimension.spawnParticle('test_gun:bullet_hit_smoke', impactLoc);

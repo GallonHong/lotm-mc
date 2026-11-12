@@ -1,4 +1,5 @@
-import { isPvpPlayer, isPvpArea, isPvpExcluded } from "./pvpIsolation.js";
+import { isCombatExcluded } from "./downedTarget.js";
+import { isPvpPlayer, isPvpArea } from "./pvpIsolation.js";
 import { world, system, EntityDamageCause, ItemStack } from "@minecraft/server";
 import { NPC_WEAPONS } from "./config.js";
 import { ZoneRegistry } from "./zones.js";
@@ -62,7 +63,7 @@ export function isFlashDisabled(entity) {
  * 仅过滤旁观模式(spectator)，创造模式与生存模式均可被锁定与射击
  */
 export function findTarget(entity, maxDistance) {
- const players = entity.dimension.getPlayers({ location: entity.location, maxDistance }).filter(player => !isPvpExcluded(player));
+ const players = entity.dimension.getPlayers({ location: entity.location, maxDistance }).filter(player => !isCombatExcluded(player));
  let target = null;
  let best = Infinity;
  for (const player of players) {
@@ -86,7 +87,7 @@ export function findTarget(entity, maxDistance) {
 export function findRaiderTarget(entity, maxDistance) {
  // 1. 反击被攻击目标
  const retal = CombatAI.retaliationTargets.get(entity.id);
- if (retal && system.currentTick < retal.expireTick && valid(retal.target)) {
+ if (retal && system.currentTick < retal.expireTick && valid(retal.target) && !isCombatExcluded(retal.target)) {
   const d = vector(entity.location, retal.target.location).distance;
   if (d <= maxDistance) return retal.target;
  }
@@ -127,7 +128,7 @@ export function findRaiderTarget(entity, maxDistance) {
 export function findGuardTarget(guard, maxDistance) {
  // 1. 优先反击伤害守卫的实体（严禁误伤玩家）
  const retal = CombatAI.retaliationTargets.get(guard.id);
- if (retal && system.currentTick < retal.expireTick && valid(retal.target)) {
+ if (retal && system.currentTick < retal.expireTick && valid(retal.target) && !isCombatExcluded(retal.target)) {
   if (retal.target.typeId !== "minecraft:player") {
    const d = vector(guard.location, retal.target.location).distance;
    if (d <= maxDistance) return retal.target;
@@ -249,7 +250,7 @@ export class CombatAI {
  static tick() {
   const dimensions = new Map();
   for (const player of world.getAllPlayers()) {
-   if (isPvpExcluded(player)) continue;
+   if (isCombatExcluded(player)) continue;
    try { dimensions.set(player.dimension.id, player.dimension); } catch {}
   }
   for (const dimension of dimensions.values()) {
@@ -445,7 +446,7 @@ export class CombatAI {
   * 真实枪械射击分发（发射 test_guns_2d_addon 的真实子弹投掷物）
   */
  static fireNpcGun(entity, target, origin, targetHead, profile) {
-  if (isPvpExcluded(target) || isPvpArea(entity.dimension.id, entity.location)) return;
+  if (isCombatExcluded(target) || isPvpArea(entity.dimension.id, entity.location)) return;
   const dir = vector(origin, targetHead);
   const spawnPos = {
    x: origin.x + dir.x * 0.75,

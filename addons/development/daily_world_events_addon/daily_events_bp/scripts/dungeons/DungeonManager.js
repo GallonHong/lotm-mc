@@ -1,3 +1,4 @@
+import { arenaColumns, waitForArena, platformTiles } from "./chunkReadiness.js";
 import { isWeeklyArea, isWeeklyExcluded } from "../weekly/isolation.js";
 import { world, system, ItemStack, BlockPermutation } from "@minecraft/server";
 import { CONFIG } from "../config.js";
@@ -94,11 +95,8 @@ function insideArena(location, origin, bounds, margin = 0) {
 }
 
 /**
- * Place a behavior-pack structure without passing a path-like identifier through
- * the command parser. Nested pack ids such as
- * daily_dungeon:abandoned_town/clinic_a are valid StructureManager ids, but the
- * `/structure load` command parser used by some Bedrock builds rejects the `/`
- * when the id is not quoted.
+ * Place a structure only after destination chunks are ready. Nested pack ids
+ * must stay quoted because the command parser otherwise rejects their slashes.
  */
 function placePackStructure(dimension, structureId, location) {
  const id = String(structureId || "");
@@ -106,26 +104,10 @@ function placePackStructure(dimension, structureId, location) {
   throw new Error(`invalid structure id: ${id}`);
  }
 
- let apiError = null;
- try {
-  if (world.structureManager && typeof world.structureManager.place === "function") {
-   world.structureManager.place(id, dimension, location, {
-    includeBlocks: true,
-    includeEntities: true
-   });
-   return;
-  }
- } catch (error) {
-  apiError = error;
- }
-
- // Compatibility fallback for older Script API builds. Keep the identifier
- // quoted so nested structure names are parsed as one command argument.
- try {
-  dimension.runCommand(`structure load "${id}" ${location.x} ${location.y} ${location.z}`);
- } catch (commandError) {
-  throw new Error(`API=${apiError || "unavailable"}; command=${commandError}`);
- }
+ // Command placement is synchronous once all destination chunks are ready.
+ // StructureManager.place may defer unloaded portions without reporting failure.
+ const result = dimension.runCommand(`structure load "${id}" ${location.x} ${location.y} ${location.z}`);
+ if (!(result?.successCount > 0)) throw new Error(`structure load ${id} returned no success`);
 }
 
 function arenaQuery(instance, template) {
@@ -231,8 +213,7 @@ export class DungeonManager {
    participant.sendMessage(`§e[副本] 队长 ${leader.name} 正在准备 ${template.name}，请稍候……`);
   }
 
-  this.addTickingArea(slot);
-  system.runTimeout(() => this.loadAndEnter(instance), 20);
+  system.runTimeout(() => this.loadAndEnter(instance), 1);
   return instance;
  }
 
@@ -261,7 +242,9 @@ export class DungeonManager {
     if (player) this.teleportInto(player, instance);
    }
    this.beginStage(instance, 0);
-   system.runTimeout(() => this.removeTickingArea(instance.slot), 80);
+   system.runTimeout(() => {
+    if (this.active.get(instance.instanceId) === instance && instance.state === "active") this.removeTickingArea(instance.slot);
+   }, 80);
   }, error => {
    console.warn(`[DailyEvents][Dungeon] structure load failed: ${error}`);
    this.finish(instance, false, "副本结构加载失败");
@@ -280,8 +263,9 @@ export class DungeonManager {
 
   const structures = Array.isArray(template.structures) ? template.structures : [];
   const loadNext = index => {
+   if (this.active.get(instance.instanceId) !== instance) return;
    if (index >= structures.length) {
-    onDone?.();
+    this.verifyPlatform(instance, dimension, onDone, onError);
     return;
    }
    const component = structures[index];
@@ -294,14 +278,22 @@ export class DungeonManager {
    }
    system.runTimeout(() => loadNext(index + 1), Number(template.structureLoadDelayTicks || 8));
   };
-  this.prepareArena(instance, dimension, () => loadNext(0), onError);
+  if (!this.addTickingArea(instance.slot)) {
+   onError?.(new Error("无法申请副本常加载区，请检查全世界最多10个常加载区的名额。"));
+   return;
+  }
+  const columns = arenaColumns(instance.slot.origin, Math.max(130, template.arenaBounds.max.x), Math.max(130, template.arenaBounds.max.z));
+  waitForArena(dimension, columns, (fn, ticks) => system.runTimeout(fn, ticks),
+   () => this.prepareArena(instance, dimension, () => loadNext(0), onError,
+    () => this.active.get(instance.instanceId) === instance), onError,
+   () => this.active.get(instance.instanceId) === instance);
  }
 
  /**
   * 多模板共用实例槽位时必须先清空上一个地图。每 tick 只执行一个
   * 32³ fill，避免一次加载几十条大范围命令造成卡顿。
   */
- static prepareArena(instance, dimension, onDone, onError) {
+ static prepareArena(instance, dimension, onDone, onError, isCurrent = () => true) {
   const template = dungeonTemplate(instance.templateId);
   const jobs = [];
   const min = -2;
@@ -318,16 +310,42 @@ export class DungeonManager {
    }
   }
   const platform = template.platform;
-  if (platform) {
-   jobs.push(`fill ${instance.slot.origin.x + platform.min.x} ${instance.slot.origin.y - 1} ${instance.slot.origin.z + platform.min.z} ${instance.slot.origin.x + platform.max.x} ${instance.slot.origin.y - 1} ${instance.slot.origin.z + platform.max.z} ${platform.block}`);
+  for (const tile of platformTiles(instance.slot.origin, platform)) {
+   const a = tile.min, b = tile.max;
+   jobs.push(`fill ${a.x} ${a.y} ${a.z} ${b.x} ${b.y} ${b.z} ${platform.block}`);
   }
   const run = index => {
+   if (!isCurrent()) return;
    if (index >= jobs.length) return onDone?.();
    try { dimension.runCommand(jobs[index]); }
    catch (error) { onError?.(error); return; }
    system.runTimeout(() => run(index + 1), 1);
   };
   run(0);
+ }
+
+ /** Verify every foundation block before admission, repairing missing slices only. */
+ static verifyPlatform(instance, dimension, onDone, onError) {
+  const template = dungeonTemplate(instance.templateId);
+  const tiles = platformTiles(instance.slot.origin, template.platform);
+  const check = (index, retry = 0) => {
+   if (this.active.get(instance.instanceId) !== instance) return;
+   if (index >= tiles.length) return onDone?.();
+   const { min: a, max: b } = tiles[index];
+   try {
+    let missing = false;
+    for (let x = a.x; x <= b.x; x++) for (let z = a.z; z <= b.z; z++) {
+     const block = dimension.getBlock({ x, y: a.y, z });
+     if (!block || block.isAir) missing = true;
+    }
+    if (missing) {
+     if (retry >= 3) throw new Error(`副本地基未完成：${a.x},${a.z}`);
+     dimension.runCommand(`fill ${a.x} ${a.y} ${a.z} ${b.x} ${b.y} ${b.z} ${template.platform.block} replace air`);
+     system.runTimeout(() => check(index, retry + 1), 10);
+    } else system.runTimeout(() => check(index + 1), 1);
+   } catch (error) { onError?.(error); }
+  };
+  check(0);
  }
 
  static teleportInto(player, instance) {
@@ -1002,9 +1020,11 @@ export class DungeonManager {
   try {
    const dimension = world.getDimension(slot.dimension);
    const name = `daily_${slot.id}`;
-   try { dimension.runCommand(`tickingarea remove ${name}`); } catch {}
-   dimension.runCommand(`tickingarea add ${slot.origin.x - 8} ${slot.origin.y} ${slot.origin.z - 8} ${slot.origin.x + 136} ${slot.origin.y} ${slot.origin.z + 136} ${name} true`);
-  } catch {}
+   // Reuse our existing area during respawn instead of unloading/reloading it.
+   try { if (dimension.runCommand(`tickingarea preload ${name} true`)?.successCount > 0) return true; } catch {}
+   const result = dimension.runCommand(`tickingarea add ${slot.origin.x - 8} ${slot.origin.y} ${slot.origin.z - 8} ${slot.origin.x + 136} ${slot.origin.y} ${slot.origin.z + 136} ${name} true`);
+   return result?.successCount > 0;
+  } catch { return false; }
  }
 
  static removeTickingArea(slot) {
@@ -1013,25 +1033,22 @@ export class DungeonManager {
 
  static resetSlot(instance) {
   this.resettingSlots.add(instance.slot.id);
-  this.addTickingArea(instance.slot);
-  system.runTimeout(() => {
-   let dimension;
-   try { dimension = world.getDimension(instance.slot.dimension); }
-   catch (error) {
-    console.warn(`[DailyEvents][Dungeon] slot cleanup failed: ${error}`);
-    this.resettingSlots.delete(instance.slot.id);
-    return;
-   }
-   this.prepareArena(instance, dimension, () => {
-    system.runTimeout(() => {
-     this.removeTickingArea(instance.slot);
-     this.resettingSlots.delete(instance.slot.id);
-    }, 40);
-   }, error => {
-    console.warn(`[DailyEvents][Dungeon] slot cleanup failed: ${error}`);
-    this.removeTickingArea(instance.slot);
-    this.resettingSlots.delete(instance.slot.id);
-   });
-  }, 20);
+  const cleanup = error => {
+   if (error) console.warn(`[DailyEvents][Dungeon] slot cleanup failed: ${error}`);
+   this.removeTickingArea(instance.slot);
+   this.resettingSlots.delete(instance.slot.id);
+  };
+  if (!this.addTickingArea(instance.slot)) {
+   cleanup(new Error("无法申请副本清场常加载区；下次进入会重新完整清场"));
+   return;
+  }
+  let dimension;
+  try { dimension = world.getDimension(instance.slot.dimension); }
+  catch (error) { cleanup(error); return; }
+  const template = dungeonTemplate(instance.templateId);
+  const columns = arenaColumns(instance.slot.origin, Math.max(130, template.arenaBounds.max.x), Math.max(130, template.arenaBounds.max.z));
+  waitForArena(dimension, columns, (fn, ticks) => system.runTimeout(fn, ticks), () => {
+   this.prepareArena(instance, dimension, () => system.runTimeout(() => cleanup(), 40), cleanup);
+  }, cleanup);
  }
 }

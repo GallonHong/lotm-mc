@@ -9,9 +9,9 @@ const rp = join(root, "apocalypse_boss_rp");
 const json = path => JSON.parse(readFileSync(path, "utf8"));
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [1, 5, 0]);
-assert.deepEqual(rpManifest.header.version, [1, 5, 0]);
-assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [1, 5, 0]);
+assert.deepEqual(bpManifest.header.version, [1, 5, 1]);
+assert.deepEqual(rpManifest.header.version, [1, 5, 1]);
+assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [1, 5, 1]);
 assert.deepEqual(bpManifest.header.min_engine_version, [1, 26, 10]);
 assert.deepEqual(rpManifest.header.min_engine_version, [1, 26, 10]);
 
@@ -42,4 +42,4 @@ for (const entity of ["sandworm.json", "abomination.json"]) {
 }
 
 assert.equal(readFileSync(join(bp, "loot_tables/boss/siren_head.json"), "utf8").includes('"chance": 0.02'), true);
-console.log("Apocalypse Boss v1.5.0 loot validation passed.");
+console.log("Apocalypse Boss v1.5.1 loot validation passed.");

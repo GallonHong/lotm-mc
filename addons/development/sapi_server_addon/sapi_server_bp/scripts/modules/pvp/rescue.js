@@ -18,7 +18,7 @@ export class PvpRescue {
     current.playAnimation('animation.sapi_pvp.downed_reset',{controller:POSE_CONTROLLER,blendOutTime:0,stopExpression:'query.all_animations_finished'});
    }catch{}
   };
-  reset();for(const delay of [1,4,10])system.runTimeout(reset,delay);
+  reset();for(const delay of [1,4,10,20,40])system.runTimeout(reset,delay);
  }
  static configure(h){this.hooks=h;}
  static record(id){return this.hooks.getMatch()?.downed?.[id];}
@@ -50,9 +50,9 @@ export class PvpRescue {
   hp.setCurrentValue(Math.min(hp.effectiveMax??20,4));
   p.addTag(DOWN);p.removeTag('pvp:downed_waiting');p.removeTag('pvp:protected');p.inputPermissions.movementEnabled=false;
   for(const e of ['resistance','regeneration','absorption'])try{p.removeEffect(e);}catch{}
-  r.stage='DOWNED';r.rescueTicks=0;r.surrenderTicks=0;r.jumpReleased=false;
+  r.stage='DOWNED';r.poseTicks=0;r.rescueTicks=0;r.surrenderTicks=0;r.jumpReleased=false;
   this.beginPose(p);
-  try{p.playAnimation('animation.humanoid.fall',{controller:POSE_CONTROLLER,blendOutTime:0,stopExpression:'!query.is_alive'});}catch{}
+  try{p.playAnimation('animation.sapi_pvp.downed_fall',{controller:POSE_CONTROLLER,blendOutTime:0,stopExpression:'!query.is_alive || query.all_animations_finished'});}catch{}
   h.save(m);note(p,'队友在2.8格内潜行5秒可救援；30秒后正式阵亡。可在比赛菜单选择放弃救援。');return true;
  }
  static clear(p){
@@ -85,6 +85,10 @@ export class PvpRescue {
    const p=h.byId(id);if(!p||!h.valid(p))continue;
    if(r.stage==='WAITING'){r.waitTicks+=5;if(r.waitTicks>200){this.finalize(p,r.attacker,true);note(p,'未完成原生复活，已按正式阵亡处理；复活后返回出生点。');}continue;}
    if(r.stage!=='DOWNED')continue;
+   r.poseTicks=(r.poseTicks||0)+5;
+   if(r.poseTicks>=20&&r.poseTicks%10===0){
+    try{p.playAnimation('animation.sapi_pvp.downed_hold',{controller:POSE_CONTROLLER,blendOutTime:0,stopExpression:'!query.is_alive || query.all_animations_finished'});}catch{}
+   }
    // Keep the player at the downed point; FPV recovery or knockback must not release movement.
    p.inputPermissions.movementEnabled=false;
    if(p.dimension.id!==h.dimension().id||Math.hypot(p.location.x-r.location.x,p.location.y-r.location.y,p.location.z-r.location.z)>0.2)p.teleport(r.location,{dimension:h.dimension()});

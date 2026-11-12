@@ -314,14 +314,14 @@ class AddonController {
    RailCannon.tick();
    BaizhanEngine.tick();
    PkmBurn.tick();
-   for (const player of world.getAllPlayers()) tickPvpGunGuard(player);
+   const players = world.getAllPlayers();
+   for (const player of players) tickPvpGunGuard(player);
    GrenadeEngine.onTick();
    RocketEngine.onTick();
    ShieldEngine.tick();
    ArtilleryEngine.tick();
    JetpackEngine.onTick();
 
-   const players = world.getAllPlayers();
    for (const player of players) {
     if (this.auraTick % 10 === 0) {
      ArmorHealth.tick(player);

@@ -1,5 +1,5 @@
 import { hasInfinitePvpReserve } from './utils/pvpRules.js';
-import { countAmmoInInventory, isCreativePlayer } from './utils/inventoryUtils.js';
+import { countAmmoForHUD, isCreativePlayer } from './utils/inventoryUtils.js';
 import { EquipmentSlot } from '@minecraft/server';
 import { DamageHandler } from './damageHandler.js';
 import { BaizhanWear } from './baizhanWear.js';
@@ -49,7 +49,7 @@ function formatDurabilityString(player, gun) {
 
 export function showAmmoHUD(player, gun, currentAmmo, status = '') {
  const isCreative = isCreativePlayer(player) || hasInfinitePvpReserve(player);
- const reserveStr = isCreative ? '§b∞§r' : ('§f' + countAmmoInInventory(player, gun.ammoTypeId) + '§r');
+ const reserveStr = isCreative ? '§b∞§r' : ('§f' + countAmmoForHUD(player, gun.ammoTypeId) + '§r');
  const ammoRatio = currentAmmo / gun.maxAmmo;
  
  let ammoColor = '§a';
@@ -79,7 +79,7 @@ export function showReloadingHUD(player, gun, progressRatio) {
 
 export function showOutOfAmmoHUD(player, gun) {
  const isCreative = isCreativePlayer(player) || hasInfinitePvpReserve(player);
- const reserveStr = isCreative ? '§b∞§r' : countAmmoInInventory(player, gun.ammoTypeId);
+ const reserveStr = isCreative ? '§b∞§r' : countAmmoForHUD(player, gun.ammoTypeId);
  const durStr = formatDurabilityString(player, gun);
  updateActionBar(player, `§c[弹夹打空 0/${gun.maxAmmo}]§r潜行+右键换弹 §8(备弹: ${reserveStr})§r${durStr}`);
 }

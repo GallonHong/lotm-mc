@@ -125,3 +125,8 @@ bash addons/development/apocalypse_life_addon/build.sh
 - 删除 `survival_vehicle:blueprint_motorcycle` 蓝图物品与两条配方（造蓝图 + 组装），摩托车改为新手教程奖励直接发放。
 - 自动售货机自定义方块组件改为在 startup / worldInitialize 阶段注册（旧写法只订阅 worldInitialize，会静默错过事件），空手与手持任意物品右键均可稳定打开菜单。
 - 钢琴（xypiano）组件注册同步加固；无人机伴飞/手动火控的"空手右键开火"逻辑不再拦截自定义方块与常见交互方块（售货机、箱子、工作台、门等），避免吞掉交互。
+
+## 9. v1.4.12：倒地目标协议与救援优化
+
+- `rescue/DownedRescueManager` 接入统一倒地标签协议：`apoc:downed` / `apoc:downed_pending` 期间怪物 AI 不再锁定倒地玩家（与 Boss 1.5.1 / Mobs 0.7.10 的 `downedTarget.js` 使用同一套 tag 约定，不依赖 UUID 或 scriptevent）。
+- 更新 `animations/downed_reset.animation.json` 倒地重置表现（与 SAPI 2.15.3 同步）。
