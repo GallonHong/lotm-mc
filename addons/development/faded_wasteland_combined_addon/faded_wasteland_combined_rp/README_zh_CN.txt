@@ -26,7 +26,7 @@ https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/vol
 官方Biomes Customization的Limitations已核实：同包水设置应使用相同caustics参数，因为它们不能混合。上述统一遵循此限制。来源：https://learn.microsoft.com/en-us/minecraft/creator/documents/vibrantvisuals/biomecustomization
 
 
-## 0.3.11 追加：常用方块 PBR 贴图
+## 0.3.12 追加：常用方块 PBR 贴图
 
 从第三方光影包 Dynamic Details 1.2（Square Dreams AB）提取常用方块的高度图（heightmap）与金属/发光/粗糙度图（MER），共 93 个方块纹理、145 张 PBR 贴图，合计约 294KB；颜色仍使用原版贴图（texture_set 的 color 指向原版纹理名），不替换方块外观颜色。
 
