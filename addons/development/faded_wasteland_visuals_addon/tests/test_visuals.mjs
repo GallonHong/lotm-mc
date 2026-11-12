@@ -3,7 +3,7 @@ import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
-// Faded Wasteland Visuals 0.3.10: sky layering + softer haze / clearer water test build.
+// Faded Wasteland Visuals 0.3.11: sky layering + softer haze / clearer water test build.
 // Static validation only; real GPU/visual verification needs an in-game Vibrant Visuals pass.
 const root = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const rp = join(root, "faded_wasteland_visuals_rp");
@@ -26,12 +26,12 @@ const relative = path => path.slice(rp.length + 1).replaceAll("\\", "/");
 
 // 1) manifest: single fixed preset, no subpacks
 const manifest = json(join(rp, "manifest.json"));
-assert.deepEqual(manifest.header.version, [0, 3, 10], "manifest version must be 0.3.10");
-assert.deepEqual(manifest.modules[0].version, [0, 3, 10], "module version must be 0.3.10");
+assert.deepEqual(manifest.header.version, [0, 3, 11], "manifest version must be 0.3.11");
+assert.deepEqual(manifest.modules[0].version, [0, 3, 11], "module version must be 0.3.11");
 assert.equal(manifest.header.uuid, "61a15a41-271b-4326-86e3-e110db785760", "uuid stays stable");
 assert.deepEqual(manifest.header.min_engine_version, [1, 26, 60]);
 assert(manifest.capabilities?.includes("pbr"));
-assert(manifest.header.name.includes("0.3.10"), "display name must mention 0.3.10");
+assert(manifest.header.name.includes("0.3.11"), "display name must mention 0.3.11");
 assert.equal(manifest.subpacks, undefined, "single fixed look: no selectable subpacks");
 assert.equal(existsSync(join(rp, "subpacks")), false, "subpacks directory must be gone");
 
@@ -68,10 +68,10 @@ const gradingDoc = json(join(rp, "color_grading/color_grading.json"))["minecraft
 assert.equal(gradingDoc.tone_mapping.operator, "reinhard_luminance");
 const grading = gradingDoc.color_grading;
 assert.deepEqual(grading.midtones.gain, [0.66, 0.66, 0.65], "post-tonemap gain stays the darker level");
-assert.deepEqual(grading.midtones.saturation, [0.80, 0.80, 0.80], "natural desaturation (0.3.10)");
-assert.deepEqual(grading.highlights.gain, [0.63, 0.63, 0.63], "neutral highlight gain (0.3.10)");
-assert.equal(grading.highlights.highlightsMin, 1.8, "highlight threshold (0.3.10)");
-assert.deepEqual(grading.highlights.saturation, [0.82, 0.82, 0.82], "highlight saturation (0.3.10)");
+assert.deepEqual(grading.midtones.saturation, [0.80, 0.80, 0.80], "natural desaturation (0.3.11)");
+assert.deepEqual(grading.highlights.gain, [0.63, 0.63, 0.63], "neutral highlight gain (0.3.11)");
+assert.equal(grading.highlights.highlightsMin, 1.8, "highlight threshold (0.3.11)");
+assert.deepEqual(grading.highlights.saturation, [0.82, 0.82, 0.82], "highlight saturation (0.3.11)");
 assert.deepEqual(grading.midtones.offset, [-0.022, -0.020, -0.017]);
 assert.equal(grading.temperature.temperature, 6450);
 assert(grading.temperature.enabled && grading.shadows.enabled && grading.highlights.enabled);
@@ -104,14 +104,14 @@ for (const name of fogFiles) {
 		`${name}: haze must absorb light`);
 }
 const defaultFog = json(join(fogDir, "fog_default.json"))["minecraft:fog_settings"];
-assert.equal(defaultFog.distance.air.fog_start, 0.78, "haze moved back (0.3.10)");
-assert.equal(defaultFog.distance.weather.fog_start, 0.3, "weather haze start (0.3.10)");
-assert.equal(defaultFog.distance.weather.fog_end, 0.8, "weather haze end (0.3.10)");
-assert.equal(defaultFog.volumetric.density.weather.max_density, 0.0105, "weather haze density (0.3.10)");
+assert.equal(defaultFog.distance.air.fog_start, 0.78, "haze moved back (0.3.11)");
+assert.equal(defaultFog.distance.weather.fog_start, 0.3, "weather haze start (0.3.11)");
+assert.equal(defaultFog.distance.weather.fog_end, 0.8, "weather haze end (0.3.11)");
+assert.equal(defaultFog.volumetric.density.weather.max_density, 0.0105, "weather haze density (0.3.11)");
 assert.equal(defaultFog.distance.air.fog_color, "#A4A7A8");
 assert.equal(defaultFog.distance.water.fog_color, "#3E6156");
-assert.equal(defaultFog.volumetric.density.air.max_density, 0.0036, "clearer haze density (0.3.10)");
-assert.equal(defaultFog.volumetric.henyey_greenstein_g.air.henyey_greenstein_g, 0.65, "softer forward scattering (0.3.10)");
+assert.equal(defaultFog.volumetric.density.air.max_density, 0.0036, "clearer haze density (0.3.11)");
+assert.equal(defaultFog.volumetric.henyey_greenstein_g.air.henyey_greenstein_g, 0.65, "softer forward scattering (0.3.11)");
 
 // 6) shared water / lights / shadows / biomes
 const WATER_IDS = ["water", "desert_water", "snowy_water", "swamp_water", "pale_water"];
@@ -165,8 +165,8 @@ for (const isolated of ["models", "sounds", "ui", "attachables", "entity"]) {
 
 // 8) docs
 const inPackReadme = read(join(rp, "README_zh_CN.txt"));
-assert(inPackReadme.includes("0.3.10") && inPackReadme.includes("雨"),
-	"readme documents the 0.3.10 rain particles");
+assert(inPackReadme.includes("0.3.11") && inPackReadme.includes("雨"),
+	"readme documents the 0.3.11 rain particles");
 assert(inPackReadme.includes("未"), "readme stays honest about in-game verification");
 
 // 7) extracted block PBR overlay: texture_set per vanilla block + copied height/MER maps
@@ -187,11 +187,12 @@ for (const file of setFiles) {
 	assert(data && data.color, `${file}: texture_set color missing`);
 	for (const key of ["heightmap", "metalness_emissive_roughness", "metalness_emissive_roughness_subsurface"]) {
 		if (!data[key]) continue;
+		if (Array.isArray(data[key])) continue; // inline metalness/emissive/roughness (water)
 		assert(existsSync(join(dirname(file), `${data[key]}.png`)), `${file}: ${key} map missing (${data[key]}.png)`);
 	}
 }
 const pbrBytes = pbrFiles.reduce((sum, file) => sum + readFileSync(file).length, 0);
 assert(pbrBytes < 600 * 1024, `block PBR overlay too large: ${(pbrBytes / 1024).toFixed(0)}KB`);
-console.log(`Faded Wasteland Visuals 0.3.10 block PBR overlay: ${setFiles.length} texture sets, ${(pbrBytes / 1024).toFixed(0)}KB.`);
+console.log(`Faded Wasteland Visuals 0.3.11 block PBR overlay: ${setFiles.length} texture sets, ${(pbrBytes / 1024).toFixed(0)}KB.`);
 
-console.log("Faded Wasteland Visuals 0.3.10 validation passed (sky layering, softer haze, clearer water).");
+console.log("Faded Wasteland Visuals 0.3.11 validation passed (sky layering, softer haze, clearer water).");
