@@ -152,12 +152,12 @@ const versions = [
 	["daily_world_events_addon/daily_events_rp/manifest.json", [0, 20, 4]],
 	["test_guns_2d_addon/test_guns_bp/manifest.json", [3, 16, 23]],
 	["test_guns_2d_addon/test_guns_rp/manifest.json", [3, 16, 23]],
-	["sapi_server_addon/sapi_server_bp/manifest.json", [2, 15, 4]],
-	["sapi_server_addon/sapi_server_rp/manifest.json", [2, 15, 4]],
+	["sapi_server_addon/sapi_server_bp/manifest.json", [2, 15, 5]],
+	["sapi_server_addon/sapi_server_rp/manifest.json", [2, 15, 5]],
 ];
 for (const [relative, expected] of versions) {
 	const manifest = JSON.parse(readFileSync(join(repo, "addons/development", relative), "utf8"));
 	assert.deepEqual(manifest.header.version, expected, `${relative} version`);
 }
 
-console.log("Weekly raid boss contract validation passed (boss 1.5.2 / daily 0.20.4 / guns 3.16.23 / sapi 2.15.4).");
+console.log("Weekly raid boss contract validation passed (boss 1.5.2 / daily 0.20.4 / guns 3.16.23 / sapi 2.15.5).");

@@ -80,6 +80,7 @@ function matchCopy(item, matchId) {
  const copy=item.clone(); copy.setLore([...(copy.getLore() || []).slice(0,19),marker(matchId)]); return copy;
 }
 function isGun(item) { return !!item && PVP_GUN_IDS.has(item.typeId); }
+function isShield(item) { return !!item && item.typeId === 'minecraft:shield'; }
 export const PVP_FALLBACK_GUN = 'test_gun:ak47';
 export function issueMatchEquipment(player, tx) {
  // Admission-only grant. A repeated callback or a respawn must never refill a
@@ -93,12 +94,20 @@ export function issueMatchEquipment(player, tx) {
  // Search all 36 accessible inventory slots, not only the selected hand. An
  // offhand gun is also usable; move its temporary copy into a normal match slot.
  const ownedGuns=[];
- for(let i=0;i<36;i++) { const item=getSaved(boxes,i); if(isGun(item)) ownedGuns.push({slot:i,item}); }
+ const ownedShields=[];
+ for(let i=0;i<36;i++) { const item=getSaved(boxes,i); if(isGun(item)) ownedGuns.push({slot:i,item}); else if(isShield(item)) ownedShields.push({slot:i,item}); }
  const off=getSaved(boxes,40);
  const needsFallback=ownedGuns.length===0&&!isGun(off);
  tx.phase='ISSUING';tx.fallbackGunIssued=needsFallback;writeTransaction(player,tx);
  clearPlayer(player);
  for(const {slot,item} of ownedGuns) inv.setItem(slot,matchCopy(item,tx.matchId));
+ // Shields are allowed in PvP: keep inventory shields (hotbar/backpack) and put each
+ // back in its original slot, or the first free slot if that slot is occupied.
+ for(const {slot,item} of ownedShields) {
+  const copy=matchCopy(item,tx.matchId);
+  if(!inv.getItem(slot)) inv.setItem(slot,copy);
+  else { for(let i=0;i<36;i++) if(!inv.getItem(i)) { inv.setItem(i,copy); break; } }
+ }
  for(let i=0;i<4;i++) eq.setEquipment(EQUIPMENT[i],matchCopy(getSaved(boxes,36+i),tx.matchId));
  if(off?.typeId==='minecraft:shield') eq.setEquipment(EquipmentSlot.Offhand,matchCopy(off,tx.matchId));
  let selected=tx.selectedSlot;
