@@ -1,6 +1,6 @@
 import { world, EquipmentSlot, ItemStack } from '@minecraft/server';
 import { PVP_CONFIG, marker } from './rules.js';
-import { PVP_GUN_IDS } from './guns.generated.js';
+import { planMatchEquipment } from './equipment.js';
 const EQUIPMENT = [EquipmentSlot.Head, EquipmentSlot.Chest, EquipmentSlot.Legs, EquipmentSlot.Feet, EquipmentSlot.Offhand];
 const INDEX_KEY = 'pvp:vault_index_v1';
 const TX_KEY = 'pvp:transaction_v1';
@@ -79,7 +79,6 @@ function matchCopy(item, matchId) {
  if (!item) return undefined;
  const copy=item.clone(); copy.setLore([...(copy.getLore() || []).slice(0,19),marker(matchId)]); return copy;
 }
-function isGun(item) { return !!item && PVP_GUN_IDS.has(item.typeId); }
 export const PVP_FALLBACK_GUN = 'test_gun:ak47';
 export function issueMatchEquipment(player, tx) {
  // Admission-only grant. A repeated callback or a respawn must never refill a
@@ -90,28 +89,20 @@ export function issueMatchEquipment(player, tx) {
  if (persisted.phase !== 'STORED' || tx.phase !== 'STORED') throw new Error('比赛发装已开始或不在安全阶段，请先恢复装备。');
  const boxes=vaultContainers(tx.slot), inv=inventory(player), eq=player.getComponent('minecraft:equippable');
  assertOwner(player,tx);assertSnapshot(boxes,tx);
- // Search all 36 accessible inventory slots, not only the selected hand. An
- // offhand gun is also usable; move its temporary copy into a normal match slot.
- const ownedGuns=[];
- for(let i=0;i<36;i++) { const item=getSaved(boxes,i); if(isGun(item)) ownedGuns.push({slot:i,item}); }
- const off=getSaved(boxes,40);
- const needsFallback=ownedGuns.length===0&&!isGun(off);
- tx.phase='ISSUING';tx.fallbackGunIssued=needsFallback;writeTransaction(player,tx);
+ // Compute all destinations before clearing anything. Shields retain their
+ // inventory/offhand positions; guns and bows are combat weapons for fallback.
+ const plan=planMatchEquipment(Array.from({length:36},(_,i)=>getSaved(boxes,i)),getSaved(boxes,40),tx.selectedSlot);
+ tx.phase='ISSUING';tx.fallbackGunIssued=plan.needsFallback;writeTransaction(player,tx);
  clearPlayer(player);
- for(const {slot,item} of ownedGuns) inv.setItem(slot,matchCopy(item,tx.matchId));
+ for(const {slot,item} of plan.items) inv.setItem(slot,matchCopy(item,tx.matchId));
  for(let i=0;i<4;i++) eq.setEquipment(EQUIPMENT[i],matchCopy(getSaved(boxes,36+i),tx.matchId));
- if(off?.typeId==='minecraft:shield') eq.setEquipment(EquipmentSlot.Offhand,matchCopy(off,tx.matchId));
- let selected=tx.selectedSlot;
- if(isGun(off)) {
-  for(let i=0;i<36;i++) if(!inv.getItem(i)) { inv.setItem(i,matchCopy(off,tx.matchId)); if(!ownedGuns.length)selected=i; break; }
- }
- if(needsFallback) {
-  selected=Number.isInteger(tx.selectedSlot)&&tx.selectedSlot>=0&&tx.selectedSlot<36?tx.selectedSlot:0;
+ if(plan.offhand) eq.setEquipment(EquipmentSlot.Offhand,matchCopy(plan.offhand,tx.matchId));
+ if(plan.needsFallback) {
   const fallback=matchCopy(new ItemStack(PVP_FALLBACK_GUN,1),tx.matchId);
   fallback.setLore([...fallback.getLore(),'§7比赛保底武器 · 可转交 · 赛后回收']);
-  inv.setItem(selected,fallback);
+  inv.setItem(plan.fallbackSlot,fallback);
  }
- player.selectedSlotIndex=selected;
+ player.selectedSlotIndex=plan.selectedSlot;
  tx.phase='ACTIVE';writeTransaction(player,tx);
  return true;
 }

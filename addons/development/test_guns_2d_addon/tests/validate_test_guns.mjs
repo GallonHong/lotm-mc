@@ -11,9 +11,9 @@ function files(directory) { return readdirSync(directory).flatMap(name => { cons
 for (const path of [...files(bp), ...files(rp)].filter(path => path.endsWith(".json"))) assert.doesNotThrow(() => json(path), `invalid JSON: ${path}`);
 const bpManifest = json(join(bp, "manifest.json"));
 const rpManifest = json(join(rp, "manifest.json"));
-assert.deepEqual(bpManifest.header.version, [3, 16, 23]);
-assert.deepEqual(rpManifest.header.version, [3, 16, 23]);
-assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 16, 23]);
+assert.deepEqual(bpManifest.header.version, [3, 17, 0]);
+assert.deepEqual(rpManifest.header.version, [3, 17, 0]);
+assert.deepEqual(bpManifest.dependencies.find(value => value.uuid === rpManifest.header.uuid)?.version, [3, 17, 0]);
 assert.equal(json(join(bp, "items/blueprint_usas12.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_usas12");
 assert(readFileSync(join(bp, "recipes/recipe_usas12.json"), "utf8").includes("test_gun:blueprint_usas12"));
 assert.equal(json(join(bp, "items/blueprint_dbss.json"))["minecraft:item"].description.identifier, "test_gun:blueprint_dbss");
@@ -152,4 +152,4 @@ for (const scriptFile of ["rocketEngine.js", "grenadeEngine.js", "artilleryEngin
 }
 assert(armorEngineCode.includes("bluntTrauma"), "armorEngine missing Boss blunt trauma logic");
 
-console.log("Test Guns 2D v3.16.23 validation passed.");
+console.log("Test Guns 2D v3.17.0 validation passed.");

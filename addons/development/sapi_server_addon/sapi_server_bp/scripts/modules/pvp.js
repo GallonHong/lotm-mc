@@ -48,7 +48,7 @@ export class PvPManager {
    const navigation=(this.match?.points||C.points).map(point=>`${navigationLine(p.location,point)} · ${point.contested?'争夺中':point.owner==='red'?'红方':point.owner==='blue'?'蓝方':'中立'}${point.capturing?` · 占领 ${point.progress}/${C.captureSeconds}`:''}`).join('\n');
    Utils.showForm(p,new ActionFormData().title('废土争夺战').body(`当前：${tx?.phase||'恢复中'}\n${navigation}\n死亡保留本局装备；无人机召回后本局停用。\n退出后恢复赛前原装备。`).button('退出比赛并恢复原装备').button('继续比赛'),r=>{if(r.selection===0)this.leave(p);});return;
   }
-  const acts=[]; const form=new ActionFormData().title('废土争夺战').body(`六分街 · 三据点占领\n候场 ${this.queue.size}/${this.teamSize*2}，当前 ${this.teamSize}v${this.teamSize}\n无枪时提供普通AK47；无限备弹与医疗品，保留换弹/治疗时间\n无人机真实损耗，货运机禁止入场\n${ready()?'地图已安装':'管理员尚未安装赛场'}${this.match?' · 比赛正在进行':''}`);
+  const acts=[]; const form=new ActionFormData().title('废土争夺战').body(`六分街 · 三据点占领\n候场 ${this.queue.size}/${this.teamSize*2}，当前 ${this.teamSize}v${this.teamSize}\n枪械、弓与盾牌可带入；无枪或弓时提供普通AK47；无限备弹与医疗品，保留换弹/治疗时间\n无人机真实损耗，货运机禁止入场\n${ready()?'地图已安装':'管理员尚未安装赛场'}${this.match?' · 比赛正在进行':''}`);
   const add=(label,fn)=>{form.button(label);acts.push(fn);};
   add(this.queue.has(p.id)?'取消报名':'报名（自动分队）',()=>this.queue.has(p.id)?this.queue.delete(p.id):(this.queue.size?this.join(p,this.teamSize):this.selectSize(p)));
   if(Utils.isAdmin(p)){add('管理员：安装/检查赛场',()=>this.installMenu(p));add('管理员：结束本局并恢复装备',()=>this.finish('管理员结束'));}

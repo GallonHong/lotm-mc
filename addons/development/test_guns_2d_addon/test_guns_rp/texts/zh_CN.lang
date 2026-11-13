@@ -247,3 +247,8 @@ item.test_gun:flamethrower.name=§5喷火器§r\n§7耐久1800 · 每单位燃�
 item.test_gun:high_pressure_fuel.name=高压燃料
 item.test_gun:blueprint_flamethrower.name=§5喷火器蓝图§r
 item.test_gun:blueprint_baizhan.name=百战设计图 §6[传说·限定·不可合成]§r
+
+item.test_gun:hunter_compound_bow.name=§9猎人复合弓 [稀有]§r
+item.test_gun:blueprint_hunter_compound_bow.name=§9猎人复合弓蓝图 [稀有]§r
+item.test_gun:carbon_spider_bow.name=§5碳素蛛弓 [史诗]§r
+item.test_gun:blueprint_carbon_spider_bow.name=§5碳素蛛弓蓝图 [史诗]§r

@@ -523,6 +523,18 @@
     },
     "test_gun_blueprint_flamethrower": {
       "textures": "textures/guns/blueprint_flamethrower"
+    },
+    "test_gun_hunter_compound_bow": {
+      "textures": "textures/items/hunter_compound_bow"
+    },
+    "test_gun_carbon_spider_bow": {
+      "textures": "textures/items/carbon_spider_bow"
+    },
+    "test_gun_blueprint_hunter_compound_bow": {
+      "textures": "textures/blueprints/blueprint_rare"
+    },
+    "test_gun_blueprint_carbon_spider_bow": {
+      "textures": "textures/blueprints/blueprint_epic"
     }
   }
 }

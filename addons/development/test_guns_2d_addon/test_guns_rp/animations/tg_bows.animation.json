@@ -1,0 +1,144 @@
+{
+  "format_version": "1.8.0",
+  "animations": {
+    "animation.tg_bow.hold": {
+      "loop": true,
+      "bones": {
+        "rightitem": {
+          "position": [
+            "context.is_first_person ? -1.4 : 0",
+            "context.is_first_person ? 1.0 : 0",
+            "context.is_first_person ? -2.0 : 0"
+          ],
+          "rotation": [
+            "context.is_first_person ? -10 : 0",
+            "context.is_first_person ? 25 : 0",
+            "context.is_first_person ? -12 : 0"
+          ],
+          "scale": "context.is_first_person ? 0.72 : 0.8"
+        }
+      }
+    },
+    "animation.tg_bow.draw": {
+      "loop": true,
+      "bones": {
+        "upper": {
+          "rotation": [
+            "-5 * variable.tgbow_draw",
+            0,
+            0
+          ]
+        },
+        "lower": {
+          "rotation": [
+            "5 * variable.tgbow_draw",
+            0,
+            0
+          ]
+        },
+        "string_upper": {
+          "position": [
+            0,
+            0,
+            "4 * variable.tgbow_draw"
+          ],
+          "rotation": [
+            "-math.atan(4 * variable.tgbow_draw / 11.2)",
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            "math.sqrt(125.44 + 16 * variable.tgbow_draw * variable.tgbow_draw) / 11.2",
+            1
+          ]
+        },
+        "string_lower": {
+          "position": [
+            0,
+            0,
+            "4 * variable.tgbow_draw"
+          ],
+          "rotation": [
+            "math.atan(4 * variable.tgbow_draw / 11.2)",
+            0,
+            0
+          ],
+          "scale": [
+            1,
+            "math.sqrt(125.44 + 16 * variable.tgbow_draw * variable.tgbow_draw) / 11.2",
+            1
+          ]
+        },
+        "nock": {
+          "position": [
+            0,
+            0,
+            "4 * variable.tgbow_draw"
+          ]
+        },
+        "loaded_arrow": {
+          "position": [
+            0,
+            0,
+            "4 * variable.tgbow_draw"
+          ],
+          "scale": "variable.tgbow_using ? 1 : 0"
+        }
+      }
+    },
+    "animation.tg_bow.player_draw": {
+      "loop": true,
+      "animation_length": 1.4,
+      "bones": {
+        "rightArm": {
+          "rotation": [
+            -80,
+            -18,
+            5
+          ]
+        },
+        "leftArm": {
+          "rotation": [
+            -85,
+            35,
+            -8
+          ]
+        }
+      }
+    },
+    "animation.tg_bow.player_release": {
+      "animation_length": 0.2,
+      "bones": {
+        "rightArm": {
+          "rotation": {
+            "0.0": [
+              -80,
+              -18,
+              5
+            ],
+            "0.2": [
+              0,
+              0,
+              0
+            ]
+          }
+        },
+        "leftArm": {
+          "rotation": {
+            "0.0": [
+              -85,
+              35,
+              -8
+            ],
+            "0.2": [
+              0,
+              0,
+              0
+            ]
+          }
+        }
+      }
+    }
+  }
+}

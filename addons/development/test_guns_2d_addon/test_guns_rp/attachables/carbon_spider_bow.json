@@ -1,0 +1,39 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:attachable": {
+    "description": {
+      "identifier": "test_gun:carbon_spider_bow",
+      "materials": {
+        "default": "entity_alphatest",
+        "enchanted": "entity_alphatest_glint"
+      },
+      "textures": {
+        "default": "textures/entity/tg_bows/carbon_spider_bow",
+        "enchanted": "textures/misc/enchanted_item_glint"
+      },
+      "geometry": {
+        "default": "geometry.tg_bow.carbon_spider_bow"
+      },
+      "animations": {
+        "hold": "animation.tg_bow.hold",
+        "draw": "animation.tg_bow.draw"
+      },
+      "scripts": {
+        "initialize": [
+          "variable.tgbow_draw = 0;"
+        ],
+        "pre_animation": [
+          "variable.tgbow_using = (context.owning_entity -> query.is_using_item);",
+          "variable.tgbow_draw = math.clamp(variable.tgbow_draw + (variable.tgbow_using ? query.delta_time / 1.4 : -query.delta_time * 14), 0, 1);"
+        ],
+        "animate": [
+          "hold",
+          "draw"
+        ]
+      },
+      "render_controllers": [
+        "controller.render.tg_bow"
+      ]
+    }
+  }
+}

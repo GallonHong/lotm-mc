@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "test_gun:bow_arrow",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/tg_bows/hunter_compound_bow"
+      },
+      "geometry": {
+        "default": "geometry.tg_bow.arrow"
+      },
+      "render_controllers": [
+        "controller.render.tg_bow"
+      ]
+    }
+  }
+}

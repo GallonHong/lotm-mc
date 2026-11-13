@@ -129,4 +129,4 @@ bash addons/development/apocalypse_life_addon/build.sh
 ## 9. v1.4.13：倒地目标协议与救援优化
 
 - `rescue/DownedRescueManager` 接入统一倒地标签协议：`apoc:downed` / `apoc:downed_pending` 期间怪物 AI 不再锁定倒地玩家（与 Boss 1.5.2 / Mobs 0.7.11 的 `downedTarget.js` 使用同一套 tag 约定，不依赖 UUID 或 scriptevent）。
-- 更新 `animations/downed_reset.animation.json` 倒地重置表现（与 SAPI 2.15.4 同步）。
+- 更新 `animations/downed_reset.animation.json` 倒地重置表现（与 SAPI 2.15.5 同步）。
