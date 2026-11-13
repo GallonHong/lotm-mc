@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "余晖 · 废土音乐包 1.0.4",
-    "description": "Replaces vanilla background music across all slots with longer intervals between songs: surface biomes 4-8 min, default overworld 10-15 min, menu 30-90 s. Resource pack only.",
+    "name": "余晖 · 废土音乐包 1.0.5",
+    "description": "Replaces vanilla background music and spreads the four tracks across biome groups so different regions play different songs; intervals lengthened to 10-20 min per surface biome, 20-30 min default. Resource pack only.",
     "uuid": "d3b9a1f2-5c47-4a8e-b0d1-7e6f3a9c2b58",
     "version": [
       1,
       0,
-      4
+      5
     ],
     "min_engine_version": [
       1,
@@ -22,7 +22,7 @@
       "version": [
         1,
         0,
-        4
+        5
       ]
     }
   ],
