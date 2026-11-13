@@ -168,8 +168,3 @@ item.test_gun:blueprint_flamethrower.name=§5Flamethrower Blueprint§r
 item.test_gun:blueprint_baizhan.name=Baizhan Blueprint [Legendary Limited·Uncraftable]
 
 item.test_gun:blueprint_m870.name=Remington M870 Shotgun Blueprint §9[Rare]§r
-
-item.test_gun:hunter_compound_bow.name=§9Hunter Compound Bow [Rare]§r
-item.test_gun:blueprint_hunter_compound_bow.name=§9Hunter Compound Bow Blueprint [Rare]§r
-item.test_gun:carbon_spider_bow.name=§5Carbon Spider Bow [Epic]§r
-item.test_gun:blueprint_carbon_spider_bow.name=§5Carbon Spider Bow Blueprint [Epic]§r

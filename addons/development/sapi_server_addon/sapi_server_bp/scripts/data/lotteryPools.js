@@ -20,7 +20,6 @@ const LIMITED_EPIC_BLUEPRINTS = [
  { key: "epic_m1014_ward", id: "test_gun:blueprint_m1014_ward", amount: 1, name: "§5M1014 泰坦壁垒设计图", weight: 1, rarity: "epic", isPityTarget: true },
  { key: "epic_flash_shield", id: "test_gun:blueprint_flash_shield", amount: 1, name: "§5G52 战术闪光盾图纸", weight: 1, rarity: "epic", isPityTarget: true },
  { key: "epic_titan", id: "test_gun:blueprint_titan_chest", amount: 1, name: "§5泰坦动力外骨骼装甲蓝图", weight: 1, rarity: "epic", isPityTarget: true },
- { key: "epic_carbon_spider_bow", id: "test_gun:blueprint_carbon_spider_bow", amount: 1, name: "§5碳素蛛弓设计图", weight: 1, rarity: "epic", isPityTarget: true },
 ];
 
 const STANDARD_LOTTERY_POOLS = [
@@ -34,8 +33,7 @@ const STANDARD_LOTTERY_POOLS = [
   pityThreshold: 20,
   pityMode: "random_target",
   items: [
-   // Keep the existing combined 5% blueprint weight, shared equally.
-   ...LIMITED_EPIC_BLUEPRINTS.map(item => ({ ...item, weight: 5 / LIMITED_EPIC_BLUEPRINTS.length })),
+   ...LIMITED_EPIC_BLUEPRINTS,
    { id: "test_gun:part_heavy_barrel", amount: 1, name: "重型加固合金枪管", weight: 3, rarity: "rare" },
    { id: "test_gun:part_ceramic_plate", amount: 1, name: "复合陶瓷插板", weight: 3, rarity: "rare" },
    { id: "test_gun:part_kevlar_sheet", amount: 2, name: "军规凯夫拉", weight: 3, rarity: "rare" },

@@ -1,13 +1,13 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Test Guns 2D BP 3.17.0",
+    "name": "Test Guns 2D BP 3.16.23",
     "description": "2D Firearms Addon - Absolute Guns 3D Script Core & Old DLC Assets",
     "uuid": "f47a1111-e222-4333-8444-555555550001",
     "version": [
       3,
-      17,
-      0
+      16,
+      23
     ],
     "min_engine_version": [
       1,
@@ -21,8 +21,8 @@
       "uuid": "f47a1111-e222-4333-8444-555555550002",
       "version": [
         3,
-        17,
-        0
+        16,
+        23
       ]
     },
     {
@@ -32,8 +32,8 @@
       "uuid": "f47a1111-e222-4333-8444-555555550005",
       "version": [
         3,
-        17,
-        0
+        16,
+        23
       ]
     }
   ],
@@ -50,8 +50,8 @@
       "uuid": "f47a1111-e222-4333-8444-555555550003",
       "version": [
         3,
-        17,
-        0
+        16,
+        23
       ]
     }
   ],

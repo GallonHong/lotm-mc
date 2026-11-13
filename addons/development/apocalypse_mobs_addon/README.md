@@ -1,6 +1,6 @@
 # Apocalypse Mobs Addon
 
-独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.7.11 新增倒地目标协议（`scripts/downedTarget.js`：全部怪物与 Boss 不再攻击倒地/等待救援的玩家，与 Boss 1.5.2、Life 1.4.13、SAPI 2.15.5 配套）；v0.7.9 新增周常团本隔离（`scripts/weeklyIsolation.js`：周本参战玩家与周本区域暂停自然/事件刷怪）；v0.7.8 接入厂商「敌对刷怪护甲 v1」：自然/事件生成敌人按实际刷怪点区域写入 `apoc:armor:N`（法制区 0–10、非法制区 0–20），副本/城区/Boss 由各自生成方写入 0–40；标签持久保存，移动或重载不会重投，旧敌人不追溯。v0.7.1 移除对 Test Guns 具体版本的 Manifest 硬依赖，避免旧枪械包导致整个怪物脚本无法启动；相关枪械功能仍在安装 Test Guns 时自动使用。v0.7.0 新增按 T1–T5 分级的原版材料、枪械半成品与极低概率 Epic 蓝图掉落，并统一移除 Boss 的 Legendary 蓝图直掉。主城叛军入侵仍采用严格安全区例外：只有同时带有 `daily_event_entity` 和 `daily_allow_safe_zone` 的事件敌人可以暂时留在安全区，事件结束后由 World Events 清理；其他自然生成或普通事件敌人仍会被安全区守卫删除。
+独立的 Minecraft Bedrock 主世界末日生存怪物与刷怪系统。v0.7.11 新增倒地目标协议（`scripts/downedTarget.js`：全部怪物与 Boss 不再攻击倒地/等待救援的玩家，与 Boss 1.5.2、Life 1.4.13、SAPI 2.15.4 配套）；v0.7.9 新增周常团本隔离（`scripts/weeklyIsolation.js`：周本参战玩家与周本区域暂停自然/事件刷怪）；v0.7.8 接入厂商「敌对刷怪护甲 v1」：自然/事件生成敌人按实际刷怪点区域写入 `apoc:armor:N`（法制区 0–10、非法制区 0–20），副本/城区/Boss 由各自生成方写入 0–40；标签持久保存，移动或重载不会重投，旧敌人不追溯。v0.7.1 移除对 Test Guns 具体版本的 Manifest 硬依赖，避免旧枪械包导致整个怪物脚本无法启动；相关枪械功能仍在安装 Test Guns 时自动使用。v0.7.0 新增按 T1–T5 分级的原版材料、枪械半成品与极低概率 Epic 蓝图掉落，并统一移除 Boss 的 Legendary 蓝图直掉。主城叛军入侵仍采用严格安全区例外：只有同时带有 `daily_event_entity` 和 `daily_allow_safe_zone` 的事件敌人可以暂时留在安全区，事件结束后由 World Events 清理；其他自然生成或普通事件敌人仍会被安全区守卫删除。
 
 摸金都市可低概率生成召唤母体，并按冷却随机触发三波尸潮。护甲优先复用原版物品；启用 Test Guns 时还会随机使用其轻型/重型背心、战术头盔与泰坦胸甲。
 
