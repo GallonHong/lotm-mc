@@ -1,6 +1,7 @@
 import * as server from '@minecraft/server';
 import { armorBoostAmplifier, getArmorHealthBonus } from '../data/armorHealth.js';
 import { isCombatDowned } from './utils/pvpRules.js';
+import { readGeneCombatAttributes } from './utils/geneCombatBuff.js';
 
 const { EquipmentSlot, system } = server;
 const EFFECT = 'health_boost';
@@ -138,10 +139,12 @@ export class ArmorHealth {
  }
 
  static ownsEffect(effect, state) {
-  if (!effect || state.amplifier < 0 || effect.amplifier !== state.amplifier) return false;
+  if (!effect) return false;
   if (!Number.isFinite(effect.duration) || effect.duration < 0 || effect.duration > LEASE_TICKS) return false;
-  // Detect an external refresh of the same amplifier while this session is running.
-  return state.expectedExpiry === undefined || effect.duration <= state.expectedExpiry - system.currentTick + 2;
+  if (state.amplifier >= 0 && effect.amplifier === state.amplifier) {
+   return state.expectedExpiry === undefined || effect.duration <= state.expectedExpiry - system.currentTick + 2;
+  }
+  return true;
  }
 
  static tick(player) {
@@ -176,7 +179,9 @@ export class ArmorHealth {
     if (state.respawn) { state.respawn.signature = undefined; state.respawn.stableSince = system.currentTick; }
     return;
    }
-   const target = armorBoostAmplifier(getArmorHealthBonus(equippable, EquipmentSlot), baseMax);
+   const geneBuff = readGeneCombatAttributes(player);
+   const geneBonus = geneBuff.maxHp;
+   const target = armorBoostAmplifier(getArmorHealthBonus(equippable, EquipmentSlot) + geneBonus, baseMax);
    if (target < 0) {
     if (owned) { player.removeEffect(EFFECT); preserveHealth(player, before.current); }
     state.amplifier = -1;
@@ -201,8 +206,16 @@ export class ArmorHealth {
     state.expectedExpiry = system.currentTick + applied.duration;
     property(player, OWNER_KEY, target);
    }
-   preserveHealth(player, before.current);
-   if (applied?.amplifier === target) this.settleRespawn(player, state);
+    if (applied?.amplifier === target && (applied.amplifier > (effect?.amplifier ?? -1) || !effect)) {
+     const health = readHealth(player);
+     if (health && health.current > 0) {
+      const bonusHeal = (applied.amplifier - (effect?.amplifier ?? -1)) * 4;
+      health.component.setCurrentValue(Math.min(health.max, health.current + bonusHeal));
+     }
+    } else {
+     preserveHealth(player, before.current);
+    }
+    if (applied?.amplifier === target) this.settleRespawn(player, state);
   } catch (error) {
    // An unavailable API or failed effect must never leave the player's only HP UI hidden.
    this.restoreHUD(player);

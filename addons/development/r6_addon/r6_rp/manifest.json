@@ -1,0 +1,43 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "R6 Siege Bedrock RP",
+    "description": "Rainbow Six Siege style operators, loadouts, gadgets and bomb-defusal rounds for Bedrock.",
+    "uuid": "5b6f0f52-2b3e-4a1a-9d31-3c0a11a6c011",
+    "version": [
+      1,
+      4,
+      0
+    ],
+    "min_engine_version": [
+      1,
+      21,
+      80
+    ]
+  },
+  "modules": [
+    {
+      "description": "Resource Module",
+      "type": "resources",
+      "uuid": "5b6f0f52-2b3e-4a1a-9d31-3c0a11a6c012",
+      "version": [
+        1,
+        4,
+        0
+      ]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "5b6f0f52-2b3e-4a1a-9d31-3c0a11a6c001",
+      "version": [
+        1,
+        4,
+        0
+      ]
+    }
+  ],
+  "metadata": {
+    "product_type": "addon"
+  }
+}

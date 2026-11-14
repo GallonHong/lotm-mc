@@ -1,0 +1,20 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r6:op_castle",
+      "menu_category": {
+        "category": "items"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:icon": "r6_op_castle",
+      "minecraft:display_name": {
+        "value": "§7干员徽章 §fCASTLE §8城堡"
+      }
+    }
+  }
+}

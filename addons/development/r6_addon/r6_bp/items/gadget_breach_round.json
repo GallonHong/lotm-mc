@@ -1,0 +1,35 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r6:gadget_breach_round",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "r6_breach_round",
+      "minecraft:display_name": {
+        "value": "§b破门弹 §7- Breaching Round\n§8向前发射破门弹，炸开墙体与护甲板。"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 1.0
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
+  }
+}

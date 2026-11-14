@@ -1,0 +1,35 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r6:gadget_armor_pack",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "r6_armor_pack",
+      "minecraft:display_name": {
+        "value": "§b护甲包 §7- Armor Pack\n§8放置护甲包，队友靠近右键拾取护甲板。"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 1.0
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r6:gadget_armor_panel",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "r6_panel",
+      "minecraft:display_name": {
+        "value": "§b防弹护甲板 §7- Armor Panel\n§8在门口部署一块可阻挡子弹的护甲板。"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 1.0
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
+  }
+}

@@ -100,7 +100,7 @@ export class SurvivalMeleeEngine {
       player.dimension.playSound(heavy ? 'random.anvil_use' : spec.sound, player.location,
         { volume: heavy ? 0.65 : 0.7, pitch: heavy ? 0.8 : 1.05 + index * 0.1 });
     } catch {}
-    player.onScreenDisplay?.setActionBar?.(`§b${spec.name} §7${heavy ? '重击准备' : `连击 ${index + 1}/${spec.damage.length}`}`);
+    player.onScreenDisplay?.setActionBar?.(`§b${spec.name} §f${heavy ? '重击准备' : `连击 ${index + 1}/${spec.damage.length}`}`);
     return true;
   }
 
@@ -140,7 +140,7 @@ export class SurvivalMeleeEngine {
     state.readyAt = now + spec.windup + spec.recovery;
     // This is shared progression, not scripted left damage or a custom swing.
     // Native left damage stays fixed; the next right-use consumes the next index.
-    player.onScreenDisplay?.setActionBar?.(`§b${spec.name} §7连击 ${index + 1}/${spec.damage.length}`);
+    player.onScreenDisplay?.setActionBar?.(`§b${spec.name} §f连击 ${index + 1}/${spec.damage.length}`);
     return true;
   }
 

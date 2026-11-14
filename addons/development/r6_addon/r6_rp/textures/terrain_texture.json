@@ -1,0 +1,14 @@
+{
+  "resource_pack_name": "r6_siege",
+  "texture_name": "atlas.terrain",
+  "padding": 8,
+  "num_mip_levels": 4,
+  "texture_data": {
+    "r6_wood_barricade": {
+      "textures": "textures/blocks/wood_barricade"
+    },
+    "r6_steel_frame": {
+      "textures": "textures/blocks/steel_frame"
+    }
+  }
+}

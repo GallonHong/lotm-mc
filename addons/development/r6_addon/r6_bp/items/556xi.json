@@ -1,0 +1,38 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r6:556xi",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "r6_556xi",
+      "minecraft:display_name": {
+        "value": "§f556 XI §8[突击步枪]"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 0.75
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      },
+      "minecraft:durability": {
+        "max_durability": 31
+      }
+    }
+  }
+}

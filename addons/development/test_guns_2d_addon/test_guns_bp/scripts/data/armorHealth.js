@@ -1,7 +1,7 @@
 // Explicit armor IDs and actual wearable slots, pinned to this pack's item definitions.
 // Health Boost changes real maximum health in increments of 4 HP, never absorption.
 // Civilian clothes, shields, vanilla/foreign equipment and inventory items grant no bonus.
-export const ARMOR_HEALTH_CAP = 100;
+export const ARMOR_HEALTH_CAP = 140;
 export const ARMOR_BASE_HEALTH = 20;
 export const ARMOR_HEALTH_PROFILES = Object.freeze(Object.fromEntries(Object.entries({
  "test_gun:armor_ala_spc": {

@@ -1,0 +1,35 @@
+{
+  "format_version": "1.20.50",
+  "minecraft:item": {
+    "description": {
+      "identifier": "r6:gadget_barricade",
+      "menu_category": {
+        "category": "equipment"
+      }
+    },
+    "components": {
+      "minecraft:max_stack_size": {
+        "value": 1
+      },
+      "minecraft:hand_equipped": {
+        "value": true
+      },
+      "minecraft:icon": "r6_barricade",
+      "minecraft:display_name": {
+        "value": "§b木板路障 §7- Wood Barricade\n§8放置可破坏的木质路障；被子弹/破门/炸药摧毁后会留下钢梁框架。"
+      },
+      "minecraft:use_modifiers": {
+        "use_duration": 3200,
+        "movement_modifier": 1.0
+      },
+      "minecraft:food": {
+        "can_always_eat": true
+      },
+      "minecraft:tags": {
+        "tags": [
+          "minecraft:is_crossbow"
+        ]
+      }
+    }
+  }
+}

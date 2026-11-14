@@ -17,6 +17,7 @@ import { OperationsManager } from "./operations.js";
 import { ItemCleanupManager } from "./item_cleanup.js";
 import { SocialManager } from "./social.js";
 import { WantedManager } from "./wanted.js";
+import { CombatAttributesManager } from "./combat_attributes.js";
 
 /** 服务器 Add-on 菜单。LOTM 功能只通过跨包事件调用，不直接导入 LOTM 源码。 */
 export class ServerMenuManager {
@@ -97,25 +98,25 @@ export class ServerMenuManager {
     `§6──────────────────────────────\n` +
     `§e当前区域: ${zoneDisplay}\n` +
     `§e时令气象: ${seasonDisplay}\n` +
-    `§e区块坐标: §8[${chunkX}, ${chunkZ}] §e维度: §8${player.dimension.id.replace("minecraft:", "")}\n` +
+    `§e区块坐标: §f[${chunkX}, ${chunkZ}] §e维度: §f${player.dimension.id.replace("minecraft:", "")}\n` +
     `§6──────────────────────────────`
    );
 
   const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-  add("§l§b公共传送点\n§r§8前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
-  add("§l§a个人传送\n§r§8Home、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
-  add("§l§e每日福利\n§r§8签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
-  add("§l§6幸存者联盟委托\n§r§8日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
-  add("§l§c副本行动\n§r§8单人进入或由队长发起全队 Ready", "textures/ui/warning_alex", () => SocialManager.openDungeon(player));
-  add("§l§4战斗玩法\n§r§8城市摸金 · 废土争夺战 · 突变体周本", "textures/ui/warning_alex", () => this.openBattleMenu(player));
-  add("§l§6个人银行\n§r§8资产查询与玩家转账", "textures/items/gold_ingot", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
-  add("§l§a全球商店\n§r§8物资买卖与一键物品回收", "textures/items/emerald", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
-  add("§l§2地皮领地\n§r§8购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
-  add("§l§d幸运抽奖\n§r§8按已安装内容动态生成奖池", "textures/ui/gift_square", () => LotteryManager.openLotteryMainUI(player, () => this.openMainMenu(player)));
-  add("§l§6玩家寄卖行\n§r§8自由定价交易，成交收取10%费率", "textures/ui/MCStore_Gold_large", () => MarketManager.openMainUI(player, () => this.openMainMenu(player)));
-  add("§l§b社交\n§r§8好友、在线玩家、队伍与公会", "textures/ui/FriendsIcon", () => SocialManager.openSocialMenu(player, () => this.openMainMenu(player)));
+  add("§l§b公共传送点\n§r§f前往主城与公共区域（免费）", "textures/ui/World", () => TeleportManager.openWarpMenu(player, () => this.openMainMenu(player)));
+  add("§l§a个人传送\n§r§fHome、TPA 与死亡返回（免费）", "textures/ui/icon_recipe_nature", () => TeleportManager.openPlayerMenu(player, () => this.openMainMenu(player)));
+  add("§l§e每日福利\n§r§f签到、兑换码与待领取奖励", "textures/ui/gift_square", () => OperationsManager.openPlayerMenu(player, () => this.openMainMenu(player)));
+  add("§l§6幸存者联盟委托\n§r§f日常任务、活跃度与世界事件", "textures/ui/achievements", () => Integration.send(player, "daily:menu"));
+  add("§l§c副本行动\n§r§f单人进入或由队长发起全队 Ready", "textures/ui/warning_alex", () => SocialManager.openDungeon(player));
+  add("§l§4战斗玩法\n§r§f城市摸金 · 废土争夺战 · 突变体周本", "textures/ui/warning_alex", () => this.openBattleMenu(player));
+  add("§l§6个人银行\n§r§f资产查询与玩家转账", "textures/items/gold_ingot", () => EconomyManager.openBankUI(player, () => this.openMainMenu(player)));
+  add("§l§a全球商店\n§r§f物资买卖与一键物品回收", "textures/items/emerald", () => ShopManager.openShopCategoryUI(player, () => this.openMainMenu(player)));
+  add("§l§2地皮领地\n§r§f购买与管理保护区块", "textures/ui/village_hero_effect", () => LandManager.openPlotMainUI(player, () => this.openMainMenu(player)));
+  add("§l§d幸运抽奖\n§r§f按已安装内容动态生成奖池", "textures/ui/gift_square", () => LotteryManager.openLotteryMainUI(player, () => this.openMainMenu(player)));
+  add("§l§6玩家寄卖行\n§r§f自由定价交易，成交收取10%费率", "textures/ui/MCStore_Gold_large", () => MarketManager.openMainUI(player, () => this.openMainMenu(player)));
+  add("§l§b社交\n§r§f好友、在线玩家、队伍与公会", "textures/ui/FriendsIcon", () => SocialManager.openSocialMenu(player, () => this.openMainMenu(player)));
   // The optional tile UI binds these stable collection indexes.
-  add("§l§6便携终端\n§r§8末日载具、排行与管理", "textures/ui/settings_glyph_color_2x", () => this.openMoreMenu(player));
+  add("§l§6便携终端\n§r§f末日载具、潜能强化与管理", "textures/ui/settings_glyph_color_2x", () => this.openMoreMenu(player));
 
   Utils.showForm(player, form, (res) => {
    if (!res.canceled) system.run(() => { if (isCurrent() && allowOrdinaryAction(player)) actions[res.selection]?.(); });
@@ -134,7 +135,7 @@ export class ServerMenuManager {
   }
   const isCurrent = this.menuGuard(player, () => this.openBattleMenu(player));
   const form = new ActionFormData().title("§l§4战斗玩法")
-   .body("§8城市摸金：搜集物资并撤离。\n§8废土争夺战：系统补给，死亡保留本局装备。\n§e突变体周本：两位顶级 Boss，1–8 人独立候场，全员准备后开战。")
+   .body("§f城市摸金：搜集物资并撤离。\n§f废土争夺战：系统补给，死亡保留本局装备。\n§e突变体周本：两位顶级 Boss，1–8 人独立候场，全员准备后开战。")
    .button("§6城市摸金", "textures/ui/World")
    .button("§c废土争夺战", "textures/ui/warning_alex")
    .button("§5围剿顶级突变体 · 周本", "textures/ui/icon_multiplayer")
@@ -165,22 +166,25 @@ export class ServerMenuManager {
 
   const form = new ActionFormData()
    .title("§l§6便捷终端与更多")
-   .body(`§e当前时令: ${seasonDisplay}\n§8服务器扩展功能、个人载具终端与管理入口`);
+   .body(`§e当前时令: ${seasonDisplay}\n§f服务器扩展功能、个人载具终端与管理入口`);
   const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
 
-  add("§l§6末日载具\n§r§8召唤、召回、改装、加油与维修", "textures/items/blueprints/blueprint_truck", () => {
+  add("§l§6末日载具\n§r§f召唤、召回、改装、加油与维修", "textures/items/blueprints/blueprint_truck", () => {
    Integration.send(player, "vehicle:open_garage");
   });
-  add("§l§b战术无人机\n§r§8伴飞僚机、遥控开火、改装与充能", "textures/drones/items/crossbow_drone", () => {
+  add("§l§b战术无人机\n§r§f伴飞僚机、遥控开火、改装与充能", "textures/drones/items/crossbow_drone", () => {
    Integration.send(player, "drone:open_hangar");
   });
-  add("§l§e财富排行\n§r§8查看服务器富豪排行榜", "textures/ui/achievements", () => EconomyManager.openLeaderboardUI(player, () => this.openMoreMenu(player)));
-  add(`§l§c通缉与保释\n§r§8当前通缉值: §e${WantedManager.points(player)}`, "textures/ui/warning_alex", () => WantedManager.openPlayerMenu(player, () => this.openMoreMenu(player)));
+  add("§l§c战斗潜能强化\n§r§f暴击、伤害、生命与免伤升级", "textures/ui/strength_effect", () => {
+   CombatAttributesManager.openMenu(player, () => this.openMoreMenu(player));
+  });
+  add("§l§e财富排行\n§r§f查看服务器富豪排行榜", "textures/ui/achievements", () => EconomyManager.openLeaderboardUI(player, () => this.openMoreMenu(player)));
+  add(`§l§c通缉与保释\n§r§f当前通缉值: §e${WantedManager.points(player)}`, "textures/ui/warning_alex", () => WantedManager.openPlayerMenu(player, () => this.openMoreMenu(player)));
   if (Integration.isLotmAvailable()) {
-   add("§l§5诡秘非凡秘典\n§r§8查看途径、序列与能力", "textures/items/potion_seer", () => Integration.send(player, "lotm:open"));
+   add("§l§5诡秘非凡秘典\n§r§f查看途径、序列与能力", "textures/items/potion_seer", () => Integration.send(player, "lotm:open"));
   }
   if (Utils.isAdmin(player)) {
-   add("§l§c管理员控制台\n§r§8服务器与联动管理", "textures/ui/op", () => this.openAdminPanel(player, () => this.openMoreMenu(player)));
+   add("§l§c管理员控制台\n§r§f服务器与联动管理", "textures/ui/op", () => this.openAdminPanel(player, () => this.openMoreMenu(player)));
   }
   add("§l§2返回主菜单", "textures/ui/undo", () => this.openMainMenu(player));
   add("§l§c关闭菜单", "textures/ui/cancel", () => {});
@@ -193,21 +197,21 @@ export class ServerMenuManager {
   const actions = [];
   const form = new ActionFormData()
    .title("§l§c服务器管理员控制台")
-   .body(`§e在线玩家: §e${world.getAllPlayers().length}\n§8LOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§c未连接"}\n§8日常事件联动: ${dailyEventsReady ? "§a已连接" : "§c未连接（突发事件入口仍保留）"}`);
+   .body(`§e在线玩家: §e${world.getAllPlayers().length}\n§fLOTM 联动: ${Integration.isLotmAvailable() ? "§a已连接" : "§c未连接"}\n§f日常事件联动: ${dailyEventsReady ? "§a已连接" : "§c未连接（突发事件入口仍保留）"}`);
   const add = (label, icon, action) => { form.button(label, icon); actions.push(action); };
-  add(`§l§6发布每日突发事件\n§r§8${dailyEventsReady ? "选择预设并手填事件坐标" : "需要启用 Daily Events BP"}`, "textures/ui/infobulb", () => {
+  add(`§l§6发布每日突发事件\n§r§f${dailyEventsReady ? "选择预设并手填事件坐标" : "需要启用 Daily Events BP"}`, "textures/ui/infobulb", () => {
    if (!Integration.isDailyEventsAvailable()) return Utils.tell(player, "§cDaily Events 未连接。请启用最新 Survival Daily & World Events BP，并退出世界后重新进入。");
    Integration.send(player, "daily:news_admin");
   });
   add("§l§b公共传送点管理", "textures/ui/World", () => TeleportManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
   add("§l§6主城与保护区管理", "textures/ui/village_hero_effect", () => RegionManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
   add("§l§e管理与审计日志", "textures/ui/achievements", () => AuditManager.openAdminUI(player, () => this.openAdminPanel(player, onBack)));
-  add("§l§c掉落物清理管理\n§r§8十分钟自动清理、开关与立即清理", "textures/ui/trash", () => ItemCleanupManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
+  add("§l§c掉落物清理管理\n§r§f十分钟自动清理、开关与立即清理", "textures/ui/trash", () => ItemCleanupManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
   add("§l§d服务器运营管理", "textures/ui/op", () => OperationsManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
-  add("§l§c打开灾害控制器\n§r§8直接进入独立灾害管理页面", "textures/ui/warning_alex", () => this.openDisasterController(player));
-  add("§l§6获取灾害遥控器物品\n§r§8页面无法打开时的备用入口", "textures/ui/op", () => this.giveDisasterController(player, () => this.openAdminPanel(player, onBack)));
+  add("§l§c打开灾害控制器\n§r§f直接进入独立灾害管理页面", "textures/ui/warning_alex", () => this.openDisasterController(player));
+  add("§l§6获取灾害遥控器物品\n§r§f页面无法打开时的备用入口", "textures/ui/op", () => this.giveDisasterController(player, () => this.openAdminPanel(player, onBack)));
   add("§l§6玩家金币管理", "textures/ui/Trade2", () => this.openPlayerMoneyAdmin(player, onBack));
-  add("§l§4通缉与黑名单管理\n§r§8清除通缉或一键拉黑高危玩家", "textures/ui/cancel", () => WantedManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
+  add("§l§4通缉与黑名单管理\n§r§f清除通缉或一键拉黑高危玩家", "textures/ui/cancel", () => WantedManager.openAdminMenu(player, () => this.openAdminPanel(player, onBack)));
   add("§l§4强制删除当前地皮", "textures/ui/trash", () => this.forceDeleteCurrentPlot(player, onBack));
   add("§l§e发布全服公告", "textures/ui/accessibility_glyph_color", () => this.openBroadcastModal(player, onBack));
   add("§l§a全服发放福利金币", "textures/ui/gift_square", () => this.openGiftAllModal(player, onBack));
@@ -215,7 +219,7 @@ export class ServerMenuManager {
   if (Integration.isLotmAvailable()) {
    add("§l§5LOTM 调试控制台", "textures/items/potion_magician", () => Integration.send(player, "lotm:admin"));
   }
-  add(`§l§6日常、希望报与事件管理\n§r§8${dailyEventsReady ? "已连接" : "需要启用 Daily Events BP"}`, "textures/ui/achievements", () => {
+  add(`§l§6日常、希望报与事件管理\n§r§f${dailyEventsReady ? "已连接" : "需要启用 Daily Events BP"}`, "textures/ui/achievements", () => {
    if (!Integration.isDailyEventsAvailable()) return Utils.tell(player, "§cDaily Events 未连接。请启用最新 Survival Daily & World Events BP，并退出世界后重新进入。");
    Integration.send(player, "daily:admin");
   });
@@ -273,7 +277,7 @@ export class ServerMenuManager {
    Utils.tell(player, "§e当前区块没有地皮。");
    return onBack?.();
   }
-  const form = new MessageFormData().title("§l§4确认删除地皮").body(`§e${plot.name}\n§8[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§a取消");
+  const form = new MessageFormData().title("§l§4确认删除地皮").body(`§e${plot.name}\n§f[${chunkX}, ${chunkZ}]`).button1("§4删除").button2("§a取消");
   Utils.showForm(player, form, (res) => {
    if (!allowOrdinaryAction(player)) return;
    if (res.selection === 0) {

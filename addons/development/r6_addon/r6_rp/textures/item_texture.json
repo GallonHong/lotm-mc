@@ -1,0 +1,249 @@
+{
+  "resource_pack_name": "r6_siege",
+  "texture_name": "atlas.items",
+  "texture_data": {
+    "r6_l85a2": {
+      "textures": "textures/items/guns/arx"
+    },
+    "r6_ar33": {
+      "textures": "textures/items/guns/ak47"
+    },
+    "r6_r4c": {
+      "textures": "textures/items/guns/scarh"
+    },
+    "r6_g36c": {
+      "textures": "textures/items/guns/arx"
+    },
+    "r6_556xi": {
+      "textures": "textures/items/guns/ak47"
+    },
+    "r6_f2": {
+      "textures": "textures/items/guns/scarh"
+    },
+    "r6_ak12": {
+      "textures": "textures/items/guns/ak47"
+    },
+    "r6_auga2": {
+      "textures": "textures/items/guns/arx"
+    },
+    "r6_552c": {
+      "textures": "textures/items/guns/scarh"
+    },
+    "r6_416c": {
+      "textures": "textures/items/guns/scarh"
+    },
+    "r6_417": {
+      "textures": "textures/items/guns/svd"
+    },
+    "r6_ots03": {
+      "textures": "textures/items/guns/svd"
+    },
+    "r6_mp5k": {
+      "textures": "textures/items/guns/mp5k_relay"
+    },
+    "r6_mp5": {
+      "textures": "textures/items/guns/mp5k_relay"
+    },
+    "r6_fmg9": {
+      "textures": "textures/items/guns/bizon"
+    },
+    "r6_ump45": {
+      "textures": "textures/items/guns/vector"
+    },
+    "r6_vityaz9": {
+      "textures": "textures/items/guns/ak74u"
+    },
+    "r6_mp7": {
+      "textures": "textures/items/guns/mp5k_relay"
+    },
+    "r6_p90": {
+      "textures": "textures/items/guns/p90"
+    },
+    "r6_6p41": {
+      "textures": "textures/items/guns/pkm"
+    },
+    "r6_g8a1": {
+      "textures": "textures/items/guns/rpk"
+    },
+    "r6_m590a1": {
+      "textures": "textures/items/guns/m870"
+    },
+    "r6_m1014": {
+      "textures": "textures/items/guns/m1014"
+    },
+    "r6_sasg12": {
+      "textures": "textures/items/guns/usas12"
+    },
+    "r6_m870": {
+      "textures": "textures/items/guns/m870"
+    },
+    "r6_p226": {
+      "textures": "textures/items/guns/glock"
+    },
+    "r6_p9": {
+      "textures": "textures/items/guns/glock"
+    },
+    "r6_p12": {
+      "textures": "textures/items/guns/glock"
+    },
+    "r6_pmm": {
+      "textures": "textures/items/guns/glock"
+    },
+    "r6_five_seven": {
+      "textures": "textures/items/guns/deagle"
+    },
+    "r6_m45": {
+      "textures": "textures/items/guns/deagle"
+    },
+    "r6_shield_riot": {
+      "textures": "textures/items/guns/riot_shield"
+    },
+    "r6_shield_flash": {
+      "textures": "textures/items/guns/flash_shield"
+    },
+    "r6_sledge_hammer": {
+      "textures": "textures/items/gadgets/sledge_hammer"
+    },
+    "r6_emp_grenade": {
+      "textures": "textures/items/gadgets/emp_grenade"
+    },
+    "r6_breach_round": {
+      "textures": "textures/items/gadgets/breach_round"
+    },
+    "r6_exo_charge": {
+      "textures": "textures/items/gadgets/exo_charge"
+    },
+    "r6_drone": {
+      "textures": "textures/items/gadgets/drone"
+    },
+    "r6_shield": {
+      "textures": "textures/items/gadgets/shield"
+    },
+    "r6_thermal": {
+      "textures": "textures/items/gadgets/thermal"
+    },
+    "r6_cluster_charge": {
+      "textures": "textures/items/gadgets/cluster_charge"
+    },
+    "r6_flash": {
+      "textures": "textures/items/gadgets/flash"
+    },
+    "r6_scanner": {
+      "textures": "textures/items/gadgets/scanner"
+    },
+    "r6_frag": {
+      "textures": "textures/items/gadgets/frag"
+    },
+    "r6_gas": {
+      "textures": "textures/items/gadgets/gas"
+    },
+    "r6_jammer": {
+      "textures": "textures/items/gadgets/jammer"
+    },
+    "r6_panel": {
+      "textures": "textures/items/gadgets/panel"
+    },
+    "r6_cardiac": {
+      "textures": "textures/items/gadgets/cardiac"
+    },
+    "r6_stim": {
+      "textures": "textures/items/gadgets/stim"
+    },
+    "r6_armor_pack": {
+      "textures": "textures/items/gadgets/armor_pack"
+    },
+    "r6_kapkan": {
+      "textures": "textures/items/gadgets/kapkan"
+    },
+    "r6_turret": {
+      "textures": "textures/items/gadgets/turret"
+    },
+    "r6_ads": {
+      "textures": "textures/items/gadgets/ads"
+    },
+    "r6_battery": {
+      "textures": "textures/items/gadgets/battery"
+    },
+    "r6_nitro": {
+      "textures": "textures/items/gadgets/nitro"
+    },
+    "r6_reinforce": {
+      "textures": "textures/items/gadgets/reinforce"
+    },
+    "r6_barricade": {
+      "textures": "textures/items/gadgets/barricade"
+    },
+    "r6_tablet": {
+      "textures": "textures/items/misc/tablet"
+    },
+    "r6_defuser": {
+      "textures": "textures/items/misc/defuser"
+    },
+    "r6_op_sledge": {
+      "textures": "textures/items/badges/sledge"
+    },
+    "r6_op_thatcher": {
+      "textures": "textures/items/badges/thatcher"
+    },
+    "r6_op_ash": {
+      "textures": "textures/items/badges/ash"
+    },
+    "r6_op_thermite": {
+      "textures": "textures/items/badges/thermite"
+    },
+    "r6_op_twitch": {
+      "textures": "textures/items/badges/twitch"
+    },
+    "r6_op_montagne": {
+      "textures": "textures/items/badges/montagne"
+    },
+    "r6_op_glaz": {
+      "textures": "textures/items/badges/glaz"
+    },
+    "r6_op_fuze": {
+      "textures": "textures/items/badges/fuze"
+    },
+    "r6_op_blitz": {
+      "textures": "textures/items/badges/blitz"
+    },
+    "r6_op_iq": {
+      "textures": "textures/items/badges/iq"
+    },
+    "r6_op_recruit_atk": {
+      "textures": "textures/items/badges/recruit_atk"
+    },
+    "r6_op_smoke": {
+      "textures": "textures/items/badges/smoke"
+    },
+    "r6_op_mute": {
+      "textures": "textures/items/badges/mute"
+    },
+    "r6_op_castle": {
+      "textures": "textures/items/badges/castle"
+    },
+    "r6_op_pulse": {
+      "textures": "textures/items/badges/pulse"
+    },
+    "r6_op_doc": {
+      "textures": "textures/items/badges/doc"
+    },
+    "r6_op_rook": {
+      "textures": "textures/items/badges/rook"
+    },
+    "r6_op_kapkan": {
+      "textures": "textures/items/badges/kapkan"
+    },
+    "r6_op_tachanka": {
+      "textures": "textures/items/badges/tachanka"
+    },
+    "r6_op_jager": {
+      "textures": "textures/items/badges/jager"
+    },
+    "r6_op_bandit": {
+      "textures": "textures/items/badges/bandit"
+    },
+    "r6_op_recruit_def": {
+      "textures": "textures/items/badges/recruit_def"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "r6:gadget_exo",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/r6/exo"
+      },
+      "geometry": {
+        "default": "geometry.r6.exo"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

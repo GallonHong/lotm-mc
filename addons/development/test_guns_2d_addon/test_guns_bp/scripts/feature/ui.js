@@ -44,7 +44,7 @@ function formatDurabilityString(player, gun) {
  if (dur.ratio <= 0.25) durColor = '§c';
  else if (dur.ratio <= 0.55) durColor = '§e';
 
- return ` §8|§r§d耐久:§r${durColor}${dur.current}§r/§7${dur.max}§r`;
+ return ` §f|§r§d耐久:§r${durColor}${dur.current}§r/§f${dur.max}§r`;
 }
 
 export function showAmmoHUD(player, gun, currentAmmo, status = '') {
@@ -60,11 +60,11 @@ export function showAmmoHUD(player, gun, currentAmmo, status = '') {
  if (gun && (gun.id === 'test_gun:m1014_ward' || gun.isArmorScaled)) {
   const armor = DamageHandler.estimateArmorPoints(player);
   const bonusPct = Math.round(Math.min(1.0, armor * 0.03) * 100);
-  passiveStr = ` §8|§r§6重装:§r§e${armor}甲 §a+${bonusPct}%§r`;
+  passiveStr = ` §f|§r§6重装:§r§e${armor}甲 §a+${bonusPct}%§r`;
  }
 
  const durStr = formatDurabilityString(player, gun);
- const text = `§6[${gun.name}]§r§e弹药:§r${ammoColor}${currentAmmo}§r/§7${gun.maxAmmo}§r§8(备弹: ${reserveStr})§r${passiveStr}${durStr}${status ? ` §8|§r${status}` : ''}`;
+ const text = `§6[${gun.name}]§r§e弹药:§r${ammoColor}${currentAmmo}§r/§f${gun.maxAmmo}§r§f(备弹: ${reserveStr})§r${passiveStr}${durStr}${status ? ` §f|§r${status}` : ''}`;
  updateActionBar(player, text);
 }
 
@@ -72,14 +72,14 @@ export function showReloadingHUD(player, gun, progressRatio) {
  const totalBars = 10;
  const filled = Math.min(totalBars, Math.floor(progressRatio * totalBars));
  const empty = totalBars - filled;
- const barStr = '§e' + '■'.repeat(filled) + '§8' + '□'.repeat(empty) + '§r';
+ const barStr = '§e' + '■'.repeat(filled) + '§f' + '□'.repeat(empty) + '§r';
  const durStr = formatDurabilityString(player, gun);
- updateActionBar(player, `§c[换弹中]§r${barStr} §7${gun.name}§r${durStr}`);
+ updateActionBar(player, `§c[换弹中]§r${barStr} §f${gun.name}§r${durStr}`);
 }
 
 export function showOutOfAmmoHUD(player, gun) {
  const isCreative = isCreativePlayer(player) || hasInfinitePvpReserve(player);
  const reserveStr = isCreative ? '§b∞§r' : countAmmoForHUD(player, gun.ammoTypeId);
  const durStr = formatDurabilityString(player, gun);
- updateActionBar(player, `§c[弹夹打空 0/${gun.maxAmmo}]§r潜行+右键换弹 §8(备弹: ${reserveStr})§r${durStr}`);
+ updateActionBar(player, `§c[弹夹打空 0/${gun.maxAmmo}]§r潜行+右键换弹 §f(备弹: ${reserveStr})§r${durStr}`);
 }

@@ -14,6 +14,7 @@ import { DamageIndicator } from './baizhan_damage/feature/damageIndicator.js';
 import { ArmorEngine, ARMOR_KNOCKBACK_VALUES } from './baizhan_damage/feature/armorEngine.js';
 import { JETPACK_COMBAT } from './baizhan_damage/data/jetpack.js';
 import { readDroneCombatBuff } from './baizhan_damage/feature/utils/droneCombatBuff.js';
+import { readGeneCombatAttributes } from './baizhan_damage/feature/utils/geneCombatBuff.js';
 
 export { ARMOR_KNOCKBACK_VALUES };
 
@@ -339,6 +340,11 @@ export class DamageHandler {
   const isPistol = gunId.includes('glock') || gunId.includes('deagle') || gunId.includes('colt') || gunId.includes('m1911') || gunId.includes('revolver') || gunId.includes('usp') || gunId.includes('tt33') || gunId.includes('makarov') || gunCat === 'pistol';
   const isSpecial = gunId.includes('rpg') || gunId.includes('m79') || gunId.includes('mgl') || gunCat === 'special' || Boolean(gun.isRocketLauncher || gun.isGrenadeLauncher);
   const isEnergy = gunId.includes('arc') || gunCat === 'energy' || Boolean(gun.isArcWeapon);
+  const isMelee = gunCat === 'melee' || Boolean(gun.isMelee) || Boolean(gun.damageProfile?.category === 'melee') ||
+   gunId.includes('knife') || gunId.includes('machete') || gunId.includes('cleaver') || gunId.includes('katana') ||
+   gunId.includes('axe') || gunId.includes('sword') || gunId.includes('spear') || gunId.includes('hammer') ||
+   gunId.includes('shovel') || gunId.includes('bat') || gunId.includes('baizhan') || gunId.includes('liegui');
+  const isLightGun = isPistol || isSmg || isShotgun;
 
   // 头部攻击被动
   if (sHead.includes('armor_ocf_gpnvg18')) {
@@ -453,6 +459,24 @@ export class DamageHandler {
   critRate += droneBuff.critRate;
   dmgMultiplier += droneBuff.damage;
 
+  // 1.3 幸存者战斗潜能属性强化 (Gene Combat Attributes)
+  if (shooter && shooter.typeId === 'minecraft:player') {
+   const gene = readGeneCombatAttributes(shooter);
+   if (gene.critRate > 0) {
+    critRate += gene.critRate;
+    critMultiplier = Math.max(critMultiplier, 1.60);
+   }
+   if (isLightGun) {
+    if (gene.lightDmg > 0) dmgMultiplier += gene.lightDmg;
+   } else if (isMelee) {
+    if (gene.meleeDmg > 0) dmgMultiplier += gene.meleeDmg;
+   } else {
+    // 步枪、机枪、狙击枪与重型武器
+    if (gene.heavyDmg > 0) dmgMultiplier += gene.heavyDmg;
+   }
+   try { shooter.setDynamicProperty?.('gene_last_combat_tick', system.currentTick); } catch {}
+  }
+
   // Probability only is clamped; no new cap reduces any pre-existing damage/passive.
   critRate = Math.max(0, Math.min(1, critRate));
   currentDamage *= dmgMultiplier;
@@ -529,6 +553,14 @@ export class DamageHandler {
   if (chestProfile?.firearmReduction) currentDamage *= 1 - chestProfile.firearmReduction;
   if (chestItem?.typeId === 'test_gun:armor_killa_6b13' && (distance <= 8.0 || isShotgun)) {
    currentDamage *= 0.90; // 保留 Killa 原有近身/霰弹额外吸收。
+  }
+
+  // 幸存者战术防卫免伤 (Target Gene Damage Reduction)
+  if (target && target.typeId === 'minecraft:player') {
+   const targetGene = readGeneCombatAttributes(target);
+   const geneReduction = Math.max(0, Math.min(0.5, targetGene.damageReduction));
+   if (geneReduction > 0) currentDamage *= 1 - geneReduction;
+   try { target.setDynamicProperty?.('gene_last_combat_tick', system.currentTick); } catch {}
   }
 
   // 2.2.1 堡垒重装防暴裤：下蹲架枪掩体减伤 15%
@@ -628,9 +660,6 @@ export class DamageHandler {
     dim.playSound('random.orb', pLoc, { volume: 0.9, pitch: 1.6 });
     dim.playSound('firework.blast', pLoc, { volume: 0.6, pitch: 1.4 });
    } catch {}
-   if (shooter && shooter.typeId === 'minecraft:player') {
-    shooter.onScreenDisplay?.setActionBar?.(`§c【战术暴击】触发致命暴击！造成 §e${critMultiplier.toFixed(2)}x§c暴击倍率伤害！§r`);
-   }
    }
   // 3.3 RPK 班用轻机枪：【火力压制 / Suppression】(强力减速与破除霸体)
   if (gun.id === 'test_gun:rpk') {

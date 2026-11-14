@@ -20,6 +20,8 @@ import { SocialManager } from "./modules/social.js";
 import { CombatManager } from "./modules/combat.js";
 import { WantedManager } from "./modules/wanted.js";
 import { PlayerVendingManager } from "./modules/player_vending.js";
+import { CombatAttributesManager } from "./modules/combat_attributes.js";
+import { SafeZoneMobSuppression } from "./modules/safe_zone_mob_suppression.js";
 
 const compassMenuTicks = new Map();
 const compassMenuRequests = new Map();
@@ -90,6 +92,8 @@ function initServerSystem() {
 	console.warn(`[SAPI Server] Initializing ${Config.system.serverName} Server Addon v${Config.system.version}...`);
 	try { EconomyManager.getObjective(); } catch (error) { console.warn(`[Economy] ${error}`); }
 	CombatManager.registerEvents();
+	CombatAttributesManager.init();
+	SafeZoneMobSuppression.init();
 	RegionManager.registerProtectionEvents();
  PlotSafeZone.start();
 	LandManager.registerProtectionEvents();

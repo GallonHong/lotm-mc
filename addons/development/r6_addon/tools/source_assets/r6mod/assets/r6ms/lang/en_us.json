@@ -1,0 +1,78 @@
+{
+  "key.r6ms.main_menu": "main menu",
+  "key.r6ms.category": "Rainbow6:Minesiege",
+  "key.r6ms.crawl": "爬行",
+  "key.r6ms.fire": "开火",
+  "key.r6ms.aim": "瞄准",
+
+  "gui.r6ms.confirm": " Confirm",
+  "gui.r6ms.cancel": " Cancel",
+  "gui.r6ms.attacker": "Attacker",
+  "gui.r6ms.defender": "Defender",
+
+  "gui.r6ms.main_menu.header.quick_match": "§b→§r QUICK MATCH  ",
+  "gui.r6ms.main_menu.header.queued": "§b→§r 对战已开始 ",
+
+  "gui.r6ms.main_menu.home": "HOME",
+  "gui.r6ms.main_menu.home.play": " play\n ",
+  "gui.r6ms.main_menu.home.play_quick_match": " MULTIPLAYER \n PLAY QUICK MATCH",
+  "gui.r6ms.main_menu.home.queuing": "MATCHMAKING\n. . .",
+  "gui.r6ms.main_menu.home.cancel_match": " §c∁→§r Cancel",
+
+  "gui.r6ms.main_menu.operators": "OPERATORS",
+
+  "gui.r6ms.main_menu.options.controls": "CONTROLS",
+  "gui.r6ms.main_menu.options.controls.aim": "Aim  ",
+  "gui.r6ms.main_menu.options.controls.lean": "Lean  ",
+  "gui.r6ms.main_menu.options.controls.sprint": "Sprint  ",
+  "gui.r6ms.main_menu.options.controls.crouch": "Crouch  ",
+  "gui.r6ms.main_menu.options.controls.prone": "Prone  ",
+  "gui.r6ms.main_menu.options.controls.walk": "Walk  ",
+
+  "gui.r6ms.main_menu.options.operator": "OP",
+  "gui.r6ms.main_menu.options.operator.upload_model": "Re-upload entity models",
+
+
+  "gui.r6ms.pause_screen.button": "Play R6MS",
+
+  "gui.r6ms.match_map_scene.bomb": "BOMB",
+  "gui.r6ms.match_map_scene.quick_match": "QUICK MATCH",
+  "gui.r6ms.match_map_scene.your_team": "YOUR TEAM",
+  "gui.r6ms.match_map_scene.enemy": "ENEMY",
+  "gui.r6ms.match_map_scene.round": "ROUND %s",
+
+  "gui.r6ms.round_player_info_bar.round": "ROUND %s",
+
+  "gui.r6ms.round_prepare.locations": "LOCATIONS",
+  "gui.r6ms.round_prepare.operators": "OPERATORS",
+  "gui.r6ms.round_prepare.loadout": "LOADOUT",
+  "gui.r6ms.round_prepare.loadout.ready": "准备就绪",
+  "gui.r6ms.round_prepare.loading_top_view": "Loading map top view",
+  "gui.r6ms.round_prepare.team_spawn_location": "TEAM SPAWN LOCATION",
+  "gui.r6ms.round_prepare.bomb_location": "目标位置\n§e出生点由系统随机选择",
+
+  "gui.r6ms.round.pre_stage": "准备阶段",
+  "gui.r6ms.round.pre_stage.atk": "搜寻炸弹",
+  "gui.r6ms.round.pre_stage.def": "加强炸弹所在地点的防御",
+  "gui.r6ms.round.act_stage": "行动阶段",
+  "gui.r6ms.round.act_stage.atk": "将拆弹器装设于任意炸弹所在的地点",
+  "gui.r6ms.round.act_stage.def": "保卫炸弹所在地点",
+  "gui.r6ms.round.found_bomb.atk": "发现炸弹",
+  "gui.r6ms.round.found_bomb.def": "敌方已发现炸弹",
+
+  "gui.r6ms.round_end.your_team": "你方队伍",
+  "gui.r6ms.round_end.win": "第%s回合获胜",
+  "gui.r6ms.round_end.lose": "第%s回合战败",
+
+  "gui.r6ms.options.key_trig.hold": "长按",
+  "gui.r6ms.options.key_trig.toggle": "切换",
+
+  "tab.r6ms.general": "我的六号",
+  "tab.r6ms.armor": "我的六号：盔甲",
+  "tab.r6ms.weapon": "我的六号：武器",
+
+  "commands.rainbow6.map.save": "地图 %s 已保存。",
+  "commands.rainbow6.map.load": "地图 %s 已加载。",
+  "commands.rainbow6.map.create": "地图 %s 已创建并加载。",
+  "commands.rainbow6.map.mismatch": "指定的地图名称 %s 与加载的地图 %s 不匹配。"
+}

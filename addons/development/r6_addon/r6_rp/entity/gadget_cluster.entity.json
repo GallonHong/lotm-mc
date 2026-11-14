@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "r6:gadget_cluster",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/r6/cluster"
+      },
+      "geometry": {
+        "default": "geometry.r6.cluster"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

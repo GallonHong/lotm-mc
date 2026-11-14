@@ -1,6 +1,7 @@
 import { allowOrdinaryAction, isWeeklyLocked, isMatchLocked } from "./match_access.js";
 import { world, system } from "@minecraft/server";
 import { PlotSafeZone } from "./plot_safe_zone.js";
+import { RegionManager } from "./region.js";
 
 const SERVER_HEARTBEAT = "interop:sapi_server_heartbeat";
 const LOTM_HEARTBEAT = "interop:lotm_heartbeat";
@@ -170,6 +171,14 @@ export class Integration {
   const pt = { x: Number(location.x), y: Number(location.y), z: Number(location.z) };
 
   if (PlotSafeZone.find(dim, pt)) return { type: "safe", name: "地皮周边安全区", color: "§a", source: "plot" };
+
+  // 0. 检查 SAPI 管理员保护区
+  try {
+   const sapiRegion = RegionManager.getRegionAt(dim, pt);
+   if (sapiRegion && (sapiRegion.flags?.allowHostileSpawn === false || sapiRegion.flags?.allowPvp === false)) {
+    return { type: "safe", name: sapiRegion.name || "SAPI 保护区", color: "§a", source: "sapi_region" };
+   }
+  } catch {}
 
   // 1. 检查预设区域 (安全区 / 法制区)
   const preset = APOCALYPSE_PRESET_ZONES.find(z =>

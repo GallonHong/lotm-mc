@@ -5,6 +5,62 @@ import { CONFIG, MOB_PROFILES, ZONE_POOLS, ZONE_DIFFICULTY, ARMOR_POOLS } from "
 import { ZoneRegistry } from "./zones.js";
 import { assignSpawnArmor } from "./spawnArmor.js";
 
+const GLOBALLY_BLOCKED_MOBS = new Set([
+ "minecraft:zombie",
+ "minecraft:zombie_villager",
+ "minecraft:skeleton",
+ "minecraft:stray",
+ "minecraft:husk",
+ "minecraft:drowned"
+]);
+
+const SAFE_WHITELIST_TYPES = new Set([
+ "minecraft:player",
+ "minecraft:npc",
+ "minecraft:item",
+ "minecraft:xp_orb",
+ "minecraft:xp_bottle",
+ "minecraft:armor_stand",
+ "minecraft:arrow",
+ "minecraft:splash_potion",
+ "minecraft:lingering_potion",
+ "minecraft:snowball",
+ "minecraft:egg",
+ "minecraft:ender_pearl",
+ "minecraft:lightning_bolt",
+ "minecraft:area_effect_cloud",
+ "minecraft:fishing_hook",
+ "minecraft:boat",
+ "minecraft:chest_boat",
+ "minecraft:minecart",
+ "minecraft:hopper_minecart",
+ "minecraft:chest_minecart",
+ "minecraft:tnt_minecart",
+ "minecraft:command_block_minecart"
+]);
+
+const VANILLA_HOSTILE_MOBS = new Set([
+ "minecraft:creeper", "minecraft:spider", "minecraft:cave_spider", "minecraft:enderman",
+ "minecraft:witch", "minecraft:slime", "minecraft:magma_cube", "minecraft:phantom",
+ "minecraft:silverfish", "minecraft:endermite", "minecraft:pillager", "minecraft:vindicator",
+ "minecraft:evoker", "minecraft:evocation_illager", "minecraft:ravager", "minecraft:vex",
+ "minecraft:blaze", "minecraft:ghast", "minecraft:guardian", "minecraft:elder_guardian",
+ "minecraft:shulker", "minecraft:warden", "minecraft:piglin_brute", "minecraft:zombified_piglin",
+ "minecraft:hoglin", "minecraft:zoglin", "minecraft:breeze", "minecraft:bogged"
+]);
+
+function isSafeZoneVanillaMob(entity) {
+ if (!entity || !entity.typeId) return false;
+ const id = entity.typeId;
+ if (VANILLA_HOSTILE_MOBS.has(id)) return true;
+ if (!id.startsWith("minecraft:")) return false;
+ if (SAFE_WHITELIST_TYPES.has(id)) return false;
+ try {
+  if (entity.hasTag("daily_event_entity") || entity.hasTag("sapi_npc") || entity.hasTag("vendor")) return false;
+ } catch {}
+ return true;
+}
+
 const VANILLA_HOSTILES = new Set([
  "minecraft:zombie", "minecraft:zombie_villager", "minecraft:husk", "minecraft:drowned",
  "minecraft:skeleton", "minecraft:stray", "minecraft:creeper", "minecraft:spider",
@@ -287,27 +343,7 @@ export class SpawnDirector {
  }
 
  static guardSafeZones() {
-  let overworld;
-  try { overworld = world.getDimension("overworld"); } catch { return; }
-  const entities = overworld.getEntities({ tags: ["apoc_hostile"] });
-  for (const entity of entities) {
-   try {
-    if (isPvpArea(entity.dimension.id, entity.location) || (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity))) {
-     entity.remove();
-    } else if (entity.typeId === "apoc:infected_shrieker" && ZoneRegistry.resolve(entity.dimension.id, entity.location).type === "law") {
-     entity.remove();
-    }
-   } catch {}
-  }
-  if (CONFIG.suppressVanillaHostiles) {
-   for (const typeId of VANILLA_HOSTILES) {
-    for (const entity of overworld.getEntities({ type: typeId })) {
-     try {
-      if (isPvpArea(entity.dimension.id, entity.location) || (ZoneRegistry.isSafe(entity.dimension.id, entity.location) && !allowedSafeZoneEvent(entity))) entity.remove();
-     } catch {}
-    }
-   }
-  }
+  // 性能优化：已彻底停用主动轮询与全图实体扫描
  }
 
  static cleanupFarEntities() {
@@ -327,16 +363,51 @@ export class SpawnDirector {
 
  static registerVanillaSuppression() {
   const signal = world.afterEvents?.entitySpawn;
-  if (!CONFIG.suppressVanillaHostiles || !signal || typeof signal.subscribe !== "function") return;
+  if (!signal || typeof signal.subscribe !== "function") return;
+
   signal.subscribe(event => {
+   const entity = event.entity;
+   if (!entity || (typeof entity.isValid === "function" && !entity.isValid())) return;
+   const typeId = entity.typeId;
+   const dimensionId = entity.dimension.id;
+
+   // 玩家手动放置、繁殖或脚本事件生成，直接放行
    try {
-    const entity = event.entity;
-    if (!entity || (typeof entity.isValid === "function" && !entity.isValid())) return;
-    const typeId = entity.typeId;
-    const dimensionId = entity.dimension.id;
-    if (dimensionId !== CONFIG.overworld || !VANILLA_HOSTILES.has(typeId)) return;
-    entity.remove();
+    if (entity.hasTag("manual_placed")) return;
+    if (event.cause && (event.cause === "Born" || event.cause === "Event" || event.cause === "Transformed")) return;
    } catch {}
+
+   // 1. 全局彻底禁止原版僵尸、僵尸村民与小白自然生成
+   if (GLOBALLY_BLOCKED_MOBS.has(typeId)) {
+    system.run(() => {
+     try {
+      if (valid(entity) && !entity.hasTag("manual_placed")) entity.remove();
+     } catch {}
+    });
+    return;
+   }
+
+   // 2. 安全区禁止原版敌对生物与动物自然生成
+   if (isSafeZoneVanillaMob(entity)) {
+    system.run(() => {
+     try {
+      if (!valid(entity) || entity.hasTag("manual_placed")) return;
+      if (ZoneRegistry.isSafe(dimensionId, entity.location) && !allowedSafeZoneEvent(entity)) {
+       entity.remove();
+      }
+     } catch {}
+    });
+    return;
+   }
+
+   // 3. 原有其他原版敌对生物自然生成压制
+   if (CONFIG.suppressVanillaHostiles && dimensionId === CONFIG.overworld && (VANILLA_HOSTILES.has(typeId) || VANILLA_HOSTILE_MOBS.has(typeId))) {
+    system.run(() => {
+     try {
+      if (valid(entity) && !entity.hasTag("manual_placed")) entity.remove();
+     } catch {}
+    });
+   }
   });
  }
 }

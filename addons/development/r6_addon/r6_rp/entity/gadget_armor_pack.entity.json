@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "r6:gadget_armor_pack",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/r6/armor_pack"
+      },
+      "geometry": {
+        "default": "geometry.r6.armor_pack"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}

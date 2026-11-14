@@ -1,0 +1,25 @@
+{
+  "format_version": "1.21.40",
+  "minecraft:block": {
+    "description": {
+      "identifier": "r6:steel_frame",
+      "menu_category": {
+        "category": "construction"
+      }
+    },
+    "components": {
+      "minecraft:geometry": "geometry.r6.steel_frame",
+      "minecraft:material_instances": {
+        "*": {
+          "texture": "r6_steel_frame",
+          "render_method": "opaque"
+        }
+      },
+      "minecraft:collision_box": false,
+      "minecraft:selection_box": false,
+      "minecraft:destructible_by_explosion": false,
+      "minecraft:map_color": "#55606B",
+      "minecraft:light_dampening": 0
+    }
+  }
+}

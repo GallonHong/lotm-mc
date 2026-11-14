@@ -1,0 +1,455 @@
+{
+  "format_version": "1.14.0",
+  "sound_definitions": {
+    "r6.ak47_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/ak47_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.ak74u_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/ak74u_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.arx_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/arx_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.bizon_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/bizon_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.deagle_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/deagle_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.glock_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/glock_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.m1014_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/m1014_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.m870_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/m870_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.p90_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/p90_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.pkm_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/pkm_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.rpk_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/rpk_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.scarh_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/scarh_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.svd_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/svd_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.vector_shoot": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/guns/vector_shoot",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.flash": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/flash_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.explosion": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/r6/explosion_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        },
+        {
+          "name": "sounds/r6/explosion_2",
+          "volume": 1.0,
+          "pitch": 1.0
+        },
+        {
+          "name": "sounds/r6/explosion_3",
+          "volume": 1.0,
+          "pitch": 1.0
+        },
+        {
+          "name": "sounds/r6/explosion_4",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.knife_slash": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/knife_slash_1",
+          "volume": 0.9,
+          "pitch": 1.0
+        },
+        {
+          "name": "sounds/r6/knife_slash_2",
+          "volume": 0.9,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.knife_hit": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/knife_hit_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.reload_start": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/reload_start_1",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.reload_end": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/reload_end_1",
+          "volume": 0.9,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.reload_pistol_start": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/reload_pistol_start_1",
+          "volume": 0.8,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.reload_pistol_end": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/reload_pistol_end_1",
+          "volume": 0.85,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.dry_fire": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/dry_fire_1",
+          "volume": 0.9,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.weapon_draw": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/weapon_draw_1",
+          "volume": 0.8,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.hit_flesh": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/hit_flesh_1",
+          "volume": 0.75,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.hit_metal": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/hit_metal_1",
+          "volume": 0.7,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.hit_head": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/hit_head_1",
+          "volume": 0.9,
+          "pitch": 1.15
+        }
+      ]
+    },
+    "r6.sledge": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/r6/sledge_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.barricade_place": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/r6/barricade_place_1",
+          "volume": 0.9,
+          "pitch": 0.8
+        }
+      ]
+    },
+    "r6.barricade_break": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/r6/barricade_break_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.gadget_deploy": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/gadget_deploy_1",
+          "volume": 0.9,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.shield_deploy": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/shield_deploy_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.gas": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/r6/gas_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.stim": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/stim_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.ping": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/ping_1",
+          "volume": 0.9,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.emp": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/r6/emp_1",
+          "volume": 1.0,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.jammer": {
+      "category": "block",
+      "sounds": [
+        {
+          "name": "sounds/r6/jammer_1",
+          "volume": 0.8,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.beep": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/beep_1",
+          "volume": 0.8,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.drone": {
+      "category": "neutral",
+      "sounds": [
+        {
+          "name": "sounds/r6/drone_1",
+          "volume": 0.8,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.armor_plate": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/armor_plate_1",
+          "volume": 0.9,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.ui_click": {
+      "category": "ui",
+      "sounds": [
+        {
+          "name": "sounds/r6/ui_click_1",
+          "volume": 0.8,
+          "pitch": 1.0
+        }
+      ]
+    },
+    "r6.ui_hover": {
+      "category": "ui",
+      "sounds": [
+        {
+          "name": "sounds/r6/ui_hover_1",
+          "volume": 0.6,
+          "pitch": 1.2
+        }
+      ]
+    },
+    "r6.defuse_tick": {
+      "category": "player",
+      "sounds": [
+        {
+          "name": "sounds/r6/defuse_tick_1",
+          "volume": 0.7,
+          "pitch": 1.0
+        }
+      ]
+    }
+  }
+}

@@ -58,7 +58,7 @@ subscribe(world.afterEvents?.entityDie, "entityDie", event => {
    dead.dimension.playSound("mftf.scream", dead.location, { volume: 4.0, pitch: 1.0 });
    dead.runCommandAsync("camerashake add @s 0.6 1.5 rotational");
    dead.onScreenDisplay?.setTitle?.("§4【你被雾中人猎杀了】§r");
-   dead.onScreenDisplay?.setSubtitle?.("§8不要在迷雾中直视深渊...§r");
+   dead.onScreenDisplay?.setSubtitle?.("§c不要在迷雾中直视深渊...§r");
   } catch {}
  }
 
@@ -98,10 +98,6 @@ system.runInterval(() => {
 system.runInterval(() => {
  try { SpawnDirector.tick(); } catch (error) { console.warn(`[Apocalypse][Spawn] tick error: ${error}`); }
 }, CONFIG.spawnInterval);
-
-system.runInterval(() => {
- try { SpawnDirector.guardSafeZones(); } catch (error) { console.warn(`[Apocalypse][Guard] tick error: ${error}`); }
-}, CONFIG.guardInterval);
 
 system.runInterval(() => {
  try { SpawnDirector.cleanupFarEntities(); } catch {}
@@ -274,7 +270,7 @@ class BossSkillEngine {
       proj.shoot({ x: spdX, y: 0.1, z: spdZ });
      }
     }
-    target.onScreenDisplay?.setActionBar?.('§7枯骨巨煞 发动了【穿甲骨箭齐射】!§r');
+    target.onScreenDisplay?.setActionBar?.('§c枯骨巨煞 发动了【穿甲骨箭齐射】!§r');
    } catch (e) {}
   }
 
@@ -386,7 +382,7 @@ class BossSkillEngine {
 
     target.applyDamage(6, { cause: 'entityAttack', damagingEntity: boss });
     target.addEffect('weakness', 100, { amplifier: 1, showParticles: true });
-    target.onScreenDisplay?.setActionBar?.('§8浓雾降临! 雾中人 发动了【暗影破防突袭】!§r');
+    target.onScreenDisplay?.setActionBar?.('§c浓雾降临! 雾中人 发动了【暗影破防突袭】!§r');
    } catch (e) {}
   }
 

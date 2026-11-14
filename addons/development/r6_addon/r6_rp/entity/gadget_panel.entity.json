@@ -1,0 +1,20 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "r6:gadget_panel",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/r6/panel"
+      },
+      "geometry": {
+        "default": "geometry.r6.panel"
+      },
+      "render_controllers": [
+        "controller.render.default"
+      ]
+    }
+  }
+}
