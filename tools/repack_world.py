@@ -5,6 +5,7 @@ import json
 import time
 import io
 import struct
+import shutil
 import nbtlib
 
 def enable_deferred(raw_bytes):
@@ -25,6 +26,8 @@ def enable_deferred(raw_bytes):
     nbt_file["experiments"]["jigsaw_structures"] = nbtlib.Byte(1)
     nbt_file["commandsEnabled"] = nbtlib.Byte(1)
     nbt_file["cheatsEnabled"] = nbtlib.Byte(1)
+    nbt_file["dodaylightcycle"] = nbtlib.Byte(1)
+    nbt_file["doweathercycle"] = nbtlib.Byte(1)
     nbt_file["LevelName"] = nbtlib.String("明日之后 (LifeAfter)")
     out_f = io.BytesIO()
     nbt_file.write(out_f, byteorder="little")
@@ -35,9 +38,12 @@ REPO_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DESKTOP_DIR = os.path.join(os.path.expanduser("~"), "Desktop")
 DEFAULT_DESKTOP_ZIP = os.path.join(DESKTOP_DIR, "《明日之后：幸存者》.zip")
 WECHAT_SRC = r"c:\Users\10973\Documents\WeChat Files\wxid_p0qzgqeqkla022\FileStorage\File\2025-04\MRZH SURVIVE -------- V2 (1).mcworld"
+BAK_SRC = os.path.join(REPO_DIR, "明日之后.mcworld.bak")
 
 if len(sys.argv) > 1 and os.path.exists(sys.argv[1]):
     SRC_MCWORLD = sys.argv[1]
+elif os.path.exists(BAK_SRC):
+    SRC_MCWORLD = BAK_SRC
 elif os.path.exists(DEFAULT_DESKTOP_ZIP):
     SRC_MCWORLD = DEFAULT_DESKTOP_ZIP
 else:
@@ -60,6 +66,7 @@ BEHAVIOR_PACKS = [
 ]
 
 RESOURCE_PACKS = [
+    ("apocalypse_faded_wasteland_visuals_music", os.path.join(BASE_DIR, "faded_wasteland_combined_addon", "faded_wasteland_combined_rp")),
     ("apocalypse_test_guns_pose_compatibility", os.path.join(BASE_DIR, "apocalypse_test_guns_pose_compatibility")),
     ("apocalypse_ui_rp", os.path.join(BASE_DIR, "apocalypse_ui_addon", "apocalypse_ui_rp")),
     ("sapi_server_rp", os.path.join(BASE_DIR, "sapi_server_addon", "sapi_server_rp")),
@@ -129,7 +136,7 @@ def main():
         if prefix:
             print(f"[*] Detected world directory prefix in archive: '{prefix}'")
 
-        with zipfile.ZipFile(temp_out, "w", zipfile.ZIP_DEFLATED) as dst_zip:
+        with zipfile.ZipFile(temp_out, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as dst_zip:
             # 1. Copy original world data (db, level.dat, icons, etc.) but exclude old behavior_packs and resource_packs
             for item in src_zip.infolist():
                 raw_name = item.filename
@@ -195,7 +202,35 @@ def main():
     elapsed = time.time() - start_time
     print(f"\n[SUCCESS] Packaged {OUT_MCWORLD} successfully in {elapsed:.2f}s!")
     print(f"Total Size: {size_mb:.2f} MB")
-    print("[*] Desktop copies are intentionally disabled; the packaged world only lives in the repository.")
+
+    # Update dist/ copies
+    dist_dir = os.path.join(REPO_DIR, "dist")
+    os.makedirs(dist_dir, exist_ok=True)
+    dist_mcworld = os.path.join(dist_dir, "明日之后.mcworld")
+    shutil.copy2(OUT_MCWORLD, dist_mcworld)
+    print(f"[*] Updated {dist_mcworld} ({size_mb:.2f} MB)")
+
+    # Build Aternos_世界_含附加包.zip
+    aternos_zip = os.path.join(dist_dir, "Aternos_世界_含附加包.zip")
+    print(f"[*] Building Aternos upload archive: {aternos_zip} ...")
+    temp_aternos = aternos_zip + ".tmp"
+    if os.path.exists(temp_aternos):
+        os.remove(temp_aternos)
+    with zipfile.ZipFile(OUT_MCWORLD, "r") as mcworld_zip:
+        with zipfile.ZipFile(temp_aternos, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as at_zip:
+            for item in mcworld_zip.infolist():
+                if item.filename.endswith("/"):
+                    continue
+                data = mcworld_zip.read(item.filename)
+                if item.filename.startswith("behavior_packs/") or item.filename.startswith("resource_packs/"):
+                    at_zip.writestr(item.filename, data)
+                else:
+                    at_zip.writestr(f"明日之后/{item.filename}", data)
+    if os.path.exists(aternos_zip):
+        os.remove(aternos_zip)
+    os.rename(temp_aternos, aternos_zip)
+    at_size_mb = os.path.getsize(aternos_zip) / (1024 * 1024)
+    print(f"[SUCCESS] Built {aternos_zip} ({at_size_mb:.2f} MB)")
 
 if __name__ == "__main__":
     main()
