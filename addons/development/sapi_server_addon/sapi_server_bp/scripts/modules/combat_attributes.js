@@ -95,18 +95,32 @@ export const COMBAT_ATTRIBUTES = {
 		prices: [2000, 4000, 7000, 12000, 18000, 26000, 36000, 48000, 64000, 85000],
 		icon: "textures/ui/resistance_effect",
 		desc: "按百分比减免受到的伤害，与防具减伤乘算叠加",
-		getStatText: (lvl) => "+" + (lvl * 1.5).toFixed(1) + "%",
-		getNextStatText: (lvl) => "+" + ((lvl + 1) * 1.5).toFixed(1) + "%",
-		getBonus: (lvl) => Number((lvl * 0.015).toFixed(3))
+		getStatText: (lvl) => "+" + (lvl * 2.5).toFixed(1) + "%",
+		getNextStatText: (lvl) => "+" + ((lvl + 1) * 2.5).toFixed(1) + "%",
+		getBonus: (lvl) => Number((lvl * 0.025).toFixed(3))
 	}
 };
 
 export class CombatAttributesManager {
 	static PROPERTY_KEY = "gene_combat_stats";
 
+	static lastCombatTicks = new Map();
+	static nextHealTicks = new Map();
+	static syncedPlayers = new Set();
+
+	static markCombat(player) {
+		if (!player?.id) return;
+		const now = system.currentTick;
+		this.lastCombatTicks.set(player.id, now);
+		const next = this.nextHealTicks.get(player.id) || 0;
+		if (next < now + 100) {
+			this.nextHealTicks.set(player.id, now + 100);
+		}
+	}
+
 	static init() {
 		this.registerEvents();
-		system.runInterval(() => this.tickRegen(), 20);
+		system.runInterval(() => this.tickRegen(), 10);
 		for (const player of world.getAllPlayers()) {
 			this.syncPlayerTags(player);
 		}
@@ -155,6 +169,7 @@ export class CombatAttributesManager {
 		if (!Utils.isValid(player)) return;
 		if (!stats) stats = this.getStats(player);
 		try {
+			try { player.setDynamicProperty("gene_last_combat_tick", undefined); } catch {}
 			const currentTags = player.getTags() || [];
 			for (const tag of currentTags) {
 				if (typeof tag === "string" && tag.startsWith("gene:")) {
@@ -334,7 +349,7 @@ export class CombatAttributesManager {
 	}
 
 	/**
-	 * 自然生命恢复轮询（每秒执行一次）
+	 * 自然生命恢复轮询（每 0.5 秒判定一次绝对时间戳）
 	 */
 	static tickRegen() {
 		const currentTick = system.currentTick;
@@ -342,17 +357,40 @@ export class CombatAttributesManager {
 			try {
 				if (!Utils.isValid(player)) continue;
 				const stats = this.getStats(player);
-				const regenLvl = stats.natural_regen;
+
+				// 首次接入会话时自动同步跨包实体Tag
+				if (!this.syncedPlayers.has(player.id)) {
+					this.syncedPlayers.add(player.id);
+					this.syncPlayerTags(player, stats);
+				}
+
+				let regenLvl = stats.natural_regen || 0;
+				if (regenLvl <= 0) {
+					const tag = player.getTags()?.find(t => t.startsWith("gene:regen:"));
+					if (tag) regenLvl = Number(tag.split(":")[2]) || 0;
+				}
 				if (regenLvl <= 0) continue;
 
 				const health = player.getComponent("minecraft:health");
-				if (!health || health.currentValue <= 0 || health.currentValue >= health.effectiveMax) continue;
+				if (!health || health.currentValue <= 0 || health.currentValue >= health.effectiveMax - 0.05) continue;
 
 				// 检查脱战状态 (5 秒 = 100 ticks 内未受到或造成伤害)
-				const lastCombat = Number(player.getDynamicProperty("gene_last_combat_tick") || 0);
-				if (currentTick - lastCombat < 100) continue;
+				const lastCombat = this.lastCombatTicks.get(player.id);
+				if (lastCombat !== undefined) {
+					if (currentTick >= lastCombat && currentTick - lastCombat < 100) continue;
+					if (currentTick < lastCombat) this.lastCombatTicks.delete(player.id);
+				}
 
-				// 判定回血周期
+				// 检查下一次回血的时间戳（独立计时器，彻底根除 modulo 周期取模不命中的问题）
+				const nextHeal = this.nextHealTicks.get(player.id) || 0;
+				if (currentTick < nextHeal) continue;
+
+				// 判定回血周期与恢复量
+				// Lv.1: 每4秒1点 (80 ticks)
+				// Lv.2: 每3秒1点 (60 ticks)
+				// Lv.3: 每2秒1点 (40 ticks)
+				// Lv.4: 每2秒2点 (40 ticks)
+				// Lv.5: 每1秒2点 (20 ticks)
 				let intervalTicks = 80;
 				let healAmount = 1;
 				if (regenLvl === 2) { intervalTicks = 60; healAmount = 1; }
@@ -360,9 +398,20 @@ export class CombatAttributesManager {
 				else if (regenLvl === 4) { intervalTicks = 40; healAmount = 2; }
 				else if (regenLvl >= 5) { intervalTicks = 20; healAmount = 2; }
 
-				if (currentTick % intervalTicks === 0) {
-					health.setCurrentValue(Math.min(health.effectiveMax, health.currentValue + healAmount));
-				}
+				this.nextHealTicks.set(player.id, currentTick + intervalTicks);
+
+				const targetHp = Math.min(health.effectiveMax, health.currentValue + healAmount);
+				health.setCurrentValue(targetHp);
+
+				// 播放微弱生命回升粒子与轻柔提示音
+				try {
+					player.dimension.spawnParticle("minecraft:villager_happy", {
+						x: player.location.x,
+						y: player.location.y + 0.8,
+						z: player.location.z
+					});
+					player.dimension.playSound("random.pop", player.location, { volume: 0.25, pitch: 1.8 });
+				} catch {}
 			} catch {}
 		}
 	}
@@ -374,8 +423,23 @@ export class CombatAttributesManager {
 		world.afterEvents?.playerSpawn?.subscribe((event) => {
 			const player = event.player;
 			if (player && player.isValid()) {
+				this.syncedPlayers.add(player.id);
 				this.syncPlayerTags(player);
 			}
+		});
+
+		world.afterEvents?.entityDie?.subscribe((event) => {
+			if (event.deadEntity?.typeId === "minecraft:player") {
+				this.nextHealTicks.delete(event.deadEntity.id);
+				this.lastCombatTicks.delete(event.deadEntity.id);
+				this.syncedPlayers.delete(event.deadEntity.id);
+			}
+		});
+
+		world.afterEvents?.playerLeave?.subscribe((event) => {
+			this.nextHealTicks.delete(event.playerId);
+			this.lastCombatTicks.delete(event.playerId);
+			this.syncedPlayers.delete(event.playerId);
 		});
 
 		const hurt = world.afterEvents?.entityHurt;
@@ -388,30 +452,43 @@ export class CombatAttributesManager {
 
 				// 1. 受击者为玩家，记录战斗状态并处理非枪械伤害免伤补偿
 				if (hurtEntity?.typeId === "minecraft:player") {
-					hurtEntity.setDynamicProperty("gene_last_combat_tick", system.currentTick);
+					this.markCombat(hurtEntity);
 
-					// 枪械命中由 DamageHandler 在扣血前已直接扣减，此处仅针对近战、生物撕咬等非枪械直接伤害
-					const isGunDamage = damageSource.cause === "projectile" || damageSource.cause === "override" ||
-						(damageSource.damagingProjectile && damageSource.damagingProjectile.typeId.includes("bullet"));
+					// 枪械命中由 DamageHandler 在扣血前已直接扣减（cause === 'override' 且来自枪械/子弹）
+					// 此处针对怪物攻击、骷髅射箭、爆炸、跌落、火焰、毒素等一切直接伤害进行免伤结算
+					const isGunDamage = (damageSource.cause === "override") &&
+						(damageSource.damagingEntity?.typeId === "minecraft:player" ||
+						 (damageSource.damagingProjectile && damageSource.damagingProjectile.typeId.includes("bullet")));
 
 					if (!isGunDamage && damage > 0) {
 						const stats = this.getStats(hurtEntity);
-						const reduction = COMBAT_ATTRIBUTES.damage_reduction.getBonus(stats.damage_reduction);
+						let reduction = COMBAT_ATTRIBUTES.damage_reduction.getBonus(stats.damage_reduction);
+						if (reduction <= 0) {
+							const tag = hurtEntity.getTags()?.find(t => t.startsWith("gene:dr:"));
+							if (tag) reduction = Number(tag.split(":")[2]) || 0;
+						}
+
 						if (reduction > 0) {
 							const health = hurtEntity.getComponent("minecraft:health");
 							if (health && health.currentValue > 0) {
-								const absorbed = Math.min(damage * reduction, health.effectiveMax - health.currentValue);
-								if (absorbed > 0.1) {
-									system.run(() => {
-										try {
-											if (hurtEntity.isValid()) {
-												const h = hurtEntity.getComponent("minecraft:health");
-												if (h && h.currentValue > 0) {
-													h.setCurrentValue(Math.min(h.effectiveMax, h.currentValue + absorbed));
+								const rawAbsorbed = damage * reduction;
+								if (rawAbsorbed > 0.02) {
+									const toRestore = Math.min(rawAbsorbed, health.effectiveMax - health.currentValue);
+									if (toRestore > 0.01) {
+										system.run(() => {
+											try {
+												if (hurtEntity.isValid()) {
+													const h = hurtEntity.getComponent("minecraft:health");
+													if (h && h.currentValue > 0) {
+														h.setCurrentValue(Math.min(h.effectiveMax, h.currentValue + toRestore));
+														try {
+															hurtEntity.dimension.playSound("armor.equip_iron", hurtEntity.location, { volume: 0.35, pitch: 1.6 });
+														} catch {}
+													}
 												}
-											}
-										} catch {}
-									});
+											} catch {}
+										});
+									}
 								}
 							}
 						}
@@ -420,7 +497,7 @@ export class CombatAttributesManager {
 
 				// 2. 攻击者为玩家，记录战斗状态并处理原版近战武器伤害加成与暴击
 				if (attacker?.typeId === "minecraft:player") {
-					attacker.setDynamicProperty("gene_last_combat_tick", system.currentTick);
+					this.markCombat(attacker);
 
 					if (damageSource.cause === "entityAttack" && hurtEntity && hurtEntity.isValid()) {
 						const stats = this.getStats(attacker);

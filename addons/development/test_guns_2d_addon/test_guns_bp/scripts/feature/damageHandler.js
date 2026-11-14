@@ -474,7 +474,6 @@ export class DamageHandler {
     // 步枪、机枪、狙击枪与重型武器
     if (gene.heavyDmg > 0) dmgMultiplier += gene.heavyDmg;
    }
-   try { shooter.setDynamicProperty?.('gene_last_combat_tick', system.currentTick); } catch {}
   }
 
   // Probability only is clamped; no new cap reduces any pre-existing damage/passive.
@@ -560,7 +559,6 @@ export class DamageHandler {
    const targetGene = readGeneCombatAttributes(target);
    const geneReduction = Math.max(0, Math.min(0.5, targetGene.damageReduction));
    if (geneReduction > 0) currentDamage *= 1 - geneReduction;
-   try { target.setDynamicProperty?.('gene_last_combat_tick', system.currentTick); } catch {}
   }
 
   // 2.2.1 堡垒重装防暴裤：下蹲架枪掩体减伤 15%
@@ -644,6 +642,14 @@ export class DamageHandler {
    if (headshot) DamageIndicator.markHeadshot(target.id);
    const applied = EpicGunPassives.applyHit(epicHit, () => EquipmentWear.apply(target, finalDamage, damageOptions, currentDamage, activeShieldSlot, blockedDamage));
    if (applied !== true) return false;
+   if (target.typeId === 'minecraft:player') {
+    try {
+     const tGene = readGeneCombatAttributes(target);
+     if (tGene.damageReduction > 0) {
+      target.dimension.playSound('armor.equip_iron', target.location, { volume: 0.35, pitch: 1.6 });
+     }
+    } catch {}
+   }
    if (isCritHit) {
    try {
     const pLoc = target.location;
