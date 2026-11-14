@@ -95,10 +95,12 @@ def main():
     with zipfile.ZipFile(temp_path, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as target:
         for name, payload in sorted(world_files.items()):
             target.writestr(prefix + name, payload)
+        # Keep packs at the archive root, never inside the world folder: Aternos'
+        # world importer only understands a plain world folder here.
         for name, payload in sorted(behavior_files.items()):
-            target.writestr(prefix + name, payload)
+            target.writestr(name, payload)
         for name, payload in sorted(merged_files.items()):
-            target.writestr(prefix + name, payload)
+            target.writestr(name, payload)
 
     with zipfile.ZipFile(temp_path) as check:
         names = [info.filename for info in check.infolist() if not info.is_dir()]
@@ -108,7 +110,7 @@ def main():
         sys.exit(f"[!] CRC error: {broken}")
     required = [prefix + "level.dat"]
     if args.include_packs:
-        required.append(f"{prefix}resource_packs/{MERGED_RP_DIR}/manifest.json")
+        required.append(f"resource_packs/{MERGED_RP_DIR}/manifest.json")
     for requirement in required:
         if requirement not in names:
             os.remove(temp_path)
